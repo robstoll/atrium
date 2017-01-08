@@ -1,0 +1,17 @@
+language: java
+jdk:
+  - oraclejdk8
+
+before_install:
+ - chmod +x gradlew
+install: true
+
+script:
+  - ./gradlew -i build
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+cache:
+  directories:
+    - $HOME/.gradle/wrapper/
