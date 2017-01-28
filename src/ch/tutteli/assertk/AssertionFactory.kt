@@ -1,0 +1,59 @@
+package ch.tutteli.assertk
+
+import java.util.*
+
+open class AssertionFactory<out T : Any> private constructor(
+    override final val assertionVerb: String,
+    override final val subject: T) : IAssertionFactory<T> {
+
+    private val asserts: MutableList<IAssertion> = ArrayList()
+
+    override final fun createAndAddAssertion(description: String, expected: Any, test: () -> Boolean)
+        = createAndAddAssertion(description, objectFormatter.format(expected), test)
+
+    override final fun createAndAddAssertion(description: String, expected: String, test: () -> Boolean)
+        = addAssertion(DescriptionExpectedAssertion(description, expected, test))
+
+    override fun addAssertion(assertion: IAssertion): IAssertionFactory<T> {
+        asserts.add(assertion)
+        return this
+    }
+
+    override final fun checkAssertions() {
+        val messages = ArrayList<Pair<String, String>>()
+        asserts
+            .asSequence()
+            .filterNot { it.holds() }
+            .forEach { messages.addAll(it.logMessages()) }
+        asserts.clear()
+        if (messages.isNotEmpty()) {
+            fail(assertionVerb, subject, messages)
+        }
+    }
+
+    companion object {
+        var objectFormatter: IObjectFormatter = DetailedObjectFormatter()
+        var assertionMessageFormatter: IAssertionMessageFormatter = SameLineAssertionMessageFormatter()
+
+        fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T): IAssertionFactory<T>
+            = ImmediateCheckAssertionFactory(assertionVerb, subject)
+
+        fun <T : Any> fail(assertionVerb: String, subject: T, messages: List<Pair<String, String>>): Nothing {
+            val messagesWithAssert = ArrayList<Pair<String, String>>(messages.size + 1)
+            messagesWithAssert.add(assertionVerb to objectFormatter.format(subject))
+            messagesWithAssert.addAll(messages)
+            val formattedMessages = assertionMessageFormatter.format(messagesWithAssert)
+            throw AssertionError(formattedMessages)
+        }
+    }
+
+    private class ImmediateCheckAssertionFactory<out T : Any> internal constructor(
+        assertionVerb: String, subject: T) : AssertionFactory<T>(assertionVerb, subject) {
+
+        override fun addAssertion(assertion: IAssertion): AssertionFactory<T> {
+            super.addAssertion(assertion)
+            checkAssertions()
+            return this
+        }
+    }
+}

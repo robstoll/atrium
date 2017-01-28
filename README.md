@@ -3,4 +3,4 @@
 [![Coverage](https://codecov.io/github/robstoll/assertK/coverage.svg?branch=master)](https://codecov.io/github/robstoll/assertK?branch=master)
 
 # assertK
-assertK is a small wrapper in Kotlin around assertJ for improved usability.
+assertK is an assertion framework for Kotlin.
