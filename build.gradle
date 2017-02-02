@@ -3,25 +3,29 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     ext.kotlin_version = '1.0.6'
+    ext.junit_version = '1.0.0-M3'
+    ext.jacoco_tool_version = '0.7.6.201602180812'
+    ext.spek_version = '1.1.0-beta3'
+    ext.mockito_kotlin_version = '1.0.1'
 
     repositories {
         mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M3'
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
     }
 }
 
 apply plugin: 'kotlin'
 apply plugin: 'org.junit.platform.gradle.plugin'
-apply plugin: "jacoco"
+apply plugin: 'jacoco'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    testCompile 'com.nhaarman:mockito-kotlin:1.0.1'
-    testCompile 'org.jetbrains.spek:spek-api:1.1.0-beta3'
-    testRuntime 'org.jetbrains.spek:spek-junit-platform-engine:1.1.0-beta3'
+    testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
+    testCompile "org.jetbrains.spek:spek-api:$spek_version"
+    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
 }
 
 sourceSets {
@@ -35,6 +39,7 @@ repositories {
 }
 
 junitPlatform {
+    platformVersion junit_version
     filters {
         engines {
             include 'spek'
@@ -42,12 +47,23 @@ junitPlatform {
     }
 }
 
-jacocoTestReport {
-    reports {
-        xml.enabled true
-        csv.enabled false
-        html.enabled true
+// adopted from http://stackoverflow.com/questions/39362955/gradle-jacoco-and-junit5
+afterEvaluate {
+    def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
+    jacoco {
+        toolVersion = jacoco_tool_version
+        applyTo junitPlatformTestTask
     }
-}
 
-check.dependsOn jacocoTestReport
+    project.task(type: JacocoReport, 'junitPlatformJacocoReport',
+        {
+            sourceDirectories = sourceSets.main.allJava
+            classDirectories = files("$buildDir/classes/main")
+            executionData junitPlatformTestTask
+            reports {
+                html.enabled = true
+                html.destination "${buildDir}/jacoco/"
+            }
+        })
+    check.dependsOn junitPlatformJacocoReport
+}
