@@ -62,7 +62,7 @@ afterEvaluate {
             executionData junitPlatformTestTask
             reports {
                 xml.enabled = true
-                xml.destination "${buildDir}/jacoco/junitPlatformTest.xml"
+                xml.destination "${buildDir}/reports/jacoco/report.xml"
                 html.enabled = true
                 html.destination "${buildDir}/jacoco/"
             }
