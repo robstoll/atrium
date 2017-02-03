@@ -1,5 +1,6 @@
 package ch.tutteli.assertk
 
+import org.jetbrains.spek.api.dsl.ActionBody
 import org.jetbrains.spek.api.dsl.Pending
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.engine.Scope
@@ -34,3 +35,10 @@ fun SpecBody.describe(description: String, body: SpecBody.() -> Unit)
 //TODO delete hack as soon as https://github.com/JetBrains/spek/pull/176 is fixed and available in release
 fun SpecBody.context(description: String, body: SpecBody.() -> Unit)
     = failSafeGroup("context $description", body = body)
+
+//TODO rewrite to use group as soon as https://github.com/JetBrains/spek/pull/176 is fixed and available in release
+fun SpecBody.setUp(description: String, body: SpecBody.() -> Unit)
+    = failSafeGroup(description, body = body)
+
+fun SpecBody.inCaseOf(description: String, body: ActionBody.() -> Unit)
+    = action("in case of $description", body = body)
