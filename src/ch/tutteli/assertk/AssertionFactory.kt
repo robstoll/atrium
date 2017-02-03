@@ -41,6 +41,9 @@ open class AssertionFactory<out T : Any> private constructor(
         fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T): IAssertionFactory<T>
             = ImmediateCheckAssertionFactory(assertionVerb, subject)
 
+        fun <T : Any?> newNullable(assertionVerb: String, subject: T): IAssertionFactoryNullable<T>
+            = AssertionFactoryNullable(assertionVerb, subject)
+
         fun <T : Any> fail(assertionVerb: String, subject: T, messages: List<Pair<String, String>>): Nothing
             = failWithCustomSubject(assertionVerb, objectFormatter.format(subject), messages)
 
@@ -60,6 +63,17 @@ open class AssertionFactory<out T : Any> private constructor(
             super.addAssertion(assertion)
             checkAssertions()
             return this
+        }
+    }
+
+    private class AssertionFactoryNullable<out T : Any?> internal constructor(
+        override val assertionVerb: String,
+        override val subject: T) : IAssertionFactoryNullable<T> {
+
+        override fun isNull() {
+            if (subject != null) {
+                AssertionFactory.fail(assertionVerb, objectFormatter.format(subject), listOf("to be" to "null"))
+            }
         }
     }
 }
