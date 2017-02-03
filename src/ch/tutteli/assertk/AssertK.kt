@@ -11,10 +11,10 @@ fun expect(act: () -> Unit)
 fun <T : Any> IAssertionFactory<T>.toBe(expected: T)
     = createAndAddAssertion("to be", expected, { subject == expected })
 
-fun IAssertionFactory<String>.contains(expected: String)
+fun IAssertionFactory<CharSequence>.contains(expected: CharSequence)
     = createAndAddAssertion("contains", expected, { subject.contains(expected) })
 
-fun IAssertionFactory<String>.contains(expected: String, vararg otherExpected: String): IAssertionFactory<String> {
+fun IAssertionFactory<CharSequence>.contains(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionFactory<CharSequence> {
     val factory = contains(expected)
     otherExpected.forEach { contains(it) }
     return factory
