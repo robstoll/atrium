@@ -15,19 +15,19 @@ class AssertionFactorySpec : Spek({
             val a = 1
             val description = "description of the assert"
             val expected = "expected behaviour"
-            action("in case of assertion which holds") {
+            inCaseOf("assertion which holds") {
                 factory.createAndAddAssertion(description, expected, { a == 1 })
                 it("does not throw an Exception when checking") {
                     factory.checkAssertions()
                 }
             }
 
-            group("in case of assertion which fails") {
+            setUp("in case of assertion which fails") {
                 factory.createAndAddAssertion(description, expected, { a == 0 })
                 val expectFun = expect {
                     factory.checkAssertions()
                 }
-                group("throws an AssertionError when checking") {
+                setUp("throws an AssertionError when checking") {
                     expectFun.toThrow<AssertionError>()
                     context("exception message") {
                         val message = expectFun.throwable!!.message!!
@@ -50,7 +50,7 @@ class AssertionFactorySpec : Spek({
         }
 
         context(IAssertionFactory<Any>::addAssertion.name) {
-            action("in case of a custom assertion which holds") {
+            inCaseOf("a custom assertion which holds") {
                 factory.addAssertion(object : IAssertion {
                     override fun holds() = true
                     override fun logMessages() = listOf("a" to "b")
@@ -60,7 +60,7 @@ class AssertionFactorySpec : Spek({
                 }
             }
 
-            group("in case of a custom assertion which fails") {
+            setUp("in case of a custom assertion which fails") {
                 factory.addAssertion(object : IAssertion {
                     override fun holds() = false
                     override fun logMessages() = listOf("a" to "b", "c" to "d")
@@ -68,7 +68,7 @@ class AssertionFactorySpec : Spek({
                 val expectFun = expect {
                     factory.checkAssertions()
                 }
-                group("throws an AssertionError") {
+                setUp("throws an AssertionError") {
                     expectFun.toThrow<AssertionError>()
                     context("exception message") {
                         val message = expectFun.throwable!!.message!!
