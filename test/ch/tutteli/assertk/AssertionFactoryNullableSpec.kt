@@ -34,7 +34,5 @@ class AssertionFactoryNullableSpec : Spek({
                 toBe(1)
             }
         }
-
-
     }
 })

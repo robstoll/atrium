@@ -7,7 +7,7 @@ class AssertKSpec : Spek({
     describe("assert()") {
         it("fails immediately") {
             expect {
-                assert(1).isSmallerThan(0).isGreaterThan(2)
+                assert(1).isSmallerThan(0).and.isGreaterThan(2)
             }.toThrow<AssertionError> {
                 assert(subject.message).isNotNull {
                     contains("1") //the actual value
