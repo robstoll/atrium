@@ -25,7 +25,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
     testCompile "org.jetbrains.spek:spek-api:$spek_version"
-    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
+    //TODO change back to testRuntime as soon as https://github.com/JetBrains/spek/pull/176 is fixed and available in release
+    testCompile "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
 }
 
 sourceSets {
