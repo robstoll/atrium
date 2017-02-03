@@ -35,12 +35,18 @@ open class AssertionFactory<out T : Any> private constructor(
         var objectFormatter: IObjectFormatter = DetailedObjectFormatter()
         var assertionMessageFormatter: IAssertionMessageFormatter = SameLineAssertionMessageFormatter()
 
+        fun <T : Any> new(assertionVerb: String, subject: T): IAssertionFactory<T>
+            = AssertionFactory(assertionVerb, subject)
+
         fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T): IAssertionFactory<T>
             = ImmediateCheckAssertionFactory(assertionVerb, subject)
 
-        fun <T : Any> fail(assertionVerb: String, subject: T, messages: List<Pair<String, String>>): Nothing {
+        fun <T : Any> fail(assertionVerb: String, subject: T, messages: List<Pair<String, String>>): Nothing
+            = failWithCustomSubject(assertionVerb, objectFormatter.format(subject), messages)
+
+        fun failWithCustomSubject(assertionVerb: String, subject: String, messages: List<Pair<String, String>>): Nothing {
             val messagesWithAssert = ArrayList<Pair<String, String>>(messages.size + 1)
-            messagesWithAssert.add(assertionVerb to objectFormatter.format(subject))
+            messagesWithAssert.add(assertionVerb to subject)
             messagesWithAssert.addAll(messages)
             val formattedMessages = assertionMessageFormatter.format(messagesWithAssert)
             throw AssertionError(formattedMessages)
