@@ -63,5 +63,11 @@ fun IAssertionFactory<CharSequence>.contains(expected: CharSequence, vararg othe
     return factory
 }
 
+fun IAssertionFactory<CharSequence>.startsWith(expected: CharSequence)
+    = createAndAddAssertion("starts with", expected, { subject.startsWith(expected) })
+
+fun IAssertionFactory<CharSequence>.endsWith(expected: CharSequence)
+    = createAndAddAssertion("ends with", expected, { subject.endsWith(expected) })
+
 fun IAssertionFactory<CharSequence>.isEmpty()
     = createAndAddAssertion("is", "empty", { subject.isEmpty() })
