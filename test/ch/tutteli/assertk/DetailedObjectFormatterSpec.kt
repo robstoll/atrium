@@ -33,24 +33,28 @@ class DetailedObjectFormatterSpec : Spek({
         }
 
         on("CharSequence") {
-            it("returns two quotes if empty CharSequence") {
-                val result = testee.format("")
-                assert(result).toBe("\"\"")
+            it("returns two quotes including identity hash if empty CharSequence") {
+                val string = ""
+                val result = testee.format(string)
+                assert(result).toBe("\"\"   <${System.identityHashCode(string)}>")
             }
-            it("returns CharSequence in quotes"){
-                val result = testee.format("assertK")
-                assert(result).toBe("\"assertK\"")
+            it("returns CharSequence in quotes including identity hash") {
+                val string = "assertK"
+                val result = testee.format(string)
+                assert(result).toBe("\"$string\"   <${System.identityHashCode(string)}>")
             }
         }
 
         on("CharSequence as any") {
-            it("returns two quotes if empty CharSequence") {
-                val result = testee.format("" as Any)
-                assert(result).toBe("\"\"")
+            it("returns two quotes  including identity hash if empty CharSequence") {
+                val string : Any = ""
+                val result = testee.format(string)
+                assert(result).toBe("\"\"   <${System.identityHashCode(string)}>")
             }
-            it("returns CharSequence in quotes"){
-                val result = testee.format("assertK" as Any)
-                assert(result).toBe("\"assertK\"")
+            it("returns CharSequence in quotes including identity hash") {
+                val string: Any = "assertK"
+                val result = testee.format(string)
+                assert(result).toBe("\"$string\"   <${System.identityHashCode(string)}>")
             }
         }
 
@@ -64,7 +68,7 @@ class DetailedObjectFormatterSpec : Spek({
         ).forEach {
             on(it.key) {
                 val result = testee.format(it.value)
-                it("returns toString representation including type name and identity hash") {
+                it("returns ${IAssertionFactory<Any>::subject.name}.toString() including type name and identity hash") {
                     assert(result).toBe(it.value.toString()
                         + "   (" + it.value.javaClass.name
                         + "<" + System.identityHashCode(it.value) + ">"

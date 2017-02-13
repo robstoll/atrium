@@ -6,12 +6,14 @@ class DetailedObjectFormatter : IObjectFormatter {
         null -> "null"
         is CharSequence -> format(any)
         is Class<*> -> format(any)
-        else -> internalFormat(any)
+        else -> any.toString() + classNameAndIdentity(any)
     }
 
-    override fun format(string: CharSequence) = "\"$string\""
+    override fun format(string: CharSequence) = "\"$string\"" + "   " + identityHash(string)
     override fun <T> format(clazz: Class<T>) = "${clazz.simpleName} (${clazz.name})"
 
-    private fun internalFormat(any: Any)
-        = any.toString() + "   (" + any.javaClass.name + "<" + System.identityHashCode(any) + ">)"
+    private fun classNameAndIdentity(any: Any)
+        = "   (" + any.javaClass.name + identityHash(any) + ")"
+
+    private fun identityHash(any: Any) = "<" + System.identityHashCode(any) + ">"
 }
