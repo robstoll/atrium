@@ -20,25 +20,27 @@ fun expect(act: () -> Unit): ThrowableFluent<Throwable?> {
 /**
  * Use this function to create custom 'assert' functions which lazy evaluate the given assertions.
  */
-inline fun <T : Any> createAndCheckAssertions(assertionVerb: String, subject: T, createAssertions: IAssertionFactory<T>.() -> Unit) {
-    val factory = AssertionFactory.new(assertionVerb, subject)
+inline fun <T : Any> createAndCheckAssertions(assertionVerb: String, subject: T, createAssertions: IAssertionFactory<T>.() -> Unit)
+    = createAndCheckAssertions(AssertionFactory.new(assertionVerb, subject), createAssertions)
+
+inline fun <T : Any> createAndCheckAssertions(factory: IAssertionFactory<T>, createAssertions: IAssertionFactory<T>.() -> Unit): IAssertionFactory<T> {
     factory.createAssertions()
     factory.checkAssertions()
+    return factory
 }
 
-fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull(createAssertions: IAssertionFactory<T>.() -> Unit) {
-    if (subject != null) {
-        createAndCheckAssertions(assertionVerb, subject!!, createAssertions)
-    } else {
-        AssertionFactory.failWithCustomSubject(assertionVerb, "null", listOf("is not" to "null"))
-    }
-}
+fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull(createAssertions: IAssertionFactory<T>.() -> Unit)
+    = isNotNull(this, { createAndCheckAssertions(assertionVerb, subject!!, createAssertions) })
 
-fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull(): IAssertionFactory<T> {
-    if (subject != null) {
-        return AssertionFactory.newCheckImmediately(assertionVerb, subject!!)
+fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull()
+    = isNotNull(this, { AssertionFactory.newCheckImmediately(assertionVerb, subject!!) })
+
+private fun <T : Any> isNotNull(factoryNullable: IAssertionFactoryNullable<T?>, factory: () -> IAssertionFactory<T>): IAssertionFactory<T> {
+    if (factoryNullable.subject != null) {
+        return factory()
     } else {
-        AssertionFactory.failWithCustomSubject(assertionVerb, "null", listOf("is not" to "null"))
+        factoryNullable.assertionChecker.failWithCustomSubject(factoryNullable.assertionVerb, "null", DescriptionExpectedAssertion("is not", "null", { false }))
+        throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::failWithCustomSubject.name} should throw an exception")
     }
 }
 

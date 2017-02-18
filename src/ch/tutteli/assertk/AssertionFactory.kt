@@ -5,13 +5,13 @@ import java.util.*
 open class AssertionFactory<out T : Any> private constructor(
     override final val assertionVerb: String,
     override final val subject: T,
-    val assertionChecker: IAssertionChecker) : IAssertionFactory<T> {
+    override final val assertionChecker: IAssertionChecker) : IAssertionFactory<T> {
 
     private val assertions: MutableList<IAssertion> = ArrayList()
 
     override final fun createAndAddAssertion(description: String, expected: Any, test: () -> Boolean)
-        = createAndAddAssertion(description, objectFormatter.format(expected), test)
-
+        = addAssertion(DescriptionExpectedAssertion(description, expected, test))
+    //TODO get rid of this function and use a special type instead (e.g. RawString)
     override final fun createAndAddAssertion(description: String, expected: String, test: () -> Boolean)
         = addAssertion(DescriptionExpectedAssertion(description, expected, test))
 
@@ -48,19 +48,6 @@ open class AssertionFactory<out T : Any> private constructor(
 
         fun <T : Any?> newNullable(assertionVerb: String, subject: T): IAssertionFactoryNullable<T>
             = AssertionFactoryNullable(assertionVerb, subject, assertionChecker)
-
-        //TODO get rid of, use IAssertionChecker.fail instead
-        fun <T : Any> fail(assertionVerb: String, subject: T, messages: List<Pair<String, String>>): Nothing
-            = failWithCustomSubject(assertionVerb, objectFormatter.format(subject), messages)
-
-        //TODO get rid of, use IAssertionChecker.fail instead
-        fun failWithCustomSubject(assertionVerb: String, subject: String, messages: List<Pair<String, String>>): Nothing {
-            val messagesWithAssert = ArrayList<Pair<String, String>>(messages.size + 1)
-            messagesWithAssert.add(assertionVerb to subject)
-            messagesWithAssert.addAll(messages)
-            val formattedMessages = assertionMessageFormatter.format(messagesWithAssert)
-            throw AssertionError(formattedMessages)
-        }
     }
 
     private class ImmediateCheckAssertionFactory<out T : Any> internal constructor(
@@ -76,7 +63,7 @@ open class AssertionFactory<out T : Any> private constructor(
     private class AssertionFactoryNullable<out T : Any?> internal constructor(
         override val assertionVerb: String,
         override val subject: T,
-        val assertionChecker: IAssertionChecker) : IAssertionFactoryNullable<T> {
+        override val assertionChecker: IAssertionChecker) : IAssertionFactoryNullable<T> {
 
         override fun isNull() {
             if (subject != null) {
