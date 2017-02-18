@@ -1,6 +1,6 @@
 package ch.tutteli.assertk
 
-class ThrowableFluent<out T : Throwable?>(val assertionVerb: String, val throwable: T, val assertionChecker: IAssertionChecker) {
+class ThrowableFluent(val assertionVerb: String, val throwable: Throwable?, val assertionChecker: IAssertionChecker) {
 
     inline fun <reified TExpected : Throwable> toThrow(): IAssertionFactory<TExpected> {
         val assertion = ExceptionThrownAssertion(throwable, TExpected::class.java)
@@ -28,7 +28,7 @@ class ThrowableFluent<out T : Throwable?>(val assertionVerb: String, val throwab
     }
 
     companion object {
-        fun create(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent<Throwable?> {
+        fun create(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent{
             var throwable: Throwable? = null
             try {
                 act()
