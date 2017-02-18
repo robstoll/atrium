@@ -1,10 +1,10 @@
 package ch.tutteli.assertk
 
 
-class DescriptionExpectedAssertion(private val description: String,
-                                   private val expected: String,
-                                   private val check: () -> Boolean) : IAssertion {
+class DescriptionExpectedAssertion(description: String, expected: Any?, check: () -> Boolean) : IAssertion {
+    private val lazyMessages: List<Message> by lazy {
+        listOf(Message(description, expected, check()))
+    }
 
-    override fun holds(): Boolean = check()
-    override fun logMessages(): List<Pair<String, String>> = listOf(description to expected)
+    override fun messages() = lazyMessages
 }
