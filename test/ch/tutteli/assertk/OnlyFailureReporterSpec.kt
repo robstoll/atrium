@@ -1,5 +1,6 @@
 package ch.tutteli.assertk
 
+import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
@@ -22,7 +23,10 @@ class OnlyFailureReporterSpec : Spek({
             it("delegates to ${IAssertionMessageFormatter::class.java.simpleName}") {
                 val assertion = DescriptionExpectedAssertion("to be", "0", { false })
                 testee.format(sb, assertion)
-                verify(assertionMessageFormatter).format(assertion.logMessages())
+                val captor = argumentCaptor<List<Pair<String,String>>>()
+                verify(assertionMessageFormatter).format(captor.capture())
+                val pair = captor.firstValue[0]
+                assert(pair.first).toBe("to be")
             }
         }
     }

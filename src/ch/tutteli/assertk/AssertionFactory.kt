@@ -21,10 +21,11 @@ open class AssertionFactory<out T : Any> private constructor(
 
     override final fun checkAssertions() {
         val messages = ArrayList<Pair<String, String>>()
-        asserts
-            .asSequence()
-            .filterNot { it.holds() }
-            .forEach { messages.addAll(it.logMessages()) }
+        asserts.flatten { it.messages() }
+            .filter { !it.holds }
+            .forEach {
+                messages.add(it.description to objectFormatter.format(it.representation))
+            }
         asserts.clear()
         if (messages.isNotEmpty()) {
             fail(assertionVerb, subject, messages)
