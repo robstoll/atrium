@@ -4,12 +4,12 @@ import java.util.*
 
 //TODO use KBox as dependency instead
 inline fun <T> List<T>.joinToString(separator: String, append: (it: T, sb: StringBuilder) -> Unit)
-    = joinToString(StringBuilder(size * 4), separator, append)
+    = appendToStringBuilder(StringBuilder(size * 4), separator, append).toString()
 
-inline fun <T> List<T>.joinToString(
+inline fun <T> List<T>.appendToStringBuilder(
     sb: StringBuilder,
     separator: String,
-    append: (it: T, sb: StringBuilder) -> Unit) : String {
+    append: (it: T, sb: StringBuilder) -> Unit) {
 
     val size = this.size
     if (size > 0) {
@@ -19,7 +19,6 @@ inline fun <T> List<T>.joinToString(
         sb.append(separator)
         append(this[i], sb)
     }
-    return sb.toString()
 }
 
 //TODO use KBox as dependency instead
@@ -30,12 +29,3 @@ inline fun <T, T2> List<T>.flatten(getter: (it: T) -> List<T2>): List<T2> {
     }
     return list
 }
-
-inline fun <T, T2> Sequence<T>.flatten(getter: (it: T) -> Sequence<T2>): Sequence<T2> {
-    val list = ArrayList<T2>()
-    this.forEach {
-        list.addAll(getter(it))
-    }
-    return list.asSequence()
-}
-

@@ -19,7 +19,7 @@ class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectForm
         = append(left).append(": ").append(objectFormatter.format(right))
 
     private fun StringBuilder.appendMessages(assertion: IAssertion, filter: (Message) -> Boolean) {
-        assertion.messages().filter(filter).joinToString(this, SEPARATOR) { it, sb ->
+        assertion.messages().filter(filter).appendToStringBuilder(this, SEPARATOR) { it, sb ->
             sb.appendPair(it.description, it.representation)
         }
     }
