@@ -1,10 +1,8 @@
 package ch.tutteli.assertk
 
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.dsl.xit
 
 class ThrowingAssertionCheckerSpec : Spek({
 
@@ -26,8 +24,7 @@ class ThrowingAssertionCheckerSpec : Spek({
             }
         }
 
-        //FIXME see FIXME in ThrowingAssertionChecker
-        xit("throws an AssertionError with the message formatted by the reporter") {
+        it("throws an AssertionError with the message formatted by the reporter") {
             expect {
                 testee.fail(assertionVerb, "1", DescriptionExpectedAssertion("to be", "0", { false }))
             }.toThrow<AssertionError> {
@@ -37,7 +34,6 @@ class ThrowingAssertionCheckerSpec : Spek({
     }
 
     describe("check") {
-
         it("does not throw an AssertionError if all assertions hold") {
             testee.check(assertionVerb, 1, listOf(
                 DescriptionExpectedAssertion("a", "a", { true }),
@@ -45,15 +41,14 @@ class ThrowingAssertionCheckerSpec : Spek({
             ))
         }
 
-        //FIXME see FIXME in ThrowingAssertionChecker
-        xit("throws an AssertionError with the message formatted by the reporter if one assertion does not hold") {
+        it("throws an AssertionError with the message formatted by the reporter if one assertion does not hold") {
             expect {
                 testee.check(assertionVerb, 1, listOf(
                     DescriptionExpectedAssertion("a", "a", { true }),
                     DescriptionExpectedAssertion("a", "b", { false })
                 ))
             }.toThrow<AssertionError> {
-                assert(subject.message).isNotNull().toBe(reporterResponse + reporterResponse)
+                assert(subject.message).isNotNull().toBe(reporterResponse)
             }
         }
     }

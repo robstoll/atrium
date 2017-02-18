@@ -4,14 +4,9 @@ class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionChec
 
     override fun check(assertionVerb: String, subject: Any, assertions: List<IAssertion>) {
         val sb = StringBuilder()
-        var allHold = true
-        assertions.forEach {
-            allHold = allHold && it.holds()
-            reporter.format(sb, it)
-        }
-        if (!allHold) {
-            //FIXME wrong place, should happen in the reporter
-            sb.insert(0, assertionVerb + ": " + AssertionFactory.objectFormatter.format(subject) + "\n")
+        val assertionGroup = AssertionGroup(assertionVerb, subject, assertions)
+        reporter.format(sb, assertionGroup)
+        if (!assertionGroup.holds()) {
             throw AssertionError(sb.toString())
         }
     }
