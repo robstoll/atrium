@@ -10,6 +10,8 @@ class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionChec
             reporter.format(sb, it)
         }
         if (!allHold) {
+            //FIXME wrong place, should happen in the reporter
+            sb.insert(0, assertionVerb + ": " + AssertionFactory.objectFormatter.format(subject) + "\n")
             throw AssertionError(sb.toString())
         }
     }
