@@ -30,7 +30,7 @@ open class AssertionFactory<out T : Any> private constructor(
 
     companion object {
         var objectFormatter: IObjectFormatter = DetailedObjectFormatter()
-        var assertionMessageFormatter: IAssertionMessageFormatter = SameLineAssertionMessageFormatter()
+        var assertionMessageFormatter: IAssertionMessageFormatter = SameLineAssertionMessageFormatter(objectFormatter)
         var reporter: IReporter = OnlyFailureReporter(assertionMessageFormatter)
         var assertionChecker: IAssertionChecker = ThrowingAssertionChecker(reporter)
 

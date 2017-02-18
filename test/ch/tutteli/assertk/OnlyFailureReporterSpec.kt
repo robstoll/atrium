@@ -1,6 +1,7 @@
 package ch.tutteli.assertk
 
-import com.nhaarman.mockito_kotlin.argumentCaptor
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
@@ -10,9 +11,10 @@ class OnlyFailureReporterSpec : Spek({
 
     describe("format") {
         val sb = StringBuilder()
+        val assertion = DescriptionExpectedAssertion("to be", "0", { true })
         it("does not append anything if assertion holds") {
-            val testee = OnlyFailureReporter(SameLineAssertionMessageFormatter())
-            testee.format(sb, DescriptionExpectedAssertion("to be", "0", { true }))
+            val testee = OnlyFailureReporter(SameLineAssertionMessageFormatter(DetailedObjectFormatter()))
+            testee.format(sb, assertion)
             assert(sb).isEmpty()
         }
 
@@ -21,12 +23,8 @@ class OnlyFailureReporterSpec : Spek({
             val testee = OnlyFailureReporter(assertionMessageFormatter)
 
             it("delegates to ${IAssertionMessageFormatter::class.java.simpleName}") {
-                val assertion = DescriptionExpectedAssertion("to be", "0", { false })
                 testee.format(sb, assertion)
-                val captor = argumentCaptor<List<Pair<String,String>>>()
-                verify(assertionMessageFormatter).format(captor.capture())
-                val pair = captor.firstValue[0]
-                assert(pair.first).toBe("to be")
+                verify(assertionMessageFormatter).format(eq(sb), eq(assertion), any())
             }
         }
     }
