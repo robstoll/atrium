@@ -1,16 +1,12 @@
 package ch.tutteli.assertk
 
-class ExceptionThrownAssertion<T : Throwable>(private val throwable: Throwable?, private val expectedType: Class<T>) : IAssertion {
-    override fun holds(): Boolean {
-        return throwable != null && expectedType.isAssignableFrom(throwable.javaClass)
+class ExceptionThrownAssertion<T : Throwable>(throwable: Throwable?, expectedType: Class<T>) : IAssertion {
+    private val lazyMessages: List<Message> by lazy {
+        when (throwable) {
+            null -> listOf(Message("exception was", null, false))
+            else -> listOf(Message("exception was", throwable.javaClass, expectedType.isAssignableFrom(throwable.javaClass)))
+        }
     }
 
-    override fun logMessages(): List<Pair<String, String>> {
-        val errorPair = if (throwable != null) {
-            "but was" to AssertionFactory.objectFormatter.format(throwable.javaClass)
-        } else {
-            "but no exception was thrown" to ""
-        }
-        return listOf(errorPair)
-    }
+    override fun messages() = lazyMessages
 }

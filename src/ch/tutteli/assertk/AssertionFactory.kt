@@ -4,60 +4,54 @@ import java.util.*
 
 open class AssertionFactory<out T : Any> private constructor(
     override final val assertionVerb: String,
-    override final val subject: T) : IAssertionFactory<T> {
+    override final val subject: T,
+    override final val assertionChecker: IAssertionChecker) : IAssertionFactory<T> {
 
-    private val asserts: MutableList<IAssertion> = ArrayList()
+    private val assertions: MutableList<IAssertion> = ArrayList()
 
     override final fun createAndAddAssertion(description: String, expected: Any, test: () -> Boolean)
-        = createAndAddAssertion(description, objectFormatter.format(expected), test)
-
+        = addAssertion(DescriptionExpectedAssertion(description, expected, test))
+    //TODO get rid of this function and use a special type instead (e.g. RawString)
     override final fun createAndAddAssertion(description: String, expected: String, test: () -> Boolean)
         = addAssertion(DescriptionExpectedAssertion(description, expected, test))
 
     override fun addAssertion(assertion: IAssertion): IAssertionFactory<T> {
-        asserts.add(assertion)
+        assertions.add(assertion)
         return this
     }
 
     override final fun checkAssertions() {
-        val messages = ArrayList<Pair<String, String>>()
-        asserts
-            .asSequence()
-            .filterNot { it.holds() }
-            .forEach { messages.addAll(it.logMessages()) }
-        asserts.clear()
-        if (messages.isNotEmpty()) {
-            fail(assertionVerb, subject, messages)
+        try {
+            assertionChecker.check(assertionVerb, subject, assertions)
+        } finally {
+            assertions.clear()
         }
     }
 
     companion object {
         var objectFormatter: IObjectFormatter = DetailedObjectFormatter()
-        var assertionMessageFormatter: IAssertionMessageFormatter = SameLineAssertionMessageFormatter()
+        var assertionMessageFormatter: IAssertionMessageFormatter = SameLineAssertionMessageFormatter(objectFormatter)
+        var reporter: IReporter = OnlyFailureReporter(assertionMessageFormatter)
+        var assertionChecker: IAssertionChecker = ThrowingAssertionChecker(reporter)
 
         fun <T : Any> new(assertionVerb: String, subject: T): IAssertionFactory<T>
-            = AssertionFactory(assertionVerb, subject)
+            = new(assertionVerb, subject, assertionChecker)
+
+        fun <T : Any> new(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionFactory<T>
+            = AssertionFactory(assertionVerb, subject, assertionChecker)
 
         fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T): IAssertionFactory<T>
-            = ImmediateCheckAssertionFactory(assertionVerb, subject)
+            = newCheckImmediately(assertionVerb, subject, assertionChecker)
+
+        fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionFactory<T>
+            = ImmediateCheckAssertionFactory(assertionVerb, subject, assertionChecker)
 
         fun <T : Any?> newNullable(assertionVerb: String, subject: T): IAssertionFactoryNullable<T>
-            = AssertionFactoryNullable(assertionVerb, subject)
-
-        fun <T : Any> fail(assertionVerb: String, subject: T, messages: List<Pair<String, String>>): Nothing
-            = failWithCustomSubject(assertionVerb, objectFormatter.format(subject), messages)
-
-        fun failWithCustomSubject(assertionVerb: String, subject: String, messages: List<Pair<String, String>>): Nothing {
-            val messagesWithAssert = ArrayList<Pair<String, String>>(messages.size + 1)
-            messagesWithAssert.add(assertionVerb to subject)
-            messagesWithAssert.addAll(messages)
-            val formattedMessages = assertionMessageFormatter.format(messagesWithAssert)
-            throw AssertionError(formattedMessages)
-        }
+            = AssertionFactoryNullable(assertionVerb, subject, assertionChecker)
     }
 
     private class ImmediateCheckAssertionFactory<out T : Any> internal constructor(
-        assertionVerb: String, subject: T) : AssertionFactory<T>(assertionVerb, subject) {
+        assertionVerb: String, subject: T, assertionChecker: IAssertionChecker) : AssertionFactory<T>(assertionVerb, subject, assertionChecker) {
 
         override fun addAssertion(assertion: IAssertion): AssertionFactory<T> {
             super.addAssertion(assertion)
@@ -68,11 +62,12 @@ open class AssertionFactory<out T : Any> private constructor(
 
     private class AssertionFactoryNullable<out T : Any?> internal constructor(
         override val assertionVerb: String,
-        override val subject: T) : IAssertionFactoryNullable<T> {
+        override val subject: T,
+        override val assertionChecker: IAssertionChecker) : IAssertionFactoryNullable<T> {
 
         override fun isNull() {
             if (subject != null) {
-                AssertionFactory.fail(assertionVerb, objectFormatter.format(subject), listOf("to be" to "null"))
+                assertionChecker.fail(assertionVerb, subject, DescriptionExpectedAssertion("to be", null, { false }))
             }
         }
     }

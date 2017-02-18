@@ -19,7 +19,7 @@ class AssertKSpec : Spek({
     }
 
     describe("assert{} (lazy evaluation)") {
-        it("evaluates all assertions"){
+        it("evaluates all assertions") {
             expect {
                 assert(1) {
                     isSmallerThan(0)
