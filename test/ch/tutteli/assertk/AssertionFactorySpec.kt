@@ -1,6 +1,5 @@
 package ch.tutteli.assertk
 
-import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
@@ -36,7 +35,7 @@ class AssertionFactorySpec : Spek({
                         it("contains the '${IAssertionFactory<Any>::subject.name}'") {
                             assert(message).contains(subject.toString())
                         }
-                        it("contains the '${Message::description.name}' of the assertion-message"){
+                        it("contains the '${Message::description.name}' of the assertion-message") {
                             assert(message).contains("to be")
                         }
                         it("contains the '${Message::representation.name}' of the assertion-message") {
@@ -75,7 +74,7 @@ class AssertionFactorySpec : Spek({
                     expectFun.toThrow<AssertionError>()
                     context("exception message") {
                         val message = expectFun.throwable!!.message!!
-                        it("contains the log messages of the custom assertion") {
+                        it("contains the messages of the custom assertion") {
                             assert(message).contains("a", "b", "c", "d")
                         }
                         it("contains the assertionVerb") {
@@ -89,67 +88,6 @@ class AssertionFactorySpec : Spek({
                         }
                     }
                 }
-            }
-        }
-    }
-
-
-    describe("fail") {
-
-        fun <T : Any> expectAssertionError(assertionVerb: String, subject: T, messages: List<Pair<String, String>>) {
-            expect {
-                AssertionFactory.fail(assertionVerb, subject, messages)
-            }.toThrow<AssertionError>()
-        }
-        val subject = 123
-
-        context("IObjectFormatter") {
-            val objectFormatterBefore = AssertionFactory.objectFormatter
-            beforeEachTest {
-                AssertionFactory.objectFormatter = mock<IObjectFormatter> {
-                    on { format(any<Any>()) } doReturn ""
-                }
-            }
-            afterEachTest {
-                AssertionFactory.objectFormatter = objectFormatterBefore
-            }
-
-            it("uses the IObjectFormatter to format the subject") {
-                //act
-                expectAssertionError(assertionVerb, subject, listOf())
-                //assert
-                verify(AssertionFactory.objectFormatter).format(subject)
-            }
-        }
-
-        context("IAssertionMessageFormatter") {
-            val formatterBefore = AssertionFactory.assertionMessageFormatter
-            beforeEachTest {
-                AssertionFactory.assertionMessageFormatter = mock<IAssertionMessageFormatter>()
-            }
-            afterEachTest {
-                AssertionFactory.assertionMessageFormatter = formatterBefore
-            }
-
-            it("uses the IAssertionMessageFormatter to format the messages") {
-                //act
-                expectAssertionError(assertionVerb, subject, listOf())
-                //assert
-                verify(AssertionFactory.assertionMessageFormatter).format(any<List<Pair<String, String>>>())
-            }
-
-            it("appends the assertionVerb and the subject to the messagesList") {
-                //act
-                expectAssertionError(assertionVerb, subject, listOf())
-                //assert
-                val captor = argumentCaptor<List<Pair<String, String>>>()
-                verify(AssertionFactory.assertionMessageFormatter).format(captor.capture())
-                //reset formatter in order that we see some meaningful error message
-                AssertionFactory.assertionMessageFormatter = formatterBefore
-                //TODO rewrite to use containsOnly as soon as supported
-                assert(captor.firstValue.size).toBe(1)
-                assert(captor.firstValue[0].first).toBe(assertionVerb)
-                assert(captor.firstValue[0].second).contains(subject.toString())
             }
         }
     }
