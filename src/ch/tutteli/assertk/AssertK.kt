@@ -11,7 +11,7 @@ fun <T : Any?> assert(subject: T): IAssertionFactoryNullable<T>
 inline fun <T : Any> assert(subject: T, createAssertions: IAssertionFactory<T>.() -> Unit)
     = createAndCheckAssertions("assert", subject, createAssertions)
 
-fun expect(act: () -> Unit): ThrowableFluent<Throwable?> {
+fun expect(act: () -> Unit): ThrowableFluent {
     val objectFormatter = DetailedObjectFormatter()
     val assertionMessageFormatter = SameLineAssertionMessageFormatter(objectFormatter)
     val reporter = OnlyFailureReporter(assertionMessageFormatter)
