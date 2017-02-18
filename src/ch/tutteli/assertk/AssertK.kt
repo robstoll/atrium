@@ -11,11 +11,14 @@ fun <T : Any?> assert(subject: T): IAssertionFactoryNullable<T>
 inline fun <T : Any> assert(subject: T, createAssertions: IAssertionFactory<T>.() -> Unit)
     = createAndCheckAssertions("assert", subject, createAssertions)
 
-fun expect(act: () -> Unit)
-    = ThrowableFluent.create("expect to throw", act)
+fun expect(act: () -> Unit): ThrowableFluent<Throwable?> {
+    val assertionMessageFormatter = SameLineAssertionMessageFormatter()
+    val reporter = OnlyFailureReporter(assertionMessageFormatter)
+    return ThrowableFluent.create("expect to throw", act, ThrowingAssertionChecker(reporter))
+}
 
 /**
- * Use this function to create custom 'expect' functions which lazy evaluate the given assertions.
+ * Use this function to create custom 'assert' functions which lazy evaluate the given assertions.
  */
 inline fun <T : Any> createAndCheckAssertions(assertionVerb: String, subject: T, createAssertions: IAssertionFactory<T>.() -> Unit) {
     val factory = AssertionFactory.new(assertionVerb, subject)
