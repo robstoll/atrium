@@ -6,7 +6,7 @@ class ThrowableFluent<out T : Throwable?>(val assertionVerb: String, val throwab
         val assertion = ExceptionThrownAssertion(throwable, TExpected::class.java)
         if (assertion.holds()) {
             //needs to hold in order that cast can be performed
-            val factory = AssertionFactory.newCheckImmediately(assertionVerb, throwable as TExpected)
+            val factory = AssertionFactory.newCheckImmediately(assertionVerb, throwable as TExpected, assertionChecker)
             factory.addAssertion(assertion)
             return factory
         }
@@ -18,7 +18,7 @@ class ThrowableFluent<out T : Throwable?>(val assertionVerb: String, val throwab
         val assertion = ExceptionThrownAssertion(throwable, TExpected::class.java)
         if (assertion.holds()) {
             //needs to hold in order that cast can be performed
-            val factory = AssertionFactory.new(assertionVerb, throwable as TExpected)
+            val factory = AssertionFactory.new(assertionVerb, throwable as TExpected, assertionChecker)
             factory.addAssertion(assertion)
             factory.createAsserts()
             factory.checkAssertions()
