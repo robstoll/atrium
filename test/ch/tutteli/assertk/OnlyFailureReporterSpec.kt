@@ -22,7 +22,7 @@ class OnlyFailureReporterSpec : Spek({
             val assertionMessageFormatter = mock<IAssertionMessageFormatter>()
             val testee = OnlyFailureReporter(assertionMessageFormatter)
 
-            it("delegates to ${IAssertionMessageFormatter::class.java.simpleName}") {
+            it("delegates to ${assertionMessageFormatter::class.java.simpleName}") {
                 testee.format(sb, assertion)
                 verify(assertionMessageFormatter).format(eq(sb), eq(assertion), any())
             }

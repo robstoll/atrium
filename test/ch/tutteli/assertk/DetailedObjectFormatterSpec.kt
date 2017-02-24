@@ -70,7 +70,7 @@ class DetailedObjectFormatterSpec : Spek({
                 val result = testee.format(it.value)
                 it("returns ${IAssertionFactory<Any>::subject.name}.toString() including type name and identity hash") {
                     assert(result).toBe(it.value.toString()
-                        + "   (" + it.value.javaClass.name
+                        + "   (" + it.value::class.java.name
                         + "<" + System.identityHashCode(it.value) + ">"
                         + ")")
                 }

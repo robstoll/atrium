@@ -4,7 +4,7 @@ class ExceptionThrownAssertion<T : Throwable>(throwable: Throwable?, expectedTyp
     private val lazyMessages: List<Message> by lazy {
         when (throwable) {
             null -> listOf(Message("exception was", null, false))
-            else -> listOf(Message("exception was", throwable.javaClass, expectedType.isAssignableFrom(throwable.javaClass)))
+            else -> listOf(Message("exception was", throwable::class.java.name, expectedType.isAssignableFrom(throwable::class.java)))
         }
     }
 
