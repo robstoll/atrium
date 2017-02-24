@@ -10,7 +10,7 @@ class AssertionFactorySpec : Spek({
     describe("lazy evaluation") {
         val subject = 10
         val factory = AssertionFactory.new(assertionVerb, subject)
-        context(IAssertionFactory<Any>::createAndAddAssertion.name) {
+        context(factory::createAndAddAssertion.name) {
 
             val a = subject
             inCaseOf("assertion which holds") {
@@ -29,10 +29,10 @@ class AssertionFactorySpec : Spek({
                     expectFun.toThrow<AssertionError>()
                     context("exception message") {
                         val message = expectFun.throwable!!.message!!
-                        it("contains the ${IAssertionFactory<Any>::assertionVerb.name}'") {
+                        it("contains the ${factory::assertionVerb.name}'") {
                             assert(message).contains(assertionVerb)
                         }
-                        it("contains the '${IAssertionFactory<Any>::subject.name}'") {
+                        it("contains the '${factory::subject.name}'") {
                             assert(message).contains(subject.toString())
                         }
                         it("contains the '${Message::description.name}' of the assertion-message") {
@@ -53,7 +53,7 @@ class AssertionFactorySpec : Spek({
 
         }
 
-        context(IAssertionFactory<Any>::addAssertion.name) {
+        context(factory::addAssertion.name) {
             inCaseOf("a custom assertion which holds") {
                 factory.addAssertion(object : IAssertion {
                     override fun messages() = listOf(Message("a", "b", true))

@@ -13,7 +13,7 @@ class DetailedObjectFormatter : IObjectFormatter {
     override fun <T> format(clazz: Class<T>) = "${clazz.simpleName} (${clazz.name})"
 
     private fun classNameAndIdentity(any: Any)
-        = "   (" + any.javaClass.name + identityHash(any) + ")"
+        = "   (" + any::class.java.name + identityHash(any) + ")"
 
     private fun identityHash(any: Any) = "<" + System.identityHashCode(any) + ">"
 }
