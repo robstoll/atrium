@@ -1,6 +1,7 @@
 package ch.tutteli.assertk
 
-import com.nhaarman.mockito_kotlin.*
+import com.nhaarman.mockito_kotlin.any
+import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 
@@ -18,7 +19,7 @@ class ThrowingAssertionCheckerSpec : Spek({
     describe("fail") {
         it("throws an IllegalArgumentException if the given assertion holds") {
             expect {
-                testee.fail(assertionVerb, 1, DescriptionExpectedAssertion("description", "1", { true }))
+                testee.fail(assertionVerb, 1, OneMessageAssertion("description", "1", true))
             }.toThrow<IllegalArgumentException> {
                 assert(subject.message).isNotNull().startsWith("the given assertion should fail:")
             }
@@ -26,7 +27,7 @@ class ThrowingAssertionCheckerSpec : Spek({
 
         it("throws an AssertionError with the message formatted by the reporter") {
             expect {
-                testee.fail(assertionVerb, "1", DescriptionExpectedAssertion("to be", "0", { false }))
+                testee.fail(assertionVerb, "1", OneMessageAssertion("to be", "0", false))
             }.toThrow<AssertionError> {
                 assert(subject.message).isNotNull().toBe(reporterResponse)
             }
@@ -36,16 +37,16 @@ class ThrowingAssertionCheckerSpec : Spek({
     describe("check") {
         it("does not throw an AssertionError if all assertions hold") {
             testee.check(assertionVerb, 1, listOf(
-                DescriptionExpectedAssertion("a", "a", { true }),
-                DescriptionExpectedAssertion("a", "b", { true })
+                OneMessageAssertion("a", "a", true),
+                OneMessageAssertion("a", "b", true)
             ))
         }
 
         it("throws an AssertionError with the message formatted by the reporter if one assertion does not hold") {
             expect {
                 testee.check(assertionVerb, 1, listOf(
-                    DescriptionExpectedAssertion("a", "a", { true }),
-                    DescriptionExpectedAssertion("a", "b", { false })
+                    OneMessageAssertion("a", "a", true),
+                    OneMessageAssertion("a", "b", false)
                 ))
             }.toThrow<AssertionError> {
                 assert(subject.message).isNotNull().toBe(reporterResponse)

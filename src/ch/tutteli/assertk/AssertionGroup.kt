@@ -1,9 +1,6 @@
 package ch.tutteli.assertk
 
-open class AssertionGroup(override final val name: String, override final val subject: Any, assertions: List<IAssertion>) : IAssertionGroup {
-    private val lazyMessages: List<Message> by lazy {
-        assertions.flatten { it.messages() }
-    }
-
-    override fun messages() = lazyMessages
-}
+data class AssertionGroup(
+    override val name: String,
+    override val subject: Any,
+    override val assertions: List<IAssertion>) : IAssertionGroup
