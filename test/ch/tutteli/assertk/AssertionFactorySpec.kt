@@ -56,16 +56,16 @@ class AssertionFactorySpec : Spek({
         context(factory::addAssertion.name) {
             inCaseOf("a custom assertion which holds") {
                 factory.addAssertion(object : IAssertion {
-                    override fun messages() = listOf(Message("a", "b", true))
+                    override fun holds() = true
                 })
                 it("does not throw an Exception when checking") {
                     factory.checkAssertions()
                 }
             }
 
-            setUp("in case of a custom assertion which fails") {
-                factory.addAssertion(object : IAssertion {
-                    override fun messages() = listOf(Message("a", "b", true), Message("c", "d", false))
+            setUp("in case of a custom ${IOneMessageAssertion::class.java.simpleName} which fails") {
+                factory.addAssertion(object : IOneMessageAssertion {
+                    override val message = Message("a", "b", false)
                 })
                 val expectFun = expect {
                     factory.checkAssertions()
@@ -75,7 +75,7 @@ class AssertionFactorySpec : Spek({
                     context("exception message") {
                         val message = expectFun.throwable!!.message!!
                         it("contains the messages of the custom assertion") {
-                            assert(message).contains("a", "b", "c", "d")
+                            assert(message).contains("a", "b")
                         }
                         it("contains the assertionVerb") {
                             assert(message).contains(assertionVerb)

@@ -10,10 +10,11 @@ open class AssertionFactory<out T : Any> private constructor(
     private val assertions: MutableList<IAssertion> = ArrayList()
 
     override final fun createAndAddAssertion(description: String, expected: Any, test: () -> Boolean)
-        = addAssertion(DescriptionExpectedAssertion(description, expected, test))
+        = addAssertion(OneMessageAssertion(description, expected, test))
+
     //TODO get rid of this function and use a special type instead (e.g. RawString)
     override final fun createAndAddAssertion(description: String, expected: String, test: () -> Boolean)
-        = addAssertion(DescriptionExpectedAssertion(description, expected, test))
+        = addAssertion(OneMessageAssertion(description, expected, test))
 
     override fun addAssertion(assertion: IAssertion): IAssertionFactory<T> {
         assertions.add(assertion)
@@ -48,6 +49,9 @@ open class AssertionFactory<out T : Any> private constructor(
 
         fun <T : Any?> newNullable(assertionVerb: String, subject: T): IAssertionFactoryNullable<T>
             = AssertionFactoryNullable(assertionVerb, subject, assertionChecker)
+
+        fun <T : Any?> newNullable(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionFactoryNullable<T>
+            = AssertionFactoryNullable(assertionVerb, subject, assertionChecker)
     }
 
     private class ImmediateCheckAssertionFactory<out T : Any> internal constructor(
@@ -67,7 +71,7 @@ open class AssertionFactory<out T : Any> private constructor(
 
         override fun isNull() {
             if (subject != null) {
-                assertionChecker.fail(assertionVerb, subject, DescriptionExpectedAssertion("to be", null, { false }))
+                assertionChecker.fail(assertionVerb, subject, OneMessageAssertion("to be", null, false))
             }
         }
     }

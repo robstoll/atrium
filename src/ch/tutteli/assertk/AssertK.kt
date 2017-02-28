@@ -2,6 +2,8 @@
 
 package ch.tutteli.assertk
 
+import kotlin.reflect.KProperty1
+
 fun <T : Any> assert(subject: T): IAssertionFactory<T>
     = AssertionFactory.newCheckImmediately("assert", subject)
 
@@ -40,7 +42,7 @@ private fun <T : Any> isNotNull(factoryNullable: IAssertionFactoryNullable<T?>, 
     if (factoryNullable.subject != null) {
         return factory()
     } else {
-        factoryNullable.assertionChecker.failWithCustomSubject(factoryNullable.assertionVerb, "null", DescriptionExpectedAssertion("is not", "null", { false }))
+        factoryNullable.assertionChecker.failWithCustomSubject(factoryNullable.assertionVerb, "null", OneMessageAssertion("is not", "null", false))
         throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::failWithCustomSubject.name} should throw an exception")
     }
 }
@@ -76,4 +78,5 @@ fun IAssertionFactory<CharSequence>.endsWith(expected: CharSequence)
     = createAndAddAssertion("ends with", expected, { subject.endsWith(expected) })
 
 fun IAssertionFactory<CharSequence>.isEmpty()
+    //TODO empty is now printed as string (with system identity hash)
     = createAndAddAssertion("is", "empty", { subject.isEmpty() })

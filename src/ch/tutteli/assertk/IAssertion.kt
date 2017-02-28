@@ -1,7 +1,5 @@
 package ch.tutteli.assertk
 
 interface IAssertion {
-    fun messages(): List<Message>
+    fun holds(): Boolean
 }
-
-fun IAssertion.holds(): Boolean = messages().all(Message::holds)

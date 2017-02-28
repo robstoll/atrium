@@ -7,9 +7,7 @@ inline fun <T> List<T>.joinToString(separator: String, append: (it: T, sb: Strin
     = appendToStringBuilder(StringBuilder(size * 4), separator, append).toString()
 
 inline fun <T> List<T>.appendToStringBuilder(
-    sb: StringBuilder,
-    separator: String,
-    append: (it: T, sb: StringBuilder) -> Unit) {
+    sb: StringBuilder, separator: String, append: (it: T, sb: StringBuilder) -> Unit) {
 
     val size = this.size
     if (size > 0) {
