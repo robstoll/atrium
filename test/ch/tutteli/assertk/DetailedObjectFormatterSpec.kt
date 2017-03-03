@@ -16,17 +16,16 @@ class DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        on("class type") {
-            val result = testee.format(DetailedObjectFormatterSpec::class.java)
-            it("returns simple name and name in parenthesis") {
-                val clazz = DetailedObjectFormatterSpec::class.java
-                assert(result).toBe("${clazz.simpleName} (${clazz.name})")
+        on(RawString::class.java.simpleName){
+            val result = testee.format(RawString("hello"))
+            it("returns the containing string") {
+                assert(result).toBe("hello")
             }
         }
 
-        on("class type as any") {
-            val result = testee.format(DetailedObjectFormatterSpec::class.java as Any)
-            it("returns simple name and name in parenthesis") {
+        on("class type") {
+            val result = testee.format(DetailedObjectFormatterSpec::class.java)
+            it("returns its simpleName and name in parenthesis") {
                 val clazz = DetailedObjectFormatterSpec::class.java
                 assert(result).toBe("${clazz.simpleName} (${clazz.name})")
             }
@@ -40,19 +39,6 @@ class DetailedObjectFormatterSpec : Spek({
             }
             it("returns CharSequence in quotes including identity hash") {
                 val string = "assertK"
-                val result = testee.format(string)
-                assert(result).toBe("\"$string\"   <${System.identityHashCode(string)}>")
-            }
-        }
-
-        on("CharSequence as any") {
-            it("returns two quotes  including identity hash if empty CharSequence") {
-                val string : Any = ""
-                val result = testee.format(string)
-                assert(result).toBe("\"\"   <${System.identityHashCode(string)}>")
-            }
-            it("returns CharSequence in quotes including identity hash") {
-                val string: Any = "assertK"
                 val result = testee.format(string)
                 assert(result).toBe("\"$string\"   <${System.identityHashCode(string)}>")
             }
