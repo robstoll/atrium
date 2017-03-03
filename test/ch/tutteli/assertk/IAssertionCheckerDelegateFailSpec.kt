@@ -14,9 +14,7 @@ class IAssertionCheckerDelegateFailSpec : Spek({
         it("throws an IllegalArgumentException if the given assertion holds") {
             expect {
                 testee.fail(assertionVerb, 1, OneMessageAssertion("description", 1, true))
-            }.toThrow<IllegalArgumentException> {
-                //TODO check message
-            }
+            }.toThrow<IllegalArgumentException>().and.message.startsWith(IAssertionCheckerDelegateFail.THE_GIVEN_ASSERTION_SHOULD_FAIL)
         }
 
         it("delegates to check") {

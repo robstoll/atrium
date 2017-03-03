@@ -14,7 +14,7 @@ class ThrowableFluentSpec : Spek({
                     /* no exception occurs */
                 }.toThrow<IllegalArgumentException>()
             }.toThrow<AssertionError> {
-                //TODO message contains 'exception was not thrown'
+                and.message.contains("exception was", "null")
             }
         }
 
@@ -24,13 +24,13 @@ class ThrowableFluentSpec : Spek({
                     throw UnsupportedOperationException()
                 }.toThrow<IllegalArgumentException>()
             }.toThrow<AssertionError> {
-                //TODO message contains 'exception was: Unsupported'
+                and(subject::message).isNotNull().contains("exception was", UnsupportedOperationException::class.java.name)
             }
         }
         it("does not throw if the correct exception is thrown") {
             expect {
-                throw IllegalArgumentException()
-            }.toThrow<IllegalArgumentException>()
+                throw IllegalArgumentException("hello")
+            }.toThrow<IllegalArgumentException>().and.message.toBe("hello")
         }
 
         context("dependencies") {
@@ -89,9 +89,7 @@ class ThrowableFluentSpec : Spek({
                     val subject: IllegalArgumentException? = null
                     val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
                     fluent.toThrow<IllegalArgumentException>()
-                }.toThrow<IllegalStateException> {
-                    //TODO check message
-                }
+                }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
             }
         }
     }
