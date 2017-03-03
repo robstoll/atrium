@@ -20,17 +20,13 @@ class ThrowingAssertionCheckerSpec : Spek({
         it("throws an IllegalArgumentException if the given assertion holds") {
             expect {
                 testee.fail(assertionVerb, 1, OneMessageAssertion("description", "1", true))
-            }.toThrow<IllegalArgumentException> {
-                assert(subject.message).isNotNull().startsWith("the given assertion should fail:")
-            }
+            }.toThrow<IllegalArgumentException>().and.message.startsWith("the given assertion should fail:")
         }
 
         it("throws an AssertionError with the message formatted by the reporter") {
             expect {
                 testee.fail(assertionVerb, "1", OneMessageAssertion("to be", "0", false))
-            }.toThrow<AssertionError> {
-                assert(subject.message).isNotNull().toBe(reporterResponse)
-            }
+            }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
         }
     }
 
@@ -48,9 +44,7 @@ class ThrowingAssertionCheckerSpec : Spek({
                     OneMessageAssertion("a", "a", true),
                     OneMessageAssertion("a", "b", false)
                 ))
-            }.toThrow<AssertionError> {
-                assert(subject.message).isNotNull().toBe(reporterResponse)
-            }
+            }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
         }
     }
 })

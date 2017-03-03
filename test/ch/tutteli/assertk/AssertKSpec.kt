@@ -26,7 +26,7 @@ class AssertKSpec : Spek({
                     isGreaterThan(2)
                 }
             }.toThrow<AssertionError> {
-                assert(subject.message).isNotNull {
+                and.message {
                     contains("1") //the actual value
                     contains("0") //the expected value
                     contains("2") //the second expected value

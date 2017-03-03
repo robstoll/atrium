@@ -12,7 +12,7 @@ class AssertionFactoryNullableSpec : Spek({
         check("isNotNull() throws an AssertionError") {
             expect {
                 assert(i).isNotNull()
-            }.toThrow<AssertionError>()
+            }.toThrow<AssertionError>().and.message.contains("is not", "null")
         }
     }
 
@@ -21,7 +21,7 @@ class AssertionFactoryNullableSpec : Spek({
         check("isNull() throws an AssertionError") {
             expect {
                 assert(i).isNull()
-            }.toThrow<AssertionError>()
+            }.toThrow<AssertionError>().and.message.contains("to be", "null")
         }
         setUp("isNotNull() does not throw an Exception") {
             val fluent = assert(i).isNotNull()

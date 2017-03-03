@@ -2,7 +2,7 @@
 
 package ch.tutteli.assertk
 
-import kotlin.reflect.KProperty1
+import kotlin.reflect.KProperty0
 
 fun <T : Any> assert(subject: T): IAssertionFactory<T>
     = AssertionFactory.newCheckImmediately("assert", subject)
@@ -32,6 +32,17 @@ inline fun <T : Any> createAndCheckAssertions(factory: IAssertionFactory<T>, cre
     return factory
 }
 
+fun <T : Any, TSub : Any> IAssertionFactory<T>.and(feature: KProperty0<TSub>): IAssertionFactory<TSub>
+    = AssertionFactory.newCheckImmediately(feature.name, feature.get(), FeatureAssertionChecker(this))
+
+fun <T : Any, TSub : Any> IAssertionFactory<T>.and(feature: KProperty0<TSub>, createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub> {
+    val featureFactory = AssertionFactory.new(feature.name, feature.get(), FeatureAssertionChecker(this))
+    return createAndCheckAssertions(featureFactory, createAssertions)
+}
+
+fun <T : Any, TSub : Any?> IAssertionFactory<T>.and(feature: KProperty0<TSub>): IAssertionFactoryNullable<TSub>
+    = AssertionFactory.newNullable(feature.name, feature.get(), FeatureAssertionChecker(this))
+
 fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull(createAssertions: IAssertionFactory<T>.() -> Unit)
     = isNotNull(this, { createAndCheckAssertions(assertionVerb, subject!!, createAssertions) })
 
@@ -46,6 +57,11 @@ private fun <T : Any> isNotNull(factoryNullable: IAssertionFactoryNullable<T?>, 
         throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::failWithCustomSubject.name} should throw an exception")
     }
 }
+
+
+// ---------------------------------------------------------------------------------
+// Assertions ----------------------------------------------------------------------
+// ---------------------------------------------------------------------------------
 
 fun <T : Any> IAssertionFactory<T>.toBe(expected: T)
     = createAndAddAssertion("to be", expected, { subject == expected })
@@ -80,3 +96,6 @@ fun IAssertionFactory<CharSequence>.endsWith(expected: CharSequence)
 fun IAssertionFactory<CharSequence>.isEmpty()
     //TODO empty is now printed as string (with system identity hash)
     = createAndAddAssertion("is", "empty", { subject.isEmpty() })
+
+val IAssertionFactory<Throwable>.message : IAssertionFactory<String> get() = and(subject::message).isNotNull()
+fun IAssertionFactory<Throwable>.message(createAssertions: IAssertionFactory<String>.() -> Unit) : IAssertionFactory<String> = and(subject::message).isNotNull(createAssertions)
