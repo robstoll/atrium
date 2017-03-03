@@ -53,8 +53,8 @@ private fun <T : Any> isNotNull(factoryNullable: IAssertionFactoryNullable<T?>, 
     if (factoryNullable.subject != null) {
         return factory()
     } else {
-        factoryNullable.assertionChecker.failWithCustomSubject(factoryNullable.assertionVerb, "null", OneMessageAssertion("is not", "null", false))
-        throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::failWithCustomSubject.name} should throw an exception")
+        factoryNullable.assertionChecker.fail(factoryNullable.assertionVerb, RawString.NULL, OneMessageAssertion("is not", RawString.NULL, false))
+        throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception")
     }
 }
 

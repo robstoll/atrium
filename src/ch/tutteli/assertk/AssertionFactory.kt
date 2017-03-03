@@ -12,10 +12,6 @@ open class AssertionFactory<out T : Any> private constructor(
     override final fun createAndAddAssertion(description: String, expected: Any, test: () -> Boolean)
         = addAssertion(OneMessageAssertion(description, expected, test))
 
-    //TODO get rid of this function and use a special type instead (e.g. RawString)
-    override final fun createAndAddAssertion(description: String, expected: String, test: () -> Boolean)
-        = addAssertion(OneMessageAssertion(description, expected, test))
-
     override fun addAssertion(assertion: IAssertion): IAssertionFactory<T> {
         assertions.add(assertion)
         return this
@@ -71,7 +67,7 @@ open class AssertionFactory<out T : Any> private constructor(
 
         override fun isNull() {
             if (subject != null) {
-                assertionChecker.fail(assertionVerb, subject, OneMessageAssertion("to be", null, false))
+                assertionChecker.fail(assertionVerb, subject, OneMessageAssertion("to be", RawString.NULL, false))
             }
         }
     }

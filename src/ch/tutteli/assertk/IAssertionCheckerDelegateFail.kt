@@ -6,11 +6,6 @@ interface IAssertionCheckerDelegateFail : IAssertionChecker {
         check(assertionVerb, subject, listOf(assertion))
     }
 
-    override fun failWithCustomSubject(assertionVerb: String, subject: String, assertion: IAssertion) {
-        if (assertion.holds()) throw IllegalArgumentException(THE_GIVEN_ASSERTION_SHOULD_FAIL + assertion)
-        check(assertionVerb, subject, listOf(assertion))
-    }
-
     companion object {
         internal val THE_GIVEN_ASSERTION_SHOULD_FAIL = "the given assertion should fail: "
     }
