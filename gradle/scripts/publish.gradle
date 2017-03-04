@@ -72,7 +72,7 @@ bintray {
     publications = ['mavenJava']
     pkg {
         repo = "$publish_repo"
-        name = "$publish_package"
+        name = "$publish_artifactId"
         licenses = ["$publish_license_name"]
         vcsUrl = "$publish_vcsUrl"
         version {
