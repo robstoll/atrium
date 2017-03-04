@@ -4,6 +4,8 @@ import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.IOneMessageAssertion
 import ch.tutteli.assertk.assertions.Message
+import ch.tutteli.assertk.verbs.assert.*
+import ch.tutteli.assertk.verbs.expect.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
@@ -57,7 +59,7 @@ class AssertionFactorySpec : Spek({
 
         }
 
-        context(factory::addAssertion.name) {
+        context("fun ${factory::addAssertion.name}") {
             inCaseOf("a custom assertion which holds") {
                 factory.addAssertion(object : IAssertion {
                     override fun holds() = true

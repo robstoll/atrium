@@ -16,22 +16,6 @@ import ch.tutteli.assertk.reporting.RawString
 import ch.tutteli.assertk.reporting.SameLineAssertionMessageFormatter
 import kotlin.reflect.KProperty0
 
-fun <T : Any> assert(subject: T): IAssertionFactory<T>
-    = AssertionFactory.newCheckImmediately("assert", subject)
-
-fun <T : Any?> assert(subject: T): IAssertionFactoryNullable<T>
-    = AssertionFactory.newNullable("assert", subject)
-
-inline fun <T : Any> assert(subject: T, createAssertions: IAssertionFactory<T>.() -> Unit)
-    = createAndCheckAssertions("assert", subject, createAssertions)
-
-fun expect(act: () -> Unit): ThrowableFluent {
-    val objectFormatter = DetailedObjectFormatter()
-    val assertionMessageFormatter = SameLineAssertionMessageFormatter(objectFormatter)
-    val reporter = OnlyFailureReporter(assertionMessageFormatter)
-    return ThrowableFluent.create("expect to throw", act, ThrowingAssertionChecker(reporter))
-}
-
 /**
  * Use this function to create custom 'assert' functions which lazy evaluate the given assertions.
  */
