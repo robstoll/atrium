@@ -1,33 +1,38 @@
-group 'ch.tutteli'
-version '1.0-SNAPSHOT'
-
 buildscript {
-    ext.kotlin_version = '1.1.0'
-    ext.junit_version = '1.0.0-M3'
-    ext.jacoco_tool_version = '0.7.6.201602180812'
-    ext.spek_version = '1.1.0-beta3'
-    ext.mockito_kotlin_version = '1.0.1'
+    ext {
+        assertK_version = '0.1.0'
+        kotlin_version = '1.1.0'
+        mockito_kotlin_version = '1.0.1'
+
+        //spek.gradle
+        jacoco_tool_version = '0.7.6.201602180812'
+        spek_version = '1.1.0-beta3'
+        junit_version = '1.0.0-M3'
+
+        //publish.gradle
+        bintray_version = '1.7.3'
+        publish_package = 'assertK'
+        publish_artifactId = 'assertK'
+        publish_version = assertK_version
+        publish_description = 'An assertion framework for Kotlin'
+        publish_vcsUrl = 'https://github.com/robstoll/assertK.git'
+    }
 
     repositories {
         mavenCentral()
-        maven{ url 'http://dl.bintray.com/kotlin/kotlin-eap-1.1' }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
     }
 }
 
 apply plugin: 'kotlin'
-apply plugin: 'org.junit.platform.gradle.plugin'
-apply plugin: 'jacoco'
+apply from: './gradle/scripts/spek.gradle'
+apply from: './gradle/scripts/publish.gradle'
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
-    testCompile "org.jetbrains.spek:spek-api:$spek_version"
-    //TODO change back to testRuntime as soon as https://github.com/JetBrains/spek/pull/176 is fixed and available in release
-    testCompile "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
 }
 
 sourceSets {
@@ -37,38 +42,5 @@ sourceSets {
 
 repositories {
     mavenCentral()
-    maven{ url 'http://dl.bintray.com/kotlin/kotlin-eap-1.1' }
-    maven { url "https://dl.bintray.com/jetbrains/spek" }
 }
 
-junitPlatform {
-    platformVersion junit_version
-    filters {
-        engines {
-            include 'spek'
-        }
-    }
-}
-
-// adopted from http://stackoverflow.com/questions/39362955/gradle-jacoco-and-junit5
-afterEvaluate {
-    def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
-    jacoco {
-        toolVersion = jacoco_tool_version
-        applyTo junitPlatformTestTask
-    }
-
-    project.task(type: JacocoReport, 'junitPlatformJacocoReport',
-        {
-            sourceDirectories = sourceSets.main.allJava
-            classDirectories = files("$buildDir/classes/main")
-            executionData junitPlatformTestTask
-            reports {
-                xml.enabled = true
-                xml.destination "${buildDir}/reports/jacoco/report.xml"
-                html.enabled = true
-                html.destination "${buildDir}/jacoco/"
-            }
-        })
-    check.dependsOn junitPlatformJacocoReport
-}

@@ -1,0 +1,87 @@
+import com.jfrog.bintray.gradle.BintrayPlugin
+
+group = publish_groupId
+version = publish_version
+description = publish_description
+
+buildscript {
+    def propertyOrDefault = {name, defaultValue -> hasProperty(name) ? proeprty(name) : defaultValue }
+    ext{
+        publish_license_name = propertyOrDefault('publish_license_name', 'EUPL-1.2')
+        publish_license_description =  propertyOrDefault('publish_license_description', 'European Union Public Licence, Version 1.2')
+        publish_license_url = propertyOrDefault('publish_license_url', 'https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12')
+        publish_license_distribution = propertyOrDefault('publish_license_distribution', 'repo')
+
+        publish_dev_id = propertyOrDefault('publish_dev_id', 'robstoll')
+        publish_dev_name = propertyOrDefault('publish_dev_name', 'Robert Stoll')
+        publish_dev_email = propertyOrDefault('publish_dev_email', 'rstoll@tutteli.ch')
+
+        publish_repo = propertyOrDefault('publish_repo', 'tutteli-jars')
+        publish_groupId = propertyOrDefault('publish_groupId', 'ch.tutteli')
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintray_version"
+    }
+}
+
+apply plugin: BintrayPlugin
+apply plugin: 'maven-publish'
+
+def pomConfig = {
+    licenses {
+        license {
+            name "$publish_license_description"
+            url "$publish_license_url"
+            distribution "$publish_license_distribution"
+        }
+    }
+    developers {
+        developer {
+            id "$publish_dev_id"
+            name "$publish_dev_name"
+            email "$publish_dev_email"
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId "$publish_groupId"
+            artifactId "$publish_artifactId"
+            version "$publish_version"
+
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', "$publish_description")
+                root.children().last() + pomConfig
+            }
+        }
+    }
+}
+
+bintray {
+    user = project.property('bintrayUser')
+    key = project.property('bintrayApiKey')
+    publications = ['mavenJava']
+    pkg {
+        repo = "$publish_repo"
+        name = "$publish_package"
+        licenses = ["$publish_license_name"]
+        vcsUrl = "$publish_vcsUrl"
+        version {
+            name = "$publish_version"
+            released  = new Date()
+            gpg {
+                sign = true
+                passphrase = project.property('gpgPassphrase')
+            }
+        }
+    }
+}
