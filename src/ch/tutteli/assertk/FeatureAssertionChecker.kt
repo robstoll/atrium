@@ -1,5 +1,6 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.IAssertionFactory
 import ch.tutteli.assertk.assertions.FeatureAssertionGroup
 import ch.tutteli.assertk.assertions.IAssertion
 

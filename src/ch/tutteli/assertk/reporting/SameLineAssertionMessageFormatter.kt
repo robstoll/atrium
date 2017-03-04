@@ -1,5 +1,7 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.reporting
 
+import ch.tutteli.assertk.Message
+import ch.tutteli.assertk.appendToStringBuilder
 import ch.tutteli.assertk.assertions.*
 
 class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectFormatter) : IAssertionMessageFormatter {

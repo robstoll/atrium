@@ -2,6 +2,7 @@ package ch.tutteli.assertk
 
 import ch.tutteli.assertk.assertions.AssertionGroup
 import ch.tutteli.assertk.assertions.IAssertion
+import ch.tutteli.assertk.reporting.IReporter
 
 class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionCheckerDelegateFail, IAssertionChecker {
 

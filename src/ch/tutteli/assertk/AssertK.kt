@@ -3,6 +3,10 @@
 package ch.tutteli.assertk
 
 import ch.tutteli.assertk.assertions.OneMessageAssertion
+import ch.tutteli.assertk.FeatureAssertionChecker
+import ch.tutteli.assertk.IAssertionChecker
+import ch.tutteli.assertk.ThrowingAssertionChecker
+import ch.tutteli.assertk.reporting.*
 import kotlin.reflect.KProperty0
 
 fun <T : Any> assert(subject: T): IAssertionFactory<T>

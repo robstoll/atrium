@@ -1,6 +1,7 @@
 package ch.tutteli.assertk
 
 import ch.tutteli.assertk.assertions.IAssertion
+import ch.tutteli.assertk.IAssertionChecker
 
 interface IAssertionFactory<out T : Any> {
     val subject: T

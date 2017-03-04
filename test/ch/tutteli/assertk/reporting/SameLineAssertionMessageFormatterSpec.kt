@@ -1,6 +1,8 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.reporting
 
+import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.*
+import ch.tutteli.assertk.reporting.SameLineAssertionMessageFormatter
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 

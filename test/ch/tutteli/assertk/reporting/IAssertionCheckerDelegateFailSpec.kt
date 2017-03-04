@@ -1,7 +1,12 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.reporting
 
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.OneMessageAssertion
+import ch.tutteli.assertk.IAssertionCheckerDelegateFail
+import ch.tutteli.assertk.describe
+import ch.tutteli.assertk.expect
+import ch.tutteli.assertk.message
+import ch.tutteli.assertk.startsWith
 import com.nhaarman.mockito_kotlin.spy
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
