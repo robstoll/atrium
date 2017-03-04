@@ -1,5 +1,7 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.assertions.IAssertion
+
 class OnlyFailureReporter(private val assertionMessageFormatter: IAssertionMessageFormatter) : IReporter {
 
     override fun format(sb: StringBuilder, assertion: IAssertion)

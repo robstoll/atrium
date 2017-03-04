@@ -1,4 +1,4 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.assertions
 
 interface IAssertion {
     fun holds(): Boolean

@@ -1,5 +1,7 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.assertions.IAssertion
+import ch.tutteli.assertk.assertions.OneMessageAssertion
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek

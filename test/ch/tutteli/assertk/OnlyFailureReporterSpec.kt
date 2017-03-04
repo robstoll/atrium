@@ -1,5 +1,6 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.assertions.*
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock

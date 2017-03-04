@@ -1,5 +1,6 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.assertions.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 
@@ -72,7 +73,7 @@ class SameLineAssertionMessageFormatterSpec : Spek({
                         OneMessageAssertion("starts with", "a", true),
                         OneMessageAssertion("ends with", "description", true)
                     )),
-                    FeatureAssertionGroup(message::representation.name, message.representation!!, listOf(
+                    FeatureAssertionGroup(message::representation.name, message.representation, listOf(
                         OneMessageAssertion("to be", "whatever", true)
                     ))
                 )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
