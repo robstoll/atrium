@@ -1,5 +1,10 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.reporting
 
+import ch.tutteli.assertk.IAssertionFactory
+import ch.tutteli.assertk.describe
+import ch.tutteli.assertk.reporting.DetailedObjectFormatter
+import ch.tutteli.assertk.reporting.RawString
+import ch.tutteli.assertk.toBe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
@@ -12,14 +17,14 @@ class DetailedObjectFormatterSpec : Spek({
             val i: Int? = null
             val result = testee.format(i)
             it("returns null") {
-                assert(result).toBe("null")
+                ch.tutteli.assertk.assert(result).toBe("null")
             }
         }
 
         on(RawString::class.java.simpleName){
             val result = testee.format(RawString("hello"))
             it("returns the containing string") {
-                assert(result).toBe("hello")
+                ch.tutteli.assertk.assert(result).toBe("hello")
             }
         }
 
@@ -27,7 +32,7 @@ class DetailedObjectFormatterSpec : Spek({
             val result = testee.format(DetailedObjectFormatterSpec::class.java)
             it("returns its simpleName and name in parenthesis") {
                 val clazz = DetailedObjectFormatterSpec::class.java
-                assert(result).toBe("${clazz.simpleName} (${clazz.name})")
+                ch.tutteli.assertk.assert(result).toBe("${clazz.simpleName} (${clazz.name})")
             }
         }
 
@@ -35,12 +40,12 @@ class DetailedObjectFormatterSpec : Spek({
             it("returns two quotes including identity hash if empty CharSequence") {
                 val string = ""
                 val result = testee.format(string)
-                assert(result).toBe("\"\"   <${System.identityHashCode(string)}>")
+                ch.tutteli.assertk.assert(result).toBe("\"\"   <${System.identityHashCode(string)}>")
             }
             it("returns CharSequence in quotes including identity hash") {
                 val string = "assertK"
                 val result = testee.format(string)
-                assert(result).toBe("\"$string\"   <${System.identityHashCode(string)}>")
+                ch.tutteli.assertk.assert(result).toBe("\"$string\"   <${System.identityHashCode(string)}>")
             }
         }
 
@@ -54,8 +59,8 @@ class DetailedObjectFormatterSpec : Spek({
         ).forEach {
             on(it.key) {
                 val result = testee.format(it.value)
-                it("returns ${IAssertionFactory<Any>::subject.name}.toString() including type name and identity hash") {
-                    assert(result).toBe(it.value.toString()
+                it("returns ${IAssertionFactory<*>::subject.name}.toString() including type name and identity hash") {
+                    ch.tutteli.assertk.assert(result).toBe(it.value.toString()
                         + "   (" + it.value::class.java.name
                         + "<" + System.identityHashCode(it.value) + ">"
                         + ")")

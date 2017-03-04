@@ -1,6 +1,14 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.reporting
 
+import ch.tutteli.assertk.Message
 import ch.tutteli.assertk.assertions.*
+import ch.tutteli.assertk.context
+import ch.tutteli.assertk.describe
+import ch.tutteli.assertk.isEmpty
+import ch.tutteli.assertk.reporting.DetailedObjectFormatter
+import ch.tutteli.assertk.reporting.IAssertionMessageFormatter
+import ch.tutteli.assertk.reporting.OnlyFailureReporter
+import ch.tutteli.assertk.reporting.SameLineAssertionMessageFormatter
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock
@@ -29,7 +37,7 @@ class OnlyFailureReporterSpec : Spek({
             it("does not append anything if ${clazz.simpleName} holds") {
                 val testee = OnlyFailureReporter(SameLineAssertionMessageFormatter(DetailedObjectFormatter()))
                 testee.format(sb, assertion)
-                assert(sb).isEmpty()
+                ch.tutteli.assertk.assert(sb).isEmpty()
             }
         }
 

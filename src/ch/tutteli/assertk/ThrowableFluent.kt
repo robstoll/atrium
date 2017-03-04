@@ -1,5 +1,7 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.IAssertionChecker
+
 class ThrowableFluent(val assertionVerb: String, val throwable: Throwable?, val assertionChecker: IAssertionChecker) {
 
     inline fun <reified TExpected : Throwable> toThrow(): IAssertionFactory<TExpected> {
