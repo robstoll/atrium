@@ -1,4 +1,6 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.assertions
+
+import ch.tutteli.assertk.assertions.IAssertion
 
 data class AssertionGroup(
     override val name: String,

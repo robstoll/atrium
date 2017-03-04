@@ -1,4 +1,7 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.assertions
+
+import ch.tutteli.assertk.Message
+import ch.tutteli.assertk.assertions.IOneMessageAssertion
 
 
 data class OneMessageAssertion(val description: String, val representation: Any, val holds: Boolean) : IOneMessageAssertion {

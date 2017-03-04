@@ -1,5 +1,7 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.assertions.IAssertion
+
 interface IAssertionFactory<out T : Any> {
     val subject: T
     val assertionVerb: String

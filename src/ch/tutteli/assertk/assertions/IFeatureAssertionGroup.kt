@@ -1,6 +1,8 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.assertions
 
-interface IFeatureAssertionGroup: IAssertion{
+import ch.tutteli.assertk.assertions.IAssertion
+
+interface IFeatureAssertionGroup: IAssertion {
     val featureName: String
     val subSubject: Any
     val assertions: List<IAssertion>

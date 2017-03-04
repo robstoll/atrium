@@ -1,5 +1,7 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.assertions.IAssertion
+
 interface IAssertionCheckerDelegateFail : IAssertionChecker {
     override fun fail(assertionVerb: String, subject: Any, assertion: IAssertion) {
         if (assertion.holds()) throw IllegalArgumentException(THE_GIVEN_ASSERTION_SHOULD_FAIL + assertion)

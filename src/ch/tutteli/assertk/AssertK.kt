@@ -2,6 +2,7 @@
 
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.assertions.OneMessageAssertion
 import kotlin.reflect.KProperty0
 
 fun <T : Any> assert(subject: T): IAssertionFactory<T>
