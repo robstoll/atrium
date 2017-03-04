@@ -5,19 +5,18 @@ version = publish_version
 description = publish_description
 
 buildscript {
-    def propertyOrDefault = {name, defaultValue -> hasProperty(name) ? proeprty(name) : defaultValue }
     ext{
-        publish_license_name = propertyOrDefault('publish_license_name', 'Apache-2.0')
-        publish_license_description =  propertyOrDefault('publish_license_description', 'The Apache Software License, Version 2.0')
-        publish_license_url = propertyOrDefault('publish_license_url', 'http://www.apache.org/licenses/LICENSE-2.0.txt')
-        publish_license_distribution = propertyOrDefault('publish_license_distribution', 'repo')
+        publish_license_name = findProperty('publish_license_name') ?: 'Apache-2.0'
+        publish_license_description =  findProperty('publish_license_description') ?: 'The Apache Software License, Version 2.0'
+        publish_license_url = findProperty('publish_license_url') ?: 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+        publish_license_distribution = findProperty('publish_license_distribution') ?: 'repo'
 
-        publish_dev_id = propertyOrDefault('publish_dev_id', 'robstoll')
-        publish_dev_name = propertyOrDefault('publish_dev_name', 'Robert Stoll')
-        publish_dev_email = propertyOrDefault('publish_dev_email', 'rstoll@tutteli.ch')
+        publish_dev_id = findProperty('publish_dev_id') ?: 'robstoll'
+        publish_dev_name = findProperty('publish_dev_name') ?: 'Robert Stoll'
+        publish_dev_email = findProperty('publish_dev_email') ?: 'rstoll@tutteli.ch'
 
-        publish_repo = propertyOrDefault('publish_repo', 'tutteli-jars')
-        publish_groupId = propertyOrDefault('publish_groupId', 'ch.tutteli')
+        publish_repo = findProperty('publish_repo') ?: 'tutteli-jars'
+        publish_groupId = findProperty('publish_groupId') ?: 'ch.tutteli'
     }
 
     repositories {
@@ -31,6 +30,7 @@ buildscript {
 
 apply plugin: BintrayPlugin
 apply plugin: 'maven-publish'
+
 
 def pomConfig = {
     licenses {
@@ -67,8 +67,8 @@ publishing {
 }
 
 bintray {
-    user = propertyOrDefault('bintrayUser', System.getenv('BINTRAY_USER'))
-    key = propertyOrDefault('bintrayApiKey', System.getenv('BINGTRAY_API_KEY'))
+    user = findProperty('bintrayUser') ?: System.getenv('BINTRAY_USER')
+    key = findProperty('bintrayApiKey') ?: System.getenv('BINGTRAY_API_KEY')
     publications = ['mavenJava']
     pkg {
         repo = "$publish_repo"
@@ -80,7 +80,7 @@ bintray {
             released  = new Date()
             gpg {
                 sign = true
-                passphrase = propertyOrDefault('gpgPassphrase', System.getenv('GPG_PASSPHRASE'))
+                passphrase = findProperty('gpgPassphrase') ?: System.getenv('GPG_PASSPHRASE')
             }
         }
     }
