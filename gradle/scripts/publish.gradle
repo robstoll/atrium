@@ -67,8 +67,8 @@ publishing {
 }
 
 bintray {
-    user = project.property('bintrayUser')
-    key = project.property('bintrayApiKey')
+    user = propertyOrDefault('bintrayUser', System.getenv('BINTRAY_USER'))
+    key = propertyOrDefault('bintrayApiKey', System.getenv('BINGTRAY_API_KEY'))
     publications = ['mavenJava']
     pkg {
         repo = "$publish_repo"
@@ -80,7 +80,7 @@ bintray {
             released  = new Date()
             gpg {
                 sign = true
-                passphrase = project.property('gpgPassphrase')
+                passphrase = propertyOrDefault('gpgPassphrase', System.getenv('GPG_PASSPHRASE'))
             }
         }
     }
