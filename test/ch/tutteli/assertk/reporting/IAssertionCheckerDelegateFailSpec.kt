@@ -2,7 +2,7 @@ package ch.tutteli.assertk.reporting
 
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.OneMessageAssertion
-import ch.tutteli.assertk.IAssertionCheckerDelegateFail
+import ch.tutteli.assertk.checking.IAssertionCheckerDelegateFail
 import ch.tutteli.assertk.describe
 import ch.tutteli.assertk.expect
 import ch.tutteli.assertk.message

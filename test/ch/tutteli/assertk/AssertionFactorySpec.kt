@@ -2,6 +2,7 @@ package ch.tutteli.assertk
 
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.IOneMessageAssertion
+import ch.tutteli.assertk.assertions.Message
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on

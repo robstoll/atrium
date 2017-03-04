@@ -1,6 +1,6 @@
 package ch.tutteli.assertk
 
-import ch.tutteli.assertk.IAssertionChecker
+import ch.tutteli.assertk.checking.IAssertionChecker
 
 interface IAssertionFactoryNullable<out T : Any?> {
     val subject: T
