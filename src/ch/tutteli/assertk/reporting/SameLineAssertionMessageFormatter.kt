@@ -1,8 +1,7 @@
 package ch.tutteli.assertk.reporting
 
-import ch.tutteli.assertk.assertions.Message
-import ch.tutteli.assertk.appendToStringBuilder
 import ch.tutteli.assertk.assertions.*
+import ch.tutteli.kbox.appendToStringBuilder
 
 class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectFormatter) : IAssertionMessageFormatter {
 
@@ -27,7 +26,7 @@ class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectForm
         methodObject.sb
             .appendPair(assertionGroup.name, assertionGroup.subject)
             .appendln()
-            .appendAssertions(assertionGroup.assertions, methodObject, {methodObject})
+            .appendAssertions(assertionGroup.assertions, methodObject, { methodObject })
     }
 
     private fun formatFeature(featureAssertionGroup: IFeatureAssertionGroup, methodObject: MethodObject) {

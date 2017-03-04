@@ -2,7 +2,6 @@ package ch.tutteli.assertk.reporting
 
 import ch.tutteli.assertk.IAssertionFactory
 import ch.tutteli.assertk.describe
-import ch.tutteli.assertk.reporting.DetailedObjectFormatter
 import ch.tutteli.assertk.reporting.RawString
 import ch.tutteli.assertk.toBe
 import org.jetbrains.spek.api.Spek
@@ -21,7 +20,7 @@ class DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        on(RawString::class.java.simpleName){
+        on(RawString::class.java.simpleName) {
             val result = testee.format(RawString("hello"))
             it("returns the containing string") {
                 ch.tutteli.assertk.assert(result).toBe("hello")

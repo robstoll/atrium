@@ -1,6 +1,7 @@
 buildscript {
     ext {
         assertK_version = '0.1.1-SNAPSHOT'
+        kbox_version = '0.0.1'
         kotlin_version = '1.1.0'
         mockito_kotlin_version = '1.0.1'
 
@@ -31,11 +32,14 @@ apply from: './gradle/scripts/publish.gradle'
 
 repositories {
     mavenCentral()
+    maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 
 dependencies {
+    compile "ch.tutteli:kbox:$kbox_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
+
 }
 
 sourceSets {

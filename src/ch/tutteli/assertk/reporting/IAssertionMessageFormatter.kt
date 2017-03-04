@@ -1,7 +1,7 @@
 package ch.tutteli.assertk.reporting
 
-import ch.tutteli.assertk.assertions.Message
 import ch.tutteli.assertk.assertions.IAssertion
+import ch.tutteli.assertk.assertions.Message
 
 interface IAssertionMessageFormatter {
     fun format(sb: StringBuilder,
