@@ -2,6 +2,7 @@ package ch.tutteli.assertk.reporting
 
 import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.*
+import ch.tutteli.assertk.verbs.assert.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 
@@ -48,7 +49,7 @@ class SameLineAssertionMessageFormatterSpec : Spek({
         assert(sb.toString()).startsWith("assert: subject${separator}bla: bli${separator}hello: bye")
     }
 
-    context(IFeatureAssertionGroup::class.java.simpleName) {
+    context("a ${IFeatureAssertionGroup::class.java.simpleName}") {
         val arrow = "-> "
         it("starts feature name with '$arrow' followed by representation") {
             testee.format(sb, FeatureAssertionGroup("name", "robert", listOf(

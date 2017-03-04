@@ -1,11 +1,13 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.verbs.assert.*
+import ch.tutteli.assertk.verbs.expect.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 
 class AssertKCharSequenceSpec : Spek({
     val factory = assert("hello my name is robert")
-    describe(factory::isEmpty.name) {
+    describe("fun ${factory::isEmpty.name}") {
         it("throws an AssertionError if the string is not empty") {
             expect {
                 assert("not empty string").isEmpty()

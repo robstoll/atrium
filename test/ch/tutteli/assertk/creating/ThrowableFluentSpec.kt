@@ -3,6 +3,7 @@ package ch.tutteli.assertk.creating
 import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker
+import ch.tutteli.assertk.verbs.expect.expect
 import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it

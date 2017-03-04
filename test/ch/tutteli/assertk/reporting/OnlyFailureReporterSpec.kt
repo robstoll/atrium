@@ -4,6 +4,7 @@ import ch.tutteli.assertk.assertions.*
 import ch.tutteli.assertk.context
 import ch.tutteli.assertk.describe
 import ch.tutteli.assertk.isEmpty
+import ch.tutteli.assertk.verbs.assert.assert
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock
@@ -32,7 +33,7 @@ class OnlyFailureReporterSpec : Spek({
             it("does not append anything if ${clazz.simpleName} holds") {
                 val testee = OnlyFailureReporter(SameLineAssertionMessageFormatter(DetailedObjectFormatter()))
                 testee.format(sb, assertion)
-                ch.tutteli.assertk.assert(sb).isEmpty()
+                assert(sb).isEmpty()
             }
         }
 
