@@ -1,5 +1,6 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.checking
 
+import ch.tutteli.assertk.checking.IAssertionCheckerDelegateFail
 import ch.tutteli.assertk.assertions.AssertionGroup
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.reporting.IReporter

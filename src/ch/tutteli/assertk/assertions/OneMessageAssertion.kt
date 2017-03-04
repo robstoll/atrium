@@ -1,6 +1,6 @@
 package ch.tutteli.assertk.assertions
 
-import ch.tutteli.assertk.Message
+import ch.tutteli.assertk.assertions.Message
 import ch.tutteli.assertk.assertions.IOneMessageAssertion
 
 

@@ -3,9 +3,9 @@
 package ch.tutteli.assertk
 
 import ch.tutteli.assertk.assertions.OneMessageAssertion
-import ch.tutteli.assertk.FeatureAssertionChecker
-import ch.tutteli.assertk.IAssertionChecker
-import ch.tutteli.assertk.ThrowingAssertionChecker
+import ch.tutteli.assertk.checking.FeatureAssertionChecker
+import ch.tutteli.assertk.checking.IAssertionChecker
+import ch.tutteli.assertk.checking.ThrowingAssertionChecker
 import ch.tutteli.assertk.reporting.*
 import kotlin.reflect.KProperty0
 

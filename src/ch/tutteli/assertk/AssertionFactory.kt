@@ -2,8 +2,8 @@ package ch.tutteli.assertk
 
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.OneMessageAssertion
-import ch.tutteli.assertk.IAssertionChecker
-import ch.tutteli.assertk.ThrowingAssertionChecker
+import ch.tutteli.assertk.checking.IAssertionChecker
+import ch.tutteli.assertk.checking.ThrowingAssertionChecker
 import ch.tutteli.assertk.reporting.*
 import java.util.*
 

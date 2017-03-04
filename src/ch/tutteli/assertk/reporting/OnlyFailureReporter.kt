@@ -1,6 +1,6 @@
 package ch.tutteli.assertk.reporting
 
-import ch.tutteli.assertk.Message
+import ch.tutteli.assertk.assertions.Message
 import ch.tutteli.assertk.assertions.IAssertion
 
 class OnlyFailureReporter(private val assertionMessageFormatter: IAssertionMessageFormatter) : IReporter {

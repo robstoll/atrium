@@ -1,5 +1,6 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.assertions
 
+import ch.tutteli.assertk.assertions.Message
 import ch.tutteli.assertk.assertions.IOneMessageAssertion
 import ch.tutteli.assertk.reporting.RawString
 
