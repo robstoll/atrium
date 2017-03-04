@@ -1,0 +1,55 @@
+import org.junit.platform.gradle.plugin.JUnitPlatformPlugin
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    println junit_version
+    dependencies {
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
+    }
+}
+apply plugin: 'jacoco'
+apply plugin: JUnitPlatformPlugin
+
+dependencies {
+    testCompile "org.jetbrains.spek:spek-api:$spek_version"
+    //TODO change back to testRuntime as soon as https://github.com/JetBrains/spek/pull/176 is fixed and available in release
+    testCompile "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
+}
+
+repositories {
+    maven { url "https://dl.bintray.com/jetbrains/spek" }
+}
+
+junitPlatform {
+    platformVersion "$junit_version"
+    filters {
+        engines {
+            include 'spek'
+        }
+    }
+}
+
+// adopted from http://stackoverflow.com/questions/39362955/gradle-jacoco-and-junit5
+afterEvaluate {
+    def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
+    jacoco {
+        toolVersion = "$jacoco_tool_version"
+        applyTo junitPlatformTestTask
+    }
+
+    project.task(type: JacocoReport, 'junitPlatformJacocoReport',
+        {
+            sourceDirectories = sourceSets.main.allJava
+            classDirectories = files("$buildDir/classes/main")
+            executionData junitPlatformTestTask
+            reports {
+                xml.enabled = true
+                xml.destination "${buildDir}/reports/jacoco/report.xml"
+                html.enabled = true
+                html.destination "${buildDir}/jacoco/"
+            }
+        })
+    check.dependsOn junitPlatformJacocoReport
+}
