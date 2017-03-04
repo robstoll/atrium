@@ -1,6 +1,6 @@
 package ch.tutteli.assertk.reporting
 
-import ch.tutteli.assertk.IAssertionFactory
+import ch.tutteli.assertk.creating.IAssertionFactory
 import ch.tutteli.assertk.describe
 import ch.tutteli.assertk.reporting.RawString
 import ch.tutteli.assertk.toBe

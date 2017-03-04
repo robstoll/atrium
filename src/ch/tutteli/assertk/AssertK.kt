@@ -6,6 +6,10 @@ import ch.tutteli.assertk.assertions.OneMessageAssertion
 import ch.tutteli.assertk.checking.FeatureAssertionChecker
 import ch.tutteli.assertk.checking.IAssertionChecker
 import ch.tutteli.assertk.checking.ThrowingAssertionChecker
+import ch.tutteli.assertk.creating.AssertionFactory
+import ch.tutteli.assertk.creating.IAssertionFactory
+import ch.tutteli.assertk.creating.IAssertionFactoryNullable
+import ch.tutteli.assertk.creating.ThrowableFluent
 import ch.tutteli.assertk.reporting.DetailedObjectFormatter
 import ch.tutteli.assertk.reporting.OnlyFailureReporter
 import ch.tutteli.assertk.reporting.RawString

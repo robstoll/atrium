@@ -1,4 +1,4 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.creating
 
 import ch.tutteli.assertk.assertions.ExceptionThrownAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker

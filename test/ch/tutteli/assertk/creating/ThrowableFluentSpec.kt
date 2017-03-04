@@ -1,5 +1,6 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.creating
 
+import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker
 import com.nhaarman.mockito_kotlin.*
