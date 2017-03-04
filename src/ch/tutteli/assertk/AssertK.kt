@@ -94,8 +94,7 @@ fun IAssertionFactory<CharSequence>.endsWith(expected: CharSequence)
     = createAndAddAssertion("ends with", expected, { subject.endsWith(expected) })
 
 fun IAssertionFactory<CharSequence>.isEmpty()
-    //TODO empty is now printed as string (with system identity hash)
-    = createAndAddAssertion("is", "empty", { subject.isEmpty() })
+    = createAndAddAssertion("is", RawString("empty"), { subject.isEmpty() })
 
 val IAssertionFactory<Throwable>.message : IAssertionFactory<String> get() = and(subject::message).isNotNull()
 fun IAssertionFactory<Throwable>.message(createAssertions: IAssertionFactory<String>.() -> Unit) : IAssertionFactory<String> = and(subject::message).isNotNull(createAssertions)
