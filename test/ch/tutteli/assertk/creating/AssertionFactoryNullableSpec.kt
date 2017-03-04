@@ -1,5 +1,6 @@
-package ch.tutteli.assertk
+package ch.tutteli.assertk.creating
 
+import ch.tutteli.assertk.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 
