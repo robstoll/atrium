@@ -1,14 +1,9 @@
 package ch.tutteli.assertk.reporting
 
-import ch.tutteli.assertk.assertions.Message
 import ch.tutteli.assertk.assertions.*
 import ch.tutteli.assertk.context
 import ch.tutteli.assertk.describe
 import ch.tutteli.assertk.isEmpty
-import ch.tutteli.assertk.reporting.DetailedObjectFormatter
-import ch.tutteli.assertk.reporting.IAssertionMessageFormatter
-import ch.tutteli.assertk.reporting.OnlyFailureReporter
-import ch.tutteli.assertk.reporting.SameLineAssertionMessageFormatter
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock
@@ -33,7 +28,7 @@ class OnlyFailureReporterSpec : Spek({
             IOneMessageAssertion::class.java to oneMessageAssertion,
             IMultiMessageAssertion::class.java to multiMessageAssertion,
             IAssertionGroup::class.java to AssertionGroup("groupName", 0, listOf(assertion, oneMessageAssertion, multiMessageAssertion))
-        ).forEach {clazz, assertion ->
+        ).forEach { clazz, assertion ->
             it("does not append anything if ${clazz.simpleName} holds") {
                 val testee = OnlyFailureReporter(SameLineAssertionMessageFormatter(DetailedObjectFormatter()))
                 testee.format(sb, assertion)

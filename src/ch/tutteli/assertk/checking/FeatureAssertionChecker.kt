@@ -1,6 +1,5 @@
 package ch.tutteli.assertk.checking
 
-import ch.tutteli.assertk.checking.IAssertionCheckerDelegateFail
 import ch.tutteli.assertk.IAssertionFactory
 import ch.tutteli.assertk.assertions.FeatureAssertionGroup
 import ch.tutteli.assertk.assertions.IAssertion

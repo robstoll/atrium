@@ -6,7 +6,10 @@ import ch.tutteli.assertk.assertions.OneMessageAssertion
 import ch.tutteli.assertk.checking.FeatureAssertionChecker
 import ch.tutteli.assertk.checking.IAssertionChecker
 import ch.tutteli.assertk.checking.ThrowingAssertionChecker
-import ch.tutteli.assertk.reporting.*
+import ch.tutteli.assertk.reporting.DetailedObjectFormatter
+import ch.tutteli.assertk.reporting.OnlyFailureReporter
+import ch.tutteli.assertk.reporting.RawString
+import ch.tutteli.assertk.reporting.SameLineAssertionMessageFormatter
 import kotlin.reflect.KProperty0
 
 fun <T : Any> assert(subject: T): IAssertionFactory<T>
@@ -101,5 +104,5 @@ fun IAssertionFactory<CharSequence>.endsWith(expected: CharSequence)
 fun IAssertionFactory<CharSequence>.isEmpty()
     = createAndAddAssertion("is", RawString("empty"), { subject.isEmpty() })
 
-val IAssertionFactory<Throwable>.message : IAssertionFactory<String> get() = and(subject::message).isNotNull()
-fun IAssertionFactory<Throwable>.message(createAssertions: IAssertionFactory<String>.() -> Unit) : IAssertionFactory<String> = and(subject::message).isNotNull(createAssertions)
+val IAssertionFactory<Throwable>.message: IAssertionFactory<String> get() = and(subject::message).isNotNull()
+fun IAssertionFactory<Throwable>.message(createAssertions: IAssertionFactory<String>.() -> Unit): IAssertionFactory<String> = and(subject::message).isNotNull(createAssertions)

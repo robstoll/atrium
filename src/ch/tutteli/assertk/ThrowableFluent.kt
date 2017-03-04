@@ -31,7 +31,7 @@ class ThrowableFluent(val assertionVerb: String, val throwable: Throwable?, val 
     }
 
     companion object {
-        fun create(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent{
+        fun create(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {
             var throwable: Throwable? = null
             try {
                 act()
