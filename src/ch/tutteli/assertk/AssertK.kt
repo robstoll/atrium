@@ -5,42 +5,25 @@ package ch.tutteli.assertk
 import ch.tutteli.assertk.assertions.OneMessageAssertion
 import ch.tutteli.assertk.checking.FeatureAssertionChecker
 import ch.tutteli.assertk.checking.IAssertionChecker
-import ch.tutteli.assertk.checking.ThrowingAssertionChecker
 import ch.tutteli.assertk.creating.AssertionFactory
 import ch.tutteli.assertk.creating.IAssertionFactory
 import ch.tutteli.assertk.creating.IAssertionFactoryNullable
-import ch.tutteli.assertk.creating.ThrowableFluent
-import ch.tutteli.assertk.reporting.DetailedObjectFormatter
-import ch.tutteli.assertk.reporting.OnlyFailureReporter
 import ch.tutteli.assertk.reporting.RawString
-import ch.tutteli.assertk.reporting.SameLineAssertionMessageFormatter
 import kotlin.reflect.KProperty0
-
-/**
- * Use this function to create custom 'assert' functions which lazy evaluate the given assertions.
- */
-inline fun <T : Any> createAndCheckAssertions(assertionVerb: String, subject: T, createAssertions: IAssertionFactory<T>.() -> Unit)
-    = createAndCheckAssertions(AssertionFactory.new(assertionVerb, subject), createAssertions)
-
-inline fun <T : Any> createAndCheckAssertions(factory: IAssertionFactory<T>, createAssertions: IAssertionFactory<T>.() -> Unit): IAssertionFactory<T> {
-    factory.createAssertions()
-    factory.checkAssertions()
-    return factory
-}
 
 fun <T : Any, TSub : Any> IAssertionFactory<T>.and(feature: KProperty0<TSub>): IAssertionFactory<TSub>
     = AssertionFactory.newCheckImmediately(feature.name, feature.get(), FeatureAssertionChecker(this))
 
 fun <T : Any, TSub : Any> IAssertionFactory<T>.and(feature: KProperty0<TSub>, createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub> {
-    val featureFactory = AssertionFactory.new(feature.name, feature.get(), FeatureAssertionChecker(this))
-    return createAndCheckAssertions(featureFactory, createAssertions)
+    val featureFactory = AssertionFactory.newCheckLazily(feature.name, feature.get(), FeatureAssertionChecker(this))
+    return AssertionFactory.createAssertionsAndCheckThem(featureFactory, createAssertions)
 }
 
 fun <T : Any, TSub : Any?> IAssertionFactory<T>.and(feature: KProperty0<TSub>): IAssertionFactoryNullable<TSub>
     = AssertionFactory.newNullable(feature.name, feature.get(), FeatureAssertionChecker(this))
 
 fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull(createAssertions: IAssertionFactory<T>.() -> Unit)
-    = isNotNull(this, { createAndCheckAssertions(assertionVerb, subject!!, createAssertions) })
+    = isNotNull(this, { AssertionFactory.newCheckLazilyAtTheEnd(assertionVerb, subject!!, createAssertions) })
 
 fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull()
     = isNotNull(this, { AssertionFactory.newCheckImmediately(assertionVerb, subject!!) })
@@ -53,7 +36,6 @@ private fun <T : Any> isNotNull(factoryNullable: IAssertionFactoryNullable<T?>, 
         throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception")
     }
 }
-
 
 // ---------------------------------------------------------------------------------
 // Assertions ----------------------------------------------------------------------
