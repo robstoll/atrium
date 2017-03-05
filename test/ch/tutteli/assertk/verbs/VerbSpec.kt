@@ -16,11 +16,15 @@ class VerbSpec : Spek({
             "expect" to expect(1)
         ).forEach { (verb, factory) ->
             group(verb) {
-                it("fails immediately") {
+                it("does not throw an exception in case the assertion holds") {
+                    factory.toBe(1)
+                }
+                it("throws an AssertionError as soon as one assertion fails") {
                     expect {
-                        factory.isSmallerThan(0).and.isGreaterThan(2)
+                        factory.isSmallerThan(10).and.isSmallerThan(0).and.isGreaterThan(2)
                     }.toThrow<AssertionError> {
                         assert(subject.message).isNotNull {
+                            //TODO contains not 10
                             contains("1") //the actual value
                             contains("0") //the expected value
                             //TODO contains not 2
@@ -39,7 +43,10 @@ class VerbSpec : Spek({
             "expect" to { createAssertions: IAssertionFactory<Int>.() -> Unit -> expect(1, createAssertions) }
         ).forEach { (verb, factory) ->
             group(verb) {
-                it("evaluates all assertions") {
+                it("does not throw an exception in case the assertion holds") {
+                    factory { toBe(1) }
+                }
+                it("evaluates all assertions and then throws an AssertionError") {
                     expect {
                         factory {
                             isSmallerThan(0)
@@ -66,6 +73,11 @@ class VerbSpec : Spek({
             group(verb) {
                 it("does not throw an exception when calling isNull") {
                     factory.isNull()
+                }
+                it("throws an AssertionError when calling isNotNull") {
+                    expect {
+                        factory.isNotNull()
+                    }.toThrow<AssertionError>().and.message.contains("is not", "null")
                 }
             }
         }
