@@ -1,7 +1,7 @@
 package ch.tutteli.assertk.creating
 
 import ch.tutteli.assertk.*
-import ch.tutteli.assertk.verbs.assert.*
+import ch.tutteli.assertk.verbs.assert.assert
 import ch.tutteli.assertk.verbs.expect.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it

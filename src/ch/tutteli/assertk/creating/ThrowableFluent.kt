@@ -21,7 +21,7 @@ class ThrowableFluent(val assertionVerb: String, val throwable: Throwable?, val 
         val assertion = ExceptionThrownAssertion(throwable, TExpected::class.java)
         if (assertion.holds()) {
             //needs to hold in order that cast can be performed
-            val factory = AssertionFactory.new(assertionVerb, throwable as TExpected, assertionChecker)
+            val factory = AssertionFactory.newCheckLazily(assertionVerb, throwable as TExpected, assertionChecker)
             factory.addAssertion(assertion)
             factory.createAsserts()
             factory.checkAssertions()

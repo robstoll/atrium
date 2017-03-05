@@ -1,7 +1,10 @@
 package ch.tutteli.assertk.reporting
 
-import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.*
+import ch.tutteli.assertk.contains
+import ch.tutteli.assertk.context
+import ch.tutteli.assertk.startsWith
+import ch.tutteli.assertk.toBe
 import ch.tutteli.assertk.verbs.assert.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
