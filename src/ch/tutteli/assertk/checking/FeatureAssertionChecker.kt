@@ -7,7 +7,7 @@ import ch.tutteli.assertk.creating.IAssertionFactory
 class FeatureAssertionChecker<out T : Any>(private val subjectFactory: IAssertionFactory<T>) : IAssertionCheckerDelegateFail, IAssertionChecker {
 
     override fun check(assertionVerb: String, subject: Any, assertions: List<IAssertion>) {
-        val featureAssertionGroup = FeatureAssertionGroup(featureName = assertionVerb, subSubject = subject, assertions = assertions)
+        val featureAssertionGroup = FeatureAssertionGroup(featureName = assertionVerb, subSubject = subject, assertions = ArrayList(assertions))
         subjectFactory.addAssertion(featureAssertionGroup)
     }
 }
