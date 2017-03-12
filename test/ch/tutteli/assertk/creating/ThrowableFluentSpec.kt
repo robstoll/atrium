@@ -9,7 +9,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 
 class ThrowableFluentSpec : Spek({
-    
+
     it("throws an AssertionError when no exception occurs") {
         expect {
             expect {
@@ -83,16 +83,27 @@ class ThrowableFluentSpec : Spek({
                 verify(assertionChecker).fail(eq(assertionVerb), eq(IllegalArgumentException::class.java), any<IAssertion>())
             }
         }
+        val assertionChecker = mock<IAssertionChecker>()
+        val assertionVerb = "assertionVerb"
+        val subject: IllegalArgumentException? = null
+        val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
 
-        it("throws an IllegalStateException if the checker does not throw an exception when calling '${IAssertionChecker::fail.name}'") {
-            expect {
-                val assertionChecker = mock<IAssertionChecker>()
-                val assertionVerb = "assertionVerb"
-                val subject: IllegalArgumentException? = null
-                val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
-                fluent.toThrow<IllegalArgumentException>()
-            }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
+        inCaseOf("using the immediate evaluating signature"){
+            it("throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown") {
+                expect {
+                    fluent.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
+            }
         }
+
+        inCaseOf("using the lazy evaluating signature"){
+            it("throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown") {
+                expect {
+                    fluent.toThrow<IllegalArgumentException>{}
+                }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
+            }
+        }
+
     }
 
 })

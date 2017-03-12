@@ -1,5 +1,6 @@
 package ch.tutteli.assertk.creating
 
+import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker
 import ch.tutteli.assertk.checking.ThrowingAssertionChecker
 import ch.tutteli.assertk.reporting.*
@@ -57,6 +58,48 @@ class AssertionFactory {
         fun throwableFluent(assertionVerb: String, act: () -> Unit): ThrowableFluent
             = ThrowableFluent.create(assertionVerb, act, ThrowingAssertionChecker(REPORTER))
 
+        /**
+         * Performs a down cast in case the given {@code assertion} holds.
+         */
+        inline fun <reified TSub : T, T : Any> downCast(assertionVerb: String, subject: T?, assertion: IAssertion, assertionChecker: IAssertionChecker): IAssertionFactory<TSub> {
+            return downCast(assertionVerb, TSub::class.java, assertion,
+                { AssertionFactory.newCheckImmediately(assertionVerb, subject as TSub, assertionChecker) },
+                { },
+                assertionChecker)
+        }
+
+        /**
+         * Performs a down cast in case the given {@code assertion} holds, adds the assertions created by {@ createAssertions} and checks them.
+         */
+        inline fun <reified TSub : T, T : Any> downCast(assertionVerb: String, subject: T?, assertion: IAssertion, assertionChecker: IAssertionChecker, crossinline createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub> {
+            return downCast(assertionVerb, TSub::class.java, assertion,
+                { AssertionFactory.newCheckImmediately(assertionVerb, subject as TSub, assertionChecker) },
+                { factory -> factory.createAssertions() },
+                assertionChecker)
+        }
+
+        /**
+         * @deprecated Must be public in order that the overloads with modifier inline can be public as well.
+         * It is recommended to use one of those. This method might change its API.
+         */
+        fun <TSub : T, T : Any> downCast(
+            assertionVerb: String,
+            clazz: Class<TSub>,
+            assertion: IAssertion,
+            factoryMethod: () -> IAssertionFactory<TSub>,
+            actOnFactory: (IAssertionFactory<TSub>) -> Unit,
+            assertionChecker: IAssertionChecker): IAssertionFactory<TSub> {
+
+            if (assertion.holds()) {
+                //needs to hold in order that cast can be performed
+                val factory = factoryMethod()
+                factory.addAssertion(assertion)
+                actOnFactory(factory)
+                return factory
+            }
+            assertionChecker.fail(assertionVerb, clazz, assertion)
+            throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception, ${assertionChecker::class.java.name} did not")
+        }
 
     }
 
