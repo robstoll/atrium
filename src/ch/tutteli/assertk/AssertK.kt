@@ -76,3 +76,6 @@ fun IAssertionFactory<CharSequence>.isEmpty()
 
 val IAssertionFactory<Throwable>.message: IAssertionFactory<String> get() = and(subject::message).isNotNull()
 fun IAssertionFactory<Throwable>.message(createAssertions: IAssertionFactory<String>.() -> Unit): IAssertionFactory<String> = and(subject::message).isNotNull(createAssertions)
+
+fun <T : Collection<*>> IAssertionFactory<T>.hasSize(size: Int)
+    = createAndAddAssertion("has size", size, { subject.size == size })
