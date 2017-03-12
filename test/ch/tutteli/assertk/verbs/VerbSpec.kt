@@ -2,6 +2,7 @@ package ch.tutteli.assertk.verbs
 
 import ch.tutteli.assertk.*
 import ch.tutteli.assertk.creating.IAssertionFactory
+import ch.tutteli.assertk.creating.IAssertionFactoryNullable
 import ch.tutteli.assertk.verbs.assert.assert
 import ch.tutteli.assertk.verbs.assertthat.assertThat
 import ch.tutteli.assertk.verbs.expect.expect
@@ -65,7 +66,7 @@ class VerbSpec : Spek({
     }
 
     describe("nullable supporting assertion verbs in case subject is null") {
-        mapOf(
+        mapOf<String, IAssertionFactoryNullable<Int?>>(
             "assert" to assert(null),
             "assertThat" to assertThat(null),
             "expect" to expect(null)

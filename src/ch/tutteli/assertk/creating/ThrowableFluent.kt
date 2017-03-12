@@ -5,30 +5,11 @@ import ch.tutteli.assertk.checking.IAssertionChecker
 
 class ThrowableFluent(val assertionVerb: String, val throwable: Throwable?, val assertionChecker: IAssertionChecker) {
 
-    inline fun <reified TExpected : Throwable> toThrow(): IAssertionFactory<TExpected> {
-        val assertion = ExceptionThrownAssertion(throwable, TExpected::class.java)
-        if (assertion.holds()) {
-            //needs to hold in order that cast can be performed
-            val factory = AssertionFactory.newCheckImmediately(assertionVerb, throwable as TExpected, assertionChecker)
-            factory.addAssertion(assertion)
-            return factory
-        }
-        assertionChecker.fail(assertionVerb, TExpected::class.java, assertion)
-        throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception")
-    }
+    inline fun <reified TExpected : Throwable> toThrow(): IAssertionFactory<TExpected>
+        = AssertionFactory.downCast(assertionVerb, throwable, ExceptionThrownAssertion(throwable, TExpected::class.java), assertionChecker)
 
-    inline fun <reified TExpected : Throwable> toThrow(createAsserts: IAssertionFactory<TExpected>.() -> Unit) {
-        val assertion = ExceptionThrownAssertion(throwable, TExpected::class.java)
-        if (assertion.holds()) {
-            //needs to hold in order that cast can be performed
-            val factory = AssertionFactory.newCheckLazily(assertionVerb, throwable as TExpected, assertionChecker)
-            factory.addAssertion(assertion)
-            factory.createAsserts()
-            factory.checkAssertions()
-        } else {
-            assertionChecker.fail(assertionVerb, TExpected::class.java, assertion)
-        }
-    }
+    inline fun <reified TExpected : Throwable> toThrow(crossinline createAsserts: IAssertionFactory<TExpected>.() -> Unit)
+        = AssertionFactory.downCast(assertionVerb, throwable, ExceptionThrownAssertion(throwable, TExpected::class.java), assertionChecker, createAsserts)
 
     companion object {
         fun create(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {

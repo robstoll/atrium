@@ -4,7 +4,6 @@ package ch.tutteli.assertk
 
 import ch.tutteli.assertk.assertions.OneMessageAssertion
 import ch.tutteli.assertk.checking.FeatureAssertionChecker
-import ch.tutteli.assertk.checking.IAssertionChecker
 import ch.tutteli.assertk.creating.AssertionFactory
 import ch.tutteli.assertk.creating.IAssertionFactory
 import ch.tutteli.assertk.creating.IAssertionFactoryNullable
@@ -22,20 +21,11 @@ fun <T : Any, TSub : Any> IAssertionFactory<T>.and(feature: KProperty0<TSub>, cr
 fun <T : Any, TSub : Any?> IAssertionFactory<T>.and(feature: KProperty0<TSub>): IAssertionFactoryNullable<TSub>
     = AssertionFactory.newNullable(feature.name, feature.get(), FeatureAssertionChecker(this))
 
-fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull(createAssertions: IAssertionFactory<T>.() -> Unit)
-    = isNotNull(this, { AssertionFactory.newCheckLazilyAtTheEnd(assertionVerb, subject!!, createAssertions) })
+inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull()
+    = AssertionFactory.downCast(assertionVerb, subject, OneMessageAssertion("is not", RawString.NULL, subject != null), assertionChecker)
 
-fun <T : Any> IAssertionFactoryNullable<T?>.isNotNull()
-    = isNotNull(this, { AssertionFactory.newCheckImmediately(assertionVerb, subject!!) })
-
-private fun <T : Any> isNotNull(factoryNullable: IAssertionFactoryNullable<T?>, factory: () -> IAssertionFactory<T>): IAssertionFactory<T> {
-    if (factoryNullable.subject != null) {
-        return factory()
-    } else {
-        factoryNullable.assertionChecker.fail(factoryNullable.assertionVerb, RawString.NULL, OneMessageAssertion("is not", RawString.NULL, false))
-        throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception")
-    }
-}
+inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull(crossinline createAssertions: IAssertionFactory<T>.() -> Unit)
+    = AssertionFactory.downCast(assertionVerb, subject, OneMessageAssertion("is not", RawString.NULL, subject != null), assertionChecker, createAssertions)
 
 // ---------------------------------------------------------------------------------
 // Assertions ----------------------------------------------------------------------

@@ -1,8 +1,7 @@
-package ch.tutteli.assertk.reporting
+package ch.tutteli.assertk.checking
 
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.OneMessageAssertion
-import ch.tutteli.assertk.checking.IAssertionCheckerDelegateFail
 import ch.tutteli.assertk.describe
 import ch.tutteli.assertk.message
 import ch.tutteli.assertk.startsWith
