@@ -46,26 +46,26 @@ fun IAssertionFactory<Int>.isGreaterThan(expected: Int)
 fun IAssertionFactory<Int>.isGreaterOrEquals(expected: Int)
     = createAndAddAssertion("is greater or equals", expected, { subject >= expected })
 
-fun IAssertionFactory<CharSequence>.contains(expected: CharSequence)
+fun <T : CharSequence> IAssertionFactory<T>.contains(expected: CharSequence)
     = createAndAddAssertion("contains", expected, { subject.contains(expected) })
 
-fun IAssertionFactory<CharSequence>.contains(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionFactory<CharSequence> {
+fun <T : CharSequence> IAssertionFactory<T>.contains(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionFactory<T> {
     val factory = contains(expected)
     otherExpected.forEach { contains(it) }
     return factory
 }
 
-fun IAssertionFactory<CharSequence>.startsWith(expected: CharSequence)
+fun <T : CharSequence> IAssertionFactory<T>.startsWith(expected: CharSequence)
     = createAndAddAssertion("starts with", expected, { subject.startsWith(expected) })
 
-fun IAssertionFactory<CharSequence>.endsWith(expected: CharSequence)
+fun <T : CharSequence> IAssertionFactory<T>.endsWith(expected: CharSequence)
     = createAndAddAssertion("ends with", expected, { subject.endsWith(expected) })
 
-fun IAssertionFactory<CharSequence>.isEmpty()
+fun <T : CharSequence> IAssertionFactory<T>.isEmpty()
     = createAndAddAssertion("is", RawString("empty"), { subject.isEmpty() })
 
-val IAssertionFactory<Throwable>.message: IAssertionFactory<String> get() = and(subject::message).isNotNull()
-fun IAssertionFactory<Throwable>.message(createAssertions: IAssertionFactory<String>.() -> Unit): IAssertionFactory<String> = and(subject::message).isNotNull(createAssertions)
+val <T : Throwable> IAssertionFactory<T>.message: IAssertionFactory<String> get() = and(subject::message).isNotNull()
+fun <T : Throwable> IAssertionFactory<T>.message(createAssertions: IAssertionFactory<String>.() -> Unit): IAssertionFactory<String> = and(subject::message).isNotNull(createAssertions)
 
 fun <T : Collection<*>> IAssertionFactory<T>.hasSize(size: Int)
     = createAndAddAssertion("has size", size, { subject.size == size })
