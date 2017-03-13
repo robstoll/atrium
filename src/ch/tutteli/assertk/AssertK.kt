@@ -27,6 +27,12 @@ inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull()
 inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull(crossinline createAssertions: IAssertionFactory<T>.() -> Unit)
     = AssertionFactory.downCast(assertionVerb, subject, OneMessageAssertion("is not", RawString.NULL, subject != null), assertionChecker, createAssertions)
 
+inline fun <reified TSub : Any> IAssertionFactory<Any>.isA(): IAssertionFactory<TSub>
+    = AssertionFactory.downCast<TSub, Any>(assertionVerb, subject, OneMessageAssertion("is (sub-)type of", TSub::class.java, subject is TSub), assertionChecker)
+
+inline fun <reified TSub : Any> IAssertionFactory<Any>.isA(crossinline createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub>
+    = AssertionFactory.downCast(assertionVerb, subject, OneMessageAssertion("is (sub-)type of", TSub::class.java, subject is TSub), assertionChecker, createAssertions)
+
 // ---------------------------------------------------------------------------------
 // Assertions ----------------------------------------------------------------------
 // ---------------------------------------------------------------------------------

@@ -1,13 +1,9 @@
 package ch.tutteli.assertk.creating
 
+import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.IOneMessageAssertion
 import ch.tutteli.assertk.assertions.Message
-import ch.tutteli.assertk.contains
-import ch.tutteli.assertk.context
-import ch.tutteli.assertk.inCaseOf
-import ch.tutteli.assertk.setUp
-import ch.tutteli.assertk.verbs.assert.assert
 import ch.tutteli.assertk.verbs.expect.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
@@ -34,20 +30,19 @@ class AssertionFactoryCheckLazilySpec : Spek({
                 factory.checkAssertions()
             }
             setUp("throws an AssertionError when checking") {
-                expectFun.toThrow<AssertionError>()
                 context("exception message") {
-                    val message = expectFun.throwable!!.message!!
+                    val assertMessage = expectFun.toThrow<AssertionError>().message
                     it("contains the ${factory::assertionVerb.name}'") {
-                        assert(message).contains(assertionVerb)
+                        assertMessage.contains(assertionVerb)
                     }
                     it("contains the '${factory::subject.name}'") {
-                        assert(message).contains(subject.toString())
+                        assertMessage.contains(subject.toString())
                     }
                     it("contains the '${Message::description.name}' of the assertion-message") {
-                        assert(message).contains("to be")
+                        assertMessage.contains("to be")
                     }
                     it("contains the '${Message::representation.name}' of the assertion-message") {
-                        assert(message).contains("0")
+                        assertMessage.contains("0")
                     }
                 }
                 on("re-checking the assertions") {
@@ -81,12 +76,12 @@ class AssertionFactoryCheckLazilySpec : Spek({
             setUp("throws an AssertionError") {
                 expectFun.toThrow<AssertionError>()
                 context("exception message") {
-                    val message = expectFun.throwable!!.message!!
+                    val assertMessage = expectFun.toThrow<AssertionError>().message
                     it("contains the messages of the custom assertion") {
-                        assert(message).contains("a", "b")
+                        assertMessage.contains("a", "b")
                     }
                     it("contains the assertionVerb") {
-                        assert(message).contains(assertionVerb)
+                        assertMessage.contains(assertionVerb)
                     }
                 }
                 on("re-checking the assertions") {
