@@ -60,9 +60,19 @@ class AssertionFactory {
 
         /**
          * Performs a down cast in case the given {@code assertion} holds.
+         *
+         * Uses {@link RawString.NULL} as null-representation for failure reporting (in case the {@code assertion} does not hold).
          */
-        inline fun <reified TSub : T, T : Any> downCast(assertionVerb: String, subject: T?, assertion: IAssertion, assertionChecker: IAssertionChecker): IAssertionFactory<TSub> {
-            return downCast(assertionVerb, TSub::class.java, assertion,
+        inline fun <reified TSub : T, T : Any> downCast(assertionVerb: String, subject: T?, assertion: IAssertion, assertionChecker: IAssertionChecker): IAssertionFactory<TSub>
+            = downCast(assertionVerb, subject, RawString.NULL, assertion, assertionChecker)
+
+        /**
+         * Performs a down cast in case the given {@code assertion} holds.
+         *
+         * Uses the given {@code nullRepresentation} as null-representation for failure reporting (in case the {@code assertion} does not hold).
+         */
+        inline fun <reified TSub : T, T : Any> downCast(assertionVerb: String, subject: T?, nullRepresentation: String, assertion: IAssertion, assertionChecker: IAssertionChecker): IAssertionFactory<TSub> {
+            return downCast(assertionVerb, subject, nullRepresentation, assertion,
                 { AssertionFactory.newCheckImmediately(assertionVerb, subject as TSub, assertionChecker) },
                 { },
                 assertionChecker)
@@ -70,9 +80,19 @@ class AssertionFactory {
 
         /**
          * Performs a down cast in case the given {@code assertion} holds, adds the assertions created by {@ createAssertions} and checks them.
+         *
+         * Uses {@link RawString.NULL} as null-representation for failure reporting (in case the {@code assertion} does not hold).
          */
-        inline fun <reified TSub : T, T : Any> downCast(assertionVerb: String, subject: T?, assertion: IAssertion, assertionChecker: IAssertionChecker, crossinline createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub> {
-            return downCast(assertionVerb, TSub::class.java, assertion,
+        inline fun <reified TSub : T, T : Any> downCast(assertionVerb: String, subject: T?, assertion: IAssertion, assertionChecker: IAssertionChecker, crossinline createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub>
+            = downCast(assertionVerb, subject, RawString.NULL, assertion, assertionChecker, createAssertions)
+
+        /**
+         * Performs a down cast in case the given {@code assertion} holds, adds the assertions created by {@ createAssertions} and checks them.
+         *
+         * Uses the given {@code nullRepresentation} as null-representation for failure reporting (in case the {@code assertion} does not hold).
+         */
+        inline fun <reified TSub : T, T : Any> downCast(assertionVerb: String, subject: T?, nullRepresentation: String, assertion: IAssertion, assertionChecker: IAssertionChecker, crossinline createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub> {
+            return downCast(assertionVerb, subject, nullRepresentation, assertion,
                 { AssertionFactory.newCheckImmediately(assertionVerb, subject as TSub, assertionChecker) },
                 { factory -> factory.createAssertions() },
                 assertionChecker)
@@ -84,7 +104,8 @@ class AssertionFactory {
          */
         fun <TSub : T, T : Any> downCast(
             assertionVerb: String,
-            clazz: Class<TSub>,
+            subject: T?,
+            nullRepresentation: String,
             assertion: IAssertion,
             factoryMethod: () -> IAssertionFactory<TSub>,
             actOnFactory: (IAssertionFactory<TSub>) -> Unit,
@@ -97,7 +118,7 @@ class AssertionFactory {
                 actOnFactory(factory)
                 return factory
             }
-            assertionChecker.fail(assertionVerb, clazz, assertion)
+            assertionChecker.fail(assertionVerb, subject ?: nullRepresentation, assertion)
             throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception, ${assertionChecker::class.java.name} did not")
         }
 

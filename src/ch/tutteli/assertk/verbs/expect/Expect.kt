@@ -15,4 +15,4 @@ inline fun <T : Any> expect(subject: T, createAssertions: IAssertionFactory<T>.(
     = AssertionFactory.newCheckLazilyAtTheEnd("expect", subject, createAssertions)
 
 fun expect(act: () -> Unit): ThrowableFluent
-    = AssertionFactory.throwableFluent("expect to throw", act)
+    = AssertionFactory.throwableFluent("expect the thrown exception", act)

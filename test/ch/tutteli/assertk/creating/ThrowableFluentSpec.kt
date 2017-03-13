@@ -3,6 +3,7 @@ package ch.tutteli.assertk.creating
 import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker
+import ch.tutteli.assertk.verbs.assert.assert
 import ch.tutteli.assertk.verbs.expect.expect
 import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek
@@ -16,7 +17,7 @@ class ThrowableFluentSpec : Spek({
                 /* no exception occurs */
             }.toThrow<IllegalArgumentException>()
         }.toThrow<AssertionError> {
-            and.message.contains("exception was", "null")
+            and.message.contains(ThrowableFluent.NO_EXCEPTION_OCCURRED, "is a", IllegalArgumentException::class.java.name)
         }
     }
 
@@ -26,7 +27,7 @@ class ThrowableFluentSpec : Spek({
                 throw UnsupportedOperationException()
             }.toThrow<IllegalArgumentException>()
         }.toThrow<AssertionError> {
-            and(subject::message).isNotNull().contains("exception was", UnsupportedOperationException::class.java.name)
+            and(subject::message).isNotNull().contains(UnsupportedOperationException::class.java.name, "is a", IllegalArgumentException::class.java.name)
         }
     }
     it("does not throw if the correct exception is thrown") {
@@ -64,7 +65,7 @@ class ThrowableFluentSpec : Spek({
                 expect {
                     fluent.toThrow<IllegalArgumentException>()
                 }.toThrow<AssertionError>().and.toBe(assertionError)
-                verify(assertionChecker).fail(eq(assertionVerb), eq(IllegalArgumentException::class.java), any<IAssertion>())
+                verify(assertionChecker).fail(eq(assertionVerb), eq(ThrowableFluent.NO_EXCEPTION_OCCURRED), any<IAssertion>())
             }
         }
 
@@ -80,7 +81,7 @@ class ThrowableFluentSpec : Spek({
                 expect {
                     fluent.toThrow<IllegalArgumentException>()
                 }.toThrow<AssertionError>().and.toBe(assertionError)
-                verify(assertionChecker).fail(eq(assertionVerb), eq(IllegalArgumentException::class.java), any<IAssertion>())
+                verify(assertionChecker).fail(eq(assertionVerb), eq(subject), any<IAssertion>())
             }
         }
         val assertionChecker = mock<IAssertionChecker>()
@@ -88,7 +89,7 @@ class ThrowableFluentSpec : Spek({
         val subject: IllegalArgumentException? = null
         val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
 
-        inCaseOf("using the immediate evaluating signature"){
+        inCaseOf("using the immediate evaluating signature") {
             it("throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown") {
                 expect {
                     fluent.toThrow<IllegalArgumentException>()
@@ -96,10 +97,10 @@ class ThrowableFluentSpec : Spek({
             }
         }
 
-        inCaseOf("using the lazy evaluating signature"){
+        inCaseOf("using the lazy evaluating signature") {
             it("throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown") {
                 expect {
-                    fluent.toThrow<IllegalArgumentException>{}
+                    fluent.toThrow<IllegalArgumentException> {}
                 }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
             }
         }
