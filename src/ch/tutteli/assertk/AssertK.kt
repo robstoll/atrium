@@ -10,15 +10,15 @@ import ch.tutteli.assertk.creating.IAssertionFactoryNullable
 import ch.tutteli.assertk.reporting.RawString
 import kotlin.reflect.KProperty0
 
-fun <T : Any, TSub : Any> IAssertionFactory<T>.and(feature: KProperty0<TSub>): IAssertionFactory<TSub>
+fun <T : Any, TFeature : Any> IAssertionFactory<T>.and(feature: KProperty0<TFeature>): IAssertionFactory<TFeature>
     = AssertionFactory.newCheckImmediately(feature.name, feature.get(), FeatureAssertionChecker(this))
 
-fun <T : Any, TSub : Any> IAssertionFactory<T>.and(feature: KProperty0<TSub>, createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub> {
+fun <T : Any, TFeature : Any> IAssertionFactory<T>.and(feature: KProperty0<TFeature>, createAssertions: IAssertionFactory<TFeature>.() -> Unit): IAssertionFactory<TFeature> {
     val featureFactory = AssertionFactory.newCheckLazily(feature.name, feature.get(), FeatureAssertionChecker(this))
     return AssertionFactory.createAssertionsAndCheckThem(featureFactory, createAssertions)
 }
 
-fun <T : Any, TSub : Any?> IAssertionFactory<T>.and(feature: KProperty0<TSub>): IAssertionFactoryNullable<TSub>
+fun <T : Any, TFeature : Any?> IAssertionFactory<T>.and(feature: KProperty0<TFeature>): IAssertionFactoryNullable<TFeature>
     = AssertionFactory.newNullable(feature.name, feature.get(), FeatureAssertionChecker(this))
 
 inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull()
