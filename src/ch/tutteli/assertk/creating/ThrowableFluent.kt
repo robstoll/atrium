@@ -6,10 +6,17 @@ import ch.tutteli.assertk.checking.IAssertionChecker
 class ThrowableFluent(val assertionVerb: String, val throwable: Throwable?, val assertionChecker: IAssertionChecker) {
 
     inline fun <reified TExpected : Throwable> toThrow(): IAssertionFactory<TExpected>
-        = AssertionFactory.downCast(assertionVerb, throwable, NO_EXCEPTION_OCCURRED, ExceptionThrownAssertion(throwable, TExpected::class.java), assertionChecker)
+        = DownCastFluent.create<TExpected, Throwable>(toAssertionFactoryCommonFields(), ExceptionThrownAssertion(throwable, TExpected::class.java))
+        .withNullRepresentation(NO_EXCEPTION_OCCURRED)
+        .cast()
 
-    inline fun <reified TExpected : Throwable> toThrow(crossinline createAsserts: IAssertionFactory<TExpected>.() -> Unit)
-        = AssertionFactory.downCast(assertionVerb, throwable, NO_EXCEPTION_OCCURRED, ExceptionThrownAssertion(throwable, TExpected::class.java), assertionChecker, createAsserts)
+    inline fun <reified TExpected : Throwable> toThrow(noinline createAsserts: IAssertionFactory<TExpected>.() -> Unit): IAssertionFactory<TExpected>
+        = DownCastFluent.create<TExpected, Throwable>(toAssertionFactoryCommonFields(), ExceptionThrownAssertion(throwable, TExpected::class.java))
+        .withNullRepresentation(NO_EXCEPTION_OCCURRED)
+        .withLazyAssertions(createAsserts)
+        .cast()
+
+    fun toAssertionFactoryCommonFields() = IAssertionFactoryBase.CommonFields(assertionVerb, throwable, assertionChecker)
 
     companion object {
         val NO_EXCEPTION_OCCURRED = "no exception occurred"

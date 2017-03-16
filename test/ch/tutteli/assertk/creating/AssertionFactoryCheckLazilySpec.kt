@@ -32,7 +32,7 @@ class AssertionFactoryCheckLazilySpec : Spek({
             setUp("throws an AssertionError when checking") {
                 context("exception message") {
                     val assertMessage = expectFun.toThrow<AssertionError>().message
-                    it("contains the ${factory::assertionVerb.name}'") {
+                    it("contains the ${factory.commonFields::assertionVerb.name}'") {
                         assertMessage.contains(assertionVerb)
                     }
                     it("contains the '${factory::subject.name}'") {
