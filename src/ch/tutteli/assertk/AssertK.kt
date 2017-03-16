@@ -5,6 +5,7 @@ package ch.tutteli.assertk
 import ch.tutteli.assertk.assertions.OneMessageAssertion
 import ch.tutteli.assertk.checking.FeatureAssertionChecker
 import ch.tutteli.assertk.creating.AssertionFactory
+import ch.tutteli.assertk.creating.DownCastFluent
 import ch.tutteli.assertk.creating.IAssertionFactory
 import ch.tutteli.assertk.creating.IAssertionFactoryNullable
 import ch.tutteli.assertk.reporting.RawString
@@ -22,16 +23,22 @@ fun <T : Any, TFeature : Any?> IAssertionFactory<T>.and(feature: KProperty0<TFea
     = AssertionFactory.newNullable(feature.name, feature.get(), FeatureAssertionChecker(this))
 
 inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull()
-    = AssertionFactory.downCast(assertionVerb, subject, OneMessageAssertion("is not", RawString.NULL, subject != null), assertionChecker)
+    = DownCastFluent.create(commonFields, OneMessageAssertion("is not", RawString.NULL, subject != null))
+    .cast()
 
-inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull(crossinline createAssertions: IAssertionFactory<T>.() -> Unit)
-    = AssertionFactory.downCast(assertionVerb, subject, OneMessageAssertion("is not", RawString.NULL, subject != null), assertionChecker, createAssertions)
+inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull(noinline createAssertions: IAssertionFactory<T>.() -> Unit)
+    = DownCastFluent.create(commonFields, OneMessageAssertion("is not", RawString.NULL, subject != null))
+    .withLazyAssertions(createAssertions)
+    .cast()
 
 inline fun <reified TSub : Any> IAssertionFactory<Any>.isA(): IAssertionFactory<TSub>
-    = AssertionFactory.downCast<TSub, Any>(assertionVerb, subject, OneMessageAssertion("is (sub-)type of", TSub::class.java, subject is TSub), assertionChecker)
+    = DownCastFluent.create<TSub, Any>(commonFields, OneMessageAssertion("is (sub-)type of", TSub::class.java, subject is TSub))
+    .cast()
 
-inline fun <reified TSub : Any> IAssertionFactory<Any>.isA(crossinline createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub>
-    = AssertionFactory.downCast(assertionVerb, subject, OneMessageAssertion("is (sub-)type of", TSub::class.java, subject is TSub), assertionChecker, createAssertions)
+inline fun <reified TSub : Any> IAssertionFactory<Any>.isA(noinline createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub>
+    = DownCastFluent.create<TSub, Any>(commonFields, OneMessageAssertion("is (sub-)type of", TSub::class.java, subject is TSub))
+    .withLazyAssertions(createAssertions)
+    .cast()
 
 // ---------------------------------------------------------------------------------
 // Assertions ----------------------------------------------------------------------

@@ -1,13 +1,8 @@
 package ch.tutteli.assertk.creating
 
 import ch.tutteli.assertk.assertions.IAssertion
-import ch.tutteli.assertk.checking.IAssertionChecker
 
-interface IAssertionFactory<out T : Any> {
-    val subject: T
-    val assertionVerb: String
-    val assertionChecker: IAssertionChecker
-
+interface IAssertionFactory<out T : Any> : IAssertionFactoryBase<T> {
     fun checkAssertions()
     fun createAndAddAssertion(description: String, expected: Any, test: () -> Boolean): IAssertionFactory<T>
     fun addAssertion(assertion: IAssertion): IAssertionFactory<T>

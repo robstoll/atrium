@@ -2,13 +2,10 @@ package ch.tutteli.assertk.creating
 
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.OneMessageAssertion
-import ch.tutteli.assertk.checking.IAssertionChecker
 import java.util.ArrayList
 
 internal open class AssertionFactoryCheckLazily<out T : Any> constructor(
-    override final val assertionVerb: String,
-    override final val subject: T,
-    override final val assertionChecker: IAssertionChecker) : IAssertionFactory<T> {
+    override val commonFields: IAssertionFactoryBase.CommonFields<T>) : IAssertionFactory<T> {
 
     private val assertions: MutableList<IAssertion> = ArrayList()
 
@@ -22,7 +19,7 @@ internal open class AssertionFactoryCheckLazily<out T : Any> constructor(
 
     override final fun checkAssertions() {
         try {
-            assertionChecker.check(assertionVerb, subject, assertions)
+            commonFields.check(assertions)
         } finally {
             assertions.clear()
         }
