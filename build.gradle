@@ -38,7 +38,10 @@ repositories {
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version"
+    runtime "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testCompile ("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
 
 }
 
