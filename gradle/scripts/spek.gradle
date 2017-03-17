@@ -4,7 +4,6 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    println junit_version
     dependencies {
         classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
     }
