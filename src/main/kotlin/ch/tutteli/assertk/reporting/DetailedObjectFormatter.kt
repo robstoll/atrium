@@ -3,7 +3,7 @@ package ch.tutteli.assertk.reporting
 class DetailedObjectFormatter : IObjectFormatter {
 
     override fun format(any: Any?): String = when (any) {
-        null -> "null"
+        null -> RawString.NULL
         is RawString -> any.string
         is String -> format(any)
         is CharSequence -> format(any)
