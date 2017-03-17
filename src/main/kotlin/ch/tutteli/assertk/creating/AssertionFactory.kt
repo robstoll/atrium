@@ -11,6 +11,7 @@ class AssertionFactory {
         private val REPORTER: IReporter = OnlyFailureReporter(ASSERTION_MESSAGE_FORMATTER)
         private val ASSERTION_CHECKER: IAssertionChecker = ThrowingAssertionChecker(REPORTER)
 
+
         /**
          * Creates an IAssertionFactory which does not check the created assertions until one calls checkAssertions.
          *
@@ -21,10 +22,34 @@ class AssertionFactory {
 
         /**
          * Creates an IAssertionFactory which does not check the created assertions until one calls checkAssertions.
-         *
          */
         fun <T : Any> newCheckLazily(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionFactory<T>
-            = AssertionFactoryCheckLazily(IAssertionFactoryBase.CommonFields(assertionVerb, subject, assertionChecker))
+            = newCheckLazily(IAssertionFactoryBase.CommonFields(assertionVerb, subject, assertionChecker))
+
+        /**
+         * Creates an IAssertionFactory which does not check the created assertions until one calls checkAssertions.
+         */
+        fun <T : Any> newCheckLazily(commonFields: IAssertionFactoryBase.CommonFields<T>): IAssertionFactory<T>
+            = AssertionFactoryCheckLazily(commonFields)
+
+
+        fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T): IAssertionFactory<T>
+            = newCheckImmediately(assertionVerb, subject, ASSERTION_CHECKER)
+
+        fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionFactory<T>
+            = newCheckImmediately(IAssertionFactoryBase.CommonFields(assertionVerb, subject, assertionChecker))
+
+        fun <T : Any> newCheckImmediately(commonFields: IAssertionFactoryBase.CommonFields<T>): IAssertionFactory<T>
+            = AssertionFactoryCheckImmediately(commonFields)
+
+        fun <T : Any?> newNullable(assertionVerb: String, subject: T): IAssertionFactoryNullable<T>
+            = newNullable(assertionVerb, subject, ASSERTION_CHECKER)
+
+        fun <T : Any?> newNullable(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionFactoryNullable<T>
+            = newNullable(IAssertionFactoryBase.CommonFields(assertionVerb, subject, assertionChecker))
+
+        fun <T : Any?> newNullable(commonFields: IAssertionFactoryBase.CommonFields<T>): IAssertionFactoryNullable<T>
+            = AssertionFactoryNullable(commonFields)
 
         /**
          * Use this function to create a custom assertion verb function which lazy evaluate the assertions created by createAssertions.
@@ -41,18 +66,6 @@ class AssertionFactory {
             factory.checkAssertions()
             return factory
         }
-
-        fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T): IAssertionFactory<T>
-            = newCheckImmediately(assertionVerb, subject, ASSERTION_CHECKER)
-
-        fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionFactory<T>
-            = AssertionFactoryCheckImmediately(IAssertionFactoryBase.CommonFields(assertionVerb, subject, assertionChecker))
-
-        fun <T : Any?> newNullable(assertionVerb: String, subject: T): IAssertionFactoryNullable<T>
-            = newNullable(assertionVerb, subject, ASSERTION_CHECKER)
-
-        fun <T : Any?> newNullable(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionFactoryNullable<T>
-            = AssertionFactoryNullable(IAssertionFactoryBase.CommonFields(assertionVerb, subject, assertionChecker))
 
         fun throwableFluent(assertionVerb: String, act: () -> Unit): ThrowableFluent
             = ThrowableFluent.create(assertionVerb, act, ThrowingAssertionChecker(REPORTER))
