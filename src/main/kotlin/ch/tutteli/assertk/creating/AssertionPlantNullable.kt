@@ -3,8 +3,8 @@ package ch.tutteli.assertk.creating
 import ch.tutteli.assertk.assertions.OneMessageAssertion
 import ch.tutteli.assertk.reporting.RawString
 
-internal class AssertionFactoryNullable<out T : Any?> constructor(
-    override val commonFields: IAssertionFactoryBase.CommonFields<T>) : IAssertionFactoryNullable<T> {
+internal class AssertionPlantNullable<out T : Any?> constructor(
+    override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : IAssertionPlantNullable<T> {
 
     override fun isNull() {
         if (subject != null) {

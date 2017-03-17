@@ -4,7 +4,7 @@ import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker
 import ch.tutteli.assertk.reporting.RawString
 
-interface IAssertionFactoryBase<out T> {
+interface IAssertionPlantWithCommonFields<out T> {
     val commonFields: CommonFields<T>
     val subject get() = commonFields.subject
 

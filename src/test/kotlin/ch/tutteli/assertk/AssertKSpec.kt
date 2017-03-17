@@ -1,7 +1,7 @@
 package ch.tutteli.assertk
 
 import ch.tutteli.assertk.assertions.IsAAssertion
-import ch.tutteli.assertk.creating.IAssertionFactory
+import ch.tutteli.assertk.creating.IAssertionPlant
 import ch.tutteli.assertk.verbs.assert.assert
 import ch.tutteli.assertk.verbs.expect.expect
 import org.jetbrains.spek.api.Spek
@@ -12,8 +12,8 @@ class AssertKSpec : Spek({
         val lazyEvaluation = "in case of lazy evaluation"
 
         group("it throws an AssertionError if the subject is not of the given type") {
-            val immediate: (IAssertionFactory<String>.() -> Unit) = { isA<Int>() }
-            val lazy: (IAssertionFactory<String>.() -> Unit) = { isA<Int> {} }
+            val immediate: (IAssertionPlant<String>.() -> Unit) = { isA<Int>() }
+            val lazy: (IAssertionPlant<String>.() -> Unit) = { isA<Int> {} }
             mapOf(immediateEvaluation to immediate, lazyEvaluation to lazy).forEach { description, isA ->
                 check(description) {
                     expect {
@@ -26,8 +26,8 @@ class AssertKSpec : Spek({
         }
 
         group("it does not throw an AssertionError if the subject is the same type") {
-            val immediate: (IAssertionFactory<String>.() -> Unit) = { isA<String>() }
-            val lazy: (IAssertionFactory<String>.() -> Unit) = { isA<String> {} }
+            val immediate: (IAssertionPlant<String>.() -> Unit) = { isA<String>() }
+            val lazy: (IAssertionPlant<String>.() -> Unit) = { isA<String> {} }
             mapOf(immediateEvaluation to immediate, lazyEvaluation to lazy).forEach { description, isA ->
                 check(description) {
                     assert("hello").isA()
@@ -37,8 +37,8 @@ class AssertKSpec : Spek({
 
 
         group("it does not throw an AssertionError if the subject is a subtype") {
-            val immediate: (IAssertionFactory<String>.() -> Unit) = { isA<CharSequence>() }
-            val lazy: (IAssertionFactory<String>.() -> Unit) = { isA<CharSequence> {} }
+            val immediate: (IAssertionPlant<String>.() -> Unit) = { isA<CharSequence>() }
+            val lazy: (IAssertionPlant<String>.() -> Unit) = { isA<CharSequence> {} }
             mapOf(immediateEvaluation to immediate, lazyEvaluation to lazy).forEach { description, isA ->
                 check(description) {
                     assert("hello").isA()
@@ -50,8 +50,8 @@ class AssertKSpec : Spek({
             open class A
             class B : A()
 
-            val immediate: (IAssertionFactory<A>.() -> Unit) = { isA<B>() }
-            val lazy: (IAssertionFactory<A>.() -> Unit) = { isA<B> {} }
+            val immediate: (IAssertionPlant<A>.() -> Unit) = { isA<B>() }
+            val lazy: (IAssertionPlant<A>.() -> Unit) = { isA<B> {} }
             mapOf(immediateEvaluation to immediate, lazyEvaluation to lazy).forEach { description, isA ->
                 check(description) {
                     expect {
@@ -64,8 +64,8 @@ class AssertKSpec : Spek({
         }
 
         group("allows to perform an assertion specific for the subtype which holds") {
-            val immediate: (IAssertionFactory<Any>.() -> Unit) = { isA<Int>().isSmallerThan(2) }
-            val lazy: (IAssertionFactory<Any>.() -> Unit) = { isA<Int> { isSmallerThan(2) } }
+            val immediate: (IAssertionPlant<Any>.() -> Unit) = { isA<Int>().isSmallerThan(2) }
+            val lazy: (IAssertionPlant<Any>.() -> Unit) = { isA<Int> { isSmallerThan(2) } }
             mapOf(immediateEvaluation to immediate, lazyEvaluation to lazy).forEach { description, isAWithAssertion ->
                 check(description) {
                     assert(1).isAWithAssertion()
@@ -76,8 +76,8 @@ class AssertKSpec : Spek({
         group("allows to perform an assertion specific for the subtype which fails") {
             val expectedSmallerThan = 2
             val actualValue = 5
-            val immediate: (IAssertionFactory<Any>.() -> Unit) = { isA<Int>().isSmallerThan(expectedSmallerThan) }
-            val lazy: (IAssertionFactory<Any>.() -> Unit) = { isA<Int> { isSmallerThan(expectedSmallerThan) } }
+            val immediate: (IAssertionPlant<Any>.() -> Unit) = { isA<Int>().isSmallerThan(expectedSmallerThan) }
+            val lazy: (IAssertionPlant<Any>.() -> Unit) = { isA<Int> { isSmallerThan(expectedSmallerThan) } }
             mapOf(immediateEvaluation to immediate, lazyEvaluation to lazy).forEach { description, isAWithAssertion ->
                 check(description) {
                     expect {

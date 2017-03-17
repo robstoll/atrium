@@ -1,6 +1,6 @@
 package ch.tutteli.assertk.reporting
 
-import ch.tutteli.assertk.creating.IAssertionFactory
+import ch.tutteli.assertk.creating.IAssertionPlant
 import ch.tutteli.assertk.describe
 import ch.tutteli.assertk.toBe
 import ch.tutteli.assertk.verbs.assert.assert
@@ -75,7 +75,7 @@ class DetailedObjectFormatterSpec : Spek({
         ).forEach { (typeName, value) ->
             on(typeName) {
                 val result = testee.format(value)
-                it("returns ${IAssertionFactory<*>::subject.name}.toString() $typeNameAndHash") {
+                it("returns ${IAssertionPlant<*>::subject.name}.toString() $typeNameAndHash") {
                     assert(result).toBe(value.toString()
                         + "   (${value::class.java.name} <${System.identityHashCode(value)}>)")
                 }

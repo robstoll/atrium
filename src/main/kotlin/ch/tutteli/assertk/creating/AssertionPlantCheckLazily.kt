@@ -4,15 +4,15 @@ import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.OneMessageAssertion
 import java.util.ArrayList
 
-internal open class AssertionFactoryCheckLazily<out T : Any> constructor(
-    override val commonFields: IAssertionFactoryBase.CommonFields<T>) : IAssertionFactory<T> {
+internal open class AssertionPlantCheckLazily<out T : Any> constructor(
+    override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : IAssertionPlant<T> {
 
     private val assertions: MutableList<IAssertion> = ArrayList()
 
     override final fun createAndAddAssertion(description: String, expected: Any, test: () -> Boolean)
         = addAssertion(OneMessageAssertion(description, expected, test))
 
-    override fun addAssertion(assertion: IAssertion): IAssertionFactory<T> {
+    override fun addAssertion(assertion: IAssertion): IAssertionPlant<T> {
         assertions.add(assertion)
         return this
     }
