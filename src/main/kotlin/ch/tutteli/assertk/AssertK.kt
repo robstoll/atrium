@@ -2,7 +2,8 @@
 
 package ch.tutteli.assertk
 
-import ch.tutteli.assertk.assertions.OneMessageAssertion
+import ch.tutteli.assertk.assertions.IsAAssertion
+import ch.tutteli.assertk.assertions.IsNotNullAssertion
 import ch.tutteli.assertk.checking.FeatureAssertionChecker
 import ch.tutteli.assertk.creating.AssertionFactory
 import ch.tutteli.assertk.creating.DownCastFluent
@@ -22,21 +23,22 @@ fun <T : Any, TFeature : Any> IAssertionFactory<T>.and(feature: KProperty0<TFeat
 fun <T : Any, TFeature : Any?> IAssertionFactory<T>.and(feature: KProperty0<TFeature>): IAssertionFactoryNullable<TFeature>
     = AssertionFactory.newNullable(feature.name, feature.get(), FeatureAssertionChecker(this))
 
+
 inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull()
-    = DownCastFluent.create(commonFields, OneMessageAssertion("is not", RawString.NULL, subject != null))
+    = DownCastFluent.create(commonFields, IsNotNullAssertion(subject))
     .cast()
 
 inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull(noinline createAssertions: IAssertionFactory<T>.() -> Unit)
-    = DownCastFluent.create(commonFields, OneMessageAssertion("is not", RawString.NULL, subject != null))
+    = DownCastFluent.create(commonFields, IsNotNullAssertion(subject))
     .withLazyAssertions(createAssertions)
     .cast()
 
 inline fun <reified TSub : Any> IAssertionFactory<Any>.isA(): IAssertionFactory<TSub>
-    = DownCastFluent.create<TSub, Any>(commonFields, OneMessageAssertion("is (sub-)type of", TSub::class.java, subject is TSub))
+    = DownCastFluent.create<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
     .cast()
 
 inline fun <reified TSub : Any> IAssertionFactory<Any>.isA(noinline createAssertions: IAssertionFactory<TSub>.() -> Unit): IAssertionFactory<TSub>
-    = DownCastFluent.create<TSub, Any>(commonFields, OneMessageAssertion("is (sub-)type of", TSub::class.java, subject is TSub))
+    = DownCastFluent.create<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
     .withLazyAssertions(createAssertions)
     .cast()
 
@@ -65,6 +67,12 @@ fun <T : CharSequence> IAssertionFactory<T>.contains(expected: CharSequence)
 fun <T : CharSequence> IAssertionFactory<T>.contains(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionFactory<T> {
     val factory = contains(expected)
     otherExpected.forEach { contains(it) }
+    return factory
+}
+
+fun <T : CharSequence> IAssertionFactory<T>.contains(expected: Any, vararg otherExpected: Any): IAssertionFactory<T> {
+    val factory = contains(expected.toString())
+    otherExpected.forEach { contains(it.toString()) }
     return factory
 }
 

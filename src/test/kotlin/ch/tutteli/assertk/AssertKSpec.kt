@@ -1,5 +1,6 @@
 package ch.tutteli.assertk
 
+import ch.tutteli.assertk.assertions.IsAAssertion
 import ch.tutteli.assertk.creating.IAssertionFactory
 import ch.tutteli.assertk.verbs.assert.assert
 import ch.tutteli.assertk.verbs.expect.expect
@@ -18,7 +19,7 @@ class AssertKSpec : Spek({
                     expect {
                         assert("hello").isA()
                     }.toThrow<AssertionError> {
-                        message.contains("is (sub-)type of", "Integer")
+                        message.contains(IsAAssertion.MESSAGE_DESCRIPTION, Integer::class.java.simpleName)
                     }
                 }
             }
@@ -56,7 +57,7 @@ class AssertKSpec : Spek({
                     expect {
                         assert(A()).isA()
                     }.toThrow<AssertionError> {
-                        message.contains(A::class.java.name, "is (sub-)type of", B::class.java.name)
+                        message.contains(A::class.java.name, IsAAssertion.MESSAGE_DESCRIPTION, B::class.java.name)
                     }
                 }
             }
@@ -73,13 +74,15 @@ class AssertKSpec : Spek({
         }
 
         group("allows to perform an assertion specific for the subtype which fails") {
-            val immediate: (IAssertionFactory<Any>.() -> Unit) = { isA<Int>().isSmallerThan(2) }
-            val lazy: (IAssertionFactory<Any>.() -> Unit) = { isA<Int> { isSmallerThan(2) } }
+            val expectedSmallerThan = 2
+            val actualValue = 5
+            val immediate: (IAssertionFactory<Any>.() -> Unit) = { isA<Int>().isSmallerThan(expectedSmallerThan) }
+            val lazy: (IAssertionFactory<Any>.() -> Unit) = { isA<Int> { isSmallerThan(expectedSmallerThan) } }
             mapOf(immediateEvaluation to immediate, lazyEvaluation to lazy).forEach { description, isAWithAssertion ->
                 check(description) {
                     expect {
-                        assert(5).isAWithAssertion()
-                    }.toThrow<AssertionError>().and.message.contains("5", "is smaller than", "2")
+                        assert(actualValue).isAWithAssertion()
+                    }.toThrow<AssertionError>().and.message.contains(actualValue, "is smaller than", expectedSmallerThan)
                 }
             }
         }
