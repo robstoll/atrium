@@ -5,23 +5,23 @@ package ch.tutteli.assertk
 import ch.tutteli.assertk.assertions.IsAAssertion
 import ch.tutteli.assertk.assertions.IsNotNullAssertion
 import ch.tutteli.assertk.checking.FeatureAssertionChecker
-import ch.tutteli.assertk.creating.AssertionFactory
-import ch.tutteli.assertk.creating.DownCastFluent
-import ch.tutteli.assertk.creating.IAssertionFactory
-import ch.tutteli.assertk.creating.IAssertionFactoryNullable
+import ch.tutteli.assertk.creating.*
 import ch.tutteli.assertk.reporting.RawString
 import kotlin.reflect.KProperty0
 
 fun <T : Any, TFeature : Any> IAssertionFactory<T>.and(feature: KProperty0<TFeature>): IAssertionFactory<TFeature>
-    = AssertionFactory.newCheckImmediately(feature.name, feature.get(), FeatureAssertionChecker(this))
+    = AssertionFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(feature))
 
 fun <T : Any, TFeature : Any> IAssertionFactory<T>.and(feature: KProperty0<TFeature>, createAssertions: IAssertionFactory<TFeature>.() -> Unit): IAssertionFactory<TFeature> {
-    val featureFactory = AssertionFactory.newCheckLazily(feature.name, feature.get(), FeatureAssertionChecker(this))
+    val featureFactory = AssertionFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
     return AssertionFactory.createAssertionsAndCheckThem(featureFactory, createAssertions)
 }
 
 fun <T : Any, TFeature : Any?> IAssertionFactory<T>.and(feature: KProperty0<TFeature>): IAssertionFactoryNullable<TFeature>
-    = AssertionFactory.newNullable(feature.name, feature.get(), FeatureAssertionChecker(this))
+    = AssertionFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
+
+private fun <T : Any, TFeature : Any?> IAssertionFactory<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
+    = IAssertionFactoryBase.CommonFields(feature.name, feature.get(), FeatureAssertionChecker(this))
 
 
 inline fun <reified T : Any> IAssertionFactoryNullable<T?>.isNotNull()
