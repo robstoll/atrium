@@ -35,16 +35,33 @@ class DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        on("CharSequence") {
-            it("returns two quotes including identity hash if empty CharSequence") {
+        on("a ${String::class.java.simpleName}") {
+            it("returns two quotes including identity hash if empty ${String::class.java.simpleName}") {
                 val string = ""
                 val result = testee.format(string)
                 assert(result).toBe("\"\"   <${System.identityHashCode(string)}>")
             }
-            it("returns CharSequence in quotes including identity hash") {
+            it("returns ${String::class.java.simpleName} in quotes including identity hash") {
                 val string = "assertK"
                 val result = testee.format(string)
                 assert(result).toBe("\"$string\"   <${System.identityHashCode(string)}>")
+            }
+        }
+
+        val typeNameAndHash = "including type name and identity hash"
+
+        on("a ${CharSequence::class.java.simpleName} besides ${String::class.java.simpleName}") {
+            it("returns two quotes $typeNameAndHash if empty ${CharSequence::class.java.simpleName}") {
+                val value = StringBuilder("")
+                val result = testee.format(value)
+                assert(result).toBe("\"\""
+                    + "   (${value::class.java.name} <${System.identityHashCode(value)}>)")
+            }
+            it("returns ${CharSequence::class.java.simpleName} in quotes $typeNameAndHash") {
+                val value = StringBuilder("assertK")
+                val result = testee.format(value)
+                assert(result).toBe("\"$value\""
+                    + "   (${value::class.java.name} <${System.identityHashCode(value)}>)")
             }
         }
 
@@ -58,11 +75,9 @@ class DetailedObjectFormatterSpec : Spek({
         ).forEach { (typeName, value) ->
             on(typeName) {
                 val result = testee.format(value)
-                it("returns ${IAssertionFactory<*>::subject.name}.toString() including type name and identity hash") {
+                it("returns ${IAssertionFactory<*>::subject.name}.toString() $typeNameAndHash") {
                     assert(result).toBe(value.toString()
-                        + "   (" + value::class.java.name
-                        + "<" + System.identityHashCode(value) + ">"
-                        + ")")
+                        + "   (${value::class.java.name} <${System.identityHashCode(value)}>)")
                 }
             }
         }
