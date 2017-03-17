@@ -6,7 +6,7 @@ import ch.tutteli.assertk.verbs.expect.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 
-class AssertionFactoryNullableSpec : Spek({
+class AssertionPlantNullableSpec : Spek({
     describe("subject is null") {
         val i: Int? = null
         check("isNull() does not throw an Exception") {

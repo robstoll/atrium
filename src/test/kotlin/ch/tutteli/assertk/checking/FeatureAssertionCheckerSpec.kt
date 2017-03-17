@@ -4,7 +4,7 @@ import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.assertions.IFeatureAssertionGroup
 import ch.tutteli.assertk.assertions.OneMessageAssertion
-import ch.tutteli.assertk.creating.IAssertionFactory
+import ch.tutteli.assertk.creating.IAssertionPlant
 import ch.tutteli.assertk.verbs.assert.assert
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
@@ -20,7 +20,7 @@ class FeatureAssertionCheckerSpec : Spek({
 
     describe("check") {
         setUp("creates a featureAssertionGroup and passes it to its subjectFactory") {
-            val subjectFactory = mock<IAssertionFactory<Int>>()
+            val subjectFactory = mock<IAssertionPlant<Int>>()
             val testee = FeatureAssertionChecker(subjectFactory)
             testee.check(assertionVerb, subject, assertions)
             val captor = argumentCaptor<IAssertion>()

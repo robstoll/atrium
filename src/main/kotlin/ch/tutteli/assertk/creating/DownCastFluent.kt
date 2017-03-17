@@ -5,10 +5,10 @@ import ch.tutteli.assertk.checking.IAssertionChecker
 import ch.tutteli.assertk.reporting.RawString
 
 class DownCastFluent<out T : Any, out TSub : T>(private val subClass: Class<TSub>,
-                                                private val commonFields: IAssertionFactoryBase.CommonFields<T?>,
+                                                private val commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>,
                                                 private val assertion: IAssertion) {
 
-    private var createAssertions: (IAssertionFactory<TSub>.() -> Unit)? = null
+    private var createAssertions: (IAssertionPlant<TSub>.() -> Unit)? = null
     private var nullRepresentation: String = RawString.NULL
 
     fun withNullRepresentation(representation: String): DownCastFluent<T, TSub> {
@@ -16,26 +16,26 @@ class DownCastFluent<out T : Any, out TSub : T>(private val subClass: Class<TSub
         return this
     }
 
-    fun withLazyAssertions(assertions: IAssertionFactory<TSub>.() -> Unit): DownCastFluent<T, TSub> {
+    fun withLazyAssertions(assertions: IAssertionPlant<TSub>.() -> Unit): DownCastFluent<T, TSub> {
         createAssertions = assertions
         return this
     }
 
-    fun cast(): IAssertionFactory<TSub> {
+    fun cast(): IAssertionPlant<TSub> {
         val (assertionVerb, subject, assertionChecker) = commonFields
         if (assertion.holds()) {
             //needs to hold in order that cast can be performed
-            val factory = if (createAssertions != null) {
-                AssertionFactory.newCheckLazily(assertionVerb, subClass.cast(subject), assertionChecker)
+            val plant = if (createAssertions != null) {
+                AssertionPlantFactory.newCheckLazily(assertionVerb, subClass.cast(subject), assertionChecker)
             } else {
-                AssertionFactory.newCheckImmediately(assertionVerb, subClass.cast(subject), assertionChecker)
+                AssertionPlantFactory.newCheckImmediately(assertionVerb, subClass.cast(subject), assertionChecker)
             }
-            factory.addAssertion(assertion)
+            plant.addAssertion(assertion)
             if (createAssertions != null) {
-                createAssertions?.invoke(factory)
-                factory.checkAssertions()
+                createAssertions?.invoke(plant)
+                plant.checkAssertions()
             }
-            return factory
+            return plant
         }
         assertionChecker.fail(assertionVerb, subject ?: nullRepresentation, assertion)
         throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception, ${assertionChecker::class.java.name} did not")
@@ -45,7 +45,7 @@ class DownCastFluent<out T : Any, out TSub : T>(private val subClass: Class<TSub
         /**
          * Prepares a down cast, use the {@link DownCastFluent#cast} to perform it.
          */
-        inline fun <reified TSub : T, T : Any> create(commonFields: IAssertionFactoryBase.CommonFields<T?>, assertion: IAssertion): DownCastFluent<T, TSub> {
+        inline fun <reified TSub : T, T : Any> create(commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>, assertion: IAssertion): DownCastFluent<T, TSub> {
             return DownCastFluent(TSub::class.java, commonFields, assertion)
         }
     }
