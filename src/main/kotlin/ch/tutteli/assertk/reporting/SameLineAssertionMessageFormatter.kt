@@ -51,7 +51,7 @@ class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectForm
     }
 
     private fun basicFormat(assertion: IAssertion, methodObject: MethodObject) {
-        methodObject.sb.append("Unsupported ${assertion::class.java.name} type, can only report whether it holds: ")
+        methodObject.sb.append("Unsupported type ${assertion::class.java.name}, can only report whether it holds: ")
             .append(assertion.holds())
     }
 
@@ -64,11 +64,11 @@ class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectForm
     private fun StringBuilder.appendPair(left: String, right: Any?)
         = append(left).append(": ").append(objectFormatter.format(right))
 
-    private fun StringBuilder.appendAssertions(assertions: List<IAssertion>, methodObject: MethodObject, factory: () -> MethodObject): StringBuilder {
+    private fun StringBuilder.appendAssertions(assertions: List<IAssertion>, methodObject: MethodObject, factoryMethod: () -> MethodObject): StringBuilder {
         assertions
             .filter(methodObject.assertionFilter)
             .appendToStringBuilder(methodObject.sb, SEPARATOR) { it, _ ->
-                format(it, factory())
+                format(it, factoryMethod())
             }
         return this
     }
