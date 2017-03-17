@@ -27,7 +27,7 @@ class SameLineAssertionMessageFormatterSpec : Spek({
                 override fun holds() = false
             }
             testee.format(sb, assertion, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-            assert(sb.toString()).contains("Unsupported ${assertion::class.java.name}").and.contains("false")
+            assert(sb.toString()).contains("Unsupported type ${assertion::class.java.name}").and.contains("false")
         }
     }
 

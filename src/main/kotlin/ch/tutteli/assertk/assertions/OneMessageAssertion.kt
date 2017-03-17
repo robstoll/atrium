@@ -1,12 +1,14 @@
 package ch.tutteli.assertk.assertions
 
 
-data class OneMessageAssertion(val description: String, val representation: Any, val holds: Boolean) : IOneMessageAssertion {
+class OneMessageAssertion(description: String, representation: Any, check: () -> Boolean) : IOneMessageAssertion {
 
-    constructor(description: String, expected: Any, check: () -> Boolean)
-        : this(description, expected, check())
+    constructor(description: String, expected: Any, holds: Boolean)
+        : this(description, expected, { holds })
 
     override val message by lazy {
-        Message(description, representation, holds)
+        Message(description, representation, check())
     }
+
+    override fun toString() = message.toString()
 }
