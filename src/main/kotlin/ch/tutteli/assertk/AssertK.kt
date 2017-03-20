@@ -9,20 +9,9 @@ import ch.tutteli.assertk.creating.*
 import ch.tutteli.assertk.reporting.RawString
 import kotlin.reflect.KProperty0
 
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
-    = AssertionPlantFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(feature))
-
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature> {
-    val featurePlant = AssertionPlantFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
-    return AssertionPlantFactory.createAssertionsAndCheckThem(featurePlant, createAssertions)
-}
-
-fun <T : Any, TFeature : Any?> IAssertionPlant<T>.and(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
-    = AssertionPlantFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
-
-private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
-    = IAssertionPlantWithCommonFields.CommonFields(feature.name, feature.get(), FeatureAssertionChecker(this))
-
+// ---------------------------------------------------------------------------------
+// Narrowing/feature assertions ----------------------------------------------------
+// ---------------------------------------------------------------------------------
 
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
     = DownCastFluent.create(commonFields, IsNotNullAssertion(subject))
@@ -41,6 +30,24 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertio
     = DownCastFluent.create<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
     .withLazyAssertions(createAssertions)
     .cast()
+
+fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
+    = AssertionPlantFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(feature))
+
+fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature> {
+    val featurePlant = AssertionPlantFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
+    return AssertionPlantFactory.createAssertionsAndCheckThem(featurePlant, createAssertions)
+}
+
+fun <T : Any, TFeature : Any?> IAssertionPlant<T>.and(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
+    = AssertionPlantFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
+
+private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
+    = IAssertionPlantWithCommonFields.CommonFields(feature.name, feature.get(), FeatureAssertionChecker(this))
+
+val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = and(subject::message).isNotNull()
+fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit): IAssertionPlant<String> = and(subject::message).isNotNull(createAssertions)
+
 
 // ---------------------------------------------------------------------------------
 // Assertions ----------------------------------------------------------------------
@@ -84,9 +91,6 @@ fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence)
 
 fun <T : CharSequence> IAssertionPlant<T>.isEmpty()
     = createAndAddAssertion("is", RawString("empty"), { subject.isEmpty() })
-
-val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = and(subject::message).isNotNull()
-fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit): IAssertionPlant<String> = and(subject::message).isNotNull(createAssertions)
 
 fun <T : Collection<*>> IAssertionPlant<T>.hasSize(size: Int)
     = createAndAddAssertion("has size", size, { subject.size == size })
