@@ -9,12 +9,12 @@ class ThrowableFluent(val commonFields: IAssertionPlantWithCommonFields.CommonFi
         : this(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, throwable, assertionChecker))
 
     inline fun <reified TExpected : Throwable> toThrow(): IAssertionPlant<TExpected>
-        = DownCastFluent.create<TExpected, Throwable>(commonFields, ExceptionThrownAssertion(commonFields.subject, TExpected::class.java))
+        = DownCastBuilder.create<TExpected, Throwable>(commonFields, ExceptionThrownAssertion(commonFields.subject, TExpected::class.java))
         .withNullRepresentation(NO_EXCEPTION_OCCURRED)
         .cast()
 
     inline fun <reified TExpected : Throwable> toThrow(noinline createAsserts: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = DownCastFluent.create<TExpected, Throwable>(commonFields, ExceptionThrownAssertion(commonFields.subject, TExpected::class.java))
+        = DownCastBuilder.create<TExpected, Throwable>(commonFields, ExceptionThrownAssertion(commonFields.subject, TExpected::class.java))
         .withNullRepresentation(NO_EXCEPTION_OCCURRED)
         .withLazyAssertions(createAsserts)
         .cast()

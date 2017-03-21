@@ -2,8 +2,12 @@ package ch.tutteli.assertk.creating
 
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker
+import ch.tutteli.assertk.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.assertk.reporting.RawString
 
+/**
+ * An [IAssertionPlant] which has [CommonFields]; provides the property [subject] for ease of use.
+ */
 interface IAssertionPlantWithCommonFields<out T> {
     val commonFields: CommonFields<T>
     val subject get() = commonFields.subject

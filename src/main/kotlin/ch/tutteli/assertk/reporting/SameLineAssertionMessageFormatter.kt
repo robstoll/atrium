@@ -3,6 +3,18 @@ package ch.tutteli.assertk.reporting
 import ch.tutteli.assertk.assertions.*
 import ch.tutteli.kbox.appendToStringBuilder
 
+/**
+ * Formats an [IAssertion] and its [Message]s, putting each message on its own line.
+ *
+ * Currently the following [IAssertion] types are supported:
+ * - [IAssertionGroup]
+ * - [IFeatureAssertionGroup]
+ * - [IAssertion]
+ *
+ * and the following [Message] types:
+ * - [IOneMessageAssertion]
+ * - [IMultiMessageAssertion]
+ */
 class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectFormatter) : IAssertionMessageFormatter {
 
     override fun format(sb: StringBuilder, assertion: IAssertion, assertionFilter: (IAssertion) -> Boolean, messageFilter: (Message) -> Boolean) {
