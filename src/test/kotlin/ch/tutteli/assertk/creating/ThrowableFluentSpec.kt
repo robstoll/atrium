@@ -27,7 +27,7 @@ class ThrowableFluentSpec : Spek({
                 throw UnsupportedOperationException()
             }.toThrow<IllegalArgumentException>()
         }.toThrow<AssertionError> {
-            and(subject::message).isNotNull().contains(UnsupportedOperationException::class.java.name, "is a", IllegalArgumentException::class.java.name)
+            message.contains(UnsupportedOperationException::class.java.name, "is a", IllegalArgumentException::class.java.name)
         }
     }
     it("does not throw if the correct exception is thrown") {

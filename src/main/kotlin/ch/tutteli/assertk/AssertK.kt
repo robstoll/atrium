@@ -78,6 +78,9 @@ fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant
 // Assertions ----------------------------------------------------------------------
 // ---------------------------------------------------------------------------------
 
+fun <T : Any> IAssertionPlant<T>.genericCheck(feature: KProperty0<Boolean>): IAssertionPlant<T>
+    = createAndAddAssertion("generic check ${feature.name}", true, { feature.get() })
+
 fun <T : Any> IAssertionPlant<T>.toBe(expected: T)
     = createAndAddAssertion("to be", expected, { subject == expected })
 
