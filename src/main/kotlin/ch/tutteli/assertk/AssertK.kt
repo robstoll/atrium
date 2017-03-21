@@ -14,39 +14,64 @@ import kotlin.reflect.KProperty0
 // ---------------------------------------------------------------------------------
 
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
-    = DownCastFluent.create(commonFields, IsNotNullAssertion(subject))
+    = DownCastBuilder.create(commonFields, IsNotNullAssertion(subject))
     .cast()
 
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit)
-    = DownCastFluent.create(commonFields, IsNotNullAssertion(subject))
+    = DownCastBuilder.create(commonFields, IsNotNullAssertion(subject))
     .withLazyAssertions(createAssertions)
     .cast()
 
+/**
+ * Creates an `is a` assertion, which holds if the [IAssertionPlant.subject] is the same or a subtype of the expected type [TSub].
+ */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub>
-    = DownCastFluent.create<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
+    = DownCastBuilder.create<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
     .cast()
 
+/**
+ * Creates an `is a` assertion, which holds if the [IAssertionPlant.subject] is the same or a subtype of the expected type [TSub].
+ */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
-    = DownCastFluent.create<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
+    = DownCastBuilder.create<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
     .withLazyAssertions(createAssertions)
     .cast()
 
+/**
+ * Allows to define assertions for a specific [feature] which are immediately evaluated (see [AssertionPlantFactory.newCheckImmediately]).
+ */
 fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
     = AssertionPlantFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(feature))
 
+/**
+ * Allows to define assertions for a specific [feature] which are lazily evaluated (see [AssertionPlantFactory.newCheckLazily]).
+ */
 fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature> {
     val featurePlant = AssertionPlantFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
     return AssertionPlantFactory.createAssertionsAndCheckThem(featurePlant, createAssertions)
 }
 
+/**
+ * Allows to define assertions for a specific [feature] which is nullable (see [AssertionPlantFactory.newNullable]).
+ */
 fun <T : Any, TFeature : Any?> IAssertionPlant<T>.and(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
     = AssertionPlantFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
 
 private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
     = IAssertionPlantWithCommonFields.CommonFields(feature.name, feature.get(), FeatureAssertionChecker(this))
 
+/**
+ * Creates an [isNotNull] assertion for the [Throwable.message] of a [Throwable] and
+ * allows to define further assertions for the message, which are then immediately evaluated (see [AssertionPlantFactory.newCheckImmediately]).
+ */
 val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = and(subject::message).isNotNull()
-fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit): IAssertionPlant<String> = and(subject::message).isNotNull(createAssertions)
+
+/**
+ * Creates an [isNotNull] assertion for the [Throwable.message] of a [Throwable] and
+ * allows to define further assertions for the message, which are then lazily evaluated (see [AssertionPlantFactory.newCheckLazily]).
+ */
+fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit): IAssertionPlant<String>
+    = and(subject::message).isNotNull(createAssertions)
 
 
 // ---------------------------------------------------------------------------------

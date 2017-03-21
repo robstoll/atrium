@@ -4,19 +4,28 @@ import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker
 import ch.tutteli.assertk.reporting.RawString
 
-class DownCastFluent<out T : Any, out TSub : T>(private val subClass: Class<TSub>,
-                                                private val commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>,
-                                                private val assertion: IAssertion) {
+/**
+ * A builder for down-casting assertions.
+ */
+class DownCastBuilder<out T : Any, out TSub : T>(private val subClass: Class<TSub>,
+                                                 private val commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>,
+                                                 private val assertion: IAssertion) {
 
     private var createAssertions: (IAssertionPlant<TSub>.() -> Unit)? = null
     private var nullRepresentation: String = RawString.NULL
 
-    fun withNullRepresentation(representation: String): DownCastFluent<T, TSub> {
+    /**
+     * Use this method if you want to use your own `null` representation (default is [RawString.NULL])
+     */
+    fun withNullRepresentation(representation: String): DownCastBuilder<T, TSub> {
         nullRepresentation = representation
         return this
     }
 
-    fun withLazyAssertions(assertions: IAssertionPlant<TSub>.() -> Unit): DownCastFluent<T, TSub> {
+    /**
+     * Use this method if you want to add several assertions which are checked lazily after the down cast is performed.
+     */
+    fun withLazyAssertions(assertions: IAssertionPlant<TSub>.() -> Unit): DownCastBuilder<T, TSub> {
         createAssertions = assertions
         return this
     }
@@ -43,10 +52,10 @@ class DownCastFluent<out T : Any, out TSub : T>(private val subClass: Class<TSub
 
     companion object {
         /**
-         * Prepares a down cast, use the {@link DownCastFluent#cast} to perform it.
+         * Prepares a down cast; use [cast] to perform it and first call [withLazyAssertions]/[withNullRepresentation] to specialise it further.
          */
-        inline fun <reified TSub : T, T : Any> create(commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>, assertion: IAssertion): DownCastFluent<T, TSub> {
-            return DownCastFluent(TSub::class.java, commonFields, assertion)
+        inline fun <reified TSub : T, T : Any> create(commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>, assertion: IAssertion): DownCastBuilder<T, TSub> {
+            return DownCastBuilder(TSub::class.java, commonFields, assertion)
         }
     }
 }

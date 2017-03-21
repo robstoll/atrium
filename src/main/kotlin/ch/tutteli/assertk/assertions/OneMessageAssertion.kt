@@ -1,6 +1,8 @@
 package ch.tutteli.assertk.assertions
 
-
+/**
+ * A default implementation for [IOneMessageAssertion].
+ */
 class OneMessageAssertion(description: String, representation: Any, check: () -> Boolean) : IOneMessageAssertion {
 
     constructor(description: String, expected: Any, holds: Boolean)
