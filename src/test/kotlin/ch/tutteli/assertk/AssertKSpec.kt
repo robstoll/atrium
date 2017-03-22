@@ -80,21 +80,21 @@ class AssertKSpec : Spek({
         }, { isA<Int>().isSmallerThan(expectedSmallerThan) }, { isA<Int> { isSmallerThan(expectedSmallerThan) } })
     }
 
-    describe("fun `and` (feature assertion)") {
+    describe("fun `its` (feature assertion)") {
         data class TestData(val description: String, val nullableValue: Int?)
 
         context("it allows to define an assertion for the feature") {
-            val nullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { and(subject::nullableValue).isNull() }
+            val nullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { its(subject::nullableValue).isNull() }
             checkNarrowingAssertion("it throws an AssertionError if the assertion does not hold", { andWithCheck ->
                 expect {
                     assert(TestData("hallo robert", 1)).andWithCheck()
                 }.toThrow<AssertionError>()
-            }, { and(subject::description).contains("hello") }, { and(subject::description) { contains("hello") } }, "nullable" to nullableDoesNotHold)
+            }, { its(subject::description).contains("hello") }, { its(subject::description) { contains("hello") } }, "nullable" to nullableDoesNotHold)
 
-            val nullableHolds: IAssertionPlant<TestData>.() -> Unit = { and(subject::nullableValue).isNotNull() }
+            val nullableHolds: IAssertionPlant<TestData>.() -> Unit = { its(subject::nullableValue).isNotNull() }
             checkNarrowingAssertion("it does not throw an exception if the assertion holds", { andWithCheck ->
                 assert(TestData("hello robert", 1)).andWithCheck()
-            }, { and(subject::description).contains("hello") }, { and(subject::description) { contains("hello") } }, "nullable" to nullableHolds)
+            }, { its(subject::description).contains("hello") }, { its(subject::description) { contains("hello") } }, "nullable" to nullableHolds)
         }
     }
 

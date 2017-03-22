@@ -28,14 +28,14 @@ class FeatureAssertionCheckerSpec : Spek({
             val fluent = assert(captor.firstValue).isA<IFeatureAssertionGroup>()
             context("featureAssertionGroup") {
                 check("its ${IFeatureAssertionGroup::featureName.name} corresponds to the passed assertionVerb") {
-                    fluent.and(fluent.subject::featureName).toBe(assertionVerb)
+                    fluent.its(fluent.subject::featureName).toBe(assertionVerb)
                 }
                 check("its ${IFeatureAssertionGroup::subSubject.name} corresponds to the passed subject") {
-                    fluent.and(fluent.subject::subSubject).toBe(subject)
+                    fluent.its(fluent.subject::subSubject).toBe(subject)
                 }
                 check("copies the assertion") {
                     assertions.clear()
-                    fluent.and(fluent.subject::assertions).hasSize(1)
+                    fluent.its(fluent.subject::assertions).hasSize(1)
                     //TODO replace with 'not' as soon as 'not' is supported
 //                    fluent.and(fluent.subject::assertions).not.isSame(assertions)
                 }
