@@ -38,15 +38,15 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertio
     .cast()
 
 /**
- * Allows to define assertions for a specific [feature] which are immediately evaluated (see [AssertionPlantFactory.newCheckImmediately]).
+ * Allows to define assertions which are immediately evaluated (see [AssertionPlantFactory.newCheckImmediately]) for a specific [feature].
  */
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
+fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
     = AssertionPlantFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(feature))
 
 /**
- * Allows to define assertions for a specific [feature] which are lazily evaluated (see [AssertionPlantFactory.newCheckLazily]).
+ * Allows to define assertions which are lazily evaluated (see [AssertionPlantFactory.newCheckLazily]) for a specific [feature].
  */
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature> {
+fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature> {
     val featurePlant = AssertionPlantFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
     return AssertionPlantFactory.createAssertionsAndCheckThem(featurePlant, createAssertions)
 }
@@ -54,7 +54,7 @@ fun <T : Any, TFeature : Any> IAssertionPlant<T>.and(feature: KProperty0<TFeatur
 /**
  * Allows to define assertions for a specific [feature] which is nullable (see [AssertionPlantFactory.newNullable]).
  */
-fun <T : Any, TFeature : Any?> IAssertionPlant<T>.and(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
+fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
     = AssertionPlantFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
 
 private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
@@ -64,14 +64,14 @@ private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForF
  * Creates an [isNotNull] assertion for the [Throwable.message] of a [Throwable] and
  * allows to define further assertions for the message, which are then immediately evaluated (see [AssertionPlantFactory.newCheckImmediately]).
  */
-val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = and(subject::message).isNotNull()
+val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = its(subject::message).isNotNull()
 
 /**
  * Creates an [isNotNull] assertion for the [Throwable.message] of a [Throwable] and
  * allows to define further assertions for the message, which are then lazily evaluated (see [AssertionPlantFactory.newCheckLazily]).
  */
 fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit): IAssertionPlant<String>
-    = and(subject::message).isNotNull(createAssertions)
+    = its(subject::message).isNotNull(createAssertions)
 
 
 // ---------------------------------------------------------------------------------
