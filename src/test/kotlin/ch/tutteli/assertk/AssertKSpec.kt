@@ -9,6 +9,7 @@ import org.jetbrains.spek.api.Spek
 
 class AssertKSpec : Spek({
     describe("fun isNotNull") {
+
         checkNarrowingNullableAssertion<Int?>("it throws an AssertionError if the subject is null", { isNotNull ->
             expect {
                 val i: Int? = null
@@ -34,8 +35,6 @@ class AssertKSpec : Spek({
                 assert(i).isNotNullWithCheck()
             }, { isNotNull().isGreaterOrEquals(1) }, { isNotNull { isGreaterOrEquals(0) } })
         }
-
-
     }
 
     describe("fun isA") {
