@@ -68,7 +68,7 @@ class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectForm
     }
 
     private fun appendIndent(methodObject: MethodObject) {
-        for (i in 0 until methodObject.messageGroupLevel * 3) {
+        for (i in 0 until methodObject.messageGroupLevel * NUMBER_OF_INDENT_SPACES) {
             methodObject.sb.append(' ')
         }
     }
@@ -87,7 +87,7 @@ class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectForm
 
     companion object {
         val SEPARATOR: String = System.getProperty("line.separator")!!
-        internal val INDENT = 3
+        internal val NUMBER_OF_INDENT_SPACES = 3
     }
 
     private class MethodObject(

@@ -3,7 +3,6 @@ package ch.tutteli.assertk.reporting
 import ch.tutteli.assertk.assertions.*
 import ch.tutteli.assertk.contains
 import ch.tutteli.assertk.context
-import ch.tutteli.assertk.reporting.SameLineAssertionMessageFormatter.Companion.INDENT
 import ch.tutteli.assertk.startsWith
 import ch.tutteli.assertk.toBe
 import ch.tutteli.assertk.verbs.assert.assert
@@ -63,12 +62,14 @@ class SameLineAssertionMessageFormatterSpec : Spek({
             assert(sb.toString()).startsWith("${arrow}name: robert")
         }
 
-        it("indents assertions by ${SameLineAssertionMessageFormatter.INDENT} spaces") {
+        val indent = " ".repeat(SameLineAssertionMessageFormatter.NUMBER_OF_INDENT_SPACES)
+
+        it("indents assertions by ${SameLineAssertionMessageFormatter.NUMBER_OF_INDENT_SPACES} spaces") {
             testee.format(sb, FeatureAssertionGroup("name", "robert", listOf(
                 OneMessageAssertion("starts with", "ro", true),
                 OneMessageAssertion("ends with", "bert", true)
             )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-            assert(sb.toString()).contains("${INDENT}starts with: ro$separator${INDENT}ends with: bert")
+            assert(sb.toString()).contains("${indent}starts with: ro$separator${indent}ends with: bert")
         }
 
         context("in an ${IAssertionGroup::class.java.simpleName}") {
@@ -85,10 +86,10 @@ class SameLineAssertionMessageFormatterSpec : Spek({
                 )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
                 assert(sb.toString()).toBe("assert: " + message + separator
                     + "-> description: a description" + separator
-                    + "${INDENT}starts with: a" + separator
-                    + "${INDENT}ends with: description" + separator
+                    + "${indent}starts with: a" + separator
+                    + "${indent}ends with: description" + separator
                     + "-> representation: whatever" + separator
-                    + "${INDENT}to be: whatever"
+                    + "${indent}to be: whatever"
                 )
             }
 
@@ -105,9 +106,9 @@ class SameLineAssertionMessageFormatterSpec : Spek({
                     )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
                     assert(sb.toString()).toBe("assert: " + message + separator
                         + "-> description: a description" + separator
-                        + "${INDENT}starts with: a" + separator
-                        + "$INDENT-> toString: a description" + separator
-                        + "$INDENT${INDENT}to be: a description"
+                        + "${indent}starts with: a" + separator
+                        + "$indent-> toString: a description" + separator
+                        + "$indent${indent}to be: a description"
                     )
                 }
             }
