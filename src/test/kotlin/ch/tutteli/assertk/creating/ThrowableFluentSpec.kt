@@ -3,108 +3,108 @@ package ch.tutteli.assertk.creating
 import ch.tutteli.assertk.*
 import ch.tutteli.assertk.assertions.IAssertion
 import ch.tutteli.assertk.checking.IAssertionChecker
-import ch.tutteli.assertk.verbs.assert.assert
 import ch.tutteli.assertk.verbs.expect.expect
 import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.it
+import org.jetbrains.spek.api.dsl.SpecBody
 
 class ThrowableFluentSpec : Spek({
 
-    it("throws an AssertionError when no exception occurs") {
+    fun SpecBody.checkToThrow(description: String,
+                              act: (ThrowableFluent.() -> Unit) -> Unit,
+                              immediate: (ThrowableFluent.() -> Unit),
+                              lazy: (ThrowableFluent.() -> Unit)) {
+        checkGenericNarrowingAssertion(description, act, immediate, lazy)
+    }
+    checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
         expect {
             expect {
                 /* no exception occurs */
-            }.toThrow<IllegalArgumentException>()
+            }.doToThrow()
         }.toThrow<AssertionError> {
-            and.message.contains(ThrowableFluent.NO_EXCEPTION_OCCURRED, "is a", IllegalArgumentException::class.java.name)
+            message.contains(ch.tutteli.assertk.creating.ThrowableFluent.NO_EXCEPTION_OCCURRED, "is a", IllegalArgumentException::class.java.name)
         }
-    }
+    }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
 
-    it("throws an AssertionError when the wrong exception occurs") {
+    checkToThrow("it throws an AssertionError when the wrong exception occurs", { doToThrow ->
         expect {
             expect {
                 throw UnsupportedOperationException()
-            }.toThrow<IllegalArgumentException>()
+            }.doToThrow()
         }.toThrow<AssertionError> {
             message.contains(UnsupportedOperationException::class.java.name, "is a", IllegalArgumentException::class.java.name)
         }
-    }
-    it("does not throw if the correct exception is thrown") {
+    }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
+
+    checkToThrow("it allows to define assertions for the Throwable if the correct exception is thrown", { toThrowWithCheck ->
         expect {
             throw IllegalArgumentException("hello")
-        }.toThrow<IllegalArgumentException>().and.message.toBe("hello")
-    }
+        }.toThrowWithCheck()
+    }, { toThrow<IllegalArgumentException>().and.message.toBe("hello") }, { toThrow<IllegalArgumentException> { and.message.toBe("hello") } })
 
+    val assertionVerb = "assertionVerb"
+    class CheckerAndFluent(var checker: IAssertionChecker = mock<IAssertionChecker>(), var fluent: ThrowableFluent = ThrowableFluent("dummy", null, checker))
     context("dependencies") {
-        inCaseOf("the expected exception is thrown") {
-            val assertionChecker = mock<IAssertionChecker>()
-            val assertionVerb = "assertionVerb"
+        group("in case the expected exception is thrown") {
             val subject = IllegalArgumentException()
-            val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
-            val throwable = fluent.toThrow<IllegalArgumentException>()
-            it("uses the given AssertionChecker to check that the correct exception is thrown") {
-                verify(assertionChecker).check(eq(assertionVerb), eq(subject), any<List<IAssertion>>())
+            val checkerAndFluent = CheckerAndFluent()
+            beforeEachTest {
+                checkerAndFluent.checker = mock<IAssertionChecker>()
+                checkerAndFluent.fluent = ThrowableFluent(assertionVerb, subject, checkerAndFluent.checker)
             }
+            checkToThrow("it uses the given AssertionChecker to check that the correct exception is thrown", { doToThrow ->
+                checkerAndFluent.fluent.doToThrow()
+                verify(checkerAndFluent.checker).check(eq(assertionVerb), eq(subject), any<List<IAssertion>>())
+            }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
 
-            it("uses the given AssertionChecker to check additional assertions") {
-                throwable.toBe(subject)
-                verify(assertionChecker, times(2)).check(eq(assertionVerb), eq(subject), any<List<IAssertion>>())
+            checkToThrow("it uses the given AssertionChecker to check that the correct exception is thrown", { toThrowWithCheck ->
+                checkerAndFluent.fluent.toThrowWithCheck()
+                verify(checkerAndFluent.checker, times(2)).check(eq(assertionVerb), eq(subject), any<List<IAssertion>>())
+            }, { toThrow<IllegalArgumentException>().toBe(subject) }, { toThrow<IllegalArgumentException> { toBe(subject) } })
+        }
+
+        val assertionError = AssertionError()
+        fun setUpCheckerAndFluentThrowingAssertionError(checkerAndFluent: CheckerAndFluent, subject:Throwable?){
+            beforeEachTest {
+                checkerAndFluent.checker = mock<IAssertionChecker> {
+                    on { fail(any<String>(), any(), any<IAssertion>()) }.doThrow(assertionError)
+                }
+                checkerAndFluent.fluent = ThrowableFluent(assertionVerb, subject, checkerAndFluent.checker)
             }
         }
 
-        inCaseOf("no exception is thrown") {
-            val assertionError = AssertionError()
-            val assertionChecker = mock<IAssertionChecker> {
-                on { fail(any<String>(), any(), any<IAssertion>()) }.doThrow(assertionError)
-            }
-            val assertionVerb = "assertionVerb"
+        group("in case no exception is thrown") {
             val subject: IllegalArgumentException? = null
-            val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
-            it("uses the given AssertionChecker to report the failure") {
+            val checkerAndFluent = CheckerAndFluent()
+            setUpCheckerAndFluentThrowingAssertionError(checkerAndFluent, subject)
+            checkToThrow("it uses the given AssertionChecker to report the failure", { toThrowWithCheck ->
                 expect {
-                    fluent.toThrow<IllegalArgumentException>()
-                }.toThrow<AssertionError>().and.toBe(assertionError)
-                verify(assertionChecker).fail(eq(assertionVerb), eq(ThrowableFluent.NO_EXCEPTION_OCCURRED), any<IAssertion>())
-            }
+                    checkerAndFluent.fluent.toThrow<IllegalArgumentException>()
+                }.toThrowWithCheck()
+                verify(checkerAndFluent.checker).fail(eq(assertionVerb), eq(ThrowableFluent.NO_EXCEPTION_OCCURRED), any<IAssertion>())
+            }, { toThrow<AssertionError>().and.toBe(assertionError) }, { toThrow<AssertionError> { toBe(assertionError) } })
         }
 
-        inCaseOf("the wrong exception is thrown") {
-            val assertionError = AssertionError()
-            val assertionChecker = mock<IAssertionChecker> {
-                on { fail(any<String>(), any(), any<IAssertion>()) }.doThrow(assertionError)
-            }
-            val assertionVerb = "assertionVerb"
+        group("in case the wrong exception is thrown") {
             val subject = UnsupportedOperationException()
-            val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
-            it("uses the given AssertionChecker to report the failure") {
+            val checkerAndFluent = CheckerAndFluent()
+            setUpCheckerAndFluentThrowingAssertionError(checkerAndFluent, subject)
+            checkToThrow("it uses the given AssertionChecker to report the failure", { toThrowWithCheck ->
                 expect {
-                    fluent.toThrow<IllegalArgumentException>()
-                }.toThrow<AssertionError>().and.toBe(assertionError)
-                verify(assertionChecker).fail(eq(assertionVerb), eq(subject), any<IAssertion>())
-            }
+                    checkerAndFluent.fluent.toThrow<IllegalArgumentException>()
+                }.toThrowWithCheck()
+                verify(checkerAndFluent.checker).fail(eq(assertionVerb), eq(subject), any<IAssertion>())
+            }, { toThrow<AssertionError>().and.toBe(assertionError) }, { toThrow<AssertionError> { toBe(assertionError) } })
         }
         val assertionChecker = mock<IAssertionChecker>()
-        val assertionVerb = "assertionVerb"
         val subject: IllegalArgumentException? = null
         val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
 
-        inCaseOf("using the immediate evaluating signature") {
-            it("throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown") {
-                expect {
-                    fluent.toThrow<IllegalArgumentException>()
-                }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
-            }
-        }
-
-        inCaseOf("using the lazy evaluating signature") {
-            it("throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown") {
-                expect {
-                    fluent.toThrow<IllegalArgumentException> {}
-                }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
-            }
-        }
-
+        checkToThrow("it throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown", { doToThrow ->
+            expect {
+                fluent.doToThrow()
+            }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
+        }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
     }
 
 })
