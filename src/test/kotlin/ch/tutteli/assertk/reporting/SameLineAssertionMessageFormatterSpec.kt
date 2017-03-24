@@ -3,6 +3,7 @@ package ch.tutteli.assertk.reporting
 import ch.tutteli.assertk.assertions.*
 import ch.tutteli.assertk.contains
 import ch.tutteli.assertk.context
+import ch.tutteli.assertk.reporting.SameLineAssertionMessageFormatter.Companion.INDENT
 import ch.tutteli.assertk.startsWith
 import ch.tutteli.assertk.toBe
 import ch.tutteli.assertk.verbs.assert.assert
@@ -67,7 +68,7 @@ class SameLineAssertionMessageFormatterSpec : Spek({
                 OneMessageAssertion("starts with", "ro", true),
                 OneMessageAssertion("ends with", "bert", true)
             )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-            assert(sb.toString()).contains("   starts with: ro$separator   ends with: bert")
+            assert(sb.toString()).contains("${INDENT}starts with: ro$separator${INDENT}ends with: bert")
         }
 
         context("in an ${IAssertionGroup::class.java.simpleName}") {
@@ -84,10 +85,10 @@ class SameLineAssertionMessageFormatterSpec : Spek({
                 )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
                 assert(sb.toString()).toBe("assert: " + message + separator
                     + "-> description: a description" + separator
-                    + "   starts with: a" + separator
-                    + "   ends with: description" + separator
+                    + "${INDENT}starts with: a" + separator
+                    + "${INDENT}ends with: description" + separator
                     + "-> representation: whatever" + separator
-                    + "   to be: whatever"
+                    + "${INDENT}to be: whatever"
                 )
             }
 
@@ -104,9 +105,9 @@ class SameLineAssertionMessageFormatterSpec : Spek({
                     )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
                     assert(sb.toString()).toBe("assert: " + message + separator
                         + "-> description: a description" + separator
-                        + "   starts with: a" + separator
-                        + "   -> toString: a description" + separator
-                        + "      to be: a description"
+                        + "${INDENT}starts with: a" + separator
+                        + "$INDENT-> toString: a description" + separator
+                        + "$INDENT${INDENT}to be: a description"
                     )
                 }
             }

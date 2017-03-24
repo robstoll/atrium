@@ -2,6 +2,7 @@ package ch.tutteli.assertk.reporting
 
 import ch.tutteli.assertk.creating.IAssertionPlant
 import ch.tutteli.assertk.describe
+import ch.tutteli.assertk.reporting.DetailedObjectFormatter.Companion.INDENT
 import ch.tutteli.assertk.toBe
 import ch.tutteli.assertk.verbs.assert.assert
 import org.jetbrains.spek.api.Spek
@@ -39,12 +40,12 @@ class DetailedObjectFormatterSpec : Spek({
             it("returns two quotes including identity hash if empty ${String::class.java.simpleName}") {
                 val string = ""
                 val result = testee.format(string)
-                assert(result).toBe("\"\"   <${System.identityHashCode(string)}>")
+                assert(result).toBe("\"\"" + INDENT + "<${System.identityHashCode(string)}>")
             }
             it("returns ${String::class.java.simpleName} in quotes including identity hash") {
                 val string = "assertK"
                 val result = testee.format(string)
-                assert(result).toBe("\"$string\"   <${System.identityHashCode(string)}>")
+                assert(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
             }
         }
 
@@ -54,14 +55,14 @@ class DetailedObjectFormatterSpec : Spek({
             it("returns two quotes $typeNameAndHash if empty ${CharSequence::class.java.simpleName}") {
                 val value = StringBuilder("")
                 val result = testee.format(value)
-                assert(result).toBe("\"\""
-                    + "   (${value::class.java.name} <${System.identityHashCode(value)}>)")
+                assert(result).toBe("\"\"" + INDENT
+                    + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
             }
             it("returns ${CharSequence::class.java.simpleName} in quotes $typeNameAndHash") {
                 val value = StringBuilder("assertK")
                 val result = testee.format(value)
-                assert(result).toBe("\"$value\""
-                    + "   (${value::class.java.name} <${System.identityHashCode(value)}>)")
+                assert(result).toBe("\"$value\"" + INDENT
+                    + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
             }
         }
 
@@ -76,8 +77,8 @@ class DetailedObjectFormatterSpec : Spek({
             on(typeName) {
                 val result = testee.format(value)
                 it("returns ${IAssertionPlant<*>::subject.name}.toString() $typeNameAndHash") {
-                    assert(result).toBe(value.toString()
-                        + "   (${value::class.java.name} <${System.identityHashCode(value)}>)")
+                    assert(result).toBe(value.toString() + INDENT
+                        + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
                 }
             }
         }
