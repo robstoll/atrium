@@ -37,6 +37,6 @@ class DetailedObjectFormatter : IObjectFormatter {
     private fun identityHash(any: Any) = "<${System.identityHashCode(any)}>"
 
     companion object {
-        private const val INDENT: String = "   "
+        internal const val INDENT: String = "        "
     }
 }
