@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        assertK_version = '0.1.1-SNAPSHOT'
+        atrium_version = '0.1.0-SNAPSHOT'
         kbox_version = '0.0.1'
         kotlin_version = '1.1.1'
         mockito_kotlin_version = '1.0.1'
@@ -12,10 +12,7 @@ buildscript {
 
         //publish.gradle
         bintray_version = '1.7.3'
-        publish_artifactId = 'assertK'
-        publish_version = assertK_version
-        publish_description = 'An assertion framework for Kotlin'
-        publish_vcsUrl = 'https://github.com/robstoll/assertK.git'
+        publish_vcsUrl = 'https://github.com/robstoll/atrium.git'
     }
 
     repositories {
@@ -26,22 +23,21 @@ buildscript {
     }
 }
 
-apply plugin: 'kotlin'
-apply from: './gradle/scripts/spek.gradle'
-apply from: './gradle/scripts/publish.gradle'
+subprojects {
+    apply plugin: 'kotlin'
 
-repositories {
-    mavenCentral()
-    maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
-}
-
-dependencies {
-    compile "ch.tutteli:kbox:$kbox_version"
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    testCompile ("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
-        exclude group: 'org.jetbrains.kotlin'
+    repositories {
+        mavenCentral()
+        maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
     }
 
-}
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        testCompile ("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
+            exclude group: 'org.jetbrains.kotlin'
+        }
+    }
 
+
+}
