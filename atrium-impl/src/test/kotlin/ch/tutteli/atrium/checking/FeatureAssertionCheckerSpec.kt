@@ -1,15 +1,10 @@
 package ch.tutteli.atrium.checking
 
-import ch.tutteli.atrium.check
-import ch.tutteli.atrium.context
-import ch.tutteli.atrium.describe
-import ch.tutteli.atrium.setUp
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.assertions.OneMessageAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.assert
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
