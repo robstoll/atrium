@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.reporting.IAssertionMessageFormatter
@@ -129,6 +130,15 @@ object AtriumFactory : IAtriumFactory {
     }
 
     /**
+     * Creates an [IAssertionChecker] which creates [IFeatureAssertionGroup] instead of checking assertions
+     * and delegates this task to the given [subjectPlant] by adding (see [IAssertionPlant.addAssertion]
+     * the created [IFeatureAssertionGroup] to it.
+     */
+    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker {
+        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+    }
+
+    /**
      * Creates a [ThrowableFluent] based on the given [assertionVerb] and the [act] function.
      *
      * It uses the given [reporter] for reporting.
@@ -136,5 +146,12 @@ object AtriumFactory : IAtriumFactory {
     fun throwableFluent(assertionVerb: String, act: () -> Unit, reporter: IReporter): ThrowableFluent {
         throw UnsupportedOperationException(ERROR_MSG)
     }
+
+    /**
+     * Prepares a down cast; use [DownCastBuilder.cast] to perform it and first call
+     * [DownCastBuilder.withLazyAssertions]/[DownCastBuilder.withNullRepresentation] to specialise it further.
+     */
+    inline fun <reified TSub : T, T : Any> newDownCastBuilder(commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>, assertion: IAssertion): DownCastBuilder<T, TSub>
+        = DownCastBuilder(TSub::class.java, commonFields, assertion)
 
 }

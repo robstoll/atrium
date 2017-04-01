@@ -4,6 +4,8 @@ import ch.tutteli.atrium.assertions.IsAAssertion
 import ch.tutteli.atrium.assertions.IsNotNullAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.context
+import org.jetbrains.spek.api.dsl.describe
 
 class AssertKSpec : Spek({
     describe("fun isNotNull") {
