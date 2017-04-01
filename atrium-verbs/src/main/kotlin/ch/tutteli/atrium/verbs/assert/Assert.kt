@@ -17,4 +17,4 @@ inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() 
     = AssertionPlantFactory.newCheckLazilyAtTheEnd("assert", subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 fun assert(act: () -> Unit): ThrowableFluent
-    = AssertionPlantFactory.throwableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)
+    = AssertionPlantFactory.throwableFluent("assert the thrown exception", act, AtriumReporterSupplier.REPORTER)

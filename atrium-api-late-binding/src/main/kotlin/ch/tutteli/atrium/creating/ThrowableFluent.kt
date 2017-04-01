@@ -25,7 +25,7 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
      *
      * @throws AssertionError might throw an [AssertionError] if an assertion fails.
      */
-    inline fun <reified TExpected : Throwable> toThrow(noinline createAsserts: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected> {
+    inline fun <reified TExpected : Throwable> toThrow(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected> {
         throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
     }
 }
