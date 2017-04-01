@@ -1,11 +1,7 @@
 package ch.tutteli.atrium.verbs.assert
 
-import ch.tutteli.atrium.creating.AtriumFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
-
 
 fun <T : Any> assert(subject: T): IAssertionPlant<T>
     = AtriumFactory.newCheckImmediately("assert", subject, AtriumReporterSupplier.REPORTER)

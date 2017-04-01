@@ -1,12 +1,13 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.expect
+
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.context
+import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
-class GenericCheckSpec : Spek({
-    describe("property") {
+class AnyAssertionsSpec : Spek({
+    describe("genericCheck for properties") {
         data class Test(val isDead: Boolean)
         context("evaluates to true") {
             it("does not throw an exception") {
