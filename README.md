@@ -1,6 +1,6 @@
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status](https://travis-ci.org/robstoll/assertK.svg?branch=master)](https://travis-ci.org/robstoll/assertK)
-[![Coverage](https://codecov.io/github/robstoll/assertK/coverage.svg?branch=master)](https://codecov.io/github/robstoll/assertK?branch=master)
+[![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium)
+[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
 
-# assertK
-assertK is an assertion framework for Kotlin.
+# atrium
+atrium is an assertion framework for Kotlin.

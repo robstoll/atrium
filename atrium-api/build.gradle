@@ -1,0 +1,8 @@
+buildscript {
+    ext {
+        publish_artifactId = 'atrium-api'
+        publish_version = atrium_version
+        publish_description = 'API for atrium, an assertion framework for Kotlin'
+    }
+}
+apply from: '../gradle/scripts/publish.gradle'

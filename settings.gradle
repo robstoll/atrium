@@ -1,0 +1,5 @@
+rootProject.name = 'atrium'
+
+include 'atrium-api'
+include 'atrium-impl'
+include 'atrium-verbs'
