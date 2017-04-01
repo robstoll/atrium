@@ -5,8 +5,8 @@ import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.describe
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.verbs.assert.assert
-import ch.tutteli.atrium.verbs.expect.expect
+import ch.tutteli.atrium.assert
+import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek
 
 class AssertionPlantNullableSpec : Spek({

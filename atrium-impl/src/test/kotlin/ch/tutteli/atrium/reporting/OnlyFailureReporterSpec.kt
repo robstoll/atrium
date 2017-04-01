@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.context
 import ch.tutteli.atrium.describe
 import ch.tutteli.atrium.isEmpty
-import ch.tutteli.atrium.verbs.assert.assert
+import ch.tutteli.atrium.assert
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock

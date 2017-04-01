@@ -4,7 +4,7 @@ import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.ThrowableFluent
-import ch.tutteli.atrium.verbs.expect.expect
+import ch.tutteli.atrium.expect
 import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody

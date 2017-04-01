@@ -4,7 +4,7 @@ import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IOneMessageAssertion
 import ch.tutteli.atrium.assertions.Message
-import ch.tutteli.atrium.verbs.expect.expect
+import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
