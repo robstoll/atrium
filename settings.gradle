@@ -1,0 +1,5 @@
+rootProject.name = 'assertK'
+
+include 'assertK-api'
+include 'assertK-impl'
+include 'assertK-verbs'
