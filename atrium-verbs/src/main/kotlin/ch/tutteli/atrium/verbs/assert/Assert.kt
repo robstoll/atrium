@@ -4,15 +4,17 @@ import ch.tutteli.atrium.creating.AssertionPlantFactory
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.verbs.AtriumReporterSupplier
+
 
 fun <T : Any> assert(subject: T): IAssertionPlant<T>
-    = AssertionPlantFactory.newCheckImmediately("assert", subject)
+    = AssertionPlantFactory.newCheckImmediately("assert", subject, AtriumReporterSupplier.REPORTER)
 
 fun <T : Any?> assert(subject: T): IAssertionPlantNullable<T>
-    = AssertionPlantFactory.newNullable("assert", subject)
+    = AssertionPlantFactory.newNullable("assert", subject, AtriumReporterSupplier.REPORTER)
 
 inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AssertionPlantFactory.newCheckLazilyAtTheEnd("assert", subject, createAssertions)
+    = AssertionPlantFactory.newCheckLazilyAtTheEnd("assert", subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 fun assert(act: () -> Unit): ThrowableFluent
-    = AssertionPlantFactory.throwableFluent("expect the thrown exception", act)
+    = AssertionPlantFactory.throwableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)

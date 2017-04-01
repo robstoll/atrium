@@ -2,11 +2,17 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.checking.ThrowingAssertionChecker
-import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.creating.ErrorMsg.ERROR_MSG
+import ch.tutteli.atrium.reporting.IAssertionMessageFormatter
+import ch.tutteli.atrium.reporting.IObjectFormatter
+import ch.tutteli.atrium.reporting.IReporter
 
 /**
- * A factory for [IAssertionPlant]s.
+ * An abstract factory of atrium which provides factory methods to create:
+ * - [IAssertionPlant]
+ * - [IAssertionChecker]
+ * - [IReporter]
+ * - [ThrowableFluent]
  */
 class AssertionPlantFactory {
     companion object {
@@ -17,7 +23,7 @@ class AssertionPlantFactory {
          * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
          */
         fun <T : Any> newCheckLazily(assertionVerb: String, subject: T, reporter: IReporter)
-            = Companion.newCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
+            = newCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
         /**
          * Creates an [IAssertionPlant] which does not check the created assertions until one calls [IAssertionPlant.checkAssertions].
@@ -32,8 +38,9 @@ class AssertionPlantFactory {
          *
          * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
          */
-        fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
-            = AssertionPlantCheckLazily(commonFields)
+        fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T> {
+            throw UnsupportedOperationException(ERROR_MSG)
+        }
 
 
         /**
@@ -57,8 +64,9 @@ class AssertionPlantFactory {
          *
          * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
          */
-        fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
-            = AssertionPlantCheckImmediately(commonFields)
+        fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T> {
+            throw UnsupportedOperationException(ERROR_MSG)
+        }
 
 
         /**
@@ -82,8 +90,9 @@ class AssertionPlantFactory {
          *
          * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
          */
-        fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
-            = AssertionPlantNullable(commonFields)
+        fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T> {
+            throw UnsupportedOperationException(ERROR_MSG)
+        }
 
 
         /**
@@ -97,14 +106,16 @@ class AssertionPlantFactory {
          * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
          *
          * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
-         * @throws AssertionError The newly created [IAssertionPlant] throws an [AssertionError] in case a created [IAssertion] does not hold.
+         * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a created [IAssertion] does not hold.
          */
         inline fun <T : Any> newCheckLazilyAtTheEnd(assertionVerb: String, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
             = createAssertionsAndCheckThem(AssertionPlantFactory.newCheckLazily(assertionVerb, subject, reporter), createAssertions)
 
         /**
          * Uses the given [plant] as receiver of the given [createAssertions] function and then calls [IAssertionPlant.checkAssertions].
+         *
          * @return the given [plant]
+         * @throws AssertionError the [plant] might throw an [AssertionError] in case a created [IAssertion] does not hold.
          */
         inline fun <T : Any> createAssertionsAndCheckThem(plant: IAssertionPlant<T>, createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T> {
             plant.createAssertions()
@@ -117,21 +128,24 @@ class AssertionPlantFactory {
          *
          * It uses the given [reporter] for reporting.
          */
-        fun throwableFluent(assertionVerb: String, act: () -> Unit, reporter: IReporter): ThrowableFluent
-            = ThrowableFluent.create(assertionVerb, act, ThrowingAssertionChecker(reporter))
+        fun throwableFluent(assertionVerb: String, act: () -> Unit, reporter: IReporter): ThrowableFluent {
+            throw UnsupportedOperationException(ERROR_MSG)
+        }
 
-        fun newDetailedObjectFormatter(): IObjectFormatter = DetailedObjectFormatter()
+        fun newDetailedObjectFormatter(): IObjectFormatter {
+            throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        }
 
-        fun newSameLineAssertionMessageFormatter(objectFormatter: IObjectFormatter): IAssertionMessageFormatter
-            = SameLineAssertionMessageFormatter(objectFormatter)
+        fun newSameLineAssertionMessageFormatter(objectFormatter: IObjectFormatter): IAssertionMessageFormatter {
+            throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        }
 
+        fun newOnlyFailureReporter(assertionMessageFormatter: IAssertionMessageFormatter): IReporter {
+            throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        }
 
-        fun newOnlyFailureReporter(assertionMessageFormatter: IAssertionMessageFormatter): IReporter
-            = OnlyFailureReporter(assertionMessageFormatter)
-
-        fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
-            = ThrowingAssertionChecker(reporter)
+        fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker {
+            throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        }
     }
-
 }
-

@@ -1,0 +1,14 @@
+buildscript {
+    ext {
+        publish_artifactId = 'atrium-assertions'
+        publish_version = atrium_version
+        publish_description = 'Contains basic assertions and ' +
+            'utility functions to ease the creation of further assertion functions.'
+    }
+}
+apply from: '../gradle/scripts/publish.gradle'
+
+dependencies{
+    compile project(':atrium-api')
+    compileOnly project(':atrium-api-late-binding')
+}
