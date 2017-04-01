@@ -12,9 +12,12 @@ import ch.tutteli.atrium.reporting.IReporter
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [IReporter]
+ * - [IAssertionMessageFormatter]
+ * - [IObjectFormatter]
  * - [ThrowableFluent]
  */
-class AssertionPlantFactory {
+@Suppress("UNUSED_PARAMETER")
+class AtriumFactory {
     companion object {
 
         /**
@@ -109,7 +112,7 @@ class AssertionPlantFactory {
          * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a created [IAssertion] does not hold.
          */
         inline fun <T : Any> newCheckLazilyAtTheEnd(assertionVerb: String, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
-            = createAssertionsAndCheckThem(AssertionPlantFactory.newCheckLazily(assertionVerb, subject, reporter), createAssertions)
+            = createAssertionsAndCheckThem(AtriumFactory.newCheckLazily(assertionVerb, subject, reporter), createAssertions)
 
         /**
          * Uses the given [plant] as receiver of the given [createAssertions] function and then calls [IAssertionPlant.checkAssertions].

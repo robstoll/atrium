@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.ErrorMsg.ERROR_MSG
 class ThrowableFluent
 /**
  * Might be that the actual implementation does not have a private constructor.
- * We hide it here for information hiding purposes, use the [AssertionPlantFactory] instead.
+ * We hide it here for information hiding purposes, use the [AtriumFactory] instead.
  */
 private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>) {
 

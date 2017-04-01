@@ -9,7 +9,7 @@ class AssertionPlantNullableSpec : Spek({
         val i: Int? = null
         group("isNull() does not throw an Exception") {
             check("using the plant directly") {
-                val testee = AssertionPlantFactory.newNullable("assert", i, AtriumReporterSupplier.REPORTER)
+                val testee = AtriumFactory.newNullable("assert", i, AtriumReporterSupplier.REPORTER)
                 testee.isNull()
             }
             check("using `assert`") {
@@ -22,7 +22,7 @@ class AssertionPlantNullableSpec : Spek({
         val i: Int? = 1
         group("isNull()  throws an AssertionError") {
             check("using the plant directly") {
-                val testee = AssertionPlantFactory.newNullable("assert", i, AtriumReporterSupplier.REPORTER)
+                val testee = AtriumFactory.newNullable("assert", i, AtriumReporterSupplier.REPORTER)
                 expect {
                     testee.isNull()
                 }.toThrow<AssertionError>().and.message.contains("to be", RawString.NULL)
