@@ -35,7 +35,6 @@ class VerbSpec : Spek({
                 }
             }
         }
-
     }
 
     describe("lazily evaluated assertion verbs") {

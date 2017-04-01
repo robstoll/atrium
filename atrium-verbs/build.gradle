@@ -10,6 +10,8 @@ apply from: '../gradle/scripts/spek.gradle'
 
 dependencies {
     compile project(':atrium-api')
-    compile project(':atrium-impl')
+    compileOnly project(':atrium-api-late-binding')
+    compile project(':atrium-assertions')
+    testCompile project(':atrium-impl')
 }
 
