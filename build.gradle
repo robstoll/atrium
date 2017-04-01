@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        assertK_version = '0.1.0-SNAPSHOT'
+        atrium_version = '0.1.0-SNAPSHOT'
         kbox_version = '0.0.1'
         kotlin_version = '1.1.1'
         mockito_kotlin_version = '1.0.1'
@@ -12,7 +12,7 @@ buildscript {
 
         //publish.gradle
         bintray_version = '1.7.3'
-        publish_vcsUrl = 'https://github.com/robstoll/assertK.git'
+        publish_vcsUrl = 'https://github.com/robstoll/atrium.git'
     }
 
     repositories {

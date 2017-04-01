@@ -1,5 +1,5 @@
-rootProject.name = 'assertK'
+rootProject.name = 'atrium'
 
-include 'assertK-api'
-include 'assertK-impl'
-include 'assertK-verbs'
+include 'atrium-api'
+include 'atrium-impl'
+include 'atrium-verbs'

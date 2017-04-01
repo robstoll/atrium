@@ -1,8 +1,0 @@
-buildscript {
-    ext {
-        publish_artifactId = 'assertK-api'
-        publish_version = assertK_version
-        publish_description = 'API for assertK, an assertion framework for Kotlin'
-    }
-}
-apply from: '../gradle/scripts/publish.gradle'
