@@ -3,8 +3,6 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.IsAAssertion
 import ch.tutteli.atrium.assertions.IsNotNullAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek
 
 class AssertKSpec : Spek({

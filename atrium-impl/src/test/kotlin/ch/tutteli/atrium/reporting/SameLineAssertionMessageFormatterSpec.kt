@@ -1,11 +1,7 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.contains
-import ch.tutteli.atrium.context
-import ch.tutteli.atrium.startsWith
-import ch.tutteli.atrium.toBe
-import ch.tutteli.atrium.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 
