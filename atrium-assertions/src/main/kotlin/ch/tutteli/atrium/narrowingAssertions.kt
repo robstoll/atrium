@@ -1,15 +1,16 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.checking.FeatureAssertionChecker
+import ch.tutteli.atrium.assertions.IsAAssertion
+import ch.tutteli.atrium.assertions.IsNotNullAssertion
 import ch.tutteli.atrium.creating.*
 import kotlin.reflect.KProperty0
 
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
-    = ch.tutteli.atrium.creating.DownCastBuilder.Companion.create(commonFields, ch.tutteli.atrium.assertions.IsNotNullAssertion(subject))
+    = AtriumFactory.newDownCastBuilder(commonFields, IsNotNullAssertion(subject))
     .cast()
 
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit)
-    = ch.tutteli.atrium.creating.DownCastBuilder.Companion.create(commonFields, ch.tutteli.atrium.assertions.IsNotNullAssertion(subject))
+    = AtriumFactory.newDownCastBuilder(commonFields, IsNotNullAssertion(subject))
     .withLazyAssertions(createAssertions)
     .cast()
 
@@ -17,14 +18,14 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline crea
  * Creates an `is a` assertion, which holds if the [IAssertionPlant.subject] is the same or a subtype of the expected type [TSub].
  */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub>
-    = ch.tutteli.atrium.creating.DownCastBuilder.Companion.create<TSub, Any>(commonFields, ch.tutteli.atrium.assertions.IsAAssertion(subject, TSub::class.java))
+    = AtriumFactory.newDownCastBuilder<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
     .cast()
 
 /**
  * Creates an `is a` assertion, which holds if the [IAssertionPlant.subject] is the same or a subtype of the expected type [TSub].
  */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
-    = ch.tutteli.atrium.creating.DownCastBuilder.Companion.create<TSub, Any>(commonFields, ch.tutteli.atrium.assertions.IsAAssertion(subject, TSub::class.java))
+    = AtriumFactory.newDownCastBuilder<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
     .withLazyAssertions(createAssertions)
     .cast()
 
@@ -49,4 +50,4 @@ fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeatu
     = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
 
 private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
-    = IAssertionPlantWithCommonFields.CommonFields(feature.name, feature.get(), FeatureAssertionChecker(this))
+    = IAssertionPlantWithCommonFields.CommonFields(feature.name, feature.get(), AtriumFactory.newFeatureAssertionChecker(this))

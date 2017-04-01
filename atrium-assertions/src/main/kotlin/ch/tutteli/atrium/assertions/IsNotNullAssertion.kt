@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.RawString
  */
 class IsNotNullAssertion(subject: Any?) : IOneMessageAssertion {
     override val message by lazy {
-        Message(MESSAGE_DESCRIPTION, RawString.NULL, subject != null)
+        Message(MESSAGE_DESCRIPTION, RawString.Companion.NULL, subject != null)
     }
 
     override fun toString() = message.toString()
