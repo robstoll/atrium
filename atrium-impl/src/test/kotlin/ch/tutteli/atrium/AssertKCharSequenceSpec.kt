@@ -1,7 +1,7 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.verbs.assert.assert
-import ch.tutteli.atrium.verbs.expect.expect
+import ch.tutteli.atrium.assert
+import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 

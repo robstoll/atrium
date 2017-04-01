@@ -7,7 +7,7 @@ import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.startsWith
 import ch.tutteli.atrium.toBe
-import ch.tutteli.atrium.verbs.expect.expect
+import ch.tutteli.atrium.expect
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek

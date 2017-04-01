@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.OneMessageAssertion
 import ch.tutteli.atrium.describe
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.startsWith
-import ch.tutteli.atrium.verbs.expect.expect
+import ch.tutteli.atrium.expect
 import com.nhaarman.mockito_kotlin.spy
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
