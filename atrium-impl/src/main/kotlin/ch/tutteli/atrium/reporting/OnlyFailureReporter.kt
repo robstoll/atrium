@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.Message
 
 /**
- * A [IReporter] which reports only failing assertions.
+ * An [IReporter] which reports only failing assertions.
  */
 class OnlyFailureReporter(private val assertionMessageFormatter: IAssertionMessageFormatter) : IReporter {
 
