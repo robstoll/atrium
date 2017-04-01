@@ -12,7 +12,7 @@ import org.jetbrains.spek.api.dsl.on
 class AssertionPlantCheckLazilySpec : Spek({
     val assertionVerb = "myAssertionVerb"
     val subject = 10
-    val plant = AssertionPlantFactory.newCheckLazily(assertionVerb, subject, AtriumReporterSupplier.REPORTER)
+    val plant = AtriumFactory.newCheckLazily(assertionVerb, subject, AtriumReporterSupplier.REPORTER)
 
     context("fun ${plant::createAndAddAssertion.name}") {
 

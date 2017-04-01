@@ -38,37 +38,37 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertio
     .cast()
 
 /**
- * Allows to define assertions which are immediately evaluated (see [AssertionPlantFactory.newCheckImmediately]) for a specific [feature].
+ * Allows to define assertions which are immediately evaluated (see [AtriumFactory.newCheckImmediately]) for a specific [feature].
  */
 fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
-    = AssertionPlantFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(feature))
+    = AtriumFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(feature))
 
 /**
- * Allows to define assertions which are lazily evaluated (see [AssertionPlantFactory.newCheckLazily]) for a specific [feature].
+ * Allows to define assertions which are lazily evaluated (see [AtriumFactory.newCheckLazily]) for a specific [feature].
  */
 fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature> {
-    val featurePlant = AssertionPlantFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
-    return AssertionPlantFactory.createAssertionsAndCheckThem(featurePlant, createAssertions)
+    val featurePlant = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
+    return AtriumFactory.createAssertionsAndCheckThem(featurePlant, createAssertions)
 }
 
 /**
- * Allows to define assertions for a specific [feature] which is nullable (see [AssertionPlantFactory.newNullable]).
+ * Allows to define assertions for a specific [feature] which is nullable (see [AtriumFactory.newNullable]).
  */
 fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
-    = AssertionPlantFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
+    = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
 
 private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
     = IAssertionPlantWithCommonFields.CommonFields(feature.name, feature.get(), FeatureAssertionChecker(this))
 
 /**
  * Creates an [isNotNull] assertion for the [Throwable.message] of a [Throwable] and
- * allows to define further assertions for the message, which are then immediately evaluated (see [AssertionPlantFactory.newCheckImmediately]).
+ * allows to define further assertions for the message, which are then immediately evaluated (see [AtriumFactory.newCheckImmediately]).
  */
 val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = its(subject::message).isNotNull()
 
 /**
  * Creates an [isNotNull] assertion for the [Throwable.message] of a [Throwable] and
- * allows to define further assertions for the message, which are then lazily evaluated (see [AssertionPlantFactory.newCheckLazily]).
+ * allows to define further assertions for the message, which are then lazily evaluated (see [AtriumFactory.newCheckLazily]).
  */
 fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit): IAssertionPlant<String>
     = its(subject::message).isNotNull(createAssertions)

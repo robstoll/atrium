@@ -35,9 +35,9 @@ class DownCastBuilder<out T : Any, out TSub : T>(private val subClass: Class<TSu
         if (assertion.holds()) {
             //needs to hold in order that cast can be performed
             val plant = if (createAssertions != null) {
-                AssertionPlantFactory.newCheckLazily(assertionVerb, subClass.cast(subject), assertionChecker)
+                AtriumFactory.newCheckLazily(assertionVerb, subClass.cast(subject), assertionChecker)
             } else {
-                AssertionPlantFactory.newCheckImmediately(assertionVerb, subClass.cast(subject), assertionChecker)
+                AtriumFactory.newCheckImmediately(assertionVerb, subClass.cast(subject), assertionChecker)
             }
             plant.addAssertion(assertion)
             if (createAssertions != null) {

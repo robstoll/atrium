@@ -1,19 +1,19 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.creating.AssertionPlantFactory
+import ch.tutteli.atrium.creating.AtriumFactory
 
 class ReporterBuilder(private val assertionMessageFormatter: IAssertionMessageFormatter) {
 
     fun buildOnlyFailureReporting(): IReporter
-        = AssertionPlantFactory.newOnlyFailureReporter(assertionMessageFormatter)
+        = AtriumFactory.newOnlyFailureReporter(assertionMessageFormatter)
 
     companion object {
         fun withDetailedObjectFormatter(): AssertionMessageBuilder
-            = AssertionMessageBuilder(AssertionPlantFactory.newDetailedObjectFormatter())
+            = AssertionMessageBuilder(AtriumFactory.newDetailedObjectFormatter())
     }
 
     class AssertionMessageBuilder(private val objectFormatter: IObjectFormatter) {
         fun withSameLineAssertionMessageFormatter(): ReporterBuilder
-            = ReporterBuilder(AssertionPlantFactory.newSameLineAssertionMessageFormatter(objectFormatter))
+            = ReporterBuilder(AtriumFactory.newSameLineAssertionMessageFormatter(objectFormatter))
     }
 }
