@@ -11,5 +11,5 @@ apply from: '../gradle/scripts/spek.gradle'
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
     compile project(':atrium-api')
-    testCompile project(':atrium-assertions')
+    compile project(':atrium-assertions')
 }
