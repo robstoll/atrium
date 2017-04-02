@@ -7,7 +7,7 @@ buildscript {
 
         //spek.gradle
         jacoco_tool_version = '0.7.6.201602180812'
-        spek_version = '1.1.0-beta3'
+        spek_version = '1.1.0'
         junit_version = '1.0.0-M3'
 
         //publish.gradle

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.reporting.RawString
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.describe
 
 class AssertionPlantNullableSpec : Spek({
     describe("subject is null") {

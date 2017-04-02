@@ -1,0 +1,22 @@
+buildscript {
+    ext {
+        publish_artifactId = 'atrium-test'
+        publish_version = atrium_version
+        publish_description = 'Provides testing utilities helpful when extending atrium, an assertion framework for Kotlin'
+    }
+}
+apply from: '../gradle/scripts/publish.gradle'
+
+
+dependencies {
+    compile project(':atrium-api')
+    compileOnly project(':atrium-api-late-binding')
+    compile project(':atrium-assertions')
+    testCompile project(':atrium-impl')
+}
+
+dependencies {
+    compile("org.jetbrains.spek:spek-api:$spek_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+}

@@ -7,6 +7,7 @@ import ch.tutteli.atrium.reporting.IReporter
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
 class ThrowingAssertionCheckerSpec : Spek({

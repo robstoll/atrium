@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.ThrowableFluent
 import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
+import org.jetbrains.spek.api.dsl.context
 
 class ThrowableFluentSpec : Spek({
 
