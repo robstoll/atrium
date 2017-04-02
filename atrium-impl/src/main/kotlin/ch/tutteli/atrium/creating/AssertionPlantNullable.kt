@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.RawString
 /**
  * An [IAssertionPlant] for nullable types.
  */
-internal class AssertionPlantNullable<out T : Any?> constructor(
+internal class AssertionPlantNullable<out T : Any?>(
     override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : IAssertionPlantNullable<T> {
 
     /**

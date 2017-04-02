@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.Message
 /**
  * An [IReporter] which reports only failing assertions.
  */
-class OnlyFailureReporter(private val assertionMessageFormatter: IAssertionMessageFormatter) : IReporter {
+internal class OnlyFailureReporter(private val assertionMessageFormatter: IAssertionMessageFormatter) : IReporter {
 
     /**
      * Formats the given [assertion] with the help of the defined [assertionMessageFormatter]

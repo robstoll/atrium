@@ -13,7 +13,7 @@ inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() 
     = AtriumFactory.newCheckLazilyAtTheEnd("assert", subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 fun expect(act: () -> Unit): ThrowableFluent
-    = AtriumFactory.throwableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newThrowableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)
 
 object AtriumReporterSupplier {
     val REPORTER by lazy {
