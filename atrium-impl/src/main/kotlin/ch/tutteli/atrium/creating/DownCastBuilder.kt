@@ -30,14 +30,20 @@ class DownCastBuilder<out T : Any, out TSub : T>(private val subClass: Class<TSu
         return this
     }
 
+    /**
+     * Performs the down-cast
+     *
+     * @throws AssertionError in case the down-cast fails
+     * @throws IllegalStateException in case reporting a failure does not throw an [Exception]
+     */
     fun cast(): IAssertionPlant<TSub> {
         val (assertionVerb, subject, assertionChecker) = commonFields
         if (assertion.holds()) {
             //needs to hold in order that cast can be performed
             val plant = if (createAssertions != null) {
-                AssertionPlantFactory.newCheckLazily(assertionVerb, subClass.cast(subject), assertionChecker)
+                AtriumFactory.newCheckLazily(assertionVerb, subClass.cast(subject), assertionChecker)
             } else {
-                AssertionPlantFactory.newCheckImmediately(assertionVerb, subClass.cast(subject), assertionChecker)
+                AtriumFactory.newCheckImmediately(assertionVerb, subClass.cast(subject), assertionChecker)
             }
             plant.addAssertion(assertion)
             if (createAssertions != null) {
@@ -48,14 +54,5 @@ class DownCastBuilder<out T : Any, out TSub : T>(private val subClass: Class<TSu
         }
         assertionChecker.fail(assertionVerb, subject ?: nullRepresentation, assertion)
         throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception, ${assertionChecker::class.java.name} did not")
-    }
-
-    companion object {
-        /**
-         * Prepares a down cast; use [cast] to perform it and first call [withLazyAssertions]/[withNullRepresentation] to specialise it further.
-         */
-        inline fun <reified TSub : T, T : Any> create(commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>, assertion: IAssertion): DownCastBuilder<T, TSub> {
-            return DownCastBuilder(TSub::class.java, commonFields, assertion)
-        }
     }
 }

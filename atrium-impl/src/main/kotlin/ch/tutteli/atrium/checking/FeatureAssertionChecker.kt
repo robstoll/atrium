@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 /**
  * An [IAssertionChecker] useful for feature assertions which creates [IFeatureAssertionGroup]s and adds them to the given [subjectPlant] instead of checking them itself.
  */
-class FeatureAssertionChecker<out T : Any>(private val subjectPlant: IAssertionPlant<T>) : IAssertionCheckerDelegateFail, IAssertionChecker {
+internal class FeatureAssertionChecker<out T : Any>(private val subjectPlant: IAssertionPlant<T>) : IAssertionCheckerDelegateFail, IAssertionChecker {
 
     /**
      * Creates an [IFeatureAssertionGroup] based on the given [assertionVerb], [subject] and [assertions]

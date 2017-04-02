@@ -3,20 +3,20 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.ExceptionThrownAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 
-class ThrowableFluent(val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>)  {
+class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>) {
 
     constructor(assertionVerb: String, throwable: Throwable?, assertionChecker: IAssertionChecker)
         : this(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, throwable, assertionChecker))
 
     inline fun <reified TExpected : Throwable> toThrow(): IAssertionPlant<TExpected>
-        = DownCastBuilder.create<TExpected, Throwable>(commonFields, ExceptionThrownAssertion(commonFields.subject, TExpected::class.java))
+        = AtriumFactory.newDownCastBuilder<TExpected, Throwable>(commonFields, ExceptionThrownAssertion(commonFields.subject, TExpected::class.java))
         .withNullRepresentation(NO_EXCEPTION_OCCURRED)
         .cast()
 
-    inline fun <reified TExpected : Throwable> toThrow(noinline createAsserts: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = DownCastBuilder.create<TExpected, Throwable>(commonFields, ExceptionThrownAssertion(commonFields.subject, TExpected::class.java))
+    inline fun <reified TExpected : Throwable> toThrow(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
+        = AtriumFactory.newDownCastBuilder<TExpected, Throwable>(commonFields, ExceptionThrownAssertion(commonFields.subject, TExpected::class.java))
         .withNullRepresentation(NO_EXCEPTION_OCCURRED)
-        .withLazyAssertions(createAsserts)
+        .withLazyAssertions(createAssertions)
         .cast()
 
     companion object {

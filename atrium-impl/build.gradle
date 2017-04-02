@@ -1,8 +1,8 @@
 buildscript {
     ext {
-        publish_artifactId = 'atrium'
+        publish_artifactId = 'atrium-impl'
         publish_version = atrium_version
-        publish_description = 'An assertion framework for Kotlin'
+        publish_description = '@robstoll\'s implementation of atrium, an assertion framework for Kotlin'
     }
 }
 apply from: '../gradle/scripts/publish.gradle'
@@ -11,4 +11,5 @@ apply from: '../gradle/scripts/spek.gradle'
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
     compile project(':atrium-api')
+    compile project(':atrium-assertions')
 }
