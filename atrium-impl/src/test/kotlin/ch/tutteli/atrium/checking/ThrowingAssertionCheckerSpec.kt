@@ -1,13 +1,9 @@
 package ch.tutteli.atrium.checking
 
+import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.OneMessageAssertion
-import ch.tutteli.atrium.describe
-import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.startsWith
-import ch.tutteli.atrium.toBe
-import ch.tutteli.atrium.expect
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek

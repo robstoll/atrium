@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.IReporter
 /**
  * An [IAssertionChecker] which throws [AssertionError]s in case an assertion fails and uses the given [reporter] for reporting.
  */
-class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionCheckerDelegateFail, IAssertionChecker {
+internal class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionCheckerDelegateFail, IAssertionChecker {
 
     /**
      * Checks the given [assertions] and uses [reporter] for reporting.

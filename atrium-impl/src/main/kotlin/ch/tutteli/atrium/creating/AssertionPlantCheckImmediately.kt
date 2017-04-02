@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.IAssertion
  *
  * This class is not thread-safe, but is also not intended for long-running procedures.
  */
-internal class AssertionPlantCheckImmediately<out T : Any> constructor(
+internal class AssertionPlantCheckImmediately<out T : Any>(
     commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : AssertionPlantCheckLazily<T>(commonFields) {
 
     override fun addAssertion(assertion: IAssertion): IAssertionPlant<T> {

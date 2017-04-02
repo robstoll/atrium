@@ -8,7 +8,7 @@ package ch.tutteli.atrium.reporting
  *
  *
  */
-class DetailedObjectFormatter : IObjectFormatter {
+internal class DetailedObjectFormatter : IObjectFormatter {
 
     /**
      * The following rules apply for the representation of an object:

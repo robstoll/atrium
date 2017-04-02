@@ -1,0 +1,14 @@
+buildscript {
+    ext {
+        publish_artifactId = 'atrium-api-late-binding'
+        publish_version = atrium_version
+        publish_description = 'The part of the API of atrium for which late binding will apply. ' +
+            'This component contains API which actually needs to be replaced by an implementation. ' +
+            'Hence, this API should be a compileOnly dependency in your project'
+    }
+}
+apply from: '../gradle/scripts/publish.gradle'
+
+dependencies{
+    compile project(':atrium-api')
+}

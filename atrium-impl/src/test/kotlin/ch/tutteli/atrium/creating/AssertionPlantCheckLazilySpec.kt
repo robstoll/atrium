@@ -4,7 +4,6 @@ import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IOneMessageAssertion
 import ch.tutteli.atrium.assertions.Message
-import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
@@ -12,7 +11,7 @@ import org.jetbrains.spek.api.dsl.on
 class AssertionPlantCheckLazilySpec : Spek({
     val assertionVerb = "myAssertionVerb"
     val subject = 10
-    val plant = AssertionPlantFactory.newCheckLazily(assertionVerb, subject)
+    val plant = AtriumFactory.newCheckLazily(assertionVerb, subject, AtriumReporterSupplier.REPORTER)
 
     context("fun ${plant::createAndAddAssertion.name}") {
 
