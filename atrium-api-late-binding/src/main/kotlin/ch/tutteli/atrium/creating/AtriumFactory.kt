@@ -143,7 +143,7 @@ object AtriumFactory : IAtriumFactory {
      *
      * It uses the given [reporter] for reporting.
      */
-    fun throwableFluent(assertionVerb: String, act: () -> Unit, reporter: IReporter): ThrowableFluent {
+    fun newThrowableFluent(assertionVerb: String, act: () -> Unit, reporter: IReporter): ThrowableFluent {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 

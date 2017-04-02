@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.ExceptionThrownAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 
-class ThrowableFluent(val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>) {
+class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>) {
 
     constructor(assertionVerb: String, throwable: Throwable?, assertionChecker: IAssertionChecker)
         : this(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, throwable, assertionChecker))
