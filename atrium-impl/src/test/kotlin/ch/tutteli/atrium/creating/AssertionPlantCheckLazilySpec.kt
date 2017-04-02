@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IOneMessageAssertion
 import ch.tutteli.atrium.assertions.Message
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
