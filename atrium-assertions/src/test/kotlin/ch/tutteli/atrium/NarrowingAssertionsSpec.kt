@@ -9,7 +9,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 
-class NarrowingAssertionsSpec : Spek({
+object NarrowingAssertionsSpec : Spek({
     describe("fun isNotNull") {
 
         checkNarrowingNullableAssertion<Int?>("it throws an AssertionError if the subject is null", { isNotNull ->

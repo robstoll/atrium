@@ -4,7 +4,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
-class CharSequenceAssertionsSpec : Spek({
+object CharSequenceAssertionsSpec : Spek({
     val assertionFluent = assert("hello my name is robert")
     describe("fun ${assertionFluent::isEmpty.name}") {
         it("throws an AssertionError if the string is not empty") {

@@ -5,7 +5,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 
-class ThrowableAssertionsSpec : Spek({
+object ThrowableAssertionsSpec : Spek({
 
     describe("fun `message` (for Throwable)") {
         checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
