@@ -9,7 +9,7 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
-class DetailedObjectFormatterSpec : Spek({
+object DetailedObjectFormatterSpec : Spek({
     val testee = DetailedObjectFormatter()
 
     describe("format") {

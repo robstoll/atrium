@@ -8,7 +8,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-class SameLineAssertionMessageFormatterSpec : Spek({
+object SameLineAssertionMessageFormatterSpec : Spek({
     include(ch.tutteli.atrium.test.reporting.SameLineAssertionMessageFormatterSpec(
         AssertionVerbFactory, ::SameLineAssertionMessageFormatter))
 
