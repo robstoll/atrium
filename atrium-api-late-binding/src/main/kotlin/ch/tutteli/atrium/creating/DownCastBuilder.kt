@@ -6,6 +6,7 @@ import ch.tutteli.atrium.reporting.RawString
 /**
  * A builder for down-casting assertions.
  */
+@Suppress("UNUSED_PARAMETER", "unused")
 class DownCastBuilder<out T : Any, out TSub : T>(private val subClass: Class<TSub>,
                                                  private val commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>,
                                                  private val assertion: IAssertion) {

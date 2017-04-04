@@ -2,14 +2,14 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.describe
 import ch.tutteli.atrium.reporting.DetailedObjectFormatter.Companion.INDENT
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
-class DetailedObjectFormatterSpec : Spek({
+object DetailedObjectFormatterSpec : Spek({
     val testee = DetailedObjectFormatter()
 
     describe("format") {

@@ -2,10 +2,16 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.test.reporting.ToStringObjectFormatter
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import org.jetbrains.spek.api.include
 
-class SameLineAssertionMessageFormatterSpec : Spek({
+object SameLineAssertionMessageFormatterSpec : Spek({
+    include(ch.tutteli.atrium.test.reporting.SameLineAssertionMessageFormatterSpec(
+        AssertionVerbFactory, ::SameLineAssertionMessageFormatter))
+
     val testee = SameLineAssertionMessageFormatter(ToStringObjectFormatter())
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
@@ -16,29 +22,7 @@ class SameLineAssertionMessageFormatterSpec : Spek({
     afterEachTest {
         sb = StringBuilder()
     }
-
-    context("unsupported ${IAssertion::class.java.simpleName}") {
-        it("writes whether the assertion holds including a message telling the type is unsupported") {
-            val assertion: IAssertion = object : IAssertion {
-                override fun holds() = false
-            }
-            testee.format(sb, assertion, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-            assert(sb.toString()).contains("Unsupported type ${assertion::class.java.name}").and.contains("false")
-        }
-    }
-
-    it("writes ${Message::description.name} and ${Message::representation.name} on the same line separated by colon and space") {
-        testee.format(sb, OneMessageAssertion("bla", "bli", false), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-        assert(sb.toString()).toBe("bla: bli")
-    }
-
     val separator = System.getProperty("line.separator")!!
-    it("uses the system line separator if there are multiple messages") {
-        testee.format(sb, object : IMultiMessageAssertion {
-            override val messages = listOf(Message("a", "b", false), Message("c", "d", false))
-        }, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-        assert(sb.toString()).contains("a: b${separator}c: d")
-    }
 
     it("includes the group name and its representation in case of a ${IAssertionGroup::class.java.simpleName}") {
         testee.format(sb, AssertionGroup("assert", "subject", listOf(

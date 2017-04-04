@@ -15,6 +15,7 @@ import ch.tutteli.atrium.reporting.*
  * - [IAssertionMessageFormatter]
  * - [IObjectFormatter]
  * - [ThrowableFluent]
+ * - [DownCastBuilder]
  */
 object AtriumFactory : IAtriumFactory {
     /**
