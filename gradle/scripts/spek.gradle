@@ -15,8 +15,8 @@ dependencies {
     testCompile("org.jetbrains.spek:spek-api:$spek_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
-    //TODO change back to testRuntime as soon as https://github.com/JetBrains/spek/pull/176 is fixed and available in release
-    testCompile("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
+    testRuntime("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
+        exclude group: 'org.junit.platform'
         exclude group: 'org.jetbrains.kotlin'
     }
 }

@@ -2,6 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.creating.ErrorMsg.ERROR_MSG
 
+@Suppress("UNUSED_PARAMETER", "unused")
 class ThrowableFluent
 /**
  * Might be that the actual implementation does not have a private constructor.

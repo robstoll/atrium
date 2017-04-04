@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.reporting.IAssertionMessageFormatter

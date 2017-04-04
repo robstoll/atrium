@@ -12,5 +12,6 @@ apply from: '../gradle/scripts/spek.gradle'
 dependencies{
     compile project(':atrium-api')
     compileOnly project(':atrium-api-late-binding')
+    testCompile project(':atrium-test')
     testCompile project(':atrium-impl')
 }
