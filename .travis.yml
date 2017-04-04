@@ -1,9 +1,6 @@
 language: java
 jdk:
-  - openjdk6
-  - oraclejdk6
-  - openjdk7
-  - oraclejdk7
+  # junit5 requires java 8
   - oraclejdk8
 
 before_install:
