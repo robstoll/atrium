@@ -1,5 +1,6 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.test.checkNarrowingAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe

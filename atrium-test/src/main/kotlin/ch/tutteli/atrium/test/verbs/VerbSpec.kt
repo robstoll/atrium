@@ -1,19 +1,40 @@
-package ch.tutteli.atrium.verbs
+package ch.tutteli.atrium.test.verbs
 
 import ch.tutteli.atrium.*
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.test.inCaseOf
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
-open class VerbSpecTemplate(
-    val plantCheckImmediately: Pair<String, (i: Int) -> IAssertionPlant<Int>>,
-    val plantCheckLazily: Pair<String, (i: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
-    val plantNullable: Pair<String, (i: Int?) -> IAssertionPlantNullable<Int?>>,
-    val plantExpect: Pair<String, (act: () -> Unit) -> ThrowableFluent>
+// does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
+private fun <T : Any> assert(subject: T): IAssertionPlant<T>
+    = AtriumFactory.newCheckImmediately("assert", subject, AtriumReporterSupplier.REPORTER)
 
+private inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T>
+    = AtriumFactory.newCheckLazilyAtTheEnd("assert", subject, AtriumReporterSupplier.REPORTER, createAssertions)
+
+private fun <T : Any?> assert(subject: T): IAssertionPlantNullable<T>
+    = AtriumFactory.newNullable("assert", subject, AtriumReporterSupplier.REPORTER)
+
+private fun expect(act: () -> Unit): ThrowableFluent
+    = AtriumFactory.newThrowableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)
+
+private object AtriumReporterSupplier {
+    val REPORTER by lazy {
+        ReporterBuilder
+            .withDetailedObjectFormatter()
+            .withSameLineAssertionMessageFormatter()
+            .buildOnlyFailureReporting()
+    }
+}
+
+open class VerbSpec(
+    val plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
+    val plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
+    val plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
+    val plantExpect: Pair<String, (act: () -> Unit) -> ThrowableFluent>
 ) : Spek({
 
     describe("assertion verb '${plantCheckImmediately.first}' which immediately evaluates assertions") {
