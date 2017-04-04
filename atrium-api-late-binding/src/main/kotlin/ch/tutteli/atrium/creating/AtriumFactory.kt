@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.IReporter
  * - [IAssertionMessageFormatter]
  * - [IObjectFormatter]
  * - [ThrowableFluent]
+ * - [DownCastBuilder]
  */
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {

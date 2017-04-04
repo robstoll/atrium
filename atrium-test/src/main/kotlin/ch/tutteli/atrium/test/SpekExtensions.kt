@@ -1,4 +1,4 @@
-package ch.tutteli.atrium
+package ch.tutteli.atrium.test
 
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
