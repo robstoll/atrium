@@ -11,7 +11,7 @@ apply from: '../gradle/scripts/publish.gradle'
 dependencies {
     compile project(':atrium-api')
     compile project(':atrium-assertions')
-    compileOnly project(':atrium-impl')
+    compileOnly project(':atrium-impl-robstoll')
 }
 
 dependencies {
