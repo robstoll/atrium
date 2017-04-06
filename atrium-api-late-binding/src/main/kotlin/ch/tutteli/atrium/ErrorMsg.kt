@@ -1,6 +1,6 @@
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium
 
-object ErrorMsg {
+internal object ErrorMsg {
     const val ERROR_MSG = "The atrium-api-late-binding should only be used as a compileOnly dependency, " +
         "meaning as a substitute for a real implementation"
 }

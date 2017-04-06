@@ -1,8 +1,11 @@
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.reporting.IAssertionMessageFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter

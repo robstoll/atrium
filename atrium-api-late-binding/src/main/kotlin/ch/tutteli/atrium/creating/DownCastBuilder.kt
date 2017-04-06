@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.reporting.RawString
 
@@ -11,21 +12,21 @@ class DownCastBuilder<out T : Any, out TSub : T>(private val subClass: Class<TSu
                                                  private val commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>,
                                                  private val assertion: IAssertion) {
     init {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 
     /**
      * Use this method if you want to use your own `null` representation (default is [RawString.NULL])
      */
     fun withNullRepresentation(representation: String): DownCastBuilder<T, TSub> {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 
     /**
      * Use this method if you want to add several assertions which are checked lazily after the down cast is performed.
      */
     fun withLazyAssertions(assertions: IAssertionPlant<TSub>.() -> Unit): DownCastBuilder<T, TSub> {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 
     /**
@@ -35,6 +36,6 @@ class DownCastBuilder<out T : Any, out TSub : T>(private val subClass: Class<TSu
      * @throws IllegalStateException in case reporting a failure does not throw an [Exception]
      */
     fun cast(): IAssertionPlant<TSub> {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 }

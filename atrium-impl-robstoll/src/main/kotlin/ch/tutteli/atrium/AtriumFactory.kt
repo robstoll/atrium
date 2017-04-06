@@ -1,10 +1,11 @@
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 
 /**

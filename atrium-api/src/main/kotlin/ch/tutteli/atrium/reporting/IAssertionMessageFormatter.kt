@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.Message
-import ch.tutteli.atrium.creating.IAtriumFactory
 
 /**
  * Represents a formatter for an [IAssertion] and its [Message](s).

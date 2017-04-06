@@ -1,9 +1,10 @@
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium
 
+import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.creating.ErrorMsg.ERROR_MSG
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.IAssertionMessageFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
@@ -104,14 +105,14 @@ object AtriumFactory : IAtriumFactory {
      * including [Class.name] and their [System.identityHashCode].
      */
     override fun newDetailedObjectFormatter(): IObjectFormatter {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 
     /**
      * Creates an [IAssertionMessageFormatter] which puts messages of the form 'a: b' on the same line.
      */
     override fun newSameLineAssertionMessageFormatter(objectFormatter: IObjectFormatter): IAssertionMessageFormatter {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 
     /**
@@ -119,7 +120,7 @@ object AtriumFactory : IAtriumFactory {
      * and uses the given [assertionMessageFormatter] to format assertions and messages.
      */
     override fun newOnlyFailureReporter(assertionMessageFormatter: IAssertionMessageFormatter): IReporter {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 
     /**
@@ -127,7 +128,7 @@ object AtriumFactory : IAtriumFactory {
      * and uses the given [reporter] for reporting.
      */
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 
     /**
@@ -136,7 +137,7 @@ object AtriumFactory : IAtriumFactory {
      * the created [IFeatureAssertionGroup] to it.
      */
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException(ERROR_MSG)
     }
 
     /**

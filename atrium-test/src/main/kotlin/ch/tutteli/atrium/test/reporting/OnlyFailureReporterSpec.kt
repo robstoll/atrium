@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.test.reporting
 
+import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.creating.AtriumFactory
 import ch.tutteli.atrium.isEmpty
 import ch.tutteli.atrium.reporting.IAssertionMessageFormatter
 import ch.tutteli.atrium.reporting.IReporter
