@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.creating.AtriumFactory
+import ch.tutteli.atrium.AtriumFactory
 
 class ReporterBuilder(private val assertionMessageFormatter: IAssertionMessageFormatter) {
 

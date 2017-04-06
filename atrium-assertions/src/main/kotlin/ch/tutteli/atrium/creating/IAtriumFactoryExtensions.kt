@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.reporting.IReporter
 

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.ExceptionThrownAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 

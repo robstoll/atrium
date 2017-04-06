@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.creating.ErrorMsg.ERROR_MSG
-
 @Suppress("UNUSED_PARAMETER", "unused")
 class ThrowableFluent
 /**
@@ -17,7 +15,8 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
      * @throws AssertionError might throw an [AssertionError] if the assertion fails.
      */
     inline fun <reified TExpected : Throwable> toThrow(): IAssertionPlant<TExpected> {
-        throw UnsupportedOperationException(ERROR_MSG)
+        throw UnsupportedOperationException("The atrium-api-late-binding should only be used as a compileOnly dependency, " +
+            "meaning as a substitute for a real implementation")
     }
 
     /**
@@ -27,6 +26,7 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
      * @throws AssertionError might throw an [AssertionError] if an assertion fails.
      */
     inline fun <reified TExpected : Throwable> toThrow(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected> {
-        throw UnsupportedOperationException(ErrorMsg.ERROR_MSG)
+        throw UnsupportedOperationException("The atrium-api-late-binding should only be used as a compileOnly dependency, " +
+            "meaning as a substitute for a real implementation")
     }
 }

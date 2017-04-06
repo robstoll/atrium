@@ -1,6 +1,5 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.creating.IAtriumFactory
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
