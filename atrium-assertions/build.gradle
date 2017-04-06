@@ -13,5 +13,5 @@ dependencies{
     compile project(':atrium-api')
     compileOnly project(':atrium-api-late-binding')
     testCompile project(':atrium-test')
-    testCompile project(':atrium-impl')
+    testCompile project(':atrium-impl-robstoll')
 }
