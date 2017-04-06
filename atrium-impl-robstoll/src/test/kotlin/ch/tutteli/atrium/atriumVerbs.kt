@@ -4,16 +4,16 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.test.IAssertionVerbFactory
 
-internal fun <T : Any> assert(subject: T): IAssertionPlant<T>
+internal fun <T : Any> assert(subject: T)
     = AtriumFactory.newCheckImmediately("assert", subject, AtriumReporterSupplier.REPORTER)
 
-internal inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T>
+internal inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newCheckLazilyAtTheEnd("assert", subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
-internal fun <T : Any?> assert(subject: T): IAssertionPlantNullable<T>
+internal fun <T : Any?> assert(subject: T)
     = AtriumFactory.newNullable("assert", subject, AtriumReporterSupplier.REPORTER)
 
-internal fun expect(act: () -> Unit): ThrowableFluent
+internal fun expect(act: () -> Unit)
     = AtriumFactory.newThrowableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)
 
 internal object AtriumReporterSupplier {
