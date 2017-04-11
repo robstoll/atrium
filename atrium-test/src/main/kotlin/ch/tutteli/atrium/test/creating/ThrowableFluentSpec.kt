@@ -53,7 +53,7 @@ open class ThrowableFluentSpec(
 
     class CheckerAndFluent(var checker: IAssertionChecker = mock<IAssertionChecker>(), var fluent: ThrowableFluent = ThrowableFluent("dummy", null, checker))
     context("dependencies") {
-        group("in case the verbs.checkExceptioned exception is thrown") {
+        group("in case the expected exception is thrown") {
             val subject = IllegalArgumentException()
             val checkerAndFluent = CheckerAndFluent()
             beforeEachTest {
@@ -111,7 +111,7 @@ open class ThrowableFluentSpec(
         checkToThrow("it throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown", { doToThrow ->
             verbs.checkException {
                 fluent.doToThrow()
-            }.toThrow<IllegalStateException>().and.message.contains("should throw an exception")
+            }.toThrow<IllegalStateException>()
         }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
     }
 

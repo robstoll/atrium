@@ -16,7 +16,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
 open class AssertionPlantCheckLazilySpec(
-    val verbs: IAssertionVerbFactory,
+    verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int>) -> IAssertionPlant<Int>
 ) : Spek({
     val assertionVerb = "myAssertionVerb"
