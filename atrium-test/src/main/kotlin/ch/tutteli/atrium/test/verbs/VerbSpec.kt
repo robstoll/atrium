@@ -1,8 +1,12 @@
 package ch.tutteli.atrium.test.verbs
 
 import ch.tutteli.atrium.*
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.creating.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.test.creating.DownCastBuilderSpec
 import ch.tutteli.atrium.test.inCaseOf
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -57,6 +61,10 @@ open class VerbSpec(
         }
     }
 
+
+    /**
+     * @see DownCastBuilderSpec - similar spec for lazy evaluated assertion verb
+     */
     describe("assertion verb '${plantCheckImmediately.first}' which lazily evaluates assertions") {
         val (_, assertionVerb) = plantCheckLazily
         it("does not throw an exception in case the assertion holds") {

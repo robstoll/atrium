@@ -20,8 +20,8 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 
 open class FeatureAssertionCheckerSpec(
-    val verbs: IAssertionVerbFactory,
-    val testeeFactory: (subjectFactory: IAssertionPlant<Int>) -> IAssertionChecker
+    verbs: IAssertionVerbFactory,
+    testeeFactory: (subjectFactory: IAssertionPlant<Int>) -> IAssertionChecker
 ) : Spek({
 
     val assertions = ArrayList<IAssertion>()

@@ -15,8 +15,8 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
 open class ThrowingAssertionCheckerSpec(
-    val verbs: IAssertionVerbFactory,
-    val testeeFactory: (IReporter) -> IAssertionChecker
+    verbs: IAssertionVerbFactory,
+    testeeFactory: (IReporter) -> IAssertionChecker
 ) : Spek({
 
     val assertionVerb = "assertionVerb"
