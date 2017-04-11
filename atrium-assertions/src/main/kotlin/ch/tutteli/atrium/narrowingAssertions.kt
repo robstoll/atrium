@@ -1,16 +1,17 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.IsAAssertion
-import ch.tutteli.atrium.assertions.IsNotNullAssertion
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
+import ch.tutteli.atrium.creating.createAssertionsAndCheckThem
 import kotlin.reflect.KProperty0
 
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
-    = AtriumFactory.newDownCastBuilder(commonFields, IsNotNullAssertion(subject))
+    = AtriumFactory.newDownCastBuilder("is not", commonFields)
     .cast()
 
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newDownCastBuilder(commonFields, IsNotNullAssertion(subject))
+    = AtriumFactory.newDownCastBuilder("is not", commonFields)
     .withLazyAssertions(createAssertions)
     .cast()
 
@@ -18,14 +19,14 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline crea
  * Creates an `is a` assertion, which holds if the [IAssertionPlant.subject] is the same or a subtype of the expected type [TSub].
  */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub>
-    = AtriumFactory.newDownCastBuilder<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
+    = AtriumFactory.newDownCastBuilder<TSub, Any>("is type or sub-type of", commonFields)
     .cast()
 
 /**
  * Creates an `is a` assertion, which holds if the [IAssertionPlant.subject] is the same or a subtype of the expected type [TSub].
  */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
-    = AtriumFactory.newDownCastBuilder<TSub, Any>(commonFields, IsAAssertion(subject, TSub::class.java))
+    = AtriumFactory.newDownCastBuilder<TSub, Any>("is type or sub-type of", commonFields)
     .withLazyAssertions(createAssertions)
     .cast()
 

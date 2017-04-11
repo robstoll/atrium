@@ -1,7 +1,5 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.IsAAssertion
-import ch.tutteli.atrium.assertions.IsNotNullAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.test.checkNarrowingAssertion
 import ch.tutteli.atrium.test.checkNarrowingNullableAssertion
@@ -16,7 +14,7 @@ object NarrowingAssertionsSpec : Spek({
             expect {
                 val i: Int? = null
                 assert(i).isNotNull()
-            }.toThrow<AssertionError>().and.message.contains("null", IsNotNullAssertion.MESSAGE_DESCRIPTION)
+            }.toThrow<AssertionError>().and.message.contains("null", "is not")
         }, { isNotNull() }, { isNotNull {} })
 
         checkNarrowingNullableAssertion<Int?>("it does not throw an Exception if the subject is not null", { isNotNull ->
@@ -45,7 +43,7 @@ object NarrowingAssertionsSpec : Spek({
             expect {
                 assert("hello").isA()
             }.toThrow<AssertionError> {
-                message.contains(IsAAssertion.MESSAGE_DESCRIPTION, Integer::class.java.simpleName)
+                message.contains("is type or sub-type of", Int::class.java.name)
             }
         }, { isA<Int>() }, { isA<Int> {} })
 
@@ -64,7 +62,7 @@ object NarrowingAssertionsSpec : Spek({
             expect {
                 assert(A()).isA()
             }.toThrow<AssertionError> {
-                message.contains(A::class.java.name, IsAAssertion.MESSAGE_DESCRIPTION, B::class.java.name)
+                message.contains(A::class.java.name, "is type or sub-type of", B::class.java.name)
             }
         }, { isA<B>() }, { isA<B> {} })
 

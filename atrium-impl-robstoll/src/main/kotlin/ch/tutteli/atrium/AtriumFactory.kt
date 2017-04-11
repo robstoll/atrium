@@ -150,7 +150,6 @@ object AtriumFactory : IAtriumFactory {
      * Prepares a down cast; use [DownCastBuilder.cast] to perform it and first call
      * [DownCastBuilder.withLazyAssertions]/[DownCastBuilder.withNullRepresentation] to specialise it further.
      */
-    inline fun <reified TSub : T, T : Any> newDownCastBuilder(commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>, assertion: IAssertion): DownCastBuilder<T, TSub>
-        = DownCastBuilder(TSub::class.java, commonFields, assertion)
+    inline fun <reified TSub : T, T : Any> newDownCastBuilder(description: String, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
+        = DownCastBuilder(description, TSub::class, commonFields)
 }
-
