@@ -1,0 +1,8 @@
+[atrium](../index.md) / [ch.tutteli.atrium.verbs.assert](.)
+
+## Package ch.tutteli.atrium.verbs.assert
+
+### Functions
+
+| [assert](assert.md) | `fun <T : Any> assert(subject: T): <ERROR CLASS>`<br>Creates an [IAssertionPlant](../ch.tutteli.atrium.creating/-i-assertion-plant/index.md) for [subject](assert.md#ch.tutteli.atrium.verbs.assert$assert(ch.tutteli.atrium.verbs.assert.assert.T)/subject) which immediately evaluates [IAssertion](../ch.tutteli.atrium.assertions/-i-assertion/index.md)s.`fun <T> assert(subject: T): <ERROR CLASS>`<br>Creates an [IAssertionPlantNullable](../ch.tutteli.atrium.creating/-i-assertion-plant-nullable/index.md) for [subject](assert.md#ch.tutteli.atrium.verbs.assert$assert(ch.tutteli.atrium.verbs.assert.assert.T)/subject).`fun <T : Any> assert(subject: T, createAssertions: `[`IAssertionPlant`](../ch.tutteli.atrium.creating/-i-assertion-plant/index.md)`<T>.() -> Unit): `[`IAssertionPlant`](../ch.tutteli.atrium.creating/-i-assertion-plant/index.md)`<T>`<br>Creates an [IAssertionPlant](../ch.tutteli.atrium.creating/-i-assertion-plant/index.md) for [subject](assert.md#ch.tutteli.atrium.verbs.assert$assert(ch.tutteli.atrium.verbs.assert.assert.T, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.verbs.assert.assert.T)), kotlin.Unit)))/subject) which lazily evaluates [IAssertion](../ch.tutteli.atrium.assertions/-i-assertion/index.md)s.`fun assert(act: () -> Unit): `[`ThrowableFluent`](../ch.tutteli.atrium.creating/-throwable-fluent/index.md)<br>Creates an [ThrowableFluent](../ch.tutteli.atrium.creating/-throwable-fluent/index.md) for the given function [act](assert.md#ch.tutteli.atrium.verbs.assert$assert(kotlin.Function0((kotlin.Unit)))/act). |
+
