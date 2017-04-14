@@ -1,6 +1,7 @@
 buildscript {
     ext {
         atrium_version = '0.1.0-SNAPSHOT'
+        ghPages_version = '0.1.0'
         kbox_version = '0.0.1'
         kotlin_version = '1.1.1'
         mockito_kotlin_version = '1.0.1'
@@ -64,9 +65,9 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 dokka {
     moduleName = 'doc'
     outputFormat = 'html'
-    outputDirectory = "$buildDir/../../atrium-gh-pages/"
+    outputDirectory = "../${project.name}-gh-pages/$ghPages_version"
 
-    def docProjects = subprojects.findAll { !it.name.startsWith('atrium-impl') }
+    def docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-impl") }
     doFirst {
         println "going to generate kdoc including the projects: ${docProjects*.name}"
         println "====================="
@@ -74,7 +75,7 @@ dokka {
     docProjects.each { subProject ->
         linkMapping {
             dir = "${subProject.name}/src/main/kotlin"
-            url = "https://github.com/robstoll/atrium/tree/master/${subProject.name}/src/main/kotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${subProject.name}/src/main/kotlin"
             suffix = '#L'
         }
     }
