@@ -59,28 +59,18 @@ subprojects {
     }
 }
 
-apply plugin: 'kotlin'
-apply plugin: 'org.jetbrains.dokka'
-
-task copyReadme(type: Copy){
-    println "Copy README.md to dir ../atrium-gh-pages/"
-    from 'README.md'
-    into '/../atrium-gh-pages/'
-}
-
-task ghPages {
-    dependsOn copyReadme
-    finalizedBy 'dokka'
-    delete "../atrium-gh-pages/doc"
-}
+apply from: 'gradle/scripts/gh-pages.gradle'
 
 dokka {
     moduleName = 'doc'
-    outputFormat = 'markdown'
+    outputFormat = 'html'
     outputDirectory = "$buildDir/../../atrium-gh-pages/"
 
-    def docProjects = subprojects.findAll { it.name != 'atrium-api-late-binding'}
-    println "going to generate kdoc including the projects: ${docProjects*.name}"
+    def docProjects = subprojects.findAll { !it.name.startsWith('atrium-impl') }
+    doFirst {
+        println "going to generate kdoc including the projects: ${docProjects*.name}"
+        println "====================="
+    }
     docProjects.each { subProject ->
         linkMapping {
             dir = "${subProject.name}/src/main/kotlin"
