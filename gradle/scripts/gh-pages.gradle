@@ -1,34 +1,30 @@
 apply plugin: 'kotlin'
 apply plugin: 'org.jetbrains.dokka'
 
-task copyReadme(type: Copy) {
-    doFirst { println 'Copy README.md to dir ../atrium-gh-pages/' }
-    from 'README.md'
-    into '../atrium-gh-pages/'
+def ghPagesPathWithoutVersion = "../${project.name}-gh-pages"
+def ghPagesPath = "$ghPagesPathWithoutVersion/$ghPages_version"
+
+task copyIndex(type: Copy) {
+    from "$ghPagesPathWithoutVersion/index.version.md"
+    into ghPagesPath
+    rename('index.version.md', 'index.md')
+    expand(version: ghPages_version)
+    filteringCharset = 'UTF-8'
 }
 
-task backupCSS(type: Copy) {
-    from '../atrium-gh-pages/style.css'
-    into '../atrium-gh-pages/'
-    rename('style.css', 'style.css.bak')
+task copyCSS(type: Copy) {
+    from "$ghPagesPathWithoutVersion/style.css"
+    into  ghPagesPath
 }
 
-task restoreCSS(type: Copy) {
-    from '../atrium-gh-pages/style.css.bak'
-    into '../atrium-gh-pages/'
-    rename('style.css.bak', 'style.css')
-}
-
-task cleanDoc {
-    doFirst { delete "../atrium-gh-pages/doc" }
+task cleanGhPages {
+    doFirst { delete ghPagesPath }
 }
 
 task ghPages {
-    dependsOn copyReadme
-    dependsOn backupCSS
-    dependsOn cleanDoc
+    dependsOn cleanGhPages
     dependsOn dokka
-    dokka.mustRunAfter cleanDoc
-    dokka.mustRunAfter backupCSS
-    finalizedBy restoreCSS
+    dokka.mustRunAfter cleanGhPages
+    finalizedBy copyCSS
+    finalizedBy copyIndex
 }
