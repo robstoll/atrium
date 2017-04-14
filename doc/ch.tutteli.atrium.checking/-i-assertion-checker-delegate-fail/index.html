@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionCheckerDelegateFail - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.checking</a>&nbsp;/&nbsp;<a href=".">IAssertionCheckerDelegateFail</a><br/>
+<br/>
+<h1>IAssertionCheckerDelegateFail</h1>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionCheckerDelegateFail</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-assertion-checker/index.html"><span class="identifier">IAssertionChecker</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/checking/IAssertionCheckerDelegateFail.kt#L9">(source)</a>
+<p>Provides a default-implementation for <a href="../-i-assertion-checker/fail.html">IAssertionChecker.fail</a> which first checks
+that the given <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a> fails and then delegates to <a href="../-i-assertion-checker/check.html">IAssertionChecker.check</a>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="fail.html">fail</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">fail</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionCheckerDelegateFail$fail(kotlin.String, kotlin.Any, ch.tutteli.atrium.assertions.IAssertion)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionCheckerDelegateFail$fail(kotlin.String, kotlin.Any, ch.tutteli.atrium.assertions.IAssertion)/subject">subject</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionCheckerDelegateFail$fail(kotlin.String, kotlin.Any, ch.tutteli.atrium.assertions.IAssertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Delegates to <a href="../-i-assertion-checker/check.html">check</a> if the assertion fails.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-i-assertion-checker/check.html">check</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">check</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/subject">subject</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Checks given <a href="../-i-assertion-checker/check.html#ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</a> and reports if one of them fails (does not hold).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

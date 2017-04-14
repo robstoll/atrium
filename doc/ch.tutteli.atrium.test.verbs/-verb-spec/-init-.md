@@ -1,5 +1,0 @@
-[atrium](../../index.md) / [ch.tutteli.atrium.test.verbs](../index.md) / [VerbSpec](index.md) / [&lt;init&gt;](.)
-
-# &lt;init&gt;
-
-`VerbSpec(plantCheckImmediately: <ERROR CLASS><String, (subject: Int) -> `[`IAssertionPlant`](../../ch.tutteli.atrium.creating/-i-assertion-plant/index.md)`<Int>>, plantCheckLazily: <ERROR CLASS><String, (subject: Int, createAssertions: `[`IAssertionPlant`](../../ch.tutteli.atrium.creating/-i-assertion-plant/index.md)`<Int>.() -> Unit) -> `[`IAssertionPlant`](../../ch.tutteli.atrium.creating/-i-assertion-plant/index.md)`<Int>>, plantNullable: <ERROR CLASS><String, (subject: Int?) -> `[`IAssertionPlantNullable`](../../ch.tutteli.atrium.creating/-i-assertion-plant-nullable/index.md)`<Int?>>, plantExpect: <ERROR CLASS><String, (act: () -> Unit) -> `[`ThrowableFluent`](../../ch.tutteli.atrium.creating/-throwable-fluent/index.md)`>)`

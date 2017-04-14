@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtriumFactory.newCheckLazily - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">AtriumFactory</a>&nbsp;/&nbsp;<a href=".">newCheckLazily</a><br/>
+<br/>
+<h1>newCheckLazily</h1>
+
+<p><a name="ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.reporting.IReporter)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">newCheckLazily</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.reporting.IReporter)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.reporting.IReporter)/subject">subject</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.reporting.IReporter)/reporter">reporter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-i-reporter/index.html"><span class="identifier">IReporter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/AtriumFactory.kt#L23">(source)</a>
+<p>Overrides <a href="../-i-atrium-factory/new-check-lazily.html">IAtriumFactory.newCheckLazily</a></p>
+<p>Creates an <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html">IAssertionPlant</a> which does not check the created or
+added <a href="#">IAssertion</a>s until one calls <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/check-assertions.html">IAssertionPlant.checkAssertions</a>.</p>
+<p>It creates a <a href="new-throwing-assertion-checker.html">newThrowingAssertionChecker</a> based on the given <a href="new-check-lazily.html#ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.reporting.IReporter)/reporter">reporter</a> for assertion checking.</p>
+<h3>Parameters</h3>
+
+<p><a name="assertionVerb"></a>
+<code>assertionVerb</code> - The assertion verb which will be used inter alia in reporting
+    (see <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/assertion-verb.html">IAssertionPlantWithCommonFields.CommonFields.assertionVerb</a>).
+<p><a name="subject"></a>
+<code>subject</code> - The subject for which this plant will create/check <a href="#">IAssertion</a>s.
+    (see <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/subject.html">IAssertionPlantWithCommonFields.CommonFields.subject</a>).
+<p><a name="reporter"></a>
+<code>reporter</code> - The reporter which will be use for a <a href="new-throwing-assertion-checker.html">newThrowingAssertionChecker</a>.
+<p><strong>Return</strong><br/>
+The newly created assertion plant.</p>
+
+<p><a name="ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.checking.IAssertionChecker)"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">newCheckLazily</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.checking.IAssertionChecker)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.checking.IAssertionChecker)/subject">subject</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.checking.IAssertionChecker)/assertionChecker">assertionChecker</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.checking/-i-assertion-checker/index.html"><span class="identifier">IAssertionChecker</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/AtriumFactory.kt#L26">(source)</a>
+<p>Overrides <a href="../-i-atrium-factory/new-check-lazily.html">IAtriumFactory.newCheckLazily</a></p>
+<p>Creates an <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html">IAssertionPlant</a> which does not check the created or
+added <a href="#">IAssertion</a>s until one calls <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/check-assertions.html">IAssertionPlant.checkAssertions</a>.</p>
+<p>It uses the given <a href="new-check-lazily.html#ch.tutteli.atrium.AtriumFactory$newCheckLazily(kotlin.String, ch.tutteli.atrium.AtriumFactory.newCheckLazily.T, ch.tutteli.atrium.checking.IAssertionChecker)/assertionChecker">assertionChecker</a> for assertion checking.</p>
+<h3>Parameters</h3>
+
+<p><a name="assertionVerb"></a>
+<code>assertionVerb</code> - The assertion verb which will be used inter alia in reporting
+    (see <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/assertion-verb.html">IAssertionPlantWithCommonFields.CommonFields.assertionVerb</a>).
+<p><a name="subject"></a>
+<code>subject</code> - The subject for which this plant will create/check <a href="#">IAssertion</a>s.
+    (see <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/subject.html">IAssertionPlantWithCommonFields.CommonFields.subject</a>).
+<p><a name="assertionChecker"></a>
+<code>assertionChecker</code> - The checker which will be used to check <a href="#">IAssertion</a>s.
+    (see <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/assertion-checker.html">IAssertionPlantWithCommonFields.CommonFields.assertionChecker</a>).
+<p><strong>Return</strong><br/>
+The newly created assertion plant.</p>
+
+<p><a name="ch.tutteli.atrium.AtriumFactory$newCheckLazily(ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields((ch.tutteli.atrium.AtriumFactory.newCheckLazily.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">newCheckLazily</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newCheckLazily(ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields((ch.tutteli.atrium.AtriumFactory.newCheckLazily.T)))/commonFields">commonFields</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/index.html"><span class="identifier">CommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/AtriumFactory.kt#L29">(source)</a>
+<p>Overrides <a href="../-i-atrium-factory/new-check-lazily.html">IAtriumFactory.newCheckLazily</a></p>
+<p>Creates an <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html">IAssertionPlant</a> which does not check the created or
+added <a href="#">IAssertion</a>s until one calls <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/check-assertions.html">IAssertionPlant.checkAssertions</a>.</p>
+<p>It uses the <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/assertion-checker.html">IAssertionPlantWithCommonFields.CommonFields.assertionChecker</a> of the given <a href="new-check-lazily.html#ch.tutteli.atrium.AtriumFactory$newCheckLazily(ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields((ch.tutteli.atrium.AtriumFactory.newCheckLazily.T)))/commonFields">commonFields</a> for assertion checking.</p>
+<h3>Parameters</h3>
+
+<p><a name="commonFields"></a>
+<code>commonFields</code> - The commonFields for the new assertion plant.
+<p><strong>Return</strong><br/>
+The newly created assertion plant.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionPlantNullable - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href=".">IAssertionPlantNullable</a><br/>
+<br/>
+<h1>IAssertionPlantNullable</h1>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlantNullable</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant-with-common-fields/index.html"><span class="identifier">IAssertionPlantWithCommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-api/src/main/kotlin/ch/tutteli/atrium/creating/IAssertionPlantNullable.kt#L14">(source)</a>
+<p>Represents an assertion plant for nullable types.</p>
+<p>In contrast to a <a href="../-i-assertion-plant/index.html">IAssertionPlant</a> it does not provide a method to create further <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s
+(<a href="../-i-assertion-plant/create-and-add-assertion.html">IAssertionPlant.createAndAddAssertion</a>) nor a method to add assertions (<a href="../-i-assertion-plant/add-assertion.html">IAssertionPlant.addAssertion</a>)
+and as consequence no method to check them (<a href="../-i-assertion-plant/check-assertions.html">IAssertionPlant.checkAssertions</a>).
+Yet, it provides one method <a href="is-null.html">isNull</a> which immediately evaluates if the <a href="../-i-assertion-plant-with-common-fields/subject.html">subject</a> is <code>null</code> as expected.</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-i-assertion-plant-with-common-fields/common-fields.html">commonFields</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">commonFields</span><span class="symbol">: </span><a href="../-i-assertion-plant-with-common-fields/-common-fields/index.html"><span class="identifier">CommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p><a href="../-i-assertion-plant-with-common-fields/-common-fields/index.html">CommonFields</a> of this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-i-assertion-plant-with-common-fields/subject.html">subject</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">subject</span><span class="symbol">: </span><span class="identifier">T</span></code>
+<p>The subject for which this plant will create/check <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="is-null.html">isNull</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">isNull</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Checks whether <a href="../-i-assertion-plant-with-common-fields/subject.html">subject</a> is <code>null</code> and reports an error if it is not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-not-null.html">isNotNull</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlantNullable</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isNotNull</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is not null.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlantNullable</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isNotNull</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$isNotNull(ch.tutteli.atrium.creating.IAssertionPlantNullable((ch.tutteli.atrium.isNotNull.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.isNotNull.T)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is not null and if so, uses <a href="../../ch.tutteli.atrium/is-not-null.html#ch.tutteli.atrium$isNotNull(ch.tutteli.atrium.creating.IAssertionPlantNullable((ch.tutteli.atrium.isNotNull.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.isNotNull.T)), kotlin.Unit)))/createAssertions">createAssertions</a>
+which could create further assertions which are lazily evaluated at the end.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

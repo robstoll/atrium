@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DownCastBuilder - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href=".">DownCastBuilder</a><br/>
+<br/>
+<h1>DownCastBuilder</h1>
+<code><span class="keyword">class </span><span class="identifier">DownCastBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/creating/DownCastBuilder.kt#L32">(source)</a>
+<p>A builder for creating a down-casting assertion.</p>
+<p>Or in other words, helps to make an assertion about <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> that it can be
+down-casted to <a href="#">subClass</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">DownCastBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.DownCastBuilder$<init>(kotlin.String, kotlin.reflect.KClass((ch.tutteli.atrium.creating.DownCastBuilder.TSub)), ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields((ch.tutteli.atrium.creating.DownCastBuilder.T)))/description">description</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.DownCastBuilder$<init>(kotlin.String, kotlin.reflect.KClass((ch.tutteli.atrium.creating.DownCastBuilder.TSub)), ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields((ch.tutteli.atrium.creating.DownCastBuilder.T)))/subClass">subClass</span><span class="symbol">:</span>&nbsp;<span class="identifier">KClass</span><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.DownCastBuilder$<init>(kotlin.String, kotlin.reflect.KClass((ch.tutteli.atrium.creating.DownCastBuilder.TSub)), ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields((ch.tutteli.atrium.creating.DownCastBuilder.T)))/commonFields">commonFields</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant-with-common-fields/-common-fields/index.html"><span class="identifier">CommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="cast.html">cast</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">cast</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Performs the down-cast if possible; reports a failure otherwise.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="with-lazy-assertions.html">withLazyAssertions</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withLazyAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.DownCastBuilder$withLazyAssertions(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.DownCastBuilder.TSub)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DownCastBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Use this method if you want to add several assertions which are checked lazily after the down cast is performed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="with-null-representation.html">withNullRepresentation</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withNullRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.DownCastBuilder$withNullRepresentation(kotlin.String)/representation">representation</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">DownCastBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Use this method if you want to use your own <code>null</code> representation in error reporting
+(default is <a href="../../ch.tutteli.atrium.reporting/-raw-string/-n-u-l-l.html">RawString.NULL</a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

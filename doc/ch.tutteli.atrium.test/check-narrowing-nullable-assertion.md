@@ -1,5 +1,0 @@
-[atrium](../index.md) / [ch.tutteli.atrium.test](index.md) / [checkNarrowingNullableAssertion](.)
-
-# checkNarrowingNullableAssertion
-
-`fun <T> <ERROR CLASS>.checkNarrowingNullableAssertion(description: String, act: (`[`IAssertionPlantNullable`](../ch.tutteli.atrium.creating/-i-assertion-plant-nullable/index.md)`<T>.() -> Unit) -> Unit, immediate: `[`IAssertionPlantNullable`](../ch.tutteli.atrium.creating/-i-assertion-plant-nullable/index.md)`<T>.() -> Unit, lazy: `[`IAssertionPlantNullable`](../ch.tutteli.atrium.creating/-i-assertion-plant-nullable/index.md)`<T>.() -> Unit, vararg otherMethods: <ERROR CLASS><String, `[`IAssertionPlantNullable`](../ch.tutteli.atrium.creating/-i-assertion-plant-nullable/index.md)`<T>.() -> Unit>): Unit` [(source)](https://github.com/robstoll/atrium/tree/master/atrium-test/src/main/kotlin/ch/tutteli/atrium/test/SpekExtensions.kt#L27)

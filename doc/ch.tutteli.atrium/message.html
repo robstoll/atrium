@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>message - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href=".">message</a><br/>
+<br/>
+<h1>message</h1>
+
+<p><a name="ch.tutteli.atrium$message#ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.message.T))"></a>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">message</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">String</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/throwableAssertions.kt#L14">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-i-assertion-plant-nullable/index.html">IAssertionPlantNullable</a> for the <a href="#">message</a> of the plant's
+<a href="../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/subject.html">subject</a> (which is an <a href="#">Throwable</a>) and makes the assertion that message <a href="is-not-null.html">isNotNull</a>.</p>
+<h3>Exceptions</h3>
+
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> in case <a href="#">message</a> is <code>null</code>.
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-i-assertion-plant/index.html">IAssertionPlant</a> which immediately evaluates <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s (see <a href="-i-atrium-factory/new-check-immediately.html">IAtriumFactory.newCheckImmediately</a>).</p>
+
+<p><a name="ch.tutteli.atrium$message(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((kotlin.String)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">message</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$message(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((kotlin.String)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">String</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">String</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/throwableAssertions.kt#L25">(source)</a>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-i-assertion-plant-nullable/index.html">IAssertionPlantNullable</a> for the <a href="#">message</a> of the plant's
+<a href="../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/subject.html">subject</a> (which is an <a href="#">Throwable</a>) and makes the assertion that message <a href="is-not-null.html">isNotNull</a>
+and uses <a href="message.html#ch.tutteli.atrium$message(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((kotlin.String)), kotlin.Unit)))/createAssertions">createAssertions</a> which might create further <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s which are lazily evaluated at the end.</p>
+<h3>Exceptions</h3>
+
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> in case <a href="#">message</a> is <code>null</code>
+    or if an additionally created <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s (by calling <a href="message.html#ch.tutteli.atrium$message(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((kotlin.String)), kotlin.Unit)))/createAssertions">createAssertions</a>) does not hold.
+<p><strong>Return</strong><br/>
+An <a href="../ch.tutteli.atrium.creating/-i-assertion-plant/index.html">IAssertionPlant</a> which lazily evaluates <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s (see <a href="-i-atrium-factory/new-check-lazily.html">IAtriumFactory.newCheckLazily</a>).</p>
+</BODY>
+</HTML>

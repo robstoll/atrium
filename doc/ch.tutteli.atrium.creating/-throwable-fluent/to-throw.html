@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ThrowableFluent.toThrow - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">ThrowableFluent</a>&nbsp;/&nbsp;<a href=".">toThrow</a><br/>
+<br/>
+<h1>toThrow</h1>
+
+<p><a name="ch.tutteli.atrium.creating.ThrowableFluent$toThrow()"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">&gt;</span> <span class="identifier">toThrow</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/creating/ThrowableFluent.kt#L37">(source)</a>
+<p>Makes an assertion about the <a href="common-fields.html">commonFields</a>'s <a href="../-i-assertion-plant-with-common-fields/-common-fields/subject.html">subject</a>
+that it is of the expected type <a href="#">TExpected</a> and reports an error if subject is <code>null</code> or another type
+than the expected one.</p>
+<h3>Exceptions</h3>
+
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - In case the made assertion fails.
+<p><a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - In case reporting a failure does not throw itself.
+<p><strong>Return</strong><br/>
+This builder to support a fluent-style API.</p>
+
+<p><a name="ch.tutteli.atrium.creating.ThrowableFluent$toThrow(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.ThrowableFluent.toThrow.TExpected)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">&gt;</span> <span class="identifier">toThrow</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.creating.ThrowableFluent$toThrow(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.ThrowableFluent.toThrow.TExpected)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/creating/ThrowableFluent.kt#L52">(source)</a>
+<p>Makes an assertion about the <a href="common-fields.html">commonFields</a>'s <a href="../-i-assertion-plant-with-common-fields/-common-fields/subject.html">subject</a>
+that it is of the expected type <a href="#">TExpected</a> and reports an error if subject is null or another type
+than the expected one -- furthermore it <a href="to-throw.html#ch.tutteli.atrium.creating.ThrowableFluent$toThrow(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.ThrowableFluent.toThrow.TExpected)), kotlin.Unit)))/createAssertions">createAssertions</a> which are checked additionally as well.</p>
+<h3>Exceptions</h3>
+
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - In case the made assertion fails.
+<p><a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - In case reporting a failure does not throw itself.
+<p><strong>Return</strong><br/>
+This builder to support a fluent-style API.</p>
+</BODY>
+</HTML>

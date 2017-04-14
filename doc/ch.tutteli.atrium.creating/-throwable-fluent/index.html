@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ThrowableFluent - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href=".">ThrowableFluent</a><br/>
+<br/>
+<h1>ThrowableFluent</h1>
+<code><span class="keyword">class </span><span class="identifier">ThrowableFluent</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/creating/ThrowableFluent.kt#L19">(source)</a>
+<p>Provides <a href="to-throw.html">toThrow</a> methods for making assertions about a <a href="#">Throwable</a>
+which one expects was thrown.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-init-.html">&lt;init&gt;</a></td>
+<td>
+<code><span class="identifier">ThrowableFluent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.ThrowableFluent$<init>(kotlin.String, kotlin.Throwable, ch.tutteli.atrium.checking.IAssertionChecker)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.ThrowableFluent$<init>(kotlin.String, kotlin.Throwable, ch.tutteli.atrium.checking.IAssertionChecker)/throwable">throwable</span><span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.ThrowableFluent$<init>(kotlin.String, kotlin.Throwable, ch.tutteli.atrium.checking.IAssertionChecker)/assertionChecker">assertionChecker</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.checking/-i-assertion-checker/index.html"><span class="identifier">IAssertionChecker</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="common-fields.html">commonFields</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">commonFields</span><span class="symbol">: </span><a href="../-i-assertion-plant-with-common-fields/-common-fields/index.html"><span class="identifier">CommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">Throwable</span><span class="symbol">?</span><span class="symbol">&gt;</span></code>
+<p>The <a href="common-fields.html">commonFields</a>'s <a href="../-i-assertion-plant-with-common-fields/-common-fields/subject.html">subject</a>
+    represents the thrown <a href="#">Throwable</a> and will be used in <a href="to-throw.html">ThrowableFluent.toThrow</a>. Its method
+    <a href="../-i-assertion-plant-with-common-fields/-common-fields/fail.html">IAssertionPlantWithCommonFields.CommonFields.fail</a> is used for failure reporting etc.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="to-throw.html">toThrow</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">&gt;</span> <span class="identifier">toThrow</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span></code>
+<p>Makes an assertion about the <a href="common-fields.html">commonFields</a>'s <a href="../-i-assertion-plant-with-common-fields/-common-fields/subject.html">subject</a>
+that it is of the expected type <a href="#">TExpected</a> and reports an error if subject is <code>null</code> or another type
+than the expected one.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">&gt;</span> <span class="identifier">toThrow</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.ThrowableFluent$toThrow(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.ThrowableFluent.toThrow.TExpected)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span></code>
+<p>Makes an assertion about the <a href="common-fields.html">commonFields</a>'s <a href="../-i-assertion-plant-with-common-fields/-common-fields/subject.html">subject</a>
+that it is of the expected type <a href="#">TExpected</a> and reports an error if subject is null or another type
+than the expected one -- furthermore it <a href="to-throw.html#ch.tutteli.atrium.creating.ThrowableFluent$toThrow(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.ThrowableFluent.toThrow.TExpected)), kotlin.Unit)))/createAssertions">createAssertions</a> which are checked additionally as well.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-n-o_-e-x-c-e-p-t-i-o-n_-o-c-c-u-r-r-e-d.html">NO_EXCEPTION_OCCURRED</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">NO_EXCEPTION_OCCURRED</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="create.html">create</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.ThrowableFluent.Companion$create(kotlin.String, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.ThrowableFluent.Companion$create(kotlin.String, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/act">act</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.ThrowableFluent.Companion$create(kotlin.String, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/assertionChecker">assertionChecker</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.checking/-i-assertion-checker/index.html"><span class="identifier">IAssertionChecker</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ThrowableFluent</span></code>
+<p>Creates a ThrowableFluent where executing <a href="create.html#ch.tutteli.atrium.creating.ThrowableFluent.Companion$create(kotlin.String, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/act">act</a> will determine the
+<a href="IAssertionPlantWithCommonFields.CommonFields.subject">subject</a> of <a href="common-fields.html">commonFields</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

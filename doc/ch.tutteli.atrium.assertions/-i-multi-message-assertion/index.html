@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IMultiMessageAssertion - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href=".">IMultiMessageAssertion</a><br/>
+<br/>
+<h1>IMultiMessageAssertion</h1>
+<code><span class="keyword">interface </span><span class="identifier">IMultiMessageAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-assertion/index.html"><span class="identifier">IAssertion</span></a></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-api/src/main/kotlin/ch/tutteli/atrium/assertions/IMultiMessageAssertion.kt#L8">(source)</a>
+<p>The base interface for <a href="../-i-assertion/index.html">IAssertion</a>s which have multiple <a href="../-message/index.html">Message</a>s.</p>
+<p>It provides a default implementation for <a href="../-i-assertion/holds.html">IAssertion.holds</a> which returns true if all its <a href="messages.html">messages</a> hold.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="messages.html">messages</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">messages</span><span class="symbol">: </span><span class="identifier">List</span><span class="symbol">&lt;</span><a href="../-message/index.html"><span class="identifier">Message</span></a><span class="symbol">&gt;</span></code>
+<p>The messages of this assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="holds.html">holds</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Holds if all its <a href="messages.html">messages</a> hold.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DownCastBuilder.withLazyAssertions - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">DownCastBuilder</a>&nbsp;/&nbsp;<a href=".">withLazyAssertions</a><br/>
+<br/>
+<h1>withLazyAssertions</h1>
+<a name="ch.tutteli.atrium.creating.DownCastBuilder$withLazyAssertions(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.DownCastBuilder.TSub)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="identifier">withLazyAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.DownCastBuilder$withLazyAssertions(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.DownCastBuilder.TSub)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">DownCastBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">TSub</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-impl-robstoll/src/main/kotlin/ch/tutteli/atrium/creating/DownCastBuilder.kt#L66">(source)</a>
+<p>Use this method if you want to add several assertions which are checked lazily after the down cast is performed.</p>
+<p>Or in other words, the given <a href="with-lazy-assertions.html#ch.tutteli.atrium.creating.DownCastBuilder$withLazyAssertions(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.DownCastBuilder.TSub)), kotlin.Unit)))/createAssertions">createAssertions</a> function will be called,
+which might add additional <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s to the newly created <a href="../-i-assertion-plant/index.html">IAssertionPlant</a>, which are then lazily checked
+in <a href="cast.html">cast</a> after the down-cast was performed and before the newly created <a href="../-i-assertion-plant/index.html">IAssertionPlant</a> is returned.</p>
+<p><strong>Return</strong><br/>
+This builder to support a fluent-style API.</p>
+</BODY>
+</HTML>

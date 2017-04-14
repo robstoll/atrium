@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionChecker.check - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.checking</a>&nbsp;/&nbsp;<a href="index.html">IAssertionChecker</a>&nbsp;/&nbsp;<a href=".">check</a><br/>
+<br/>
+<h1>check</h1>
+<a name="ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">check</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/subject">subject</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<span class="identifier">List</span><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-api/src/main/kotlin/ch/tutteli/atrium/checking/IAssertionChecker.kt#L18">(source)</a>
+<p>Checks given <a href="check.html#ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</a> and reports if one of them fails (does not hold).</p>
+<h3>Parameters</h3>
+
+<p><a name="assertionVerb"></a>
+<code>assertionVerb</code> - The assertion verb which will be used in error reporting.
+<p><a name="subject"></a>
+<code>subject</code> - The subject for which the <a href="check.html#ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</a> have been created.
+<p><a name="assertions"></a>
+<code>assertions</code> - The <a href="check.html#ch.tutteli.atrium.checking.IAssertionChecker$check(kotlin.String, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</a> which are checked.
+<h3>Exceptions</h3>
+
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - An implementation is allowed to throw <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> if an assertion fails.
+</BODY>
+</HTML>

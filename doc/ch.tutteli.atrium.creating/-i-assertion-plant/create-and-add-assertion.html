@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionPlant.createAndAddAssertion - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">IAssertionPlant</a>&nbsp;/&nbsp;<a href=".">createAndAddAssertion</a><br/>
+<br/>
+<h1>createAndAddAssertion</h1>
+<a name="ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAndAddAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-api/src/main/kotlin/ch/tutteli/atrium/creating/IAssertionPlant.kt#L26">(source)</a>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a> based on <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</a>, <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/expected">expected</a> and <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</a> and <a href="add-assertion.html">adds</a> it
+to the plant.</p>
+<h3>Parameters</h3>
+
+<p><a name="description"></a>
+<code>description</code> - The description of the assertion, e.g., <code>is smaller than</code>.
+<p><a name="expected"></a>
+<code>expected</code> - The expected value, e.g., <code>5</code>
+<p><a name="test"></a>
+<code>test</code> - Indicates whether the assertion holds or fails.
+<h3>Exceptions</h3>
+
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> in case <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s are immediately evaluated.
+<p><strong>Return</strong><br/>
+This plant to support a fluent-style API.</p>
+</BODY>
+</HTML>
