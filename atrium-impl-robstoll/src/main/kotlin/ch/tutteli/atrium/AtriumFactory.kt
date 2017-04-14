@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.*
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [IReporter]
- * - [IAssertionMessageFormatter]
+ * - [IAssertionFormatter]
  * - [IObjectFormatter]
  * - [ThrowableFluent]
  * - [DownCastBuilder]
@@ -51,11 +51,11 @@ object AtriumFactory : IAtriumFactory {
 
     override fun newDetailedObjectFormatter(): IObjectFormatter = DetailedObjectFormatter()
 
-    override fun newSameLineAssertionMessageFormatter(objectFormatter: IObjectFormatter): IAssertionMessageFormatter
-        = SameLineAssertionMessageFormatter(objectFormatter)
+    override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter): IAssertionFormatter
+        = SameLineAssertionFormatter(objectFormatter)
 
-    override fun newOnlyFailureReporter(assertionMessageFormatter: IAssertionMessageFormatter): IReporter
-        = OnlyFailureReporter(assertionMessageFormatter)
+    override fun newOnlyFailureReporter(assertionFormatter: IAssertionFormatter): IReporter
+        = OnlyFailureReporter(assertionFormatter)
 
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
         = ThrowingAssertionChecker(reporter)

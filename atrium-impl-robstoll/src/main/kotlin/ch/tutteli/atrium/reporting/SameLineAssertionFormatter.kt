@@ -15,7 +15,7 @@ import ch.tutteli.kbox.appendToStringBuilder
  * - [IOneMessageAssertion]
  * - [IMultiMessageAssertion]
  */
-internal class SameLineAssertionMessageFormatter(private val objectFormatter: IObjectFormatter) : IAssertionMessageFormatter {
+internal class SameLineAssertionFormatter(private val objectFormatter: IObjectFormatter) : IAssertionFormatter {
 
     override fun format(sb: StringBuilder, assertion: IAssertion, assertionFilter: (IAssertion) -> Boolean, messageFilter: (Message) -> Boolean) {
         format(assertion, MethodObject(0, sb, assertionFilter, messageFilter))

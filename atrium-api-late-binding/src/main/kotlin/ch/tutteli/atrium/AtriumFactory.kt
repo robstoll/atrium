@@ -3,7 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.reporting.IAssertionMessageFormatter
+import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
 
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.reporting.IReporter
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [IReporter]
- * - [IAssertionMessageFormatter]
+ * - [IAssertionFormatter]
  * - [IObjectFormatter]
  * - [ThrowableFluent]
  * - [DownCastBuilder]
@@ -56,11 +56,11 @@ object AtriumFactory : IAtriumFactory {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    override fun newSameLineAssertionMessageFormatter(objectFormatter: IObjectFormatter): IAssertionMessageFormatter {
+    override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter): IAssertionFormatter {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    override fun newOnlyFailureReporter(assertionMessageFormatter: IAssertionMessageFormatter): IReporter {
+    override fun newOnlyFailureReporter(assertionFormatter: IAssertionFormatter): IReporter {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 

@@ -1,12 +1,13 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
-import ch.tutteli.atrium.reporting.IAssertionMessageFormatter
+import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
 
@@ -17,7 +18,7 @@ import ch.tutteli.atrium.reporting.IReporter
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [IReporter]
- * - [IAssertionMessageFormatter]
+ * - [IAssertionFormatter]
  * - [IObjectFormatter]
  */
 interface IAtriumFactory {
@@ -162,23 +163,23 @@ interface IAtriumFactory {
     fun newDetailedObjectFormatter(): IObjectFormatter
 
     /**
-     * Creates an [IAssertionMessageFormatter] which puts messages of the form 'a: b' on the same line.
+     * Creates an [IAssertionFormatter] which puts messages of the form 'a: b' on the same line.
      *
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion] and [Message].
      *
      * @return The newly created assertion formatter.
      */
-    fun newSameLineAssertionMessageFormatter(objectFormatter: IObjectFormatter): IAssertionMessageFormatter
+    fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter): IAssertionFormatter
 
     /**
      * Creates an [IReporter] which reports only failing assertions
-     * and uses the given [assertionMessageFormatter] to format assertions and messages.
+     * and uses the given [assertionFormatter] to format assertions and messages.
      *
-     * @param assertionMessageFormatter The formatter which is used to format [IAssertion]s.
+     * @param assertionFormatter The formatter which is used to format [IAssertion]s.
      *
      * @return The newly created reporter.
      */
-    fun newOnlyFailureReporter(assertionMessageFormatter: IAssertionMessageFormatter): IReporter
+    fun newOnlyFailureReporter(assertionFormatter: IAssertionFormatter): IReporter
 
     /**
      * Creates an [IAssertionChecker] which throws [AssertionError]s in case an assertion fails

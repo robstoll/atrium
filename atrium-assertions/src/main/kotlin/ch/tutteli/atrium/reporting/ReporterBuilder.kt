@@ -4,15 +4,15 @@ import ch.tutteli.atrium.AtriumFactory
 
 /**
  * A builder to create an [IReporter] consisting of an [IObjectFormatter] which is used by an
- * [IAssertionMessageFormatter] which in turn is used by the created [IReporter].
+ * [IAssertionFormatter] which in turn is used by the created [IReporter].
  */
-class ReporterBuilder(private val assertionMessageFormatter: IAssertionMessageFormatter) {
+class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
 
     /**
      * Uses [AtriumFactory.newOnlyFailureReporter] as [IReporter].
      */
     fun buildOnlyFailureReporting(): IReporter
-        = AtriumFactory.newOnlyFailureReporter(assertionMessageFormatter)
+        = AtriumFactory.newOnlyFailureReporter(assertionFormatter)
 
     companion object {
         /**
@@ -24,9 +24,9 @@ class ReporterBuilder(private val assertionMessageFormatter: IAssertionMessageFo
 
     class AssertionMessageBuilder(private val objectFormatter: IObjectFormatter) {
         /**
-         * Uses [AtriumFactory.newSameLineAssertionMessageFormatter] as [IAssertionMessageFormatter].
+         * Uses [AtriumFactory.newSameLineAssertionFormatter] as [IAssertionFormatter].
          */
         fun withSameLineAssertionMessageFormatter(): ReporterBuilder
-            = ReporterBuilder(AtriumFactory.newSameLineAssertionMessageFormatter(objectFormatter))
+            = ReporterBuilder(AtriumFactory.newSameLineAssertionFormatter(objectFormatter))
     }
 }
