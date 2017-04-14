@@ -43,7 +43,7 @@ internal class SameLineAssertionMessageFormatter(private val objectFormatter: IO
 
     private fun formatFeature(featureAssertionGroup: IFeatureAssertionGroup, methodObject: MethodObject) {
         methodObject.sb
-            .appendPair("-> ${featureAssertionGroup.featureName}", featureAssertionGroup.subSubject)
+            .appendPair("-> ${featureAssertionGroup.featureName}", featureAssertionGroup.feature)
             .appendln()
             .appendAssertions(featureAssertionGroup.assertions, methodObject, methodObject::newWithIncrementedMessageLevel)
     }

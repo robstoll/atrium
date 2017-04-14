@@ -10,11 +10,11 @@ interface IFeatureAssertionGroup : IAssertion {
      */
     val featureName: String
     /**
-     * The subject of this feature, for which the [assertions] are defined for.
+     * The feature itself for which the [assertions] are defined for.
      */
-    val subSubject: Any
+    val feature: Any
     /**
-     * The assertions of this group, which are defined for [subSubject].
+     * The assertions of this group, which are defined for [feature].
      */
     val assertions: List<IAssertion>
 
