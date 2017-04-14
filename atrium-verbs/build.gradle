@@ -15,4 +15,3 @@ dependencies {
     testCompile project(':atrium-test')
     testCompile project(':atrium-impl-robstoll')
 }
-
