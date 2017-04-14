@@ -49,7 +49,7 @@ open class AssertionPlantNullableSpec(
                     assertMessage.contains("to be")
                 }
                 it("contains the '${Message::representation.name}' of the assertion-message") {
-                    assertMessage.contains(RawString.NULL)
+                    assertMessage.contains(RawString.NULL.string)
                 }
             }
         }

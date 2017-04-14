@@ -116,8 +116,8 @@ open class DownCastBuilderSpec(
             it("throws an AssertionError") {
                 expectFluent.toThrow<AssertionError>()
             }
-            it("the error message uses ${RawString.NULL} as null-representation") {
-                expectFluent.toThrow<AssertionError>().and.message.contains(RawString.NULL)
+            it("the error message uses ${RawString.Companion::NULL.name} as null-representation") {
+                expectFluent.toThrow<AssertionError>().and.message.contains(RawString.NULL.string)
             }
         }
     }

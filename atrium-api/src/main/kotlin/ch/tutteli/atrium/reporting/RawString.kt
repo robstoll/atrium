@@ -15,6 +15,6 @@ data class RawString(val string: String) {
         /**
          * The representation for `null`.
          */
-        val NULL = "null"
+        val NULL = RawString("null")
     }
 }
