@@ -5,3 +5,7 @@
 
 # atrium
 atrium is an assertion framework for Kotlin.
+
+## KDoc
+The code documentation is generated with dokka and is hosted on github-pages:
+[KDoc of atrium](https://robstoll.github.io/atrium/doc)

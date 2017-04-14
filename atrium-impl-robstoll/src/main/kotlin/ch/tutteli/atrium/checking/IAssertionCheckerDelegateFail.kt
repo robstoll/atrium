@@ -7,9 +7,10 @@ import ch.tutteli.atrium.assertions.IAssertion
  * that the given [IAssertion] fails and then delegates to [IAssertionChecker.check].
  */
 interface IAssertionCheckerDelegateFail : IAssertionChecker {
+
     /**
-     * Delegates to [check] if the assertion fails
-     * @throws IllegalArgumentException in case the given [assertion] holds
+     * Delegates to [check] if the assertion fails.
+     * @throws IllegalArgumentException in case the given [assertion] holds.
      */
     override fun fail(assertionVerb: String, subject: Any, assertion: IAssertion) {
         if (assertion.holds()) throw IllegalArgumentException(THE_GIVEN_ASSERTION_SHOULD_FAIL + assertion)

@@ -41,8 +41,8 @@ open class FeatureAssertionCheckerSpec(
                 check("its ${IFeatureAssertionGroup::featureName.name} corresponds to the passed assertionVerb") {
                     fluent.its(fluent.subject::featureName).toBe(assertionVerb)
                 }
-                check("its ${IFeatureAssertionGroup::subSubject.name} corresponds to the passed subject") {
-                    fluent.its(fluent.subject::subSubject).toBe(subject)
+                check("its ${IFeatureAssertionGroup::feature.name} corresponds to the passed subject") {
+                    fluent.its(fluent.subject::feature).toBe(subject)
                 }
                 check("copies the assertion") {
                     assertions.clear()

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.test.reporting
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.isEmpty
-import ch.tutteli.atrium.reporting.IAssertionMessageFormatter
+import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.test.IAssertionVerbFactory
 import com.nhaarman.mockito_kotlin.any
@@ -17,7 +17,7 @@ import org.jetbrains.spek.api.dsl.it
 
 open class OnlyFailureReporterSpec(
     val verbs: IAssertionVerbFactory,
-    val testeeFactory: (IAssertionMessageFormatter) -> IReporter
+    val testeeFactory: (IAssertionFormatter) -> IReporter
 ) : Spek({
 
     describe("format") {
@@ -37,7 +37,7 @@ open class OnlyFailureReporterSpec(
             IAssertionGroup::class.java to AssertionGroup("groupName", 0, listOf(assertion, oneMessageAssertion, multiMessageAssertion))
         ).forEach { clazz, assertion ->
             it("does not append anything if ${clazz.simpleName} holds") {
-                val testee = testeeFactory(AtriumFactory.newSameLineAssertionMessageFormatter(AtriumFactory.newDetailedObjectFormatter()))
+                val testee = testeeFactory(AtriumFactory.newSameLineAssertionFormatter(AtriumFactory.newDetailedObjectFormatter()))
                 testee.format(sb, assertion)
                 verbs.checkLazily(sb) {
                     isEmpty()
@@ -46,10 +46,10 @@ open class OnlyFailureReporterSpec(
         }
 
         context("dependencies") {
-            val assertionMessageFormatter = mock<IAssertionMessageFormatter>()
+            val assertionMessageFormatter = mock<IAssertionFormatter>()
             val testee = testeeFactory(assertionMessageFormatter)
 
-            it("delegates to ${IAssertionMessageFormatter::class.java.simpleName}") {
+            it("delegates to ${IAssertionFormatter::class.java.simpleName}") {
                 testee.format(sb, oneMessageAssertion)
                 verify(assertionMessageFormatter).format(eq(sb), eq(oneMessageAssertion), any(), any())
             }

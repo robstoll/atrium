@@ -18,13 +18,13 @@ internal class DetailedObjectFormatter : IObjectFormatter {
      * - [Class] is represented as "[Class.getSimpleName] ([Class.name])"
      * - all other objects are represented as "[toString] ([Class.name] <[System.identityHashCode]>)"
      */
-    override fun format(any: Any?): String = when (any) {
+    override fun format(value: Any?): String = when (value) {
         null -> RawString.NULL
-        is RawString -> any.string
-        is String -> format(any)
-        is CharSequence -> format(any)
-        is Class<*> -> format(any)
-        else -> any.toString() + INDENT + classNameAndIdentity(any)
+        is RawString -> value.string
+        is String -> format(value)
+        is CharSequence -> format(value)
+        is Class<*> -> format(value)
+        else -> value.toString() + INDENT + classNameAndIdentity(value)
     }
 
     private fun format(string: String) = "\"$string\"" + INDENT + identityHash(string)
