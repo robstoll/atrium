@@ -6,17 +6,53 @@ import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.RawString
 
 /**
- * An [IAssertionPlant] which has [CommonFields]; provides the property [subject] for ease of use.
+ * An assertion plant which has [CommonFields]; provides the property [subject] for ease of use.
  */
 interface IAssertionPlantWithCommonFields<out T> {
+    /**
+     * [CommonFields] of this plant.
+     */
     val commonFields: CommonFields<T>
+
+    /**
+     * The subject for which this plant will create/check [IAssertion]s.
+     */
     val subject get() = commonFields.subject
 
+    /**
+     * Common fields of an assertion plant.
+     *
+     * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
+     * @property subject The subject for which this plant will create/check [IAssertion]s.
+     * @property assertionChecker The checker which will be used to check [IAssertion]s.
+     *
+     * @constructor
+     * @param assertionVerb The assertion verb which will be used inter alia in error reporting.
+     * @param subject The subject for which this plant will create/check [IAssertion]s.
+     * @param assertionChecker The checker which will be used to check [IAssertion]s.
+     *
+     */
     data class CommonFields<out T>(val assertionVerb: String, val subject: T, val assertionChecker: IAssertionChecker) {
 
+        /**
+         * Uses [assertionChecker] to check the given [assertions] (see [IAssertionChecker.check]).
+         *
+         * @param assertions The assertions which shall be checked.
+         *
+         * @throws AssertionError Might throw an [AssertionError] if any of the [assertions] does not hold.
+         */
         fun check(assertions: List<IAssertion>)
             = assertionChecker.check(assertionVerb, subject ?: RawString.NULL, assertions)
 
+        /**
+         * Uses [assertionChecker] to report a failing [assertion] (see [IAssertionChecker.fail]).
+         *
+         * In case [subject] is null, then [RawString.NULL] will be used as representation.
+         *
+         * @param assertion The failing assertion.
+         *
+         * @throws AssertionError Typically throws an [AssertionError] or another [Exception].
+         */
         fun fail(assertion: IAssertion)
             = assertionChecker.fail(assertionVerb, subject ?: RawString.NULL, assertion)
     }

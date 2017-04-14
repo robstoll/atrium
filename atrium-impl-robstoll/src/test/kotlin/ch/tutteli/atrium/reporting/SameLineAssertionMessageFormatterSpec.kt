@@ -10,9 +10,9 @@ import org.jetbrains.spek.api.include
 
 object SameLineAssertionMessageFormatterSpec : Spek({
     include(ch.tutteli.atrium.test.reporting.SameLineAssertionMessageFormatterSpec(
-        AssertionVerbFactory, ::SameLineAssertionMessageFormatter))
+        AssertionVerbFactory, ::SameLineAssertionFormatter))
 
-    val testee = SameLineAssertionMessageFormatter(ToStringObjectFormatter())
+    val testee = SameLineAssertionFormatter(ToStringObjectFormatter())
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     val alwaysTrueMessageFilter: (Message) -> Boolean = { true }
@@ -42,9 +42,9 @@ object SameLineAssertionMessageFormatterSpec : Spek({
             assert(sb.toString()).startsWith("${arrow}name: robert")
         }
 
-        val indent = " ".repeat(SameLineAssertionMessageFormatter.NUMBER_OF_INDENT_SPACES)
+        val indent = " ".repeat(SameLineAssertionFormatter.NUMBER_OF_INDENT_SPACES)
 
-        it("indents assertions by ${SameLineAssertionMessageFormatter.NUMBER_OF_INDENT_SPACES} spaces") {
+        it("indents assertions by ${SameLineAssertionFormatter.NUMBER_OF_INDENT_SPACES} spaces") {
             testee.format(sb, FeatureAssertionGroup("name", "robert", listOf(
                 OneMessageAssertion("starts with", "ro", true),
                 OneMessageAssertion("ends with", "bert", true)

@@ -12,3 +12,7 @@ apply from: '../gradle/scripts/publish.gradle'
 dependencies{
     compile project(':atrium-api')
 }
+
+dokka{
+    sourceDirs = files('src/main/kotlin', '../atrium-api/src/main/kotlin')
+}
