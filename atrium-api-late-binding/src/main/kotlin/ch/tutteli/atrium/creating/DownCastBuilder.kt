@@ -10,10 +10,10 @@ import kotlin.reflect.full.cast
  * A builder for creating a down-casting [IAssertion].
  *
  * Or in other words, helps to make an assertion about [IAssertionPlant.subject] that it can be
- * down-casted to [subClass].
+ * down-casted to [subType].
  *
  * @property description The description of this down-cast; will be used for the creation of the [IAssertion].
- * @property subClass The resulting type of the down-cast.
+ * @property subType The resulting type of the down-cast.
  * @property commonFields The [IAssertionPlantWithCommonFields.CommonFields] of the
  *        [IAssertionPlant]/[IAssertionPlantNullable] which uses this [DownCastBuilder].
  *        The down-cast will be performed on its [subject][IAssertionPlant.subject].
@@ -21,7 +21,7 @@ import kotlin.reflect.full.cast
  *
  * @constructor
  * @param description The description of this down-cast; will be used for the creation of the [IAssertion].
- * @param subClass The resulting type of the down-cast.
+ * @param subType The resulting type of the down-cast.
  * @param commonFields The [IAssertionPlantWithCommonFields.CommonFields] of the
  *        [IAssertionPlant]/[IAssertionPlantNullable] which uses this [DownCastBuilder].
  *        The down-cast will be performed on its [subject][IAssertionPlant.subject].
@@ -30,7 +30,7 @@ import kotlin.reflect.full.cast
  */
 @Suppress("UNUSED_PARAMETER", "unused")
 class DownCastBuilder<out T : Any, out TSub : T>(private val description: String,
-                                                 private val subClass: KClass<TSub>,
+                                                 private val subType: KClass<TSub>,
                                                  private val commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>) {
     init {
         throw UnsupportedOperationException(ERROR_MSG)
@@ -63,7 +63,7 @@ class DownCastBuilder<out T : Any, out TSub : T>(private val description: String
      * Performs the down-cast if possible; reports a failure otherwise.
      *
      * Down-Casting is possible if [commonFields]'s [subject][IAssertionPlantWithCommonFields.CommonFields.subject]
-     * is not null and its type is [subClass] (or a sub-class).
+     * is not null and its type is [subType] (or a sub-type of [subType]).
      *
      * In case the down-cast can be performed, it will create an [IAssertionPlant] and use the down-casted
      * [subject][IAssertionPlantWithCommonFields.CommonFields.subject] of [commonFields] as [IAssertionPlant.subject]
