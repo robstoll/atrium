@@ -2,15 +2,26 @@ package ch.tutteli.atrium.assertions
 
 /**
  * The base interface for [IAssertion] groups, providing a default implementation for [IAssertion.holds]
- * which returns true if all its [assertions] hold.
+ * which returns `true` if all its [assertions] hold.
  */
 interface IAssertionGroup : IAssertion {
+    /**
+     * The name of the group.
+     */
     val name: String
+    /**
+     * The subject for which the [assertions] are defined.
+     */
     val subject: Any
+    /**
+     * The assertions of this group, which are defined for [subject].
+     */
     val assertions: List<IAssertion>
 
     /**
      * Holds if all its [assertions] hold.
+     *
+     * @return `true` if all [assertions] hold; `false` otherwise.
      */
     override fun holds() = assertions.all(IAssertion::holds)
 }

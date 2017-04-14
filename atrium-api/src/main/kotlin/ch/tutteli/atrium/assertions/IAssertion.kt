@@ -5,6 +5,8 @@ package ch.tutteli.atrium.assertions
  */
 interface IAssertion {
     /**
+     * Indicates whether the assertion holds or not.
+     *
      * @return `true` in case the assertion holds otherwise `false`.
      */
     fun holds(): Boolean
