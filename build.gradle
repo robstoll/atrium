@@ -4,6 +4,7 @@ buildscript {
         kbox_version = '0.0.1'
         kotlin_version = '1.1.1'
         mockito_kotlin_version = '1.0.1'
+        dokka_version = '0.9.13'
 
         //spek.gradle
         jacoco_tool_version = '0.7.6.201602180812'
@@ -17,14 +18,17 @@ buildscript {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
     }
 }
 
 subprojects {
     apply plugin: 'kotlin'
+    apply plugin: 'org.jetbrains.dokka'
 
     repositories {
         mavenCentral()
@@ -34,10 +38,23 @@ subprojects {
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
         compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-        testCompile ("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
+        testCompile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
             exclude group: 'org.jetbrains.kotlin'
         }
     }
 
-
+    dokka {
+        outputFormat = 'html'
+        outputDirectory = "$buildDir/kdoc"
+        linkMapping {
+            dir = 'src/main/kotlin'
+            url = "https://github.com/robstoll/atrium/tree/master/${project.name}/src/main/kotlin"
+            suffix = '#L'
+        }
+        linkMapping {
+            dir = '../atrium-api/src/main/kotlin'
+            url = "https://github.com/robstoll/atrium/tree/master/atrium-api/src/main/kotlin"
+            suffix = '#L'
+        }
+    }
 }

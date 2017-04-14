@@ -15,3 +15,10 @@ dependencies {
     testCompile project(':atrium-test')
     testCompile project(':atrium-impl-robstoll')
 }
+
+dokka {
+    sourceDirs = files(
+        'src/main/kotlin',
+        '../atrium-api/src/main/kotlin',
+        '../atrium-api-late-binding/src/main/kotlin')
+}
