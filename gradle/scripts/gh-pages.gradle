@@ -1,0 +1,34 @@
+apply plugin: 'kotlin'
+apply plugin: 'org.jetbrains.dokka'
+
+task copyReadme(type: Copy) {
+    doFirst { println 'Copy README.md to dir ../atrium-gh-pages/' }
+    from 'README.md'
+    into '../atrium-gh-pages/'
+}
+
+task backupCSS(type: Copy) {
+    from '../atrium-gh-pages/style.css'
+    into '../atrium-gh-pages/'
+    rename('style.css', 'style.css.bak')
+}
+
+task restoreCSS(type: Copy) {
+    from '../atrium-gh-pages/style.css.bak'
+    into '../atrium-gh-pages/'
+    rename('style.css.bak', 'style.css')
+}
+
+task cleanDoc {
+    doFirst { delete "../atrium-gh-pages/doc" }
+}
+
+task ghPages {
+    dependsOn copyReadme
+    dependsOn backupCSS
+    dependsOn cleanDoc
+    dependsOn dokka
+    dokka.mustRunAfter cleanDoc
+    dokka.mustRunAfter backupCSS
+    finalizedBy restoreCSS
+}
