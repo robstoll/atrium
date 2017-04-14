@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.Message
 /**
  * Represents a formatter for an [IAssertion] and its [Message]s.
  */
-interface IAssertionMessageFormatter {
+interface IAssertionFormatter {
     /**
      * Formats the given [assertion] and appends the result to the given [sb].
      *
