@@ -27,7 +27,8 @@ internal class FeatureAssertionChecker<out T : Any>(private val subjectPlant: IA
      *
      * @param assertionVerb I used as [IFeatureAssertionGroup.featureName] -- as side notice,
      *        the parameter was not renamed to `featureName` due to potential issues with named parameters.
-     * @param subject Is used as [IFeatureAssertionGroup.subSubject].
+     * @param subject Is used as [IFeatureAssertionGroup.feature] -- as side notice,
+     *        the parameter was not renamed to `feature` due to potential issues with named parameters.
      * @param assertions Is used as [IFeatureAssertionGroup.assertions].
      *
      * @throws AssertionError In case one of the given [assertions] does not hold.
