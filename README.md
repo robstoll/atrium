@@ -1,10 +1,10 @@
-[![EUPL](https://img.shields.io/badge/license-EUPL%201.2-brightgreen.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12)
-[![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium)
-[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
+# Atrium
+Atrium is an open-source assertion framework for Kotlin.
 
-# atrium
-atrium is an assertion framework for Kotlin.
+- Its source code can be found on github: [robstoll/atrium](https://github.com/robstoll/atrium)
+- A documentation is given in the [README](https://github.com/robstoll/atrium/blob/master/README.md) as well
+- Code documentation is hosted here, click on the link below for the correct version
 
-## KDoc
-The code documentation is generated with dokka and is hosted on github-pages:
-[KDoc of atrium](https://robstoll.github.io/atrium/doc)
+## Versions
+
+- [0.1.0 README](0.1.0/README.md), [0.1.0 KDoc](0.1.0/doc)
