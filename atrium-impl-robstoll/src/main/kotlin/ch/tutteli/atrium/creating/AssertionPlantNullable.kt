@@ -9,9 +9,13 @@ import ch.tutteli.atrium.reporting.RawString
 internal class AssertionPlantNullable<out T : Any?>(
     override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : IAssertionPlantNullable<T> {
 
-    /**
-     * Checks whether the [subject] is `null` and if not uses [IAssertionPlantWithCommonFields.CommonFields.fail]
-     * to report a failing assertion.
+     /**
+     * Checks whether [subject] is `null` and uses [commonFields]' method
+     * [fail][IAssertionPlantWithCommonFields.CommonFields.fail] to report an error if not.
+     *
+     * @throws AssertionError In case [subject] is not `null`.
+     *
+     * @see IAssertionPlantWithCommonFields.CommonFields.fail
      */
     override fun isNull() {
         if (subject != null) {

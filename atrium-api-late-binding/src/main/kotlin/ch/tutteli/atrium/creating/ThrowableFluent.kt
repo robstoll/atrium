@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.AtriumFactory
-
 /**
  * Provides [toThrow] methods for making assertions about a [Throwable]
  * which one expects was thrown.
@@ -30,7 +28,7 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
      * @return This builder to support a fluent-style API.
      *
      * @throws AssertionError Might throw an [AssertionError] if the assertion fails.
-     * @throws IllegalStateException In case reporting a failure does not throw an [Exception].
+     * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     inline fun <reified TExpected : Throwable> toThrow(): IAssertionPlant<TExpected> {
         throw UnsupportedOperationException("The atrium-api-late-binding should only be used as a compileOnly dependency, " +
@@ -38,8 +36,8 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
     }
 
     /**
-     * Makes an assertion about the [commonFields]'s [subject][IAssertionPlantWithCommonFields.CommonFields.subject] that it
-     * is of the expected type [TExpected] and reports an error if subject is null or another type
+     * Makes an assertion about the [commonFields]'s [subject][IAssertionPlantWithCommonFields.CommonFields.subject]
+     * that it is of the expected type [TExpected] and reports an error if subject is null or another type
      * than the expected one -- furthermore it [createAssertions] which are checked additionally as well.
      *
      * @return This builder to support a fluent-style API.
