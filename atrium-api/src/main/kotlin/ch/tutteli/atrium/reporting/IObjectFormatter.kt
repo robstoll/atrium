@@ -11,11 +11,13 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 interface IObjectFormatter {
 
     /**
-     * Returns a formatted version of the given [any].
+     * Returns a formatted version of the given [value].
      *
-     * It will return [RawString.string] in case [any] is a [RawString].
+     * It will return [RawString.string] in case [value] is a [RawString].
      *
-     * @return The formatted [any].
+     * @param value The value which shall be formatted.
+     *
+     * @return The formatted [value].
      */
-    fun format(any: Any?): String
+    fun format(value: Any?): String
 }
