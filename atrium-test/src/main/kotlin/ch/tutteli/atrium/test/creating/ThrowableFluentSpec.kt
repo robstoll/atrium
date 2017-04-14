@@ -5,6 +5,7 @@ import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.message
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.test.IAssertionVerbFactory
 import ch.tutteli.atrium.test.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.toBe
@@ -89,7 +90,7 @@ open class ThrowableFluentSpec(
                 verbs.checkException {
                     checkerAndFluent.fluent.toThrow<IllegalArgumentException>()
                 }.toThrowWithCheck()
-                verify(checkerAndFluent.checker).fail(eq(assertionVerb), eq(ThrowableFluent.Companion.NO_EXCEPTION_OCCURRED), any<IAssertion>())
+                verify(checkerAndFluent.checker).fail(eq(assertionVerb), eq(RawString(ThrowableFluent.NO_EXCEPTION_OCCURRED)), any<IAssertion>())
             }, { toThrow<AssertionError>().and.toBe(assertionError) }, { toThrow<AssertionError> { toBe(assertionError) } })
         }
 

@@ -41,16 +41,18 @@ class DownCastBuilder<T : Any, TSub : T>(private val description: String,
     /**
      *
      */
-    private var nullRepresentation: String = RawString.NULL
+    private var nullRepresentation: RawString = RawString.NULL
 
     /**
      * Use this method if you want to use your own `null` representation in error reporting
      * (default is [RawString.NULL]).
      *
+     * @param representation The representation for `null`.
+     *
      * @return This builder to support a fluent-style API.
      */
     fun withNullRepresentation(representation: String): DownCastBuilder<T, TSub> {
-        nullRepresentation = representation
+        nullRepresentation = RawString(representation)
         return this
     }
 
@@ -60,6 +62,9 @@ class DownCastBuilder<T : Any, TSub : T>(private val description: String,
      * Or in other words, the given [createAssertions] function will be called,
      * which might add additional [IAssertion]s to the newly created [IAssertionPlant], which are then lazily checked
      * in [cast] after the down-cast was performed and before the newly created [IAssertionPlant] is returned.
+     *
+     * @param createAssertions A function which is called after the down-cast has been performed in [cast]
+     *        using the newly created [IAssertionPlant] as receiver.
      *
      * @return This builder to support a fluent-style API.
      */
