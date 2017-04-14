@@ -2,9 +2,13 @@
 Atrium is an open-source assertion framework for Kotlin.
 
 - Its source code can be found on github: [robstoll/atrium](https://github.com/robstoll/atrium)
-- A documentation is given in the [README](https://github.com/robstoll/atrium/blob/master/README.md) as well
-- Code documentation is hosted here, click on the link below for the correct version
+- A user manual is given in the [README](https://github.com/robstoll/atrium/blob/master/README.md) as well
+- Code documentation is hosted here, click on the link [below](KDoc-per-Version) for the correct version
 
-## Versions
+You are very welcome to contribute by
+- [open an issue or create a feature request](https://github.com/robstoll/atrium/issues/new)
+- [fork the repository](https://github.com/robstoll/atrium#fork-destination-box) and make pull request
 
-- [0.1.0 README](0.1.0/README.md), [0.1.0 KDoc](0.1.0/doc)
+## KDoc per Version
+
+- [0.1.0](0.1.0/doc)
