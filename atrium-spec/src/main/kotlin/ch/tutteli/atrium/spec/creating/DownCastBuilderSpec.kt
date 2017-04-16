@@ -51,9 +51,9 @@ open class DownCastBuilderSpec(
                     }.cast()
                 }.toThrow<AssertionError> {
                     and.message {
-                        contains(subject) //the actual value
-                        contains(smaller) //the expected value
-                        contains(greater) //the second expected value
+                        contains("assert: $subject") //the actual value
+                        contains("is smaller than: $smaller") //the expected value
+                        contains("is greater than: $greater") //the second expected value
                     }
                 }
             }
@@ -77,9 +77,13 @@ open class DownCastBuilderSpec(
     }
 
     context("subject is null") {
-        val testee = testeeFactory("is a", Int::class, verbs.checkNullable(null).commonFields)
+        var testee = testeeFactory("is a", Int::class, verbs.checkNullable(null).commonFields)
+        beforeEachTest {
+            testee = testeeFactory("is a", Int::class, verbs.checkNullable(null).commonFields)
+        }
+
         inCaseOf("using an own null-representation") {
-            val nullRepresentation = "my own null representation"
+            val nullRepresentation = "my own representation"
             val expectFluent = verbs.checkException {
                 testee.withNullRepresentation(nullRepresentation)
                 testee.cast()
@@ -87,10 +91,10 @@ open class DownCastBuilderSpec(
             it("throws an AssertionError") {
                 expectFluent.toThrow<AssertionError>()
             }
-            test("the error message contains the null-representation instead of ${RawString.Companion::NULL.name}") {
+            test("the error message contains the null-representation instead of ${RawString::class.java.simpleName}${RawString.Companion::NULL.name}") {
                 expectFluent.toThrow<AssertionError>().and.message {
                     contains(nullRepresentation)
-                    //TODO containsNot(RawString.NULL)
+                    containsNot(RawString.NULL.string)
                 }
             }
         }
@@ -104,10 +108,9 @@ open class DownCastBuilderSpec(
             it("throws an AssertionError") {
                 expectFluent.toThrow<AssertionError>()
             }
-            //TODO as soon as containsNot it supported
-//                it("does not contain additional failing assertions in the error message") {
-//                    expectFluent.toThrow<AssertionError>().and.message.containsNot(0)
-//                }
+            it("does not contain additional failing assertions in the error message") {
+                expectFluent.toThrow<AssertionError>().and.message.containsNot("is smaller than")
+            }
         }
         inCaseOf("nothing in addition was defined (just cast is called)") {
             val expectFluent = verbs.checkException {

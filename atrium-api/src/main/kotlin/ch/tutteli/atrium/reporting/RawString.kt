@@ -11,6 +11,11 @@ package ch.tutteli.atrium.reporting
  *
  */
 data class RawString(val string: String) {
+
+    override fun toString(): String {
+        return "$string (RawString)"
+    }
+
     companion object {
         /**
          * The representation for `null`.

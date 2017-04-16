@@ -32,9 +32,6 @@ object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
     "assert" to { subject -> assert(subject) },
     "expect" to { act -> expect { act() } })
 
-/**
- * c
- */
 internal object AssertionVerbFactory : IAssertionVerbFactory {
     override fun <T : Any> checkImmediately(subject: T) = assert(subject)
     override fun <T : Any> checkLazily(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)

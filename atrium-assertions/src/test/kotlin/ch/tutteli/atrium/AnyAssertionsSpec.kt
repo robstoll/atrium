@@ -53,7 +53,7 @@ object AnyAssertionsSpec : Spek({
                 test("$toBe throws AssertionError") {
                     expect {
                         assert(1).toBe(2)
-                    }.toThrow<AssertionError>().and.message.contains(1, 2)
+                    }.toThrow<AssertionError>()
                 }
                 test("$notToBe does not throw") {
                     assert(1).notToBe(2)
@@ -61,7 +61,7 @@ object AnyAssertionsSpec : Spek({
                 test("$isSame throws AssertionError") {
                     expect {
                         assert(1).isSame(2)
-                    }.toThrow<AssertionError>().and.message.contains(1, 2)
+                    }.toThrow<AssertionError>()
                 }
                 test("$isNotSame does not throw") {
                     assert(1).isNotSame(2)

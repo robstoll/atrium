@@ -52,10 +52,9 @@ open class VerbSpec(
                 assertionVerb(1).isSmallerThan(10).and.isSmallerThan(0).and.isGreaterThan(2)
             }.toThrow<AssertionError> {
                 assert(subject.message).isNotNull {
-                    //TODO contains not 10
-                    contains("1") //the actual value
-                    contains("0") //the expected value
-                    //TODO contains not 2
+                    contains(": 1")
+                    contains("is smaller than: 0")
+                    containsNot("is greater than: 2")
                 }
             }
         }
@@ -78,9 +77,9 @@ open class VerbSpec(
                 }
             }.toThrow<AssertionError> {
                 and.message {
-                    contains("1") //the actual value
-                    contains("0") //the expected value
-                    contains("2") //the second expected value
+                    contains(": 1")
+                    contains("is smaller than: 0")
+                    contains("is greater than: 2")
                 }
             }
         }
