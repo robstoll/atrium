@@ -86,13 +86,32 @@ fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequence)
     = createAndAddAssertion("starts with", expected, { subject.startsWith(expected) })
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] starts with [expected].
+ * Makes the assertion that [IAssertionPlant.subject] does not start with [expected].
+ *
+ * @return This plant to support a fluent-style API.
+ * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ */
+fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequence)
+    = createAndAddAssertion("does not start with", expected, { !subject.startsWith(expected) })
+
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] ends with [expected].
  *
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence)
     = createAndAddAssertion("ends with", expected, { subject.endsWith(expected) })
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] does not end with [expected].
+ *
+ * @return This plant to support a fluent-style API.
+ * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ */
+fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence)
+    = createAndAddAssertion("does not end with", expected, { !subject.endsWith(expected) })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].

@@ -3,7 +3,6 @@ package ch.tutteli.atrium
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
 
 object CharSequenceAssertionsSpec : Spek({
     val subject = "hello my name is robert"
@@ -134,6 +133,50 @@ object CharSequenceAssertionsSpec : Spek({
                 assert(notEmptyString).isNotEmpty()
                 assert(StringBuilder(notEmptyString)).isNotEmpty()
                 assert(StringBuffer(notEmptyString)).isNotEmpty()
+            }
+        }
+    }
+
+    describe("fun ${fluent::startsWith.name} and ${fluent::startsNotWith.name}") {
+        context("text '$subject'") {
+            test("${fluent::startsWith.name} 'hello' does not throw") {
+                fluent.startsWith("hello")
+            }
+            test("${fluent::startsNotWith.name} 'hello' throws an AssertionError") {
+                expect {
+                    fluent.startsNotWith("hello")
+                }.toThrow<AssertionError>()
+            }
+
+            test("${fluent::startsWith.name} 'robert' throws an AssertionError") {
+                expect {
+                    fluent.startsWith("goodbye")
+                }.toThrow<AssertionError>()
+            }
+            test("${fluent::startsNotWith.name} 'robert' does not throw") {
+                fluent.startsNotWith("goodbye")
+            }
+        }
+    }
+
+    describe("fun ${fluent::endsWith.name} and ${fluent::endsNotWith.name}") {
+        context("text '$subject'") {
+            test("${fluent::endsWith.name} 'hello' throws an AssertionError") {
+                expect {
+                    fluent.endsWith("hello")
+                }.toThrow<AssertionError>()
+            }
+            test("${fluent::endsNotWith.name} 'hello' does not throw") {
+                fluent.endsNotWith("hello")
+            }
+
+            test("${fluent::endsWith.name} 'robert' does not throw") {
+                fluent.endsWith("robert")
+            }
+            test("${fluent::endsNotWith.name} 'robert' throws an AssertionError") {
+                expect {
+                    fluent.endsNotWith("robert")
+                }.toThrow<AssertionError>()
             }
         }
     }
