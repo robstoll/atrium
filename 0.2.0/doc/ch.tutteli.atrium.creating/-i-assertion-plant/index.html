@@ -1,0 +1,306 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionPlant - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href=".">IAssertionPlant</a><br/>
+<br/>
+<h1>IAssertionPlant</h1>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant-with-common-fields/index.html"><span class="identifier">IAssertionPlantWithCommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/master/atrium-api/src/main/kotlin/ch/tutteli/atrium/creating/IAssertionPlant.kt#L13">(source)</a>
+<p>Represents a plant for <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s and offers the possibility to check all the added assertions.</p>
+<p>You can think of it as an <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a> factory which does more than just factoring
+but also provides quality assurance capabilities.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="and.html">and</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">and</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Can be used to separate assertions when using the fluent-style API.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-i-assertion-plant-with-common-fields/common-fields.html">commonFields</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">commonFields</span><span class="symbol">: </span><a href="../-i-assertion-plant-with-common-fields/-common-fields/index.html"><span class="identifier">CommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p><a href="../-i-assertion-plant-with-common-fields/-common-fields/index.html">CommonFields</a> of this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-i-assertion-plant-with-common-fields/subject.html">subject</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">subject</span><span class="symbol">: </span><span class="identifier">T</span></code>
+<p>The subject for which this plant will create/check <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="add-assertion.html">addAssertion</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">addAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.IAssertionPlant$addAssertion(ch.tutteli.atrium.assertions.IAssertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Adds the given <a href="add-assertion.html#ch.tutteli.atrium.creating.IAssertionPlant$addAssertion(ch.tutteli.atrium.assertions.IAssertion)/assertion">assertion</a> to the plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="check-assertions.html">checkAssertions</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">checkAssertions</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Checks the so far <a href="add-assertion.html">added</a> <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s and reports if one of them fails.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="create-and-add-assertion.html">createAndAddAssertion</a></td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAndAddAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Boolean</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a> based on <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/description">description</a>, <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/expected">expected</a> and <a href="create-and-add-assertion.html#ch.tutteli.atrium.creating.IAssertionPlant$createAndAddAssertion(kotlin.String, kotlin.Any, kotlin.Function0((kotlin.Boolean)))/test">test</a> and <a href="add-assertion.html">adds</a> it
+to the plant.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/message.html">message</a></td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">message</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">String</span><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="../-i-assertion-plant-nullable/index.html">IAssertionPlantNullable</a> for the <a href="#">message</a> of the plant's
+<a href="../-i-assertion-plant-with-common-fields/subject.html">subject</a> (which is an <a href="#">Throwable</a>) and makes the assertion that message <a href="../../ch.tutteli.atrium/is-not-null.html">isNotNull</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/contains.html">contains</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">contains</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$contains(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.contains.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> contains the <a href="#">expected</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">contains</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$contains(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.contains.T)), kotlin.CharSequence, kotlin.Array((kotlin.CharSequence)))/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium$contains(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.contains.T)), kotlin.CharSequence, kotlin.Array((kotlin.CharSequence)))/otherExpected">otherExpected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> contains the <a href="#">expected</a>
+and <a href="#">otherExpected</a>s (if defined).</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">contains</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$contains(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.contains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium$contains(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.contains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> contains <a href="../../ch.tutteli.atrium/contains.html#ch.tutteli.atrium$contains(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.contains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</a>'s <a href="#">toString</a> representation
+and the <a href="#">toString</a> representation of the <a href="../../ch.tutteli.atrium/contains.html#ch.tutteli.atrium$contains(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.contains.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</a> (if defined).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/contains-not.html">containsNot</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">containsNot</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$containsNot(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.containsNot.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> does not contain the <a href="#">expected</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">containsNot</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$containsNot(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.containsNot.T)), kotlin.CharSequence, kotlin.Array((kotlin.CharSequence)))/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium$containsNot(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.containsNot.T)), kotlin.CharSequence, kotlin.Array((kotlin.CharSequence)))/otherExpected">otherExpected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> does not contain the <a href="#">expected</a>
+and neither one of the <a href="#">otherExpected</a>s (if defined).</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">containsNot</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$containsNot(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.containsNot.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium$containsNot(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.containsNot.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> does not contain <a href="../../ch.tutteli.atrium/contains-not.html#ch.tutteli.atrium$containsNot(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.containsNot.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/expected">expected</a>'s <a href="#">toString</a> representation
+and neither one of the <a href="../../ch.tutteli.atrium/contains-not.html#ch.tutteli.atrium$containsNot(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.containsNot.T)), kotlin.Any, kotlin.Array((kotlin.Any)))/otherExpected">otherExpected</a>'s <a href="#">toString</a> representation (if defined).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../create-assertions-and-check-them.html">createAssertionsAndCheckThem</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">createAssertionsAndCheckThem</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating$createAssertionsAndCheckThem(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.createAssertionsAndCheckThem.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.createAssertionsAndCheckThem.T)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Uses <code>this</code> plant as receiver of the given <a href="../create-assertions-and-check-them.html#ch.tutteli.atrium.creating$createAssertionsAndCheckThem(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.createAssertionsAndCheckThem.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.createAssertionsAndCheckThem.T)), kotlin.Unit)))/createAssertions">createAssertions</a> function and
+then calls <a href="check-assertions.html">IAssertionPlant.checkAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/ends-not-with.html">endsNotWith</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">endsNotWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$endsNotWith(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.endsNotWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> does not end with <a href="../../ch.tutteli.atrium/ends-not-with.html#ch.tutteli.atrium$endsNotWith(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.endsNotWith.T)), kotlin.CharSequence)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/ends-with.html">endsWith</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">endsWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$endsWith(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.endsWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> ends with <a href="../../ch.tutteli.atrium/ends-with.html#ch.tutteli.atrium$endsWith(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.endsWith.T)), kotlin.CharSequence)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/generic-check.html">genericCheck</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">genericCheck</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$genericCheck(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.genericCheck.T)), kotlin.reflect.KProperty0((kotlin.Boolean)))/feature">feature</span><span class="symbol">:</span>&nbsp;<span class="identifier">KProperty0</span><span class="symbol">&lt;</span><span class="identifier">Boolean</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Use this function to make the assertion about the existing property <a href="../../ch.tutteli.atrium/generic-check.html#ch.tutteli.atrium$genericCheck(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.genericCheck.T)), kotlin.reflect.KProperty0((kotlin.Boolean)))/feature">feature</a>
+of the <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> that the property is <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/generic-not-check.html">genericNotCheck</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">genericNotCheck</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$genericNotCheck(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.genericNotCheck.T)), kotlin.reflect.KProperty0((kotlin.Boolean)))/feature">feature</span><span class="symbol">:</span>&nbsp;<span class="identifier">KProperty0</span><span class="symbol">&lt;</span><span class="identifier">Boolean</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Use this function to make the assertion about the existing property <a href="../../ch.tutteli.atrium/generic-not-check.html#ch.tutteli.atrium$genericNotCheck(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.genericNotCheck.T)), kotlin.reflect.KProperty0((kotlin.Boolean)))/feature">feature</a>
+of the <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> that the property is <code>false</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/has-size.html">hasSize</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Collection</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">hasSize</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$hasSize(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.hasSize.T)), kotlin.Int)/size">size</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a>'s <a href="#">Collection.size</a> is <a href="../../ch.tutteli.atrium/has-size.html#ch.tutteli.atrium$hasSize(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.hasSize.T)), kotlin.Int)/size">size</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-a.html">isA</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isA</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> <emph>is a</emph> <a href="#">TSub</a> (the same type or a sub-type).</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Any</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isA</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$isA(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.isA.TSub)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> <emph>is a</emph> <a href="#">TSub</a> (the same type or a sub-type) and if so,
+uses <a href="../../ch.tutteli.atrium/is-a.html#ch.tutteli.atrium$isA(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.isA.TSub)), kotlin.Unit)))/createAssertions">createAssertions</a> which could create further assertions which are lazily evaluated at the end.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-empty.html">isEmpty</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Collection</span><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is an empty <a href="#">Collection</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-greater-or-equals.html">isGreaterOrEquals</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Int</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isGreaterOrEquals</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$isGreaterOrEquals(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Int)), kotlin.Int)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Int</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is greater than or equals <a href="../../ch.tutteli.atrium/is-greater-or-equals.html#ch.tutteli.atrium$isGreaterOrEquals(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Int)), kotlin.Int)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-greater-than.html">isGreaterThan</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Int</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isGreaterThan</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$isGreaterThan(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Int)), kotlin.Int)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Int</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is greater than <a href="../../ch.tutteli.atrium/is-greater-than.html#ch.tutteli.atrium$isGreaterThan(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Int)), kotlin.Int)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-not-empty.html">isNotEmpty</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isNotEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="#">IAssertionPlant.subject</a>.<a href="#">kotlin.text.isNotEmpty</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-not-same.html">isNotSame</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isNotSame</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$isNotSame(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.isNotSame.T)), ch.tutteli.atrium.isNotSame.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is not the same instance as <a href="../../ch.tutteli.atrium/is-not-same.html#ch.tutteli.atrium$isNotSame(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.isNotSame.T)), ch.tutteli.atrium.isNotSame.T)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-same.html">isSame</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isSame</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$isSame(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.isSame.T)), ch.tutteli.atrium.isSame.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is the same instance as <a href="../../ch.tutteli.atrium/is-same.html#ch.tutteli.atrium$isSame(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.isSame.T)), ch.tutteli.atrium.isSame.T)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-smaller-or-equals.html">isSmallerOrEquals</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Int</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isSmallerOrEquals</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$isSmallerOrEquals(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Int)), kotlin.Int)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Int</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is smaller than or equals <a href="../../ch.tutteli.atrium/is-smaller-or-equals.html#ch.tutteli.atrium$isSmallerOrEquals(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Int)), kotlin.Int)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/is-smaller-than.html">isSmallerThan</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Int</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">isSmallerThan</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$isSmallerThan(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Int)), kotlin.Int)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">Int</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">Int</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is smaller than <a href="../../ch.tutteli.atrium/is-smaller-than.html#ch.tutteli.atrium$isSmallerThan(ch.tutteli.atrium.creating.IAssertionPlant((kotlin.Int)), kotlin.Int)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/its.html">its</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier">TFeature</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">its</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$its(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.its.T)), kotlin.reflect.KProperty0((ch.tutteli.atrium.its.TFeature)))/feature">feature</span><span class="symbol">:</span>&nbsp;<span class="identifier">KProperty0</span><span class="symbol">&lt;</span><span class="identifier">TFeature</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant-nullable/index.html"><span class="identifier">IAssertionPlantNullable</span></a><span class="symbol">&lt;</span><span class="identifier">TFeature</span><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="../-i-assertion-plant-nullable/index.html">IAssertionPlantNullable</a> using the given <a href="../../ch.tutteli.atrium/its.html#ch.tutteli.atrium$its(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.its.T)), kotlin.reflect.KProperty0((ch.tutteli.atrium.its.TFeature)))/feature">feature</a> as <a href="../-i-assertion-plant-with-common-fields/subject.html">subject</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">, </span><span class="identifier">TFeature</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">its</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$its(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.its.T)), kotlin.reflect.KProperty0((ch.tutteli.atrium.its.TFeature)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.its.TFeature)), kotlin.Unit)))/feature">feature</span><span class="symbol">:</span>&nbsp;<span class="identifier">KProperty0</span><span class="symbol">&lt;</span><span class="identifier">TFeature</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium$its(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.its.T)), kotlin.reflect.KProperty0((ch.tutteli.atrium.its.TFeature)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.its.TFeature)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">TFeature</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">TFeature</span><span class="symbol">&gt;</span></code>
+<p>Creates an IAssertionPlant which lazily evaluates <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s using the given <a href="../../ch.tutteli.atrium/its.html#ch.tutteli.atrium$its(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.its.T)), kotlin.reflect.KProperty0((ch.tutteli.atrium.its.TFeature)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.its.TFeature)), kotlin.Unit)))/feature">feature</a> as
+<a href="../-i-assertion-plant-with-common-fields/subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/message.html">message</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Throwable</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">message</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$message(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((kotlin.String)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">String</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">Unit</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">String</span><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="../-i-assertion-plant-nullable/index.html">IAssertionPlantNullable</a> for the <a href="#">message</a> of the plant's
+<a href="../-i-assertion-plant-with-common-fields/subject.html">subject</a> (which is an <a href="#">Throwable</a>) and makes the assertion that message <a href="../../ch.tutteli.atrium/is-not-null.html">isNotNull</a>
+and uses <a href="../../ch.tutteli.atrium/message.html#ch.tutteli.atrium$message(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.message.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((kotlin.String)), kotlin.Unit)))/createAssertions">createAssertions</a> which might create further <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s which are lazily evaluated at the end.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/not-to-be.html">notToBe</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notToBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$notToBe(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.notToBe.T)), ch.tutteli.atrium.notToBe.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is not (does not equal) <a href="../../ch.tutteli.atrium/not-to-be.html#ch.tutteli.atrium$notToBe(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.notToBe.T)), ch.tutteli.atrium.notToBe.T)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/starts-not-with.html">startsNotWith</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">startsNotWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$startsNotWith(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.startsNotWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> does not start with <a href="../../ch.tutteli.atrium/starts-not-with.html#ch.tutteli.atrium$startsNotWith(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.startsNotWith.T)), kotlin.CharSequence)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/starts-with.html">startsWith</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">startsWith</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$startsWith(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.startsWith.T)), kotlin.CharSequence)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">CharSequence</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> starts with <a href="../../ch.tutteli.atrium/starts-with.html#ch.tutteli.atrium$startsWith(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.startsWith.T)), kotlin.CharSequence)/expected">expected</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../../ch.tutteli.atrium/to-be.html">toBe</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">&gt;</span> <span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">toBe</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium$toBe(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.toBe.T)), ch.tutteli.atrium.toBe.T)/expected">expected</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Makes the assertion that <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> is (equals) <a href="../../ch.tutteli.atrium/to-be.html#ch.tutteli.atrium$toBe(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.toBe.T)), ch.tutteli.atrium.toBe.T)/expected">expected</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
