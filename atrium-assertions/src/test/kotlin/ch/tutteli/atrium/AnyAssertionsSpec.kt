@@ -9,18 +9,26 @@ import org.jetbrains.spek.api.dsl.it
 object AnyAssertionsSpec : Spek({
     data class DataClass(val isWhatever: Boolean)
 
-    describe("genericCheck for properties") {
-        context("evaluates to true") {
-            it("does not throw an exception") {
+    describe("fun genericCheck and genericNotCheck for properties") {
+        context("property evaluates to true") {
+            it("genericCheck does not throw an exception") {
                 assert(DataClass(true)) { genericCheck(subject::isWhatever) }
+            }
+            it("genericNotCheck throws AssertionError and the message contains the name of the property") {
+                expect {
+                    assert(DataClass(true)) { genericNotCheck(subject::isWhatever) }
+                }.toThrow<AssertionError>().and.message.contains(DataClass::isWhatever.name)
             }
         }
 
         context("evaluates to false") {
-            it("throws an AssertionError and the message contains the name of the property") {
+            it("genericCheck throws an AssertionError and the message contains the name of the property") {
                 expect {
                     assert(DataClass(false)) { genericCheck(subject::isWhatever) }
                 }.toThrow<AssertionError>().and.message.contains(DataClass::isWhatever.name)
+            }
+            it("genericNotCheck does not throw an exception") {
+                assert(DataClass(false)) { genericNotCheck(subject::isWhatever) }
             }
         }
     }

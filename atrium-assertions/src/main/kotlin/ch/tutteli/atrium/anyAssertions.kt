@@ -4,13 +4,24 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import kotlin.reflect.KProperty0
 
 /**
- * Use this function to create a generic check based on an existing property of the [IAssertionPlant.subject].
+ * Use this function to make the assertion about the existing property [feature]
+ * of the [IAssertionPlant.subject] that the property is `true`.
  *
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Any> IAssertionPlant<T>.genericCheck(feature: KProperty0<Boolean>)
     = createAndAddAssertion("generic check ${feature.name}", true, { feature.get() })
+
+/**
+ * Use this function to make the assertion about the existing property [feature]
+ * of the [IAssertionPlant.subject] that the property is `false`.
+ *
+ * @return This plant to support a fluent-style API.
+ * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ */
+fun <T : Any> IAssertionPlant<T>.genericNotCheck(feature: KProperty0<Boolean>)
+    = createAndAddAssertion("generic check ${feature.name}", true, { !feature.get() })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is (equals) [expected].
