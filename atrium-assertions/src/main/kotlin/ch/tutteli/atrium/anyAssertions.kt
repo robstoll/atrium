@@ -46,7 +46,7 @@ fun <T : Any> IAssertionPlant<T>.notToBe(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Any> IAssertionPlant<T>.isSame(expected: T)
-    = createAndAddAssertion("is same as", expected, { subject === expected })
+    = createAndAddAssertion("is the same as", expected, { subject === expected })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is not the same instance as [expected].
