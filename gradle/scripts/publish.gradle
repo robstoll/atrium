@@ -53,6 +53,8 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            artifact sourceJar
+            artifact javadocJar
             groupId "$publish_groupId"
             artifactId "$publish_artifactId"
             version "$publish_version"
@@ -84,4 +86,24 @@ bintray {
             }
         }
     }
+}
+
+tasks.withType(Jar) { task ->
+    task.manifest {
+        attributes \
+            'Implementation-Title': publish_artifactId, \
+            'Implementation-Version': publish_version, \
+            'Implementation-Kotlin-Version': kotlin_version, \
+            'Build-Time': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ')
+    }
+}
+
+task sourceJar(type: Jar) {
+    from project.sourceSets.main.allSource
+    classifier "sources"
+}
+
+task javadocJar(type: Jar, dependsOn: dokka) {
+    from dokka.outputDirectory
+    classifier = 'javadoc'
 }
