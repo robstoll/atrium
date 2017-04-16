@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.test.checking
+package ch.tutteli.atrium.spec.checking
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
@@ -8,9 +8,9 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.hasSize
 import ch.tutteli.atrium.isA
 import ch.tutteli.atrium.its
-import ch.tutteli.atrium.test.IAssertionVerbFactory
-import ch.tutteli.atrium.test.check
-import ch.tutteli.atrium.test.setUp
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.check
+import ch.tutteli.atrium.spec.setUp
 import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock

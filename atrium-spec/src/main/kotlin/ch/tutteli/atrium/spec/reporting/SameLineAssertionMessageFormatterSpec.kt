@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.test.reporting
+package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IMultiMessageAssertion
@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.OneMessageAssertion
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
-import ch.tutteli.atrium.test.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context

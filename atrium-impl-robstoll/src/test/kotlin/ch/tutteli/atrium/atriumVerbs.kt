@@ -1,8 +1,9 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.reporting.ReporterBuilder
-import ch.tutteli.atrium.test.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
 internal fun <T : Any> assert(subject: T)
     = AtriumFactory.newCheckImmediately("assert", subject, AtriumReporterSupplier.REPORTER)
@@ -25,13 +26,20 @@ internal object AtriumReporterSupplier {
     }
 }
 
+object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
+    "assert" to { subject -> assert(subject) },
+    "assert" to { subject, createAssertions -> assert(subject, createAssertions) },
+    "assert" to { subject -> assert(subject) },
+    "expect" to { act -> expect { act() } })
+
 /**
- * Only necessary if you want to reuse tests from atrium-test
+ * c
  */
 internal object AssertionVerbFactory : IAssertionVerbFactory {
     override fun <T : Any> checkImmediately(subject: T) = assert(subject)
     override fun <T : Any> checkLazily(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
         = assert(subject, createAssertions)
+
     override fun <T> checkNullable(subject: T) = assert(subject)
     override fun checkException(act: () -> Unit) = expect(act)
 }

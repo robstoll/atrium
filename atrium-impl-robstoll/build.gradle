@@ -12,7 +12,7 @@ dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
     compile project(':atrium-api')
     compile project(':atrium-assertions')
-    testCompile project(':atrium-test')
+    testCompile project(':atrium-spec')
 }
 
 dokka{

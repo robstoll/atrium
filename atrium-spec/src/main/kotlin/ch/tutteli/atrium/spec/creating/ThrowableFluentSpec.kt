@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.test.creating
+package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
@@ -6,8 +6,8 @@ import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.test.IAssertionVerbFactory
-import ch.tutteli.atrium.test.checkGenericNarrowingAssertion
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek

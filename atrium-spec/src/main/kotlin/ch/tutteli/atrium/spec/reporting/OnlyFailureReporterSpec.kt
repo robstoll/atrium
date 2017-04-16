@@ -1,11 +1,11 @@
-package ch.tutteli.atrium.test.reporting
+package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.isEmpty
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.test.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock

@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.test.creating
+package ch.tutteli.atrium.spec.creating
 
 
 import ch.tutteli.atrium.*
@@ -7,9 +7,9 @@ import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.DownCastBuilder
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.test.IAssertionVerbFactory
-import ch.tutteli.atrium.test.inCaseOf
-import ch.tutteli.atrium.test.verbs.VerbSpec
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.inCaseOf
+import ch.tutteli.atrium.spec.verbs.VerbSpec
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doThrow
 import com.nhaarman.mockito_kotlin.mock

@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.test.verbs
+package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -6,8 +6,8 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.creating.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.reporting.ReporterBuilder
-import ch.tutteli.atrium.test.creating.DownCastBuilderSpec
-import ch.tutteli.atrium.test.inCaseOf
+import ch.tutteli.atrium.spec.creating.DownCastBuilderSpec
+import ch.tutteli.atrium.spec.inCaseOf
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it

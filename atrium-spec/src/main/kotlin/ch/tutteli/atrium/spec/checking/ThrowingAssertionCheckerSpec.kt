@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.test.checking
+package ch.tutteli.atrium.spec.checking
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.OneMessageAssertion
@@ -6,7 +6,7 @@ import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.startsWith
-import ch.tutteli.atrium.test.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
