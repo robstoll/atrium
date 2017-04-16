@@ -113,6 +113,7 @@ fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence)
 fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence)
     = createAndAddAssertion("does not end with", expected, { !subject.endsWith(expected) })
 
+
 /**
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
  *
