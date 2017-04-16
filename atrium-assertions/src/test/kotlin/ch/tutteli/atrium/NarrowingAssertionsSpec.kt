@@ -1,8 +1,8 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.test.checkNarrowingAssertion
-import ch.tutteli.atrium.test.checkNarrowingNullableAssertion
+import ch.tutteli.atrium.spec.checkNarrowingAssertion
+import ch.tutteli.atrium.spec.checkNarrowingNullableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe

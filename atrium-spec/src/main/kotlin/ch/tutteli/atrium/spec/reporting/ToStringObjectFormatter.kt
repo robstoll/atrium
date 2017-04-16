@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.test.reporting
+package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.reporting.IObjectFormatter
 

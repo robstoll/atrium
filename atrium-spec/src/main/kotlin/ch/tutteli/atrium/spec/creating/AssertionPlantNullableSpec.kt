@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.test.creating
+package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.contains
@@ -6,9 +6,9 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.test.IAssertionVerbFactory
-import ch.tutteli.atrium.test.check
-import ch.tutteli.atrium.test.setUp
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.check
+import ch.tutteli.atrium.spec.setUp
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe

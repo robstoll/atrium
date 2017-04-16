@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        publish_artifactId = 'atrium-test'
+        publish_artifactId = 'atrium-spec'
         publish_version = atrium_version
         publish_description = 'Provides testing utilities helpful when extending atrium, an assertion framework for Kotlin'
     }

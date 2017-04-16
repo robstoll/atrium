@@ -2,14 +2,14 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.test.reporting.ToStringObjectFormatter
+import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 object SameLineAssertionMessageFormatterSpec : Spek({
-    include(ch.tutteli.atrium.test.reporting.SameLineAssertionMessageFormatterSpec(
+    include(ch.tutteli.atrium.spec.reporting.SameLineAssertionMessageFormatterSpec(
         AssertionVerbFactory, ::SameLineAssertionFormatter))
 
     val testee = SameLineAssertionFormatter(ToStringObjectFormatter())
