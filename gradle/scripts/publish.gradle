@@ -79,7 +79,9 @@ bintray {
         vcsUrl = publish_vcsUrl
         version {
             name = publish_version
+            desc = "$publish_pkg_name $publish_version"
             released  = new Date()
+            vcsTag = "v$publish_version"
             gpg {
                 sign = true
                 passphrase = findProperty('gpgPassphrase') ?: System.getenv('GPG_PASSPHRASE')
