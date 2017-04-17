@@ -73,10 +73,9 @@ fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeatur
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature> {
-    val featurePlant = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
-    return AtriumFactory.createAssertionsAndCheckThem(featurePlant, createAssertions)
-}
+fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature>
+    = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(feature))
+    .createAssertionsAndCheckThem(createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] using the given [feature] as [subject][IAssertionPlantNullable.subject].

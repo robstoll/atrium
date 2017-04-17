@@ -22,11 +22,12 @@ internal open class AssertionPlantCheckLazily<out T : Any>(
         return this
     }
 
-    override final fun checkAssertions() {
+    override final fun checkAssertions(): IAssertionPlant<T> {
         try {
             commonFields.check(assertions)
         } finally {
             assertions.clear()
         }
+        return this
     }
 }

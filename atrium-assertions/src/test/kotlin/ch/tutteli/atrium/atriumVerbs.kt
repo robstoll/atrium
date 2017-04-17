@@ -1,7 +1,6 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.reporting.ReporterBuilder
 
 fun <T : Any> assert(subject: T)
@@ -24,3 +23,9 @@ object AtriumReporterSupplier {
             .buildOnlyFailureReporting()
     }
 }
+
+object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
+    "assert" to { subject -> assert(subject) },
+    "assert" to { subject, createAssertions -> assert(subject, createAssertions) },
+    "assert" to { subject -> assert(subject) },
+    "expect" to { act -> expect { act() } })
