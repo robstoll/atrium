@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
+import kotlin.reflect.KClass
 
 /**
  * The `abstract factory` of atrium.
@@ -114,6 +115,25 @@ object AtriumFactory : IAtriumFactory {
     }
 
     /**
+     * Creates a [ThrowableFluent] based on the given [assertionVerb] and the [act] function.
+     *
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting
+     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     * @param act The function which is expected to throw a [Throwable] which in turn will be used as subject
+     *        for postulated [IAssertion]s (see [ThrowableFluent] and
+     *        [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param assertionChecker Used to report failures (see [IAssertionChecker.fail]
+     *        and [IAssertionPlantWithCommonFields.CommonFields.assertionChecker])).
+     *
+     * @return The newly created [ThrowableFluent].
+     *
+     * @see ThrowableFluent
+     */
+    fun newThrowableFluent(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {
+        throw UnsupportedOperationException(ERROR_MSG)
+    }
+
+    /**
      * Prepares a down cast; use [DownCastBuilder.cast] to perform the down cast.
      *
      * Call [DownCastBuilder.withLazyAssertions]/[DownCastBuilder.withNullRepresentation] to specialise the down-cast.
@@ -126,6 +146,23 @@ object AtriumFactory : IAtriumFactory {
      * @see DownCastBuilder
      */
     inline fun <reified TSub : T, T : Any> newDownCastBuilder(description: String, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
-        = DownCastBuilder(description, TSub::class, commonFields)
+        = newDownCastBuilder(description, TSub::class, commonFields)
+
+    /**
+     * Use the overload with reified type parameter whenever possible.
+     *
+     * Prepares a down cast; use [DownCastBuilder.cast] to perform the down cast.
+     *
+     * Call [DownCastBuilder.withLazyAssertions]/[DownCastBuilder.withNullRepresentation] to specialise the down-cast.
+     *
+     * @param description The description of the down-cast.
+     * @param commonFields The commonFields which will be used to create a [DownCastBuilder].
+     *
+     * @return The newly created [DownCastBuilder].
+     *
+     * @see DownCastBuilder
+     */
+    fun <TSub : T, T : Any> newDownCastBuilder(description: String, clazz: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
+        = DownCastBuilder(description, clazz, commonFields)
 
 }

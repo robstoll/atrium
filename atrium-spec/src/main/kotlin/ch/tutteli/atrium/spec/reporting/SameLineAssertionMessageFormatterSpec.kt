@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IMultiMessageAssertion
-import ch.tutteli.atrium.assertions.Message
-import ch.tutteli.atrium.assertions.OneMessageAssertion
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
@@ -41,7 +38,10 @@ open class SameLineAssertionMessageFormatterSpec(
         }
 
         it("writes ${Message::description.name} and ${Message::representation.name} on the same line separated by colon and space") {
-            testee.format(sb, OneMessageAssertion("bla", "bli", false), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
+            val assertion = object: IOneMessageAssertion{
+                override val message = Message("bla", "bli", false)
+            }
+            testee.format(sb, assertion, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
             verbs.checkImmediately(sb.toString()).toBe("bla: bli")
         }
 

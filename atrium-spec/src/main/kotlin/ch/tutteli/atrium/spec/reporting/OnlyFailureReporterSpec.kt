@@ -25,16 +25,23 @@ open class OnlyFailureReporterSpec(
         val assertion = object : IAssertion {
             override fun holds() = true
         }
-        val oneMessageAssertion = OneMessageAssertion("to be", 0, true)
+        val oneMessageAssertion = object : IOneMessageAssertion {
+            override val message = Message("to be", 0, true)
+        }
         val multiMessageAssertion = object : IMultiMessageAssertion {
             override val messages = listOf(Message("to be", 0, true), Message("to be", 0, true))
+        }
+        val assertionGroup = object : IAssertionGroup {
+            override val name = "groupName"
+            override val subject = 0
+            override val assertions = listOf(assertion, oneMessageAssertion, multiMessageAssertion)
         }
 
         mapOf(
             IAssertion::class.java to assertion,
             IOneMessageAssertion::class.java to oneMessageAssertion,
             IMultiMessageAssertion::class.java to multiMessageAssertion,
-            IAssertionGroup::class.java to AssertionGroup("groupName", 0, listOf(assertion, oneMessageAssertion, multiMessageAssertion))
+            IAssertionGroup::class.java to assertionGroup
         ).forEach { clazz, assertion ->
             it("does not append anything if ${clazz.simpleName} holds") {
                 val testee = testeeFactory(AtriumFactory.newSameLineAssertionFormatter(AtriumFactory.newDetailedObjectFormatter()))
