@@ -42,12 +42,14 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
      * Calling this method more than once should not re-report previously failing assertions.
      * This method will typically use an [IAssertionChecker] for checking and an [IReporter] for error reporting.
      *
+     * @return This plant to support a fluent-style API.
+     *
      * @throws AssertionError Reporting a failing assertion might cause that an [AssertionError] is thrown.
      *
      * @see IAssertionChecker
      * @see IReporter
      */
-    fun checkAssertions()
+    fun checkAssertions(): IAssertionPlant<T>
 
     /**
      * Can be used to separate assertions when using the fluent-style API.

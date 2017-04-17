@@ -29,6 +29,26 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
         = AssertionPlantCheckLazily(commonFields)
 
+    /**
+     * Use this function to create a custom *assertion verb* which lazy evaluates assertions
+     * (see [IAtriumFactory.newCheckLazily]).
+     *
+     * This function will create an [IAssertionPlant] which does not check the created assertions until one
+     * calls [IAssertionPlant.checkAssertions].
+     * However, it uses the given [createAssertions] function immediately after creating the [IAssertionPlant]
+     * which might add some assertions and it then calls [IAssertionPlant.checkAssertions].
+     * In case all assertions added so far hold, then it will not evaluate further added assertions until
+     * one calls [IAssertionPlant.checkAssertions] again.
+     *
+     * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     *
+     * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
+     *
+     * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
+     *         created [IAssertion] does not hold.
+     */
+    inline fun <T : Any> newCheckLazilyAtTheEnd(assertionVerb: String, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
+        = AtriumFactory.newCheckLazily(assertionVerb, subject, reporter).createAssertionsAndCheckThem(createAssertions)
 
     override fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlant<T>
         = newCheckImmediately(assertionVerb, subject, newThrowingAssertionChecker(reporter))
