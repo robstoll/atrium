@@ -1,12 +1,11 @@
 package ch.tutteli.atrium.spec.checking
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.OneMessageAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.startsWith
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.startsWith
 import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
@@ -27,17 +26,23 @@ open class ThrowingAssertionCheckerSpec(
         }
     }
     val testee = testeeFactory(reporter)
+    val assertionWhichHolds = object : IAssertion {
+        override fun holds() = true
+    }
+    val assertionWhichFails = object : IAssertion {
+        override fun holds() = false
+    }
 
     describe("fail") {
         it("throws an IllegalArgumentException if the given assertion holds") {
             verbs.checkException {
-                testee.fail(assertionVerb, 1, OneMessageAssertion("description", "1", true))
+                testee.fail(assertionVerb, 1, assertionWhichHolds)
             }.toThrow<IllegalArgumentException>().and.message.startsWith("the given assertion should fail:")
         }
 
         it("throws an AssertionError with the message formatted by the reporter") {
             verbs.checkException {
-                testee.fail(assertionVerb, "1", OneMessageAssertion("to be", "0", false))
+                testee.fail(assertionVerb, "1", assertionWhichFails)
             }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
         }
     }
@@ -45,16 +50,37 @@ open class ThrowingAssertionCheckerSpec(
     describe("check") {
         it("does not throw an AssertionError if all assertions hold") {
             testee.check(assertionVerb, 1, listOf(
-                OneMessageAssertion("a", "a", true),
-                OneMessageAssertion("a", "b", true)
+                assertionWhichHolds,
+                assertionWhichHolds
             ))
         }
 
-        it("throws an AssertionError with the message formatted by the reporter if one assertion does not hold") {
+        it("throws an AssertionError with the message formatted by the reporter if first assertion fails") {
             verbs.checkException {
                 testee.check(assertionVerb, 1, listOf(
-                    OneMessageAssertion("a", "a", true),
-                    OneMessageAssertion("a", "b", false)
+                    assertionWhichFails,
+                    assertionWhichHolds,
+                    assertionWhichHolds
+                ))
+            }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
+        }
+
+        it("throws an AssertionError with the message formatted by the reporter if the middle assertion fails") {
+            verbs.checkException {
+                testee.check(assertionVerb, 1, listOf(
+                    assertionWhichHolds,
+                    assertionWhichFails,
+                    assertionWhichHolds
+                ))
+            }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
+        }
+
+        it("throws an AssertionError with the message formatted by the reporter if last assertion fails") {
+            verbs.checkException {
+                testee.check(assertionVerb, 1, listOf(
+                    assertionWhichHolds,
+                    assertionWhichHolds,
+                    assertionWhichFails
                 ))
             }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
         }

@@ -2,6 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.checking.IAssertionChecker
+import kotlin.reflect.KClass
 
 /**
  * Provides [toThrow] methods for making assertions about a [Throwable]
@@ -18,10 +19,7 @@ import ch.tutteli.atrium.checking.IAssertionChecker
  */
 class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>) {
 
-    /**
-     *
-     */
-    constructor(assertionVerb: String, throwable: Throwable?, assertionChecker: IAssertionChecker)
+    private constructor(assertionVerb: String, throwable: Throwable?, assertionChecker: IAssertionChecker)
         : this(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, throwable, assertionChecker))
 
     /**
@@ -35,7 +33,25 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     inline fun <reified TExpected : Throwable> toThrow(): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder<TExpected, Throwable>("is a", commonFields)
+        = toThrow(TExpected::class)
+
+
+    /**
+     * Use the overload with reified type parameter whenever possible.
+     *
+     * Makes an assertion about the [commonFields]'s [subject][IAssertionPlantWithCommonFields.CommonFields.subject]
+     * that it is of the expected type [TExpected] and reports an error if subject is `null` or another type
+     * than the expected one.
+     *
+     * @param expectedType The expected type of the thrown [Throwable].
+     *
+     * @return This builder to support a fluent-style API.
+     *
+     * @throws AssertionError In case the made assertion fails.
+     * @throws IllegalStateException In case reporting a failure does not throw itself.
+     */
+    fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>): IAssertionPlant<TExpected>
+        = AtriumFactory.newDownCastBuilder("is a", expectedType, commonFields)
         .withNullRepresentation(NO_EXCEPTION_OCCURRED)
         .cast()
 
@@ -50,7 +66,24 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     inline fun <reified TExpected : Throwable> toThrow(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder<TExpected, Throwable>("is a", commonFields)
+        = toThrow(TExpected::class, createAssertions)
+
+    /**
+     * Use the overload with reified type parameter whenever possible.
+     *
+     * Makes an assertion about the [commonFields]'s [subject][IAssertionPlantWithCommonFields.CommonFields.subject]
+     * that it is of the expected type [TExpected] and reports an error if subject is null or another type
+     * than the expected one -- furthermore it [createAssertions] which are checked additionally as well.
+     *
+     * @param expectedType The expected type of the thrown [Throwable].
+     *
+     * @return This builder to support a fluent-style API.
+     *
+     * @throws AssertionError Might throw an [AssertionError] if an assertion fails.
+     * @throws IllegalStateException In case reporting a failure does not throw itself.
+     */
+    fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
+        = AtriumFactory.newDownCastBuilder("is a", expectedType, commonFields)
         .withNullRepresentation(NO_EXCEPTION_OCCURRED)
         .withLazyAssertions(createAssertions)
         .cast()

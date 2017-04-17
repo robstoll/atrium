@@ -3,7 +3,6 @@ package ch.tutteli.atrium.spec.checking
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
-import ch.tutteli.atrium.assertions.OneMessageAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -13,7 +12,6 @@ import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 
 open class FeatureAssertionCheckerSpec(
@@ -22,7 +20,9 @@ open class FeatureAssertionCheckerSpec(
 ) : Spek({
 
     val assertions = ArrayList<IAssertion>()
-    assertions.add(OneMessageAssertion("to be", 2, false))
+    assertions.add(object : IAssertion {
+        override fun holds() = true
+    })
     val assertionVerb = "verb"
     val subject = 1
 

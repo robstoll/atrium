@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.spec.creating
 
+import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.contains
@@ -24,13 +25,24 @@ open class ThrowableFluentSpec(
                               lazy: (ThrowableFluent.() -> Unit)) {
         checkGenericNarrowingAssertion(description, act, immediate, lazy)
     }
+
+    fun createThrowable(assertionVerb: String, throwable: Throwable?, checker: IAssertionChecker): ThrowableFluent {
+        val act = {
+            if (throwable != null) {
+                throw throwable
+            }
+        }
+        return AtriumFactory.newThrowableFluent(assertionVerb, act, checker)
+    }
+
+    val NO_EXCEPTION_OCCURRED = "no exception occurred"
     checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
         verbs.checkException {
             verbs.checkException {
                 /* no exception occurs */
             }.doToThrow()
         }.toThrow<AssertionError> {
-            message.contains(ThrowableFluent.NO_EXCEPTION_OCCURRED, "is a", IllegalArgumentException::class.java.name)
+            message.contains(NO_EXCEPTION_OCCURRED, "is a", IllegalArgumentException::class.java.name)
         }
     }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
 
@@ -52,14 +64,14 @@ open class ThrowableFluentSpec(
 
     val assertionVerb = "assertionVerb"
 
-    class CheckerAndFluent(var checker: IAssertionChecker = mock<IAssertionChecker>(), var fluent: ThrowableFluent = ThrowableFluent("dummy", null, checker))
+    class CheckerAndFluent(var checker: IAssertionChecker = mock<IAssertionChecker>(), var fluent: ThrowableFluent = AtriumFactory.newThrowableFluent("dummy", {}, checker))
     context("dependencies") {
         group("in case the expected exception is thrown") {
             val subject = IllegalArgumentException()
             val checkerAndFluent = CheckerAndFluent()
             beforeEachTest {
                 checkerAndFluent.checker = mock<IAssertionChecker>()
-                checkerAndFluent.fluent = ThrowableFluent(assertionVerb, subject, checkerAndFluent.checker)
+                checkerAndFluent.fluent = createThrowable(assertionVerb, subject, checkerAndFluent.checker)
             }
             checkToThrow("it uses the given AssertionChecker to check that the correct exception is thrown", { doToThrow ->
                 checkerAndFluent.fluent.doToThrow()
@@ -78,7 +90,7 @@ open class ThrowableFluentSpec(
                 checkerAndFluent.checker = mock<IAssertionChecker> {
                     on { fail(any<String>(), any(), any<IAssertion>()) }.doThrow(assertionError)
                 }
-                checkerAndFluent.fluent = ThrowableFluent(assertionVerb, subject, checkerAndFluent.checker)
+                checkerAndFluent.fluent = createThrowable(assertionVerb, subject, checkerAndFluent.checker)
             }
         }
 
@@ -90,7 +102,7 @@ open class ThrowableFluentSpec(
                 verbs.checkException {
                     checkerAndFluent.fluent.toThrow<IllegalArgumentException>()
                 }.toThrowWithCheck()
-                verify(checkerAndFluent.checker).fail(eq(assertionVerb), eq(RawString(ThrowableFluent.NO_EXCEPTION_OCCURRED)), any<IAssertion>())
+                verify(checkerAndFluent.checker).fail(eq(assertionVerb), eq(RawString(NO_EXCEPTION_OCCURRED)), any<IAssertion>())
             }, { toThrow<AssertionError>().and.toBe(assertionError) }, { toThrow<AssertionError> { toBe(assertionError) } })
         }
 
@@ -107,7 +119,7 @@ open class ThrowableFluentSpec(
         }
         val assertionChecker = mock<IAssertionChecker>()
         val subject: IllegalArgumentException? = null
-        val fluent = ThrowableFluent(assertionVerb, subject, assertionChecker)
+        val fluent = createThrowable(assertionVerb, subject, assertionChecker)
 
         checkToThrow("it throws an IllegalStateException, if the checker does not throw an AssertionError even though no exception was thrown", { doToThrow ->
             verbs.checkException {
