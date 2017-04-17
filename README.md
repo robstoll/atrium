@@ -24,8 +24,15 @@ Atrium can be retrieved from [bintray](https://bintray.com/robstoll/tutteli-jars
 
 gradle: 
 ```
-testCompile 'ch.tutteli:atrium-api:0.2.0'
-testCompile 'ch.tutteli:atrium-impl-robstoll:0.2.0'
+buildscript {
+    ext { atrium_version='0.2.0' }
+}
+
+dependencies {
+    testCompile "ch.tutteli:atrium-api:$atrium_version"
+    testCompile "ch.tutteli:atrium-impl-robstoll:$atrium_version"
+    testCompile "ch.tutteli:atrium-assertions:$atrium_version"
+}
 ```
 
 maven:
@@ -39,6 +46,12 @@ maven:
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-impl-robstoll</artifactId>
+  <version>0.2.0</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>ch.tutteli</groupId>
+  <artifactId>atrium-assertions</artifactId>
   <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
@@ -65,9 +78,16 @@ If you still insist of using the provided assertion verbs, then add the followin
 
 gradle:
 ```
-testCompile 'ch.tutteli:atrium-api:0.2.0'
-testCompile 'ch.tutteli:atrium-impl-robstoll:0.2.0'
-testCompile 'ch.tutteli:atrium-verbs:0.2.0'
+buildscript {
+    ext { atrium_version='0.2.0' }
+}
+
+dependencies {
+    testCompile "ch.tutteli:atrium-api:$atrium_version"
+    testCompile "ch.tutteli:atrium-impl-robstoll:$atrium_version"
+    testCompile "ch.tutteli:atrium-assertions:$atrium_version"
+    testCompile "ch.tutteli:atrium-verbs:$atrium_version"
+}
 ```
 
 maven:
@@ -81,6 +101,12 @@ maven:
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-impl-robstoll</artifactId>
+  <version>0.2.0</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>ch.tutteli</groupId>
+  <artifactId>atrium-assertions</artifactId>
   <version>0.2.0</version>
   <scope>test</scope>
 </dependency>
@@ -130,8 +156,8 @@ expect {
 }.toThrow<IllegalStateException> {
     message.contains("name")
 }
-    // expect to throw: IllegalStateException (java.lang.IllegalStateException)
-    // exception was: IllegalArgumentException (java.lang.IllegalArgumentException)
+    // expect the thrown exception: IllegalStateException (java.lang.IllegalStateException)
+    // is a: IllegalArgumentException (java.lang.IllegalArgumentException)
 ```
 
 Have a look at the [specifications](./tree/master/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) for more examples.
