@@ -3,9 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IObjectFormatter
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.*
 import kotlin.reflect.KClass
 
 /**
@@ -74,11 +72,15 @@ object AtriumFactory : IAtriumFactory {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    override fun newDetailedObjectFormatter(): IObjectFormatter {
+    override fun newTranslator(): ITranslator {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter): IAssertionFormatter {
+    override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter {
+        throw UnsupportedOperationException(ERROR_MSG)
+    }
+
+    override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
@@ -145,7 +147,7 @@ object AtriumFactory : IAtriumFactory {
      *
      * @see DownCastBuilder
      */
-    inline fun <reified TSub : T, T : Any> newDownCastBuilder(description: String, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
+    inline fun <reified TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
         = newDownCastBuilder(description, TSub::class, commonFields)
 
     /**
@@ -162,7 +164,7 @@ object AtriumFactory : IAtriumFactory {
      *
      * @see DownCastBuilder
      */
-    fun <TSub : T, T : Any> newDownCastBuilder(description: String, clazz: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
+    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, clazz: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
         = DownCastBuilder(description, clazz, commonFields)
 
 }

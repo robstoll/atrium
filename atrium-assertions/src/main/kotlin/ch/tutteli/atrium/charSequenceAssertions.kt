@@ -1,6 +1,8 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.reporting.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.RawString
 
 /**
@@ -10,7 +12,7 @@ import ch.tutteli.atrium.reporting.RawString
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence)
-    = createAndAddAssertion("contains", expected, { subject.contains(expected) })
+    = createAndAddAssertion(CONTAINS, expected, { subject.contains(expected) })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not contain the [expected] [CharSequence].
@@ -19,7 +21,7 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence)
-    = createAndAddAssertion("does not contain", expected, { !subject.contains(expected) })
+    = createAndAddAssertion(CONTAINS_NOT, expected, { !subject.contains(expected) })
 
 
 /**
@@ -83,7 +85,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg othe
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequence)
-    = createAndAddAssertion("starts with", expected, { subject.startsWith(expected) })
+    = createAndAddAssertion(STARTS_WITH, expected, { subject.startsWith(expected) })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not start with [expected].
@@ -92,7 +94,7 @@ fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequence)
-    = createAndAddAssertion("does not start with", expected, { !subject.startsWith(expected) })
+    = createAndAddAssertion(STARTS_NOT_WITH, expected, { !subject.startsWith(expected) })
 
 
 /**
@@ -102,7 +104,7 @@ fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence)
-    = createAndAddAssertion("ends with", expected, { subject.endsWith(expected) })
+    = createAndAddAssertion(ENDS_WITH, expected, { subject.endsWith(expected) })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not end with [expected].
@@ -111,7 +113,7 @@ fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence)
-    = createAndAddAssertion("does not end with", expected, { !subject.endsWith(expected) })
+    = createAndAddAssertion(ENDS_NOT_WITH, expected, { !subject.endsWith(expected) })
 
 
 /**
@@ -121,7 +123,7 @@ fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.isEmpty()
-    = createAndAddAssertion("is", RawString("empty"), { subject.isEmpty() })
+    = createAndAddAssertion(IS_EMPTY, RawString("empty"), { subject.isEmpty() })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
@@ -130,4 +132,16 @@ fun <T : CharSequence> IAssertionPlant<T>.isEmpty()
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : CharSequence> IAssertionPlant<T>.isNotEmpty()
-    = createAndAddAssertion("is not", RawString("empty"), { subject.isNotEmpty() })
+    = createAndAddAssertion(IS_NOT_EMPTY, RawString("empty"), { subject.isNotEmpty() })
+
+enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpleTranslatable {
+    CONTAINS("contains"),
+    CONTAINS_NOT("does not contain"),
+    STARTS_WITH("starts with"),
+    STARTS_NOT_WITH("does not start with"),
+    ENDS_WITH("ends with"),
+    ENDS_NOT_WITH("does not end with"),
+    IS_EMPTY("is"),
+    IS_NOT_EMPTY("is not"),
+    ;
+}

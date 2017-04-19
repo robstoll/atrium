@@ -1,6 +1,8 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.reporting.ISimpleTranslatable
 import kotlin.reflect.KProperty0
 
 /**
@@ -11,7 +13,7 @@ import kotlin.reflect.KProperty0
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Any> IAssertionPlant<T>.genericCheck(feature: KProperty0<Boolean>)
-    = createAndAddAssertion("generic check ${feature.name}", true, { feature.get() })
+    = createAndAddAssertion(TranslatableWithArgs(GENERIC_CHECK, feature.name), true, { feature.get() })
 
 /**
  * Use this function to make the assertion about the existing property [feature]
@@ -21,7 +23,7 @@ fun <T : Any> IAssertionPlant<T>.genericCheck(feature: KProperty0<Boolean>)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Any> IAssertionPlant<T>.genericNotCheck(feature: KProperty0<Boolean>)
-    = createAndAddAssertion("generic check ${feature.name}", true, { !feature.get() })
+    = createAndAddAssertion(TranslatableWithArgs(GENERIC_CHECK, feature.name), true, { !feature.get() })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is (equals) [expected].
@@ -33,7 +35,7 @@ fun <T : Any> IAssertionPlant<T>.genericNotCheck(feature: KProperty0<Boolean>)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Any> IAssertionPlant<T>.toBe(expected: T)
-    = createAndAddAssertion("to be", expected, { subject == expected })
+    = createAndAddAssertion(TO_BE, expected, { subject == expected })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is not (does not equal) [expected].
@@ -45,7 +47,7 @@ fun <T : Any> IAssertionPlant<T>.toBe(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Any> IAssertionPlant<T>.notToBe(expected: T)
-    = createAndAddAssertion("not to be", expected, { subject != expected })
+    = createAndAddAssertion(NOT_TO_BE, expected, { subject != expected })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is the same instance as [expected].
@@ -57,7 +59,7 @@ fun <T : Any> IAssertionPlant<T>.notToBe(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Any> IAssertionPlant<T>.isSame(expected: T)
-    = createAndAddAssertion("is the same as", expected, { subject === expected })
+    = createAndAddAssertion(IS_SAME, expected, { subject === expected })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is not the same instance as [expected].
@@ -69,4 +71,13 @@ fun <T : Any> IAssertionPlant<T>.isSame(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T)
-    = createAndAddAssertion("is not the same as", expected, { subject !== expected })
+    = createAndAddAssertion(IS_NOT_SAME, expected, { subject !== expected })
+
+enum class DescriptionAnyAssertion(override val value: String) : ISimpleTranslatable {
+    GENERIC_CHECK("generic check %s"),
+    TO_BE("to be"),
+    NOT_TO_BE("not to be"),
+    IS_SAME("is the same as"),
+    IS_NOT_SAME("is not the same as"),
+    ;
+}

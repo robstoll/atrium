@@ -19,7 +19,7 @@ internal class AssertionPlantNullable<out T : Any?>(
      */
     override fun isNull() {
         if (subject != null) {
-            commonFields.fail(OneMessageAssertion("to be", RawString.NULL, false))
+            commonFields.fail(OneMessageAssertion(IAssertionPlantNullable.Description, RawString.NULL, false))
         }
     }
 }

@@ -1,11 +1,12 @@
 package ch.tutteli.atrium.spec.creating
 
-
 import ch.tutteli.atrium.*
+import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.DownCastBuilder
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
+import ch.tutteli.atrium.reporting.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
@@ -21,16 +22,16 @@ import kotlin.reflect.KClass
 
 open class DownCastBuilderSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (description: String, subClass: KClass<Int>, CommonFields<Number?>) -> DownCastBuilder<Number, Int>
+    testeeFactory: (description: ITranslatable, subClass: KClass<Int>, CommonFields<Number?>) -> DownCastBuilder<Number, Int>
 ) : Spek({
 
 
     context("subject is not null") {
         context("down-cast can be performed") {
             val subject = 10
-            var testee = testeeFactory("is a", Int::class, verbs.checkNullable(subject).commonFields)
+            var testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(subject).commonFields)
             beforeEachTest {
-                testee = testeeFactory("is a", Int::class, verbs.checkNullable(subject).commonFields)
+                testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(subject).commonFields)
             }
 
             it("it does not throw an exception") {
@@ -64,7 +65,7 @@ open class DownCastBuilderSpec(
         }
 
         context("down-cast cannot be performed") {
-            val testee = testeeFactory("is a", Int::class, verbs.checkNullable(10.1).commonFields)
+            val testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(10.1).commonFields)
             it("throws an assertion error") {
                 verbs.checkException {
                     testee.cast()
@@ -77,9 +78,9 @@ open class DownCastBuilderSpec(
     }
 
     context("subject is null") {
-        var testee = testeeFactory("is a", Int::class, verbs.checkNullable(null).commonFields)
+        var testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(null).commonFields)
         beforeEachTest {
-            testee = testeeFactory("is a", Int::class, verbs.checkNullable(null).commonFields)
+            testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(null).commonFields)
         }
 
         inCaseOf("using an own null-representation") {
@@ -135,7 +136,7 @@ open class DownCastBuilderSpec(
                 val checker = mock<IAssertionChecker> {
                     on { fail(any<String>(), any(), any<IAssertion>()) }.doThrow(assertionError)
                 }
-                val testee = testeeFactory("is a", Int::class, CommonFields(assertionVerb, null, checker))
+                val testee = testeeFactory(IS_A, Int::class, CommonFields(assertionVerb, null, checker))
                 verbs.checkException {
                     testee.cast()
                 }.toThrow<AssertionError>().toBe(assertionError)
@@ -144,7 +145,7 @@ open class DownCastBuilderSpec(
 
             it("throws an IllegalStateException, if reporting a failure does not throw an exception") {
                 val checker = mock<IAssertionChecker>()
-                val testee = testeeFactory("is a", Int::class, CommonFields(assertionVerb, null, checker))
+                val testee = testeeFactory(IS_A, Int::class, CommonFields(assertionVerb, null, checker))
                 verbs.checkException {
                     testee.cast()
                 }.toThrow<IllegalStateException>()

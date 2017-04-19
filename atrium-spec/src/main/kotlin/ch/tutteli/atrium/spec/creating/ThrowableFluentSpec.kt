@@ -5,8 +5,10 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.creating.ThrowableFluent.Translatable.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.TranslatableRawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.toBe
@@ -35,14 +37,14 @@ open class ThrowableFluentSpec(
         return AtriumFactory.newThrowableFluent(assertionVerb, act, checker)
     }
 
-    val NO_EXCEPTION_OCCURRED = "no exception occurred"
+
     checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
         verbs.checkException {
             verbs.checkException {
                 /* no exception occurs */
             }.doToThrow()
         }.toThrow<AssertionError> {
-            message.contains(NO_EXCEPTION_OCCURRED, "is a", IllegalArgumentException::class.java.name)
+            message.contains(NO_EXCEPTION_OCCURRED.getDefault(), "is a", IllegalArgumentException::class.java.name)
         }
     }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
 
@@ -102,7 +104,7 @@ open class ThrowableFluentSpec(
                 verbs.checkException {
                     checkerAndFluent.fluent.toThrow<IllegalArgumentException>()
                 }.toThrowWithCheck()
-                verify(checkerAndFluent.checker).fail(eq(assertionVerb), eq(RawString(NO_EXCEPTION_OCCURRED)), any<IAssertion>())
+                verify(checkerAndFluent.checker).fail(eq(assertionVerb), eq(TranslatableRawString(NO_EXCEPTION_OCCURRED)), any<IAssertion>())
             }, { toThrow<AssertionError>().and.toBe(assertionError) }, { toThrow<AssertionError> { toBe(assertionError) } })
         }
 

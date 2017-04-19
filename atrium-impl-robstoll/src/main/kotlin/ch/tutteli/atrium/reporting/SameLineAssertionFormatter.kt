@@ -15,7 +15,10 @@ import ch.tutteli.kbox.appendToStringBuilder
  * - [IOneMessageAssertion]
  * - [IMultiMessageAssertion]
  */
-internal class SameLineAssertionFormatter(private val objectFormatter: IObjectFormatter) : IAssertionFormatter {
+internal class SameLineAssertionFormatter(
+    private val objectFormatter: IObjectFormatter,
+    private val translator: ITranslator
+) : IAssertionFormatter {
 
     override fun format(sb: StringBuilder, assertion: IAssertion, assertionFilter: (IAssertion) -> Boolean, messageFilter: (Message) -> Boolean) {
         format(assertion, MethodObject(0, sb, assertionFilter, messageFilter))
@@ -52,13 +55,13 @@ internal class SameLineAssertionFormatter(private val objectFormatter: IObjectFo
         messages
             .filter(methodObject.messageFilter)
             .appendToStringBuilder(methodObject.sb, SEPARATOR) { (description, representation), sb ->
-                sb.appendPair(description, representation)
+                sb.appendPair(translator.translate(description), representation)
             }
     }
 
     private fun appendMessage(message: Message, methodObject: MethodObject) {
         if (methodObject.messageFilter(message)) {
-            methodObject.sb.appendPair(message.description, message.representation)
+            methodObject.sb.appendPair(translator.translate(message.description), message.representation)
         }
     }
 

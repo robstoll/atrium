@@ -1,8 +1,8 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
+import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
@@ -10,6 +10,7 @@ import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.ITranslator
 
 /**
  * The minimum contract of the `abstract factory` of atrium.
@@ -154,13 +155,15 @@ interface IAtriumFactory {
     fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
 
 
+    fun newTranslator(): ITranslator
+
     /**
      * Creates an [IObjectFormatter] which represents objects by using their [Object.toString] representation
      * including [Class.name] and their [System.identityHashCode].
      *
      * @return The newly created object formatter.
      */
-    fun newDetailedObjectFormatter(): IObjectFormatter
+    fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
 
     /**
      * Creates an [IAssertionFormatter] which puts messages of the form 'a: b' on the same line.
@@ -169,7 +172,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter): IAssertionFormatter
+    fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IReporter] which reports only failing assertions

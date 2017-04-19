@@ -71,10 +71,13 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
         = AssertionPlantNullable(commonFields)
 
-    override fun newDetailedObjectFormatter(): IObjectFormatter = DetailedObjectFormatter()
+    override fun newTranslator(): ITranslator = Translator
 
-    override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter): IAssertionFormatter
-        = SameLineAssertionFormatter(objectFormatter)
+    override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
+        = DetailedObjectFormatter(translator)
+
+    override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = SameLineAssertionFormatter(objectFormatter, translator)
 
     override fun newOnlyFailureReporter(assertionFormatter: IAssertionFormatter): IReporter
         = OnlyFailureReporter(assertionFormatter)
@@ -134,7 +137,7 @@ object AtriumFactory : IAtriumFactory {
      *
      * @see DownCastBuilder
      */
-    inline fun <reified TSub : T, T : Any> newDownCastBuilder(description: String, commonFields: CommonFields<T?>): DownCastBuilder<T, TSub>
+    inline fun <reified TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, commonFields: CommonFields<T?>): DownCastBuilder<T, TSub>
         = newDownCastBuilder(description, TSub::class, commonFields)
 
     /**
@@ -152,6 +155,6 @@ object AtriumFactory : IAtriumFactory {
      *
      * @see DownCastBuilder
      */
-    fun <TSub : T, T : Any> newDownCastBuilder(description: String, subType: KClass<TSub>, commonFields: CommonFields<T?>): DownCastBuilder<T, TSub>
+    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: CommonFields<T?>): DownCastBuilder<T, TSub>
         = DownCastBuilder(description, subType, commonFields)
 }
