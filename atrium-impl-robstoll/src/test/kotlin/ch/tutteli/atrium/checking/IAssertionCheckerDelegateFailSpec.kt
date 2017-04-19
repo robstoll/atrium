@@ -19,12 +19,12 @@ object IAssertionCheckerDelegateFailSpec : Spek({
     describe("fail") {
         it("throws an IllegalArgumentException if the given assertion holds") {
             expect {
-                testee.fail(assertionVerb, 1, OneMessageAssertion("description", 1, true))
+                testee.fail(assertionVerb, 1, OneMessageAssertion(ch.tutteli.atrium.DescriptionAnyAssertion.IS_SAME, 1, true))
             }.toThrow<IllegalArgumentException>().and.message.startsWith(IAssertionCheckerDelegateFail.THE_GIVEN_ASSERTION_SHOULD_FAIL)
         }
 
         it("delegates to check") {
-            val assertion = OneMessageAssertion("description", 1, false)
+            val assertion = OneMessageAssertion(ch.tutteli.atrium.DescriptionAnyAssertion.IS_SAME, 1, false)
             testee.fail(assertionVerb, 1, assertion)
             verify(testee).check(assertionVerb, 1, listOf(assertion))
         }

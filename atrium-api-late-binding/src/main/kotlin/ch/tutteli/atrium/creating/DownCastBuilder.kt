@@ -2,7 +2,9 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.reporting.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.TranslatableRawString
 import kotlin.reflect.KClass
 import kotlin.reflect.full.cast
 
@@ -29,7 +31,7 @@ import kotlin.reflect.full.cast
  *
  */
 @Suppress("UNUSED_PARAMETER", "unused")
-class DownCastBuilder<out T : Any, out TSub : T>(private val description: String,
+class DownCastBuilder<out T : Any, out TSub : T>(private val description: ITranslatable,
                                                  private val subType: KClass<TSub>,
                                                  private val commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>) {
     init {
@@ -45,6 +47,18 @@ class DownCastBuilder<out T : Any, out TSub : T>(private val description: String
      * @return This builder to support a fluent-style API.
      */
     fun withNullRepresentation(representation: String): DownCastBuilder<T, TSub> {
+        throw UnsupportedOperationException(ERROR_MSG)
+    }
+
+    /**
+     * Use this method if you want to use your own `null` representation in error reporting
+     * (default is [RawString.NULL]).
+     *
+     * @param translatableRepresentation A translatable representation for `null`.
+     *
+     * @return This builder to support a fluent-style API.
+     */
+    fun withNullRepresentation(translatableRepresentation: ITranslatable): DownCastBuilder<T, TSub> {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 

@@ -2,6 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.reporting.ISimpleTranslatable
 import kotlin.reflect.KClass
 
 /**
@@ -51,8 +52,8 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder("is a", expectedType, commonFields)
-        .withNullRepresentation(NO_EXCEPTION_OCCURRED)
+        = AtriumFactory.newDownCastBuilder(Translatable.IS_A, expectedType, commonFields)
+        .withNullRepresentation(Translatable.NO_EXCEPTION_OCCURRED)
         .cast()
 
     /**
@@ -83,14 +84,18 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder("is a", expectedType, commonFields)
-        .withNullRepresentation(NO_EXCEPTION_OCCURRED)
+        = AtriumFactory.newDownCastBuilder(Translatable.IS_A, expectedType, commonFields)
+        .withNullRepresentation(Translatable.NO_EXCEPTION_OCCURRED)
         .withLazyAssertions(createAssertions)
         .cast()
 
-    companion object {
-        val NO_EXCEPTION_OCCURRED = "no exception occurred"
+    enum class Translatable(override val value: String) : ISimpleTranslatable {
+        IS_A("is a"),
+        NO_EXCEPTION_OCCURRED("no exception occurred"),
+        ;
+    }
 
+    companion object {
         /**
          * Creates a [ThrowableFluent] where executing [act] will determine the
          * [subject](IAssertionPlantWithCommonFields.CommonFields.subject) of [commonFields].

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.ITranslatable
 
 /**
  * Represents a plant for [IAssertion]s and offers the possibility to check all the added assertions.
@@ -23,7 +24,7 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
      *
      * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately evaluated.
      */
-    fun createAndAddAssertion(description: String, expected: Any, test: () -> Boolean): IAssertionPlant<T>
+    fun createAndAddAssertion(description: ITranslatable, expected: Any, test: () -> Boolean): IAssertionPlant<T>
 
     /**
      * Adds the given [assertion] to the plant.

@@ -4,7 +4,10 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.OneMessageAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.reporting.IRawString
+import ch.tutteli.atrium.reporting.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.TranslatableRawString
 import kotlin.reflect.KClass
 import kotlin.reflect.full.cast
 
@@ -29,7 +32,7 @@ import kotlin.reflect.full.cast
  *        The down-cast will be performed on its [subject][IAssertionPlant.subject].
  *        Moreover, the containing information will inter alia be used in reporting.
  */
-class DownCastBuilder<T : Any, TSub : T>(private val description: String,
+class DownCastBuilder<T : Any, TSub : T>(private val description: ITranslatable,
                                          private val subType: KClass<TSub>,
                                          private val commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>
 ) {
@@ -41,7 +44,7 @@ class DownCastBuilder<T : Any, TSub : T>(private val description: String,
     /**
      *
      */
-    private var nullRepresentation: RawString = RawString.NULL
+    private var nullRepresentation: IRawString = RawString.NULL
 
     /**
      * Use this method if you want to use your own `null` representation in error reporting
@@ -53,6 +56,19 @@ class DownCastBuilder<T : Any, TSub : T>(private val description: String,
      */
     fun withNullRepresentation(representation: String): DownCastBuilder<T, TSub> {
         nullRepresentation = RawString(representation)
+        return this
+    }
+
+    /**
+     * Use this method if you want to use your own `null` representation in error reporting
+     * (default is [RawString.NULL]).
+     *
+     * @param translatableRepresentation A translatable representation for `null`.
+     *
+     * @return This builder to support a fluent-style API.
+     */
+    fun withNullRepresentation(translatableRepresentation: ITranslatable): DownCastBuilder<T, TSub> {
+        nullRepresentation = TranslatableRawString(translatableRepresentation)
         return this
     }
 
