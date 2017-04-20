@@ -3,6 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
 
 /**
@@ -47,6 +48,33 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence, varar
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionPlant<T> {
     val plant = containsNot(expected)
     otherExpected.forEach { containsNot(it) }
+    return plant
+}
+
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][ITranslatable.getDefault] representation
+ * and the [getDefault][ITranslatable.getDefault] representation of the [otherExpected] (if defined).
+ *
+ * @return This plant to support a fluent-style API.
+ * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ */
+fun <T : CharSequence> IAssertionPlant<T>.contains(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T> {
+    val plant = contains(expected.getDefault())
+    otherExpected.forEach { contains(it.getDefault()) }
+    return plant
+}
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][ITranslatable.getDefault] representation
+ * and the [getDefault][ITranslatable.getDefault] representation of the [otherExpected] (if defined).
+ *
+ * @return This plant to support a fluent-style API.
+ * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ */
+fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T> {
+    val plant = containsNot(expected.getDefault())
+    otherExpected.forEach { containsNot(it.getDefault()) }
     return plant
 }
 

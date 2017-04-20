@@ -12,7 +12,7 @@ object ThrowableAssertionsSpec : Spek({
             val throwable = IllegalArgumentException()
             expect {
                 assert(throwable).message()
-            }.toThrow<AssertionError>()
+            }.toThrow<AssertionError>().and.message.contains(DescriptionNarrowingAssertion.IS_NOT_NULL)
         }, { message }, { message {} })
 
 
