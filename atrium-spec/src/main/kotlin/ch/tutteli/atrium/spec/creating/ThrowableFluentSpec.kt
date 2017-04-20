@@ -43,8 +43,9 @@ open class ThrowableFluentSpec(
             verbs.checkException {
                 /* no exception occurs */
             }.doToThrow()
-        }.toThrow<AssertionError> {
-            message.contains(NO_EXCEPTION_OCCURRED.getDefault(), "is a", IllegalArgumentException::class.java.name)
+        }.toThrow<AssertionError>().and.message {
+            contains(NO_EXCEPTION_OCCURRED, ThrowableFluent.Translatable.IS_A)
+            contains(IllegalArgumentException::class.java.name)
         }
     }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
 

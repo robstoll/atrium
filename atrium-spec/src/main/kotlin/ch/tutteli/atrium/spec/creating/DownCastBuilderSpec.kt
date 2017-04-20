@@ -110,7 +110,7 @@ open class DownCastBuilderSpec(
                 expectFluent.toThrow<AssertionError>()
             }
             it("does not contain additional failing assertions in the error message") {
-                expectFluent.toThrow<AssertionError>().and.message.containsNot("is smaller than")
+                expectFluent.toThrow<AssertionError>().and.message.containsNot(DescriptionNumberAssertion.IS_SMALLER_THAN)
             }
         }
         inCaseOf("nothing in addition was defined (just cast is called)") {

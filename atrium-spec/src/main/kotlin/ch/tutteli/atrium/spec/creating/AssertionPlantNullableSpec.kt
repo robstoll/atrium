@@ -46,7 +46,7 @@ open class AssertionPlantNullableSpec(
                     assertMessage.contains(subject.toString())
                 }
                 it("contains the '${Message::description.name}' of the assertion-message - which should be ${IAssertionPlantNullable.Description::class.simpleName}") {
-                    assertMessage.contains(IAssertionPlantNullable.Description.getDefault())
+                    assertMessage.contains(IAssertionPlantNullable.Description)
                 }
                 it("contains the '${Message::representation.name}' of the assertion-message") {
                     assertMessage.contains(RawString.NULL.string)

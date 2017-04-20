@@ -89,7 +89,7 @@ open class AssertionPlantCheckLazilySpec(
                 context("exception message") {
                     val assertMessage = expectFun.toThrow<AssertionError>().message
                     it("contains the messages of the custom assertion") {
-                        assertMessage.contains(DescriptionAnyAssertion.TO_BE.getDefault(), "my representation")
+                        assertMessage.contains(DescriptionAnyAssertion.TO_BE).and.contains("my representation")
                     }
                     it("contains the assertionVerb") {
                         assertMessage.contains(assertionVerb)
