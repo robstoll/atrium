@@ -7,7 +7,6 @@ import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.creating.ThrowableFluent.Translatable.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.message
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.TranslatableRawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
@@ -18,7 +17,8 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 
 open class ThrowableFluentSpec(
-    val verbs: IAssertionVerbFactory
+    val verbs: IAssertionVerbFactory,
+    val testeeFactory: (assertionVerb: String, act: () -> Unit, IAssertionChecker) -> ThrowableFluent
 ) : Spek({
 
     fun SpecBody.checkToThrow(description: String,
@@ -34,7 +34,7 @@ open class ThrowableFluentSpec(
                 throw throwable
             }
         }
-        return AtriumFactory.newThrowableFluent(assertionVerb, act, checker)
+        return testeeFactory(assertionVerb, act, checker)
     }
 
 
@@ -66,8 +66,8 @@ open class ThrowableFluentSpec(
     }, { toThrow<IllegalArgumentException>().and.message.toBe("hello") }, { toThrow<IllegalArgumentException> { and.message.toBe("hello") } })
 
     val assertionVerb = "assertionVerb"
-
     class CheckerAndFluent(var checker: IAssertionChecker = mock<IAssertionChecker>(), var fluent: ThrowableFluent = AtriumFactory.newThrowableFluent("dummy", {}, checker))
+
     context("dependencies") {
         group("in case the expected exception is thrown") {
             val subject = IllegalArgumentException()
@@ -81,10 +81,16 @@ open class ThrowableFluentSpec(
                 verify(checkerAndFluent.checker).check(eq(assertionVerb), eq(subject), any<List<IAssertion>>())
             }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })
 
-            checkToThrow("it uses the given AssertionChecker to check that the correct exception is thrown", { toThrowWithCheck ->
-                checkerAndFluent.fluent.toThrowWithCheck()
-                verify(checkerAndFluent.checker, times(2)).check(eq(assertionVerb), eq(subject), any<List<IAssertion>>())
-            }, { toThrow<IllegalArgumentException>().toBe(subject) }, { toThrow<IllegalArgumentException> { toBe(subject) } })
+            group("it uses the given AssertionChecker to check additional assertions"){
+                test("in case of immediate evaluation"){
+                    checkerAndFluent.fluent.toThrow<IllegalArgumentException>().toBe(subject)
+                    verify(checkerAndFluent.checker, times(2)).check(eq(assertionVerb), eq(subject), any<List<IAssertion>>())
+                }
+                test("in case of lazy evaluation"){
+                    checkerAndFluent.fluent.toThrow<IllegalArgumentException> { toBe(subject) }
+                    verify(checkerAndFluent.checker, times(1)).check(eq(assertionVerb), eq(subject), any<List<IAssertion>>())
+                }
+            }
         }
 
         val assertionError = AssertionError()
