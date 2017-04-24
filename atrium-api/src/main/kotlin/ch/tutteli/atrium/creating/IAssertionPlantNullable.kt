@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IOneMessageAssertion
 import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.reporting.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
 /**
  * Represents an assertion plant for nullable types.

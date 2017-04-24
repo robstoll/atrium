@@ -2,9 +2,9 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.reporting.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import kotlin.reflect.KClass
 import kotlin.reflect.full.cast
 

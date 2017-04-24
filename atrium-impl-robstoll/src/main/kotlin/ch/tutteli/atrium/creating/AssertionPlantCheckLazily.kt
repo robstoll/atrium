@@ -2,7 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.OneMessageAssertion
-import ch.tutteli.atrium.reporting.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import java.util.*
 
 /**

@@ -4,6 +4,8 @@ import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslator
 import kotlin.reflect.KClass
 
 /**

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.reporting.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import kotlin.reflect.KClass
 
 /**

@@ -6,6 +6,8 @@ import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslator
 import kotlin.reflect.KClass
 
 /**
@@ -52,6 +54,7 @@ object AtriumFactory : IAtriumFactory {
     inline fun <T : Any> newCheckLazilyAtTheEnd(assertionVerb: String, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
         = AtriumFactory.newCheckLazily(assertionVerb, subject, reporter).createAssertionsAndCheckThem(createAssertions)
 
+
     override fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlant<T>
         = newCheckImmediately(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
@@ -71,6 +74,12 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
         = AssertionPlantNullable(commonFields)
 
+
+    /**
+     * Creates an [ITranslator].
+     *
+     * @return The newly created translator.
+     */
     override fun newTranslator(): ITranslator = Translator
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter

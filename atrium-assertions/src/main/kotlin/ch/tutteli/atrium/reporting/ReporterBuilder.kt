@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.reporting.translating.ITranslator
 
 /**
  * A builder to create an [IReporter] consisting of an [IObjectFormatter] which is used by an

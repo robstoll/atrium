@@ -5,9 +5,9 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.OneMessageAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.reporting.IRawString
-import ch.tutteli.atrium.reporting.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import kotlin.reflect.KClass
 import kotlin.reflect.full.cast
 

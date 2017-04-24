@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.reporting.ITranslator
+import ch.tutteli.atrium.reporting.translating.ITranslator
 
 /**
  * The minimum contract of the `abstract factory` of atrium.
@@ -155,6 +155,11 @@ interface IAtriumFactory {
     fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
 
 
+    /**
+     * Creates an [ITranslator].
+     *
+     * @return The newly created translator.
+     */
     fun newTranslator(): ITranslator
 
     /**

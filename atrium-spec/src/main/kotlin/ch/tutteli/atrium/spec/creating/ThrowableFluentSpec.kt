@@ -7,7 +7,7 @@ import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.creating.ThrowableFluent.Translatable.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.message
-import ch.tutteli.atrium.reporting.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.toBe
