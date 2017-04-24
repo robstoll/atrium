@@ -2,8 +2,8 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.ISimpleTranslatable
-import ch.tutteli.atrium.reporting.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
 
 /**

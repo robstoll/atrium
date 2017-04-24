@@ -1,8 +1,8 @@
-package ch.tutteli.atrium.spec.reporting
+package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.reporting.ISimpleTranslatable
-import ch.tutteli.atrium.reporting.ITranslatable
-import ch.tutteli.atrium.reporting.ITranslator
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek

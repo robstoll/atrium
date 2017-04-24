@@ -1,5 +1,8 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+
 /**
  * Formats an object by using its [toString] representation, its [Class.name] and its [System.identityHashCode].
  *

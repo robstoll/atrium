@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.createAssertionsAndCheckThem
-import ch.tutteli.atrium.reporting.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import kotlin.reflect.KProperty0
 
 /**

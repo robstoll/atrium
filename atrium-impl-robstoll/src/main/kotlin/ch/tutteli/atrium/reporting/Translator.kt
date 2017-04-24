@@ -1,5 +1,8 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslator
+
 object Translator : ITranslator {
     val translations: MutableMap<ITranslatable, String> = HashMap()
 

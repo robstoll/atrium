@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
-import ch.tutteli.atrium.reporting.ITranslator
+import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek

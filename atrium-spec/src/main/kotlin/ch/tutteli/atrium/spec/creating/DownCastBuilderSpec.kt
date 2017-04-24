@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.DownCastBuilder
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
-import ch.tutteli.atrium.reporting.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
