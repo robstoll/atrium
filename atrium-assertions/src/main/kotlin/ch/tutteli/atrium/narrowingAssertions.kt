@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.createAssertionsAndCheckThem
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.IEnTranslatable
 import kotlin.reflect.KProperty0
 
 /**
@@ -91,7 +91,7 @@ fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeatu
 private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
     = IAssertionPlantWithCommonFields.CommonFields(feature.name, feature.get(), AtriumFactory.newFeatureAssertionChecker(this))
 
-enum class DescriptionNarrowingAssertion(override val value: String) : ISimpleTranslatable {
+enum class DescriptionNarrowingAssertion(override val value: String) : IEnTranslatable {
     IS_NOT_NULL("is not"),
     IS_A("is type or sub-type of"),
     ;

@@ -2,7 +2,8 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.IEnTranslatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import kotlin.reflect.KProperty0
 
 /**
@@ -73,7 +74,7 @@ fun <T : Any> IAssertionPlant<T>.isSame(expected: T)
 fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T)
     = createAndAddAssertion(IS_NOT_SAME, expected, { subject !== expected })
 
-enum class DescriptionAnyAssertion(override val value: String) : ISimpleTranslatable {
+enum class DescriptionAnyAssertion(override val value: String) : IEnTranslatable {
     GENERIC_CHECK("generic check %s"),
     TO_BE("to be"),
     NOT_TO_BE("not to be"),

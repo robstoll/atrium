@@ -3,9 +3,14 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.IAssertionFormatter
+import ch.tutteli.atrium.reporting.IObjectFormatter
+import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslationProvider
+import ch.tutteli.atrium.reporting.translating.ITranslationProviderReviser
 import ch.tutteli.atrium.reporting.translating.ITranslator
+import java.util.*
 import kotlin.reflect.KClass
 
 /**
@@ -74,7 +79,11 @@ object AtriumFactory : IAtriumFactory {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    override fun newTranslator(): ITranslator {
+    override fun newTranslationProviderReviser(translationProvider: ITranslationProvider): ITranslationProviderReviser{
+        throw UnsupportedOperationException(ERROR_MSG)
+    }
+
+    override fun newTranslator(translationProvider: ITranslationProvider, locale: Locale, vararg fallbackLocales: Locale): ITranslator {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
