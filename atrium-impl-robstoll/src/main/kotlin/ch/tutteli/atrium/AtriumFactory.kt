@@ -6,8 +6,8 @@ import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.*
+import java.util.*
 import kotlin.reflect.KClass
 
 /**
@@ -75,12 +75,11 @@ object AtriumFactory : IAtriumFactory {
         = AssertionPlantNullable(commonFields)
 
 
-    /**
-     * Creates an [ITranslator].
-     *
-     * @return The newly created translator.
-     */
-    override fun newTranslator(): ITranslator = Translator
+    override fun newTranslationProviderReviser(translationProvider: ITranslationProvider): ITranslationProviderReviser
+        = TranslationProviderReviser(translationProvider)
+
+    override fun newTranslator(translationProvider: ITranslationProvider, locale: Locale, vararg fallbackLocales: Locale): ITranslator
+        = Translator(translationProvider, locale, fallbackLocales)
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
         = DetailedObjectFormatter(translator)

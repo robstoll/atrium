@@ -3,22 +3,27 @@ package ch.tutteli.atrium.spec.reporting
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.DescriptionAnyAssertion.IS_SAME
 import ch.tutteli.atrium.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.IMultiMessageAssertion
+import ch.tutteli.atrium.assertions.IOneMessageAssertion
+import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
+import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import java.util.*
 
 open class SameLineAssertionMessageFormatterSpec(
     val verbs: IAssertionVerbFactory,
     val testeeFactory: (IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
-    val testee = testeeFactory(ToStringObjectFormatter(), AtriumFactory.newTranslator())
+    val testee = testeeFactory(ToStringObjectFormatter(), AtriumFactory.newTranslator(ReporterBuilder.EMPTY_TRANSLATION_PROVIDER, Locale.UK))
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     val alwaysTrueMessageFilter: (Message) -> Boolean = { true }

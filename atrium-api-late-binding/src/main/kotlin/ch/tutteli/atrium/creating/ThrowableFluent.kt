@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.IEnTranslatable
 import kotlin.reflect.KClass
 
 /**
@@ -88,7 +88,7 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
             "meaning as a substitute for a real implementation - ThrowableFluent was used")
     }
 
-    enum class Translatable(override val value: String) : ISimpleTranslatable {
+    enum class Translatable(override val value: String) : IEnTranslatable {
         IS_A("is a"),
         NO_EXCEPTION_OCCURRED("no exception occurred"),
         ;

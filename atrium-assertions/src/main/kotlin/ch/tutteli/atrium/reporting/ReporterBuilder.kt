@@ -1,7 +1,10 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslationProvider
 import ch.tutteli.atrium.reporting.translating.ITranslator
+import java.util.*
 
 /**
  * A builder to create an [IReporter] consisting of an [IObjectFormatter] which is used by an
@@ -16,18 +19,36 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
         = AtriumFactory.newOnlyFailureReporter(assertionFormatter)
 
     companion object {
+        val EMPTY_TRANSLATION_PROVIDER = object : ITranslationProvider {
+            override fun get() = emptyMap<Locale, Map<ITranslatable, String>>()
+        }
+
         /**
-         * Uses [AtriumFactory.newTranslator] as [ITranslator].
+         * Uses an [ITranslationProvider] which returns an empty [Map].
+         *
+         * Or in other words, a [ITranslationProvider] which does not provide any translations.
          */
-        fun withDefaultTranslator(): ObjectFormatterBuilder
-            = ObjectFormatterBuilder(AtriumFactory.newTranslator())
+        fun withoutTranslationProvider(): TranslationBuilder
+            = TranslationBuilder(EMPTY_TRANSLATION_PROVIDER)
 
         /**
          * Uses [AtriumFactory.newTranslator] as [ITranslator]
          * and [AtriumFactory.newDetailedObjectFormatter] as [IObjectFormatter].
          */
         fun withDetailedObjectFormatter(): AssertionFormatterBuilder
-            = ObjectFormatterBuilder(AtriumFactory.newTranslator()).withDetailedObjectFormatter()
+            = withoutTranslationProvider().withEnTranslations().withDetailedObjectFormatter()
+    }
+
+    class TranslationBuilder(private val translationProvider: ITranslationProvider) {
+
+        /**
+         * Uses [AtriumFactory.newTranslator] as [ITranslator] with [Locale.ENGLISH] as default [Locale] and
+         * without any fallback [Locale]s.
+         */
+        fun withEnTranslations(): ObjectFormatterBuilder
+            = ObjectFormatterBuilder(AtriumFactory.newTranslator(translationProvider, Locale.UK!!))
+
+
     }
 
     class ObjectFormatterBuilder(private val translator: ITranslator) {

@@ -2,21 +2,20 @@ package ch.tutteli.atrium.reporting
 
 
 import ch.tutteli.atrium.*
-import ch.tutteli.atrium.DescriptionAnyAssertion.NOT_TO_BE
-import ch.tutteli.atrium.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.DescriptionAnyAssertion.IS_SAME
+import ch.tutteli.atrium.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
+import java.util.*
 
 object SameLineAssertionMessageFormatterSpec : Spek({
     include(ch.tutteli.atrium.spec.reporting.SameLineAssertionMessageFormatterSpec(
         AssertionVerbFactory, ::SameLineAssertionFormatter))
 
-    val testee = SameLineAssertionFormatter(ToStringObjectFormatter(), Translator)
+    val testee = SameLineAssertionFormatter(ToStringObjectFormatter(), AtriumFactory.newTranslator(ReporterBuilder.EMPTY_TRANSLATION_PROVIDER, Locale.UK))
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     val alwaysTrueMessageFilter: (Message) -> Boolean = { true }

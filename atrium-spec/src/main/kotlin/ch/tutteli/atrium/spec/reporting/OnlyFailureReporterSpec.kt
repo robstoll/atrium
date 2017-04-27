@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.isEmpty
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
@@ -15,6 +16,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
+import java.util.*
 
 open class OnlyFailureReporterSpec(
     val verbs: IAssertionVerbFactory,
@@ -45,7 +47,7 @@ open class OnlyFailureReporterSpec(
             IAssertionGroup::class.java to assertionGroup
         ).forEach { clazz, assertion ->
             it("does not append anything if ${clazz.simpleName} holds") {
-                val translator = AtriumFactory.newTranslator()
+                val translator = AtriumFactory.newTranslator(ReporterBuilder.EMPTY_TRANSLATION_PROVIDER, Locale.UK)
                 val testee = testeeFactory(AtriumFactory.newSameLineAssertionFormatter(AtriumFactory.newDetailedObjectFormatter(translator), translator))
                 testee.format(sb, assertion)
                 verbs.checkLazily(sb) {
