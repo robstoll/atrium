@@ -4,6 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.DetailedObjectFormatter.Companion.INDENT
+import ch.tutteli.atrium.reporting.translating.EmptyTranslationProvider
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -12,7 +13,7 @@ import org.jetbrains.spek.api.dsl.on
 import java.util.*
 
 object DetailedObjectFormatterSpec : Spek({
-    val testee = DetailedObjectFormatter(AtriumFactory.newTranslator(ReporterBuilder.EMPTY_TRANSLATION_PROVIDER, Locale.UK))
+    val testee = DetailedObjectFormatter(AtriumFactory.newTranslator(EmptyTranslationProvider, Locale.UK))
 
     describe("format") {
         on("null type") {

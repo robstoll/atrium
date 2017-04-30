@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.reporting.translating.EmptyTranslationProvider
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationProvider
 import ch.tutteli.atrium.reporting.translating.ITranslator
@@ -19,9 +20,6 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
         = AtriumFactory.newOnlyFailureReporter(assertionFormatter)
 
     companion object {
-        val EMPTY_TRANSLATION_PROVIDER = object : ITranslationProvider {
-            override fun get() = emptyMap<Locale, Map<ITranslatable, String>>()
-        }
 
         /**
          * Uses an [ITranslationProvider] which returns an empty [Map].
@@ -29,7 +27,7 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
          * Or in other words, a [ITranslationProvider] which does not provide any translations.
          */
         fun withoutTranslationProvider(): TranslationBuilder
-            = TranslationBuilder(EMPTY_TRANSLATION_PROVIDER)
+            = TranslationBuilder(EmptyTranslationProvider)
 
         /**
          * Uses [AtriumFactory.newTranslator] as [ITranslator]
