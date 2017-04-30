@@ -18,7 +18,7 @@ open class TranslatorSpec(
         = testeeFactory(translationProvider, locale, fallbackLocals)
 
     fun createTranslationProviderReviser(locale: Locale, vararg translations: Pair<ITranslatable, String>): ITranslationProviderReviser
-        = AtriumFactory.newTranslationProviderReviser(ReporterBuilder.EMPTY_TRANSLATION_PROVIDER)
+        = AtriumFactory.newTranslationProviderReviser(EmptyTranslationProvider)
         .add(locale, *translations)
 
 
@@ -58,7 +58,7 @@ open class TranslatorSpec(
     describe("translating ${ITranslatable::class.simpleName} in $localeUK") {
 
         context("no translations provided at all") {
-            val testee = testeeFactory(ReporterBuilder.EMPTY_TRANSLATION_PROVIDER, localeUK)
+            val testee = testeeFactory(EmptyTranslationProvider, localeUK)
             checkUsesTranslatablesDefault(testee)
         }
 

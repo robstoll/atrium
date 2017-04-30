@@ -11,6 +11,7 @@ import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.reporting.translating.EmptyTranslationProvider
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.toBe
@@ -23,7 +24,7 @@ open class SameLineAssertionMessageFormatterSpec(
     val verbs: IAssertionVerbFactory,
     val testeeFactory: (IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
-    val testee = testeeFactory(ToStringObjectFormatter(), AtriumFactory.newTranslator(ReporterBuilder.EMPTY_TRANSLATION_PROVIDER, Locale.UK))
+    val testee = testeeFactory(ToStringObjectFormatter(), AtriumFactory.newTranslator(EmptyTranslationProvider, Locale.UK))
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     val alwaysTrueMessageFilter: (Message) -> Boolean = { true }
