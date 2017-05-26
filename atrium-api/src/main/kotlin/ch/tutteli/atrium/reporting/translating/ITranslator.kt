@@ -6,11 +6,18 @@ package ch.tutteli.atrium.reporting.translating
 interface ITranslator {
     /**
      * Returns the translation of the given [translatable] or its [getDefault][ITranslatable.getDefault]
-     * in case there was no default defined.
+     * in case there is not a translation defined for it.
      *
      * @return The result of the translation for the given [translatable].
      */
     fun translate(translatable: ITranslatable): String
 
+
+    /**
+     * [Translates][translate] the [ITranslatable] of the given [translatableWithArgs] and formats it with the
+     * [arguments][ITranslatableWithArgs.arguments] of the given [translatableWithArgs].
+     *
+     * @return The result of the translation for the given [translatableWithArgs].
+     */
     fun translate(translatableWithArgs: ITranslatableWithArgs): String
 }

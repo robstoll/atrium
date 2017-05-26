@@ -10,10 +10,7 @@ import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslationProvider
-import ch.tutteli.atrium.reporting.translating.ITranslationProviderReviser
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 
 /**
@@ -159,11 +156,6 @@ interface IAtriumFactory {
     fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
 
     /**
-     * Creates an [ITranslationProviderReviser] for the given [translationProvider].
-     */
-    fun newTranslationProviderReviser(translationProvider: ITranslationProvider): ITranslationProviderReviser
-
-    /**
      * Creates an [ITranslator] which translates [ITranslatable]s to [locale] and falls back
      * to [fallbackLocales] (in the given order) in case no translation exists for [locale].
      *
@@ -179,7 +171,6 @@ interface IAtriumFactory {
      * @return The newly created translator.
      */
     fun newTranslator(translationProvider: ITranslationProvider, locale: Locale, vararg fallbackLocales: Locale): ITranslator
-
 
     /**
      * Creates an [IObjectFormatter] which represents objects by using their [Object.toString] representation

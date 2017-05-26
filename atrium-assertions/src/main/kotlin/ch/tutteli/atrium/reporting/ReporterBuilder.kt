@@ -1,11 +1,8 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.reporting.translating.EmptyTranslationProvider
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslationProvider
 import ch.tutteli.atrium.reporting.translating.ITranslator
-import java.util.*
+import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 
 /**
  * A builder to create an [IReporter] consisting of an [IObjectFormatter] which is used by an
@@ -22,31 +19,17 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
     companion object {
 
         /**
-         * Uses an [ITranslationProvider] which returns an empty [Map].
-         *
-         * Or in other words, a [ITranslationProvider] which does not provide any translations.
+         * Uses [UsingDefaultTranslator] which does not translate.
          */
-        fun withoutTranslationProvider(): TranslationBuilder
-            = TranslationBuilder(EmptyTranslationProvider)
+        fun withoutTranslations(): ObjectFormatterBuilder
+            = ObjectFormatterBuilder(UsingDefaultTranslator())
 
         /**
-         * Uses [AtriumFactory.newTranslator] as [ITranslator]
+         * Uses [UsingDefaultTranslator] as [ITranslator]
          * and [AtriumFactory.newDetailedObjectFormatter] as [IObjectFormatter].
          */
         fun withDetailedObjectFormatter(): AssertionFormatterBuilder
-            = withoutTranslationProvider().withEnTranslations().withDetailedObjectFormatter()
-    }
-
-    class TranslationBuilder(private val translationProvider: ITranslationProvider) {
-
-        /**
-         * Uses [AtriumFactory.newTranslator] as [ITranslator] with [Locale.ENGLISH] as default [Locale] and
-         * without any fallback [Locale]s.
-         */
-        fun withEnTranslations(): ObjectFormatterBuilder
-            = ObjectFormatterBuilder(AtriumFactory.newTranslator(translationProvider, Locale.UK!!))
-
-
+            = withoutTranslations().withDetailedObjectFormatter()
     }
 
     class ObjectFormatterBuilder(private val translator: ITranslator) {
