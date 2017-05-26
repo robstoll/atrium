@@ -4,4 +4,5 @@ data class TranslatableWithArgs(override val translatable: ITranslatable, overri
 
     constructor(translatable: ITranslatable, arg1: String) : this(translatable, listOf(arg1))
     constructor(translatable: ITranslatable, arg1: String, vararg arguments: String) : this(translatable, listOf(arg1, *arguments))
+
 }

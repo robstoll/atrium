@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.*
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.toBe
+import com.nhaarman.mockito_kotlin.doReturn
+import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.*
 import java.util.*
@@ -17,10 +17,12 @@ open class TranslatorSpec(
     fun testeeFactory(translationProvider: ITranslationProvider, locale: Locale, vararg fallbackLocals: Locale)
         = testeeFactory(translationProvider, locale, fallbackLocals)
 
-    fun createTranslationProviderReviser(locale: Locale, vararg translations: Pair<ITranslatable, String>): ITranslationProviderReviser
-        = AtriumFactory.newTranslationProviderReviser(EmptyTranslationProvider)
-        .add(locale, *translations)
-
+    fun mockTranslationProvider(locale: Locale, translations: Pair<ITranslatable, String>): ITranslationProvider {
+        val provider = mock<ITranslationProvider> {
+            on { get(locale) }.doReturn(mapOf(translations))
+        }
+        return provider
+    }
 
     val localeUK = Locale.UK
     val translatableTest = object : IEnTranslatable {
@@ -30,14 +32,14 @@ open class TranslatorSpec(
         override val value = "hello"
     }
 
-    fun SpecBody.checkUsesTranslatablesDefault(testee: ITranslator) {
+    fun SpecBody.checkUsesDefaultOfTranslatable(testee: ITranslator) {
         it("uses ${ITranslatable::class.simpleName}'s ${ITranslatable::getDefault.name}") {
             val result = testee.translate(translatableHello)
             verbs.checkImmediately(result).toBe(translatableHello.value)
         }
     }
 
-    fun SpecBody.checkTranslationSuccessfulForDesiredTranslatable(testee: ITranslator, translation: String, localeName: String){
+    fun SpecBody.checkTranslationSuccessfulForDesiredTranslatable(testee: ITranslator, translation: String, localeName: String) {
         context("but for the wrong ${ITranslatable::class.simpleName}") {
             it("uses ${ITranslatable::class.simpleName}'s ${ITranslatable::getDefault.name}") {
                 val result = testee.translate(translatableTest)
@@ -52,70 +54,96 @@ open class TranslatorSpec(
             }
         }
     }
+    val translationEn = "hi"
+    val providerWithEn = mockTranslationProvider(Locale.ENGLISH, translatableHello to translationEn)
+    val translationEnUk = "heya"
+    val providerWithEnUk = mockTranslationProvider(Locale.UK, translatableHello to translationEnUk)
+    val translationEnUs = "howdy"
+    val providerWithEnUs = mockTranslationProvider(Locale.US, translatableHello to translationEnUs)
 
+    val translationFr = "bonjour"
+    val providerWithFr = mockTranslationProvider(Locale.FRENCH, translatableHello to translationFr)
+    val translationFrFr = "salut"
+    val providerWithFrFr = mockTranslationProvider(Locale.FRANCE, translatableHello to translationFrFr)
 
-
-    describe("translating ${ITranslatable::class.simpleName} in $localeUK") {
+    describe("translating a ${ITranslatable::class.simpleName} to $localeUK without fallbacks") {
 
         context("no translations provided at all") {
             val testee = testeeFactory(EmptyTranslationProvider, localeUK)
-            checkUsesTranslatablesDefault(testee)
+            checkUsesDefaultOfTranslatable(testee)
         }
 
-        val translationFr = "bonjour"
-        val translationProvider = createTranslationProviderReviser(Locale.FRENCH, translatableHello to translationFr)
-        context("translation provided but for Locale fr without a fallback to it") {
-            val testee = testeeFactory(translationProvider, localeUK)
-            checkUsesTranslatablesDefault(testee)
+        context("translation provided for fr_FR") {
+            val testee = testeeFactory(providerWithFrFr, localeUK)
+            checkUsesDefaultOfTranslatable(testee)
         }
 
-        context("translation provided in Locale fr_CA and fallback to fr_FR defined") {
-            val testee = testeeFactory(translationProvider, localeUK, Locale.CANADA_FRENCH)
-            checkUsesTranslatablesDefault(testee)
+        context("translation provided for en_US") {
+            val testee = testeeFactory(providerWithEnUs, localeUK)
+            checkUsesDefaultOfTranslatable(testee)
         }
 
-        //TODO implement feature
-        xcontext("translation provided in Locale fr and fallback to fr_FR defined") {
-            val testee = testeeFactory(translationProvider, localeUK, Locale.FRANCE)
-            checkTranslationSuccessfulForDesiredTranslatable(testee, translationFr, "fr")
+        context("translation provided for en") {
+            val testee = testeeFactory(providerWithEn, localeUK)
+            checkTranslationSuccessfulForDesiredTranslatable(testee, translationEn, "en")
         }
 
-        context("translation provided in Locale fr and fallback to fr defined") {
+        context("translation provided for en_UK") {
+            val testee = testeeFactory(providerWithEnUk, localeUK)
+            checkTranslationSuccessfulForDesiredTranslatable(testee, translationEnUk, "en_GB")
+        }
+
+    }
+
+    describe("translating a ${ITranslatable::class.simpleName} to $localeUK with fallbacks"){
+
+        context("translation provided but for Locale fr_FR without a fallback to it") {
+            val testee = testeeFactory(providerWithFrFr, localeUK)
+            checkUsesDefaultOfTranslatable(testee)
+        }
+
+        context("translation provided in Locale fr_FR but fallback to fr_CA defined") {
+            val testee = testeeFactory(providerWithFrFr, localeUK, Locale.CANADA_FRENCH)
+            checkUsesDefaultOfTranslatable(testee)
+        }
+
+        context("translation provided in Locale fr_FR but fallback to fr defined") {
+            val testee = testeeFactory(providerWithFrFr, localeUK, Locale.FRENCH)
+            checkUsesDefaultOfTranslatable(testee)
+        }
+
+        context("translation provided in Locale fr and fallback to fr_FR defined") {
 
             context("as first fallback") {
-                val testee = testeeFactory(translationProvider, localeUK, Locale.FRENCH)
+                val testee = testeeFactory(providerWithFr, localeUK, Locale.FRANCE)
                 checkTranslationSuccessfulForDesiredTranslatable(testee, translationFr, "fr")
             }
             context("as second fallback") {
-                val testee = testeeFactory(translationProvider, localeUK, Locale.CANADA, Locale.FRENCH)
+                val testee = testeeFactory(providerWithFr, localeUK, Locale.CANADA, Locale.FRANCE)
                 checkTranslationSuccessfulForDesiredTranslatable(testee, translationFr, "fr")
             }
 
             context("as third fallback") {
-                val testee = testeeFactory(translationProvider, localeUK, Locale.CANADA, Locale.GERMAN, Locale.FRENCH)
+                val testee = testeeFactory(providerWithFr, localeUK, Locale.CANADA, Locale.GERMAN, Locale.FRANCE)
                 checkTranslationSuccessfulForDesiredTranslatable(testee, translationFr, "fr")
             }
         }
 
+        context("translation provided in Locale fr_FR and fallback to fr_FR defined") {
 
-        val translationEn = "howdy"
-        context("translation provided in Locale en_CA") {
-            val translationProviderEn = createTranslationProviderReviser(Locale.CANADA, translatableHello to translationEn)
-            val testee = testeeFactory(translationProviderEn, localeUK)
-            checkUsesTranslatablesDefault(testee)
-        }
+            context("as first fallback") {
+                val testee = testeeFactory(providerWithFr, localeUK, Locale.FRENCH)
+                checkTranslationSuccessfulForDesiredTranslatable(testee, translationFr, "fr_FR")
+            }
+            context("as second fallback") {
+                val testee = testeeFactory(providerWithFr, localeUK, Locale.CANADA, Locale.FRENCH)
+                checkTranslationSuccessfulForDesiredTranslatable(testee, translationFr, "fr_FR")
+            }
 
-        //TODO implement feature
-        xcontext("translation provided in Locale en") {
-            val translationProviderEn = createTranslationProviderReviser(Locale.ENGLISH, translatableHello to translationEn)
-            val testee = testeeFactory(translationProviderEn, localeUK)
-            checkTranslationSuccessfulForDesiredTranslatable(testee, translationEn, "en")
-        }
-
-        context("translation provided in Locale en_GB") {
-            val translationProviderEn = createTranslationProviderReviser(Locale.UK, translatableHello to translationEn)
-            val testee = testeeFactory(translationProviderEn, localeUK)
-            checkTranslationSuccessfulForDesiredTranslatable(testee, translationEn, "en_GB")
+            context("as third fallback") {
+                val testee = testeeFactory(providerWithFr, localeUK, Locale.CANADA, Locale.GERMAN, Locale.FRENCH)
+                checkTranslationSuccessfulForDesiredTranslatable(testee, translationFr, "fr_FR")
+            }
         }
     }
 

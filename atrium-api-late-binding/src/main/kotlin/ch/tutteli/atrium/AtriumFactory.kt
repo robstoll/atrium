@@ -6,10 +6,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslationProvider
-import ch.tutteli.atrium.reporting.translating.ITranslationProviderReviser
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 import kotlin.reflect.KClass
 
@@ -76,10 +73,6 @@ object AtriumFactory : IAtriumFactory {
         = newNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T> {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
-
-    override fun newTranslationProviderReviser(translationProvider: ITranslationProvider): ITranslationProviderReviser{
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
