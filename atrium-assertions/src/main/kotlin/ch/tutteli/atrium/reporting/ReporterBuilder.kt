@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 
@@ -19,10 +20,11 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
     companion object {
 
         /**
-         * Uses [UsingDefaultTranslator] which does not translate.
+         * Uses [UsingDefaultTranslator] which does not translate
+         * but uses the [ITranslatable]'s [getDefault][ITranslatable.getDefault].
          */
         fun withoutTranslations(): ObjectFormatterBuilder
-            = ObjectFormatterBuilder(UsingDefaultTranslator())
+            = ObjectFormatterBuilder(UsingDefaultTranslator)
 
         /**
          * Uses [UsingDefaultTranslator] as [ITranslator]

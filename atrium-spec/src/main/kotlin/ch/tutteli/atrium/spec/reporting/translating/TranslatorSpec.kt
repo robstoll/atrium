@@ -69,7 +69,7 @@ open class TranslatorSpec(
     describe("translating a ${ITranslatable::class.simpleName} to $localeUK without fallbacks") {
 
         context("no translations provided at all") {
-            val testee = testeeFactory(EmptyTranslationProvider, localeUK)
+            val testee = testeeFactory(mock<ITranslationProvider>(), localeUK)
             checkUsesDefaultOfTranslatable(testee)
         }
 
