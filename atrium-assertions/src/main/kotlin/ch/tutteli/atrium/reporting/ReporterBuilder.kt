@@ -2,8 +2,10 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslationProvider
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import java.util.*
 
 /**
  * A builder to create an [IReporter] consisting of an [IObjectFormatter] which is used by an
@@ -25,6 +27,13 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
          */
         fun withoutTranslations(): ObjectFormatterBuilder
             = ObjectFormatterBuilder(UsingDefaultTranslator)
+
+        /**
+         * Uses [AtriumFactory.newTranslator] with the given [translationProvider] and uses [locale] as primary
+         * [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
+         */
+        fun withTranslations(translationProvider: ITranslationProvider, locale: Locale, vararg fallbackLocales: Locale)
+            = ObjectFormatterBuilder(AtriumFactory.newTranslator(translationProvider, locale, *fallbackLocales))
 
         /**
          * Uses [UsingDefaultTranslator] as [ITranslator]

@@ -8,7 +8,6 @@ class Translator(
     private val locale: Locale,
     private val fallbackLocales: Array<out Locale>
 ) : ITranslator {
-    private val translations = ConcurrentHashMap<Locale, Map<ITranslatable, String>>()
     private val localeResolver = LocaleResolver()
 
     override fun translate(translatable: ITranslatable): String
@@ -22,23 +21,16 @@ class Translator(
 
     private fun getTranslationWithLocale(translatable: ITranslatable): TranslationWithLocale {
         return localeResolver.resolve(locale, fallbackLocales)
-            .map { createTranslationWithLocaleOrNull(getOrPut(it), translatable) }
+            .map { createTranslationWithLocaleOrNull(translationProvider.get(translatable, it), translatable) }
             .firstOrNull { it != null }
             ?: TranslationWithLocale(translatable.getDefault(), translatable.locale)
     }
 
-    private fun createTranslationWithLocaleOrNull(translations: Map<ITranslatable, String>, translatable: ITranslatable): TranslationWithLocale? {
-        val translation = translations[translatable]
+    private fun createTranslationWithLocaleOrNull(translation: String?, translatable: ITranslatable): TranslationWithLocale? {
         return if (translation != null) {
             TranslationWithLocale(translation, translatable.locale)
         } else {
             null
-        }
-    }
-
-    private fun getOrPut(locale: Locale): Map<ITranslatable, String> {
-        return translations.getOrPut(locale) {
-            translationProvider.get(locale)
         }
     }
 
