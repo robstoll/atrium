@@ -26,5 +26,12 @@ interface ITranslatable {
     /**
      * The id of this [ITranslatable] -- per default it is "[KClass.qualifiedName]-[name]"
      */
-    val id: String get() = this::class.qualifiedName + "-" + name
+    val id: String get() = this::class.qualifiedName + ID_SEPARATOR + name
+
+    companion object {
+        /**
+         * The separator used in [id] to separate [KClass.qualifiedName] and [name].
+         */
+        const val ID_SEPARATOR = "-"
+    }
 }
