@@ -14,5 +14,7 @@ interface ITranslatableWithArgs : ITranslatable {
     val arguments: List<String>
 
     override val locale get() = translatable.locale
-    override fun getDefault() = String.format(translatable.getDefault(), arguments.toTypedArray())
+    override val name get() = translatable.name
+    override val id get() = translatable::class.qualifiedName + name
+    override fun getDefault() = String.format(translatable.locale, translatable.getDefault(), arguments.toTypedArray())
 }

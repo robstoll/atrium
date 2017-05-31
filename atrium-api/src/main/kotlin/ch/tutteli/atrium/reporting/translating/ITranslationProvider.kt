@@ -8,11 +8,11 @@ import java.util.*
 interface ITranslationProvider {
 
     /**
-     * Returns all translations for the given [locale].
+     * Returns the translation for the given [translatable] for the given [locale].
      *
      * A translation provider should not cache translations itself.
      *
      * @return The translations.
      */
-    fun get(locale: Locale): Map<ITranslatable, String>
+    fun get(translatable: ITranslatable, locale: Locale): String?
 }
