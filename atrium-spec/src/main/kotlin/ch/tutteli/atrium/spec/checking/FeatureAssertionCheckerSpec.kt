@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.check
 import ch.tutteli.atrium.spec.setUp
@@ -23,7 +24,7 @@ open class FeatureAssertionCheckerSpec(
     assertions.add(object : IAssertion {
         override fun holds() = true
     })
-    val assertionVerb = "verb"
+    val assertionVerb = AssertionVerb.VERB
     val subject = 1
 
     describe("check") {

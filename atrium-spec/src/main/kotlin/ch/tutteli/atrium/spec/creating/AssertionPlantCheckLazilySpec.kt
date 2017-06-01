@@ -8,6 +8,7 @@ import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.message
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.setUp
@@ -20,7 +21,7 @@ open class AssertionPlantCheckLazilySpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int>) -> IAssertionPlant<Int>
 ) : Spek({
-    val assertionVerb = "myAssertionVerb"
+    val assertionVerb = AssertionVerb.VERB
     val subject = 10
     val assertionChecker = verbs.checkLazily(1, {}).commonFields.assertionChecker
     val testee = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker))

@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * An assertion plant which has [CommonFields]; provides the property [subject] for ease of use.
@@ -32,7 +33,7 @@ interface IAssertionPlantWithCommonFields<out T> {
      * @param assertionChecker The checker which will be used to check [IAssertion]s.
      *
      */
-    data class CommonFields<out T>(val assertionVerb: String, val subject: T, val assertionChecker: IAssertionChecker) {
+    data class CommonFields<out T>(val assertionVerb: ITranslatable, val subject: T, val assertionChecker: IAssertionChecker) {
 
         /**
          * Uses [assertionChecker] to check the given [assertions] (see [IAssertionChecker.check]).

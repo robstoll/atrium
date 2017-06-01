@@ -1,9 +1,11 @@
 package ch.tutteli.atrium.checking
 
+import ch.tutteli.atrium.AssertionVerb
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.OneMessageAssertion
 import ch.tutteli.atrium.expect
 import ch.tutteli.atrium.message
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.startsWith
 import com.nhaarman.mockito_kotlin.spy
 import com.nhaarman.mockito_kotlin.verify
@@ -13,7 +15,7 @@ import org.jetbrains.spek.api.dsl.it
 
 object IAssertionCheckerDelegateFailSpec : Spek({
 
-    val assertionVerb = "assertionVerb"
+    val assertionVerb = AssertionVerb.ASSERT
 
     val testee = spy<IAssertionCheckerDelegateFail>(Dummy())
     describe("fail") {
@@ -31,7 +33,7 @@ object IAssertionCheckerDelegateFailSpec : Spek({
     }
 }) {
     open class Dummy : IAssertionCheckerDelegateFail {
-        override fun check(assertionVerb: String, subject: Any, assertions: List<IAssertion>) {
+        override fun check(assertionVerb: ITranslatable, subject: Any, assertions: List<IAssertion>) {
             //do nothing
         }
     }

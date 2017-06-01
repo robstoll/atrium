@@ -7,6 +7,7 @@ import ch.tutteli.atrium.isEmpty
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
@@ -34,7 +35,7 @@ open class OnlyFailureReporterSpec(
             override val messages = listOf(Message(TO_BE, 0, true), Message(TO_BE, 0, true))
         }
         val assertionGroup = object : IAssertionGroup {
-            override val name = "groupName"
+            override val name = AssertionVerb.VERB
             override val subject = 0
             override val assertions = listOf(assertion, oneMessageAssertion, multiMessageAssertion)
         }

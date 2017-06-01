@@ -40,14 +40,14 @@ internal class SameLineAssertionFormatter(
 
     private fun formatGroup(assertionGroup: IAssertionGroup, methodObject: MethodObject) {
         methodObject.sb
-            .appendPair(assertionGroup.name, assertionGroup.subject)
+            .appendPair(translator.translate(assertionGroup.name), assertionGroup.subject)
             .appendln()
             .appendAssertions(assertionGroup.assertions, methodObject, { methodObject })
     }
 
     private fun formatFeature(featureAssertionGroup: IFeatureAssertionGroup, methodObject: MethodObject) {
         methodObject.sb
-            .appendPair("-> ${featureAssertionGroup.featureName}", featureAssertionGroup.feature)
+            .appendPair("-> " + translator.translate(featureAssertionGroup.featureName), featureAssertionGroup.feature)
             .appendln()
             .appendAssertions(featureAssertionGroup.assertions, methodObject, methodObject::newWithIncrementedMessageLevel)
     }

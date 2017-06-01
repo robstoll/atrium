@@ -5,6 +5,8 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT
+import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
 
 /**
@@ -15,7 +17,7 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  * @see AtriumFactory.newCheckImmediately
  */
 fun <T : Any> assertThat(subject: T)
-    = AtriumFactory.newCheckImmediately("assert that", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newCheckImmediately(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
 
 
 /**
@@ -26,7 +28,7 @@ fun <T : Any> assertThat(subject: T)
  * @see AtriumFactory.newNullable
  */
 fun <T : Any?> assertThat(subject: T)
-    = AtriumFactory.newNullable("assert that", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newNullable(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
@@ -36,7 +38,7 @@ fun <T : Any?> assertThat(subject: T)
  * @see AtriumFactory.newCheckLazilyAtTheEnd
  */
 inline fun <T : Any> assertThat(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newCheckLazilyAtTheEnd("assert that", subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [ThrowableFluent] for the given function [act].
@@ -44,4 +46,4 @@ inline fun <T : Any> assertThat(subject: T, createAssertions: IAssertionPlant<T>
  * @return The newly created [ThrowableFluent].
  */
 fun assertThat(act: () -> Unit)
-    = AtriumFactory.newThrowableFluent("assert that the thrown exception", act, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newThrowableFluent(ASSERT_THAT_THROWN, act, AtriumReporterSupplier.REPORTER)

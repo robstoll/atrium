@@ -7,6 +7,8 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
+import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.spec.creating.DownCastBuilderSpec
 import ch.tutteli.atrium.spec.inCaseOf
 import org.jetbrains.spek.api.Spek
@@ -15,16 +17,16 @@ import org.jetbrains.spek.api.dsl.it
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
 private fun <T : Any> assert(subject: T): IAssertionPlant<T>
-    = AtriumFactory.newCheckImmediately("assert", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 private inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T>
-    = AtriumFactory.newCheckLazilyAtTheEnd("assert", subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 private fun <T : Any?> assert(subject: T): IAssertionPlantNullable<T>
-    = AtriumFactory.newNullable("assert", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 private fun expect(act: () -> Unit): ThrowableFluent
-    = AtriumFactory.newThrowableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newThrowableFluent(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {

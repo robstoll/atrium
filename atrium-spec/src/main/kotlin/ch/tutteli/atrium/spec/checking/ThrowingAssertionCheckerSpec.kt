@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.startsWith
 import ch.tutteli.atrium.toBe
@@ -18,7 +19,7 @@ open class ThrowingAssertionCheckerSpec(
     testeeFactory: (IReporter) -> IAssertionChecker
 ) : Spek({
 
-    val assertionVerb = "assertionVerb"
+    val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
     val reporter = mock<IReporter> {
         on { format(any<StringBuilder>(), any<IAssertion>()) }.thenAnswer {
