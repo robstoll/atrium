@@ -37,7 +37,7 @@ fun <T> SpecBody.checkGenericNarrowingAssertion(
     immediate: (T.() -> Unit), lazy: (T.() -> Unit), vararg otherMethods: Pair<String, (T.() -> Unit)>) {
 
     group(description) {
-        mapOf("immediate" to immediate, "lazy" to lazy, *otherMethods).forEach { checkMethod, assertion ->
+        mapOf("immediate" to immediate, "lazy" to lazy, *otherMethods).forEach { (checkMethod, assertion) ->
             test("in case of $checkMethod evaluation") {
                 act(assertion)
             }

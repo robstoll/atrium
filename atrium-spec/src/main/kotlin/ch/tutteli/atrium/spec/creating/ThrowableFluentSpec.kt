@@ -7,7 +7,9 @@ import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.creating.ThrowableFluent.Translatable.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.message
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.toBe
@@ -18,7 +20,7 @@ import org.jetbrains.spek.api.dsl.context
 
 open class ThrowableFluentSpec(
     val verbs: IAssertionVerbFactory,
-    val testeeFactory: (assertionVerb: String, act: () -> Unit, IAssertionChecker) -> ThrowableFluent
+    val testeeFactory: (assertionVerb: ITranslatable, act: () -> Unit, IAssertionChecker) -> ThrowableFluent
 ) : Spek({
 
     fun SpecBody.checkToThrow(description: String,
@@ -28,7 +30,7 @@ open class ThrowableFluentSpec(
         checkGenericNarrowingAssertion(description, act, immediate, lazy)
     }
 
-    fun createThrowable(assertionVerb: String, throwable: Throwable?, checker: IAssertionChecker): ThrowableFluent {
+    fun createThrowable(assertionVerb: ITranslatable, throwable: Throwable?, checker: IAssertionChecker): ThrowableFluent {
         val act = {
             if (throwable != null) {
                 throw throwable
@@ -65,8 +67,8 @@ open class ThrowableFluentSpec(
         }.toThrowWithCheck()
     }, { toThrow<IllegalArgumentException>().and.message.toBe("hello") }, { toThrow<IllegalArgumentException> { and.message.toBe("hello") } })
 
-    val assertionVerb = "assertionVerb"
-    class CheckerAndFluent(var checker: IAssertionChecker = mock<IAssertionChecker>(), var fluent: ThrowableFluent = AtriumFactory.newThrowableFluent("dummy", {}, checker))
+    val assertionVerb = AssertionVerb.VERB
+    class CheckerAndFluent(var checker: IAssertionChecker = mock<IAssertionChecker>(), var fluent: ThrowableFluent = AtriumFactory.newThrowableFluent(AssertionVerb.VERB, {}, checker))
 
     context("dependencies") {
         group("in case the expected exception is thrown") {
@@ -97,7 +99,7 @@ open class ThrowableFluentSpec(
         fun setUpCheckerAndFluentThrowingAssertionError(checkerAndFluent: CheckerAndFluent, subject: Throwable?) {
             beforeEachTest {
                 checkerAndFluent.checker = mock<IAssertionChecker> {
-                    on { fail(any<String>(), any(), any<IAssertion>()) }.doThrow(assertionError)
+                    on { fail(any<ITranslatable>(), any(), any<IAssertion>()) }.doThrow(assertionError)
                 }
                 checkerAndFluent.fluent = createThrowable(assertionVerb, subject, checkerAndFluent.checker)
             }

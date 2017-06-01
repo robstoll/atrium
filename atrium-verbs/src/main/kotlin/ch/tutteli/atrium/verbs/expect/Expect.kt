@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
+import ch.tutteli.atrium.verbs.AssertionVerb.*
 
 /**
  * Creates an [IAssertionPlant] for [subject] which immediately evaluates [IAssertion]s.
@@ -15,7 +16,7 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  * @see AtriumFactory.newCheckImmediately
  */
 fun <T : Any> expect(subject: T)
-    = AtriumFactory.newCheckImmediately("expect", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newCheckImmediately(EXPECT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlantNullable] for [subject].
@@ -25,7 +26,7 @@ fun <T : Any> expect(subject: T)
  * @see AtriumFactory.newNullable
  */
 fun <T : Any?> expect(subject: T)
-    = AtriumFactory.newNullable("expect", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newNullable(EXPECT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
@@ -35,7 +36,7 @@ fun <T : Any?> expect(subject: T)
  * @see AtriumFactory.newCheckLazilyAtTheEnd
  */
 inline fun <T : Any> expect(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newCheckLazilyAtTheEnd("expect", subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AtriumFactory.newCheckLazilyAtTheEnd(EXPECT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [ThrowableFluent] for the given function [act].
@@ -43,4 +44,4 @@ inline fun <T : Any> expect(subject: T, createAssertions: IAssertionPlant<T>.() 
  * @return The newly created [ThrowableFluent].
  */
 fun expect(act: () -> Unit)
-    = AtriumFactory.newThrowableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newThrowableFluent(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)

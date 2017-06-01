@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+
 /**
  * The base interface for [IAssertion] groups, providing a default implementation for [IAssertion.holds]
  * which returns `true` if all its [assertions] hold.
@@ -8,7 +10,7 @@ interface IAssertionGroup : IAssertion {
     /**
      * The name of the group.
      */
-    val name: String
+    val name: ITranslatable
     /**
      * The subject for which the [assertions] are defined.
      */

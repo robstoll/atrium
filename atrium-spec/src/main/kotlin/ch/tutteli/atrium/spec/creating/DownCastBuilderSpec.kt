@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.DownCastBuilder
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.verbs.VerbSpec
@@ -130,17 +131,17 @@ open class DownCastBuilderSpec(
 
         group("in case the down-cast cannot be performed") {
             val assertionError = AssertionError()
-            val assertionVerb = "assert"
+            val assertionVerb = AssertionVerb.VERB
 
             it("uses the AssertionChecker to report a failure") {
                 val checker = mock<IAssertionChecker> {
-                    on { fail(any<String>(), any(), any<IAssertion>()) }.doThrow(assertionError)
+                    on { fail(any<ITranslatable>(), any(), any<IAssertion>()) }.doThrow(assertionError)
                 }
                 val testee = testeeFactory(IS_A, Int::class, CommonFields(assertionVerb, null, checker))
                 verbs.checkException {
                     testee.cast()
                 }.toThrow<AssertionError>().toBe(assertionError)
-                verify(checker).fail(any<String>(), any(), any<IAssertion>())
+                verify(checker).fail(any<ITranslatable>(), any(), any<IAssertion>())
             }
 
             it("throws an IllegalStateException, if reporting a failure does not throw an exception") {

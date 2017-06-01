@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.check
 import ch.tutteli.atrium.spec.setUp
@@ -29,7 +30,7 @@ open class AssertionPlantNullableSpec(
     }
 
     describe("subject is not null") {
-        val assertionVerb = "myAssertionVerb"
+        val assertionVerb = AssertionVerb.VERB
         val subject: Int? = 1
         val assertionChecker = verbs.checkNullable(subject).commonFields.assertionChecker
         val testee = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))

@@ -24,10 +24,10 @@ import kotlin.reflect.KClass
  */
 object AtriumFactory : IAtriumFactory {
 
-    override fun <T : Any> newCheckLazily(assertionVerb: String, subject: T, reporter: IReporter)
+    override fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, reporter: IReporter)
         = newCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
-    override fun <T : Any> newCheckLazily(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
+    override fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
         = newCheckLazily(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
@@ -51,24 +51,24 @@ object AtriumFactory : IAtriumFactory {
      * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
      *         created [IAssertion] does not hold.
      */
-    inline fun <T : Any> newCheckLazilyAtTheEnd(assertionVerb: String, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
+    inline fun <T : Any> newCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
         = AtriumFactory.newCheckLazily(assertionVerb, subject, reporter).createAssertionsAndCheckThem(createAssertions)
 
 
-    override fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlant<T>
+    override fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
         = newCheckImmediately(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
-    override fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
+    override fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
         = newCheckImmediately(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     override fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
         = AssertionPlantCheckImmediately(commonFields)
 
 
-    override fun <T : Any?> newNullable(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
+    override fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
         = newNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
-    override fun <T : Any?> newNullable(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
+    override fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
         = newNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
@@ -108,7 +108,7 @@ object AtriumFactory : IAtriumFactory {
      *
      * @see ThrowableFluent
      */
-    fun newThrowableFluent(assertionVerb: String, act: () -> Unit, reporter: IReporter): ThrowableFluent
+    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): ThrowableFluent
         = newThrowableFluent(assertionVerb, act, newThrowingAssertionChecker(reporter))
 
     /**
@@ -126,7 +126,7 @@ object AtriumFactory : IAtriumFactory {
      *
      * @see ThrowableFluent
      */
-    fun newThrowableFluent(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent
+    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent
         = ThrowableFluent.create(assertionVerb, act, assertionChecker)
 
     /**

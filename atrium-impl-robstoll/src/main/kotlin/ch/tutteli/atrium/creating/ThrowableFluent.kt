@@ -3,6 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.reporting.translating.IEnTranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import kotlin.reflect.KClass
 
 /**
@@ -20,7 +21,7 @@ import kotlin.reflect.KClass
  */
 class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>) {
 
-    private constructor(assertionVerb: String, throwable: Throwable?, assertionChecker: IAssertionChecker)
+    private constructor(assertionVerb: ITranslatable, throwable: Throwable?, assertionChecker: IAssertionChecker)
         : this(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, throwable, assertionChecker))
 
     /**
@@ -102,7 +103,7 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
          *
          * @return The newly created [ThrowableFluent].
          */
-        fun create(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {
+        fun create(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {
             var throwable: Throwable? = null
             try {
                 act()

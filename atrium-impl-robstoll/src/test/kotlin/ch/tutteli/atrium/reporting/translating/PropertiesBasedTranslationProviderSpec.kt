@@ -10,7 +10,7 @@ import org.jetbrains.spek.api.dsl.it
 abstract class PropertiesBasedTranslationProviderSpec(reporter: IReporter) : Spek({
 
     fun <T : Any> assert(subject: T)
-        = AtriumFactory.newCheckImmediately("assert", subject, reporter)
+        = AtriumFactory.newCheckImmediately(AssertionVerb.ASSERT, subject, reporter)
 
     describe("providing only the translation for ${DescriptionAnyAssertion::class.qualifiedName}") {
         context("making an assertion which fails and uses ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE}") {

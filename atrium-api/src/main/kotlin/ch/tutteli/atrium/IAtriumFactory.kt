@@ -38,7 +38,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckLazily(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlant<T>
+    fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
 
     /**
      * Creates an [IAssertionPlant] which does not check the created or
@@ -55,7 +55,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckLazily(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
+    fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
 
     /**
      * Creates an [IAssertionPlant] which does not check the created or
@@ -83,7 +83,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlant<T>
+    fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
 
     /**
      * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
@@ -99,7 +99,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
+    fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
 
     /**
      * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
@@ -126,7 +126,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newNullable(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
+    fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
 
     /**
      * Creates an [IAssertionPlantNullable].
@@ -142,7 +142,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newNullable(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
+    fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
 
     /**
      * Creates an [IAssertionPlantNullable].
