@@ -95,5 +95,4 @@ private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForF
 enum class DescriptionNarrowingAssertion(override val value: String) : IEnTranslatable {
     IS_NOT_NULL("is not"),
     IS_A("is type or sub-type of"),
-    ;
 }

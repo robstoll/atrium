@@ -9,5 +9,4 @@ enum class AssertionVerb(override val value: String) : IEnTranslatable {
     ASSERT_THAT_THROWN("assert that the thrown exception"),
     EXPECT("expect"),
     EXPECT_THROWN("expect the thrown exception"),
-    ;
 }

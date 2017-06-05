@@ -27,5 +27,4 @@ fun <T : Collection<*>> IAssertionPlant<T>.isEmpty()
 enum class DescriptionCollectionAssertion(override val value: String) : IEnTranslatable {
     HAS_SIZE("has size"),
     IS_EMPTY("is"),
-    ;
 }

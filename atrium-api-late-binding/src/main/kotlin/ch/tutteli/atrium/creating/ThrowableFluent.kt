@@ -91,6 +91,5 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
     enum class Translatable(override val value: String) : IEnTranslatable {
         IS_A("is a"),
         NO_EXCEPTION_OCCURRED("no exception occurred"),
-        ;
     }
 }
