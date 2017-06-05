@@ -11,7 +11,7 @@ interface ITranslatableWithArgs : ITranslatable {
     /**
      * The arguments.
      */
-    val arguments: List<String>
+    val arguments: List<CharSequence>
 
     override val locale get() = translatable.locale
     override val name get() = translatable.name
