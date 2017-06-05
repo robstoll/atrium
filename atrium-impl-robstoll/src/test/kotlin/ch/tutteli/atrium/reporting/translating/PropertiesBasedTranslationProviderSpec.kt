@@ -27,11 +27,11 @@ abstract class PropertiesBasedTranslationProviderSpec(reporter: IReporter) : Spe
                 }.toThrow<AssertionError>().and.message.contains("ischa nid: 1")
             }
         }
-        context("making an assertion which fails and uses ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_SMALLER_THAN}") {
-            it("throws an AssertionError which message contains the default of ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_SMALLER_THAN}") {
+        context("making an assertion which fails and uses ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_THAN}") {
+            it("throws an AssertionError which message contains the default of ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_THAN}") {
                 expect {
-                    assert(1).isSmallerThan(1)
-                }.toThrow<AssertionError>().and.message.contains("${DescriptionNumberAssertion.IS_SMALLER_THAN.getDefault()}: 1")
+                    assert(1).isLessThan(1)
+                }.toThrow<AssertionError>().and.message.contains("${DescriptionNumberAssertion.IS_LESS_THAN.getDefault()}: 1")
             }
         }
     }
