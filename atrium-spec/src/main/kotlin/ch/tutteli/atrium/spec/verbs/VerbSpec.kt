@@ -52,11 +52,11 @@ open class VerbSpec(
         }
         it("throws an AssertionError as soon as one assertion fails") {
             expect {
-                assertionVerb(1).isSmallerOrEquals(10).and.isSmallerOrEquals(0).and.isGreaterOrEquals(2)
+                assertionVerb(1).isLessOrEquals(10).and.isLessOrEquals(0).and.isGreaterOrEquals(2)
             }.toThrow<AssertionError> {
                 assert(subject.message).isNotNull {
                     contains(": 1")
-                    contains("${IS_SMALLER_OR_EQUALS.getDefault()}: 0")
+                    contains("${IS_LESS_OR_EQUALS.getDefault()}: 0")
                     containsNot("${IS_GREATER_OR_EQUALS.getDefault()}: 2")
                 }
             }
@@ -75,12 +75,12 @@ open class VerbSpec(
         it("evaluates all assertions and then throws an AssertionError") {
             expect {
                 assertionVerb(1) {
-                    isSmallerThan(0)
+                    isLessThan(0)
                     isGreaterThan(2)
                 }
             }.toThrow<AssertionError>().and.message {
                 contains(": 1")
-                contains("${IS_SMALLER_THAN.getDefault()}: 0")
+                contains("${IS_LESS_THAN.getDefault()}: 0")
                 contains("${IS_GREATER_THAN.getDefault()}: 2")
             }
         }

@@ -6,8 +6,8 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.DownCastBuilder
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
-import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
@@ -44,18 +44,17 @@ open class DownCastBuilderSpec(
              */
             it("lazy evaluates additional defined assertions (${DownCastBuilder<Int, Int>::withLazyAssertions.name}) "
                 + "which means, if all of them fail then the message contains all failing assertions") {
-                val smaller = 0
+                val less = 0
                 val greater = 20
                 verbs.checkException {
                     testee.withLazyAssertions {
-                        isSmallerThan(smaller)
+                        isLessThan(less)
                         isGreaterThan(greater)
                     }.cast()
                 }.toThrow<AssertionError> {
                     and.message {
-                        contains("assert: $subject") //the actual value
-                        contains("is smaller than: $smaller") //the expected value
-                        contains("is greater than: $greater") //the second expected value
+                        contains(DescriptionNumberAssertion.IS_LESS_THAN.getDefault() + ": " + less) //the expected value
+                        contains(DescriptionNumberAssertion.IS_GREATER_THAN.getDefault() + ": " + greater) //the second expected value
                     }
                 }
             }
@@ -103,7 +102,7 @@ open class DownCastBuilderSpec(
         inCaseOf("additional assertions have been defined") {
             val expectFluent = verbs.checkException {
                 testee.withLazyAssertions {
-                    isSmallerThan(0)
+                    isLessThan(0)
                 }
                 testee.cast()
             }
@@ -111,7 +110,7 @@ open class DownCastBuilderSpec(
                 expectFluent.toThrow<AssertionError>()
             }
             it("does not contain additional failing assertions in the error message") {
-                expectFluent.toThrow<AssertionError>().and.message.containsNot(DescriptionNumberAssertion.IS_SMALLER_THAN)
+                expectFluent.toThrow<AssertionError>().and.message.containsNot(DescriptionNumberAssertion.IS_LESS_THAN)
             }
         }
         inCaseOf("nothing in addition was defined (just cast is called)") {

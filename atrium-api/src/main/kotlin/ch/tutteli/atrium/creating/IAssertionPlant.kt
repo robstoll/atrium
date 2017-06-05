@@ -16,7 +16,7 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
      * Creates an [IAssertion] based on [description], [expected] and [test] and [adds][addAssertion] it
      * to the plant.
      *
-     * @param description The description of the assertion, e.g., `is smaller than`.
+     * @param description The description of the assertion, e.g., `is less than`.
      * @param expected The expected value, e.g., `5`
      * @param test Indicates whether the assertion holds or fails.
      *
@@ -55,7 +55,7 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
     /**
      * Can be used to separate assertions when using the fluent-style API.
      *
-     * For instance, `assert(1).isSmallerThan(2).and.isGreaterThan(0)`
+     * For instance, `assert(1).isLessThan(2).and.isGreaterThan(0)`
      *
      * @return This plant to support a fluent-style API.
      */
