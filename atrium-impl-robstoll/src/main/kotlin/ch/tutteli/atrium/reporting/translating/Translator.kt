@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.reporting.translating
 
 import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 
 class Translator(
-    private val translationProvider: ITranslationProvider,
+    private val translationSupplier: ITranslationSupplier,
     private val locale: Locale,
     private val fallbackLocales: Array<out Locale>
 ) : ITranslator {
@@ -21,7 +20,7 @@ class Translator(
 
     private fun getTranslationWithLocale(translatable: ITranslatable): TranslationWithLocale {
         return localeResolver.resolve(locale, fallbackLocales)
-            .map { createTranslationWithLocaleOrNull(translationProvider.get(translatable, it), translatable) }
+            .map { createTranslationWithLocaleOrNull(translationSupplier.get(translatable, it), translatable) }
             .firstOrNull { it != null }
             ?: TranslationWithLocale(translatable.getDefault(), translatable.locale)
     }

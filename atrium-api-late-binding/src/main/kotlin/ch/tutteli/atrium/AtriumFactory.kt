@@ -76,7 +76,7 @@ object AtriumFactory : IAtriumFactory {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    override fun newTranslator(translationProvider: ITranslationProvider, locale: Locale, vararg fallbackLocales: Locale): ITranslator {
+    override fun newTranslator(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocales: Locale): ITranslator {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
