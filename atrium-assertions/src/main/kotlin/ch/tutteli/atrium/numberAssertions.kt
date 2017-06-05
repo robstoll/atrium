@@ -44,5 +44,4 @@ enum class DescriptionNumberAssertion(override val value: String) : IEnTranslata
     IS_LESS_OR_EQUALS("is less or equals"),
     IS_GREATER_THAN("is greater than"),
     IS_GREATER_OR_EQUALS("is greater or equals"),
-    ;
 }

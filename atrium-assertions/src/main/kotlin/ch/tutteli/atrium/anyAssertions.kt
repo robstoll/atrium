@@ -80,5 +80,4 @@ enum class DescriptionAnyAssertion(override val value: String) : IEnTranslatable
     NOT_TO_BE("not to be"),
     IS_SAME("is the same as"),
     IS_NOT_SAME("is not the same as"),
-    ;
 }

@@ -6,5 +6,4 @@ internal enum class AssertionVerb(override val value: String) : IEnTranslatable 
     VERB("verb"),
     ASSERT("assert"),
     EXPECT_THROWN("expect the thrown exception"),
-    ;
 }

@@ -22,7 +22,6 @@ internal fun expect(act: () -> Unit)
 internal enum class AssertionVerb(override val value: String) : IEnTranslatable {
     ASSERT("assert"),
     EXPECT_THROWN("expect the thrown exception"),
-    ;
 }
 
 internal object AtriumReporterSupplier {

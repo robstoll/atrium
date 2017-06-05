@@ -171,5 +171,4 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : IEnTra
     ENDS_NOT_WITH("does not end with"),
     IS_EMPTY("is"),
     IS_NOT_EMPTY("is not"),
-    ;
 }

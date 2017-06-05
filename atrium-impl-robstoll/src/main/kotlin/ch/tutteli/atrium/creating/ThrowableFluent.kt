@@ -93,7 +93,6 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
     enum class Translatable(override val value: String) : IEnTranslatable {
         IS_A("is a"),
         NO_EXCEPTION_OCCURRED("no exception occurred"),
-        ;
     }
 
     companion object {
