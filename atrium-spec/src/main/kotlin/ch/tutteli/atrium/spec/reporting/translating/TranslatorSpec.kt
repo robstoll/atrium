@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.reporting.translating.IEnTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslationProvider
+import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.toBe
@@ -17,14 +17,14 @@ import java.util.*
 
 open class TranslatorSpec(
     val verbs: IAssertionVerbFactory,
-    val testeeFactory: (translationProvider: ITranslationProvider, locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator
+    val testeeFactory: (translationSupplier: ITranslationSupplier, locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator
 ) : Spek({
 
-    fun testeeFactory(translationProvider: ITranslationProvider, locale: Locale, vararg fallbackLocals: Locale)
-        = testeeFactory(translationProvider, locale, fallbackLocals)
+    fun testeeFactory(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)
+        = testeeFactory(translationSupplier, locale, fallbackLocals)
 
-    fun mockTranslationProvider(locale: Locale, translatable: ITranslatable, translation: String): ITranslationProvider {
-        val provider = mock<ITranslationProvider> {
+    fun mockTranslationProvider(locale: Locale, translatable: ITranslatable, translation: String): ITranslationSupplier {
+        val provider = mock<ITranslationSupplier> {
             on { get(translatable, locale) }.doReturn(translation)
         }
         return provider
@@ -78,7 +78,7 @@ open class TranslatorSpec(
     describe("translating a ${ITranslatable::class.simpleName} to $localeUK without fallbacks") {
 
         context("no translations provided at all") {
-            val testee = testeeFactory(mock<ITranslationProvider>(), localeUK)
+            val testee = testeeFactory(mock<ITranslationSupplier>(), localeUK)
             checkUsesDefaultOfTranslatable(testee)
         }
 

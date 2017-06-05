@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting.translating
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-abstract class PropertiesBasedTranslationProvider<in T> : ITranslationProvider {
+abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
     private val translations = ConcurrentHashMap<T, Map<String, String>>()
 
     /**

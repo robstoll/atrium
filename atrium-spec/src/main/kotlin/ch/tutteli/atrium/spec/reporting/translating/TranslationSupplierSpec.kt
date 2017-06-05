@@ -27,7 +27,7 @@ import org.jetbrains.spek.api.dsl.it
  * the Locale it:
  * ch.tutteli.atrium.DescriptionNumberAssertion-IS_LESS_THAN = è meno di
  */
-abstract class TranslationProviderSpec(
+abstract class TranslationSupplierSpec(
     verbs: IAssertionVerbFactory,
     reporter: IReporter
 ) : Spek({

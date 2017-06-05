@@ -161,16 +161,16 @@ interface IAtriumFactory {
      *
      * In case neither a translation exists for any [fallbackLocales] then it uses
      * [ITranslatable]'s [getDefault][ITranslatable.getDefault].
-     * It uses the given [translationProvider] to retrieve all available translations.
+     * It uses the given [translationSupplier] to retrieve all available translations.
      *
-     * @param translationProvider Provides the translations for
+     * @param translationSupplier Provides the translations for
      * @param locale The [Locale] to which the translator translates per default.
      * @param [fallbackLocales] Used in case a translation for a given [ITranslatable] is not defined for [locale]
      *        -- the fallbacks are used in the given order.
      *
      * @return The newly created translator.
      */
-    fun newTranslator(translationProvider: ITranslationProvider, locale: Locale, vararg fallbackLocales: Locale): ITranslator
+    fun newTranslator(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocales: Locale): ITranslator
 
     /**
      * Creates an [IObjectFormatter] which represents objects by using their [Object.toString] representation
