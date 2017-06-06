@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
-import ch.tutteli.atrium.creating.ThrowableFluent.Translatable.NO_EXCEPTION_OCCURRED
+import ch.tutteli.atrium.creating.ThrowableFluent.AssertionDescription.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
@@ -46,7 +46,7 @@ open class ThrowableFluentSpec(
                 /* no exception occurs */
             }.doToThrow()
         }.toThrow<AssertionError>().and.message {
-            contains(NO_EXCEPTION_OCCURRED, ThrowableFluent.Translatable.IS_A)
+            contains(NO_EXCEPTION_OCCURRED, ThrowableFluent.AssertionDescription.IS_A)
             contains(IllegalArgumentException::class.java.name)
         }
     }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })

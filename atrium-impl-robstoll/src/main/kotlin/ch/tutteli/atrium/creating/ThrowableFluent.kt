@@ -53,8 +53,8 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder(Translatable.IS_A, expectedType, commonFields)
-        .withNullRepresentation(Translatable.NO_EXCEPTION_OCCURRED)
+        = AtriumFactory.newDownCastBuilder(AssertionDescription.IS_A, expectedType, commonFields)
+        .withNullRepresentation(AssertionDescription.NO_EXCEPTION_OCCURRED)
         .cast()
 
     /**
@@ -85,12 +85,12 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder(Translatable.IS_A, expectedType, commonFields)
-        .withNullRepresentation(Translatable.NO_EXCEPTION_OCCURRED)
+        = AtriumFactory.newDownCastBuilder(AssertionDescription.IS_A, expectedType, commonFields)
+        .withNullRepresentation(AssertionDescription.NO_EXCEPTION_OCCURRED)
         .withLazyAssertions(createAssertions)
         .cast()
 
-    enum class Translatable(override val value: String) : IEnTranslatable {
+    enum class AssertionDescription(override val value: String) : IEnTranslatable {
         IS_A("is a"),
         NO_EXCEPTION_OCCURRED("no exception occurred"),
     }
