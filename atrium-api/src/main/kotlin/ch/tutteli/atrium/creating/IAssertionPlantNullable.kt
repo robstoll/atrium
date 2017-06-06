@@ -26,7 +26,7 @@ interface IAssertionPlantNullable<out T : Any?> : IAssertionPlantWithCommonField
     /**
      * Use this description in an implementation to create an [IOneMessageAssertion].
      */
-    object Description : IEnTranslatable {
+    object AssertionDescription : IEnTranslatable {
         override val name = "IAssertionPlantNullable.Description"
         override val value = "to be"
     }

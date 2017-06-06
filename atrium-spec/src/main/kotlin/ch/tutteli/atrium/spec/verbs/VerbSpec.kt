@@ -117,7 +117,7 @@ open class VerbSpec(
                         throw IllegalArgumentException()
                     }).toThrow<UnsupportedOperationException>()
                 }.toThrow<AssertionError>().and.message {
-                    contains(ThrowableFluent.Translatable.IS_A)
+                    contains(ThrowableFluent.AssertionDescription.IS_A)
                     contains(IllegalArgumentException::class.java.name,
                         UnsupportedOperationException::class.java.name)
                 }

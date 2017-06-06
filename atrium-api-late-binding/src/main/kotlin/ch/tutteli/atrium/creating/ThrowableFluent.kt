@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.IEnTranslatable
 import kotlin.reflect.KClass
 
@@ -61,8 +62,6 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
      * that it is of the expected type [TExpected] and reports an error if subject is null or another type
      * than the expected one -- furthermore it [createAssertions] which are checked additionally as well.
      *
-     * @param expectedType The expected type of the thrown [Throwable].
-     *
      * @return This builder to support a fluent-style API.
      *
      * @throws AssertionError Might throw an [AssertionError] if an assertion fails.
@@ -88,7 +87,7 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
             "meaning as a substitute for a real implementation - ThrowableFluent was used")
     }
 
-    enum class Translatable(override val value: String) : IEnTranslatable {
+    enum class AssertionDescription(override val value: String) : IEnTranslatable {
         IS_A("is a"),
         NO_EXCEPTION_OCCURRED("no exception occurred"),
     }
