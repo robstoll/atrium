@@ -16,7 +16,7 @@ import java.util.*
 class PropertiesPerEntityAndLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<String>() {
 
     override fun get(translatable: ITranslatable, locale: Locale): String? {
-        val qualifiedName = translatable::class.qualifiedName!!
+        val qualifiedName = translatable::class.java.name
         val key = if (locale != Locale.ROOT) {
             //using _ here to be compatible with ResourceBundle
             qualifiedName + "_" + locale.toString()

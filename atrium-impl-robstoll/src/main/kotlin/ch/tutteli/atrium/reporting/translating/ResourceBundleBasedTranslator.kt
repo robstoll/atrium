@@ -24,7 +24,7 @@ class ResourceBundleBasedTranslator private constructor(
 
     override fun translate(translatable: ITranslatable): String {
         try {
-            val bundle = ResourceBundle.getBundle(translatable::class.qualifiedName, locale, resourceBundleControl)
+            val bundle = ResourceBundle.getBundle(translatable::class.java.name, locale, resourceBundleControl)
             return bundle.getString(translatable.name)
         } catch(ex: MissingResourceException) {
             return translatable.getDefault()
