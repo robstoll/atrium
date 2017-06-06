@@ -10,7 +10,7 @@ import java.util.*
 
 class LocaleResolverSpec : Spek({
     val verbs: IAssertionVerbFactory = AssertionVerbFactory
-    val testee = LocaleResolver()
+    val testee = LocaleOrderDecider()
 
 
     val variantA = "VariantA"
