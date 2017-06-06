@@ -7,7 +7,7 @@ class Translator(
     private val locale: Locale,
     private val fallbackLocales: Array<out Locale>
 ) : ITranslator {
-    private val localeResolver = LocaleResolver()
+    private val localeResolver = LocaleOrderDecider()
 
     override fun translate(translatable: ITranslatable): String
         = getTranslationWithLocale(translatable).translation

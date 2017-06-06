@@ -10,7 +10,7 @@ import kotlin.coroutines.experimental.buildSequence
  *
  * Adopted from [ResourceBundle.getCandidateLocales].
  */
-class LocaleResolver : ILocaleResolver {
+class LocaleOrderDecider : ILocaleOrderDecider {
     override fun resolve(locale: Locale, fallbackLocales: Array<out Locale>) = buildSequence {
         suspendedResolve(locale, fallbackLocales)
     }
