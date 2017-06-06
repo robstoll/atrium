@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.*
+import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
@@ -14,6 +16,7 @@ import org.jetbrains.spek.api.dsl.it
  *
  * the primary local: de_CH
  * ch.tutteli.atrium.DescriptionAnyAssertion-TO_BE = ist
+ * ch.tutteli.atrium.creating.IAssertionPlantNullable.AssertionDescription-TO_BE = ist
  *
  * the primary Locale's natural first fallback: de
  * ch.tutteli.atrium.DescriptionAnyAssertion-NOT_TO_BE = ist nicht
@@ -35,6 +38,9 @@ abstract class TranslationSupplierSpec(
     fun <T : Any> assert(subject: T)
         = AtriumFactory.newCheckImmediately(AssertionVerb.ASSERT, subject, reporter)
 
+    fun <T : Any?> assert(subject: T)
+        = AtriumFactory.newNullable(AssertionVerb.ASSERT, subject, reporter)
+
     describe("primary locale is 'de_CH' and fallback is 'fr'") {
 
         describe("translation for ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} is provided for 'de_CH'") {
@@ -42,6 +48,15 @@ abstract class TranslationSupplierSpec(
                 verbs.checkException {
                     assert(1).toBe(2)
                 }.toThrow<AssertionError>().and.message.contains("ist: 2")
+            }
+        }
+
+        describe("translation for ${IAssertionPlantNullable.AssertionDescription::class.simpleName}.${IAssertionPlantNullable.AssertionDescription.name} is provided for 'de_CH'") {
+            it("a failing assertion contains 'ist' instead of 'to be' in the error message") {
+                verbs.checkException {
+                    val a : Int? = 1
+                    assert(a).isNull()
+                }.toThrow<AssertionError>().and.message.contains("ist: ${RawString.NULL.string}")
             }
         }
 

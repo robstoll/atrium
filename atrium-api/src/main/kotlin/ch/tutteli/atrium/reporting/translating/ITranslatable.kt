@@ -14,7 +14,7 @@ interface ITranslatable {
     fun getDefault(): String
 
     /**
-     * The name of this [ITranslatable] -- the name together with its [KClass.qualifiedName] should identify a [ITranslatable] (see [id]).
+     * The name of this [ITranslatable] -- the name together with its [Class.name] should identify a [ITranslatable] (see [id]).
      */
     val name: String
 
@@ -24,9 +24,9 @@ interface ITranslatable {
     val locale: Locale
 
     /**
-     * The id of this [ITranslatable] -- per default it is "[KClass.qualifiedName]-[name]"
+     * The id of this [ITranslatable] -- per default it is "[Class.name]-[name]"
      */
-    val id: String get() = this::class.qualifiedName + ID_SEPARATOR + name
+    val id: String get() = this::class.java.name + ID_SEPARATOR + name
 
     companion object {
         /**
