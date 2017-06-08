@@ -2,6 +2,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.kbox.appendToStringBuilder
 
 /**
@@ -15,6 +16,13 @@ import ch.tutteli.kbox.appendToStringBuilder
  * and the following [Message] types:
  * - [IOneMessageAssertion]
  * - [IMultiMessageAssertion]
+ *
+ * @property objectFormatter Used to format objects such as [Message.representation].
+ * @property translator Used to translate [ITranslatable]s such as [Message.description].
+ *
+ * @constructor
+ * @param objectFormatter Used to format objects such as [Message.representation].
+ * @param translator Used to translate [ITranslatable]s such as [Message.description].
  */
 internal class SameLineAssertionFormatter(
     private val objectFormatter: IObjectFormatter,

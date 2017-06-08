@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * Represent a group of [IAssertion]s identified by a [name] and an associated [subject].
+ * Represents a group of [IAssertion]s identified by a [name] and an associated [subject].
  *
  * @constructor
  * @param name The name of the group.

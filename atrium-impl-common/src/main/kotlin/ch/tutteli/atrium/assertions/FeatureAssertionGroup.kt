@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * Represent a group of [IAssertion] identified by a [featureName] and a belonging [feature].
+ * Represents a group of [IAssertion] identified by a [featureName] and a belonging [feature].
  *
  * @constructor
  * @param featureName The name of the feature.

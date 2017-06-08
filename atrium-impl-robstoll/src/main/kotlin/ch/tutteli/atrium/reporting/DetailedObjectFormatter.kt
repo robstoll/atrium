@@ -10,6 +10,11 @@ import ch.tutteli.atrium.reporting.translating.TranslatableRawString
  * and [toString] does not distinguish two compared objects.
  * Consider the following error message "error, assert: 1 to be 1" would not be very helpful.
  * "error, assert: 1 (Int <123>) to be 1 (Double <456>)" on the other hand is helpful.
+ *
+ * @property translator The [ITranslator] used to translate [TranslatableRawString]s.
+ *
+ * @constructor
+ * @param translator The [ITranslator] used to translate [TranslatableRawString]s.
  */
 internal class DetailedObjectFormatter(private val translator: ITranslator) : IObjectFormatter {
 

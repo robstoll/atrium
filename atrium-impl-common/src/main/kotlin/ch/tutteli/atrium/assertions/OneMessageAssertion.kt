@@ -13,6 +13,8 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 class OneMessageAssertion(description: ITranslatable, representation: Any, check: () -> Boolean) : IOneMessageAssertion {
 
     /**
+     * Constructor overload without a lazy [Message.holds].
+     *
      * @param description The [Message.description].
      * @param representation The [Message.representation].
      * @param holds The [Message.holds].

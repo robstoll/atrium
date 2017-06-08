@@ -10,7 +10,7 @@ interface ITranslationSupplier {
     /**
      * Returns the translation for the given [translatable] for the given [locale].
      *
-     * @return The translations.
+     * @return The translation or null if no translation was found.
      */
     fun get(translatable: ITranslatable, locale: Locale): String?
 }

@@ -8,7 +8,7 @@ import java.util.*
  *
  * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
  * stored in a properties file named `DescriptionAnyAssertion_de_CH.properties` in the folder `/ch/tutteli/atrium/`
- * (compatible with the behaviour of [ResourceBundle]).
+ * (compatible with the behaviour of [ResourceBundle] - thus properties files should also use ISO-8859-1 as encoding).
  *
  * An entry in such a file would look like as follows:
  * `TO_BE = a translation for TO_BE`

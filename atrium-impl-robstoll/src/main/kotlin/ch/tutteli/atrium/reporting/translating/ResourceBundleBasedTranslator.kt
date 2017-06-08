@@ -17,11 +17,23 @@ import java.util.*
  *
  * An entry in such a file would look like as follows:
  * `TO_BE = a translation for TO_BE`
+ *
+ * @property resourceBundleControl The [ResourceBundle.Control] which inter alia defines the order in which
+ *                                 fallback [Locale]s are processed.
+ *
+ * @constructor
+ * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
+ *                      which will be used in [java.lang.String.format], which in turn is used to substitute the
+ *                      placeholders in the resulting translation of [ITranslatableWithArgs.translatable] with
+ *                      the [ITranslatableWithArgs.arguments].
+ * @param resourceBundleControl The [ResourceBundle.Control] which inter alia defines the order in which
+ *                              fallback [Locale]s are processed.
  */
 class ResourceBundleBasedTranslator private constructor(
     primaryLocale: Locale,
     private val resourceBundleControl: ResourceBundle.Control
 ) : ArgumentsSupportingTranslator(primaryLocale) {
+
     override fun translateWithoutArgs(translatable: ITranslatable): String {
         try {
             val bundle = ResourceBundle.getBundle(translatable::class.java.name, primaryLocale, resourceBundleControl)
@@ -32,13 +44,24 @@ class ResourceBundleBasedTranslator private constructor(
     }
 
     companion object {
-        fun create(locale: Locale, vararg fallbackLocales: Locale): ResourceBundleBasedTranslator {
+        /**
+         * Creates a [ResourceBundleBasedTranslator] and aggregates it with a [ResourceBundle.Control] which either
+         * makes use of the given [fallbackLocales] if provided or uses only the given [primaryLocale].
+         *
+         * @param primaryLocale The primary [Locale] which will be used in [java.lang.String.format] to substitute the
+         *                      placeholders in the resulting translation of [ITranslatableWithArgs.translatable] with
+         *                      the [ITranslatableWithArgs.arguments].
+         * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
+         *                          [primaryLocale] or one of its secondary alternatives -- the fallbacks are used
+         *                          in the given order.
+         */
+        fun create(primaryLocale: Locale, vararg fallbackLocales: Locale): ResourceBundleBasedTranslator {
             val control = if (fallbackLocales.isEmpty()) {
                 ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
             } else {
-                FallbackResourceBundleControl(listOf(locale, *fallbackLocales))
+                FallbackResourceBundleControl(listOf(primaryLocale, *fallbackLocales))
             }
-            return ResourceBundleBasedTranslator(locale, control)
+            return ResourceBundleBasedTranslator(primaryLocale, control)
         }
     }
 

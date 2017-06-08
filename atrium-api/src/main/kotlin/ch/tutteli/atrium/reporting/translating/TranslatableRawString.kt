@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.IRawString
  * @property translatable The [ITranslatable] who's translation should be treated as raw [String].
  *
  * @constructor
- * @param translatable The [ITranslatable] who's translation should be treated as raw [String]..
+ * @param translatable The [ITranslatable] who's translation should be treated as raw [String].
  *
  */
 data class TranslatableRawString(val translatable: ITranslatable) : IRawString {
