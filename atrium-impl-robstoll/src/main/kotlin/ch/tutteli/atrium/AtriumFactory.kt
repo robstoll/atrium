@@ -74,8 +74,8 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
         = AssertionPlantNullable(commonFields)
 
-    override fun newTranslator(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocales: Locale): ITranslator
-        = Translator(translationSupplier, locale, fallbackLocales)
+    override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+        = Translator(translationSupplier, primaryLocale, fallbackLocales)
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
         = DetailedObjectFormatter(translator)

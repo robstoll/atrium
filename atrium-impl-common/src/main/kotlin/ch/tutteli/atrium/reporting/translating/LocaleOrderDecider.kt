@@ -8,11 +8,13 @@ import kotlin.coroutines.experimental.buildSequence
 /**
  * Responsible to determine in which order [Locale]s should be processed.
  *
- * Adopted from [ResourceBundle.Control.getCandidateLocales].
+ * Adopted from [ResourceBundle.Control.getCandidateLocales] and [ResourceBundle.Control.getFallbackLocale]
+ * but allows to define more than one fallback [Locale] and does not use [Locale.getDefault] implicitly
+ * (one can define it explicitly as fallback [Locale] though).
  */
 class LocaleOrderDecider : ILocaleOrderDecider {
-    override fun determineOrder(locale: Locale, fallbackLocales: Array<out Locale>) = buildSequence {
-        suspendedResolve(locale, fallbackLocales)
+    override fun determineOrder(primaryLocale: Locale, fallbackLocales: Array<out Locale>) = buildSequence {
+        suspendedResolve(primaryLocale, fallbackLocales)
     }
 
     private suspend fun SequenceBuilder<Locale>.suspendedResolve(locale: Locale, fallbackLocales: Array<out Locale>) {
