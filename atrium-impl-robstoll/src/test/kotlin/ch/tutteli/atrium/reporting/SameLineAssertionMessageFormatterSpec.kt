@@ -17,7 +17,7 @@ object SameLineAssertionMessageFormatterSpec : Spek({
     include(ch.tutteli.atrium.spec.reporting.SameLineAssertionMessageFormatterSpec(
         AssertionVerbFactory, ::SameLineAssertionFormatter))
 
-    val testee = SameLineAssertionFormatter(ToStringObjectFormatter(), UsingDefaultTranslator)
+    val testee = SameLineAssertionFormatter(ToStringObjectFormatter(), UsingDefaultTranslator())
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     val alwaysTrueMessageFilter: (Message) -> Boolean = { true }

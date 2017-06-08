@@ -11,10 +11,10 @@ interface ITranslatableWithArgs : ITranslatable {
     /**
      * The arguments.
      */
-    val arguments: List<CharSequence>
+    val arguments: Array<Any>
 
     override val locale get() = translatable.locale
     override val name get() = translatable.name
-    override val id get() = translatable::class.qualifiedName + name
-    override fun getDefault() = String.format(translatable.locale, translatable.getDefault(), arguments.toTypedArray())
+    override val id get() = translatable::class.java.name + name
+    override fun getDefault() = String.format(translatable.locale, translatable.getDefault(), *arguments)
 }

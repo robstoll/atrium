@@ -4,11 +4,14 @@ import ch.tutteli.atrium.*
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.IEnTranslatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
+import java.text.SimpleDateFormat
 
 /**
  * If you use this Spec then your reporter needs to use a translator which uses the following translations
@@ -26,9 +29,11 @@ import org.jetbrains.spek.api.dsl.it
  *
  * the fallback Locale: fr
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
+ * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatables-DATE_KNOWN = %tD était %<tA
  *
  * the Locale it:
  * ch.tutteli.atrium.DescriptionNumberAssertion-IS_LESS_THAN = è meno di
+ * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatables-DATE_UNKNOWN = solo %tA!!
  */
 abstract class TranslationSupplierSpec(
     verbs: IAssertionVerbFactory,
@@ -54,7 +59,7 @@ abstract class TranslationSupplierSpec(
         describe("translation for ${IAssertionPlantNullable.AssertionDescription::class.simpleName}.${IAssertionPlantNullable.AssertionDescription.name} is provided for 'de_CH'") {
             it("a failing assertion contains 'ist' instead of 'to be' in the error message") {
                 verbs.checkException {
-                    val a : Int? = 1
+                    val a: Int? = 1
                     assert(a).isNull()
                 }.toThrow<AssertionError>().and.message.contains("ist: ${RawString.NULL.string}")
             }
@@ -95,5 +100,29 @@ abstract class TranslationSupplierSpec(
             }
         }
 
+    val firstOfFeb2017 = SimpleDateFormat("dd.MM.yyyy").parse("01.02.2017")
+    describe("translation for ${TestTranslatables::class.simpleName}.${TestTranslatables.DATE_KNOWN} (with a date as parameter) is provided for 'fr'") {
+        it("uses the translation form 'fr' but the primary Locale to format the date") {
+            verbs.checkException {
+                assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatables.DATE_KNOWN, firstOfFeb2017), 1, { false })
+            }.toThrow<AssertionError>().and.message.contains("02/01/17 était Mittwoch!!")
+        }
     }
-})
+
+        describe("translation for ${TestTranslatables::class.simpleName}.${TestTranslatables.DATE_UNKNOWN} (with a date as parameter) is provided for 'it'") {
+            it("uses default translation but the primary Locale to format the date") {
+                verbs.checkException {
+                    assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatables.DATE_UNKNOWN, firstOfFeb2017), 1, { false })
+                }.toThrow<AssertionError>().and.message.contains("only Mittwoch")
+            }
+        }
+
+    }
+
+
+}) {
+    enum class TestTranslatables(override val value: String) : IEnTranslatable {
+        DATE_KNOWN("%tD is a %<tA"),
+        DATE_UNKNOWN("only %tA")
+    }
+}
