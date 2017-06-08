@@ -8,7 +8,7 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
-class LocaleResolverSpec : Spek({
+class LocaleOrderDeciderSpec : Spek({
     val verbs: IAssertionVerbFactory = AssertionVerbFactory
     val testee = LocaleOrderDecider()
 
@@ -37,7 +37,7 @@ class LocaleResolverSpec : Spek({
 
         describe(localeWithDe) {
             it("returns $localeWithDe and Locale.ROOT") {
-                val result = testee.resolve(localeDe, emptyArray())
+                val result = testee.determineOrder(localeDe, emptyArray())
                 //TODO implement contains for collections
                 //verbs.checkImmediately(result).containsStrict(Locale("de"), Locale.ROOT)
                 val iterator = result.iterator()
@@ -50,7 +50,7 @@ class LocaleResolverSpec : Spek({
 
         describe(localeWithDeCh) {
             it("returns $localeWithDeCh, $localeWithDe and Locale.ROOT") {
-                val result = testee.resolve(localeDeCh, emptyArray())
+                val result = testee.determineOrder(localeDeCh, emptyArray())
                 //TODO replace once assertion function contains for collections exists
                 val iterator = result.iterator()
                 verbs.checkImmediately(iterator.next()).toBe(localeDeCh)
@@ -66,7 +66,7 @@ class LocaleResolverSpec : Spek({
                 + "$localeWithDeCh, "
                 + "$localeWithDe, "
                 + "and Locale.ROOT") {
-                val result = testee.resolve(localeDeChVariantA, emptyArray())
+                val result = testee.determineOrder(localeDeChVariantA, emptyArray())
                 //TODO replace once assertion function contains for collections exists
                 val iterator = result.iterator()
                 verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantA)
@@ -85,7 +85,7 @@ class LocaleResolverSpec : Spek({
                 + "$localeWithDeCh, "
                 + "$localeWithDe, "
                 + "and Locale.ROOT") {
-                val result = testee.resolve(localeDeChVariantAVariantB, emptyArray())
+                val result = testee.determineOrder(localeDeChVariantAVariantB, emptyArray())
                 //TODO replace once assertion function contains for collections exists
                 val iterator = result.iterator()
                 verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantAVariantB)
@@ -106,7 +106,7 @@ class LocaleResolverSpec : Spek({
                 + "$localeWithDeCh, "
                 + "$localeWithDe, "
                 + "and Locale.ROOT") {
-                val result = testee.resolve(localeDeChVariantAScriptLatnBuilder.build(), emptyArray())
+                val result = testee.determineOrder(localeDeChVariantAScriptLatnBuilder.build(), emptyArray())
                 //TODO replace once assertion function contains for collections exists
                 val iterator = result.iterator()
                 verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantAScriptLatnBuilder.build())

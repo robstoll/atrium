@@ -8,10 +8,10 @@ class Translator(
     private val fallbackLocales: Array<out Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale) {
 
-    private val localeResolver = LocaleOrderDecider()
+    private val localeOrderDecider = LocaleOrderDecider()
 
     override fun translateWithoutArgs(translatable: ITranslatable)
-        = localeResolver.resolve(primaryLocale, fallbackLocales)
+        = localeOrderDecider.determineOrder(primaryLocale, fallbackLocales)
         .map { translationSupplier.get(translatable, it) }
         .firstOrNull { it != null }
         ?: translatable.getDefault()
