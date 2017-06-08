@@ -22,11 +22,12 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
     companion object {
 
         /**
-         * Uses [UsingDefaultTranslator] as [ITranslator] which does not translate
-         * but uses the [ITranslatable]'s [getDefault][ITranslatable.getDefault].
+         * Uses [UsingDefaultTranslator] as [ITranslator] (which does not translate
+         * but uses the [ITranslatable]'s [getDefault][ITranslatable.getDefault])
+         * and the given [primaryLocale] which falls back to [Locale.getDefault] if not given.
          */
-        fun withoutTranslations(): ObjectFormatterBuilder
-            = ObjectFormatterBuilder(UsingDefaultTranslator)
+        fun withoutTranslations(primaryLocale:Locale = Locale.getDefault()): ObjectFormatterBuilder
+            = ObjectFormatterBuilder(UsingDefaultTranslator(primaryLocale))
 
         /**
          * Uses [AtriumFactory.newTranslator] with the given [translationSupplier] as [ITranslator], uses [locale] as primary

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.reporting.translating
 
+import ch.tutteli.atrium.reporting.translating.ResourceBundleBasedTranslator.Companion.create
 import java.util.*
 
 /**
@@ -18,22 +19,16 @@ import java.util.*
  * `TO_BE = a translation for TO_BE`
  */
 class ResourceBundleBasedTranslator private constructor(
-    private val locale: Locale,
+    primaryLocale: Locale,
     private val resourceBundleControl: ResourceBundle.Control
-) : ITranslator {
-
-    override fun translate(translatable: ITranslatable): String {
+) : ArgumentsSupportingTranslator(primaryLocale) {
+    override fun translateWithoutArgs(translatable: ITranslatable): String {
         try {
-            val bundle = ResourceBundle.getBundle(translatable::class.java.name, locale, resourceBundleControl)
+            val bundle = ResourceBundle.getBundle(translatable::class.java.name, primaryLocale, resourceBundleControl)
             return bundle.getString(translatable.name)
         } catch(ex: MissingResourceException) {
             return translatable.getDefault()
         }
-    }
-
-    override fun translate(translatableWithArgs: ITranslatableWithArgs): String {
-        val translation = translate(translatableWithArgs.translatable)
-        return String.format(translation, translatableWithArgs.arguments)
     }
 
     companion object {

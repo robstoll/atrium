@@ -47,7 +47,7 @@ open class OnlyFailureReporterSpec(
             IAssertionGroup::class.java to assertionGroup
         ).forEach { (clazz, assertion) ->
             it("does not append anything if ${clazz.simpleName} holds") {
-                val translator = UsingDefaultTranslator
+                val translator = UsingDefaultTranslator()
                 val testee = testeeFactory(AtriumFactory.newSameLineAssertionFormatter(AtriumFactory.newDetailedObjectFormatter(translator), translator))
                 testee.format(sb, assertion)
                 verbs.checkLazily(sb) {

@@ -21,7 +21,7 @@ open class SameLineAssertionMessageFormatterSpec(
     val verbs: IAssertionVerbFactory,
     val testeeFactory: (IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
-    val testee = testeeFactory(ToStringObjectFormatter(), UsingDefaultTranslator)
+    val testee = testeeFactory(ToStringObjectFormatter(), UsingDefaultTranslator())
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     val alwaysTrueMessageFilter: (Message) -> Boolean = { true }
