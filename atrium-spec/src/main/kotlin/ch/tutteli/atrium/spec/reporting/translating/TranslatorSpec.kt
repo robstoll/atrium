@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.reporting.translating.IEnTranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
@@ -31,11 +31,11 @@ open class TranslatorSpec(
     }
 
     val localeUK = Locale.UK
-    val translatableTest = object : IEnTranslatable {
+    val translatableTest = object : ISimpleTranslatable {
         override val value = "test"
         override val name = "test"
     }
-    val translatableHello = object : IEnTranslatable {
+    val translatableHello = object : ISimpleTranslatable {
         override val value = "hello"
         override val name = "hello"
     }

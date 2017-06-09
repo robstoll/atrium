@@ -4,7 +4,7 @@ import ch.tutteli.atrium.*
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.IEnTranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -29,11 +29,11 @@ import java.text.SimpleDateFormat
  *
  * the fallback Locale: fr
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
- * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatables-DATE_KNOWN = %tD était %<tA
+ * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_KNOWN = %tD était %<tA
  *
  * the Locale it:
  * ch.tutteli.atrium.DescriptionNumberAssertion-IS_LESS_THAN = è meno di
- * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatables-DATE_UNKNOWN = solo %tA!!
+ * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_UNKNOWN = solo %tA!!
  */
 abstract class TranslationSupplierSpec(
     verbs: IAssertionVerbFactory,
@@ -101,18 +101,18 @@ abstract class TranslationSupplierSpec(
         }
 
     val firstOfFeb2017 = SimpleDateFormat("dd.MM.yyyy").parse("01.02.2017")
-    describe("translation for ${TestTranslatables::class.simpleName}.${TestTranslatables.DATE_KNOWN} (with a date as parameter) is provided for 'fr'") {
+        describe("translation for ${TestTranslatable::class.simpleName}.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr'") {
         it("uses the translation form 'fr' but the primary Locale to format the date") {
             verbs.checkException {
-                assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatables.DATE_KNOWN, firstOfFeb2017), 1, { false })
+                assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1, { false })
             }.toThrow<AssertionError>().and.message.contains("02/01/17 était Mittwoch!!")
         }
     }
 
-        describe("translation for ${TestTranslatables::class.simpleName}.${TestTranslatables.DATE_UNKNOWN} (with a date as parameter) is provided for 'it'") {
+        describe("translation for ${TestTranslatable::class.simpleName}.${TestTranslatable.DATE_UNKNOWN} (with a date as parameter) is provided for 'it'") {
             it("uses default translation but the primary Locale to format the date") {
                 verbs.checkException {
-                    assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatables.DATE_UNKNOWN, firstOfFeb2017), 1, { false })
+                    assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_UNKNOWN, firstOfFeb2017), 1, { false })
                 }.toThrow<AssertionError>().and.message.contains("only Mittwoch")
             }
         }
@@ -121,7 +121,7 @@ abstract class TranslationSupplierSpec(
 
 
 }) {
-    enum class TestTranslatables(override val value: String) : IEnTranslatable {
+    enum class TestTranslatable(override val value: String) : ISimpleTranslatable {
         DATE_KNOWN("%tD is a %<tA"),
         DATE_UNKNOWN("only %tA")
     }

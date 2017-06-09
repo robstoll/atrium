@@ -2,7 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.reporting.translating.IEnTranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import kotlin.reflect.KClass
 
@@ -90,7 +90,7 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
         .withLazyAssertions(createAssertions)
         .cast()
 
-    enum class AssertionDescription(override val value: String) : IEnTranslatable {
+    enum class AssertionDescription(override val value: String) : ISimpleTranslatable {
         IS_A("is a"),
         NO_EXCEPTION_OCCURRED("no exception occurred"),
     }

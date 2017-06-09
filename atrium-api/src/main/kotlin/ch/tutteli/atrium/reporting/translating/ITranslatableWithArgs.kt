@@ -1,11 +1,17 @@
 package ch.tutteli.atrium.reporting.translating
 
+import java.util.*
+
 /**
- * An [ITranslatable] with arguments
+ * Represents a [ITranslatable] with arguments.
+ *
+ * It uses a [translatable], which has placeholders, as basis and [java.lang.String.format]
+ * to substitute the placeholders with the [arguments].
  */
 interface ITranslatableWithArgs : ITranslatable {
     /**
-     * The [ITranslatable].
+     * A [ITranslatable] with placeholders for the arguments.
+     * @see [Formatter.format]
      */
     val translatable: ITranslatable
     /**
@@ -13,8 +19,7 @@ interface ITranslatableWithArgs : ITranslatable {
      */
     val arguments: Array<Any>
 
-    override val locale get() = translatable.locale
     override val name get() = translatable.name
     override val id get() = translatable::class.java.name + name
-    override fun getDefault() = String.format(translatable.locale, translatable.getDefault(), *arguments)
+    override fun getDefault() = String.format(translatable.getDefault(), *arguments)
 }
