@@ -38,10 +38,10 @@ private object AtriumReporterSupplier {
 }
 
 open class VerbSpec(
-    val plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
-    val plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
-    val plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
-    val plantExpect: Pair<String, (act: () -> Unit) -> ThrowableFluent>
+    plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
+    plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
+    plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
+    plantExpect: Pair<String, (act: () -> Unit) -> ThrowableFluent>
 ) : Spek({
 
     describe("assertion verb '${plantCheckImmediately.first}' which immediately evaluates assertions") {

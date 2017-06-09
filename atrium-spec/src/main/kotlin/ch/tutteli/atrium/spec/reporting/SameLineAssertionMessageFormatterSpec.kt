@@ -18,8 +18,8 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 open class SameLineAssertionMessageFormatterSpec(
-    val verbs: IAssertionVerbFactory,
-    val testeeFactory: (IObjectFormatter, ITranslator) -> IAssertionFormatter
+    verbs: IAssertionVerbFactory,
+    testeeFactory: (IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
     val testee = testeeFactory(ToStringObjectFormatter(), UsingDefaultTranslator())
 
