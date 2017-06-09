@@ -16,8 +16,8 @@ import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
 open class TranslatorSpec(
-    val verbs: IAssertionVerbFactory,
-    val testeeFactory: (translationSupplier: ITranslationSupplier, locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator
+    verbs: IAssertionVerbFactory,
+    testeeFactory: (translationSupplier: ITranslationSupplier, locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator
 ) : Spek({
 
     fun testeeFactory(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)

@@ -20,8 +20,8 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 
 open class ThrowableFluentSpec(
-    val verbs: IAssertionVerbFactory,
-    val testeeFactory: (assertionVerb: ITranslatable, act: () -> Unit, IAssertionChecker) -> ThrowableFluent
+    verbs: IAssertionVerbFactory,
+    testeeFactory: (assertionVerb: ITranslatable, act: () -> Unit, IAssertionChecker) -> ThrowableFluent
 ) : Spek({
 
     fun SpecBody.checkToThrow(description: String,

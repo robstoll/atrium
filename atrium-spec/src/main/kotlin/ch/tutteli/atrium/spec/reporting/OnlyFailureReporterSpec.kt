@@ -19,8 +19,8 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
 open class OnlyFailureReporterSpec(
-    val verbs: IAssertionVerbFactory,
-    val testeeFactory: (IAssertionFormatter) -> IReporter
+    verbs: IAssertionVerbFactory,
+    testeeFactory: (IAssertionFormatter) -> IReporter
 ) : Spek({
 
     describe("format") {
