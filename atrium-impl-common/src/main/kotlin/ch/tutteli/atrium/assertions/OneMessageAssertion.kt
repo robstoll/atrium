@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+
 /**
  * A default implementation for [IOneMessageAssertion].
  *
@@ -8,14 +10,16 @@ package ch.tutteli.atrium.assertions
  * @param representation The [Message.representation].
  * @param check The check which determines [Message.holds].
  */
-class OneMessageAssertion(description: String, representation: Any, check: () -> Boolean) : IOneMessageAssertion {
+class OneMessageAssertion(description: ITranslatable, representation: Any, check: () -> Boolean) : IOneMessageAssertion {
 
     /**
+     * Constructor overload without a lazy [Message.holds].
+     *
      * @param description The [Message.description].
      * @param representation The [Message.representation].
      * @param holds The [Message.holds].
      */
-    constructor(description: String, representation: Any, holds: Boolean)
+    constructor(description: ITranslatable, representation: Any, holds: Boolean)
         : this(description, representation, { holds })
 
     override val message by lazy {

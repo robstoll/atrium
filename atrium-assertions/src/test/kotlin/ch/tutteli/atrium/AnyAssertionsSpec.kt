@@ -1,6 +1,7 @@
 package ch.tutteli.atrium
 
 
+import ch.tutteli.atrium.DescriptionAnyAssertion.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
@@ -49,19 +50,19 @@ object AnyAssertionsSpec : Spek({
                 test("$notToBe throws AssertionError") {
                     expect {
                         assert(1).notToBe(1)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>().and.message.contains(NOT_TO_BE)
                 }
                 test("$isNotSame throws AssertionError") {
                     expect {
                         assert(1).isNotSame(1)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>().and.message.contains(IS_NOT_SAME)
                 }
             }
             context("one does not equal the other") {
                 test("$toBe throws AssertionError") {
                     expect {
                         assert(1).toBe(2)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>().and.message.contains(TO_BE)
                 }
                 test("$notToBe does not throw") {
                     assert(1).notToBe(2)
@@ -69,7 +70,7 @@ object AnyAssertionsSpec : Spek({
                 test("$isSame throws AssertionError") {
                     expect {
                         assert(1).isSame(2)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>().and.message.contains(IS_SAME)
                 }
                 test("$isNotSame does not throw") {
                     assert(1).isNotSame(2)

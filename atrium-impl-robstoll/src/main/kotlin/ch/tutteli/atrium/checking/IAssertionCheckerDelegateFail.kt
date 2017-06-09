@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.checking
 
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * Provides a default-implementation for [IAssertionChecker.fail] which first checks
@@ -12,7 +13,7 @@ interface IAssertionCheckerDelegateFail : IAssertionChecker {
      * Delegates to [check] if the assertion fails.
      * @throws IllegalArgumentException in case the given [assertion] holds.
      */
-    override fun fail(assertionVerb: String, subject: Any, assertion: IAssertion) {
+    override fun fail(assertionVerb: ITranslatable, subject: Any, assertion: IAssertion) {
         if (assertion.holds()) throw IllegalArgumentException(THE_GIVEN_ASSERTION_SHOULD_FAIL + assertion)
         check(assertionVerb, subject, listOf(assertion))
     }

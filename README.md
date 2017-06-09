@@ -122,17 +122,17 @@ maven:
 
 ```kotlin
  // immediate evaluation
-assert(1).isSmallerThan(5).isGreaterThan(10)
+assert(1).isLessThan(5).isGreaterThan(10)
     // assert: 5        (java.lang.Integer<199640888>)
-    // is smaller than: 5        (java.lang.Integer<199640888>)
+    // is less than: 5        (java.lang.Integer<199640888>)
 
 // lazy evaluation
 assert(10) {
-    isSmallerThan(5)
+    isLessThan(5)
     isGreaterThan(0)
 }
     // assert: 5        (java.lang.Integer<199640888>)
-    // is smaller than: 5        (java.lang.Integer<199640888>)
+    // is less than: 5        (java.lang.Integer<199640888>)
     // is greater than: 5        (java.lang.Integer<199640888>)
     
     

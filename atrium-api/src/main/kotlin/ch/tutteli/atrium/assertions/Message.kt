@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+
 /**
  * Represents a message of an [IAssertion].
  *
@@ -19,4 +21,4 @@ package ch.tutteli.atrium.assertions
  * @param representation The representation of the expected value, e.g., `hello world`.
  * @param holds `true` if the assertion holds, `false` otherwise.
  */
-data class Message(val description: String, val representation: Any, val holds: Boolean)
+data class Message(val description: ITranslatable, val representation: Any, val holds: Boolean)

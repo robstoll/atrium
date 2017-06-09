@@ -1,10 +1,13 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.isEmpty
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
@@ -26,13 +29,13 @@ open class OnlyFailureReporterSpec(
             override fun holds() = true
         }
         val oneMessageAssertion = object : IOneMessageAssertion {
-            override val message = Message("to be", 0, true)
+            override val message = Message(TO_BE, 0, true)
         }
         val multiMessageAssertion = object : IMultiMessageAssertion {
-            override val messages = listOf(Message("to be", 0, true), Message("to be", 0, true))
+            override val messages = listOf(Message(TO_BE, 0, true), Message(TO_BE, 0, true))
         }
         val assertionGroup = object : IAssertionGroup {
-            override val name = "groupName"
+            override val name = AssertionVerb.VERB
             override val subject = 0
             override val assertions = listOf(assertion, oneMessageAssertion, multiMessageAssertion)
         }
@@ -42,9 +45,10 @@ open class OnlyFailureReporterSpec(
             IOneMessageAssertion::class.java to oneMessageAssertion,
             IMultiMessageAssertion::class.java to multiMessageAssertion,
             IAssertionGroup::class.java to assertionGroup
-        ).forEach { clazz, assertion ->
+        ).forEach { (clazz, assertion) ->
             it("does not append anything if ${clazz.simpleName} holds") {
-                val testee = testeeFactory(AtriumFactory.newSameLineAssertionFormatter(AtriumFactory.newDetailedObjectFormatter()))
+                val translator = UsingDefaultTranslator()
+                val testee = testeeFactory(AtriumFactory.newSameLineAssertionFormatter(AtriumFactory.newDetailedObjectFormatter(translator), translator))
                 testee.format(sb, assertion)
                 verbs.checkLazily(sb) {
                     isEmpty()

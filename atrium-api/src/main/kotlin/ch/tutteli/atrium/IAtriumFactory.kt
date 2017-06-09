@@ -1,8 +1,8 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
+import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
@@ -10,6 +10,8 @@ import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.translating.*
+import java.util.*
 
 /**
  * The minimum contract of the `abstract factory` of atrium.
@@ -36,7 +38,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckLazily(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlant<T>
+    fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
 
     /**
      * Creates an [IAssertionPlant] which does not check the created or
@@ -53,7 +55,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckLazily(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
+    fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
 
     /**
      * Creates an [IAssertionPlant] which does not check the created or
@@ -81,7 +83,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlant<T>
+    fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
 
     /**
      * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
@@ -97,7 +99,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckImmediately(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
+    fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
 
     /**
      * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
@@ -124,7 +126,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newNullable(assertionVerb: String, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
+    fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
 
     /**
      * Creates an [IAssertionPlantNullable].
@@ -140,7 +142,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newNullable(assertionVerb: String, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
+    fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
 
     /**
      * Creates an [IAssertionPlantNullable].
@@ -153,6 +155,23 @@ interface IAtriumFactory {
      */
     fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
 
+    /**
+     * Creates an [ITranslator] which translates [ITranslatable]s to [primaryLocale] and falls back
+     * to [fallbackLocales] (in the given order) in case no translation exists for [primaryLocale].
+     *
+     * In case neither a translation exists for any [fallbackLocales] then it uses
+     * [ITranslatable]'s [getDefault][ITranslatable.getDefault].
+     * It uses the given [translationSupplier] to retrieve all available translations.
+     *
+     * @param translationSupplier Provides the translations for
+     * @param primaryLocale The [Locale] to which the translator translates per default.
+     * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
+     *                        [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used
+     *                        in the given order.
+     *
+     * @return The newly created translator.
+     */
+    fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
 
     /**
      * Creates an [IObjectFormatter] which represents objects by using their [Object.toString] representation
@@ -160,7 +179,7 @@ interface IAtriumFactory {
      *
      * @return The newly created object formatter.
      */
-    fun newDetailedObjectFormatter(): IObjectFormatter
+    fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
 
     /**
      * Creates an [IAssertionFormatter] which puts messages of the form 'a: b' on the same line.
@@ -169,7 +188,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter): IAssertionFormatter
+    fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IReporter] which reports only failing assertions

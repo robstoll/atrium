@@ -1,23 +1,25 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.DescriptionNumberAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] is smaller than [expected].
+ * Makes the assertion that [IAssertionPlant.subject] is less than [expected].
  *
  * @return This plant to support a fluent-style API.
  */
-fun IAssertionPlant<Int>.isSmallerThan(expected: Int)
-    = createAndAddAssertion("is smaller than", expected, { subject < expected })
+fun IAssertionPlant<Int>.isLessThan(expected: Int)
+    = createAndAddAssertion(IS_LESS_THAN, expected, { subject < expected })
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] is smaller than or equals [expected].
+ * Makes the assertion that [IAssertionPlant.subject] is less than or equals [expected].
  *
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
-fun IAssertionPlant<Int>.isSmallerOrEquals(expected: Int)
-    = createAndAddAssertion("is smaller or equals", expected, { subject <= expected })
+fun IAssertionPlant<Int>.isLessOrEquals(expected: Int)
+    = createAndAddAssertion(IS_LESS_OR_EQUALS, expected, { subject <= expected })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is greater than [expected].
@@ -26,7 +28,7 @@ fun IAssertionPlant<Int>.isSmallerOrEquals(expected: Int)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun IAssertionPlant<Int>.isGreaterThan(expected: Int)
-    = createAndAddAssertion("is greater than", expected, { subject > expected })
+    = createAndAddAssertion(IS_GREATER_THAN, expected, { subject > expected })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is greater than or equals [expected].
@@ -35,4 +37,11 @@ fun IAssertionPlant<Int>.isGreaterThan(expected: Int)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun IAssertionPlant<Int>.isGreaterOrEquals(expected: Int)
-    = createAndAddAssertion("is greater or equals", expected, { subject >= expected })
+    = createAndAddAssertion(IS_GREATER_OR_EQUALS, expected, { subject >= expected })
+
+enum class DescriptionNumberAssertion(override val value: String) : ISimpleTranslatable {
+    IS_LESS_THAN("is less than"),
+    IS_LESS_OR_EQUALS("is less or equals"),
+    IS_GREATER_THAN("is greater than"),
+    IS_GREATER_OR_EQUALS("is greater or equals"),
+}

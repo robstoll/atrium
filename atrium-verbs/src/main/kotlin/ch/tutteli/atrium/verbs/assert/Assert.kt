@@ -5,6 +5,8 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
+import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
 
 /**
@@ -15,7 +17,7 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  * @see AtriumFactory.newCheckImmediately
  */
 fun <T : Any> assert(subject: T)
-    = AtriumFactory.newCheckImmediately("assert", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlantNullable] for [subject].
@@ -25,7 +27,7 @@ fun <T : Any> assert(subject: T)
  * @see AtriumFactory.newNullable
  */
 fun <T : Any?> assert(subject: T)
-    = AtriumFactory.newNullable("assert", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
@@ -35,7 +37,7 @@ fun <T : Any?> assert(subject: T)
  * @see AtriumFactory.newCheckLazilyAtTheEnd
  */
 inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newCheckLazilyAtTheEnd("assert", subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [ThrowableFluent] for the given function [act].
@@ -43,4 +45,6 @@ inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() 
  * @return The newly created [ThrowableFluent].
  */
 fun assert(act: () -> Unit)
-    = AtriumFactory.newThrowableFluent("assert the thrown exception", act, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newThrowableFluent(ASSERT_THROWN, act, AtriumReporterSupplier.REPORTER)
+
+

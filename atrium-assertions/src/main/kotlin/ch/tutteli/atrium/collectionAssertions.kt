@@ -1,7 +1,10 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.DescriptionCollectionAssertion.HAS_SIZE
+import ch.tutteli.atrium.DescriptionCollectionAssertion.IS_EMPTY
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
 /**
  * Makes the assertion that [IAssertionPlant.subject]'s [Collection.size] is [size].
@@ -10,7 +13,7 @@ import ch.tutteli.atrium.reporting.RawString
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Collection<*>> IAssertionPlant<T>.hasSize(size: Int)
-    = createAndAddAssertion("has size", size, { subject.size == size })
+    = createAndAddAssertion(HAS_SIZE, size, { subject.size == size })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is an empty [Collection].
@@ -19,4 +22,9 @@ fun <T : Collection<*>> IAssertionPlant<T>.hasSize(size: Int)
  * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
  */
 fun <T : Collection<*>> IAssertionPlant<T>.isEmpty()
-    = createAndAddAssertion("is", RawString("empty"), { subject.isEmpty() })
+    = createAndAddAssertion(IS_EMPTY, RawString("empty"), { subject.isEmpty() })
+
+enum class DescriptionCollectionAssertion(override val value: String) : ISimpleTranslatable {
+    HAS_SIZE("has size"),
+    IS_EMPTY("is"),
+}

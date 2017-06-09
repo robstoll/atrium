@@ -1,10 +1,14 @@
 package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.*
+import ch.tutteli.atrium.DescriptionNumberAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
+import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.spec.creating.DownCastBuilderSpec
 import ch.tutteli.atrium.spec.inCaseOf
 import org.jetbrains.spek.api.Spek
@@ -13,16 +17,16 @@ import org.jetbrains.spek.api.dsl.it
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
 private fun <T : Any> assert(subject: T): IAssertionPlant<T>
-    = AtriumFactory.newCheckImmediately("assert", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 private inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T>
-    = AtriumFactory.newCheckLazilyAtTheEnd("assert", subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 private fun <T : Any?> assert(subject: T): IAssertionPlantNullable<T>
-    = AtriumFactory.newNullable("assert", subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 private fun expect(act: () -> Unit): ThrowableFluent
-    = AtriumFactory.newThrowableFluent("expect the thrown exception", act, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newThrowableFluent(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {
@@ -48,12 +52,12 @@ open class VerbSpec(
         }
         it("throws an AssertionError as soon as one assertion fails") {
             expect {
-                assertionVerb(1).isSmallerThan(10).and.isSmallerThan(0).and.isGreaterThan(2)
+                assertionVerb(1).isLessOrEquals(10).and.isLessOrEquals(0).and.isGreaterOrEquals(2)
             }.toThrow<AssertionError> {
                 assert(subject.message).isNotNull {
                     contains(": 1")
-                    contains("is smaller than: 0")
-                    containsNot("is greater than: 2")
+                    contains("${IS_LESS_OR_EQUALS.getDefault()}: 0")
+                    containsNot("${IS_GREATER_OR_EQUALS.getDefault()}: 2")
                 }
             }
         }
@@ -71,15 +75,13 @@ open class VerbSpec(
         it("evaluates all assertions and then throws an AssertionError") {
             expect {
                 assertionVerb(1) {
-                    isSmallerThan(0)
+                    isLessThan(0)
                     isGreaterThan(2)
                 }
-            }.toThrow<AssertionError> {
-                and.message {
-                    contains(": 1")
-                    contains("is smaller than: 0")
-                    contains("is greater than: 2")
-                }
+            }.toThrow<AssertionError>().and.message {
+                contains(": 1")
+                contains("${IS_LESS_THAN.getDefault()}: 0")
+                contains("${IS_GREATER_THAN.getDefault()}: 2")
             }
         }
     }
@@ -93,7 +95,10 @@ open class VerbSpec(
             it("throws an AssertionError when calling isNotNull") {
                 expect {
                     assertionVerb(null).isNotNull()
-                }.toThrow<AssertionError>().and.message.contains("is not", "null")
+                }.toThrow<AssertionError>().and.message {
+                    contains(DescriptionNarrowingAssertion.IS_NOT_NULL)
+                    contains(RawString.NULL.string)
+                }
             }
         }
     }
@@ -111,9 +116,9 @@ open class VerbSpec(
                     assertionVerb({
                         throw IllegalArgumentException()
                     }).toThrow<UnsupportedOperationException>()
-                }.toThrow<AssertionError> {
-                    message.contains("is a",
-                        IllegalArgumentException::class.java.name,
+                }.toThrow<AssertionError>().and.message {
+                    contains(ThrowableFluent.AssertionDescription.IS_A)
+                    contains(IllegalArgumentException::class.java.name,
                         UnsupportedOperationException::class.java.name)
                 }
             }
