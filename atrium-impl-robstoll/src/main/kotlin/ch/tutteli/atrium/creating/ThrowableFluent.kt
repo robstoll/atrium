@@ -2,6 +2,8 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import kotlin.reflect.KClass
 
 /**
@@ -19,7 +21,7 @@ import kotlin.reflect.KClass
  */
 class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>) {
 
-    private constructor(assertionVerb: String, throwable: Throwable?, assertionChecker: IAssertionChecker)
+    private constructor(assertionVerb: ITranslatable, throwable: Throwable?, assertionChecker: IAssertionChecker)
         : this(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, throwable, assertionChecker))
 
     /**
@@ -51,8 +53,8 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder("is a", expectedType, commonFields)
-        .withNullRepresentation(NO_EXCEPTION_OCCURRED)
+        = AtriumFactory.newDownCastBuilder(AssertionDescription.IS_A, expectedType, commonFields)
+        .withNullRepresentation(AssertionDescription.NO_EXCEPTION_OCCURRED)
         .cast()
 
     /**
@@ -83,21 +85,24 @@ class ThrowableFluent internal constructor(val commonFields: IAssertionPlantWith
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
     fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder("is a", expectedType, commonFields)
-        .withNullRepresentation(NO_EXCEPTION_OCCURRED)
+        = AtriumFactory.newDownCastBuilder(AssertionDescription.IS_A, expectedType, commonFields)
+        .withNullRepresentation(AssertionDescription.NO_EXCEPTION_OCCURRED)
         .withLazyAssertions(createAssertions)
         .cast()
 
-    companion object {
-        val NO_EXCEPTION_OCCURRED = "no exception occurred"
+    enum class AssertionDescription(override val value: String) : ISimpleTranslatable {
+        IS_A("is a"),
+        NO_EXCEPTION_OCCURRED("no exception occurred"),
+    }
 
+    companion object {
         /**
          * Creates a [ThrowableFluent] where executing [act] will determine the
          * [subject](IAssertionPlantWithCommonFields.CommonFields.subject) of [commonFields].
          *
          * @return The newly created [ThrowableFluent].
          */
-        fun create(assertionVerb: String, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {
+        fun create(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {
             var throwable: Throwable? = null
             try {
                 act()

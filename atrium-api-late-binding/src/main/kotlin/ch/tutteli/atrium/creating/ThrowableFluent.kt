@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import kotlin.reflect.KClass
 
 /**
@@ -60,8 +62,6 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
      * that it is of the expected type [TExpected] and reports an error if subject is null or another type
      * than the expected one -- furthermore it [createAssertions] which are checked additionally as well.
      *
-     * @param expectedType The expected type of the thrown [Throwable].
-     *
      * @return This builder to support a fluent-style API.
      *
      * @throws AssertionError Might throw an [AssertionError] if an assertion fails.
@@ -85,5 +85,10 @@ private constructor(val commonFields: IAssertionPlantWithCommonFields.CommonFiel
     fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected> {
         throw UnsupportedOperationException("The atrium-api-late-binding should only be used as a compileOnly dependency, " +
             "meaning as a substitute for a real implementation - ThrowableFluent was used")
+    }
+
+    enum class AssertionDescription(override val value: String) : ISimpleTranslatable {
+        IS_A("is a"),
+        NO_EXCEPTION_OCCURRED("no exception occurred"),
     }
 }

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.spec.creating
 
+import ch.tutteli.atrium.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IOneMessageAssertion
 import ch.tutteli.atrium.assertions.Message
@@ -7,6 +8,7 @@ import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.message
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.setUp
@@ -19,7 +21,7 @@ open class AssertionPlantCheckLazilySpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int>) -> IAssertionPlant<Int>
 ) : Spek({
-    val assertionVerb = "myAssertionVerb"
+    val assertionVerb = AssertionVerb.VERB
     val subject = 10
     val assertionChecker = verbs.checkLazily(1, {}).commonFields.assertionChecker
     val testee = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker))
@@ -28,14 +30,14 @@ open class AssertionPlantCheckLazilySpec(
 
         val a = subject
         inCaseOf("assertion which holds") {
-            testee.createAndAddAssertion("is 1", a, { a == subject })
+            testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, a, { a == subject })
             it("does not throw an Exception when checking") {
                 testee.checkAssertions()
             }
         }
 
         setUp("in case of assertion which fails") {
-            testee.createAndAddAssertion("to be", 0, { a == 0 })
+            testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, -12, { a == 0 })
             val expectFun = verbs.checkException {
                 testee.checkAssertions()
             }
@@ -46,13 +48,13 @@ open class AssertionPlantCheckLazilySpec(
                         assertMessage.contains(assertionVerb)
                     }
                     it("contains the '${testee::subject.name}'") {
-                        assertMessage.contains(subject.toString())
+                        assertMessage.contains(subject)
                     }
                     it("contains the '${Message::description.name}' of the assertion-message") {
-                        assertMessage.contains("to be")
+                        assertMessage.contains(DescriptionAnyAssertion.TO_BE.getDefault())
                     }
                     it("contains the '${Message::representation.name}' of the assertion-message") {
-                        assertMessage.contains("0")
+                        assertMessage.contains(-12)
                     }
                 }
                 on("re-checking the assertions") {
@@ -78,7 +80,7 @@ open class AssertionPlantCheckLazilySpec(
 
         setUp("in case of a custom ${IOneMessageAssertion::class.java.simpleName} which fails") {
             testee.addAssertion(object : IOneMessageAssertion {
-                override val message = Message("a", "b", false)
+                override val message = Message(DescriptionAnyAssertion.TO_BE, "my representation", false)
             })
             val expectFun = verbs.checkException {
                 testee.checkAssertions()
@@ -88,7 +90,7 @@ open class AssertionPlantCheckLazilySpec(
                 context("exception message") {
                     val assertMessage = expectFun.toThrow<AssertionError>().message
                     it("contains the messages of the custom assertion") {
-                        assertMessage.contains("a", "b")
+                        assertMessage.contains(DescriptionAnyAssertion.TO_BE).and.contains("my representation")
                     }
                     it("contains the assertionVerb") {
                         assertMessage.contains(assertionVerb)

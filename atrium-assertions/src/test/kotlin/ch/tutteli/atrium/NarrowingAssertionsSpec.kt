@@ -1,6 +1,7 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.checkNarrowingAssertion
 import ch.tutteli.atrium.spec.checkNarrowingNullableAssertion
 import org.jetbrains.spek.api.Spek
@@ -14,7 +15,11 @@ object NarrowingAssertionsSpec : Spek({
             expect {
                 val i: Int? = null
                 assert(i).isNotNull()
-            }.toThrow<AssertionError>().and.message.contains("null", "is not")
+            }.toThrow<AssertionError>().and.message {
+                contains(DescriptionNarrowingAssertion.IS_NOT_NULL)
+                contains(RawString.NULL.string)
+            }
+
         }, { isNotNull() }, { isNotNull {} })
 
         checkNarrowingNullableAssertion<Int?>("it does not throw an Exception if the subject is not null", { isNotNull ->
@@ -28,7 +33,7 @@ object NarrowingAssertionsSpec : Spek({
                     val i: Int? = 1
                     assert(i).isNotNullWithCheck()
                 }.toThrow<AssertionError>()
-            }, { isNotNull().isSmallerOrEquals(0) }, { isNotNull { isSmallerOrEquals(0) } })
+            }, { isNotNull().isLessOrEquals(0) }, { isNotNull { isLessOrEquals(0) } })
 
             checkNarrowingNullableAssertion<Int?>("it does not throw an Exception if assertion holds", { isNotNullWithCheck ->
                 val i: Int? = 1
@@ -42,8 +47,9 @@ object NarrowingAssertionsSpec : Spek({
         checkNarrowingAssertion<String>("it throws an AssertionError if the subject is not of the given type", { isA ->
             expect {
                 assert("hello").isA()
-            }.toThrow<AssertionError> {
-                message.contains("is type or sub-type of", Int::class.java.name)
+            }.toThrow<AssertionError>().and.message {
+                contains(DescriptionNarrowingAssertion.IS_A)
+                contains(Int::class.java.name)
             }
         }, { isA<Int>() }, { isA<Int> {} })
 
@@ -68,15 +74,15 @@ object NarrowingAssertionsSpec : Spek({
 
         checkNarrowingAssertion<Int>("it allows to perform an assertion specific for the subtype which holds", { isAWithAssertion ->
             assert(1).isAWithAssertion()
-        }, { isA<Int>().isSmallerThan(2) }, { isA<Int> { isSmallerThan(2) } })
+        }, { isA<Int>().isLessThan(2) }, { isA<Int> { isLessThan(2) } })
 
-        val expectedSmallerThan = 2
+        val expectedLessThan = 2
         val actualValue = 5
         checkNarrowingAssertion<Int>("it allows to perform an assertion specific for the subtype which fails", { isAWithAssertion ->
             expect {
                 assert(actualValue).isAWithAssertion()
-            }.toThrow<AssertionError>().and.message.contains(actualValue, "is smaller than", expectedSmallerThan)
-        }, { isA<Int>().isSmallerThan(expectedSmallerThan) }, { isA<Int> { isSmallerThan(expectedSmallerThan) } })
+            }.toThrow<AssertionError>().and.message.contains(actualValue, DescriptionNumberAssertion.IS_LESS_THAN.getDefault(), expectedLessThan)
+        }, { isA<Int>().isLessThan(expectedLessThan) }, { isA<Int> { isLessThan(expectedLessThan) } })
     }
 
     describe("fun `its` (feature assertion)") {

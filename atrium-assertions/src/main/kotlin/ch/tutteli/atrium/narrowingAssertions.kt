@@ -1,10 +1,14 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
+import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_NOT_NULL
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.createAssertionsAndCheckThem
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KProperty0
 
 /**
@@ -13,7 +17,7 @@ import kotlin.reflect.KProperty0
  * @return This plant to support a fluent-style API.
  */
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
-    = AtriumFactory.newDownCastBuilder("is not", commonFields)
+    = AtriumFactory.newDownCastBuilder(IS_NOT_NULL, commonFields)
     .cast()
 
 /**
@@ -23,7 +27,7 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
  * @return This plant to support a fluent-style API.
  */
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newDownCastBuilder("is not", commonFields)
+    = AtriumFactory.newDownCastBuilder(IS_NOT_NULL, commonFields)
     .withLazyAssertions(createAssertions)
     .cast()
 
@@ -33,7 +37,7 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline crea
  * @return This plant to support a fluent-style API.
  */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub>
-    = AtriumFactory.newDownCastBuilder<TSub, Any>("is type or sub-type of", commonFields)
+    = AtriumFactory.newDownCastBuilder<TSub, Any>(IS_A, commonFields)
     .cast()
 
 /**
@@ -43,7 +47,7 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub
  * @return This plant to support a fluent-style API.
  */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
-    = AtriumFactory.newDownCastBuilder<TSub, Any>("is type or sub-type of", commonFields)
+    = AtriumFactory.newDownCastBuilder<TSub, Any>(IS_A, commonFields)
     .withLazyAssertions(createAssertions)
     .cast()
 
@@ -86,4 +90,9 @@ fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeatu
     = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(feature))
 
 private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
-    = IAssertionPlantWithCommonFields.CommonFields(feature.name, feature.get(), AtriumFactory.newFeatureAssertionChecker(this))
+    = IAssertionPlantWithCommonFields.CommonFields(Untranslatable(feature.name), feature.get(), AtriumFactory.newFeatureAssertionChecker(this))
+
+enum class DescriptionNarrowingAssertion(override val value: String) : ISimpleTranslatable {
+    IS_NOT_NULL("is not"),
+    IS_A("is type or sub-type of"),
+}

@@ -1,12 +1,14 @@
 package ch.tutteli.atrium.spec.creating
 
-
 import ch.tutteli.atrium.*
+import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.DownCastBuilder
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.verbs.VerbSpec
@@ -21,16 +23,16 @@ import kotlin.reflect.KClass
 
 open class DownCastBuilderSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (description: String, subClass: KClass<Int>, CommonFields<Number?>) -> DownCastBuilder<Number, Int>
+    testeeFactory: (description: ITranslatable, subClass: KClass<Int>, CommonFields<Number?>) -> DownCastBuilder<Number, Int>
 ) : Spek({
 
 
     context("subject is not null") {
         context("down-cast can be performed") {
             val subject = 10
-            var testee = testeeFactory("is a", Int::class, verbs.checkNullable(subject).commonFields)
+            var testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(subject).commonFields)
             beforeEachTest {
-                testee = testeeFactory("is a", Int::class, verbs.checkNullable(subject).commonFields)
+                testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(subject).commonFields)
             }
 
             it("it does not throw an exception") {
@@ -42,18 +44,17 @@ open class DownCastBuilderSpec(
              */
             it("lazy evaluates additional defined assertions (${DownCastBuilder<Int, Int>::withLazyAssertions.name}) "
                 + "which means, if all of them fail then the message contains all failing assertions") {
-                val smaller = 0
+                val less = 0
                 val greater = 20
                 verbs.checkException {
                     testee.withLazyAssertions {
-                        isSmallerThan(smaller)
+                        isLessThan(less)
                         isGreaterThan(greater)
                     }.cast()
                 }.toThrow<AssertionError> {
                     and.message {
-                        contains("assert: $subject") //the actual value
-                        contains("is smaller than: $smaller") //the expected value
-                        contains("is greater than: $greater") //the second expected value
+                        contains(DescriptionNumberAssertion.IS_LESS_THAN.getDefault() + ": " + less) //the expected value
+                        contains(DescriptionNumberAssertion.IS_GREATER_THAN.getDefault() + ": " + greater) //the second expected value
                     }
                 }
             }
@@ -64,7 +65,7 @@ open class DownCastBuilderSpec(
         }
 
         context("down-cast cannot be performed") {
-            val testee = testeeFactory("is a", Int::class, verbs.checkNullable(10.1).commonFields)
+            val testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(10.1).commonFields)
             it("throws an assertion error") {
                 verbs.checkException {
                     testee.cast()
@@ -77,9 +78,9 @@ open class DownCastBuilderSpec(
     }
 
     context("subject is null") {
-        var testee = testeeFactory("is a", Int::class, verbs.checkNullable(null).commonFields)
+        var testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(null).commonFields)
         beforeEachTest {
-            testee = testeeFactory("is a", Int::class, verbs.checkNullable(null).commonFields)
+            testee = testeeFactory(IS_A, Int::class, verbs.checkNullable(null).commonFields)
         }
 
         inCaseOf("using an own null-representation") {
@@ -101,7 +102,7 @@ open class DownCastBuilderSpec(
         inCaseOf("additional assertions have been defined") {
             val expectFluent = verbs.checkException {
                 testee.withLazyAssertions {
-                    isSmallerThan(0)
+                    isLessThan(0)
                 }
                 testee.cast()
             }
@@ -109,7 +110,7 @@ open class DownCastBuilderSpec(
                 expectFluent.toThrow<AssertionError>()
             }
             it("does not contain additional failing assertions in the error message") {
-                expectFluent.toThrow<AssertionError>().and.message.containsNot("is smaller than")
+                expectFluent.toThrow<AssertionError>().and.message.containsNot(DescriptionNumberAssertion.IS_LESS_THAN)
             }
         }
         inCaseOf("nothing in addition was defined (just cast is called)") {
@@ -129,22 +130,22 @@ open class DownCastBuilderSpec(
 
         group("in case the down-cast cannot be performed") {
             val assertionError = AssertionError()
-            val assertionVerb = "assert"
+            val assertionVerb = AssertionVerb.VERB
 
             it("uses the AssertionChecker to report a failure") {
                 val checker = mock<IAssertionChecker> {
-                    on { fail(any<String>(), any(), any<IAssertion>()) }.doThrow(assertionError)
+                    on { fail(any<ITranslatable>(), any(), any<IAssertion>()) }.doThrow(assertionError)
                 }
-                val testee = testeeFactory("is a", Int::class, CommonFields(assertionVerb, null, checker))
+                val testee = testeeFactory(IS_A, Int::class, CommonFields(assertionVerb, null, checker))
                 verbs.checkException {
                     testee.cast()
                 }.toThrow<AssertionError>().toBe(assertionError)
-                verify(checker).fail(any<String>(), any(), any<IAssertion>())
+                verify(checker).fail(any<ITranslatable>(), any(), any<IAssertion>())
             }
 
             it("throws an IllegalStateException, if reporting a failure does not throw an exception") {
                 val checker = mock<IAssertionChecker>()
-                val testee = testeeFactory("is a", Int::class, CommonFields(assertionVerb, null, checker))
+                val testee = testeeFactory(IS_A, Int::class, CommonFields(assertionVerb, null, checker))
                 verbs.checkException {
                     testee.cast()
                 }.toThrow<IllegalStateException>()

@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+
 /**
  * The base interface for feature [IAssertion] groups, providing a default implementation for [IAssertion.holds]
  * which returns `true` if all its [assertions] hold.
@@ -8,7 +10,7 @@ interface IFeatureAssertionGroup : IAssertion {
     /**
      * The name of the feature.
      */
-    val featureName: String
+    val featureName: ITranslatable
     /**
      * The feature itself for which the [assertions] are defined for.
      */

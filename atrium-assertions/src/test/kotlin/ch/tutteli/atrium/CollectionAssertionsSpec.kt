@@ -15,7 +15,7 @@ object CollectionAssertionsSpec : Spek({
             test("expect 1 throws an AssertionError") {
                 expect {
                     fluent.hasSize(1)
-                }.toThrow<AssertionError>()
+                }.toThrow<AssertionError>().and.message.contains(DescriptionCollectionAssertion.HAS_SIZE)
             }
             test("expect 3 throws an AssertionError") {
                 expect {
@@ -33,7 +33,7 @@ object CollectionAssertionsSpec : Spek({
         it("throws an AssertionError if a collection is not empty") {
             expect {
                 assert(listOf(1, 2)).isEmpty()
-            }.toThrow<AssertionError>()
+            }.toThrow<AssertionError>().and.message.contains(DescriptionCollectionAssertion.IS_EMPTY)
         }
     }
 })

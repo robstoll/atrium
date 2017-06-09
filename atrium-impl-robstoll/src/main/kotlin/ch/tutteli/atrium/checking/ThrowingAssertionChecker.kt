@@ -3,9 +3,8 @@ package ch.tutteli.atrium.checking
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
-import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * An [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
@@ -28,7 +27,7 @@ internal class ThrowingAssertionChecker(private val reporter: IReporter) : IAsse
      *
      * @throws AssertionError In case the created [IAssertionGroup] does not hold.
      */
-    override fun check(assertionVerb: String, subject: Any, assertions: List<IAssertion>) {
+    override fun check(assertionVerb: ITranslatable, subject: Any, assertions: List<IAssertion>) {
         val sb = StringBuilder()
         val assertionGroup = AssertionGroup(assertionVerb, subject, assertions)
         reporter.format(sb, assertionGroup)

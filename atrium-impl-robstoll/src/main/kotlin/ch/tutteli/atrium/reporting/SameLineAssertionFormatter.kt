@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.kbox.appendToStringBuilder
 
 /**
@@ -14,8 +16,18 @@ import ch.tutteli.kbox.appendToStringBuilder
  * and the following [Message] types:
  * - [IOneMessageAssertion]
  * - [IMultiMessageAssertion]
+ *
+ * @property objectFormatter Used to format objects such as [Message.representation].
+ * @property translator Used to translate [ITranslatable]s such as [Message.description].
+ *
+ * @constructor
+ * @param objectFormatter Used to format objects such as [Message.representation].
+ * @param translator Used to translate [ITranslatable]s such as [Message.description].
  */
-internal class SameLineAssertionFormatter(private val objectFormatter: IObjectFormatter) : IAssertionFormatter {
+internal class SameLineAssertionFormatter(
+    private val objectFormatter: IObjectFormatter,
+    private val translator: ITranslator
+) : IAssertionFormatter {
 
     override fun format(sb: StringBuilder, assertion: IAssertion, assertionFilter: (IAssertion) -> Boolean, messageFilter: (Message) -> Boolean) {
         format(assertion, MethodObject(0, sb, assertionFilter, messageFilter))
@@ -36,14 +48,14 @@ internal class SameLineAssertionFormatter(private val objectFormatter: IObjectFo
 
     private fun formatGroup(assertionGroup: IAssertionGroup, methodObject: MethodObject) {
         methodObject.sb
-            .appendPair(assertionGroup.name, assertionGroup.subject)
+            .appendPair(translator.translate(assertionGroup.name), assertionGroup.subject)
             .appendln()
             .appendAssertions(assertionGroup.assertions, methodObject, { methodObject })
     }
 
     private fun formatFeature(featureAssertionGroup: IFeatureAssertionGroup, methodObject: MethodObject) {
         methodObject.sb
-            .appendPair("-> ${featureAssertionGroup.featureName}", featureAssertionGroup.feature)
+            .appendPair("-> " + translator.translate(featureAssertionGroup.featureName), featureAssertionGroup.feature)
             .appendln()
             .appendAssertions(featureAssertionGroup.assertions, methodObject, methodObject::newWithIncrementedMessageLevel)
     }
@@ -52,13 +64,13 @@ internal class SameLineAssertionFormatter(private val objectFormatter: IObjectFo
         messages
             .filter(methodObject.messageFilter)
             .appendToStringBuilder(methodObject.sb, SEPARATOR) { (description, representation), sb ->
-                sb.appendPair(description, representation)
+                sb.appendPair(translator.translate(description), representation)
             }
     }
 
     private fun appendMessage(message: Message, methodObject: MethodObject) {
         if (methodObject.messageFilter(message)) {
-            methodObject.sb.appendPair(message.description, message.representation)
+            methodObject.sb.appendPair(translator.translate(message.description), message.representation)
         }
     }
 
