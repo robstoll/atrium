@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.verbs
 
-import ch.tutteli.atrium.reporting.translating.IEnTranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
-enum class AssertionVerb(override val value: String) : IEnTranslatable {
+enum class AssertionVerb(override val value: String) : ISimpleTranslatable {
     ASSERT("assert"),
     ASSERT_THROWN("assert the thrown exception"),
     ASSERT_THAT("assert that"),

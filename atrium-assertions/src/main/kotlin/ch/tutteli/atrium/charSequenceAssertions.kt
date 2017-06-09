@@ -3,7 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.IEnTranslatable
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
@@ -162,7 +162,7 @@ fun <T : CharSequence> IAssertionPlant<T>.isEmpty()
 fun <T : CharSequence> IAssertionPlant<T>.isNotEmpty()
     = createAndAddAssertion(IS_NOT_EMPTY, RawString("empty"), { subject.isNotEmpty() })
 
-enum class DescriptionCharSequenceAssertion(override val value: String) : IEnTranslatable {
+enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpleTranslatable {
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
     STARTS_WITH("starts with"),
