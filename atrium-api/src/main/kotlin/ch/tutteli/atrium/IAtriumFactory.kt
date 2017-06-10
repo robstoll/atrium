@@ -1,17 +1,21 @@
+@file:JvmName("IAtriumFactoryExtensions")
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.reporting.translating.*
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
+import ch.tutteli.atrium.reporting.translating.ITranslator
+import java.lang.Throwable
 import java.util.*
+import kotlin.reflect.KClass
+
 
 /**
  * The minimum contract of the `abstract factory` of atrium.
@@ -22,6 +26,9 @@ import java.util.*
  * - [IReporter]
  * - [IAssertionFormatter]
  * - [IObjectFormatter]
+ * - [ITranslator]
+ * - [IThrowableFluent]
+ * - [IDownCastBuilder]
  */
 interface IAtriumFactory {
     /**
@@ -39,6 +46,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
+        = newCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
      * Creates an [IAssertionPlant] which does not check the created or
@@ -56,6 +64,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
+        = newCheckLazily(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     /**
      * Creates an [IAssertionPlant] which does not check the created or
@@ -68,7 +77,6 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
-
 
     /**
      * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
@@ -84,6 +92,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
+        = newCheckImmediately(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
      * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
@@ -100,6 +109,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
+        = newCheckImmediately(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     /**
      * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
@@ -127,6 +137,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
+        = newNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
      * Creates an [IAssertionPlantNullable].
@@ -143,6 +154,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
+        = newNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     /**
      * Creates an [IAssertionPlantNullable].
@@ -221,4 +233,57 @@ interface IAtriumFactory {
      * @return The newly created assertion checker.
      */
     fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+
+    /**
+     * Use the extension function with reified type parameter whenever possible.
+     *
+     * Prepares a down cast; use [IDownCastBuilder.cast] to perform the down cast.
+     *
+     * Call [IDownCastBuilder.withLazyAssertions]/[IDownCastBuilder.withNullRepresentation] to specialise the down-cast.
+     *
+     * @param description The description of the down-cast.
+     * @param commonFields The commonFields which will be used to create a [IDownCastBuilder].
+     *
+     * @return The newly created [IDownCastBuilder].
+     *
+     * @see IDownCastBuilder
+     */
+    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub>
 }
+
+/**
+ * Use this function to create a custom *assertion verb* which lazy evaluates assertions
+ * (see [IAtriumFactory.newCheckLazily]).
+ *
+ * This function will create an [IAssertionPlant] which does not check the created assertions until one
+ * calls [IAssertionPlant.checkAssertions].
+ * However, it uses the given [createAssertions] function immediately after creating the [IAssertionPlant]
+ * which might add some assertions and it then calls [IAssertionPlant.checkAssertions].
+ * In case all assertions added so far hold, then it will not evaluate further added assertions until
+ * one calls [IAssertionPlant.checkAssertions] again.
+ *
+ * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+ *
+ * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
+ *
+ * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
+ *         created [IAssertion] does not hold.
+ */
+inline fun <T : Any> IAtriumFactory.newCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
+    = newCheckLazily(assertionVerb, subject, reporter)
+    .createAssertionsAndCheckThem(createAssertions)
+
+/**
+ * Prepares a down cast; use [IDownCastBuilder.cast] to perform the down cast.
+ *
+ * Call [IDownCastBuilder.withLazyAssertions]/[IDownCastBuilder.withNullRepresentation] to specialise the down-cast.
+ *
+ * @param description The description of the down-cast.
+ * @param commonFields The commonFields which will be used to create a [IDownCastBuilder].
+ *
+ * @return The newly created [IDownCastBuilder].
+ *
+ * @see IDownCastBuilder
+ */
+inline fun <reified TSub : T, T : Any> IAtriumFactory.newDownCastBuilder(description: ITranslatable, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub>
+    = newDownCastBuilder(description, TSub::class, commonFields)

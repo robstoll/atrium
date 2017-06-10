@@ -4,6 +4,7 @@ import ch.tutteli.atrium.*
 import ch.tutteli.atrium.DescriptionNumberAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.IThrowableFluent
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.ReporterBuilder
@@ -19,13 +20,13 @@ import org.jetbrains.spek.api.dsl.it
 private fun <T : Any> assert(subject: T): IAssertionPlant<T>
     = AtriumFactory.newCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-private inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T>
+private inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
-private fun <T : Any?> assert(subject: T): IAssertionPlantNullable<T>
+private fun <T : Any?> assert(subject: T)
     = AtriumFactory.newNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-private fun expect(act: () -> Unit): ThrowableFluent
+private fun expect(act: () -> Unit)
     = AtriumFactory.newThrowableFluent(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 private object AtriumReporterSupplier {
@@ -117,7 +118,7 @@ open class VerbSpec(
                         throw IllegalArgumentException()
                     }).toThrow<UnsupportedOperationException>()
                 }.toThrow<AssertionError>().and.message {
-                    contains(ThrowableFluent.AssertionDescription.IS_A)
+                    contains(IThrowableFluent.AssertionDescription.IS_A)
                     contains(IllegalArgumentException::class.java.name,
                         UnsupportedOperationException::class.java.name)
                 }

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.*
 import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.creating.DownCastBuilder
+import ch.tutteli.atrium.creating.IDownCastBuilder
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
@@ -23,7 +23,7 @@ import kotlin.reflect.KClass
 
 open class DownCastBuilderSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (description: ITranslatable, subClass: KClass<Int>, CommonFields<Number?>) -> DownCastBuilder<Number, Int>
+    testeeFactory: (description: ITranslatable, subClass: KClass<Int>, CommonFields<Number?>) -> IDownCastBuilder<Number, Int>
 ) : Spek({
 
 
@@ -42,7 +42,7 @@ open class DownCastBuilderSpec(
             /**
              * @see VerbSpec - similar spec for lazy evaluated assertion verb
              */
-            it("lazy evaluates additional defined assertions (${DownCastBuilder<Int, Int>::withLazyAssertions.name}) "
+            it("lazy evaluates additional defined assertions (${IDownCastBuilder<Int, Int>::withLazyAssertions.name}) "
                 + "which means, if all of them fail then the message contains all failing assertions") {
                 val less = 0
                 val greater = 20

@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.verbs.assert
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
@@ -34,7 +36,7 @@ fun <T : Any?> assert(subject: T)
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newCheckLazilyAtTheEnd
+ * @see IAtriumFactory.newCheckLazilyAtTheEnd
  */
 inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
