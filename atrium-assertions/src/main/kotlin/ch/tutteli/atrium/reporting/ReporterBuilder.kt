@@ -16,8 +16,11 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
     /**
      * Uses [AtriumFactory.newOnlyFailureReporter] as [IReporter].
      */
-    fun buildOnlyFailureReporting(): IReporter
+    fun buildOnlyFailureReporter(): IReporter
         = AtriumFactory.newOnlyFailureReporter(assertionFormatter)
+
+    fun buildCustomReporter(factory: (IAssertionFormatter) -> IReporter): IReporter
+        = factory(assertionFormatter)
 
     companion object {
 
@@ -26,7 +29,7 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
          * but uses the [ITranslatable]'s [getDefault][ITranslatable.getDefault])
          * and the given [primaryLocale] which falls back to [Locale.getDefault] if not given.
          */
-        fun withoutTranslations(primaryLocale:Locale = Locale.getDefault()): ObjectFormatterBuilder
+        fun withoutTranslations(primaryLocale: Locale = Locale.getDefault())
             = ObjectFormatterBuilder(UsingDefaultTranslator(primaryLocale))
 
         /**
@@ -43,10 +46,11 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
             = ObjectFormatterBuilder(translator)
 
         /**
-         * Uses [UsingDefaultTranslator] as [ITranslator]
+         * Shortcut for [withoutTranslations].[withDetailedObjectFormatter]
+         * -- uses [UsingDefaultTranslator] as [ITranslator]
          * and [AtriumFactory.newDetailedObjectFormatter] as [IObjectFormatter].
          */
-        fun withDetailedObjectFormatter(): AssertionFormatterBuilder
+        fun withDetailedObjectFormatter()
             = withoutTranslations().withDetailedObjectFormatter()
     }
 
@@ -54,15 +58,27 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
         /**
          * Uses [AtriumFactory.newDetailedObjectFormatter] as [IObjectFormatter].
          */
-        fun withDetailedObjectFormatter(): AssertionFormatterBuilder
+        fun withDetailedObjectFormatter()
             = AssertionFormatterBuilder(AtriumFactory.newDetailedObjectFormatter(translator), translator)
+
+        /**
+         * Uses the given [objectFormatter] as [IObjectFormatter]
+         */
+        fun withObjectFormatter(objectFormatter: IObjectFormatter)
+            = AssertionFormatterBuilder(objectFormatter, translator)
     }
 
     class AssertionFormatterBuilder(private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
         /**
          * Uses [AtriumFactory.newSameLineAssertionFormatter] as [IAssertionFormatter].
          */
-        fun withSameLineAssertionMessageFormatter(): ReporterBuilder
+        fun withSameLineAssertionFormatter()
             = ReporterBuilder(AtriumFactory.newSameLineAssertionFormatter(objectFormatter, translator))
+
+        /**
+         * Uses the given [assertionFormatter] as [IAssertionFormatter].
+         */
+        fun withAssertionFormatter(assertionFormatter: IAssertionFormatter)
+            = ReporterBuilder(assertionFormatter)
     }
 }

@@ -33,8 +33,8 @@ private object AtriumReporterSupplier {
     val REPORTER by lazy {
         ReporterBuilder
             .withDetailedObjectFormatter()
-            .withSameLineAssertionMessageFormatter()
-            .buildOnlyFailureReporting()
+            .withSameLineAssertionFormatter()
+            .buildOnlyFailureReporter()
     }
 }
 
