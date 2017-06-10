@@ -34,15 +34,18 @@ fun <T> SpecBody.checkNarrowingNullableAssertion(description: String,
 
 fun <T> SpecBody.checkGenericNarrowingAssertion(
     description: String, act: (T.() -> Unit) -> Unit,
-    immediate: (T.() -> Unit), lazy: (T.() -> Unit), vararg otherMethods: Pair<String, (T.() -> Unit)>) {
+    immediate: (T.() -> Unit), lazy: (T.() -> Unit), vararg otherMethods: Pair<String, (T.() -> Unit)>)
+    = checkGenericNarrowingAssertion(description, act, "immediate" to immediate, "lazy" to lazy, *otherMethods)
 
+fun <T> SpecBody.checkGenericNarrowingAssertion(
+    description: String, act: (T.() -> Unit) -> Unit, vararg methods: Pair<String, (T.() -> Unit)>
+) {
     group(description) {
-        mapOf("immediate" to immediate, "lazy" to lazy, *otherMethods).forEach { (checkMethod, assertion) ->
+        mapOf(*methods).forEach { (checkMethod, assertion) ->
             test("in case of $checkMethod evaluation") {
                 act(assertion)
             }
         }
     }
 }
-
 

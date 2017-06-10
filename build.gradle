@@ -3,7 +3,7 @@ buildscript {
         atrium_version = '0.2.0'
         ghPages_version = '0.2.0'
         kbox_version = '0.0.1'
-        kotlin_version = '1.1.1'
+        kotlin_version = '1.1.2-2'
         mockito_kotlin_version = '1.0.1'
         dokka_version = '0.9.13'
 
