@@ -5,57 +5,59 @@ import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 
+@Suppress("UNUSED_PARAMETER")
+internal data class TestData(val description: String, val nullableValue: Int?) {
+    fun return0() = description
+    fun return1(arg1: String) = description
+    fun return2(arg1: String, arg2: Int?) = description
+    fun return3(arg1: String, arg2: Int?, arg3: Boolean) = description
+    fun return4(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double) = description
+    fun return5(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double, arg5: Char) = description
+    fun returnNullable0() = nullableValue
+    fun returnNullable1(arg1: String) = nullableValue
+    fun returnNullable2(arg1: String, arg2: Int?) = nullableValue
+    fun returnNullable3(arg1: String, arg2: Int?, arg3: Boolean) = nullableValue
+    fun returnNullable4(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double) = nullableValue
+    fun returnNullable5(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double, arg5: Char) = nullableValue
+}
+private typealias F = IAssertionPlant<TestData>.() -> Unit
+
 object FeatureAssertionsSpec : Spek({
-    @Suppress("UNUSED_PARAMETER")
-    data class TestData(val description: String, val nullableValue: Int?) {
-        fun return0() = description
-        fun return1(arg1: String) = description
-        fun return2(arg1: String, arg2: Int?) = description
-        fun return3(arg1: String, arg2: Int?, arg3: Boolean) = description
-        fun return4(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double) = description
-        fun return5(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double, arg5: Char) = description
-        fun returnNullable0() = nullableValue
-        fun returnNullable1(arg1: String) = nullableValue
-        fun returnNullable2(arg1: String, arg2: Int?) = nullableValue
-        fun returnNullable3(arg1: String, arg2: Int?, arg3: Boolean) = nullableValue
-        fun returnNullable4(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double) = nullableValue
-        fun returnNullable5(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double, arg5: Char) = nullableValue
-    }
 
-    val itsImmediate: IAssertionPlant<TestData>.() -> Unit = { its(subject::description).contains("hello") }
-    val itsLazy: IAssertionPlant<TestData>.() -> Unit = { its(subject::description) { contains("hello") } }
-    val propertyImmediate: IAssertionPlant<TestData>.() -> Unit = { property(subject::description).contains("hello") }
-    val propertyLazy: IAssertionPlant<TestData>.() -> Unit = { property(subject::description) { contains("hello") } }
-    val return0ValueImmediate: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return0).contains("hello") }
-    val return0ValueLazy: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return0) { contains("hello") } }
-    val return1ValueImmediate: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return1, "a").contains("hello") }
-    val return2ValueImmediate: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return2, "a", 1).contains("hello") }
-    val return3ValueImmediate: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return3, "a", 1, true).contains("hello") }
-    val return4ValueImmediate: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return4, "a", 1, true, 1.2).contains("hello") }
-    val return5ValueImmediate: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b').contains("hello") }
-    val return1ValueLazy: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return1, "a") { contains("hello") } }
-    val return2ValueLazy: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return2, "a", 1) { contains("hello") } }
-    val return3ValueLazy: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return3, "a", 1, true) { contains("hello") } }
-    val return4ValueLazy: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return4, "a", 1, true, 1.2) { contains("hello") } }
-    val return5ValueLazy: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
+    val itsImmediate: F = { its(subject::description).contains("hello") }
+    val itsLazy: F = { its(subject::description) { contains("hello") } }
+    val propertyImmediate: F = { property(subject::description).contains("hello") }
+    val propertyLazy: F = { property(subject::description) { contains("hello") } }
+    val return0ValueImmediate: F = { returnValueOf(subject::return0).contains("hello") }
+    val return1ValueImmediate: F = { returnValueOf(subject::return1, "a").contains("hello") }
+    val return2ValueImmediate: F = { returnValueOf(subject::return2, "a", 1).contains("hello") }
+    val return3ValueImmediate: F = { returnValueOf(subject::return3, "a", 1, true).contains("hello") }
+    val return4ValueImmediate: F = { returnValueOf(subject::return4, "a", 1, true, 1.2).contains("hello") }
+    val return5ValueImmediate: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b').contains("hello") }
+    val return0ValueLazy: F = { returnValueOf(subject::return0) { contains("hello") } }
+    val return1ValueLazy: F = { returnValueOf(subject::return1, "a") { contains("hello") } }
+    val return2ValueLazy: F = { returnValueOf(subject::return2, "a", 1) { contains("hello") } }
+    val return3ValueLazy: F = { returnValueOf(subject::return3, "a", 1, true) { contains("hello") } }
+    val return4ValueLazy: F = { returnValueOf(subject::return4, "a", 1, true, 1.2) { contains("hello") } }
+    val return5ValueLazy: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
 
-    val itsNullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { its(subject::nullableValue).isNull() }
-    val propertyNullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { property(subject::nullableValue).isNull() }
-    val return0ValueNullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable0).isNull() }
-    val return1ValueNullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable1, "a").isNull() }
-    val return2ValueNullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable2, "a", 1).isNull() }
-    val return3ValueNullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable3, "a", 1, true).isNull() }
-    val return4ValueNullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNull() }
-    val return5ValueNullableDoesNotHold: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
+    val itsNullableDoesNotHold: F = { its(subject::nullableValue).isNull() }
+    val propertyNullableDoesNotHold: F = { property(subject::nullableValue).isNull() }
+    val return0ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable0).isNull() }
+    val return1ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable1, "a").isNull() }
+    val return2ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable2, "a", 1).isNull() }
+    val return3ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable3, "a", 1, true).isNull() }
+    val return4ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNull() }
+    val return5ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
 
-    val itsNullableHolds: IAssertionPlant<TestData>.() -> Unit = { its(subject::nullableValue).isNotNull() }
-    val propertyNullableHolds: IAssertionPlant<TestData>.() -> Unit = { property(subject::nullableValue).isNotNull() }
-    val return0ValueNullableHolds: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable0).isNotNull() }
-    val return1ValueNullableHolds: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable1, "a").isNotNull() }
-    val return2ValueNullableHolds: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable2, "a", 1).isNotNull() }
-    val return3ValueNullableHolds: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable3, "a", 1, true).isNotNull() }
-    val return4ValueNullableHolds: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNotNull() }
-    val return5ValueNullableHolds: IAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNotNull() }
+    val itsNullableHolds: F = { its(subject::nullableValue).isNotNull() }
+    val propertyNullableHolds: F = { property(subject::nullableValue).isNotNull() }
+    val return0ValueNullableHolds: F = { returnValueOf(subject::returnNullable0).isNotNull() }
+    val return1ValueNullableHolds: F = { returnValueOf(subject::returnNullable1, "a").isNotNull() }
+    val return2ValueNullableHolds: F = { returnValueOf(subject::returnNullable2, "a", 1).isNotNull() }
+    val return3ValueNullableHolds: F = { returnValueOf(subject::returnNullable3, "a", 1, true).isNotNull() }
+    val return4ValueNullableHolds: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNotNull() }
+    val return5ValueNullableHolds: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNotNull() }
 
     val functions = arrayOf(
         "`its` immediate" to itsImmediate, "`its` lazy" to itsLazy,
