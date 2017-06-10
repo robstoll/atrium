@@ -9,6 +9,46 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KProperty0
 
 /**
+ * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the given [property] as
+ * [subject][IAssertionPlant.subject].
+ *
+ * Delegates to [its].
+ *
+ * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ *
+ * @See IAtriumFactory.newCheckImmediately
+ */
+fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<TProperty>)
+    = its(property)
+
+/**
+ * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the given [property] as
+ * [subject][IAssertionPlant.subject].
+ *
+ * Delegates to [its], more details are given there.
+ *
+ * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ *
+ * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]s
+ *         (by calling [createAssertions]) does not hold.
+ *
+ * @see [IAtriumFactory.newCheckLazily]
+ */
+fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<TProperty>, createAssertions: IAssertionPlant<TProperty>.() -> Unit)
+    = its(property, createAssertions)
+
+
+/**
+ * Creates an [IAssertionPlantNullable] using the given [property] as [subject][IAssertionPlantNullable.subject].
+ *
+ * Delegates to [its].
+ *
+ * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
+ */
+fun <T : Any, TFeature : Any?> IAssertionPlant<T>.property(property: KProperty0<TFeature>)
+    = its(property)
+
+/**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the given [feature] as
  * [subject][IAssertionPlant.subject].
  *
