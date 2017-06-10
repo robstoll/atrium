@@ -5,6 +5,8 @@ package ch.tutteli.atrium.reporting.translating
  *
  * Use this class to represent identifiers (method/property names etc.) and the like.
  */
-class Untranslatable(override val name: String) : ITranslatable {
+class Untranslatable(representation: () -> String) : ITranslatable {
+    constructor(representation: String): this({representation})
+    override val name : String = representation()
     override fun getDefault() = name
 }
