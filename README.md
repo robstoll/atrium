@@ -182,10 +182,9 @@ an assertion function for it. Following an example:
 data class Person(val isSingle:Boolean)
 assert(Person(false)){
     genericCheck(subject::isSingle)
-
 }
     // assert: Person(isSingle=false)
-    // generic check isSingle: true
+    // property isSingle is: true
 ``` 
 
 The only drawback IMO of using an existing property is that the error message is not as nice as 

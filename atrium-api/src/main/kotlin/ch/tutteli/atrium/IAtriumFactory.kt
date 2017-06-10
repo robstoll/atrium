@@ -12,7 +12,6 @@ import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
-import java.lang.Throwable
 import java.util.*
 import kotlin.reflect.KClass
 
