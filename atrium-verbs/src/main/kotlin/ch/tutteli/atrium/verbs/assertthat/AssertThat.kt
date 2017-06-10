@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier

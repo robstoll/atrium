@@ -5,8 +5,8 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
-import ch.tutteli.atrium.creating.ThrowableFluent.AssertionDescription.NO_EXCEPTION_OCCURRED
-import ch.tutteli.atrium.creating.ThrowableFluent.AssertionDescription.IS_A
+import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.NO_EXCEPTION_OCCURRED
+import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.IS_A
 import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString

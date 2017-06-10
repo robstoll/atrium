@@ -19,58 +19,20 @@ import kotlin.reflect.KClass
  * - [IReporter]
  * - [IAssertionFormatter]
  * - [IObjectFormatter]
+ * - [ITranslator]
+ * - [IDownCastBuilder]
  * - [ThrowableFluent]
- * - [DownCastBuilder]
  */
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
-
-    override fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, reporter: IReporter)
-        = newCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
-
-    override fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
-        = newCheckLazily(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T> {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    /**
-     * Use this function to create a custom *assertion verb* which lazy evaluates assertions
-     * (see [IAtriumFactory.newCheckLazily]).
-     *
-     * This function will create an [IAssertionPlant] which does not check the created assertions until one
-     * calls [IAssertionPlant.checkAssertions].
-     * However, it uses the given [createAssertions] function immediately after creating the [IAssertionPlant]
-     * which might add some assertions and it then calls [IAssertionPlant.checkAssertions].
-     * In case all assertions added so far hold, then it will not evaluate further added assertions until
-     * one calls [IAssertionPlant.checkAssertions] again.
-     *
-     * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
-     *
-     * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
-     *
-     * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
-     *         created [IAssertion] does not hold.
-     */
-    inline fun <T : Any> newCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
-        = AtriumFactory.newCheckLazily(assertionVerb, subject, reporter).createAssertionsAndCheckThem(createAssertions)
-
-    override fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
-        = newCheckImmediately(assertionVerb, subject, newThrowingAssertionChecker(reporter))
-
-    override fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
-        = newCheckImmediately(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
-
     override fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T> {
         throw UnsupportedOperationException(ERROR_MSG)
     }
-
-    override fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
-        = newNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter))
-
-    override fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
-        = newNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T> {
         throw UnsupportedOperationException(ERROR_MSG)
@@ -97,6 +59,10 @@ object AtriumFactory : IAtriumFactory {
     }
 
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker {
+        throw UnsupportedOperationException(ERROR_MSG)
+    }
+
+    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub> {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
@@ -138,37 +104,5 @@ object AtriumFactory : IAtriumFactory {
     fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {
         throw UnsupportedOperationException(ERROR_MSG)
     }
-
-    /**
-     * Prepares a down cast; use [DownCastBuilder.cast] to perform the down cast.
-     *
-     * Call [DownCastBuilder.withLazyAssertions]/[DownCastBuilder.withNullRepresentation] to specialise the down-cast.
-     *
-     * @param description The description of the down-cast.
-     * @param commonFields The commonFields which will be used to create a [DownCastBuilder].
-     *
-     * @return The newly created [DownCastBuilder].
-     *
-     * @see DownCastBuilder
-     */
-    inline fun <reified TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
-        = newDownCastBuilder(description, TSub::class, commonFields)
-
-    /**
-     * Use the overload with reified type parameter whenever possible.
-     *
-     * Prepares a down cast; use [DownCastBuilder.cast] to perform the down cast.
-     *
-     * Call [DownCastBuilder.withLazyAssertions]/[DownCastBuilder.withNullRepresentation] to specialise the down-cast.
-     *
-     * @param description The description of the down-cast.
-     * @param commonFields The commonFields which will be used to create a [DownCastBuilder].
-     *
-     * @return The newly created [DownCastBuilder].
-     *
-     * @see DownCastBuilder
-     */
-    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, clazz: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): DownCastBuilder<T, TSub>
-        = DownCastBuilder(description, clazz, commonFields)
 
 }
