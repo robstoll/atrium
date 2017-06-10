@@ -10,6 +10,6 @@ object ResourceBundleBasedTranslationSupplierSpec : TranslationSupplierSpec(
     ReporterBuilder
         .withTranslator(ResourceBundleBasedTranslator.create(Locale("de", "CH"), Locale("fr")))
         .withDetailedObjectFormatter()
-        .withSameLineAssertionMessageFormatter()
-        .buildOnlyFailureReporting()
+        .withSameLineAssertionFormatter()
+        .buildOnlyFailureReporter()
 )
