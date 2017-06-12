@@ -48,7 +48,7 @@ object NarrowingAssertionsSpec : Spek({
                 assert("hello").isA()
             }.toThrow<AssertionError>().and.message {
                 contains(DescriptionNarrowingAssertion.IS_A)
-                contains(Int::class.java.name)
+                contains(Integer::class.java.name)
             }
         }, { isA<Int>() }, { isA<Int> {} })
 
