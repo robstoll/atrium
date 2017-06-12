@@ -32,9 +32,3 @@ internal object AtriumReporterSupplier {
             .buildOnlyFailureReporter()
     }
 }
-
-internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
-    "assert" to { subject -> assert(subject) },
-    "assert" to { subject, createAssertions -> assert(subject, createAssertions) },
-    "assert" to { subject -> assert(subject) },
-    "expect" to { act -> expect { act() } })
