@@ -35,6 +35,7 @@ internal class DetailedObjectFormatter(private val translator: ITranslator) : IO
      * - [TranslatableRawString] is represented as result of its translation (by [translator])
      * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [KClass] is represented as "[Class.getSimpleName] ([Class.getName])"
+     * - [Enum] is represented as "[toString] ([Class.getName])
      * - All other objects are represented as "[toString] ([Class.getName] <[System.identityHashCode]>)"
      *
      * @param value The value which shall be formatted.
@@ -51,6 +52,7 @@ internal class DetailedObjectFormatter(private val translator: ITranslator) : IO
         is TranslatableRawString -> translator.translate(value.translatable)
         is Class<*> -> format(value)
         is KClass<*> -> format(value)
+        is Enum<*> -> format(value)
         else -> value.toString() + INDENT + classNameAndIdentity(value)
     }
 
@@ -67,6 +69,8 @@ internal class DetailedObjectFormatter(private val translator: ITranslator) : IO
             "$kotlin -- Class: ${format(clazz.java)}"
         }
     }
+
+    private fun format(enum: Enum<*>) = enum.toString() + INDENT + "(" + enum::class.java.name + ")"
 
     private fun classNameAndIdentity(any: Any)
         = "(${any::class.java.name} ${identityHash(any)})"
