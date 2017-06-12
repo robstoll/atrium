@@ -337,7 +337,7 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, T5: Any?, TReturnValue : A
 
 private fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(method: KFunction<TReturnValue>, vararg arguments: Any?) =
     IAssertionPlantWithCommonFields.CommonFields(
-        Untranslatable(createFeatureNameForMethod(method, arguments)),
+        Untranslatable(createFeatureNameForMethod(method, *arguments)),
         method.call(*arguments),
         AtriumFactory.newFeatureAssertionChecker(this))
 
