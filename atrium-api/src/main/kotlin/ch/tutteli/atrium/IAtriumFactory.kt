@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
 import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.reporting.IMethodCallFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
@@ -25,6 +26,7 @@ import kotlin.reflect.KClass
  * - [IReporter]
  * - [IAssertionFormatter]
  * - [IObjectFormatter]
+ * - [IMethodCallFormatter]
  * - [ITranslator]
  * - [IThrowableFluent]
  * - [IDownCastBuilder]
@@ -191,6 +193,16 @@ interface IAtriumFactory {
      * @return The newly created object formatter.
      */
     fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
+
+    /**
+     * Creates an [IMethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
+     * representation with the exception of:
+     * - [CharSequence], is wrapped in quotes (`"`)
+     * - [Char] is wrapped in apostrophes (`'`)
+     *
+     * @return The newly created method call formatter.
+     */
+    fun newMethodCallFormatter(): IMethodCallFormatter
 
     /**
      * Creates an [IAssertionFormatter] which puts messages of the form 'a: b' on the same line.

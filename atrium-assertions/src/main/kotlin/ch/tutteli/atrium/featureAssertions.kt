@@ -5,9 +5,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.createAssertionsAndCheckThem
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.kbox.appendToStringBuilder
 import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction0
 import kotlin.reflect.KFunction1
@@ -337,14 +335,6 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, T5: Any?, TReturnValue : A
 
 private fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(method: KFunction<TReturnValue>, vararg arguments: Any?) =
     IAssertionPlantWithCommonFields.CommonFields(
-        Untranslatable(createFeatureNameForMethod(method, *arguments)),
+        Untranslatable(AtriumFactory.newMethodCallFormatter().format(method, arguments)),
         method.call(*arguments),
         AtriumFactory.newFeatureAssertionChecker(this))
-
-private fun createFeatureNameForMethod(method: KFunction<*>, vararg arguments: Any?): () -> String = {
-    val sb = StringBuilder(method.name).append("(")
-    arguments.asList().appendToStringBuilder(sb, ", ") { it, sb ->
-        sb.append(it?.toString() ?: RawString.NULL.string)
-    }
-    sb.append(")").toString()
-}
