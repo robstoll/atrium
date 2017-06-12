@@ -2,9 +2,10 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import kotlin.reflect.KClass
 
 /**
- * Formats an object by using its [toString] representation, its [Class.name] and its [System.identityHashCode].
+ * Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode].
  *
  * The aim of representing more information than just [toString] is to avoid situations where an assert may fail
  * and [toString] does not distinguish two compared objects.
@@ -25,10 +26,11 @@ internal class DetailedObjectFormatter(private val translator: ITranslator) : IO
      * - `null` is represented as [RawString.NULL].[RawString.string]
      * - [RawString] is represented as [RawString.string]
      * - [TranslatableRawString] is represented as result of its translation (by [translator])
-     * - [String] is put in quotes and its [Class.name] is omitted
-     * - [CharSequence] is put in quotes, but [Class.name] is used in contrast to [String]
-     * - [Class] is represented as "[Class.getSimpleName] ([Class.name])"
-     * - All other objects are represented as "[toString] ([Class.name] <[System.identityHashCode]>)"
+     * - [String] is put in quotes and its [Class.getName] is omitted
+     * - [CharSequence] is put in quotes, but [KClass.qualifiedName] is used in contrast to [String]
+     * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
+     * - [KClass] is represented as "[Class.getSimpleName] ([Class.getName])"
+     * - All other objects are represented as "[toString] ([Class.getName] <[System.identityHashCode]>)"
      *
      * @param value The value which shall be formatted.
      *
@@ -41,12 +43,23 @@ internal class DetailedObjectFormatter(private val translator: ITranslator) : IO
         is String -> format(value)
         is CharSequence -> format(value)
         is Class<*> -> format(value)
+        is KClass<*> -> format(value)
         else -> value.toString() + INDENT + classNameAndIdentity(value)
     }
 
     private fun format(string: String) = "\"$string\"" + INDENT + identityHash(string)
     private fun format(charSequence: CharSequence) = "\"$charSequence\"" + INDENT + classNameAndIdentity(charSequence)
-    private fun <T> format(clazz: Class<T>) = "${clazz.simpleName} (${clazz.name})"
+    private fun format(clazz: Class<*>) = "${clazz.simpleName} (${clazz.name})"
+    private fun format(clazz: KClass<*>): String {
+        val kotlin = "${clazz.simpleName} (${clazz.qualifiedName})"
+        return if (clazz.qualifiedName == clazz.java.name) {
+            kotlin
+        } else if (clazz.java.isPrimitive) {
+            "$kotlin -- Class: ${clazz.java.simpleName}"
+        } else {
+            "$kotlin -- Class: ${format(clazz.java)}"
+        }
+    }
 
     private fun classNameAndIdentity(any: Any)
         = "(${any::class.java.name} ${identityHash(any)})"
