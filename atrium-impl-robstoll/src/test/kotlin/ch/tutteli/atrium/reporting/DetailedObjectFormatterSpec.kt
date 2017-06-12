@@ -30,8 +30,8 @@ object DetailedObjectFormatterSpec : Spek({
         }
 
         on("a ${Char::class.simpleName}") {
+            val result = testee.format('a')
             it("returns the ${Char::class.simpleName} in apostrophes") {
-                val result = testee.format('a')
                 assert(result).toBe("'a'")
             }
         }
@@ -95,6 +95,15 @@ object DetailedObjectFormatterSpec : Spek({
             val result = testeeWithMockedTranslation.format(TranslatableRawString(AssertionVerb.ASSERT))
             it("returns the translated string") {
                 assert(result).toBe(translation)
+            }
+        }
+
+        on("an enum"){
+            val enum = AssertionVerb.ASSERT
+            val enum2 = AssertionVerb.ASSERT
+            val result = testee.format(enum)
+            it("returns its toString representation together with its Class.name but without System.identityHash"){
+                assert(result).toBe("ASSERT" + INDENT +"(${enum::class.java.name})")
             }
         }
 
