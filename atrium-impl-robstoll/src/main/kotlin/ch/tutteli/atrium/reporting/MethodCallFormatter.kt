@@ -21,7 +21,7 @@ object MethodCallFormatter : IMethodCallFormatter {
     private fun StringBuilder.appendArgument(arg: Any?) {
         append(when (arg) {
             null -> RawString.NULL.string
-            is CharSequence -> "\"$arg\""
+            is CharSequence -> "\"$arg\"".replace("\r", "\\r").replace("\n", "\\n")
             is Char -> "'$arg'"
             else -> arg.toString()
         })

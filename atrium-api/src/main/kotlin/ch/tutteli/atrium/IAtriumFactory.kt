@@ -197,7 +197,8 @@ interface IAtriumFactory {
     /**
      * Creates an [IMethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
      * representation with the exception of:
-     * - [CharSequence], is wrapped in quotes (`"`)
+     * - [CharSequence], is wrapped in quotes (`"`) and line breaks (CR or/and LF) are escaped so that the
+     *   whole representation remains on one line.
      * - [Char] is wrapped in apostrophes (`'`)
      *
      * @return The newly created method call formatter.
