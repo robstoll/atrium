@@ -7,26 +7,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import kotlin.reflect.KProperty0
 
 /**
- * Use this function to make the assertion about the existing property [feature]
- * of the [IAssertionPlant.subject] that the property is `true`.
- *
- * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
- */
-fun <T : Any> IAssertionPlant<T>.genericCheck(feature: KProperty0<Boolean>)
-    = createAndAddAssertion(TranslatableWithArgs(GENERIC_CHECK, feature.name), true, { feature.get() })
-
-/**
- * Use this function to make the assertion about the existing property [feature]
- * of the [IAssertionPlant.subject] that the property is `false`.
- *
- * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
- */
-fun <T : Any> IAssertionPlant<T>.genericNotCheck(feature: KProperty0<Boolean>)
-    = createAndAddAssertion(TranslatableWithArgs(GENERIC_CHECK, feature.name), true, { !feature.get() })
-
-/**
  * Makes the assertion that [IAssertionPlant.subject] is (equals) [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [IAssertionPlant.subject].
@@ -75,7 +55,6 @@ fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T)
     = createAndAddAssertion(IS_NOT_SAME, expected, { subject !== expected })
 
 enum class DescriptionAnyAssertion(override val value: String) : ISimpleTranslatable {
-    GENERIC_CHECK("generic check %s"),
     TO_BE("to be"),
     NOT_TO_BE("not to be"),
     IS_SAME("is the same as"),

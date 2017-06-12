@@ -25,6 +25,7 @@ import kotlin.reflect.KClass
  */
 object AtriumFactory : IAtriumFactory {
 
+
     override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
         = AssertionPlantCheckLazily(commonFields)
 
@@ -39,6 +40,9 @@ object AtriumFactory : IAtriumFactory {
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
         = DetailedObjectFormatter(translator)
+
+    override fun newMethodCallFormatter(): IMethodCallFormatter
+        = MethodCallFormatter
 
     override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = SameLineAssertionFormatter(objectFormatter, translator)
