@@ -29,6 +29,56 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
+        on("a ${Char::class.simpleName}") {
+            it("returns the ${Char::class.simpleName} in apostrophes") {
+                val result = testee.format('a')
+                assert(result).toBe("'a'")
+            }
+        }
+
+        on("a ${Boolean::class.simpleName}") {
+            it("returns the toString representation of the ${Boolean::class.simpleName}") {
+                assert(testee.format(true)).toBe("true")
+                assert(testee.format(false)).toBe("false")
+            }
+        }
+
+        on("a ${String::class.simpleName}") {
+            it("returns two quotes including identity hash if empty ${String::class.simpleName}") {
+                val string = ""
+                val result = testee.format(string)
+                assert(result).toBe("\"\"" + INDENT + "<${System.identityHashCode(string)}>")
+            }
+            it("returns the ${String::class.simpleName} in quotes including identity hash") {
+                val string = "atrium"
+                val result = testee.format(string)
+                assert(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
+            }
+            it("returns line breaks (does not escape") {
+                val string = "atrium\nAn assertion framework for Kotlin"
+                val result = testee.format(string)
+                assert(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
+            }
+        }
+
+        val typeNameAndHash = "including type name and identity hash"
+
+        on("a ${CharSequence::class.simpleName} besides ${String::class.simpleName}") {
+            it("returns two quotes $typeNameAndHash if empty ${CharSequence::class.simpleName}") {
+                val value = StringBuilder("")
+                val result = testee.format(value)
+                assert(result).toBe("\"\"" + INDENT
+                    + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
+            }
+            it("returns ${CharSequence::class.simpleName} in quotes $typeNameAndHash") {
+                val value = StringBuilder("atrium")
+                val result = testee.format(value)
+                assert(result).toBe("\"$value\"" + INDENT
+                    + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
+            }
+        }
+
+
         on("a ${RawString::class.simpleName}") {
             val result = testee.format(RawString("hello"))
             it("returns the containing string") {
@@ -84,43 +134,7 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        on("a ${String::class.simpleName}") {
-            it("returns two quotes including identity hash if empty ${String::class.simpleName}") {
-                val string = ""
-                val result = testee.format(string)
-                assert(result).toBe("\"\"" + INDENT + "<${System.identityHashCode(string)}>")
-            }
-            it("returns ${String::class.simpleName} in quotes including identity hash") {
-                val string = "atrium"
-                val result = testee.format(string)
-                assert(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
-            }
-            it("return line breaks (does not escape") {
-                val string = "atrium\nAn assertion framework for Kotlin"
-                val result = testee.format(string)
-                assert(result).toBe("\"$string\"" + INDENT + "<${System.identityHashCode(string)}>")
-            }
-        }
-
-        val typeNameAndHash = "including type name and identity hash"
-
-        on("a ${CharSequence::class.simpleName} besides ${String::class.simpleName}") {
-            it("returns two quotes $typeNameAndHash if empty ${CharSequence::class.simpleName}") {
-                val value = StringBuilder("")
-                val result = testee.format(value)
-                assert(result).toBe("\"\"" + INDENT
-                    + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
-            }
-            it("returns ${CharSequence::class.simpleName} in quotes $typeNameAndHash") {
-                val value = StringBuilder("atrium")
-                val result = testee.format(value)
-                assert(result).toBe("\"$value\"" + INDENT
-                    + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
-            }
-        }
-
         mapOf(
-            Boolean::class.java.simpleName to false,
             Byte::class.java.simpleName to 1.toByte(),
             Short::class.java.simpleName to 1.toShort(),
             Int::class.java.simpleName to 1,

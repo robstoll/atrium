@@ -5,7 +5,10 @@ import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import kotlin.reflect.KClass
 
 /**
- * Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode].
+ * Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
+ * (in most cases).
+ *
+ * Some objects are treated differently, refer to [format] for details.
  *
  * The aim of representing more information than just [toString] is to avoid situations where an assert may fail
  * and [toString] does not distinguish two compared objects.
@@ -24,10 +27,12 @@ internal class DetailedObjectFormatter(private val translator: ITranslator) : IO
      *
      * The following rules apply for the representation of an object:
      * - `null` is represented as [RawString.NULL].[RawString.string]
-     * - [RawString] is represented as [RawString.string]
-     * - [TranslatableRawString] is represented as result of its translation (by [translator])
+     * - [Char] is put in apostrophes
+     * - [Boolean] is represented with its [toString] representation
      * - [String] is put in quotes and its [Class.getName] is omitted
      * - [CharSequence] is put in quotes, but [KClass.qualifiedName] is used in contrast to [String]
+     * - [RawString] is represented as [RawString.string]
+     * - [TranslatableRawString] is represented as result of its translation (by [translator])
      * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [KClass] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - All other objects are represented as "[toString] ([Class.getName] <[System.identityHashCode]>)"
@@ -38,10 +43,12 @@ internal class DetailedObjectFormatter(private val translator: ITranslator) : IO
      */
     override fun format(value: Any?): String = when (value) {
         null -> RawString.NULL.string
-        is RawString -> value.string
-        is TranslatableRawString -> translator.translate(value.translatable)
+        is Char -> "'$value'"
+        is Boolean -> value.toString()
         is String -> format(value)
         is CharSequence -> format(value)
+        is RawString -> value.string
+        is TranslatableRawString -> translator.translate(value.translatable)
         is Class<*> -> format(value)
         is KClass<*> -> format(value)
         else -> value.toString() + INDENT + classNameAndIdentity(value)
