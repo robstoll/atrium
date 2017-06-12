@@ -70,7 +70,7 @@ For instance, you could change from same-line to multi-line reporting or
 report not only failing but also successful assertions etc.
 
 In order to create an own assertion verb it suffices to copy the file content of 
-[atriumVerbs.kt](./atrium-assertions/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+[atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
 paste it in your own atriumVerbs.kt, rename `assert` and `expect` as desired and rename the package to reflect yours.
 
 As you can see, it is up to you if you use the same name for all assertion functions or not 
@@ -263,8 +263,8 @@ The code documentation is generated with dokka and is hosted on github-pages:
 
 # Contribute
 You are very welcome to contribute:
-- [open an issue or create a feature request](issues/new)
-- [fork the repository](#fork-destination-box) and make a pull request
+- [open an issue or create a feature request](https://github.com/robstoll/atrium/issues/new)
+- fork the repository and make a pull request
 
 # Known Limitations
 According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
