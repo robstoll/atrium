@@ -3,6 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.reporting.IMethodCallFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
@@ -19,6 +20,7 @@ import kotlin.reflect.KClass
  * - [IReporter]
  * - [IAssertionFormatter]
  * - [IObjectFormatter]
+ * - [IMethodCallFormatter]
  * - [ITranslator]
  * - [IDownCastBuilder]
  * - [ThrowableFluent]
@@ -43,6 +45,10 @@ object AtriumFactory : IAtriumFactory {
     }
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter {
+        throw UnsupportedOperationException(ERROR_MSG)
+    }
+
+    override fun newMethodCallFormatter(): IMethodCallFormatter {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 

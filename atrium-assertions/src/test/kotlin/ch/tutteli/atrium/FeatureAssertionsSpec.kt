@@ -66,17 +66,17 @@ object FeatureAssertionsSpec : Spek({
         Triple("`property` immediate", propertyImmediate, TestData::description.name),
         Triple("`property` lazy", propertyLazy, TestData::description.name),
         Triple("`returnValueOf` without arguments and immediate", return0ValueImmediate,"${TestData::return0.name}()"),
-        Triple("`returnValueOf` with 1 argument and immediate", return1ValueImmediate, "${TestData::return1.name}(a)"),
-        Triple("`returnValueOf` with 2 arguments and immediate", return2ValueImmediate, "${TestData::return2.name}(a, 1)"),
-        Triple("`returnValueOf` with 3 arguments and immediate", return3ValueImmediate, "${TestData::return3.name}(a, 1, true)"),
-        Triple("`returnValueOf` with 4 arguments and immediate", return4ValueImmediate, "${TestData::return4.name}(a, 1, true, 1.2)"),
-        Triple("`returnValueOf` with 5 arguments and immediate", return5ValueImmediate, "${TestData::return5.name}(a, 1, true, 1.2, b)"),
+        Triple("`returnValueOf` with 1 argument and immediate", return1ValueImmediate, "${TestData::return1.name}(\"a\")"),
+        Triple("`returnValueOf` with 2 arguments and immediate", return2ValueImmediate, "${TestData::return2.name}(\"a\", 1)"),
+        Triple("`returnValueOf` with 3 arguments and immediate", return3ValueImmediate, "${TestData::return3.name}(\"a\", 1, true)"),
+        Triple("`returnValueOf` with 4 arguments and immediate", return4ValueImmediate, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
+        Triple("`returnValueOf` with 5 arguments and immediate", return5ValueImmediate, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')"),
         Triple("`returnValueOf` without arguments and lazy", return0ValueLazy,"${TestData::return0.name}()"),
-        Triple("`returnValueOf` with 1 argument and lazy", return1ValueLazy,  "${TestData::return1.name}(a)"),
-        Triple("`returnValueOf` with 2 arguments and lazy", return2ValueLazy, "${TestData::return2.name}(a, 1)"),
-        Triple("`returnValueOf` with 3 arguments and lazy", return3ValueLazy, "${TestData::return3.name}(a, 1, true)"),
-        Triple("`returnValueOf` with 4 arguments and lazy", return4ValueLazy, "${TestData::return4.name}(a, 1, true, 1.2)"),
-        Triple("`returnValueOf` with 5 arguments and lazy", return5ValueLazy, "${TestData::return5.name}(a, 1, true, 1.2, b)")
+        Triple("`returnValueOf` with 1 argument and lazy", return1ValueLazy,  "${TestData::return1.name}(\"a\")"),
+        Triple("`returnValueOf` with 2 arguments and lazy", return2ValueLazy, "${TestData::return2.name}(\"a\", 1)"),
+        Triple("`returnValueOf` with 3 arguments and lazy", return3ValueLazy, "${TestData::return3.name}(\"a\", 1, true)"),
+        Triple("`returnValueOf` with 4 arguments and lazy", return4ValueLazy, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
+        Triple("`returnValueOf` with 5 arguments and lazy", return5ValueLazy, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')")
     )
 
     fun <T> SpecBody.checkGenericNarrowingAssertionWithExceptionMessage(
@@ -100,11 +100,11 @@ object FeatureAssertionsSpec : Spek({
             Triple("`its` nullable", itsNullableDoesNotHold, TestData::nullableValue.name),
             Triple("`property` nullable", propertyNullableDoesNotHold, TestData::nullableValue.name),
             Triple("`returnValueOf` without argument and nullable", return0ValueNullableDoesNotHold, "${TestData::returnNullable0.name}()"),
-            Triple("`returnValueOf` with 1 argument and nullable", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(a)"),
-            Triple("`returnValueOf` with 2 arguments and nullable", return2ValueNullableDoesNotHold, "${TestData::returnNullable2.name}(a, 1)"),
-            Triple("`returnValueOf` with 3 arguments and nullable", return3ValueNullableDoesNotHold, "${TestData::returnNullable3.name}(a, 1, true)"),
-            Triple("`returnValueOf` with 4 arguments and nullable", return4ValueNullableDoesNotHold, "${TestData::returnNullable4.name}(a, 1, true, 1.2)"),
-            Triple("`returnValueOf` with 5 arguments and nullable", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(a, 1, true, 1.2, b)")
+            Triple("`returnValueOf` with 1 argument and nullable", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
+            Triple("`returnValueOf` with 2 arguments and nullable", return2ValueNullableDoesNotHold, "${TestData::returnNullable2.name}(\"a\", 1)"),
+            Triple("`returnValueOf` with 3 arguments and nullable", return3ValueNullableDoesNotHold, "${TestData::returnNullable3.name}(\"a\", 1, true)"),
+            Triple("`returnValueOf` with 4 arguments and nullable", return4ValueNullableDoesNotHold, "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)"),
+            Triple("`returnValueOf` with 5 arguments and nullable", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
         )
 
         checkGenericNarrowingAssertion("it does not throw an exception if the assertion holds", { andWithCheck ->
