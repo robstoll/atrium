@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  * Makes the assertion that [IAssertionPlant.subject] contains the [expected] [CharSequence].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence)
     = createAndAddAssertion(CONTAINS, expected, { subject.contains(expected) })
@@ -19,7 +19,7 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence)
  * Makes the assertion that [IAssertionPlant.subject] does not contain the [expected] [CharSequence].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence)
     = createAndAddAssertion(CONTAINS_NOT, expected, { !subject.contains(expected) })
@@ -30,7 +30,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence)
  * and [otherExpected] [CharSequence]s (if defined).
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionPlant<T> {
     val plant = contains(expected)
@@ -43,7 +43,7 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence, varar
  * and neither one of the [otherExpected] [CharSequence]s (if defined).
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionPlant<T> {
     val plant = containsNot(expected)
@@ -57,7 +57,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence, va
  * and the [getDefault][ITranslatable.getDefault] representation of the [otherExpected] (if defined).
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T> {
     val plant = contains(expected.getDefault())
@@ -70,7 +70,7 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: ITranslatable, vara
  * and the [getDefault][ITranslatable.getDefault] representation of the [otherExpected] (if defined).
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T> {
     val plant = containsNot(expected.getDefault())
@@ -84,7 +84,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: ITranslatable, v
  * and the [toString] representation of the [otherExpected] (if defined).
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherExpected: Any): IAssertionPlant<T> {
     val plant = contains(expected.toString())
@@ -97,7 +97,7 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherEx
  * and neither one of the [otherExpected]'s [toString] representation (if defined).
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg otherExpected: Any): IAssertionPlant<T> {
     val plant = containsNot(expected.toString())
@@ -110,7 +110,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg othe
  * Makes the assertion that [IAssertionPlant.subject] starts with [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequence)
     = createAndAddAssertion(STARTS_WITH, expected, { subject.startsWith(expected) })
@@ -119,7 +119,7 @@ fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequence)
  * Makes the assertion that [IAssertionPlant.subject] does not start with [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequence)
     = createAndAddAssertion(STARTS_NOT_WITH, expected, { !subject.startsWith(expected) })
@@ -129,7 +129,7 @@ fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequence)
  * Makes the assertion that [IAssertionPlant.subject] ends with [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence)
     = createAndAddAssertion(ENDS_WITH, expected, { subject.endsWith(expected) })
@@ -138,7 +138,7 @@ fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence)
  * Makes the assertion that [IAssertionPlant.subject] does not end with [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence)
     = createAndAddAssertion(ENDS_NOT_WITH, expected, { !subject.endsWith(expected) })
@@ -148,7 +148,7 @@ fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence)
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.isEmpty()
     = createAndAddAssertion(IS_EMPTY, RawString("empty"), { subject.isEmpty() })
@@ -157,7 +157,7 @@ fun <T : CharSequence> IAssertionPlant<T>.isEmpty()
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.isNotEmpty()
     = createAndAddAssertion(IS_NOT_EMPTY, RawString("empty"), { subject.isNotEmpty() })

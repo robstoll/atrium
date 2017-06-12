@@ -16,7 +16,7 @@ fun IAssertionPlant<Int>.isLessThan(expected: Int)
  * Makes the assertion that [IAssertionPlant.subject] is less than or equals [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun IAssertionPlant<Int>.isLessOrEquals(expected: Int)
     = createAndAddAssertion(IS_LESS_OR_EQUALS, expected, { subject <= expected })
@@ -25,7 +25,7 @@ fun IAssertionPlant<Int>.isLessOrEquals(expected: Int)
  * Makes the assertion that [IAssertionPlant.subject] is greater than [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun IAssertionPlant<Int>.isGreaterThan(expected: Int)
     = createAndAddAssertion(IS_GREATER_THAN, expected, { subject > expected })
@@ -34,7 +34,7 @@ fun IAssertionPlant<Int>.isGreaterThan(expected: Int)
  * Makes the assertion that [IAssertionPlant.subject] is greater than or equals [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun IAssertionPlant<Int>.isGreaterOrEquals(expected: Int)
     = createAndAddAssertion(IS_GREATER_OR_EQUALS, expected, { subject >= expected })

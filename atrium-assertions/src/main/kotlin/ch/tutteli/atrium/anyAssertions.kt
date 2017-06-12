@@ -13,7 +13,7 @@ import kotlin.reflect.KProperty0
  * Currently the following is possible: `assert(1).toBe(1.0)`
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : Any> IAssertionPlant<T>.toBe(expected: T)
     = createAndAddAssertion(TO_BE, expected, { subject == expected })
@@ -25,7 +25,7 @@ fun <T : Any> IAssertionPlant<T>.toBe(expected: T)
  * Currently the following is possible: `assert(1).toBe(1.0)`
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : Any> IAssertionPlant<T>.notToBe(expected: T)
     = createAndAddAssertion(NOT_TO_BE, expected, { subject != expected })
@@ -37,7 +37,7 @@ fun <T : Any> IAssertionPlant<T>.notToBe(expected: T)
  * Currently the following is possible: `assert(1).toBe(1.0)`
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : Any> IAssertionPlant<T>.isSame(expected: T)
     = createAndAddAssertion(IS_SAME, expected, { subject === expected })
@@ -49,7 +49,7 @@ fun <T : Any> IAssertionPlant<T>.isSame(expected: T)
  * Currently the following is possible: `assert(1).toBe(1.0)`
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the made assertion does not hold.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T)
     = createAndAddAssertion(IS_NOT_SAME, expected, { subject !== expected })
