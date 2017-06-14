@@ -11,8 +11,70 @@ code, pre, .keyword , .symbol {
 }
 td > code{
     display:block;
+    margin-bottom: 4px;
+}
+td > code + p {
+    margin-bottom: 20px;
+}
+td p:last-child {
+    margin-bottom: 10px;
+}
+
+h1 ~ p {
+    margin-bottom:10px;
+}
+h1 ~ h3 {
+    margin-top: 35px;
+}
+
+h1 ~ code > :last-child {
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+h1 + code {
+    display: block;
+    margin-bottom: 15px;
+    margin-top: 25px;
+} 
+
+a[name] + code {
+    display: inline;
+}
+
+h3 ~ a  + code  {
+    font-weight:bolder;
+}
+
+p + a[name] + code{
+    display: block;
+    margin-top: 30px;
+    border-top: 1px dashed #CCC;
+    padding-top: 25px;
+    font-weight: normal;
+}
+
+h3 ~ a[name] {
+    display: block;
     margin-bottom: 5px;
 }
+
+h1 ~ p + h3 {
+    margin-top:20px;
+    margin-bottom: 10px;
+    color: #222;
+    font-weight: normal;
+    font-style: oblique;
+    font-size: 1em;
+}
+h1 ~ p > strong {
+    display: block;
+    margin-top:20px;
+    margin-bottom:-5px;
+    font-weight: normal;
+    font-style: oblique;
+}
+
 
 code, pre {
     color:#333;
@@ -43,6 +105,21 @@ h1, h2, h3, h4, h5, h6 {
 p, ul, ol, table, pre, dl {
     margin:0 0 20px;
 }
+table p {
+    margin: 0;
+}
+
+ul li {
+    margin-bottom: 5px;
+}
+ul p {
+    margin: 0;
+}
+ul ul{
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
 
 h1, h2, h3 {
     line-height:1.1;
@@ -111,7 +188,27 @@ table {
 th, td {
     text-align:left;
     vertical-align: top;
-    padding:5px 10px 20px;
+    padding:5px 10px 10px;
+}
+
+table > tbody > tr {
+    border-top:1px dashed #CCC;
+}
+
+table > tbody > tr:first-child {
+    border:0;
+}
+
+table > tbody > tr > td {
+    padding-top:20px;
+}
+table > tbody > tr > td:first-child {
+    min-width: 230px;
+    width: 230px;
+}
+
+table > tbody > tr:first-child > td {
+    padding-top:0;
 }
 
 dt {
@@ -173,6 +270,9 @@ header ul a {
 strong {
     color:#222;
     font-weight:700;
+}
+emph {
+    font-style: italic;
 }
 
 header ul li + li {
