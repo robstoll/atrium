@@ -5,7 +5,7 @@ buildscript {
         kbox_version = '0.0.1'
         kotlin_version = '1.1.2-2'
         mockito_kotlin_version = '1.0.1'
-        dokka_version = '0.9.13'
+        dokka_version = '0.9.14'
 
         //spek.gradle
         jacoco_tool_version = '0.7.6.201602180812'
@@ -67,6 +67,9 @@ dokka {
     moduleName = 'doc'
     outputFormat = 'html'
     outputDirectory = "../${project.name}-gh-pages/$ghPages_version"
+
+    includes = ['atrium-api/src/main/kdoc/packages.md']
+    jdkVersion = 6
 
     def docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-impl") }
     doFirst {
