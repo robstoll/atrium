@@ -1,6 +1,6 @@
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium)
-[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
+[![Build Status](https://travis-ci.org/robstoll/atrium.svg?tag=v0.3.0)](https://travis-ci.org/robstoll/atrium/branches)
+[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?tag=v0.3.0)](https://codecov.io/github/robstoll/atrium?tag=v0.3.0)
 
 # Atrium
 Atrium is an open-source assertion framework for Kotlin with a fluent API and supports different styles 
@@ -29,7 +29,7 @@ Atrium can be retrieved from [bintray](https://bintray.com/robstoll/tutteli-jars
 gradle: 
 ```
 buildscript {
-    ext { atrium_version='0.2.0' }
+    ext { atrium_version='0.3.0' }
 }
 
 dependencies {
@@ -44,19 +44,19 @@ maven:
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-api</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <scope>test</scope>
 </dependency>
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-impl-robstoll</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <scope>test</scope>
 </dependency>
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-assertions</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <scope>test</scope>
 </dependency>
 ```
@@ -83,7 +83,7 @@ If you still insist of using the provided assertion verbs, then add the followin
 gradle:
 ```
 buildscript {
-    ext { atrium_version='0.2.0' }
+    ext { atrium_version='0.3.0' }
 }
 
 dependencies {
@@ -99,25 +99,25 @@ maven:
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-api</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <scope>test</scope>
 </dependency>
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-impl-robstoll</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <scope>test</scope>
 </dependency>
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-assertions</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <scope>test</scope>
 </dependency>
 <dependency>
   <groupId>ch.tutteli</groupId>
   <artifactId>atrium-verbs</artifactId>
-  <version>0.2.0</version>
+  <version>0.3.0</version>
   <scope>test</scope>
 </dependency>
 ```

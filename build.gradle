@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        atrium_version = '0.2.0'
-        ghPages_version = '0.2.0'
+        atrium_version = '0.3.0'
+        ghPages_version = '0.3.0'
         kbox_version = '0.0.1'
         kotlin_version = '1.1.2-5'
         mockito_kotlin_version = '1.0.1'
