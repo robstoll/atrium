@@ -85,3 +85,27 @@ dokka {
     }
     sourceDirs = docProjects.collect { subProject -> file("${subProject.name}/src/main/kotlin") }
 }
+
+/*
+
+Release & deploy a commit
+--------------------------------
+1. change atrium_version and ghPages_version in build.gradle
+2. update github pages:
+    a) gradlew ghPages
+    b) change version number in atrium-gh-pages/latest/index.html
+    c) add new version to atrium-gh-pages/README.md
+    d) commit & push changes
+3. update master:
+    a) update README.md:
+        1) search for old version and replace with new (gradle and maven examples)
+        2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage)
+    b) commit (modified build.gradle and README.md)
+    c) git tag vX.Y.Z
+    d) push to origin
+4. deploy to bintray:
+    a) gradlew bintrayUpload
+    b) Log in to bintray, check and publish new jars
+5. create release on github
+
+*/
