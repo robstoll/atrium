@@ -108,4 +108,10 @@ Release & deploy a commit
     b) Log in to bintray, check and publish new jars
 5. create release on github
 
+Prepare next dev cycle
+-----------------------
+1. change atrium_version in build.gradle to X.Y.Z-SNAPSHOT
+2. update README.md, search for `tag=vX.Y.Z` and replace it with branch=master
+3. commit & push changes
+
 */
