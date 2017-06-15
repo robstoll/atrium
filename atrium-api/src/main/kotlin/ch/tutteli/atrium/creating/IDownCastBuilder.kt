@@ -12,7 +12,7 @@ import kotlin.reflect.full.cast
  * down-casted to [TSub].
  *
  * @param T The type of [IAssertionPlant.subject].
- * @param TSub The type to which [IAssertionPlant.subject] can be down-casted.
+ * @param TSub The type to which [IAssertionPlant.subject] can be down-casted, hence needs to be a subtype of [T].
  */
 interface IDownCastBuilder<T : Any, TSub : T> {
 

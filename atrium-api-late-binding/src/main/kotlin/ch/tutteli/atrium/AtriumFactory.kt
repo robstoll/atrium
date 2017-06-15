@@ -12,9 +12,9 @@ import java.util.*
 import kotlin.reflect.KClass
 
 /**
- * The `abstract factory` of atrium.
+ * A dummy implementation of [IAtriumFactory] which should be replaced by an actual implementation.
  *
- * It provides factory methods to create:
+ * It provides factory methods which all throw an [UnsupportedOperationException] to create:
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [IReporter]

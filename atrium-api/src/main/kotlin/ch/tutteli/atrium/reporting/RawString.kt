@@ -10,8 +10,11 @@ package ch.tutteli.atrium.reporting
  * @param string The string which should be treated as raw [String].
  *
  */
-data class RawString(val string: String) : IRawString{
+data class RawString(val string: String) : IRawString {
 
+    /**
+     * @suppress No need to document this behaviour
+     */
     override fun toString(): String {
         return "$string (RawString)"
     }

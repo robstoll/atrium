@@ -18,7 +18,11 @@ import kotlin.reflect.KClass
 
 
 /**
- * The minimum contract of the `abstract factory` of atrium.
+ * The minimum contract of the 'abstract factory' of atrium.
+ *
+ * It is extended with the following extension functions defined in the atrium-api (in the same file as this interface):
+ * - [ch.tutteli.atrium.newCheckLazilyAtTheEnd]
+ * - [ch.tutteli.atrium.newDownCastBuilder]
  *
  * It provides factory methods to create:
  * - [IAssertionPlant]
@@ -246,8 +250,8 @@ interface IAtriumFactory {
      */
     fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
 
-    /**
-     * Use the extension function with reified type parameter whenever possible.
+    /**n
+     * Use the extension function [ch.tutteli.atrium.newDownCastBuilder] with reified type parameter whenever possible.
      *
      * Prepares a down cast; use [IDownCastBuilder.cast] to perform the down cast.
      *

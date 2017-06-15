@@ -8,8 +8,8 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import java.util.*
 
 /**
- * A builder to create an [IReporter] consisting of an [IObjectFormatter] which is used by an
- * [IAssertionFormatter] which in turn is used by the created [IReporter].
+ * A builder to create an [IReporter] consisting of an [ITranslator] which is used by an [IObjectFormatter]
+ * which then is used by an [IAssertionFormatter] which in turn is used by the created [IReporter].
  */
 class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
 
@@ -19,9 +19,15 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
     fun buildOnlyFailureReporter(): IReporter
         = AtriumFactory.newOnlyFailureReporter(assertionFormatter)
 
+    /**
+     * Uses the given [factory] to build a custom [IReporter].
+     */
     fun buildCustomReporter(factory: (IAssertionFormatter) -> IReporter): IReporter
         = factory(assertionFormatter)
 
+    /**
+     * Provides options to create an [ITranslator].
+     */
     companion object {
 
         /**
@@ -54,6 +60,9 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
             = withoutTranslations().withDetailedObjectFormatter()
     }
 
+    /**
+     * Provides options to create an [IObjectFormatter].
+     */
     class ObjectFormatterBuilder(private val translator: ITranslator) {
         /**
          * Uses [AtriumFactory.newDetailedObjectFormatter] as [IObjectFormatter].
@@ -68,6 +77,9 @@ class ReporterBuilder(private val assertionFormatter: IAssertionFormatter) {
             = AssertionFormatterBuilder(objectFormatter, translator)
     }
 
+    /**
+     * Provides options to create an [IAssertionFormatter].
+     */
     class AssertionFormatterBuilder(private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
         /**
          * Uses [AtriumFactory.newSameLineAssertionFormatter] as [IAssertionFormatter].

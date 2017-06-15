@@ -26,7 +26,7 @@ Following a brief overview of the modules:
  
 
 # Package ch.tutteli.atrium
-Contains the *IAtriumFactory*, all the assertion functions as well as the 
+Contains the [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html), all the assertion functions as well as the 
 [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s used in the assertion 
 functions (e.g. [DescriptionAnyAssertion](./ch.tutteli.atrium/-description-any-assertion/index.html))
 

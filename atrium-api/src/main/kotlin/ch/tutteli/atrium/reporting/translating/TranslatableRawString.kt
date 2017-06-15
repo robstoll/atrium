@@ -16,6 +16,9 @@ import ch.tutteli.atrium.reporting.IRawString
  *
  */
 data class TranslatableRawString(val translatable: ITranslatable) : IRawString {
+    /**
+     * @suppress No need to document this behaviour
+     */
     override fun toString(): String {
         return "${translatable.getDefault()} (TranslatableRawString)"
     }

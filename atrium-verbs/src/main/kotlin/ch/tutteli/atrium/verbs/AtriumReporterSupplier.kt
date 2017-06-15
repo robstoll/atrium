@@ -9,7 +9,7 @@ import ch.tutteli.atrium.verbs.expect.expect
 /**
  * Supplies the [IReporter] for the assertion verbs [assert], [assertThat] and [expect].
  */
-object AtriumReporterSupplier {
+@PublishedApi internal object AtriumReporterSupplier {
     /**
      * The [IReporter] for the assertion verbs [assert], [assertThat] and [expect].
      */

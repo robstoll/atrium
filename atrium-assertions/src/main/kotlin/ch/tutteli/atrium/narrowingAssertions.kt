@@ -3,6 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
 import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_NOT_NULL
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
@@ -51,6 +52,10 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertio
     .withLazyAssertions(createAssertions)
     .cast()
 
+/**
+ * Contains the [Message.description]s of the assertion functions which postulate that a [IAssertionPlant.subject]
+ * of type `T` can be narrowed to `TSub` where `TSub <: T`.
+ */
 enum class DescriptionNarrowingAssertion(override val value: String) : ISimpleTranslatable {
     IS_NOT_NULL("is not"),
     IS_A("is type or sub-type of"),
