@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        atrium_version = '0.3.0'
+        atrium_version = '0.4.0-SNAPSHOT'
         ghPages_version = '0.3.0'
         kbox_version = '0.0.1'
         kotlin_version = '1.1.2-5'

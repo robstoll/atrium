@@ -1,6 +1,6 @@
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
-[![Build Status](https://travis-ci.org/robstoll/atrium.svg?tag=v0.3.0)](https://travis-ci.org/robstoll/atrium/branches)
-[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?tag=v0.3.0)](https://codecov.io/github/robstoll/atrium?tag=v0.3.0)
+[![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
+[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
 
 # Atrium
 Atrium is an open-source assertion framework for Kotlin with a fluent API and supports different styles 
