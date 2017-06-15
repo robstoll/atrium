@@ -28,6 +28,8 @@ abstract class ArgumentsSupportingTranslator(protected val primaryLocale: Locale
      * In case of a [ITranslatableWithArgs] it translates the [ITranslatable] of the given [ITranslatableWithArgs]
      * and formats it with its [arguments][ITranslatableWithArgs.arguments].
      *
+     * @param translatable The [ITranslatable] which shall be translated.
+     *
      * @return The result of the translation for the given [translatable].
      */
     override final fun translate(translatable: ITranslatable): String = when (translatable) {
@@ -38,6 +40,15 @@ abstract class ArgumentsSupportingTranslator(protected val primaryLocale: Locale
     /**
      * Do not call this method in case you want to translate a [ITranslatableWithArgs]
      * use [translate] in this case.
+     *
+     * This method needs to be implemented by sub classes, which have to return the translation for the given
+     * [translatable] or the result of [ITranslatable.getDefault] if there is no translation defined for the given
+     * [translatable].
+     *
+     * @param translatable The [ITranslatable] which shall be translated.
+     *
+     * @return The translation for the given [translatable] or
+     *         [ITranslatable.getDefault] of the given [translatable] in case there is no translation defined
      */
     protected abstract fun translateWithoutArgs(translatable: ITranslatable): String
 

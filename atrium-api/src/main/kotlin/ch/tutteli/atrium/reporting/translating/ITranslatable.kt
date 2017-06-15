@@ -5,6 +5,8 @@ package ch.tutteli.atrium.reporting.translating
  */
 interface ITranslatable {
     /**
+     * Returns the default representation of this [ITranslatable].
+     *
      * @return The default representation of this [ITranslatable].
      */
     fun getDefault(): String

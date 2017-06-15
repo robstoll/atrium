@@ -18,7 +18,7 @@ import kotlin.reflect.full.cast
  * down-casted to [subType] of type [TSub].
  *
  * @param T The type of [IAssertionPlant.subject].
- * @param TSub The type to which [IAssertionPlant.subject] can be down-casted.
+ * @param TSub The type to which [IAssertionPlant.subject] can be down-casted, hence needs to be a subtype of [T].
  *
  * @property description The description of this down-cast; will be used for the creation of the [IAssertion].
  * @property subType The resulting type of the down-cast.
