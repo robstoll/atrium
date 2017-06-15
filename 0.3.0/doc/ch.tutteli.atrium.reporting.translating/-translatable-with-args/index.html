@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TranslatableWithArgs - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href=".">TranslatableWithArgs</a><br/>
+<br/>
+<h1>TranslatableWithArgs</h1>
+<code><span class="keyword">class </span><span class="identifier">TranslatableWithArgs</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-translatable-with-args/index.html"><span class="identifier">ITranslatableWithArgs</span></a></code>
+<p>An <a href="../-i-translatable/index.html">ITranslatable</a> which contains placeholders for arguments.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TranslatableWithArgs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any)/argument">argument</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span></code>
+<p>Creates an <a href="../-i-translatable-with-args/index.html">ITranslatableWithArgs</a> with the given <a href="-init-.html#ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any)/translatable">translatable</a> and its one and only <a href="-init-.html#ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any)/argument">argument</a>.</p>
+<code><span class="identifier">TranslatableWithArgs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any, kotlin.Array((kotlin.Any)))/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any, kotlin.Array((kotlin.Any)))/arg1">arg1</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any, kotlin.Array((kotlin.Any)))/otherArguments">otherArguments</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span></code>
+<p>Creates an <a href="../-i-translatable-with-args/index.html">ITranslatableWithArgs</a> with the given <a href="-init-.html#ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any, kotlin.Array((kotlin.Any)))/translatable">translatable</a>, the first argument <a href="-init-.html#ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any, kotlin.Array((kotlin.Any)))/arg1">arg1</a> and the <a href="-init-.html#ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Any, kotlin.Array((kotlin.Any)))/otherArguments">otherArguments</a>.</p>
+<code><span class="identifier">TranslatableWithArgs</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Array((kotlin.Any)))/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.TranslatableWithArgs$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Array((kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="arguments.html">arguments</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">arguments</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>The arguments which should be used to substitute the placeholders of the <a href="translatable.html">translatable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="translatable.html">translatable</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">translatable</span><span class="symbol">: </span><a href="../-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>The <a href="../-i-translatable/index.html">ITranslatable</a> as such which contains placeholders and
+    for which translations can be been defined.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-translatable-with-args/id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>The id of this <a href="../-i-translatable/index.html">ITranslatable</a> -- per default it is "<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html#name">Class.name</a>-<a href="../-i-translatable-with-args/name.html">name</a>"</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-translatable-with-args/name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The name of this <a href="../-i-translatable/index.html">ITranslatable</a> -- the name together with its <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html#name">Class.name</a> should identify a <a href="../-i-translatable/index.html">ITranslatable</a> (see <a href="../-i-translatable-with-args/id.html">id</a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-translatable-with-args/get-default.html">getDefault</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getDefault</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Returns the default representation of this <a href="../-i-translatable/index.html">ITranslatable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

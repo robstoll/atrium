@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertion - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href=".">IAssertion</a><br/>
+<br/>
+<h1>IAssertion</h1>
+<code><span class="keyword">interface </span><span class="identifier">IAssertion</span></code>
+<p>The base interface of all assertions, providing the method <a href="holds.html">holds</a>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates whether the assertion holds or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-assertion-group/index.html">IAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertion</span></code>
+<p>The base interface for IAssertion groups, providing a default implementation for <a href="holds.html">IAssertion.holds</a>
+which returns <code>true</code> if all its <a href="../-i-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-feature-assertion-group/index.html">IFeatureAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IFeatureAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertion</span></code>
+<p>The base interface for feature IAssertion groups, providing a default implementation for <a href="holds.html">IAssertion.holds</a>
+which returns <code>true</code> if all its <a href="../-i-feature-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-multi-message-assertion/index.html">IMultiMessageAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IMultiMessageAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertion</span></code>
+<p>The base interface for IAssertions which have multiple <a href="../-message/index.html">Message</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-one-message-assertion/index.html">IOneMessageAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IOneMessageAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertion</span></code>
+<p>The base interface for IAssertions which have one <a href="../-message/index.html">Message</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

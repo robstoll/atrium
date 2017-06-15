@@ -1,0 +1,75 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.assertions - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href=".">ch.tutteli.atrium.assertions</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.assertions</h2>
+<p>Contains different types of <a href="./ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>, 
+e.g. <a href="./ch.tutteli.atrium.assertions/-i-asertion-group/index.html">IAssertionGroup</a> etc.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-i-assertion/index.html">IAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertion</span></code>
+<p>The base interface of all assertions, providing the method <a href="-i-assertion/holds.html">holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-group/index.html">IAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion/index.html"><span class="identifier">IAssertion</span></a></code>
+<p>The base interface for <a href="-i-assertion/index.html">IAssertion</a> groups, providing a default implementation for <a href="-i-assertion/holds.html">IAssertion.holds</a>
+which returns <code>true</code> if all its <a href="-i-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-feature-assertion-group/index.html">IFeatureAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IFeatureAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion/index.html"><span class="identifier">IAssertion</span></a></code>
+<p>The base interface for feature <a href="-i-assertion/index.html">IAssertion</a> groups, providing a default implementation for <a href="-i-assertion/holds.html">IAssertion.holds</a>
+which returns <code>true</code> if all its <a href="-i-feature-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-multi-message-assertion/index.html">IMultiMessageAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IMultiMessageAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion/index.html"><span class="identifier">IAssertion</span></a></code>
+<p>The base interface for <a href="-i-assertion/index.html">IAssertion</a>s which have multiple <a href="-message/index.html">Message</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-one-message-assertion/index.html">IOneMessageAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IOneMessageAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion/index.html"><span class="identifier">IAssertion</span></a></code>
+<p>The base interface for <a href="-i-assertion/index.html">IAssertion</a>s which have one <a href="-message/index.html">Message</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-message/index.html">Message</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Message</span></code>
+<p>Represents a message of an <a href="-i-assertion/index.html">IAssertion</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

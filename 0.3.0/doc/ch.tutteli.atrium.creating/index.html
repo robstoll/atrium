@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.creating - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href=".">ch.tutteli.atrium.creating</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.creating</h2>
+<p>Everything involved in creating <a href="./ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-i-assertion-plant/index.html">IAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion-plant-with-common-fields/index.html"><span class="identifier">IAssertionPlantWithCommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s and offers the possibility to check all the added assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-plant-nullable/index.html">IAssertionPlantNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlantNullable</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion-plant-with-common-fields/index.html"><span class="identifier">IAssertionPlantWithCommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents an assertion plant for nullable types.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-plant-with-common-fields/index.html">IAssertionPlantWithCommonFields</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlantWithCommonFields</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>An assertion plant which has <a href="-i-assertion-plant-with-common-fields/-common-fields/index.html">CommonFields</a>; provides the property <a href="-i-assertion-plant-with-common-fields/subject.html">subject</a> for ease of use.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-down-cast-builder/index.html">IDownCastBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IDownCastBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>A builder for creating a down-casting <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-throwable-fluent/index.html">IThrowableFluent</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IThrowableFluent</span></code>
+<p>This interface is mainly here to simplify the KDoc generation (no need to define it twice,
+once in atrium-api-late-binding and once in atrium-impl-robstoll). Once Kotlin supports inline functions
+in interfaces, we will consolidate it to a proper API and get rid of ThrowableFluent in atrium-api-late-binding.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-throwable-fluent/index.html">ThrowableFluent</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ThrowableFluent</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-throwable-fluent/index.html"><span class="identifier">IThrowableFluent</span></a></code>
+<p>Provides <a href="-throwable-fluent/to-throw.html">toThrow</a> methods for making assertions about a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>
+which one expects was thrown.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-assertions-and-check-them.html">createAssertionsAndCheckThem</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">createAssertionsAndCheckThem</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating$createAssertionsAndCheckThem(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.createAssertionsAndCheckThem.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.createAssertionsAndCheckThem.T)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Uses <code>this</code> plant as receiver of the given <a href="create-assertions-and-check-them.html#ch.tutteli.atrium.creating$createAssertionsAndCheckThem(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.createAssertionsAndCheckThem.T)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.createAssertionsAndCheckThem.T)), kotlin.Unit)))/createAssertions">createAssertions</a> function and
+then calls <a href="-i-assertion-plant/check-assertions.html">IAssertionPlant.checkAssertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

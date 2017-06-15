@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IDownCastBuilder.cast - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">IDownCastBuilder</a>&nbsp;/&nbsp;<a href=".">cast</a><br/>
+<br/>
+<h1>cast</h1>
+<a name="ch.tutteli.atrium.creating.IDownCastBuilder$cast()"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">cast</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Performs the down-cast if possible; reports a failure otherwise.</p>
+<h3>Exceptions</h3>
+<a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> in case the down-cast cannot be performed
+    or an additionally specified assertion (using <a href="with-lazy-assertions.html">withLazyAssertions</a>) does not hold.<a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - In case reporting a failure does not throw itself.
+<p><strong>Return</strong><br/>
+The newly created <a href="../-i-assertion-plant/index.html">IAssertionPlant</a> for the down-casted <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a>.</p>
+</BODY>
+</HTML>

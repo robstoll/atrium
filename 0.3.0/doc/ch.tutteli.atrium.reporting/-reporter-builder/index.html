@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ReporterBuilder - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href=".">ReporterBuilder</a><br/>
+<br/>
+<h1>ReporterBuilder</h1>
+<code><span class="keyword">class </span><span class="identifier">ReporterBuilder</span></code>
+<p>A builder to create an <a href="../-i-reporter/index.html">IReporter</a> consisting of an <a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html">ITranslator</a> which is used by an <a href="../-i-object-formatter/index.html">IObjectFormatter</a>
+which then is used by an <a href="../-i-assertion-formatter/index.html">IAssertionFormatter</a> which in turn is used by the created <a href="../-i-reporter/index.html">IReporter</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-formatter-builder/index.html">AssertionFormatterBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AssertionFormatterBuilder</span></code>
+<p>Provides options to create an <a href="../-i-assertion-formatter/index.html">IAssertionFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-object-formatter-builder/index.html">ObjectFormatterBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ObjectFormatterBuilder</span></code>
+<p>Provides options to create an <a href="../-i-object-formatter/index.html">IObjectFormatter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ReporterBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder$<init>(ch.tutteli.atrium.reporting.IAssertionFormatter)/assertionFormatter">assertionFormatter</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-formatter/index.html"><span class="identifier">IAssertionFormatter</span></a><span class="symbol">)</span></code>
+<p>A builder to create an <a href="../-i-reporter/index.html">IReporter</a> consisting of an <a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html">ITranslator</a> which is used by an <a href="../-i-object-formatter/index.html">IObjectFormatter</a>
+which then is used by an <a href="../-i-assertion-formatter/index.html">IAssertionFormatter</a> which in turn is used by the created <a href="../-i-reporter/index.html">IReporter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build-custom-reporter.html">buildCustomReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">buildCustomReporter</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder$buildCustomReporter(kotlin.Function1((ch.tutteli.atrium.reporting.IAssertionFormatter, ch.tutteli.atrium.reporting.IReporter)))/factory">factory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-i-assertion-formatter/index.html"><span class="identifier">IAssertionFormatter</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../-i-reporter/index.html"><span class="identifier">IReporter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-reporter/index.html"><span class="identifier">IReporter</span></a></code>
+<p>Uses the given <a href="build-custom-reporter.html#ch.tutteli.atrium.reporting.ReporterBuilder$buildCustomReporter(kotlin.Function1((ch.tutteli.atrium.reporting.IAssertionFormatter, ch.tutteli.atrium.reporting.IReporter)))/factory">factory</a> to build a custom <a href="../-i-reporter/index.html">IReporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="build-only-failure-reporter.html">buildOnlyFailureReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">buildOnlyFailureReporter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-reporter/index.html"><span class="identifier">IReporter</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium/-atrium-factory/new-only-failure-reporter.html">AtriumFactory.newOnlyFailureReporter</a> as <a href="../-i-reporter/index.html">IReporter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-detailed-object-formatter.html">withDetailedObjectFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withDetailedObjectFormatter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-assertion-formatter-builder/index.html"><span class="identifier">AssertionFormatterBuilder</span></a></code>
+<p>Shortcut for <a href="without-translations.html">withoutTranslations</a>.<a href="with-detailed-object-formatter.html">withDetailedObjectFormatter</a>
+-- uses <a href="../../ch.tutteli.atrium.reporting.translating/-using-default-translator/index.html">UsingDefaultTranslator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html">ITranslator</a>
+and <a href="../../ch.tutteli.atrium/-atrium-factory/new-detailed-object-formatter.html">AtriumFactory.newDetailedObjectFormatter</a> as <a href="../-i-object-formatter/index.html">IObjectFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-translations.html">withTranslations</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withTranslations</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslations(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/translationSupplier">translationSupplier</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translation-supplier/index.html"><span class="identifier">ITranslationSupplier</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslations(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/locale">locale</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslations(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-object-formatter-builder/index.html"><span class="identifier">ObjectFormatterBuilder</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium/-atrium-factory/new-translator.html">AtriumFactory.newTranslator</a> with the given <a href="with-translations.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslations(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/translationSupplier">translationSupplier</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html">ITranslator</a>, uses <a href="with-translations.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslations(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/locale">locale</a> as primary
+<a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html">Locale</a> and the optional <a href="with-translations.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslations(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</a> as fallback <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html">Locale</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-translator.html">withTranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withTranslator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslator(ch.tutteli.atrium.reporting.translating.ITranslator)/translator">translator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html"><span class="identifier">ITranslator</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-object-formatter-builder/index.html"><span class="identifier">ObjectFormatterBuilder</span></a></code>
+<p>Uses the given <a href="with-translator.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withTranslator(ch.tutteli.atrium.reporting.translating.ITranslator)/translator">translator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html">ITranslator</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="without-translations.html">withoutTranslations</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withoutTranslations</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withoutTranslations(java.util.Locale)/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a>&nbsp;<span class="symbol">=</span>&nbsp;Locale.getDefault()<span class="symbol">)</span><span class="symbol">: </span><a href="-object-formatter-builder/index.html"><span class="identifier">ObjectFormatterBuilder</span></a></code>
+<p>Uses <a href="../../ch.tutteli.atrium.reporting.translating/-using-default-translator/index.html">UsingDefaultTranslator</a> as <a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html">ITranslator</a> (which does not translate
+but uses the <a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a>'s <a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/get-default.html">getDefault</a>)
+and the given <a href="without-translations.html#ch.tutteli.atrium.reporting.ReporterBuilder.Companion$withoutTranslations(java.util.Locale)/primaryLocale">primaryLocale</a> which falls back to <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html#getDefault()">Locale.getDefault</a> if not given.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

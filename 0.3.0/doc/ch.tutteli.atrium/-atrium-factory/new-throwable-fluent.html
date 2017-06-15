@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtriumFactory.newThrowableFluent - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">AtriumFactory</a>&nbsp;/&nbsp;<a href=".">newThrowableFluent</a><br/>
+<br/>
+<h1>newThrowableFluent</h1>
+<a name="ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)"></a>
+<code><span class="keyword">fun </span><span class="identifier">newThrowableFluent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/act">act</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/reporter">reporter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-i-reporter/index.html"><span class="identifier">IReporter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html"><span class="identifier">ThrowableFluent</span></a></code>
+<p>Creates a <a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html">ThrowableFluent</a> based on the given <a href="new-throwable-fluent.html#ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/assertionVerb">assertionVerb</a> and the <a href="new-throwable-fluent.html#ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/act">act</a> function.</p>
+<p>It uses the given <a href="new-throwable-fluent.html#ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/reporter">reporter</a> for reporting.</p>
+<h3>Parameters</h3>
+<a name="assertionVerb"></a>
+<code>assertionVerb</code> - The assertion verb which will be used inter alia in reporting
+    (see <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/assertion-verb.html">IAssertionPlantWithCommonFields.CommonFields.assertionVerb</a>).<a name="act"></a>
+<code>act</code> - The function which is expected to throw a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> which in turn will be used as subject
+    for postulated <a href="#">IAssertion</a>s (see <a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html">ThrowableFluent</a> and
+    <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/subject.html">IAssertionPlantWithCommonFields.CommonFields.subject</a>).<a name="reporter"></a>
+<code>reporter</code> - The reporter used to create a <a href="new-throwing-assertion-checker.html">newThrowingAssertionChecker</a> and used for failure reporting.
+<p><strong>Return</strong><br/>
+The newly created <a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html">ThrowableFluent</a>.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html">ThrowableFluent</a></p>
+</p>
+<a name="ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)"></a>
+<code><span class="keyword">fun </span><span class="identifier">newThrowableFluent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/act">act</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/assertionChecker">assertionChecker</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.checking/-i-assertion-checker/index.html"><span class="identifier">IAssertionChecker</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html"><span class="identifier">ThrowableFluent</span></a></code>
+<p>Creates a <a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html">ThrowableFluent</a> based on the given <a href="new-throwable-fluent.html#ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/assertionVerb">assertionVerb</a> and the <a href="new-throwable-fluent.html#ch.tutteli.atrium.AtriumFactory$newThrowableFluent(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.checking.IAssertionChecker)/act">act</a> function.</p>
+<h3>Parameters</h3>
+<a name="assertionVerb"></a>
+<code>assertionVerb</code> - The assertion verb which will be used inter alia in reporting
+    (see <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/assertion-verb.html">IAssertionPlantWithCommonFields.CommonFields.assertionVerb</a>).<a name="act"></a>
+<code>act</code> - The function which is expected to throw a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> which in turn will be used as subject
+    for postulated <a href="#">IAssertion</a>s (see <a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html">ThrowableFluent</a> and
+    <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/subject.html">IAssertionPlantWithCommonFields.CommonFields.subject</a>).<a name="assertionChecker"></a>
+<code>assertionChecker</code> - Used to report failures (see <a href="../../ch.tutteli.atrium.checking/-i-assertion-checker/fail.html">IAssertionChecker.fail</a>
+    and <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-with-common-fields/-common-fields/assertion-checker.html">IAssertionPlantWithCommonFields.CommonFields.assertionChecker</a>)).
+<p><strong>Return</strong><br/>
+The newly created <a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html">ThrowableFluent</a>.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../../ch.tutteli.atrium.creating/-throwable-fluent/index.html">ThrowableFluent</a></p>
+</p>
+</BODY>
+</HTML>

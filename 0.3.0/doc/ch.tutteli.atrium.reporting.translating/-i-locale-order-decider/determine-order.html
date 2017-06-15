@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ILocaleOrderDecider.determineOrder - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="index.html">ILocaleOrderDecider</a>&nbsp;/&nbsp;<a href=".">determineOrder</a><br/>
+<br/>
+<h1>determineOrder</h1>
+<a name="ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider$determineOrder(java.util.Locale, kotlin.Array((java.util.Locale)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">determineOrder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider$determineOrder(java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider$determineOrder(java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span><span class="symbol">&lt;</span><a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html"><span class="identifier">Locale</span></a><span class="symbol">&gt;</span></code>
+<p>Defines the <a href="#">Sequence</a> of <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html">Locale</a>s which should be used in <a href="../-i-translator/translate.html">ITranslator.translate</a>.</p>
+<p>The first <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html">Locale</a> of the <a href="#">Sequence</a> is the given <a href="determine-order.html#ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider$determineOrder(java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</a>, then secondary alternatives follow
+as defined by <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ResourceBundle/Control.html#getCandidateLocales(java.lang.String, java.util.Locale)">ResourceBundle.Control.getCandidateLocales</a> and finally the given <a href="determine-order.html#ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider$determineOrder(java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</a>
+(in the given order) are used as fallback for the <a href="determine-order.html#ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider$determineOrder(java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</a>, which means the process starts over again.</p>
+<h3>Parameters</h3>
+<a name="primaryLocale"></a>
+<code>primaryLocale</code> - The primary <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html">Locale</a> which should be the first element of the returned <a href="#">Sequence</a>.<a name="fallbackLocales"></a>
+<code>fallbackLocales</code> - The fallback <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html">Locale</a>'s which should be used in case no translation could be found for
+    the <a href="determine-order.html#ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider$determineOrder(java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</a> and its secondary alternatives.
+<p><strong>Return</strong><br/>
+A <a href="#">Sequence</a> of <a href="http://docs.oracle.com/javase/6/docs/api/java/util/Locale.html">Locale</a>s which defines the order in which translations should be searched for.</p>
+</BODY>
+</HTML>

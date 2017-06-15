@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IThrowableFluent - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href=".">IThrowableFluent</a><br/>
+<br/>
+<h1>IThrowableFluent</h1>
+<code><span class="keyword">interface </span><span class="identifier">IThrowableFluent</span></code>
+<p>This interface is mainly here to simplify the KDoc generation (no need to define it twice,
+once in atrium-api-late-binding and once in atrium-impl-robstoll). Once Kotlin supports inline functions
+in interfaces, we will consolidate it to a proper API and get rid of ThrowableFluent in atrium-api-late-binding.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-description/index.html">AssertionDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">AssertionDescription</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-simple-translatable/index.html"><span class="identifier">ISimpleTranslatable</span></a></code>
+<p>Use these <a href="../../ch.tutteli.atrium.reporting.translating/-i-simple-translatable/index.html">ISimpleTranslatable</a>s in the implementation to create corresponding <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="common-fields.html">commonFields</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">commonFields</span><span class="symbol">: </span><a href="../-i-assertion-plant-with-common-fields/-common-fields/index.html"><span class="identifier">CommonFields</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">?</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="to-throw.html">toThrow</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <span class="identifier">toThrow</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.IThrowableFluent$toThrow(kotlin.reflect.KClass((ch.tutteli.atrium.creating.IThrowableFluent.toThrow.TExpected)))/expectedType">expectedType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <span class="identifier">toThrow</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.IThrowableFluent$toThrow(kotlin.reflect.KClass((ch.tutteli.atrium.creating.IThrowableFluent.toThrow.TExpected)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.IThrowableFluent.toThrow.TExpected)), kotlin.Unit)))/expectedType">expectedType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.creating.IThrowableFluent$toThrow(kotlin.reflect.KClass((ch.tutteli.atrium.creating.IThrowableFluent.toThrow.TExpected)), kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.IThrowableFluent.toThrow.TExpected)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span></code>
+<p>Use the overload with reified type parameter whenever possible.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-throwable-fluent/index.html">ThrowableFluent</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ThrowableFluent</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IThrowableFluent</span></code>
+<p>Provides <a href="../-throwable-fluent/to-throw.html">toThrow</a> methods for making assertions about a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>
+which one expects was thrown.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionPlantWithCommonFields - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href=".">IAssertionPlantWithCommonFields</a><br/>
+<br/>
+<h1>IAssertionPlantWithCommonFields</h1>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlantWithCommonFields</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>An assertion plant which has <a href="-common-fields/index.html">CommonFields</a>; provides the property <a href="subject.html">subject</a> for ease of use.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-common-fields/index.html">CommonFields</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">CommonFields</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Common fields of an assertion plant.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="common-fields.html">commonFields</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">commonFields</span><span class="symbol">: </span><a href="-common-fields/index.html"><span class="identifier">CommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p><a href="-common-fields/index.html">CommonFields</a> of this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="subject.html">subject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">subject</span><span class="symbol">: </span><span class="identifier">T</span></code>
+<p>The subject for which this plant will create/check <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-assertion-plant/index.html">IAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionPlantWithCommonFields</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s and offers the possibility to check all the added assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-assertion-plant-nullable/index.html">IAssertionPlantNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlantNullable</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionPlantWithCommonFields</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents an assertion plant for nullable types.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

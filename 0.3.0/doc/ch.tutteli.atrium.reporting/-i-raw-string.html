@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IRawString - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href=".">IRawString</a><br/>
+<br/>
+<h1>IRawString</h1>
+<code><span class="keyword">interface </span><span class="identifier">IRawString</span></code>
+<p>Marker interface for types which provide a raw string functionality
+and should be treated accordingly in reporting (e.g., in <a href="-i-object-formatter/index.html">IObjectFormatter</a>).</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-raw-string/index.html">RawString</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RawString</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IRawString</span></code>
+<p>Use this class to represent a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> which should be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../ch.tutteli.atrium.reporting.translating/-translatable-raw-string/index.html">TranslatableRawString</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">TranslatableRawString</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IRawString</span></code>
+<p>Use this class to represent an <a href="../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a> which shall be translated and
+then be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

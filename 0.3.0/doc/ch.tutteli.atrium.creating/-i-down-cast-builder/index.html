@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IDownCastBuilder - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href=".">IDownCastBuilder</a><br/>
+<br/>
+<h1>IDownCastBuilder</h1>
+<code><span class="keyword">interface </span><span class="identifier">IDownCastBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>A builder for creating a down-casting <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>.</p>
+<p>Or in other words, helps to make an assertion about <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> of type <a href="#">T</a> that it can be
+down-casted to <a href="#">TSub</a>.</p>
+<h3>Parameters</h3>
+<a name="T"></a>
+<code>T</code> - The type of <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a>.<a name="TSub"></a>
+<code>TSub</code> - The type to which <a href="../-i-assertion-plant-with-common-fields/subject.html">IAssertionPlant.subject</a> can be down-casted, hence needs to be a subtype of <a href="#">T</a>.
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="cast.html">cast</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">cast</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Performs the down-cast if possible; reports a failure otherwise.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-lazy-assertions.html">withLazyAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withLazyAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.IDownCastBuilder$withLazyAssertions(kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.creating.IDownCastBuilder.TSub)), kotlin.Unit)))/createAssertions">createAssertions</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IDownCastBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Use this method if you want to add several assertions which are checked lazily after the down cast is performed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-null-representation.html">withNullRepresentation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withNullRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.IDownCastBuilder$withNullRepresentation(kotlin.String)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IDownCastBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">TSub</span><span class="symbol">&gt;</span></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">withNullRepresentation</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.IDownCastBuilder$withNullRepresentation(ch.tutteli.atrium.reporting.translating.ITranslatable)/translatableRepresentation">translatableRepresentation</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">IDownCastBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Use this method if you want to use your own <code>null</code> representation in error reporting
+(default is <a href="../../ch.tutteli.atrium.reporting/-raw-string/-n-u-l-l.html">RawString.NULL</a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
