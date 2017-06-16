@@ -1,11 +1,11 @@
 # Contributing to Atrium
 
-Thank you very much that you take your time to contribute to Atrium :)
+Thank you very much that you take your time to contribute to Atrium :smiley:
 
 Following a few guidelines so that others can quickly benefit from your contribution.
 
 *Table of Content*: [Code of Conduct](#code-of-conduct), [How to Contribute](#how-to-contribute), 
-[Your first code contribution](#your-first-code-contribution), [Coding Conventions](#coding-conventions),
+[Your First Code Contribution](#your-first-code-contribution), [Coding Conventions](#coding-conventions),
 [Pull Request Checklist](#pull-request-checklist).
 
 
@@ -22,13 +22,13 @@ By participating, you are expected to uphold this code. Please report unacceptab
   and I will get back to you.
   
 - Found a bug?  
-  [Open an issue](https://github.com/robstoll/atrium/issues/new)
+  [Open an issue](https://github.com/robstoll/atrium/issues/new).
   
 - Missing a feature?  
-  [Create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
+  [Create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
   
 - You would like to write an assertion function but have trouble to start?  
-  Please read the section [your first code contribution](#your-first-code-contribution). 
+  Please read the section [Your First Code Contribution](#your-first-code-contribution). 
   If you still have trouble to start, then contact me on 
   [slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ)
   and I will try to give you some additional hints.
@@ -52,10 +52,13 @@ In any case, if you are uncertain how you can contribute, then contact me on
 [slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ)
 and we will figure it out together :)
 
-## Your first code contribution
+## Your First Code Contribution
 Fantastic, thanks for your effort! Contact me on 
 [slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ)
-whenever you need help to get up and running. Following a small guidance how I would start.
+whenever you need help to get up and running or create a pull request and 
+prepend the title with `[NEED HELP]` and explain your problem in the description.
+ 
+Following a small guidance how I would start.
  
 1. Fork the repository to your repositories 
 2. Use an IDE which supports Kotlin and gradle projects (I am currently using [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/))  
@@ -66,9 +69,10 @@ whenever you need help to get up and running. Following a small guidance how I w
 6. Write a test-case for an existing class. This way you get familiar with the classes of atrium, 
    you use atrium again and learn how spek works
 7. Read the [Pull Request Checklist](#pull-request-checklist) and create your first pull-request.
+8. :clap: you have submitted your first code contribution to Atrium :blush:
 
 I would suggest you wait for my feedback so that you get a first impression of what I consider to be important.
-Yet, if your fingers almost automatically start to write more code then go on ;) 
+Yet, if your fingers almost automatically start to write more code then go on :wink:
 
 ## Coding Conventions
 So far I do not try to enforce too much. I will review your patches and comment if necessary.
