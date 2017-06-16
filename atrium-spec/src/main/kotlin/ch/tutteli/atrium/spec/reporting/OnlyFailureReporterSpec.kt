@@ -31,19 +31,15 @@ open class OnlyFailureReporterSpec(
         val oneMessageAssertion = object : IOneMessageAssertion {
             override val message = Message(TO_BE, 0, true)
         }
-        val multiMessageAssertion = object : IMultiMessageAssertion {
-            override val messages = listOf(Message(TO_BE, 0, true), Message(TO_BE, 0, true))
-        }
         val assertionGroup = object : IAssertionGroup {
             override val name = AssertionVerb.VERB
             override val subject = 0
-            override val assertions = listOf(assertion, oneMessageAssertion, multiMessageAssertion)
+            override val assertions = listOf(assertion, oneMessageAssertion)
         }
 
         mapOf(
             IAssertion::class.java to assertion,
             IOneMessageAssertion::class.java to oneMessageAssertion,
-            IMultiMessageAssertion::class.java to multiMessageAssertion,
             IAssertionGroup::class.java to assertionGroup
         ).forEach { (clazz, assertion) ->
             it("does not append anything if ${clazz.simpleName} holds") {

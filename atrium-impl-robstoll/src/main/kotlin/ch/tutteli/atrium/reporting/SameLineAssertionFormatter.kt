@@ -15,7 +15,6 @@ import ch.tutteli.kbox.appendToStringBuilder
  *
  * and the following [Message] types:
  * - [IOneMessageAssertion]
- * - [IMultiMessageAssertion]
  *
  * @property objectFormatter Used to format objects such as [Message.representation].
  * @property translator Used to translate [ITranslatable]s such as [Message.description].
@@ -40,7 +39,6 @@ internal class SameLineAssertionFormatter(
                 is IAssertionGroup -> formatGroup(assertion, methodObject)
                 is IFeatureAssertionGroup -> formatFeature(assertion, methodObject)
                 is IOneMessageAssertion -> appendMessage(assertion.message, methodObject)
-                is IMultiMessageAssertion -> appendMessages(assertion.messages, methodObject)
                 else -> basicFormat(assertion, methodObject)
             }
         }
@@ -58,14 +56,6 @@ internal class SameLineAssertionFormatter(
             .appendPair("-> " + translator.translate(featureAssertionGroup.featureName), featureAssertionGroup.feature)
             .appendln()
             .appendAssertions(featureAssertionGroup.assertions, methodObject, methodObject::newWithIncrementedMessageLevel)
-    }
-
-    private fun appendMessages(messages: List<Message>, methodObject: MethodObject) {
-        messages
-            .filter(methodObject.messageFilter)
-            .appendToStringBuilder(methodObject.sb, SEPARATOR) { (description, representation), sb ->
-                sb.appendPair(translator.translate(description), representation)
-            }
     }
 
     private fun appendMessage(message: Message, methodObject: MethodObject) {
