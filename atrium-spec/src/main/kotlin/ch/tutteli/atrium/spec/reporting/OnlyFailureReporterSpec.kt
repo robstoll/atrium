@@ -32,6 +32,7 @@ open class OnlyFailureReporterSpec(
             override val message = Message(TO_BE, 0, true)
         }
         val assertionGroup = object : IAssertionGroup {
+            override val type = RootAssertionGroupType
             override val name = AssertionVerb.VERB
             override val subject = 0
             override val assertions = listOf(assertion, oneMessageAssertion)

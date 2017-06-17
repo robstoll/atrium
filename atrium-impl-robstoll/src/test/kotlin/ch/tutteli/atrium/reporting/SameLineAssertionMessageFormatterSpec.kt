@@ -5,6 +5,7 @@ import ch.tutteli.atrium.*
 import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
@@ -29,20 +30,27 @@ object SameLineAssertionMessageFormatterSpec : Spek({
     }
     val separator = System.getProperty("line.separator")!!
 
+    fun createRootAssertionGroup(name: ITranslatable, subject : Any, assertions: List<IAssertion>)
+    =AssertionGroup(RootAssertionGroupType, name, subject, assertions)
 
-    it("includes the group name and its representation in case of a ${IAssertionGroup::class.java.simpleName}") {
-        testee.format(sb, AssertionGroup(ASSERT, "subject", listOf(
-            OneMessageAssertion(TO_BE, "bli", false),
-            OneMessageAssertion(NOT_TO_BE, "bye", false)
-        )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-        assert(sb.toString()).startsWith("assert: subject$separator" +
-            "${TO_BE.getDefault()}: bli$separator${NOT_TO_BE.getDefault()}: bye")
+    fun createFeatureAssertionGroup(name: ITranslatable, subject : Any, assertions: List<IAssertion>)
+        =AssertionGroup(FeatureAssertionGroupType, name, subject, assertions)
+
+    context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
+        it("includes the group name and its representation") {
+            testee.format(sb, createRootAssertionGroup( ASSERT, "subject", listOf(
+                OneMessageAssertion(TO_BE, "bli", false),
+                OneMessageAssertion(NOT_TO_BE, "bye", false)
+            )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
+            assert(sb.toString()).startsWith("assert: subject$separator" +
+                "${TO_BE.getDefault()}: bli$separator${NOT_TO_BE.getDefault()}: bye")
+        }
     }
 
-    context("a ${IFeatureAssertionGroup::class.java.simpleName}") {
+    context("a ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
         val arrow = "-> "
         it("starts feature name with '$arrow' followed by representation") {
-            testee.format(sb, FeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
+            testee.format(sb, createFeatureAssertionGroup( Untranslatable("name"), "robert", listOf(
                 OneMessageAssertion(TO_BE, "robert", true),
                 OneMessageAssertion(NOT_TO_BE, "bert", true)
             )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
@@ -52,7 +60,7 @@ object SameLineAssertionMessageFormatterSpec : Spek({
         val indent = " ".repeat(SameLineAssertionFormatter.NUMBER_OF_INDENT_SPACES)
 
         it("indents assertions by ${SameLineAssertionFormatter.NUMBER_OF_INDENT_SPACES} spaces") {
-            testee.format(sb, FeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
+            testee.format(sb, createFeatureAssertionGroup( Untranslatable("name"), "robert", listOf(
                 OneMessageAssertion(TO_BE, "robert", true),
                 OneMessageAssertion(NOT_TO_BE, "bert", true)
             )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
@@ -60,15 +68,15 @@ object SameLineAssertionMessageFormatterSpec : Spek({
                 + "$indent${NOT_TO_BE.getDefault()}: bert")
         }
 
-        context("in an ${IAssertionGroup::class.java.simpleName}") {
+        context("in an ${IAssertionGroup::class.java.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("does only indent the assertions but not the feature name") {
                 val message = Message(IS_SAME, "whatever", false)
-                testee.format(sb, AssertionGroup(ASSERT, message, listOf(
-                    FeatureAssertionGroup(Untranslatable(message::description.name), message.description, listOf(
+                testee.format(sb, createRootAssertionGroup( ASSERT, message, listOf(
+                    createFeatureAssertionGroup( Untranslatable(message::description.name), message.description, listOf(
                         OneMessageAssertion(TO_BE, "a", true),
                         OneMessageAssertion(NOT_TO_BE, "description", true)
                     )),
-                    FeatureAssertionGroup(Untranslatable(message::representation.name), message.representation, listOf(
+                    createFeatureAssertionGroup( Untranslatable(message::representation.name), message.representation, listOf(
                         OneMessageAssertion(TO_BE, "whatever", true)
                     ))
                 )), alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
@@ -81,13 +89,13 @@ object SameLineAssertionMessageFormatterSpec : Spek({
                 )
             }
 
-            context("in another ${IFeatureAssertionGroup::class.java.simpleName}") {
+            context("in another ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
                 it("does indent the feature and double-intends its assertions") {
                     val message = Message(IS_SAME, "whatever", false)
-                    testee.format(sb, AssertionGroup(ASSERT, message, listOf(
-                        FeatureAssertionGroup(Untranslatable(message::description.name), message.description, listOf(
+                    testee.format(sb, createRootAssertionGroup(ASSERT, message, listOf(
+                        createFeatureAssertionGroup(Untranslatable(message::description.name), message.description, listOf(
                             OneMessageAssertion(TO_BE, "a", true),
-                            FeatureAssertionGroup(Untranslatable(message::description::toString.name), message.description, listOf(
+                            createFeatureAssertionGroup(Untranslatable(message::description::toString.name), message.description, listOf(
                                 OneMessageAssertion(NOT_TO_BE, "a description", true)
                             ))
                         ))

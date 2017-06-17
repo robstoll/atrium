@@ -54,6 +54,7 @@ open class SameLineAssertionMessageFormatterSpec(
         val separator = System.getProperty("line.separator")!!
         it("uses the system line separator to separate multiple assertions in an ${IAssertionGroup::class.simpleName}") {
             testee.format(sb, object : IAssertionGroup {
+                override val type = RootAssertionGroupType
                 override val name = TranslationSupplierSpec.TestTranslatable.DATE_KNOWN
                 override val subject = sb
                 override val assertions = listOf(object : IOneMessageAssertion {
