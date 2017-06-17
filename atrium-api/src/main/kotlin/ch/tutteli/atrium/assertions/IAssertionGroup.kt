@@ -12,6 +12,11 @@ interface IAssertionGroup : IAssertion {
      */
     val name: ITranslatable
     /**
+     * The type of the group, e.g. [RootAssertionGroupType].
+     */
+    val type: IAssertionGroupType
+
+    /**
      * The subject for which the [assertions] are defined.
      */
     val subject: Any

@@ -1,16 +1,17 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.kbox.appendToStringBuilder
 
 /**
  * Formats an [IAssertion] and its [Message]s, putting each message on its own line.
  *
  * Currently the following [IAssertion] types are supported:
- * - [IAssertionGroup]
- * - [IFeatureAssertionGroup]
+ * - [IAssertionGroup] with the following types:
+ *   - [RootAssertionGroupType]
+ *   - [FeatureAssertionGroupType]
  * - [IAssertion]
  *
  * and the following [Message] types:
@@ -37,23 +38,28 @@ internal class SameLineAssertionFormatter(
             appendIndent(methodObject)
             when (assertion) {
                 is IAssertionGroup -> formatGroup(assertion, methodObject)
-                is IFeatureAssertionGroup -> formatFeature(assertion, methodObject)
                 is IOneMessageAssertion -> appendMessage(assertion.message, methodObject)
                 else -> basicFormat(assertion, methodObject)
             }
         }
     }
 
-    private fun formatGroup(assertionGroup: IAssertionGroup, methodObject: MethodObject) {
-        methodObject.sb
-            .appendPair(translator.translate(assertionGroup.name), assertionGroup.subject)
-            .appendln()
-            .appendAssertions(assertionGroup.assertions, methodObject, { methodObject })
+    private fun formatGroup(assertionGroup: IAssertionGroup, methodObject: MethodObject) = when (assertionGroup.type) {
+        is FeatureAssertionGroupType -> formatFeature(assertionGroup, methodObject)
+        //everything else are treated like RootAssertion
+        else -> formatRootGroup(assertionGroup, methodObject)
     }
 
-    private fun formatFeature(featureAssertionGroup: IFeatureAssertionGroup, methodObject: MethodObject) {
+    private fun formatRootGroup(rootAssertionGroup: IAssertionGroup, methodObject: MethodObject) {
         methodObject.sb
-            .appendPair("-> " + translator.translate(featureAssertionGroup.featureName), featureAssertionGroup.feature)
+            .appendPair(translator.translate(rootAssertionGroup.name), rootAssertionGroup.subject)
+            .appendln()
+            .appendAssertions(rootAssertionGroup.assertions, methodObject, { methodObject })
+    }
+
+    private fun formatFeature(featureAssertionGroup: IAssertionGroup, methodObject: MethodObject) {
+        methodObject.sb
+            .appendPair("-> " + translator.translate(featureAssertionGroup.name), featureAssertionGroup.subject)
             .appendln()
             .appendAssertions(featureAssertionGroup.assertions, methodObject, methodObject::newWithIncrementedMessageLevel)
     }

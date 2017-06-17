@@ -2,7 +2,8 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
+import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
@@ -239,12 +240,12 @@ interface IAtriumFactory {
     fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
 
     /**
-     * Creates an [IAssertionChecker] which creates [IFeatureAssertionGroup] instead of checking assertions
-     * and delegates this task to the given [subjectPlant] by adding (see [IAssertionPlant.addAssertion]
-     * the created [IFeatureAssertionGroup] to it.
+     * Creates an [IAssertionChecker] which creates an [IAssertionGroup] of [type][IAssertionGroup.type]
+     * [IFeatureAssertionGroupType] instead of checking assertions and delegates this task to the given
+     * [subjectPlant] by adding (see [IAssertionPlant.addAssertion]) the created assertion group to it.
      *
-     * @param subjectPlant The assertion plant to which the created [IFeatureAssertionGroup]
-     *        will be [added][IAssertionPlant.addAssertion].
+     * @param subjectPlant The assertion plant to which the created [IAssertionGroup] of [type][IAssertionGroup.type]
+     *        [IFeatureAssertionGroupType] will be [added][IAssertionPlant.addAssertion].
      *
      * @return The newly created assertion checker.
      */

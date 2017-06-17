@@ -1,14 +1,12 @@
 package ch.tutteli.atrium.checking
 
-import ch.tutteli.atrium.assertions.FeatureAssertionGroup
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * An [IAssertionChecker] useful for feature assertions. It creates [IFeatureAssertionGroup]s
- * and adds them to the given [subjectPlant] instead of checking them itself.
+ * An [IAssertionChecker] useful for feature assertions. It creates [IAssertionGroup]s of [type][IAssertionGroup]
+ * [IFeatureAssertionGroupType] and adds them to the given [subjectPlant] instead of checking them itself.
  *
  * @property subjectPlant The plant which holds the assertions of the subject of the feature.
  *           For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
@@ -22,20 +20,20 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 internal class FeatureAssertionChecker<out T : Any>(private val subjectPlant: IAssertionPlant<T>) : IAssertionCheckerDelegateFail, IAssertionChecker {
 
     /**
-     * Creates an [IFeatureAssertionGroup] based on the given [assertionVerb], [subject] and [assertions] and
-     * [adds][IAssertionPlant.addAssertion] the [IFeatureAssertionGroup] to the [subjectPlant]
-     * instead of checking it itself.
+     * Creates an [IAssertionGroup]s of [type][IAssertionGroup] [IFeatureAssertionGroupType] based on the
+     * given [assertionVerb], [subject] and [assertions] and [adds][IAssertionPlant.addAssertion] the
+     * assertion group to the [subjectPlant] instead of checking it itself.
      *
-     * @param assertionVerb I used as [IFeatureAssertionGroup.featureName] -- as side notice,
+     * @param assertionVerb I used as [IAssertionGroup.name] -- as side notice,
      *        the parameter was not renamed to `featureName` due to potential issues with named parameters.
-     * @param subject Is used as [IFeatureAssertionGroup.feature] -- as side notice,
+     * @param subject Is used as [IAssertionGroup.subject] -- as side notice,
      *        the parameter was not renamed to `feature` due to potential issues with named parameters.
-     * @param assertions Is used as [IFeatureAssertionGroup.assertions].
+     * @param assertions Is used as [IAssertionGroup.assertions].
      *
      * @throws AssertionError In case one of the given [assertions] does not hold.
      */
     override fun check(assertionVerb: ITranslatable, subject: Any, assertions: List<IAssertion>) {
-        val featureAssertionGroup = FeatureAssertionGroup(assertionVerb, subject, ArrayList(assertions))
+        val featureAssertionGroup = AssertionGroup(FeatureAssertionGroupType, assertionVerb, subject, ArrayList(assertions))
         subjectPlant.addAssertion(featureAssertionGroup)
     }
 }
