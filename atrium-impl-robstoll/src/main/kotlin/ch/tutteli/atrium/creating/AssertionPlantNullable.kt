@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.OneMessageAssertion
+import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.reporting.RawString
 
 /**
@@ -19,7 +19,7 @@ internal class AssertionPlantNullable<out T : Any?>(
      */
     override fun isNull() {
         if (subject != null) {
-            commonFields.fail(OneMessageAssertion(IAssertionPlantNullable.AssertionDescription, RawString.NULL, false))
+            commonFields.fail(BasicAssertion(IAssertionPlantNullable.AssertionDescription, RawString.NULL, false))
         }
     }
 }

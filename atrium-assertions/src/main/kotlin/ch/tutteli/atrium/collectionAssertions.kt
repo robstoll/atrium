@@ -2,7 +2,7 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionCollectionAssertion.HAS_SIZE
 import ch.tutteli.atrium.DescriptionCollectionAssertion.IS_EMPTY
-import ch.tutteli.atrium.assertions.Message
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
@@ -26,7 +26,7 @@ fun <T : Collection<*>> IAssertionPlant<T>.isEmpty()
     = createAndAddAssertion(IS_EMPTY, RawString("empty"), { subject.isEmpty() })
 
 /**
- * Contains the [Message.description]s of the assertion functions which are applicable to [Collection].
+ * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Collection].
  */
 enum class DescriptionCollectionAssertion(override val value: String) : ISimpleTranslatable {
     HAS_SIZE("has size"),

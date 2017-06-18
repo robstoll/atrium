@@ -2,14 +2,11 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
-import ch.tutteli.atrium.assertions.Message
+import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.reporting.IMethodCallFormatter
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IObjectFormatter
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
@@ -28,6 +25,8 @@ import kotlin.reflect.KClass
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [IReporter]
+ * - [IAssertionFormatterFacade]
+ * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [IObjectFormatter]
  * - [IMethodCallFormatter]
@@ -210,23 +209,39 @@ interface IAtriumFactory {
     fun newMethodCallFormatter(): IMethodCallFormatter
 
     /**
+     * Creates an [IAssertionFormatterFacade] which shall be used per default for [newOnlyFailureReporter].
+     *
+     * @param assertionFormatterController The [IAssertionFormatterController] which shall be used for formatting.
+     *
+     * @return The newly created assertion formatter facade.
+     */
+    fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
+
+    /**
+     * Creates an [IAssertionFormatterController] which all be used per default for [newAssertionFormatterFacade].
+     *
+     * @return The newly created assertion formatter controller.
+     */
+     fun newAssertionFormatterController(): IAssertionFormatterController
+
+    /**
      * Creates an [IAssertionFormatter] which puts messages of the form 'a: b' on the same line.
      *
-     * @param objectFormatter The formatter which is used to format objects other than [IAssertion] and [Message].
+     * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      *
      * @return The newly created assertion formatter.
      */
-    fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IReporter] which reports only failing assertions
-     * and uses the given [assertionFormatter] to format assertions and messages.
+     * and uses the given [assertionFormatterFacade] to format assertions and messages.
      *
-     * @param assertionFormatter The formatter which is used to format [IAssertion]s.
+     * @param assertionFormatterFacade The formatter which is used to format [IAssertion]s.
      *
      * @return The newly created reporter.
      */
-    fun newOnlyFailureReporter(assertionFormatter: IAssertionFormatter): IReporter
+    fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
 
     /**
      * Creates an [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
@@ -239,12 +254,12 @@ interface IAtriumFactory {
     fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
 
     /**
-     * Creates an [IAssertionChecker] which creates [IFeatureAssertionGroup] instead of checking assertions
-     * and delegates this task to the given [subjectPlant] by adding (see [IAssertionPlant.addAssertion]
-     * the created [IFeatureAssertionGroup] to it.
+     * Creates an [IAssertionChecker] which creates an [IAssertionGroup] of [type][IAssertionGroup.type]
+     * [IFeatureAssertionGroupType] instead of checking assertions and delegates this task to the given
+     * [subjectPlant] by adding (see [IAssertionPlant.addAssertion]) the created assertion group to it.
      *
-     * @param subjectPlant The assertion plant to which the created [IFeatureAssertionGroup]
-     *        will be [added][IAssertionPlant.addAssertion].
+     * @param subjectPlant The assertion plant to which the created [IAssertionGroup] of [type][IAssertionGroup.type]
+     *        [IFeatureAssertionGroupType] will be [added][IAssertionPlant.addAssertion].
      *
      * @return The newly created assertion checker.
      */

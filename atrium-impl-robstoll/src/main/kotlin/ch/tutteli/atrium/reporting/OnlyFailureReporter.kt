@@ -1,25 +1,23 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.Message
 
 /**
  * An [IReporter] which reports only failing assertions.
  *
- * @property assertionFormatter The formatter used to format [IAssertion]s and its [Message]s.
+ * @property assertionFormatterFacade The formatter used to format [IAssertion]s.
  *
  * @constructor
- * @param assertionFormatter The formatter used to format [IAssertion]s and its [Message]s.
+ * @param assertionFormatterFacade The formatter used to format [IAssertion]s.
  */
-internal class OnlyFailureReporter(private val assertionFormatter: IAssertionFormatter) : IReporter {
+internal class OnlyFailureReporter(private val assertionFormatterFacade: IAssertionFormatterFacade) : IReporter {
 
     /**
-     * Formats the given [assertion] with the help of the defined [assertionFormatter]
-     * and appends the result to the given [sb] but only in case the given [assertion] [IAssertion.holds].
+     * Formats the given [assertion] with the help of the defined [assertionFormatterFacade]
+     * and appends the result to the given [sb] but only in case the given [assertion] [holds][IAssertion.holds].
      */
-    override fun format(sb: StringBuilder, assertion: IAssertion)
-        = assertionFormatter.format(sb, assertion, this::assertionFilter, this::messageFilter)
+    override fun format(assertion: IAssertion, sb: StringBuilder)
+        = assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
 
     private fun assertionFilter(assertion: IAssertion) = !assertion.holds()
-    private fun messageFilter(message: Message) = !message.holds
 }

@@ -17,5 +17,5 @@ interface IReporter {
      * @param sb The [StringBuilder] which can be used for reporting.
      * @param assertion The assertion which should be considered for reporting.
      */
-    fun format(sb: StringBuilder, assertion: IAssertion)
+    fun format(assertion: IAssertion, sb: StringBuilder)
 }
