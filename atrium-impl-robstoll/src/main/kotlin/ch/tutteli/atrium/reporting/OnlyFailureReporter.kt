@@ -17,7 +17,7 @@ internal class OnlyFailureReporter(private val assertionFormatterFacade: IAssert
      * Formats the given [assertion] with the help of the defined [assertionFormatterFacade]
      * and appends the result to the given [sb] but only in case the given [assertion] [holds][IAssertion.holds].
      */
-    override fun format(sb: StringBuilder, assertion: IAssertion)
+    override fun format(assertion: IAssertion, sb: StringBuilder)
         = assertionFormatterFacade.format(assertion, sb, this::assertionFilter, this::messageFilter)
 
     private fun assertionFilter(assertion: IAssertion) = !assertion.holds()

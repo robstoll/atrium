@@ -22,8 +22,8 @@ open class ThrowingAssertionCheckerSpec(
     val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
     val reporter = mock<IReporter> {
-        on { format(any<StringBuilder>(), any<IAssertion>()) }.thenAnswer {
-            (it.arguments[0] as StringBuilder).append(reporterResponse)
+        on { format(any<IAssertion>(), any<StringBuilder>()) }.thenAnswer {
+            (it.arguments[1] as StringBuilder).append(reporterResponse)
         }
     }
     val testee = testeeFactory(reporter)
