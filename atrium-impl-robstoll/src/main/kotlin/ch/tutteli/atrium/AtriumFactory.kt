@@ -6,7 +6,10 @@ import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.*
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
+import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 import kotlin.reflect.KClass
 
@@ -17,6 +20,8 @@ import kotlin.reflect.KClass
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [IReporter]
+ * - [IAssertionFormatterFacade]
+ * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [ITranslator]
  * - [IObjectFormatter]
@@ -44,11 +49,17 @@ object AtriumFactory : IAtriumFactory {
     override fun newMethodCallFormatter(): IMethodCallFormatter
         = MethodCallFormatter
 
-    override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = SameLineAssertionFormatter(objectFormatter, translator)
+    override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
+        = AssertionFormatterFacade(assertionFormatterController)
 
-    override fun newOnlyFailureReporter(assertionFormatter: IAssertionFormatter): IReporter
-        = OnlyFailureReporter(assertionFormatter)
+    override fun newAssertionFormatterController(): IAssertionFormatterController
+        = AssertionFormatterController()
+
+    override fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = SameLineAssertionFormatter(assertionFormatterController, objectFormatter, translator)
+
+    override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
+        = OnlyFailureReporter(assertionFormatterFacade)
 
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
         = ThrowingAssertionChecker(reporter)
