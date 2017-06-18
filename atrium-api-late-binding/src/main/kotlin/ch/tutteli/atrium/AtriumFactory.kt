@@ -3,11 +3,10 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.reporting.IMethodCallFormatter
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IObjectFormatter
-import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.reporting.translating.*
+import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
+import ch.tutteli.atrium.reporting.translating.ITranslator
 import java.util.*
 import kotlin.reflect.KClass
 
@@ -18,6 +17,8 @@ import kotlin.reflect.KClass
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [IReporter]
+ * - [IAssertionFormatterFacade]
+ * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [IObjectFormatter]
  * - [IMethodCallFormatter]
@@ -52,11 +53,19 @@ object AtriumFactory : IAtriumFactory {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    override fun newSameLineAssertionFormatter(objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter {
+    override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade{
         throw UnsupportedOperationException(ERROR_MSG)
     }
 
-    override fun newOnlyFailureReporter(assertionFormatter: IAssertionFormatter): IReporter {
+    override fun newAssertionFormatterController(): IAssertionFormatterController {
+        throw UnsupportedOperationException(ERROR_MSG)
+    }
+
+    override fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter {
+        throw UnsupportedOperationException(ERROR_MSG)
+    }
+
+    override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter {
         throw UnsupportedOperationException(ERROR_MSG)
     }
 

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.isEmpty
-import ch.tutteli.atrium.reporting.IAssertionFormatter
+import ch.tutteli.atrium.reporting.IAssertionFormatterFacade
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -20,7 +20,7 @@ import org.jetbrains.spek.api.dsl.it
 
 open class OnlyFailureReporterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatter) -> IReporter
+    testeeFactory: (IAssertionFormatterFacade) -> IReporter
 ) : Spek({
 
     describe("format") {
@@ -45,7 +45,9 @@ open class OnlyFailureReporterSpec(
         ).forEach { (clazz, assertion) ->
             it("does not append anything if ${clazz.simpleName} holds") {
                 val translator = UsingDefaultTranslator()
-                val testee = testeeFactory(AtriumFactory.newSameLineAssertionFormatter(AtriumFactory.newDetailedObjectFormatter(translator), translator))
+                val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
+                facade.register { AtriumFactory.newSameLineAssertionFormatter(it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
+                val testee = testeeFactory(facade)
                 testee.format(sb, assertion)
                 verbs.checkLazily(sb) {
                     isEmpty()
@@ -54,12 +56,12 @@ open class OnlyFailureReporterSpec(
         }
 
         context("dependencies") {
-            val assertionMessageFormatter = mock<IAssertionFormatter>()
-            val testee = testeeFactory(assertionMessageFormatter)
+            val assertionFormatterFacade = mock<IAssertionFormatterFacade>()
+            val testee = testeeFactory(assertionFormatterFacade)
 
-            it("delegates to ${IAssertionFormatter::class.java.simpleName}") {
+            it("delegates to ${assertionFormatterFacade::class.java.simpleName}") {
                 testee.format(sb, oneMessageAssertion)
-                verify(assertionMessageFormatter).format(eq(sb), eq(oneMessageAssertion), any(), any())
+                verify(assertionFormatterFacade).format(eq(oneMessageAssertion), eq(sb), any(), any())
             }
         }
     }

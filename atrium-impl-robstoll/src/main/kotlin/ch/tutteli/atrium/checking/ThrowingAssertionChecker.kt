@@ -19,8 +19,8 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 internal class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionCheckerDelegateFail, IAssertionChecker {
 
     /**
-     * Creates an [IAssertionGroup] based on the given [assertionVerb], [subject] and [assertions],
-     * reports it using the [reporter] and checks whether it holds.
+     * Creates an [IAssertionGroup] -- based on the given [assertionVerb], [subject] and [assertions] --
+     * formats it for reporting using the [reporter] and checks whether it holds.
      *
      * @param assertionVerb I used as [IAssertionGroup.name].
      * @param subject Is used as [IAssertionGroup.subject].

@@ -10,6 +10,8 @@ object PropertiesPerEntityAndLocaleTranslationSupplierSpec : TranslationSupplier
     ReporterBuilder
         .withTranslations(PropertiesPerEntityAndLocaleTranslationSupplier(), Locale("de", "CH"), Locale("fr"))
         .withDetailedObjectFormatter()
+        .withDefaultAssertionFormatterController()
+        .withDefaultAssertionFormatterFacade()
         .withSameLineAssertionFormatter()
         .buildOnlyFailureReporter()
 )

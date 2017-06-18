@@ -100,7 +100,6 @@ object DetailedObjectFormatterSpec : Spek({
 
         on("an enum"){
             val enum = AssertionVerb.ASSERT
-            val enum2 = AssertionVerb.ASSERT
             val result = testee.format(enum)
             it("returns its toString representation together with its Class.name but without System.identityHash"){
                 assert(result).toBe("ASSERT" + INDENT +"(${enum::class.java.name})")
