@@ -5,6 +5,8 @@ import ch.tutteli.atrium.DescriptionAnyAssertion.IS_SAME
 import ch.tutteli.atrium.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.contains
+import ch.tutteli.atrium.containsNot
+import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.IObjectFormatter
@@ -22,38 +24,57 @@ open class SameLineAssertionFormatterSpec(
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
 
-    //TODO rewrite, some tests could be unit rather than integration tests
-    val testee = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    testee.register({testeeFactory(it, ToStringObjectFormatter(), UsingDefaultTranslator())})
+    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter(), UsingDefaultTranslator())
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
 
     var sb = StringBuilder()
+    var methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
     afterEachTest {
         sb = StringBuilder()
+        methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
+    }
+
+    val unsupportedAssertion = object : IAssertion {
+        override fun holds() = false
+    }
+    context("fun ${testee::canFormat.name}") {
+        it("returns always true even for an anonymous class of ${IAssertion::class.simpleName}") {
+            testee.canFormat(unsupportedAssertion)
+        }
     }
 
     context("unsupported ${IAssertion::class.simpleName}") {
         it("writes whether the assertion holds including a message telling the type is unsupported") {
-            val assertion: IAssertion = object : IAssertion {
-                override fun holds() = false
-            }
-            testee.format(assertion, sb, alwaysTrueAssertionFilter)
-            verbs.checkLazily(sb.toString()) {
+            testee.format(unsupportedAssertion, methodObject)
+            verbs.checkLazily(sb) {
                 contains("false")
-                contains("Unsupported type ${assertion::class.java.name}")
+                contains("Unsupported type ${unsupportedAssertion::class.java.name}")
             }
         }
 
+        it("does not add newlines (still same line") {
+            testee.format(unsupportedAssertion, methodObject)
+            verbs.checkLazily(sb) {
+                containsNot("\r")
+                containsNot("\n")
+            }
+        }
+    }
+    context("assertion of type ${IBasicAssertion::class.simpleName}") {
         it("writes ${IBasicAssertion::description.name} and ${IBasicAssertion::representation.name} on the same line separated by colon and space") {
             val assertion = BasicAssertion(IS_SAME, "bli", false)
-            testee.format(assertion, sb, alwaysTrueAssertionFilter)
+            testee.format(assertion, methodObject)
             verbs.checkImmediately(sb.toString()).toBe("${IS_SAME.getDefault()}: bli")
         }
+    }
 
+    context("${IAssertionGroup::class.simpleName} with multiple assertions") {
+        val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
+        facade.register({ testeeFactory(it, ToStringObjectFormatter(), UsingDefaultTranslator()) })
         val separator = System.getProperty("line.separator")!!
-        it("uses the system line separator to separate multiple assertions in an ${IAssertionGroup::class.simpleName}") {
-            testee.format(object : IAssertionGroup {
+        it("uses the system line separator to separate the assertions") {
+            facade.format(object : IAssertionGroup {
                 override val type = RootAssertionGroupType
                 override val name = TranslationSupplierSpec.TestTranslatable.DATE_KNOWN
                 override val subject = sb
@@ -63,8 +84,7 @@ open class SameLineAssertionFormatterSpec(
                 )
             }, sb, alwaysTrueAssertionFilter)
 
-            verbs.checkImmediately(sb.toString()).contains("${IS_SAME.getDefault()}: b$separator"
-                + "${TO_BE.getDefault()}: d")
+            verbs.checkImmediately(sb).contains("${IS_SAME.getDefault()}: b$separator${TO_BE.getDefault()}: d")
         }
     }
 
