@@ -17,10 +17,11 @@ import org.jetbrains.spek.api.include
 object SameLineAssertionFormatterSpec : Spek({
     include(ch.tutteli.atrium.spec.reporting.SameLineAssertionFormatterSpec(
         AssertionVerbFactory, ::SameLineAssertionFormatter))
+    include(ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
+        AssertionVerbFactory, ::SameLineAssertionFormatter))
 
-    //TODO rewrite, not all tests should be integration test, some could be unit-tests
-    val testee = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    testee.register({SameLineAssertionFormatter(it, ToStringObjectFormatter(), UsingDefaultTranslator())})
+    val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
+    facade.register({SameLineAssertionFormatter(it, ToStringObjectFormatter(), UsingDefaultTranslator())})
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
 
@@ -37,8 +38,8 @@ object SameLineAssertionFormatterSpec : Spek({
         = AssertionGroup(FeatureAssertionGroupType, name, subject, assertions)
 
     context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
-        it("includes the group name and its representation") {
-            testee.format(createRootAssertionGroup(ASSERT, "subject", listOf(
+        it("includes the group name, its representation as well as the assertions") {
+            facade.format(createRootAssertionGroup(ASSERT, "subject", listOf(
                 BasicAssertion(TO_BE, "bli", false),
                 BasicAssertion(NOT_TO_BE, "bye", false)
             )), sb, alwaysTrueAssertionFilter)
@@ -51,7 +52,7 @@ object SameLineAssertionFormatterSpec : Spek({
         val arrow = "-> "
         val arrowLength = arrow.length
         it("starts feature name with '$arrow' followed by representation") {
-            testee.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
+            facade.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
                 BasicAssertion(TO_BE, "robert", true),
                 BasicAssertion(NOT_TO_BE, "bert", true)
             )), sb, alwaysTrueAssertionFilter)
@@ -61,7 +62,7 @@ object SameLineAssertionFormatterSpec : Spek({
         val indent = " ".repeat(arrowLength)
 
         it("indents assertions by $arrowLength spaces") {
-            testee.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
+            facade.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
                 BasicAssertion(TO_BE, "robert", true),
                 BasicAssertion(NOT_TO_BE, "bert", true)
             )), sb, alwaysTrueAssertionFilter)
@@ -72,7 +73,7 @@ object SameLineAssertionFormatterSpec : Spek({
         context("in an ${IAssertionGroup::class.java.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("does only indent the assertions but not the feature name") {
                 val basicAssertion = BasicAssertion(IS_SAME, "whatever", false)
-                testee.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
+                facade.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
                     createFeatureAssertionGroup(Untranslatable(basicAssertion::description.name), basicAssertion.description, listOf(
                         BasicAssertion(TO_BE, "a", true),
                         BasicAssertion(NOT_TO_BE, "description", true)
@@ -93,7 +94,7 @@ object SameLineAssertionFormatterSpec : Spek({
             context("in another ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
                 it("does indent the feature and double-intends its assertions") {
                     val basicAssertion = BasicAssertion(IS_SAME, "whatever", false)
-                    testee.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
+                    facade.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
                         createFeatureAssertionGroup(Untranslatable(basicAssertion::description.name), basicAssertion.description, listOf(
                             BasicAssertion(TO_BE, "a", true),
                             createFeatureAssertionGroup(Untranslatable(basicAssertion::description::toString.name), basicAssertion.description, listOf(
