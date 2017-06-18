@@ -29,9 +29,9 @@ internal class ThrowingAssertionChecker(private val reporter: IReporter) : IAsse
      * @throws AssertionError In case the created [IAssertionGroup] does not hold.
      */
     override fun check(assertionVerb: ITranslatable, subject: Any, assertions: List<IAssertion>) {
-        val sb = StringBuilder()
         val assertionGroup = AssertionGroup(RootAssertionGroupType, assertionVerb, subject, assertions)
-        reporter.format(sb, assertionGroup)
+        val sb = StringBuilder()
+        reporter.format(assertionGroup, sb)
         if (!assertionGroup.holds()) {
             throw AssertionError(sb.toString())
         }

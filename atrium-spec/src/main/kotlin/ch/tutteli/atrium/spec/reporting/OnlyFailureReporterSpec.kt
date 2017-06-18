@@ -48,7 +48,7 @@ open class OnlyFailureReporterSpec(
                 val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
                 facade.register { AtriumFactory.newSameLineAssertionFormatter(it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
                 val testee = testeeFactory(facade)
-                testee.format(sb, assertion)
+                testee.format(assertion, sb)
                 verbs.checkLazily(sb) {
                     isEmpty()
                 }
@@ -60,7 +60,7 @@ open class OnlyFailureReporterSpec(
             val testee = testeeFactory(assertionFormatterFacade)
 
             it("delegates to ${assertionFormatterFacade::class.java.simpleName}") {
-                testee.format(sb, oneMessageAssertion)
+                testee.format(oneMessageAssertion, sb)
                 verify(assertionFormatterFacade).format(eq(oneMessageAssertion), eq(sb), any(), any())
             }
         }
