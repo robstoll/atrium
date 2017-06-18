@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.isEmpty
-import ch.tutteli.atrium.reporting.IAssertionFormatter
+import ch.tutteli.atrium.reporting.IAssertionFormatterFacade
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -20,7 +20,7 @@ import org.jetbrains.spek.api.dsl.it
 
 open class OnlyFailureReporterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatter) -> IReporter
+    testeeFactory: (IAssertionFormatterFacade) -> IReporter
 ) : Spek({
 
     describe("format") {
@@ -28,28 +28,25 @@ open class OnlyFailureReporterSpec(
         val assertion = object : IAssertion {
             override fun holds() = true
         }
-        val oneMessageAssertion = object : IOneMessageAssertion {
-            override val message = Message(TO_BE, 0, true)
-        }
-        val multiMessageAssertion = object : IMultiMessageAssertion {
-            override val messages = listOf(Message(TO_BE, 0, true), Message(TO_BE, 0, true))
-        }
+        val basicAssertion = BasicAssertion(TO_BE, 0, true)
         val assertionGroup = object : IAssertionGroup {
+            override val type = RootAssertionGroupType
             override val name = AssertionVerb.VERB
             override val subject = 0
-            override val assertions = listOf(assertion, oneMessageAssertion, multiMessageAssertion)
+            override val assertions = listOf(assertion, basicAssertion)
         }
 
         mapOf(
             IAssertion::class.java to assertion,
-            IOneMessageAssertion::class.java to oneMessageAssertion,
-            IMultiMessageAssertion::class.java to multiMessageAssertion,
+            IBasicAssertion::class.java to basicAssertion,
             IAssertionGroup::class.java to assertionGroup
         ).forEach { (clazz, assertion) ->
             it("does not append anything if ${clazz.simpleName} holds") {
                 val translator = UsingDefaultTranslator()
-                val testee = testeeFactory(AtriumFactory.newSameLineAssertionFormatter(AtriumFactory.newDetailedObjectFormatter(translator), translator))
-                testee.format(sb, assertion)
+                val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
+                facade.register { AtriumFactory.newSameLineAssertionFormatter(it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
+                val testee = testeeFactory(facade)
+                testee.format(assertion, sb)
                 verbs.checkLazily(sb) {
                     isEmpty()
                 }
@@ -57,12 +54,12 @@ open class OnlyFailureReporterSpec(
         }
 
         context("dependencies") {
-            val assertionMessageFormatter = mock<IAssertionFormatter>()
-            val testee = testeeFactory(assertionMessageFormatter)
+            val assertionFormatterFacade = mock<IAssertionFormatterFacade>()
+            val testee = testeeFactory(assertionFormatterFacade)
 
-            it("delegates to ${IAssertionFormatter::class.java.simpleName}") {
-                testee.format(sb, oneMessageAssertion)
-                verify(assertionMessageFormatter).format(eq(sb), eq(oneMessageAssertion), any(), any())
+            it("delegates to ${assertionFormatterFacade::class.java.simpleName}") {
+                testee.format(basicAssertion, sb)
+                verify(assertionFormatterFacade).format(eq(basicAssertion), eq(sb), any())
             }
         }
     }

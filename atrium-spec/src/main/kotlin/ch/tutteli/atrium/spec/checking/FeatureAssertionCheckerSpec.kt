@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.spec.checking
 
 import ch.tutteli.atrium.*
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IFeatureAssertionGroup
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -25,22 +24,23 @@ open class FeatureAssertionCheckerSpec(
         override fun holds() = true
     })
     val assertionVerb = AssertionVerb.VERB
-    val subject = 1
-
+    val valueUnderTest = 1
     describe("check") {
-        setUp("creates a ${IFeatureAssertionGroup::class.java.simpleName} and passes it to its subjectFactory") {
+        setUp("creates a ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName} and passes it to its subjectFactory") {
             val subjectFactory = mock<IAssertionPlant<Int>>()
             val testee = testeeFactory(subjectFactory)
-            testee.check(assertionVerb, subject, assertions)
+            testee.check(assertionVerb, valueUnderTest, assertions)
             val captor = argumentCaptor<IAssertion>()
             verify(subjectFactory).addAssertion(captor.capture())
-            val fluent = verbs.checkImmediately(captor.firstValue).isA<IFeatureAssertionGroup>()
-            group("context ${IFeatureAssertionGroup::class.java.simpleName}") {
-                check("its ${IFeatureAssertionGroup::featureName.name} corresponds to the passed assertionVerb") {
-                    fluent.its(fluent.subject::featureName).toBe(assertionVerb)
+            val fluent = verbs.checkImmediately(captor.firstValue).isA<IAssertionGroup>{
+                its(subject::type).isA<IFeatureAssertionGroupType>()
+            }
+            group("context ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
+                check("its ${IAssertionGroup::subject.name} corresponds to the passed assertionVerb") {
+                    fluent.its(fluent.subject::name).toBe(assertionVerb)
                 }
-                check("its ${IFeatureAssertionGroup::feature.name} corresponds to the passed subject") {
-                    fluent.its(fluent.subject::feature).toBe(subject)
+                check("its ${IAssertionGroup::subject.name} corresponds to the passed subject") {
+                    fluent.its(fluent.subject::subject).toBe(valueUnderTest)
                 }
                 check("copies the assertion") {
                     assertions.clear()

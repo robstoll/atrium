@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.*
-import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.RawString
@@ -12,7 +11,6 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
-import java.lang.Number
 import java.text.SimpleDateFormat
 
 /**

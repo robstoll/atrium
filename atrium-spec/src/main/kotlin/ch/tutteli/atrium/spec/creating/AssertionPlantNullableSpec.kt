@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.creating
 
-import ch.tutteli.atrium.assertions.Message
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
@@ -46,10 +46,10 @@ open class AssertionPlantNullableSpec(
                 it("contains the '${testee::subject.name}'") {
                     assertMessage.contains(subject.toString())
                 }
-                it("contains the '${Message::description.name}' of the assertion-message - which should be ${IAssertionPlantNullable.AssertionDescription::class.simpleName}") {
+                it("contains the '${IBasicAssertion::description.name}' of the assertion-message - which should be ${IAssertionPlantNullable.AssertionDescription::class.simpleName}") {
                     assertMessage.contains(IAssertionPlantNullable.AssertionDescription)
                 }
-                it("contains the '${Message::representation.name}' of the assertion-message") {
+                it("contains the '${IBasicAssertion::representation.name}' of the assertion-message") {
                     assertMessage.contains(RawString.NULL.string)
                 }
             }

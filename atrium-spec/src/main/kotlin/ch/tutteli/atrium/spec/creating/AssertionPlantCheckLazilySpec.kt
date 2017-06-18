@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.DescriptionAnyAssertion
+import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IOneMessageAssertion
-import ch.tutteli.atrium.assertions.Message
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
@@ -50,10 +50,10 @@ open class AssertionPlantCheckLazilySpec(
                     it("contains the '${testee::subject.name}'") {
                         assertMessage.contains(subject)
                     }
-                    it("contains the '${Message::description.name}' of the assertion-message") {
+                    it("contains the '${IBasicAssertion::description.name}' of the assertion-message") {
                         assertMessage.contains(DescriptionAnyAssertion.TO_BE.getDefault())
                     }
-                    it("contains the '${Message::representation.name}' of the assertion-message") {
+                    it("contains the '${IBasicAssertion::representation.name}' of the assertion-message") {
                         assertMessage.contains(-12)
                     }
                 }
@@ -78,10 +78,8 @@ open class AssertionPlantCheckLazilySpec(
             }
         }
 
-        setUp("in case of a custom ${IOneMessageAssertion::class.java.simpleName} which fails") {
-            testee.addAssertion(object : IOneMessageAssertion {
-                override val message = Message(DescriptionAnyAssertion.TO_BE, "my representation", false)
-            })
+        setUp("in case of a custom ${IBasicAssertion::class.java.simpleName} which fails") {
+            testee.addAssertion(BasicAssertion(DescriptionAnyAssertion.TO_BE, "my representation", false))
             val expectFun = verbs.checkException {
                 testee.checkAssertions()
             }

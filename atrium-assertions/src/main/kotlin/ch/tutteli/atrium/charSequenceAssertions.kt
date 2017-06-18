@@ -1,7 +1,7 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.Message
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
@@ -164,7 +164,7 @@ fun <T : CharSequence> IAssertionPlant<T>.isNotEmpty()
     = createAndAddAssertion(IS_NOT_EMPTY, RawString("empty"), { subject.isNotEmpty() })
 
 /**
- * Contains the [Message.description]s of the assertion functions which are applicable to [CharSequence].
+ * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [CharSequence].
  */
 enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpleTranslatable {
     CONTAINS("contains"),

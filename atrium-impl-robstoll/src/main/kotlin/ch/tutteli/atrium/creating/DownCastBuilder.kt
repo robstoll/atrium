@@ -2,7 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.OneMessageAssertion
+import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.reporting.IRawString
 import ch.tutteli.atrium.reporting.RawString
@@ -92,14 +92,14 @@ class DownCastBuilder<T : Any, TSub : T>(
             } else {
                 AtriumFactory.newCheckImmediately(assertionVerb, subType.cast(subject), assertionChecker)
             }
-            plant.addAssertion(OneMessageAssertion(description, subType, true))
+            plant.addAssertion(BasicAssertion(description, subType, true))
             if (createAssertions != null) {
                 createAssertions?.invoke(plant)
                 plant.checkAssertions()
             }
             return plant
         }
-        assertionChecker.fail(assertionVerb, subject ?: nullRepresentation, OneMessageAssertion(description, subType, false))
+        assertionChecker.fail(assertionVerb, subject ?: nullRepresentation, BasicAssertion(description, subType, false))
         throw IllegalStateException("calling ${IAssertionChecker::class.java.simpleName}#${IAssertionChecker::fail.name} should throw an exception, ${assertionChecker::class.java.name} did not")
     }
 }
