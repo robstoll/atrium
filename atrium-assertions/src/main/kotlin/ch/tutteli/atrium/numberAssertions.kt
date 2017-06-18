@@ -1,7 +1,7 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionNumberAssertion.*
-import ch.tutteli.atrium.assertions.Message
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
@@ -41,7 +41,7 @@ fun <T> IAssertionPlant<T>.isGreaterOrEquals(expected: T) where T: kotlin.Number
     = createAndAddAssertion(IS_GREATER_OR_EQUALS, expected, { subject >= expected })
 
 /**
- * Contains the [Message.description]s of the assertion functions which are applicable to [Number].
+ * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Number].
  */
 enum class DescriptionNumberAssertion(override val value: String) : ISimpleTranslatable {
     IS_LESS_THAN("is less than"),

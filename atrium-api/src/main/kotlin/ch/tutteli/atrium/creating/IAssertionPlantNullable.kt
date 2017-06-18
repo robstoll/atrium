@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IOneMessageAssertion
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
@@ -24,7 +24,7 @@ interface IAssertionPlantNullable<out T : Any?> : IAssertionPlantWithCommonField
     fun isNull()
 
     /**
-     * Use this description in an implementation to create an [IOneMessageAssertion].
+     * Use this description in an implementation to create an [IBasicAssertion].
      */
     object AssertionDescription : ISimpleTranslatable {
         override val name = "TO_BE"

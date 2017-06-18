@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.OneMessageAssertion
+import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import java.util.*
 
@@ -17,7 +17,7 @@ internal open class AssertionPlantCheckLazily<out T : Any>(
 
 
     override final fun createAndAddAssertion(description: ITranslatable, expected: Any, test: () -> Boolean)
-        = addAssertion(OneMessageAssertion(description, expected, test))
+        = addAssertion(BasicAssertion(description, expected, test))
 
     override fun addAssertion(assertion: IAssertion): IAssertionPlant<T> {
         assertions.add(assertion)

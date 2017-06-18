@@ -4,7 +4,6 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
-import ch.tutteli.atrium.assertions.Message
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
@@ -228,7 +227,7 @@ interface IAtriumFactory {
     /**
      * Creates an [IAssertionFormatter] which puts messages of the form 'a: b' on the same line.
      *
-     * @param objectFormatter The formatter which is used to format objects other than [IAssertion] and [Message].
+     * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      *
      * @return The newly created assertion formatter.
      */
