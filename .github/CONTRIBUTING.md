@@ -38,7 +38,7 @@ By participating, you are expected to uphold this code. Please report unacceptab
   so that we can discuss it before you start.
   
 - Found spelling mistakes?  
-  Nice catch ;) Please create a pull request.
+  Nice catch :sunglasses: Please create a pull request.
     
 - You wrote an assertion function and would like to contribute it to Atrium?  
   Awesome :+1: please review the [pull request checklist](#pull-request-checklist) and create a pull request
@@ -50,7 +50,7 @@ By participating, you are expected to uphold this code. Please report unacceptab
 
 In any case, if you are uncertain how you can contribute, then contact me on 
 [slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ)
-and we will figure it out together :)
+and we will figure it out together :smile:
 
 ## Your First Code Contribution
 Fantastic, thanks for your effort! Contact me on 
@@ -86,12 +86,12 @@ However, here a few hints in order that your pull request is merged quickly.
 
 ## Pull Request Checklist
 Make sure you can check every item on the following list before you create a pull request:  
-- [] your pull request is based on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
-- [] your pull request should ideally consists of one small commit. If not then make sure
-     - [] it cannot be split up in several pull requests
-     - [] your commits are meaningful to others - e.g. do not include temporary commits like `before lunch`. 
+- [ ] your pull request is based on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
+- [ ] your pull request should ideally consists of one small commit. If not then make sure
+     - [ ] it cannot be split up in several pull requests
+     - [ ] your commits are meaningful to others - e.g. do not include temporary commits like `before lunch`. 
      [Squash commits](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#_squashing) where appropriate.
      
 Once you have created and submitted your pull request, then make sure:
-- [] your pull request passes travis and all other checks 
+- [ ] your pull request passes travis and all other checks 
      (if not, then improve your pull request and `git push -f`)
