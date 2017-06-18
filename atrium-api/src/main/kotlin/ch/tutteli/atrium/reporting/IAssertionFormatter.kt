@@ -2,10 +2,9 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.Message
 
 /**
- * Represents a formatter for an [IAssertion] and its [Message]s.
+ * Represents a formatter for [IAssertion]s and [IAssertionGroup]s.
  */
 interface IAssertionFormatter {
 

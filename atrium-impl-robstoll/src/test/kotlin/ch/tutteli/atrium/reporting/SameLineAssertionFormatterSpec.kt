@@ -14,8 +14,8 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-object SameLineAssertionMessageFormatterSpec : Spek({
-    include(ch.tutteli.atrium.spec.reporting.SameLineAssertionMessageFormatterSpec(
+object SameLineAssertionFormatterSpec : Spek({
+    include(ch.tutteli.atrium.spec.reporting.SameLineAssertionFormatterSpec(
         AssertionVerbFactory, ::SameLineAssertionFormatter))
 
     //TODO rewrite, not all tests should be integration test, some could be unit-tests
@@ -23,7 +23,6 @@ object SameLineAssertionMessageFormatterSpec : Spek({
     testee.register({SameLineAssertionFormatter(it, ToStringObjectFormatter(), UsingDefaultTranslator())})
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
-    val alwaysTrueMessageFilter: (Message) -> Boolean = { true }
 
     var sb = StringBuilder()
     afterEachTest {
@@ -40,9 +39,9 @@ object SameLineAssertionMessageFormatterSpec : Spek({
     context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
         it("includes the group name and its representation") {
             testee.format(createRootAssertionGroup(ASSERT, "subject", listOf(
-                OneMessageAssertion(TO_BE, "bli", false),
-                OneMessageAssertion(NOT_TO_BE, "bye", false)
-            )), sb, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
+                BasicAssertion(TO_BE, "bli", false),
+                BasicAssertion(NOT_TO_BE, "bye", false)
+            )), sb, alwaysTrueAssertionFilter)
             assert(sb.toString()).startsWith("assert: subject$separator" +
                 "${TO_BE.getDefault()}: bli$separator${NOT_TO_BE.getDefault()}: bye")
         }
@@ -53,9 +52,9 @@ object SameLineAssertionMessageFormatterSpec : Spek({
         val arrowLength = arrow.length
         it("starts feature name with '$arrow' followed by representation") {
             testee.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
-                OneMessageAssertion(TO_BE, "robert", true),
-                OneMessageAssertion(NOT_TO_BE, "bert", true)
-            )), sb, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
+                BasicAssertion(TO_BE, "robert", true),
+                BasicAssertion(NOT_TO_BE, "bert", true)
+            )), sb, alwaysTrueAssertionFilter)
             assert(sb.toString()).startsWith("${arrow}name: robert")
         }
 
@@ -63,26 +62,26 @@ object SameLineAssertionMessageFormatterSpec : Spek({
 
         it("indents assertions by $arrowLength spaces") {
             testee.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
-                OneMessageAssertion(TO_BE, "robert", true),
-                OneMessageAssertion(NOT_TO_BE, "bert", true)
-            )), sb, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
+                BasicAssertion(TO_BE, "robert", true),
+                BasicAssertion(NOT_TO_BE, "bert", true)
+            )), sb, alwaysTrueAssertionFilter)
             assert(sb.toString()).contains("$indent${TO_BE.getDefault()}: robert$separator"
                 + "$indent${NOT_TO_BE.getDefault()}: bert")
         }
 
         context("in an ${IAssertionGroup::class.java.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("does only indent the assertions but not the feature name") {
-                val message = Message(IS_SAME, "whatever", false)
-                testee.format(createRootAssertionGroup(ASSERT, message, listOf(
-                    createFeatureAssertionGroup(Untranslatable(message::description.name), message.description, listOf(
-                        OneMessageAssertion(TO_BE, "a", true),
-                        OneMessageAssertion(NOT_TO_BE, "description", true)
+                val basicAssertion = BasicAssertion(IS_SAME, "whatever", false)
+                testee.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
+                    createFeatureAssertionGroup(Untranslatable(basicAssertion::description.name), basicAssertion.description, listOf(
+                        BasicAssertion(TO_BE, "a", true),
+                        BasicAssertion(NOT_TO_BE, "description", true)
                     )),
-                    createFeatureAssertionGroup(Untranslatable(message::representation.name), message.representation, listOf(
-                        OneMessageAssertion(TO_BE, "whatever", true)
+                    createFeatureAssertionGroup(Untranslatable(basicAssertion::representation.name), basicAssertion.representation, listOf(
+                        BasicAssertion(TO_BE, "whatever", true)
                     ))
-                )), sb, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-                assert(sb.toString()).toBe("assert: " + message + separator
+                )), sb, alwaysTrueAssertionFilter)
+                assert(sb.toString()).toBe("assert: " + basicAssertion + separator
                     + "-> description: $IS_SAME$separator"
                     + "$indent${TO_BE.getDefault()}: a$separator"
                     + "$indent${NOT_TO_BE.getDefault()}: description$separator"
@@ -93,16 +92,16 @@ object SameLineAssertionMessageFormatterSpec : Spek({
 
             context("in another ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
                 it("does indent the feature and double-intends its assertions") {
-                    val message = Message(IS_SAME, "whatever", false)
-                    testee.format(createRootAssertionGroup(ASSERT, message, listOf(
-                        createFeatureAssertionGroup(Untranslatable(message::description.name), message.description, listOf(
-                            OneMessageAssertion(TO_BE, "a", true),
-                            createFeatureAssertionGroup(Untranslatable(message::description::toString.name), message.description, listOf(
-                                OneMessageAssertion(NOT_TO_BE, "a description", true)
+                    val basicAssertion = BasicAssertion(IS_SAME, "whatever", false)
+                    testee.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
+                        createFeatureAssertionGroup(Untranslatable(basicAssertion::description.name), basicAssertion.description, listOf(
+                            BasicAssertion(TO_BE, "a", true),
+                            createFeatureAssertionGroup(Untranslatable(basicAssertion::description::toString.name), basicAssertion.description, listOf(
+                                BasicAssertion(NOT_TO_BE, "a description", true)
                             ))
                         ))
-                    )), sb, alwaysTrueAssertionFilter, alwaysTrueMessageFilter)
-                    assert(sb.toString()).toBe("assert: " + message + separator
+                    )), sb, alwaysTrueAssertionFilter)
+                    assert(sb.toString()).toBe("assert: " + basicAssertion + separator
                         + "-> description: $IS_SAME$separator"
                         + "$indent${TO_BE.getDefault()}: a$separator"
                         + "$indent-> toString: $IS_SAME$separator"

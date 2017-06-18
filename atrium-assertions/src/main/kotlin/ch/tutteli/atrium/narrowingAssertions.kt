@@ -2,15 +2,10 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
 import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_NOT_NULL
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.Message
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
-import ch.tutteli.atrium.creating.createAssertionsAndCheckThem
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import kotlin.reflect.KProperty0
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is not null.
@@ -53,7 +48,7 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertio
     .cast()
 
 /**
- * Contains the [Message.description]s of the assertion functions which postulate that a [IAssertionPlant.subject]
+ * Contains the [IBasicAssertion.description]s of the assertion functions which postulate that a [IAssertionPlant.subject]
  * of type `T` can be narrowed to `TSub` where `TSub <: T`.
  */
 enum class DescriptionNarrowingAssertion(override val value: String) : ISimpleTranslatable {

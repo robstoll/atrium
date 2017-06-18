@@ -2,7 +2,6 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.Message
 
 /**
  * Responsible to control the flow of reporting using [register]ed [IAssertionFormatter]s.
@@ -13,9 +12,9 @@ interface IAssertionFormatterController {
      * Finds a suitable [IAssertionFormatter] -- which was previously [register]ed -- for the given [assertion] and
      * formats it.
      *
-     * The [methodObject] allows to define an [assertionFilter][AssertionFormatterMethodObject.assertionFilter] and
-     * an [messageFilter][AssertionFormatterMethodObject.messageFilter] to filter out [IAssertion]s, [Message]s
-     * respectively (for instance, filter out messages which hold --> see [IAtriumFactory.newOnlyFailureReporter]).
+     * The [methodObject] allows to define an [assertionFilter][AssertionFormatterMethodObject.assertionFilter]
+     * to filter out [IAssertion]s (for instance, filter out messages which hold
+     * &rarr; see [IAtriumFactory.newOnlyFailureReporter]).
      *
      * @param assertion The assertion which shall be formatted.
      * @param methodObject Used to share data between this [IAssertionFormatterController] and the [register]ed
