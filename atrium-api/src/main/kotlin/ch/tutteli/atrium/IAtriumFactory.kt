@@ -13,7 +13,6 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import java.util.*
 import kotlin.reflect.KClass
 
-
 /**
  * The minimum contract of the 'abstract factory' of atrium.
  *
@@ -24,14 +23,13 @@ import kotlin.reflect.KClass
  * It provides factory methods to create:
  * - [IAssertionPlant]
  * - [IAssertionChecker]
- * - [IReporter]
+ * - [IMethodCallFormatter]
+ * - [ITranslator]
+ * - [IObjectFormatter]
  * - [IAssertionFormatterFacade]
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
- * - [IObjectFormatter]
- * - [IMethodCallFormatter]
- * - [ITranslator]
- * - [IThrowableFluent]
+ * - [IReporter]
  * - [IDownCastBuilder]
  */
 interface IAtriumFactory {
@@ -172,6 +170,40 @@ interface IAtriumFactory {
     fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
 
     /**
+     * Creates an [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
+     * and uses the given [reporter] for reporting.
+     *
+     * @param reporter The reporter which is used to report [IAssertion]s.
+     *
+     * @return The newly created assertion checker.
+     */
+    fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
+
+    /**
+     * Creates an [IAssertionChecker] which creates an [IAssertionGroup] of [type][IAssertionGroup.type]
+     * [IFeatureAssertionGroupType] instead of checking assertions and delegates this task to the given
+     * [subjectPlant] by adding (see [IAssertionPlant.addAssertion]) the created assertion group to it.
+     *
+     * @param subjectPlant The assertion plant to which the created [IAssertionGroup] of [type][IAssertionGroup.type]
+     *        [IFeatureAssertionGroupType] will be [added][IAssertionPlant.addAssertion].
+     *
+     * @return The newly created assertion checker.
+     */
+    fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+
+    /**
+     * Creates an [IMethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
+     * representation with the exception of:
+     * - [CharSequence], is wrapped in quotes (`"`) and line breaks (CR or/and LF) are escaped so that the
+     *   whole representation remains on one line.
+     * - [Char] is wrapped in apostrophes (`'`)
+     *
+     * @return The newly created method call formatter.
+     */
+    fun newMethodCallFormatter(): IMethodCallFormatter
+
+
+    /**
      * Creates an [ITranslator] which translates [ITranslatable]s to [primaryLocale] and falls back
      * to [fallbackLocales] (in the given order) in case no translation exists for [primaryLocale].
      *
@@ -198,15 +230,11 @@ interface IAtriumFactory {
     fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
 
     /**
-     * Creates an [IMethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
-     * representation with the exception of:
-     * - [CharSequence], is wrapped in quotes (`"`) and line breaks (CR or/and LF) are escaped so that the
-     *   whole representation remains on one line.
-     * - [Char] is wrapped in apostrophes (`'`)
+     * Creates an [IAssertionFormatterController] which all be used per default for [newAssertionFormatterFacade].
      *
-     * @return The newly created method call formatter.
+     * @return The newly created assertion formatter controller.
      */
-    fun newMethodCallFormatter(): IMethodCallFormatter
+     fun newAssertionFormatterController(): IAssertionFormatterController
 
     /**
      * Creates an [IAssertionFormatterFacade] which shall be used per default for [newOnlyFailureReporter].
@@ -216,13 +244,6 @@ interface IAtriumFactory {
      * @return The newly created assertion formatter facade.
      */
     fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
-
-    /**
-     * Creates an [IAssertionFormatterController] which all be used per default for [newAssertionFormatterFacade].
-     *
-     * @return The newly created assertion formatter controller.
-     */
-     fun newAssertionFormatterController(): IAssertionFormatterController
 
     /**
      * Creates an [IAssertionFormatter] which puts messages of the form 'a: b' on the same line.
@@ -242,28 +263,6 @@ interface IAtriumFactory {
      * @return The newly created reporter.
      */
     fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
-
-    /**
-     * Creates an [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
-     * and uses the given [reporter] for reporting.
-     *
-     * @param reporter The reporter which is used to report [IAssertion]s.
-     *
-     * @return The newly created assertion checker.
-     */
-    fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
-
-    /**
-     * Creates an [IAssertionChecker] which creates an [IAssertionGroup] of [type][IAssertionGroup.type]
-     * [IFeatureAssertionGroupType] instead of checking assertions and delegates this task to the given
-     * [subjectPlant] by adding (see [IAssertionPlant.addAssertion]) the created assertion group to it.
-     *
-     * @param subjectPlant The assertion plant to which the created [IAssertionGroup] of [type][IAssertionGroup.type]
-     *        [IFeatureAssertionGroupType] will be [added][IAssertionPlant.addAssertion].
-     *
-     * @return The newly created assertion checker.
-     */
-    fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
 
     /**n
      * Use the extension function [ch.tutteli.atrium.newDownCastBuilder] with reified type parameter whenever possible.
