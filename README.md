@@ -31,7 +31,11 @@ gradle:
 buildscript {
     ext { atrium_version='0.3.0' }
 }
-
+repositories {
+    maven {
+        url  "http://dl.bintray.com/robstoll/tutteli-jars" 
+    }
+}
 dependencies {
     testCompile "ch.tutteli:atrium-api:$atrium_version"
     testCompile "ch.tutteli:atrium-impl-robstoll:$atrium_version"
@@ -39,27 +43,8 @@ dependencies {
 }
 ```
 
-maven:
-```
-<dependency>
-  <groupId>ch.tutteli</groupId>
-  <artifactId>atrium-api</artifactId>
-  <version>0.3.0</version>
-  <scope>test</scope>
-</dependency>
-<dependency>
-  <groupId>ch.tutteli</groupId>
-  <artifactId>atrium-impl-robstoll</artifactId>
-  <version>0.3.0</version>
-  <scope>test</scope>
-</dependency>
-<dependency>
-  <groupId>ch.tutteli</groupId>
-  <artifactId>atrium-assertions</artifactId>
-  <version>0.3.0</version>
-  <scope>test</scope>
-</dependency>
-```
+maven:  
+[Click here to download a settings.xml from bintray](https://bintray.com/repo/downloadMavenRepoSettingsFile/downloadSettings?repoPath=%2Frobstoll%2Ftutteli-jars)
 
 # Use own Assertion Verbs
 
