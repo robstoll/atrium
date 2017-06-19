@@ -16,70 +16,57 @@ import kotlin.reflect.KClass
  * It provides factory methods which all throw an [UnsupportedOperationException] to create:
  * - [IAssertionPlant]
  * - [IAssertionChecker]
- * - [IReporter]
+ * - [IMethodCallFormatter]
+ * - [ITranslator]
+ * - [IObjectFormatter]
  * - [IAssertionFormatterFacade]
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
- * - [IObjectFormatter]
- * - [IMethodCallFormatter]
- * - [ITranslator]
+ * - [IReporter]
  * - [IDownCastBuilder]
  * - [ThrowableFluent]
  */
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
 
-    override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T> {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T> {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T> {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun newMethodCallFormatter(): IMethodCallFormatter {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun newMethodCallFormatter(): IMethodCallFormatter
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade{
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun newAssertionFormatterController(): IAssertionFormatterController {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun newAssertionFormatterController(): IAssertionFormatterController
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
+        = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub> {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub>
+        = throw UnsupportedOperationException(ERROR_MSG)
 
     /**
      * Creates a [ThrowableFluent] based on the given [assertionVerb] and the [act] function.
@@ -97,9 +84,9 @@ object AtriumFactory : IAtriumFactory {
      *
      * @see ThrowableFluent
      */
-    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): ThrowableFluent {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): ThrowableFluent
+        = throw UnsupportedOperationException(ERROR_MSG)
+
 
     /**
      * Creates a [ThrowableFluent] based on the given [assertionVerb] and the [act] function.
@@ -116,8 +103,7 @@ object AtriumFactory : IAtriumFactory {
      *
      * @see ThrowableFluent
      */
-    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent {
-        throw UnsupportedOperationException(ERROR_MSG)
-    }
+    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent
+        = throw UnsupportedOperationException(ERROR_MSG)
 
 }

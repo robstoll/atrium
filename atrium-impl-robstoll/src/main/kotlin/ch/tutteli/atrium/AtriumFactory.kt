@@ -19,17 +19,17 @@ import kotlin.reflect.KClass
  * It provides factory methods to create:
  * - [IAssertionPlant]
  * - [IAssertionChecker]
- * - [IReporter]
+ * - [IMethodCallFormatter]
+ * - [ITranslator]
+ * - [IObjectFormatter]
  * - [IAssertionFormatterFacade]
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
- * - [ITranslator]
- * - [IObjectFormatter]
+ * - [IReporter]
  * - [IDownCastBuilder]
  * - [ThrowableFluent]
  */
 object AtriumFactory : IAtriumFactory {
-
 
     override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
         = AssertionPlantCheckLazily(commonFields)
@@ -40,32 +40,32 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
         = AssertionPlantNullable(commonFields)
 
+    override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
+        = ThrowingAssertionChecker(reporter)
+
+    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+        = FeatureAssertionChecker(subjectPlant)
+
+    override fun newMethodCallFormatter(): IMethodCallFormatter
+        = MethodCallFormatter
+
     override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
         = Translator(translationSupplier, primaryLocale, fallbackLocales)
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
         = DetailedObjectFormatter(translator)
 
-    override fun newMethodCallFormatter(): IMethodCallFormatter
-        = MethodCallFormatter
+    override fun newAssertionFormatterController(): IAssertionFormatterController
+        = AssertionFormatterController()
 
     override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
         = AssertionFormatterFacade(assertionFormatterController)
-
-    override fun newAssertionFormatterController(): IAssertionFormatterController
-        = AssertionFormatterController()
 
     override fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = SameLineAssertionFormatter(assertionFormatterController, objectFormatter, translator)
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
         = OnlyFailureReporter(assertionFormatterFacade)
-
-    override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
-        = ThrowingAssertionChecker(reporter)
-
-    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
-        = FeatureAssertionChecker(subjectPlant)
 
     override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: CommonFields<T?>): IDownCastBuilder<T, TSub>
         = DownCastBuilder(description, subType, commonFields)
