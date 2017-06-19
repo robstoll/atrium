@@ -24,7 +24,8 @@ Atrium is an open-source assertion framework for Kotlin with a fluent API and su
 - [License](#license)
 
 # Installation
-Atrium can be retrieved from [bintray](https://bintray.com/robstoll/tutteli-jars/atrium).
+Atrium is linked to [jcenter](https://bintray.com/bintray/jcenter?filterByPkgName=atrium)
+but can also be retrieved directly from [bintray](https://bintray.com/robstoll/tutteli-jars/atrium). 
 
 gradle: 
 ```
@@ -32,9 +33,7 @@ buildscript {
     ext { atrium_version='0.3.0' }
 }
 repositories {
-    maven {
-        url  "http://dl.bintray.com/robstoll/tutteli-jars" 
-    }
+    jcenter()
 }
 dependencies {
     testCompile "ch.tutteli:atrium-api:$atrium_version"
