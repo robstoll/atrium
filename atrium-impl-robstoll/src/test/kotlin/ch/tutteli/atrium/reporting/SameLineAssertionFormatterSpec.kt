@@ -38,7 +38,7 @@ object SameLineAssertionFormatterSpec : Spek({
         = AssertionGroup(FeatureAssertionGroupType, name, subject, assertions)
 
     context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
-        it("includes the group name, its representation as well as the assertions") {
+        it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name}") {
             facade.format(createRootAssertionGroup(ASSERT, "subject", listOf(
                 BasicAssertion(TO_BE, "bli", false),
                 BasicAssertion(NOT_TO_BE, "bye", false)
@@ -51,7 +51,7 @@ object SameLineAssertionFormatterSpec : Spek({
     context("a ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
         val arrow = "-> "
         val arrowLength = arrow.length
-        it("starts feature name with '$arrow' followed by representation") {
+        it("starts feature ${IAssertionGroup::name.name} with '$arrow' followed by the feature ${IAssertionGroup::subject.name}") {
             facade.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
                 BasicAssertion(TO_BE, "robert", true),
                 BasicAssertion(NOT_TO_BE, "bert", true)
@@ -71,22 +71,22 @@ object SameLineAssertionFormatterSpec : Spek({
         }
 
         context("in an ${IAssertionGroup::class.java.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
-            it("does only indent the assertions but not the feature name") {
+            it("does only indent the assertions but not the feature ${IAssertionGroup::name.name}") {
                 val basicAssertion = BasicAssertion(IS_SAME, "whatever", false)
                 facade.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
                     createFeatureAssertionGroup(Untranslatable(basicAssertion::description.name), basicAssertion.description, listOf(
                         BasicAssertion(TO_BE, "a", true),
                         BasicAssertion(NOT_TO_BE, "description", true)
                     )),
-                    createFeatureAssertionGroup(Untranslatable(basicAssertion::representation.name), basicAssertion.representation, listOf(
+                    createFeatureAssertionGroup(Untranslatable(basicAssertion::expected.name), basicAssertion.expected, listOf(
                         BasicAssertion(TO_BE, "whatever", true)
                     ))
                 )), sb, alwaysTrueAssertionFilter)
                 assert(sb.toString()).toBe("assert: " + basicAssertion + separator
-                    + "-> description: $IS_SAME$separator"
+                    + "-> ${basicAssertion::description.name}: $IS_SAME$separator"
                     + "$indent${TO_BE.getDefault()}: a$separator"
                     + "$indent${NOT_TO_BE.getDefault()}: description$separator"
-                    + "-> representation: whatever$separator"
+                    + "-> ${basicAssertion::expected.name}: whatever$separator"
                     + "$indent${TO_BE.getDefault()}: whatever"
                 )
             }
@@ -103,7 +103,7 @@ object SameLineAssertionFormatterSpec : Spek({
                         ))
                     )), sb, alwaysTrueAssertionFilter)
                     assert(sb.toString()).toBe("assert: " + basicAssertion + separator
-                        + "-> description: $IS_SAME$separator"
+                        + "-> ${basicAssertion::description.name}: $IS_SAME$separator"
                         + "$indent${TO_BE.getDefault()}: a$separator"
                         + "$indent-> toString: $IS_SAME$separator"
                         + "$indent$indent${NOT_TO_BE.getDefault()}: a description"

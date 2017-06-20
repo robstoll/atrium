@@ -53,7 +53,7 @@ open class AssertionPlantCheckLazilySpec(
                     it("contains the '${IBasicAssertion::description.name}' of the assertion-message") {
                         assertMessage.contains(DescriptionAnyAssertion.TO_BE.getDefault())
                     }
-                    it("contains the '${IBasicAssertion::representation.name}' of the assertion-message") {
+                    it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
                         assertMessage.contains(-12)
                     }
                 }
@@ -79,7 +79,7 @@ open class AssertionPlantCheckLazilySpec(
         }
 
         setUp("in case of a custom ${IBasicAssertion::class.java.simpleName} which fails") {
-            testee.addAssertion(BasicAssertion(DescriptionAnyAssertion.TO_BE, "my representation", false))
+            testee.addAssertion(BasicAssertion(DescriptionAnyAssertion.TO_BE, "my expected result", false))
             val expectFun = verbs.checkException {
                 testee.checkAssertions()
             }
@@ -88,7 +88,7 @@ open class AssertionPlantCheckLazilySpec(
                 context("exception message") {
                     val assertMessage = expectFun.toThrow<AssertionError>().message
                     it("contains the messages of the custom assertion") {
-                        assertMessage.contains(DescriptionAnyAssertion.TO_BE).and.contains("my representation")
+                        assertMessage.contains(DescriptionAnyAssertion.TO_BE).and.contains("my expected result")
                     }
                     it("contains the assertionVerb") {
                         assertMessage.contains(assertionVerb)

@@ -16,13 +16,13 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
  *
  * @property assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *           the reporting process.
- * @property objectFormatter Used to format objects such as [IBasicAssertion.representation].
+ * @property objectFormatter Used to format objects such as [IBasicAssertion.expected].
  * @property translator Used to translate [ITranslatable]s such as [IBasicAssertion.description].
  *
  * @constructor
  * @param assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *        the reporting process.
- * @param objectFormatter Used to format objects such as [IBasicAssertion.representation].
+ * @param objectFormatter Used to format objects such as [IBasicAssertion.expected].
  * @param translator Used to translate [ITranslatable]s such as [IBasicAssertion.description].
  */
 internal class SameLineAssertionFormatter(
@@ -44,7 +44,7 @@ internal class SameLineAssertionFormatter(
     }
 
     private fun appendBasicAssertion(basicAssertion: IBasicAssertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.sb.appendPair(translator.translate(basicAssertion.description), basicAssertion.representation)
+        methodObject.sb.appendPair(translator.translate(basicAssertion.description), basicAssertion.expected)
     }
 
     private fun StringBuilder.appendPair(left: String, right: Any?)
