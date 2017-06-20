@@ -18,6 +18,9 @@ interface IAssertionFormatter {
      * The same applies for [format] where format should additionally throw an [UnsupportedOperationException]
      * if an [IAssertionGroup] is passed.
      *
+     * @param assertion The [IAssertion] which builds the basis to answer the question whether this
+     *                  [IAssertionFormatter] can format such kinds or not.
+     *
      * @returns `true` if this [IAssertionFormatter] can [format] the given [assertion]; `false` otherwise.
      */
     fun canFormat(assertion: IAssertion): Boolean

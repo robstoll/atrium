@@ -13,6 +13,9 @@ interface IAssertionFormatterFacade {
      * One can define an [assertionFilter] to filter out [IAssertion]s
      * (for instance, filter out assertions which hold &rarr; see [IAtriumFactory.newOnlyFailureReporter]).
      *
+     * @param sb The [StringBuilder] to which the formatted [assertion] will be appended.
+     * @param assertion The assertion which should be formatted
+     * @param assertionFilter Can be used used to filter out [IAssertion]s which should not be formatted.
      */
     fun format(assertion: IAssertion, sb: StringBuilder, assertionFilter: (IAssertion) -> Boolean)
 
