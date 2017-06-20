@@ -7,12 +7,12 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *
  * @constructor Constructor overload with a lazy [BasicAssertion.holds].
  * @param description The [BasicAssertion.description].
- * @param representation The [BasicAssertion.representation].
+ * @param expected The [BasicAssertion.expected].
  * @param test Lazily determines whether [BasicAssertion.holds].
  */
 class BasicAssertion(
     override val description: ITranslatable,
-    override val representation: Any,
+    override val expected: Any,
     private val test: () -> Boolean
 ) : IBasicAssertion {
 
@@ -22,7 +22,7 @@ class BasicAssertion(
      * If the calculation for [holds] is expensive, then you might want to use the other overload with a lazy test.
      *
      * @param description The [BasicAssertion.description].
-     * @param representation The [BasicAssertion.representation].
+     * @param representation The [BasicAssertion.expected].
      * @param holds Determines whether [BasicAssertion.holds] or not
      */
     constructor(description: ITranslatable, representation: Any, holds: Boolean)
@@ -33,5 +33,5 @@ class BasicAssertion(
     /**
      * @suppress
      */
-    override fun toString() = "$description: $representation (holds=${holds()})"
+    override fun toString() = "$description: $expected (holds=${holds()})"
 }

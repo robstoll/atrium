@@ -3,15 +3,16 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * The base interface for [IAssertion]s which only have a [description] and a [representation] of the expected result.
+ * The base interface for [IAssertion]s which only consists of the [expected] result with a complementary [description].
  */
 interface IBasicAssertion : IAssertion {
     /**
-     * The description of the assertion
+     * The expected result.
+     */
+    val expected: Any
+
+    /**
+     * The complementary description to the [expected] result such as `contains`, `is not` etc.
      */
     val description: ITranslatable
-    /**
-     * The representation of the expected result.
-     */
-    val representation: Any
 }

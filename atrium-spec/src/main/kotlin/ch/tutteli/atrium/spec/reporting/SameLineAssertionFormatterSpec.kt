@@ -62,7 +62,7 @@ open class SameLineAssertionFormatterSpec(
         }
     }
     context("assertion of type ${IBasicAssertion::class.simpleName}") {
-        it("writes ${IBasicAssertion::description.name} and ${IBasicAssertion::representation.name} on the same line separated by colon and space") {
+        it("writes ${IBasicAssertion::description.name} and ${IBasicAssertion::expected.name} on the same line separated by colon and space") {
             val assertion = BasicAssertion(IS_SAME, "bli", false)
             testee.format(assertion, methodObject)
             verbs.checkImmediately(sb.toString()).toBe("${IS_SAME.getDefault()}: bli")
