@@ -1,12 +1,14 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerb
+import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.DetailedObjectFormatter.Companion.INDENT
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import ch.tutteli.atrium.spec.reporting.ObjectFormatterSpec
 import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -15,19 +17,15 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.jetbrains.spek.api.include
 import kotlin.reflect.KClass
 
 object DetailedObjectFormatterSpec : Spek({
+    include(ObjectFormatterSpec(AssertionVerbFactory, ::DetailedObjectFormatter))
+
     val testee = DetailedObjectFormatter(UsingDefaultTranslator())
 
     describe("format") {
-        on("null type") {
-            val i: Int? = null
-            val result = testee.format(i)
-            it("returns null") {
-                assert(result).toBe("null")
-            }
-        }
 
         on("a ${Char::class.simpleName}") {
             val result = testee.format('a')
