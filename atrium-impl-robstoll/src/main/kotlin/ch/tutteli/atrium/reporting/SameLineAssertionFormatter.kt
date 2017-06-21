@@ -38,7 +38,7 @@ internal class SameLineAssertionFormatter(
     }
 
     override fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
-        is IAssertionGroup -> IAssertionFormatter.notIntendedForAssertionGroups()
+        is IAssertionGroup -> IAssertionFormatter.throwNotIntendedForAssertionGroups()
         is IBasicAssertion -> appendBasicAssertion(assertion, methodObject)
         else -> formatFallback(assertion, methodObject)
     }

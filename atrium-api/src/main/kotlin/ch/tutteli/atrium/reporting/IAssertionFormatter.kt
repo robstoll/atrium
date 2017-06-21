@@ -33,7 +33,7 @@ interface IAssertionFormatter {
      * to format the given [assertion] without problems. If [canFormat] returns `false` then this method should throw
      * an [UnsupportedOperationException].
      * Moreover, it should throw an [UnsupportedOperationException] in case the [assertion] is an [IAssertionGroup]
-     * -- use [IAssertionFormatter.notIntendedForAssertionGroups] for this purpose.
+     * -- use [IAssertionFormatter.throwNotIntendedForAssertionGroups] for this purpose.
      *
      * @param assertion The assertion which should be formatted (not an [IAssertionGroup]).
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
@@ -67,7 +67,7 @@ interface IAssertionFormatter {
             "`${IAssertionGroup::class.simpleName}`s, " +
             "use `${IAssertionFormatter::formatGroup.name}` instead."
 
-        fun notIntendedForAssertionGroups() {
+        fun throwNotIntendedForAssertionGroups() {
             throw UnsupportedOperationException(IAssertionFormatter.CALL_FORMAT_GROUP)
         }
     }
