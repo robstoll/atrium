@@ -9,6 +9,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
+import ch.tutteli.atrium.spec.reporting.alwaysTrueAssertionFilter
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
@@ -22,8 +23,6 @@ object SameLineAssertionFormatterSpec : Spek({
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register({SameLineAssertionFormatter(it, ToStringObjectFormatter(), UsingDefaultTranslator())})
-
-    val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
 
     var sb = StringBuilder()
     afterEachTest {
@@ -114,5 +113,3 @@ object SameLineAssertionFormatterSpec : Spek({
     }
 
 })
-
-

@@ -63,7 +63,7 @@ internal class SameLineAssertionFormatter(
         }
         formatAssertions {
             newMethodObject.sb.appendln()
-            indent(newMethodObject)
+            newMethodObject.indent()
             assertionFormatterController.format(it, newMethodObject)
         }
     }
@@ -81,12 +81,6 @@ internal class SameLineAssertionFormatter(
     private fun formatGroupNameDefault(rootAssertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         methodObject.sb.appendPair(translator.translate(rootAssertionGroup.name), rootAssertionGroup.subject)
         return methodObject
-    }
-
-    private fun indent(methodObject: AssertionFormatterMethodObject) {
-        for (i in 0 until methodObject.indentLevel) {
-            methodObject.sb.append(' ')
-        }
     }
 
 }
