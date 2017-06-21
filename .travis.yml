@@ -16,3 +16,4 @@ after_success:
 cache:
   directories:
     - $HOME/.gradle/wrapper/
+    - $HOME/.gradle/caches/
