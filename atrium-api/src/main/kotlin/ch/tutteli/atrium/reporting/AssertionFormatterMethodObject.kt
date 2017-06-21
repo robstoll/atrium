@@ -12,4 +12,14 @@ import ch.tutteli.atrium.assertions.IAssertion
 class AssertionFormatterMethodObject(
     val sb: StringBuilder,
     val indentLevel: Int,
-    val assertionFilter: (IAssertion) -> Boolean)
+    val assertionFilter: (IAssertion) -> Boolean) {
+
+    /**
+     *  Appends the number equals to [indentLevel] of spaces to [sb].
+     */
+    fun indent() {
+        for (i in 0 until indentLevel) {
+            sb.append(' ')
+        }
+    }
+}
