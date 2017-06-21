@@ -9,7 +9,7 @@ class InvisibleAssertionGroupFormatter(private val assertionFormatterController:
         = assertion is IAssertionGroup && assertion.type is IInvisibleAssertionGroupType
 
     override fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
-        is IAssertionGroup -> IAssertionFormatter.notIntendedForAssertionGroups()
+        is IAssertionGroup -> IAssertionFormatter.throwNotIntendedForAssertionGroups()
         else -> throw UnsupportedOperationException("supports only ${IInvisibleAssertionGroupType::class.simpleName} for which one has to call ${IAssertionFormatter::formatGroup.name}")
     }
 
