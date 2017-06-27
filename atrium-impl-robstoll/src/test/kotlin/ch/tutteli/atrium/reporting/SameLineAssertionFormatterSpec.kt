@@ -6,6 +6,7 @@ import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
@@ -16,13 +17,16 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 object SameLineAssertionFormatterSpec : Spek({
+    val factory = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
+        SameLineAssertionFormatter(assertionFormatterController, SameLineAssertionPairFormatter(objectFormatter, translator)) }
+
     include(ch.tutteli.atrium.spec.reporting.SameLineAssertionFormatterSpec(
-        AssertionVerbFactory, ::SameLineAssertionFormatter))
+        AssertionVerbFactory, factory))
     include(ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
-        AssertionVerbFactory, ::SameLineAssertionFormatter))
+        AssertionVerbFactory, factory))
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register({SameLineAssertionFormatter(it, ToStringObjectFormatter(), UsingDefaultTranslator())})
+    facade.register({ SameLineAssertionFormatter(it, SameLineAssertionPairFormatter(ToStringObjectFormatter(), UsingDefaultTranslator())) })
 
     var sb = StringBuilder()
     afterEachTest {
