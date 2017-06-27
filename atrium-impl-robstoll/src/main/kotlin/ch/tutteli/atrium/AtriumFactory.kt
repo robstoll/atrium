@@ -62,7 +62,7 @@ object AtriumFactory : IAtriumFactory {
         = AssertionFormatterFacade(assertionFormatterController)
 
     override fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = SameLineAssertionFormatter(assertionFormatterController, objectFormatter, translator)
+        = SameLineAssertionFormatter(assertionFormatterController, SameLineAssertionPairFormatter(objectFormatter, translator))
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
         = OnlyFailureReporter(assertionFormatterFacade)
