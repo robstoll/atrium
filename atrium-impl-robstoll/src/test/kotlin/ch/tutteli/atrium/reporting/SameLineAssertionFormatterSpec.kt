@@ -20,10 +20,8 @@ object SameLineAssertionFormatterSpec : Spek({
     val factory = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
         SameLineAssertionFormatter(assertionFormatterController, SameLineAssertionPairFormatter(objectFormatter, translator)) }
 
-    include(ch.tutteli.atrium.spec.reporting.SameLineAssertionFormatterSpec(
-        AssertionVerbFactory, factory))
-    include(ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
-        AssertionVerbFactory, factory))
+    include(ch.tutteli.atrium.spec.reporting.SameLineAssertionFormatterSpec(AssertionVerbFactory, factory))
+    include(ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(AssertionVerbFactory, factory))
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register({ SameLineAssertionFormatter(it, SameLineAssertionPairFormatter(ToStringObjectFormatter(), UsingDefaultTranslator())) })
