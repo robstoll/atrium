@@ -37,6 +37,7 @@ open class ListAssertionGroupFormatterSpec(
     val listAssertionGroup = AssertionGroup(ListAssertionGroupType, TranslationSupplierSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
 
     val separator = System.getProperty("line.separator")!!
+    val bulletPoint = "◾"
 
     describe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IListAssertionGroupType::class.simpleName}") {
@@ -44,8 +45,8 @@ open class ListAssertionGroupFormatterSpec(
                 it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name} which are prepended with a `- ` as bullet point") {
                     facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("placeholder %s: 2"
-                        + "$separator- ${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator- ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
+                        + "$separator$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1"
+                        + "$separator$bulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
             }
 
@@ -56,8 +57,8 @@ open class ListAssertionGroupFormatterSpec(
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("-> ${AssertionVerb.ASSERT.getDefault()}: 10"
                         + "$separator   placeholder %s: 2"
-                        + "$separator   - ${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator   - ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                        + "$separator   $bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1"
+                        + "$separator   $bulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
                         + "$separator   ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
             }
