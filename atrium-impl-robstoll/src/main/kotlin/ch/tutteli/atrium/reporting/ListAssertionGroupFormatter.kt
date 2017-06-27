@@ -11,7 +11,7 @@ class ListAssertionGroupFormatter(
 
     override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
         assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
-        val listElement = "- "
+        val listElement = "◾ "
         val newMethodObject = AssertionFormatterMethodObject(
             methodObject.sb,
             methodObject.indentLevel + listElement.length,
