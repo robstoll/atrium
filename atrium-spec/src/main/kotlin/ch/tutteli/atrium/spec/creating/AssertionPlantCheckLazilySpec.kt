@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.contains
+import ch.tutteli.atrium.containsDefaultTranslationOf
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.message
@@ -45,13 +46,13 @@ open class AssertionPlantCheckLazilySpec(
                 context("exception message") {
                     val assertMessage = expectFun.toThrow<AssertionError>().message
                     it("contains the ${testee.commonFields::assertionVerb.name}'") {
-                        assertMessage.contains(assertionVerb)
+                        assertMessage.containsDefaultTranslationOf(assertionVerb)
                     }
                     it("contains the '${testee::subject.name}'") {
                         assertMessage.contains(subject)
                     }
                     it("contains the '${IBasicAssertion::description.name}' of the assertion-message") {
-                        assertMessage.contains(DescriptionAnyAssertion.TO_BE.getDefault())
+                        assertMessage.containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
                     }
                     it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
                         assertMessage.contains(-12)
@@ -86,12 +87,16 @@ open class AssertionPlantCheckLazilySpec(
             setUp("throws an AssertionError") {
                 expectFun.toThrow<AssertionError>()
                 context("exception message") {
-                    val assertMessage = expectFun.toThrow<AssertionError>().message
                     it("contains the messages of the custom assertion") {
-                        assertMessage.contains(DescriptionAnyAssertion.TO_BE).and.contains("my expected result")
+                        expectFun.toThrow<AssertionError>().message {
+                            containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
+                            contains("my expected result")
+                        }
                     }
                     it("contains the assertionVerb") {
-                        assertMessage.contains(assertionVerb)
+                        expectFun.toThrow<AssertionError>().message{
+                            containsDefaultTranslationOf(assertionVerb)
+                        }
                     }
                 }
                 on("re-checking the assertions") {

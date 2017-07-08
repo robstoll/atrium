@@ -15,7 +15,7 @@ object NarrowingAssertionsSpec : Spek({
                 val i: Int? = null
                 assert(i).isNotNull()
             }.toThrow<AssertionError>().and.message {
-                contains(DescriptionNarrowingAssertion.IS_NOT_NULL)
+                containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_NOT_NULL)
                 contains(RawString.NULL.string)
             }
 
@@ -47,7 +47,7 @@ object NarrowingAssertionsSpec : Spek({
             expect {
                 assert("hello").isA()
             }.toThrow<AssertionError>().and.message {
-                contains(DescriptionNarrowingAssertion.IS_A)
+                containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
                 contains(Integer::class.java.name)
             }
         }, { isA<Int>() }, { isA<Int> {} })
