@@ -205,7 +205,7 @@ data class Person(val firstName: String, val lastName: String) {
 val person: Person = Person("Robert", "Stoll")
 
 assert(person) {
-    returnValueOf(subject::name) { contains("treboR", "llotS") }
+    returnValueOf(subject::name).contains("treboR", "llotS")
     returnValueOf(subject::nickname, false).toBe("Robert aka. Stoll")
 }
     // Person(firstName=Robert, lastName=Stoll)        (ch.tutteli.atrium.A$1$2$Person <360936478>)
