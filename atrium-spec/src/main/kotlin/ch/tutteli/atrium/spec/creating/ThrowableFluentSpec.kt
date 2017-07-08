@@ -1,19 +1,16 @@
 package ch.tutteli.atrium.spec.creating
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.IS_A
-import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
-import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -47,7 +44,7 @@ open class ThrowableFluentSpec(
                 /* no exception occurs */
             }.doToThrow()
         }.toThrow<AssertionError>().and.message {
-            contains(NO_EXCEPTION_OCCURRED, IS_A)
+            containsDefaultTranslationOf(NO_EXCEPTION_OCCURRED, IS_A)
             contains(IllegalArgumentException::class.java.name)
         }
     }, { toThrow<IllegalArgumentException>() }, { toThrow<IllegalArgumentException> {} })

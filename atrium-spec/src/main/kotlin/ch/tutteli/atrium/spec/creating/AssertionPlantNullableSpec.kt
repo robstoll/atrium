@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.contains
+import ch.tutteli.atrium.containsDefaultTranslationOf
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.message
@@ -41,13 +42,13 @@ open class AssertionPlantNullableSpec(
             context("exception message") {
                 val assertMessage = expectFun.toThrow<AssertionError>().message
                 it("contains the ${testee.commonFields::assertionVerb.name}'") {
-                    assertMessage.contains(assertionVerb)
+                    assertMessage.containsDefaultTranslationOf(assertionVerb)
                 }
                 it("contains the '${testee::subject.name}'") {
                     assertMessage.contains(subject.toString())
                 }
                 it("contains the '${IBasicAssertion::description.name}' of the assertion-message - which should be ${IAssertionPlantNullable.AssertionDescription::class.simpleName}") {
-                    assertMessage.contains(IAssertionPlantNullable.AssertionDescription)
+                    assertMessage.containsDefaultTranslationOf(IAssertionPlantNullable.AssertionDescription)
                 }
                 it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
                     assertMessage.contains(RawString.NULL.string)

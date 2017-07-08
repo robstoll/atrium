@@ -108,11 +108,18 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
     class AssertionFormatterBuilder(private val assertionFormatterFacade: IAssertionFormatterFacade, private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
 
         /**
-         * Uses [AtriumFactory.newSameLineAssertionFormatter] as [IAssertionFormatter].
+         * Uses [AtriumFactory.registerSameLineTextAssertionFormatterCapabilities].
          */
-        fun withSameLineAssertionFormatter()
-            = withAssertionFormatter { AtriumFactory.newSameLineAssertionFormatter(it, objectFormatter, translator) }
+        fun withSameLineTextAssertionFormatter(): ReporterBuilder {
+            AtriumFactory.registerSameLineTextAssertionFormatterCapabilities(assertionFormatterFacade, objectFormatter, translator)
+            return ReporterBuilder(assertionFormatterFacade)
+        }
 
+        /**
+         * Uses [AtriumFactory.registerSameLineTextAssertionFormatterCapabilities].
+         */
+        @Deprecated("Use withSameLineTextAssertionFormatter instead", ReplaceWith("withSameLineTextAssertionFormatter()"))
+        fun withSameLineAssertionFormatter() = withSameLineTextAssertionFormatter()
 
         /**
          * Uses the given [assertionFormatterFactory] to create a [IAssertionFormatter].

@@ -54,6 +54,13 @@ abstract class ArgumentsSupportingTranslator(protected val primaryLocale: Locale
 
     private fun translateWithArgs(translatableWithArgs: ITranslatableWithArgs): String {
         val result = translateWithoutArgs(translatableWithArgs.translatable)
-        return String.format(primaryLocale, result, *translatableWithArgs.arguments)
+        val arr = Array(translatableWithArgs.arguments.size) { index ->
+            val arg = translatableWithArgs.arguments[index]
+            when (arg) {
+                is ITranslatable -> translate(arg)
+                else -> arg
+            }
+        }
+        return String.format(primaryLocale, result, *arr)
     }
 }

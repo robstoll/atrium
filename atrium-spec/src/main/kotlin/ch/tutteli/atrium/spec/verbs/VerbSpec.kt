@@ -33,7 +33,7 @@ private object AtriumReporterSupplier {
     val REPORTER by lazy {
         ReporterBuilder
             .withDetailedObjectFormatter()
-            .withSameLineAssertionFormatter()
+            .withSameLineTextAssertionFormatter()
             .buildOnlyFailureReporter()
     }
 }
@@ -97,7 +97,7 @@ open class VerbSpec(
                 expect {
                     assertionVerb(null).isNotNull()
                 }.toThrow<AssertionError>().and.message {
-                    contains(DescriptionNarrowingAssertion.IS_NOT_NULL)
+                    containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_NOT_NULL)
                     contains(RawString.NULL.string)
                 }
             }
@@ -118,7 +118,7 @@ open class VerbSpec(
                         throw IllegalArgumentException()
                     }).toThrow<UnsupportedOperationException>()
                 }.toThrow<AssertionError>().and.message {
-                    contains(IThrowableFluent.AssertionDescription.IS_A)
+                    containsDefaultTranslationOf(IThrowableFluent.AssertionDescription.IS_A)
                     contains(IllegalArgumentException::class.java.name,
                         UnsupportedOperationException::class.java.name)
                 }

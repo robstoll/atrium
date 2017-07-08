@@ -16,7 +16,7 @@ import ch.tutteli.atrium.verbs.expect.expect
     val REPORTER by lazy {
         ReporterBuilder
             .withDetailedObjectFormatter()
-            .withSameLineAssertionFormatter()
+            .withSameLineTextAssertionFormatter()
             .buildOnlyFailureReporter()
     }
 }
