@@ -25,7 +25,7 @@ object SameLineAssertionFormatterSpec : Spek({
     include(ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(AssertionVerbFactory, factory))
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register({ SameLineAssertionFormatter(it, SameLineAssertionPairFormatter(ToStringObjectFormatter(), UsingDefaultTranslator())) })
+    facade.register({ SameLineAssertionFormatter(it, SameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
 
     var sb = StringBuilder()
     afterEachTest {

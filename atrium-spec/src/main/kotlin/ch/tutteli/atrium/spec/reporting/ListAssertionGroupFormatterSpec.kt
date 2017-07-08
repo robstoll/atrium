@@ -22,8 +22,8 @@ open class ListAssertionGroupFormatterSpec(
 ) : Spek({
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register({ testeeFactory(it, ToStringObjectFormatter(), UsingDefaultTranslator()) })
-    facade.register({ AtriumFactory.newSameLineAssertionFormatter(it, ToStringObjectFormatter(), UsingDefaultTranslator()) })
+    facade.register({ testeeFactory(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+    facade.register({ AtriumFactory.newSameLineAssertionFormatter(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
 
     var sb = StringBuilder()
     afterEachTest {
