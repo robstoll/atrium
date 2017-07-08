@@ -11,10 +11,8 @@ abstract class SingleAssertionGroupTypeFormatter<T : IAssertionGroupType>(
     override final fun canFormat(assertion: IAssertion)
         = assertion is IAssertionGroup && clazz.isAssignableFrom(assertion.type::class.java)
 
-    override final fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
-        is IAssertionGroup -> IAssertionFormatter.throwNotIntendedForAssertionGroups()
-        else -> throw UnsupportedOperationException("supports only ${clazz.name} for which one has to call ${IAssertionFormatter::formatGroup.name}")
-    }
+    override final fun formatNonGroup(assertion: IAssertion, methodObject: AssertionFormatterMethodObject)
+        = throw UnsupportedOperationException("supports only ${clazz.name} for which one has to call ${IAssertionFormatter::formatGroup.name}")
 
     override final fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) = when {
         clazz.isAssignableFrom(assertionGroup.type::class.java) -> formatSpecificGroup(assertionGroup, methodObject, formatAssertions)
