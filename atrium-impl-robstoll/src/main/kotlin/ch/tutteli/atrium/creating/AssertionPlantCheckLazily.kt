@@ -8,6 +8,8 @@ import java.util.*
 /**
  * An [IAssertionPlant] which does not check each added [IAssertion] immediately but only if [checkAssertions] is called and does not fail fast.
  *
+ * @param T The type of the [subject] of this [IAssertionPlant].
+ *
  * This class is not thread-safe, but is also not intended for long-running procedures.
  */
 internal open class AssertionPlantCheckLazily<out T : Any>(

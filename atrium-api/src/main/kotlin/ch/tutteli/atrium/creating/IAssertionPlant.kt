@@ -11,6 +11,8 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *
  * You can think of it as an [IAssertion] factory which does more than just factoring
  * but also provides quality assurance capabilities.
+ *
+ * @param T The type of the [subject] of this [IAssertionPlant].
  */
 interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
     /**
@@ -66,6 +68,8 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
 /**
  * Uses `this` plant as receiver of the given [createAssertions] function and
  * then calls [IAssertionPlant.checkAssertions].
+ *
+ * @param createAssertions The receiver function which might create and add assertions to this plant.
  *
  * @return This plant to support a fluent-style API.
  *

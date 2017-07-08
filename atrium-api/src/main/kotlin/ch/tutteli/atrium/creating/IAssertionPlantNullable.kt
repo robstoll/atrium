@@ -12,6 +12,8 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
  * ([IAssertionPlant.createAndAddAssertion]) nor a method to add assertions ([IAssertionPlant.addAssertion])
  * and as consequence no method to check the assertions ([IAssertionPlant.checkAssertions]).
  * Yet, it provides one method [isNull] which immediately evaluates if the [subject] is `null` as expected.
+ *
+ * @param T The type of the [subject] of this [IAssertionPlant].
  */
 interface IAssertionPlantNullable<out T : Any?> : IAssertionPlantWithCommonFields<T> {
     /**

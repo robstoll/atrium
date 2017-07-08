@@ -5,7 +5,8 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslator
 
 /**
- * Represents a formatter of assertion pairs which consists of a [ITranslatable] and a representation.
+ * Represents a formatter of assertion pairs -- which consists of a [ITranslatable] and a representation -- where it
+ * puts them on the same line in the form: `translation: representation`.
  *
  * @property objectFormatter Used to format objects such as [IBasicAssertion.expected].
  * @property translator Used to translate [ITranslatable]s such as [IBasicAssertion.description].
@@ -14,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
  * @param objectFormatter Used to format objects such as [IBasicAssertion.expected].
  * @param translator Used to translate [ITranslatable]s such as [IBasicAssertion.description].
  */
-class SameLineAssertionPairFormatter(
+internal class SameLineAssertionPairFormatter(
     private val objectFormatter: IObjectFormatter,
     private val translator: ITranslator
 ) : IAssertionPairFormatter {

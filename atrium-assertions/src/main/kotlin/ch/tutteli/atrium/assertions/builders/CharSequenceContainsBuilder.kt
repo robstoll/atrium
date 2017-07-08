@@ -12,6 +12,11 @@ import kotlin.reflect.KProperty
 
 /**
  * A builder for sophisticated `contains` assertions.
+ *
+ * @property plant The [IAssertionPlant] to which created [IAssertion] shall be added.
+ *
+ * @constructor
+ * @param plant The [IAssertionPlant] to which created [IAssertion] shall be added.
  */
 class CharSequenceContainsBuilder(private val plant: IAssertionPlant<CharSequence>) {
 
