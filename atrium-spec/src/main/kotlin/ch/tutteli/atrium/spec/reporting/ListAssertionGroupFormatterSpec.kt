@@ -34,7 +34,7 @@ open class ListAssertionGroupFormatterSpec(
         BasicAssertion(AssertionVerb.ASSERT, 1, true),
         BasicAssertion(AssertionVerb.EXPECT_THROWN, 2, true)
     )
-    val listAssertionGroup = AssertionGroup(ListAssertionGroupType, TranslationSupplierSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
+    val listAssertionGroup = AssertionGroup(object : IListAssertionGroupType {}, TranslationSupplierSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
 
     val separator = System.getProperty("line.separator")!!
     val bulletPoint = "◾"

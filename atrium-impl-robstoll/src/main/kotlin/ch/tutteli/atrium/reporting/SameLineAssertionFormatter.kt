@@ -49,7 +49,7 @@ internal class SameLineAssertionFormatter(
 
     override fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
         val newMethodObject = when (assertionGroup.type) {
-            is FeatureAssertionGroupType -> formatFeatureGroupName(assertionGroup, methodObject)
+            is IFeatureAssertionGroupType -> formatFeatureGroupName(assertionGroup, methodObject)
             else -> formatGroupNameDefault(assertionGroup, methodObject)
         }
         formatAssertions {

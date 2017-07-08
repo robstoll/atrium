@@ -47,7 +47,7 @@ open class InvisibleAssertionGroupFormatterSpec(
 
             context("has ${IAssertionGroup::name.name} and ${IAssertionGroup::subject.name}") {
                 it("still puts the assertions one under the others without indentation and does not include ${IAssertionGroup::name.name} or ${IAssertionGroup::subject.name}") {
-                    facade.format(AssertionGroup(InvisibleAssertionGroupType, AssertionVerb.ASSERT, 2, assertions), sb, alwaysTrueAssertionFilter)
+                    facade.format(AssertionGroup(object : IInvisibleAssertionGroupType {}, AssertionVerb.ASSERT, 2, assertions), sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1"
                         + "$separator${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
