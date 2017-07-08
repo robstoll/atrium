@@ -2,10 +2,19 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
+
+/**
+ * Creates an [CharSequenceContainsBuilder] based on this [IAssertionPlant] which allows to define
+ * more sophisticated `contains` assertions.
+ *
+ * @return The newly created builder
+ */
+val <T : CharSequence> IAssertionPlant<T>.contains get() = CharSequenceContainsBuilder(this)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains the [expected] [CharSequence].
@@ -169,6 +178,8 @@ fun <T : CharSequence> IAssertionPlant<T>.isNotEmpty()
 enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpleTranslatable {
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
+    EXACTLY_TIME("exactly %d time"),
+    EXACTLY_TIMES("exactly %d times"),
     STARTS_WITH("starts with"),
     STARTS_NOT_WITH("does not start with"),
     ENDS_WITH("ends with"),
