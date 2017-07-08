@@ -33,8 +33,7 @@ internal class SameLineAssertionFormatter(
         return true
     }
 
-    override fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
-        is IAssertionGroup -> IAssertionFormatter.throwNotIntendedForAssertionGroups()
+    override fun formatNonGroup(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
         is IBasicAssertion -> appendBasicAssertion(assertion, methodObject)
         else -> formatFallback(assertion, methodObject)
     }

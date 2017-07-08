@@ -29,6 +29,11 @@ interface IAssertionFormatter {
      * Formats the given [assertion] and appends the result to the [sb][AssertionFormatterMethodObject.sb]
      * of the given [methodObject].
      *
+     * This method should not be overridden (unfortunately an interface method cannot yet be final in Kotlin). This
+     * default implementation checks whether the given [assertion] is an [IAssertionGroup] and calls
+     * [throwNotIntendedForAssertionGroups] in case it is; calls [formatNonGroup] with the given [assertion] and
+     * [methodObject] otherwise.
+     *
      * This function should be in sync with [canFormat]. If [canFormat] returns `true` then this method should be able
      * to format the given [assertion] without problems. If [canFormat] returns `false` then this method should throw
      * an [UnsupportedOperationException].
@@ -42,7 +47,31 @@ interface IAssertionFormatter {
      * @throws UnsupportedOperationException in case this [IAssertionFormatter] cannot format the given [assertion]
      *         ([canFormat] returns `false`) or if [assertion] is an [IAssertionGroup].
      */
-    fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject)
+    fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
+        is IAssertionGroup -> IAssertionFormatter.throwNotIntendedForAssertionGroups()
+        else -> formatNonGroup(assertion, methodObject)
+    }
+
+    /**
+     * Formats the given [assertion] and appends the result to the [sb][AssertionFormatterMethodObject.sb]
+     * of the given [methodObject].
+     *
+     * The callee is responsible that not an [IAssertionGroup] is passed to this function for which the outcome is
+     * unknown/unspecified. Call [formatGroup] to format an [IAssertionGroup]. Call [format] in case you do not know
+     * what type [assertion] is.
+     *
+     * This function should be in sync with [canFormat]. If [canFormat] returns `true` then this method should be able
+     * to format the given [assertion] without problems. If [canFormat] returns `false` then this method should throw
+     * an [UnsupportedOperationException].
+     *
+     * @param assertion The assertion which should be formatted (not an [IAssertionGroup]).
+     * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
+     *        to with the result will be appended.
+     *
+     * @throws UnsupportedOperationException in case this [IAssertionFormatter] cannot format the given [assertion]
+     *         ([canFormat] returns `false`).
+     */
+    fun formatNonGroup(assertion: IAssertion, methodObject: AssertionFormatterMethodObject)
 
     /**
      * Formats the given [assertionGroup] and appends the result to the [sb][AssertionFormatterMethodObject.sb]
