@@ -8,7 +8,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
-import kotlin.reflect.KFunction1
+import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty
 
 object CharSequenceAssertionsSpec : Spek({
@@ -17,7 +17,7 @@ object CharSequenceAssertionsSpec : Spek({
 
     val containsProp: KProperty<CharSequenceContainsBuilder> = fluent::contains
     val contains = containsProp.name
-    val containsNotFun: KFunction1<CharSequence, IAssertionPlant<CharSequence>> = fluent::containsNot
+    val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = fluent::containsNot
     val containsNot = containsNotFun.name
     val exactly = CharSequenceContainsBuilder::exactly.name
 
