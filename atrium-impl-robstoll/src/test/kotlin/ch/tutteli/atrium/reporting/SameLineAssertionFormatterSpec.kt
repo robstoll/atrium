@@ -18,7 +18,8 @@ import org.jetbrains.spek.api.include
 
 object SameLineAssertionFormatterSpec : Spek({
     val factory = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-        SameLineAssertionFormatter(assertionFormatterController, SameLineAssertionPairFormatter(objectFormatter, translator)) }
+        SameLineAssertionFormatter(assertionFormatterController, SameLineAssertionPairFormatter(objectFormatter, translator))
+    }
 
     include(ch.tutteli.atrium.spec.reporting.SameLineAssertionFormatterSpec(AssertionVerbFactory, factory))
     include(ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(AssertionVerbFactory, factory))
@@ -36,7 +37,7 @@ object SameLineAssertionFormatterSpec : Spek({
         = AssertionGroup(RootAssertionGroupType, name, subject, assertions)
 
     fun createFeatureAssertionGroup(name: ITranslatable, subject: Any, assertions: List<IAssertion>)
-        = AssertionGroup(FeatureAssertionGroupType, name, subject, assertions)
+        = AssertionGroup(object : IFeatureAssertionGroupType {}, name, subject, assertions)
 
     context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
         it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name}") {
