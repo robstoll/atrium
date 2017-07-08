@@ -30,6 +30,7 @@ import java.text.SimpleDateFormat
  * the fallback Locale: fr
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
  * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_KNOWN = %tD était %<tA
+ * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-PLACEHOLDER = Caractère de remplacement %s
  *
  * the Locale it:
  * ch.tutteli.atrium.DescriptionNumberAssertion-IS_LESS_THAN = è meno di
@@ -100,14 +101,14 @@ abstract class TranslationSupplierSpec(
             }
         }
 
-    val firstOfFeb2017 = SimpleDateFormat("dd.MM.yyyy").parse("01.02.2017")
+        val firstOfFeb2017 = SimpleDateFormat("dd.MM.yyyy").parse("01.02.2017")
         describe("translation for ${TestTranslatable::class.simpleName}.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr'") {
-        it("uses the translation form 'fr' but the primary Locale to format the date") {
-            verbs.checkException {
-                assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1, { false })
-            }.toThrow<AssertionError>().and.message.contains("02/01/17 était Mittwoch!!")
+            it("uses the translation form 'fr' but the primary Locale to format the date") {
+                verbs.checkException {
+                    assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1, { false })
+                }.toThrow<AssertionError>().and.message.contains("02/01/17 était Mittwoch!!")
+            }
         }
-    }
 
         describe("translation for ${TestTranslatable::class.simpleName}.${TestTranslatable.DATE_UNKNOWN} (with a date as parameter) is provided for 'it'") {
             it("uses default translation but the primary Locale to format the date") {
@@ -117,8 +118,16 @@ abstract class TranslationSupplierSpec(
             }
         }
 
+        describe("translation for ${TestTranslatable::class.simpleName}.${TestTranslatable.PLACEHOLDER} "
+            + "with ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} as Placeholder") {
+            it("uses the translation from 'fr' for ${TestTranslatable::class.simpleName}.${TestTranslatable.PLACEHOLDER} "
+                + "and the translation from 'ch' for ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE}") {
+                verbs.checkException {
+                    assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.PLACEHOLDER, DescriptionAnyAssertion.TO_BE), 1, { false })
+                }.toThrow<AssertionError>().and.message.contains("Caractère de remplacement ist")
+            }
+        }
     }
-
 
 }) {
     /**
@@ -126,6 +135,7 @@ abstract class TranslationSupplierSpec(
      */
     enum class TestTranslatable(override val value: String) : ISimpleTranslatable {
         DATE_KNOWN("%tD is a %<tA"),
-        DATE_UNKNOWN("only %tA")
+        DATE_UNKNOWN("only %tA"),
+        PLACEHOLDER("placeholder %s")
     }
 }

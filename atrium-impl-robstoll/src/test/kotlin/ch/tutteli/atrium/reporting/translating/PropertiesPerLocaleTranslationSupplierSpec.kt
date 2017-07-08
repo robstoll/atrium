@@ -12,6 +12,6 @@ object PropertiesPerLocaleTranslationSupplierSpec : TranslationSupplierSpec(
         .withDetailedObjectFormatter()
         .withDefaultAssertionFormatterController()
         .withDefaultAssertionFormatterFacade()
-        .withSameLineAssertionFormatter()
+        .withSameLineTextAssertionFormatter()
         .buildOnlyFailureReporter()
 )

@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Formats an [IAssertion], putting each message on its own line.
@@ -16,19 +16,15 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
  *
  * @property assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *           the reporting process.
- * @property objectFormatter Used to format objects such as [IBasicAssertion.expected].
- * @property translator Used to translate [ITranslatable]s such as [IBasicAssertion.description].
- *
+
  * @constructor
  * @param assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *        the reporting process.
- * @param objectFormatter Used to format objects such as [IBasicAssertion.expected].
- * @param translator Used to translate [ITranslatable]s such as [IBasicAssertion.description].
+
  */
 internal class SameLineAssertionFormatter(
     private val assertionFormatterController: IAssertionFormatterController,
-    private val objectFormatter: IObjectFormatter,
-    private val translator: ITranslator
+    private val assertionPairFormatter: IAssertionPairFormatter
 ) : IAssertionFormatter {
 
     override fun canFormat(assertion: IAssertion): Boolean {
@@ -37,23 +33,18 @@ internal class SameLineAssertionFormatter(
         return true
     }
 
-    override fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
-        is IAssertionGroup -> IAssertionFormatter.notIntendedForAssertionGroups()
+    override fun formatNonGroup(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
         is IBasicAssertion -> appendBasicAssertion(assertion, methodObject)
         else -> formatFallback(assertion, methodObject)
     }
 
     private fun appendBasicAssertion(basicAssertion: IBasicAssertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.sb.appendPair(translator.translate(basicAssertion.description), basicAssertion.expected)
+        assertionPairFormatter.format(methodObject, basicAssertion.description, basicAssertion.expected)
     }
 
-    private fun StringBuilder.appendPair(left: String, right: Any?)
-        = append(left).append(": ").append(objectFormatter.format(right))
-
     private fun formatFallback(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.sb.appendPair(
-            "Unsupported type ${assertion::class.java.name}, can only report whether it holds",
-            assertion.holds())
+        val translatable = Untranslatable("Unsupported type ${assertion::class.java.name}, can only report whether it holds")
+        assertionPairFormatter.format(methodObject, translatable, assertion.holds())
     }
 
     override fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
@@ -63,7 +54,7 @@ internal class SameLineAssertionFormatter(
         }
         formatAssertions {
             newMethodObject.sb.appendln()
-            indent(newMethodObject)
+            newMethodObject.indent()
             assertionFormatterController.format(it, newMethodObject)
         }
     }
@@ -71,7 +62,8 @@ internal class SameLineAssertionFormatter(
     fun formatFeatureGroupName(featureAssertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         val arrow = "-> "
         val arrowLength = arrow.length
-        methodObject.sb.appendPair(arrow + translator.translate(featureAssertionGroup.name), featureAssertionGroup.subject)
+        val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), featureAssertionGroup.name)
+        assertionPairFormatter.format(methodObject, translatable, featureAssertionGroup.subject)
         return AssertionFormatterMethodObject(
             methodObject.sb,
             methodObject.indentLevel + arrowLength,
@@ -79,14 +71,8 @@ internal class SameLineAssertionFormatter(
     }
 
     private fun formatGroupNameDefault(rootAssertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
-        methodObject.sb.appendPair(translator.translate(rootAssertionGroup.name), rootAssertionGroup.subject)
+        assertionPairFormatter.format(methodObject, rootAssertionGroup.name, rootAssertionGroup.subject)
         return methodObject
-    }
-
-    private fun indent(methodObject: AssertionFormatterMethodObject) {
-        for (i in 0 until methodObject.indentLevel) {
-            methodObject.sb.append(' ')
-        }
     }
 
 }

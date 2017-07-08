@@ -62,7 +62,14 @@ object AtriumFactory : IAtriumFactory {
         = AssertionFormatterFacade(assertionFormatterController)
 
     override fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = SameLineAssertionFormatter(assertionFormatterController, objectFormatter, translator)
+        = SameLineAssertionFormatter(assertionFormatterController, SameLineAssertionPairFormatter(objectFormatter, translator))
+
+    override fun registerSameLineTextAssertionFormatterCapabilities(assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit {
+        val pairFormatter = SameLineAssertionPairFormatter(objectFormatter, translator)
+        assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
+        assertionFormatterFacade.register { ListAssertionGroupFormatter(it, pairFormatter) }
+        assertionFormatterFacade.register { SameLineAssertionFormatter(it, pairFormatter) }
+    }
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
         = OnlyFailureReporter(assertionFormatterFacade)
