@@ -248,6 +248,29 @@ object CharSequenceAssertionsSpec : Spek({
                 }
             }
         }
+
+        context("error message") {
+            context("feature assertion about a Person's name 'Robert Stoll'") {
+                data class Person(val name: String)
+
+                val person: Person = Person("Robert Stoll")
+
+                test("$contains 'treboR' and 'llotS' - error message contains '-> name' exactly once") {
+                    expect {
+                        assert(person) {
+                            its(subject::name).contains("treboR", "llotS")
+                        }
+                    }.toThrow<AssertionError>().and.message.contains.exactly(1).values("-> name")
+                }
+                test("$containsNot 'Robert' and 'Stoll' - error message contains '-> name' exactly once") {
+                    expect {
+                        assert(person) {
+                            its(subject::name).containsNot("Robert", "Stoll")
+                        }
+                    }.toThrow<AssertionError>().and.message.contains.exactly(1).values("-> name")
+                }
+            }
+        }
     }
 
     val containsDefaultTranslationOf = fluent::containsDefaultTranslationOf.name
