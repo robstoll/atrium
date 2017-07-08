@@ -8,6 +8,8 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * An assertion plant which has [CommonFields]; provides the property [subject] for ease of use.
+ *
+ * @param T The type of the [subject] of this [IAssertionPlant].
  */
 interface IAssertionPlantWithCommonFields<out T> {
     /**
@@ -22,6 +24,8 @@ interface IAssertionPlantWithCommonFields<out T> {
 
     /**
      * Common fields of an assertion plant.
+     *
+     * @param T The type of the [subject] of this [IAssertionPlant].
      *
      * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
      * @property subject The subject for which this plant will create/check [IAssertion]s.

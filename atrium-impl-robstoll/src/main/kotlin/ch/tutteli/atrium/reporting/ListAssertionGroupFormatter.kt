@@ -2,9 +2,13 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
 
-class ListAssertionGroupFormatter(
+/**
+ * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with  an [IListAssertionGroupType].
+ */
+internal class ListAssertionGroupFormatter(
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : SingleAssertionGroupTypeFormatter<IListAssertionGroupType>(IListAssertionGroupType::class.java) {

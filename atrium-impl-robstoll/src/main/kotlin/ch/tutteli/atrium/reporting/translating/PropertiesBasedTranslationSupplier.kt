@@ -9,6 +9,8 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * There is no way to purge the cache. This class is intended for a one run process where
  * translations do not change in between.
+ *
+ * @param T Translations are grouped by a certain aspect (for instance, by [Locale]). [T] defines the type of it.
  */
 abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
     /**

@@ -4,7 +4,10 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
 
-class InvisibleAssertionGroupFormatter(
+/**
+ * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with  an [IInvisibleAssertionGroupType].
+ */
+internal class InvisibleAssertionGroupFormatter(
     private val assertionFormatterController: IAssertionFormatterController
 ) : SingleAssertionGroupTypeFormatter<IInvisibleAssertionGroupType>(IInvisibleAssertionGroupType::class.java) {
 

@@ -9,7 +9,7 @@ import kotlin.reflect.KCallable
  * - [CharSequence], is wrapped in quotes (`"`)
  * - [Char] is wrapped in apostrophes (`'`)
  * */
-object MethodCallFormatter : IMethodCallFormatter {
+internal object MethodCallFormatter : IMethodCallFormatter {
     override fun format(method: KCallable<*>, arguments: Array<out Any?>): () -> String = {
         val sb = StringBuilder(method.name).append("(")
         arguments.asList().appendToStringBuilder(sb, ", ") { it, sb ->

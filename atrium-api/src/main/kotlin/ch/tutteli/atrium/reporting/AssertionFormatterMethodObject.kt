@@ -8,6 +8,11 @@ import ch.tutteli.atrium.assertions.IAssertion
  * @property sb The [StringBuilder] to which the formatted [IAssertion] will be appended.
  * @property indentLevel The current indentation level..
  * @property assertionFilter Can be used used to filter out [IAssertion]s which should not be formatted.
+ *
+ * @constructor
+ * @param sb The [StringBuilder] to which the formatted [IAssertion] will be appended.
+ * @param indentLevel The current indentation level..
+ * @param assertionFilter Can be used used to filter out [IAssertion]s which should not be formatted.
  */
 class AssertionFormatterMethodObject(
     val sb: StringBuilder,
