@@ -24,10 +24,14 @@ val <T : CharSequence> IAssertionPlant<T>.contains get() = CharSequenceContainsB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherExpected: Any): IAssertionPlant<T> {
+    val assertions = mutableListOf<IAssertion>()
     arrayOf(expected, *otherExpected).forEach {
-        val expectedString = it.toString()
-        createAndAddAssertion(CONTAINS, expectedString,  { subject.contains(expectedString) })
+        assertions.add(LazyThreadUnsafeBasicAssertion {
+            val expectedString =  it.toString()
+            BasicAssertion(CONTAINS, expectedString, { subject.contains(expectedString) })
+        })
     }
+    addAssertion(InvisibleAssertionGroup(assertions))
     return this
 }
 
@@ -39,10 +43,14 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherEx
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg otherExpected: Any): IAssertionPlant<T> {
+    val assertions = mutableListOf<IAssertion>()
     arrayOf(expected, *otherExpected).forEach {
-        val expectedString = it.toString()
-        createAndAddAssertion(CONTAINS_NOT, expectedString,  { !subject.contains(expectedString) })
+        assertions.add(LazyThreadUnsafeBasicAssertion {
+            val expectedString =  it.toString()
+            BasicAssertion(CONTAINS_NOT, expectedString, { !subject.contains(expectedString) })
+        })
     }
+    addAssertion(InvisibleAssertionGroup(assertions))
     return this
 }
 
