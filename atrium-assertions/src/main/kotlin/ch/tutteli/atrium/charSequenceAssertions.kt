@@ -1,7 +1,7 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
@@ -17,51 +17,6 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 val <T : CharSequence> IAssertionPlant<T>.contains get() = CharSequenceContainsBuilder(this)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains the [expected] [CharSequence].
- *
- * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
- */
-fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence)
-    = createAndAddAssertion(CONTAINS, expected, { subject.contains(expected) })
-
-/**
- * Makes the assertion that [IAssertionPlant.subject] does not contain the [expected] [CharSequence].
- *
- * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
- */
-fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence)
-    = createAndAddAssertion(CONTAINS_NOT, expected, { !subject.contains(expected) })
-
-
-/**
- * Makes the assertion that [IAssertionPlant.subject] contains the [expected] [CharSequence]
- * and [otherExpected] [CharSequence]s (if defined).
- *
- * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
- */
-fun <T : CharSequence> IAssertionPlant<T>.contains(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionPlant<T> {
-    val plant = contains(expected)
-    otherExpected.forEach { contains(it) }
-    return plant
-}
-
-/**
- * Makes the assertion that [IAssertionPlant.subject] does not contain the [expected] [CharSequence]
- * and neither one of the [otherExpected] [CharSequence]s (if defined).
- *
- * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
- */
-fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence, vararg otherExpected: CharSequence): IAssertionPlant<T> {
-    val plant = containsNot(expected)
-    otherExpected.forEach { containsNot(it) }
-    return plant
-}
-
-/**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if defined).
  *
@@ -69,9 +24,11 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: CharSequence, va
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherExpected: Any): IAssertionPlant<T> {
-    val plant = contains(expected.toString())
-    otherExpected.forEach { contains(it.toString()) }
-    return plant
+    arrayOf(expected, *otherExpected).forEach {
+        val expectedString = it.toString()
+        createAndAddAssertion(CONTAINS, expectedString,  { subject.contains(expectedString) })
+    }
+    return this
 }
 
 /**
@@ -82,9 +39,11 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherEx
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg otherExpected: Any): IAssertionPlant<T> {
-    val plant = containsNot(expected.toString())
-    otherExpected.forEach { containsNot(it.toString()) }
-    return plant
+    arrayOf(expected, *otherExpected).forEach {
+        val expectedString = it.toString()
+        createAndAddAssertion(CONTAINS_NOT, expectedString,  { !subject.contains(expectedString) })
+    }
+    return this
 }
 
 /**
