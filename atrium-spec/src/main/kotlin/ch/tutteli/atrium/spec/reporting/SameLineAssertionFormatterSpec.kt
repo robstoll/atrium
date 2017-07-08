@@ -24,7 +24,7 @@ open class SameLineAssertionFormatterSpec(
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
 
-    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter(), UsingDefaultTranslator())
+    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
     var sb = StringBuilder()
     var methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
@@ -69,7 +69,7 @@ open class SameLineAssertionFormatterSpec(
 
     context("${IAssertionGroup::class.simpleName} with multiple assertions") {
         val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-        facade.register({ testeeFactory(it, ToStringObjectFormatter(), UsingDefaultTranslator()) })
+        facade.register({ testeeFactory(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
         val separator = System.getProperty("line.separator")!!
         it("uses the system line separator to separate the assertions") {
             facade.format(object : IAssertionGroup {

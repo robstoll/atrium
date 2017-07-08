@@ -24,7 +24,7 @@ open class AssertionFormatterSpec(
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
 
-    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter(), UsingDefaultTranslator())
+    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     var sb = StringBuilder()
