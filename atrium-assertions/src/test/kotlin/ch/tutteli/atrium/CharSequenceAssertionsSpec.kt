@@ -3,6 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
@@ -26,7 +27,7 @@ object CharSequenceAssertionsSpec : Spek({
             test("$contains 'hello' throws AssertionError") {
                 expect {
                     fluentEmptyString.contains("hello")
-                }.toThrow<AssertionError>().and.message.contains(CONTAINS)
+                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(CONTAINS)
             }
             test("$contains 'hello' $exactly once throws AssertionError") {
                 expect {
@@ -59,7 +60,7 @@ object CharSequenceAssertionsSpec : Spek({
                 test("$containsNot 'hello' throws AssertionError") {
                     expect {
                         fluent.containsNot("hello")
-                    }.toThrow<AssertionError>().and.message.contains(CONTAINS_NOT)
+                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(CONTAINS_NOT)
                 }
 
                 test("$contains 'hello' and 'robert' does not throw") {
@@ -249,6 +250,51 @@ object CharSequenceAssertionsSpec : Spek({
         }
     }
 
+    val containsDefaultTranslationOf = fluent::containsDefaultTranslationOf.name
+    val containsNotDefaultTranslationOf = fluent::containsNotDefaultTranslationOf.name
+    describe("fun $containsDefaultTranslationOf and $containsNotDefaultTranslationOf") {
+
+        context("text '$text' and translatables ${TestTranslatable.HELLO} (${TestTranslatable.HELLO.getDefault()}) and ${TestTranslatable.WELCOME} (${TestTranslatable.WELCOME.getDefault()})") {
+            test("$containsDefaultTranslationOf ${TestTranslatable.HELLO} does not throw") {
+                fluent.containsDefaultTranslationOf(TestTranslatable.HELLO)
+            }
+
+            test("$containsNotDefaultTranslationOf ${TestTranslatable.HELLO} throws AssertionError") {
+                expect {
+                    fluent.containsNotDefaultTranslationOf(TestTranslatable.HELLO)
+                }.toThrow<AssertionError>()
+            }
+
+            test("$containsDefaultTranslationOf ${TestTranslatable.WELCOME} throws AssertionError") {
+                expect {
+                    fluent.containsDefaultTranslationOf(TestTranslatable.WELCOME)
+                }.toThrow<AssertionError>()
+            }
+
+            test("$containsNotDefaultTranslationOf ${TestTranslatable.WELCOME} does not throw") {
+                fluent.containsNotDefaultTranslationOf(TestTranslatable.WELCOME)
+            }
+
+            test("$containsDefaultTranslationOf ${TestTranslatable.HELLO} and ${TestTranslatable.WELCOME}, throws AssertionError") {
+                expect {
+                    fluent.containsDefaultTranslationOf(TestTranslatable.HELLO, TestTranslatable.WELCOME)
+                }.toThrow<AssertionError>().message {
+                    contains(DescriptionCharSequenceAssertion.CONTAINS.getDefault() + ": \"" + TestTranslatable.WELCOME.getDefault() + "\"")
+                    containsNot(DescriptionCharSequenceAssertion.CONTAINS.getDefault() + ": \"" + TestTranslatable.HELLO.getDefault() + "\"")
+                }
+            }
+
+            test("$containsNotDefaultTranslationOf ${TestTranslatable.HELLO} and ${TestTranslatable.WELCOME}, throws AssertionError") {
+                expect {
+                    fluent.containsNotDefaultTranslationOf(TestTranslatable.HELLO, TestTranslatable.WELCOME)
+                }.toThrow<AssertionError>().message {
+                    contains(DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault() + ": \"" + TestTranslatable.HELLO.getDefault() + "\"")
+                    containsNot(DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault() + ": \"" + TestTranslatable.WELCOME.getDefault() + "\"")
+                }
+            }
+        }
+    }
+
 
     describe("fun ${fluent::isEmpty.name} and ${fluent::isNotEmpty.name}") {
         context("string is empty") {
@@ -298,13 +344,13 @@ object CharSequenceAssertionsSpec : Spek({
             test("${fluent::startsNotWith.name} 'hello' throws an AssertionError") {
                 expect {
                     fluent.startsNotWith("hello")
-                }.toThrow<AssertionError>().and.message.contains(STARTS_NOT_WITH)
+                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(STARTS_NOT_WITH)
             }
 
             test("${fluent::startsWith.name} 'robert' throws an AssertionError") {
                 expect {
                     fluent.startsWith("goodbye")
-                }.toThrow<AssertionError>().and.message.contains(STARTS_WITH)
+                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(STARTS_WITH)
             }
             test("${fluent::startsNotWith.name} 'robert' does not throw") {
                 fluent.startsNotWith("goodbye")
@@ -317,7 +363,7 @@ object CharSequenceAssertionsSpec : Spek({
             test("${fluent::endsWith.name} 'hello' throws an AssertionError") {
                 expect {
                     fluent.endsWith("hello")
-                }.toThrow<AssertionError>().and.message.contains(ENDS_WITH)
+                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(ENDS_WITH)
             }
             test("${fluent::endsNotWith.name} 'hello' does not throw") {
                 fluent.endsNotWith("hello")
@@ -329,8 +375,13 @@ object CharSequenceAssertionsSpec : Spek({
             test("${fluent::endsNotWith.name} 'robert' throws an AssertionError") {
                 expect {
                     fluent.endsNotWith("robert")
-                }.toThrow<AssertionError>().and.message.contains(ENDS_NOT_WITH)
+                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(ENDS_NOT_WITH)
             }
         }
     }
-})
+}) {
+    private enum class TestTranslatable(override val value: String) : ISimpleTranslatable {
+        HELLO("hello"),
+        WELCOME("welcome")
+    }
+}

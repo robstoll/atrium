@@ -12,7 +12,7 @@ object BooleanAssertionSpec : Spek( {
         test("${fluent::isFalse.name} throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: false`"){
             expect {
                 fluent.isFalse()
-            }.toThrow<AssertionError>().and.message.contains(DescriptionAnyAssertion.TO_BE).and.contains(": false")
+            }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE).and.contains(": false")
         }
     }
 
@@ -22,7 +22,7 @@ object BooleanAssertionSpec : Spek( {
         test("${fluent::isTrue.name} throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: true`"){
             expect {
                 fluent.isTrue()
-            }.toThrow<AssertionError>().and.message.contains(DescriptionAnyAssertion.TO_BE).and.contains(": true")
+            }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE).and.contains(": true")
         }
         test("${fluent::isFalse.name} does not throw"){
             fluent.isFalse()
