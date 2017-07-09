@@ -2,7 +2,7 @@ buildscript {
     ext {
         publish_artifactId = 'atrium-verbs'
         publish_version = atrium_version
-        publish_description = 'Assertion verbs for atrium, an assertion framework for Kotlin'
+        publish_description = 'Assertion verbs for Atrium -- an assertion framework for Kotlin.'
     }
 }
 apply from: '../gradle/scripts/publish.gradle'
