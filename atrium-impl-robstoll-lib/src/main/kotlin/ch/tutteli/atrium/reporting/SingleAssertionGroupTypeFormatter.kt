@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.IAssertionGroupType
  *
  * @param T The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
  */
-internal abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
+abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
     private val clazz: Class<T>
 ) : IAssertionFormatter {
 

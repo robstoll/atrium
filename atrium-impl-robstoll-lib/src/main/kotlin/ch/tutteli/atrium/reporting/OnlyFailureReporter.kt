@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.IAssertion
  * @constructor
  * @param assertionFormatterFacade The formatter used to format [IAssertion]s.
  */
-internal class OnlyFailureReporter(private val assertionFormatterFacade: IAssertionFormatterFacade) : IReporter {
+class OnlyFailureReporter(private val assertionFormatterFacade: IAssertionFormatterFacade) : IReporter {
 
     /**
      * Formats the given [assertion] with the help of the defined [assertionFormatterFacade]
