@@ -15,7 +15,6 @@ dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
     compile project(':atrium-api')
     compileOnly project(':atrium-api-late-binding')
-    compile project(':atrium-impl-common')
     testCompile project(':atrium-impl-robstoll')
     testCompile project(':atrium-assertions')
     testCompile project(':atrium-spec')
