@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<settings xsi:schemaLocation='http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd'
+          xmlns='http://maven.apache.org/SETTINGS/1.0.0' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'>
+
+    <activeProfiles>
+        <activeProfile>jcenter</activeProfile>
+    </activeProfiles>
+    <profiles>
+        <profile>
+            <id>bintray</id>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                    <id>bintray-robstoll-tutteli-jars</id>
+                    <name>bintray</name>
+                    <url>http://dl.bintray.com/robstoll/tutteli-jars</url>
+                </repository>
+            </repositories>
+        </profile>
+        <profile>
+            <id>jcenter</id>
+            <repositories>
+                <repository>
+                    <id>jcenter</id>
+                    <url>https://jcenter.bintray.com/</url>
+                </repository>
+            </repositories>
+        </profile>
+    </profiles>
+</settings>
