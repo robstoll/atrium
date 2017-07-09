@@ -6,18 +6,24 @@ import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.startsWith
 import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
 
-open class ThrowingAssertionCheckerSpec(
+abstract class ThrowingAssertionCheckerSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IReporter) -> IAssertionChecker
+    testeeFactory: (IReporter) -> IAssertionChecker,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
@@ -34,7 +40,7 @@ open class ThrowingAssertionCheckerSpec(
         override fun holds() = false
     }
 
-    describe("fail") {
+    prefixedDescribe("fun ${testee::fail.name}") {
         it("throws an IllegalArgumentException if the given assertion holds") {
             verbs.checkException {
                 testee.fail(assertionVerb, 1, assertionWhichHolds)
@@ -48,7 +54,7 @@ open class ThrowingAssertionCheckerSpec(
         }
     }
 
-    describe("check") {
+    prefixedDescribe("fun ${testee::check.name}") {
         it("does not throw an AssertionError if all assertions hold") {
             testee.check(assertionVerb, 1, listOf(
                 assertionWhichHolds,

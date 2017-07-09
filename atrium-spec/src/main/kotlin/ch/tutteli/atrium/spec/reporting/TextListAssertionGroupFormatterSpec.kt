@@ -9,17 +9,23 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
-open class TextListAssertionGroupFormatterSpec(
+abstract class TextListAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter
+    testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
+    describePrefix : String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register({ testeeFactory(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
@@ -39,7 +45,7 @@ open class TextListAssertionGroupFormatterSpec(
     val separator = System.getProperty("line.separator")!!
     val bulletPoint = "◾"
 
-    describe("fun ${IAssertionFormatter::formatGroup.name}") {
+    prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IListAssertionGroupType::class.simpleName}") {
             context("format directly the group") {
                 it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name} which are prepended with a `- ` as bullet point") {

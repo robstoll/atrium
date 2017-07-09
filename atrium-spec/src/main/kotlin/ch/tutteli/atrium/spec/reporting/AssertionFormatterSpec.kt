@@ -14,15 +14,21 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
 
-open class AssertionFormatterSpec(
+abstract class AssertionFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter
+    testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
+    describePrefix : String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
@@ -34,7 +40,7 @@ open class AssertionFormatterSpec(
         methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
     }
 
-    describe("fun ${testee::format.name}") {
+    prefixedDescribe("fun ${testee::format.name}") {
         it("throws an UnsupportedOperationException if ${IAssertionGroup::class.simpleName} is passed") {
             verbs.checkException {
                 testee.format(object: IAssertionGroup {

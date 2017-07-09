@@ -7,16 +7,22 @@ import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
-open class InvisibleAssertionGroupFormatterSpec(
+abstract class InvisibleAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterController) -> IAssertionFormatter
+    testeeFactory: (IAssertionFormatterController) -> IAssertionFormatter,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register(testeeFactory)
@@ -35,7 +41,7 @@ open class InvisibleAssertionGroupFormatterSpec(
 
     val separator = System.getProperty("line.separator")!!
 
-    describe("fun ${IAssertionFormatter::formatGroup.name}") {
+    prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IInvisibleAssertionGroupType::class.simpleName}") {
             context("format directly the group") {
                 it("puts the assertions one under the others without indentation") {

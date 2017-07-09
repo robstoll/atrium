@@ -1,23 +1,27 @@
 package ch.tutteli.atrium.spec.checking
 
 import ch.tutteli.atrium.*
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.check
-import ch.tutteli.atrium.spec.setUp
+import ch.tutteli.atrium.spec.*
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.SpecBody
 
-open class FeatureAssertionCheckerSpec(
+abstract class FeatureAssertionCheckerSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (subjectFactory: IAssertionPlant<Int>) -> IAssertionChecker
+    testeeFactory: (subjectFactory: IAssertionPlant<Int>) -> IAssertionChecker,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val assertions = ArrayList<IAssertion>()
     assertions.add(object : IAssertion {
@@ -25,14 +29,17 @@ open class FeatureAssertionCheckerSpec(
     })
     val assertionVerb = AssertionVerb.VERB
     val valueUnderTest = 1
-    describe("check") {
+    val subjectFactory = mock<IAssertionPlant<Int>>()
+    val testee = testeeFactory(subjectFactory)
+
+
+    prefixedDescribe("fun ${testee::check.name}") {
         setUp("creates a ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName} and passes it to its subjectFactory") {
-            val subjectFactory = mock<IAssertionPlant<Int>>()
-            val testee = testeeFactory(subjectFactory)
+
             testee.check(assertionVerb, valueUnderTest, assertions)
             val captor = argumentCaptor<IAssertion>()
             verify(subjectFactory).addAssertion(captor.capture())
-            val fluent = verbs.checkImmediately(captor.firstValue).isA<IAssertionGroup>{
+            val fluent = verbs.checkImmediately(captor.firstValue).isA<IAssertionGroup> {
                 its(subject::type).isA<IFeatureAssertionGroupType>()
             }
             group("context ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {

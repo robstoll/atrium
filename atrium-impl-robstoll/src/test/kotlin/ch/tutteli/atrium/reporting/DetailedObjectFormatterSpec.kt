@@ -21,7 +21,7 @@ import org.jetbrains.spek.api.include
 import kotlin.reflect.KClass
 
 object DetailedObjectFormatterSpec : Spek({
-    include(ObjectFormatterSpec(AssertionVerbFactory, ::DetailedObjectFormatter))
+    include(AtriumsObjectFormatterSpec)
 
     val testee = DetailedObjectFormatter(UsingDefaultTranslator())
 
@@ -96,11 +96,11 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
-        on("an enum"){
+        on("an enum") {
             val enum = AssertionVerb.ASSERT
             val result = testee.format(enum)
-            it("returns its toString representation together with its Class.name but without System.identityHash"){
-                assert(result).toBe("ASSERT" + INDENT +"(${enum::class.java.name})")
+            it("returns its toString representation together with its Class.name but without System.identityHash") {
+                assert(result).toBe("ASSERT" + INDENT + "(${enum::class.java.name})")
             }
         }
 
@@ -157,4 +157,6 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
     }
-})
+}) {
+    object AtriumsObjectFormatterSpec : ObjectFormatterSpec(AssertionVerbFactory, ::DetailedObjectFormatter)
+}
