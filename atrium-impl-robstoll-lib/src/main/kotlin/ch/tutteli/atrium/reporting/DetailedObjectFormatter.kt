@@ -20,7 +20,7 @@ import kotlin.reflect.KClass
  * @constructor
  * @param translator The [ITranslator] used to translate [TranslatableRawString]s.
  */
-internal class DetailedObjectFormatter(private val translator: ITranslator) : IObjectFormatter {
+class DetailedObjectFormatter(private val translator: ITranslator) : IObjectFormatter {
 
     /**
      * Returns a formatted version of the given [value].

@@ -2,7 +2,7 @@ buildscript {
     ext {
         publish_artifactId = 'atrium-impl-common'
         publish_version = atrium_version
-        publish_description = 'Common logic for implementations of atrium, an assertion framework for Kotlin'
+        publish_description = 'Common logic for implementations of Atrium -- an assertion framework for Kotlin.'
     }
 }
 apply from: '../gradle/scripts/publish.gradle'
@@ -15,7 +15,7 @@ dependencies {
     testCompile project(':atrium-impl-robstoll')
 }
 
-dokka{
+dokka {
     sourceDirs = files('src/main/kotlin', '../atrium-api/src/main/kotlin')
 }
 

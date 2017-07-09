@@ -2,7 +2,8 @@ buildscript {
     ext {
         publish_artifactId = 'atrium-impl-robstoll'
         publish_version = atrium_version
-        publish_description = 'robstoll <rstoll@tutteli.ch> implementation of atrium, an assertion framework for Kotlin'
+        publish_description = 'robstoll\'s <rstoll@tutteli.ch> implementation of Atrium -- an assertion ' +
+            'framework for Kotlin.'
     }
 }
 apply from: '../gradle/scripts/publish.gradle'
@@ -11,11 +12,9 @@ apply from: '../gradle/scripts/spek.gradle'
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
     compile project(':atrium-api')
-    compile project(':atrium-impl-common')
-    testCompile project(':atrium-assertions')
-    testCompile project(':atrium-spec')
+    compile project(':atrium-impl-robstoll-lib')
 }
 
-dokka{
+dokka {
     sourceDirs = files('src/main/kotlin', '../atrium-api/src/main/kotlin')
 }

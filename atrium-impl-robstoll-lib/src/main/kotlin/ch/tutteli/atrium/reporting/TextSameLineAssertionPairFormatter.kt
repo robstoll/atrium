@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
  * @param objectFormatter Used to format objects such as [IBasicAssertion.expected].
  * @param translator Used to translate [ITranslatable]s such as [IBasicAssertion.description].
  */
-internal class TextSameLineAssertionPairFormatter(
+class TextSameLineAssertionPairFormatter(
     private val objectFormatter: IObjectFormatter,
     private val translator: ITranslator
 ) : IAssertionPairFormatter {

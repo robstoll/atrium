@@ -12,7 +12,7 @@ import java.util.*
  *
  * This class is not thread-safe, but is also not intended for long-running procedures.
  */
-internal open class AssertionPlantCheckLazily<out T : Any>(
+open class AssertionPlantCheckLazily<out T : Any>(
     override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : IAssertionPlant<T> {
 
     private val assertions: MutableList<IAssertion> = ArrayList()

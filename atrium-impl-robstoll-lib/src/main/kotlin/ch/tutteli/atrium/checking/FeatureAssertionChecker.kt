@@ -19,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *           For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
  *           the corresponding `Person`.
  */
-internal class FeatureAssertionChecker<out T : Any>(private val subjectPlant: IAssertionPlant<T>) : IAssertionCheckerDelegateFail, IAssertionChecker {
+class FeatureAssertionChecker<out T : Any>(private val subjectPlant: IAssertionPlant<T>) : IAssertionCheckerDelegateFail, IAssertionChecker {
 
     /**
      * Creates an [IAssertionGroup]s of [type][IAssertionGroup] [IFeatureAssertionGroupType] based on the

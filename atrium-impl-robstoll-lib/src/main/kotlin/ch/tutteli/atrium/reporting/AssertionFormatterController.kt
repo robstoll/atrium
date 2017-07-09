@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import java.util.*
 
-internal class AssertionFormatterController : IAssertionFormatterController {
+class AssertionFormatterController : IAssertionFormatterController {
     private val assertionFormatters = ArrayDeque<IAssertionFormatter>()
 
     override fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {

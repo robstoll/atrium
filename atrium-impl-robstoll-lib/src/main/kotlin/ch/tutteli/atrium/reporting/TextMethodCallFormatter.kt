@@ -11,7 +11,7 @@ import kotlin.reflect.KCallable
  * - [CharSequence], is wrapped in quotes (`"`) and \r as well as \n are escaped.
  * - [Char] is wrapped in apostrophes (`'`)
  */
-internal object TextMethodCallFormatter : IMethodCallFormatter {
+object TextMethodCallFormatter : IMethodCallFormatter {
     override fun format(method: KCallable<*>, arguments: Array<out Any?>): () -> String = {
         val sb = StringBuilder(method.name).append("(")
         arguments.asList().appendToStringBuilder(sb, ", ") { it, innerSb ->
