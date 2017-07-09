@@ -9,25 +9,29 @@ import ch.tutteli.atrium.containsDefaultTranslationOf
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.message
-import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.inCaseOf
-import ch.tutteli.atrium.spec.setUp
+import ch.tutteli.atrium.spec.*
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
-open class AssertionPlantCheckLazilySpec(
+abstract class AssertionPlantCheckLazilySpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int>) -> IAssertionPlant<Int>
+    testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int>) -> IAssertionPlant<Int>,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
+
     val assertionVerb = AssertionVerb.VERB
     val subject = 10
     val assertionChecker = verbs.checkLazily(1, {}).commonFields.assertionChecker
     val testee = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker))
 
-    context("fun ${testee::createAndAddAssertion.name}") {
+    prefixedDescribe("fun ${testee::createAndAddAssertion.name}") {
 
         val a = subject
         inCaseOf("assertion which holds") {
@@ -69,7 +73,7 @@ open class AssertionPlantCheckLazilySpec(
 
     }
 
-    context("fun ${testee::addAssertion.name}") {
+    prefixedDescribe("fun ${testee::addAssertion.name}") {
         inCaseOf("a custom assertion which holds") {
             testee.addAssertion(object : IAssertion {
                 override fun holds() = true
@@ -94,7 +98,7 @@ open class AssertionPlantCheckLazilySpec(
                         }
                     }
                     it("contains the assertionVerb") {
-                        expectFun.toThrow<AssertionError>().message{
+                        expectFun.toThrow<AssertionError>().message {
                             containsDefaultTranslationOf(assertionVerb)
                         }
                     }

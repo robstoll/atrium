@@ -12,8 +12,9 @@ import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.spec.creating.DownCastBuilderSpec
 import ch.tutteli.atrium.spec.inCaseOf
+import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
@@ -38,14 +39,19 @@ private object AtriumReporterSupplier {
     }
 }
 
-open class VerbSpec(
+abstract class VerbSpec(
     plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
     plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
     plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
-    plantExpect: Pair<String, (act: () -> Unit) -> ThrowableFluent>
+    plantExpect: Pair<String, (act: () -> Unit) -> ThrowableFluent>,
+    describePrefix : String = "[Atrium] "
 ) : Spek({
 
-    describe("assertion verb '${plantCheckImmediately.first}' which immediately evaluates assertions") {
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
+
+    prefixedDescribe("assertion verb '${plantCheckImmediately.first}' which immediately evaluates assertions") {
         val (_, assertionVerb) = plantCheckImmediately
 
         it("does not throw an exception in case the assertion holds") {
@@ -68,7 +74,7 @@ open class VerbSpec(
     /**
      * @see DownCastBuilderSpec - similar spec for lazy evaluated assertion verb
      */
-    describe("assertion verb '${plantCheckImmediately.first}' which lazily evaluates assertions") {
+    prefixedDescribe("assertion verb '${plantCheckImmediately.first}' which lazily evaluates assertions") {
         val (_, assertionVerb) = plantCheckLazily
         it("does not throw an exception in case the assertion holds") {
             assertionVerb(1) { toBe(1) }
@@ -87,7 +93,7 @@ open class VerbSpec(
         }
     }
 
-    describe("assertion verb '${plantNullable.first}' which supports nullable subjects") {
+    prefixedDescribe("assertion verb '${plantNullable.first}' which supports nullable subjects") {
         inCaseOf("a nullable subject") {
             val (_, assertionVerb) = plantNullable
             it("does not throw an exception when calling isNull") {
@@ -104,7 +110,7 @@ open class VerbSpec(
         }
     }
 
-    describe("assertion verb '${plantExpect.first}' which deals with exceptions") {
+    prefixedDescribe("assertion verb '${plantExpect.first}' which deals with exceptions") {
         inCaseOf("an IllegalArgumentException occurs") {
             val (_, assertionVerb) = plantExpect
             it("does not throw an exception expecting an IllegalArgumentException") {

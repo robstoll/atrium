@@ -7,19 +7,26 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.SpecBody
+import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 
-open class ObjectFormatterSpec(
+abstract class ObjectFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (ITranslator) -> IObjectFormatter
+    testeeFactory: (ITranslator) -> IObjectFormatter,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val translatable = AssertionVerb.ASSERT
     val translatedText = "es gilt"
@@ -28,26 +35,29 @@ open class ObjectFormatterSpec(
     }
     val testee = testeeFactory(translator)
 
-    describe("format `null`") {
-        val i: Int? = null
-        val result = testee.format(i)
-        it("returns null") {
-            verbs.checkImmediately(result).toBe("null")
-        }
-    }
+    prefixedDescribe("fun ${testee::format.name}") {
 
-    describe("format a ${RawString::class.simpleName}") {
-        val text = "test message"
-        val result = testee.format(RawString(text))
-        it("should still be the RawString") {
-            verbs.checkLazily(result) { isSame(text) }
+        context("`null`") {
+            val i: Int? = null
+            val result = testee.format(i)
+            it("returns null") {
+                verbs.checkImmediately(result).toBe("null")
+            }
         }
-    }
 
-    describe("format a ${TranslatableRawString::class.simpleName}") {
-        val result = testee.format(TranslatableRawString(translatable))
-        it("should still be the RawString") {
-            verbs.checkImmediately(result).isSame(translatedText)
+        context("a ${RawString::class.simpleName}") {
+            val text = "test message"
+            val result = testee.format(RawString(text))
+            it("should still be the ${RawString::class.simpleName}") {
+                verbs.checkLazily(result) { isSame(text) }
+            }
+        }
+
+        context("a ${TranslatableRawString::class.simpleName}") {
+            val result = testee.format(TranslatableRawString(translatable))
+            it("should be 1:1 the translation (like it was wrapped in an ${RawString::class.simpleName})") {
+                verbs.checkImmediately(result).isSame(translatedText)
+            }
         }
     }
 })

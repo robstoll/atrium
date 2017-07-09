@@ -8,7 +8,9 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.text.SimpleDateFormat
@@ -38,8 +40,13 @@ import java.text.SimpleDateFormat
  */
 abstract class TranslationSupplierSpec(
     verbs: IAssertionVerbFactory,
-    reporter: IReporter
+    reporter: IReporter,
+    describePrefix : String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     fun <T : Any> assert(subject: T)
         = AtriumFactory.newCheckImmediately(AssertionVerb.ASSERT, subject, reporter)
@@ -47,7 +54,7 @@ abstract class TranslationSupplierSpec(
     fun <T : Any?> assert(subject: T)
         = AtriumFactory.newNullable(AssertionVerb.ASSERT, subject, reporter)
 
-    describe("primary locale is 'de_CH' and fallback is 'fr'") {
+    prefixedDescribe("primary locale is 'de_CH' and fallback is 'fr'") {
 
         describe("translation for ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} is provided for 'de_CH'") {
             it("a failing assertion contains 'ist' instead of 'to be' in the error message") {
