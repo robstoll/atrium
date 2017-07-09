@@ -248,7 +248,8 @@ interface IAtriumFactory {
     fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
 
     /**
-     * Creates an [IAssertionFormatter] which puts assertion pairs on the same line.
+     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
+     * puts assertion pairs on the same line.
      *
      * For instance, it formats the pair `a to b` as follows: `"a: b"`
      *
@@ -258,7 +259,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in

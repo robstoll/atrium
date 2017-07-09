@@ -6,9 +6,9 @@ import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
 
 /**
- * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with  an [IListAssertionGroupType].
+ * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IListAssertionGroupType].
  */
-internal class ListAssertionGroupFormatter(
+internal class TextListAssertionGroupFormatter(
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : SingleAssertionGroupTypeFormatter<IListAssertionGroupType>(IListAssertionGroupType::class.java) {

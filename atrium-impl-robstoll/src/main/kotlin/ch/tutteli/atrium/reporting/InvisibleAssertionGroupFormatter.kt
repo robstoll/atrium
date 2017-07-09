@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
 
 /**
- * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with  an [IInvisibleAssertionGroupType].
+ * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IInvisibleAssertionGroupType].
  */
 internal class InvisibleAssertionGroupFormatter(
     private val assertionFormatterController: IAssertionFormatterController

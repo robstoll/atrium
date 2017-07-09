@@ -47,7 +47,7 @@ object AtriumFactory : IAtriumFactory {
         = FeatureAssertionChecker(subjectPlant)
 
     override fun newMethodCallFormatter(): IMethodCallFormatter
-        = MethodCallFormatter
+        = TextMethodCallFormatter
 
     override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
         = Translator(translationSupplier, primaryLocale, fallbackLocales)
@@ -61,14 +61,14 @@ object AtriumFactory : IAtriumFactory {
     override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
         = AssertionFormatterFacade(assertionFormatterController)
 
-    override fun newSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = SameLineAssertionFormatter(assertionFormatterController, SameLineAssertionPairFormatter(objectFormatter, translator))
+    override fun newTextSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = TextAssertionFormatter(assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
 
     override fun registerSameLineTextAssertionFormatterCapabilities(assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit {
-        val pairFormatter = SameLineAssertionPairFormatter(objectFormatter, translator)
+        val pairFormatter = TextSameLineAssertionPairFormatter(objectFormatter, translator)
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
-        assertionFormatterFacade.register { ListAssertionGroupFormatter(it, pairFormatter) }
-        assertionFormatterFacade.register { SameLineAssertionFormatter(it, pairFormatter) }
+        assertionFormatterFacade.register { TextListAssertionGroupFormatter(it, pairFormatter) }
+        assertionFormatterFacade.register { TextAssertionFormatter(it, pairFormatter) }
     }
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter

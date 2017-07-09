@@ -44,7 +44,7 @@ open class OnlyFailureReporterSpec(
             it("does not append anything if ${clazz.simpleName} holds") {
                 val translator = UsingDefaultTranslator()
                 val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-                facade.register { AtriumFactory.newSameLineAssertionFormatter(it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
+                facade.register { AtriumFactory.newTextSameLineAssertionFormatter(it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
                 val testee = testeeFactory(facade)
                 testee.format(assertion, sb)
                 verbs.checkLazily(sb) {
