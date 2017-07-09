@@ -33,7 +33,7 @@ object CollectionAssertionsSpec : Spek({
         it("throws an AssertionError if a collection is not empty") {
             expect {
                 assert(listOf(1, 2)).isEmpty()
-            }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionCollectionAssertion.IS_EMPTY)
+            }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionBasic.IS)
         }
     }
 })

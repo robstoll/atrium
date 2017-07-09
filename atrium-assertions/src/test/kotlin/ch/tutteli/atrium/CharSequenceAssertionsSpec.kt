@@ -329,13 +329,13 @@ object CharSequenceAssertionsSpec : Spek({
             test("${fluent::isNotEmpty.name} throws an AssertionError") {
                 expect {
                     assert("").isNotEmpty()
-                }.toThrow<AssertionError>().and.message.endsWith("${IS_NOT_EMPTY.getDefault()}: empty")
+                }.toThrow<AssertionError>().and.message.endsWith("${DescriptionBasic.IS_NOT.getDefault()}: empty")
                 expect {
                     assert(StringBuilder()).isNotEmpty()
-                }.toThrow<AssertionError>().and.message.endsWith("${IS_NOT_EMPTY.getDefault()}: empty")
+                }.toThrow<AssertionError>().and.message.endsWith("${DescriptionBasic.IS_NOT.getDefault()}: empty")
                 expect {
                     assert(StringBuffer()).isNotEmpty()
-                }.toThrow<AssertionError>().and.message.endsWith("${IS_NOT_EMPTY.getDefault()}: empty")
+                }.toThrow<AssertionError>().and.message.endsWith("${DescriptionBasic.IS_NOT.getDefault()}: empty")
             }
         }
         context("string is not empty") {
@@ -343,13 +343,13 @@ object CharSequenceAssertionsSpec : Spek({
             test("${fluent::isEmpty.name} throws an AssertionError") {
                 expect {
                     assert(notEmptyString).isEmpty()
-                }.toThrow<AssertionError>().and.message.endsWith("${IS_EMPTY.getDefault()}: empty")
+                }.toThrow<AssertionError>().and.message.endsWith("${DescriptionBasic.IS.getDefault()}: empty")
                 expect {
                     assert(StringBuilder(notEmptyString)).isEmpty()
-                }.toThrow<AssertionError>().and.message.endsWith("${IS_EMPTY.getDefault()}: empty")
+                }.toThrow<AssertionError>().and.message.endsWith("${DescriptionBasic.IS.getDefault()}: empty")
                 expect {
                     assert(StringBuffer(notEmptyString)).isEmpty()
-                }.toThrow<AssertionError>().and.message.endsWith("${IS_EMPTY.getDefault()}: empty")
+                }.toThrow<AssertionError>().and.message.endsWith("${DescriptionBasic.IS.getDefault()}: empty")
             }
             test("${fluent::isNotEmpty.name} does not throw") {
                 assert(notEmptyString).isNotEmpty()

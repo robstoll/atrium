@@ -97,7 +97,7 @@ open class VerbSpec(
                 expect {
                     assertionVerb(null).isNotNull()
                 }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_NOT_NULL)
+                    containsDefaultTranslationOf(DescriptionBasic.IS_NOT)
                     contains(RawString.NULL.string)
                 }
             }
