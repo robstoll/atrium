@@ -1,7 +1,6 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
-import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_NOT_NULL
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
@@ -13,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
  * @return This plant to support a fluent-style API.
  */
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
-    = AtriumFactory.newDownCastBuilder(IS_NOT_NULL, commonFields)
+    = AtriumFactory.newDownCastBuilder(DescriptionBasic.IS_NOT, commonFields)
     .cast()
 
 /**
@@ -23,7 +22,7 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
  * @return This plant to support a fluent-style API.
  */
 inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newDownCastBuilder(IS_NOT_NULL, commonFields)
+    = AtriumFactory.newDownCastBuilder(DescriptionBasic.IS_NOT, commonFields)
     .withLazyAssertions(createAssertions)
     .cast()
 
@@ -52,6 +51,5 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertio
  * of type `T` can be narrowed to `TSub` where `TSub <: T`.
  */
 enum class DescriptionNarrowingAssertion(override val value: String) : ISimpleTranslatable {
-    IS_NOT_NULL("is not"),
     IS_A("is type or sub-type of"),
 }

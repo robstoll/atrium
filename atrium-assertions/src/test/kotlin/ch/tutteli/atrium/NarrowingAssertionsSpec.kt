@@ -15,7 +15,7 @@ object NarrowingAssertionsSpec : Spek({
                 val i: Int? = null
                 assert(i).isNotNull()
             }.toThrow<AssertionError>().and.message {
-                containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_NOT_NULL)
+                containsDefaultTranslationOf(DescriptionBasic.IS_NOT)
                 contains(RawString.NULL.string)
             }
 

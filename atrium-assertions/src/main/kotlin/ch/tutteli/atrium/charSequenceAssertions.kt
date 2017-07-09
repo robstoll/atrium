@@ -4,9 +4,9 @@ import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 
 /**
  * Creates an [CharSequenceContainsBuilder] based on this [IAssertionPlant] which allows to define
@@ -126,7 +126,7 @@ fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.isEmpty()
-    = createAndAddAssertion(IS_EMPTY, RawString("empty"), { subject.isEmpty() })
+    = createAndAddAssertion(DescriptionBasic.IS, TranslatableRawString(EMPTY), { subject.isEmpty() })
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
@@ -135,7 +135,7 @@ fun <T : CharSequence> IAssertionPlant<T>.isEmpty()
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.isNotEmpty()
-    = createAndAddAssertion(IS_NOT_EMPTY, RawString("empty"), { subject.isNotEmpty() })
+    = createAndAddAssertion(DescriptionBasic.IS_NOT, TranslatableRawString(EMPTY), { subject.isNotEmpty() })
 
 /**
  * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [CharSequence].
@@ -149,6 +149,5 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpl
     STARTS_NOT_WITH("does not start with"),
     ENDS_WITH("ends with"),
     ENDS_NOT_WITH("does not end with"),
-    IS_EMPTY("is"),
-    IS_NOT_EMPTY("is not"),
+    EMPTY("empty")
 }
