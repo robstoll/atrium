@@ -8,8 +8,7 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import java.util.*
 
 /**
- * A builder to create an [IReporter] consisting of an [ITranslator] which is used by an [IObjectFormatter]
- * which then is used by an [IAssertionFormatter] which in turn is used by the created [IReporter].
+ * A builder to create an [IReporter] consisting of several components.
  */
 class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterFacade) {
 
@@ -36,25 +35,25 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
          * and the given [primaryLocale] which falls back to [Locale.getDefault] if not given.
          */
         fun withoutTranslations(primaryLocale: Locale = Locale.getDefault())
-            = ObjectFormatterBuilder(UsingDefaultTranslator(primaryLocale))
+            = ObjectFormatterOptions(UsingDefaultTranslator(primaryLocale))
 
         /**
          * Uses [AtriumFactory.newTranslator] with the given [translationSupplier] as [ITranslator], uses [locale] as primary
          * [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
          */
         fun withTranslations(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocales: Locale)
-            = ObjectFormatterBuilder(AtriumFactory.newTranslator(translationSupplier, locale, *fallbackLocales))
+            = ObjectFormatterOptions(AtriumFactory.newTranslator(translationSupplier, locale, *fallbackLocales))
 
         /**
          * Uses the given [translator] as [ITranslator].
          */
         fun withTranslator(translator: ITranslator)
-            = ObjectFormatterBuilder(translator)
+            = ObjectFormatterOptions(translator)
 
         /**
-         * Shortcut for [withoutTranslations].[ObjectFormatterBuilder.withDetailedObjectFormatter].
-         * [AssertionFormatterControllerBuilder.withDefaultAssertionFormatterController].
-         * [AssertionFormatterFacadeBuilder.withDefaultAssertionFormatterFacade]
+         * Shortcut for [withoutTranslations].[ObjectFormatterOptions.withDetailedObjectFormatter].
+         * [AssertionFormatterControllerOptions.withDefaultAssertionFormatterController].
+         * [AssertionFormatterFacadeOptions.withDefaultAssertionFormatterFacade]
          * -- uses [UsingDefaultTranslator] as [ITranslator]
          * and [AtriumFactory.newDetailedObjectFormatter] as [IObjectFormatter].
          *
@@ -70,42 +69,42 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
     /**
      * Provides options to create an [IObjectFormatter].
      */
-    class ObjectFormatterBuilder(private val translator: ITranslator) {
+    class ObjectFormatterOptions(private val translator: ITranslator) {
         /**
          * Uses [AtriumFactory.newDetailedObjectFormatter] as [IObjectFormatter].
          */
         fun withDetailedObjectFormatter()
-            = AssertionFormatterControllerBuilder(AtriumFactory.newDetailedObjectFormatter(translator), translator)
+            = AssertionFormatterControllerOptions(AtriumFactory.newDetailedObjectFormatter(translator), translator)
 
         /**
          * Uses the given [objectFormatter] as [IObjectFormatter]
          */
         fun withObjectFormatter(objectFormatter: IObjectFormatter)
-            = AssertionFormatterControllerBuilder(objectFormatter, translator)
+            = AssertionFormatterControllerOptions(objectFormatter, translator)
     }
 
     /**
      * Provides options to create an [IAssertionFormatterController].
      */
-    class AssertionFormatterControllerBuilder(private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
+    class AssertionFormatterControllerOptions(private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
         fun withDefaultAssertionFormatterController()
-            = AssertionFormatterFacadeBuilder(AtriumFactory.newAssertionFormatterController(), objectFormatter, translator)
+            = AssertionFormatterFacadeOptions(AtriumFactory.newAssertionFormatterController(), objectFormatter, translator)
     }
 
     /**
      * Provides options to create an [IAssertionFormatterFacade].
      */
-    class AssertionFormatterFacadeBuilder(private val assertionFormatterController: IAssertionFormatterController, private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
+    class AssertionFormatterFacadeOptions(private val assertionFormatterController: IAssertionFormatterController, private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
         fun withDefaultAssertionFormatterFacade()
-            = AssertionFormatterBuilder(AtriumFactory.newAssertionFormatterFacade(assertionFormatterController), objectFormatter, translator)
+            = AssertionFormatterOptions(AtriumFactory.newAssertionFormatterFacade(assertionFormatterController), objectFormatter, translator)
     }
 
     /**
      * Provides options to register [IAssertionFormatter]s to the chosen [IAssertionFormatterFacade].
      *
-     * @see AssertionFormatterFacadeBuilder
+     * @see AssertionFormatterFacadeOptions
      */
-    class AssertionFormatterBuilder(private val assertionFormatterFacade: IAssertionFormatterFacade, private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
+    class AssertionFormatterOptions(private val assertionFormatterFacade: IAssertionFormatterFacade, private val objectFormatter: IObjectFormatter, private val translator: ITranslator) {
 
         /**
          * Uses [AtriumFactory.registerSameLineTextAssertionFormatterCapabilities].
