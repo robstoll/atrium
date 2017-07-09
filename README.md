@@ -37,18 +37,22 @@ repositories {
 }
 dependencies {
     testCompile "ch.tutteli:atrium-api:$atrium_version"
-    testCompile "ch.tutteli:atrium-impl-robstoll:$atrium_version"
     testCompile "ch.tutteli:atrium-assertions:$atrium_version"
+    testCompile "ch.tutteli:atrium-impl-robstoll:$atrium_version"
 }
 ```
 
 maven:  
-[Click here to download a settings.xml from bintray](https://bintray.com/repo/downloadMavenRepoSettingsFile/downloadSettings?repoPath=%2Frobstoll%2Ftutteli-jars)
+Because maven is a bit more verbose than gradle, the example is not listed here but 
+an [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
+is provided to set up the repository as well as an 
+[example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
+which includes the necessary dependencies.
 
 # Use own Assertion Verbs
 
 Atrium offers three assertion verbs for the impatient: `assert`, `assertThat` and `expect`. 
-However, I suggest that you **use your own assertion verbs** even in the case you name them
+However , I suggest that you **use your own assertion verbs** even in the case you name them
 `assert`, `assertThat` or `expect`. The benefit will be that you are able to change the
 reporting style in the future without modifying existing code. 
 For instance, you could change from same-line to multi-line reporting or 
@@ -62,49 +66,19 @@ As you can see, it is up to you if you use the same name for all assertion funct
 (Atrium itself uses `expect` to postulate assertions about thrown exceptions and `assert` for other assertions).
 
 ## Out of the Box Assertion Verbs
-If you still insist of using the provided assertion verbs, then add the following dependencies to your project.
+If you still insist of using the provided assertion verbs, then add the following dependency 
+to your project in addition.
 
 gradle:
 ```
-buildscript {
-    ext { atrium_version='0.3.0' }
-}
-
 dependencies {
-    testCompile "ch.tutteli:atrium-api:$atrium_version"
-    testCompile "ch.tutteli:atrium-impl-robstoll:$atrium_version"
-    testCompile "ch.tutteli:atrium-assertions:$atrium_version"
+    //... see other dependencies in the example above
     testCompile "ch.tutteli:atrium-verbs:$atrium_version"
 }
 ```
 
-maven:
-```
-<dependency>
-  <groupId>ch.tutteli</groupId>
-  <artifactId>atrium-api</artifactId>
-  <version>0.3.0</version>
-  <scope>test</scope>
-</dependency>
-<dependency>
-  <groupId>ch.tutteli</groupId>
-  <artifactId>atrium-impl-robstoll</artifactId>
-  <version>0.3.0</version>
-  <scope>test</scope>
-</dependency>
-<dependency>
-  <groupId>ch.tutteli</groupId>
-  <artifactId>atrium-assertions</artifactId>
-  <version>0.3.0</version>
-  <scope>test</scope>
-</dependency>
-<dependency>
-  <groupId>ch.tutteli</groupId>
-  <artifactId>atrium-verbs</artifactId>
-  <version>0.3.0</version>
-  <scope>test</scope>
-</dependency>
-```
+maven:  
+Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml).
 
 # Examples
 
@@ -180,7 +154,7 @@ assert(person) {
 There are two assertion functions which allow to make assertions about a particular property or feature 
 of a class: `property` and `its`. I recommend to use `property` for properties of type `Boolean` and 
 `its` for the rest. `subject` inside a [lazy block](#immediate-vs-lazy-evaluation) refers to the subject
- of the assertion (`person` in the example above).
+ of the assertion (in the example above `subject` refers to `person`).
 
 The only drawback IMO of using an existing property is that a few more key strokes are required compared to 
 [writing an own assertion function](#write-own-assertion-functions) once and then reuse it 
@@ -191,7 +165,7 @@ renaming the assertion function. Hence, only write an own assertion function in 
 As side notice, the function `its` is mainly an alternative for `property` and was introduced to allow 
 a more natural flow in expressing assertions about particular features of a class. 
 I could have introduce `his`, `her`, `their` as well but decided against it in order that 
-you do not have to think to about gender or whe singular or plural.
+you do not have to think to about gender or singular vs. plural.
 
 ## Method Assertions
 ```kotlin
@@ -236,12 +210,21 @@ Writing one is very simple and a pull request of your new assertion function is 
 Following an example:
 
 ```kotlin
-fun IAssertionPlant<Int>.isEven(expected: Int)
-    = createAndAddAssertion(AssertionDescriptions.IS_EVEN, expected, { subject % 2 == 0 })
-    
-enum class AssertionDescriptions(override val value: String) : ISimpleTranslatable {
-    IS_EVEN("is even"),
-}    
+fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
+    DescriptionCommon.IS, TranslatableRawString(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
+
+enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
+    EVEN("an even number")
+}
+```
+
+and its usage:
+
+```kotlin
+assert(13).isEven()
+
+    //assert: 13        (java.lang.Integer <117009527>)
+    //is: an even number
 ```
 
 # KDoc

@@ -68,7 +68,7 @@ dokka {
     outputFormat = 'html'
     outputDirectory = "../${project.name}-gh-pages/$ghPages_version"
 
-    includes = ['atrium-api/src/main/kdoc/packages.md']
+    includes = ['misc/kdoc/packages.md']
     jdkVersion = 6
 
     def docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-impl") }

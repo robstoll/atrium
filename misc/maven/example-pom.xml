@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <properties>
+        <atrium.version>0.3.0</atrium.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>ch.tutteli</groupId>
+            <artifactId>atrium-api</artifactId>
+            <version>${atrium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.tutteli</groupId>
+            <artifactId>atrium-assertions</artifactId>
+            <version>${atrium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.tutteli</groupId>
+            <artifactId>atrium-impl-robstoll</artifactId>
+            <version>${atrium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!--
+            comment out if you want to use the out-of-the-box assertion verbs.
+            I encourage to define own assertion verbs. Following an explanation:
+            https://github.com/robstoll/atrium#use-own-assertion-verbs
+        -->
+        <!--
+        <dependency>
+            <groupId>ch.tutteli</groupId>
+            <artifactId>atrium-verbs</artifactId>
+            <version>${atrium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        -->
+    </dependencies>
+</project>
