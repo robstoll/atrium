@@ -16,16 +16,16 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-object SameLineAssertionFormatterSpec : Spek({
+object TextSameLineAssertionFormatterSpec : Spek({
     val factory = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-        SameLineAssertionFormatter(assertionFormatterController, SameLineAssertionPairFormatter(objectFormatter, translator))
+        TextAssertionFormatter(assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
     }
 
-    include(ch.tutteli.atrium.spec.reporting.SameLineAssertionFormatterSpec(AssertionVerbFactory, factory))
+    include(ch.tutteli.atrium.spec.reporting.TextSameLineAssertionFormatterSpec(AssertionVerbFactory, factory))
     include(ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(AssertionVerbFactory, factory))
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register({ SameLineAssertionFormatter(it, SameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
+    facade.register({ TextAssertionFormatter(it, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
 
     var sb = StringBuilder()
     afterEachTest {

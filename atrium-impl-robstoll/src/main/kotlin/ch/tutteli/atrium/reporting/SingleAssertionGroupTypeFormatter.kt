@@ -43,7 +43,6 @@ internal abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroup
         else -> throw UnsupportedOperationException("supports only ${clazz.name}")
     }
 
-
     /**
      * Formats the given [assertionGroup] (with [type][IAssertionGroup.type] [T]) and appends the result to the
      * [sb][AssertionFormatterMethodObject.sb] of the given [methodObject].

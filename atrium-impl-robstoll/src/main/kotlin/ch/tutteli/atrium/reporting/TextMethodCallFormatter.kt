@@ -4,16 +4,18 @@ import ch.tutteli.kbox.appendToStringBuilder
 import kotlin.reflect.KCallable
 
 /**
- * Responsible to format a method call in reporting where it represents arguments of a method call by using
- * their [Object.toString] representation with the exception of:
- * - [CharSequence], is wrapped in quotes (`"`)
+ * Responsible to format a method call for text output (e.g. the console) where it represents arguments of a
+ * method call by using their [Object.toString] representation with a few exceptions.
+ *
+ * The exceptions are:
+ * - [CharSequence], is wrapped in quotes (`"`) and \r as well as \n are escaped.
  * - [Char] is wrapped in apostrophes (`'`)
- * */
-internal object MethodCallFormatter : IMethodCallFormatter {
+ */
+internal object TextMethodCallFormatter : IMethodCallFormatter {
     override fun format(method: KCallable<*>, arguments: Array<out Any?>): () -> String = {
         val sb = StringBuilder(method.name).append("(")
-        arguments.asList().appendToStringBuilder(sb, ", ") { it, sb ->
-            sb.appendArgument(it)
+        arguments.asList().appendToStringBuilder(sb, ", ") { it, innerSb ->
+            innerSb.appendArgument(it)
         }
         sb.append(")").toString()
     }

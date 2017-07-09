@@ -5,7 +5,8 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Formats an [IAssertion], putting each message on its own line.
+ * Formats an [IAssertion] for text output (e.g. the console) where it uses a given [assertionPairFormatter] which
+ * defines how an assertion pair (e.g. [IBasicAssertion.description] and [IBasicAssertion.expected]) is formatted.
  *
  * Currently the following [IAssertion] types are supported:
  * - [IAssertionGroup] with the following types:
@@ -16,13 +17,16 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *
  * @property assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *           the reporting process.
-
+ * @property assertionPairFormatter The formatter used to format assertion pairs (e.g. [IBasicAssertion.description]
+ *           and [IBasicAssertion.expected])
+ *
  * @constructor
  * @param assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *        the reporting process.
-
+ * @param assertionPairFormatter The formatter used to format assertion pairs (e.g. [IBasicAssertion.description]
+ *        and [IBasicAssertion.expected])
  */
-internal class SameLineAssertionFormatter(
+internal class TextAssertionFormatter(
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : IAssertionFormatter {

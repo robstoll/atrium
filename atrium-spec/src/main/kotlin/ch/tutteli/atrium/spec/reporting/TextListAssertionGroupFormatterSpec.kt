@@ -16,14 +16,14 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
-open class ListAssertionGroupFormatterSpec(
+open class TextListAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register({ testeeFactory(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-    facade.register({ AtriumFactory.newSameLineAssertionFormatter(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+    facade.register({ AtriumFactory.newTextSameLineAssertionFormatter(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
 
     var sb = StringBuilder()
     afterEachTest {

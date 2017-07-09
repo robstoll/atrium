@@ -20,7 +20,7 @@ open class InvisibleAssertionGroupFormatterSpec(
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register(testeeFactory)
-    facade.register({ AtriumFactory.newSameLineAssertionFormatter(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+    facade.register({ AtriumFactory.newTextSameLineAssertionFormatter(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
 
     var sb = StringBuilder()
     afterEachTest {

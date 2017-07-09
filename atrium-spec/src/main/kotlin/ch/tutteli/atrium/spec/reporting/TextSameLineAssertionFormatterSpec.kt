@@ -19,7 +19,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
-open class SameLineAssertionFormatterSpec(
+open class TextSameLineAssertionFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter
 ) : Spek({
