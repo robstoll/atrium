@@ -1,12 +1,16 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.BasicAssertion
+import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.reporting.RawString
 
 /**
  * An [IAssertionPlant] for nullable types.
  *
  * @param T The type of the [subject] of this [IAssertionPlant].
+ *
+ * @constructor An [IAssertionPlant] for nullable types.
+ * @param commonFields The [IAssertionPlantWithCommonFields.CommonFields] of this [IAssertionPlant].
  */
 class AssertionPlantNullable<out T : Any?>(
     override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : IAssertionPlantNullable<T> {

@@ -6,9 +6,8 @@ package ch.tutteli.atrium.reporting
  *
  * @property string The string which should be treated as raw [String].
  *
- * @constructor
+ * @constructor Use this class to represent a [String] which should be treated as raw [String] in reporting.
  * @param string The string which should be treated as raw [String].
- *
  */
 data class RawString(val string: String) : IRawString {
 

@@ -11,11 +11,11 @@ import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty
 
 /**
- * A builder for sophisticated `contains` assertions.
+ * A builder for sophisticated [CharSequence] `contains` assertions.
  *
  * @property plant The [IAssertionPlant] to which created [IAssertion] shall be added.
  *
- * @constructor
+ * @constructor A builder for sophisticated [CharSequence] `contains` assertions.
  * @param plant The [IAssertionPlant] to which created [IAssertion] shall be added.
  */
 class CharSequenceContainsBuilder(private val plant: IAssertionPlant<CharSequence>) {

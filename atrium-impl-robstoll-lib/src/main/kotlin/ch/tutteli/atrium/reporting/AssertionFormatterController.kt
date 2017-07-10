@@ -4,6 +4,12 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import java.util.*
 
+/**
+ * Represents an [IAssertionFormatterController] which does nothing special in addition
+ * but just the job of the controller :)
+ *
+ * @see IAssertionFormatterController
+ */
 class AssertionFormatterController : IAssertionFormatterController {
     private val assertionFormatters = ArrayDeque<IAssertionFormatter>()
 

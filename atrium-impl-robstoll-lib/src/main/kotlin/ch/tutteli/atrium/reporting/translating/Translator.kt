@@ -11,7 +11,9 @@ import java.util.*
  *                          [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used
  *                          in the given order.
  *
- * @constructor
+ * @constructor Represents an [ITranslator] which uses an [ITranslationSupplier] to retrieve translations and
+ *              [LocaleOrderDecider] to determine in which order it should try to find translations for a given
+ *              [ITranslatable].
  * @param translationSupplier The [ITranslationSupplier] as such.
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
  *                      which will be used in [java.lang.String.format], which in turn is used to substitute the

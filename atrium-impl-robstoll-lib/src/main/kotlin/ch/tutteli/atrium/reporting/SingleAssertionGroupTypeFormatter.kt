@@ -5,10 +5,16 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IAssertionGroupType
 
 /**
- * A base type for [IAssertionFormatter] which [canFormat][IAssertionFormatter.canFormat] only [IAssertionGroup] of a
- * specific [IAssertionGroupType].
+ * A base type for [IAssertionFormatter] which [canFormat][IAssertionFormatter.canFormat] only
+ * [IAssertionGroup]s of one specific [IAssertionGroupType].
  *
  * @param T The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
+ *
+ * @property clazz The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
+ *
+ * @constructor A base type for [IAssertionFormatter] which [canFormat][IAssertionFormatter.canFormat] only
+ *              [IAssertionGroup]s of one specific [IAssertionGroupType].
+ * @param clazz The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
  */
 abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
     private val clazz: Class<T>

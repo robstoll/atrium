@@ -17,7 +17,8 @@ import kotlin.reflect.KClass
  *
  * @property translator The [ITranslator] used to translate [TranslatableRawString]s.
  *
- * @constructor
+ * @constructor Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
+ * (in most cases).
  * @param translator The [ITranslator] used to translate [TranslatableRawString]s.
  */
 class DetailedObjectFormatter(private val translator: ITranslator) : IObjectFormatter {

@@ -14,7 +14,9 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *           For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
  *           the corresponding `Person`.
  *
- * @constructor
+ * @constructor An [IAssertionChecker] useful for feature assertions. It creates [IAssertionGroup]s of
+ *              [type][IAssertionGroup] [IFeatureAssertionGroupType] and adds them to the given [subjectPlant]
+ *              instead of checking them itself.
  * @param subjectPlant The plant which holds the assertions of the subject of the feature.
  *           For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
  *           the corresponding `Person`.
