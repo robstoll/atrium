@@ -27,7 +27,7 @@ import kotlin.reflect.full.cast
  *        The down-cast will be performed on its [subject][IAssertionPlant.subject].
  *        Moreover, the containing information will inter alia be used in reporting.
  *
- * @constructor
+ * @constructor A builder for creating a down-casting assertion.
  * @param description The description of this down-cast; will be used for the creation of the [IAssertion].
  * @param subType The resulting type of the down-cast.
  * @param commonFields The [IAssertionPlantWithCommonFields.CommonFields] of the

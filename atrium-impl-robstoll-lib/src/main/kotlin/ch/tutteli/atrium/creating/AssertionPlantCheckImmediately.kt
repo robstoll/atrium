@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.IAssertion
  *
  * @param T The type of the [subject] of this [IAssertionPlant].
  *
- * @constructor
+ * @constructor An [IAssertionPlant] which checks each added [IAssertion] immediately.
  * @param commonFields The [IAssertionPlantWithCommonFields.CommonFields] of this [IAssertionPlant].
  *
  * This class is not thread-safe, but is also not intended for long-running procedures.

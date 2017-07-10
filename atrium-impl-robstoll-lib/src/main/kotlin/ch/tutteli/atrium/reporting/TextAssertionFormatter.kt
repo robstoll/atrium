@@ -5,7 +5,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Formats an [IAssertion] for text output (e.g. the console) where it uses a given [assertionPairFormatter] which
+ * Formats an [IAssertion] for text output (e.g. to the console) where it uses a given [assertionPairFormatter] which
  * defines how an assertion pair (e.g. [IBasicAssertion.description] and [IBasicAssertion.expected]) is formatted.
  *
  * Currently the following [IAssertion] types are supported:
@@ -20,7 +20,9 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @property assertionPairFormatter The formatter used to format assertion pairs (e.g. [IBasicAssertion.description]
  *           and [IBasicAssertion.expected])
  *
- * @constructor
+ * @constructor Formats an [IAssertion] for text output (e.g. for the console) where it uses a given
+ *              [assertionPairFormatter] which defines how an assertion pair (e.g. [IBasicAssertion.description]
+ *              and [IBasicAssertion.expected]) is formatted.
  * @param assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *        the reporting process.
  * @param assertionPairFormatter The formatter used to format assertion pairs (e.g. [IBasicAssertion.description]

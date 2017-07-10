@@ -14,7 +14,7 @@ import java.util.*
 import kotlin.reflect.KClass
 
 /**
- * The `abstract factory` of atrium.
+ * Robstoll's `abstract factory` of atrium.
  *
  * It provides factory methods to create:
  * - [IAssertionPlant]

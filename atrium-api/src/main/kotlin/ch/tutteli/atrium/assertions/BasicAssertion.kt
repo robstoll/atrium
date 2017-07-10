@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * A default implementation for [IBasicAssertion].
+ * A default implementation for [IBasicAssertion] which lazily evaluates [holds].
  *
  * @constructor Constructor overload with a lazy [BasicAssertion.holds].
  * @param description The [BasicAssertion.description].

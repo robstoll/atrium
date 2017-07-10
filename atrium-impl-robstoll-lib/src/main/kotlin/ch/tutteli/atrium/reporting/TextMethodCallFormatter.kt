@@ -4,7 +4,7 @@ import ch.tutteli.kbox.appendToStringBuilder
 import kotlin.reflect.KCallable
 
 /**
- * Responsible to format a method call for text output (e.g. the console) where it represents arguments of a
+ * Responsible to format a method call for text output (e.g. to the console) where it represents arguments of a
  * method call by using their [Object.toString] representation with a few exceptions.
  *
  * The exceptions are:

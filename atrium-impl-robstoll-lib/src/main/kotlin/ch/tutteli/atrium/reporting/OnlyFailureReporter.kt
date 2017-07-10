@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.IAssertion
  *
  * @property assertionFormatterFacade The formatter used to format [IAssertion]s.
  *
- * @constructor
+ * @constructor An [IReporter] which reports only failing assertions.
  * @param assertionFormatterFacade The formatter used to format [IAssertion]s.
  */
 class OnlyFailureReporter(private val assertionFormatterFacade: IAssertionFormatterFacade) : IReporter {
