@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.DescriptionAnyAssertion.IS_SAME
-import ch.tutteli.atrium.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.IS_SAME
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.containsNot

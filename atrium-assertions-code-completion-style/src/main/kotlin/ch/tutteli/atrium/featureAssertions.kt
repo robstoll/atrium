@@ -1,19 +1,12 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions._property
+import ch.tutteli.atrium.assertions._returnValueOf
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
-import ch.tutteli.atrium.creating.createAssertionsAndCheckThem
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import kotlin.reflect.KFunction
-import kotlin.reflect.KFunction0
-import kotlin.reflect.KFunction1
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
-import kotlin.reflect.KFunction4
-import kotlin.reflect.KFunction5
-import kotlin.reflect.KProperty0
+import kotlin.reflect.*
 
 /**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the given [property] as
@@ -24,7 +17,7 @@ import kotlin.reflect.KProperty0
  * @See IAtriumFactory.newCheckImmediately
  */
 fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<TProperty>): IAssertionPlant<TProperty>
-    = AtriumFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(property))
+    = _property(this, property)
 
 /**
  * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the given [property] as
@@ -42,8 +35,7 @@ fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<
  * @see [IAtriumFactory.newCheckLazily]
  */
 fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<TProperty>, createAssertions: IAssertionPlant<TProperty>.() -> Unit): IAssertionPlant<TProperty>
-    = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(property))
-    .createAssertionsAndCheckThem(createAssertions)
+    = _property(this, property, createAssertions)
 
 
 /**
@@ -52,7 +44,7 @@ fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
 fun <T : Any, TProperty : Any?> IAssertionPlant<T>.property(property: KProperty0<TProperty>): IAssertionPlantNullable<TProperty>
-    = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(property))
+    = _property(this, property)
 
 /**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the given [feature] as
@@ -80,7 +72,7 @@ fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeatur
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit)
+fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature>
     = property(feature, createAssertions)
 
 /**
@@ -90,12 +82,8 @@ fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeatur
  *
  * @return An [IAssertionPlant] for the given [feature], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeature>)
+fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
     = property(feature)
-
-private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
-    = IAssertionPlantWithCommonFields.CommonFields(Untranslatable(feature.name), feature.get(), AtriumFactory.newFeatureAssertionChecker(this))
-
 
 /**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the value returned by calling
@@ -105,8 +93,8 @@ private fun <T : Any, TFeature : Any?> IAssertionPlant<T>.createCommonFieldsForF
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, TReturnValue: Any> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>) : IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(method))
+fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method)
 
 /**
  * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the value returned by calling
@@ -124,8 +112,7 @@ fun <T : Any, TReturnValue: Any> IAssertionPlant<T>.returnValueOf(method: KFunct
  * @see [IAtriumFactory.newCheckLazily]
  */
 fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(method))
-    .createAssertionsAndCheckThem(createAssertions)
+    = _returnValueOf(this, method, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] using the value returned by calling [method]
@@ -134,7 +121,7 @@ fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunc
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
 fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>): IAssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(method))
+    = _returnValueOf(this, method)
 
 /**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the value returned by calling
@@ -144,8 +131,8 @@ fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFun
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1: Any?, TReturnValue: Any> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1) : IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(method, arg1))
+fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1)
 
 /**
  * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the value returned by calling
@@ -162,9 +149,8 @@ fun <T : Any, T1: Any?, TReturnValue: Any> IAssertionPlant<T>.returnValueOf(meth
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1: Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(method, arg1))
-    .createAssertionsAndCheckThem(createAssertions)
+fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] using the value returned by calling [method]
@@ -172,8 +158,8 @@ fun <T : Any, T1: Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(met
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1: Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(method, arg1))
+fun <T : Any, T1 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlantNullable<TReturnValue>
+    = _returnValueOf(this, method, arg1)
 
 /**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the value returned by calling
@@ -183,8 +169,8 @@ fun <T : Any, T1: Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(me
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1: Any?, T2: Any?, TReturnValue: Any> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2) : IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(method, arg1, arg2))
+fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2)
 
 /**
  * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the value returned by calling
@@ -201,9 +187,8 @@ fun <T : Any, T1: Any?, T2: Any?, TReturnValue: Any> IAssertionPlant<T>.returnVa
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1: Any?, T2: Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(method, arg1, arg2))
-    .createAssertionsAndCheckThem(createAssertions)
+fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] using the value returned by calling [method]
@@ -211,8 +196,8 @@ fun <T : Any, T1: Any?, T2: Any?, TReturnValue : Any> IAssertionPlant<T>.returnV
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1: Any?, T2: Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(method, arg1, arg2))
+fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlantNullable<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2)
 
 
 /**
@@ -223,8 +208,8 @@ fun <T : Any, T1: Any?, T2: Any?, TReturnValue : Any?> IAssertionPlant<T>.return
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, TReturnValue: Any> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3,  TReturnValue>, arg1: T1, arg2: T2, arg3: T3) : IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3)
 
 /**
  * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the value returned by calling
@@ -241,9 +226,8 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, TReturnValue: Any> IAssertionPlant<T
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
-    .createAssertionsAndCheckThem(createAssertions)
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] using the value returned by calling [method]
@@ -251,8 +235,8 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, TReturnValue : Any> IAssertionPlant<
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlantNullable<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3)
 
 /**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the value returned by calling
@@ -262,8 +246,8 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, TReturnValue : Any?> IAssertionPlant
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, TReturnValue: Any> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4) : IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
 
 /**
  * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the value returned by calling
@@ -280,9 +264,8 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, TReturnValue: Any> IAssert
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
-    .createAssertionsAndCheckThem(createAssertions)
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] using the value returned by calling [method]
@@ -290,8 +273,8 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, TReturnValue : Any> IAsser
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlantNullable<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
 
 /**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the value returned by calling
@@ -301,8 +284,8 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, TReturnValue : Any?> IAsse
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, T5: Any?, TReturnValue: Any> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) : IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckImmediately(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
 
 /**
  * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the value returned by calling
@@ -319,9 +302,8 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, T5: Any?, TReturnValue: An
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, T5: Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newCheckLazily(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
-    .createAssertionsAndCheckThem(createAssertions)
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] using the value returned by calling [method]
@@ -329,12 +311,7 @@ fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, T5: Any?, TReturnValue : A
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1: Any?, T2: Any?, T3: Any?, T4: Any?, T5: Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newNullable(createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlantNullable<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
 
 
-private fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.createCommonFieldsForFeatureFactory(method: KFunction<TReturnValue>, vararg arguments: Any?) =
-    IAssertionPlantWithCommonFields.CommonFields(
-        Untranslatable(AtriumFactory.newMethodCallFormatter().format(method, arguments)),
-        method.call(*arguments),
-        AtriumFactory.newFeatureAssertionChecker(this))

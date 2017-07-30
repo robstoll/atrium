@@ -1,11 +1,10 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.assertions._isNotSame
+import ch.tutteli.atrium.assertions._isSame
+import ch.tutteli.atrium.assertions._notToBe
+import ch.tutteli.atrium.assertions._toBe
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import kotlin.reflect.KProperty0
-import ch.tutteli.atrium.assertions.IBasicAssertion
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is (equals) [expected].
@@ -16,8 +15,8 @@ import ch.tutteli.atrium.assertions.IBasicAssertion
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
-fun <T : Any> IAssertionPlant<T>.toBe(expected: T)
-    = createAndAddAssertion(TO_BE, expected, { subject == expected })
+fun <T : Any> IAssertionPlant<T>.toBe(expected: T): IAssertionPlant<T>
+    = addAssertion(_toBe(this, expected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is not (does not equal) [expected].
@@ -28,8 +27,8 @@ fun <T : Any> IAssertionPlant<T>.toBe(expected: T)
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
-fun <T : Any> IAssertionPlant<T>.notToBe(expected: T)
-    = createAndAddAssertion(NOT_TO_BE, expected, { subject != expected })
+fun <T : Any> IAssertionPlant<T>.notToBe(expected: T): IAssertionPlant<T>
+    = addAssertion(_notToBe(this, expected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is the same instance as [expected].
@@ -40,8 +39,8 @@ fun <T : Any> IAssertionPlant<T>.notToBe(expected: T)
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
-fun <T : Any> IAssertionPlant<T>.isSame(expected: T)
-    = createAndAddAssertion(IS_SAME, expected, { subject === expected })
+fun <T : Any> IAssertionPlant<T>.isSame(expected: T): IAssertionPlant<T>
+    = addAssertion(_isSame(this, expected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is not the same instance as [expected].
@@ -52,15 +51,6 @@ fun <T : Any> IAssertionPlant<T>.isSame(expected: T)
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
-fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T)
-    = createAndAddAssertion(IS_NOT_SAME, expected, { subject !== expected })
+fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T): IAssertionPlant<T>
+    = addAssertion(_isNotSame(this, expected))
 
-/**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Any].
- */
-enum class DescriptionAnyAssertion(override val value: String) : ISimpleTranslatable {
-    TO_BE("to be"),
-    NOT_TO_BE("not to be"),
-    IS_SAME("is the same as"),
-    IS_NOT_SAME("is not the same as"),
-}

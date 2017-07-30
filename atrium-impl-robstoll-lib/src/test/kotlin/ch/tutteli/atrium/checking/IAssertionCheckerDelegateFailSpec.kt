@@ -3,6 +3,7 @@ package ch.tutteli.atrium.checking
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.BasicAssertion
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import com.nhaarman.mockito_kotlin.spy
 import com.nhaarman.mockito_kotlin.verify

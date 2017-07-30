@@ -1,11 +1,10 @@
-package ch.tutteli.atrium
+package ch.tutteli.atrium.assertions
 
-
-import ch.tutteli.atrium.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.*
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
-import org.jetbrains.spek.api.dsl.it
 
 object AnyAssertionsSpec : Spek({
     data class DataClass(val isWhatever: Boolean)

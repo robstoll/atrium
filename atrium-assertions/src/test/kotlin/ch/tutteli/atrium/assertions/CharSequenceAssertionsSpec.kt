@@ -1,6 +1,7 @@
-package ch.tutteli.atrium
+package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.*
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable

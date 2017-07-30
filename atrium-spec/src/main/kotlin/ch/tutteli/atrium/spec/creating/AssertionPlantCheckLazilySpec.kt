@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.creating
 
-import ch.tutteli.atrium.DescriptionAnyAssertion
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
