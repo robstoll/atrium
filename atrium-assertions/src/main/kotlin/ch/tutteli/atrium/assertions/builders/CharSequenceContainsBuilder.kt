@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.assertions.builders
 
-import ch.tutteli.atrium.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.contains
-import ch.tutteli.atrium.containsNot
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -39,10 +36,11 @@ class CharSequenceContainsBuilder(private val plant: IAssertionPlant<CharSequenc
     }
 
     private fun illegalArgumentExceptionUseContainsNot(plant: IAssertionPlant<CharSequence>): Throwable {
-        val containsProp: KProperty<CharSequenceContainsBuilder> = plant::contains
-        val contains = containsProp.name
-        val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = plant::containsNot
-        val containsNot = containsNotFun.name
+        //TODO move to atrium-assertions-code-completion-style only the implementation should remain here
+        //val containsProp: KProperty<CharSequenceContainsBuilder> = plant::contains
+        val contains = "contains" //containsProp.name
+        //val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = plant::containsNot
+        val containsNot = "containsNot" //containsNotFun.name
         return IllegalArgumentException("use $containsNot instead of $contains.${CharSequenceContainsBuilder::exactly.name}(0)")
     }
 

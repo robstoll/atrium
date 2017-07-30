@@ -1,5 +1,6 @@
-package ch.tutteli.atrium
+package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import org.jetbrains.spek.api.Spek
@@ -95,7 +96,9 @@ object FeatureAssertionsSpec : Spek({
 
     describe("different feature assertion functions") {
         checkGenericNarrowingAssertionWithExceptionMessage("it throws an AssertionError if the assertion does not hold", { andWithCheck ->
+
             assert(TestData("hallo robert", 1)).andWithCheck()
+
         }, *functions,
             Triple("`its` nullable", itsNullableDoesNotHold, TestData::nullableValue.name),
             Triple("`property` nullable", propertyNullableDoesNotHold, TestData::nullableValue.name),

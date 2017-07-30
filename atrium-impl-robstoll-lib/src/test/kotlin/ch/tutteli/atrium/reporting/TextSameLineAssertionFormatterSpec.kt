@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.AssertionVerb.ASSERT
-import ch.tutteli.atrium.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslator

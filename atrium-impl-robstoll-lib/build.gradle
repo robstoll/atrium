@@ -16,7 +16,7 @@ dependencies {
     compile project(':atrium-api')
     compileOnly project(':atrium-api-late-binding')
     testCompile project(':atrium-impl-robstoll')
-    testCompile project(':atrium-assertions')
+    testCompile project(':atrium-assertions-code-completion-style')
     testCompile project(':atrium-spec')
 }
 

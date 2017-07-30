@@ -1,19 +1,18 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
-import ch.tutteli.atrium.assertions.IBasicAssertion
+
+import ch.tutteli.atrium.assertions._isA
+import ch.tutteli.atrium.assertions._isNotNull
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is not null.
  *
  * @return This plant to support a fluent-style API.
  */
-inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
-    = AtriumFactory.newDownCastBuilder(DescriptionBasic.IS_NOT, commonFields)
-    .cast()
+inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(): IAssertionPlant<T>
+    = _isNotNull(this)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is not null and if so, uses [createAssertions]
@@ -21,10 +20,8 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull()
  *
  * @return This plant to support a fluent-style API.
  */
-inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newDownCastBuilder(DescriptionBasic.IS_NOT, commonFields)
-    .withLazyAssertions(createAssertions)
-    .cast()
+inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit) : IAssertionPlant<T>
+    = _isNotNull(this, createAssertions)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] *is a* [TSub] (the same type or a sub-type).
@@ -32,8 +29,7 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline crea
  * @return This plant to support a fluent-style API.
  */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub>
-    = AtriumFactory.newDownCastBuilder<TSub, Any>(IS_A, commonFields)
-    .cast()
+    = _isA(this)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] *is a* [TSub] (the same type or a sub-type) and if so,
@@ -42,14 +38,4 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub
  * @return This plant to support a fluent-style API.
  */
 inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
-    = AtriumFactory.newDownCastBuilder<TSub, Any>(IS_A, commonFields)
-    .withLazyAssertions(createAssertions)
-    .cast()
-
-/**
- * Contains the [IBasicAssertion.description]s of the assertion functions which postulate that a [IAssertionPlant.subject]
- * of type `T` can be narrowed to `TSub` where `TSub <: T`.
- */
-enum class DescriptionNarrowingAssertion(override val value: String) : ISimpleTranslatable {
-    IS_A("is type or sub-type of"),
-}
+    = _isA(this, createAssertions)

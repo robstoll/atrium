@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.*
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
+import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.RawString
@@ -20,14 +22,14 @@ import java.text.SimpleDateFormat
  * which should be in
  *
  * the primary local: de_CH
- * ch.tutteli.atrium.DescriptionAnyAssertion-TO_BE = ist
+ * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = ist
  * ch.tutteli.atrium.creating.IAssertionPlantNullable.AssertionDescription-TO_BE = ist
  *
  * the primary Locale's natural first fallback: de
- * ch.tutteli.atrium.DescriptionAnyAssertion-NOT_TO_BE = ist nicht
+ * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = ist nicht
  *
  * the Locale.ROOT
- * ch.tutteli.atrium.DescriptionAnyAssertion-IS_SAME = ist dieselbe Instanz wie
+ * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_SAME = ist dieselbe Instanz wie
  *
  * the fallback Locale: fr
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
@@ -35,7 +37,7 @@ import java.text.SimpleDateFormat
  * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-PLACEHOLDER = Caractère de remplacement %s
  *
  * the Locale it:
- * ch.tutteli.atrium.DescriptionNumberAssertion-IS_LESS_THAN = è meno di
+ * ch.tutteli.atrium.assertions.DescriptionNumberAssertion-IS_LESS_THAN = è meno di
  * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_UNKNOWN = solo %tA!!
  */
 abstract class TranslationSupplierSpec(

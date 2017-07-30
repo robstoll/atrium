@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.*
-import ch.tutteli.atrium.DescriptionNumberAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionNumberAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IThrowableFluent
