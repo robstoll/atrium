@@ -3,8 +3,8 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.AssertionVerb.ASSERT
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -37,6 +37,8 @@ class TextSameLineAssertionFormatterSpec : Spek({
     fun createFeatureAssertionGroup(name: ITranslatable, subject: Any, assertions: List<IAssertion>)
         = AssertionGroup(object : IFeatureAssertionGroupType {}, name, subject, assertions)
 
+    val squarePoint = "▪"
+
     describe("fun ${TextAssertionFormatter::format.name}") {
         context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name}") {
@@ -45,7 +47,8 @@ class TextSameLineAssertionFormatterSpec : Spek({
                     BasicAssertion(NOT_TO_BE, "bye", false)
                 )), sb, alwaysTrueAssertionFilter)
                 assert(sb.toString()).startsWith("assert: subject$separator" +
-                    "${TO_BE.getDefault()}: bli$separator${NOT_TO_BE.getDefault()}: bye")
+                    "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
+                    "$squarePoint ${NOT_TO_BE.getDefault()}: bye")
             }
         }
 
@@ -67,8 +70,8 @@ class TextSameLineAssertionFormatterSpec : Spek({
                     BasicAssertion(TO_BE, "robert", true),
                     BasicAssertion(NOT_TO_BE, "bert", true)
                 )), sb, alwaysTrueAssertionFilter)
-                assert(sb.toString()).contains("$indent${TO_BE.getDefault()}: robert$separator"
-                    + "$indent${NOT_TO_BE.getDefault()}: bert")
+                assert(sb.toString()).contains("$indent▪ ${TO_BE.getDefault()}: robert$separator"
+                    + "$indent$squarePoint ${NOT_TO_BE.getDefault()}: bert")
             }
 
             context("in an ${IAssertionGroup::class.java.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
@@ -84,11 +87,11 @@ class TextSameLineAssertionFormatterSpec : Spek({
                         ))
                     )), sb, alwaysTrueAssertionFilter)
                     assert(sb.toString()).toBe("assert: " + basicAssertion + separator
-                        + "-> ${basicAssertion::description.name}: $IS_SAME$separator"
-                        + "$indent${TO_BE.getDefault()}: a$separator"
-                        + "$indent${NOT_TO_BE.getDefault()}: description$separator"
-                        + "-> ${basicAssertion::expected.name}: whatever$separator"
-                        + "$indent${TO_BE.getDefault()}: whatever"
+                        + "$squarePoint -> ${basicAssertion::description.name}: $IS_SAME$separator"
+                        + "$indent$squarePoint ${TO_BE.getDefault()}: a$separator"
+                        + "$indent$squarePoint ${NOT_TO_BE.getDefault()}: description$separator"
+                        + "$squarePoint -> ${basicAssertion::expected.name}: whatever$separator"
+                        + "$indent$squarePoint ${TO_BE.getDefault()}: whatever"
                     )
                 }
 
@@ -104,17 +107,16 @@ class TextSameLineAssertionFormatterSpec : Spek({
                             ))
                         )), sb, alwaysTrueAssertionFilter)
                         assert(sb.toString()).toBe("assert: " + basicAssertion + separator
-                            + "-> ${basicAssertion::description.name}: $IS_SAME$separator"
-                            + "$indent${TO_BE.getDefault()}: a$separator"
-                            + "$indent-> toString: $IS_SAME$separator"
-                            + "$indent$indent${NOT_TO_BE.getDefault()}: a description"
+                            + "$squarePoint -> ${basicAssertion::description.name}: $IS_SAME$separator"
+                            + "$indent$squarePoint ${TO_BE.getDefault()}: a$separator"
+                            + "$indent$squarePoint -> toString: $IS_SAME$separator"
+                            + "$indent$indent$squarePoint ${NOT_TO_BE.getDefault()}: a description"
                         )
                     }
                 }
             }
         }
     }
-
 }) {
     object AtriumsTextSameLineAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextSameLineAssertionFormatterSpec(
         AssertionVerbFactory, factory(), "[Atrium's TextSameLine..Spec] "
