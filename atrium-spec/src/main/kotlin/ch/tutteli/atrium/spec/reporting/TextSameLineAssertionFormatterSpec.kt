@@ -40,6 +40,8 @@ abstract class TextSameLineAssertionFormatterSpec(
         methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
     }
 
+    val squarePoint = "▪"
+
     val unsupportedAssertion = object : IAssertion {
         override fun holds() = false
     }
@@ -92,9 +94,8 @@ abstract class TextSameLineAssertionFormatterSpec(
                     )
                 }, sb, alwaysTrueAssertionFilter)
 
-                verbs.checkImmediately(sb).contains("${IS_SAME.getDefault()}: b$separator${TO_BE.getDefault()}: d")
+                verbs.checkImmediately(sb).contains("${IS_SAME.getDefault()}: b$separator$squarePoint ${TO_BE.getDefault()}: d")
             }
         }
     }
-
 })

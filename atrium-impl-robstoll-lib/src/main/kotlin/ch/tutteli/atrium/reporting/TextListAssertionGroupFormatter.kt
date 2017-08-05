@@ -2,7 +2,6 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
 
 /**
@@ -24,15 +23,15 @@ class TextListAssertionGroupFormatter(
 
     override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
         assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
-        val listElement = "◾ "
+        val listElement = "• "
         val newMethodObject = AssertionFormatterMethodObject(
             methodObject.sb,
-            methodObject.indentLevel + listElement.length,
+            methodObject.indentLevel + 2,
             methodObject.assertionFilter)
         formatAssertions {
-            methodObject.sb.appendln()
-            methodObject.indent()
-            methodObject.sb.append(listElement)
+            newMethodObject.sb.appendln()
+            newMethodObject.indent()
+            newMethodObject.sb.append(listElement)
             assertionFormatterController.format(it, newMethodObject)
         }
     }

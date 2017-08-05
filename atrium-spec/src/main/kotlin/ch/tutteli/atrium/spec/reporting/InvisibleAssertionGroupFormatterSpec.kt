@@ -40,6 +40,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     val invisibleAssertionGroup = InvisibleAssertionGroup(assertions)
 
     val separator = System.getProperty("line.separator")!!
+    val squarePoint = "▪"
 
     prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IInvisibleAssertionGroupType::class.simpleName}") {
@@ -47,7 +48,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
                 it("puts the assertions one under the others without indentation") {
                     facade.format(invisibleAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
+                        + "$separator$squarePoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
             }
 
@@ -55,7 +56,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
                 it("still puts the assertions one under the others without indentation and does not include ${IAssertionGroup::name.name} or ${IAssertionGroup::subject.name}") {
                     facade.format(AssertionGroup(object : IInvisibleAssertionGroupType {}, AssertionVerb.ASSERT, 2, assertions), sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
+                        + "$separator$squarePoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
             }
 
@@ -65,13 +66,11 @@ abstract class InvisibleAssertionGroupFormatterSpec(
                     val featureAssertionGroup = AssertionGroup(FeatureAssertionGroupType, AssertionVerb.ASSERT, 10, featureAssertions)
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("-> ${AssertionVerb.ASSERT.getDefault()}: 10"
-                        + "$separator   ${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator   ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
-                        + "$separator   ${AssertionVerb.ASSERT.getDefault()}: 20")
+                        + "$separator   $squarePoint ${AssertionVerb.ASSERT.getDefault()}: 1"
+                        + "$separator   $squarePoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                        + "$separator   $squarePoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
             }
-
-
         }
     }
 })
