@@ -4,6 +4,9 @@ import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCr
 import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsIndexSearcher
 import ch.tutteli.atrium.creating.IAssertionPlant
 
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T>.value(expected: Any): IAssertionPlant<T>
+    = addAssertion(CharSequenceContainsIndexSearcher(), expected, arrayOf())
+
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
     = addAssertion(CharSequenceContainsIndexSearcher(), expected, otherExpected)
 
