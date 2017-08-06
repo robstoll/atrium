@@ -2,6 +2,8 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.builders.charsequence.contains.CharSequenceContainsBuilder
+import ch.tutteli.atrium.builders.charsequence.contains.atLeast
+import ch.tutteli.atrium.builders.charsequence.contains.values
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
@@ -21,7 +23,7 @@ val <T : CharSequence> IAssertionPlant<T>.contains get() = CharSequenceContainsB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
-    = addAssertion(_contains(this, expected, *otherExpected))
+    = contains.atLeast(1).values(expected, *otherExpected)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not contain [expected]'s [toString] representation
@@ -41,7 +43,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg othe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
-    = addAssertion(_containsDefaultTranslationOf(this, expected, *otherExpected))
+    = contains(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does  not contain [expected]'s

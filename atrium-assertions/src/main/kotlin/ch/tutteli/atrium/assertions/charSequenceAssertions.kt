@@ -6,17 +6,6 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 
-fun <T : CharSequence> _contains(plant: IAssertionPlant<T>, expected: Any, vararg otherExpected: Any): IAssertion {
-    val assertions = mutableListOf<IAssertion>()
-    arrayOf(expected, *otherExpected).forEach {
-        assertions.add(LazyThreadUnsafeBasicAssertion {
-            val expectedString = it.toString()
-            BasicAssertion(CONTAINS, expectedString, { plant.subject.contains(expectedString) })
-        })
-    }
-    return InvisibleAssertionGroup(assertions)
-}
-
 fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, vararg otherExpected: Any): IAssertion {
     val assertions = mutableListOf<IAssertion>()
     arrayOf(expected, *otherExpected).forEach {
@@ -27,9 +16,6 @@ fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, va
     }
     return InvisibleAssertionGroup(assertions)
 }
-
-fun <T : CharSequence> _containsDefaultTranslationOf(plant: IAssertionPlant<T>, expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertion
-    = _contains(plant, expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
 
 fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: IAssertionPlant<T>, expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertion
     = _containsNot(plant, expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
