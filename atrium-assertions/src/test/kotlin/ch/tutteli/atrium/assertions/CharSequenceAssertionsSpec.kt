@@ -3,7 +3,9 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.builders.charsequence.contains.CharSequenceContainsBuilder
-import ch.tutteli.atrium.builders.charsequence.contains.*
+import ch.tutteli.atrium.builders.charsequence.contains.atLeast
+import ch.tutteli.atrium.builders.charsequence.contains.exactly
+import ch.tutteli.atrium.builders.charsequence.contains.values
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import org.jetbrains.spek.api.Spek
@@ -30,7 +32,10 @@ object CharSequenceAssertionsSpec : Spek({
             test("$contains 'hello' throws AssertionError") {
                 expect {
                     fluentEmptyString.contains("hello")
-                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(CONTAINS)
+                }.toThrow<AssertionError>().and.message.contains(
+                    NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                    AT_LEAST.getDefault() + ": 1"
+                )
             }
             test("$contains 'hello' $atLeast once throws AssertionError") {
                 expect {
@@ -180,7 +185,10 @@ object CharSequenceAssertionsSpec : Spek({
                 test("$contains 'notInThere' and 'neitherInThere' as Any throws AssertionError") {
                     expect {
                         fluent.contains("notInThere" as Any, "neitherInThere" as Any)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>().and.message.contains.exactly(2).values(
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                        AT_LEAST.getDefault() + ": 1"
+                    )
                 }
                 test("$contains 'notInThere' and 'neitherInThere' as Any $atLeast once throws AssertionError") {
                     expect {
