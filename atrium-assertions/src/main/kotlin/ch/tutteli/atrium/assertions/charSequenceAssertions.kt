@@ -56,6 +56,7 @@ fun <T : CharSequence> _isNotEmpty(plant: IAssertionPlant<T>): IAssertion
  * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [CharSequence].
  */
 enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpleTranslatable {
+    AT_LEAST("is at least"),
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
     EXACTLY("is exactly"),

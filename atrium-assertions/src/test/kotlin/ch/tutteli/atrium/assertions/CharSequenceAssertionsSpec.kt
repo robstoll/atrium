@@ -3,8 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.builders.charsequence.contains.CharSequenceContainsBuilder
-import ch.tutteli.atrium.builders.charsequence.contains.exactly
-import ch.tutteli.atrium.builders.charsequence.contains.values
+import ch.tutteli.atrium.builders.charsequence.contains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import org.jetbrains.spek.api.Spek
@@ -22,6 +21,7 @@ object CharSequenceAssertionsSpec : Spek({
     val contains = containsProp.name
     val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = fluent::containsNot
     val containsNot = containsNotFun.name
+    val atLeast = CharSequenceContainsBuilder<String>::atLeast.name
     val exactly = CharSequenceContainsBuilder<String>::exactly.name
 
     describe("fun $contains and $containsNot") {
@@ -31,6 +31,22 @@ object CharSequenceAssertionsSpec : Spek({
                 expect {
                     fluentEmptyString.contains("hello")
                 }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(CONTAINS)
+            }
+            test("$contains 'hello' $atLeast once throws AssertionError") {
+                expect {
+                    fluentEmptyString.contains.atLeast(1).values("hello")
+                }.toThrow<AssertionError>().and.message.contains(
+                    NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                    AT_LEAST.getDefault() + ": 1"
+                )
+            }
+            test("$contains 'hello' $atLeast twice throws AssertionError") {
+                expect {
+                    fluentEmptyString.contains.atLeast(2).values("hello")
+                }.toThrow<AssertionError>().and.message.contains(
+                    NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                    AT_LEAST.getDefault() + ": 2"
+                )
             }
             test("$contains 'hello' $exactly once throws AssertionError") {
                 expect {
@@ -58,6 +74,14 @@ object CharSequenceAssertionsSpec : Spek({
                 test("$contains 'hello' does not throw") {
                     fluent.contains("hello")
                 }
+                test("$contains 'hello' $atLeast once does not throw") {
+                    fluent.contains.atLeast(1).values("hello")
+                }
+                test("$contains 'hello' $atLeast twice throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(2).values("hello")
+                    }.toThrow<AssertionError>()
+                }
                 test("$contains 'hello' $exactly once does not throw") {
                     fluent.contains.exactly(1).values("hello")
                 }
@@ -75,6 +99,14 @@ object CharSequenceAssertionsSpec : Spek({
                 test("$contains 'hello' and 'robert' does not throw") {
                     fluent.contains("hello", "robert")
                 }
+                test("$contains 'hello' and 'robert' $atLeast once does not throw") {
+                    fluent.contains.atLeast(1).values("hello", "robert")
+                }
+                test("$contains 'hello' and 'robert' $atLeast twice throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(2).values("hello", "robert")
+                    }.toThrow<AssertionError>()
+                }
                 test("$contains 'hello' and 'robert' $exactly once does not throw") {
                     fluent.contains.exactly(1).values("hello", "robert")
                 }
@@ -91,6 +123,14 @@ object CharSequenceAssertionsSpec : Spek({
 
                 test("$contains 'hello' and 'robert' as Any does not throw") {
                     fluent.contains("hello" as Any, "robert" as Any)
+                }
+                test("$contains 'hello' and 'robert' as Any $atLeast once does not throw") {
+                    fluent.contains.atLeast(1).values("hello" as Any, "robert" as Any)
+                }
+                test("$contains 'hello' and 'robert' $atLeast twice throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(2).values("hello" as Any, "robert" as Any)
+                    }.toThrow<AssertionError>()
                 }
                 test("$contains 'hello' and 'robert' as Any $exactly once does not throw") {
                     fluent.contains.exactly(1).values("hello" as Any, "robert" as Any)
@@ -113,6 +153,16 @@ object CharSequenceAssertionsSpec : Spek({
                         fluent.contains("notInThere", "neitherInThere")
                     }.toThrow<AssertionError>()
                 }
+                test("$contains 'notInThere' and 'neitherInThere' $atLeast once throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(1).values("notInThere", "neitherInThere")
+                    }.toThrow<AssertionError>()
+                }
+                test("$contains 'notInThere' and 'neitherInThere' $atLeast twice throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(2).values("notInThere", "neitherInThere")
+                    }.toThrow<AssertionError>()
+                }
                 test("$contains 'notInThere' and 'neitherInThere' $exactly once throws AssertionError") {
                     expect {
                         fluent.contains.exactly(1).values("notInThere", "neitherInThere")
@@ -132,10 +182,23 @@ object CharSequenceAssertionsSpec : Spek({
                         fluent.contains("notInThere" as Any, "neitherInThere" as Any)
                     }.toThrow<AssertionError>()
                 }
+                test("$contains 'notInThere' and 'neitherInThere' as Any $atLeast once throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(1).values("notInThere" as Any, "neitherInThere" as Any)
+                    }.toThrow<AssertionError>().and.message.contains.exactly(2).values(
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                        AT_LEAST.getDefault() + ": 1"
+                    )
+                }
+                test("$contains 'notInThere' and 'neitherInThere' as Any $atLeast twice throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(2).values("notInThere" as Any, "neitherInThere" as Any)
+                    }.toThrow<AssertionError>()
+                }
                 test("$contains 'notInThere' and 'neitherInThere' as Any $exactly once throws AssertionError") {
                     expect {
                         fluent.contains.exactly(1).values("notInThere" as Any, "neitherInThere" as Any)
-                    }.toThrow<AssertionError>().and.message.contains(
+                    }.toThrow<AssertionError>().and.message.contains.exactly(2).values(
                         NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
                         EXACTLY.getDefault() + ": 1"
                     )
@@ -156,6 +219,16 @@ object CharSequenceAssertionsSpec : Spek({
                         fluent.contains("notInThere")
                     }.toThrow<AssertionError>()
                 }
+                test("$contains 'notInThere' $atLeast once throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(1).values("notInThere")
+                    }.toThrow<AssertionError>()
+                }
+                test("$contains 'notInThere' $atLeast twice throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(2).values("notInThere")
+                    }.toThrow<AssertionError>()
+                }
                 test("$contains 'notInThere' $exactly once throws AssertionError") {
                     expect {
                         fluent.contains.exactly(1).values("notInThere")
@@ -173,6 +246,16 @@ object CharSequenceAssertionsSpec : Spek({
                 test("$contains 'hello' and 'notInThere' throws AssertionError") {
                     expect {
                         fluent.contains("hello", "notInThere")
+                    }.toThrow<AssertionError>()
+                }
+                test("$contains 'hello' and 'notInThere' $atLeast once throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(1).values("hello", "notInThere")
+                    }.toThrow<AssertionError>()
+                }
+                test("$contains 'hello' and 'notInThere' $atLeast twice throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(2).values("hello", "notInThere")
                     }.toThrow<AssertionError>()
                 }
                 test("$contains 'hello' and 'notInThere' $exactly once throws AssertionError") {
@@ -196,6 +279,16 @@ object CharSequenceAssertionsSpec : Spek({
                         fluent.contains("notInThere" as Any, "hello" as Any)
                     }.toThrow<AssertionError>()
                 }
+                test("$contains 'notInThere' and 'hello' as Any $atLeast once throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(1).values("notInThere" as Any, "hello" as Any)
+                    }.toThrow<AssertionError>()
+                }
+                test("$contains 'notInThere' and 'hello' as Any $atLeast twice throws AssertionError") {
+                    expect {
+                        fluent.contains.atLeast(2).values("notInThere" as Any, "hello" as Any)
+                    }.toThrow<AssertionError>()
+                }
                 test("$contains 'notInThere' and 'hello' as Any $exactly once throws AssertionError") {
                     expect {
                         fluent.contains.exactly(1).values("notInThere" as Any, "hello" as Any)
@@ -214,16 +307,85 @@ object CharSequenceAssertionsSpec : Spek({
             }
         }
 
+        context("fun $contains with specifier $atLeast") {
+            it("throws an ${IllegalArgumentException::class.simpleName} for $atLeast -1") {
+                expect {
+                    fluent.contains.atLeast(-1)
+                }.toThrow<IllegalArgumentException>().and.message.contains("positive number")
+            }
+            it("throws an ${IllegalArgumentException::class.simpleName} for $atLeast 0") {
+                expect {
+                    fluent.contains.atLeast(0)
+                }.toThrow<IllegalArgumentException>().and.message.contains(containsNot, atLeast)
+            }
+
+            context("text 'hello world'") {
+                val fluentHelloWorld = assert("hello world")
+
+                test("$contains 'h' and 'e' and 'w' $atLeast once does not throw") {
+                    fluentHelloWorld.contains.atLeast(1).values("h", "e", "w")
+                }
+
+                test("$contains 'h' and 'e' and 'w' atLeast 4 times throws AssertionError") {
+                    expect {
+                        fluentHelloWorld.contains.atLeast(4).values("h", "e", "w")
+                    }.toThrow<AssertionError>()
+                }
+
+                test("$contains 'o' $atLeast once does not throw") {
+                    fluentHelloWorld.contains.atLeast(1).values("o")
+                }
+
+                test("$contains 'o' $atLeast twice does not throw") {
+                    fluentHelloWorld.contains.atLeast(2).values("o")
+                }
+
+                test("$contains 'o' $atLeast 4 times throws AssertionError and message contains both, how many times we expected (4) and how many times it actually contained 'o' (2)") {
+                    expect {
+                        fluentHelloWorld.contains.atLeast(4).values("o")
+                    }.toThrow<AssertionError>().and.message.contains(
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
+                        AT_LEAST.getDefault() + ": 4"
+                    )
+                }
+
+                test("$contains 'l' $atLeast once does not throw") {
+                    fluentHelloWorld.contains.atLeast(1).values("l")
+                }
+
+                test("$contains 'l' $atLeast twice does not throw") {
+                    fluentHelloWorld.contains.atLeast(2).values("l")
+                }
+
+                test("$contains 'o' and 'l' $atLeast twice does not throw") {
+                    fluentHelloWorld.contains.atLeast(2).values("o", "l")
+                }
+
+                test("$contains 'l' $atLeast 3 times does not throw") {
+                    fluentHelloWorld.contains.atLeast(3).values("l")
+                }
+
+                test("$contains 'o' and 'l' $atLeast 3 times throws AssertionError") {
+                    expect {
+                        fluentHelloWorld.contains.atLeast(3).values("o", "l")
+                    }.toThrow<AssertionError>().and.message.contains(
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
+                        AT_LEAST.getDefault() + ": 3"
+                    )
+                }
+            }
+        }
+
         context("fun $contains with specifier $exactly") {
-            it("throws an ${IllegalArgumentException::class.simpleName} for exactly -1") {
+            it("throws an ${IllegalArgumentException::class.simpleName} for $exactly -1") {
                 expect {
                     fluent.contains.exactly(-1)
                 }.toThrow<IllegalArgumentException>().and.message.contains("positive number")
             }
-            it("throws an ${IllegalArgumentException::class.simpleName} for exactly 0") {
+            it("throws an ${IllegalArgumentException::class.simpleName} for $exactly 0") {
                 expect {
                     fluent.contains.exactly(0)
-                }.toThrow<IllegalArgumentException>().and.message.contains(containsNot)
+                }.toThrow<IllegalArgumentException>().and.message.contains(containsNot, exactly)
             }
 
             context("text 'hello world'") {
@@ -233,17 +395,17 @@ object CharSequenceAssertionsSpec : Spek({
                     fluentHelloWorld.contains.exactly(1).values("h", "e", "w")
                 }
 
-                test("$contains 'h' and 'e' and 'w' exactly 4 times throws AssertionError") {
+                test("$contains 'h' and 'e' and 'w' $exactly 4 times throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.exactly(4).values("h", "e", "w")
                     }.toThrow<AssertionError>()
                 }
 
-                test("$contains 'o' exactly twice does not throw") {
+                test("$contains 'o' $exactly twice does not throw") {
                     fluentHelloWorld.contains.exactly(2).values("o")
                 }
 
-                test("$contains 'o' exactly 4 times throws AssertionError and message contains both, how many times we expected (4) and how many times it actually contained 'o' (2)") {
+                test("$contains 'o' $exactly 4 times throws AssertionError and message contains both, how many times we expected (4) and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.exactly(4).values("o")
                     }.toThrow<AssertionError>().and.message.contains(
@@ -252,11 +414,11 @@ object CharSequenceAssertionsSpec : Spek({
                     )
                 }
 
-                test("$contains 'l' exactly 3 times does not throw") {
+                test("$contains 'l' $exactly 3 times does not throw") {
                     fluentHelloWorld.contains.exactly(3).values("l")
                 }
 
-                test("$contains 'o' and 'l' exactly 3 times throws AssertionError") {
+                test("$contains 'o' and 'l' $exactly 3 times throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.exactly(3).values("o", "l")
                     }.toThrow<AssertionError>().and.message.contains(
