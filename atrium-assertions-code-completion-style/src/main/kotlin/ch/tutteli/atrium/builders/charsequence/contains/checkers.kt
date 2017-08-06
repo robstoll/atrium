@@ -5,3 +5,6 @@ fun <T : CharSequence> CharSequenceContainsBuilder<T>.atLeast(times: Int): CharS
 
 fun <T : CharSequence> CharSequenceContainsBuilder<T>.exactly(times: Int): CharSequenceContainsExactlyCheckerBuilder<T>
     = CharSequenceContainsExactlyCheckerBuilder(times, this)
+
+fun <T : CharSequence> CharSequenceContainsBuilder<T>.atMost(times: Int): CharSequenceContainsAtMostCheckerBuilder<T>
+    = CharSequenceContainsAtMostCheckerBuilder(times, this)

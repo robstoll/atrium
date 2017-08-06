@@ -43,6 +43,7 @@ fun <T : CharSequence> _isNotEmpty(plant: IAssertionPlant<T>): IAssertion
  */
 enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpleTranslatable {
     AT_LEAST("is at least"),
+    AT_MOST("is at most"),
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
     EXACTLY("is exactly"),
