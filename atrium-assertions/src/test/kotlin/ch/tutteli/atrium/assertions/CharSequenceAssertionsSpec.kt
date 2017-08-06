@@ -2,7 +2,9 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.builders.charsequence.contains.CharSequenceContainsBuilder
+import ch.tutteli.atrium.builders.charsequence.contains.exactly
+import ch.tutteli.atrium.builders.charsequence.contains.values
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import org.jetbrains.spek.api.Spek
@@ -16,11 +18,11 @@ object CharSequenceAssertionsSpec : Spek({
     val text = "hello my name is robert"
     val fluent = assert(text)
 
-    val containsProp: KProperty<CharSequenceContainsBuilder> = fluent::contains
+    val containsProp: KProperty<CharSequenceContainsBuilder<String>> = fluent::contains
     val contains = containsProp.name
     val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = fluent::containsNot
     val containsNot = containsNotFun.name
-    val exactly = CharSequenceContainsBuilder::exactly.name
+    val exactly = CharSequenceContainsBuilder<String>::exactly.name
 
     describe("fun $contains and $containsNot") {
         context("empty string") {
@@ -33,12 +35,18 @@ object CharSequenceAssertionsSpec : Spek({
             test("$contains 'hello' $exactly once throws AssertionError") {
                 expect {
                     fluentEmptyString.contains.exactly(1).values("hello")
-                }.toThrow<AssertionError>().and.message.contains(String.format(EXACTLY_TIME.getDefault(), 1) + ": 0")
+                }.toThrow<AssertionError>().and.message.contains(
+                    NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                    EXACTLY.getDefault() + ": 1"
+                )
             }
             test("$contains 'hello' $exactly twice throws AssertionError") {
                 expect {
                     fluentEmptyString.contains.exactly(2).values("hello")
-                }.toThrow<AssertionError>().and.message.contains(String.format(EXACTLY_TIMES.getDefault(), 2) + ": 0")
+                }.toThrow<AssertionError>().and.message.contains(
+                    NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                    EXACTLY.getDefault() + ": 2"
+                )
             }
             test("$containsNot 'hello' does not throw") {
                 fluentEmptyString.containsNot("hello")
@@ -127,7 +135,10 @@ object CharSequenceAssertionsSpec : Spek({
                 test("$contains 'notInThere' and 'neitherInThere' as Any $exactly once throws AssertionError") {
                     expect {
                         fluent.contains.exactly(1).values("notInThere" as Any, "neitherInThere" as Any)
-                    }.toThrow<AssertionError>().and.message.contains(String.format(EXACTLY_TIME.getDefault(), 1))
+                    }.toThrow<AssertionError>().and.message.contains(
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                        EXACTLY.getDefault() + ": 1"
+                    )
                 }
                 test("$contains 'notInThere' and 'neitherInThere' as Any $exactly twice throws AssertionError") {
                     expect {
@@ -235,7 +246,10 @@ object CharSequenceAssertionsSpec : Spek({
                 test("$contains 'o' exactly 4 times throws AssertionError and message contains both, how many times we expected (4) and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.exactly(4).values("o")
-                    }.toThrow<AssertionError>().and.message.contains(String.format(EXACTLY_TIMES.getDefault(), 4) + ": 2")
+                    }.toThrow<AssertionError>().and.message.contains(
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
+                        EXACTLY.getDefault() + ": 4"
+                    )
                 }
 
                 test("$contains 'l' exactly 3 times does not throw") {
@@ -245,7 +259,10 @@ object CharSequenceAssertionsSpec : Spek({
                 test("$contains 'o' and 'l' exactly 3 times throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.exactly(3).values("o", "l")
-                    }.toThrow<AssertionError>().and.message.contains(String.format(EXACTLY_TIMES.getDefault(), 3) + ": 2")
+                    }.toThrow<AssertionError>().and.message.contains(
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
+                        EXACTLY.getDefault() + ": 3"
+                    )
                 }
             }
         }
