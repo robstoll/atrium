@@ -21,8 +21,11 @@ object CharSequenceAssertionsSpec : Spek({
     val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = fluent::containsNot
     val containsNot = containsNotFun.name
     val atLeast = CharSequenceContainsBuilder<String>::atLeast.name
+    val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<String>::butAtMost.name
     val exactly = CharSequenceContainsBuilder<String>::exactly.name
     val atMost = CharSequenceContainsBuilder<String>::atMost.name
+
+    val illegalArgumentException = IllegalArgumentException::class.simpleName
 
     describe("fun $contains and $containsNot") {
         context("empty string") {
@@ -42,6 +45,17 @@ object CharSequenceAssertionsSpec : Spek({
                     NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
                     AT_LEAST.getDefault() + ": 1"
                 )
+            }
+            test("$contains 'hello' $atLeast once $butAtMost twice throws AssertionError") {
+                expect {
+                    fluentEmptyString.contains.atLeast(1).butAtMost(2).values("hello")
+                }.toThrow<AssertionError>().and.message {
+                    contains(
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
+                        AT_LEAST.getDefault() + ": 1"
+                    )
+                    containsNotDefaultTranslationOf(AT_MOST)
+                }
             }
             test("$contains 'hello' $atLeast twice throws AssertionError") {
                 expect {
@@ -343,16 +357,40 @@ object CharSequenceAssertionsSpec : Spek({
             }
         }
 
-        context("fun $contains with specifier $atLeast") {
-            it("throws an ${IllegalArgumentException::class.simpleName} for $atLeast -1") {
-                expect {
-                    fluent.contains.atLeast(-1)
-                }.toThrow<IllegalArgumentException>().and.message.contains("positive number")
-            }
-            it("throws an ${IllegalArgumentException::class.simpleName} for $atLeast 0") {
-                expect {
-                    fluent.contains.atLeast(0)
-                }.toThrow<IllegalArgumentException>().and.message.contains(containsNot, atLeast)
+        context("fun $contains with specifier $atLeast (and sometimes specifier $butAtMost)") {
+            context("illegal arguments") {
+                it("throws an $illegalArgumentException for $atLeast(-1)") {
+                    expect {
+                        fluent.contains.atLeast(-1)
+                    }.toThrow<IllegalArgumentException>().and.message.contains("positive number")
+                }
+                it("throws an $illegalArgumentException for $atLeast(0) and points to $containsNot") {
+                    expect {
+                        fluent.contains.atLeast(0)
+                    }.toThrow<IllegalArgumentException>().and.message.toBe("use $containsNot instead of $atLeast(0)")
+                }
+                group("... and specifier $butAtMost") {
+                    it("throws an $illegalArgumentException for $atLeast(1).$butAtMost(-1) since -1 is smaller than 1") {
+                        expect {
+                            fluent.contains.atLeast(1).butAtMost(-1)
+                        }.toThrow<IllegalArgumentException>().and.message.toBe("specifying $butAtMost(-1) does not make sense if $atLeast(1) was used before")
+                    }
+                    it("throws an $illegalArgumentException for $atLeast(1).$butAtMost(0) since 0 is smaller than 1") {
+                        expect {
+                            fluent.contains.atLeast(1).butAtMost(0)
+                        }.toThrow<IllegalArgumentException>().and.message.toBe("specifying $butAtMost(0) does not make sense if $atLeast(1) was used before")
+                    }
+                    it("throws an $illegalArgumentException for $atLeast(2).$butAtMost(1) since 1 is smaller than 2") {
+                        expect {
+                            fluent.contains.atLeast(2).butAtMost(1)
+                        }.toThrow<IllegalArgumentException>().and.message.toBe("specifying $butAtMost(1) does not make sense if $atLeast(2) was used before")
+                    }
+                    it("throws an $illegalArgumentException for $atLeast(2).$butAtMost(1) and points to $exactly") {
+                        expect {
+                            fluent.contains.atLeast(1).butAtMost(1)
+                        }.toThrow<IllegalArgumentException>().and.message.toBe("use $exactly(1) instead of $atLeast(1).$butAtMost(1)")
+                    }
+                }
             }
 
             context("text 'hello world'") {
@@ -370,6 +408,9 @@ object CharSequenceAssertionsSpec : Spek({
 
                 test("$contains 'o' $atLeast once does not throw") {
                     fluentHelloWorld.contains.atLeast(1).values("o")
+                }
+                test("$contains 'o' $atLeast once $butAtMost twice does not throw") {
+                    fluentHelloWorld.contains.atLeast(1).butAtMost(2).values("o")
                 }
 
                 test("$contains 'o' $atLeast twice does not throw") {
@@ -389,11 +430,26 @@ object CharSequenceAssertionsSpec : Spek({
                     fluentHelloWorld.contains.atLeast(2).values("o", "l")
                 }
 
+                test("$contains 'o' and 'l' $atLeast once $butAtMost twice throws AssertionError and message contains both, at most: 2 and how many times it actually contained 'o' (3)") {
+                    expect {
+                        fluentHelloWorld.contains.atLeast(1).butAtMost(2).values("o", "l")
+                    }.toThrow<AssertionError>().and.message {
+                        contains(
+                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3",
+                            AT_MOST.getDefault() + ": 2"
+                        )
+                        containsNotDefaultTranslationOf(AT_LEAST)
+                    }
+                }
+                test("$contains 'o' and 'l' $atLeast twice $butAtMost 3 times does not throw") {
+                    fluentHelloWorld.contains.atLeast(2).butAtMost(3).values("o", "l")
+                }
+
                 test("$contains 'l' $atLeast 3 times does not throw") {
                     fluentHelloWorld.contains.atLeast(3).values("l")
                 }
 
-                test("$contains 'o' and 'l' $atLeast 3 times throws AssertionError") {
+                test("$contains 'o' and 'l' $atLeast 3 times throws AssertionError and message contains both, at least: 3 and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.atLeast(3).values("o", "l")
                     }.toThrow<AssertionError>().and.message.contains(
@@ -405,12 +461,12 @@ object CharSequenceAssertionsSpec : Spek({
         }
 
         context("fun $contains with specifier $exactly") {
-            it("throws an ${IllegalArgumentException::class.simpleName} for $exactly -1") {
+            it("throws an $illegalArgumentException for $exactly -1") {
                 expect {
                     fluent.contains.exactly(-1)
                 }.toThrow<IllegalArgumentException>().and.message.contains("positive number")
             }
-            it("throws an ${IllegalArgumentException::class.simpleName} for $exactly 0") {
+            it("throws an $illegalArgumentException for $exactly 0") {
                 expect {
                     fluent.contains.exactly(0)
                 }.toThrow<IllegalArgumentException>().and.message.contains(containsNot, exactly)
@@ -458,12 +514,12 @@ object CharSequenceAssertionsSpec : Spek({
         }
 
         context("fun $contains with specifier $atMost") {
-            it("throws an ${IllegalArgumentException::class.simpleName} for $atMost -1") {
+            it("throws an $illegalArgumentException for $atMost -1") {
                 expect {
                     fluent.contains.atMost(-1)
                 }.toThrow<IllegalArgumentException>().and.message.contains("positive number")
             }
-            it("throws an ${IllegalArgumentException::class.simpleName} for $atMost 0") {
+            it("throws an $illegalArgumentException for $atMost 0") {
                 expect {
                     fluent.contains.atMost(0)
                 }.toThrow<IllegalArgumentException>().and.message.contains(containsNot, atMost)

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsExactlyChec
 import ch.tutteli.atrium.containsNot
 
 open class CharSequenceContainsExactlyCheckerBuilder<T : CharSequence>(
-    times: Int,
+    val times: Int,
     containsBuilder: CharSequenceContainsBuilder<T>
 ) : CharSequenceContainsCheckerBuilder<T>(containsBuilder) {
 

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAtMostCheck
 import ch.tutteli.atrium.containsNot
 
 open class CharSequenceContainsAtMostCheckerBuilder<T : CharSequence>(
-    times: Int,
+    val times: Int,
     containsBuilder: CharSequenceContainsBuilder<T>
 ) : CharSequenceContainsCheckerBuilder<T>(containsBuilder) {
 
