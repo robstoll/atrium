@@ -58,11 +58,11 @@ fun <T : CharSequence> _isNotEmpty(plant: IAssertionPlant<T>): IAssertion
 enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpleTranslatable {
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
-    EXACTLY_TIME("exactly %d time"),
-    EXACTLY_TIMES("exactly %d times"),
+    EXACTLY("is exactly"),
     STARTS_WITH("starts with"),
     STARTS_NOT_WITH("does not start with"),
     ENDS_WITH("ends with"),
     ENDS_NOT_WITH("does not end with"),
-    EMPTY("empty")
+    EMPTY("empty"),
+    NUMBER_OF_OCCURRENCES("number of occurrences"),
 }
