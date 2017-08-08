@@ -1,6 +1,7 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsNoOpDecorator
 import ch.tutteli.atrium.builders.charsequence.contains.CharSequenceContainsBuilder
 import ch.tutteli.atrium.builders.charsequence.contains.atLeast
 import ch.tutteli.atrium.builders.charsequence.contains.values
@@ -13,7 +14,8 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> IAssertionPlant<T>.contains get() = CharSequenceContainsBuilder(this)
+val <T : CharSequence> IAssertionPlant<T>.contains get(): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpDecorator>
+    = CharSequenceContainsBuilder(this, CharSequenceContainsNoOpDecorator)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [toString] representation

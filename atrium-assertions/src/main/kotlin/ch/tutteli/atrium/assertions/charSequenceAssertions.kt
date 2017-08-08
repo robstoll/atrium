@@ -50,6 +50,7 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : ISimpl
     ENDS_WITH("ends with"),
     ENDS_NOT_WITH("does not end with"),
     EXACTLY("is exactly"),
+    IGNORING_CASE("%s, ignoring case"),
     NUMBER_OF_OCCURRENCES("number of occurrences"),
     STARTS_WITH("starts with"),
     STARTS_NOT_WITH("does not start with"),

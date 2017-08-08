@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence
 
-class CharSequenceContainsIndexSearcher<T: CharSequence> : CharSequenceContainsAssertionCreator.ISearcher<T> {
+import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator.ISearcher
+
+class CharSequenceContainsIndexSearcher : ISearcher<CharSequenceContainsNoOpDecorator> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int {
         val expected = searchFor.toString()
         var index = searchIn.indexOf(expected)
