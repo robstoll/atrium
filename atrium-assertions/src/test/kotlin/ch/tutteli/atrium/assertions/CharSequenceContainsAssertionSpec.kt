@@ -9,6 +9,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.it
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty
 
@@ -182,138 +183,138 @@ object CharSequenceContainsAssertionSpec : Spek({
 
             group("happy case with $atLeast once") {
                 test("$contains 'H' $atLeast once does not throw") {
-                    fluentHelloWorld.contains.atLeast(1).value("H")
+                    fluentHelloWorld.contains.atLeast(1).value('H')
                 }
                 test("$contains 'H' and 'e' and 'W' $atLeast once does not throw") {
-                    fluentHelloWorld.contains.atLeast(1).values("H", "e", "W")
+                    fluentHelloWorld.contains.atLeast(1).values('H', 'e', 'W')
                 }
                 test("$contains 'W' and 'H' and 'e' $atLeast once does not throw") {
-                    fluentHelloWorld.contains.atLeast(1).values("W", "H", "e")
+                    fluentHelloWorld.contains.atLeast(1).values('W', 'H', 'e')
                 }
             }
 
             group("failing assertions; search string at different positions with $atLeast once") {
                 test("$contains 'h' $atLeast once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(1).value("h")
+                        fluentHelloWorld.contains.atLeast(1).value('h')
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_LEAST)
                 }
                 test("$contains $ignoringCase 'h' $atLeast once does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.atLeast(1).value("h")
+                    fluentHelloWorld.contains.ignoringCase.atLeast(1).value('h')
                 }
 
                 test("$contains 'H', 'E' $atLeast once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(1).values("H", "E")
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), "E")
+                        fluentHelloWorld.contains.atLeast(1).values('H', 'E')
+                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E')
                 }
                 test("$contains $ignoringCase 'H', 'E' $atLeast once does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values("H", "E")
+                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values('H', 'E')
                 }
 
                 test("$contains 'E', 'H' $atLeast once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(1).values("E", "H")
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), "E")
+                        fluentHelloWorld.contains.atLeast(1).values('E', 'H')
+                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E')
                 }
                 test("$contains $ignoringCase 'E', 'H' $atLeast once does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values("E", "H")
+                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values('E', 'H')
                 }
 
                 test("$contains 'H', 'E', 'w' and 'r' $atLeast once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(1).values("H", "E", "w", "r")
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), "E", "w")
+                        fluentHelloWorld.contains.atLeast(1).values('H', 'E', 'w', 'r')
+                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E', 'w')
                 }
                 test("$contains $ignoringCase 'H', 'E', 'w' and 'r' $atLeast once does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values("H", "E", "w", "r")
+                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values('H', 'E', 'w', 'r')
                 }
             }
 
             group("multiple occurrences of the search string") {
                 test("$contains 'o' $atLeast once does not throw") {
-                    fluentHelloWorld.contains.atLeast(1).value("o")
+                    fluentHelloWorld.contains.atLeast(1).value('o')
                 }
                 test("$contains 'o' $atLeast twice does not throw") {
-                    fluentHelloWorld.contains.atLeast(2).value("o")
+                    fluentHelloWorld.contains.atLeast(2).value('o')
                 }
 
                 test("$contains 'o' $atLeast 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(3).value("o")
+                        fluentHelloWorld.contains.atLeast(3).value('o')
                     }.toThrow<AssertionError>().and.message.contains(
-                        CONTAINS.getDefault() + ": \"o\"",
+                        CONTAINS.getDefault() + ": 'o'",
                         NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
                         AT_LEAST.getDefault() + ": 3"
                     )
                 }
                 test("$contains $ignoringCase 'o' $atLeast 3 times does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.atLeast(3).value("o")
+                    fluentHelloWorld.contains.ignoringCase.atLeast(3).value('o')
                 }
 
                 test("$contains 'o' and 'l' $atLeast twice does not throw") {
-                    fluentHelloWorld.contains.atLeast(2).values("o", "l")
+                    fluentHelloWorld.contains.atLeast(2).values('o', 'l')
                 }
                 test("$contains 'l' $atLeast 3 times does not throw") {
-                    fluentHelloWorld.contains.atLeast(3).value("l")
+                    fluentHelloWorld.contains.atLeast(3).value('l')
                 }
 
                 test("$contains 'o' and 'l' $atLeast 3 times throws AssertionError and message contains both, at least: 3 and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(3).values("o", "l")
+                        fluentHelloWorld.contains.atLeast(3).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": \"o\"",
+                            CONTAINS.getDefault() + ": 'o'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
                             AT_LEAST.getDefault() + ": 3"
                         )
-                        containsNot(CONTAINS.getDefault() + ": \"l\"")
+                        containsNot(CONTAINS.getDefault() + ": 'l'")
                     }
                 }
                 test("$contains $ignoringCase 'o' and 'l' $atLeast 3 times does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.atLeast(3).values("o", "l")
+                    fluentHelloWorld.contains.ignoringCase.atLeast(3).values('o', 'l')
                 }
             }
 
             group("using specifier $butAtMost") {
                 test("$contains 'o' $atLeast once $butAtMost twice does not throw") {
-                    fluentHelloWorld.contains.atLeast(1).butAtMost(2).value("o")
+                    fluentHelloWorld.contains.atLeast(1).butAtMost(2).value('o')
                 }
                 test("$contains 'o' and 'l' $atLeast once $butAtMost twice throws AssertionError and message contains both, at most: 2 and how many times it actually contained 'l' (3)") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(1).butAtMost(2).values("o", "l")
+                        fluentHelloWorld.contains.atLeast(1).butAtMost(2).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": \"l\"",
+                            CONTAINS.getDefault() + ": 'l'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 3",
                             AT_MOST.getDefault() + ": 2"
                         )
-                        containsNot(CONTAINS.getDefault() + ": \"o\"")
+                        containsNot(CONTAINS.getDefault() + ": 'o'")
                         containsNotDefaultTranslationOf(AT_LEAST)
                     }
                 }
                 test("$contains 'o' and 'l' $atLeast twice $butAtMost 3 times does not throw") {
-                    fluentHelloWorld.contains.atLeast(2).butAtMost(3).values("o", "l")
+                    fluentHelloWorld.contains.atLeast(2).butAtMost(3).values('o', 'l')
                 }
                 test("$contains $ignoringCase 'o' and 'l' $atLeast twice $butAtMost 3 times does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.atLeast(2).butAtMost(3).values("o", "l")
+                    fluentHelloWorld.contains.ignoringCase.atLeast(2).butAtMost(3).values('o', 'l')
                 }
 
                 test("$contains 'o' and 'l' $atLeast 3 times $butAtMost 4 times throws AssertionError and message contains both, at least: 3 and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(3).butAtMost(4).values("o", "l")
+                        fluentHelloWorld.contains.atLeast(3).butAtMost(4).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": \"o\"",
+                            CONTAINS.getDefault() + ": 'o'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
                             AT_LEAST.getDefault() + ": 3"
                         )
-                        containsNot(CONTAINS.getDefault() + ": \"l\"")
+                        containsNot(CONTAINS.getDefault() + ": 'l'")
                         containsNotDefaultTranslationOf(AT_MOST)
                     }
                 }
                 test("$contains $ignoringCase 'o' and 'l' $atLeast 3 times does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.atLeast(3).butAtMost(4).values("o", "l")
+                    fluentHelloWorld.contains.ignoringCase.atLeast(3).butAtMost(4).values('o', 'l')
                 }
             }
         }
@@ -337,66 +338,66 @@ object CharSequenceContainsAssertionSpec : Spek({
 
             group("happy case with $exactly once") {
                 test("$contains 'H' $exactly once does not throw") {
-                    fluentHelloWorld.contains.exactly(1).value("H")
+                    fluentHelloWorld.contains.exactly(1).value('H')
                 }
                 test("$contains 'H' and 'e' and 'W' $exactly once does not throw") {
-                    fluentHelloWorld.contains.exactly(1).values("H", "e", "W")
+                    fluentHelloWorld.contains.exactly(1).values('H', 'e', 'W')
                 }
                 test("$contains 'W' and 'H' and 'e' $exactly once does not throw") {
-                    fluentHelloWorld.contains.exactly(1).values("W", "H", "e")
+                    fluentHelloWorld.contains.exactly(1).values('W', 'H', 'e')
                 }
             }
 
             group("failing assertions; search string at different positions with $exactly once") {
                 test("$contains 'h' $exactly once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).value("h")
+                        fluentHelloWorld.contains.exactly(1).value('h')
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(EXACTLY)
                 }
                 test("$contains $ignoringCase 'h' $exactly once throws AssertionError") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(1).value("h")
+                    fluentHelloWorld.contains.ignoringCase.exactly(1).value('h')
                 }
 
                 test("$contains 'H', 'E' $exactly once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).values("H", "E")
-                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), "E")
+                        fluentHelloWorld.contains.exactly(1).values('H', 'E')
+                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E')
                 }
                 test("$contains $ignoringCase 'H', 'E' $exactly once throws AssertionError") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(1).values("H", "E")
+                    fluentHelloWorld.contains.ignoringCase.exactly(1).values('H', 'E')
                 }
 
                 test("$contains 'E', 'H' $exactly once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).values("E", "H")
-                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), "E")
+                        fluentHelloWorld.contains.exactly(1).values('E', 'H')
+                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E')
                 }
                 test("$contains $ignoringCase 'E', 'H' $exactly once throws AssertionError") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(1).values("E", "H")
+                    fluentHelloWorld.contains.ignoringCase.exactly(1).values('E', 'H')
                 }
 
                 test("$contains 'H' and 'E' and 'w' $exactly once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).values("H", "E", "w")
-                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), "E", "w")
+                        fluentHelloWorld.contains.exactly(1).values('H', 'E', 'w')
+                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E', 'w')
                 }
                 test("$contains $ignoringCase 'H' and 'E' and 'w' $exactly once throws AssertionError") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(1).values("H", "E", "w")
+                    fluentHelloWorld.contains.ignoringCase.exactly(1).values('H', 'E', 'w')
                 }
             }
 
             group("multiple occurrences of the search string") {
                 test("$contains 'o' $exactly once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).value("o")
+                        fluentHelloWorld.contains.exactly(1).value('o')
                     }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(EXACTLY)
                 }
                 test("$contains 'o' $exactly twice does not throw") {
-                    fluentHelloWorld.contains.exactly(2).value("o")
+                    fluentHelloWorld.contains.exactly(2).value('o')
                 }
                 test("$contains $ignoringCase 'o' $exactly twice throws") {
                     expect {
-                        fluentHelloWorld.contains.ignoringCase.exactly(2).value("o")
+                        fluentHelloWorld.contains.ignoringCase.exactly(2).value('o')
                     }.toThrow<AssertionError>().and.message.contains(
                         String.format(IGNORING_CASE.getDefault(), CONTAINS.getDefault()),
                         NUMBER_OF_OCCURRENCES.getDefault() + ": 3",
@@ -406,41 +407,41 @@ object CharSequenceContainsAssertionSpec : Spek({
 
                 test("$contains 'o' $exactly 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.exactly(3).value("o")
+                        fluentHelloWorld.contains.exactly(3).value('o')
                     }.toThrow<AssertionError>().and.message.contains(
                         NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
                         EXACTLY.getDefault() + ": 3"
                     )
                 }
                 test("$contains $ignoringCase 'o' $exactly 3 times does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(3).value("o")
+                    fluentHelloWorld.contains.ignoringCase.exactly(3).value('o')
                 }
 
                 test("$contains 'o' and 'l' $exactly twice throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(2).values("o", "l")
+                        fluentHelloWorld.contains.exactly(2).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": \"l\"",
+                            CONTAINS.getDefault() + ": 'l'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 3",
                             EXACTLY.getDefault() + ": 2"
                         )
-                        containsNot(CONTAINS.getDefault() + ": \"o\"")
+                        containsNot(CONTAINS.getDefault() + ": 'o'")
                     }
                 }
                 test("$contains 'l' $exactly 3 times does not throw") {
-                    fluentHelloWorld.contains.exactly(3).value("l")
+                    fluentHelloWorld.contains.exactly(3).value('l')
                 }
                 test("$contains 'o' and 'l' $exactly 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.exactly(3).values("o", "l")
+                        fluentHelloWorld.contains.exactly(3).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": \"o\"",
+                            CONTAINS.getDefault() + ": 'o'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
                             EXACTLY.getDefault() + ": 3"
                         )
-                        containsNot(CONTAINS.getDefault() + ": \"l\"")
+                        containsNot(CONTAINS.getDefault() + ": 'l'")
                     }
                 }
             }
@@ -465,46 +466,46 @@ object CharSequenceContainsAssertionSpec : Spek({
         context("text '$helloWorld'") {
             group("happy case with $atMost once") {
                 test("$contains 'H' $atMost once does not throw") {
-                    fluentHelloWorld.contains.atMost(1).value("H")
+                    fluentHelloWorld.contains.atMost(1).value('H')
                 }
                 test("$contains 'H' and 'e' and 'W' $atMost once does not throw") {
-                    fluentHelloWorld.contains.atMost(1).values("H", "e", "W")
+                    fluentHelloWorld.contains.atMost(1).values('H', 'e', 'W')
                 }
                 test("$contains 'W' and 'H' and 'e' $atMost once does not throw") {
-                    fluentHelloWorld.contains.atMost(1).values("W", "H", "e")
+                    fluentHelloWorld.contains.atMost(1).values('W', 'H', 'e')
                 }
                 test("$contains 'x' and 'y' and 'z' $atMost once does not throw") {
-                    fluentHelloWorld.contains.atMost(1).values("x", "y", "z")
+                    fluentHelloWorld.contains.atMost(1).values('x', 'y', 'z')
                 }
             }
 
             group("failing assertions; search string at different positions") {
                 test("$contains 'l' $atMost once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).value("l")
+                        fluentHelloWorld.contains.atMost(1).value('l')
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_MOST)
                 }
                 test("$contains 'H', 'l' $atMost once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).values("H", "l")
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), "l")
+                        fluentHelloWorld.contains.atMost(1).values('H', 'l')
+                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
                 }
                 test("$contains 'l', 'H' $exactly once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).values("l", "H")
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), "l")
+                        fluentHelloWorld.contains.atMost(1).values('l', 'H')
+                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
                 }
                 test("$contains 'o', 'E', 'W', 'l' $atMost once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).values("o", "E", "W", "l")
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), "o", "l")
+                        fluentHelloWorld.contains.atMost(1).values('o', 'E', 'W', 'l')
+                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'o', 'l')
                 }
             }
 
             group("multiple occurrences of the search string") {
                 test("$contains 'o' $atMost once throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).value("o")
+                        fluentHelloWorld.contains.atMost(1).value('o')
                     }.toThrow<AssertionError>().and.message.contains(
                         NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
                         AT_MOST.getDefault() + ": 1"
@@ -512,35 +513,36 @@ object CharSequenceContainsAssertionSpec : Spek({
                 }
 
                 test("$contains 'o' $atMost twice does not throw") {
-                    fluentHelloWorld.contains.atMost(2).value("o")
+                    fluentHelloWorld.contains.atMost(2).value('o')
                 }
                 test("$contains $ignoringCase 'o' $atMost twice throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.ignoringCase.atMost(2).value("o")
+                        fluentHelloWorld.contains.ignoringCase.atMost(2).value('o')
                     }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(AT_MOST)
                 }
 
                 test("$contains 'o' $atMost 3 times does not throw") {
-                    fluentHelloWorld.contains.atMost(3).value("o")
+                    fluentHelloWorld.contains.atMost(3).value('o')
                 }
                 test("$contains 'o' and 'l' $atMost twice throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)") {
                     expect {
-                        fluentHelloWorld.contains.atMost(2).values("o", "l")
+                        fluentHelloWorld.contains.atMost(2).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": \"l\"",
+                            CONTAINS.getDefault() + ": 'l'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 3",
                             AT_MOST.getDefault() + ": 2"
                         )
-                        containsNot(CONTAINS.getDefault() + ": \"o\"")
+                        containsNot(CONTAINS.getDefault() + ": 'o'")
                     }
                 }
                 test("$contains 'l' $atMost 3 times does not throw") {
-                    fluentHelloWorld.contains.atMost(3).value("l")
+                    fluentHelloWorld.contains.atMost(3).value('l')
                 }
                 test("$contains 'o' and 'l' $atMost 3 times does not throw") {
-                    fluentHelloWorld.contains.atMost(3).values("o", "l")
+                    fluentHelloWorld.contains.atMost(3).values('o', 'l')
                 }
+
             }
         }
     }
