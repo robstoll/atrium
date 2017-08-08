@@ -6,7 +6,9 @@ import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAs
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsIgnoringCaseIndexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsIgnoringCaseRegexSearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsIndexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsRegexSearcher
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.value(expected: Any): IAssertionPlant<T>
@@ -22,6 +24,13 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
 @JvmName("valuesIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
     = addAssertion(CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
+
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.regex(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
+    = addAssertion(CharSequenceContainsRegexSearcher(), expected, otherExpected)
+
+@JvmName("regexIgnoringCase")
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>.regex(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
+    = addAssertion(CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
 
 
 private fun <T : CharSequence, D : IDecorator> CharSequenceContainsCheckerBuilder<T, D>.addAssertion(
