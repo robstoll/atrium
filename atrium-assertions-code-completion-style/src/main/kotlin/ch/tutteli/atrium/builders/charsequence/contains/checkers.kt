@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.builders.charsequence.contains
 
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator.IDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
 
 fun <T : CharSequence, D: IDecorator> CharSequenceContainsBuilder<T, D>.atLeast(times: Int): CharSequenceContainsAtLeastCheckerBuilder<T, D>
     = CharSequenceContainsAtLeastCheckerBuilder(times, this)

@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.builders.charsequence.contains
 
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator.IChecker
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator.IDecorator
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAtLeastChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtLeastChecker
 import ch.tutteli.atrium.containsNot
 
 open class CharSequenceContainsAtLeastCheckerBuilder<T : CharSequence, D : IDecorator>(

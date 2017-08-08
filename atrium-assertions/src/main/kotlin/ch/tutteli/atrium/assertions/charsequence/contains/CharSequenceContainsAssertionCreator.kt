@@ -1,13 +1,12 @@
-package ch.tutteli.atrium.assertions.charsequence
+package ch.tutteli.atrium.assertions.charsequence.contains
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator.IDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
-class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
+class CharSequenceContainsAssertionCreator<T : CharSequence, D : CharSequenceContainsAssertionCreator.IDecorator>(
     val decorator: D,
     val searcher: ISearcher<D>,
     val checkers: List<IChecker>

@@ -1,4 +1,6 @@
-package ch.tutteli.atrium.assertions.charsequence
+package ch.tutteli.atrium.assertions.charsequence.contains.checkers
+
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
 
 abstract class CharSequenceContainsChecker(
     val times: Int, nameFunToUse: String, nameFunUsed: String
