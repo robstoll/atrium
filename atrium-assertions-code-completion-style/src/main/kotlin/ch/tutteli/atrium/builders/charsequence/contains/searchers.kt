@@ -1,8 +1,12 @@
 package ch.tutteli.atrium.builders.charsequence.contains
 
-import ch.tutteli.atrium.assertions.charsequence.*
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator.IDecorator
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsIgnoringCaseIndexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsIndexSearcher
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.value(expected: Any): IAssertionPlant<T>

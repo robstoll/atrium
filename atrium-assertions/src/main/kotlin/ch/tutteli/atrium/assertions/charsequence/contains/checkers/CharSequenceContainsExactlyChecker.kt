@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.assertions.charsequence
+package ch.tutteli.atrium.assertions.charsequence.contains.checkers
 
 import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion

@@ -2,8 +2,8 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsNoOpDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 import ch.tutteli.atrium.builders.charsequence.contains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import org.jetbrains.spek.api.Spek

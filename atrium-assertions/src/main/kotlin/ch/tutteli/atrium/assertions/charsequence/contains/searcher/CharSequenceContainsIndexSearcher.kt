@@ -1,6 +1,7 @@
-package ch.tutteli.atrium.assertions.charsequence
+package ch.tutteli.atrium.assertions.charsequence.contains.searcher
 
-import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 
 class CharSequenceContainsIndexSearcher : ISearcher<CharSequenceContainsNoOpDecorator> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int {
