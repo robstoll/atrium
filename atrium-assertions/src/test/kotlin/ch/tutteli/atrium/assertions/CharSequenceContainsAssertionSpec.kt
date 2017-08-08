@@ -2,6 +2,8 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.CharSequenceContainsNoOpDecorator
 import ch.tutteli.atrium.builders.charsequence.contains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import org.jetbrains.spek.api.Spek
@@ -14,17 +16,18 @@ object CharSequenceContainsAssertionSpec : Spek({
 
     val text = "Hello my name is Robert"
     val fluent = assert(text)
-    val helloWorld = "Hello World"
+    val helloWorld = "Hello World, I am Oskar"
     val fluentHelloWorld = assert(helloWorld)
 
-    val containsProp: KProperty<CharSequenceContainsBuilder<String>> = fluent::contains
+    val containsProp: KProperty<CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>> = fluent::contains
     val contains = containsProp.name
     val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = fluent::containsNot
     val containsNot = containsNotFun.name
-    val atLeast = CharSequenceContainsBuilder<String>::atLeast.name
-    val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<String>::butAtMost.name
-    val exactly = CharSequenceContainsBuilder<String>::exactly.name
-    val atMost = CharSequenceContainsBuilder<String>::atMost.name
+    val atLeast = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::atLeast.name
+    val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::butAtMost.name
+    val exactly = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::exactly.name
+    val atMost = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::atMost.name
+    val ignoringCase = CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>::ignoringCase.name
 
     val illegalArgumentException = IllegalArgumentException::class.simpleName
 
@@ -195,20 +198,35 @@ object CharSequenceContainsAssertionSpec : Spek({
                         fluentHelloWorld.contains.atLeast(1).value("h")
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_LEAST)
                 }
+                test("$contains $ignoringCase 'h' $atLeast once does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.atLeast(1).value("h")
+                }
+
                 test("$contains 'H', 'E' $atLeast once throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.atLeast(1).values("H", "E")
                     }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), "E")
                 }
+                test("$contains $ignoringCase 'H', 'E' $atLeast once does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values("H", "E")
+                }
+
                 test("$contains 'E', 'H' $atLeast once throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.atLeast(1).values("E", "H")
                     }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), "E")
                 }
+                test("$contains $ignoringCase 'E', 'H' $atLeast once does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values("E", "H")
+                }
+
                 test("$contains 'H', 'E', 'w' and 'r' $atLeast once throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.atLeast(1).values("H", "E", "w", "r")
                     }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), "E", "w")
+                }
+                test("$contains $ignoringCase 'H', 'E', 'w' and 'r' $atLeast once does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.atLeast(1).values("H", "E", "w", "r")
                 }
             }
 
@@ -219,6 +237,7 @@ object CharSequenceContainsAssertionSpec : Spek({
                 test("$contains 'o' $atLeast twice does not throw") {
                     fluentHelloWorld.contains.atLeast(2).value("o")
                 }
+
                 test("$contains 'o' $atLeast 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.atLeast(3).value("o")
@@ -228,12 +247,17 @@ object CharSequenceContainsAssertionSpec : Spek({
                         AT_LEAST.getDefault() + ": 3"
                     )
                 }
+                test("$contains $ignoringCase 'o' $atLeast 3 times does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.atLeast(3).value("o")
+                }
+
                 test("$contains 'o' and 'l' $atLeast twice does not throw") {
                     fluentHelloWorld.contains.atLeast(2).values("o", "l")
                 }
                 test("$contains 'l' $atLeast 3 times does not throw") {
                     fluentHelloWorld.contains.atLeast(3).value("l")
                 }
+
                 test("$contains 'o' and 'l' $atLeast 3 times throws AssertionError and message contains both, at least: 3 and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.atLeast(3).values("o", "l")
@@ -245,6 +269,9 @@ object CharSequenceContainsAssertionSpec : Spek({
                         )
                         containsNot(CONTAINS.getDefault() + ": \"l\"")
                     }
+                }
+                test("$contains $ignoringCase 'o' and 'l' $atLeast 3 times does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.atLeast(3).values("o", "l")
                 }
             }
 
@@ -268,6 +295,10 @@ object CharSequenceContainsAssertionSpec : Spek({
                 test("$contains 'o' and 'l' $atLeast twice $butAtMost 3 times does not throw") {
                     fluentHelloWorld.contains.atLeast(2).butAtMost(3).values("o", "l")
                 }
+                test("$contains $ignoringCase 'o' and 'l' $atLeast twice $butAtMost 3 times does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.atLeast(2).butAtMost(3).values("o", "l")
+                }
+
                 test("$contains 'o' and 'l' $atLeast 3 times $butAtMost 4 times throws AssertionError and message contains both, at least: 3 and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.atLeast(3).butAtMost(4).values("o", "l")
@@ -280,6 +311,9 @@ object CharSequenceContainsAssertionSpec : Spek({
                         containsNot(CONTAINS.getDefault() + ": \"l\"")
                         containsNotDefaultTranslationOf(AT_MOST)
                     }
+                }
+                test("$contains $ignoringCase 'o' and 'l' $atLeast 3 times does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.atLeast(3).butAtMost(4).values("o", "l")
                 }
             }
         }
@@ -319,20 +353,35 @@ object CharSequenceContainsAssertionSpec : Spek({
                         fluentHelloWorld.contains.exactly(1).value("h")
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(EXACTLY)
                 }
+                test("$contains $ignoringCase 'h' $exactly once throws AssertionError") {
+                    fluentHelloWorld.contains.ignoringCase.exactly(1).value("h")
+                }
+
                 test("$contains 'H', 'E' $exactly once throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.exactly(1).values("H", "E")
                     }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), "E")
                 }
+                test("$contains $ignoringCase 'H', 'E' $exactly once throws AssertionError") {
+                    fluentHelloWorld.contains.ignoringCase.exactly(1).values("H", "E")
+                }
+
                 test("$contains 'E', 'H' $exactly once throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.exactly(1).values("E", "H")
                     }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), "E")
                 }
+                test("$contains $ignoringCase 'E', 'H' $exactly once throws AssertionError") {
+                    fluentHelloWorld.contains.ignoringCase.exactly(1).values("E", "H")
+                }
+
                 test("$contains 'H' and 'E' and 'w' $exactly once throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.exactly(1).values("H", "E", "w")
                     }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), "E", "w")
+                }
+                test("$contains $ignoringCase 'H' and 'E' and 'w' $exactly once throws AssertionError") {
+                    fluentHelloWorld.contains.ignoringCase.exactly(1).values("H", "E", "w")
                 }
             }
 
@@ -340,11 +389,21 @@ object CharSequenceContainsAssertionSpec : Spek({
                 test("$contains 'o' $exactly once throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.exactly(1).value("o")
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(EXACTLY)
                 }
                 test("$contains 'o' $exactly twice does not throw") {
                     fluentHelloWorld.contains.exactly(2).value("o")
                 }
+                test("$contains $ignoringCase 'o' $exactly twice throws") {
+                    expect {
+                        fluentHelloWorld.contains.ignoringCase.exactly(2).value("o")
+                    }.toThrow<AssertionError>().and.message.contains(
+                        String.format(IGNORING_CASE.getDefault(), CONTAINS.getDefault()),
+                        NUMBER_OF_OCCURRENCES.getDefault() + ": 3",
+                        EXACTLY.getDefault() + ": 2"
+                    )
+                }
+
                 test("$contains 'o' $exactly 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.exactly(3).value("o")
@@ -353,6 +412,10 @@ object CharSequenceContainsAssertionSpec : Spek({
                         EXACTLY.getDefault() + ": 3"
                     )
                 }
+                test("$contains $ignoringCase 'o' $exactly 3 times does not throw") {
+                    fluentHelloWorld.contains.ignoringCase.exactly(3).value("o")
+                }
+
                 test("$contains 'o' and 'l' $exactly twice throws AssertionError") {
                     expect {
                         fluentHelloWorld.contains.exactly(2).values("o", "l")
@@ -447,9 +510,16 @@ object CharSequenceContainsAssertionSpec : Spek({
                         AT_MOST.getDefault() + ": 1"
                     )
                 }
+
                 test("$contains 'o' $atMost twice does not throw") {
                     fluentHelloWorld.contains.atMost(2).value("o")
                 }
+                test("$contains $ignoringCase 'o' $atMost twice throws AssertionError") {
+                    expect {
+                        fluentHelloWorld.contains.ignoringCase.atMost(2).value("o")
+                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(AT_MOST)
+                }
+
                 test("$contains 'o' $atMost 3 times does not throw") {
                     fluentHelloWorld.contains.atMost(3).value("o")
                 }
