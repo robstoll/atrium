@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
     val decorator: D,
     val searcher: ISearcher<D>,
-    val checkers: List<IChecker<T>>
+    val checkers: List<IChecker>
 ) {
     fun create(plant: IAssertionPlant<T>, vararg expected: Any): IAssertionGroup {
         val assertions = mutableListOf<IAssertion>()
@@ -52,7 +52,7 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
         fun search(searchIn: CharSequence, searchFor: Any): Int
     }
 
-    interface IChecker<C : CharSequence> {
+    interface IChecker {
         fun createAssertion(foundNumberOfTimes: Int): IAssertion
     }
 }
