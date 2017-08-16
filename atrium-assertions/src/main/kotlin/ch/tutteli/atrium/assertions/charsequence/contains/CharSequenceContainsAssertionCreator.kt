@@ -7,9 +7,9 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 class CharSequenceContainsAssertionCreator<T : CharSequence, D : CharSequenceContainsAssertionCreator.IDecorator>(
-    val decorator: D,
-    val searcher: ISearcher<D>,
-    val checkers: List<IChecker>
+    private val decorator: D,
+    private val searcher: ISearcher<D>,
+    private val checkers: List<IChecker>
 ) {
     fun create(plant: IAssertionPlant<T>, vararg expected: Any): IAssertionGroup {
         val assertions = mutableListOf<IAssertion>()
