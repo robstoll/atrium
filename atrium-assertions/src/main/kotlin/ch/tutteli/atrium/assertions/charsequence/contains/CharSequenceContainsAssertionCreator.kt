@@ -14,21 +14,22 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : CharSequenceCon
     fun create(plant: IAssertionPlant<T>, vararg expected: Any): IAssertionGroup {
         val assertions = mutableListOf<IAssertion>()
         expected.forEach {
-            //TODO lazy assertions
             assertions.add(create(plant, it))
         }
         return InvisibleAssertionGroup(assertions)
     }
 
     private fun create(plant: IAssertionPlant<T>, expected: Any): IAssertionGroup {
-        val description = decorator.decorateDescription(CONTAINS)
-        val count = searcher.search(plant.subject, expected)
-        val assertions = mutableListOf<IAssertion>()
-        checkers.forEach {
-            assertions.add(it.createAssertion(count))
+        return LazyThreadUnsafeAssertionGroup {
+            val description = decorator.decorateDescription(CONTAINS)
+            val count = searcher.search(plant.subject, expected)
+            val assertions = mutableListOf<IAssertion>()
+            checkers.forEach {
+                assertions.add(it.createAssertion(count))
+            }
+            val featureAssertion = AssertionGroup(FeatureAssertionGroupType, NUMBER_OF_OCCURRENCES, count, assertions.toList())
+            AssertionGroup(ListAssertionGroupType, description, expected, listOf(featureAssertion))
         }
-        val featureAssertion = AssertionGroup(FeatureAssertionGroupType, NUMBER_OF_OCCURRENCES, count, assertions.toList())
-        return AssertionGroup(ListAssertionGroupType, description, expected, listOf(featureAssertion))
     }
 
     /**
