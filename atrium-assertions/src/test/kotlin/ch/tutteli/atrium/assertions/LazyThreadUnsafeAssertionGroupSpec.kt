@@ -8,13 +8,14 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
-object LazyThreadUnsafeBasicAssertionSpec : Spek({
+object LazyThreadUnsafeAssertionGroupSpec : Spek({
 
     describe("creating it") {
         var count = 0
-        val testee = LazyThreadUnsafeBasicAssertion {
+        val assertion = BasicAssertion(Untranslatable("b"), 3, false)
+        val testee = LazyThreadUnsafeAssertionGroup {
             ++count
-            BasicAssertion(Untranslatable("a"), 2, false)
+            AssertionGroup(FeatureAssertionGroupType, Untranslatable("a"), 2, listOf(assertion))
         }
         test("does not evaluate anything") {
             assert(count).toBe(0)
@@ -35,9 +36,9 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
             }
         }
 
-        on("invoking ${testee::holds.name} and then ${testee::expected.name}") {
+        on("invoking ${testee::holds.name} and then ${testee::assertions.name}") {
             val resultHolds = testee.holds()
-            val resultExpected = testee.expected
+            val resultAssertions = testee.assertions
 
             it("evaluates it only once") {
                 assert(count).toBe(1)
@@ -48,7 +49,11 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
             }
 
             it("returns expected of the underlying ${BasicAssertion::class.simpleName}") {
-                assert(resultExpected).toBe(2)
+                //TODO implement contains for collections
+                //assert(resultAssertions).containsStrict(assertion)
+                val iterator = resultAssertions.iterator()
+                assert(iterator.next()).toBe(assertion)
+                assert(iterator.hasNext()).toBe(false)
             }
         }
     }
