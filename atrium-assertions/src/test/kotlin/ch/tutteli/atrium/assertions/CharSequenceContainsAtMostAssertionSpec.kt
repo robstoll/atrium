@@ -30,6 +30,7 @@ object CharSequenceContainsAtMostAssertionSpec : Spek({
     val ignoringCase = CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>::ignoringCase.name
 
     val illegalArgumentException = IllegalArgumentException::class.simpleName
+    val separator = System.getProperty("line.separator")!!
 
     describe("fun $contains with specifier $atMost") {
 
@@ -89,10 +90,13 @@ object CharSequenceContainsAtMostAssertionSpec : Spek({
                 test("$contains 'o' $atMost once throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.atMost(1).value('o')
-                    }.toThrow<AssertionError>().and.message.contains(
-                        NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
-                        AT_MOST.getDefault() + ": 1"
-                    )
+                    }.toThrow<AssertionError>().and.message {
+                        contains(
+                            CONTAINS.getDefault() + ": 'o'",
+                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                        )
+                        endsWith(AT_MOST.getDefault() + ": 1")
+                    }
                 }
 
                 test("$contains 'o' $atMost twice does not throw") {
@@ -113,9 +117,9 @@ object CharSequenceContainsAtMostAssertionSpec : Spek({
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'l'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3",
-                            AT_MOST.getDefault() + ": 2"
+                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
                         )
+                        endsWith(AT_MOST.getDefault() + ": 2")
                         containsNot(CONTAINS.getDefault() + ": 'o'")
                     }
                 }
