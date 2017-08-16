@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.checkers
 
-import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 
@@ -11,5 +10,5 @@ class CharSequenceContainsAtLeastChecker(
 ) : CharSequenceContainsChecker(times, nameContainsNotFun, nameAtLeastFun) {
 
     override fun createAssertion(foundNumberOfTimes: Int): IAssertion
-        = BasicAssertion(DescriptionCharSequenceAssertion.AT_LEAST, times, foundNumberOfTimes >= times)
+        = createBasicAssertion(DescriptionCharSequenceAssertion.AT_LEAST, foundNumberOfTimes >= times)
 }

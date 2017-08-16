@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 class CharSequenceContainsAssertionCreator<T : CharSequence, D : CharSequenceContainsAssertionCreator.IDecorator>(
@@ -27,7 +28,7 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : CharSequenceCon
             checkers.forEach {
                 assertions.add(it.createAssertion(count))
             }
-            val featureAssertion = AssertionGroup(FeatureAssertionGroupType, NUMBER_OF_OCCURRENCES, count, assertions.toList())
+            val featureAssertion = AssertionGroup(FeatureAssertionGroupType, NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions.toList())
             AssertionGroup(ListAssertionGroupType, description, expected, listOf(featureAssertion))
         }
     }

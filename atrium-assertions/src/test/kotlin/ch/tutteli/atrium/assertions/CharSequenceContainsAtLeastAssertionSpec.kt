@@ -31,6 +31,7 @@ object CharSequenceContainsAtLeastAssertionSpec : Spek({
     val ignoringCase = CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>::ignoringCase.name
 
     val illegalArgumentException = IllegalArgumentException::class.simpleName
+    val separator = System.getProperty("line.separator")!!
 
     describe("fun $contains with specifier $atLeast (and sometimes specifier $butAtMost)") {
         context("throws an $illegalArgumentException") {
@@ -131,11 +132,13 @@ object CharSequenceContainsAtLeastAssertionSpec : Spek({
                 test("$contains 'o' $atLeast 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.contains.atLeast(3).value('o')
-                    }.toThrow<AssertionError>().and.message.contains(
-                        CONTAINS.getDefault() + ": 'o'",
-                        NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
-                        AT_LEAST.getDefault() + ": 3"
-                    )
+                    }.toThrow<AssertionError>().and.message {
+                        contains(
+                            CONTAINS.getDefault() + ": 'o'",
+                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                        )
+                        endsWith(AT_LEAST.getDefault() + ": 3")
+                    }
                 }
                 test("$contains $ignoringCase 'o' $atLeast 3 times does not throw") {
                     fluentHelloWorld.contains.ignoringCase.atLeast(3).value('o')
@@ -154,9 +157,9 @@ object CharSequenceContainsAtLeastAssertionSpec : Spek({
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
-                            AT_LEAST.getDefault() + ": 3"
+                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
                         )
+                        endsWith(AT_LEAST.getDefault() + ": 3")
                         containsNot(CONTAINS.getDefault() + ": 'l'")
                     }
                 }
@@ -175,9 +178,9 @@ object CharSequenceContainsAtLeastAssertionSpec : Spek({
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'l'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3",
-                            AT_MOST.getDefault() + ": 2"
+                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
                         )
+                        endsWith(AT_MOST.getDefault() + ": 2")
                         containsNot(CONTAINS.getDefault() + ": 'o'")
                         containsNotDefaultTranslationOf(AT_LEAST)
                     }
@@ -195,9 +198,9 @@ object CharSequenceContainsAtLeastAssertionSpec : Spek({
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2",
-                            AT_LEAST.getDefault() + ": 3"
+                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
                         )
+                        endsWith(AT_LEAST.getDefault() + ": 3")
                         containsNot(CONTAINS.getDefault() + ": 'l'")
                         containsNotDefaultTranslationOf(AT_MOST)
                     }
