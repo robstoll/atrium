@@ -4,6 +4,9 @@ import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAs
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 import java.util.regex.Pattern
 
+/**
+ * Represents an [ISearcher] which evaluates the matches of a given regular expression on the input stream.
+ */
 class CharSequenceContainsRegexSearcher : ISearcher<CharSequenceContainsNoOpDecorator> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int
         = search(searchIn, Pattern.compile(searchFor.toString()))

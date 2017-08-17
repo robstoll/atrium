@@ -3,6 +3,9 @@ package ch.tutteli.atrium.assertions.charsequence.contains.searcher
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.ISearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 
+/**
+ * Represents an [ISearcher] which uses [kotlin.text.indexOf] to find expected objects.
+ */
 class CharSequenceContainsIndexSearcher : ISearcher<CharSequenceContainsNoOpDecorator> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int {
         val expected = searchFor.toString()
