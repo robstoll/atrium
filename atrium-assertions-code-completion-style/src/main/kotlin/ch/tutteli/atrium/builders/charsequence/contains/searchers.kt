@@ -5,10 +5,10 @@ import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAs
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.ISearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
-import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsIgnoringCaseIndexSearcher
-import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsIgnoringCaseRegexSearcher
-import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsIndexSearcher
-import ch.tutteli.atrium.assertions.charsequence.contains.searcher.CharSequenceContainsRegexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseIndexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseRegexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIndexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.value(expected: Any): IAssertionPlant<T>
