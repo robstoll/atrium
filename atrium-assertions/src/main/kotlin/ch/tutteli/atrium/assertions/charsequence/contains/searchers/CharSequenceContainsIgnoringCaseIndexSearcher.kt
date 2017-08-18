@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.assertions.charsequence.contains.searcher
+package ch.tutteli.atrium.assertions.charsequence.contains.searchers
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.ISearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
