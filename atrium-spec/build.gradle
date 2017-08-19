@@ -13,6 +13,7 @@ dependencies {
     compile project(':atrium-api')
     compileOnly project(':atrium-api-late-binding')
     compile project(':atrium-assertions-code-completion-style')
+    compile project(':atrium-translations-en_UK')
 }
 
 dependencies {

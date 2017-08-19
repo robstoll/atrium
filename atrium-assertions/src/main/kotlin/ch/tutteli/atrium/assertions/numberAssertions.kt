@@ -15,13 +15,3 @@ fun <T> _isGreaterThan(plant: IAssertionPlant<T>, expected: T): IAssertion where
 
 fun <T> _isGreaterOrEquals(plant: IAssertionPlant<T>, expected: T): IAssertion where T : kotlin.Number, T : kotlin.Comparable<T>
     = BasicAssertion(IS_GREATER_OR_EQUALS, expected, { plant.subject >= expected })
-
-/**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Number].
- */
-enum class DescriptionNumberAssertion(override val value: String) : ISimpleTranslatable {
-    IS_LESS_THAN("is less than"),
-    IS_LESS_OR_EQUALS("is less or equals"),
-    IS_GREATER_THAN("is greater than"),
-    IS_GREATER_OR_EQUALS("is greater or equals"),
-}

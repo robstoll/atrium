@@ -11,11 +11,3 @@ fun <T : Collection<*>> _hasSize(plant: IAssertionPlant<T>, size: Int): IAsserti
 
 fun <T : Collection<*>> _isEmpty(plant: IAssertionPlant<T>): IAssertion
     = BasicAssertion(DescriptionBasic.IS, TranslatableRawString(EMPTY), { plant.subject.isEmpty() })
-
-/**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Collection].
- */
-enum class DescriptionCollectionAssertion(override val value: String) : ISimpleTranslatable {
-    HAS_SIZE("has size"),
-    EMPTY("empty")
-}
