@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.creating.IAssertionPlant

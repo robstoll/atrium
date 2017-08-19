@@ -1,6 +1,9 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.*
+import ch.tutteli.atrium.assertions.DescriptionBasic
+import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
+import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.checkNarrowingAssertion
 import ch.tutteli.atrium.spec.checkNarrowingNullableAssertion

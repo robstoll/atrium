@@ -1,6 +1,7 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.*
+import ch.tutteli.atrium.assertions.DescriptionBasic
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import org.jetbrains.spek.api.Spek

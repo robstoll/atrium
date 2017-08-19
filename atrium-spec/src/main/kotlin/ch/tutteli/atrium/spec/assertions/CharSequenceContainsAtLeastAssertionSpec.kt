@@ -1,6 +1,5 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.*
