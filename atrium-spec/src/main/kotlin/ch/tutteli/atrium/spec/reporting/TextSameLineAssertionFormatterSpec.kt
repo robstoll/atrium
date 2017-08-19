@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.DescriptionAnyAssertion.IS_SAME
-import ch.tutteli.atrium.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.IS_SAME
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.containsNot
@@ -39,6 +39,8 @@ abstract class TextSameLineAssertionFormatterSpec(
         sb = StringBuilder()
         methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
     }
+
+    val squarePoint = "▪"
 
     val unsupportedAssertion = object : IAssertion {
         override fun holds() = false
@@ -92,9 +94,8 @@ abstract class TextSameLineAssertionFormatterSpec(
                     )
                 }, sb, alwaysTrueAssertionFilter)
 
-                verbs.checkImmediately(sb).contains("${IS_SAME.getDefault()}: b$separator${TO_BE.getDefault()}: d")
+                verbs.checkImmediately(sb).contains("${IS_SAME.getDefault()}: b$separator$squarePoint ${TO_BE.getDefault()}: d")
             }
         }
     }
-
 })

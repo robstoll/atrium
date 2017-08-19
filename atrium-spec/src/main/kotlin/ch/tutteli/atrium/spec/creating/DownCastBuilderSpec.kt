@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.*
-import ch.tutteli.atrium.DescriptionNarrowingAssertion.IS_A
+import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion.IS_A
+import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields

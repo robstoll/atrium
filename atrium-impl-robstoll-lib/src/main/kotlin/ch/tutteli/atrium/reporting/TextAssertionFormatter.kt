@@ -61,11 +61,12 @@ class TextAssertionFormatter(
         formatAssertions {
             newMethodObject.sb.appendln()
             newMethodObject.indent()
+            newMethodObject.sb.append("▪ ")
             assertionFormatterController.format(it, newMethodObject)
         }
     }
 
-    fun formatFeatureGroupName(featureAssertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
+    private fun formatFeatureGroupName(featureAssertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         val arrow = "-> "
         val arrowLength = arrow.length
         val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), featureAssertionGroup.name)
