@@ -3,14 +3,12 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.*
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
-import ch.tutteli.atrium.builders.charsequence.contains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
-import java.util.regex.Pattern
-import java.util.regex.PatternSyntaxException
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty
 
@@ -114,7 +112,7 @@ object CharSequenceContainsExactlyAssertionSpec : Spek({
                             String.format(IGNORING_CASE.getDefault(), CONTAINS.getDefault()),
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
                         )
-                        endsWith( EXACTLY.getDefault() + ": 2")
+                        endsWith(EXACTLY.getDefault() + ": 2")
                     }
                 }
 
@@ -126,7 +124,7 @@ object CharSequenceContainsExactlyAssertionSpec : Spek({
                             CONTAINS.getDefault() + ": 'o'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
                         )
-                        endsWith( EXACTLY.getDefault() + ": 3")
+                        endsWith(EXACTLY.getDefault() + ": 3")
                     }
                 }
                 test("$contains $ignoringCase 'o' $exactly 3 times does not throw") {
@@ -141,7 +139,7 @@ object CharSequenceContainsExactlyAssertionSpec : Spek({
                             CONTAINS.getDefault() + ": 'l'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
                         )
-                        endsWith( EXACTLY.getDefault() + ": 2")
+                        endsWith(EXACTLY.getDefault() + ": 2")
                         containsNot(CONTAINS.getDefault() + ": 'o'")
                     }
                 }
@@ -156,7 +154,7 @@ object CharSequenceContainsExactlyAssertionSpec : Spek({
                             CONTAINS.getDefault() + ": 'o'",
                             NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
                         )
-                        endsWith( EXACTLY.getDefault() + ": 3")
+                        endsWith(EXACTLY.getDefault() + ": 3")
                         containsNot(CONTAINS.getDefault() + ": 'l'")
                     }
                 }

@@ -3,8 +3,8 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.*
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
-import ch.tutteli.atrium.builders.charsequence.contains.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
