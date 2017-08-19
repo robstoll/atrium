@@ -20,7 +20,7 @@ import org.jetbrains.spek.api.dsl.it
 abstract class TextListAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
-    describePrefix : String = "[Atrium] "
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
@@ -43,7 +43,8 @@ abstract class TextListAssertionGroupFormatterSpec(
     val listAssertionGroup = AssertionGroup(object : IListAssertionGroupType {}, TranslationSupplierSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
 
     val separator = System.getProperty("line.separator")!!
-    val bulletPoint = "◾"
+    val bulletPoint = "•"
+    val squarePoint = "▪"
 
     prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IListAssertionGroupType::class.simpleName}") {
@@ -51,8 +52,8 @@ abstract class TextListAssertionGroupFormatterSpec(
                 it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name} which are prepended with a `- ` as bullet point") {
                     facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("placeholder %s: 2"
-                        + "$separator$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator$bulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
+                        + "$separator  $bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1"
+                        + "$separator  $bulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
             }
 
@@ -62,14 +63,12 @@ abstract class TextListAssertionGroupFormatterSpec(
                     val featureAssertionGroup = AssertionGroup(FeatureAssertionGroupType, AssertionVerb.ASSERT, 10, featureAssertions)
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("-> ${AssertionVerb.ASSERT.getDefault()}: 10"
-                        + "$separator   placeholder %s: 2"
-                        + "$separator   $bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator   $bulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
-                        + "$separator   ${AssertionVerb.ASSERT.getDefault()}: 20")
+                        + "$separator   $squarePoint placeholder %s: 2"
+                        + "$separator     $bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1"
+                        + "$separator     $bulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                        + "$separator   $squarePoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
             }
-
-
         }
     }
 })
