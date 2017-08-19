@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.builders.charsequence.contains
+package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IChecker
