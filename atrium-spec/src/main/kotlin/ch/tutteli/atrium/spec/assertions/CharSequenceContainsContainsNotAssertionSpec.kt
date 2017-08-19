@@ -1,12 +1,9 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.*
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.exactly
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.value
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.values
 import ch.tutteli.atrium.creating.IAssertionPlant
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
