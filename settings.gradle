@@ -2,6 +2,7 @@ rootProject.name = 'atrium'
 
 include 'atrium-api'
 include 'atrium-api-late-binding'
+include 'atrium-assertions-code-completion-de_CH'
 include 'atrium-assertions-code-completion-en_UK'
 include 'atrium-assertions'
 include 'atrium-translations-de_CH'
