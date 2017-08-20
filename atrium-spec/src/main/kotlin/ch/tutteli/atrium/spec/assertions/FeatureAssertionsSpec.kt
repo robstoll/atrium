@@ -1,14 +1,15 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.*
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.describe
 
 @Suppress("UNUSED_PARAMETER")
-internal data class TestData(val description: String, val nullableValue: Int?) {
+data class TestData(val description: String, val nullableValue: Int?) {
     fun return0() = description
     fun return1(arg1: String) = description
     fun return2(arg1: String, arg2: Int?) = description
@@ -24,42 +25,47 @@ internal data class TestData(val description: String, val nullableValue: Int?) {
 }
 private typealias F = IAssertionPlant<TestData>.() -> Unit
 
-object FeatureAssertionsSpec : Spek({
+abstract class FeatureAssertionsSpec(
+    verbs: IAssertionVerbFactory,
 
-    val itsImmediate: F = { its(subject::description).contains("hello") }
-    val itsLazy: F = { its(subject::description) { contains("hello") } }
-    val propertyImmediate: F = { property(subject::description).contains("hello") }
-    val propertyLazy: F = { property(subject::description) { contains("hello") } }
-    val return0ValueImmediate: F = { returnValueOf(subject::return0).contains("hello") }
-    val return1ValueImmediate: F = { returnValueOf(subject::return1, "a").contains("hello") }
-    val return2ValueImmediate: F = { returnValueOf(subject::return2, "a", 1).contains("hello") }
-    val return3ValueImmediate: F = { returnValueOf(subject::return3, "a", 1, true).contains("hello") }
-    val return4ValueImmediate: F = { returnValueOf(subject::return4, "a", 1, true, 1.2).contains("hello") }
-    val return5ValueImmediate: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b').contains("hello") }
-    val return0ValueLazy: F = { returnValueOf(subject::return0) { contains("hello") } }
-    val return1ValueLazy: F = { returnValueOf(subject::return1, "a") { contains("hello") } }
-    val return2ValueLazy: F = { returnValueOf(subject::return2, "a", 1) { contains("hello") } }
-    val return3ValueLazy: F = { returnValueOf(subject::return3, "a", 1, true) { contains("hello") } }
-    val return4ValueLazy: F = { returnValueOf(subject::return4, "a", 1, true, 1.2) { contains("hello") } }
-    val return5ValueLazy: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
+    itsImmediate: F,
+    itsLazy: F,
+    propertyImmediate: F,
+    propertyLazy: F,
+    return0ValueImmediate: F,
+    return1ValueImmediate: F,
+    return2ValueImmediate: F,
+    return3ValueImmediate: F,
+    return4ValueImmediate: F,
+    return5ValueImmediate: F,
+    return0ValueLazy: F,
+    return1ValueLazy: F,
+    return2ValueLazy: F,
+    return3ValueLazy: F,
+    return4ValueLazy: F,
+    return5ValueLazy: F,
 
-    val itsNullableDoesNotHold: F = { its(subject::nullableValue).isNull() }
-    val propertyNullableDoesNotHold: F = { property(subject::nullableValue).isNull() }
-    val return0ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable0).isNull() }
-    val return1ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable1, "a").isNull() }
-    val return2ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable2, "a", 1).isNull() }
-    val return3ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable3, "a", 1, true).isNull() }
-    val return4ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNull() }
-    val return5ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
+    itsNullableDoesNotHold: F,
+    propertyNullableDoesNotHold: F,
+    return0ValueNullableDoesNotHold: F,
+    return1ValueNullableDoesNotHold: F,
+    return2ValueNullableDoesNotHold: F,
+    return3ValueNullableDoesNotHold: F,
+    return4ValueNullableDoesNotHold: F,
+    return5ValueNullableDoesNotHold: F,
 
-    val itsNullableHolds: F = { its(subject::nullableValue).isNotNull() }
-    val propertyNullableHolds: F = { property(subject::nullableValue).isNotNull() }
-    val return0ValueNullableHolds: F = { returnValueOf(subject::returnNullable0).isNotNull() }
-    val return1ValueNullableHolds: F = { returnValueOf(subject::returnNullable1, "a").isNotNull() }
-    val return2ValueNullableHolds: F = { returnValueOf(subject::returnNullable2, "a", 1).isNotNull() }
-    val return3ValueNullableHolds: F = { returnValueOf(subject::returnNullable3, "a", 1, true).isNotNull() }
-    val return4ValueNullableHolds: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNotNull() }
-    val return5ValueNullableHolds: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNotNull() }
+    itsNullableHolds: F,
+    propertyNullableHolds: F,
+    return0ValueNullableHolds: F,
+    return1ValueNullableHolds: F,
+    return2ValueNullableHolds: F,
+    return3ValueNullableHolds: F,
+    return4ValueNullableHolds: F,
+    return5ValueNullableHolds: F
+) : Spek({
+
+    val assert: (TestData) -> IAssertionPlant<TestData> = verbs::checkImmediately
+    val expect = verbs::checkException
 
     val functions = arrayOf(
         Triple("`its` immediate", itsImmediate, TestData::description.name),
