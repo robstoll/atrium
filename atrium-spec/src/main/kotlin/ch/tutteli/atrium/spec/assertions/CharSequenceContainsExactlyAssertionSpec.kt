@@ -1,111 +1,112 @@
 package ch.tutteli.atrium.spec.assertions
 
+import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.*
-import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
-import org.jetbrains.spek.api.Spek
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KProperty
 
-object CharSequenceContainsExactlyAssertionSpec : Spek({
+abstract class CharSequenceContainsExactlyAssertionSpec(
+    verbs: IAssertionVerbFactory,
+    containsExactlyPair: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsExactlyIgnoringCasePair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsNotPair: Pair<String, (Int) -> String>
+) : CharSequenceContainsSpecBase({
 
-    val text = "Hello my name is Robert"
+    val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
+    val expect = verbs::checkException
     val fluent = assert(text)
-    val helloWorld = "Hello World, I am Oskar"
     val fluentHelloWorld = assert(helloWorld)
 
-    val containsProp: KProperty<CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>> = fluent::contains
-    val contains = containsProp.name
-    val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = fluent::containsNot
-    val containsNot = containsNotFun.name
-    val exactly = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::exactly.name
-    val ignoringCase = CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>::ignoringCase.name
+    val (containsExactly, containsExactlyTest, containsExactlyFunArr) = containsExactlyPair
+    fun IAssertionPlant<CharSequence>.containsExactlyFun(atLeast: Int, a: Any, vararg aX: Any)
+        = containsExactlyFunArr(atLeast, a, aX)
 
-    val illegalArgumentException = IllegalArgumentException::class.simpleName
-    val separator = System.getProperty("line.separator")!!
+    val (containsExactlyIgnoringCase, containsExactlyIgnoringCaseFunArr) = containsExactlyIgnoringCasePair
+    fun IAssertionPlant<CharSequence>.containsExactlyIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
+        = containsExactlyIgnoringCaseFunArr(atLeast, a, aX)
 
-    describe("fun $contains with specifier $exactly") {
+    val (containsNot, errorMsgContainsNot) = containsNotPair
+
+    describe("fun $containsExactly") {
         context("throws an $illegalArgumentException") {
-            test("for $exactly(-1) -- only positive numbers") {
+            test("for exactly -1 -- only positive numbers") {
                 expect {
-                    fluent.contains.exactly(-1)
+                    fluent.containsExactlyFun(-1, "")
                 }.toThrow<IllegalArgumentException>().and.message.contains("positive number", -1)
             }
-            test("for $exactly(0) -- points to $containsNot") {
+            test("for exactly 0 -- points to $containsNot") {
                 expect {
-                    fluent.contains.exactly(0)
-                }.toThrow<IllegalArgumentException>().and.message.contains(containsNot, exactly)
+                    fluent.containsExactlyFun(0, "")
+                }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgContainsNot(0))
             }
         }
 
         context("text '$helloWorld'") {
 
-            group("happy case with $exactly once") {
-                test("$contains 'H' $exactly once does not throw") {
-                    fluentHelloWorld.contains.exactly(1).value('H')
+            group("happy case with $containsExactly once") {
+                test("${containsExactlyTest("'H'", "once")} does not throw") {
+                    fluentHelloWorld.containsExactlyFun(1, 'H')
                 }
-                test("$contains 'H' and 'e' and 'W' $exactly once does not throw") {
-                    fluentHelloWorld.contains.exactly(1).values('H', 'e', 'W')
+                test("${containsExactlyTest("'H' and 'e' and 'W'", "once")} does not throw") {
+                    fluentHelloWorld.containsExactlyFun(1, 'H', 'e', 'W')
                 }
-                test("$contains 'W' and 'H' and 'e' $exactly once does not throw") {
-                    fluentHelloWorld.contains.exactly(1).values('W', 'H', 'e')
+                test("${containsExactlyTest("'W' and 'H' and 'e'", "once")} does not throw") {
+                    fluentHelloWorld.containsExactlyFun(1, 'W', 'H', 'e')
                 }
             }
 
-            group("failing assertions; search string at different positions with $exactly once") {
-                test("$contains 'h' $exactly once throws AssertionError") {
+            group("failing assertions; search string at different positions with $containsExactly once") {
+                test("${containsExactlyTest("'h'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).value('h')
+                        fluentHelloWorld.containsExactlyFun(1, 'h')
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(EXACTLY)
                 }
-                test("$contains $ignoringCase 'h' $exactly once throws AssertionError") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(1).value('h')
+                test("${containsExactlyIgnoringCase("'h'", "once")} throws AssertionError") {
+                    fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'h')
                 }
 
-                test("$contains 'H', 'E' $exactly once throws AssertionError") {
+                test("${containsExactlyTest("'H', 'E'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).values('H', 'E')
+                        fluentHelloWorld.containsExactlyFun(1, 'H', 'E')
                     }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E')
                 }
-                test("$contains $ignoringCase 'H', 'E' $exactly once throws AssertionError") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(1).values('H', 'E')
+                test("${containsExactlyIgnoringCase("'H', 'E'", "once")} throws AssertionError") {
+                    fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'H', 'E')
                 }
 
-                test("$contains 'E', 'H' $exactly once throws AssertionError") {
+                test("${containsExactlyTest("'E', 'H'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).values('E', 'H')
+                        fluentHelloWorld.containsExactlyFun(1, 'E', 'H')
                     }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E')
                 }
-                test("$contains $ignoringCase 'E', 'H' $exactly once throws AssertionError") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(1).values('E', 'H')
+                test("${containsExactlyIgnoringCase("'E', 'H'", "once")} throws AssertionError") {
+                    fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'E', 'H')
                 }
 
-                test("$contains 'H' and 'E' and 'w' $exactly once throws AssertionError") {
+                test("${containsExactlyTest("'H' and 'E' and 'w'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).values('H', 'E', 'w')
+                        fluentHelloWorld.containsExactlyFun(1, 'H', 'E', 'w')
                     }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E', 'w')
                 }
-                test("$contains $ignoringCase 'H' and 'E' and 'w' $exactly once throws AssertionError") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(1).values('H', 'E', 'w')
+                test("${containsExactlyIgnoringCase("'H' and 'E' and 'w'", "once")} throws AssertionError") {
+                    fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'H', 'E', 'w')
                 }
             }
 
             group("multiple occurrences of the search string") {
-                test("$contains 'o' $exactly once throws AssertionError") {
+                test("${containsExactlyTest("'o'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(1).value('o')
+                        fluentHelloWorld.containsExactlyFun(1, 'o')
                     }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(EXACTLY)
                 }
-                test("$contains 'o' $exactly twice does not throw") {
-                    fluentHelloWorld.contains.exactly(2).value('o')
+                test("${containsExactlyTest("'o'", "twice")} does not throw") {
+                    fluentHelloWorld.containsExactlyFun(2, 'o')
                 }
-                test("$contains $ignoringCase 'o' $exactly twice throws") {
+                test("${containsExactlyIgnoringCase("'o'", "twice")} throws") {
                     expect {
-                        fluentHelloWorld.contains.ignoringCase.exactly(2).value('o')
+                        fluentHelloWorld.containsExactlyIgnoringCaseFun(2, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             String.format(IGNORING_CASE.getDefault(), CONTAINS.getDefault()),
@@ -115,9 +116,9 @@ object CharSequenceContainsExactlyAssertionSpec : Spek({
                     }
                 }
 
-                test("$contains 'o' $exactly 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
+                test("${containsExactlyTest("'o'", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.exactly(3).value('o')
+                        fluentHelloWorld.containsExactlyFun(3, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'o'",
@@ -126,13 +127,13 @@ object CharSequenceContainsExactlyAssertionSpec : Spek({
                         endsWith(EXACTLY.getDefault() + ": 3")
                     }
                 }
-                test("$contains $ignoringCase 'o' $exactly 3 times does not throw") {
-                    fluentHelloWorld.contains.ignoringCase.exactly(3).value('o')
+                test("${containsExactlyIgnoringCase("'o'", "3 times")} does not throw") {
+                    fluentHelloWorld.containsExactlyIgnoringCaseFun(3, 'o')
                 }
 
-                test("$contains 'o' and 'l' $exactly twice throws AssertionError") {
+                test("${containsExactlyTest("'o' and 'l'", "twice")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.exactly(2).values('o', 'l')
+                        fluentHelloWorld.containsExactlyFun(2, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'l'",
@@ -142,12 +143,12 @@ object CharSequenceContainsExactlyAssertionSpec : Spek({
                         containsNot(CONTAINS.getDefault() + ": 'o'")
                     }
                 }
-                test("$contains 'l' $exactly 3 times does not throw") {
-                    fluentHelloWorld.contains.exactly(3).value('l')
+                test("${containsExactlyTest("'l'", "3 times")} does not throw") {
+                    fluentHelloWorld.containsExactlyFun(3, 'l')
                 }
-                test("$contains 'o' and 'l' $exactly 3 times throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
+                test("${containsExactlyTest("'o' and 'l'", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.exactly(3).values('o', 'l')
+                        fluentHelloWorld.containsExactlyFun(3, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'o'",
