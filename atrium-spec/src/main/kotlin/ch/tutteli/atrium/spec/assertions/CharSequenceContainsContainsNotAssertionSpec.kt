@@ -2,38 +2,51 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.exactly
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.value
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.values
+import ch.tutteli.atrium.contains
+import ch.tutteli.atrium.containsDefaultTranslationOf
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.its
+import ch.tutteli.atrium.message
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KProperty
 
-object CharSequenceContainsContainsNotAssertionSpec : Spek({
+abstract class CharSequenceContainsContainsNotAssertionSpec(
+    verbs: IAssertionVerbFactory,
+    containsPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>,
+    containsNotPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>
+) : Spek({
 
+    val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
+    val expect = verbs::checkException
     val text = "Hello my name is Robert"
     val fluent = assert(text)
 
-    val containsProp: KProperty<CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>> = fluent::contains
-    val contains = containsProp.name
-    val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = fluent::containsNot
-    val containsNot = containsNotFun.name
+    val (contains, containsFunArr) = containsPair
+    fun IAssertionPlant<CharSequence>.containsFun(t: String, vararg tX: String)
+        = containsFunArr(t, tX)
+
+    val (containsNot, containsNotFunArr) = containsNotPair
+    fun IAssertionPlant<CharSequence>.containsNotFun(t: String, vararg tX: String)
+        = containsNotFunArr(t, tX)
 
     describe("fun $contains and $containsNot") {
         context("empty string") {
             val fluentEmptyString = assert("")
             test("$contains 'Hello' throws AssertionError") {
                 expect {
-                    fluentEmptyString.contains("Hello")
+                    fluentEmptyString.containsFun("Hello")
                 }.toThrow<AssertionError>().and.message.contains(
                     DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
                     DescriptionCharSequenceAssertion.AT_LEAST.getDefault() + ": 1"
                 )
             }
             test("$containsNot 'Hello' does not throw") {
-                fluentEmptyString.containsNot("Hello")
+                fluentEmptyString.containsNotFun("Hello")
             }
         }
 
@@ -41,20 +54,20 @@ object CharSequenceContainsContainsNotAssertionSpec : Spek({
 
             context("search for 'Hello' and 'Robert'") {
                 test("$contains 'Hello' does not throw") {
-                    fluent.contains("Hello")
+                    fluent.containsFun("Hello")
                 }
                 test("$containsNot 'Hello' throws AssertionError") {
                     expect {
-                        fluent.containsNot("Hello")
+                        fluent.containsNotFun("Hello")
                     }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionCharSequenceAssertion.CONTAINS_NOT)
                 }
 
                 test("$contains 'Hello' and 'Robert' does not throw") {
-                    fluent.contains("Hello", "Robert")
+                    fluent.containsFun("Hello", "Robert")
                 }
                 test("$containsNot 'Hello' and 'Robert' throws AssertionError") {
                     expect {
-                        fluent.containsNot("Hello", "Robert")
+                        fluent.containsNotFun("Hello", "Robert")
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(CONTAINS_NOT)
                 }
             }
@@ -62,18 +75,18 @@ object CharSequenceContainsContainsNotAssertionSpec : Spek({
             context("search for 'notInThere' and 'neitherInThere'") {
                 test("$contains 'notInThere' and 'neitherInThere' throws AssertionError") {
                     expect {
-                        fluent.contains("notInThere", "neitherInThere")
+                        fluent.containsFun("notInThere", "neitherInThere")
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(CONTAINS)
                 }
                 test("$containsNot 'notInThere' and 'neitherInThere' does not throw") {
-                    fluent.containsNot("notInThere", "neitherInThere")
+                    fluent.containsNotFun("notInThere", "neitherInThere")
                 }
             }
 
             context("search for 'hello' and 'robert'") {
                 test("$contains 'hello' and 'robert' throws AssertionError") {
                     expect {
-                        fluent.contains("hello", "robert")
+                        fluent.containsFun("hello", "robert")
                     }.toThrow<AssertionError>().and.message.contains.exactly(2).values(
                         CONTAINS.getDefault(),
                         NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
@@ -81,28 +94,28 @@ object CharSequenceContainsContainsNotAssertionSpec : Spek({
                     )
                 }
                 test("$containsNot 'hello' and 'robert' does not throw") {
-                    fluent.containsNot("hello", "robert")
+                    fluent.containsNotFun("hello", "robert")
                 }
             }
 
             context("search for 'Hello' and 'notInThere'") {
                 test("$contains 'notInThere' throws AssertionError") {
                     expect {
-                        fluent.contains("notInThere")
+                        fluent.containsFun("notInThere")
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(CONTAINS)
                 }
                 test("$containsNot 'notInThere' does not throw") {
-                    fluent.containsNot("notInThere")
+                    fluent.containsNotFun("notInThere")
                 }
 
                 test("$contains 'Hello' and 'notInThere' throws AssertionError") {
                     expect {
-                        fluent.contains("Hello", "notInThere")
+                        fluent.containsFun("Hello", "notInThere")
                     }.toThrow<AssertionError>().message.contains(CONTAINS.getDefault(), "notInThere")
                 }
                 test("$containsNot 'Hello' and 'notInThere' throws AssertionError") {
                     expect {
-                        fluent.containsNot("Hello", "notInThere")
+                        fluent.containsNotFun("Hello", "notInThere")
                     }.toThrow<AssertionError>().message.contains(CONTAINS_NOT.getDefault(), "Hello")
                 }
             }
@@ -112,19 +125,19 @@ object CharSequenceContainsContainsNotAssertionSpec : Spek({
             context("feature assertion about a Person's name 'Robert Stoll'") {
                 data class Person(val name: String)
 
-                val person: Person = Person("Robert Stoll")
+                val person = Person("Robert Stoll")
 
                 test("$contains 'treboR' and 'llotS' - error message contains '-> name' exactly once") {
                     expect {
-                        assert(person) {
-                            its(subject::name).contains("treboR", "llotS")
+                        verbs.checkLazily(person) {
+                            its(subject::name).containsFun("treboR", "llotS")
                         }
                     }.toThrow<AssertionError>().and.message.contains.exactly(1).value("-> name")
                 }
                 test("$containsNot 'Robert' and 'Stoll' - error message contains '-> name' exactly once") {
                     expect {
-                        assert(person) {
-                            its(subject::name).containsNot("Robert", "Stoll")
+                        verbs.checkLazily(person) {
+                            its(subject::name).containsNotFun("Robert", "Stoll")
                         }
                     }.toThrow<AssertionError>().and.message.contains.exactly(1).value("-> name")
                 }

@@ -1,92 +1,92 @@
 package ch.tutteli.atrium.spec.assertions
 
+import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.*
-import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
-import org.jetbrains.spek.api.Spek
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KProperty
 
-object CharSequenceContainsAtMostAssertionSpec : Spek({
+abstract class CharSequenceContainsAtMostAssertionSpec(
+    verbs: IAssertionVerbFactory,
+    containsAtMostPair: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtMostIgnoringCasePair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsNotPair: Pair<String, (Int) -> String>
+) : CharSequenceContainsSpecBase({
 
-    val text = "Hello my name is Robert"
+    val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
+    val expect = verbs::checkException
     val fluent = assert(text)
-    val helloWorld = "Hello World, I am Oskar"
     val fluentHelloWorld = assert(helloWorld)
 
-    val containsProp: KProperty<CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>> = fluent::contains
-    val contains = containsProp.name
-    val containsNotFun: KFunction2<Any, Array<out Any>, IAssertionPlant<CharSequence>> = fluent::containsNot
-    val containsNot = containsNotFun.name
-    val exactly = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::exactly.name
-    val atMost = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::atMost.name
-    val ignoringCase = CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>::ignoringCase.name
+    val (containsAtMost, containsAtMostTest, containsAtMostFunArr) = containsAtMostPair
+    fun IAssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: Any, vararg aX: Any)
+        = containsAtMostFunArr(atLeast, a, aX)
 
-    val illegalArgumentException = IllegalArgumentException::class.simpleName
-    val separator = System.getProperty("line.separator")!!
+    val (containsAtMostIgnoringCase, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCasePair
+    fun IAssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
+        = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
-    describe("fun $contains with specifier $atMost") {
+    val (containsNot, errorMsgContainsNot) = containsNotPair
+
+    describe("fun $containsAtMost") {
 
         context("throws an $illegalArgumentException") {
-            test("for $atMost(-1) -- only positive numbers") {
+            test("for at most -1 -- only positive numbers") {
                 expect {
-                    fluent.contains.atMost(-1)
+                    fluent.containsAtMostFun(-1, "")
                 }.toThrow<IllegalArgumentException>().and.message.contains("positive number", -1)
             }
-            test("for $atMost(0) -- points to $containsNot") {
+            test("for at most 0 -- points to $containsNot") {
                 expect {
-                    fluent.contains.atMost(0)
-                }.toThrow<IllegalArgumentException>().and.message.contains(containsNot, atMost)
+                    fluent.containsAtMostFun(0, "")
+                }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgContainsNot(0))
             }
         }
 
         context("text '$helloWorld'") {
-            group("happy case with $atMost once") {
-                test("$contains 'H' $atMost once does not throw") {
-                    fluentHelloWorld.contains.atMost(1).value('H')
+            group("happy case with $containsAtMost once") {
+                test("${containsAtMostTest("'H'", "once")} does not throw") {
+                    fluentHelloWorld.containsAtMostFun(1, 'H')
                 }
-                test("$contains 'H' and 'e' and 'W' $atMost once does not throw") {
-                    fluentHelloWorld.contains.atMost(1).values('H', 'e', 'W')
+                test("${containsAtMostTest("'H' and 'e' and 'W'", "once")} does not throw") {
+                    fluentHelloWorld.containsAtMostFun(1, 'H', 'e', 'W')
                 }
-                test("$contains 'W' and 'H' and 'e' $atMost once does not throw") {
-                    fluentHelloWorld.contains.atMost(1).values('W', 'H', 'e')
+                test("${containsAtMostTest("'W' and 'H' and 'e'", "once")} does not throw") {
+                    fluentHelloWorld.containsAtMostFun(1, 'W', 'H', 'e')
                 }
-                test("$contains 'x' and 'y' and 'z' $atMost once does not throw") {
-                    fluentHelloWorld.contains.atMost(1).values('x', 'y', 'z')
+                test("${containsAtMostTest("'x' and 'y' and 'z'", "once")} does not throw") {
+                    fluentHelloWorld.containsAtMostFun(1, 'x', 'y', 'z')
                 }
             }
 
             group("failing assertions; search string at different positions") {
-                test("$contains 'l' $atMost once throws AssertionError") {
+                test("${containsAtMostTest("'l'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).value('l')
+                        fluentHelloWorld.containsAtMostFun(1, 'l')
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_MOST)
                 }
-                test("$contains 'H', 'l' $atMost once throws AssertionError") {
+                test("${containsAtMostTest("'H', 'l'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).values('H', 'l')
+                        fluentHelloWorld.containsAtMostFun(1, 'H', 'l')
                     }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
                 }
-                test("$contains 'l', 'H' $exactly once throws AssertionError") {
+                test("${containsAtMostTest("'l', 'H'", "once")} once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).values('l', 'H')
+                        fluentHelloWorld.containsAtMostFun(1, 'l', 'H')
                     }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
                 }
-                test("$contains 'o', 'E', 'W', 'l' $atMost once throws AssertionError") {
+                test("${containsAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).values('o', 'E', 'W', 'l')
+                        fluentHelloWorld.containsAtMostFun(1, 'o', 'E', 'W', 'l')
                     }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'o', 'l')
                 }
             }
 
             group("multiple occurrences of the search string") {
-                test("$contains 'o' $atMost once throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)") {
+                test("${containsAtMostTest("'o'", "once")} throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.atMost(1).value('o')
+                        fluentHelloWorld.containsAtMostFun(1, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'o'",
@@ -96,21 +96,21 @@ object CharSequenceContainsAtMostAssertionSpec : Spek({
                     }
                 }
 
-                test("$contains 'o' $atMost twice does not throw") {
-                    fluentHelloWorld.contains.atMost(2).value('o')
+                test("${containsAtMostTest("'o'", "twice")} does not throw") {
+                    fluentHelloWorld.containsAtMostFun(2, 'o')
                 }
-                test("$contains $ignoringCase 'o' $atMost twice throws AssertionError") {
+                test("${containsAtMostIgnoringCase("'o'", "twice")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.contains.ignoringCase.atMost(2).value('o')
+                        fluentHelloWorld.containsAtMostIgnoringCaseFun(2, 'o')
                     }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(AT_MOST)
                 }
 
-                test("$contains 'o' $atMost 3 times does not throw") {
-                    fluentHelloWorld.contains.atMost(3).value('o')
+                test("${containsAtMostTest("'o'", "3 times")} does not throw") {
+                    fluentHelloWorld.containsAtMostFun(3, 'o')
                 }
-                test("$contains 'o' and 'l' $atMost twice throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)") {
+                test("${containsAtMostTest("'o' and 'l'", "twice")} throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)") {
                     expect {
-                        fluentHelloWorld.contains.atMost(2).values('o', 'l')
+                        fluentHelloWorld.containsAtMostFun(2, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             CONTAINS.getDefault() + ": 'l'",
@@ -120,11 +120,11 @@ object CharSequenceContainsAtMostAssertionSpec : Spek({
                         containsNot(CONTAINS.getDefault() + ": 'o'")
                     }
                 }
-                test("$contains 'l' $atMost 3 times does not throw") {
-                    fluentHelloWorld.contains.atMost(3).value('l')
+                test("${containsAtMostTest("'l'", "3 times")} does not throw") {
+                    fluentHelloWorld.containsAtMostFun(3, 'l')
                 }
-                test("$contains 'o' and 'l' $atMost 3 times does not throw") {
-                    fluentHelloWorld.contains.atMost(3).values('o', 'l')
+                test("${containsAtMostTest("'o' and 'l'", "3 times")} does not throw") {
+                    fluentHelloWorld.containsAtMostFun(3, 'o', 'l')
                 }
 
             }

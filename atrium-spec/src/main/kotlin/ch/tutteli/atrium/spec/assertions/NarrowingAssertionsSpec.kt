@@ -1,18 +1,66 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.*
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
+import ch.tutteli.atrium.contains
+import ch.tutteli.atrium.containsDefaultTranslationOf
+import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkNarrowingAssertion
 import ch.tutteli.atrium.spec.checkNarrowingNullableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 
-object NarrowingAssertionsSpec : Spek({
-    describe("fun isNotNull") {
+abstract class NarrowingAssertionsSpec(
+    verbs: IAssertionVerbFactory,
+    isNotNullTriple: Triple<
+        String,
+        IAssertionPlantNullable<Int?>.() -> IAssertionPlant<Int>,
+        IAssertionPlantNullable<Int?>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>
+    >,
+    isNotNullLessPair: Pair<
+        IAssertionPlantNullable<Int?>.(Int) -> IAssertionPlant<Int>,
+        IAssertionPlantNullable<Int?>.(Int) -> IAssertionPlant<Int>
+    >,
+    isA: String,
+    isAIntPair: Pair<
+        IAssertionPlant<String>.() -> IAssertionPlant<Int>,
+        IAssertionPlant<String>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>
+    >,
+    isAStringPair: Pair<
+        IAssertionPlant<String>.() -> IAssertionPlant<String>,
+        IAssertionPlant<String>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> IAssertionPlant<String>
+    >,
+    isACharSequencePair: Pair<
+        IAssertionPlant<String>.() -> IAssertionPlant<CharSequence>,
+        IAssertionPlant<String>.(createAssertions: IAssertionPlant<CharSequence>.() -> Unit) -> IAssertionPlant<CharSequence>
+    >,
+    isASubTypePair: Pair<
+        IAssertionPlant<SuperType>.() -> IAssertionPlant<SubType>,
+        IAssertionPlant<SuperType>.(createAssertions: IAssertionPlant<SubType>.() -> Unit) -> IAssertionPlant<SubType>
+    >,
+    isAIntLessPair: Pair<IAssertionPlant<Number>.(Int) -> IAssertionPlant<Int>, IAssertionPlant<Number>.(Int) -> IAssertionPlant<Int>>
+) : Spek({
+
+    val expect = verbs::checkException
+
+    val (isNotNull, isNotNullFun, isNotNullLazyFun) = isNotNullTriple
+    val (isNotNullLessFun, isNotNullLessLazyFun) = isNotNullLessPair
+
+    val (isAIntFun, isAIntLazyFun) = isAIntPair
+    val (isAStringFun, isAStringLazyFun) = isAStringPair
+    val (isACharSequenceFun, isACharSequenceLazyFun) = isACharSequencePair
+    val (isASubTypeFun, isASubTypeLazyFun) = isASubTypePair
+    val (isAIntLessFun, isAIntLessLazyFun) = isAIntLessPair
+
+    describe("fun $isNotNull") {
+
+        val assert: (Int?) -> IAssertionPlantNullable<Int?> = verbs::checkNullable
 
         checkNarrowingNullableAssertion<Int?>("it throws an AssertionError if the subject is null", { isNotNull ->
             expect {
@@ -23,12 +71,12 @@ object NarrowingAssertionsSpec : Spek({
                 contains(RawString.NULL.string)
             }
 
-        }, { isNotNull() }, { isNotNull {} })
+        }, { isNotNullFun() }, { isNotNullLazyFun {} })
 
         checkNarrowingNullableAssertion<Int?>("it does not throw an Exception if the subject is not null", { isNotNull ->
             val i: Int? = 1
             assert(i).isNotNull()
-        }, { isNotNull() }, { isNotNull {} })
+        }, { isNotNullFun() }, { isNotNullLazyFun {} })
 
         context("it allows to define an assertion on the subject in case it is not null") {
             checkNarrowingNullableAssertion<Int?>("it throws an AssertionError if the assertion does not hold", { isNotNullWithCheck ->
@@ -36,16 +84,18 @@ object NarrowingAssertionsSpec : Spek({
                     val i: Int? = 1
                     assert(i).isNotNullWithCheck()
                 }.toThrow<AssertionError>()
-            }, { isNotNull().isLessOrEquals(0) }, { isNotNull { isLessOrEquals(0) } })
+            }, { isNotNullLessFun(0) }, { isNotNullLessLazyFun(0) })
 
             checkNarrowingNullableAssertion<Int?>("it does not throw an Exception if assertion holds", { isNotNullWithCheck ->
                 val i: Int? = 1
                 assert(i).isNotNullWithCheck()
-            }, { isNotNull().isGreaterOrEquals(1) }, { isNotNull { isGreaterOrEquals(0) } })
+            }, { isNotNullLessFun(2) }, { isNotNullLessLazyFun(2) })
         }
     }
 
-    describe("fun isA") {
+    describe("fun $isA") {
+
+        val assert: (String) -> IAssertionPlant<String> = verbs::checkImmediately
 
         checkNarrowingAssertion<String>("it throws an AssertionError if the subject is not of the given type", { isA ->
             expect {
@@ -54,38 +104,40 @@ object NarrowingAssertionsSpec : Spek({
                 containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
                 contains(Integer::class.java.name)
             }
-        }, { isA<Int>() }, { isA<Int> {} })
+        }, { isAIntFun() }, { isAIntLazyFun {} })
 
         checkNarrowingAssertion<String>("it does not throw an AssertionError if the subject is the same type", { isA ->
             assert("hello").isA()
-        }, { isA<String>() }, { isA<String> {} })
+        }, { isAStringFun() }, { isAStringLazyFun {} })
 
 
         checkNarrowingAssertion<String>("it does not throw an AssertionError if the subject is a subtype", { isA ->
             assert("hello").isA()
-        }, { isA<CharSequence>() }, { isA<CharSequence> {} })
+        }, { isACharSequenceFun() }, { isACharSequenceLazyFun {} })
 
-        open class A
-        class B : A()
-        checkNarrowingAssertion<A>("it throws an AssertionError if the subject is a supertype", { isA ->
+        checkNarrowingAssertion<SuperType>("it throws an AssertionError if the subject is a supertype", { isA ->
             expect {
-                assert(A()).isA()
+                verbs.checkImmediately(SuperType()).isA()
             }.toThrow<AssertionError> {
-                message.contains(A::class.java.name, "is type or sub-type of", B::class.java.name)
+                message.contains(SuperType::class.java.name, "is type or sub-type of", SubType::class.java.name)
             }
-        }, { isA<B>() }, { isA<B> {} })
+        }, { isASubTypeFun() }, { isASubTypeLazyFun {} })
 
         checkNarrowingAssertion<Int>("it allows to perform an assertion specific for the subtype which holds", { isAWithAssertion ->
-            assert(1).isAWithAssertion()
-        }, { isA<Int>().isLessThan(2) }, { isA<Int> { isLessThan(2) } })
+            verbs.checkImmediately(1).isAWithAssertion()
+        }, { isAIntLessFun(2) }, { isAIntLessLazyFun(2) })
 
         val expectedLessThan = 2
         val actualValue = 5
         checkNarrowingAssertion<Int>("it allows to perform an assertion specific for the subtype which fails", { isAWithAssertion ->
             expect {
-                assert(actualValue).isAWithAssertion()
+                verbs.checkImmediately(actualValue).isAWithAssertion()
             }.toThrow<AssertionError>().and.message.contains(actualValue, DescriptionNumberAssertion.IS_LESS_THAN.getDefault(), expectedLessThan)
-        }, { isA<Int>().isLessThan(expectedLessThan) }, { isA<Int> { isLessThan(expectedLessThan) } })
+        }, { isAIntLessFun(expectedLessThan) }, { isAIntLessLazyFun(expectedLessThan) })
     }
 
-})
+}) {
+
+    open class SuperType
+    class SubType : SuperType()
+}
