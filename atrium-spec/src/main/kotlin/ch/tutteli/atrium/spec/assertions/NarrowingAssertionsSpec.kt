@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.spec.assertions
 
+import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
+import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.contains
-import ch.tutteli.atrium.containsDefaultTranslationOf
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkNarrowingAssertion

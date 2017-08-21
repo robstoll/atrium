@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.reporting.translating
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.toBe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it

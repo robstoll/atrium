@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.*
+import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion

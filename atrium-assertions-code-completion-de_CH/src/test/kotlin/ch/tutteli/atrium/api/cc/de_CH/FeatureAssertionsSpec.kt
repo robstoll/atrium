@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.contains
+import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.assertions.TestData
 
