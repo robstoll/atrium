@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
+package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
