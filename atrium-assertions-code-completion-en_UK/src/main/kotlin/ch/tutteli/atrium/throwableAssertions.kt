@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
  * @return An [IAssertionPlant] which immediately evaluates [IAssertion]s (see [IAtriumFactory.newCheckImmediately]).
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`.
  */
-val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = its(subject::message).isNotNull()
+val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = property(subject::message).isNotNull()
 
 /**
  * Creates an [IAssertionPlantNullable] for the [message][Throwable.message] of the plant's
@@ -23,4 +23,4 @@ val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = 
  *         or if an additionally created [IAssertion]s (by calling [createAssertions]) does not hold.
  */
 fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit): IAssertionPlant<String>
-    = its(subject::message).isNotNull(createAssertions)
+    = property(subject::message).isNotNull(createAssertions)
