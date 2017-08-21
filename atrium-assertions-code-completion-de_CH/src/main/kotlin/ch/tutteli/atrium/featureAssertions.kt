@@ -47,45 +47,6 @@ fun <T : Any, TProperty : Any?> IAssertionPlant<T>.property(property: KProperty0
     = _property(this, property)
 
 /**
- * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the given [feature] as
- * [subject][IAssertionPlant.subject].
- *
- * Delegates to [property].
- *
- * @return An [IAssertionPlant] for the given [feature], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newCheckImmediately
- */
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
-    = property(feature)
-
-/**
- * Creates an [IAssertionPlant] which lazily evaluates [IAssertion]s using the given [feature] as
- * [subject][IAssertionPlant.subject].
- *
- * Delegates to [property], more details are given there.
- *
- * @return An [IAssertionPlant] for the given [feature], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newCheckLazily]
- */
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature>
-    = property(feature, createAssertions)
-
-/**
- * Creates an [IAssertionPlantNullable] using the given [feature] as [subject][IAssertionPlantNullable.subject].
- *
- * Delegates to [property].
- *
- * @return An [IAssertionPlant] for the given [feature], using an [AtriumFactory.newNullable].
- */
-fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
-    = property(feature)
-
-/**
  * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the value returned by calling
  * [method] of the [subject][IAssertionPlant.subject].
  *
@@ -93,7 +54,7 @@ fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeatu
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>): IAssertionPlant<TReturnValue>
+fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction0<TReturnValue>): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method)
 
 /**
@@ -111,7 +72,7 @@ fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunc
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction0<TReturnValue>, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, createAssertions)
 
 /**
@@ -120,7 +81,7 @@ fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunc
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>): IAssertionPlantNullable<TReturnValue>
+fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.rueckgabewertVon(method: KFunction0<TReturnValue>): IAssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method)
 
 /**
@@ -131,7 +92,7 @@ fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFun
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1)
 
 /**
@@ -149,7 +110,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(me
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, createAssertions)
 
 /**
@@ -158,7 +119,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(me
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlantNullable<TReturnValue>
+fun <T : Any, T1 : Any?, TReturnValue : Any?> IAssertionPlant<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1)
 
 /**
@@ -169,7 +130,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(m
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2)
 
 /**
@@ -187,7 +148,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.retur
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, createAssertions)
 
 /**
@@ -196,7 +157,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.retur
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlantNullable<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> IAssertionPlant<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2)
 
 
@@ -208,7 +169,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> IAssertionPlant<T>.retu
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3)
 
 /**
@@ -226,7 +187,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPla
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, createAssertions)
 
 /**
@@ -235,7 +196,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPla
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlantNullable<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> IAssertionPlant<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3)
 
 /**
@@ -246,7 +207,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> IAssertionPl
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
 
 /**
@@ -264,7 +225,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IA
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, createAssertions)
 
 /**
@@ -273,7 +234,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IA
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlantNullable<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> IAssertionPlant<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
 
 /**
@@ -284,7 +245,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> I
  *
  * @See IAtriumFactory.newCheckImmediately
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
 
 /**
@@ -302,7 +263,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  *
  * @see [IAtriumFactory.newCheckLazily]
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5, createAssertions)
 
 /**
@@ -311,7 +272,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newNullable].
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlantNullable<TReturnValue>
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any?> IAssertionPlant<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
 
 

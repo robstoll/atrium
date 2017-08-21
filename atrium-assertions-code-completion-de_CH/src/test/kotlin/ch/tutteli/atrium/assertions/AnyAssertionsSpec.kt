@@ -8,15 +8,15 @@ object AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     AssertionVerbFactory,
     AnyAssertionsSpecFunFactory(),
     AnyAssertionsSpecFunFactory(),
-    IAssertionPlant<Int>::toBe.name,
-    IAssertionPlant<Int>::notToBe.name,
-    IAssertionPlant<Int>::isSame.name,
-    IAssertionPlant<Int>::isNotSame.name
+    IAssertionPlant<Int>::ist.name,
+    IAssertionPlant<Int>::istNicht.name,
+    IAssertionPlant<Int>::istSelbeInstanzWie.name,
+    IAssertionPlant<Int>::istNichtSelbeInstanzWie.name
 ) {
     class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.IAnyAssertionsSpecFunFactory<T> {
-        override val toBe = IAssertionPlant<T>::toBe
-        override val notToBe = IAssertionPlant<T>::notToBe
-        override val isSame = IAssertionPlant<T>::isSame
-        override val isNotSame = IAssertionPlant<T>::isNotSame
+        override val toBe = IAssertionPlant<T>::ist
+        override val notToBe = IAssertionPlant<T>::istNicht
+        override val isSame = IAssertionPlant<T>::istSelbeInstanzWie
+        override val isNotSame = IAssertionPlant<T>::istNichtSelbeInstanzWie
     }
 }

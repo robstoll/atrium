@@ -3,9 +3,9 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.isA
-import ch.tutteli.atrium.isLessThan
-import ch.tutteli.atrium.isNotNull
+import ch.tutteli.atrium.istEin
+import ch.tutteli.atrium.istWenigerAls
+import ch.tutteli.atrium.istNichtNull
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
 
@@ -22,34 +22,34 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
 ) {
     companion object {
         private inline fun <reified T : Any> isNotNull(): KFunction1<IAssertionPlantNullable<T?>, IAssertionPlant<T>>
-            = IAssertionPlantNullable<T?>::isNotNull
+            = IAssertionPlantNullable<T?>::istNichtNull
 
         private inline fun <reified T : Any> isNotNullLazy(): KFunction2<IAssertionPlantNullable<T?>, IAssertionPlant<T>.() -> Unit, IAssertionPlant<T>>
-            = IAssertionPlantNullable<T?>::isNotNull
+            = IAssertionPlantNullable<T?>::istNichtNull
 
         private fun getIsNotNullTriple() = Triple(isNotNull<Int>().name, isNotNull<Int>(), isNotNullLazy<Int>())
 
         private fun getIsNotNullLessPair() = Companion::isNotNullLess to Companion::isNotNullLessLazy
 
         private fun isNotNullLess(plant: IAssertionPlantNullable<Int?>, number: Int)
-            = plant.isNotNull().isLessThan(number)
+            = plant.istNichtNull().istWenigerAls(number)
 
         private fun isNotNullLessLazy(plant: IAssertionPlantNullable<Int?>, number: Int)
-            = plant.isNotNull { isLessThan(number) }
+            = plant.istNichtNull { istWenigerAls(number) }
 
 
         private fun getNameIsA(): String {
             //TODO use it as soon as https://youtrack.jetbrains.com/issue/KT-19798 is fixed
-            //val f: KFunction1<IAssertionPlant<Any>, IAssertionPlant<Int>> = IAssertionPlant<Any>::isA
+            //val f: KFunction1<IAssertionPlant<Any>, IAssertionPlant<Int>> = IAssertionPlant<Any>::istEin
             //return f.name
-            return "isA"
+            return "istEin"
         }
 
         private inline fun <reified TSub : Any> isA(plant: IAssertionPlant<Any>): IAssertionPlant<TSub>
-            = plant.isA()
+            = plant.istEin()
 
         private inline fun <reified TSub : Any> isALazy(plant: IAssertionPlant<Any>, noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
-            = plant.isA(createAssertions)
+            = plant.istEin(createAssertions)
 
         private fun getIsAIntPair() = Companion::isAInt to Companion::isAIntLazy
         private fun isAInt(plant: IAssertionPlant<Any>) = isA<Int>(plant)
@@ -74,9 +74,9 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
         private fun getIsAIntLessPair() = Companion::isAIntLess to Companion::isAIntLessLazy
 
         private fun isAIntLess(plant: IAssertionPlant<Number>, number: Int)
-            = plant.isA<Int>().isLessThan(number)
+            = plant.istEin<Int>().istWenigerAls(number)
 
         private fun isAIntLessLazy(plant: IAssertionPlant<Number>, number: Int)
-            = plant.isA<Int> { isLessThan(number) }
+            = plant.istEin<Int> { istWenigerAls(number) }
     }
 }
