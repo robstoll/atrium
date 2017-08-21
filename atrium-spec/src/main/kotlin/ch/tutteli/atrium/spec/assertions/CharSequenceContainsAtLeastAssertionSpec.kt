@@ -1,14 +1,13 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.*
+import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.atLeast
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.butAtMost
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.value
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.values
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.atLeast
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.butAtMost
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.value
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.values
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 

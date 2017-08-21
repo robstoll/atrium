@@ -1,8 +1,13 @@
 package ch.tutteli.atrium.reporting
 
 
-import ch.tutteli.atrium.*
 import ch.tutteli.atrium.AssertionVerb.ASSERT
+import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.startsWith
+import ch.tutteli.atrium.api.cc.en_UK.toBe
+import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable

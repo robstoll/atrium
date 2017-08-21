@@ -1,14 +1,14 @@
 package ch.tutteli.atrium.spec.checking
 
+import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.startsWith
+import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
-import ch.tutteli.atrium.startsWith
-import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.*
+import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.IAssertionPlantNullable

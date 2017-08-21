@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.checking
 
-import ch.tutteli.atrium.*
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType

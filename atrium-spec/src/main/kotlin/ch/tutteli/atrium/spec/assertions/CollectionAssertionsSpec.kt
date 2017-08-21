@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.spec.assertions
 
+import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
+import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion
-import ch.tutteli.atrium.containsDefaultTranslationOf
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.message
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context

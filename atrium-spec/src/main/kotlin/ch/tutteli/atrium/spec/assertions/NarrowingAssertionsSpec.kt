@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.spec.assertions
 
+import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
+import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.contains
-import ch.tutteli.atrium.containsDefaultTranslationOf
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkNarrowingAssertion
@@ -49,7 +49,7 @@ abstract class NarrowingAssertionsSpec(
 
     val expect = verbs::checkException
 
-    val (isNotNull, isNotNullFun, isNotNullLazyFun) = isNotNullTriple
+    val (nameIsNotNull, isNotNullFun, isNotNullLazyFun) = isNotNullTriple
     val (isNotNullLessFun, isNotNullLessLazyFun) = isNotNullLessPair
 
     val (isAIntFun, isAIntLazyFun) = isAIntPair
@@ -58,7 +58,7 @@ abstract class NarrowingAssertionsSpec(
     val (isASubTypeFun, isASubTypeLazyFun) = isASubTypePair
     val (isAIntLessFun, isAIntLessLazyFun) = isAIntLessPair
 
-    describe("fun $isNotNull") {
+    describe("fun $nameIsNotNull") {
 
         val assert: (Int?) -> IAssertionPlantNullable<Int?> = verbs::checkNullable
 
