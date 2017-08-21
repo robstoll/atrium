@@ -49,7 +49,7 @@ abstract class NarrowingAssertionsSpec(
 
     val expect = verbs::checkException
 
-    val (isNotNull, isNotNullFun, isNotNullLazyFun) = isNotNullTriple
+    val (nameIsNotNull, isNotNullFun, isNotNullLazyFun) = isNotNullTriple
     val (isNotNullLessFun, isNotNullLessLazyFun) = isNotNullLessPair
 
     val (isAIntFun, isAIntLazyFun) = isAIntPair
@@ -58,7 +58,7 @@ abstract class NarrowingAssertionsSpec(
     val (isASubTypeFun, isASubTypeLazyFun) = isASubTypePair
     val (isAIntLessFun, isAIntLessLazyFun) = isAIntLessPair
 
-    describe("fun $isNotNull") {
+    describe("fun $nameIsNotNull") {
 
         val assert: (Int?) -> IAssertionPlantNullable<Int?> = verbs::checkNullable
 
