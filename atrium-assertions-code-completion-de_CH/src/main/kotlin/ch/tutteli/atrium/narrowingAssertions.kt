@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
  *
  * @return This plant to support a fluent-style API.
  */
-inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(): IAssertionPlant<T>
+inline fun <reified T : Any> IAssertionPlantNullable<T?>.istNichtNull(): IAssertionPlant<T>
     = _isNotNull(this)
 
 /**
@@ -20,7 +20,7 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(): IAssertion
  *
  * @return This plant to support a fluent-style API.
  */
-inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit) : IAssertionPlant<T>
+inline fun <reified T : Any> IAssertionPlantNullable<T?>.istNichtNull(noinline createAssertions: IAssertionPlant<T>.() -> Unit) : IAssertionPlant<T>
     = _isNotNull(this, createAssertions)
 
 /**
@@ -28,7 +28,7 @@ inline fun <reified T : Any> IAssertionPlantNullable<T?>.isNotNull(noinline crea
  *
  * @return This plant to support a fluent-style API.
  */
-inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub>
+inline fun <reified TSub : Any> IAssertionPlant<Any>.istEin(): IAssertionPlant<TSub>
     = _isA(this)
 
 /**
@@ -37,5 +37,5 @@ inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(): IAssertionPlant<TSub
  *
  * @return This plant to support a fluent-style API.
  */
-inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
+inline fun <reified TSub : Any> IAssertionPlant<Any>.istEin(noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
     = _isA(this, createAssertions)

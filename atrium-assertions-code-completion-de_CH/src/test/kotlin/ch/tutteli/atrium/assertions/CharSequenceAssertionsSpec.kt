@@ -5,12 +5,12 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 
 object CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceAssertionsSpec(
     AssertionVerbFactory,
-    IAssertionPlant<CharSequence>::containsDefaultTranslationOf.name to IAssertionPlant<CharSequence>::containsDefaultTranslationOf,
-    IAssertionPlant<CharSequence>::containsNotDefaultTranslationOf.name to IAssertionPlant<CharSequence>::containsNotDefaultTranslationOf,
-    IAssertionPlant<CharSequence>::isEmpty.name to IAssertionPlant<CharSequence>::isEmpty,
-    IAssertionPlant<CharSequence>::isNotEmpty.name to IAssertionPlant<CharSequence>::isNotEmpty,
-    IAssertionPlant<CharSequence>::startsWith.name to IAssertionPlant<CharSequence>::startsWith,
-    IAssertionPlant<CharSequence>::startsNotWith.name to IAssertionPlant<CharSequence>::startsNotWith,
-    IAssertionPlant<CharSequence>::endsWith.name to IAssertionPlant<CharSequence>::endsWith,
-    IAssertionPlant<CharSequence>::endsNotWith.name to IAssertionPlant<CharSequence>::endsNotWith
+    IAssertionPlant<CharSequence>::enthaeltStandardUebersetzungVon.name to IAssertionPlant<CharSequence>::enthaeltStandardUebersetzungVon,
+    IAssertionPlant<CharSequence>::enthaeltNichtDieStandardUebersetzungVon.name to IAssertionPlant<CharSequence>::enthaeltNichtDieStandardUebersetzungVon,
+    IAssertionPlant<CharSequence>::istLeer.name to IAssertionPlant<CharSequence>::istLeer,
+    IAssertionPlant<CharSequence>::istNichtLeer.name to IAssertionPlant<CharSequence>::istNichtLeer,
+    IAssertionPlant<CharSequence>::beginntMit.name to IAssertionPlant<CharSequence>::beginntMit,
+    IAssertionPlant<CharSequence>::beginntNichtMit.name to IAssertionPlant<CharSequence>::beginntNichtMit,
+    IAssertionPlant<CharSequence>::endetMit.name to IAssertionPlant<CharSequence>::endetMit,
+    IAssertionPlant<CharSequence>::endetNichtMit.name to IAssertionPlant<CharSequence>::endetNichtMit
 )

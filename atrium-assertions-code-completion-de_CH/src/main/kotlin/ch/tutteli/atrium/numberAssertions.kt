@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @return This plant to support a fluent-style API.
  */
-fun <T> IAssertionPlant<T>.isLessThan(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
+fun <T> IAssertionPlant<T>.istWenigerAls(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
     = addAssertion(_isLessThan(this, expected))
 
 /**
@@ -20,7 +20,7 @@ fun <T> IAssertionPlant<T>.isLessThan(expected: T): IAssertionPlant<T> where T :
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
-fun <T> IAssertionPlant<T>.isLessOrEquals(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
+fun <T> IAssertionPlant<T>.istWenigerOderGleich(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
     = addAssertion(_isLessOrEquals(this, expected))
 
 /**
@@ -29,7 +29,7 @@ fun <T> IAssertionPlant<T>.isLessOrEquals(expected: T): IAssertionPlant<T> where
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
-fun <T> IAssertionPlant<T>.isGreaterThan(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
+fun <T> IAssertionPlant<T>.istGroesserAls(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
     = addAssertion(_isGreaterThan(this, expected))
 
 /**
@@ -38,6 +38,6 @@ fun <T> IAssertionPlant<T>.isGreaterThan(expected: T): IAssertionPlant<T> where 
  * @return This plant to support a fluent-style API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
  */
-fun <T> IAssertionPlant<T>.isGreaterOrEquals(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
+fun <T> IAssertionPlant<T>.istGroesserOderGleich(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
     = addAssertion(_isGreaterOrEquals(this, expected))
 

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.*
-import ch.tutteli.atrium.contains
+import ch.tutteli.atrium.enthaelt
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsExactlyAssertionSpec(
@@ -21,7 +21,7 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.asserti
         )
 
         private fun containsExactly(plant: IAssertionPlant<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
-            = plant.contains.exactly(exactly).values(a, *aX)
+            = plant.enthaelt.genau(exactly).werte(a, *aX)
 
         private fun getExactlyIgnoringCasePair() = Pair(
             { what: String, times: String -> "$contains $ignoringCase $what $exactly $times" },
@@ -29,7 +29,7 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.asserti
         )
 
         private fun containsExactlyIgnoringCase(plant: IAssertionPlant<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
-            = plant.contains.ignoringCase.exactly(exactly).values(a, *aX)
+            = plant.enthaelt.ignoriereGrossKleinschreibung.genau(exactly).werte(a, *aX)
 
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

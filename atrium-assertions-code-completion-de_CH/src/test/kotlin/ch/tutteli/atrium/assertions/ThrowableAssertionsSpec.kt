@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.contains
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.enthaelt
 import ch.tutteli.atrium.message
 import kotlin.reflect.KProperty
 
@@ -33,9 +33,9 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.assertions.ThrowableAsser
         private fun getMessageContainsPair() = Companion::messageContains to Companion::messageContainsLazy
 
         private fun messageContains(plant: IAssertionPlant<Throwable>, expected: Any)
-            = plant.message.contains(expected)
+            = plant.message.enthaelt(expected)
 
         private fun messageContainsLazy(plant: IAssertionPlant<Throwable>, expected: Any)
-            = plant.message { contains(expected) }
+            = plant.message { enthaelt(expected) }
     }
 }
