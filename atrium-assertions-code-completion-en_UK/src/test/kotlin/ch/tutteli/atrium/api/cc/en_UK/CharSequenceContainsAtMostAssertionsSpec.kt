@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.atMost
-import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.ignoringCase
-import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.values
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 
