@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.exactly
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.value
+import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.exactly
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.value
-import ch.tutteli.atrium.contains
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 
