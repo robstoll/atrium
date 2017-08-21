@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.genau
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.ignoriereGrossKleinschreibung
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.werte
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsExactlyAssertionSpec(

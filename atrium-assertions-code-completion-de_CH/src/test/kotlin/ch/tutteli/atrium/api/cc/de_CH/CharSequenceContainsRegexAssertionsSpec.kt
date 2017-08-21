@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsRegexAssertionSpec(

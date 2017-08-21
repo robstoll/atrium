@@ -1,11 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.hoechstens
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.ignoriereGrossKleinschreibung
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.werte
 import ch.tutteli.atrium.creating.IAssertionPlant
-
 
 class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsAtMostAssertionSpec(
     AssertionVerbFactory,

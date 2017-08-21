@@ -1,10 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.aberHoechstens
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.ignoriereGrossKleinschreibung
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.werte
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.zumindest
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsAtLeastAssertionSpec(

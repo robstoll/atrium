@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.werte
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.zumindest
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
