@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.checking
 
 import ch.tutteli.atrium.AssertionVerb
+import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.startsWith
 import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.expect
-import ch.tutteli.atrium.message
 import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.startsWith
 import com.nhaarman.mockito_kotlin.spy
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
