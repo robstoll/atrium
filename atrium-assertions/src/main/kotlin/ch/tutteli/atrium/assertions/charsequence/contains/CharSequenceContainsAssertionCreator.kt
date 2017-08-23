@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  * created assertions are then group by an [IAssertionGroup].
  *
  * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
- * @param D The decoration behaviour which should be used for the input stream.
+ * @param D The decoration behaviour which should be applied to the input of the search.
  *
  * @constructor Represents a creator for sophisticated `contains` assertions for [CharSequence].
  * @param decorator The decoration behaviour.
@@ -33,8 +33,8 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
      * Searches for the [expected] objects in the [plant]'s [subject][IAssertionPlant.subject] using the [searcher],
      * passes on the result to the [checkers] and creates an [IAssertionGroup] based on the resulting assertions.
      *
-     * @param plant Its [subject][IAssertionPlant.subject] is used as input stream of the search.
-     * @param expected The objects which are expected to be contained in the input stream.
+     * @param plant Its [subject][IAssertionPlant.subject] is used as input of the search.
+     * @param expected The objects which are expected to be contained in the input of the search.
      *
      * @return An [IAssertionGroup] which contains the assertion created by the [checkers].
      */

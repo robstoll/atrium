@@ -27,7 +27,7 @@ abstract class NarrowingAssertionsSpec(
         IAssertionPlantNullable<Int?>.(Int) -> IAssertionPlant<Int>,
         IAssertionPlantNullable<Int?>.(Int) -> IAssertionPlant<Int>
     >,
-    isA: String,
+    nameIsA: String,
     isAIntPair: Pair<
         IAssertionPlant<String>.() -> IAssertionPlant<Int>,
         IAssertionPlant<String>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>
@@ -93,7 +93,7 @@ abstract class NarrowingAssertionsSpec(
         }
     }
 
-    describe("fun $isA") {
+    describe("fun $nameIsA") {
 
         val assert: (String) -> IAssertionPlant<String> = verbs::checkImmediately
 
