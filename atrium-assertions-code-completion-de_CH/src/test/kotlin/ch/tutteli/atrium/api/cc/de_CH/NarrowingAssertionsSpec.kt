@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction1
 import kotlin.reflect.KFunction2
 
@@ -36,10 +37,8 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
 
 
         private fun getNameIsA(): String {
-            //TODO use it as soon as https://youtrack.jetbrains.com/issue/KT-19798 is fixed
-            //val f: KFunction1<IAssertionPlant<Any>, IAssertionPlant<Int>> = IAssertionPlant<Any>::istEin
-            //return f.name
-            return "istEin"
+            val f: IAssertionPlant<Any>.() -> IAssertionPlant<Int> = IAssertionPlant<Any>::istEin
+            return (f as KFunction<*>).name
         }
 
         private inline fun <reified TSub : Any> isA(plant: IAssertionPlant<Any>): IAssertionPlant<TSub>
@@ -48,6 +47,7 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
         private inline fun <reified TSub : Any> isALazy(plant: IAssertionPlant<Any>, noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IAssertionPlant<TSub>
             = plant.istEin(createAssertions)
 
+        //TODO get rid of different overloads as soon as https://youtrack.jetbrains.com/issue/KT-19884 is fixed
         private fun getIsAIntPair() = Companion::isAInt to Companion::isAIntLazy
         private fun isAInt(plant: IAssertionPlant<Any>) = isA<Int>(plant)
         private fun isAIntLazy(plant: IAssertionPlant<Any>, createAssertions: IAssertionPlant<Int>.() -> Unit)
