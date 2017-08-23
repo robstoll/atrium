@@ -8,18 +8,18 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * Represents a base class for checkers which compare how many occurrences of an expected object are found
- * in the input stream against how many [times] the check expect it to be contained.
+ * in the input of the search, against how many [times] the check expect it to be contained.
  *
  * It further checks that [times] is bigger than 0 (throws an [IllegalArgumentException] otherwise) and additionally
  * suggest to use a different function if [times] equals to zero.
  *
  * @property times The number which the check uses to compare against the actual number of times an expected object is
- *           found in the input stream.
+ *           found in the input of the search.
  *
- * @constructor Represents a base class for checkers which compare how many occurrences of an expected objects are found
- *              in the input stream against how many [times] the check expect it to be contained.
+ * @constructor Represents a base class for checkers which compare how many occurrences of an expected object are found
+ *              in the input of the search, against how many [times] the check expect it to be contained.
  * @param times The number which the check uses to compare against the actual number of times an expected object is
- *              found in the input stream.
+ *              found in the input of the search.
  * @param nameFunToUse The function which should be used instead of [nameFunUsed] when [times] equals to zero.
  * @param nameFunUsed The function which was used and should not be used if [times] equals to zero.
  * @throws IllegalArgumentException In case [times] is smaller than 1.
