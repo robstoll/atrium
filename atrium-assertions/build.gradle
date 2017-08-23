@@ -11,9 +11,10 @@ apply from: '../gradle/scripts/spek.gradle'
 dependencies {
     compile project(':atrium-api')
     compileOnly project(':atrium-api-late-binding')
-    testCompile project(':atrium-spec')
+    // it is up to the consumer of atrium-assertions which atrium-descriptions module is used at runtime
+    compileOnly project(':atrium-translations-en_UK')
     testCompile project(':atrium-impl-robstoll')
-    testCompile project(':atrium-assertions-code-completion-style')
+    testCompile project(':atrium-spec')
 }
 
 dokka {

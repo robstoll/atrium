@@ -15,13 +15,3 @@ fun <T : Any> _isSame(plant: IAssertionPlant<T>, expected: T): IAssertion
 
 fun <T : Any> _isNotSame(plant: IAssertionPlant<T>, expected: T): IAssertion
     = BasicAssertion(IS_NOT_SAME, expected, { plant.subject !== expected })
-
-/**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Any].
- */
-enum class DescriptionAnyAssertion(override val value: String) : ISimpleTranslatable {
-    TO_BE("to be"),
-    NOT_TO_BE("not to be"),
-    IS_SAME("is the same as"),
-    IS_NOT_SAME("is not the same as"),
-}

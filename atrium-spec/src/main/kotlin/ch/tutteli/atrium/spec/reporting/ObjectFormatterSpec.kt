@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.isSame
+import ch.tutteli.atrium.api.cc.en_UK.isSame
+import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslator
@@ -8,7 +9,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
-import ch.tutteli.atrium.toBe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
