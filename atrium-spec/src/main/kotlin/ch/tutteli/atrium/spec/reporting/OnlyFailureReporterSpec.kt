@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.api.cc.en_UK.isEmpty
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.isEmpty
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.reporting.IAssertionFormatterFacade
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator

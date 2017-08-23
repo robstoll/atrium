@@ -6,7 +6,7 @@ import java.util.regex.Pattern
 
 /**
  * Represents an [ISearcher] which implements the [CharSequenceContainsIgnoringCaseDecorator] behaviour and evaluates
- * the matches of a given regular expression on the input stream.
+ * the matches of a given regular expression on the input of the search.
  */
 class CharSequenceContainsIgnoringCaseRegexSearcher : ISearcher<CharSequenceContainsIgnoringCaseDecorator> {
     private val searcher = CharSequenceContainsRegexSearcher()

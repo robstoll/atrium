@@ -1,11 +1,15 @@
 package ch.tutteli.atrium.spec.creating
 
-import ch.tutteli.atrium.*
+import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
+import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.creating.ThrowableFluent
-import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.IS_A
+import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.NO_EXCEPTION_OCCURRED
+import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import ch.tutteli.atrium.spec.AssertionVerb

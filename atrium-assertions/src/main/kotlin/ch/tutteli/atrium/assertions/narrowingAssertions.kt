@@ -24,11 +24,3 @@ inline fun <reified TSub : Any> _isA(plant: IAssertionPlant<Any>, noinline creat
     = AtriumFactory.newDownCastBuilder<TSub, Any>(IS_A, plant.commonFields)
     .withLazyAssertions(createAssertions)
     .cast()
-
-/**
- * Contains the [IBasicAssertion.description]s of the assertion functions which postulate that a [IAssertionPlant.subject]
- * of type `T` can be narrowed to `TSub` where `TSub <: T`.
- */
-enum class DescriptionNarrowingAssertion(override val value: String) : ISimpleTranslatable {
-    IS_A("is type or sub-type of"),
-}
