@@ -1,8 +1,5 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.ISearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
@@ -32,13 +29,3 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
 @JvmName("regexIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>.regex(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
     = addAssertion(CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
-
-
-private fun <T : CharSequence, D : IDecorator> CharSequenceContainsCheckerBuilder<T, D>.addAssertion(
-    searcher: ISearcher<D>,
-    expected: Any, otherExpected: Array<out Any>): IAssertionPlant<T> {
-
-    val assertionGroup = CharSequenceContainsAssertionCreator<T, D>(containsBuilder.decorator, searcher, checkers)
-        .create(containsBuilder.plant, expected, *otherExpected)
-    return containsBuilder.plant.addAssertion(assertionGroup)
-}
