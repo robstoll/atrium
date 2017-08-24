@@ -47,5 +47,6 @@ abstract class CharSequenceContainsButAtMostCheckerBuilderBase<T : CharSequence,
 
     override val checkers: List<IChecker> = listOf(
         *atLeastBuilder.checkers.toTypedArray(),
-        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameAtMostFun))
+        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameAtMostFun)
+        )
 }
