@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder
-import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilder
-import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder
-import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.*
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 
@@ -69,3 +66,17 @@ fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.exactly
  */
 fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.atMost(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, D>
     = CharSequenceContainsAtMostCheckerBuilder(times, this)
+
+/**
+ * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
+ * are looking for, occurs `not at all or at most` number of [times] within the search input.
+ *
+ * @param times The number which the check will compare against the actual number of times an expected object is
+ *              found in the input of the search.
+ *
+ * @return The newly created builder.
+ * @throws IllegalArgumentException In case [times] is smaller than zero.
+ * @throws IllegalArgumentException In case [times] equals to zero; use [enhaeltNicht] instead.
+ */
+fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.notOrAtMost(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, D>
+    = CharSequenceContainsNotOrAtMostCheckerBuilder(times, this)
