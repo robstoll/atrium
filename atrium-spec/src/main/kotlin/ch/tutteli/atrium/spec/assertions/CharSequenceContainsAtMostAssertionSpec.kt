@@ -11,7 +11,8 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsAtMostPair: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsAtMostIgnoringCasePair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsNotPair: Pair<String, (Int) -> String>
+    containsNotPair: Pair<String, (Int) -> String>,
+    exactlyPair: Pair<String, (Int) -> String>
 ) : CharSequenceContainsSpecBase({
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
@@ -28,6 +29,7 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
+    val (exactly, errorMsgExactly) = exactlyPair
 
     describe("fun $containsAtMost") {
 
@@ -42,67 +44,69 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
                     fluent.containsAtMostFun(0, "")
                 }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgContainsNot(0))
             }
+            test("for at most 1 -- points to $exactly") {
+                expect {
+                    fluent.containsAtMostFun(1, "")
+                }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgExactly(1))
+            }
         }
 
         context("text '$helloWorld'") {
-            group("happy case with $containsAtMost once") {
+            group("happy case with $containsAtMost twice") {
                 test("${containsAtMostTest("'H'", "once")} does not throw") {
-                    fluentHelloWorld.containsAtMostFun(1, 'H')
+                    fluentHelloWorld.containsAtMostFun(2, 'H')
                 }
                 test("${containsAtMostTest("'H' and 'e' and 'W'", "once")} does not throw") {
-                    fluentHelloWorld.containsAtMostFun(1, 'H', 'e', 'W')
+                    fluentHelloWorld.containsAtMostFun(2, 'H', 'e', 'W')
                 }
                 test("${containsAtMostTest("'W' and 'H' and 'e'", "once")} does not throw") {
-                    fluentHelloWorld.containsAtMostFun(1, 'W', 'H', 'e')
-                }
-                test("${containsAtMostTest("'x' and 'y' and 'z'", "once")} does not throw") {
-                    fluentHelloWorld.containsAtMostFun(1, 'x', 'y', 'z')
+                    fluentHelloWorld.containsAtMostFun(2, 'W', 'H', 'e')
                 }
             }
 
             group("failing assertions; search string at different positions") {
-                test("${containsAtMostTest("'l'", "once")} throws AssertionError") {
+                test("${containsAtMostTest("'l'", "twice")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsAtMostFun(1, 'l')
+                        fluentHelloWorld.containsAtMostFun(2, 'l')
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_MOST)
                 }
-                test("${containsAtMostTest("'H', 'l'", "once")} throws AssertionError") {
+                test("${containsAtMostTest("'H', 'l'", "twice")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsAtMostFun(1, 'H', 'l')
+                        fluentHelloWorld.containsAtMostFun(2, 'H', 'l')
                     }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
                 }
-                test("${containsAtMostTest("'l', 'H'", "once")} once throws AssertionError") {
+                test("${containsAtMostTest("'l', 'H'", "twice")} once throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsAtMostFun(1, 'l', 'H')
+                        fluentHelloWorld.containsAtMostFun(2, 'l', 'H')
                     }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
                 }
-                test("${containsAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError") {
+                test("${containsAtMostTest("'o', 'E', 'W', 'l'", "twice")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.containsAtMostFun(1, 'o', 'E', 'W', 'l')
+                        fluentHelloWorld.containsAtMostFun(2, 'o', 'E', 'W', 'l')
                     }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'o', 'l')
+                }
+                test("${containsAtMostTest("'x' and 'y' and 'z'", "twice")} throws AssertionError") {
+                    expect {
+                        fluentHelloWorld.containsAtMostFun(2, 'x', 'y', 'z')
+                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'x', 'y', 'z')
                 }
             }
 
             group("multiple occurrences of the search string") {
-                test("${containsAtMostTest("'o'", "once")} throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)") {
-                    expect {
-                        fluentHelloWorld.containsAtMostFun(1, 'o')
-                    }.toThrow<AssertionError>().and.message {
-                        contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
-                        )
-                        endsWith(AT_MOST.getDefault() + ": 1")
-                    }
-                }
 
                 test("${containsAtMostTest("'o'", "twice")} does not throw") {
                     fluentHelloWorld.containsAtMostFun(2, 'o')
                 }
-                test("${containsAtMostIgnoringCase("'o'", "twice")} throws AssertionError") {
+                test("${containsAtMostIgnoringCase("'o'", "twice")} throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 'o' ignoring case (3)") {
                     expect {
                         fluentHelloWorld.containsAtMostIgnoringCaseFun(2, 'o')
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(AT_MOST)
+                    }.toThrow<AssertionError>().and.message {
+                        contains(
+                            String.format(IGNORING_CASE.getDefault(), CONTAINS.getDefault()) + ": 'o'",
+                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
+                        )
+                        endsWith(AT_MOST.getDefault() + ": 2")
+                    }
                 }
 
                 test("${containsAtMostTest("'o'", "3 times")} does not throw") {

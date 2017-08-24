@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.api.cc.de_CH.enthaeltNicht
+import ch.tutteli.atrium.api.cc.de_CH.genau
 import ch.tutteli.atrium.api.cc.de_CH.hoechstens
+import ch.tutteli.atrium.api.cc.de_CH.zumindest
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilderBase
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
@@ -13,5 +15,7 @@ open class CharSequenceContainsAtMostCheckerBuilder<T : CharSequence, D : IDecor
     times,
     containsBuilder,
     containsBuilder.plant::enthaeltNicht.name,
-    containsBuilder::hoechstens.name
+    containsBuilder::hoechstens.name,
+    containsBuilder::zumindest.name,
+    containsBuilder::genau.name
 )

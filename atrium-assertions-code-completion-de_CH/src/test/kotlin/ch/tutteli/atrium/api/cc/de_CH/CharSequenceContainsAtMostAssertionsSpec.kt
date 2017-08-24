@@ -7,7 +7,8 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertio
     AssertionVerbFactory,
     getAtMostTriple(),
     getAtMostIgnoringCasePair(),
-    getContainsNotPair()
+    getContainsNotPair(),
+    getExactlyPair()
 ) {
 
     companion object : CharSequenceContainsSpecBase() {
@@ -35,5 +36,8 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertio
         private fun getErrorMsgContainsNot(times: Int)
             = "use $containsNot instead of $atMost($times)"
 
+        private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
+
+        private fun getErrorMsgExactly(times: Int) = "use $exactly($times) instead of $atMost($times); $atMost defines implicitly $atLeast($times) as well"
     }
 }

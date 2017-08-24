@@ -55,7 +55,9 @@ fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.exactly
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
- * are looking for, occurs `at most` number of [times] within the search input.
+ * are looking for, occurs `at least` once but `at most` number of [times] within the search input.
+ *
+ * If you want to use another lower bound than one, then use `atLeast(2).butAtMost(3)` instead of `atMost(3)`.
  *
  * @param times The number which the check will compare against the actual number of times an expected object is
  *              found in the input of the search.
@@ -63,6 +65,7 @@ fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.exactly
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
+ * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
 fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.atMost(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, D>
     = CharSequenceContainsAtMostCheckerBuilder(times, this)
