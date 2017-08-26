@@ -16,6 +16,7 @@ abstract class CharSequenceContainsSpecBase {
     protected val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::aberHoechstens.name
     protected val exactly = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::genau.name
     protected val atMost = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::hoechstens.name
+    protected val notOrAtMost = CharSequenceContainsBuilder<String, CharSequenceContainsAssertionCreator.IDecorator>::nichtOderHoechstens.name
     protected val regex = CharSequenceContainsCheckerBuilder<String, CharSequenceContainsNoOpDecorator>::regex.name
     protected val ignoringCase = CharSequenceContainsBuilder<String, CharSequenceContainsNoOpDecorator>::ignoriereGrossKleinschreibung.name
 }
