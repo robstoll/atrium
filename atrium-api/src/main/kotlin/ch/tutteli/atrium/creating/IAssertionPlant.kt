@@ -23,7 +23,7 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
      * @param expected The expected value, e.g., `5`
      * @param test Indicates whether the assertion holds or fails.
      *
-     * @return This plant to support a fluent-style API.
+     * @return This plant to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately evaluated.
      */
@@ -34,7 +34,7 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
      *
      * @param assertion The assertion which will be added to this plant.
      *
-     * @return This plant to support a fluent-style API.
+     * @return This plant to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately evaluated.
      */
@@ -46,7 +46,7 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
      * Calling this method more than once should not re-report previously failing assertions.
      * This method will typically use an [IAssertionChecker] for checking and an [IReporter] for error reporting.
      *
-     * @return This plant to support a fluent-style API.
+     * @return This plant to support a fluent API.
      *
      * @throws AssertionError Reporting a failing assertion might cause that an [AssertionError] is thrown.
      *
@@ -56,11 +56,11 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
     fun checkAssertions(): IAssertionPlant<T>
 
     /**
-     * Can be used to separate assertions when using the fluent-style API.
+     * Can be used to separate assertions when using the fluent API.
      *
      * For instance, `assert(1).isLessThan(2).and.isGreaterThan(0)`
      *
-     * @return This plant to support a fluent-style API.
+     * @return This plant to support a fluent API.
      */
     val and: IAssertionPlant<T> get() = this
 }
@@ -71,7 +71,7 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
  *
  * @param createAssertions The receiver function which might create and add assertions to this plant.
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  *
  * @throws AssertionError Might throw an [AssertionError] in case a created [IAssertion] does not hold.
  */

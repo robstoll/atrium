@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * Delegates to [toBe] with argument `true`.
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun IAssertionPlant<Boolean>.isTrue() = toBe(true)
@@ -17,7 +17,7 @@ fun IAssertionPlant<Boolean>.isTrue() = toBe(true)
  *
  * Delegates to [toBe] with argument `false`.
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun IAssertionPlant<Boolean>.isFalse() = toBe(false)
