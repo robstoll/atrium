@@ -16,6 +16,10 @@ dependencies {
     compile project(':atrium-translations-en_UK')
 }
 
+repositories {
+    maven { url "https://dl.bintray.com/jetbrains/spek" }
+}
+
 dependencies {
     compile("org.jetbrains.spek:spek-api:$spek_version") {
         exclude group: 'org.jetbrains.kotlin'
