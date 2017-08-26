@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @return This plant to support a fluent API.
  */
-fun <T> IAssertionPlant<T>.istWenigerAls(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
+fun <T> IAssertionPlant<T>.istKleinerAls(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
     = addAssertion(_isLessThan(this, expected))
 
 /**
@@ -20,7 +20,7 @@ fun <T> IAssertionPlant<T>.istWenigerAls(expected: T): IAssertionPlant<T> where 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> IAssertionPlant<T>.istWenigerOderGleich(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
+fun <T> IAssertionPlant<T>.istKleinerOderGleich(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
     = addAssertion(_isLessOrEquals(this, expected))
 
 /**
