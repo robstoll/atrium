@@ -31,7 +31,7 @@ abstract class OnlyFailureReporterSpec(
 
     val translator = UsingDefaultTranslator()
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register { AtriumFactory.newTextSameLineAssertionFormatter(it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
+    facade.register { AtriumFactory.newTextSameLineAssertionFormatter("[]", it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
     val testee = testeeFactory(facade)
 
     prefixedDescribe("fun ${testee::format.name}") {

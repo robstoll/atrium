@@ -29,6 +29,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *        and [IBasicAssertion.expected])
  */
 class TextAssertionFormatter(
+    private val bulletPoint: String,
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : IAssertionFormatter {
@@ -61,7 +62,7 @@ class TextAssertionFormatter(
         formatAssertions {
             newMethodObject.sb.appendln()
             newMethodObject.indent()
-            newMethodObject.sb.append("▪ ")
+            newMethodObject.sb.append(bulletPoint).append(" ")
             assertionFormatterController.format(it, newMethodObject)
         }
     }

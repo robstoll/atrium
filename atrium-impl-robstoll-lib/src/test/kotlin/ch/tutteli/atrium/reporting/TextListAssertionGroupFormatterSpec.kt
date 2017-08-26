@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AssertionVerbFactory
 
 object TextListAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.TextListAssertionGroupFormatterSpec(
     AssertionVerbFactory,
-    { controller, objectFormatter, translator ->
-        TextListAssertionGroupFormatter(controller, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+    { bulletPoint, controller, objectFormatter, translator ->
+        TextListAssertionGroupFormatter(bulletPoint, controller, TextSameLineAssertionPairFormatter(objectFormatter, translator))
     }
 )

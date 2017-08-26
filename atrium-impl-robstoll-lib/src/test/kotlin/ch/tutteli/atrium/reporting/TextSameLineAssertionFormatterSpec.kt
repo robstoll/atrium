@@ -28,7 +28,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
     include(AtriumsAssertionFormatterSpec)
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register({ TextAssertionFormatter(it, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
+    facade.register({ TextAssertionFormatter("▪", it, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
 
     var sb = StringBuilder()
     afterEachTest {
@@ -75,7 +75,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
                     BasicAssertion(TO_BE, "robert", true),
                     BasicAssertion(NOT_TO_BE, "bert", true)
                 )), sb, alwaysTrueAssertionFilter)
-                assert(sb.toString()).contains("$indent▪ ${TO_BE.getDefault()}: robert$separator"
+                assert(sb.toString()).contains("$indent$squarePoint ${TO_BE.getDefault()}: robert$separator"
                     + "$indent$squarePoint ${NOT_TO_BE.getDefault()}: bert")
             }
 
@@ -133,7 +133,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
 
     companion object {
         internal fun factory() = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            TextAssertionFormatter(assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+            TextAssertionFormatter("▪", assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }
 }
