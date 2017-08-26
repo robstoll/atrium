@@ -2,8 +2,6 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.IS_A
-import ch.tutteli.atrium.creating.IThrowableFluent.AssertionDescription.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import kotlin.reflect.KClass
 
@@ -27,40 +25,14 @@ class ThrowableFluent internal constructor(
     private constructor(assertionVerb: ITranslatable, throwable: Throwable?, assertionChecker: IAssertionChecker)
         : this(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, throwable, assertionChecker))
 
-    /**
-     * Makes an assertion about the [commonFields]'s [subject][IAssertionPlantWithCommonFields.CommonFields.subject]
-     * that it is of the expected type [TExpected] and reports an error if subject is `null` or another type
-     * than the expected one.
-     *
-     * @return This builder to support a fluent API.
-     *
-     * @throws AssertionError In case the made assertion fails.
-     * @throws IllegalStateException In case reporting a failure does not throw itself.
-     */
-    inline fun <reified TExpected : Throwable> toThrow(): IAssertionPlant<TExpected>
-        = toThrow(TExpected::class)
-
-    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder(IS_A, expectedType, commonFields)
-        .withNullRepresentation(NO_EXCEPTION_OCCURRED)
+    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable): IAssertionPlant<TExpected>
+        = AtriumFactory.newDownCastBuilder(description, expectedType, commonFields)
+        .withNullRepresentation(nullRepresentation)
         .cast()
 
-    /**
-     * Makes an assertion about the [commonFields]'s [subject][IAssertionPlantWithCommonFields.CommonFields.subject]
-     * that it is of the expected type [TExpected] and reports an error if subject is null or another type
-     * than the expected one -- furthermore it [createAssertions] which are checked additionally as well.
-     *
-     * @return This builder to support a fluent API.
-     *
-     * @throws AssertionError In case the made assertion fails.
-     * @throws IllegalStateException In case reporting a failure does not throw itself.
-     */
-    inline fun <reified TExpected : Throwable> toThrow(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = toThrow(TExpected::class, createAssertions)
-
-    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder(IS_A, expectedType, commonFields)
-        .withNullRepresentation(NO_EXCEPTION_OCCURRED)
+    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
+        = AtriumFactory.newDownCastBuilder(description, expectedType, commonFields)
+        .withNullRepresentation(nullRepresentation)
         .withLazyAssertions(createAssertions)
         .cast()
 
@@ -75,7 +47,7 @@ class ThrowableFluent internal constructor(
             var throwable: Throwable? = null
             try {
                 act()
-            } catch(t: Throwable) {
+            } catch (t: Throwable) {
                 throwable = t
             }
             return ThrowableFluent(assertionVerb, throwable, assertionChecker)

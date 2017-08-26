@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.creating.IThrowableFluent
 import ch.tutteli.atrium.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
 import ch.tutteli.atrium.verbs.AssertionVerb.*
@@ -40,9 +40,9 @@ inline fun <T : Any> expect(subject: T, createAssertions: IAssertionPlant<T>.() 
     = AtriumFactory.newCheckLazilyAtTheEnd(EXPECT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
- * Creates an [ThrowableFluent] for the given function [act].
+ * Creates an [IThrowableFluent] for the given function [act].
  *
- * @return The newly created [ThrowableFluent].
+ * @return The newly created [IThrowableFluent].
  */
 fun expect(act: () -> Unit)
     = AtriumFactory.newThrowableFluent(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)

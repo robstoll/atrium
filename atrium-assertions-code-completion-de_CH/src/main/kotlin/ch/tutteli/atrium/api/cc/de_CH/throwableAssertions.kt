@@ -1,8 +1,39 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions._toThrow
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
+import ch.tutteli.atrium.creating.IThrowableFluent
+
+/**
+ * Makes the assertion that [IThrowableFluent.commonFields]'
+ * [subject][IAssertionPlantWithCommonFields.CommonFields.subject] is of the expected type [TExpected] and
+ * reports an error if subject is `null` or another type than the expected one.
+ *
+ * @return The newly created plant to support a fluent API.
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalStateException In case reporting a failure does not throw itself.
+ */
+inline fun <reified TExpected : Throwable> IThrowableFluent.wirft(): IAssertionPlant<TExpected>
+    = _toThrow(this)
+
+/**
+ * Makes the assertion that [IThrowableFluent.commonFields]'
+ * [subject][IAssertionPlantWithCommonFields.CommonFields.subject] is of the expected type [TExpected] and
+ * reports an error if subject is `null` or another type than the expected one -- furthermore it [createAssertions]
+ * which are checked additionally as well.
+ *
+ * @return The newly created plant to support a fluent API.
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalStateException In case reporting a failure does not throw itself.
+ */
+inline fun <reified TExpected : Throwable> IThrowableFluent.wirft(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
+    = _toThrow(this, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] for the [message][Throwable.message] of the plant's
