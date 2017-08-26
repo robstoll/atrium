@@ -30,10 +30,10 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
         private fun getIsNotNullLessPair() = Companion::isNotNullLess to Companion::isNotNullLessLazy
 
         private fun isNotNullLess(plant: IAssertionPlantNullable<Int?>, number: Int)
-            = plant.istNichtNull().istWenigerAls(number)
+            = plant.istNichtNull().istKleinerAls(number)
 
         private fun isNotNullLessLazy(plant: IAssertionPlantNullable<Int?>, number: Int)
-            = plant.istNichtNull { istWenigerAls(number) }
+            = plant.istNichtNull { istKleinerAls(number) }
 
 
         private fun getNameIsA(): String {
@@ -71,9 +71,9 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
         private fun getIsAIntLessPair() = Companion::isAIntLess to Companion::isAIntLessLazy
 
         private fun isAIntLess(plant: IAssertionPlant<Number>, number: Int)
-            = plant.istEin<Int>().istWenigerAls(number)
+            = plant.istEin<Int>().istKleinerAls(number)
 
         private fun isAIntLessLazy(plant: IAssertionPlant<Number>, number: Int)
-            = plant.istEin<Int> { istWenigerAls(number) }
+            = plant.istEin<Int> { istKleinerAls(number) }
     }
 }
