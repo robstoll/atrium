@@ -23,10 +23,10 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
         prefixedDescribe(describePrefix, description, body)
     }
-
+    val squarePoint = "▪"
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register(testeeFactory)
-    facade.register({ AtriumFactory.newTextSameLineAssertionFormatter(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+    facade.register({ AtriumFactory.newTextSameLineAssertionFormatter(squarePoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
 
     var sb = StringBuilder()
     afterEachTest {
@@ -40,7 +40,6 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     val invisibleAssertionGroup = InvisibleAssertionGroup(assertions)
 
     val separator = System.getProperty("line.separator")!!
-    val squarePoint = "▪"
 
     prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IInvisibleAssertionGroupType::class.simpleName}") {

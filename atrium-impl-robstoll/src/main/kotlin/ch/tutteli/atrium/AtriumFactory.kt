@@ -67,14 +67,14 @@ object AtriumFactory : IAtriumFactory {
     override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
         = AssertionFormatterFacade(assertionFormatterController)
 
-    override fun newTextSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = TextAssertionFormatter(assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+    override fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = TextAssertionFormatter(bulletPoint, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun registerSameLineTextAssertionFormatterCapabilities(assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit {
+    override fun registerSameLineTextAssertionFormatterCapabilities(bulletPoint: String, listBulletPoint: String, assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator) {
         val pairFormatter = TextSameLineAssertionPairFormatter(objectFormatter, translator)
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
-        assertionFormatterFacade.register { TextListAssertionGroupFormatter(it, pairFormatter) }
-        assertionFormatterFacade.register { TextAssertionFormatter(it, pairFormatter) }
+        assertionFormatterFacade.register { TextListAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
+        assertionFormatterFacade.register { TextAssertionFormatter(bulletPoint, it, pairFormatter) }
     }
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter

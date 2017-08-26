@@ -2,10 +2,7 @@
 
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
@@ -285,24 +282,27 @@ interface IAtriumFactory {
      *
      * For instance, it formats the pair `a to b` as follows: `"a: b"`
      *
+     * @param bulletPoint The bullet point used in reporting; each assertion is prefixed with it.
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextSameLineAssertionFormatter(assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
      * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
      *
+     * @param bulletPoint  The bullet point used in reporting to mark each assertion
+     * @param listBulletPoint The bullet point used for an [IAssertionGroup] of type [IListAssertionGroupType].
      * @param assertionFormatterFacade The [IAssertionFormatterFacade] to which all [IAssertionFormatter]s with
      *        same line capabilities and text reporting should be registered.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      */
-    fun registerSameLineTextAssertionFormatterCapabilities(assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit
+    fun registerSameLineTextAssertionFormatterCapabilities(bulletPoint: String, listBulletPoint: String, assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit
 
     /**
      * Creates an [IReporter] which reports only failing assertions
