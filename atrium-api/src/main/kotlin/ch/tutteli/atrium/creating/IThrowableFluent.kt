@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 import kotlin.reflect.KClass
-
 
 /**
  * This interface is mainly here to simplify the KDoc generation (no need to define it twice,
@@ -21,13 +19,15 @@ interface IThrowableFluent {
      * than the expected one.
      *
      * @param expectedType The expected type of the thrown [Throwable].
+     * @param description The [ITranslatable] used in reporting to state `is a` in `is a: Exception`.
+     * @param nullRepresentation The [ITranslatable] used to represent the case that no exception was thrown.
      *
      * @return This builder to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] if the assertion fails.
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
-    fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>): IAssertionPlant<TExpected>
+    fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable): IAssertionPlant<TExpected>
 
     /**
      * Use the overload with reified type parameter whenever possible.
@@ -36,18 +36,15 @@ interface IThrowableFluent {
      * that it is of the expected type [TExpected] and reports an error if subject is null or another type
      * than the expected one -- furthermore it [createAssertions] which are checked additionally as well.
      *
+     * @param expectedType The expected type of the thrown [Throwable].
+     * @param description The [ITranslatable] used in reporting to state `is a` in `is a: Exception`.
+     * @param nullRepresentation The [ITranslatable] used to represent the case that no exception was thrown.
+     * @param createAssertions The factory-lambda which is called with the thrown [Throwable] as receiver.
+     *
      * @return This builder to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] if an assertion fails.
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
-    fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-
-    /**
-     * Use these [ISimpleTranslatable]s in the implementation to create corresponding [IAssertion]s.
-     */
-    enum class AssertionDescription(override val value: String) : ISimpleTranslatable {
-        IS_A("is a"),
-        NO_EXCEPTION_OCCURRED("no exception occurred"),
-    }
+    fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
 }

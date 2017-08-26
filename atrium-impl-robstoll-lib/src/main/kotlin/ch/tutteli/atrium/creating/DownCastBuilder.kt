@@ -23,9 +23,9 @@ import kotlin.reflect.full.cast
  * @property description The description of this down-cast; will be used for the creation of the [IAssertion].
  * @property subType The resulting type of the down-cast.
  * @property commonFields The [IAssertionPlantWithCommonFields.CommonFields] of the
- *        [IAssertionPlant]/[IAssertionPlantNullable] which uses this [DownCastBuilder].
- *        The down-cast will be performed on its [subject][IAssertionPlant.subject].
- *        Moreover, the containing information will inter alia be used in reporting.
+ *           [IAssertionPlant]/[IAssertionPlantNullable] which uses this [DownCastBuilder].
+ *           The down-cast will be performed on its [subject][IAssertionPlant.subject].
+ *           Moreover, the containing information will inter alia be used in reporting.
  *
  * @constructor A builder for creating a down-casting assertion.
  * @param description The description of this down-cast; will be used for the creation of the [IAssertion].
@@ -83,7 +83,6 @@ class DownCastBuilder<T : Any, TSub : T>(
      *         or an additionally specified assertion (using [withLazyAssertions]) does not hold.
      * @throws IllegalStateException In case reporting a failure does not throw itself.
      */
-
     override fun cast(): IAssertionPlant<TSub> {
         val (assertionVerb, subject, assertionChecker) = commonFields
         if (subType.isInstance(subject)) {

@@ -4,10 +4,10 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IThrowableFluent
-import ch.tutteli.atrium.creating.ThrowableFluent
 import ch.tutteli.atrium.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.ReporterBuilder
@@ -46,7 +46,7 @@ abstract class VerbSpec(
     plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
     plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
     plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
-    plantExpect: Pair<String, (act: () -> Unit) -> ThrowableFluent>,
+    plantExpect: Pair<String, (act: () -> Unit) -> IThrowableFluent>,
     describePrefix : String = "[Atrium] "
 ) : Spek({
 
@@ -127,7 +127,7 @@ abstract class VerbSpec(
                         throw IllegalArgumentException()
                     }).toThrow<UnsupportedOperationException>()
                 }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(IThrowableFluent.AssertionDescription.IS_A)
+                    containsDefaultTranslationOf(DescriptionThrowableAssertion.IS_A)
                     contains(IllegalArgumentException::class.java.name,
                         UnsupportedOperationException::class.java.name)
                 }

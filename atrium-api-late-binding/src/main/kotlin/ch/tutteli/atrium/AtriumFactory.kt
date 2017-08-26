@@ -24,7 +24,7 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatter]
  * - [IReporter]
  * - [IDownCastBuilder]
- * - [ThrowableFluent]
+ * - [IThrowableFluent]
  */
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
@@ -36,6 +36,12 @@ object AtriumFactory : IAtriumFactory {
         = throw UnsupportedOperationException(ERROR_MSG)
 
     override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
+        = throw UnsupportedOperationException(ERROR_MSG)
+
+    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
+        = throw UnsupportedOperationException(ERROR_MSG)
+
+    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
         = throw UnsupportedOperationException(ERROR_MSG)
 
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
@@ -70,43 +76,4 @@ object AtriumFactory : IAtriumFactory {
 
     override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub>
         = throw UnsupportedOperationException(ERROR_MSG)
-
-    /**
-     * Creates a [ThrowableFluent] based on the given [assertionVerb] and the [act] function.
-     *
-     * It uses the given [reporter] for reporting.
-     *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param act The function which is expected to throw a [Throwable] which in turn will be used as subject
-     *        for postulated [IAssertion]s (see [ThrowableFluent] and
-     *        [IAssertionPlantWithCommonFields.CommonFields.subject]).
-     * @param reporter The reporter used to create a [newThrowingAssertionChecker] and used for failure reporting.
-     *
-     * @return The newly created [ThrowableFluent].
-     *
-     * @see ThrowableFluent
-     */
-    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): ThrowableFluent
-        = throw UnsupportedOperationException(ERROR_MSG)
-
-
-    /**
-     * Creates a [ThrowableFluent] based on the given [assertionVerb] and the [act] function.
-     *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param act The function which is expected to throw a [Throwable] which in turn will be used as subject
-     *        for postulated [IAssertion]s (see [ThrowableFluent] and
-     *        [IAssertionPlantWithCommonFields.CommonFields.subject]).
-     * @param assertionChecker Used to report failures (see [IAssertionChecker.fail]
-     *        and [IAssertionPlantWithCommonFields.CommonFields.assertionChecker])).
-     *
-     * @return The newly created [ThrowableFluent].
-     *
-     * @see ThrowableFluent
-     */
-    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): ThrowableFluent
-        = throw UnsupportedOperationException(ERROR_MSG)
-
 }

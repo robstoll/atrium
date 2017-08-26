@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.ThrowableFluent
+import ch.tutteli.atrium.creating.IThrowableFluent
 import ch.tutteli.atrium.newCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN
@@ -42,9 +42,9 @@ inline fun <T : Any> assertThat(subject: T, createAssertions: IAssertionPlant<T>
     = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
- * Creates an [ThrowableFluent] for the given function [act].
+ * Creates an [IThrowableFluent] for the given function [act].
  *
- * @return The newly created [ThrowableFluent].
+ * @return The newly created [IThrowableFluent].
  */
 fun assertThat(act: () -> Unit)
     = AtriumFactory.newThrowableFluent(ASSERT_THAT_THROWN, act, AtriumReporterSupplier.REPORTER)

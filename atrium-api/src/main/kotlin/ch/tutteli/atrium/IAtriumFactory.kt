@@ -33,6 +33,7 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatter]
  * - [IReporter]
  * - [IDownCastBuilder]
+ * - [IThrowableFluent]
  */
 interface IAtriumFactory {
     /**
@@ -170,6 +171,37 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
+
+    /**
+     * Creates an [IThrowableFluent] based on the given [assertionVerb] and the [act] function.
+     *
+     * It uses the given [reporter] for reporting.
+     *
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting
+     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     * @param act The function which is expected to throw a [Throwable] which in turn will be used as subject
+     *        for postulated [IAssertion]s (see [ThrowableFluent] and
+     *        [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param reporter The reporter used to create a [newThrowingAssertionChecker] and used for failure reporting.
+     *
+     * @return The newly created [IThrowableFluent].
+     */
+    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
+
+    /**
+     * Creates an [IThrowableFluent] based on the given [assertionVerb] and the [act] function.
+     *
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting
+     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     * @param act The function which is expected to throw a [Throwable] which in turn will be used as subject
+     *        for postulated [IAssertion]s (see [ThrowableFluent] and
+     *        [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param assertionChecker Used to report failures (see [IAssertionChecker.fail]
+     *        and [IAssertionPlantWithCommonFields.CommonFields.assertionChecker])).
+     *
+     * @return The newly created [IThrowableFluent].
+     */
+    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
 
     /**
      * Creates an [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
