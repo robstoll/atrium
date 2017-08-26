@@ -41,7 +41,7 @@ abstract class CharSequenceContainsCheckerBuilder<T : CharSequence, D : IDecorat
      * @Param otherExpected Either an empty array if no other objects shall be searched or some additional objects.
      *
      * @return The [plant][CharSequenceContainsBuilder.plant] of the [containsBuilder] to allow a fluent API.
-     * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+     * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
      */
     fun addAssertion(searcher: ISearcher<D>, expected: Any, otherExpected: Array<out Any>): IAssertionPlant<T> {
         val assertionGroup = CharSequenceContainsAssertionCreator<T, D>(containsBuilder.decorator, searcher, checkers)

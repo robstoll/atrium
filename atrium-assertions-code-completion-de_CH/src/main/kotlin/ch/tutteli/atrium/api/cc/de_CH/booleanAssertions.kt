@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Delegates to [ist] with argument `true`.
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun IAssertionPlant<Boolean>.istTrue() = ist(true)
 
@@ -18,6 +18,6 @@ fun IAssertionPlant<Boolean>.istTrue() = ist(true)
  * Delegates to [ist] with argument `false`.
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun IAssertionPlant<Boolean>.istFalse() = ist(false)

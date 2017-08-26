@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Currently the following is possible: `esGilt(1).ist(1.0)`
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> IAssertionPlant<T>.ist(expected: T): IAssertionPlant<T>
     = addAssertion(_toBe(this, expected))
@@ -25,7 +25,7 @@ fun <T : Any> IAssertionPlant<T>.ist(expected: T): IAssertionPlant<T>
  * Currently the following is possible: `esGilt(1).istNicht(1.0)`
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> IAssertionPlant<T>.istNicht(expected: T): IAssertionPlant<T>
     = addAssertion(_notToBe(this, expected))
@@ -37,7 +37,7 @@ fun <T : Any> IAssertionPlant<T>.istNicht(expected: T): IAssertionPlant<T>
  * Currently the following is possible: `esGilt(1).istSelbeInstanzWie(1.0)`
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> IAssertionPlant<T>.istSelbeInstanzWie(expected: T): IAssertionPlant<T>
     = addAssertion(_isSame(this, expected))
@@ -49,7 +49,7 @@ fun <T : Any> IAssertionPlant<T>.istSelbeInstanzWie(expected: T): IAssertionPlan
  * Currently the following is possible: `esGilt(1).istNichtSelbeInstanzWie(1.0)`
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> IAssertionPlant<T>.istNichtSelbeInstanzWie(expected: T): IAssertionPlant<T>
     = addAssertion(_isNotSame(this, expected))
