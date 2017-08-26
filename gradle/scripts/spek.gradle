@@ -11,6 +11,10 @@ buildscript {
 apply plugin: 'jacoco'
 apply plugin: JUnitPlatformPlugin
 
+repositories {
+    maven { url "https://dl.bintray.com/jetbrains/spek" }
+}
+
 dependencies {
     testCompile("org.jetbrains.spek:spek-api:$spek_version") {
         exclude group: 'org.jetbrains.kotlin'
@@ -21,9 +25,6 @@ dependencies {
     }
 }
 
-repositories {
-    maven { url "https://dl.bintray.com/jetbrains/spek" }
-}
 
 junitPlatform {
     platformVersion "$junit_version"
