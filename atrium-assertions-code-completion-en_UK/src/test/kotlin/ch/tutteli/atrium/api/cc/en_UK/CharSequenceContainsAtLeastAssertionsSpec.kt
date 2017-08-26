@@ -22,16 +22,26 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: IAssertionPlant<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>)
-            = plant.contains.atLeast(atLeast).values(a, *aX)
+        private fun containsAtLeast(plant: IAssertionPlant<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): IAssertionPlant<CharSequence> {
+            return if (aX.isEmpty()) {
+                plant.contains.atLeast(atLeast).value(a)
+            } else {
+                plant.contains.atLeast(atLeast).values(a, *aX)
+            }
+        }
 
         private fun getAtLeastIgnoringCasePair() = Pair(
             { what: String, times: String -> "$contains $ignoringCase $what $atLeast $times" },
             Companion::containsAtLeastIgnoringCase
         )
 
-        private fun containsAtLeastIgnoringCase(plant: IAssertionPlant<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>)
-            = plant.contains.ignoringCase.atLeast(atLeast).values(a, *aX)
+        private fun containsAtLeastIgnoringCase(plant: IAssertionPlant<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): IAssertionPlant<CharSequence> {
+            return if (aX.isEmpty()) {
+                plant.contains.ignoringCase.atLeast(atLeast).value(a)
+            } else {
+                plant.contains.ignoringCase.atLeast(atLeast).values(a, *aX)
+            }
+        }
 
         private fun getAtLeastButAtMostTriple() = Triple(
             "$contains.$atLeast.$butAtMost",
