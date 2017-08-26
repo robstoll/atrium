@@ -22,7 +22,7 @@ interface IDownCastBuilder<T : Any, TSub : T> {
      *
      * @param representation The representation for `null`.
      *
-     * @return This builder to support a fluent-style API.
+     * @return This builder to support a fluent API.
      */
     fun withNullRepresentation(representation: String): IDownCastBuilder<T, TSub>
 
@@ -32,7 +32,7 @@ interface IDownCastBuilder<T : Any, TSub : T> {
      *
      * @param translatableRepresentation A translatable representation for `null`.
      *
-     * @return This builder to support a fluent-style API.
+     * @return This builder to support a fluent API.
      */
     fun withNullRepresentation(translatableRepresentation: ITranslatable): IDownCastBuilder<T, TSub>
 
@@ -46,7 +46,7 @@ interface IDownCastBuilder<T : Any, TSub : T> {
      * @param createAssertions A function which is called after the down-cast has been performed in [cast]
      *        using the newly created [IAssertionPlant] as receiver.
      *
-     * @return This builder to support a fluent-style API.
+     * @return This builder to support a fluent API.
      */
     fun withLazyAssertions(createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub>
 

@@ -19,7 +19,7 @@ val <T : CharSequence> IAssertionPlant<T>.contains get(): CharSequenceContainsBu
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if defined).
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
@@ -29,7 +29,7 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherEx
  * Makes the assertion that [IAssertionPlant.subject] does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if defined).
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
@@ -39,7 +39,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg othe
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][ITranslatable.getDefault]
  * representation and the [getDefault][ITranslatable.getDefault] representations of the [otherExpected] (if defined).
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
@@ -50,7 +50,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(expected:
  * [getDefault][ITranslatable.getDefault] representation and neither one of the [otherExpected]'s
  * [getDefault][ITranslatable.getDefault] representation (if defined).
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNotDefaultTranslationOf(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
@@ -59,7 +59,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsNotDefaultTranslationOf(expect
 /**
  * Makes the assertion that [IAssertionPlant.subject] starts with [expected].
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequence): IAssertionPlant<T>
@@ -68,7 +68,7 @@ fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequence): IA
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not start with [expected].
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequence): IAssertionPlant<T>
@@ -78,7 +78,7 @@ fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequence):
 /**
  * Makes the assertion that [IAssertionPlant.subject] ends with [expected].
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence): IAssertionPlant<T>
@@ -87,7 +87,7 @@ fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence): IAss
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not end with [expected].
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence): IAssertionPlant<T>
@@ -97,7 +97,7 @@ fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence): I
 /**
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.isEmpty(): IAssertionPlant<T>
@@ -106,7 +106,7 @@ fun <T : CharSequence> IAssertionPlant<T>.isEmpty(): IAssertionPlant<T>
 /**
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.isNotEmpty(): IAssertionPlant<T>

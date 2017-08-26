@@ -17,7 +17,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @param expected The object which is expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent-style API.
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.value(expected: Any): IAssertionPlant<T>
@@ -32,7 +32,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @param expected The object which is expected to be contained within the input of the search.
  * @param otherExpected Additional objects which are expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent-style API.
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
@@ -46,7 +46,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  *
  * @param expected The object which is expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent-style API.
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("valueIgnoringCase")
@@ -62,7 +62,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @param expected The object which is expected to be contained within the input of the search.
  * @param otherExpected Additional objects which are expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent-style API.
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("valuesIgnoringCase")
@@ -78,7 +78,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent-style API.
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
@@ -93,7 +93,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent-style API.
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")

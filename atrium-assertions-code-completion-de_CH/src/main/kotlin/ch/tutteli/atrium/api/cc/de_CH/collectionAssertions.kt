@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 /**
  * Makes the assertion that [IAssertionPlant.subject]'s [Collection.size] is [size].
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> IAssertionPlant<T>.hatDieGroesse(size: Int): IAssertionPlant<T>
@@ -16,7 +16,7 @@ fun <T : Collection<*>> IAssertionPlant<T>.hatDieGroesse(size: Int): IAssertionP
 /**
  * Makes the assertion that [IAssertionPlant.subject] is an empty [Collection].
  *
- * @return This plant to support a fluent-style API.
+ * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> IAssertionPlant<T>.istLeer(): IAssertionPlant<T>

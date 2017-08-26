@@ -36,7 +36,7 @@ private constructor(override val commonFields: IAssertionPlantWithCommonFields.C
      * that it is of the expected type [TExpected] and reports an error if subject is `null` or another type
      * than the expected one.
      *
-     * @return This builder to support a fluent-style API.
+     * @return This builder to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] if the assertion fails.
      * @throws IllegalStateException In case reporting a failure does not throw itself.
@@ -55,7 +55,7 @@ private constructor(override val commonFields: IAssertionPlantWithCommonFields.C
      * that it is of the expected type [TExpected] and reports an error if subject is null or another type
      * than the expected one -- furthermore it [createAssertions] which are checked additionally as well.
      *
-     * @return This builder to support a fluent-style API.
+     * @return This builder to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] if an assertion fails.
      * @throws IllegalStateException In case reporting a failure does not throw itself.
