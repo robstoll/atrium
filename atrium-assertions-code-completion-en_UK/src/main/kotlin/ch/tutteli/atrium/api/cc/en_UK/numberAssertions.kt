@@ -18,7 +18,7 @@ fun <T> IAssertionPlant<T>.isLessThan(expected: T): IAssertionPlant<T> where T :
  * Makes the assertion that [IAssertionPlant.subject] is less than or equals [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> IAssertionPlant<T>.isLessOrEquals(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
     = addAssertion(_isLessOrEquals(this, expected))
@@ -27,7 +27,7 @@ fun <T> IAssertionPlant<T>.isLessOrEquals(expected: T): IAssertionPlant<T> where
  * Makes the assertion that [IAssertionPlant.subject] is greater than [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> IAssertionPlant<T>.isGreaterThan(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
     = addAssertion(_isGreaterThan(this, expected))
@@ -36,7 +36,7 @@ fun <T> IAssertionPlant<T>.isGreaterThan(expected: T): IAssertionPlant<T> where 
  * Makes the assertion that [IAssertionPlant.subject] is greater than or equals [expected].
  *
  * @return This plant to support a fluent-style API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T> IAssertionPlant<T>.isGreaterOrEquals(expected: T): IAssertionPlant<T> where T : kotlin.Number, T : kotlin.Comparable<T>
     = addAssertion(_isGreaterOrEquals(this, expected))
