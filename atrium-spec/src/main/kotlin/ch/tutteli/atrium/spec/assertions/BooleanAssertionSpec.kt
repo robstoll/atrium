@@ -21,7 +21,7 @@ abstract class BooleanAssertionsSpec(
     val (isFalse, isFalseFun) = isFalsePair
 
     describe("subject is `true`") {
-        val fluent = verbs.checkImmediately(true)
+        val fluent = assert(true)
         test("$isTrue does not throw") {
             fluent.isTrueFun()
         }
