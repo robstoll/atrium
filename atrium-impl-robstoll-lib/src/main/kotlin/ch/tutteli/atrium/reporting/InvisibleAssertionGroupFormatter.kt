@@ -22,7 +22,7 @@ class InvisibleAssertionGroupFormatter(
             if (isNotFirst) {
                 methodObject.sb.appendln()
                 methodObject.indent()
-                methodObject.sb.append("▪ ")
+                methodObject.sb.append(methodObject.prefix)
             }
             isNotFirst = true
             assertionFormatterController.format(it, methodObject)

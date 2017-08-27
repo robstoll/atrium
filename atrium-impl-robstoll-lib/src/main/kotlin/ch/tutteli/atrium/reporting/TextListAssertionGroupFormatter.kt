@@ -17,22 +17,21 @@ import ch.tutteli.atrium.assertions.IListAssertionGroupType
  * @param assertionPairFormatter The formatter used to format assertion pairs.
  */
 class TextListAssertionGroupFormatter(
-    private val bulletPoint: String,
+    bulletPoint: String,
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : SingleAssertionGroupTypeFormatter<IListAssertionGroupType>(IListAssertionGroupType::class.java) {
+    private val prefix = "$bulletPoint "
 
     override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
         assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
-        val newMethodObject = AssertionFormatterMethodObject(
-            methodObject.sb,
-            methodObject.indentLevel + 2,
-            methodObject.assertionFilter)
+
+        val childMethodObject = methodObject.createChildWithNewPrefix(prefix)
         formatAssertions {
-            newMethodObject.sb.appendln()
-            newMethodObject.indent()
-            newMethodObject.sb.append(bulletPoint).append(" ")
-            assertionFormatterController.format(it, newMethodObject)
+            childMethodObject.sb.appendln()
+            childMethodObject.indent()
+            childMethodObject.sb.append(prefix)
+            assertionFormatterController.format(it, childMethodObject)
         }
     }
 }

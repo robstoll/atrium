@@ -58,25 +58,27 @@ class TextSameLineAssertionFormatterSpec : Spek({
         }
 
         context("a ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
-            val arrow = "-> "
-            val arrowLength = arrow.length
+            val arrow = "->"
+
             it("starts feature ${IAssertionGroup::name.name} with '$arrow' followed by the feature ${IAssertionGroup::subject.name}") {
                 facade.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
                     BasicAssertion(TO_BE, "robert", true),
                     BasicAssertion(NOT_TO_BE, "bert", true)
                 )), sb, alwaysTrueAssertionFilter)
-                assert(sb.toString()).startsWith("${arrow}name: robert")
+                assert(sb.toString()).startsWith("$arrow name: robert")
             }
 
-            val indent = " ".repeat(arrowLength)
+            val arrowLength = arrow.length + 1
+            val arrowIndent = " ".repeat(arrowLength)
+            val indent = " ".repeat(squarePoint.length + 1)
 
             it("indents assertions by $arrowLength spaces") {
                 facade.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
                     BasicAssertion(TO_BE, "robert", true),
                     BasicAssertion(NOT_TO_BE, "bert", true)
                 )), sb, alwaysTrueAssertionFilter)
-                assert(sb.toString()).contains("$indent$squarePoint ${TO_BE.getDefault()}: robert$separator"
-                    + "$indent$squarePoint ${NOT_TO_BE.getDefault()}: bert")
+                assert(sb.toString()).contains("$arrowIndent$squarePoint ${TO_BE.getDefault()}: robert$separator"
+                    + "$arrowIndent$squarePoint ${NOT_TO_BE.getDefault()}: bert")
             }
 
             context("in an ${IAssertionGroup::class.java.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
@@ -92,11 +94,11 @@ class TextSameLineAssertionFormatterSpec : Spek({
                         ))
                     )), sb, alwaysTrueAssertionFilter)
                     assert(sb.toString()).toBe("assert: " + basicAssertion + separator
-                        + "$squarePoint -> ${basicAssertion::description.name}: $IS_SAME$separator"
-                        + "$indent$squarePoint ${TO_BE.getDefault()}: a$separator"
-                        + "$indent$squarePoint ${NOT_TO_BE.getDefault()}: description$separator"
-                        + "$squarePoint -> ${basicAssertion::expected.name}: whatever$separator"
-                        + "$indent$squarePoint ${TO_BE.getDefault()}: whatever"
+                        + "$squarePoint $arrow ${basicAssertion::description.name}: $IS_SAME$separator"
+                        + "$indent$arrowIndent$squarePoint ${TO_BE.getDefault()}: a$separator"
+                        + "$indent$arrowIndent$squarePoint ${NOT_TO_BE.getDefault()}: description$separator"
+                        + "$squarePoint $arrow ${basicAssertion::expected.name}: whatever$separator"
+                        + "$indent$arrowIndent$squarePoint ${TO_BE.getDefault()}: whatever"
                     )
                 }
 
@@ -112,10 +114,10 @@ class TextSameLineAssertionFormatterSpec : Spek({
                             ))
                         )), sb, alwaysTrueAssertionFilter)
                         assert(sb.toString()).toBe("assert: " + basicAssertion + separator
-                            + "$squarePoint -> ${basicAssertion::description.name}: $IS_SAME$separator"
-                            + "$indent$squarePoint ${TO_BE.getDefault()}: a$separator"
-                            + "$indent$squarePoint -> toString: $IS_SAME$separator"
-                            + "$indent$indent$squarePoint ${NOT_TO_BE.getDefault()}: a description"
+                            + "$squarePoint $arrow ${basicAssertion::description.name}: $IS_SAME$separator"
+                            + "$indent$arrowIndent$squarePoint ${TO_BE.getDefault()}: a$separator"
+                            + "$indent$arrowIndent$squarePoint $arrow toString: $IS_SAME$separator"
+                            + "$indent$arrowIndent$indent$arrowIndent$squarePoint ${NOT_TO_BE.getDefault()}: a description"
                         )
                     }
                 }
