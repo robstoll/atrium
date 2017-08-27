@@ -23,10 +23,11 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
         prefixedDescribe(describePrefix, description, body)
     }
-    val squarePoint = "▪"
+
+    val bulletPoint = "▪"
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register(testeeFactory)
-    facade.register({ AtriumFactory.newTextSameLineAssertionFormatter(squarePoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+    facade.register { AtriumFactory.newTextSameLineAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
 
     var sb = StringBuilder()
     afterEachTest {
@@ -43,31 +44,35 @@ abstract class InvisibleAssertionGroupFormatterSpec(
 
     prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IInvisibleAssertionGroupType::class.simpleName}") {
-            context("format directly the group") {
-                it("puts the assertions one under the others without indentation") {
+            context("format directly the group (no prefix given)") {
+                it("puts the assertions one under the others without indentation and without prefix") {
                     facade.format(invisibleAssertionGroup, sb, alwaysTrueAssertionFilter)
-                    verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator$squarePoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
+                    verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        + "${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
             }
 
             context("has ${IAssertionGroup::name.name} and ${IAssertionGroup::subject.name}") {
                 it("still puts the assertions one under the others without indentation and does not include ${IAssertionGroup::name.name} or ${IAssertionGroup::subject.name}") {
                     facade.format(AssertionGroup(object : IInvisibleAssertionGroupType {}, AssertionVerb.ASSERT, 2, assertions), sb, alwaysTrueAssertionFilter)
-                    verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator$squarePoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
+                    verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        + "${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
             }
 
-            context("in an ${IAssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
-                it("puts the assertions one under the others and indents as the other assertions") {
+            val arrow = "->"
+            val arrowIndent = " ".repeat(arrow.length + 1)
+
+            context("in an ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
+                it("puts the assertions one under the others and indents as the other assertions and puts a prefix as well") {
                     val featureAssertions = listOf(invisibleAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 20, false))
                     val featureAssertionGroup = AssertionGroup(FeatureAssertionGroupType, AssertionVerb.ASSERT, 10, featureAssertions)
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
-                    verbs.checkImmediately(sb.toString()).toBe("-> ${AssertionVerb.ASSERT.getDefault()}: 10"
-                        + "$separator   $squarePoint ${AssertionVerb.ASSERT.getDefault()}: 1"
-                        + "$separator   $squarePoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
-                        + "$separator   $squarePoint ${AssertionVerb.ASSERT.getDefault()}: 20")
+                    verbs.checkImmediately(sb.toString()).toBe(
+                          "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
+                        + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        + "$arrowIndent$bulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                        + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
             }
         }

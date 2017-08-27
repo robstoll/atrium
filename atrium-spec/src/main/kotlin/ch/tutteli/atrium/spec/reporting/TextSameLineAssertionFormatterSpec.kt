@@ -34,10 +34,10 @@ abstract class TextSameLineAssertionFormatterSpec(
     val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
     var sb = StringBuilder()
-    var methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
+    var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
     afterEachTest {
         sb = StringBuilder()
-        methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
+        methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
     }
 
     val squarePoint = "▪"

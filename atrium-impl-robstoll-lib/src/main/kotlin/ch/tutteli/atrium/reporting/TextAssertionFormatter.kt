@@ -29,10 +29,11 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *        and [IBasicAssertion.expected])
  */
 class TextAssertionFormatter(
-    private val bulletPoint: String,
+    bulletPoint: String,
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : IAssertionFormatter {
+    private val prefix = "$bulletPoint "
 
     override fun canFormat(assertion: IAssertion): Boolean {
         // two fallback are implemented one for IAssertionGroup (fallback to formatGroupNameDefault)
@@ -55,15 +56,15 @@ class TextAssertionFormatter(
     }
 
     override fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        val newMethodObject = when (assertionGroup.type) {
+        val childMethodObject = when (assertionGroup.type) {
             is IFeatureAssertionGroupType -> formatFeatureGroupName(assertionGroup, methodObject)
             else -> formatGroupNameDefault(assertionGroup, methodObject)
         }
         formatAssertions {
-            newMethodObject.sb.appendln()
-            newMethodObject.indent()
-            newMethodObject.sb.append(bulletPoint).append(" ")
-            assertionFormatterController.format(it, newMethodObject)
+            childMethodObject.sb.appendln()
+            childMethodObject.indent()
+            childMethodObject.sb.append(prefix)
+            assertionFormatterController.format(it, childMethodObject)
         }
     }
 
@@ -72,15 +73,12 @@ class TextAssertionFormatter(
         val arrowLength = arrow.length
         val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), featureAssertionGroup.name)
         assertionPairFormatter.format(methodObject, translatable, featureAssertionGroup.subject)
-        return AssertionFormatterMethodObject(
-            methodObject.sb,
-            methodObject.indentLevel + arrowLength,
-            methodObject.assertionFilter)
+        return methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrowLength)
     }
 
     private fun formatGroupNameDefault(rootAssertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         assertionPairFormatter.format(methodObject, rootAssertionGroup.name, rootAssertionGroup.subject)
-        return methodObject
+        return methodObject.createChildWithNewPrefix(prefix)
     }
 
 }

@@ -35,10 +35,10 @@ abstract class AssertionFormatterSpec(
 
     val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     var sb = StringBuilder()
-    var methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
+    var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
     afterEachTest {
         sb = StringBuilder()
-        methodObject = AssertionFormatterMethodObject(sb, 0, alwaysTrueAssertionFilter)
+        methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
     }
 
     prefixedDescribe("fun ${testee::format.name}") {

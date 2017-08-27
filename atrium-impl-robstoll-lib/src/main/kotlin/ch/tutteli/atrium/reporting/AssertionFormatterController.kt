@@ -26,7 +26,7 @@ class AssertionFormatterController : IAssertionFormatterController {
         }
     }
 
-    fun formatGroup(assertionGroup: IAssertionGroup, assertionFormatter: IAssertionFormatter, methodObject: AssertionFormatterMethodObject) {
+    private fun formatGroup(assertionGroup: IAssertionGroup, assertionFormatter: IAssertionFormatter, methodObject: AssertionFormatterMethodObject) {
         assertionFormatter.formatGroup(assertionGroup, methodObject) { formatAssertionInGroup ->
             assertionGroup.assertions
                 .filter { methodObject.assertionFilter(it) }
