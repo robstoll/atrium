@@ -293,7 +293,23 @@ interface IAtriumFactory {
 
     /**
      * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
-     * formats [IAssertionGroup] of type [IListAssertionGroupType] by using the given [listBulletPoint].
+     * formats [IAssertionGroup]s of type [IFeatureAssertionGroupType] by using the given [arrow]
+     * as symbol for features.
+     *
+     * @param arrow The symbol to signify a feature, typically an arrow (e.g. `->`).
+     * @param featureBulletPoint The bullet point used as prefix for each assertion made within the [IAssertionGroup].
+     * @param assertionFormatterController The controller used to steer the flow of the reporting.
+     * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
+     * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
+     *
+     * @return The newly created assertion formatter.
+     */
+    fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+
+    /**
+     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
+     * formats [IAssertionGroup]s of type [IListAssertionGroupType] by using the given [listBulletPoint]
+     * as prefix for each element in the [IAssertionGroup].
      *
      * @param listBulletPoint The bullet point used in reporting; each element in the [IAssertionGroup] is prefixed
      *                        with it.
@@ -310,17 +326,27 @@ interface IAtriumFactory {
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
      * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
      *
-     * Should at least support [IFeatureAssertionGroupType], [IListAssertionGroupType] (usually given by
-     * [newTextListAssertionGroupFormatter]) and of course [RootAssertionGroupType].
+     * Should at least support [RootAssertionGroupType], [IFeatureAssertionGroupType] (usually given by
+     * [newTextFeatureAssertionGroupFormatter]) and [IListAssertionGroupType] (usually given by
+     * [newTextListAssertionGroupFormatter]).
      *
-     * @param bulletPoint  The bullet point used in reporting to mark each assertion
+     * @param bulletPoint  The bullet point used in reporting to mark each assertion.
+     * @param arrow The symbol to signify a feature, typically an arrow (e.g. `->`).
+     * @param featureBulletPoint The bullet point used as prefix for each assertion made within the [IAssertionGroup].
      * @param listBulletPoint The bullet point used for an [IAssertionGroup] of type [IListAssertionGroupType].
      * @param assertionFormatterFacade The [IAssertionFormatterFacade] to which all [IAssertionFormatter]s with
      *        same line capabilities and text reporting should be registered.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      */
-    fun registerSameLineTextAssertionFormatterCapabilities(bulletPoint: String, listBulletPoint: String, assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit
+    fun registerSameLineTextAssertionFormatterCapabilities(
+        bulletPoint: String,
+        arrow: String,
+        featureBulletPoint: String,
+        listBulletPoint: String,
+        assertionFormatterFacade: IAssertionFormatterFacade,
+        objectFormatter: IObjectFormatter,
+        translator: ITranslator): Unit
 
     /**
      * Creates an [IReporter] which reports only failing assertions

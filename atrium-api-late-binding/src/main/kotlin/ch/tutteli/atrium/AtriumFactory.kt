@@ -15,6 +15,7 @@ import kotlin.reflect.KClass
  *
  * It provides factory methods which all throw an [UnsupportedOperationException] to create:
  * - [IAssertionPlant]
+ * - [IThrowableFluent]
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
@@ -24,7 +25,6 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatter]
  * - [IReporter]
  * - [IDownCastBuilder]
- * - [IThrowableFluent]
  */
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
@@ -68,10 +68,13 @@ object AtriumFactory : IAtriumFactory {
     override fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = throw UnsupportedOperationException(ERROR_MSG)
 
+    override fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = throw UnsupportedOperationException(ERROR_MSG)
+
     override fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun registerSameLineTextAssertionFormatterCapabilities(bulletPoint: String, listBulletPoint: String, assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit
+    override fun registerSameLineTextAssertionFormatterCapabilities(bulletPoint: String, arrow: String, featureBulletPoint: String, listBulletPoint: String, assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit
         = throw UnsupportedOperationException(ERROR_MSG)
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter

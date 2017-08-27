@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
@@ -9,11 +8,10 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * defines how an assertion pair (e.g. [IBasicAssertion.description] and [IBasicAssertion.expected]) is formatted.
  *
  * Currently the following [IAssertion] types are supported:
- * - [IAssertionGroup] with the following types:
- *   - [RootAssertionGroupType]
- *   - [FeatureAssertionGroupType]
+ * - [IAssertionGroup] of type [RootAssertionGroupType]
  * - [IBasicAssertion]
- * - [IAssertion]
+ *
+ * In addition it defines a fallback for unknown [IAssertionGroupType]s as well as for unkown [IAssertion] types.
  *
  * @property assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *           the reporting process.
@@ -33,10 +31,10 @@ class TextAssertionFormatter(
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : IAssertionFormatter {
-    private val prefix = "$bulletPoint "
+    private val formatter = TextPrefixBasedAssertionGroupFormatter("$bulletPoint ", assertionFormatterController)
 
     override fun canFormat(assertion: IAssertion): Boolean {
-        // two fallback are implemented one for IAssertionGroup (fallback to formatGroupNameDefault)
+        // two fallback are implemented one for IAssertionGroup (uses always formatGroup)
         // and the other one for any kind of IAssertion (fallback to formatFallback)
         return true
     }
@@ -56,31 +54,8 @@ class TextAssertionFormatter(
     }
 
     override fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        val childMethodObject = when (assertionGroup.type) {
-            is IFeatureAssertionGroupType -> formatFeatureGroupName(assertionGroup, methodObject)
-            else -> formatGroupNameDefault(assertionGroup, methodObject)
-        }
-        formatAssertions {
-            childMethodObject.sb.appendln()
-            childMethodObject.indent()
-            childMethodObject.sb.append(prefix)
-            assertionFormatterController.format(it, childMethodObject)
-        }
+        formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject, formatAssertions)
     }
-
-    private fun formatFeatureGroupName(featureAssertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
-        val arrow = "-> "
-        val arrowLength = arrow.length
-        val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), featureAssertionGroup.name)
-        assertionPairFormatter.format(methodObject, translatable, featureAssertionGroup.subject)
-        return methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrowLength)
-    }
-
-    private fun formatGroupNameDefault(rootAssertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
-        assertionPairFormatter.format(methodObject, rootAssertionGroup.name, rootAssertionGroup.subject)
-        return methodObject.createChildWithNewPrefix(prefix)
-    }
-
 }
 
 

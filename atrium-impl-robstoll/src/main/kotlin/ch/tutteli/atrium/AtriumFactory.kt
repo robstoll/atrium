@@ -18,6 +18,7 @@ import kotlin.reflect.KClass
  *
  * It provides factory methods to create:
  * - [IAssertionPlant]
+ * - [IThrowableFluent]
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
@@ -27,7 +28,6 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatter]
  * - [IReporter]
  * - [IDownCastBuilder]
- * - [IThrowableFluent]
  */
 object AtriumFactory : IAtriumFactory {
 
@@ -44,7 +44,7 @@ object AtriumFactory : IAtriumFactory {
         = newThrowableFluent(assertionVerb, act, newThrowingAssertionChecker(reporter))
 
     override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
-        =  ThrowableFluent.create(assertionVerb, act, assertionChecker)
+        = ThrowableFluent.create(assertionVerb, act, assertionChecker)
 
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
         = ThrowingAssertionChecker(reporter)
@@ -70,13 +70,24 @@ object AtriumFactory : IAtriumFactory {
     override fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = TextAssertionFormatter(bulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
+    override fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
+
     override fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = TextListAssertionGroupFormatter(listBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun registerSameLineTextAssertionFormatterCapabilities(bulletPoint: String, listBulletPoint: String, assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator) {
+    override fun registerSameLineTextAssertionFormatterCapabilities(
+        bulletPoint: String,
+        arrow: String,
+        featureBulletPoint: String,
+        listBulletPoint: String,
+        assertionFormatterFacade: IAssertionFormatterFacade,
+        objectFormatter: IObjectFormatter, translator: ITranslator
+    ): Unit {
         val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextListAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
+        assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextAssertionFormatter(bulletPoint, it, pairFormatter) }
     }
 
