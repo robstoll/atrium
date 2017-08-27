@@ -4,15 +4,15 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.startsWith
-import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.BasicAssertion
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.NOT_TO_BE
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.spec.reporting.alwaysTrueAssertionFilter
@@ -27,8 +27,10 @@ class TextSameLineAssertionFormatterSpec : Spek({
     include(AtriumsTextSameLineAssertionFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
+    val squarePoint = "▪"
+
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register({ TextAssertionFormatter("▪", it, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
+    facade.register({ TextAssertionFormatter(squarePoint, it, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
 
     var sb = StringBuilder()
     afterEachTest {
@@ -36,91 +38,16 @@ class TextSameLineAssertionFormatterSpec : Spek({
     }
     val separator = System.getProperty("line.separator")!!
 
-    fun createRootAssertionGroup(name: ITranslatable, subject: Any, assertions: List<IAssertion>)
-        = AssertionGroup(RootAssertionGroupType, name, subject, assertions)
-
-    fun createFeatureAssertionGroup(name: ITranslatable, subject: Any, assertions: List<IAssertion>)
-        = AssertionGroup(object : IFeatureAssertionGroupType {}, name, subject, assertions)
-
-    val squarePoint = "▪"
-
     describe("fun ${TextAssertionFormatter::format.name}") {
         context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name}") {
-                facade.format(createRootAssertionGroup(ASSERT, "subject", listOf(
+                facade.format(AssertionGroup(RootAssertionGroupType, ASSERT, "subject", listOf(
                     BasicAssertion(TO_BE, "bli", false),
                     BasicAssertion(NOT_TO_BE, "bye", false)
                 )), sb, alwaysTrueAssertionFilter)
                 assert(sb.toString()).startsWith("assert: subject$separator" +
                     "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
                     "$squarePoint ${NOT_TO_BE.getDefault()}: bye")
-            }
-        }
-
-        context("a ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
-            val arrow = "->"
-
-            it("starts feature ${IAssertionGroup::name.name} with '$arrow' followed by the feature ${IAssertionGroup::subject.name}") {
-                facade.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
-                    BasicAssertion(TO_BE, "robert", true),
-                    BasicAssertion(NOT_TO_BE, "bert", true)
-                )), sb, alwaysTrueAssertionFilter)
-                assert(sb.toString()).startsWith("$arrow name: robert")
-            }
-
-            val arrowLength = arrow.length + 1
-            val arrowIndent = " ".repeat(arrowLength)
-            val indent = " ".repeat(squarePoint.length + 1)
-
-            it("indents assertions by $arrowLength spaces") {
-                facade.format(createFeatureAssertionGroup(Untranslatable("name"), "robert", listOf(
-                    BasicAssertion(TO_BE, "robert", true),
-                    BasicAssertion(NOT_TO_BE, "bert", true)
-                )), sb, alwaysTrueAssertionFilter)
-                assert(sb.toString()).contains("$arrowIndent$squarePoint ${TO_BE.getDefault()}: robert$separator"
-                    + "$arrowIndent$squarePoint ${NOT_TO_BE.getDefault()}: bert")
-            }
-
-            context("in an ${IAssertionGroup::class.java.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
-                it("does only indent the assertions but not the feature ${IAssertionGroup::name.name}") {
-                    val basicAssertion = BasicAssertion(IS_SAME, "whatever", false)
-                    facade.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
-                        createFeatureAssertionGroup(Untranslatable(basicAssertion::description.name), basicAssertion.description, listOf(
-                            BasicAssertion(TO_BE, "a", true),
-                            BasicAssertion(NOT_TO_BE, "description", true)
-                        )),
-                        createFeatureAssertionGroup(Untranslatable(basicAssertion::expected.name), basicAssertion.expected, listOf(
-                            BasicAssertion(TO_BE, "whatever", true)
-                        ))
-                    )), sb, alwaysTrueAssertionFilter)
-                    assert(sb.toString()).toBe("assert: " + basicAssertion + separator
-                        + "$squarePoint $arrow ${basicAssertion::description.name}: $IS_SAME$separator"
-                        + "$indent$arrowIndent$squarePoint ${TO_BE.getDefault()}: a$separator"
-                        + "$indent$arrowIndent$squarePoint ${NOT_TO_BE.getDefault()}: description$separator"
-                        + "$squarePoint $arrow ${basicAssertion::expected.name}: whatever$separator"
-                        + "$indent$arrowIndent$squarePoint ${TO_BE.getDefault()}: whatever"
-                    )
-                }
-
-                context("in another ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
-                    it("does indent the feature and double-intends its assertions") {
-                        val basicAssertion = BasicAssertion(IS_SAME, "whatever", false)
-                        facade.format(createRootAssertionGroup(ASSERT, basicAssertion, listOf(
-                            createFeatureAssertionGroup(Untranslatable(basicAssertion::description.name), basicAssertion.description, listOf(
-                                BasicAssertion(TO_BE, "a", true),
-                                createFeatureAssertionGroup(Untranslatable(basicAssertion::description::toString.name), basicAssertion.description, listOf(
-                                    BasicAssertion(NOT_TO_BE, "a description", true)
-                                ))
-                            ))
-                        )), sb, alwaysTrueAssertionFilter)
-                        assert(sb.toString()).toBe("assert: " + basicAssertion + separator
-                            + "$squarePoint $arrow ${basicAssertion::description.name}: $IS_SAME$separator"
-                            + "$indent$arrowIndent$squarePoint ${TO_BE.getDefault()}: a$separator"
-                            + "$indent$arrowIndent$squarePoint $arrow toString: $IS_SAME$separator"
-                            + "$indent$arrowIndent$indent$arrowIndent$squarePoint ${NOT_TO_BE.getDefault()}: a description"
-                        )
-                    }
-                }
             }
         }
     }

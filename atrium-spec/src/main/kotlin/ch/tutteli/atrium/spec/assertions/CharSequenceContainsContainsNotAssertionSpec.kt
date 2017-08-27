@@ -121,19 +121,20 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
 
                 val person = Person("Robert Stoll")
 
-                test("$contains 'treboR' and 'llotS' - error message contains '-> name' exactly once") {
+                val nameWithArrow = "➤ name"
+                test("$contains 'treboR' and 'llotS' - error message contains '$nameWithArrow' exactly once") {
                     expect {
                         verbs.checkLazily(person) {
                             its(subject::name).containsFun("treboR", "llotS")
                         }
-                    }.toThrow<AssertionError>().and.message.contains.exactly(1).value("-> name")
+                    }.toThrow<AssertionError>().and.message.contains.exactly(1).value(nameWithArrow)
                 }
-                test("$containsNot 'Robert' and 'Stoll' - error message contains '-> name' exactly once") {
+                test("$containsNot 'Robert' and 'Stoll' - error message contains '$nameWithArrow' exactly once") {
                     expect {
                         verbs.checkLazily(person) {
                             its(subject::name).containsNotFun("Robert", "Stoll")
                         }
-                    }.toThrow<AssertionError>().and.message.contains.exactly(1).value("-> name")
+                    }.toThrow<AssertionError>().and.message.contains.exactly(1).value(nameWithArrow)
                 }
             }
         }

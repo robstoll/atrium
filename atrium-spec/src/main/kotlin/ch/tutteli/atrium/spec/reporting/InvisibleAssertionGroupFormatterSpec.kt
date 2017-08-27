@@ -26,9 +26,12 @@ abstract class InvisibleAssertionGroupFormatterSpec(
 
     val bulletPoint = "***"
     val listBulletPoint = "=="
+    val arrow = "->"
+
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
     facade.register(testeeFactory)
     facade.register { AtriumFactory.newTextListAssertionGroupFormatter(listBulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+    facade.register { AtriumFactory.newTextFeatureAssertionGroupFormatter(arrow, bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
     facade.register { AtriumFactory.newTextSameLineAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
 
     var sb = StringBuilder()
@@ -62,9 +65,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
                 }
             }
 
-            val arrow = "->"
             val arrowIndent = " ".repeat(arrow.length + 1)
-
             val listIndent = " ".repeat(listBulletPoint.length + 1)
             context("in an ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
                 it("puts the assertions one under the others, indents them and uses the same prefix, which is $bulletPoint") {
