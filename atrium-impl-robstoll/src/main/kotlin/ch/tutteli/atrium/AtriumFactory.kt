@@ -68,14 +68,20 @@ object AtriumFactory : IAtriumFactory {
         = AssertionFormatterFacade(assertionFormatterController)
 
     override fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = TextAssertionFormatter(bulletPoint, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+        = TextAssertionFormatter(bulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
+
+    override fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = TextListAssertionGroupFormatter(listBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
     override fun registerSameLineTextAssertionFormatterCapabilities(bulletPoint: String, listBulletPoint: String, assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator) {
-        val pairFormatter = TextSameLineAssertionPairFormatter(objectFormatter, translator)
+        val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextListAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextAssertionFormatter(bulletPoint, it, pairFormatter) }
     }
+
+    private fun newTextSameLineAssertionPairFormatter(objectFormatter: IObjectFormatter, translator: ITranslator)
+        = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
         = OnlyFailureReporter(assertionFormatterFacade)
