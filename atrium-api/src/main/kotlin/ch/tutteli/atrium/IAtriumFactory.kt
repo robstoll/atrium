@@ -292,8 +292,26 @@ interface IAtriumFactory {
     fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
+     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
+     * formats [IAssertionGroup] of type [IListAssertionGroupType] by using the given [listBulletPoint].
+     *
+     * @param listBulletPoint The bullet point used in reporting; each element in the [IAssertionGroup] is prefixed
+     *                        with it.
+     * @param assertionFormatterController The controller used to steer the flow of the reporting.
+     * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
+     * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
+     *
+     * @return The newly created assertion formatter.
+     */
+    fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+
+
+    /**
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
      * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
+     *
+     * Should at least support [IFeatureAssertionGroupType], [IListAssertionGroupType] (usually given by
+     * [newTextListAssertionGroupFormatter]) and of course [RootAssertionGroupType].
      *
      * @param bulletPoint  The bullet point used in reporting to mark each assertion
      * @param listBulletPoint The bullet point used for an [IAssertionGroup] of type [IListAssertionGroupType].

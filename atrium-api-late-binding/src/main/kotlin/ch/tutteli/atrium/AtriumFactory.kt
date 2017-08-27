@@ -68,6 +68,9 @@ object AtriumFactory : IAtriumFactory {
     override fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = throw UnsupportedOperationException(ERROR_MSG)
 
+    override fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = throw UnsupportedOperationException(ERROR_MSG)
+
     override fun registerSameLineTextAssertionFormatterCapabilities(bulletPoint: String, listBulletPoint: String, assertionFormatterFacade: IAssertionFormatterFacade, objectFormatter: IObjectFormatter, translator: ITranslator): Unit
         = throw UnsupportedOperationException(ERROR_MSG)
 
