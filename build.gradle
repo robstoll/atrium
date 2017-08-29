@@ -20,6 +20,9 @@ buildscript {
         jacocoProjects = subprojects.findAll {
             it.name != "atrium-api" &&
                 it.name != "atrium-api-late-binding" &&
+                it.name != "atrium-impl-robstoll" &&
+                it.name != "atrium-translations-de_CH" &&
+                it.name != "atrium-translations-en_UK" &&
                 it.name != "atrium-spec" &&
                 // would have two classes with the same name if we add it as project as well,
                 // coverage is still calculated in the single report though
