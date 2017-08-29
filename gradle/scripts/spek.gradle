@@ -45,8 +45,8 @@ afterEvaluate {
 
     project.task(type: JacocoReport, 'junitPlatformJacocoReport',
         {
-            sourceDirectories = sourceSets.main.allJava
-            classDirectories = files("$buildDir/classes/main")
+            sourceDirectories = sourceSets.main.allJava.sourceDirectories
+            classDirectories = files(sourceSets.main.output.classesDir)
             executionData junitPlatformTestTask
             reports {
                 xml.enabled = true

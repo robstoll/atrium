@@ -1,0 +1,40 @@
+apply plugin: 'kotlin'
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "$jacoco_tool_version"
+}
+
+task jacocoMerge(type: JacocoMerge) {
+    jacocoProjects.each {
+        executionData "${it.buildDir}/jacoco/junitPlatformTest.exec"
+    }
+}
+
+task CodeCoverageReport(type: JacocoReport) {
+    dependsOn jacocoProjects.build
+    dependsOn jacocoMerge
+    jacocoMerge.mustRunAfter jacocoProjects.build
+
+    executionData jacocoMerge.destinationFile
+
+    sourceDirectories = files()
+    classDirectories = files()
+
+    jacocoProjects.each {
+        sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
+        classDirectories += files(it.sourceSets.main.output.classesDir)
+    }
+    doFirst {
+        println "going to generate jacoco for the projects: ${jacocoProjects*.name}"
+        println "========================================="
+    }
+
+    reports {
+        csv.enabled false
+        html.enabled = true
+        html.destination "${buildDir}/jacoco/"
+        xml.enabled true
+        xml.destination "${buildDir}/reports/jacoco/report.xml"
+    }
+}

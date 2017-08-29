@@ -8,7 +8,7 @@ before_install:
 install: true
 
 script:
-  - ./gradlew -i build
+  - ./gradlew -i build CodeCoverageReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
