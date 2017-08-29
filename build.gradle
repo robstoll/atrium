@@ -8,7 +8,7 @@ buildscript {
         dokka_version = '0.9.14'
 
         //spek.gradle
-        jacoco_tool_version = '0.7.6.201602180812'
+        jacoco_tool_version = '0.7.9'
         spek_version = '1.1.4'
         junit_version = '1.0.0-RC3'
 
@@ -16,6 +16,15 @@ buildscript {
         bintray_version = '1.7.3'
         publish_pkg_name = 'atrium'
         publish_vcsUrl = 'https://github.com/robstoll/atrium.git'
+
+        jacocoProjects = subprojects.findAll {
+            it.name != "atrium-api" &&
+                it.name != "atrium-api-late-binding" &&
+                it.name != "atrium-spec" &&
+                // would have two classes with the same name if we add it as project as well,
+                // coverage is still calculated in the single report though
+                it.name != "atrium-translations-de_CH"
+        }
     }
 
     repositories {
@@ -26,6 +35,10 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
     }
+}
+
+repositories {
+    mavenCentral()
 }
 
 subprojects {
@@ -61,6 +74,7 @@ subprojects {
     }
 }
 
+apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 apply from: 'gradle/scripts/gh-pages.gradle'
 
 dokka {
