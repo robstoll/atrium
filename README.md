@@ -240,10 +240,10 @@ You are very welcome to contribute:
 According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
 library does not yet offer a lot of out of the box assertion functions. More functions will follow 
 but only if they are used somewhere by someone. So, let me know if you miss something by creating 
-an [feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
+a [feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
  
-Some assertion functions which I miss myself and will follow in the next version are listed in 
-the [Roadmap](#roadmap).
+Some assertion functions which I miss myself will follow in the next version. 
+They are listed in the [Roadmap](#roadmap) below.
 
 # Roadmap
 I plan that Atrium will support in the future:
