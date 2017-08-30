@@ -5,21 +5,21 @@ import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
-internal fun <T : Any> assert(subject: T)
+internal fun <T : Any> esGilt(subject: T)
     = AtriumFactory.newCheckImmediately(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-internal inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
+internal inline fun <T : Any> esGilt(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newCheckLazilyAtTheEnd(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
-internal fun <T : Any?> assert(subject: T)
+internal fun <T : Any?> esGilt(subject: T)
     = AtriumFactory.newNullable(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-internal fun expect(act: () -> Unit)
+internal fun erwarte(act: () -> Unit)
     = AtriumFactory.newThrowableFluent(AssertionVerb.EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 internal enum class AssertionVerb(override val value: String) : ISimpleTranslatable {
-    ASSERT("assert"),
-    EXPECT_THROWN("expect the thrown exception"),
+    ASSERT("es gilt"),
+    EXPECT_THROWN("erwarte, die geworfene Exception"),
 }
 
 internal object AtriumReporterSupplier {
@@ -34,20 +34,20 @@ internal object AtriumReporterSupplier {
  * You need to add atrium-spec to your dependencies in order to be able to reuse the VerbSpec.
  */
 internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
-    "assert" to { subject -> assert(subject) },
-    "assert" to { subject, createAssertions -> assert(subject, createAssertions) },
-    "assert" to { subject -> assert(subject) },
-    "expect" to { act -> expect { act() } })
+    "es gilt" to { subject -> esGilt(subject) },
+    "es gilt" to { subject, createAssertions -> esGilt(subject, createAssertions) },
+    "es gilt" to { subject -> esGilt(subject) },
+    "erwarte" to { act -> erwarte { act() } })
 
 /**
  * Only required if you implement a custom component (for instance an own [IReporter], [IObjectFormatter] etc.)
  * and you want to reuse a specification from atrium-spec to test your custom component against it.
  */
 internal object AssertionVerbFactory : IAssertionVerbFactory {
-    override fun <T : Any> checkImmediately(subject: T) = assert(subject)
+    override fun <T : Any> checkImmediately(subject: T) = esGilt(subject)
     override fun <T : Any> checkLazily(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-        = assert(subject, createAssertions)
+        = esGilt(subject, createAssertions)
 
-    override fun <T> checkNullable(subject: T) = assert(subject)
-    override fun checkException(act: () -> Unit) = expect(act)
+    override fun <T> checkNullable(subject: T) = esGilt(subject)
+    override fun checkException(act: () -> Unit) = erwarte(act)
 }
