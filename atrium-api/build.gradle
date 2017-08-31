@@ -3,5 +3,5 @@ buildscript {
 }
 
 dokka {
-    sourceDirs = files('src/main/kotlin')
+    sourceDirs = files(srcKotlin)
 }

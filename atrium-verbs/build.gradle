@@ -11,10 +11,3 @@ dependencies {
     testCompile project(":${rootProject.name}-spec")
     testCompile project(":${rootProject.name}-impl-robstoll")
 }
-
-dokka {
-    sourceDirs = files(
-        'src/main/kotlin',
-        "../${rootProject.name}-api/src/main/kotlin",
-        "../${rootProject.name}-api-late-binding/src/main/kotlin")
-}

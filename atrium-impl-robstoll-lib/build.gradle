@@ -16,5 +16,10 @@ dependencies {
 }
 
 dokka {
-    sourceDirs = files('src/main/kotlin', "../${rootProject.name}-api/src/main/kotlin")
+    sourceDirs = files(
+        srcKotlin,
+        "../${rootProject.name}-api/$srcKotlin",
+        "../${rootProject.name}-impl-robstoll/$srcKotlin"
+    )
 }
+
