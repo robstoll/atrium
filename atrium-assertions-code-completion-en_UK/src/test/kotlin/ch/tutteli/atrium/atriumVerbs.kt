@@ -1,6 +1,8 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.reporting.IObjectFormatter
+import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -41,6 +43,7 @@ internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
 
 /**
  * Only required if you implement a custom component (for instance an own [IReporter], [IObjectFormatter] etc.)
+ * or an own assertion function API (e.g., atrium-assertions-code-completion in a different language)
  * and you want to reuse a specification from atrium-spec to test your custom component against it.
  */
 internal object AssertionVerbFactory : IAssertionVerbFactory {
