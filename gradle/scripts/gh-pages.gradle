@@ -28,3 +28,25 @@ task ghPages {
     finalizedBy copyCSS
     finalizedBy copyIndex
 }
+
+dokka {
+    moduleName = 'doc'
+    outputFormat = 'html'
+    outputDirectory = "../${project.name}-gh-pages/$ghPages_version"
+
+    includes = ['misc/kdoc/packages.md']
+    jdkVersion = 6
+
+    doFirst {
+        println "going to generate kdoc including the projects: ${docProjects*.name}"
+        println "====================="
+    }
+    docProjects.each { subProject ->
+        linkMapping {
+            dir = "${subProject.name}/src/main/kotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${subProject.name}/src/main/kotlin"
+            suffix = '#L'
+        }
+    }
+    sourceDirs = docProjects.collect { subProject -> file("${subProject.name}/src/main/kotlin") }
+}

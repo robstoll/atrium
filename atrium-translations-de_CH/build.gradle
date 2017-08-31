@@ -1,8 +1,8 @@
 buildscript {
     ext {
-        publish_artifactId = 'atrium-translations-en_UK'
+        publish_artifactId = 'atrium-translations-de_CH'
         publish_version = atrium_version
-        publish_description = 'Contains translations for Atrium in en_UK.'
+        publish_description = 'Contains translations for Atrium in de_CH.'
     }
 }
 apply from: '../gradle/scripts/publish.gradle'

@@ -1,7 +1,7 @@
 buildscript {
     ext {
         atrium_version = '0.4.0-SNAPSHOT'
-        ghPages_version = '0.3.0'
+        ghPages_version = '0.4.0-SNAPSHOT'
         kbox_version = '0.0.1'
         kotlin_version = '1.1.4-2'
         mockito_kotlin_version = '1.0.1'
@@ -17,6 +17,10 @@ buildscript {
         publish_pkg_name = 'atrium'
         publish_vcsUrl = 'https://github.com/robstoll/atrium.git'
 
+        //gh-pages.gradle
+        docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-impl") }
+
+        //jacoco-multi-project.gradle
         jacocoProjects = subprojects.findAll {
             it.name != "atrium-api" &&
                 it.name != "atrium-api-late-binding" &&
@@ -79,29 +83,6 @@ subprojects {
 
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 apply from: 'gradle/scripts/gh-pages.gradle'
-
-dokka {
-    moduleName = 'doc'
-    outputFormat = 'html'
-    outputDirectory = "../${project.name}-gh-pages/$ghPages_version"
-
-    includes = ['misc/kdoc/packages.md']
-    jdkVersion = 6
-
-    def docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-impl") }
-    doFirst {
-        println "going to generate kdoc including the projects: ${docProjects*.name}"
-        println "====================="
-    }
-    docProjects.each { subProject ->
-        linkMapping {
-            dir = "${subProject.name}/src/main/kotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/master/${subProject.name}/src/main/kotlin"
-            suffix = '#L'
-        }
-    }
-    sourceDirs = docProjects.collect { subProject -> file("${subProject.name}/src/main/kotlin") }
-}
 
 /*
 

@@ -47,6 +47,7 @@ internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
 
 /**
  * Only required if you implement a custom component (for instance an own [IReporter], [IObjectFormatter] etc.)
+ * or an own assertion function API (e.g., atrium-assertions-code-completion in a different language)
  * and you want to reuse a specification from atrium-spec to test your custom component against it.
  */
 internal object AssertionVerbFactory : IAssertionVerbFactory {
