@@ -3,12 +3,12 @@ buildscript {
 }
 
 dependencies {
-    compile project(':atrium-api')
+    compile project(":${rootProject.name}-api")
 }
 
 dokka {
     sourceDirs = files(
         'src/main/kotlin',
-        '../atrium-api/src/main/kotlin',
-        '../atrium-api-late-binding/src/main/kotlin')
+        "../${rootProject.name}-api/src/main/kotlin",
+        "../${rootProject.name}-api-late-binding/src/main/kotlin")
 }

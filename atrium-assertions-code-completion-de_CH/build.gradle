@@ -8,16 +8,16 @@ buildscript {
 apply from: '../gradle/scripts/spek.gradle'
 
 dependencies {
-    compile project(':atrium-api')
-    compileOnly project(':atrium-api-late-binding')
-    compile project(':atrium-assertions')
-    testCompile project(':atrium-impl-robstoll')
-    testCompile project(':atrium-spec')
+    compile project(":${rootProject.name}-api")
+    compileOnly project(":${rootProject.name}-api-late-binding")
+    compile project(":${rootProject.name}-assertions")
+    testCompile project(":${rootProject.name}-impl-robstoll")
+    testCompile project(":${rootProject.name}-spec")
 }
 
 dokka {
     sourceDirs = files(
         'src/main/kotlin',
-        '../atrium-api/src/main/kotlin',
-        '../atrium-api-late-binding/src/main/kotlin')
+        "../${rootProject.name}-api/src/main/kotlin",
+        "../${rootProject.name}-api-late-binding/src/main/kotlin")
 }

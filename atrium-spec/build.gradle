@@ -4,10 +4,10 @@ buildscript {
 }
 
 dependencies {
-    compile project(':atrium-api')
-    compileOnly project(':atrium-api-late-binding')
-    compile project(':atrium-assertions-code-completion-en_UK')
-    compile project(':atrium-translations-en_UK')
+    compile project(":${rootProject.name}-api")
+    compileOnly project(":${rootProject.name}-api-late-binding")
+    compile project(":${rootProject.name}-assertions-code-completion-en_UK")
+    compile project(":${rootProject.name}-translations-en_UK")
 }
 
 repositories {
