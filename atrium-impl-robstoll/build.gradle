@@ -1,12 +1,7 @@
 buildscript {
-    ext {
-        publish_artifactId = 'atrium-impl-robstoll'
-        publish_version = atrium_version
-        publish_description = 'robstoll\'s <rstoll@tutteli.ch> implementation of Atrium -- an assertion ' +
+    ext.publish_description = 'robstoll\'s <rstoll@tutteli.ch> implementation of Atrium -- an assertion ' +
             'framework for Kotlin.'
-    }
 }
-apply from: '../gradle/scripts/publish.gradle'
 
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"

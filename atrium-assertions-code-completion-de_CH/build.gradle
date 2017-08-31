@@ -1,14 +1,10 @@
 buildscript {
-    ext {
-        publish_artifactId = 'atrium-assertions-code-completion-de_CH'
-        publish_version = atrium_version
-        publish_description = 'An assertion function API in de_CH with a focus on code completion, ' +
+    ext.publish_description = 'An assertion function API in de_CH with a focus on code completion, ' +
             'meaning it provides a fluent API in de_CH which is designed to ease the usage of code completion or ' +
             'in other words, the developer should be able to: ' +
             'start creating an assertion + code completion + . + code completion + . + and so on.'
-    }
 }
-apply from: '../gradle/scripts/publish.gradle'
+
 apply from: '../gradle/scripts/spek.gradle'
 
 dependencies {

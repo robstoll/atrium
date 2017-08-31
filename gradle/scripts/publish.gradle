@@ -1,5 +1,9 @@
 import com.jfrog.bintray.gradle.BintrayPlugin
 
+logger.info("setting up publish for $project, $publish_groupId:$publish_artifactId:$publish_version")
+logger.info("publish_description: $publish_description")
+logger.info("publish_artifacts: $publish_artifacts\n")
+
 group = publish_groupId
 version = publish_version
 description = publish_description
@@ -53,8 +57,9 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            artifact sourceJar
-            artifact javadocJar
+            publish_artifacts.each{
+                artifact it
+            }
             groupId publish_groupId
             artifactId publish_artifactId
             version publish_version
@@ -98,14 +103,4 @@ tasks.withType(Jar) { task ->
             'Implementation-Kotlin-Version': kotlin_version, \
             'Build-Time': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ')
     }
-}
-
-task sourceJar(type: Jar) {
-    from project.sourceSets.main.allSource
-    classifier 'sources'
-}
-
-task javadocJar(type: Jar, dependsOn: dokka) {
-    from dokka.outputDirectory
-    classifier = 'javadoc'
 }

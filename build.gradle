@@ -79,6 +79,25 @@ subprojects {
             suffix = '#L'
         }
     }
+
+    task sourceJar(type: Jar) {
+        from project.sourceSets.main.allSource
+        classifier 'sources'
+    }
+
+    task javadocJar(type: Jar, dependsOn: dokka) {
+        from dokka.outputDirectory
+        classifier = 'javadoc'
+    }
+
+    afterEvaluate { subproject ->
+        subproject.ext {
+            publish_artifactId = subproject.name
+            publish_version = atrium_version
+            publish_artifacts = [sourceJar, javadocJar]
+        }
+        apply from: './gradle/scripts/publish.gradle', to: subproject
+    }
 }
 
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
@@ -90,7 +109,7 @@ Release & deploy a commit
 --------------------------------
 1. change atrium_version and ghPages_version in build.gradle
 2. update github pages:
-    a) gradlew ghPages
+    a) gr ghPages
     b) change version number in atrium-gh-pages/latest/index.html
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
@@ -102,7 +121,7 @@ Release & deploy a commit
     c) git tag vX.Y.Z
     d) push to origin
 4. deploy to bintray:
-    a) gradlew bintrayUpload
+    a) gr bintrayUpload
     b) Log in to bintray, check and publish new jars
 5. create release on github
 

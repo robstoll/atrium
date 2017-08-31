@@ -1,11 +1,7 @@
 buildscript {
-    ext {
-        publish_artifactId = 'atrium-assertions'
-        publish_version = atrium_version
-        publish_description = 'Contains the implementations of the assertion functions as well as the ReporterBuilder.'
-    }
+    ext.publish_description = 'Contains the implementations of the assertion functions as well as the ReporterBuilder.'
 }
-apply from: '../gradle/scripts/publish.gradle'
+
 apply from: '../gradle/scripts/spek.gradle'
 
 dependencies {
