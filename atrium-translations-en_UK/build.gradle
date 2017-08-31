@@ -1,11 +1,6 @@
 buildscript {
-    ext {
-        publish_artifactId = 'atrium-translations-en_UK'
-        publish_version = atrium_version
-        publish_description = 'Contains translations for Atrium in en_UK.'
-    }
+    ext.publish_description = 'Contains translations for Atrium in en_UK.'
 }
-apply from: '../gradle/scripts/publish.gradle'
 
 dependencies {
     compile project(':atrium-api')

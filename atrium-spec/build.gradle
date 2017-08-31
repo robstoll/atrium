@@ -1,13 +1,7 @@
 buildscript {
-    ext {
-        publish_artifactId = 'atrium-spec'
-        publish_version = atrium_version
-        publish_description = 'Provides specifications of Atrium -- an assertion framework for Kotlin -- which can' +
+    ext.publish_description = 'Provides specifications of Atrium -- an assertion framework for Kotlin -- which can' +
             ' be reused by implementations of Atrium, to verify that they fulfill the specification.'
-    }
 }
-apply from: '../gradle/scripts/publish.gradle'
-
 
 dependencies {
     compile project(':atrium-api')
