@@ -5,10 +5,3 @@ buildscript {
 dependencies {
     compile project(":${rootProject.name}-api")
 }
-
-dokka {
-    sourceDirs = files(
-        'src/main/kotlin',
-        "../${rootProject.name}-api/src/main/kotlin",
-        "../${rootProject.name}-api-late-binding/src/main/kotlin")
-}

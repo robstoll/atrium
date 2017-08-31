@@ -10,5 +10,5 @@ dependencies {
 }
 
 dokka {
-    sourceDirs = files('src/main/kotlin', '../atrium-api/src/main/kotlin')
+    sourceDirs = files(srcKotlin, "../${rootProject.name}-api/$srcKotlin")
 }
