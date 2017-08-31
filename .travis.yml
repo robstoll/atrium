@@ -4,11 +4,11 @@ jdk:
   - oraclejdk8
 
 before_install:
- - chmod +x gradlew
+ - chmod +x gr
 install: true
 
 script:
-  - ./gradlew -i build CodeCoverageReport
+  - ./gr -i build CodeCoverageReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
