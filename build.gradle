@@ -14,23 +14,23 @@ buildscript {
 
         //publish.gradle
         bintray_version = '1.7.3'
-        publish_pkg_name = 'atrium'
-        publish_vcsUrl = 'https://github.com/robstoll/atrium.git'
+        publish_pkg_name = project.name
+        publish_vcsUrl = "https://github.com/robstoll/${project.name}.git"
 
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-impl") }
 
         //jacoco-multi-project.gradle
         jacocoProjects = subprojects.findAll {
-            it.name != "atrium-api" &&
-                it.name != "atrium-api-late-binding" &&
-                it.name != "atrium-impl-robstoll" &&
-                it.name != "atrium-translations-de_CH" &&
-                it.name != "atrium-translations-en_UK" &&
-                it.name != "atrium-spec" &&
+            it.name != "${project.name}-api" &&
+                it.name != "${project.name}-api-late-binding" &&
+                it.name != "${project.name}-impl-robstoll" &&
+                it.name != "${project.name}-translations-de_CH" &&
+                it.name != "${project.name}-translations-en_UK" &&
+                it.name != "${project.name}-spec" &&
                 // would have two classes with the same name if we add it as project as well,
                 // coverage is still calculated in the single report though
-                it.name != "atrium-translations-de_CH"
+                it.name != "${project.name}-translations-de_CH"
         }
     }
 
@@ -70,12 +70,12 @@ subprojects {
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = 'src/main/kotlin'
-            url = "https://github.com/robstoll/atrium/tree/master/${project.name}/src/main/kotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}/src/main/kotlin"
             suffix = '#L'
         }
         linkMapping {
-            dir = '../atrium-api/src/main/kotlin'
-            url = "https://github.com/robstoll/atrium/tree/master/atrium-api/src/main/kotlin"
+            dir = "../${project.name}-api/src/main/kotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}-api/src/main/kotlin"
             suffix = '#L'
         }
     }

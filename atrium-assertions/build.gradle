@@ -5,17 +5,17 @@ buildscript {
 apply from: '../gradle/scripts/spek.gradle'
 
 dependencies {
-    compile project(':atrium-api')
-    compileOnly project(':atrium-api-late-binding')
+    compile project(":${rootProject.name}-api")
+    compileOnly project(":${rootProject.name}-api-late-binding")
     // it is up to the consumer of atrium-assertions which atrium-descriptions module is used at runtime
-    compileOnly project(':atrium-translations-en_UK')
-    testCompile project(':atrium-impl-robstoll')
-    testCompile project(':atrium-spec')
+    compileOnly project(":${rootProject.name}-translations-en_UK")
+    testCompile project(":${rootProject.name}-impl-robstoll")
+    testCompile project(":${rootProject.name}-spec")
 }
 
 dokka {
     sourceDirs = files(
         'src/main/kotlin',
-        '../atrium-api/src/main/kotlin',
-        '../atrium-api-late-binding/src/main/kotlin')
+        "../${rootProject.name}-api/src/main/kotlin",
+        "../${rootProject.name}-api-late-binding/src/main/kotlin")
 }

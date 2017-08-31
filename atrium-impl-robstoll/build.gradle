@@ -5,8 +5,8 @@ buildscript {
 
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
-    compile project(':atrium-api')
-    compile project(':atrium-impl-robstoll-lib')
+    compile project(":${rootProject.name}-api")
+    compile project(":${rootProject.name}-impl-robstoll-lib")
 }
 
 dokka {
