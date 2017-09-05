@@ -107,6 +107,11 @@ subprojects {
     }
 }
 
+configure(jacocoProjects){
+    apply from: '../gradle/scripts/spek.gradle'
+}
+
+
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 apply from: 'gradle/scripts/gh-pages.gradle'
 

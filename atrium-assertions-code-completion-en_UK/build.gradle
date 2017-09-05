@@ -5,8 +5,6 @@ buildscript {
             'start creating an assertion + code completion + . + code completion + . + and so on.'
 }
 
-apply from: '../gradle/scripts/spek.gradle'
-
 dependencies {
     compile project(":${rootProject.name}-api")
     compileOnly project(":${rootProject.name}-api-late-binding")

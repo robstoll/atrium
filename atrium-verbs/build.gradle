@@ -2,8 +2,6 @@ buildscript {
     ext.publish_description = 'Assertion verbs for Atrium -- an assertion framework for Kotlin.'
 }
 
-apply from: '../gradle/scripts/spek.gradle'
-
 dependencies {
     compile project(":${rootProject.name}-api")
     compileOnly project(":${rootProject.name}-api-late-binding")

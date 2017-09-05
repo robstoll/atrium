@@ -5,8 +5,6 @@ buildscript {
             'Atrium, then you should depend on atrium-impl-robstoll.'
 }
 
-apply from: '../gradle/scripts/spek.gradle'
-
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
     compile project(":${rootProject.name}-api")

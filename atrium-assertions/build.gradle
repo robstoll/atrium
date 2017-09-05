@@ -2,8 +2,6 @@ buildscript {
     ext.publish_description = 'Contains the implementations of the assertion functions as well as the ReporterBuilder.'
 }
 
-apply from: '../gradle/scripts/spek.gradle'
-
 dependencies {
     compile project(":${rootProject.name}-api")
     compileOnly project(":${rootProject.name}-api-late-binding")
