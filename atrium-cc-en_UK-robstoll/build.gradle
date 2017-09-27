@@ -1,0 +1,9 @@
+buildscript {
+    ext.publish_description = 'Represents a convenience module which merely gathers dependencies'
+}
+
+dependencies {
+    compile project(':atrium-assertions-code-completion-en_UK')
+    compile project(':atrium-translations-en_UK')
+    compile project(':atrium-impl-robstoll')
+}
