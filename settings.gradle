@@ -11,3 +11,6 @@ include 'atrium-impl-robstoll'
 include 'atrium-impl-robstoll-lib'
 include 'atrium-spec'
 include 'atrium-verbs'
+
+//convenience module
+include 'atrium-cc-en_UK-robstoll'

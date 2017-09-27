@@ -6,27 +6,29 @@ jacoco {
 }
 
 task jacocoMerge(type: JacocoMerge) {
-    jacocoProjects.each {
+    jacocoMulti.jacocoProjects.each {
         executionData "${it.buildDir}/jacoco/junitPlatformTest.exec"
     }
 }
 
 task CodeCoverageReport(type: JacocoReport) {
-    dependsOn jacocoProjects.build
+    dependsOn jacocoMulti.sourceProjects.build
     dependsOn jacocoMerge
-    jacocoMerge.mustRunAfter jacocoProjects.build
+    jacocoMerge.mustRunAfter jacocoMulti.sourceProjects.build
 
     executionData jacocoMerge.destinationFile
 
     sourceDirectories = files()
     classDirectories = files()
 
-    jacocoProjects.each {
+    jacocoMulti.sourceProjects.each {
         sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
         classDirectories += files(it.sourceSets.main.output.classesDir)
     }
     doFirst {
-        println "going to generate jacoco for the projects: ${jacocoProjects*.name}"
+        println "going to generate merged jacoco report base on:"
+        println "  - source projects: ${jacocoMulti.sources*.name}"
+        println "  - jacoco projects: ${jacocoMulti.jacocoProjects*.name}"
         println "========================================="
     }
 
