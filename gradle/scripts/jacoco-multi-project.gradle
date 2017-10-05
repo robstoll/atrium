@@ -27,7 +27,7 @@ task CodeCoverageReport(type: JacocoReport) {
     }
     doFirst {
         println "going to generate merged jacoco report base on:"
-        println "  - source projects: ${jacocoMulti.sources*.name}"
+        println "  - source projects: ${jacocoMulti.sourceProjects*.name}"
         println "  - jacoco projects: ${jacocoMulti.jacocoProjects*.name}"
         println "========================================="
     }
