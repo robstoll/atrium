@@ -32,7 +32,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     facade.register(testeeFactory)
     facade.register { AtriumFactory.newTextListAssertionGroupFormatter(listBulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
     facade.register { AtriumFactory.newTextFeatureAssertionGroupFormatter(arrow, bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-    facade.register { AtriumFactory.newTextSameLineAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+    facade.register { AtriumFactory.newTextFallbackAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
 
     var sb = StringBuilder()
     afterEachTest {

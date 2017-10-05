@@ -21,7 +21,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
-abstract class TextSameLineAssertionFormatterSpec(
+abstract class TextFallbackAssertionFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
     describePrefix : String = "[Atrium] "

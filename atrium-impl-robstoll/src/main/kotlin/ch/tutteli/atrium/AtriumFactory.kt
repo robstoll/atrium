@@ -67,7 +67,7 @@ object AtriumFactory : IAtriumFactory {
     override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
         = AssertionFormatterFacade(assertionFormatterController)
 
-    override fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    override fun newTextFallbackAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = TextAssertionFormatter(bulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
     override fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
