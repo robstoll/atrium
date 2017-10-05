@@ -24,7 +24,7 @@ import org.jetbrains.spek.api.include
 
 class TextSameLineAssertionFormatterSpec : Spek({
 
-    include(AtriumsTextSameLineAssertionFormatterSpec)
+    include(AtriumsTextFallbackAssertionFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
     val squarePoint = "▪"
@@ -52,7 +52,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
         }
     }
 }) {
-    object AtriumsTextSameLineAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextSameLineAssertionFormatterSpec(
+    object AtriumsTextFallbackAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextFallbackAssertionFormatterSpec(
         AssertionVerbFactory, factory(), "[Atrium's TextSameLine..Spec] "
     )
 

@@ -78,7 +78,7 @@ abstract class TextListAssertionGroupFormatterSpec(
                 val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
                 facade.register({ testeeFactory(listBulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
                 facade.register({ AtriumFactory.newTextFeatureAssertionGroupFormatter(arrow, bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-                facade.register({ AtriumFactory.newTextSameLineAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+                facade.register({ AtriumFactory.newTextFallbackAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
 
                 context("${IAssertionGroup::class.simpleName} of type ${IListAssertionGroupType::class.simpleName}") {
                     context("format directly the group") {

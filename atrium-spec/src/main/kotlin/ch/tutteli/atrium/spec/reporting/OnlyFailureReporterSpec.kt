@@ -22,7 +22,7 @@ import org.jetbrains.spek.api.dsl.it
 abstract class OnlyFailureReporterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionFormatterFacade) -> IReporter,
-    describePrefix : String = "[Atrium] "
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
@@ -31,7 +31,7 @@ abstract class OnlyFailureReporterSpec(
 
     val translator = UsingDefaultTranslator()
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register { AtriumFactory.newTextSameLineAssertionFormatter("[]", it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
+    facade.register { AtriumFactory.newTextFallbackAssertionFormatter("[]", it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
     val testee = testeeFactory(facade)
 
     prefixedDescribe("fun ${testee::format.name}") {

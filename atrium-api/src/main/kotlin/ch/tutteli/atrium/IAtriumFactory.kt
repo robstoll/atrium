@@ -289,7 +289,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextSameLineAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextFallbackAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
