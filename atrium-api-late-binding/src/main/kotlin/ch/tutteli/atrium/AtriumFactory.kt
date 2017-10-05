@@ -1,6 +1,5 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.ErrorMsg.ERROR_MSG
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
@@ -28,6 +27,9 @@ import kotlin.reflect.KClass
  */
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
+
+    private const val ERROR_MSG = "The atrium-api-late-binding should only be used as a compileOnly dependency, " +
+        "meaning as a substitute for a real implementation"
 
     override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
         = throw UnsupportedOperationException(ERROR_MSG)
