@@ -4,7 +4,7 @@ buildscript {
         atrium_version = '0.4.0-SNAPSHOT'
         ghPages_version = '0.4.0-SNAPSHOT'
         kbox_version = '0.0.1'
-        kotlin_version = '1.1.4-2'
+        kotlin_version = '1.1.51'
         mockito_kotlin_version = '1.0.1'
         dokka_version = '0.9.14'
 
@@ -32,9 +32,9 @@ buildscript {
                     // (atrium-impl-robstoll already defines it)
                     it.name != "${project.name}-api-late-binding" &&
                         // would have two classes with the same name if we add it as project as well,
-                        // coverage is still calculated in the single report though
+                        // (clashes with "${project.name}-translations-en_UK"
                         it.name != "${project.name}-translations-de_CH" &&
-                        // does not make sense to count specs into coverage
+                        // does not make sense to listen specs in coverage
                         it.name != "${project.name}-spec"
                 } - projectsWithoutSourcesBuildScript,
             jacocoProjects:
