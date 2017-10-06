@@ -21,7 +21,7 @@ buildscript {
         publish_vcsUrl = "https://github.com/robstoll/${project.name}.git"
 
         //gh-pages.gradle
-        docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-impl") }
+        docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-core-impl") }
 
         //jacoco-multi-project.gradle
         projectsWithoutSources = projectsWithoutSourcesBuildScript
@@ -30,7 +30,7 @@ buildscript {
                 subprojects.findAll {
                     // cannot be part of the sources since it would define AtriumFactory twice
                     // (atrium-impl-robstoll already defines it)
-                    it.name != "${project.name}-api-late-binding" &&
+                    it.name != "${project.name}-core-api-late-binding" &&
                         // would have two classes with the same name if we add it as project as well,
                         // (clashes with "${project.name}-translations-en_UK"
                         it.name != "${project.name}-translations-de_CH" &&
@@ -39,9 +39,9 @@ buildscript {
                 } - projectsWithoutSourcesBuildScript,
             jacocoProjects:
                 subprojects.findAll {
-                    it.name != "${project.name}-api" &&
-                        it.name != "${project.name}-api-late-binding" &&
-                        it.name != "${project.name}-impl-robstoll" &&
+                    it.name != "${project.name}-core-api" &&
+                        it.name != "${project.name}-core-api-late-binding" &&
+                        it.name != "${project.name}-core-impl-robstoll" &&
                         it.name != "${project.name}-spec" &&
                         it.name != "${project.name}-translations-de_CH" &&
                         it.name != "${project.name}-translations-en_UK"
@@ -90,15 +90,15 @@ configure(projectsWithSources) {
             suffix = '#L'
         }
         linkMapping {
-            dir = "../${project.name}-api/$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}-api/$srcKotlin"
+            dir = "../${project.name}-core-api/$srcKotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}-core-api/$srcKotlin"
             suffix = '#L'
         }
 
         sourceDirs = files(
             srcKotlin,
-            "../${rootProject.name}-api/$srcKotlin",
-            "../${rootProject.name}-api-late-binding/$srcKotlin")
+            "../${rootProject.name}-core-api/$srcKotlin",
+            "../${rootProject.name}-core-api-late-binding/$srcKotlin")
     }
 
     task sourceJar(type: Jar) {

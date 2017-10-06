@@ -3,7 +3,7 @@ buildscript {
 }
 
 dependencies {
-    compile project(':atrium-assertions-code-completion-en_UK')
-    compile project(':atrium-translations-en_UK')
-    compile project(':atrium-impl-robstoll')
+    compile project(":${rootProject.name}-api-code-completion-en_UK")
+    compile project(":${rootProject.name}-translations-en_UK")
+    compile project(":${rootProject.name}-core-impl-robstoll")
 }

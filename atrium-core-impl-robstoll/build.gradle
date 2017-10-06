@@ -5,10 +5,10 @@ buildscript {
 
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
-    compile project(":${rootProject.name}-api")
-    compile project(":${rootProject.name}-impl-robstoll-lib")
+    compile project(":${rootProject.name}-core-api")
+    compile project(":${rootProject.name}-core-impl-robstoll-lib")
 }
 
 dokka {
-    sourceDirs = files(srcKotlin, "../${rootProject.name}-api/$srcKotlin")
+    sourceDirs = files(srcKotlin, "../${rootProject.name}-core-api/$srcKotlin")
 }

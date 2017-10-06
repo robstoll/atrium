@@ -28,7 +28,7 @@ import kotlin.reflect.KClass
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
 
-    private const val ERROR_MSG = "The atrium-api-late-binding should only be used as a compileOnly dependency, " +
+    private const val ERROR_MSG = "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
         "meaning as a substitute for a real implementation"
 
     override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>

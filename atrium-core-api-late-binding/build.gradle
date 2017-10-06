@@ -5,9 +5,9 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-api")
+    compile project(":${rootProject.name}-core-api")
 }
 
 dokka {
-    sourceDirs = files(srcKotlin, "../${rootProject.name}-api/$srcKotlin")
+    sourceDirs = files(srcKotlin, "../${rootProject.name}-core-api/$srcKotlin")
 }
