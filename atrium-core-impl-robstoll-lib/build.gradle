@@ -7,17 +7,18 @@ buildscript {
 
 dependencies {
     compile "ch.tutteli:kbox:$kbox_version"
-    compile project(":${rootProject.name}-api")
-    compileOnly project(":${rootProject.name}-api-late-binding")
-    testCompile project(":${rootProject.name}-impl-robstoll")
+    compile project(":${rootProject.name}-core-api")
+    compileOnly project(":${rootProject.name}-core-api-late-binding")
+
+    testCompile project(":${rootProject.name}-core-impl-robstoll")
     testCompile project(":${rootProject.name}-spec")
 }
 
 dokka {
     sourceDirs = files(
         srcKotlin,
-        "../${rootProject.name}-api/$srcKotlin",
-        "../${rootProject.name}-impl-robstoll/$srcKotlin"
+        "../${rootProject.name}-core-api/$srcKotlin",
+        "../${rootProject.name}-core-impl-robstoll/$srcKotlin"
     )
 }
 

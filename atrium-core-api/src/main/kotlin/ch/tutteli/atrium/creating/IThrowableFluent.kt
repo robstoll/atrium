@@ -5,7 +5,7 @@ import kotlin.reflect.KClass
 
 /**
  * This interface is mainly here to simplify the KDoc generation (no need to define it twice,
- * once in atrium-api-late-binding and once in atrium-impl-robstoll). Once Kotlin supports inline functions
+ * once in atrium-core-api-late-binding and once in atrium-core-impl-robstoll). Once Kotlin supports inline functions
  * in interfaces, we will consolidate it to a proper API and get rid of ThrowableFluent in atrium-api-late-binding.
  */
 interface IThrowableFluent {

@@ -36,7 +36,7 @@ repositories {
     jcenter()
 }
 dependencies {
-    testCompile "ch.tutteli:atrium-api:$atrium_version"
+    testCompile "ch.tutteli:atrium-core-api:$atrium_version"
     testCompile "ch.tutteli:atrium-assertions:$atrium_version"
     testCompile "ch.tutteli:atrium-impl-robstoll:$atrium_version"
 }

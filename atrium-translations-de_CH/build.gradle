@@ -3,5 +3,5 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-api")
+    compile project(":${rootProject.name}-core-api")
 }

@@ -8,7 +8,7 @@
     <dependencies>
         <dependency>
             <groupId>ch.tutteli</groupId>
-            <artifactId>atrium-api</artifactId>
+            <artifactId>atrium-core-api</artifactId>
             <version>${atrium.version}</version>
             <scope>test</scope>
         </dependency>

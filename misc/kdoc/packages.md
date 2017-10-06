@@ -4,8 +4,8 @@
 Atrium is split up in different modules. The packages shown below contain 
 classes etc. of all modules excluding the once of _atrium-imp-robstoll_ and _atrium-imp-robstoll-lib_.
 Following a brief overview of the modules:
-- **atrium-api** defines the contracts of atrium.
-- **atrium-api-late-binding** defines the contract for 
+- **atrium-core-api** defines the contracts of the core of Atrium.
+- **atrium-core-api-late-binding** defines the contract for 
   [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
   by providing dummy implementations which are eventually replaced by an atrium implementation. 
 
@@ -15,14 +15,14 @@ Following a brief overview of the modules:
     
 - **atrium-assertions** contains all functions which can be used to create assertions as well as the 
   [ReporterBuilder](./ch.tutteli.atrium.reporting/-reporter-builder/index.html).
-- **atrium-assertions-code-completion-de&#95;CH** provides an assertion function API in German where the main 
+- **atrium-api-code-completion-de&#95;CH** provides an assertion function API in German where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
-- **atrium-assertions-code-completion-en&#95;UK** provides an assertion function API in English where the main 
+- **atrium-api-code-completion-en&#95;UK** provides an assertion function API in English where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
 - **atrium-translations-de&#95;CH** provides translations for [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s in German.
 - **atrium-translations-en&#95;UK** provides translations for [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s in English.
 - **atrium-spec** contains [Spek](http://spekframework.org/) specifications for interfaces (defined in 
-  _atrium-api_) and assertion functions which can be reused by Atrium implementations 
+  _atrium-core-api_) and assertion functions which can be reused by Atrium implementations 
   and assertion function API implementations to assure they fulfill the specifications. 
 - **atrium-verbs** contains out of the box assertion verbs (we suggest to [use your own assertion verbs](https://github.com/robstoll/atrium#use-own-assertion-verbs)).
  
