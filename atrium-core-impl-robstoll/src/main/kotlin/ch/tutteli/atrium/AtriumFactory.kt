@@ -68,7 +68,7 @@ object AtriumFactory : IAtriumFactory {
         = AssertionFormatterFacade(assertionFormatterController)
 
     override fun newTextFallbackAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = TextAssertionFormatter(bulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
+        = TextFallbackAssertionFormatter(bulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
     override fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
@@ -88,7 +88,7 @@ object AtriumFactory : IAtriumFactory {
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextListAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, it, pairFormatter) }
-        assertionFormatterFacade.register { TextAssertionFormatter(bulletPoint, it, pairFormatter) }
+        assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoint, it, pairFormatter) }
     }
 
     private fun newTextSameLineAssertionPairFormatter(objectFormatter: IObjectFormatter, translator: ITranslator)

@@ -30,7 +30,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
     val squarePoint = "▪"
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register({ TextAssertionFormatter(squarePoint, it, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
+    facade.register({ TextFallbackAssertionFormatter(squarePoint, it, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
 
     var sb = StringBuilder()
     afterEachTest {
@@ -38,7 +38,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
     }
     val separator = System.getProperty("line.separator")!!
 
-    describe("fun ${TextAssertionFormatter::format.name}") {
+    describe("fun ${TextFallbackAssertionFormatter::format.name}") {
         context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name}") {
                 facade.format(AssertionGroup(RootAssertionGroupType, ASSERT, "subject", listOf(
@@ -53,7 +53,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
     }
 }) {
     object AtriumsTextFallbackAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextFallbackAssertionFormatterSpec(
-        AssertionVerbFactory, factory(), "[Atrium's TextSameLine..Spec] "
+        AssertionVerbFactory, factory(), "[Atrium's TextFallback..Spec] "
     )
 
     object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
@@ -62,7 +62,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
 
     companion object {
         internal fun factory() = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            TextAssertionFormatter("▪", assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+            TextFallbackAssertionFormatter("▪", assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }
 }
