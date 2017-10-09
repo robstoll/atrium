@@ -33,7 +33,6 @@ abstract class AssertionFormatterSpec(
 
     val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
-    val alwaysTrueAssertionFilter: (IAssertion) -> Boolean = { true }
     var sb = StringBuilder()
     var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
     afterEachTest {
