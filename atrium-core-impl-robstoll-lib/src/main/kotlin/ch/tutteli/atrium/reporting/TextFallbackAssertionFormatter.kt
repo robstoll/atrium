@@ -26,7 +26,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param assertionPairFormatter The formatter used to format assertion pairs (e.g. [IBasicAssertion.description]
  *        and [IBasicAssertion.expected])
  */
-class TextAssertionFormatter(
+class TextFallbackAssertionFormatter(
     bulletPoint: String,
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
