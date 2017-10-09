@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -46,6 +48,14 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     val invisibleAssertionGroup = InvisibleAssertionGroup(assertions)
 
     val separator = System.getProperty("line.separator")!!
+
+    prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
+        val testee = testeeFactory(AtriumFactory.newAssertionFormatterController())
+        it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${IInvisibleAssertionGroupType::class.simpleName}") {
+            val result = testee.canFormat(AssertionGroup(object : IInvisibleAssertionGroupType {}, Untranslatable(""), 1, listOf()))
+            verbs.checkImmediately(result).isTrue()
+        }
+    }
 
     prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IInvisibleAssertionGroupType::class.simpleName}") {

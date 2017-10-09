@@ -45,25 +45,11 @@ abstract class TextListAssertionGroupFormatterSpec(
     val arrow = "->"
     val arrowIndent = " ".repeat(arrow.length + 1)
 
-    val unsupportedAssertion = object : IAssertion {
-        override fun holds() = false
-    }
-
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
         val testee = testeeFactory("*", AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${IListAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(AssertionGroup(object : IListAssertionGroupType {}, Untranslatable(""), 1, listOf()))
             verbs.checkImmediately(result).isTrue()
-        }
-
-        it("returns false for an ${IAssertionGroup::class.simpleName} with type object: ${IAssertionGroupType::class.simpleName}") {
-            val result = testee.canFormat(AssertionGroup(object : IAssertionGroupType {}, Untranslatable(""), 1, listOf()))
-            verbs.checkImmediately(result).isFalse()
-        }
-
-        it("returns false for an object : ${IAssertion::class.simpleName}") {
-            val result = testee.canFormat(unsupportedAssertion)
-            verbs.checkImmediately(result).isFalse()
         }
     }
 
