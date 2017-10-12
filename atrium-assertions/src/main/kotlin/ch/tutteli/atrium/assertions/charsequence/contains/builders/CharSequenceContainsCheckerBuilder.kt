@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
-
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.*

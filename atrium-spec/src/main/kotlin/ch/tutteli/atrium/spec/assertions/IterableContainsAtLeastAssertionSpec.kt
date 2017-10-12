@@ -20,8 +20,7 @@ abstract class IterableContainsAtLeastAssertionSpec(
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
-    val fluent = assert(text)
-    val fluentOneToSeven = assert(oneToSeven)
+    val fluent = assert(oneToSeven)
 
     val (containsAtLeast, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastPair
     fun IAssertionPlant<Iterable<Double>>.containsAtLeastFun(atLeast: Int, a: Double, vararg aX: Double)
@@ -29,8 +28,6 @@ abstract class IterableContainsAtLeastAssertionSpec(
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
     //val (exactly, errorMsgExactly) = exactlyPair
-
-    val atLeast = AT_LEAST.getDefault()
 
     //TODO use as soon as containsAtLeastButAtMost exists
     //describe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
@@ -76,50 +73,50 @@ abstract class IterableContainsAtLeastAssertionSpec(
 
             group("happy case with $containsAtLeast once") {
                 test("${containsAtLeastTest("1.0", "once")} does not throw") {
-                    fluentOneToSeven.containsAtLeastFun(1, 1.0)
+                    fluent.containsAtLeastFun(1, 1.0)
                 }
                 test("${containsAtLeastTest("1.0 and 2.0 and 3.0", "once")} does not throw") {
-                    fluentOneToSeven.containsAtLeastFun(1, 1.0, 2.0, 3.0)
+                    fluent.containsAtLeastFun(1, 1.0, 2.0, 3.0)
                 }
                 test("${containsAtLeastTest("3.0 and 1.0 and 2.0", "once")} does not throw") {
-                    fluentOneToSeven.containsAtLeastFun(1, 3.0, 1.0, 2.0)
+                    fluent.containsAtLeastFun(1, 3.0, 1.0, 2.0)
                 }
             }
 
             group("failing assertions; search wrong number at different positions with $containsAtLeast once") {
                 test("${containsAtLeastTest("1.1", "once")} throws AssertionError") {
                     expect {
-                        fluentOneToSeven.containsAtLeastFun(1, 1.1)
+                        fluent.containsAtLeastFun(1, 1.1)
                     }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_LEAST)
                 }
                 test("${containsAtLeastTest("1.0, 2.3", "once")} throws AssertionError") {
                     expect {
-                        fluentOneToSeven.containsAtLeastFun(1, 1.0, 2.3)
+                        fluent.containsAtLeastFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError>().message.contains(atLeast, 2.3)
                 }
                 test("${containsAtLeastTest("2.3, 1.0", "once")} throws AssertionError") {
                     expect {
-                        fluentOneToSeven.containsAtLeastFun(1, 2.3, 1.0)
+                        fluent.containsAtLeastFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError>().message.contains(atLeast, 2.3)
                 }
                 test("${containsAtLeastTest("1.0, 2.3, 3.1 and 6.0", "once")} throws AssertionError") {
                     expect {
-                        fluentOneToSeven.containsAtLeastFun(1, 1.0, 2.3, 3.1, 6.0)
+                        fluent.containsAtLeastFun(1, 1.0, 2.3, 3.1, 6.0)
                     }.toThrow<AssertionError>().message.contains(atLeast, 2.3, 3.1)
                 }
             }
 
             group("multiple occurrences of the search string") {
                 test("${containsAtLeastTest("5.0", "once")} does not throw") {
-                    fluentOneToSeven.containsAtLeastFun(1, 5.0)
+                    fluent.containsAtLeastFun(1, 5.0)
                 }
                 test("${containsAtLeastTest("5.0", "twice")} does not throw") {
-                    fluentOneToSeven.containsAtLeastFun(2, 5.0)
+                    fluent.containsAtLeastFun(2, 5.0)
                 }
 
                 test("${containsAtLeastTest("5.0", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)") {
                     expect {
-                        fluentOneToSeven.containsAtLeastFun(3, 5.0)
+                        fluent.containsAtLeastFun(3, 5.0)
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             "$containsInAnyOrder: 5.0",
@@ -130,15 +127,15 @@ abstract class IterableContainsAtLeastAssertionSpec(
                 }
 
                 test("${containsAtLeastTest("5.0 and 4.0", "twice")} does not throw") {
-                    fluentOneToSeven.containsAtLeastFun(2, 5.0, 4.0)
+                    fluent.containsAtLeastFun(2, 5.0, 4.0)
                 }
                 test("${containsAtLeastTest("4.0", "3 times")} does not throw") {
-                    fluentOneToSeven.containsAtLeastFun(3, 4.0)
+                    fluent.containsAtLeastFun(3, 4.0)
                 }
 
                 test("${containsAtLeastTest("5.0 and 4.0", "3 times")} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)") {
                     expect {
-                        fluentOneToSeven.containsAtLeastFun(3, 5.0, 4.0)
+                        fluent.containsAtLeastFun(3, 5.0, 4.0)
                     }.toThrow<AssertionError>().and.message {
                         contains(
                             "$containsInAnyOrder: 5.0",
@@ -153,11 +150,11 @@ abstract class IterableContainsAtLeastAssertionSpec(
             //TODO as soon as containsAtLeastButAtMost is implemented
 //            group("using $containsAtLeastButAtMost") {
 //                test("${containsAtLeastButAtMostTest("5.0", "once", "twice")} does not throw") {
-//                    fluentOneToSeven.contains.atLeast(1).butAtMost(2).value(5.0)
+//                    fluent.contains.atLeast(1).butAtMost(2).value(5.0)
 //                }
 //                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "once", "twice")} throws AssertionError and message contains both, at most: 2 and how many times it actually contained 4.0 (3)") {
 //                    expect {
-//                        fluentOneToSeven.contains.atLeast(1).butAtMost(2).values(5.0, 4.0)
+//                        fluent.contains.atLeast(1).butAtMost(2).values(5.0, 4.0)
 //                    }.toThrow<AssertionError>().and.message {
 //                        contains(
 //                            "$containsInAnyOrder: 4.0",
@@ -169,12 +166,12 @@ abstract class IterableContainsAtLeastAssertionSpec(
 //                    }
 //                }
 //                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "twice", "3 times")} does not throw") {
-//                    fluentOneToSeven.contains.atLeast(2).butAtMost(3).values(5.0, 4.0)
+//                    fluent.contains.atLeast(2).butAtMost(3).values(5.0, 4.0)
 //                }
 //
 //                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "3 times", "4 times")} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)") {
 //                    expect {
-//                        fluentOneToSeven.contains.atLeast(3).butAtMost(4).values(5.0, 4.0)
+//                        fluent.contains.atLeast(3).butAtMost(4).values(5.0, 4.0)
 //                    }.toThrow<AssertionError>().and.message {
 //                        contains(
 //                            "$containsInAnyOrder: 5.0",
