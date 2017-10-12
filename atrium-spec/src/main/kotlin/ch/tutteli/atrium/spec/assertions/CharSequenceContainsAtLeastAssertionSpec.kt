@@ -42,8 +42,6 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-
-
     describe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
         context("throws an $illegalArgumentException") {
             test("for at least -1 -- only positive numbers") {
@@ -107,7 +105,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'H', 'E'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'H', 'E')
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E')
+                    }.toThrow<AssertionError>().message.contains(atLeast, 'E')
                 }
                 test("${containsAtLeastIgnoringCase("'H', 'E'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'H', 'E')
@@ -116,7 +114,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'E', 'H'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'E', 'H')
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E')
+                    }.toThrow<AssertionError>().message.contains(atLeast, 'E')
                 }
                 test("${containsAtLeastIgnoringCase("'E', 'H'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'E', 'H')
@@ -125,7 +123,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'H', 'E', 'w' and 'r'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'H', 'E', 'w', 'r')
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E', 'w')
+                    }.toThrow<AssertionError>().message.contains(atLeast, 'E', 'w')
                 }
                 test("${containsAtLeastIgnoringCase("'H', 'E', 'w' and 'r'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'H', 'E', 'w', 'r')
@@ -145,10 +143,10 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                         fluentHelloWorld.containsAtLeastFun(3, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(AT_LEAST.getDefault() + ": 3")
+                        endsWith("$atLeast: 3")
                     }
                 }
                 test("${containsAtLeastIgnoringCase("'o'", "3 times")} does not throw") {
@@ -167,11 +165,11 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                         fluentHelloWorld.containsAtLeastFun(3, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(AT_LEAST.getDefault() + ": 3")
-                        containsNot(CONTAINS.getDefault() + ": 'l'")
+                        endsWith("$atLeast: 3")
+                        containsNot("$containsDescr 'l'")
                     }
                 }
                 test("${containsAtLeastIgnoringCase("'o' and 'l'", "3 times")} does not throw") {
@@ -188,11 +186,11 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                         fluentHelloWorld.contains.atLeast(1).butAtMost(2).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'l'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
+                            "$containsDescr: 'l'",
+                            "$numberOfOccurrences: 3$separator"
                         )
-                        endsWith(AT_MOST.getDefault() + ": 2")
-                        containsNot(CONTAINS.getDefault() + ": 'o'")
+                        endsWith("$atMost: 2")
+                        containsNot("$containsDescr 'o'")
                         containsNotDefaultTranslationOf(AT_LEAST)
                     }
                 }
@@ -208,11 +206,11 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                         fluentHelloWorld.contains.atLeast(3).butAtMost(4).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(AT_LEAST.getDefault() + ": 3")
-                        containsNot(CONTAINS.getDefault() + ": 'l'")
+                        endsWith("$atLeast: 3")
+                        containsNot("$containsDescr 'l'")
                         containsNotDefaultTranslationOf(AT_MOST)
                     }
                 }

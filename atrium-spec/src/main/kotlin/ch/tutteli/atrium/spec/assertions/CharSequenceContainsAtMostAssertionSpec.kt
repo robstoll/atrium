@@ -73,22 +73,22 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
                 test("${containsAtMostTest("'H', 'l'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'H', 'l')
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
+                    }.toThrow<AssertionError>().message.contains(atMost, 'l')
                 }
                 test("${containsAtMostTest("'l', 'H'", "twice")} once throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'l', 'H')
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
+                    }.toThrow<AssertionError>().message.contains(atMost, 'l')
                 }
                 test("${containsAtMostTest("'o', 'E', 'W', 'l'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'o', 'E', 'W', 'l')
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'o', 'l')
+                    }.toThrow<AssertionError>().message.contains(atMost, 'o', 'l')
                 }
                 test("${containsAtMostTest("'x' and 'y' and 'z'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'x', 'y', 'z')
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'x', 'y', 'z')
+                    }.toThrow<AssertionError>().message.contains(atLeast, 'x', 'y', 'z')
                 }
             }
 
@@ -102,10 +102,10 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
                         fluentHelloWorld.containsAtMostIgnoringCaseFun(2, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            String.format(IGNORING_CASE.getDefault(), CONTAINS.getDefault()) + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
+                            "$containsIgnoringCase: 'o'",
+                            "$numberOfOccurrences: 3$separator"
                         )
-                        endsWith(AT_MOST.getDefault() + ": 2")
+                        endsWith("$atMost: 2")
                     }
                 }
 
@@ -117,11 +117,11 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
                         fluentHelloWorld.containsAtMostFun(2, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'l'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
+                            "$containsDescr: 'l'",
+                            "$numberOfOccurrences: 3$separator"
                         )
-                        endsWith(AT_MOST.getDefault() + ": 2")
-                        containsNot(CONTAINS.getDefault() + ": 'o'")
+                        endsWith("$atMost: 2")
+                        containsNot("$containsDescr 'o'")
                     }
                 }
                 test("${containsAtMostTest("'l'", "3 times")} does not throw") {

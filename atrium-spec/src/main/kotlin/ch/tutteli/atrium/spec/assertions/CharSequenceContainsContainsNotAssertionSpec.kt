@@ -13,11 +13,10 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>
-) : Spek({
+) : CharSequenceContainsSpecBase({
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
-    val text = "Hello my name is Robert"
     val fluent = assert(text)
 
     val (contains, containsFunArr) = containsPair
@@ -35,8 +34,8 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                 expect {
                     fluentEmptyString.containsFun("Hello")
                 }.toThrow<AssertionError>().and.message.contains(
-                    DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
-                    DescriptionCharSequenceAssertion.AT_LEAST.getDefault() + ": 1"
+                    "$numberOfOccurrences: 0",
+                    "$atLeast: 1"
                 )
             }
             test("$containsNot 'Hello' does not throw") {
@@ -53,7 +52,7 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                 test("$containsNot 'Hello' throws AssertionError") {
                     expect {
                         fluent.containsNotFun("Hello")
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionCharSequenceAssertion.CONTAINS_NOT)
+                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(CONTAINS_NOT)
                 }
 
                 test("$contains 'Hello' and 'Robert' does not throw") {
@@ -82,9 +81,9 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                     expect {
                         fluent.containsFun("hello", "robert")
                     }.toThrow<AssertionError>().and.message.contains.exactly(2).values(
-                        CONTAINS.getDefault(),
-                        NUMBER_OF_OCCURRENCES.getDefault() + ": 0",
-                        AT_LEAST.getDefault() + ": 1"
+                        containsDescr,
+                        "$numberOfOccurrences: 0",
+                        "$atLeast: 1"
                     )
                 }
                 test("$containsNot 'hello' and 'robert' does not throw") {
@@ -105,7 +104,7 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                 test("$contains 'Hello' and 'notInThere' throws AssertionError") {
                     expect {
                         fluent.containsFun("Hello", "notInThere")
-                    }.toThrow<AssertionError>().message.contains(CONTAINS.getDefault(), "notInThere")
+                    }.toThrow<AssertionError>().message.contains(containsDescr, "notInThere")
                 }
                 test("$containsNot 'Hello' and 'notInThere' throws AssertionError") {
                     expect {
