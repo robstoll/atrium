@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.assertions
 
 /**
- * Represents an type of an [IAssertionGroup].
+ * Represents a type of an [IAssertionGroup].
  *
- * It is essentially a marker interface and should sub-typed by other interfaces
+ * This interface is essentially a marker interface and should be sub-typed by other interfaces.
  *
- * As side notice: instead of using an `enum class` -- which is not open for extensions -- we are using this interface
- * so that an unknown number of types can be created without the need to modify an implementation
+ * As side notice: I decided to use a marker interface instead of an `enum class` -- which is not open for
+ * extension -- so that an unknown number of types can be created without the need to modify existing implementations.
  */
 interface IAssertionGroupType
