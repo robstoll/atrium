@@ -22,7 +22,7 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-class TextSameLineAssertionFormatterSpec : Spek({
+class TextFallbackAssertionFormatterSpec : Spek({
 
     include(AtriumsTextFallbackAssertionFormatterSpec)
     include(AtriumsAssertionFormatterSpec)

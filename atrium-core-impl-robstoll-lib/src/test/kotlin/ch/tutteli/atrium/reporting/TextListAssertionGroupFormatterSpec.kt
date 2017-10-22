@@ -8,12 +8,12 @@ import org.jetbrains.spek.api.include
 
 class TextListAssertionGroupFormatterSpec : Spek({
 
-    include(AtriumsTextFallbackAssertionFormatterSpec)
+    include(AtriumsTextListAssertionFormatterSpec)
     include(AtriumsSingleAssertionGroupTypeFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsTextFallbackAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextListAssertionGroupFormatterSpec(
+    object AtriumsTextListAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextListAssertionGroupFormatterSpec(
         AssertionVerbFactory, factory(), "[Atrium's TextList...Spec] ")
 
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IListAssertionGroupType>(
