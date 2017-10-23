@@ -81,13 +81,14 @@ object AtriumFactory : IAtriumFactory {
         arrow: String,
         featureBulletPoint: String,
         listBulletPoint: String,
+        explanatoryBulletPoint: String,
         assertionFormatterFacade: IAssertionFormatterFacade,
         objectFormatter: IObjectFormatter, translator: ITranslator
     ): Unit {
         val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextListAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
-        assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
+        assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoint, it, pairFormatter) }
     }

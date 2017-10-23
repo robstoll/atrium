@@ -113,13 +113,15 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
             bulletPoint: String = "▪",
             arrow: String = "➤",
             featureBulletPoint: String = "◾",
-            listBulletPoint: String = "•"
+            listBulletPoint: String = "•",
+            explanatoryBulletPoint: String = "»"
         ): ReporterBuilder {
             AtriumFactory.registerSameLineTextAssertionFormatterCapabilities(
                 bulletPoint,
                 arrow,
                 featureBulletPoint,
                 listBulletPoint,
+                explanatoryBulletPoint,
                 assertionFormatterFacade, objectFormatter, translator)
             return ReporterBuilder(assertionFormatterFacade)
         }
