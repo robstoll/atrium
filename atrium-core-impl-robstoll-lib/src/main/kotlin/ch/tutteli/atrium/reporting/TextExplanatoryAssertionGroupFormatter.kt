@@ -24,4 +24,4 @@ class TextExplanatoryAssertionGroupFormatter(
     assertionFormatterController,
     assertionPairFormatter,
     IExplanatoryAssertionGroupType::class.java,
-    extraIndent = 1)
+    extraIndent = 2)
