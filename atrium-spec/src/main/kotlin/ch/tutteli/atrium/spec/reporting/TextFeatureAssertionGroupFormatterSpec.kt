@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.api.cc.en_UK.isFalse
 import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*

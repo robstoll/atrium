@@ -24,7 +24,7 @@ import org.jetbrains.spek.api.dsl.it
 abstract class TextFallbackAssertionFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
-    describePrefix : String = "[Atrium] "
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {

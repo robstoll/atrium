@@ -19,7 +19,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
 
-abstract class SingleAssertionGroupTypeFormatterSpec<T : IAssertionGroupType>(
+abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType>(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
     supportedAssertionGroupTypeClass: Class<T>,
