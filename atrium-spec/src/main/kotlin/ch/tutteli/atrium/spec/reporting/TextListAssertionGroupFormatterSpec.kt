@@ -16,4 +16,5 @@ abstract class TextListAssertionGroupFormatterSpec(
     testeeFactory,
     IListAssertionGroupType::class.java,
     object : IListAssertionGroupType {},
+    0,
     describePrefix)

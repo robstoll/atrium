@@ -23,4 +23,5 @@ class TextExplanatoryAssertionGroupFormatter(
     bulletPoint,
     assertionFormatterController,
     assertionPairFormatter,
-    IExplanatoryAssertionGroupType::class.java)
+    IExplanatoryAssertionGroupType::class.java,
+    extraIndent = 1)
