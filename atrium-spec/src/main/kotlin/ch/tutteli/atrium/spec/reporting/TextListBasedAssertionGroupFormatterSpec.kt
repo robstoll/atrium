@@ -15,18 +15,17 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.Spec
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
-import org.jetbrains.spek.api.include
 
 abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
     verbs: IAssertionVerbFactory,
     testeeFactory: (String, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
     assertionGroupClass: Class<T>,
     anonymousAssertionGroupType: T,
-    describePrefix: String = "[Atrium] ",
+    extraIndent: Int,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
@@ -50,7 +49,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
 
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
         val testee = testeeFactory("*", AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
-        it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${assertionGroupClass::class.simpleName}") {
+        it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${assertionGroupClass.simpleName}") {
             val result = testee.canFormat(AssertionGroup(anonymousAssertionGroupType, Untranslatable(""), 1, listOf()))
             verbs.checkImmediately(result).isTrue()
         }
@@ -60,16 +59,17 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
 
         mapOf(
             "•" to "▪",
-            "[]" to "{}").forEach { (listBulletPoint, bulletPoint) ->
+            "[]" to "{}").forEach { (listBulletPointBeforeExtraIndent, bulletPoint) ->
+            val listBulletPoint = " ".repeat(extraIndent) + listBulletPointBeforeExtraIndent
             val listIndent = " ".repeat(listBulletPoint.length + 1)
             val indent = " ".repeat(bulletPoint.length + 1)
             context("listBulletPoint: $listBulletPoint, bulletPoint: $bulletPoint") {
                 val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-                facade.register({ testeeFactory(listBulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+                facade.register({ testeeFactory(listBulletPointBeforeExtraIndent, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
                 facade.register({ AtriumFactory.newTextFeatureAssertionGroupFormatter(arrow, bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
                 facade.register({ AtriumFactory.newTextFallbackAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
 
-                context("${IAssertionGroup::class.simpleName} of type ${assertionGroupClass::class.simpleName}") {
+                context("${IAssertionGroup::class.simpleName} of type ${assertionGroupClass.simpleName}") {
                     context("format directly the group") {
                         it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name} which are prepended with a `$listBulletPoint` as bullet point") {
                             facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
@@ -92,7 +92,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
                                     + "$arrowIndent$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
                                     + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                         }
-                        context("in another ${IAssertionGroup::class.simpleName} of type ${assertionGroupClass::class.simpleName}") {
+                        context("in another ${IAssertionGroup::class.simpleName} of type ${assertionGroupClass.simpleName}") {
                             it("indents the group ${IAssertionGroup::name.name} as well as the ${IAssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                                 val listAssertions = listOf(BasicAssertion(AssertionVerb.ASSERT, 5, false), featureAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 30, false))
                                 val listAssertionGroup2 = AssertionGroup(anonymousAssertionGroupType, AssertionVerb.EXPECT_THROWN, 10, listAssertions)
@@ -109,7 +109,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
                             }
                         }
                     }
-                    context("in another ${IAssertionGroup::class.simpleName} of type ${assertionGroupClass::class.simpleName}") {
+                    context("in another ${IAssertionGroup::class.simpleName} of type ${assertionGroupClass.simpleName}") {
                         it("indents the group ${IAssertionGroup::name.name} as well as the ${IAssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                             val listAssertions = listOf(BasicAssertion(AssertionVerb.ASSERT, 5, false), listAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 30, false))
                             val listAssertionGroup2 = AssertionGroup(anonymousAssertionGroupType, AssertionVerb.EXPECT_THROWN, 10, listAssertions)
