@@ -87,6 +87,7 @@ object AtriumFactory : IAtriumFactory {
         val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextListAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
+        assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoint, it, pairFormatter) }
     }

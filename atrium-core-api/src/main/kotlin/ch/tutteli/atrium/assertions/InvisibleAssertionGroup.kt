@@ -13,6 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param assertions The assertions of this group.
  */
 class InvisibleAssertionGroup(override val assertions: List<IAssertion>) : IAssertionGroup {
+
     /**
      * [Untranslatable] of an empty string.
      */

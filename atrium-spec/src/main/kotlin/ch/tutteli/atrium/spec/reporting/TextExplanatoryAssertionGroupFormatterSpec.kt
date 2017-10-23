@@ -1,19 +1,19 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.IListAssertionGroupType
+import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
-abstract class TextListAssertionGroupFormatterSpec(
+abstract class TextExplanatoryAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (String, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
     describePrefix: String = "[Atrium] "
-) : TextListBasedAssertionGroupFormatterSpec<IListAssertionGroupType>(
+) : TextListBasedAssertionGroupFormatterSpec<IExplanatoryAssertionGroupType>(
     verbs,
     testeeFactory,
-    IListAssertionGroupType::class.java,
-    object : IListAssertionGroupType {},
+    IExplanatoryAssertionGroupType::class.java,
+    object : IExplanatoryAssertionGroupType {},
     describePrefix)
