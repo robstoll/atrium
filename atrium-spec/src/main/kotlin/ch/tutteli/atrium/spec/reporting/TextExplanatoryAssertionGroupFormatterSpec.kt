@@ -16,5 +16,5 @@ abstract class TextExplanatoryAssertionGroupFormatterSpec(
     testeeFactory,
     IExplanatoryAssertionGroupType::class.java,
     object : IExplanatoryAssertionGroupType {},
-    1,
+    2,
     describePrefix)
