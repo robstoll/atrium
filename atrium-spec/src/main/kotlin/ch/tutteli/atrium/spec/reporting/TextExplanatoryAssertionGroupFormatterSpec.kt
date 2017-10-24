@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
@@ -15,6 +16,7 @@ abstract class TextExplanatoryAssertionGroupFormatterSpec(
     verbs,
     testeeFactory,
     IExplanatoryAssertionGroupType::class.java,
+    ExplanatoryAssertionGroupType,
     object : IExplanatoryAssertionGroupType {},
     2,
     describePrefix)

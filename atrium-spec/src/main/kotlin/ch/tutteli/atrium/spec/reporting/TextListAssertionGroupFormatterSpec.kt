@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
+import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.IObjectFormatter
@@ -15,6 +16,7 @@ abstract class TextListAssertionGroupFormatterSpec(
     verbs,
     testeeFactory,
     IListAssertionGroupType::class.java,
+    ListAssertionGroupType,
     object : IListAssertionGroupType {},
     0,
     describePrefix)
