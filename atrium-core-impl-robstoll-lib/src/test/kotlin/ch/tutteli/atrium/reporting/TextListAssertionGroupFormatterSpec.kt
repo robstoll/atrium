@@ -2,6 +2,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
+import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
@@ -20,6 +21,7 @@ class TextListAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factoryWithBullet(),
         IListAssertionGroupType::class.java,
         object : IListAssertionGroupType {},
+        ListAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
