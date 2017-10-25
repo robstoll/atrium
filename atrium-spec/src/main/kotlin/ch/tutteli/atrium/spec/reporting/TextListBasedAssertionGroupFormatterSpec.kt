@@ -54,10 +54,6 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
             val result = testee.canFormat(AssertionGroup(anonymousAssertionGroupType, Untranslatable(""), 1, listOf()))
             verbs.checkImmediately(result).isTrue()
         }
-        it("returns true for an ${IAssertionGroup::class.simpleName} with type ${assertionGroupType::class.simpleName}") {
-            val result = testee.canFormat(AssertionGroup(assertionGroupType, Untranslatable(""), 1, listOf()))
-            verbs.checkImmediately(result).isTrue()
-        }
     }
 
     prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {

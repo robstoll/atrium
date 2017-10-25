@@ -2,6 +2,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
@@ -19,6 +20,7 @@ class InvisibleAssertionGroupFormatterSpec : Spek({
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IInvisibleAssertionGroupType>(
         AssertionVerbFactory, factory(),
         IInvisibleAssertionGroupType::class.java,
+        InvisibleAssertionGroupType,
         object : IInvisibleAssertionGroupType {},
         "[Atrium's SingleAssertionGroupType...Spec] "
     )

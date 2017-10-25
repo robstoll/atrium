@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import org.jetbrains.spek.api.Spek
@@ -20,6 +21,7 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factoryWithArrow(),
         IFeatureAssertionGroupType::class.java,
         object : IFeatureAssertionGroupType {},
+        FeatureAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
