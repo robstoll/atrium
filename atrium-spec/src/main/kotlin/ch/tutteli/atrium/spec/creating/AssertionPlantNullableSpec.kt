@@ -6,6 +6,7 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.IReportingAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.*
@@ -16,7 +17,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class AssertionPlantNullableSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int?>) -> IAssertionPlantNullable<Int?>,
+    testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int?>) -> IReportingAssertionPlantNullable<Int?>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -24,12 +25,13 @@ abstract class AssertionPlantNullableSpec(
         prefixedDescribe(describePrefix, description, body)
     }
 
-    prefixedDescribe("fun ${IAssertionPlantNullable<Int?>::isNull.name}") {
+    prefixedDescribe("fun ${IReportingAssertionPlantNullable<Int?>::isNull.name}") {
 
         context("subject is null") {
             val subject: Int? = null
-            check("fun ${IAssertionPlantNullable<Int?>::isNull.name} does not throw an Exception") {
-                val testee = testeeFactory(verbs.checkNullable(subject).commonFields)
+            val commonFields = (verbs.checkNullable(subject) as IReportingAssertionPlantNullable<Int?>).commonFields
+            check("fun ${IReportingAssertionPlantNullable<Int?>::isNull.name} does not throw an Exception") {
+                val testee = testeeFactory(commonFields)
                 testee.isNull()
             }
         }
@@ -37,7 +39,7 @@ abstract class AssertionPlantNullableSpec(
         context("subject is not null") {
             val assertionVerb = AssertionVerb.VERB
             val subject: Int? = 1
-            val assertionChecker = verbs.checkNullable(subject).commonFields.assertionChecker
+            val assertionChecker = (verbs.checkNullable(subject) as IReportingAssertionPlantNullable<Int?>).commonFields.assertionChecker
             val testee = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
             val expectFun = verbs.checkException {
                 testee.isNull()

@@ -8,8 +8,8 @@ import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
+import ch.tutteli.atrium.creating.IReportingAssertionPlant
 import ch.tutteli.atrium.spec.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -19,7 +19,7 @@ import org.jetbrains.spek.api.dsl.on
 
 abstract class AssertionPlantCheckLazilySpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int>) -> IAssertionPlant<Int>,
+    testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int>) -> IReportingAssertionPlant<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -29,7 +29,7 @@ abstract class AssertionPlantCheckLazilySpec(
 
     val assertionVerb = AssertionVerb.VERB
     val subject = 10
-    val assertionChecker = verbs.checkLazily(1, {}).commonFields.assertionChecker
+    val assertionChecker = (verbs.checkLazily(1, {}) as IReportingAssertionPlant<Int>).commonFields.assertionChecker
     val testee = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker))
 
     prefixedDescribe("fun ${testee::createAndAddAssertion.name}") {
