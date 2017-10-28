@@ -9,13 +9,21 @@ import org.jetbrains.spek.api.include
 
 class InvisibleAssertionGroupFormatterSpec : Spek({
 
-    include(AtriumsInvisibleAssertionGroupFormatterSpecSpec)
+    include(AtriumsInvisibleAssertionGroupFormatterSpec)
+    include(AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec)
     include(AtriumsSingleAssertionGroupTypeFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsInvisibleAssertionGroupFormatterSpecSpec : ch.tutteli.atrium.spec.reporting.InvisibleAssertionGroupFormatterSpec(
+    object AtriumsInvisibleAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.InvisibleAssertionGroupFormatterSpec(
         AssertionVerbFactory, ::InvisibleAssertionGroupFormatter, "[Atrium's InvisibleGroup...Spec] ")
+
+    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IInvisibleAssertionGroupType>(
+        AssertionVerbFactory, ::InvisibleAssertionGroupFormatter,
+        IInvisibleAssertionGroupType::class.java,
+        InvisibleAssertionGroupType,
+        object : IInvisibleAssertionGroupType {},
+        "[Atrium's EmptyNameAndSubject...Spec] ")
 
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IInvisibleAssertionGroupType>(
         AssertionVerbFactory, factory(),

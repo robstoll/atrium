@@ -344,6 +344,7 @@ interface IAtriumFactory {
         arrow: String,
         featureBulletPoint: String,
         listBulletPoint: String,
+        indentedListBulletPoint: String,
         explanatoryBulletPoint: String,
         assertionFormatterFacade: IAssertionFormatterFacade,
         objectFormatter: IObjectFormatter,

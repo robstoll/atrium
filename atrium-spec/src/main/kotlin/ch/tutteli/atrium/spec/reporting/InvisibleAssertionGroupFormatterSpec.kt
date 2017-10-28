@@ -60,16 +60,8 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
         context("${IAssertionGroup::class.simpleName} of type ${IInvisibleAssertionGroupType::class.simpleName}") {
             context("format directly the group (no prefix given)") {
-                it("puts the assertions one under the others without indentation and without prefix") {
+                it("puts the assertions one under the other without indentation and without prefix") {
                     facade.format(invisibleAssertionGroup, sb, alwaysTrueAssertionFilter)
-                    verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                        + "${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
-                }
-            }
-
-            context("has ${IAssertionGroup::name.name} and ${IAssertionGroup::subject.name}") {
-                it("still puts the assertions one under the others without indentation and does not include ${IAssertionGroup::name.name} or ${IAssertionGroup::subject.name}") {
-                    facade.format(AssertionGroup(object : IInvisibleAssertionGroupType {}, AssertionVerb.ASSERT, 2, assertions), sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 1$separator"
                         + "${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
@@ -78,7 +70,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
             val arrowIndent = " ".repeat(arrow.length + 1)
             val listIndent = " ".repeat(listBulletPoint.length + 1)
             context("in an ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
-                it("puts the assertions one under the others, indents them and uses the same prefix, which is $bulletPoint") {
+                it("puts the assertions one under the other, indents them and uses the same prefix, which is $bulletPoint") {
                     val featureAssertions = listOf(invisibleAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 20, false))
                     val featureAssertionGroup = AssertionGroup(FeatureAssertionGroupType, AssertionVerb.ASSERT, 10, featureAssertions)
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
@@ -94,7 +86,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
                 val listAssertions = listOf(invisibleAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 20, false))
                 val listAssertionGroup = AssertionGroup(ListAssertionGroupType, AssertionVerb.ASSERT, 10, listAssertions)
 
-                it("puts the assertions one under the others, indents them and uses the same prefix, which is $listBulletPoint") {
+                it("puts the assertions one under the other, indents them and uses the same prefix, which is $listBulletPoint") {
                     facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(
                         "${AssertionVerb.ASSERT.getDefault()}: 10$separator"
@@ -104,7 +96,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
                 }
 
                 context("in another ${IAssertionGroup::class.simpleName} of type ${IListAssertionGroupType::class.simpleName}") {
-                    it("puts the assertions one under the others and indents as the other assertions and puts a prefix as well") {
+                    it("puts the assertions one under the other and indents as the other assertions and puts a prefix as well") {
                         val listAssertions2 = listOf(listAssertionGroup, BasicAssertion(AssertionVerb.EXPECT_THROWN, 30, false))
                         val listAssertionGroup2 = AssertionGroup(ListAssertionGroupType, AssertionVerb.ASSERT, 5, listAssertions2)
                         facade.format(listAssertionGroup2, sb, alwaysTrueAssertionFilter)
