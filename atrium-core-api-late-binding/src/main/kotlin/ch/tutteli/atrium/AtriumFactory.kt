@@ -31,13 +31,13 @@ object AtriumFactory : IAtriumFactory {
     private const val ERROR_MSG = "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
         "meaning as a substitute for a real implementation"
 
-    override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
+    override fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
         = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
+    override fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
         = throw UnsupportedOperationException(ERROR_MSG)
 
-    override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
+    override fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
         = throw UnsupportedOperationException(ERROR_MSG)
 
     override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent

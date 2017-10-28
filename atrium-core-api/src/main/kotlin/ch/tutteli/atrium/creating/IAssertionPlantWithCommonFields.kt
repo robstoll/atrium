@@ -7,20 +7,15 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * An assertion plant which has [CommonFields]; provides the property [subject] for ease of use.
+ * An assertion plant which has [CommonFields].
  *
- * @param T The type of the [subject] of this [IAssertionPlant].
+ * @param T The type of [CommonFields.subject] of this [IAssertionPlant].
  */
 interface IAssertionPlantWithCommonFields<out T> {
     /**
      * [CommonFields] of this plant.
      */
     val commonFields: CommonFields<T>
-
-    /**
-     * The subject for which this plant will create/check [IAssertion]s.
-     */
-    val subject get() = commonFields.subject
 
     /**
      * Common fields of an assertion plant.
