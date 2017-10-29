@@ -82,6 +82,9 @@ object AtriumFactory : IAtriumFactory {
     override fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = TextListAssertionGroupFormatter(listBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
+    override fun newTextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = TextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
+
     override fun registerSameLineTextAssertionFormatterCapabilities(
         bulletPoint: String,
         arrow: String,

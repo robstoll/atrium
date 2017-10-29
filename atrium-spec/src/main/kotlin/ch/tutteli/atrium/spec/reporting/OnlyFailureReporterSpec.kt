@@ -68,35 +68,6 @@ abstract class OnlyFailureReporterSpec(
             }
         }
 
-        val failingAssertion = object : IAssertion {
-            override fun holds() = false
-        }
-
-        listOf(
-            Triple(
-                "${IAssertionGroup::class.simpleName} is of type ${IExplanatoryAssertionGroupType::class.simpleName}",
-                AssertionGroup(ExplanatoryAssertionGroupType, AssertionVerb.VERB, 1, listOf(assertion)),
-                AssertionGroup(ExplanatoryAssertionGroupType, AssertionVerb.VERB, 1, listOf(failingAssertion))
-            ),
-            Triple(
-                "${ExplanatoryAssertionGroup::class.simpleName}",
-                ExplanatoryAssertionGroup(AssertionVerb.VERB, 1, listOf(assertion)),
-                ExplanatoryAssertionGroup(AssertionVerb.VERB, 1, listOf(failingAssertion))
-            )
-        ).forEach { (description, holdingGroup, failingGroup) ->
-            context(description) {
-                it("appends something if the assertion group holds") {
-                    testee.format(holdingGroup, sb)
-                    verbs.checkImmediately(sb).isNotEmpty()
-                }
-
-                it("appends something if the assertion group does not hold") {
-                    testee.format(failingGroup, sb)
-                    verbs.checkImmediately(sb).isNotEmpty()
-                }
-            }
-        }
-
         context("dependencies") {
             val assertionFormatterFacade = mock<IAssertionFormatterFacade>()
             val testeeWithMockedFacade = testeeFactory(assertionFormatterFacade)

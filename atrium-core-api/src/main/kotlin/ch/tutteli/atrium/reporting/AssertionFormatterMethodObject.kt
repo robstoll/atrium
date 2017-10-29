@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 
 /**
  * A method object used for interactions between [IAssertionFormatterController] and [IAssertionFormatter].
@@ -16,14 +18,15 @@ import ch.tutteli.atrium.assertions.IAssertion
  * @param indentLevel The current indentation level.
  * @param assertionFilter Can be used used to filter out [IAssertion]s which should not be formatted.
  */
-class AssertionFormatterMethodObject(
+class AssertionFormatterMethodObject private constructor(
     val sb: StringBuilder,
     val prefix: String,
     private val indentLevel: Int,
-    val assertionFilter: (IAssertion) -> Boolean) {
+    val assertionFilter: (IAssertion) -> Boolean,
+    private val numberOfExplanatoryGroups: Int) {
 
     /**
-     * Creates a [AssertionFormatterMethodObject] for kind of a child of the current method object using the given
+     * Creates an [AssertionFormatterMethodObject] for kind of a child of the current method object using the given
      * [newPrefix] (the child will typically be used to indent [IAssertion]s one level more).
      *
      * Technically speaking it means that the child's [indentLevel] is based on the current method object but increased
@@ -37,7 +40,7 @@ class AssertionFormatterMethodObject(
 
 
     /**
-     * Creates a [AssertionFormatterMethodObject] for kind of a child of the current method object using the given
+     * Creates an [AssertionFormatterMethodObject] for kind of a child of the current method object using the given
      * [newPrefix] and an [additionalIndent] (the child will typically be used to indent [IAssertion]s one level more).
      *
      * Technically speaking it means that the child's [indentLevel] is based on the current method object but increased
@@ -50,7 +53,26 @@ class AssertionFormatterMethodObject(
      * @return The newly created [AssertionFormatterMethodObject].
      */
     fun createChildWithNewPrefixAndAdditionalIndent(newPrefix: String, additionalIndent: Int)
-        = AssertionFormatterMethodObject(sb, newPrefix, indentLevel + prefix.length + additionalIndent, assertionFilter)
+        = AssertionFormatterMethodObject(sb, newPrefix, indentLevel + prefix.length + additionalIndent, assertionFilter, numberOfExplanatoryGroups)
+
+
+    /**
+     * Clones the current [AssertionFormatterMethodObject] and increases [numberOfExplanatoryGroups] by one because
+     * it is assumed that the resulting methodObject is used to format an [IAssertionGroup] of
+     * type [IExplanatoryAssertionGroupType].
+     *
+     * @return The newly created [AssertionFormatterMethodObject].
+     */
+    fun createForExplanatoryAssertionGroup(): AssertionFormatterMethodObject
+        = AssertionFormatterMethodObject(sb, prefix, indentLevel, assertionFilter, numberOfExplanatoryGroups + 1)
+
+    /**
+     * Indicates that the formatting process is currently not formatting the [IAssertion]s (or any nested assertion)
+     * of an [IAssertionGroup] of type [IExplanatoryAssertionGroupType].
+     *
+     * @return `true` if the formatting process is currently within an explanatory assertion group; `false` otherwise.
+     */
+    fun isNotInExplanatoryAssertionGroup() = numberOfExplanatoryGroups == 0
 
     /**
      *  Appends the number equals to [indentLevel] of spaces to [sb].
@@ -65,9 +87,14 @@ class AssertionFormatterMethodObject(
         /**
          * Creates a new [AssertionFormatterMethodObject], one without a [prefix] and with [indentLevel] = 0.
          *
+         * @param sb The [StringBuilder] to which the formatting should be written.
+         * @param assertionFilter The filter used to decide whether an assertion should be formatted at all or not.
+         *
          * @return The newly created [AssertionFormatterMethodObject].
          */
-        fun new(sb: StringBuilder, assertionFilter: (IAssertion) -> Boolean)
-            = AssertionFormatterMethodObject(sb, "", 0, assertionFilter)
+        fun new(sb: StringBuilder, assertionFilter: (IAssertion) -> Boolean): AssertionFormatterMethodObject {
+
+            return AssertionFormatterMethodObject(sb, "", 0, assertionFilter, numberOfExplanatoryGroups = 0)
+        }
     }
 }
