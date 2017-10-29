@@ -32,49 +32,52 @@ object AtriumFactory : IAtriumFactory {
         "meaning as a substitute for a real implementation"
 
     override fun <T : Any> newReportingPlantCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun <T : Any> newReportingPlantCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
+
+    override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
+        = throwUnsupportedOperationException()
 
     override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newMethodCallFormatter(): IMethodCallFormatter
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newAssertionFormatterController(): IAssertionFormatterController
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newTextFallbackAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun registerSameLineTextAssertionFormatterCapabilities(
         bulletPoint: String,
@@ -86,11 +89,14 @@ object AtriumFactory : IAtriumFactory {
         assertionFormatterFacade: IAssertionFormatterFacade,
         objectFormatter: IObjectFormatter,
         translator: ITranslator): Unit
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throwUnsupportedOperationException()
 
     override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub>
+        = throwUnsupportedOperationException()
+
+    private fun throwUnsupportedOperationException(): Nothing
         = throw UnsupportedOperationException(ERROR_MSG)
 }
