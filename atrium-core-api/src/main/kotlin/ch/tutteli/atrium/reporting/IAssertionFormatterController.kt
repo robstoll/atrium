@@ -2,6 +2,8 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 
 /**
  * Responsible to control the flow of reporting using [register]ed [IAssertionFormatter]s.
@@ -34,8 +36,17 @@ interface IAssertionFormatterController {
      */
     fun register(assertionFormatter: IAssertionFormatter)
 
-    companion object{
-        fun noSuitableAssertionFormatterFound(assertion: IAssertion) : Nothing = throw UnsupportedOperationException(
+    /**
+     * Checks whether the given [assertion] is an [IAssertionGroup] and if its [type][IAssertionGroup.type]
+     * is a [IExplanatoryAssertionGroupType].
+     *
+     * @return `true` if it is an explanatory assertion group; `false` otherwise.
+     */
+    fun isExplanatoryAssertionGroup(assertion: IAssertion)
+        = (assertion is IAssertionGroup && assertion.type is IExplanatoryAssertionGroupType)
+
+    companion object {
+        fun noSuitableAssertionFormatterFound(assertion: IAssertion): Nothing = throw UnsupportedOperationException(
             "no suitable ${IAssertionFormatter::class.simpleName} found for the given assertion: $assertion")
     }
 }

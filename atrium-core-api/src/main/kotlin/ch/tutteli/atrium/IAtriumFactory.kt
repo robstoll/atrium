@@ -342,6 +342,7 @@ interface IAtriumFactory {
      */
     fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
+    fun newTextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
