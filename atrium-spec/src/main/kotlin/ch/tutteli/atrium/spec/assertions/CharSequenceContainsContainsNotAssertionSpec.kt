@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 
@@ -111,6 +110,14 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                         fluent.containsNotFun("Hello", "notInThere")
                     }.toThrow<AssertionError>().message.contains(CONTAINS_NOT.getDefault(), "Hello")
                 }
+            }
+
+            test("$contains 'Hello' and 'Hello' (searching twice in the same assertion) does not throw") {
+                fluent.containsFun("Hello", "Hello")
+            }
+
+            test("$containsNot 'notInThere' and 'notInThere' does not throw") {
+                fluent.containsNotFun("notInThere", "notInThere")
             }
         }
 

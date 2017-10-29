@@ -17,7 +17,12 @@ val <T : CharSequence> IAssertionPlant<T>.contains get(): CharSequenceContainsBu
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [toString] representation
- * and the [toString] representation of the [otherExpected] (if defined).
+ * and the [toString] representation of the [otherExpected] (if defined), using a non disjoint search.
+ *
+ * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is 'a' and [expected] is
+ * defined as 'a' and one [otherExpected] is defined as 'a' as well, then both match, even though they match the
+ * same sequence in the input of the search.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
