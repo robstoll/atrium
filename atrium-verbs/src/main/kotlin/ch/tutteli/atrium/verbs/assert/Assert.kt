@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IThrowableFluent
-import ch.tutteli.atrium.newCheckLazilyAtTheEnd
+import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
@@ -16,30 +16,30 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newCheckImmediately
+ * @see AtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any> assert(subject: T)
-    = AtriumFactory.newCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlantCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlantNullable] for [subject].
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newNullable
+ * @see AtriumFactory.newReportingPlantNullable
  */
 fun <T : Any?> assert(subject: T)
-    = AtriumFactory.newNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
  *
  * @return The newly created plant.
  *
- * @see IAtriumFactory.newCheckLazilyAtTheEnd
+ * @see IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd
  */
 inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [IThrowableFluent] for the given function [act].

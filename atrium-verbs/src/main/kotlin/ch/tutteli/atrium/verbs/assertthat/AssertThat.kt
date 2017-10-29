@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IThrowableFluent
-import ch.tutteli.atrium.newCheckLazilyAtTheEnd
+import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
@@ -15,10 +15,10 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newCheckImmediately
+ * @see AtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any> assertThat(subject: T)
-    = AtriumFactory.newCheckImmediately(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlantCheckImmediately(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
 
 
 /**
@@ -26,20 +26,20 @@ fun <T : Any> assertThat(subject: T)
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newNullable
+ * @see AtriumFactory.newReportingPlantNullable
  */
 fun <T : Any?> assertThat(subject: T)
-    = AtriumFactory.newNullable(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlantNullable(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newCheckLazilyAtTheEnd
+ * @see AtriumFactory.newReportingPlantCheckLazilyAtTheEnd
  */
 inline fun <T : Any> assertThat(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newCheckLazilyAtTheEnd(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [IThrowableFluent] for the given function [act].

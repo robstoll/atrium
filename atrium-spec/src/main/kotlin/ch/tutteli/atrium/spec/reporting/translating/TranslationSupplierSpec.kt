@@ -52,10 +52,10 @@ abstract class TranslationSupplierSpec(
     }
 
     fun <T : Any> assert(subject: T)
-        = AtriumFactory.newCheckImmediately(AssertionVerb.ASSERT, subject, reporter)
+        = AtriumFactory.newReportingPlantCheckImmediately(AssertionVerb.ASSERT, subject, reporter)
 
     fun <T : Any?> assert(subject: T)
-        = AtriumFactory.newNullable(AssertionVerb.ASSERT, subject, reporter)
+        = AtriumFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, reporter)
 
     prefixedDescribe("primary locale is 'de_CH' and fallback is 'fr'") {
 
