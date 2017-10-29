@@ -40,6 +40,9 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
         = AssertionPlantNullable(commonFields)
 
+    override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
+        = CheckingAssertionPlant(subject)
+
     override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
         = newThrowableFluent(assertionVerb, act, newThrowingAssertionChecker(reporter))
 

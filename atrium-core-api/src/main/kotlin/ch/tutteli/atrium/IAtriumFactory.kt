@@ -126,7 +126,7 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [IReportingAssertionPlantNullable].
+     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
@@ -142,7 +142,7 @@ interface IAtriumFactory {
         = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
-     * Creates an [IReportingAssertionPlantNullable].
+     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
@@ -159,7 +159,7 @@ interface IAtriumFactory {
         = newReportingPlantNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     /**
-     * Creates an [IReportingAssertionPlantNullable].
+     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
      *
@@ -168,6 +168,17 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
+
+    /**
+     * Creates an [ICheckingAssertionPlant] which provides a method to check whether
+     * [allAssertionsHold][ICheckingAssertionPlant.allAssertionsHold].
+     *
+     * @param subject The subject for which this plant will create [IAssertion]s.
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
+
 
     /**
      * Creates an [IThrowableFluent] based on the given [assertionVerb] and the [act] function.
