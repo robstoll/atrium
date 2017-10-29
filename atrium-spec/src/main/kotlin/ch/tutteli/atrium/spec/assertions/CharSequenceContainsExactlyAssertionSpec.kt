@@ -132,6 +132,9 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                 test("${containsExactlyIgnoringCase("'o'", "3 times")} does not throw") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(3, 'o')
                 }
+                test("${containsExactlyIgnoringCase("'o' and 'o'", "3 times")} does not throw") {
+                    fluentHelloWorld.containsExactlyIgnoringCaseFun(3, 'o', 'o')
+                }
 
                 test("${containsExactlyTest("'o' and 'l'", "twice")} throws AssertionError") {
                     expect {

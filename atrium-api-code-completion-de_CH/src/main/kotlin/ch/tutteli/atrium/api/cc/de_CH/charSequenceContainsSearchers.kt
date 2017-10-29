@@ -28,6 +28,9 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * the [otherExpected] objects shall be searched, using a non disjoint search.
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is 'a' and [expected] is
+ * defined as 'a' and one [otherExpected] is defined as 'a' as well, then both match, even though they match the
+ * same sequence in the input of the search.
  *
  * @param expected The object which is expected to be contained within the input of the search.
  * @param otherExpected Additional objects which are expected to be contained within the input of the search.
@@ -58,6 +61,9 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * the [otherExpected] objects shall be searched (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is 'a' and [expected] is
+ * defined as 'a' and one [otherExpected] is defined as 'a' as well, then both match, even though they match the
+ * same sequence in the input of the search.
  *
  * @param expected The object which is expected to be contained within the input of the search.
  * @param otherExpected Additional objects which are expected to be contained within the input of the search.
@@ -89,6 +95,9 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * the [otherPatterns] are expected to have a match (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is 'ab' and [pattern]
+ * is defined as 'a(b)?' and one of the [otherPatterns] is defined as 'ab', then both match, even though they match the
+ * same sequence in the input of the search.
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.

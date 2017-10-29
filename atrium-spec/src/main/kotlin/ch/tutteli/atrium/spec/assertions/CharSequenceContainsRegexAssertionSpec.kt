@@ -61,6 +61,9 @@ abstract class CharSequenceContainsRegexAssertionSpec(
             test("${containsAtLeastTest("'$hello'", "once")} does not throw") {
                 fluent.containsAtLeastFun(1, hello)
             }
+            test("${containsAtLeastTest("'$hello', '$hello' and '$hello'", "once")} does not throw") {
+                fluent.containsAtLeastFun(1, hello, hello, hello)
+            }
 
             test("${containsAtLeastTest("'$hello' and '$robert'", "once")} does not throw") {
                 fluent.containsAtLeastFun(1, hello, robert)
@@ -71,6 +74,9 @@ abstract class CharSequenceContainsRegexAssertionSpec(
             }
             test("${containsAtMostIgnoringCase("'[a-z]'", "19 times")} does not throw") {
                 fluent.containsAtMostIgnoringCaseFun(19, "[a-z]")
+            }
+            test("${containsAtMostIgnoringCase("'[a-z]' and '[A-Z]'", "19 times")} does not throw") {
+                fluent.containsAtMostIgnoringCaseFun(19, "[a-z]", "[A-Z]")
             }
 
             test("${containsAtMostTest("'[a-z]'", "16 times")} does not throw") {
