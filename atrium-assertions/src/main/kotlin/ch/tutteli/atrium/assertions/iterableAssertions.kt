@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.iterable.contains.IterableContainsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
+import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsObjectsInAnyOrderAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
-import ch.tutteli.atrium.assertions.iterable.contains.searchers.IterableContainsInAnyOrderSearcher
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
@@ -22,6 +21,6 @@ fun <E, T : Iterable<E>> _objects(
     expected: E,
     otherExpected: Array<out E>
 ): IAssertion {
-    val creator = IterableContainsAssertionCreator(checker.containsBuilder.decorator, IterableContainsInAnyOrderSearcher<E, T>(), checker.checkers)
-    return creator.create(checker.containsBuilder.plant, expected, *otherExpected)
+    val creator = IterableContainsObjectsInAnyOrderAssertionCreator<E, T>(checker.containsBuilder.decorator, checker.checkers)
+    return creator.createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
 }
