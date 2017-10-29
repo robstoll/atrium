@@ -85,7 +85,15 @@ abstract class IterableContainsEntriesSpec(
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1) and another entry which is $isLessThanFun(2.0)") {
                 it("does not throw an exception") {
                     //finds twice the entry 1.0 but that is fine since we do not search for unique entries in this case
-                    fluent.entriesFun({ isGreaterThan(1.0); isLessThan(2.1) }, {isLessThan(2.0)})
+                    fluent.entriesFun({ isGreaterThan(1.0); isLessThan(2.1) }, { isLessThan(2.0) })
+                }
+            }
+
+            context("search for entry where the lambda does not specify any assertion") {
+                it("throws an ${IllegalArgumentException::class.simpleName}") {
+                    expect {
+                        fluent.entryFun({})
+                    }.toThrow<IllegalArgumentException>().and.message.contains("not any assertion created")
                 }
             }
         }
