@@ -22,5 +22,19 @@ class IndentAssertionGroup private constructor(override val assertions: List<IAs
          */
         fun createWithIndentIndex(assertions: List<IAssertion>, startIndent: Int): IAssertionGroup
             = IndentAssertionGroup(assertions, startIndent)
+
+        /**
+         * Creates an [IAssertionGroup] with an [IIndentAssertionGroupType] and
+         * [IIndentAssertionGroupType.indentIndex] = 1, using the given [explanatoryAssertionGroup] as first
+         * [IAssertion] and thus the remaining [assertions] will be indented by one extra level.
+         *
+         * @param explanatoryAssertionGroup The assertion group which kind of serves as title
+         *        of the indented [assertions].
+         * @param assertions The assertions which are indented.
+         *
+         * @return The newly created [IAssertionGroup].
+         */
+        fun createWithExplanatoryAssertionGroup(explanatoryAssertionGroup: ExplanatoryAssertionGroup, vararg assertions: IAssertion): IAssertionGroup
+            = IndentAssertionGroup(listOf(explanatoryAssertionGroup, *assertions), 1)
     }
 }
