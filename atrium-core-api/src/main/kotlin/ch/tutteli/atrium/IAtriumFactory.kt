@@ -179,6 +179,16 @@ interface IAtriumFactory {
      */
     fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
 
+    /**
+     * Creates an [ICollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
+     * created [IAssertion]s inside the lambda.
+     *
+     * Notice, that this [IAssertionPlant] might not even provide [IAssertionPlant.subject], its purpose is solely
+     * collecting assertions. Use [newCheckingPlant] instead if you want to know whether the assertions hold.
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T : Any> newCollectingPlant(): ICollectingAssertionPlant<T>
 
     /**
      * Creates an [IThrowableFluent] based on the given [assertionVerb] and the [act] function.
