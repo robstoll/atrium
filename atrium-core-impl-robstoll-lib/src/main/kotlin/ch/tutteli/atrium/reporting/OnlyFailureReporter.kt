@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 
 /**
  * An [IReporter] which reports only failing assertions.
@@ -19,5 +21,9 @@ class OnlyFailureReporter(private val assertionFormatterFacade: IAssertionFormat
     override fun format(assertion: IAssertion, sb: StringBuilder)
         = assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
 
-    private fun assertionFilter(assertion: IAssertion) = !assertion.holds()
+    private fun assertionFilter(assertion: IAssertion): Boolean {
+        return (assertion is IAssertionGroup && assertion.type is IExplanatoryAssertionGroupType)
+            || !assertion.holds()
+    }
+
 }
