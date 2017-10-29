@@ -29,6 +29,6 @@ class ExplanatoryAssertionGroup(
      * @suppress
      */
     override fun toString(): String {
-        return ExplanatoryAssertionGroup::class.simpleName + " " + assertions
+        return "${ExplanatoryAssertionGroup::class.simpleName} - $name: $subject"
     }
 }

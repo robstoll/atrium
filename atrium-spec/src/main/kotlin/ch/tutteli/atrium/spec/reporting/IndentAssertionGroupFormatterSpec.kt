@@ -46,7 +46,6 @@ abstract class IndentAssertionGroupFormatterSpec(
         sb = StringBuilder()
     }
 
-
     val separator = System.getProperty("line.separator")!!
 
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {

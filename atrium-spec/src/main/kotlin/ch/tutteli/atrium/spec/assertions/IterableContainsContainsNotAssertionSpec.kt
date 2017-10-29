@@ -101,6 +101,14 @@ abstract class IterableContainsContainsNotAssertionSpec(
                     }.toThrow<AssertionError>().message.contains(CONTAINS_NOT.getDefault(), 1.0)
                 }
             }
+
+            test("$contains 1.0 and 1.0 (searching twice in the same assertion) does not throw") {
+                fluent.containsFun(1.0, 1.0)
+            }
+
+            test("$containsNot 9.5 and 9.5 does not throw") {
+                fluent.containsNotFun(9.5, 9.5)
+            }
         }
     }
 })
