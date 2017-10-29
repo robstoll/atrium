@@ -38,7 +38,7 @@ class IterableContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.assertions.
 //        )
 //
 //        private fun containsAtLeastButAtMost(plant: IAssertionPlant<Iterable<Double>>, atLeast: Int, butAtMost: Int, a: Double, aX: Array<out Double>)
-//            = plant.contains.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
+//            = plant.contains.atLeast(atLeast).butAtMost(butAtMost).objects(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 

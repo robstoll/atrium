@@ -10,3 +10,9 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
 
 fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.values(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = addAssertion(_objects(this, expected, otherExpected))
+
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.`object`(expected: E): IAssertionPlant<T>
+    = objects(expected)
+
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+    = addAssertion(_objects(this, expected, otherExpected))

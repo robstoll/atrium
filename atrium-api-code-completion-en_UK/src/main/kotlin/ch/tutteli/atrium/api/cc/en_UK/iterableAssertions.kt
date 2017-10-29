@@ -23,7 +23,7 @@ val <E, T : Iterable<E>> IAssertionPlant<T>.contains
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
+    = contains.inAnyOrder.atLeast(1).objects(expected, *otherExpected)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not contain [expected]
