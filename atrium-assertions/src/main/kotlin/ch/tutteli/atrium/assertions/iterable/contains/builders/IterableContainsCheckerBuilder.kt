@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
+import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContainsAssertionCreator
-import ch.tutteli.atrium.creating.IAssertionPlant
 
 
 abstract class IterableContainsCheckerBuilder<E, T : Iterable<E>, D : IterableContainsAssertionCreator.IDecorator>(
@@ -10,13 +10,11 @@ abstract class IterableContainsCheckerBuilder<E, T : Iterable<E>, D : IterableCo
 
     abstract val checkers: List<IterableContainsAssertionCreator.IChecker>
 
-    fun addAssertion(
-        searcher: IterableContainsAssertionCreator.ISearcher<E, T, D>,
-        expected: E,
-        otherExpected: Array<out E>
-    ): IAssertionPlant<T> {
-        val assertionGroup = IterableContainsAssertionCreator(containsBuilder.decorator, searcher, checkers)
-            .create(containsBuilder.plant, expected, *otherExpected)
-        return containsBuilder.plant.addAssertion(assertionGroup)
-    }
+    /**
+     * Helper method to simplify adding assertions to the plant which itself is stored in [containsBuilder].
+     *
+     * @return The plant to support a fluent API.
+     */
+    fun addAssertion(assertion: IAssertion)
+        = containsBuilder.plant.addAssertion(assertion)
 }
