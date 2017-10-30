@@ -22,7 +22,7 @@ class IterableContainsObjectsInAnyOrderAssertionCreator<E, T : Iterable<E>>(
     private fun create(plant: IAssertionPlant<T>, expected: E): IAssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            val count = plant.subject.filter(bothNullOrEqual(expected)).size
+            val count = plant.subject.filter({ it == expected }).size
             val assertions = mutableListOf<IAssertion>()
             checkers.forEach {
                 assertions.add(it.createAssertion(count))
@@ -30,9 +30,5 @@ class IterableContainsObjectsInAnyOrderAssertionCreator<E, T : Iterable<E>>(
             val featureAssertion = AssertionGroup(FeatureAssertionGroupType, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions.toList())
             AssertionGroup(ListAssertionGroupType, description, expected ?: RawString.NULL, listOf(featureAssertion))
         }
-    }
-
-    private fun <E> bothNullOrEqual(expected: E) = { it: E ->
-        (it == null && expected == null) || it == expected
     }
 }
