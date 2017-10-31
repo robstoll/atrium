@@ -68,13 +68,15 @@ abstract class AssertionFormatterControllerSpec(
                 context(description) {
                     it("appends something if the assertion group holds") {
                         testee.format(holdingGroup, methodObject)
-                        verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.VERB.getDefault()}: 1$separator" +
+                        verbs.checkImmediately(sb.toString()).toBe(separator +
+                            "${AssertionVerb.VERB.getDefault()}: 1$separator" +
                             "$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
                     }
 
                     it("appends something if the assertion group does not hold") {
                         testee.format(failingGroup, methodObject)
-                        verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.VERB.getDefault()}: 1$separator" +
+                        verbs.checkImmediately(sb.toString()).toBe(separator +
+                            "${AssertionVerb.VERB.getDefault()}: 1$separator" +
                             "$arrow ${IS_LESS_OR_EQUALS.getDefault()}: 2")
                     }
                 }
@@ -135,19 +137,18 @@ abstract class AssertionFormatterControllerSpec(
                 }
 
                 context("within another ${IExplanatoryAssertionGroupType::class.simpleName} which is preeceded and followed by a regular assertion ") {
-                    val explanatoryAssertionGroup2 = ExplanatoryAssertionGroup(AssertionVerb.VERB, 20, listOf(rootGroup))
+                    val explanatoryAssertionGroup2 = ExplanatoryAssertionGroup(AssertionVerb.VERB, 20, listOf(explanatoryAssertionGroup))
                     val rootGroup2 = AssertionGroup(RootAssertionGroupType, IS_LESS_THAN, 10, listOf(failingAssertion, explanatoryAssertionGroup2, assertion))
 
                     it("appends the explanatory assertion group including all its assertions") {
                         testee.format(rootGroup2, methodObject)
                         verbs.checkImmediately(sb.toString()).toBe("${IS_LESS_THAN.getDefault()}: 10$separator" +
                             "$bulletPoint ${AssertionVerb.VERB.getDefault()}: 20$separator" +
-                            "$indentBulletPoint$arrow ${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
-                            "$indentBulletPoint$indentArrow$bulletPoint ${AssertionVerb.VERB.getDefault()}: 1$separator" +
-                            "$indentBulletPoint$indentArrow$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
-                            "$indentBulletPoint$indentArrow$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
-                            "$indentBulletPoint$indentArrow$indentBulletPoint$indentArrow$listBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2$separator" +
-                            "$indentBulletPoint$indentArrow$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
+                            "$indentBulletPoint$arrow ${AssertionVerb.VERB.getDefault()}: 1$separator" +
+                            "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
+                            "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
+                            "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_LESS_OR_EQUALS.getDefault()}: 2$separator" +
+                            "$indentBulletPoint$indentArrow$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
                     }
                 }
             }
