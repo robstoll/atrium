@@ -74,10 +74,10 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
                     context("format directly the group") {
                         it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name} which are prepended with a `$listBulletPoint` as bullet point") {
                             facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
-                            verbs.checkImmediately(sb.toString()).toBe(
-                                "placeholder %s: 2$separator"
-                                    + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                                    + "$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
+                            verbs.checkImmediately(sb.toString()).toBe(separator
+                                + "placeholder %s: 2$separator"
+                                + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                                + "$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                         }
                     }
 
@@ -86,27 +86,27 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
                         val featureAssertionGroup = AssertionGroup(FeatureAssertionGroupType, AssertionVerb.ASSERT, 10, featureAssertions)
                         it("indents the group ${IAssertionGroup::name.name} as well as the ${IAssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                             facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
-                            verbs.checkImmediately(sb.toString()).toBe(
-                                "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                                    + "$arrowIndent$bulletPoint placeholder %s: 2$separator"
-                                    + "$arrowIndent$indent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                                    + "$arrowIndent$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                                    + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
+                            verbs.checkImmediately(sb.toString()).toBe(separator
+                                + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
+                                + "$arrowIndent$bulletPoint placeholder %s: 2$separator"
+                                + "$arrowIndent$indent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                                + "$arrowIndent$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                                + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                         }
                         context("in another ${IAssertionGroup::class.simpleName} of type ${assertionGroupType::class.simpleName}") {
                             it("indents the group ${IAssertionGroup::name.name} as well as the ${IAssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                                 val listAssertions = listOf(BasicAssertion(AssertionVerb.ASSERT, 5, false), featureAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 30, false))
                                 val listAssertionGroup2 = AssertionGroup(assertionGroupType, AssertionVerb.EXPECT_THROWN, 10, listAssertions)
                                 facade.format(listAssertionGroup2, sb, alwaysTrueAssertionFilter)
-                                verbs.checkImmediately(sb.toString()).toBe(
-                                    "${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"
-                                        + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$separator"
-                                        + "$listBulletPoint $arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                                        + "$listIndent$arrowIndent$bulletPoint placeholder %s: 2$separator"
-                                        + "$listIndent$arrowIndent$indent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                                        + "$listIndent$arrowIndent$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                                        + "$listIndent$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20$separator"
-                                        + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30")
+                                verbs.checkImmediately(sb.toString()).toBe(separator
+                                    + "${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"
+                                    + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$separator"
+                                    + "$listBulletPoint $arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
+                                    + "$listIndent$arrowIndent$bulletPoint placeholder %s: 2$separator"
+                                    + "$listIndent$arrowIndent$indent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                                    + "$listIndent$arrowIndent$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                                    + "$listIndent$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20$separator"
+                                    + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30")
                             }
                         }
                     }
@@ -115,13 +115,13 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
                             val listAssertions = listOf(BasicAssertion(AssertionVerb.ASSERT, 5, false), listAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 30, false))
                             val listAssertionGroup2 = AssertionGroup(anonymousAssertionGroupType, AssertionVerb.EXPECT_THROWN, 10, listAssertions)
                             facade.format(listAssertionGroup2, sb, alwaysTrueAssertionFilter)
-                            verbs.checkImmediately(sb.toString()).toBe(
-                                "${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"
-                                    + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$separator"
-                                    + "$listBulletPoint placeholder %s: 2$separator"
-                                    + "$listIndent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                                    + "$listIndent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                                    + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30")
+                            verbs.checkImmediately(sb.toString()).toBe(separator
+                                + "${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"
+                                + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$separator"
+                                + "$listBulletPoint placeholder %s: 2$separator"
+                                + "$listIndent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                                + "$listIndent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                                + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30")
                         }
                     }
                 }

@@ -22,21 +22,8 @@ class IndentAssertionGroupFormatter(
 ) : SingleAssertionGroupTypeFormatter<IIndentAssertionGroupType>(IIndentAssertionGroupType::class.java) {
 
     override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        val groupType = assertionGroup.type as IIndentAssertionGroupType
         val childMethodObject = methodObject.createChildWithNewPrefix(" $bulletPoint ")
-        var count = 0
         formatAssertions {
-            if (count >= groupType.indentIndex) {
-                childMethodObject.sb.appendln()
-                childMethodObject.indent()
-                childMethodObject.sb.append(childMethodObject.prefix)
-            } else if (count > 0) {
-                //behaves like an InvisibleAssertionGroupFormatter, formatting based on the current methodObject
-                methodObject.sb.appendln()
-                methodObject.indent()
-                methodObject.sb.append(methodObject.prefix)
-            }
-            ++count
             assertionFormatterController.format(it, childMethodObject)
         }
     }

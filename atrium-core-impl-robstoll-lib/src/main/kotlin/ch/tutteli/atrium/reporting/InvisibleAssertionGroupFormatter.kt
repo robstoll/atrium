@@ -17,14 +17,7 @@ class InvisibleAssertionGroupFormatter(
 ) : SingleAssertionGroupTypeFormatter<IInvisibleAssertionGroupType>(IInvisibleAssertionGroupType::class.java) {
 
     override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        var isNotFirst = false
         formatAssertions {
-            if (isNotFirst) {
-                methodObject.sb.appendln()
-                methodObject.indent()
-                methodObject.sb.append(methodObject.prefix)
-            }
-            isNotFirst = true
             assertionFormatterController.format(it, methodObject)
         }
     }

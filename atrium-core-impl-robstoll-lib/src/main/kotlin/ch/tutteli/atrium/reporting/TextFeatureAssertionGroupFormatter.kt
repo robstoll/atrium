@@ -31,6 +31,9 @@ class TextFeatureAssertionGroupFormatter(
     private val formatter = TextPrefixBasedAssertionGroupFormatter(prefix, assertionFormatterController)
 
     override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
+        methodObject.sb.appendln()
+        methodObject.indent()
+        methodObject.sb.append(methodObject.prefix)
         val translatable = TranslatableWithArgs(Untranslatable("$arrow %s"), assertionGroup.name)
         assertionPairFormatter.format(methodObject, translatable, assertionGroup.subject)
         val childMethodObject = methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length + 1)

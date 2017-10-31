@@ -30,8 +30,7 @@ class IterableContainsEntriesInAnyOrderAssertionCreator<E : Any, T : Iterable<E>
                 assertions.add(it.createAssertion(count))
             }
             val featureAssertion = AssertionGroup(FeatureAssertionGroupType, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions.toList())
-
-            IndentAssertionGroup.createWithExplanatoryAssertionGroup(explanatoryAssertionGroup, featureAssertion)
+            InvisibleAssertionGroup(listOf(explanatoryAssertionGroup, IndentAssertionGroup(listOf(featureAssertion))))
         }
     }
 
