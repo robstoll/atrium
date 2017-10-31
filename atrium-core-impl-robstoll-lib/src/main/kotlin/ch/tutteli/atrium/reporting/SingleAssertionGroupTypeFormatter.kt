@@ -17,7 +17,8 @@ import ch.tutteli.atrium.assertions.IAssertionGroupType
  * @param clazz The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
  */
 abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
-    private val clazz: Class<T>
+    private val clazz: Class<T>,
+    private val assertionFormatterController: IAssertionFormatterController
 ) : IAssertionFormatter {
 
     /**
@@ -40,6 +41,14 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
      * Checks whether [assertionGroup] is [T] or a sub type and if so, delegates to the concrete implementation;
      * otherwise throws an [UnsupportedOperationException].
      *
+     * @param assertionGroup The assertion group which should be formatted.
+     * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
+     *        to with the result will be appended.
+     * @param formatAssertions The function which should be called to format the
+     *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].
+     *        It itself expects a function which formats single [IAssertion]s in the context of the given
+     *        [assertionGroup].
+     *
      * @see [IAssertionFormatter.formatGroup].
      *
      * @throws UnsupportedOperationException if the given [assertionGroup] is not [T] or a sub type of it.
@@ -49,18 +58,25 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
         else -> throw UnsupportedOperationException("supports only ${clazz.name}")
     }
 
+    private fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit): Unit {
+        val childMethodObject = formatGroupHeaderAndGetChildMethodObject(assertionGroup, methodObject)
+        formatAssertions {
+            assertionFormatterController.format(it, childMethodObject)
+        }
+    }
+
     /**
-     * Formats the given [assertionGroup] (with [type][IAssertionGroup.type] [T]) and appends the result to the
-     * [sb][AssertionFormatterMethodObject.sb] of the given [methodObject].
+     * Formats the header of the given [assertionGroup] (with [type][IAssertionGroup.type] [T]) -- appends the result
+     * to the [sb][AssertionFormatterMethodObject.sb] of the given [methodObject] -- and returns the
+     * [AssertionFormatterMethodObject] which shall be used for the [IAssertionGroup.assertions].
      *
      * @param assertionGroup The assertion group which should be formatted.
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
      *        to with the result will be appended.
-     * @param formatAssertions The function which should be called to format the
-     *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].
-     *        It itself expects a function which formats single [IAssertion]s in the context of the given
-     *        [assertionGroup].
+     *
+     * @return The [AssertionFormatterMethodObject] which shall be used for the [IAssertionGroup.assertions].
      */
-    abstract fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit): Unit
+    abstract fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject
+
 
 }

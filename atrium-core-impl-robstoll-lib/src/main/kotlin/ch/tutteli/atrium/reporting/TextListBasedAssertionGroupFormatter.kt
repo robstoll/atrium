@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IAssertionGroupType
 
@@ -25,10 +24,10 @@ abstract class TextListBasedAssertionGroupFormatter<in T : IAssertionGroupType>(
     private val assertionPairFormatter: IAssertionPairFormatter,
     clazz: Class<T>,
     extraIndent: Int = 0
-) : SingleAssertionGroupTypeFormatter<T>(clazz) {
-    private val formatter = TextPrefixBasedAssertionGroupFormatter(" ".repeat(extraIndent) + "$bulletPoint ", assertionFormatterController)
+) : SingleAssertionGroupTypeFormatter<T>(clazz, assertionFormatterController) {
+    private val formatter = TextPrefixBasedAssertionGroupFormatter(" ".repeat(extraIndent) + "$bulletPoint ")
 
-    override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject, formatAssertions)
-    }
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
+        = formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject)
+
 }
