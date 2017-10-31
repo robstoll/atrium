@@ -31,7 +31,8 @@ class TextFallbackAssertionFormatter(
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : IAssertionFormatter {
-    private val formatter = TextPrefixBasedAssertionGroupFormatter("$bulletPoint ", assertionFormatterController)
+    private val prefix = "$bulletPoint "
+    private val formatter = TextPrefixBasedAssertionGroupFormatter(prefix)
 
     override fun canFormat(assertion: IAssertion): Boolean {
         // two fallback are implemented one for IAssertionGroup (uses always formatGroup)
@@ -45,17 +46,30 @@ class TextFallbackAssertionFormatter(
     }
 
     private fun appendBasicAssertion(basicAssertion: IBasicAssertion, methodObject: AssertionFormatterMethodObject) {
+        methodObject.appendLnIndentAndPrefix()
         assertionPairFormatter.format(methodObject, basicAssertion.description, basicAssertion.expected)
     }
 
     private fun formatFallback(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {
+        methodObject.appendLnIndentAndPrefix()
         val translatable = Untranslatable("Unsupported type ${assertion::class.java.name}, can only report whether it holds")
         assertionPairFormatter.format(methodObject, translatable, assertion.holds())
     }
 
     override fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject, formatAssertions)
+        val childMethodObject = formatGroupHeaderAndGetChildMethodObject(assertionGroup, methodObject)
+        formatAssertions {
+            assertionFormatterController.format(it, childMethodObject)
+        }
     }
+
+    private fun formatGroupHeaderAndGetChildMethodObject(
+        assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject
+    ) = when (assertionGroup.type) {
+        is RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, methodObject)
+        else -> formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject)
+    }
+
 }
 
 

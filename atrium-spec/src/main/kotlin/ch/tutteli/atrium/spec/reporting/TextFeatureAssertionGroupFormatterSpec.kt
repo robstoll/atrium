@@ -69,7 +69,8 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
 
                 it("starts feature ${IAssertionGroup::name.name} with '$arrow' followed by the feature ${IAssertionGroup::subject.name} and prepends the ${IAssertionGroup::assertions.name} all prefixed with a `$featureBulletPoint`") {
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
-                    verbs.checkImmediately(sb.toString()).toBe("$arrow placeholder %s: 2$separator"
+                    verbs.checkImmediately(sb.toString()).toBe(separator
+                        + "$arrow placeholder %s: 2$separator"
                         + "$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
                         + "$arrowIndent$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2")
                 }
@@ -80,12 +81,12 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                 val listAssertionGroup = AssertionGroup(ListAssertionGroupType, AssertionVerb.ASSERT, 10, listAssertions)
                 it("does only indent the assertions but not the feature") {
                     facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
-                    verbs.checkImmediately(sb.toString()).toBe(
-                        "${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                            + "$listBulletPoint $arrow placeholder %s: 2$separator"
-                            + "$listIndent$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                            + "$listIndent$arrowIndent$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                            + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
+                    verbs.checkImmediately(sb.toString()).toBe(separator
+                        + "${AssertionVerb.ASSERT.getDefault()}: 10$separator"
+                        + "$listBulletPoint $arrow placeholder %s: 2$separator"
+                        + "$listIndent$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        + "$listIndent$arrowIndent$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                        + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
             }
             context("in another ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
@@ -93,13 +94,13 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                     val featureAssertions = listOf(BasicAssertion(AssertionVerb.ASSERT, 5, false), featureAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 30, false))
                     val featureAssertionGroup2 = AssertionGroup(object : IFeatureAssertionGroupType {}, AssertionVerb.EXPECT_THROWN, 10, featureAssertions)
                     facade.format(featureAssertionGroup2, sb, alwaysTrueAssertionFilter)
-                    verbs.checkImmediately(sb.toString()).toBe(
-                        "$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"
-                            + "$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$separator"
-                            + "$arrowIndent$featureBulletPoint $arrow placeholder %s: 2$separator"
-                            + "$arrowIndent$indent$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                            + "$arrowIndent$indent$arrowIndent$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                            + "$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30")
+                    verbs.checkImmediately(sb.toString()).toBe(separator
+                        + "$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"
+                        + "$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$separator"
+                        + "$arrowIndent$featureBulletPoint $arrow placeholder %s: 2$separator"
+                        + "$arrowIndent$indent$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        + "$arrowIndent$indent$arrowIndent$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                        + "$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30")
                 }
             }
         }
