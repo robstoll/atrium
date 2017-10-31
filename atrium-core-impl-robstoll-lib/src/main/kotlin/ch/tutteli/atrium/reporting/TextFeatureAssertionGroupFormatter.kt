@@ -29,9 +29,7 @@ class TextFeatureAssertionGroupFormatter(
     private val prefix = "$bulletPoint "
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
-        methodObject.sb.appendln()
-        methodObject.indent()
-        methodObject.sb.append(methodObject.prefix)
+        methodObject.appendLnIndentAndPrefix()
         val translatable = TranslatableWithArgs(Untranslatable("$arrow %s"), assertionGroup.name)
         assertionPairFormatter.format(methodObject, translatable, assertionGroup.subject)
         return methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length + 1)

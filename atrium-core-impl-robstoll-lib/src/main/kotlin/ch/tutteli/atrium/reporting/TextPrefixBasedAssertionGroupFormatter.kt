@@ -6,9 +6,7 @@ class TextPrefixBasedAssertionGroupFormatter(
     private val prefix: String
 ) {
     fun formatWithGroupName(assertionPairFormatter: IAssertionPairFormatter, assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
-        methodObject.sb.appendln()
-        methodObject.indent()
-        methodObject.sb.append(methodObject.prefix)
+        methodObject.appendLnIndentAndPrefix()
         return formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, methodObject)
     }
 
@@ -16,4 +14,5 @@ class TextPrefixBasedAssertionGroupFormatter(
         assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
         return methodObject.createChildWithNewPrefix(prefix)
     }
+
 }
