@@ -5,23 +5,25 @@ import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 
 /**
  * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IExplanatoryAssertionGroupType] by
- * putting each assertion on an own line prefixed with a bullet point.
+ * defining only an [AssertionFormatterMethodObject] -- which indicates that we are in an explanatory assertion
+ * group and uses the given [bulletPoint] as prefix -- and completely ignoring [IAssertionGroup.name] and
+ * [IAssertionGroup.subject].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IExplanatoryAssertionGroupType] by
- *              putting each assertion on an own line prefixed with a bullet point.
+ * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an
+ *              [IExplanatoryAssertionGroupType] by defining only an [AssertionFormatterMethodObject] -- which indicates
+ *              that we are in an explanatory assertion group and uses the given [bulletPoint] as prefix -- and
+ *              completely ignoring [IAssertionGroup.name] and [IAssertionGroup.subject].
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *        when it comes to format children of an [IAssertionGroup].
- * @param assertionPairFormatter The formatter used to format assertion pairs.
  */
 class TextExplanatoryAssertionGroupFormatter(
-    bulletPoint: String,
-    assertionFormatterController: IAssertionFormatterController,
-    assertionPairFormatter: IAssertionPairFormatter
-) : TextListBasedAssertionGroupFormatter<IExplanatoryAssertionGroupType>(
-    bulletPoint,
-    assertionFormatterController,
-    assertionPairFormatter,
-    IExplanatoryAssertionGroupType::class.java,
-    extraIndent = 2)
+    private val bulletPoint: String,
+    assertionFormatterController: IAssertionFormatterController
+) : SingleAssertionGroupTypeFormatter<IExplanatoryAssertionGroupType>(IExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
+
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject
+        = methodObject.createForExplanatoryAssertionGroup().createChildWithNewPrefix("  $bulletPoint ")
+
+}

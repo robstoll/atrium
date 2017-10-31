@@ -82,8 +82,8 @@ object AtriumFactory : IAtriumFactory {
     override fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
         = TextListAssertionGroupFormatter(listBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun newTextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = TextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
+    override fun newTextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint: String, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
+        = TextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint, assertionFormatterController)
 
     override fun registerSameLineTextAssertionFormatterCapabilities(
         bulletPoint: String,
@@ -94,13 +94,13 @@ object AtriumFactory : IAtriumFactory {
         explanatoryBulletPoint: String,
         assertionFormatterFacade: IAssertionFormatterFacade,
         objectFormatter: IObjectFormatter, translator: ITranslator
-    ): Unit {
+    ) {
         val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-        assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextListAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, it, pairFormatter) }
+        assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
+        assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint, it) }
         assertionFormatterFacade.register { IndentAssertionGroupFormatter(indentedListBulletPoint, it) }
-        assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint, it, pairFormatter) }
         assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoint, it, pairFormatter) }
     }
 

@@ -56,9 +56,9 @@ class TextFallbackAssertionFormatter(
         assertionPairFormatter.format(methodObject, translatable, assertion.holds())
     }
 
-    override fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
+    override fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit) {
         val childMethodObject = formatGroupHeaderAndGetChildMethodObject(assertionGroup, methodObject)
-        formatAssertions {
+        formatAssertions(childMethodObject) {
             assertionFormatterController.format(it, childMethodObject)
         }
     }

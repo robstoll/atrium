@@ -23,26 +23,28 @@ class IterableContainsEntriesInAnyOrderAssertionCreator<E : Any, T : Iterable<E>
 
     private fun <E : Any, T : Iterable<E>> create(plant: IAssertionPlant<T>, createAssertions: IAssertionPlant<E>.() -> Unit): IAssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val explanatoryAssertionGroup = createExplanatoryAssertionGroup(createAssertions)
+            val explanatoryAssertions = collectAssertionsForExplanation(createAssertions)
             val count = plant.subject.count { checkIfAssertionsHold(it, createAssertions) }
             val assertions = mutableListOf<IAssertion>()
             checkers.forEach {
                 assertions.add(it.createAssertion(count))
             }
             val featureAssertion = AssertionGroup(FeatureAssertionGroupType, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions.toList())
-            InvisibleAssertionGroup(listOf(explanatoryAssertionGroup, IndentAssertionGroup(listOf(featureAssertion))))
+            val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
+            val entryWhich = TranslatableRawString(DescriptionIterableAssertion.AN_ENTRY_WHICH)
+
+            AssertionGroup(ListAssertionGroupType, description, entryWhich, listOf(
+                ExplanatoryAssertionGroup(explanatoryAssertions),
+                IndentAssertionGroup(listOf(featureAssertion))))
         }
     }
 
-    private fun <E : Any> createExplanatoryAssertionGroup(createAssertions: IAssertionPlant<E>.() -> Unit): ExplanatoryAssertionGroup {
+    private fun <E : Any> collectAssertionsForExplanation(createAssertions: IAssertionPlant<E>.() -> Unit): List<IAssertion> {
         val collectingAssertionPlant = AtriumFactory.newCollectingPlant<E>()
         collectingAssertionPlant.createAssertions()
         val collectedAssertions = collectingAssertionPlant.getAssertions()
         if (collectedAssertions.isEmpty()) throw IllegalArgumentException("There was not any assertion created which could identify an entry. Specify at least one assertion")
-
-        val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        val entryWhich = TranslatableRawString(DescriptionIterableAssertion.AN_ENTRY_WHICH)
-        return ExplanatoryAssertionGroup(description, entryWhich, collectedAssertions)
+        return collectedAssertions
     }
 
     private fun <E : Any> checkIfAssertionsHold(it: E, createAssertions: IAssertionPlant<E>.() -> Unit): Boolean {

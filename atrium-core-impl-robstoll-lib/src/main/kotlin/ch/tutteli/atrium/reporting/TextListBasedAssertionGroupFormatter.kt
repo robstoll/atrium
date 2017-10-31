@@ -15,17 +15,15 @@ import ch.tutteli.atrium.assertions.IAssertionGroupType
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *        when it comes to format children of an [IAssertionGroup].
  * @param assertionPairFormatter The formatter used to format assertion pairs.
- * @param extraIndent Adds the number of [extraIndent] as spaces in front of the given [bulletPoint].
  * @param clazz The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
  */
 abstract class TextListBasedAssertionGroupFormatter<in T : IAssertionGroupType>(
     bulletPoint: String,
     assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter,
-    clazz: Class<T>,
-    extraIndent: Int = 0
+    clazz: Class<T>
 ) : SingleAssertionGroupTypeFormatter<T>(clazz, assertionFormatterController) {
-    private val formatter = TextPrefixBasedAssertionGroupFormatter(" ".repeat(extraIndent) + "$bulletPoint ")
+    private val formatter = TextPrefixBasedAssertionGroupFormatter("$bulletPoint ")
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
         = formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject)
