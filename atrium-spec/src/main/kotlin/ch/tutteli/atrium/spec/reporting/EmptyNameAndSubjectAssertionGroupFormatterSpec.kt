@@ -51,7 +51,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : IAssertionGrou
                     it("does not include ${IAssertionGroup::name.name} or ${IAssertionGroup::subject.name}") {
                         val assertionGroup = AssertionGroup(type, TestDescription.TEST_NAME, testSubject, listOf())
                         val methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
-                        testee.formatGroup(assertionGroup, methodObject, { sb.append(testString) })
+                        testee.formatGroup(assertionGroup, methodObject, { _, _ -> sb.append(testString) })
                         verbs.checkImmediately(sb.toString())
                             .containsNotDefaultTranslationOf(TestDescription.TEST_NAME)
                             .containsNot(testSubject)

@@ -35,15 +35,10 @@ class AssertionFormatterController : IAssertionFormatterController {
             && !methodObject.assertionFilter(assertion)
     }
 
-    private fun formatGroup(assertionGroup: IAssertionGroup, assertionFormatter: IAssertionFormatter, aMethodObject: AssertionFormatterMethodObject) {
-        val methodObject = if (isExplanatoryAssertionGroup(assertionGroup)) {
-            aMethodObject.createForExplanatoryAssertionGroup()
-        } else {
-            aMethodObject
-        }
-        assertionFormatter.formatGroup(assertionGroup, methodObject) { formatAssertionInGroup ->
+    private fun formatGroup(assertionGroup: IAssertionGroup, assertionFormatter: IAssertionFormatter, methodObject: AssertionFormatterMethodObject) {
+        assertionFormatter.formatGroup(assertionGroup, methodObject) { childMethodObject, formatAssertionInGroup ->
             assertionGroup.assertions
-                .filter { !noNeedToFormat(it, methodObject) }
+                .filter { !noNeedToFormat(it, childMethodObject) }
                 .forEach(formatAssertionInGroup)
         }
     }

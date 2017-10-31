@@ -53,14 +53,14 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
      *
      * @throws UnsupportedOperationException if the given [assertionGroup] is not [T] or a sub type of it.
      */
-    override final fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) = when {
+    override final fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit) = when {
         clazz.isAssignableFrom(assertionGroup.type::class.java) -> formatSpecificGroup(assertionGroup, methodObject, formatAssertions)
         else -> throw UnsupportedOperationException("supports only ${clazz.name}")
     }
 
-    private fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit): Unit {
+    private fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit): Unit {
         val childMethodObject = formatGroupHeaderAndGetChildMethodObject(assertionGroup, methodObject)
-        formatAssertions {
+        formatAssertions(childMethodObject) {
             assertionFormatterController.format(it, childMethodObject)
         }
     }

@@ -17,8 +17,15 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     object AtriumsTextExplanatoryAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextExplanatoryAssertionGroupFormatterSpec(
         AssertionVerbFactory, factory(), "[Atrium's TextExplanatory...Spec] ")
 
+    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IExplanatoryAssertionGroupType>(
+        AssertionVerbFactory, factoryWithoutBulletPoint(),
+        IExplanatoryAssertionGroupType::class.java,
+        ExplanatoryAssertionGroupType,
+        object : IExplanatoryAssertionGroupType {},
+        "[Atrium's EmptyNameAndSubject...Spec] ")
+
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IExplanatoryAssertionGroupType>(
-        AssertionVerbFactory, factoryWithBullet(),
+        AssertionVerbFactory, factoryWithObjectFormatter(),
         IExplanatoryAssertionGroupType::class.java,
         object : IExplanatoryAssertionGroupType {},
         ExplanatoryAssertionGroupType,
@@ -26,16 +33,19 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     )
 
     object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
-        AssertionVerbFactory, factoryWithBullet(), "[Atrium's AssertionFormatterSpec] "
+        AssertionVerbFactory, factoryWithObjectFormatter(), "[Atrium's AssertionFormatterSpec] "
     )
 
     companion object {
-        internal fun factory() = { bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            TextExplanatoryAssertionGroupFormatter(bulletPoint, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+        private fun factory() = { bulletPoint: String, assertionFormatterController: IAssertionFormatterController ->
+            TextExplanatoryAssertionGroupFormatter(bulletPoint, assertionFormatterController)
+        }
+        private fun factoryWithoutBulletPoint() = { assertionFormatterController: IAssertionFormatterController ->
+            factory()("*", assertionFormatterController)
         }
 
-        internal fun factoryWithBullet() = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            factory()("▪", assertionFormatterController, objectFormatter, translator)
+        private fun factoryWithObjectFormatter() = { assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
+            factory()("*", assertionFormatterController)
         }
     }
 }

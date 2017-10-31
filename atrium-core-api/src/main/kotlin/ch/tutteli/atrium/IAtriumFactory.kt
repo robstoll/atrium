@@ -342,7 +342,18 @@ interface IAtriumFactory {
      */
     fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
-    fun newTextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    /**
+     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
+     * formats [IAssertionGroup]s of type [IExplanatoryAssertionGroupType] by creating an
+     * [AssertionFormatterMethodObject] which indicates that formatting its [IAssertionGroup.assertions] happens within
+     * an explanatory assertion group and should use the given [explanatoryBulletPoint].
+     *
+     * @param explanatoryBulletPoint The bullet point which shall be used to prefix the [IAssertionGroup.assertions].
+     * @param assertionFormatterController The controller used to steer the flow of the reporting.
+     *
+     * @return The newly created assertion formatter.
+     */
+    fun newTextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint: String, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
 
     /**
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
@@ -370,7 +381,7 @@ interface IAtriumFactory {
         explanatoryBulletPoint: String,
         assertionFormatterFacade: IAssertionFormatterFacade,
         objectFormatter: IObjectFormatter,
-        translator: ITranslator): Unit
+        translator: ITranslator)
 
     /**
      * Creates an [IReporter] which reports only failing assertions

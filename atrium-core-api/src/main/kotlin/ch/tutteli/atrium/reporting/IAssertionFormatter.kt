@@ -86,10 +86,10 @@ interface IAssertionFormatter {
      *        to with the result will be appended.
      * @param formatAssertions The function which should be called to format the
      *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].
-     *        It itself expects a function which formats single [IAssertion]s in the context of the given
-     *        [assertionGroup].
+     *        It itself expects a [AssertionFormatterMethodObject] which is used for the child assertions and a function
+     *        which formats the child [IAssertion]s in the context of the given [assertionGroup].
      */
-    fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit)
+    fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit)
 
     companion object {
         val CALL_FORMAT_GROUP = "do not use `${IAssertionFormatter::format.name}` for " +

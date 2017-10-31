@@ -99,27 +99,29 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
     }
 
     prefixedDescribe("fun ${testee::formatGroup.name}") {
+        val doNotFormatChildren: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit = { _, _ -> }
+
         it("throws an UnsupportedOperationException for an ${IAssertionGroup::class.simpleName} with type object: ${IAssertionGroupType::class.simpleName}") {
             verbs.checkException {
-                testee.formatGroup(unsupportedAssertionGroup, methodObject, {})
+                testee.formatGroup(unsupportedAssertionGroup, methodObject, doNotFormatChildren)
             }.toThrow<UnsupportedOperationException>().message.contains(supportedAssertionGroupTypeClass.name)
             verbs.checkImmediately(sb).isEmpty()
         }
 
         it("does not throw if an ${IAssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
-            testee.formatGroup(supportedAnonymousAssertionGroupWithAnonymousType, methodObject, {})
+            testee.formatGroup(supportedAnonymousAssertionGroupWithAnonymousType, methodObject, doNotFormatChildren)
         }
 
         it("does not throw if an ${IAssertionGroup::class.simpleName} of type ${supportedAssertionGroup::class.simpleName} is passed") {
-            testee.formatGroup(supportedAnonymousAssertionGroup, methodObject, {})
+            testee.formatGroup(supportedAnonymousAssertionGroup, methodObject, doNotFormatChildren)
         }
 
         it("does not throw if an ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
-            testee.formatGroup(supportedAssertionGroupWithAnonymousType, methodObject, {})
+            testee.formatGroup(supportedAssertionGroupWithAnonymousType, methodObject, doNotFormatChildren)
         }
 
         it("does not throw if an ${AssertionGroup::class.simpleName} of type  type ${supportedAssertionGroup::class.simpleName}  is passed") {
-            testee.formatGroup(supportedAssertionGroup, methodObject, {})
+            testee.formatGroup(supportedAssertionGroup, methodObject, doNotFormatChildren)
         }
     }
 })
