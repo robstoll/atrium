@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
@@ -26,17 +25,15 @@ class TextFeatureAssertionGroupFormatter(
     bulletPoint: String,
     assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
-) : SingleAssertionGroupTypeFormatter<IFeatureAssertionGroupType>(IFeatureAssertionGroupType::class.java) {
+) : SingleAssertionGroupTypeFormatter<IFeatureAssertionGroupType>(IFeatureAssertionGroupType::class.java, assertionFormatterController) {
     private val prefix = "$bulletPoint "
-    private val formatter = TextPrefixBasedAssertionGroupFormatter(prefix, assertionFormatterController)
 
-    override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         methodObject.sb.appendln()
         methodObject.indent()
         methodObject.sb.append(methodObject.prefix)
         val translatable = TranslatableWithArgs(Untranslatable("$arrow %s"), assertionGroup.name)
         assertionPairFormatter.format(methodObject, translatable, assertionGroup.subject)
-        val childMethodObject = methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length + 1)
-        formatter.format(childMethodObject, formatAssertions)
+        return methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length + 1)
     }
 }

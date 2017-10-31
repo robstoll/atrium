@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
 
@@ -18,14 +17,10 @@ import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
  */
 class IndentAssertionGroupFormatter(
     private val bulletPoint: String,
-    private val assertionFormatterController: IAssertionFormatterController
-) : SingleAssertionGroupTypeFormatter<IIndentAssertionGroupType>(IIndentAssertionGroupType::class.java) {
+    assertionFormatterController: IAssertionFormatterController
+) : SingleAssertionGroupTypeFormatter<IIndentAssertionGroupType>(IIndentAssertionGroupType::class.java, assertionFormatterController) {
 
-    override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        val childMethodObject = methodObject.createChildWithNewPrefix(" $bulletPoint ")
-        formatAssertions {
-            assertionFormatterController.format(it, childMethodObject)
-        }
-    }
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
+        = methodObject.createChildWithNewPrefix(" $bulletPoint ")
 
 }

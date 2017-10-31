@@ -32,7 +32,7 @@ class TextFallbackAssertionFormatter(
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : IAssertionFormatter {
     private val prefix = "$bulletPoint "
-    private val formatter = TextPrefixBasedAssertionGroupFormatter(prefix, assertionFormatterController)
+    private val formatter = TextPrefixBasedAssertionGroupFormatter(prefix)
 
     override fun canFormat(assertion: IAssertion): Boolean {
         // two fallback are implemented one for IAssertionGroup (uses always formatGroup)
@@ -60,13 +60,18 @@ class TextFallbackAssertionFormatter(
         assertionPairFormatter.format(methodObject, translatable, assertion.holds())
     }
 
-    override fun formatGroup(
-        assertionGroup: IAssertionGroup,
-        methodObject: AssertionFormatterMethodObject,
-        formatAssertions: ((IAssertion) -> Unit) -> Unit
+    override fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
+        val childMethodObject = formatGroupHeaderAndGetChildMethodObject(assertionGroup, methodObject)
+        formatAssertions {
+            assertionFormatterController.format(it, childMethodObject)
+        }
+    }
+
+    private fun formatGroupHeaderAndGetChildMethodObject(
+        assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject
     ) = when (assertionGroup.type) {
-        is RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, methodObject, formatAssertions)
-        else -> formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject, formatAssertions)
+        is RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, methodObject)
+        else -> formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject)
     }
 
 }
