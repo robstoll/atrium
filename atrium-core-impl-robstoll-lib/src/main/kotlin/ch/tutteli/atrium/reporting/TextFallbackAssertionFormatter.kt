@@ -46,16 +46,12 @@ class TextFallbackAssertionFormatter(
     }
 
     private fun appendBasicAssertion(basicAssertion: IBasicAssertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.sb.appendln()
-        methodObject.indent()
-        methodObject.sb.append(methodObject.prefix)
+        methodObject.appendLnIndentAndPrefix()
         assertionPairFormatter.format(methodObject, basicAssertion.description, basicAssertion.expected)
     }
 
     private fun formatFallback(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.sb.appendln()
-        methodObject.indent()
-        methodObject.sb.append(methodObject.prefix)
+        methodObject.appendLnIndentAndPrefix()
         val translatable = Untranslatable("Unsupported type ${assertion::class.java.name}, can only report whether it holds")
         assertionPairFormatter.format(methodObject, translatable, assertion.holds())
     }

@@ -75,9 +75,18 @@ class AssertionFormatterMethodObject private constructor(
     fun isNotInExplanatoryAssertionGroup() = numberOfExplanatoryGroups == 0
 
     /**
-     *  Appends the number equals to [indentLevel] of spaces to [sb].
+     * Appends a new line (system separator), spaces equal to the number of [indentLevel] and the [prefix] to [sb].
      */
-    fun indent() {
+    fun appendLnIndentAndPrefix() {
+        sb.appendln()
+        indent()
+        sb.append(prefix)
+    }
+
+    /**
+     *  Appends spaces equal to the number of [indentLevel] to [sb].
+     */
+    private fun indent() {
         for (i in 0 until indentLevel) {
             sb.append(' ')
         }
@@ -97,4 +106,6 @@ class AssertionFormatterMethodObject private constructor(
             return AssertionFormatterMethodObject(sb, "", 0, assertionFilter, numberOfExplanatoryGroups = 0)
         }
     }
+
+
 }
