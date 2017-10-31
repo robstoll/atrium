@@ -1,24 +1,18 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 
 class TextPrefixBasedAssertionGroupFormatter(
-    private val prefix: String,
-    private val assertionFormatterController: IAssertionFormatterController
+    private val prefix: String
 ) {
-    fun formatWithGroupName(assertionPairFormatter: IAssertionPairFormatter, assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
-        val childMethodObject = methodObject.createChildWithNewPrefix(prefix)
-        format(childMethodObject, formatAssertions)
+    fun formatWithGroupName(assertionPairFormatter: IAssertionPairFormatter, assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
+        methodObject.appendLnIndentAndPrefix()
+        return formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, methodObject)
     }
 
-    fun format(childMethodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        formatAssertions {
-            childMethodObject.sb.appendln()
-            childMethodObject.indent()
-            childMethodObject.sb.append(prefix)
-            assertionFormatterController.format(it, childMethodObject)
-        }
+    fun formatAfterAppendLnEtc(assertionPairFormatter: IAssertionPairFormatter, assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
+        assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
+        return methodObject.createChildWithNewPrefix(prefix)
     }
+
 }

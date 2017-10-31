@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
 
@@ -18,27 +17,10 @@ import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
  */
 class IndentAssertionGroupFormatter(
     private val bulletPoint: String,
-    private val assertionFormatterController: IAssertionFormatterController
-) : SingleAssertionGroupTypeFormatter<IIndentAssertionGroupType>(IIndentAssertionGroupType::class.java) {
+    assertionFormatterController: IAssertionFormatterController
+) : SingleAssertionGroupTypeFormatter<IIndentAssertionGroupType>(IIndentAssertionGroupType::class.java, assertionFormatterController) {
 
-    override fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit) {
-        val groupType = assertionGroup.type as IIndentAssertionGroupType
-        val childMethodObject = methodObject.createChildWithNewPrefix(" $bulletPoint ")
-        var count = 0
-        formatAssertions {
-            if (count >= groupType.indentIndex) {
-                childMethodObject.sb.appendln()
-                childMethodObject.indent()
-                childMethodObject.sb.append(childMethodObject.prefix)
-            } else if (count > 0) {
-                //behaves like an InvisibleAssertionGroupFormatter, formatting based on the current methodObject
-                methodObject.sb.appendln()
-                methodObject.indent()
-                methodObject.sb.append(methodObject.prefix)
-            }
-            ++count
-            assertionFormatterController.format(it, childMethodObject)
-        }
-    }
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
+        = methodObject.createChildWithNewPrefix(" $bulletPoint ")
 
 }

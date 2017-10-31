@@ -21,15 +21,15 @@ class IndentAssertionGroupFormatterSpec : Spek({
     object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IIndentAssertionGroupType>(
         AssertionVerbFactory, factory(),
         IIndentAssertionGroupType::class.java,
-        IndentAssertionGroupType.createWithIndentIndex(1),
-        object : IIndentAssertionGroupType { override val indentIndex = 1 },
+        IndentAssertionGroupType,
+        object : IIndentAssertionGroupType {},
         "[Atrium's EmptyNameAndSubject...Spec] ")
 
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IIndentAssertionGroupType>(
         AssertionVerbFactory, factoryWithObjectFormatter(),
         IIndentAssertionGroupType::class.java,
-        IndentAssertionGroupType.createWithIndentIndex(0),
-        object : IIndentAssertionGroupType { override val indentIndex = 0 },
+        IndentAssertionGroupType,
+        object : IIndentAssertionGroupType {},
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
@@ -40,6 +40,7 @@ class IndentAssertionGroupFormatterSpec : Spek({
         fun factory() = { assertionFormatterController: IAssertionFormatterController ->
             IndentAssertionGroupFormatter("**", assertionFormatterController)
         }
+
         fun factoryWithObjectFormatter() = { assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
             IndentAssertionGroupFormatter("**", assertionFormatterController)
         }
