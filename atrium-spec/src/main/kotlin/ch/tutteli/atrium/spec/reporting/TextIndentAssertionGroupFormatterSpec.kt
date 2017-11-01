@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
-abstract class IndentAssertionGroupFormatterSpec(
+abstract class TextIndentAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
     describePrefix: String = "[Atrium] "

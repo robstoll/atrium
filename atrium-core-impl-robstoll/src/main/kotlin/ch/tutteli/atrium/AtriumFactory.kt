@@ -1,7 +1,6 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
@@ -98,7 +97,7 @@ object AtriumFactory : IAtriumFactory {
         assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(bulletPoints, it, pairFormatter) }
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(bulletPoints, it) }
-        assertionFormatterFacade.register { IndentAssertionGroupFormatter(bulletPoints, it) }
+        assertionFormatterFacade.register { TextIndentAssertionGroupFormatter(bulletPoints, it) }
         assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, pairFormatter) }
     }
 

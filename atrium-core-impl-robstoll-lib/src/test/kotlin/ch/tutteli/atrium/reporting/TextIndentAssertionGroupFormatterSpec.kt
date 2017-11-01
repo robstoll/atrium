@@ -8,16 +8,16 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
-class IndentAssertionGroupFormatterSpec : Spek({
+class TextIndentAssertionGroupFormatterSpec : Spek({
 
-    include(AtriumsIndentAssertionGroupFormatterSpec)
+    include(AtriumsTextIndentAssertionGroupFormatterSpec)
     include(AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec)
     include(AtriumsSingleAssertionGroupTypeFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsIndentAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.IndentAssertionGroupFormatterSpec(
-        AssertionVerbFactory, ::IndentAssertionGroupFormatter, "[Atrium's IndentGroup...Spec] ")
+    object AtriumsTextIndentAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.TextIndentAssertionGroupFormatterSpec(
+        AssertionVerbFactory, ::TextIndentAssertionGroupFormatter, "[Atrium's IndentGroup...Spec] ")
 
     object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IIndentAssertionGroupType>(
         AssertionVerbFactory, factory(),
@@ -39,11 +39,11 @@ class IndentAssertionGroupFormatterSpec : Spek({
 
     companion object {
         fun factory() = { assertionFormatterController: IAssertionFormatterController ->
-            IndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
+            TextIndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
         }
 
         fun factoryWithBulletPoints() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
-            IndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
+            TextIndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
         }
     }
 }
