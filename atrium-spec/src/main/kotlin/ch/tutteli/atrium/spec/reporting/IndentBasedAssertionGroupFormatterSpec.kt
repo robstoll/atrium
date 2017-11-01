@@ -7,53 +7,36 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
-import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
+
 abstract class IndentBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (String, IAssertionFormatterController) -> IAssertionFormatter,
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
     assertionGroupTypeClass: Class<T>,
     anonymousAssertionGroupType: T,
     groupFactory: (List<IAssertion>) -> IAssertionGroup,
-    numberOfIndents: Int,
     describePrefix: String = "[Atrium] "
-) : Spek({
+) : AssertionFormatterSpecBase({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
         prefixedDescribe(describePrefix, description, body)
     }
 
-    val separator = System.getProperty("line.separator")!!
-    val bulletPoint = "***"
-    val listBulletPoint = "=="
-    val indentBulletPointWithoutPrefix = "+"
-    val indentBulletPoint = " ".repeat(numberOfIndents) + "+"
-    val arrow = "->"
-    val bulletIndent = " ".repeat(bulletPoint.length + 1)
-    val listIndent = " ".repeat(listBulletPoint.length + 1)
+    val indentBulletPoint = " +"
     val indentIndentBulletPoint = " ".repeat(indentBulletPoint.length + 1)
-    val arrowIndent = " ".repeat(arrow.length + 1)
 
-    val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register { testeeFactory(indentBulletPointWithoutPrefix, it) }
-    facade.register { AtriumFactory.newTextListAssertionGroupFormatter(listBulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-    facade.register { AtriumFactory.newTextFeatureAssertionGroupFormatter(arrow, bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-    facade.register { AtriumFactory.newTextFallbackAssertionFormatter("-", it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-
-    var sb = StringBuilder()
-    afterEachTest {
-        sb = StringBuilder()
+    val facade = createFacade(assertionGroupTypeClass to "$indentBulletPoint ") { bulletPoints, controller, _, _ ->
+        testeeFactory(bulletPoints, controller)
     }
 
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
-        val testee = testeeFactory(indentBulletPoint, AtriumFactory.newAssertionFormatterController())
+        val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${assertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(AssertionGroup(anonymousAssertionGroupType, Untranslatable(""), 1, listOf()))
             verbs.checkImmediately(result).isTrue()
@@ -84,9 +67,9 @@ abstract class IndentBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
                         + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                        + "$arrowIndent$bulletIndent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                        + "$arrowIndent$bulletIndent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                        + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
+                        + "$indentArrow$indentFeatureBulletPoint$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        + "$indentArrow$indentFeatureBulletPoint$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                        + "$indentArrow$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
             }
 
@@ -98,8 +81,8 @@ abstract class IndentBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
                     facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
                         + "${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                        + "$listIndent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                        + "$listIndent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                        + "$indentListBulletPoint$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        + "$indentListBulletPoint$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
                         + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
 
@@ -111,9 +94,9 @@ abstract class IndentBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
                         verbs.checkImmediately(sb.toString()).toBe(separator
                             + "${AssertionVerb.ASSERT.getDefault()}: 5$separator"
                             + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                            + "$listIndent$listIndent$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                            + "$listIndent$listIndent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                            + "$listIndent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20$separator"
+                            + "$indentListBulletPoint$indentListBulletPoint$indentBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                            + "$indentListBulletPoint$indentListBulletPoint$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                            + "$indentListBulletPoint$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20$separator"
                             + "$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 30")
                     }
                 }

@@ -1,14 +1,15 @@
 package ch.tutteli.atrium.spec.reporting
 
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
 import ch.tutteli.atrium.assertions.IndentAssertionGroup
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
-abstract class IndentAssertionGroupFormatterSpec(
+abstract class TextIndentAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (String, IAssertionFormatterController) -> IAssertionFormatter,
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : IndentBasedAssertionGroupFormatterSpec<IIndentAssertionGroupType>(
     verbs,
@@ -16,6 +17,5 @@ abstract class IndentAssertionGroupFormatterSpec(
     IIndentAssertionGroupType::class.java,
     object : IIndentAssertionGroupType {},
     { IndentAssertionGroup(it) },
-    1,
     describePrefix
 )

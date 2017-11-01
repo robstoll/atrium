@@ -2,6 +2,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import org.jetbrains.spek.api.Spek
@@ -37,15 +38,16 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     )
 
     companion object {
-        private fun factory() = { bulletPoint: String, assertionFormatterController: IAssertionFormatterController ->
-            TextExplanatoryAssertionGroupFormatter(bulletPoint, assertionFormatterController)
-        }
-        private fun factoryWithoutBulletPoint() = { assertionFormatterController: IAssertionFormatterController ->
-            factory()("*", assertionFormatterController)
+        private fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController ->
+            TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
         }
 
-        private fun factoryWithObjectFormatter() = { assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
-            factory()("*", assertionFormatterController)
+        private fun factoryWithoutBulletPoint() = { assertionFormatterController: IAssertionFormatterController ->
+            factory()(mapOf(IExplanatoryAssertionGroupType::class.java to "*"), assertionFormatterController)
+        }
+
+        private fun factoryWithObjectFormatter() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
+            factory()(bulletPoints, assertionFormatterController)
         }
     }
 }

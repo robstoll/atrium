@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
@@ -109,22 +110,9 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
         /**
          * Uses [AtriumFactory.registerSameLineTextAssertionFormatterCapabilities].
          */
-        fun withSameLineTextAssertionFormatter(
-            bulletPoint: String = "▪",
-            arrow: String = "➤",
-            featureBulletPoint: String = "◾",
-            listBulletPoint: String = "•",
-            indentedListBulletPoint: String = "⋄",
-            explanatoryBulletPoint: String = "»"
-        ): ReporterBuilder {
+        fun withSameLineTextAssertionFormatter(vararg bulletPoints: Pair<Class<out IBulletPointIdentifier>, String>): ReporterBuilder {
             AtriumFactory.registerSameLineTextAssertionFormatterCapabilities(
-                bulletPoint,
-                arrow,
-                featureBulletPoint,
-                listBulletPoint,
-                indentedListBulletPoint,
-                explanatoryBulletPoint,
-                assertionFormatterFacade, objectFormatter, translator)
+                bulletPoints.toMap(), assertionFormatterFacade, objectFormatter, translator)
             return ReporterBuilder(assertionFormatterFacade)
         }
 

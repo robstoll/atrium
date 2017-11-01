@@ -298,87 +298,79 @@ interface IAtriumFactory {
     fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
 
     /**
-     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
-     * puts assertion pairs on the same line.
+     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and serves as
+     * fallback if no other formatter is able to format a given [IAssertion].
      *
-     * For instance, it formats the pair `a to b` as follows: `"a: b"`
+     * Typically this includes the formatting of the [IAssertionGroup] with a [RootAssertionGroupType].
      *
-     * @param bulletPoint The bullet point used in reporting; each assertion is prefixed with it.
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     * for [RootAssertionGroupType] as prefix for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFallbackAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
-     * formats [IAssertionGroup]s of type [IFeatureAssertionGroupType] by using the given [arrow]
-     * as symbol for features.
+     * formats [IAssertionGroup]s of type [IFeatureAssertionGroupType].
      *
-     * @param arrow The symbol to signify a feature, typically an arrow (e.g. `->`).
-     * @param featureBulletPoint The bullet point used as prefix for each assertion made within the [IAssertionGroup].
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     * for [PrefixFeatureAssertionGroupHeader] as prefix of the group header and [IFeatureAssertionGroupType] as prefix
+     * for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
-     * formats [IAssertionGroup]s of type [IListAssertionGroupType] by using the given [listBulletPoint]
-     * as prefix for each element in the [IAssertionGroup].
+     * formats [IAssertionGroup]s of type [IListAssertionGroupType].
      *
-     * @param listBulletPoint The bullet point used in reporting; each element in the [IAssertionGroup] is prefixed
-     *                        with it.
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     * for [IListAssertionGroupType] as prefix for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
      * formats [IAssertionGroup]s of type [IExplanatoryAssertionGroupType] by creating an
      * [AssertionFormatterMethodObject] which indicates that formatting its [IAssertionGroup.assertions] happens within
-     * an explanatory assertion group and should use the given [explanatoryBulletPoint].
+     * an explanatory assertion group.
      *
-     * @param explanatoryBulletPoint The bullet point which shall be used to prefix the [IAssertionGroup.assertions].
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     * for [IExplanatoryAssertionGroupType] as prefix for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint: String, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
+    fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
 
     /**
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
      * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
      *
-     * Should at least support [RootAssertionGroupType], [IFeatureAssertionGroupType] (usually given by
-     * [newTextFeatureAssertionGroupFormatter]) and [IListAssertionGroupType] (usually given by
-     * [newTextListAssertionGroupFormatter]).
+     * Should at least support [RootAssertionGroupType], [IFeatureAssertionGroupType] and [IListAssertionGroupType].
      *
-     * @param bulletPoint  The bullet point used in reporting to mark each assertion.
-     * @param arrow The symbol to signify a feature, typically an arrow (e.g. `->`).
-     * @param featureBulletPoint The bullet point used as prefix for each assertion made within the [IAssertionGroup].
-     * @param listBulletPoint The bullet point used for an [IAssertionGroup] of type [IListAssertionGroupType].
+     * @param bulletPoints The bullet points used in reporting to prefix each [IAssertion] in
+     * [IAssertionGroup.assertions].
      * @param assertionFormatterFacade The [IAssertionFormatterFacade] to which all [IAssertionFormatter]s with
      *        same line capabilities and text reporting should be registered.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      */
     fun registerSameLineTextAssertionFormatterCapabilities(
-        bulletPoint: String,
-        arrow: String,
-        featureBulletPoint: String,
-        listBulletPoint: String,
-        indentedListBulletPoint: String,
-        explanatoryBulletPoint: String,
+        bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
         assertionFormatterFacade: IAssertionFormatterFacade,
         objectFormatter: IObjectFormatter,
         translator: ITranslator)

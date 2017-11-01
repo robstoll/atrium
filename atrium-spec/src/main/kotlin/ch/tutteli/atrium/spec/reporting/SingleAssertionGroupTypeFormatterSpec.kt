@@ -2,10 +2,7 @@ package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IAssertionGroupType
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
@@ -21,7 +18,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType>(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
     supportedAssertionGroupTypeClass: Class<T>,
     supportedAssertionGroupType: T,
     supportedAnonymousAssertionGroupType: T,
@@ -32,7 +29,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
         prefixedDescribe(describePrefix, description, body)
     }
 
-    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
+    val testee = testeeFactory(mapOf(), AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
     val unsupportedAssertion = object : IAssertion {
         override fun holds() = false
