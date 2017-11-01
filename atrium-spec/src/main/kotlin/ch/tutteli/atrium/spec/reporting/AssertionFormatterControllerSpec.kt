@@ -26,17 +26,22 @@ abstract class AssertionFormatterControllerSpec(
     }
 
     val testee = testeeFactory()
-    val arrowWithoutPrefix = ">>"
-    val arrow = "  $arrowWithoutPrefix"
+    val arrow = "  >>"
     val bulletPoint = "*"
     val listBulletPoint = "=="
+    val bulletPoints = mapOf<Class<out IBulletPointIdentifier>, String>(
+        IExplanatoryAssertionGroupType::class.java to "$arrow ",
+        IListAssertionGroupType::class.java to "$listBulletPoint ",
+        RootAssertionGroupType::class.java to "$bulletPoint "
+
+    )
 
     val indentArrow = " ".repeat(arrow.length + 1)
     val indentBulletPoint = " ".repeat(bulletPoint.length + 1)
 
-    testee.register(AtriumFactory.newTextExplanatoryAssertionGroupFormatter(arrowWithoutPrefix, testee))
-    testee.register(AtriumFactory.newTextListAssertionGroupFormatter(listBulletPoint, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
-    testee.register(AtriumFactory.newTextFallbackAssertionFormatter(bulletPoint, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
+    testee.register(AtriumFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints, testee))
+    testee.register(AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
+    testee.register(AtriumFactory.newTextFallbackAssertionFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
 
     val assertion = BasicAssertion(IS_GREATER_OR_EQUALS, 1, true)
     val failingAssertion = BasicAssertion(IS_LESS_OR_EQUALS, 2, false)

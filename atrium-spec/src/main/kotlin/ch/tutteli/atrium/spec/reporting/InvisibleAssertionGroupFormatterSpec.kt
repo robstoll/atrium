@@ -7,11 +7,9 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
-import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
@@ -20,25 +18,10 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (IAssertionFormatterController) -> IAssertionFormatter,
     describePrefix: String = "[Atrium] "
-) : Spek({
+) : AssertionFormatterSpecBase({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
         prefixedDescribe(describePrefix, description, body)
-    }
-
-    val bulletPoint = "***"
-    val listBulletPoint = "=="
-    val arrow = "->"
-
-    val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register(testeeFactory)
-    facade.register { AtriumFactory.newTextListAssertionGroupFormatter(listBulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-    facade.register { AtriumFactory.newTextFeatureAssertionGroupFormatter(arrow, bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-    facade.register { AtriumFactory.newTextFallbackAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-
-    var sb = StringBuilder()
-    afterEachTest {
-        sb = StringBuilder()
     }
 
     val assertions = listOf(
@@ -46,8 +29,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
         BasicAssertion(AssertionVerb.EXPECT_THROWN, 2, true)
     )
     val invisibleAssertionGroup = InvisibleAssertionGroup(assertions)
-
-    val separator = System.getProperty("line.separator")!!
+    val facade = createFacade { _, controller, _, _ -> testeeFactory(controller) }
 
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
         val testee = testeeFactory(AtriumFactory.newAssertionFormatterController())
@@ -77,9 +59,9 @@ abstract class InvisibleAssertionGroupFormatterSpec(
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
                         + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                        + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                        + "$arrowIndent$bulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                        + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
+                        + "$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                        + "$arrowIndent$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                        + "$arrowIndent$featureBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
             }
 

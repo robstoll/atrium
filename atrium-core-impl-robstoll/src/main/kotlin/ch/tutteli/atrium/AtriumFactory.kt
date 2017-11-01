@@ -1,5 +1,7 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
+import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
@@ -73,35 +75,31 @@ object AtriumFactory : IAtriumFactory {
     override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
         = AssertionFormatterFacade(assertionFormatterController)
 
-    override fun newTextFallbackAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = TextFallbackAssertionFormatter(bulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
+    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
+    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = TextFeatureAssertionGroupFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
-        = TextListAssertionGroupFormatter(listBulletPoint, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
+    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+        = TextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun newTextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint: String, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
-        = TextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint, assertionFormatterController)
+    override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
+        = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
 
     override fun registerSameLineTextAssertionFormatterCapabilities(
-        bulletPoint: String,
-        arrow: String,
-        featureBulletPoint: String,
-        listBulletPoint: String,
-        indentedListBulletPoint: String,
-        explanatoryBulletPoint: String,
+        bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
         assertionFormatterFacade: IAssertionFormatterFacade,
-        objectFormatter: IObjectFormatter, translator: ITranslator
+        objectFormatter: IObjectFormatter,
+        translator: ITranslator
     ) {
         val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-        assertionFormatterFacade.register { TextListAssertionGroupFormatter(listBulletPoint, it, pairFormatter) }
-        assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, it, pairFormatter) }
+        assertionFormatterFacade.register { TextListAssertionGroupFormatter(bulletPoints, it, pairFormatter) }
+        assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(bulletPoints, it, pairFormatter) }
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
-        assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(explanatoryBulletPoint, it) }
-        assertionFormatterFacade.register { IndentAssertionGroupFormatter(indentedListBulletPoint, it) }
-        assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoint, it, pairFormatter) }
+        assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(bulletPoints, it) }
+        assertionFormatterFacade.register { IndentAssertionGroupFormatter(bulletPoints, it) }
+        assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, pairFormatter) }
     }
 
     private fun newTextSameLineAssertionPairFormatter(objectFormatter: IObjectFormatter, translator: ITranslator)
