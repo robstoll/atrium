@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsC
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
 
-class IterableContainsEntriesSpec : ch.tutteli.atrium.spec.assertions.IterableContainsEntriesSpec(
+class IterableContainsInAnyOrderEntriesSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
     AssertionVerbFactory,
     getEntryPair(),
     getEntriesPair()
