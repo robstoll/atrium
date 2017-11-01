@@ -30,7 +30,7 @@ class AssertionFormatterController : IAssertionFormatterController {
         //assertionFilter only applies if:
         // - we are not in an explanatory assertion group and
         // - if the given assertion isn't one either.
-        return methodObject.isNotInExplanatoryAssertionGroup()
+        return methodObject.isNotInDoNotFilterGroup()
             && !isExplanatoryAssertionGroup(assertion)
             && !methodObject.assertionFilter(assertion)
     }
