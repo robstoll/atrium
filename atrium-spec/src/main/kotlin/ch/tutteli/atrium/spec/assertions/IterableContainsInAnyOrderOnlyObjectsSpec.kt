@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.containsNotDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
@@ -9,7 +10,7 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 
-abstract class IterableContainsInAnyOrderOnlySpec(
+abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
     verbs: IAssertionVerbFactory,
     containsPair: Pair<String, IAssertionPlant<Iterable<Double>>.(Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
     successfulBulletPoint: String,
@@ -35,19 +36,21 @@ abstract class IterableContainsInAnyOrderOnlySpec(
             test("$contains 1.0 throws AssertionError") {
                 expect {
                     fluentEmptyString.containsFun(1.0)
-                }.toThrow<AssertionError>().and.message.contains(
-                    "$containsInAnyOrderOnly:",
-                    "$failingBulletPoint$anEntryWhichIs: 1.0"
-                )
+                }.toThrow<AssertionError>().and.message
+                    .contains(
+                        "$containsInAnyOrderOnly:",
+                        "$failingBulletPoint$anEntryWhichIs: 1.0"
+                    ).containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
             }
             test("$contains 1.0 and 4.0 throws AssertionError") {
                 expect {
                     fluentEmptyString.containsFun(1.0, 4.0)
-                }.toThrow<AssertionError>().and.message.contains(
-                    "$containsInAnyOrderOnly:",
-                    "$failingBulletPoint$anEntryWhichIs: 1.0",
-                    "$failingBulletPoint$anEntryWhichIs: 4.0"
-                )
+                }.toThrow<AssertionError>().and.message
+                    .contains(
+                        "$containsInAnyOrderOnly:",
+                        "$failingBulletPoint$anEntryWhichIs: 1.0",
+                        "$failingBulletPoint$anEntryWhichIs: 4.0"
+                    ).containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
             }
         }
 
