@@ -32,7 +32,7 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 class TextExplanatoryAssertionGroupFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
     assertionFormatterController: IAssertionFormatterController
-) : SingleAssertionGroupTypeFormatter<IExplanatoryAssertionGroupType>(IExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IExplanatoryAssertionGroupType>(IExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
     private val explanatoryBulletPoint = bulletPoints[IExplanatoryAssertionGroupType::class.java] ?: "  » "
     private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class.java] ?: "  (!) "
 
@@ -41,7 +41,7 @@ class TextExplanatoryAssertionGroupFormatter(
             is WarningAssertionGroupType -> warningBulletPoint
             else -> explanatoryBulletPoint
         }
-        return methodObject.createForExplanatoryAssertionGroup().createChildWithNewPrefix(bulletPoint)
+        return methodObject.createForDoNotFilterAssertionGroup().createChildWithNewPrefix(bulletPoint)
     }
 
 }
