@@ -45,7 +45,7 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
         fun createFacade(bulletPoint: Pair<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter): IAssertionFormatterFacade
             = createFacade(mapOf(bulletPoint), testeeFactory)
 
-        private fun createFacade(extendedBulletPoints: Map<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter): IAssertionFormatterFacade {
+        fun createFacade(extendedBulletPoints: Map<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter): IAssertionFormatterFacade {
             val facade = createFacade()
             facade.register { testeeFactory(extendedBulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
             facade.register { AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }

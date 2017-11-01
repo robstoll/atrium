@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
 import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
 
 /**
@@ -21,7 +20,7 @@ import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
  */
 class InvisibleAssertionGroupFormatter(
     assertionFormatterController: IAssertionFormatterController
-) : SingleAssertionGroupTypeFormatter<IInvisibleAssertionGroupType>(IInvisibleAssertionGroupType::class.java, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IInvisibleAssertionGroupType>(IInvisibleAssertionGroupType::class.java, assertionFormatterController) {
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
         = methodObject

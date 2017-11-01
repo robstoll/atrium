@@ -2,7 +2,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
+import ch.tutteli.atrium.assertions.IDoNotFilterAssertionGroupType
 
 /**
  * A method object used for interactions between [IAssertionFormatterController] and [IAssertionFormatter].
@@ -23,7 +23,7 @@ class AssertionFormatterMethodObject private constructor(
     val prefix: String,
     private val indentLevel: Int,
     val assertionFilter: (IAssertion) -> Boolean,
-    private val numberOfExplanatoryGroups: Int) {
+    private val numberOfDoNotFilterGroups: Int) {
 
     /**
      * Creates an [AssertionFormatterMethodObject] for kind of a child of the current method object using the given
@@ -53,26 +53,26 @@ class AssertionFormatterMethodObject private constructor(
      * @return The newly created [AssertionFormatterMethodObject].
      */
     fun createChildWithNewPrefixAndAdditionalIndent(newPrefix: String, additionalIndent: Int)
-        = AssertionFormatterMethodObject(sb, newPrefix, indentLevel + prefix.length + additionalIndent, assertionFilter, numberOfExplanatoryGroups)
+        = AssertionFormatterMethodObject(sb, newPrefix, indentLevel + prefix.length + additionalIndent, assertionFilter, numberOfDoNotFilterGroups)
 
 
     /**
-     * Clones the current [AssertionFormatterMethodObject] and increases [numberOfExplanatoryGroups] by one because
+     * Clones the current [AssertionFormatterMethodObject] and increases [numberOfDoNotFilterGroups] by one because
      * it is assumed that the resulting methodObject is used to format an [IAssertionGroup] of
-     * type [IExplanatoryAssertionGroupType].
+     * type [IDoNotFilterAssertionGroupType].
      *
      * @return The newly created [AssertionFormatterMethodObject].
      */
-    fun createForExplanatoryAssertionGroup(): AssertionFormatterMethodObject
-        = AssertionFormatterMethodObject(sb, prefix, indentLevel, assertionFilter, numberOfExplanatoryGroups + 1)
+    fun createForDoNotFilterAssertionGroup(): AssertionFormatterMethodObject
+        = AssertionFormatterMethodObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1)
 
     /**
      * Indicates that the formatting process is currently not formatting the [IAssertion]s (or any nested assertion)
-     * of an [IAssertionGroup] of type [IExplanatoryAssertionGroupType].
+     * of an [IAssertionGroup] of type [IDoNotFilterAssertionGroupType].
      *
      * @return `true` if the formatting process is currently within an explanatory assertion group; `false` otherwise.
      */
-    fun isNotInExplanatoryAssertionGroup() = numberOfExplanatoryGroups == 0
+    fun isNotInDoNotFilterGroup() = numberOfDoNotFilterGroups == 0
 
     /**
      * Appends a new line (system separator), spaces equal to the number of [indentLevel] and the [prefix] to [sb].
@@ -103,7 +103,7 @@ class AssertionFormatterMethodObject private constructor(
          */
         fun new(sb: StringBuilder, assertionFilter: (IAssertion) -> Boolean): AssertionFormatterMethodObject {
 
-            return AssertionFormatterMethodObject(sb, "", 0, assertionFilter, numberOfExplanatoryGroups = 0)
+            return AssertionFormatterMethodObject(sb, "", 0, assertionFilter, numberOfDoNotFilterGroups = 0)
         }
     }
 
