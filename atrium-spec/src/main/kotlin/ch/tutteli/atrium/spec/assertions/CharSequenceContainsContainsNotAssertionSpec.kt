@@ -11,7 +11,8 @@ import org.jetbrains.spek.api.dsl.describe
 abstract class CharSequenceContainsContainsNotAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>,
-    containsNotPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>
+    containsNotPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>,
+    featureArrow: String
 ) : CharSequenceContainsSpecBase({
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
@@ -127,7 +128,7 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
 
                 val person = Person("Robert Stoll")
 
-                val nameWithArrow = "➤ name"
+                val nameWithArrow = "${featureArrow}name"
                 test("$contains 'treboR' and 'llotS' - error message contains '$nameWithArrow' exactly once") {
                     expect {
                         verbs.checkLazily(person) {
