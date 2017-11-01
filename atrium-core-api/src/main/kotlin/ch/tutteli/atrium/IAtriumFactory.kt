@@ -360,7 +360,8 @@ interface IAtriumFactory {
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
      * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
      *
-     * Should at least support [RootAssertionGroupType], [IFeatureAssertionGroupType] and [IListAssertionGroupType].
+     * Should at least support [RootAssertionGroupType], [IFeatureAssertionGroupType], [IListAssertionGroupType],
+     * [ISummaryAssertionGroupType] and [IExplanatoryAssertionGroupType].
      *
      * @param bulletPoints The bullet points used in reporting to prefix each [IAssertion] in
      * [IAssertionGroup.assertions].

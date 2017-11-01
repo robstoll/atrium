@@ -13,6 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * Currently the following [IAssertion] types are supported:
  * - [IAssertionGroup] of type [RootAssertionGroupType]
  * - [IBasicAssertion]
+ * - [IExplanatoryAssertion]
  *
  * In addition it defines a fallback for unknown [IAssertionGroupType]s as well as for unknown [IAssertion] types.
  *
@@ -34,7 +35,8 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 class TextFallbackAssertionFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
     private val assertionFormatterController: IAssertionFormatterController,
-    private val assertionPairFormatter: IAssertionPairFormatter
+    private val assertionPairFormatter: IAssertionPairFormatter,
+    private val objectFormatter: IObjectFormatter
 ) : IAssertionFormatter {
     private val formatter = TextPrefixBasedAssertionGroupFormatter(
         bulletPoints[RootAssertionGroupType::class.java] ?: "• ")
@@ -45,18 +47,24 @@ class TextFallbackAssertionFormatter(
         return true
     }
 
-    override fun formatNonGroup(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
-        is IBasicAssertion -> appendBasicAssertion(assertion, methodObject)
-        else -> formatFallback(assertion, methodObject)
+    override fun formatNonGroup(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {
+        methodObject.appendLnIndentAndPrefix()
+        when (assertion) {
+            is IBasicAssertion -> appendBasicAssertion(assertion, methodObject)
+            is IExplanatoryAssertion -> appendExplanatoryAssertion(assertion, methodObject)
+            else -> formatFallback(assertion, methodObject)
+        }
     }
 
     private fun appendBasicAssertion(basicAssertion: IBasicAssertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.appendLnIndentAndPrefix()
         assertionPairFormatter.format(methodObject, basicAssertion.description, basicAssertion.expected)
     }
 
+    private fun appendExplanatoryAssertion(assertion: IExplanatoryAssertion, methodObject: AssertionFormatterMethodObject) {
+        methodObject.sb.append(objectFormatter.format(assertion.explanation))
+    }
+
     private fun formatFallback(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.appendLnIndentAndPrefix()
         val translatable = Untranslatable("Unsupported type ${assertion::class.java.name}, can only report whether it holds")
         assertionPairFormatter.format(methodObject, translatable, assertion.holds())
     }
