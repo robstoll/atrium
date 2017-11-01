@@ -16,8 +16,8 @@ import ch.tutteli.atrium.assertions.*
  * and the bullet point defined for [PrefixFeatureAssertionGroupHeader] as prefix for failing [IAssertionGroup.assertions].
  *
  * @param bulletPoints The formatter uses the bullet point defined for [PrefixSuccessfulSummaryAssertion]
- * (`"✔ "` if absent) as prefix for successful assertions in [IAssertionGroup.assertions] and the bullet point defined
- * for [PrefixFailingSummaryAssertion] (`"✘ "` if absent) for failing assertions.
+ * (`"✔ "` if absent) as prefix for successful assertions in [IAssertionGroup.assertions] and the bullet point defined
+ * for [PrefixFailingSummaryAssertion] (`"✘ "` if absent) for failing assertions.
  *
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *        when it comes to format children of an [IAssertionGroup].
@@ -28,8 +28,8 @@ class TextSummaryAssertionGroupFormatter(
     private val assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : SingleAssertionGroupTypeFormatter<ISummaryAssertionGroupType>(ISummaryAssertionGroupType::class.java) {
-    private val successful = (bulletPoints[PrefixSuccessfulSummaryAssertion::class.java] ?: "✔ ")
-    private val failing = (bulletPoints[PrefixFailingSummaryAssertion::class.java] ?: "✘ ")
+    private val successful = (bulletPoints[PrefixSuccessfulSummaryAssertion::class.java] ?: "✔ ")
+    private val failing = (bulletPoints[PrefixFailingSummaryAssertion::class.java] ?: "✘ ")
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         methodObject.appendLnIndentAndPrefix()

@@ -23,7 +23,7 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
  *              completely ignoring [IAssertionGroup.name] and [IAssertionGroup.subject].
  *
  * @param bulletPoints The formatter uses the bullet point defined for [WarningAssertionGroupType]
- *        (`"  (!) "` if absent) or the bullet point defined for [IExplanatoryAssertionGroupType]
+ *        (`"❗❗ "` if absent) or the bullet point defined for [IExplanatoryAssertionGroupType]
  *        (`"  » "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  *
  * @param assertionFormatterController The controller to which this formatter gives back the control
@@ -34,7 +34,7 @@ class TextExplanatoryAssertionGroupFormatter(
     assertionFormatterController: IAssertionFormatterController
 ) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IExplanatoryAssertionGroupType>(IExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
     private val explanatoryBulletPoint = bulletPoints[IExplanatoryAssertionGroupType::class.java] ?: "  » "
-    private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class.java] ?: "  (!) "
+    private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class.java] ?: "❗❗ "
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         val bulletPoint = when (assertionGroup.type) {

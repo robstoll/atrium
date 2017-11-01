@@ -21,7 +21,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * the bullet point defined for [IFeatureAssertionGroupType] as prefix for the [IAssertionGroup.assertions].
  *
  * @param bulletPoints The formatter uses the bullet point defined for [PrefixFeatureAssertionGroupHeader]
- *        (`"➤ "` if absent) as prefix of the group header and [IFeatureAssertionGroupType] (`"◾ "` if absent)
+ *        (`"▶ "` if absent) as prefix of the group header and [IFeatureAssertionGroupType] (`"◾ "` if absent)
  *        as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *        when it comes to format children of an [IAssertionGroup].
@@ -33,8 +33,8 @@ class TextFeatureAssertionGroupFormatter(
     private val assertionPairFormatter: IAssertionPairFormatter
 ) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IFeatureAssertionGroupType>(IFeatureAssertionGroupType::class.java, assertionFormatterController) {
 
-    private val prefix = (bulletPoints[IFeatureAssertionGroupType::class.java] ?: "◾ ")
-    private val arrow = (bulletPoints[PrefixFeatureAssertionGroupHeader::class.java] ?: "➤ ")
+    private val prefix = (bulletPoints[IFeatureAssertionGroupType::class.java] ?: "◾ ")
+    private val arrow = (bulletPoints[PrefixFeatureAssertionGroupHeader::class.java] ?: "▶ ")
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         methodObject.appendLnIndentAndPrefix()

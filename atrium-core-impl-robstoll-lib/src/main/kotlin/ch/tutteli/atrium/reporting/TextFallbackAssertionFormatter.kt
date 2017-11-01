@@ -26,7 +26,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *              [assertionPairFormatter] which defines how an assertion pair (e.g. [IBasicAssertion.description]
  *              and [IBasicAssertion.expected]) is formatted.
  * @param bulletPoints The formatter uses the bullet point defined for [RootAssertionGroupType]
- *        (`"• "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
+ *        (`"◆ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
  *        the reporting process.
  * @param assertionPairFormatter The formatter used to format assertion pairs (e.g. [IBasicAssertion.description]
@@ -39,7 +39,7 @@ class TextFallbackAssertionFormatter(
     private val objectFormatter: IObjectFormatter
 ) : IAssertionFormatter {
     private val formatter = TextPrefixBasedAssertionGroupFormatter(
-        bulletPoints[RootAssertionGroupType::class.java] ?: "• ")
+        bulletPoints[RootAssertionGroupType::class.java] ?: "◆ ")
 
     override fun canFormat(assertion: IAssertion): Boolean {
         // two fallback are implemented one for IAssertionGroup (uses always formatGroup)
@@ -84,5 +84,3 @@ class TextFallbackAssertionFormatter(
     }
 
 }
-
-

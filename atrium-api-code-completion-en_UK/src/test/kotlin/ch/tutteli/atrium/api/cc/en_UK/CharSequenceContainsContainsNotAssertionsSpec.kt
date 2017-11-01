@@ -7,7 +7,8 @@ import kotlin.reflect.KFunction3
 class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsContainsNotAssertionSpec(
     AssertionVerbFactory,
     getContainsPair(),
-    IAssertionPlant<CharSequence>::containsNot.name to IAssertionPlant<CharSequence>::containsNot
+    IAssertionPlant<CharSequence>::containsNot.name to IAssertionPlant<CharSequence>::containsNot,
+    "▶ "
 ) {
     companion object {
         private val containsFun: KFunction3<IAssertionPlant<CharSequence>, Any, Array<out Any>, IAssertionPlant<CharSequence>> = IAssertionPlant<CharSequence>::contains
