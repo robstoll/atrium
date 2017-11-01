@@ -9,16 +9,16 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IFeatureAssertionGroupType] by
- * using the given [assertionPairFormatter] to format the group, additionally prefixing it with the "bullet point"
- * (typically an arrow) defined for [PrefixFeatureAssertionGroupHeader] and uses the bullet point defined
- * for [IFeatureAssertionGroupType] as prefix for the [IAssertionGroup.assertions].
+ * using the given [assertionPairFormatter] to format the group header, additionally prefixing it with the
+ * "bullet point" (typically an arrow) defined for [PrefixFeatureAssertionGroupHeader] and uses the bullet point
+ * defined for [IFeatureAssertionGroupType] as prefix for the [IAssertionGroup.assertions].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IFeatureAssertionGroupType]
- * by using the given [assertionPairFormatter] to format the group, additionally prefixing it with the "bullet point"
- * (typically an arrow) defined for [PrefixFeatureAssertionGroupHeader] and uses the bullet point defined
- * for [IFeatureAssertionGroupType] as prefix for the [IAssertionGroup.assertions].
+ * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an
+ * [IFeatureAssertionGroupType] by using the given [assertionPairFormatter] to format the group header, additionally
+ * prefixing it with the "bullet point" (typically an arrow) defined for [PrefixFeatureAssertionGroupHeader] and uses
+ * the bullet point defined for [IFeatureAssertionGroupType] as prefix for the [IAssertionGroup.assertions].
  *
  * @param bulletPoints The formatter uses the bullet point defined for [PrefixFeatureAssertionGroupHeader]
  *        (`"➤ "` if absent) as prefix of the group header and [IFeatureAssertionGroupType] (`"◾ "` if absent)
@@ -31,7 +31,7 @@ class TextFeatureAssertionGroupFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
     assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter
-) : SingleAssertionGroupTypeFormatter<IFeatureAssertionGroupType>(IFeatureAssertionGroupType::class.java, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IFeatureAssertionGroupType>(IFeatureAssertionGroupType::class.java, assertionFormatterController) {
 
     private val prefix = (bulletPoints[IFeatureAssertionGroupType::class.java] ?: "◾ ")
     private val arrow = (bulletPoints[PrefixFeatureAssertionGroupHeader::class.java] ?: "➤ ")

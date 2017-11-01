@@ -25,7 +25,7 @@ import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
 class TextIndentAssertionGroupFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
     assertionFormatterController: IAssertionFormatterController
-) : SingleAssertionGroupTypeFormatter<IIndentAssertionGroupType>(IIndentAssertionGroupType::class.java, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IIndentAssertionGroupType>(IIndentAssertionGroupType::class.java, assertionFormatterController) {
     private val bulletPoint = bulletPoints[IIndentAssertionGroupType::class.java] ?: " ⋄ "
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)

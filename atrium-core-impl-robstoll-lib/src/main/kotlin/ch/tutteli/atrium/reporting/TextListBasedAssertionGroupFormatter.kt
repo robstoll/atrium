@@ -23,7 +23,7 @@ abstract class TextListBasedAssertionGroupFormatter<in T : IAssertionGroupType>(
     assertionFormatterController: IAssertionFormatterController,
     private val assertionPairFormatter: IAssertionPairFormatter,
     clazz: Class<T>
-) : SingleAssertionGroupTypeFormatter<T>(clazz, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<T>(clazz, assertionFormatterController) {
     private val formatter = TextPrefixBasedAssertionGroupFormatter(bulletPoint)
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
