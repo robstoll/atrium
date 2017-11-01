@@ -27,7 +27,7 @@ abstract class AssertionFormatterControllerSpec(
 
     val testee = testeeFactory()
     val arrow = "  >>"
-    val warning ="  !!"
+    val warning = "  !!"
     val bulletPoint = "*"
     val listBulletPoint = "=="
     val bulletPoints = mapOf<Class<out IBulletPointIdentifier>, String>(
@@ -63,7 +63,8 @@ abstract class AssertionFormatterControllerSpec(
 
             listOf<Pair<String, (IExplanatoryAssertionGroupType, List<IAssertion>) -> IAssertionGroup>>(
                 ExplanatoryAssertionGroup::class.simpleName!! to { t, a -> ExplanatoryAssertionGroup(t, a) },
-                AssertionGroup::class.simpleName!! to { t, a -> AssertionGroup(t, AssertionVerb.VERB, 1, a) }
+                AssertionGroup::class.simpleName!! to { t, a -> AssertionGroup(t, AssertionVerb.VERB, 1, a) },
+                FixHoldsAssertionGroup::class.simpleName!! to { t, a -> FixHoldsAssertionGroup(t, AssertionVerb.VERB, 1, a, false) }
             ).forEach { (groupName, factory) ->
                 listOf(
                     Triple(
