@@ -8,4 +8,4 @@ package ch.tutteli.atrium.assertions
  * As side notice: I decided to use a marker interface instead of an `enum class` -- which is not open for
  * extension -- so that an unknown number of types can be created without the need to modify existing implementations.
  */
-interface IAssertionGroupType
+interface IAssertionGroupType : IBulletPointIdentifier

@@ -2,7 +2,6 @@ package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.isEmpty
-import ch.tutteli.atrium.api.cc.en_UK.isNotEmpty
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.reporting.IAssertionFormatterFacade
@@ -32,7 +31,12 @@ abstract class OnlyFailureReporterSpec(
 
     val translator = UsingDefaultTranslator()
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register { AtriumFactory.newTextFallbackAssertionFormatter("[]", it, AtriumFactory.newDetailedObjectFormatter(translator), translator) }
+    facade.register {
+        AtriumFactory.newTextFallbackAssertionFormatter(
+            mapOf(RootAssertionGroupType::class.java to "[]"),
+            it,
+            AtriumFactory.newDetailedObjectFormatter(translator), translator)
+    }
     val testee = testeeFactory(facade)
 
     prefixedDescribe("fun ${testee::format.name}") {

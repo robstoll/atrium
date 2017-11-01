@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
@@ -10,7 +11,7 @@ import org.jetbrains.spek.api.include
 
 abstract class TextExplanatoryAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (String, IAssertionFormatterController) -> IAssertionFormatter,
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -20,7 +21,6 @@ abstract class TextExplanatoryAssertionGroupFormatterSpec(
         IExplanatoryAssertionGroupType::class.java,
         object : IExplanatoryAssertionGroupType {},
         { ExplanatoryAssertionGroup(it) },
-        2,
         describePrefix
     ) {})
 
