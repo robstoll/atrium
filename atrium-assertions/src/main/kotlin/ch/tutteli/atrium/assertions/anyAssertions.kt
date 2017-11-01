@@ -2,7 +2,6 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
 fun <T : Any> _toBe(plant: IAssertionPlant<T>, expected: T): IAssertion
     = BasicAssertion(TO_BE, expected, { plant.subject == expected })

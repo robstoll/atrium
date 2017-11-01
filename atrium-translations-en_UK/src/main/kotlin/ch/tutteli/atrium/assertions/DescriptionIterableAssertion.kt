@@ -10,6 +10,9 @@ enum class DescriptionIterableAssertion(override val value: String) : ISimpleTra
     AT_LEAST("is at least"),
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
+    AN_ENTRY_WHICH_IS("an entry which is"),
     IN_ANY_ORDER("%s, in any order"),
+    IN_ANY_ORDER_ONLY("%s only, in any order"),
     NUMBER_OF_OCCURRENCES("number of occurrences"),
+    WARNING_ADDITIONAL_ENTRIES("additional entries")
 }
