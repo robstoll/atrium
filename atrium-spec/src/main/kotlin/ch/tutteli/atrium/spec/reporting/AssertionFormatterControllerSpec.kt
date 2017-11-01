@@ -27,13 +27,14 @@ abstract class AssertionFormatterControllerSpec(
 
     val testee = testeeFactory()
     val arrow = "  >>"
+    val warning ="  !!"
     val bulletPoint = "*"
     val listBulletPoint = "=="
     val bulletPoints = mapOf<Class<out IBulletPointIdentifier>, String>(
         IExplanatoryAssertionGroupType::class.java to "$arrow ",
+        WarningAssertionGroupType::class.java to "$warning ",
         IListAssertionGroupType::class.java to "$listBulletPoint ",
         RootAssertionGroupType::class.java to "$bulletPoint "
-
     )
 
     val indentArrow = " ".repeat(arrow.length + 1)
@@ -58,29 +59,42 @@ abstract class AssertionFormatterControllerSpec(
                 methodObject = AssertionFormatterMethodObject.new(sb, alwaysFalseAssertionFilter)
             }
 
-            listOf(
-                Triple(
-                    "${IAssertionGroup::class.simpleName} is of type ${IExplanatoryAssertionGroupType::class.simpleName}",
-                    AssertionGroup(ExplanatoryAssertionGroupType, AssertionVerb.VERB, 1, listOf(assertion)),
-                    AssertionGroup(ExplanatoryAssertionGroupType, AssertionVerb.VERB, 1, listOf(failingAssertion))
-                ),
-                Triple(
-                    "${ExplanatoryAssertionGroup::class.simpleName}",
-                    ExplanatoryAssertionGroup(listOf(assertion)),
-                    ExplanatoryAssertionGroup(listOf(failingAssertion))
-                )
-            ).forEach { (description, holdingGroup, failingGroup) ->
-                context(description) {
-                    it("appends the assertions without group header, if the assertion group holds") {
-                        testee.format(holdingGroup, methodObject)
-                        verbs.checkImmediately(sb.toString()).toBe(separator +
-                            "$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
-                    }
+            val anonymousType = object : IExplanatoryAssertionGroupType {}
 
-                    it("appends the assertions without group header, if the assertion group does not hold") {
-                        testee.format(failingGroup, methodObject)
-                        verbs.checkImmediately(sb.toString()).toBe(separator +
-                            "$arrow ${IS_LESS_OR_EQUALS.getDefault()}: 2")
+            listOf<Pair<String, (IExplanatoryAssertionGroupType, List<IAssertion>) -> IAssertionGroup>>(
+                ExplanatoryAssertionGroup::class.simpleName!! to { t, a -> ExplanatoryAssertionGroup(t, a) },
+                AssertionGroup::class.simpleName!! to { t, a -> AssertionGroup(t, AssertionVerb.VERB, 1, a) }
+            ).forEach { (groupName, factory) ->
+                listOf(
+                    Triple(
+                        "$groupName with type object: ${IExplanatoryAssertionGroupType::class.simpleName}",
+                        factory(anonymousType, listOf(assertion)) to factory(anonymousType, listOf(failingAssertion)),
+                        arrow
+                    ),
+                    Triple(
+                        "$groupName with type ${ExplanatoryAssertionGroupType::class.simpleName}",
+                        factory(ExplanatoryAssertionGroupType, listOf(assertion)) to factory(ExplanatoryAssertionGroupType, listOf(failingAssertion)),
+                        arrow
+                    ),
+                    Triple(
+                        "$groupName with type ${WarningAssertionGroupType::class.simpleName}",
+                        factory(WarningAssertionGroupType, listOf(assertion)) to factory(WarningAssertionGroupType, listOf(failingAssertion)),
+                        warning
+                    )
+                ).forEach { (description, factories, prefix) ->
+                    val (holdingGroup, failingGroup) = factories
+                    context(description) {
+                        it("appends the assertions without group header, if the assertion group holds") {
+                            testee.format(holdingGroup, methodObject)
+                            verbs.checkImmediately(sb.toString()).toBe(separator +
+                                "$prefix ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
+                        }
+
+                        it("appends the assertions without group header, if the assertion group does not hold") {
+                            testee.format(failingGroup, methodObject)
+                            verbs.checkImmediately(sb.toString()).toBe(separator +
+                                "$prefix ${IS_LESS_OR_EQUALS.getDefault()}: 2")
+                        }
                     }
                 }
             }
@@ -97,7 +111,7 @@ abstract class AssertionFormatterControllerSpec(
 
             context("first an ${IExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
                 val rootGroup = AssertionGroup(RootAssertionGroupType, AssertionVerb.ASSERT, 5, listOf(
-                    ExplanatoryAssertionGroup(listOf(assertion)),
+                    ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, listOf(assertion)),
                     assertion
                 ))
 
@@ -111,20 +125,20 @@ abstract class AssertionFormatterControllerSpec(
             context("first a regular assertion, then an ${IExplanatoryAssertionGroupType::class.simpleName} and finally a regular assertion again") {
                 val rootGroup = AssertionGroup(RootAssertionGroupType, AssertionVerb.ASSERT, 5, listOf(
                     assertion,
-                    ExplanatoryAssertionGroup(listOf(assertion)),
+                    ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(assertion)),
                     assertion
                 ))
 
                 it("appends only the explanatory assertion group") {
                     testee.format(rootGroup, methodObject)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
-                        "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
+                        "$indentBulletPoint$warning ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
                 }
             }
 
             context("an assertion group with assertions within an ${IExplanatoryAssertionGroupType::class.simpleName}") {
                 val assertionGroup = AssertionGroup(ListAssertionGroupType, AssertionVerb.EXPECT_THROWN, 2, listOf(assertion, failingAssertion))
-                val explanatoryAssertionGroup = ExplanatoryAssertionGroup(listOf(assertionGroup, assertion))
+                val explanatoryAssertionGroup = ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, listOf(assertionGroup, assertion))
                 val rootGroup = AssertionGroup(RootAssertionGroupType, AssertionVerb.ASSERT, 5, listOf(explanatoryAssertionGroup))
 
                 it("appends the explanatory assertion group including all its assertions") {
@@ -136,8 +150,8 @@ abstract class AssertionFormatterControllerSpec(
                         "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
                 }
 
-                context("within another ${IExplanatoryAssertionGroupType::class.simpleName} which is preeceded and followed by a regular assertion ") {
-                    val explanatoryAssertionGroup2 = ExplanatoryAssertionGroup(listOf(explanatoryAssertionGroup))
+                context("within another ${IExplanatoryAssertionGroupType::class.simpleName} which is preceded and followed by a regular assertion ") {
+                    val explanatoryAssertionGroup2 = ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(explanatoryAssertionGroup))
                     val rootGroup2 = AssertionGroup(RootAssertionGroupType, IS_LESS_THAN, 10, listOf(failingAssertion, explanatoryAssertionGroup2, assertion))
 
                     it("appends the explanatory assertion group including all its assertions") {
