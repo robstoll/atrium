@@ -38,8 +38,10 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
         = throw UnsupportedOperationException("supports only ${clazz.name} for which one has to call ${IAssertionFormatter::formatGroup.name}")
 
     /**
-     * Checks whether [assertionGroup] is [T] or a sub type and if so, delegates to the concrete implementation;
-     * otherwise throws an [UnsupportedOperationException].
+     * Checks whether [assertionGroup] is [T] or a sub type and if so, calls [formatGroupHeaderAndGetChildMethodObject]
+     * and uses the resulting child-[AssertionFormatterMethodObject] to format [IAssertionGroup.assertions].
+     *
+     * If [assertionGroup] is *not* [T] or a sub type, then it throws an [UnsupportedOperationException].
      *
      * @param assertionGroup The assertion group which should be formatted.
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
@@ -66,8 +68,8 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
     }
 
     /**
-     * Formats the header of the given [assertionGroup] (with [type][IAssertionGroup.type] [T]) -- appends the result
-     * to the [sb][AssertionFormatterMethodObject.sb] of the given [methodObject] -- and returns the
+     * Formats the group header of the given [assertionGroup] (with [type][IAssertionGroup.type] [T]) -- appends the
+     * result to the [sb][AssertionFormatterMethodObject.sb] of the given [methodObject] -- and returns the
      * [AssertionFormatterMethodObject] which shall be used for the [IAssertionGroup.assertions].
      *
      * @param assertionGroup The assertion group which should be formatted.

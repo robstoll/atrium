@@ -14,28 +14,21 @@ import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec
-import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (String, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
     assertionGroupClass: Class<T>,
     assertionGroupType: T,
     anonymousAssertionGroupType: T,
-    extraIndent: Int,
     describePrefix: String = "[Atrium] "
-) : Spek({
+) : AssertionFormatterSpecBase({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
         prefixedDescribe(describePrefix, description, body)
-    }
-
-    var sb = StringBuilder()
-    afterEachTest {
-        sb = StringBuilder()
     }
 
     val assertions = listOf(
@@ -44,12 +37,8 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
     )
     val listAssertionGroup = AssertionGroup(anonymousAssertionGroupType, TranslationSupplierSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
 
-    val separator = System.getProperty("line.separator")!!
-    val arrow = "->"
-    val arrowIndent = " ".repeat(arrow.length + 1)
-
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
-        val testee = testeeFactory("*", AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
+        val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${assertionGroupClass.simpleName}") {
             val result = testee.canFormat(AssertionGroup(anonymousAssertionGroupType, Untranslatable(""), 1, listOf()))
             verbs.checkImmediately(result).isTrue()
@@ -60,15 +49,20 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
 
         mapOf(
             "•" to "▪",
-            "[]" to "{}").forEach { (listBulletPointBeforeExtraIndent, bulletPoint) ->
-            val listBulletPoint = " ".repeat(extraIndent) + listBulletPointBeforeExtraIndent
+            "[]" to "{}").forEach { (listBulletPoint, bulletPoint) ->
             val listIndent = " ".repeat(listBulletPoint.length + 1)
             val indent = " ".repeat(bulletPoint.length + 1)
             context("listBulletPoint: $listBulletPoint, bulletPoint: $bulletPoint") {
-                val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-                facade.register({ testeeFactory(listBulletPointBeforeExtraIndent, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-                facade.register({ AtriumFactory.newTextFeatureAssertionGroupFormatter(arrow, bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-                facade.register({ AtriumFactory.newTextFallbackAssertionFormatter(bulletPoint, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+                val bulletPoints = mapOf(
+                    RootAssertionGroupType::class.java to "$bulletPoint ",
+                    IListAssertionGroupType::class.java to "$listBulletPoint ",
+                    PrefixFeatureAssertionGroupHeader::class.java to "$arrow ",
+                    IFeatureAssertionGroupType::class.java to "$bulletPoint "
+                )
+                val facade = createFacade()
+                facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+                facade.register({ AtriumFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+                facade.register({ AtriumFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
 
                 context("${IAssertionGroup::class.simpleName} of type object: ${assertionGroupClass.simpleName}") {
                     context("format directly the group") {
@@ -88,10 +82,10 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
                             facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                             verbs.checkImmediately(sb.toString()).toBe(separator
                                 + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                                + "$arrowIndent$bulletPoint placeholder %s: 2$separator"
-                                + "$arrowIndent$indent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                                + "$arrowIndent$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                                + "$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
+                                + "$indentArrow$bulletPoint placeholder %s: 2$separator"
+                                + "$indentArrow$indent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                                + "$indentArrow$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                                + "$indentArrow$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                         }
                         context("in another ${IAssertionGroup::class.simpleName} of type ${assertionGroupType::class.simpleName}") {
                             it("indents the group ${IAssertionGroup::name.name} as well as the ${IAssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
@@ -102,10 +96,10 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
                                     + "${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"
                                     + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 5$separator"
                                     + "$listBulletPoint $arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
-                                    + "$listIndent$arrowIndent$bulletPoint placeholder %s: 2$separator"
-                                    + "$listIndent$arrowIndent$indent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
-                                    + "$listIndent$arrowIndent$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                                    + "$listIndent$arrowIndent$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20$separator"
+                                    + "$listIndent$indentArrow$bulletPoint placeholder %s: 2$separator"
+                                    + "$listIndent$indentArrow$indent$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
+                                    + "$listIndent$indentArrow$indent$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
+                                    + "$listIndent$indentArrow$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20$separator"
                                     + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30")
                             }
                         }

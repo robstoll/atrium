@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
@@ -37,7 +38,7 @@ class InvisibleAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factory(), "[Atrium's AssertionFormatterSpec] ")
 
     companion object {
-        fun factory() = { assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
+        fun factory() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
             InvisibleAssertionGroupFormatter(assertionFormatterController)
         }
     }

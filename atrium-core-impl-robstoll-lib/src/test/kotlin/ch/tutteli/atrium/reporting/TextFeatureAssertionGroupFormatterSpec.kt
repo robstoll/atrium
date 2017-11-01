@@ -2,6 +2,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import org.jetbrains.spek.api.Spek
@@ -18,7 +19,7 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factory(), "[Atrium's TextFeature...Spec] ")
 
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IFeatureAssertionGroupType>(
-        AssertionVerbFactory, factoryWithArrow(),
+        AssertionVerbFactory, factory(),
         IFeatureAssertionGroupType::class.java,
         object : IFeatureAssertionGroupType {},
         FeatureAssertionGroupType,
@@ -26,16 +27,12 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
     )
 
     object AtriumsAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec(
-        AssertionVerbFactory, factoryWithArrow(), "[Atrium's AssertionFormatterSpec] ")
+        AssertionVerbFactory, factory(), "[Atrium's AssertionFormatterSpec] ")
 
 
     companion object {
-        internal fun factoryWithArrow() = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            factory()("=>", "▪", assertionFormatterController, objectFormatter, translator)
-        }
-
-        internal fun factory() = { arrow: String, featureBulletPoint: String, controller: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            TextFeatureAssertionGroupFormatter(arrow, featureBulletPoint, controller, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+        internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
+            TextFeatureAssertionGroupFormatter(bulletPoints, controller, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }
 }

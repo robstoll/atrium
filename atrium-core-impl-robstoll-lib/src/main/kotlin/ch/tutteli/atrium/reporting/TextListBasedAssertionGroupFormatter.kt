@@ -4,8 +4,9 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IAssertionGroupType
 
 /**
- * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with type [T] by
- * putting each assertion on an own line prefixed with a bullet point.
+ * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with type [T] by using the given
+ * [assertionPairFormatter] to format the group header and using the given `bulletPoint` (see constructor) to prefix
+ * the [IAssertionGroup.assertions].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
@@ -23,7 +24,7 @@ abstract class TextListBasedAssertionGroupFormatter<in T : IAssertionGroupType>(
     private val assertionPairFormatter: IAssertionPairFormatter,
     clazz: Class<T>
 ) : SingleAssertionGroupTypeFormatter<T>(clazz, assertionFormatterController) {
-    private val formatter = TextPrefixBasedAssertionGroupFormatter("$bulletPoint ")
+    private val formatter = TextPrefixBasedAssertionGroupFormatter(bulletPoint)
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
         = formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject)
