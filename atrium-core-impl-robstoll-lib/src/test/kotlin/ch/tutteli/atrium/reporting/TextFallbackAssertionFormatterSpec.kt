@@ -31,7 +31,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
         TextFallbackAssertionFormatter(
             mapOf(RootAssertionGroupType::class.java to "$squarePoint "),
             it,
-            TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator()))
+            TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator()), ToStringObjectFormatter)
     })
 
     var sb = StringBuilder()
@@ -64,7 +64,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
 
     companion object {
         internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+            TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator), objectFormatter)
         }
     }
 }
