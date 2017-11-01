@@ -9,7 +9,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 
-abstract class IterableContainsEntriesSpec(
+abstract class IterableContainsInAnyOrderEntriesSpec(
     verbs: IAssertionVerbFactory,
     entryPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit) -> IAssertionPlant<Iterable<Double>>>,
     entriesPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit, Array<out IAssertionPlant<Double>.() -> Unit>) -> IAssertionPlant<Iterable<Double>>>
@@ -40,7 +40,8 @@ abstract class IterableContainsEntriesSpec(
                         isLessThan(1.0)
                     }
                 }.toThrow<AssertionError>().and.message.contains(
-                    "$containsInAnyOrder: $anEntryWhich",
+                    "$containsInAnyOrder: $separator",
+                    "$anEntryWhich: $separator",
                     "$isLessThan: 1.0",
                     "$numberOfOccurrences: 0",
                     "$atLeast: 1"
@@ -51,12 +52,15 @@ abstract class IterableContainsEntriesSpec(
                     fluentEmptyString.entriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
                 }.toThrow<AssertionError>().and.message {
                     contains.exactly(2).values(
-                        "$containsInAnyOrder: $anEntryWhich",
+                        "$anEntryWhich: $separator",
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
                     )
-                    contains.exactly(1).value("$isLessThan: 1.0")
-                    contains.exactly(1).value("$isGreaterThan: 2.0")
+                    contains.exactly(1).values(
+                        "$containsInAnyOrder: $separator",
+                        "$isLessThan: 1.0",
+                        "$isGreaterThan: 2.0"
+                    )
                 }
             }
         }
@@ -67,7 +71,8 @@ abstract class IterableContainsEntriesSpec(
                     expect {
                         fluent.entryFun({ isGreaterThan(1.0); isLessThan(2.0) })
                     }.toThrow<AssertionError>().and.message.contains.exactly(1).values(
-                        "$containsInAnyOrder: $anEntryWhich",
+                        "$containsInAnyOrder: $separator",
+                        "$anEntryWhich: $separator",
                         "$isGreaterThan: 1.0",
                         "$isLessThan: 2.0",
                         "$numberOfOccurrences: 0",

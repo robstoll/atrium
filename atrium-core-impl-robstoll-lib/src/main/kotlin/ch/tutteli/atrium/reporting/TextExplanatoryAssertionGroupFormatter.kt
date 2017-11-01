@@ -11,9 +11,9 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
  * explanatory assertion.
  *
  * Furthermore it uses the bullet point defined for [WarningAssertionGroupType] in `bulletPoints` (see constructor)
- * (`"  (!) "` if absent) as prefix for the child-[AssertionFormatterMethodObject] if the [IAssertionGroup.type] is a
+ * (`"❗❗ "` if absent) as prefix for the child-[AssertionFormatterMethodObject] if the [IAssertionGroup.type] is a
  * [WarningAssertionGroupType]. Otherwise it is using the bullet point defined for [IExplanatoryAssertionGroupType]
- * (`"  » "` if absent).
+ * (`"» "` if absent).
  *
  * Its usage is intended for text output (e.g. to the console).
  *
@@ -24,7 +24,7 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
  *
  * @param bulletPoints The formatter uses the bullet point defined for [WarningAssertionGroupType]
  *        (`"❗❗ "` if absent) or the bullet point defined for [IExplanatoryAssertionGroupType]
- *        (`"  » "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
+ *        (`"» "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  *
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *        when it comes to format children of an [IAssertionGroup].
@@ -33,7 +33,7 @@ class TextExplanatoryAssertionGroupFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
     assertionFormatterController: IAssertionFormatterController
 ) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IExplanatoryAssertionGroupType>(IExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
-    private val explanatoryBulletPoint = bulletPoints[IExplanatoryAssertionGroupType::class.java] ?: "  » "
+    private val explanatoryBulletPoint = bulletPoints[IExplanatoryAssertionGroupType::class.java] ?: "» "
     private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class.java] ?: "❗❗ "
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
