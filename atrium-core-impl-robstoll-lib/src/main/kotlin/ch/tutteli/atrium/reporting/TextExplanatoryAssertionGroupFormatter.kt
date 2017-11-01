@@ -41,7 +41,7 @@ class TextExplanatoryAssertionGroupFormatter(
             is WarningAssertionGroupType -> warningBulletPoint
             else -> explanatoryBulletPoint
         }
-        return methodObject.createForExplanatoryAssertionGroup().createChildWithNewPrefix(bulletPoint)
+        return methodObject.createForDoNotFilterAssertionGroup().createChildWithNewPrefix(bulletPoint)
     }
 
 }
