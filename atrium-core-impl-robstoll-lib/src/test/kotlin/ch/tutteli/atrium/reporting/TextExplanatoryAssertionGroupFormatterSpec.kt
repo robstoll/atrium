@@ -11,12 +11,16 @@ import org.jetbrains.spek.api.include
 class TextExplanatoryAssertionGroupFormatterSpec : Spek({
 
     include(AtriumsTextExplanatoryAssertionFormatterSpec)
+    include(AtriumsTextWarningAssertionFormatterSpec)
     include(AtriumsSingleAssertionGroupTypeFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
 }) {
     object AtriumsTextExplanatoryAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextExplanatoryAssertionGroupFormatterSpec(
         AssertionVerbFactory, factory(), "[Atrium's TextExplanatory...Spec] ")
+
+    object AtriumsTextWarningAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextWarningAssertionGroupFormatterSpec(
+        AssertionVerbFactory, factory(), "[Atrium's TextWarning...Spec] ")
 
     object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IExplanatoryAssertionGroupType>(
         AssertionVerbFactory, factoryWithoutBulletPoint(),

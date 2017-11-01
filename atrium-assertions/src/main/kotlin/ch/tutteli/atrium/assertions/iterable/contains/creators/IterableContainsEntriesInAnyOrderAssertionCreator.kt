@@ -34,7 +34,7 @@ class IterableContainsEntriesInAnyOrderAssertionCreator<E : Any, T : Iterable<E>
             val entryWhich = TranslatableRawString(DescriptionIterableAssertion.AN_ENTRY_WHICH)
 
             AssertionGroup(ListAssertionGroupType, description, entryWhich, listOf(
-                ExplanatoryAssertionGroup(explanatoryAssertions),
+                ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions),
                 IndentAssertionGroup(listOf(featureAssertion))))
         }
     }
