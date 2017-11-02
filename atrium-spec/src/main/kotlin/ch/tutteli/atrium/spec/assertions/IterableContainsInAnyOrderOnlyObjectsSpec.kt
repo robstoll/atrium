@@ -56,61 +56,68 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
 
         context("iterable '$oneToFour'") {
 
-            listOf(
-                arrayOf(1.0, 2.0, 3.0, 4.0, 4.0),
-                arrayOf(1.0, 3.0, 2.0, 4.0, 4.0),
-                arrayOf(3.0, 4.0, 2.0, 1.0, 4.0),
-                arrayOf(2.0, 4.0, 4.0, 1.0, 3.0),
-                arrayOf(2.0, 4.0, 1.0, 4.0, 3.0),
-                arrayOf(4.0, 4.0, 3.0, 2.0, 1.0)
-            ).forEach {
-                test("$contains ${it.joinToString()} does not throw") {
-                    fluent.containsFun(it.first(), *it.drop(1).toDoubleArray())
+            describe("happy cases $contains") {
+                listOf(
+                    arrayOf(1.0, 2.0, 3.0, 4.0, 4.0),
+                    arrayOf(1.0, 3.0, 2.0, 4.0, 4.0),
+                    arrayOf(3.0, 4.0, 2.0, 1.0, 4.0),
+                    arrayOf(2.0, 4.0, 4.0, 1.0, 3.0),
+                    arrayOf(2.0, 4.0, 1.0, 4.0, 3.0),
+                    arrayOf(4.0, 4.0, 3.0, 2.0, 1.0)
+                ).forEach {
+                    test(it.joinToString()) {
+                        fluent.containsFun(it.first(), *it.drop(1).toDoubleArray())
+                    }
                 }
             }
 
-            test("$contains 1.0, 2.0, 3.0, 4.0 throw AssertionError; 4.0 was missing") {
-                expect {
-                    fluent.containsFun(1.0, 2.0, 3.0, 4.0)
-                }.toThrow<AssertionError>().and.message.contains(
-                    "$containsInAnyOrderOnly:",
-                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                    "$successfulBulletPoint$anEntryWhichIs: 2.0",
-                    "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                    "$successfulBulletPoint$anEntryWhichIs: 4.0",
-                    "$warningBulletPoint$additionalEntries:",
-                    "${listBulletPoint}4.0"
-                )
-            }
+            describe("error cases $contains ... throws AssertionError") {
 
-            test("$contains 1.0, 4.0 throw AssertionError; 2.0, 3.0 and 4.0 was missing") {
-                expect {
-                    fluent.containsFun(1.0, 4.0)
-                }.toThrow<AssertionError>().and.message.contains(
-                    "$containsInAnyOrderOnly:",
-                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                    "$successfulBulletPoint$anEntryWhichIs: 4.0",
-                    "$warningBulletPoint$additionalEntries:",
-                    "${listBulletPoint}2.0",
-                    "${listBulletPoint}3.0",
-                    "${listBulletPoint}4.0"
-                )
-            }
-            test("$contains 1.0, 3.0, 5.0 throw AssertionError; 5.0 is wrong and 2.0, 4.0 and 4.0 are missing") {
-                expect {
-                    fluent.containsFun(1.0, 3.0, 5.0)
-                }.toThrow<AssertionError>().and.message.contains(
-                    "$containsInAnyOrderOnly:",
-                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                    "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                    "$failingBulletPoint$anEntryWhichIs: 5.0",
-                    "$warningBulletPoint$additionalEntries:",
-                    "${listBulletPoint}2.0",
-                    "${listBulletPoint}4.0",
-                    "${listBulletPoint}4.0"
-                )
-            }
+                test("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {
+                    expect {
+                        fluent.containsFun(1.0, 2.0, 3.0, 4.0)
+                    }.toThrow<AssertionError>().and.message
+                        .contains(
+                            "$containsInAnyOrderOnly:",
+                            "$successfulBulletPoint$anEntryWhichIs: 1.0",
+                            "$successfulBulletPoint$anEntryWhichIs: 2.0",
+                            "$successfulBulletPoint$anEntryWhichIs: 3.0",
+                            "$successfulBulletPoint$anEntryWhichIs: 4.0",
+                            "$warningBulletPoint$additionalEntries:",
+                            "${listBulletPoint}4.0"
+                        ).containsSize(5, 4)
+                }
 
+                test("1.0, 4.0 -- 2.0, 3.0 and 4.0 was missing") {
+                    expect {
+                        fluent.containsFun(1.0, 4.0)
+                    }.toThrow<AssertionError>().and.message
+                        .contains(
+                            "$containsInAnyOrderOnly:",
+                            "$successfulBulletPoint$anEntryWhichIs: 1.0",
+                            "$successfulBulletPoint$anEntryWhichIs: 4.0",
+                            "$warningBulletPoint$additionalEntries:",
+                            "${listBulletPoint}2.0",
+                            "${listBulletPoint}3.0",
+                            "${listBulletPoint}4.0"
+                        ).containsSize(5, 2)
+                }
+                test("1.0, 3.0, 5.0 -- 5.0 is wrong and 2.0, 4.0 and 4.0 are missing") {
+                    expect {
+                        fluent.containsFun(1.0, 3.0, 5.0)
+                    }.toThrow<AssertionError>().and.message
+                        .contains(
+                            "$containsInAnyOrderOnly:",
+                            "$successfulBulletPoint$anEntryWhichIs: 1.0",
+                            "$successfulBulletPoint$anEntryWhichIs: 3.0",
+                            "$failingBulletPoint$anEntryWhichIs: 5.0",
+                            "$warningBulletPoint$additionalEntries:",
+                            "${listBulletPoint}2.0",
+                            "${listBulletPoint}4.0",
+                            "${listBulletPoint}4.0"
+                        ).containsSize(5, 3)
+                }
+            }
         }
     }
 })

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
+import ch.tutteli.atrium.assertions._entriesInAnyOrderOnly
 import ch.tutteli.atrium.assertions._objectsInAnyOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNoOpCheckerBuilder
@@ -34,3 +35,28 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
     return checker.addAssertion(_objectsInAnyOrderOnly(checker, expected, otherExpected))
 }
 
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
+ * [Iterable] which holds all assertions [createAssertions] might create -- equally an entry for each further
+ * [otherCreateAssertionsFun] needs to be contained in the [Iterable]  where it does not matter in which order the
+ * entries appear.
+ *
+ * Notice, that a first-wins strategy applies which means your [createAssertions] functions -- which kind of serve as
+ * identification functions -- should be ordered in such a way that the most specific identification function appears
+ * first, not that a less specific function wins. For instance, given a `setOf(1, 2)` you should not search for
+ * `entries({ isGreaterThan(0) }, { toBe(1) })` but for `entries({ toBe(1) }, { isGreaterThan(0) })` otherwise
+ * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
+ * entry which is left -- in this case `2` -- and of course this would fail.
+ *
+ * @param createAssertions The lambda function which creates the assertions which the entry we are looking for
+ *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
+ * @param otherCreateAssertionsFun Additional lambda functions which each kind of identify (separately) an entry
+ *        which we are looking for.
+ *
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.entries(createAssertions: IAssertionPlant<E>.() -> Unit, vararg otherCreateAssertionsFun: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T> {
+    val checker = IterableContainsNoOpCheckerBuilder(this)
+    return checker.addAssertion(_entriesInAnyOrderOnly(checker, createAssertions, otherCreateAssertionsFun))
+}

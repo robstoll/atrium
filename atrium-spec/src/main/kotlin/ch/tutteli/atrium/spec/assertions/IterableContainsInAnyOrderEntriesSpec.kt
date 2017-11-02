@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
@@ -13,7 +11,7 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
     verbs: IAssertionVerbFactory,
     entryPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit) -> IAssertionPlant<Iterable<Double>>>,
     entriesPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit, Array<out IAssertionPlant<Double>.() -> Unit>) -> IAssertionPlant<Iterable<Double>>>
-) : IterableContainsSpecBase({
+) : IterableContainsEntriesSpecBase(verbs, {
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -25,13 +23,8 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
     fun IAssertionPlant<Iterable<Double>>.entriesFun(t: IAssertionPlant<Double>.() -> Unit, vararg tX: (IAssertionPlant<Double>.() -> Unit))
         = entriesFunArr(t, tX)
 
-    val isLessThanFun = verbs.checkImmediately(1.0)::isLessThan.name
-    val isGreaterThanFun = verbs.checkImmediately(1.0)::isGreaterThan.name
-    val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH.getDefault()
-    val isLessThan = DescriptionNumberAssertion.IS_LESS_THAN.getDefault()
-    val isGreaterThan = DescriptionNumberAssertion.IS_GREATER_THAN.getDefault()
-
-    describe("fun $entry and $entries") {
+    describe("fun $entry and $entries")
+    {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$entry{ $isLessThanFun(1.0) } throws AssertionError") {
@@ -42,7 +35,7 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                 }.toThrow<AssertionError>().and.message.contains(
                     "$containsInAnyOrder: $separator",
                     "$anEntryWhich: $separator",
-                    "$isLessThan: 1.0",
+                    "$isLessThanDescr: 1.0",
                     "$numberOfOccurrences: 0",
                     "$atLeast: 1"
                 )
@@ -58,8 +51,8 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                     )
                     contains.exactly(1).values(
                         "$containsInAnyOrder: $separator",
-                        "$isLessThan: 1.0",
-                        "$isGreaterThan: 2.0"
+                        "$isLessThanDescr: 1.0",
+                        "$isGreaterThanDescr: 2.0"
                     )
                 }
             }
@@ -73,8 +66,8 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                     }.toThrow<AssertionError>().and.message.contains.exactly(1).values(
                         "$containsInAnyOrder: $separator",
                         "$anEntryWhich: $separator",
-                        "$isGreaterThan: 1.0",
-                        "$isLessThan: 2.0",
+                        "$isGreaterThanDescr: 1.0",
+                        "$isLessThanDescr: 2.0",
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
                     )
