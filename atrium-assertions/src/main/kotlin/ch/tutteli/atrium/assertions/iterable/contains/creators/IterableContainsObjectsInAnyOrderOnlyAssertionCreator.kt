@@ -8,8 +8,7 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 class IterableContainsObjectsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>>(
-    private val decorator: IterableContainsInAnyOrderOnlyDecorator,
-    @Suppress("UNUSED_PARAMETER") checkers: List<IIterableContains.IChecker>
+    private val decorator: IterableContainsInAnyOrderOnlyDecorator
 ) : IIterableContains.ICreator<T, E> {
 
     override fun createAssertionGroup(plant: IAssertionPlant<T>, expected: E, otherExpected: Array<out E>): IAssertionGroup {
