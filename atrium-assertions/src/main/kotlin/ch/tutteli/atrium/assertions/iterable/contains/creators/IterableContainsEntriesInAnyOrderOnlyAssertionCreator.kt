@@ -44,10 +44,11 @@ class IterableContainsEntriesInAnyOrderOnlyAssertionCreator<E : Any, T : Iterabl
         }
     }
 
+
     private fun createAssertionsForExpected(allExpected: List<IAssertionPlant<E>.() -> Unit>, list: MutableList<E>, assertions: MutableList<IAssertion>): Int {
         var mismatches = 0
         allExpected.forEach {
-            val explanatoryAssertions = collectAssertionsForExplanation(it)
+            val explanatoryAssertions = AssertionCollector.collectAssertionsForExplanation(it, list.firstOrNull())
             val found: Boolean = removeMatch(list, it)
             if (!found) ++mismatches
             val fixHoldsAssertionGroup = FixHoldsAssertionGroup(ListAssertionGroupType, DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString(""), explanatoryAssertions, found)
@@ -69,21 +70,14 @@ class IterableContainsEntriesInAnyOrderOnlyAssertionCreator<E : Any, T : Iterabl
         return false
     }
 
+    private fun createSizeFeatureAssertion(allExpected: List<IAssertionPlant<E>.() -> Unit>, actualSize: Int): MutableList<IAssertion>
+        = mutableListOf(BasicAssertion(DescriptionAnyAssertion.TO_BE, RawString(allExpected.size.toString()), actualSize == allExpected.size))
+
     private fun createExplanatoryGroupForMismatchEtc(list: MutableList<E>, warning: DescriptionIterableAssertion): ExplanatoryAssertionGroup {
         val assertions = list.map { ExplanatoryAssertion(it) }
         val additionalEntries = AssertionGroup(ListAssertionGroupType, warning, RawString(""), assertions)
         return ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(additionalEntries))
     }
 
-    private fun createSizeFeatureAssertion(allExpected: List<IAssertionPlant<E>.() -> Unit>, actualSize: Int): MutableList<IAssertion>
-        = mutableListOf(BasicAssertion(DescriptionAnyAssertion.TO_BE, RawString(allExpected.size.toString()), actualSize == allExpected.size))
 
-
-    private fun <E : Any> collectAssertionsForExplanation(createAssertions: IAssertionPlant<E>.() -> Unit): List<IAssertion> {
-        val collectingAssertionPlant = AtriumFactory.newCollectingPlant<E>()
-        collectingAssertionPlant.createAssertions()
-        val collectedAssertions = collectingAssertionPlant.getAssertions()
-        if (collectedAssertions.isEmpty()) throw IllegalArgumentException("There was not any assertion created which could identify an entry. Specify at least one assertion")
-        return collectedAssertions
-    }
 }

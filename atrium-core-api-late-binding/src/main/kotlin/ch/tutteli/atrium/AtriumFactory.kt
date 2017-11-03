@@ -45,7 +45,7 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
-    override fun <T : Any> newCollectingPlant(): ICollectingAssertionPlant<T>
+    override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
     override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
