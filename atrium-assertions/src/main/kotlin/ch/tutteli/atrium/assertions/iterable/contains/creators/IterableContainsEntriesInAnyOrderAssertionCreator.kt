@@ -23,13 +23,10 @@ class IterableContainsEntriesInAnyOrderAssertionCreator<E : Any, T : Iterable<E>
 
     private fun <E : Any, T : Iterable<E>> create(plant: IAssertionPlant<T>, createAssertions: IAssertionPlant<E>.() -> Unit): IAssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val explanatoryAssertions = collectAssertionsForExplanation(createAssertions)
-            val count = plant.subject.count { checkIfAssertionsHold(it, createAssertions) }
-            val assertions = mutableListOf<IAssertion>()
-            checkers.forEach {
-                assertions.add(it.createAssertion(count))
-            }
-            val featureAssertion = AssertionGroup(FeatureAssertionGroupType, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions.toList())
+            val itr = plant.subject.iterator()
+            val (explanatoryAssertions, count) = getExplanatoryAssertionsAndMatchingCount(itr, createAssertions)
+            val assertions = checkers.map { it.createAssertion(count) }
+            val featureAssertion = AssertionGroup(FeatureAssertionGroupType, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions)
             AssertionGroup(ListAssertionGroupType, DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString(""), listOf(
                 ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions),
                 featureAssertion
@@ -37,12 +34,17 @@ class IterableContainsEntriesInAnyOrderAssertionCreator<E : Any, T : Iterable<E>
         }
     }
 
-    private fun <E : Any> collectAssertionsForExplanation(createAssertions: IAssertionPlant<E>.() -> Unit): List<IAssertion> {
-        val collectingAssertionPlant = AtriumFactory.newCollectingPlant<E>()
-        collectingAssertionPlant.createAssertions()
-        val collectedAssertions = collectingAssertionPlant.getAssertions()
-        if (collectedAssertions.isEmpty()) throw IllegalArgumentException("There was not any assertion created which could identify an entry. Specify at least one assertion")
-        return collectedAssertions
+    private fun <E : Any> getExplanatoryAssertionsAndMatchingCount(itr: Iterator<E>, createAssertions: IAssertionPlant<E>.() -> Unit): Pair<List<IAssertion>, Int> {
+        return if (itr.hasNext()) {
+            val first = itr.next()
+            val group = AssertionCollector.collectAssertionsForExplanation(createAssertions, first)
+            val sequence = sequenceOf(first) + itr.asSequence()
+            val count = sequence.count { checkIfAssertionsHold(it, createAssertions) }
+            group to count
+        } else {
+            val group = AssertionCollector.collectAssertionsForExplanation(createAssertions, null)
+            group to 0
+        }
     }
 
     private fun <E : Any> checkIfAssertionsHold(it: E, createAssertions: IAssertionPlant<E>.() -> Unit): Boolean {

@@ -14,9 +14,23 @@ import ch.tutteli.atrium.assertions.IAssertion
  */
 interface ICollectingAssertionPlant<out T : Any> : IAssertionPlant<T> {
     /**
+     * The subject for which this plant will create [IAssertion]s or it throws a [PlantHasNoSubjectException] if absent.
+     * @throws PlantHasNoSubjectException in case there was not a [subject] defined for this plant.
+     */
+    override val subject: T
+
+    /**
      * Returns the [IAssertion]s which have been [added][addAssertion] to this plant.
      *
      * @return The [IAssertion]s which have been [added][addAssertion] to this plant.
      */
     fun getAssertions(): List<IAssertion>
+
+    /**
+     * Represents the [Exception] that the [ICollectingAssertionPlant.subject] was not defined but
+     * one tried to access it.
+     *
+     * @param message A message which should describe why the [ICollectingAssertionPlant.subject] is absent.
+     */
+    class PlantHasNoSubjectException(message: String) : RuntimeException(message)
 }

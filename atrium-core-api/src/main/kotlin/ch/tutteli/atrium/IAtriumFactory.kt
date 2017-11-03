@@ -5,6 +5,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.ICollectingAssertionPlant.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
@@ -183,12 +184,16 @@ interface IAtriumFactory {
      * Creates an [ICollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
      * created [IAssertion]s inside the lambda.
      *
-     * Notice, that this [IAssertionPlant] might not even provide [IAssertionPlant.subject], its purpose is solely
-     * collecting assertions. Use [newCheckingPlant] instead if you want to know whether the assertions hold.
+     * Notice, that this [IAssertionPlant] might not even provide a [IAssertionPlant.subject] in which case it
+     * throws an [PlantHasNoSubjectException] if [subject][IAssertionPlant.subject] is accessed.
+     * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
+     *
+     * @param subjectProvider The function which will either provide the subject for this plant or throw an
+     * [PlantHasNoSubjectException] in case it cannot be provided.
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCollectingPlant(): ICollectingAssertionPlant<T>
+    fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
 
     /**
      * Creates an [IThrowableFluent] based on the given [assertionVerb] and the [act] function.

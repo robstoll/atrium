@@ -44,8 +44,8 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
         = CheckingAssertionPlant(subject)
 
-    override fun <T : Any> newCollectingPlant(): ICollectingAssertionPlant<T>
-        = CollectingAssertionPlant()
+    override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
+        = CollectingAssertionPlant(subjectProvider)
 
     override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
         = newThrowableFluent(assertionVerb, act, newThrowingAssertionChecker(reporter))

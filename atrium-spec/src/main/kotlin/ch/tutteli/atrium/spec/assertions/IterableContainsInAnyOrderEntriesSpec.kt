@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
@@ -9,27 +10,27 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class IterableContainsInAnyOrderEntriesSpec(
     verbs: IAssertionVerbFactory,
-    entryPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit) -> IAssertionPlant<Iterable<Double>>>,
-    entriesPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit, Array<out IAssertionPlant<Double>.() -> Unit>) -> IAssertionPlant<Iterable<Double>>>
+    containsEntryPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit) -> IAssertionPlant<Iterable<Double>>>,
+    containsEntriesPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit, Array<out IAssertionPlant<Double>.() -> Unit>) -> IAssertionPlant<Iterable<Double>>>
 ) : IterableContainsEntriesSpecBase(verbs, {
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
-    val (entry, entryFun) = entryPair
-    val (entries, entriesFunArr) = entriesPair
+    val (containsEntry, containsEntryFun) = containsEntryPair
+    val (containsEntries, containsEntriesFunArr) = containsEntriesPair
 
-    fun IAssertionPlant<Iterable<Double>>.entriesFun(t: IAssertionPlant<Double>.() -> Unit, vararg tX: (IAssertionPlant<Double>.() -> Unit))
-        = entriesFunArr(t, tX)
+    fun IAssertionPlant<Iterable<Double>>.containsEntriesFun(t: IAssertionPlant<Double>.() -> Unit, vararg tX: (IAssertionPlant<Double>.() -> Unit))
+        = containsEntriesFunArr(t, tX)
 
-    describe("fun $entry and $entries")
+    describe("fun $containsEntry and $containsEntries")
     {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
-            test("$entry{ $isLessThanFun(1.0) } throws AssertionError") {
+            test("$containsEntry{ $isLessThanFun(1.0) } throws AssertionError") {
                 expect {
-                    fluentEmptyString.entryFun {
+                    fluentEmptyString.containsEntryFun {
                         isLessThan(1.0)
                     }
                 }.toThrow<AssertionError>().and.message.contains(
@@ -40,9 +41,9 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                     "$atLeast: 1"
                 )
             }
-            test("$entries({ $isLessThanFun(1.0) }, { $isGreaterThanFun(2.0) }) throws AssertionError") {
+            test("$containsEntries({ $isLessThanFun(1.0) }, { $isGreaterThanFun(2.0) }) throws AssertionError") {
                 expect {
-                    fluentEmptyString.entriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
+                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
                 }.toThrow<AssertionError>().and.message {
                     contains.exactly(2).values(
                         "$anEntryWhich: $separator",
@@ -56,13 +57,18 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                     )
                 }
             }
+            test("$containsEntries({ $returnValueOfFun(...) }) states warning that subject is not set") {
+                expect {
+                    fluentEmptyString.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
+                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET)
+            }
         }
 
         context("iterable '$oneToSeven'") {
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        fluent.entryFun({ isGreaterThan(1.0); isLessThan(2.0) })
+                        fluent.containsEntryFun({ isGreaterThan(1.0); isLessThan(2.0) })
                     }.toThrow<AssertionError>().and.message.contains.exactly(1).values(
                         "$containsInAnyOrder: $separator",
                         "$anEntryWhich: $separator",
@@ -76,21 +82,21 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1)") {
                 it("does not throw an exception") {
-                    fluent.entryFun({ isGreaterThan(1.0); isLessThan(2.1) })
+                    fluent.containsEntryFun({ isGreaterThan(1.0); isLessThan(2.1) })
                 }
             }
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1) and another entry which is $isLessThanFun(2.0)") {
                 it("does not throw an exception") {
                     //finds twice the entry 1.0 but that is fine since we do not search for unique entries in this case
-                    fluent.entriesFun({ isGreaterThan(1.0); isLessThan(2.1) }, { isLessThan(2.0) })
+                    fluent.containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.1) }, { isLessThan(2.0) })
                 }
             }
 
             context("search for entry where the lambda does not specify any assertion") {
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     expect {
-                        fluent.entryFun({})
+                        fluent.containsEntryFun({})
                     }.toThrow<IllegalArgumentException>().and.message.contains("not any assertion created")
                 }
             }
