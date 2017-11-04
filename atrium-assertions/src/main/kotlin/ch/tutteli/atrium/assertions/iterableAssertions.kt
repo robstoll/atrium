@@ -2,10 +2,10 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsEntriesInAnyOrderAssertionCreator
-import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsEntriesInAnyOrderOnlyAssertionCreator
-import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsObjectsInAnyOrderAssertionCreator
-import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsObjectsInAnyOrderOnlyAssertionCreator
+import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderEntriesAssertionCreator
+import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderOnlyEntriesAssertionCreator
+import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderObjectsAssertionCreator
+import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderOnlyObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlyDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -26,28 +26,28 @@ fun <E, T : Iterable<E>> _objectsInAnyOrder(
     expected: E,
     otherExpected: Array<out E>
 ): IAssertion
-    = createAssertionGroup(checker, expected, otherExpected, ::IterableContainsObjectsInAnyOrderAssertionCreator)
+    = createAssertionGroup(checker, expected, otherExpected, ::IterableContainsInAnyOrderObjectsAssertionCreator)
 
 fun <E : Any, T : Iterable<E>> _entriesInAnyOrder(
     checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>,
     createAssertions: IAssertionPlant<E>.() -> Unit,
     otherCreateAssertionsFun: Array<out IAssertionPlant<E>.() -> Unit>
 ): IAssertion
-    = createAssertionGroup(checker, createAssertions, otherCreateAssertionsFun, ::IterableContainsEntriesInAnyOrderAssertionCreator)
+    = createAssertionGroup(checker, createAssertions, otherCreateAssertionsFun, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
 fun <E, T : Iterable<E>> _objectsInAnyOrderOnly(
     checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>,
     expected: E,
     otherExpected: Array<out E>
 ): IAssertion
-    = createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsObjectsInAnyOrderOnlyAssertionCreator)
+    = createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsInAnyOrderOnlyObjectsAssertionCreator)
 
 fun <E : Any, T : Iterable<E>> _entriesInAnyOrderOnly(
     checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>,
     createAssertions: IAssertionPlant<E>.() -> Unit,
     otherCreateAssertionsFun: Array<out IAssertionPlant<E>.() -> Unit>
 ): IAssertion
-    = createAssertionGroupWithoutChecker(checker, createAssertions, otherCreateAssertionsFun, ::IterableContainsEntriesInAnyOrderOnlyAssertionCreator)
+    = createAssertionGroupWithoutChecker(checker, createAssertions, otherCreateAssertionsFun, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
 
 private fun <E, T : Iterable<E>, P, D : IIterableContains.IDecorator> createAssertionGroupWithoutChecker(
     checker: IterableContainsCheckerBuilder<E, T, D>,

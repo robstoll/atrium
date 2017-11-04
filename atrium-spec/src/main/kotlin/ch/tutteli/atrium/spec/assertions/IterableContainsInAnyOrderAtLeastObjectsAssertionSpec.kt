@@ -8,7 +8,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
-abstract class IterableContainsAtLeastAssertionSpec(
+abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
     //TODO use as soon as containsAtLeastButAtMost exists

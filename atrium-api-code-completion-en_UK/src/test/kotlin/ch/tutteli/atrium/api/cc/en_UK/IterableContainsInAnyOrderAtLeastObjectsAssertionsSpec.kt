@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.IAssertionPlant
 
-class IterableContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsAtLeastAssertionSpec(
+class IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     AssertionVerbFactory,
     getAtLeastTriple(),
     //TODO as soon as butAtMost is implemented
