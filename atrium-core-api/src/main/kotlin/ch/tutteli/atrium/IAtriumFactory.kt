@@ -5,7 +5,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.creating.ICollectingAssertionPlant.PlantHasNoSubjectException
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
