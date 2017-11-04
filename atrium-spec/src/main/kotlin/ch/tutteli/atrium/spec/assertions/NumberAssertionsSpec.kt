@@ -10,6 +10,7 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class NumberAssertionsSpec(
     verbs: IAssertionVerbFactory,
@@ -18,6 +19,13 @@ abstract class NumberAssertionsSpec(
     isGreaterThanPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
     isGreaterOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>
 ) : Spek({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
+        isLessThanPair.first to mapToCreateAssertion { isLessThanPair.second(this, 1) },
+        isLessOrEqualPair.first to mapToCreateAssertion { isLessOrEqualPair.second(this, 1) },
+        isGreaterThanPair.first to mapToCreateAssertion { isGreaterThanPair.second(this, 1) },
+        isGreaterOrEqualPair.first to mapToCreateAssertion { isGreaterOrEqualPair.second(this, 1) }
+    ) {})
 
     val expect = verbs::checkException
     val (isLessThan, isLessThanFun) = isLessThanPair

@@ -9,16 +9,23 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 import java.util.regex.PatternSyntaxException
 
 abstract class CharSequenceContainsRegexAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsRegex: String,
-    containsAtLeastPair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostPair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostIgnoringCasePair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsExactlyFunArr: IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>
 ) : Spek({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 2, 2.3, arrayOf()) },
+        containsAtMostTriple.first to mapToCreateAssertion { containsAtMostTriple.third(this, 2, 2.3, arrayOf()) },
+        containsAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
+    ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -28,15 +35,15 @@ abstract class CharSequenceContainsRegexAssertionSpec(
     val robert = "Roberto?"
     val fluent = assert(text)
 
-    val (containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastPair
+    val (_, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
     fun IAssertionPlant<CharSequence>.containsAtLeastFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsAtLeastFunArr(atLeast, a, aX)
 
-    val (containsAtMostTest, containsAtMostFunArr) = containsAtMostPair
+    val (_, containsAtMostTest, containsAtMostFunArr) = containsAtMostTriple
     fun IAssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsAtMostFunArr(atLeast, a, aX)
 
-    val (containsAtMostIgnoringCase, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCasePair
+    val (_, containsAtMostIgnoringCase, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCaseTriple
     fun IAssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
@@ -61,6 +68,9 @@ abstract class CharSequenceContainsRegexAssertionSpec(
             test("${containsAtLeastTest("'$hello'", "once")} does not throw") {
                 fluent.containsAtLeastFun(1, hello)
             }
+            test("${containsAtLeastTest("'$hello', '$hello' and '$hello'", "once")} does not throw") {
+                fluent.containsAtLeastFun(1, hello, hello, hello)
+            }
 
             test("${containsAtLeastTest("'$hello' and '$robert'", "once")} does not throw") {
                 fluent.containsAtLeastFun(1, hello, robert)
@@ -71,6 +81,9 @@ abstract class CharSequenceContainsRegexAssertionSpec(
             }
             test("${containsAtMostIgnoringCase("'[a-z]'", "19 times")} does not throw") {
                 fluent.containsAtMostIgnoringCaseFun(19, "[a-z]")
+            }
+            test("${containsAtMostIgnoringCase("'[a-z]' and '[A-Z]'", "19 times")} does not throw") {
+                fluent.containsAtMostIgnoringCaseFun(19, "[a-z]", "[A-Z]")
             }
 
             test("${containsAtMostTest("'[a-z]'", "16 times")} does not throw") {

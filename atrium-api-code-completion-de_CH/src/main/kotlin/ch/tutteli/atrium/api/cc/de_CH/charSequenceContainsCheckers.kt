@@ -54,7 +54,9 @@ fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.genau(t
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
  * are looking for, occurs `at least` once but `at most` number of [times] within the search input.
  *
- * If you want to use another lower bound than one, then use `atLeast(2).butAtMost(3)` instead of `atMost(3)`.
+ * If you want to use a higher lower bound than one, then use `zumindest(2).aberHoechstens(3)` instead of
+ * `hoechstens(3)`. And in case you want to state that it is either not contained at all or at most a certain
+ * number of times, then use `nichtOderHoechstens(2)` instead.
  *
  * @param times The number which the check will compare against the actual number of times an expected object is
  *              found in the input of the search.

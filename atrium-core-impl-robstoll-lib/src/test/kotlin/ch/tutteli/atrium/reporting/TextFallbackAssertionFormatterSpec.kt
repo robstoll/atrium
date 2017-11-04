@@ -4,14 +4,11 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.api.cc.en_UK.startsWith
+import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.BasicAssertion
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
@@ -22,7 +19,7 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-class TextSameLineAssertionFormatterSpec : Spek({
+class TextFallbackAssertionFormatterSpec : Spek({
 
     include(AtriumsTextFallbackAssertionFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
@@ -30,7 +27,12 @@ class TextSameLineAssertionFormatterSpec : Spek({
     val squarePoint = "▪"
 
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-    facade.register({ TextFallbackAssertionFormatter(squarePoint, it, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator())) })
+    facade.register({
+        TextFallbackAssertionFormatter(
+            mapOf(RootAssertionGroupType::class.java to "$squarePoint "),
+            it,
+            TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator()), ToStringObjectFormatter)
+    })
 
     var sb = StringBuilder()
     afterEachTest {
@@ -45,7 +47,7 @@ class TextSameLineAssertionFormatterSpec : Spek({
                     BasicAssertion(TO_BE, "bli", false),
                     BasicAssertion(NOT_TO_BE, "bye", false)
                 )), sb, alwaysTrueAssertionFilter)
-                assert(sb.toString()).startsWith("assert: subject$separator" +
+                assert(sb.toString()).toBe("assert: subject$separator" +
                     "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
                     "$squarePoint ${NOT_TO_BE.getDefault()}: bye")
             }
@@ -61,8 +63,8 @@ class TextSameLineAssertionFormatterSpec : Spek({
     )
 
     companion object {
-        internal fun factory() = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            TextFallbackAssertionFormatter("▪", assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
+        internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
+            TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator), objectFormatter)
         }
     }
 }

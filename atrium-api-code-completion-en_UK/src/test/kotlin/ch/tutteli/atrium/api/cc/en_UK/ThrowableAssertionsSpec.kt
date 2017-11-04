@@ -11,16 +11,16 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.assertions.ThrowableAsser
 ) {
     companion object {
 
-        private fun getNameMessage(): String {
-            val messageProp: KProperty<IAssertionPlant<String>> = IAssertionPlant<Throwable>::message
-            return messageProp.name
-        }
-
         private fun getMessageTriple() = Triple(
             getNameMessage(),
             Companion::messageProp,
             Companion::messageFun
         )
+
+        private fun getNameMessage(): String {
+            val messageProp: KProperty<IAssertionPlant<String>> = IAssertionPlant<Throwable>::message
+            return messageProp.name
+        }
 
         private fun messageProp(plant: IAssertionPlant<Throwable>)
             = plant.message

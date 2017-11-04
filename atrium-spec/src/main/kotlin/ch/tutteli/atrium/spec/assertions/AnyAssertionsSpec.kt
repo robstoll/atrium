@@ -9,6 +9,7 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 
 abstract class AnyAssertionsSpec(
@@ -20,6 +21,13 @@ abstract class AnyAssertionsSpec(
     isSame: String,
     isNotSame: String
 ) : Spek({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
+        toBe to mapToCreateAssertion { funInt.toBe(this, 1) },
+        notToBe to mapToCreateAssertion { funInt.notToBe(this, 1) },
+        isSame to mapToCreateAssertion { funInt.isSame(this, 1) },
+        isNotSame to mapToCreateAssertion { funInt.isNotSame(this, 1) }
+    ) {})
 
     val expect = verbs::checkException
 

@@ -1,33 +1,41 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.EXACTLY
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsExactlyAssertionSpec(
     verbs: IAssertionVerbFactory,
-    containsExactlyPair: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsExactlyIgnoringCasePair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsExactlyTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsExactlyIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>
 ) : CharSequenceContainsSpecBase({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+        containsExactlyTriple.first to mapToCreateAssertion { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) },
+        containsExactlyIgnoringCaseTriple.first to mapToCreateAssertion { containsExactlyIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
+    ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
     val fluentHelloWorld = assert(helloWorld)
 
-    val (containsExactly, containsExactlyTest, containsExactlyFunArr) = containsExactlyPair
+    val (containsExactly, containsExactlyTest, containsExactlyFunArr) = containsExactlyTriple
     fun IAssertionPlant<CharSequence>.containsExactlyFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsExactlyFunArr(atLeast, a, aX)
 
-    val (containsExactlyIgnoringCase, containsExactlyIgnoringCaseFunArr) = containsExactlyIgnoringCasePair
+    val (_, containsExactlyIgnoringCase, containsExactlyIgnoringCaseFunArr) = containsExactlyIgnoringCaseTriple
     fun IAssertionPlant<CharSequence>.containsExactlyIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsExactlyIgnoringCaseFunArr(atLeast, a, aX)
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
+
+    val exactly = EXACTLY.getDefault()
 
     describe("fun $containsExactly") {
         context("throws an $illegalArgumentException") {
@@ -70,7 +78,7 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                 test("${containsExactlyTest("'H', 'E'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'H', 'E')
-                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E')
+                    }.toThrow<AssertionError>().message.contains(exactly, 'E')
                 }
                 test("${containsExactlyIgnoringCase("'H', 'E'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'H', 'E')
@@ -79,7 +87,7 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                 test("${containsExactlyTest("'E', 'H'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'E', 'H')
-                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E')
+                    }.toThrow<AssertionError>().message.contains(exactly, 'E')
                 }
                 test("${containsExactlyIgnoringCase("'E', 'H'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'E', 'H')
@@ -88,7 +96,7 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                 test("${containsExactlyTest("'H' and 'E' and 'w'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'H', 'E', 'w')
-                    }.toThrow<AssertionError>().message.contains(EXACTLY.getDefault(), 'E', 'w')
+                    }.toThrow<AssertionError>().message.contains(exactly, 'E', 'w')
                 }
                 test("${containsExactlyIgnoringCase("'H' and 'E' and 'w'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'H', 'E', 'w')
@@ -109,10 +117,10 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                         fluentHelloWorld.containsExactlyIgnoringCaseFun(2, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            String.format(IGNORING_CASE.getDefault(), CONTAINS.getDefault()),
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
+                            "$containsIgnoringCase: 'o'",
+                            "$numberOfOccurrences: 3$separator"
                         )
-                        endsWith(EXACTLY.getDefault() + ": 2")
+                        endsWith("$exactly: 2")
                     }
                 }
 
@@ -121,14 +129,17 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                         fluentHelloWorld.containsExactlyFun(3, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(EXACTLY.getDefault() + ": 3")
+                        endsWith("$exactly: 3")
                     }
                 }
                 test("${containsExactlyIgnoringCase("'o'", "3 times")} does not throw") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(3, 'o')
+                }
+                test("${containsExactlyIgnoringCase("'o' and 'o'", "3 times")} does not throw") {
+                    fluentHelloWorld.containsExactlyIgnoringCaseFun(3, 'o', 'o')
                 }
 
                 test("${containsExactlyTest("'o' and 'l'", "twice")} throws AssertionError") {
@@ -136,11 +147,11 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                         fluentHelloWorld.containsExactlyFun(2, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'l'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
+                            "$containsDescr: 'l'",
+                            "$numberOfOccurrences: 3$separator"
                         )
-                        endsWith(EXACTLY.getDefault() + ": 2")
-                        containsNot(CONTAINS.getDefault() + ": 'o'")
+                        endsWith("$exactly: 2")
+                        containsNot("$containsDescr 'o'")
                     }
                 }
                 test("${containsExactlyTest("'l'", "3 times")} does not throw") {
@@ -151,11 +162,11 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                         fluentHelloWorld.containsExactlyFun(3, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(EXACTLY.getDefault() + ": 3")
-                        containsNot(CONTAINS.getDefault() + ": 'l'")
+                        endsWith("$exactly: 3")
+                        containsNot("$containsDescr 'l'")
                     }
                 }
             }

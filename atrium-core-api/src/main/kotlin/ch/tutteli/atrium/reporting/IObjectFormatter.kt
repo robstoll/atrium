@@ -19,7 +19,8 @@ interface IObjectFormatter {
      * - it will return [RawString.string] in case [value] is a [RawString]
      * - it will return the translation of [value] in case it is a [TranslatableRawString]
      *
-     * Besides that it is up to the concrete implementation how it formats [value]. Yet, following some advices:
+     * Besides that it is up to the concrete implementation how it formats [value].
+     * Nonetheless, following some conventions:
      * - return `"true"` in case [value] is `true`
      * - return `"false"` in case [value] is `false`
      * - wrap [Char] in apostrophes (e.g. `"'a'"`)

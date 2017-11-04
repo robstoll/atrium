@@ -11,12 +11,18 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
+import org.jetbrains.spek.api.include
 
 abstract class CollectionAssertionsSpec(
     verbs: IAssertionVerbFactory,
     hasSizePair: Pair<String, IAssertionPlant<List<Int>>.(Int) -> IAssertionPlant<List<Int>>>,
     isEmptyPair: Pair<String, IAssertionPlant<List<Int>>.() -> IAssertionPlant<List<Int>>>
 ) : Spek({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<List<Int>>(
+        hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 1) },
+        isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) }
+    ) {})
 
     val assert: (List<Int>) -> IAssertionPlant<List<Int>> = verbs::checkImmediately
     val expect = verbs::checkException

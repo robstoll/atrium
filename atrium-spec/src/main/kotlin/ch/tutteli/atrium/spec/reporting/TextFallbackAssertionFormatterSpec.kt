@@ -2,7 +2,6 @@ package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.IS_SAME
@@ -23,24 +22,15 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class TextFallbackAssertionFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
-    describePrefix : String = "[Atrium] "
-) : Spek({
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
+    describePrefix: String = "[Atrium] "
+) : AssertionFormatterSpecBase({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
         prefixedDescribe(describePrefix, description, body)
     }
 
-    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
-
-    var sb = StringBuilder()
-    var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
-    afterEachTest {
-        sb = StringBuilder()
-        methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
-    }
-
-    val squarePoint = "▪"
+    val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
     val unsupportedAssertion = object : IAssertion {
         override fun holds() = false
@@ -62,27 +52,18 @@ abstract class TextFallbackAssertionFormatterSpec(
                     contains("Unsupported type ${unsupportedAssertion::class.java.name}")
                 }
             }
-
-            it("does not add newlines (still same line") {
-                testee.format(unsupportedAssertion, methodObject)
-                verbs.checkLazily(sb) {
-                    containsNot("\r")
-                    containsNot("\n")
-                }
-            }
         }
         context("assertion of type ${IBasicAssertion::class.simpleName}") {
             it("writes ${IBasicAssertion::description.name} and ${IBasicAssertion::expected.name} on the same line separated by colon and space") {
                 val assertion = BasicAssertion(IS_SAME, "bli", false)
                 testee.format(assertion, methodObject)
-                verbs.checkImmediately(sb.toString()).toBe("${IS_SAME.getDefault()}: bli")
+                verbs.checkImmediately(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
             }
         }
 
         context("${IAssertionGroup::class.simpleName} with multiple assertions") {
             val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
-            facade.register({ testeeFactory(it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-            val separator = System.getProperty("line.separator")!!
+            facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
             it("uses the system line separator to separate the assertions") {
                 facade.format(object : IAssertionGroup {
                     override val type = RootAssertionGroupType
@@ -94,7 +75,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                     )
                 }, sb, alwaysTrueAssertionFilter)
 
-                verbs.checkImmediately(sb).contains("${IS_SAME.getDefault()}: b$separator$squarePoint ${TO_BE.getDefault()}: d")
+                verbs.checkImmediately(sb).contains("${IS_SAME.getDefault()}: b$separator$bulletPoint ${TO_BE.getDefault()}: d")
             }
         }
     }

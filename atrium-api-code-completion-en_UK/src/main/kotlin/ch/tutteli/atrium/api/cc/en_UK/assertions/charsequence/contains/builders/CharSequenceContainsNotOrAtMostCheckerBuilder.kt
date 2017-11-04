@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.notOrAtMost
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilderBase
 
@@ -19,7 +19,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *              found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
-open class CharSequenceContainsNotOrAtMostCheckerBuilder<T : CharSequence, D : CharSequenceContainsAssertionCreator.IDecorator>(
+open class CharSequenceContainsNotOrAtMostCheckerBuilder<T : CharSequence, D : IDecorator>(
     times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, D>
 ) : CharSequenceContainsNotOrAtMostCheckerBuilderBase<T, D>(

@@ -87,9 +87,9 @@ class DownCastBuilder<T : Any, TSub : T>(
         val (assertionVerb, subject, assertionChecker) = commonFields
         if (subType.isInstance(subject)) {
             val plant = if (createAssertions != null) {
-                AtriumFactory.newCheckLazily(assertionVerb, subType.cast(subject), assertionChecker)
+                AtriumFactory.newReportingPlantCheckLazily(assertionVerb, subType.cast(subject), assertionChecker)
             } else {
-                AtriumFactory.newCheckImmediately(assertionVerb, subType.cast(subject), assertionChecker)
+                AtriumFactory.newReportingPlantCheckImmediately(assertionVerb, subType.cast(subject), assertionChecker)
             }
             plant.addAssertion(BasicAssertion(description, subType, true))
             if (createAssertions != null) {

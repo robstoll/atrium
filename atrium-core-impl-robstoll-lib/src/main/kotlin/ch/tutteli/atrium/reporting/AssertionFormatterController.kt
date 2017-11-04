@@ -14,7 +14,7 @@ class AssertionFormatterController : IAssertionFormatterController {
     private val assertionFormatters = ArrayDeque<IAssertionFormatter>()
 
     override fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {
-        if (!methodObject.assertionFilter(assertion)) return
+        if (noNeedToFormat(assertion, methodObject)) return
 
         val assertionFormatter = assertionFormatters
             .firstOrNull { it.canFormat(assertion) }
@@ -26,10 +26,19 @@ class AssertionFormatterController : IAssertionFormatterController {
         }
     }
 
+    private fun noNeedToFormat(assertion: IAssertion, methodObject: AssertionFormatterMethodObject): Boolean {
+        //assertionFilter only applies if:
+        // - we are not in an explanatory assertion group and
+        // - if the given assertion isn't one either.
+        return methodObject.isNotInDoNotFilterGroup()
+            && !isExplanatoryAssertionGroup(assertion)
+            && !methodObject.assertionFilter(assertion)
+    }
+
     private fun formatGroup(assertionGroup: IAssertionGroup, assertionFormatter: IAssertionFormatter, methodObject: AssertionFormatterMethodObject) {
-        assertionFormatter.formatGroup(assertionGroup, methodObject) { formatAssertionInGroup ->
+        assertionFormatter.formatGroup(assertionGroup, methodObject) { childMethodObject, formatAssertionInGroup ->
             assertionGroup.assertions
-                .filter { methodObject.assertionFilter(it) }
+                .filter { !noNeedToFormat(it, childMethodObject) }
                 .forEach(formatAssertionInGroup)
         }
     }

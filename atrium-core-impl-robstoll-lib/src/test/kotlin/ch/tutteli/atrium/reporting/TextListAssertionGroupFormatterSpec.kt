@@ -1,25 +1,28 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
+import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
 class TextListAssertionGroupFormatterSpec : Spek({
 
-    include(AtriumsTextFallbackAssertionFormatterSpec)
+    include(AtriumsTextListAssertionFormatterSpec)
     include(AtriumsSingleAssertionGroupTypeFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsTextFallbackAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextListAssertionGroupFormatterSpec(
-        AssertionVerbFactory, factory(), "[Atrium's TextList...Spec] ")
+    object AtriumsTextListAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextListAssertionGroupFormatterSpec(
+        AssertionVerbFactory, factoryWithBullet(), "[Atrium's TextList...Spec] ")
 
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IListAssertionGroupType>(
         AssertionVerbFactory, factoryWithBullet(),
         IListAssertionGroupType::class.java,
         object : IListAssertionGroupType {},
+        ListAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
@@ -28,12 +31,8 @@ class TextListAssertionGroupFormatterSpec : Spek({
     )
 
     companion object {
-        internal fun factory() = { bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            TextListAssertionGroupFormatter(bulletPoint, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
-        }
-
-        internal fun factoryWithBullet() = { assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
-            factory()("▪", assertionFormatterController, objectFormatter, translator)
+        internal fun factoryWithBullet() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
+            TextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }
 }

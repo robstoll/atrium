@@ -5,6 +5,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.ICollectingAssertionPlant.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
@@ -16,7 +17,7 @@ import kotlin.reflect.KClass
  * The minimum contract of the 'abstract factory' of atrium.
  *
  * It is extended with the following extension functions defined in the atrium-api (in the same file as this interface):
- * - [ch.tutteli.atrium.newCheckLazilyAtTheEnd]
+ * - [ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd]
  * - [ch.tutteli.atrium.newDownCastBuilder]
  *
  * It provides factory methods to create:
@@ -34,8 +35,8 @@ import kotlin.reflect.KClass
  */
 interface IAtriumFactory {
     /**
-     * Creates an [IAssertionPlant] which does not check the created or
-     * added [IAssertion]s until one calls [IAssertionPlant.checkAssertions].
+     * Creates an [IReportingAssertionPlant] which does not check and report the created or
+     * added [IAssertion]s until one calls [IReportingAssertionPlant.checkAssertions].
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
@@ -47,12 +48,12 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
-        = newCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
+    fun <T : Any> newReportingPlantCheckLazily(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IReportingAssertionPlant<T>
+        = newReportingPlantCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
-     * Creates an [IAssertionPlant] which does not check the created or
-     * added [IAssertion]s until one calls [IAssertionPlant.checkAssertions].
+     * Creates an [IReportingAssertionPlant] which does not check and report the created or
+     * added [IAssertion]s until one calls [IReportingAssertionPlant.checkAssertions].
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
@@ -65,12 +66,12 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
-        = newCheckLazily(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
+    fun <T : Any> newReportingPlantCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
+        = newReportingPlantCheckLazily(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     /**
-     * Creates an [IAssertionPlant] which does not check the created or
-     * added [IAssertion]s until one calls [IAssertionPlant.checkAssertions].
+     * Creates an [IReportingAssertionPlant] which does not check and report the created or
+     * added [IAssertion]s until one calls [IReportingAssertionPlant.checkAssertions].
      *
      * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
      *
@@ -78,10 +79,10 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
+    fun <T : Any> newReportingPlantCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
 
     /**
-     * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
+     * Creates an [IReportingAssertionPlant] which immediately checks and reports added [IAssertion]s.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
@@ -93,11 +94,11 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlant<T>
-        = newCheckImmediately(assertionVerb, subject, newThrowingAssertionChecker(reporter))
+    fun <T : Any> newReportingPlantCheckImmediately(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IReportingAssertionPlant<T>
+        = newReportingPlantCheckImmediately(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
-     * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
+     * Creates an [IReportingAssertionPlant] which immediately checks and reports added [IAssertion]s.
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
@@ -110,11 +111,11 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlant<T>
-        = newCheckImmediately(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
+    fun <T : Any> newReportingPlantCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
+        = newReportingPlantCheckImmediately(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     /**
-     * Creates an [IAssertionPlant] which immediately checks added [IAssertion]s.
+     * Creates an [IReportingAssertionPlant] which immediately checks and reports added [IAssertion]s.
      *
      * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
      *
@@ -122,11 +123,11 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlant<T>
+    fun <T : Any> newReportingPlantCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
 
 
     /**
-     * Creates an [IAssertionPlantNullable].
+     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
@@ -138,11 +139,11 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IAssertionPlantNullable<T>
-        = newNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter))
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IReportingAssertionPlantNullable<T>
+        = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
-     * Creates an [IAssertionPlantNullable].
+     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
@@ -155,11 +156,11 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IAssertionPlantNullable<T>
-        = newNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlantNullable<T>
+        = newReportingPlantNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
 
     /**
-     * Creates an [IAssertionPlantNullable].
+     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
      *
@@ -167,7 +168,32 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IAssertionPlantNullable<T>
+    fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
+
+    /**
+     * Creates an [ICheckingAssertionPlant] which provides a method to check whether
+     * [allAssertionsHold][ICheckingAssertionPlant.allAssertionsHold].
+     *
+     * @param subject The subject for which this plant will create [IAssertion]s.
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
+
+    /**
+     * Creates an [ICollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
+     * created [IAssertion]s inside the lambda.
+     *
+     * Notice, that this [IAssertionPlant] might not even provide a [IAssertionPlant.subject] in which case it
+     * throws an [PlantHasNoSubjectException] if [subject][IAssertionPlant.subject] is accessed.
+     * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
+     *
+     * @param subjectProvider The function which will either provide the subject for this plant or throw an
+     * [PlantHasNoSubjectException] in case it cannot be provided.
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
 
     /**
      * Creates an [IThrowableFluent] based on the given [assertionVerb] and the [act] function.
@@ -277,76 +303,83 @@ interface IAtriumFactory {
     fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
 
     /**
-     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
-     * puts assertion pairs on the same line.
+     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and serves as
+     * fallback if no other formatter is able to format a given [IAssertion].
      *
-     * For instance, it formats the pair `a to b` as follows: `"a: b"`
+     * Typically this includes the formatting of the [IAssertionGroup] with a [RootAssertionGroupType].
      *
-     * @param bulletPoint The bullet point used in reporting; each assertion is prefixed with it.
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     * for [RootAssertionGroupType] as prefix for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFallbackAssertionFormatter(bulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
-     * formats [IAssertionGroup]s of type [IFeatureAssertionGroupType] by using the given [arrow]
-     * as symbol for features.
+     * formats [IAssertionGroup]s of type [IFeatureAssertionGroupType].
      *
-     * @param arrow The symbol to signify a feature, typically an arrow (e.g. `->`).
-     * @param featureBulletPoint The bullet point used as prefix for each assertion made within the [IAssertionGroup].
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     * for [PrefixFeatureAssertionGroupHeader] as prefix of the group header and [IFeatureAssertionGroupType] as prefix
+     * for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFeatureAssertionGroupFormatter(arrow: String, featureBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
     /**
      * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
-     * formats [IAssertionGroup]s of type [IListAssertionGroupType] by using the given [listBulletPoint]
-     * as prefix for each element in the [IAssertionGroup].
+     * formats [IAssertionGroup]s of type [IListAssertionGroupType].
      *
-     * @param listBulletPoint The bullet point used in reporting; each element in the [IAssertionGroup] is prefixed
-     *                        with it.
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     * for [IListAssertionGroupType] as prefix for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextListAssertionGroupFormatter(listBulletPoint: String, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
 
+    /**
+     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
+     * formats [IAssertionGroup]s of type [IExplanatoryAssertionGroupType] by creating an
+     * [AssertionFormatterMethodObject] which indicates that formatting its [IAssertionGroup.assertions] happens within
+     * an explanatory assertion group.
+     *
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     * for [IExplanatoryAssertionGroupType] as prefix for each [IAssertion] in [IAssertionGroup.assertions].
+     * @param assertionFormatterController The controller used to steer the flow of the reporting.
+     *
+     * @return The newly created assertion formatter.
+     */
+    fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
 
     /**
      * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
      * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
      *
-     * Should at least support [RootAssertionGroupType], [IFeatureAssertionGroupType] (usually given by
-     * [newTextFeatureAssertionGroupFormatter]) and [IListAssertionGroupType] (usually given by
-     * [newTextListAssertionGroupFormatter]).
+     * Should at least support [RootAssertionGroupType], [IFeatureAssertionGroupType], [IListAssertionGroupType],
+     * [ISummaryAssertionGroupType] and [IExplanatoryAssertionGroupType].
      *
-     * @param bulletPoint  The bullet point used in reporting to mark each assertion.
-     * @param arrow The symbol to signify a feature, typically an arrow (e.g. `->`).
-     * @param featureBulletPoint The bullet point used as prefix for each assertion made within the [IAssertionGroup].
-     * @param listBulletPoint The bullet point used for an [IAssertionGroup] of type [IListAssertionGroupType].
+     * @param bulletPoints The bullet points used in reporting to prefix each [IAssertion] in
+     * [IAssertionGroup.assertions].
      * @param assertionFormatterFacade The [IAssertionFormatterFacade] to which all [IAssertionFormatter]s with
      *        same line capabilities and text reporting should be registered.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      */
     fun registerSameLineTextAssertionFormatterCapabilities(
-        bulletPoint: String,
-        arrow: String,
-        featureBulletPoint: String,
-        listBulletPoint: String,
+        bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
         assertionFormatterFacade: IAssertionFormatterFacade,
         objectFormatter: IObjectFormatter,
-        translator: ITranslator): Unit
+        translator: ITranslator)
 
     /**
      * Creates an [IReporter] which reports only failing assertions
@@ -377,7 +410,7 @@ interface IAtriumFactory {
 
 /**
  * Use this function to create a custom *assertion verb* which lazy evaluates assertions
- * (see [IAtriumFactory.newCheckLazily]).
+ * (see [IAtriumFactory.newReportingPlantCheckLazily]).
  *
  * This function will create an [IAssertionPlant] which does not check the created assertions until one
  * calls [IAssertionPlant.checkAssertions].
@@ -393,8 +426,8 @@ interface IAtriumFactory {
  * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
  *         created [IAssertion] does not hold.
  */
-inline fun <T : Any> IAtriumFactory.newCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = newCheckLazily(assertionVerb, subject, reporter)
+inline fun <T : Any> IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
+    = newReportingPlantCheckLazily(assertionVerb, subject, reporter)
     .createAssertionsAndCheckThem(createAssertions)
 
 /**

@@ -7,6 +7,7 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
 import ch.tutteli.atrium.reporting.IAssertionFormatter
@@ -23,15 +24,15 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class AssertionFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
-    describePrefix : String = "[Atrium] "
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
         prefixedDescribe(describePrefix, description, body)
     }
 
-    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
+    val testee = testeeFactory(mapOf(), AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
     var sb = StringBuilder()
     var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
@@ -43,7 +44,7 @@ abstract class AssertionFormatterSpec(
     prefixedDescribe("fun ${testee::format.name}") {
         it("throws an UnsupportedOperationException if ${IAssertionGroup::class.simpleName} is passed") {
             verbs.checkException {
-                testee.format(object: IAssertionGroup {
+                testee.format(object : IAssertionGroup {
                     override val name = Untranslatable("test")
                     override val type = RootAssertionGroupType
                     override val subject = 1

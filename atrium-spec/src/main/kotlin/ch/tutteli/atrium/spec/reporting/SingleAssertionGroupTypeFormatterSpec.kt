@@ -2,10 +2,7 @@ package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IAssertionGroupType
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
@@ -19,11 +16,12 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
 
-abstract class SingleAssertionGroupTypeFormatterSpec<T : IAssertionGroupType>(
+abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType>(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
     supportedAssertionGroupTypeClass: Class<T>,
     supportedAssertionGroupType: T,
+    supportedAnonymousAssertionGroupType: T,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -31,12 +29,19 @@ abstract class SingleAssertionGroupTypeFormatterSpec<T : IAssertionGroupType>(
         prefixedDescribe(describePrefix, description, body)
     }
 
-    val testee = testeeFactory(AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
+    val testee = testeeFactory(mapOf(), AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
     val unsupportedAssertion = object : IAssertion {
         override fun holds() = false
     }
     val unsupportedAssertionGroup = AssertionGroup(object : IAssertionGroupType {}, Untranslatable(""), 1, listOf())
+    val supportedAssertionGroupWithAnonymousType = AssertionGroup(supportedAnonymousAssertionGroupType, Untranslatable(""), 1, listOf())
+    val supportedAnonymousAssertionGroupWithAnonymousType = object : IAssertionGroup {
+        override val name = Untranslatable("test")
+        override val type = supportedAnonymousAssertionGroupType
+        override val subject = 1
+        override val assertions: List<IAssertion> = emptyList()
+    }
     val supportedAssertionGroup = AssertionGroup(supportedAssertionGroupType, Untranslatable(""), 1, listOf())
     val supportedAnonymousAssertionGroup = object : IAssertionGroup {
         override val name = Untranslatable("test")
@@ -53,11 +58,19 @@ abstract class SingleAssertionGroupTypeFormatterSpec<T : IAssertionGroupType>(
     }
 
     prefixedDescribe("fun ${testee::canFormat.name}") {
-        it("returns true for an ${IAssertionGroup::class.simpleName} with type ${supportedAssertionGroupTypeClass.simpleName}") {
+        it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
+            val result = testee.canFormat(supportedAnonymousAssertionGroupWithAnonymousType)
+            verbs.checkImmediately(result).isTrue()
+        }
+        it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
+            val result = testee.canFormat(supportedAssertionGroupWithAnonymousType)
+            verbs.checkImmediately(result).isTrue()
+        }
+        it("returns true for an ${IAssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroup)
             verbs.checkImmediately(result).isTrue()
         }
-        it("returns true for an ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupTypeClass.simpleName}") {
+        it("returns true for an ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroup)
             verbs.checkImmediately(result).isTrue()
         }
@@ -83,19 +96,29 @@ abstract class SingleAssertionGroupTypeFormatterSpec<T : IAssertionGroupType>(
     }
 
     prefixedDescribe("fun ${testee::formatGroup.name}") {
+        val doNotFormatChildren: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit = { _, _ -> }
+
         it("throws an UnsupportedOperationException for an ${IAssertionGroup::class.simpleName} with type object: ${IAssertionGroupType::class.simpleName}") {
             verbs.checkException {
-                testee.formatGroup(unsupportedAssertionGroup, methodObject, {})
+                testee.formatGroup(unsupportedAssertionGroup, methodObject, doNotFormatChildren)
             }.toThrow<UnsupportedOperationException>().message.contains(supportedAssertionGroupTypeClass.name)
             verbs.checkImmediately(sb).isEmpty()
         }
 
-        it("does not throw if an ${IAssertionGroup::class.simpleName} of type ${supportedAssertionGroupTypeClass.simpleName} is passed") {
-            testee.formatGroup(supportedAnonymousAssertionGroup, methodObject, {})
+        it("does not throw if an ${IAssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
+            testee.formatGroup(supportedAnonymousAssertionGroupWithAnonymousType, methodObject, doNotFormatChildren)
         }
 
-        it("does not throw if an ${AssertionGroup::class.simpleName} of type ${supportedAssertionGroupTypeClass.simpleName} is passed") {
-            testee.formatGroup(supportedAnonymousAssertionGroup, methodObject, {})
+        it("does not throw if an ${IAssertionGroup::class.simpleName} of type ${supportedAssertionGroup::class.simpleName} is passed") {
+            testee.formatGroup(supportedAnonymousAssertionGroup, methodObject, doNotFormatChildren)
+        }
+
+        it("does not throw if an ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
+            testee.formatGroup(supportedAssertionGroupWithAnonymousType, methodObject, doNotFormatChildren)
+        }
+
+        it("does not throw if an ${AssertionGroup::class.simpleName} of type  type ${supportedAssertionGroup::class.simpleName}  is passed") {
+            testee.formatGroup(supportedAssertionGroup, methodObject, doNotFormatChildren)
         }
     }
 })
