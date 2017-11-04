@@ -99,12 +99,18 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                 }
             }
 
-            context("search for entry where the lambda does not specify any assertion") {
-                it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    expect {
-                        fluent.containsEntryFun({})
-                    }.toThrow<IllegalArgumentException>().and.message.contains("not any assertion created")
-                }
+        }
+
+        context("search for entry where the lambda does not specify any assertion") {
+            it("$containsEntry throws an ${IllegalArgumentException::class.simpleName}") {
+                expect {
+                    fluent.containsEntryFun({})
+                }.toThrow<IllegalArgumentException>().and.message.contains("not any assertion created")
+            }
+            it("$containsEntries throws an ${IllegalArgumentException::class.simpleName}") {
+                expect {
+                    fluent.containsEntriesFun({})
+                }.toThrow<IllegalArgumentException>().and.message.contains("not any assertion created")
             }
         }
     }
