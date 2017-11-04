@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContain
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
-class IterableContainsObjectsInAnyOrderAssertionCreator<E, T : Iterable<E>>(
+class IterableContainsInAnyOrderObjectsAssertionCreator<E, T : Iterable<E>>(
     private val decorator: IterableContainsInAnyOrderDecorator,
     private val checkers: List<IIterableContains.IChecker>
 ) : IIterableContains.ICreator<T, E> {

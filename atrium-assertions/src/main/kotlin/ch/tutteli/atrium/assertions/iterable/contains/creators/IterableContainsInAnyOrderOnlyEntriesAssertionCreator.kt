@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
-class IterableContainsEntriesInAnyOrderOnlyAssertionCreator<E : Any, T : Iterable<E>>(
+class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E>>(
     private val decorator: IterableContainsInAnyOrderOnlyDecorator
 ) : IIterableContains.ICreator<T, IAssertionPlant<E>.() -> Unit> {
 
