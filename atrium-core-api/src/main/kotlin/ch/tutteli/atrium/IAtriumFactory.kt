@@ -22,6 +22,7 @@ import kotlin.reflect.KClass
  *
  * It provides factory methods to create:
  * - [IAssertionPlant]
+ * - [IThrowableFluent]
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
@@ -31,7 +32,6 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatter]
  * - [IReporter]
  * - [IDownCastBuilder]
- * - [IThrowableFluent]
  */
 interface IAtriumFactory {
     /**
@@ -247,6 +247,18 @@ interface IAtriumFactory {
      * @return The newly created assertion checker.
      */
     fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+
+
+    /**
+     * Creates an [IAssertionChecker] which delegates the checking of [IAssertion]s to the given [subjectPlant]
+     * by adding (see [IAssertionPlant.addAssertion]) the assertions to the given [subjectPlant].
+     *
+     * @param subjectPlant The assertion plant to which the [IAssertion]s will be [added][IAssertionPlant.addAssertion].
+     *
+     * @return The newly created assertion checker.
+     */
+    fun <T : Any> newDelegatingAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+
 
     /**
      * Creates an [IMethodCallFormatter] which represents arguments of a method call by using their [Object.toString]

@@ -63,34 +63,17 @@ abstract class ThrowingAssertionCheckerSpec(
             ))
         }
 
-        it("throws an AssertionError with the message formatted by the reporter if first assertion fails") {
-            verbs.checkException {
-                testee.check(assertionVerb, 1, listOf(
-                    assertionWhichFails,
-                    assertionWhichHolds,
-                    assertionWhichHolds
-                ))
-            }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
-        }
+        mapOf(
+            "first assertion fails" to listOf(assertionWhichFails, assertionWhichHolds, assertionWhichHolds),
+            "middle assertion fails" to listOf(assertionWhichHolds, assertionWhichFails, assertionWhichHolds),
+            "last assertion fails" to listOf(assertionWhichHolds, assertionWhichHolds, assertionWhichFails)
 
-        it("throws an AssertionError with the message formatted by the reporter if the middle assertion fails") {
-            verbs.checkException {
-                testee.check(assertionVerb, 1, listOf(
-                    assertionWhichHolds,
-                    assertionWhichFails,
-                    assertionWhichHolds
-                ))
-            }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
-        }
-
-        it("throws an AssertionError with the message formatted by the reporter if last assertion fails") {
-            verbs.checkException {
-                testee.check(assertionVerb, 1, listOf(
-                    assertionWhichHolds,
-                    assertionWhichHolds,
-                    assertionWhichFails
-                ))
-            }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
+        ).forEach { assertionFails, assertions ->
+            it("throws an AssertionError with the message formatted by the reporter if the $assertionFails") {
+                verbs.checkException {
+                    testee.check(assertionVerb, 1, assertions)
+                }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
+            }
         }
     }
 })

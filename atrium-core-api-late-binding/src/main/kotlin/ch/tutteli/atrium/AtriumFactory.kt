@@ -1,6 +1,5 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.IAssertionGroupType
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
@@ -58,6 +57,9 @@ object AtriumFactory : IAtriumFactory {
         = throwUnsupportedOperationException()
 
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+        = throwUnsupportedOperationException()
+
+    override fun <T : Any> newDelegatingAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
         = throwUnsupportedOperationException()
 
     override fun newMethodCallFormatter(): IMethodCallFormatter
