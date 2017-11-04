@@ -4,6 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.ICollectingAssertionPlant
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 
 object AssertionCollector {
@@ -26,13 +27,13 @@ object AssertionCollector {
     fun <E : Any> collectAssertionsForExplanation(createAssertions: IAssertionPlant<E>.() -> Unit, subject: E?): List<IAssertion> {
         return try {
             val collectingAssertionPlant = AtriumFactory.newCollectingPlant {
-                subject ?: throw ICollectingAssertionPlant.PlantHasNoSubjectException("the iterator was empty and thus no subject available")
+                subject ?: throw PlantHasNoSubjectException("the iterator was empty and thus no subject available")
             }
             collectingAssertionPlant.createAssertions()
             val collectedAssertions = collectingAssertionPlant.getAssertions()
             if (collectedAssertions.isEmpty()) throw IllegalArgumentException("There was not any assertion created which could identify an entry. Specify at least one assertion")
             collectedAssertions
-        } catch (e: ICollectingAssertionPlant.PlantHasNoSubjectException) {
+        } catch (e: PlantHasNoSubjectException) {
             listOf(ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(
                 ExplanatoryAssertion(TranslatableRawString(DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET))
             )))

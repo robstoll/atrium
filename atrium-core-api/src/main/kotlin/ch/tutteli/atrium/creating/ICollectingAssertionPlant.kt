@@ -26,11 +26,4 @@ interface ICollectingAssertionPlant<out T : Any> : IAssertionPlant<T> {
      */
     fun getAssertions(): List<IAssertion>
 
-    /**
-     * Represents the [Exception] that the [ICollectingAssertionPlant.subject] was not defined but
-     * one tried to access it.
-     *
-     * @param message A message which should describe why the [ICollectingAssertionPlant.subject] is absent.
-     */
-    class PlantHasNoSubjectException(message: String) : RuntimeException(message)
 }
