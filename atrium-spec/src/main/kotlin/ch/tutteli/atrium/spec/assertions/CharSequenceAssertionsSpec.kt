@@ -7,10 +7,11 @@ import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class CharSequenceAssertionsSpec(
     verbs: IAssertionVerbFactory,
@@ -23,6 +24,17 @@ abstract class CharSequenceAssertionsSpec(
     endsWithPair: Pair<String, IAssertionPlant<CharSequence>.(CharSequence) -> IAssertionPlant<CharSequence>>,
     endsNotWithPair: Pair<String, IAssertionPlant<CharSequence>.(CharSequence) -> IAssertionPlant<CharSequence>>
 ) : CharSequenceContainsSpecBase({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+        containsDefaultTranslationOfPair.first to mapToCreateAssertion { containsDefaultTranslationOfPair.second(this, Untranslatable(""), arrayOf()) },
+        containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable(""), arrayOf()) },
+        isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
+        isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) },
+        startsWithPair.first to mapToCreateAssertion { startsWithPair.second(this, "") },
+        startsNotWithPair.first to mapToCreateAssertion { startsNotWithPair.second(this, "") },
+        endsWithPair.first to mapToCreateAssertion { endsWithPair.second(this, "") },
+        endsNotWithPair.first to mapToCreateAssertion { endsNotWithPair.second(this, "") }
+    ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException

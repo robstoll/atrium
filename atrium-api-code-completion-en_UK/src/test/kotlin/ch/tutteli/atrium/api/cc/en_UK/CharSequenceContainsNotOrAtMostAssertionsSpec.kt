@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsNotOrAtMostAssertionSpec(
     AssertionVerbFactory,
     getNotOrAtMostTriple(),
-    getNotOrAtMostIgnoringCasePair(),
+    getNotOrAtMostIgnoringCaseTriple(),
     getContainsNotPair()
 ) {
 
@@ -21,7 +21,8 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.ass
         private fun containsNotOrAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.contains.notOrAtMost(atMost).values(a, *aX)
 
-        private fun getNotOrAtMostIgnoringCasePair() = Pair(
+        private fun getNotOrAtMostIgnoringCaseTriple() = Triple(
+            "$contains.$ignoringCase.$notOrAtMost",
             { what: String, times: String -> "$contains $ignoringCase $what $notOrAtMost $times" },
             Companion::containsNotOrAtMostIgnoringCase
         )

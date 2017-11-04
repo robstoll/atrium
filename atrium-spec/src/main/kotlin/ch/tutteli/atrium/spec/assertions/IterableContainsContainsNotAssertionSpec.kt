@@ -10,12 +10,18 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class IterableContainsContainsNotAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsPair: Pair<String, IAssertionPlant<Iterable<Double>>.(Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
     containsNotPair: Pair<String, IAssertionPlant<Iterable<Double>>.(Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>
 ) : IterableContainsSpecBase({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
+        containsPair.first to mapToCreateAssertion { containsPair.second(this, 1.2, arrayOf()) },
+        containsNotPair.first to mapToCreateAssertion { containsNotPair.second(this, 2.5, arrayOf()) }
+    ) {})
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException

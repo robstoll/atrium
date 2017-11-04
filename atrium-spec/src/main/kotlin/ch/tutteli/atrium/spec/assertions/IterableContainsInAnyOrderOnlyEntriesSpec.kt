@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
     verbs: IAssertionVerbFactory,
@@ -17,6 +18,11 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
     warningBulletPoint: String,
     listBulletPoint: String
 ) : IterableContainsEntriesSpecBase(verbs, {
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
+        containsEntriesPair.first to mapToCreateAssertion { containsEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }
+    ) {})
+
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)

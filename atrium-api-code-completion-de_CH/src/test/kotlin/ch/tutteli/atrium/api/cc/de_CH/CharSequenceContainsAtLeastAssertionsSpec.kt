@@ -1,15 +1,14 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsAtLeastAssertionSpec(
     AssertionVerbFactory,
     getAtLeastTriple(),
-    getAtLeastIgnoringCasePair(),
+    getAtLeastIgnoringCaseTriple(),
     getAtLeastButAtMostTriple(),
-    getAtLeastBustAtMostIgnoringCasePair(),
+    getAtLeastBustAtMostIgnoringCaseTriple(),
     getContainsNotPair(),
     getExactlyPair(),
     Companion::getErrorMsgAtLeastButAtMost
@@ -31,7 +30,8 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
             }
         }
 
-        private fun getAtLeastIgnoringCasePair() = Pair(
+        private fun getAtLeastIgnoringCaseTriple() = Triple(
+            "$contains.$ignoringCase.$atLeast",
             { what: String, times: String -> "$contains $ignoringCase $what $atLeast $times" },
             Companion::containsAtLeastIgnoringCase
         )
@@ -53,7 +53,8 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
         private fun containsAtLeastButAtMost(plant: IAssertionPlant<CharSequence>, atLeast: Int, butAtMost: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.zumindest(atLeast).aberHoechstens(butAtMost).werte(a, *aX)
 
-        private fun getAtLeastBustAtMostIgnoringCasePair() = Pair(
+        private fun getAtLeastBustAtMostIgnoringCaseTriple() = Triple(
+            "$contains.$ignoringCase.$atLeast.$butAtMost",
             { what: String, timesAtLeast: String, timesAtMost: String -> "$contains $ignoringCase $what $atLeast $timesAtLeast $butAtMost $timesAtMost" },
             Companion::containsAtLeastButAtMostIgnoringCase
         )

@@ -1,29 +1,35 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.EXACTLY
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsExactlyAssertionSpec(
     verbs: IAssertionVerbFactory,
-    containsExactlyPair: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsExactlyIgnoringCasePair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsExactlyTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsExactlyIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>
 ) : CharSequenceContainsSpecBase({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+        containsExactlyTriple.first to mapToCreateAssertion { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) },
+        containsExactlyIgnoringCaseTriple.first to mapToCreateAssertion { containsExactlyIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
+    ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
     val fluentHelloWorld = assert(helloWorld)
 
-    val (containsExactly, containsExactlyTest, containsExactlyFunArr) = containsExactlyPair
+    val (containsExactly, containsExactlyTest, containsExactlyFunArr) = containsExactlyTriple
     fun IAssertionPlant<CharSequence>.containsExactlyFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsExactlyFunArr(atLeast, a, aX)
 
-    val (containsExactlyIgnoringCase, containsExactlyIgnoringCaseFunArr) = containsExactlyIgnoringCasePair
+    val (_, containsExactlyIgnoringCase, containsExactlyIgnoringCaseFunArr) = containsExactlyIgnoringCaseTriple
     fun IAssertionPlant<CharSequence>.containsExactlyIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsExactlyIgnoringCaseFunArr(atLeast, a, aX)
 
