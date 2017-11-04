@@ -6,10 +6,11 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class IterableContainsAtLeastAssertionSpec(
     verbs: IAssertionVerbFactory,
-    containsAtLeastPair: Triple<String, (String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
+    containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
     //TODO use as soon as containsAtLeastButAtMost exists
     //containsAtLeastButAtMostPair: Triple<String, (String, String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
     containsNotPair: Pair<String, (Int) -> String>
@@ -18,11 +19,17 @@ abstract class IterableContainsAtLeastAssertionSpec(
     //errorMsgAtLeastButAtMost: (Int, Int) -> String
 ) : IterableContainsSpecBase({
 
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
+        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }
+        //TODO use as soon as containsAtLeastButAtMost exists
+//        containsAtLeastButAtMostTriple.first to mapToCreateAssertion { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) },
+    ) {})
+
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
-    val (containsAtLeast, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastPair
+    val (containsAtLeast, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
     fun IAssertionPlant<Iterable<Double>>.containsAtLeastFun(atLeast: Int, a: Double, vararg aX: Double)
         = containsAtLeastFunArr(atLeast, a, aX.toTypedArray())
 

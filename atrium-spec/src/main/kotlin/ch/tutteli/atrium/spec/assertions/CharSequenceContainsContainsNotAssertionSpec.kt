@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsContainsNotAssertionSpec(
     verbs: IAssertionVerbFactory,
@@ -14,6 +15,11 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
     containsNotPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>,
     featureArrow: String
 ) : CharSequenceContainsSpecBase({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+        containsPair.first to mapToCreateAssertion { containsPair.second(this, "hello", arrayOf()) },
+        containsNotPair.first to mapToCreateAssertion { containsNotPair.second(this, "hello", arrayOf()) }
+    ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException

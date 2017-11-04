@@ -9,12 +9,18 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class BooleanAssertionsSpec(
     verbs: IAssertionVerbFactory,
     isTruePair: Pair<String, IAssertionPlant<Boolean>.() -> IAssertionPlant<Boolean>>,
     isFalsePair: Pair<String, IAssertionPlant<Boolean>.() -> IAssertionPlant<Boolean>>
 ) : Spek({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Boolean>(
+        isTruePair.first to mapToCreateAssertion { isTruePair.second(this) },
+        isFalsePair.first to mapToCreateAssertion { isFalsePair.second(this) }
+    ) {})
 
     val assert: (Boolean) -> IAssertionPlant<Boolean> = verbs::checkImmediately
     val expect = verbs::checkException

@@ -6,9 +6,9 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsRegexAssertionSpec(
     AssertionVerbFactory,
     getNameContainsRegex(),
-    getAtLeastPair(),
+    getAtLeastTriple(),
     getAtMostTriple(),
-    getAtMostIgnoringCasePair(),
+    getAtMostIgnoringCaseTriple(),
     Companion::containsExactly
 ) {
 
@@ -16,7 +16,8 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
 
         private fun getNameContainsRegex() = "enthaelt with search mode $regex"
 
-        private fun getAtLeastPair() = Pair(
+        private fun getAtLeastTriple() = Triple(
+            "$contains.$atLeast.$regex",
             { what: String, times: String -> "$contains $what $atLeast $times" },
             Companion::containsAtLeast
         )
@@ -24,7 +25,8 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
         private fun containsAtLeast(plant: IAssertionPlant<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.zumindest(atLeast).regex(a, *aX)
 
-        private fun getAtMostTriple() = Pair(
+        private fun getAtMostTriple() = Triple(
+            "$contains.$atMost.$regex",
             { what: String, times: String -> "$contains $what $atMost $times" },
             Companion::containsAtMost
         )
@@ -32,7 +34,8 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
         private fun containsAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.hoechstens(atMost).regex(a, *aX)
 
-        private fun getAtMostIgnoringCasePair() = Pair(
+        private fun getAtMostIgnoringCaseTriple() = Triple(
+            "$contains.$ignoringCase, $atMost.$regex",
             { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" },
             Companion::containsAtMostIgnoringCase
         )
