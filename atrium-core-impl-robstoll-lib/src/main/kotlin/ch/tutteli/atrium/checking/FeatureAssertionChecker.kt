@@ -28,13 +28,13 @@ class FeatureAssertionChecker<out T : Any>(private val subjectPlant: IAssertionP
      * given [assertionVerb], [subject] and [assertions] and [adds][IAssertionPlant.addAssertion] the
      * assertion group to the [subjectPlant] instead of checking it itself.
      *
-     * @param assertionVerb I used as [IAssertionGroup.name] -- as side notice,
+     * @param assertionVerb Is used as [IAssertionGroup.name] -- as side notice,
      *        the parameter was not renamed to `featureName` due to potential issues with named parameters.
      * @param subject Is used as [IAssertionGroup.subject] -- as side notice,
      *        the parameter was not renamed to `feature` due to potential issues with named parameters.
      * @param assertions Is used as [IAssertionGroup.assertions].
      *
-     * @throws AssertionError In case one of the given [assertions] does not hold.
+     * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
     override fun check(assertionVerb: ITranslatable, subject: Any, assertions: List<IAssertion>) {
         val featureAssertionGroup = AssertionGroup(FeatureAssertionGroupType, assertionVerb, subject, ArrayList(assertions))
