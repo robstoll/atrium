@@ -42,7 +42,10 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
     return2ValueNullableHolds,
     return3ValueNullableHolds,
     return4ValueNullableHolds,
-    return5ValueNullableHolds
+    return5ValueNullableHolds,
+
+    itsLazyWithNestedImmediate,
+    itsLazyWithNestedLazy
 ) {
 
     companion object {
@@ -80,6 +83,17 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return3ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable3, "a", 1, true).istNichtNull() }
         val return4ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable4, "a", 1, true, 1.2).istNichtNull() }
         val return5ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable5, "a", 1, true, 1.2, 'b').istNichtNull() }
+
+        val itsLazyWithNestedImmediate: F = {
+            property(subject::description) {
+                property(subject::length).ist(12)
+            }
+        }
+        val itsLazyWithNestedLazy: F = {
+            property(subject::description) {
+                property(subject::length) { ist(12) }
+            }
+        }
     }
 }
 

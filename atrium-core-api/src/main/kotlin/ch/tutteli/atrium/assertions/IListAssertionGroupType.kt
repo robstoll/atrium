@@ -4,12 +4,12 @@ import ch.tutteli.atrium.reporting.IReporter
 
 /**
  * Represents the [IAssertionGroupType] for [IAssertionGroup]s whose [assertions][IAssertionGroup.assertions] should
- * be displayed in an list (up to the [IReporter] if it is a list with bullets, squares etc.).
+ * be displayed in a list (up to the [IReporter] if it is a list with bullets, squares etc.).
  */
 interface IListAssertionGroupType : IAssertionGroupType
 
 /**
  * The [IAssertionGroupType] for [IAssertionGroup]s whose [assertions][IAssertionGroup.assertions] should be displayed
- * in an list.
+ * in a list.
  */
 object ListAssertionGroupType : IListAssertionGroupType

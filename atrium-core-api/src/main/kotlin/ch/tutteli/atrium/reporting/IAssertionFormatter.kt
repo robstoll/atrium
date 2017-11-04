@@ -77,6 +77,14 @@ interface IAssertionFormatter {
      * Formats the given [assertionGroup] and appends the result to the [sb][AssertionFormatterMethodObject.sb]
      * of the given [methodObject].
      *
+     * Formatting an [IAssertionGroup] makes up of two parts (where the first might be skipped):
+     *
+     * 1. formatting the group header (e.g. [name][IAssertionGroup.name]: [subject][IAssertionGroup.name])
+     * 2. formatting the [IAssertionGroup.assertions] where the control flow for formatting should be steered
+     * by the [IAssertionFormatterController] for which an [IAssertionFormatter] has to call [formatAssertions]
+     * and define a child-[AssertionFormatterMethodObject] which inter alia proposes the indent level to use, the
+     * prefix which should be for each assertion etc.
+     *
      * This function should be in sync with [canFormat]. If [canFormat] returns `true` then this method should be able
      * to format the given [assertionGroup] without problems. If [canFormat] returns `false` then this method should
      * throw an [UnsupportedOperationException].
@@ -86,10 +94,10 @@ interface IAssertionFormatter {
      *        to with the result will be appended.
      * @param formatAssertions The function which should be called to format the
      *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].
-     *        It itself expects a function which formats single [IAssertion]s in the context of the given
-     *        [assertionGroup].
+     *        It itself expects a [AssertionFormatterMethodObject] which is used for the child assertions and a function
+     *        which formats the child [IAssertion]s in the context of the given [assertionGroup].
      */
-    fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: ((IAssertion) -> Unit) -> Unit)
+    fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit)
 
     companion object {
         val CALL_FORMAT_GROUP = "do not use `${IAssertionFormatter::format.name}` for " +

@@ -1,24 +1,35 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
 class InvisibleAssertionGroupFormatterSpec : Spek({
 
-    include(AtriumsInvisibleAssertionGroupFormatterSpecSpec)
+    include(AtriumsInvisibleAssertionGroupFormatterSpec)
+    include(AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec)
     include(AtriumsSingleAssertionGroupTypeFormatterSpec)
     include(AtriumsAssertionFormatterSpec)
 
 }) {
-    object AtriumsInvisibleAssertionGroupFormatterSpecSpec : ch.tutteli.atrium.spec.reporting.InvisibleAssertionGroupFormatterSpec(
+    object AtriumsInvisibleAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.InvisibleAssertionGroupFormatterSpec(
         AssertionVerbFactory, ::InvisibleAssertionGroupFormatter, "[Atrium's InvisibleGroup...Spec] ")
+
+    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IInvisibleAssertionGroupType>(
+        AssertionVerbFactory, ::InvisibleAssertionGroupFormatter,
+        IInvisibleAssertionGroupType::class.java,
+        InvisibleAssertionGroupType,
+        object : IInvisibleAssertionGroupType {},
+        "[Atrium's EmptyNameAndSubject...Spec] ")
 
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IInvisibleAssertionGroupType>(
         AssertionVerbFactory, factory(),
         IInvisibleAssertionGroupType::class.java,
+        InvisibleAssertionGroupType,
         object : IInvisibleAssertionGroupType {},
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
@@ -27,7 +38,7 @@ class InvisibleAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factory(), "[Atrium's AssertionFormatterSpec] ")
 
     companion object {
-        fun factory() = { assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
+        fun factory() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
             InvisibleAssertionGroupFormatter(assertionFormatterController)
         }
     }

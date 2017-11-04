@@ -8,13 +8,13 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
 internal fun <T : Any> esGilt(subject: T)
-    = AtriumFactory.newCheckImmediately(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlantCheckImmediately(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal inline fun <T : Any> esGilt(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newCheckLazilyAtTheEnd(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 internal fun <T : Any?> esGilt(subject: T)
-    = AtriumFactory.newNullable(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal fun erwarte(act: () -> Unit)
     = AtriumFactory.newThrowableFluent(AssertionVerb.EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)

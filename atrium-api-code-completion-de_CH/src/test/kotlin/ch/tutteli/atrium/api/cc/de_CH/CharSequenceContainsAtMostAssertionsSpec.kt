@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsAtMostAssertionSpec(
     AssertionVerbFactory,
     getAtMostTriple(),
-    getAtMostIgnoringCasePair(),
+    getAtMostIgnoringCaseTriple(),
     getContainsNotPair(),
     getExactlyPair()
 ) {
@@ -22,7 +22,8 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertio
         private fun containsAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.hoechstens(atMost).werte(a, *aX)
 
-        private fun getAtMostIgnoringCasePair() = Pair(
+        private fun getAtMostIgnoringCaseTriple() = Triple(
+            "$contains.$ignoringCase.$atMost",
             { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" },
             Companion::containsAtMostIgnoringCase
         )

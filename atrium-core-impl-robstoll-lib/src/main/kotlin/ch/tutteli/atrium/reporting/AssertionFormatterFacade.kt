@@ -9,7 +9,7 @@ import ch.tutteli.atrium.assertions.IAssertion
  *              a given [IAssertion].
  * @param assertionFormatterController The controller used to control the flow of formatting.
  */
-class AssertionFormatterFacade(private val assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade {
+class AssertionFormatterFacade(private val assertionFormatterController: IAssertionFormatterController) : IAssertionFormatterFacade {
 
     override fun format(assertion: IAssertion, sb: StringBuilder, assertionFilter: (IAssertion) -> Boolean)
         = assertionFormatterController.format(assertion, AssertionFormatterMethodObject.new(sb, assertionFilter))

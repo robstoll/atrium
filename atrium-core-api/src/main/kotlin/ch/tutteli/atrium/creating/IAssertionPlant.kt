@@ -1,20 +1,25 @@
 @file:JvmName("IAssertionPlantExtensions")
+
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * Represents a plant for [IAssertion]s and offers the possibility to check all the added assertions.
+ * Represents a plant for [IAssertion]s and offers methods to [create][createAndAddAssertion] and
+ * to [add][addAssertion] assertions to this plant.
  *
- * You can think of it as an [IAssertion] factory which does more than just factoring
- * but also provides quality assurance capabilities.
+ * It is the entry point for most assertion functions and provides only a reduced set of [IReportingAssertionPlant]
+ * which is actually created when a user of Atrium is using an assertion verb function.
  *
  * @param T The type of the [subject] of this [IAssertionPlant].
  */
-interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
+interface IAssertionPlant<out T : Any> {
+    /**
+     * The subject for which this plant will create [IAssertion]s.
+     */
+    val subject: T
+
     /**
      * Creates an [IAssertion] based on [description], [expected] and [test] and [adds][addAssertion] it
      * to the plant.
@@ -25,7 +30,8 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
      *
      * @return This plant to support a fluent API.
      *
-     * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately evaluated.
+     * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
+     *         evaluated (see [IReportingAssertionPlant]).
      */
     fun createAndAddAssertion(description: ITranslatable, expected: Any, test: () -> Boolean): IAssertionPlant<T>
 
@@ -36,24 +42,10 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
      *
      * @return This plant to support a fluent API.
      *
-     * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately evaluated.
+     * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
+     *         evaluated (see [IReportingAssertionPlant]).
      */
     fun addAssertion(assertion: IAssertion): IAssertionPlant<T>
-
-    /**
-     * Checks the so far [added][addAssertion] [IAssertion]s and reports if one of them fails.
-     *
-     * Calling this method more than once should not re-report previously failing assertions.
-     * This method will typically use an [IAssertionChecker] for checking and an [IReporter] for error reporting.
-     *
-     * @return This plant to support a fluent API.
-     *
-     * @throws AssertionError Reporting a failing assertion might cause that an [AssertionError] is thrown.
-     *
-     * @see IAssertionChecker
-     * @see IReporter
-     */
-    fun checkAssertions(): IAssertionPlant<T>
 
     /**
      * Can be used to separate assertions when using the fluent API.
@@ -65,18 +57,3 @@ interface IAssertionPlant<out T : Any> : IAssertionPlantWithCommonFields<T> {
     val and: IAssertionPlant<T> get() = this
 }
 
-/**
- * Uses `this` plant as receiver of the given [createAssertions] function and
- * then calls [IAssertionPlant.checkAssertions].
- *
- * @param createAssertions The receiver function which might create and add assertions to this plant.
- *
- * @return This plant to support a fluent API.
- *
- * @throws AssertionError Might throw an [AssertionError] in case a created [IAssertion] does not hold.
- */
-inline fun <T : Any> IAssertionPlant<T>.createAssertionsAndCheckThem(createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T> {
-    createAssertions()
-    checkAssertions()
-    return this
-}

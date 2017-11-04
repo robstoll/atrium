@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.BasicAssertion
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.reporting.RawString
 
 /**
@@ -13,9 +12,9 @@ import ch.tutteli.atrium.reporting.RawString
  * @param commonFields The [IAssertionPlantWithCommonFields.CommonFields] of this [IAssertionPlant].
  */
 class AssertionPlantNullable<out T : Any?>(
-    override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : IAssertionPlantNullable<T> {
+    override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>) : IReportingAssertionPlantNullable<T> {
 
-     /**
+    /**
      * Checks whether [subject] is `null` and uses [commonFields]' method
      * [fail][IAssertionPlantWithCommonFields.CommonFields.fail] to report an error if not.
      *

@@ -8,14 +8,18 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 /**
  * Represents an assertion plant for nullable types.
  *
- * In contrast to a [IAssertionPlant] it does not provide a method to create further [IAssertion]s
- * ([IAssertionPlant.createAndAddAssertion]) nor a method to add assertions ([IAssertionPlant.addAssertion])
- * and as consequence no method to check the assertions ([IAssertionPlant.checkAssertions]).
- * Yet, it provides one method [isNull] which immediately evaluates if the [subject] is `null` as expected.
+ * It is the entry point for two assertion functions, the first makes the assumption that [subject] is `null`
+ * and the other that [subject] is not `null`. It only provides a reduced set of [IReportingAssertionPlantNullable]
+ * which is actually created when a user of Atrium is using an assertion verb function.
  *
  * @param T The type of the [subject] of this [IAssertionPlant].
  */
-interface IAssertionPlantNullable<out T : Any?> : IAssertionPlantWithCommonFields<T> {
+interface IAssertionPlantNullable<out T : Any?> {
+    /**
+     * The subject for which this plant will create [IAssertion]s.
+     */
+    val subject : T
+
     /**
      * Makes the assertion that [subject] is `null` and checks the assertion.
      *

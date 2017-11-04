@@ -63,7 +63,10 @@ abstract class FeatureAssertionsSpec(
     return2ValueNullableHolds: F,
     return3ValueNullableHolds: F,
     return4ValueNullableHolds: F,
-    return5ValueNullableHolds: F
+    return5ValueNullableHolds: F,
+
+    itsLazyWithNestedImmediate: F,
+    itsLazyWithNestedLazy: F
 ) : Spek({
 
     val assert: (TestData) -> IAssertionPlant<TestData> = verbs::checkImmediately
@@ -74,14 +77,14 @@ abstract class FeatureAssertionsSpec(
         Triple("`its` lazy", itsLazy, TestData::description.name),
         Triple("`property` immediate", propertyImmediate, TestData::description.name),
         Triple("`property` lazy", propertyLazy, TestData::description.name),
-        Triple("`returnValueOf` without arguments and immediate", return0ValueImmediate,"${TestData::return0.name}()"),
+        Triple("`returnValueOf` without arguments and immediate", return0ValueImmediate, "${TestData::return0.name}()"),
         Triple("`returnValueOf` with 1 argument and immediate", return1ValueImmediate, "${TestData::return1.name}(\"a\")"),
         Triple("`returnValueOf` with 2 arguments and immediate", return2ValueImmediate, "${TestData::return2.name}(\"a\", 1)"),
         Triple("`returnValueOf` with 3 arguments and immediate", return3ValueImmediate, "${TestData::return3.name}(\"a\", 1, true)"),
         Triple("`returnValueOf` with 4 arguments and immediate", return4ValueImmediate, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
         Triple("`returnValueOf` with 5 arguments and immediate", return5ValueImmediate, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')"),
-        Triple("`returnValueOf` without arguments and lazy", return0ValueLazy,"${TestData::return0.name}()"),
-        Triple("`returnValueOf` with 1 argument and lazy", return1ValueLazy,  "${TestData::return1.name}(\"a\")"),
+        Triple("`returnValueOf` without arguments and lazy", return0ValueLazy, "${TestData::return0.name}()"),
+        Triple("`returnValueOf` with 1 argument and lazy", return1ValueLazy, "${TestData::return1.name}(\"a\")"),
         Triple("`returnValueOf` with 2 arguments and lazy", return2ValueLazy, "${TestData::return2.name}(\"a\", 1)"),
         Triple("`returnValueOf` with 3 arguments and lazy", return3ValueLazy, "${TestData::return3.name}(\"a\", 1, true)"),
         Triple("`returnValueOf` with 4 arguments and lazy", return4ValueLazy, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
@@ -132,6 +135,15 @@ abstract class FeatureAssertionsSpec(
             "`returnValueOf` with 4 arguments and nullable" to return4ValueNullableHolds,
             "`returnValueOf` with 5 arguments and nullable" to return5ValueNullableHolds
         )
+    }
+
+    describe("assertion plant which checks immediately; use lazy property which has nested...") {
+        test("... immediate feature property") {
+            assert(TestData("hallo robert", 1)).itsLazyWithNestedImmediate()
+        }
+        test("... lazy feature property") {
+            assert(TestData("hallo robert", 1)).itsLazyWithNestedLazy()
+        }
     }
 
 })

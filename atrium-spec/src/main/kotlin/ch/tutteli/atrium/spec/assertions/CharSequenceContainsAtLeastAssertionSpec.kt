@@ -1,48 +1,55 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_LEAST
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsAtLeastAssertionSpec(
     verbs: IAssertionVerbFactory,
-    containsAtLeastPair: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsAtLeastIgnoringCasePair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsAtLeastButAtMostPair: Triple<String, (String, String, String) -> String, IAssertionPlant<CharSequence>.(Int, Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsAtLeastButAtMostIgnoringCasePair: Pair<(String, String, String) -> String, IAssertionPlant<CharSequence>.(Int, Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtLeastIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtLeastButAtMostTriple: Triple<String, (String, String, String) -> String, IAssertionPlant<CharSequence>.(Int, Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtLeastButAtMostIgnoringCaseTriple: Triple<String, (String, String, String) -> String, IAssertionPlant<CharSequence>.(Int, Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
     errorMsgAtLeastButAtMost: (Int, Int) -> String
 ) : CharSequenceContainsSpecBase({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) },
+        containsAtLeastIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastIgnoringCaseTriple.third(this, 1, 2.3, arrayOf()) },
+        containsAtLeastButAtMostTriple.first to mapToCreateAssertion { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) },
+        containsAtLeastButAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }
+    ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
     val fluentHelloWorld = assert(helloWorld)
 
-    val (containsAtLeast, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastPair
+    val (containsAtLeast, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
     fun IAssertionPlant<CharSequence>.containsAtLeastFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsAtLeastFunArr(atLeast, a, aX)
 
-    val (containsAtLeastIgnoringCase, containsAtLeastIgnoringCaseFunArr) = containsAtLeastIgnoringCasePair
+    val (_, containsAtLeastIgnoringCase, containsAtLeastIgnoringCaseFunArr) = containsAtLeastIgnoringCaseTriple
     fun IAssertionPlant<CharSequence>.containsAtLeastIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsAtLeastIgnoringCaseFunArr(atLeast, a, aX)
 
-    val (containsAtLeastButAtMost, containsAtLeastButAtMostTest, containsAtLeastButAtMostFunArr) = containsAtLeastButAtMostPair
+    val (containsAtLeastButAtMost, containsAtLeastButAtMostTest, containsAtLeastButAtMostFunArr) = containsAtLeastButAtMostTriple
     fun IAssertionPlant<CharSequence>.containsAtLeastButAtMostFun(atLeast: Int, atMost: Int, a: Any, vararg aX: Any)
         = containsAtLeastButAtMostFunArr(atLeast, atMost, a, aX)
 
-    val (containsAtLeastButAtMostIgnoringCase, containsAtLeastButAtMostIgnoringCaseFunArr) = containsAtLeastButAtMostIgnoringCasePair
+    val (_, containsAtLeastButAtMostIgnoringCase, containsAtLeastButAtMostIgnoringCaseFunArr) = containsAtLeastButAtMostIgnoringCaseTriple
     fun IAssertionPlant<CharSequence>.containsAtLeastButAtMostIgnoringCaseFun(atLeast: Int, atMost: Int, a: Any, vararg aX: Any)
         = containsAtLeastButAtMostIgnoringCaseFunArr(atLeast, atMost, a, aX)
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
-
-
 
     describe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
         context("throws an $illegalArgumentException") {
@@ -107,7 +114,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'H', 'E'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'H', 'E')
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E')
+                    }.toThrow<AssertionError>().message.contains(atLeast, 'E')
                 }
                 test("${containsAtLeastIgnoringCase("'H', 'E'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'H', 'E')
@@ -116,7 +123,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'E', 'H'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'E', 'H')
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E')
+                    }.toThrow<AssertionError>().message.contains(atLeast, 'E')
                 }
                 test("${containsAtLeastIgnoringCase("'E', 'H'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'E', 'H')
@@ -125,7 +132,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'H', 'E', 'w' and 'r'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'H', 'E', 'w', 'r')
-                    }.toThrow<AssertionError>().message.contains(AT_LEAST.getDefault(), 'E', 'w')
+                    }.toThrow<AssertionError>().message.contains(atLeast, 'E', 'w')
                 }
                 test("${containsAtLeastIgnoringCase("'H', 'E', 'w' and 'r'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'H', 'E', 'w', 'r')
@@ -145,10 +152,10 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                         fluentHelloWorld.containsAtLeastFun(3, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(AT_LEAST.getDefault() + ": 3")
+                        endsWith("$atLeast: 3")
                     }
                 }
                 test("${containsAtLeastIgnoringCase("'o'", "3 times")} does not throw") {
@@ -167,11 +174,11 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                         fluentHelloWorld.containsAtLeastFun(3, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(AT_LEAST.getDefault() + ": 3")
-                        containsNot(CONTAINS.getDefault() + ": 'l'")
+                        endsWith("$atLeast: 3")
+                        containsNot("$containsDescr 'l'")
                     }
                 }
                 test("${containsAtLeastIgnoringCase("'o' and 'l'", "3 times")} does not throw") {
@@ -188,11 +195,11 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                         fluentHelloWorld.contains.atLeast(1).butAtMost(2).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'l'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
+                            "$containsDescr: 'l'",
+                            "$numberOfOccurrences: 3$separator"
                         )
-                        endsWith(AT_MOST.getDefault() + ": 2")
-                        containsNot(CONTAINS.getDefault() + ": 'o'")
+                        endsWith("$atMost: 2")
+                        containsNot("$containsDescr 'o'")
                         containsNotDefaultTranslationOf(AT_LEAST)
                     }
                 }
@@ -208,11 +215,11 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                         fluentHelloWorld.contains.atLeast(3).butAtMost(4).values('o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(AT_LEAST.getDefault() + ": 3")
-                        containsNot(CONTAINS.getDefault() + ": 'l'")
+                        endsWith("$atLeast: 3")
+                        containsNot("$containsDescr 'l'")
                         containsNotDefaultTranslationOf(AT_MOST)
                     }
                 }

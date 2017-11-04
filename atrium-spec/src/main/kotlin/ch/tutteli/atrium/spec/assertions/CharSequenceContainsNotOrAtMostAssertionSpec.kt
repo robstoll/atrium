@@ -1,29 +1,35 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
     verbs: IAssertionVerbFactory,
-    containsNotOrAtMostPair: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsNotOrAtMostIgnoringCasePair: Pair<(String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsNotOrAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsNotOrAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>
 ) : CharSequenceContainsSpecBase({
+
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+        containsNotOrAtMostTriple.first to mapToCreateAssertion { containsNotOrAtMostTriple.third(this, 2, 2.3, arrayOf()) },
+        containsNotOrAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsNotOrAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
+    ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
     val fluentHelloWorld = assert(helloWorld)
 
-    val (containsNotOrAtMost, containsNotOrAtMostTest, containsNotOrAtMostFunArr) = containsNotOrAtMostPair
+    val (containsNotOrAtMost, containsNotOrAtMostTest, containsNotOrAtMostFunArr) = containsNotOrAtMostTriple
     fun IAssertionPlant<CharSequence>.containsNotOrAtMostFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsNotOrAtMostFunArr(atLeast, a, aX)
 
-    val (containsNotOrAtMostIgnoringCase, containsNotOrAtMostIgnoringCaseFunArr) = containsNotOrAtMostIgnoringCasePair
+    val (_, containsNotOrAtMostIgnoringCase, containsNotOrAtMostIgnoringCaseFunArr) = containsNotOrAtMostIgnoringCaseTriple
     fun IAssertionPlant<CharSequence>.containsNotOrAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsNotOrAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
@@ -69,17 +75,17 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                 test("${containsNotOrAtMostTest("'H', 'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'H', 'l')
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
+                    }.toThrow<AssertionError>().message.contains(atMost, 'l')
                 }
                 test("${containsNotOrAtMostTest("'l', 'H'", "once")} once throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l', 'H')
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'l')
+                    }.toThrow<AssertionError>().message.contains(atMost, 'l')
                 }
                 test("${containsNotOrAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'o', 'E', 'W', 'l')
-                    }.toThrow<AssertionError>().message.contains(AT_MOST.getDefault(), 'o', 'l')
+                    }.toThrow<AssertionError>().message.contains(atMost, 'o', 'l')
                 }
             }
 
@@ -89,10 +95,10 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'o')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'o'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 2$separator"
+                            "$containsDescr: 'o'",
+                            "$numberOfOccurrences: 2$separator"
                         )
-                        endsWith(AT_MOST.getDefault() + ": 1")
+                        endsWith("$atMost: 1")
                     }
                 }
 
@@ -113,11 +119,11 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                         fluentHelloWorld.containsNotOrAtMostFun(2, 'o', 'l')
                     }.toThrow<AssertionError>().and.message {
                         contains(
-                            CONTAINS.getDefault() + ": 'l'",
-                            NUMBER_OF_OCCURRENCES.getDefault() + ": 3$separator"
+                            "$containsDescr: 'l'",
+                            "$numberOfOccurrences: 3$separator"
                         )
-                        endsWith(AT_MOST.getDefault() + ": 2")
-                        containsNot(CONTAINS.getDefault() + ": 'o'")
+                        endsWith("$atMost: 2")
+                        containsNot("$containsDescr 'o'")
                     }
                 }
                 test("${containsNotOrAtMostTest("'l'", "3 times")} does not throw") {
