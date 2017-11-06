@@ -3,6 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import kotlin.reflect.KClass
 
 /**
@@ -19,27 +20,29 @@ import kotlin.reflect.KClass
  *        [IAssertionPlantWithCommonFields.CommonFields.fail] could be used for failure reporting etc.
  */
 class ThrowableFluent internal constructor(
-    override val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>
+    private val assertionVerb: ITranslatable,
+    private val throwable: Throwable?,
+    private val assertionChecker: IAssertionChecker
 ) : IThrowableFluent {
 
-    private constructor(assertionVerb: ITranslatable, throwable: Throwable?, assertionChecker: IAssertionChecker)
-        : this(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, throwable, assertionChecker))
+    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable): IAssertionPlant<TExpected> {
+        val subjectPlant = AtriumFactory.newReportingPlantNullable(assertionVerb, throwable, assertionChecker, TranslatableRawString(nullRepresentation))
+        return AtriumFactory.newDownCastBuilder(description, expectedType, subjectPlant)
+            .cast()
+    }
 
-    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder(description, expectedType, commonFields)
-        .withNullRepresentation(nullRepresentation)
-        .cast()
-
-    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-        = AtriumFactory.newDownCastBuilder(description, expectedType, commonFields)
-        .withNullRepresentation(nullRepresentation)
-        .withLazyAssertions(createAssertions)
-        .cast()
+    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected> {
+        val subjectPlant = AtriumFactory.newReportingPlantNullable(assertionVerb, throwable, assertionChecker, TranslatableRawString(nullRepresentation))
+        return AtriumFactory.newDownCastBuilder(description, expectedType, subjectPlant)
+            .withLazyAssertions(createAssertions)
+            .cast()
+    }
 
     companion object {
         /**
-         * Creates a [ThrowableFluent] where executing [act] will determine the
-         * [subject](IAssertionPlantWithCommonFields.CommonFields.subject) of [commonFields].
+         * Creates a [ThrowableFluent] using the given [act] to determine a resulting [throwable]
+         * which will eventually be used to create an [IAssertionPlant] where it is used
+         * as [subject][IAssertionPlant.subject].
          *
          * @return The newly created [ThrowableFluent].
          */

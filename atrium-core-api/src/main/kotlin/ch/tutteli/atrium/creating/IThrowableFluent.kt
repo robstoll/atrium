@@ -9,7 +9,6 @@ import kotlin.reflect.KClass
  * in interfaces, we will consolidate it to a proper API and get rid of ThrowableFluent in atrium-api-late-binding.
  */
 interface IThrowableFluent {
-    val commonFields: IAssertionPlantWithCommonFields.CommonFields<Throwable?>
 
     /**
      * Use the overload with reified type parameter whenever possible.

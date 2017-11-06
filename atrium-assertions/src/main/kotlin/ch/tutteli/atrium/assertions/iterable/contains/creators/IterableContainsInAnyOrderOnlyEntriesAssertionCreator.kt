@@ -28,7 +28,7 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
             assertions.add(AssertionGroup(FeatureAssertionGroupType, Untranslatable(list::size.name), RawString(actualSize.toString()), featureAssertions))
 
             val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            val summary = AssertionGroup(SummaryAssertionGroupType, description, RawString(""), assertions)
+            val summary = AssertionGroup(SummaryAssertionGroupType, description, RawString(""), assertions.toList())
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {
                     mismatches -> DescriptionIterableAssertion.WARNING_MISMATCHES

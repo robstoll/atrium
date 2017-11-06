@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
@@ -14,11 +13,7 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
  *
  * @param T The type of the [subject] of this [IAssertionPlant].
  */
-interface IAssertionPlantNullable<out T : Any?> {
-    /**
-     * The subject for which this plant will create [IAssertion]s.
-     */
-    val subject : T
+interface IAssertionPlantNullable<out T : Any?> : IBaseAssertionPlant<T, IAssertionPlantNullable<T>> {
 
     /**
      * Makes the assertion that [subject] is `null` and checks the assertion.

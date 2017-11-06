@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.spec.assertions
 
+import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.DescriptionBasic
+import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkNarrowingAssertion
@@ -13,15 +14,20 @@ import org.jetbrains.spek.api.dsl.describe
 
 abstract class ThrowableAssertionsSpec(
     verbs: IAssertionVerbFactory,
+    //TODO move toThrow specs located in ThrowableFluentSpec to this place
+//    toThrowTriple: Triple<String,
+//        IThrowableFluent.() -> IAssertionPlant<Throwable>,
+//        IThrowableFluent.(createAssertions: IAssertionPlant<Throwable>.() -> Unit) -> IAssertionPlant<Throwable>
+//        >,
     messageTriple: Triple<
         String,
         IAssertionPlant<Throwable>.() -> IAssertionPlant<String>,
         IAssertionPlant<Throwable>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> IAssertionPlant<String>
-    >,
+        >,
     messageContainsPair: Pair<
         IAssertionPlant<Throwable>.(String) -> IAssertionPlant<String>,
         IAssertionPlant<Throwable>.(String) -> IAssertionPlant<String>
-    >
+        >
 ) : Spek({
 
     val expect = verbs::checkException
@@ -35,7 +41,10 @@ abstract class ThrowableAssertionsSpec(
             val throwable = IllegalArgumentException()
             expect {
                 assert(throwable).message()
-            }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionBasic.IS_NOT)
+            }.toThrow<AssertionError>().and.message {
+                containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                contains(String::class.java.name)
+            }
         }, { messageFun() }, { messageLazyFun {} })
 
 

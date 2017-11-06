@@ -2,6 +2,7 @@ package ch.tutteli.atrium.checking
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.IBaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
@@ -16,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  * but want to add the created assertions to the original plant of the narrowed [IAssertionPlant.subject].
  * @param subjectPlant The plant which holds the assertions of the subject.
  */
-class DelegatingAssertionChecker<out T : Any>(private val subjectPlant: IAssertionPlant<T>) : IAssertionCheckerDelegateFail, IAssertionChecker {
+class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: IBaseAssertionPlant<T, *>) : IAssertionCheckerDelegateFail, IAssertionChecker {
 
     /**
      * [Adds][IAssertionPlant.addAssertion] the given [assertions] to the original plant of the subject
@@ -24,7 +25,7 @@ class DelegatingAssertionChecker<out T : Any>(private val subjectPlant: IAsserti
      *
      * @param assertionVerb Is ignored.
      * @param subject Is ignored.
-     * @param assertions The assertions which shall be added  to the original plant of the subject (the [subjectPlant]).
+     * @param assertions The assertions which shall be added to the original plant of the subject (the [subjectPlant]).
      *
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */

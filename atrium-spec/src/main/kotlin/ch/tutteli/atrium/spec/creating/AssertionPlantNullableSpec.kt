@@ -40,7 +40,7 @@ abstract class AssertionPlantNullableSpec(
             val assertionVerb = AssertionVerb.VERB
             val subject: Int? = 1
             val assertionChecker = (verbs.checkNullable(subject) as IReportingAssertionPlantNullable<Int?>).commonFields.assertionChecker
-            val testee = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
+            val testee = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
             val expectFun = verbs.checkException {
                 testee.isNull()
             }

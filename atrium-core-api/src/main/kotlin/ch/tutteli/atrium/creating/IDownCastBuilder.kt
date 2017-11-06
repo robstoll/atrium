@@ -17,26 +17,6 @@ import kotlin.reflect.full.cast
 interface IDownCastBuilder<T : Any, TSub : T> {
 
     /**
-     * Use this method if you want to use your own `null` representation in error reporting
-     * (default is [RawString.NULL]).
-     *
-     * @param representation The representation for `null`.
-     *
-     * @return This builder to support a fluent API.
-     */
-    fun withNullRepresentation(representation: String): IDownCastBuilder<T, TSub>
-
-    /**
-     * Use this method if you want to use your own `null` representation in error reporting
-     * (default is [RawString.NULL]).
-     *
-     * @param translatableRepresentation A translatable representation for `null`.
-     *
-     * @return This builder to support a fluent API.
-     */
-    fun withNullRepresentation(translatableRepresentation: ITranslatable): IDownCastBuilder<T, TSub>
-
-    /**
      * Use this method if you want to add several assertions which are checked lazily after the down cast is performed.
      *
      * Or in other words, the given [createAssertions] function will be called,
