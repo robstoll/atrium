@@ -2,26 +2,23 @@
 
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * Represents a plant for [IAssertion]s and offers methods to [create][createAndAddAssertion] and
- * to [add][addAssertion] assertions to this plant.
+ * Represents a plant for [IAssertion]s based on a non nullable [subject].
  *
  * It is the entry point for most assertion functions and provides only a reduced set of [IReportingAssertionPlant]
  * which is actually created when a user of Atrium is using an assertion verb function.
  *
  * @param T The type of the [subject] of this [IAssertionPlant].
  */
-interface IAssertionPlant<out T : Any> {
-    /**
-     * The subject for which this plant will create [IAssertion]s.
-     */
-    val subject: T
+interface IAssertionPlant<out T : Any> : IBaseAssertionPlant<T, IAssertionPlant<T>> {
 
     /**
-     * Creates an [IAssertion] based on [description], [expected] and [test] and [adds][addAssertion] it
+     * Creates an [IBasicAssertion] based on the given [description], [expected] and [test] and [adds][addAssertion] it
      * to the plant.
      *
      * @param description The description of the assertion, e.g., `is less than`.
@@ -34,18 +31,7 @@ interface IAssertionPlant<out T : Any> {
      *         evaluated (see [IReportingAssertionPlant]).
      */
     fun createAndAddAssertion(description: ITranslatable, expected: Any, test: () -> Boolean): IAssertionPlant<T>
-
-    /**
-     * Adds the given [assertion] to the plant.
-     *
-     * @param assertion The assertion which will be added to this plant.
-     *
-     * @return This plant to support a fluent API.
-     *
-     * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
-     *         evaluated (see [IReportingAssertionPlant]).
-     */
-    fun addAssertion(assertion: IAssertion): IAssertionPlant<T>
+        = addAssertion(BasicAssertion(description, expected, test))
 
     /**
      * Can be used to separate assertions when using the fluent API.

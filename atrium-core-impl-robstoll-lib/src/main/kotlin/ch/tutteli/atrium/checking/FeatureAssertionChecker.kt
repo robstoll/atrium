@@ -5,8 +5,12 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * An [IAssertionChecker] useful for feature assertions. It creates [IAssertionGroup]s of [type][IAssertionGroup]
- * [IFeatureAssertionGroupType] and adds them to the given [subjectPlant] instead of checking them itself.
+ * An [IAssertionChecker] useful for feature assertions. It creates an [IAssertionGroup] of [type][IAssertionGroup]
+ * [IFeatureAssertionGroupType], adds the given assertions to it and finally adds the group to the given
+ * [subjectPlant].
+ *
+ * Or in other words, instead of checking the given assertions itself, it wraps them into a feature assertion group
+ * and delegates checking of this group (hence including the given assertion) to the [subjectPlant].
  *
  * @param T The type of the [subject][IAssertionPlant.subject] of the given [subjectPlant].
  *
@@ -14,9 +18,9 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *           For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
  *           the corresponding `Person`.
  *
- * @constructor An [IAssertionChecker] useful for feature assertions. It creates [IAssertionGroup]s of
- *              [type][IAssertionGroup] [IFeatureAssertionGroupType] and adds them to the given [subjectPlant]
- *              instead of checking them itself.
+ * @constructor  An [IAssertionChecker] useful for feature assertions. It creates an [IAssertionGroup] of
+ * [type][IAssertionGroup] [IFeatureAssertionGroupType], adds the given assertions to it and finally adds the
+ * group to the given [subjectPlant].
  * @param subjectPlant The plant which holds the assertions of the subject of the feature.
  *           For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
  *           the corresponding `Person`.

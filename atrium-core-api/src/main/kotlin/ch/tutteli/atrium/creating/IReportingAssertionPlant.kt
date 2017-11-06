@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.reporting.IReporter
 
 /**
  * Represents a plant for [IAssertion]s and offers the possibility to [check][checkAssertions] all
@@ -13,27 +11,7 @@ import ch.tutteli.atrium.reporting.IReporter
  *
  * @param T The type of the [subject] of this [IAssertionPlant].
  */
-interface IReportingAssertionPlant<out T : Any> : IAssertionPlant<T>, IAssertionPlantWithCommonFields<T> {
-    /**
-     * The subject for which this plant will create, check and report [IAssertion]s.
-     */
-    override val subject get() = commonFields.subject
-
-    /**
-     * Checks the so far [added][addAssertion] [IAssertion]s and reports if one of them fails.
-     *
-     * Calling this method more than once should not re-report previously failing assertions.
-     * This method will typically use an [IAssertionChecker] for checking and an [IReporter] for error reporting.
-     *
-     * @return This plant to support a fluent API.
-     *
-     * @throws AssertionError Reporting a failing assertion might cause that an [AssertionError] is thrown.
-     *
-     * @see IAssertionChecker
-     * @see IReporter
-     */
-    fun checkAssertions(): IAssertionPlant<T>
-}
+interface IReportingAssertionPlant<out T : Any> : IAssertionPlant<T>, IBaseReportingAssertionPlant<T, IAssertionPlant<T>>
 
 /**
  * Uses `this` plant as receiver of the given [createAssertions] function and

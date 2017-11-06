@@ -3,6 +3,7 @@ package ch.tutteli.atrium.spec.checking
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.IBaseAssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.mock
@@ -13,7 +14,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 abstract class DelegatingAssertionCheckerSpec(
-    testeeFactory: (subjectFactory: IAssertionPlant<Int>) -> IAssertionChecker,
+    testeeFactory: (subjectFactory: IBaseAssertionPlant<Int, *>) -> IAssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

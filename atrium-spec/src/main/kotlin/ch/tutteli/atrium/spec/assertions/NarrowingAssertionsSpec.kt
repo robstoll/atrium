@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
@@ -23,28 +20,28 @@ abstract class NarrowingAssertionsSpec(
         String,
         IAssertionPlantNullable<Int?>.() -> IAssertionPlant<Int>,
         IAssertionPlantNullable<Int?>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>
-    >,
+        >,
     isNotNullLessPair: Pair<
         IAssertionPlantNullable<Int?>.(Int) -> IAssertionPlant<Int>,
         IAssertionPlantNullable<Int?>.(Int) -> IAssertionPlant<Int>
-    >,
+        >,
     nameIsA: String,
     isAIntPair: Pair<
         IAssertionPlant<String>.() -> IAssertionPlant<Int>,
         IAssertionPlant<String>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>
-    >,
+        >,
     isAStringPair: Pair<
         IAssertionPlant<String>.() -> IAssertionPlant<String>,
         IAssertionPlant<String>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> IAssertionPlant<String>
-    >,
+        >,
     isACharSequencePair: Pair<
         IAssertionPlant<String>.() -> IAssertionPlant<CharSequence>,
         IAssertionPlant<String>.(createAssertions: IAssertionPlant<CharSequence>.() -> Unit) -> IAssertionPlant<CharSequence>
-    >,
+        >,
     isASubTypePair: Pair<
         IAssertionPlant<SuperType>.() -> IAssertionPlant<SubType>,
         IAssertionPlant<SuperType>.(createAssertions: IAssertionPlant<SubType>.() -> Unit) -> IAssertionPlant<SubType>
-    >,
+        >,
     isAIntLessPair: Pair<IAssertionPlant<Number>.(Int) -> IAssertionPlant<Int>, IAssertionPlant<Number>.(Int) -> IAssertionPlant<Int>>
 ) : Spek({
 
@@ -68,8 +65,8 @@ abstract class NarrowingAssertionsSpec(
                 val i: Int? = null
                 assert(i).isNotNull()
             }.toThrow<AssertionError>().and.message {
-                containsDefaultTranslationOf(DescriptionBasic.IS_NOT)
-                contains(RawString.NULL.string)
+                containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                contains(Integer::class.java.name)
             }
 
         }, { isNotNullFun() }, { isNotNullLazyFun {} })
@@ -91,6 +88,31 @@ abstract class NarrowingAssertionsSpec(
                 val i: Int? = 1
                 assert(i).isNotNullWithCheck()
             }, { isNotNullLessFun(2) }, { isNotNullLessLazyFun(2) })
+        }
+
+        context("it allows to define an assertion on the subject even if it is null") {
+            checkNarrowingNullableAssertion<Int?>("it throws an AssertionError", { isNotNullWithCheck ->
+                expect {
+                    val i: Int? = null
+                    assert(i).isNotNullWithCheck()
+                }.toThrow<AssertionError>().and.message {
+                    containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                    contains(Integer::class.java.name)
+                }
+            }, { isNotNullLessFun(2) }, { isNotNullLessLazyFun(2) })
+        }
+
+        context("in a feature assertion") {
+            checkNarrowingNullableAssertion<Int?>("it throws an AssertionError if the subject is null", { isNotNull ->
+                class A(val i: Int? = null)
+                expect {
+                    verbs.checkLazily(A()) { its(subject::i).isNotNull() }
+                }.toThrow<AssertionError>().and.message {
+                    contains(A::class.simpleName!!)
+                    containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                    contains(Integer::class.java.name)
+                }
+            }, { isNotNullFun() }, { isNotNullLazyFun {} })
         }
     }
 

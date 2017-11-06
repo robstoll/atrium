@@ -3,6 +3,7 @@ package ch.tutteli.atrium.spec.verbs
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionBasic
+import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion.*
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -13,6 +14,7 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
+import ch.tutteli.atrium.spec.assertions.NarrowingAssertionsSpec
 import ch.tutteli.atrium.spec.creating.DownCastBuilderSpec
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -106,8 +108,8 @@ abstract class VerbSpec(
                 expect {
                     assertionVerb(null).isNotNull()
                 }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionBasic.IS_NOT)
-                    contains(RawString.NULL.string)
+                    containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                    contains(Integer::class.java.name)
                 }
             }
         }

@@ -1,12 +1,13 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
@@ -42,6 +43,9 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
         = AssertionPlantNullable(commonFields)
 
+    override fun <T : Any> newExplanatoryPlant(subjectPlant: IBaseAssertionPlant<*, *>, reasonWhyNoSubject: String, explanatoryGroupFactory: (IAssertion) -> ExplanatoryAssertionGroup): IAssertionPlant<T>
+        = ExplanatoryAssertionPlant(subjectPlant, reasonWhyNoSubject, explanatoryGroupFactory)
+
     override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
         = CheckingAssertionPlant(subject)
 
@@ -60,7 +64,7 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
         = FeatureAssertionChecker(subjectPlant)
 
-    override fun <T : Any> newDelegatingAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
         = DelegatingAssertionChecker(subjectPlant)
 
     override fun newMethodCallFormatter(): IMethodCallFormatter
@@ -112,6 +116,6 @@ object AtriumFactory : IAtriumFactory {
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
         = OnlyFailureReporter(assertionFormatterFacade)
 
-    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: CommonFields<T?>): IDownCastBuilder<T, TSub>
-        = DownCastBuilder(description, subType, commonFields)
+    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>): IDownCastBuilder<T, TSub>
+        = DownCastBuilder(description, subType, subjectPlant)
 }

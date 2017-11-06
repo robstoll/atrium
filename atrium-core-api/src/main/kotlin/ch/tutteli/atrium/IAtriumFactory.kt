@@ -5,7 +5,6 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
@@ -67,7 +66,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newReportingPlantCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
-        = newReportingPlantCheckLazily(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
+        = newReportingPlantCheckLazily(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
 
     /**
      * Creates an [IReportingAssertionPlant] which does not check and report the created or
@@ -112,7 +111,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newReportingPlantCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
-        = newReportingPlantCheckImmediately(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
+        = newReportingPlantCheckImmediately(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
 
     /**
      * Creates an [IReportingAssertionPlant] which immediately checks and reports added [IAssertion]s.
@@ -139,8 +138,8 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IReportingAssertionPlantNullable<T>
-        = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter))
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter, nullRepresentation: Any = RawString.NULL): IReportingAssertionPlantNullable<T>
+        = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
 
     /**
      * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
@@ -156,8 +155,8 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlantNullable<T>
-        = newReportingPlantNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker))
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker, nullRepresentation: Any): IReportingAssertionPlantNullable<T>
+        = newReportingPlantNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, nullRepresentation))
 
     /**
      * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
@@ -169,6 +168,24 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
+
+    /**
+     * Creates an [IAssertionPlant] which wraps an [added][IAssertionPlant.addAssertion] [IAssertion] into an
+     * [ExplanatoryAssertionGroup] (using the given [explanatoryGroupFactory]) and passed them on to the given
+     * [subjectPlant] when the assertions should be checked.
+     *
+     * It will furthermore use the given [reasonWhyNoSubject] as message of a [PlantHasNoSubjectException] which is
+     * thrown when one tries to access the [IAssertionPlant.subject].
+     *
+     * @param subjectPlant The plant to which the resulting [ExplanatoryAssertionGroup] will be added.
+     * @param reasonWhyNoSubject The message used for a [PlantHasNoSubjectException] which is thrown if one tries to
+     * access the [IAssertionPlant.subject].
+     * @param explanatoryGroupFactory The factory method which wraps a given [IAssertion] into an
+     * [ExplanatoryAssertionGroup].
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T : Any> newExplanatoryPlant(subjectPlant: IBaseAssertionPlant<*, *>, reasonWhyNoSubject: String, explanatoryGroupFactory: (IAssertion) -> ExplanatoryAssertionGroup): IAssertionPlant<T>
 
     /**
      * Creates an [ICheckingAssertionPlant] which provides a method to check whether
@@ -257,7 +274,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion checker.
      */
-    fun <T : Any> newDelegatingAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+    fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
 
 
     /**
@@ -417,7 +434,7 @@ interface IAtriumFactory {
      *
      * @see IDownCastBuilder
      */
-    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub>
+    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>): IDownCastBuilder<T, TSub>
 }
 
 /**
@@ -454,5 +471,5 @@ inline fun <T : Any> IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd(asserti
  *
  * @see IDownCastBuilder
  */
-inline fun <reified TSub : T, T : Any> IAtriumFactory.newDownCastBuilder(description: ITranslatable, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub>
-    = newDownCastBuilder(description, TSub::class, commonFields)
+inline fun <reified TSub : T, T : Any> IAtriumFactory.newDownCastBuilder(description: ITranslatable, subjectPlant: IBaseAssertionPlant<T?, *>): IDownCastBuilder<T, TSub>
+    = newDownCastBuilder(description, TSub::class, subjectPlant)
