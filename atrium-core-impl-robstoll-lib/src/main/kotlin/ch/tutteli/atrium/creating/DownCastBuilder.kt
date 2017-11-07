@@ -23,28 +23,23 @@ import kotlin.reflect.full.cast
  * @property subType The resulting type of the down-cast.
  * @property subjectPlant The [IBaseAssertionPlant] to which assertions, made for the down-casted subject, will be
  * added.
+ * @property createAssertions A function which is called after the down-cast has been performed in [cast]
+ * using the newly created [IAssertionPlant] as receiver.
  *
  * @constructor A builder for creating a down-casting assertion.
  * @param description The description of this down-cast; will be used for the creation of the [IAssertion].
  * @param subType The resulting type of the down-cast.
- * @property subjectPlant The [IBaseAssertionPlant] to which assertions, made for the down-casted subject, will be
+ * @param subjectPlant The [IBaseAssertionPlant] to which assertions, made for the down-casted subject, will be
  * added.
+ * @param createAssertions A function which is called after the down-cast has been performed in [cast]
+ * using the newly created [IAssertionPlant] as receiver.
  */
-class DownCastBuilder<T : Any, TSub : T>(
+class DownCastBuilder<out T : Any, out TSub : T>(
     private val description: ITranslatable,
     private val subType: KClass<TSub>,
-    private val subjectPlant: IBaseAssertionPlant<T?, *>
+    private val subjectPlant: IBaseAssertionPlant<T?, *>,
+    private val createAssertions: IAssertionPlant<TSub>.() -> Unit
 ) : IDownCastBuilder<T, TSub> {
-
-    /**
-     * The nullable function which will be called (if not null) to create additional assertions in [cast].
-     */
-    private var createAssertions: (IAssertionPlant<TSub>.() -> Unit)? = null
-
-    override fun withLazyAssertions(createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub> {
-        this.createAssertions = createAssertions
-        return this
-    }
 
     /**
      * Performs the down-cast if possible; reports a failure otherwise.
@@ -61,23 +56,17 @@ class DownCastBuilder<T : Any, TSub : T>(
      * [subjectPlant] or an [ExplanatoryAssertionPlant] if the down-cast failed.
      *
      * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant] in case the down-cast
-     * cannot be performed or an additionally specified assertion (using [withLazyAssertions]) does not hold.
+     * cannot be performed or an additionally specified assertion (using [createAssertions]) does not hold.
      */
     override fun cast(): IAssertionPlant<TSub> {
         val subject = subjectPlant.subject
         val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at https://github.com/robstoll/atrium/issues/new")
         return if (subType.isInstance(subject)) {
             val assertionChecker = AtriumFactory.newDelegatingAssertionChecker(subjectPlant)
-            val plant = if (createAssertions != null) {
-                AtriumFactory.newReportingPlantCheckLazily(assertionVerb, subType.cast(subject), assertionChecker)
-            } else {
-                AtriumFactory.newReportingPlantCheckImmediately(assertionVerb, subType.cast(subject), assertionChecker)
-            }
+            val plant = AtriumFactory.newReportingPlantCheckLazily(assertionVerb, subType.cast(subject), assertionChecker)
             plant.addAssertion(BasicAssertion(description, subType, true))
-            if (createAssertions != null) {
-                createAssertions?.invoke(plant)
-                plant.checkAssertions()
-            }
+            plant.createAssertions()
+            plant.checkAssertions()
             plant
         } else {
             subjectPlant.addAssertion(BasicAssertion(description, subType, false))
@@ -89,6 +78,7 @@ class DownCastBuilder<T : Any, TSub : T>(
         }
     }
 
+    //TODO move to atrium-translations
     enum class Description(override val value: String) : ISimpleTranslatable {
         ASSERTIONS_NOT_CHECKED("the following assertions where not checked since it is not a %s")
     }

@@ -74,14 +74,14 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return4ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNull() }
         val return5ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
 
-        val itsNullableHolds: F = { its(subject::nullableValue).isNotNull() }
-        val propertyNullableHolds: F = { property(subject::nullableValue).isNotNull() }
-        val return0ValueNullableHolds: F = { returnValueOf(subject::returnNullable0).isNotNull() }
-        val return1ValueNullableHolds: F = { returnValueOf(subject::returnNullable1, "a").isNotNull() }
-        val return2ValueNullableHolds: F = { returnValueOf(subject::returnNullable2, "a", 1).isNotNull() }
-        val return3ValueNullableHolds: F = { returnValueOf(subject::returnNullable3, "a", 1, true).isNotNull() }
-        val return4ValueNullableHolds: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNotNull() }
-        val return5ValueNullableHolds: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNotNull() }
+        val itsNullableHolds: F = { its(subject::nullableValue).isNotNull {} }
+        val propertyNullableHolds: F = { property(subject::nullableValue).isNotNull {} }
+        val return0ValueNullableHolds: F = { returnValueOf(subject::returnNullable0).isNotNull {} }
+        val return1ValueNullableHolds: F = { returnValueOf(subject::returnNullable1, "a").isNotNull {} }
+        val return2ValueNullableHolds: F = { returnValueOf(subject::returnNullable2, "a", 1).isNotNull {} }
+        val return3ValueNullableHolds: F = { returnValueOf(subject::returnNullable3, "a", 1, true).isNotNull {} }
+        val return4ValueNullableHolds: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNotNull {} }
+        val return5ValueNullableHolds: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNotNull {} }
 
 
         val itsLazyWithNestedImmediate: F = {

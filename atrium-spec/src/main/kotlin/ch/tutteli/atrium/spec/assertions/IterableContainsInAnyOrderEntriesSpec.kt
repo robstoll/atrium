@@ -39,34 +39,40 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                     fluentEmptyString.containsEntryFun {
                         isLessThan(1.0)
                     }
-                }.toThrow<AssertionError>().and.message.contains(
-                    "$containsInAnyOrder: $separator",
-                    "$anEntryWhich: $separator",
-                    "$isLessThanDescr: 1.0",
-                    "$numberOfOccurrences: 0",
-                    "$atLeast: 1"
-                )
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(
+                            "$containsInAnyOrder: $separator",
+                            "$anEntryWhich: $separator",
+                            "$isLessThanDescr: 1.0",
+                            "$numberOfOccurrences: 0",
+                            "$atLeast: 1"
+                        )
+                    }
+                }
             }
             test("$containsEntries({ $isLessThanFun(1.0) }, { $isGreaterThanFun(2.0) }) throws AssertionError") {
                 expect {
                     fluentEmptyString.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
-                }.toThrow<AssertionError>().and.message {
-                    contains.exactly(2).values(
-                        "$anEntryWhich: $separator",
-                        "$numberOfOccurrences: 0",
-                        "$atLeast: 1"
-                    )
-                    contains.exactly(1).values(
-                        "$containsInAnyOrder: $separator",
-                        "$isLessThanDescr: 1.0",
-                        "$isGreaterThanDescr: 2.0"
-                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        contains.exactly(2).values(
+                            "$anEntryWhich: $separator",
+                            "$numberOfOccurrences: 0",
+                            "$atLeast: 1"
+                        )
+                        contains.exactly(1).values(
+                            "$containsInAnyOrder: $separator",
+                            "$isLessThanDescr: 1.0",
+                            "$isGreaterThanDescr: 2.0"
+                        )
+                    }
                 }
             }
             test("$containsEntries({ $returnValueOfFun(...) }) states warning that subject is not set") {
                 expect {
                     fluentEmptyString.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
-                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET)
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET) } }
             }
         }
 
@@ -75,14 +81,18 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
                         fluent.containsEntryFun({ isGreaterThan(1.0); isLessThan(2.0) })
-                    }.toThrow<AssertionError>().and.message.contains.exactly(1).values(
-                        "$containsInAnyOrder: $separator",
-                        "$anEntryWhich: $separator",
-                        "$isGreaterThanDescr: 1.0",
-                        "$isLessThanDescr: 2.0",
-                        "$numberOfOccurrences: 0",
-                        "$atLeast: 1"
-                    )
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).values(
+                                "$containsInAnyOrder: $separator",
+                                "$anEntryWhich: $separator",
+                                "$isGreaterThanDescr: 1.0",
+                                "$isLessThanDescr: 2.0",
+                                "$numberOfOccurrences: 0",
+                                "$atLeast: 1"
+                            )
+                        }
+                    }
                 }
             }
 
@@ -105,12 +115,12 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
             it("$containsEntry throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsEntryFun({})
-                }.toThrow<IllegalArgumentException>().and.message.contains("not any assertion created")
+                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
             }
             it("$containsEntries throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsEntriesFun({})
-                }.toThrow<IllegalArgumentException>().and.message.contains("not any assertion created")
+                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
             }
         }
     }

@@ -39,7 +39,7 @@ abstract class CollectionAssertionsSpec(
             test("expect 1 throws an AssertionError") {
                 expect {
                     fluent.hasSizeFun(1)
-                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionCollectionAssertion.HAS_SIZE)
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionCollectionAssertion.HAS_SIZE) } }
             }
             test("expect 3 throws an AssertionError") {
                 expect {
@@ -57,7 +57,7 @@ abstract class CollectionAssertionsSpec(
         it("throws an AssertionError if a collection is not empty") {
             expect {
                 assert(listOf(1, 2)).isEmptyFun()
-            }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionBasic.IS)
+            }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionBasic.IS) } }
         }
     }
 })

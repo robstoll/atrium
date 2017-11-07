@@ -99,7 +99,7 @@ abstract class FeatureAssertionsSpec(
                 test("in case of $checkMethod evaluation") {
                     expect {
                         act(assertion)
-                    }.toThrow<AssertionError>().and.message.contains(stringInExceptionMessage)
+                    }.toThrow<AssertionError> { message { contains(stringInExceptionMessage) } }
                 }
             }
         }

@@ -58,7 +58,7 @@ abstract class IterableContainsNullSpec(
                     test("$containsNot $first$restText throws AssertionError") {
                         expect {
                             fluent.containsNotFun(first, *rest)
-                        }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(CONTAINS_NOT)
+                        }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS_NOT) } }
                     }
                 }
 
@@ -68,7 +68,7 @@ abstract class IterableContainsNullSpec(
                 test("$contains 2.5 throws AssertionError") {
                     expect {
                         fluent.containsFun(2.5)
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(CONTAINS)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS) } }
                 }
                 test("$containsNot 2.5 throws AssertionError") {
                     fluent.containsNotFun(2.5)

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.creating
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion.IS_A
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IBaseAssertionPlant
 import ch.tutteli.atrium.creating.IDownCastBuilder
 import ch.tutteli.atrium.reporting.RawString
@@ -11,11 +11,6 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
-import ch.tutteli.atrium.spec.verbs.VerbSpec
-import com.nhaarman.mockito_kotlin.any
-import com.nhaarman.mockito_kotlin.doThrow
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -24,7 +19,7 @@ import kotlin.reflect.KClass
 
 abstract class DownCastBuilderSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (description: ITranslatable, subClass: KClass<Int>, IBaseAssertionPlant<Number?, *>) -> IDownCastBuilder<Number, Int>,
+    testeeFactory: (ITranslatable, KClass<Int>, IBaseAssertionPlant<Number?, *>, IAssertionPlant<Int>.() -> Unit) -> IDownCastBuilder<Number, Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -38,9 +33,9 @@ abstract class DownCastBuilderSpec(
             context("down-cast can be performed") {
                 val subject = 10
                 val subjectPlant = verbs.checkNullable(subject)
-                var testee = testeeFactory(IS_A, Int::class, subjectPlant)
+                var testee = testeeFactory(IS_A, Int::class, subjectPlant, {})
                 beforeEachTest {
-                    testee = testeeFactory(IS_A, Int::class, subjectPlant)
+                    testee = testeeFactory(IS_A, Int::class, subjectPlant, {})
                 }
 
                 it("it does not throw an exception") {
@@ -79,13 +74,15 @@ abstract class DownCastBuilderSpec(
 
             context("down-cast cannot be performed") {
                 val subjectPlant = verbs.checkNullable(10.1)
-                val testee = testeeFactory(IS_A, Int::class, subjectPlant)
+                val testee = testeeFactory(IS_A, Int::class, subjectPlant, {})
                 it("throws an assertion error") {
                     verbs.checkException {
                         testee.cast()
-                    }.toThrow<AssertionError>().and.message {
-                        contains(Int::class.java.name)
-                        contains(java.lang.Double::class.java.name)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(Int::class.java.name)
+                            contains(java.lang.Double::class.java.name)
+                        }
                     }
                 }
             }
@@ -93,33 +90,28 @@ abstract class DownCastBuilderSpec(
 
         context("subject is null") {
             val subjectPlant = verbs.checkNullable(null)
-            var testee = testeeFactory(IS_A, Int::class, subjectPlant)
-            beforeEachTest {
-                testee = testeeFactory(IS_A, Int::class, subjectPlant)
-            }
             inCaseOf("additional assertions have been defined") {
                 val expectFluent = verbs.checkException {
-                    testee.withLazyAssertions {
+                    testeeFactory(IS_A, Int::class, subjectPlant) {
                         isLessThan(0)
-                    }
-                    testee.cast()
+                    }.cast()
                 }
                 it("throws an AssertionError") {
                     expectFluent.toThrow<AssertionError>()
                 }
                 it("does not contain additional failing assertions in the error message") {
-                    expectFluent.toThrow<AssertionError>().and.message.containsNot(DescriptionNumberAssertion.IS_LESS_THAN)
+                    expectFluent.toThrow<AssertionError> { message { containsNot(DescriptionNumberAssertion.IS_LESS_THAN) } }
                 }
             }
             inCaseOf("nothing in addition was defined (just cast is called)") {
                 val expectFluent = verbs.checkException {
-                    testee.cast()
+                    testeeFactory(IS_A, Int::class, subjectPlant, {}).cast()
                 }
                 it("throws an AssertionError") {
                     expectFluent.toThrow<AssertionError>()
                 }
                 it("the error message uses ${RawString.Companion::NULL.name} as null-representation") {
-                    expectFluent.toThrow<AssertionError>().and.message.contains(RawString.NULL.string)
+                    expectFluent.toThrow<AssertionError> { message { contains(RawString.NULL.string) } }
                 }
             }
         }

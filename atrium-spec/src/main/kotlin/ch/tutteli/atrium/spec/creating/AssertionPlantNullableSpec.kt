@@ -6,8 +6,8 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IReportingAssertionPlantNullable
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
+import ch.tutteli.atrium.creating.IReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.*
 import org.jetbrains.spek.api.Spek
@@ -46,18 +46,19 @@ abstract class AssertionPlantNullableSpec(
             }
             setUp("throws an AssertionError when checking") {
                 context("exception message") {
-                    val assertMessage = expectFun.toThrow<AssertionError>().message
                     it("contains the ${testee.commonFields::assertionVerb.name}'") {
-                        assertMessage.containsDefaultTranslationOf(assertionVerb)
+                        expectFun.toThrow<AssertionError> { message { containsDefaultTranslationOf(assertionVerb) } }
                     }
                     it("contains the '${testee::subject.name}'") {
-                        assertMessage.contains(subject.toString())
+                        expectFun.toThrow<AssertionError> { message { contains(subject.toString()) } }
                     }
                     it("contains the '${IBasicAssertion::description.name}' of the assertion-message - which should be ${IAssertionPlantNullable.AssertionDescription::class.simpleName}") {
-                        assertMessage.containsDefaultTranslationOf(IAssertionPlantNullable.AssertionDescription)
+                        expectFun.toThrow<AssertionError> {
+                            message { containsDefaultTranslationOf(IAssertionPlantNullable.AssertionDescription) }
+                        }
                     }
                     it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
-                        assertMessage.contains(RawString.NULL.string)
+                        expectFun.toThrow<AssertionError> { message { contains(RawString.NULL.string) } }
                     }
                 }
             }

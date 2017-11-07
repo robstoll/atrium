@@ -104,7 +104,7 @@ object AtriumFactory : IAtriumFactory {
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
         = throwUnsupportedOperationException()
 
-    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>): IDownCastBuilder<T, TSub>
+    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>, createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub>
         = throwUnsupportedOperationException()
 
     private fun throwUnsupportedOperationException(): Nothing

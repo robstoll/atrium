@@ -42,11 +42,15 @@ abstract class IterableContainsContainsNotAssertionSpec(
             test("$contains 1.0 throws AssertionError") {
                 expect {
                     fluentEmptyString.containsFun(1.0)
-                }.toThrow<AssertionError>().and.message.contains(
-                    "$containsInAnyOrder: 1.0",
-                    "$numberOfOccurrences: 0",
-                    "$atLeast: 1"
-                )
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(
+                            "$containsInAnyOrder: 1.0",
+                            "$numberOfOccurrences: 0",
+                            "$atLeast: 1"
+                        )
+                    }
+                }
             }
             test("$containsNot 1.0 does not throw") {
                 fluentEmptyString.containsNotFun(1.0)
@@ -62,7 +66,7 @@ abstract class IterableContainsContainsNotAssertionSpec(
                 test("$containsNot 1.0 throws AssertionError") {
                     expect {
                         fluent.containsNotFun(1.0)
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(CONTAINS_NOT)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS_NOT) } }
                 }
 
                 test("$contains 1.0 and 4.0 does not throw") {
@@ -71,7 +75,7 @@ abstract class IterableContainsContainsNotAssertionSpec(
                 test("$containsNot 1.0 and 4.0 throws AssertionError") {
                     expect {
                         fluent.containsNotFun(1.0, 4.0)
-                    }.toThrow<AssertionError>().message.containsDefaultTranslationOf(CONTAINS_NOT)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS_NOT) } }
                 }
             }
 
@@ -79,7 +83,7 @@ abstract class IterableContainsContainsNotAssertionSpec(
                 test("$contains 9.5 and 7.1 throws AssertionError") {
                     expect {
                         fluent.containsFun(9.5, 7.1)
-                    }.toThrow<AssertionError>().message.containsDefaultTranslationOf(CONTAINS)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS) } }
                 }
                 test("$containsNot 9.5 and 7.1 does not throw") {
                     fluent.containsNotFun(9.5, 7.1)
@@ -90,7 +94,7 @@ abstract class IterableContainsContainsNotAssertionSpec(
                 test("$contains 9.5 throws AssertionError") {
                     expect {
                         fluent.containsFun(9.5)
-                    }.toThrow<AssertionError>().message.containsDefaultTranslationOf(CONTAINS)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS) } }
                 }
                 test("$containsNot 9.5 does not throw") {
                     fluent.containsNotFun(9.5)
@@ -99,12 +103,12 @@ abstract class IterableContainsContainsNotAssertionSpec(
                 test("$contains 1.0 and 9.5 throws AssertionError") {
                     expect {
                         fluent.containsFun(1.0, 9.5)
-                    }.toThrow<AssertionError>().message.contains(CONTAINS.getDefault(), 9.5)
+                    }.toThrow<AssertionError> { message { contains(CONTAINS.getDefault(), 9.5) } }
                 }
                 test("$containsNot 1.0 and 9.5 throws AssertionError") {
                     expect {
                         fluent.containsNotFun(1.0, 9.5)
-                    }.toThrow<AssertionError>().message.contains(CONTAINS_NOT.getDefault(), 1.0)
+                    }.toThrow<AssertionError> { message { contains(CONTAINS_NOT.getDefault(), 1.0) } }
                 }
             }
 

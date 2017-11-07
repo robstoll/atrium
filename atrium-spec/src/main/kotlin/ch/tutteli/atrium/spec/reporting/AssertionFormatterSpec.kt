@@ -50,7 +50,7 @@ abstract class AssertionFormatterSpec(
                     override val subject = 1
                     override val assertions: List<IAssertion> = emptyList()
                 }, methodObject)
-            }.toThrow<UnsupportedOperationException>().and.message.toBe(IAssertionFormatter.CALL_FORMAT_GROUP)
+            }.toThrow<UnsupportedOperationException> { message { toBe(IAssertionFormatter.CALL_FORMAT_GROUP) } }
             verbs.checkImmediately(sb).isEmpty()
         }
     }

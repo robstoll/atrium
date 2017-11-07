@@ -19,33 +19,27 @@ abstract class ThrowableAssertionsSpec(
 //        IThrowableFluent.() -> IAssertionPlant<Throwable>,
 //        IThrowableFluent.(createAssertions: IAssertionPlant<Throwable>.() -> Unit) -> IAssertionPlant<Throwable>
 //        >,
-    messageTriple: Triple<
-        String,
-        IAssertionPlant<Throwable>.() -> IAssertionPlant<String>,
-        IAssertionPlant<Throwable>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> IAssertionPlant<String>
-        >,
-    messageContainsPair: Pair<
-        IAssertionPlant<Throwable>.(String) -> IAssertionPlant<String>,
-        IAssertionPlant<Throwable>.(String) -> IAssertionPlant<String>
-        >
+    messagePair: Pair<String, IAssertionPlant<Throwable>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> Unit>,
+    messageContainsFun: IAssertionPlant<Throwable>.(String) -> Unit
 ) : Spek({
 
     val expect = verbs::checkException
     val assert: (IllegalArgumentException) -> IAssertionPlant<IllegalArgumentException> = verbs::checkImmediately
 
-    val (message, messageFun, messageLazyFun) = messageTriple
-    val (messageContainsFun, messageContainsLazyFun) = messageContainsPair
+    val (message, messageFun) = messagePair
 
     describe("fun `$message` (for Throwable)") {
         checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
             val throwable = IllegalArgumentException()
             expect {
                 assert(throwable).message()
-            }.toThrow<AssertionError>().and.message {
-                containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
-                contains(String::class.java.name)
+            }.toThrow<AssertionError> {
+                message {
+                    containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                    contains(String::class.java.name)
+                }
             }
-        }, { messageFun() }, { messageLazyFun {} })
+        }, { messageFun {} })
 
 
         context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
@@ -54,11 +48,11 @@ abstract class ThrowableAssertionsSpec(
                 expect {
                     assert(throwable).messageWithCheck()
                 }.toThrow<AssertionError>()
-            }, { messageContainsFun("hello") }, { messageContainsLazyFun("hello") })
+            }, { messageContainsFun("hello") })
 
             checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
                 assert(throwable).messageWithCheck()
-            }, { messageContainsFun("oh") }, { messageContainsLazyFun("oh") })
+            }, { messageContainsFun("oh") })
         }
     }
 })

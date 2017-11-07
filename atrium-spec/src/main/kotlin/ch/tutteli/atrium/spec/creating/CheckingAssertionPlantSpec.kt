@@ -57,7 +57,7 @@ abstract class CheckingAssertionPlantSpec(
             test("re-checking the assertions (calling ${testee::allAssertionsHold.name} twice) throws an  ${IllegalStateException::class.simpleName}") {
                 verbs.checkException {
                     testee.allAssertionsHold()
-                }.toThrow<IllegalStateException>().and.message.contains("create assertions first")
+                }.toThrow<IllegalStateException> { message { contains("create assertions first") } }
             }
         }
 

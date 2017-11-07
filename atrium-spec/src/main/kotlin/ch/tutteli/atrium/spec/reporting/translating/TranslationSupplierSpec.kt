@@ -44,7 +44,7 @@ import java.text.SimpleDateFormat
 abstract class TranslationSupplierSpec(
     verbs: IAssertionVerbFactory,
     reporter: IReporter,
-    describePrefix : String = "[Atrium] "
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
@@ -63,7 +63,7 @@ abstract class TranslationSupplierSpec(
             it("a failing assertion contains 'ist' instead of 'to be' in the error message") {
                 verbs.checkException {
                     assert(1).toBe(2)
-                }.toThrow<AssertionError>().and.message.contains("ist: 2")
+                }.toThrow<AssertionError> { message { contains("ist: 2") } }
             }
         }
 
@@ -72,7 +72,7 @@ abstract class TranslationSupplierSpec(
                 verbs.checkException {
                     val a: Int? = 1
                     assert(a).isNull()
-                }.toThrow<AssertionError>().and.message.contains("ist: ${RawString.NULL.string}")
+                }.toThrow<AssertionError> { message { contains("ist: ${RawString.NULL.string}") } }
             }
         }
 
@@ -81,7 +81,7 @@ abstract class TranslationSupplierSpec(
             it("a failing assertion contains '$text' instead of 'not to be' in the error message") {
                 verbs.checkException {
                     assert(1).notToBe(1)
-                }.toThrow<AssertionError>().and.message.contains("$text: 1")
+                }.toThrow<AssertionError> { message { contains("$text: 1") } }
             }
         }
 
@@ -90,7 +90,7 @@ abstract class TranslationSupplierSpec(
             it("a failing assertion contains '$text' instead of 'is same as' in the error message") {
                 verbs.checkException {
                     assert(1).isSame(2)
-                }.toThrow<AssertionError>().and.message.contains("$text: 2")
+                }.toThrow<AssertionError> { message { contains("$text: 2") } }
             }
         }
 
@@ -99,7 +99,7 @@ abstract class TranslationSupplierSpec(
             it("a failing assertion contains '$text' instead of 'assert' in the error message") {
                 verbs.checkException {
                     assert(1).toBe(2)
-                }.toThrow<AssertionError>().and.message.contains("$text: 1")
+                }.toThrow<AssertionError> { message { contains("$text: 1") } }
             }
         }
 
@@ -107,7 +107,7 @@ abstract class TranslationSupplierSpec(
             it("throws an AssertionError which message contains the default of ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_THAN}") {
                 verbs.checkException {
                     assert(1).isLessThan(1)
-                }.toThrow<AssertionError>().and.message.contains("${DescriptionNumberAssertion.IS_LESS_THAN.getDefault()}: 1")
+                }.toThrow<AssertionError> { message { contains("${DescriptionNumberAssertion.IS_LESS_THAN.getDefault()}: 1") } }
             }
         }
 
@@ -116,7 +116,7 @@ abstract class TranslationSupplierSpec(
             it("uses the translation form 'fr' but the primary Locale to format the date") {
                 verbs.checkException {
                     assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1, { false })
-                }.toThrow<AssertionError>().and.message.contains("02/01/17 était Mittwoch!!")
+                }.toThrow<AssertionError> { message { contains("02/01/17 était Mittwoch!!") } }
             }
         }
 
@@ -124,7 +124,7 @@ abstract class TranslationSupplierSpec(
             it("uses default translation but the primary Locale to format the date") {
                 verbs.checkException {
                     assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_UNKNOWN, firstOfFeb2017), 1, { false })
-                }.toThrow<AssertionError>().and.message.contains("only Mittwoch")
+                }.toThrow<AssertionError> { message { contains("only Mittwoch") } }
             }
         }
 
@@ -134,7 +134,7 @@ abstract class TranslationSupplierSpec(
                 + "and the translation from 'ch' for ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE}") {
                 verbs.checkException {
                     assert(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.PLACEHOLDER, DescriptionAnyAssertion.TO_BE), 1, { false })
-                }.toThrow<AssertionError>().and.message.contains("Caractère de remplacement ist")
+                }.toThrow<AssertionError> { message { contains("Caractère de remplacement ist") } }
             }
         }
     }

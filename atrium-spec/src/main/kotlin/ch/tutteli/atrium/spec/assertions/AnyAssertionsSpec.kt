@@ -50,19 +50,19 @@ abstract class AnyAssertionsSpec(
                 test("$notToBe throws AssertionError") {
                     expect {
                         assert(1).notToBeFun(1)
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(NOT_TO_BE)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(NOT_TO_BE) } }
                 }
                 test("$isNotSame throws AssertionError") {
                     expect {
                         assert(1).isNotSameFun(1)
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(IS_NOT_SAME)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(IS_NOT_SAME) } }
                 }
             }
             context("one does not equal the other") {
                 test("$toBe throws AssertionError") {
                     expect {
                         assert(1).toBeFun(2)
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(TO_BE)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(TO_BE) } }
                 }
                 test("$notToBe does not throw") {
                     assert(1).notToBeFun(2)
@@ -70,7 +70,7 @@ abstract class AnyAssertionsSpec(
                 test("$isSame throws AssertionError") {
                     expect {
                         assert(1).isSameFun(2)
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(IS_SAME)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(IS_SAME) } }
                 }
                 test("$isNotSame does not throw") {
                     assert(1).isNotSameFun(2)
