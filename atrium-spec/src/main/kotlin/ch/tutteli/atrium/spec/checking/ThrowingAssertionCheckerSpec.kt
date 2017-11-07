@@ -29,7 +29,7 @@ abstract class ThrowingAssertionCheckerSpec(
     val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
     val reporter = mock<IReporter> {
-        on { format(any<IAssertion>(), any<StringBuilder>()) }.thenAnswer {
+        on { format(any(), any<StringBuilder>()) }.thenAnswer {
             (it.arguments[1] as StringBuilder).append(reporterResponse)
         }
     }
@@ -45,13 +45,21 @@ abstract class ThrowingAssertionCheckerSpec(
         it("throws an IllegalArgumentException if the given assertion holds") {
             verbs.checkException {
                 testee.fail(assertionVerb, 1, assertionWhichHolds)
-            }.toThrow<IllegalArgumentException>().and.message.startsWith("the given assertion should fail:")
+            }.toThrow<IllegalArgumentException> {
+                message {
+                    startsWith("the given assertion should fail:")
+                }
+            }
         }
 
         it("throws an AssertionError with the message formatted by the reporter") {
             verbs.checkException {
                 testee.fail(assertionVerb, "1", assertionWhichFails)
-            }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
+            }.toThrow<AssertionError> {
+                message {
+                    toBe(reporterResponse)
+                }
+            }
         }
     }
 
@@ -72,7 +80,11 @@ abstract class ThrowingAssertionCheckerSpec(
             it("throws an AssertionError with the message formatted by the reporter if the $assertionFails") {
                 verbs.checkException {
                     testee.check(assertionVerb, 1, assertions)
-                }.toThrow<AssertionError>().and.message.toBe(reporterResponse)
+                }.toThrow<AssertionError> {
+                    message {
+                        toBe(reporterResponse)
+                    }
+                }
             }
         }
     }

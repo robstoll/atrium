@@ -42,17 +42,21 @@ abstract class NumberAssertionsSpec(
             test("... 10 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_THAN} and `: 10`") {
                 expect {
                     fluent.isLessThanFun(10)
-                }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
-                    contains(": 10")
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                        contains(": 10")
+                    }
                 }
             }
             test("... 9 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_THAN} and `: 10`") {
                 expect {
                     fluent.isLessThanFun(9)
-                }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
-                    contains(": 9")
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                        contains(": 9")
+                    }
                 }
             }
         }
@@ -67,9 +71,11 @@ abstract class NumberAssertionsSpec(
             test("... 9 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_OR_EQUALS} and `: 10`") {
                 expect {
                     fluent.isLessOrEqualFun(9)
-                }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_OR_EQUALS)
-                    contains(": 9")
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_OR_EQUALS)
+                        contains(": 9")
+                    }
                 }
             }
         }
@@ -78,17 +84,21 @@ abstract class NumberAssertionsSpec(
             test("... 11 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_GREATER_THAN} and `: 11`") {
                 expect {
                     fluent.isGreaterThanFun(11)
-                }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
-                    contains(": 11")
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
+                        contains(": 11")
+                    }
                 }
             }
             test("... 10 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_GREATER_THAN} and `: 10`") {
                 expect {
                     fluent.isGreaterThanFun(10)
-                }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
-                    contains(": 10")
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
+                        contains(": 10")
+                    }
                 }
             }
             test("... 9 does not throw") {
@@ -100,9 +110,11 @@ abstract class NumberAssertionsSpec(
             test("... 11 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_GREATER_OR_EQUALS} and `: 11`") {
                 expect {
                     fluent.isGreaterOrEqualFun(11)
-                }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_OR_EQUALS)
-                    contains(": 11")
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_OR_EQUALS)
+                        contains(": 11")
+                    }
                 }
             }
             test("... 10 does not throw") {

@@ -43,35 +43,35 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
             test("for at least -1 -- only positive numbers") {
                 expect {
                     fluent.containsAtLeastFun(-1, 9.0)
-                }.toThrow<IllegalArgumentException>().and.message.contains("positive number", -1)
+                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
             }
             test("for at least 0 -- points to $containsNot") {
                 expect {
                     fluent.containsAtLeastFun(0, 9.0)
-                }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgContainsNot(0))
+                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
             }
             //TODO use as soon as containsAtLeastButAtMost exists
 //            group("using $containsAtLeastButAtMost") {
 //                test("for at least 1 but at most -1 -- since -1 is smaller than 1") {
 //                    expect {
 //                        fluent.containsAtLeastButAtMostFun(1, -1, 9.0)
-//                    }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgAtLeastButAtMost(1, -1))
+//                    }.toThrow<IllegalArgumentException>{ message { toBe(errorMsgAtLeastButAtMost(1, -1) } })
 //                }
 //                test("for at least 1 but at most 0 -- since 0 is smaller than 1") {
 //                    expect {
 //                        fluent.containsAtLeastButAtMostFun(1, 0, 9.0)
-//                    }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgAtLeastButAtMost(1, 0))
+//                    }.toThrow<IllegalArgumentException>{ message { toBe(errorMsgAtLeastButAtMost(1, 0) } })
 //                }
 //                test("for at least 2 but at most 1 -- since 1 is smaller than 2") {
 //                    expect {
 //                        fluent.containsAtLeastButAtMostFun(2, 1, 9.0)
-//                    }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgAtLeastButAtMost(2, 1))
+//                    }.toThrow<IllegalArgumentException>{ message { toBe(errorMsgAtLeastButAtMost(2, 1) } })
 //                }
 ////                //TODO use as soon as exactly exists
 ////                test("for at least 1 but at most 1 -- points to $exactly") {
 ////                    expect {
 ////                        fluent.containsAtLeastButAtMostFun(1, 1, 9.0)
-////                    }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgExactly(1))
+////                    }.toThrow<IllegalArgumentException>{ message { toBe(errorMsgExactly(1) } })
 ////                }
 //            }
         }
@@ -94,22 +94,22 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
                 test("${containsAtLeastTest("1.1", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_LEAST)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_LEAST) } }
                 }
                 test("${containsAtLeastTest("1.0, 2.3", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.0, 2.3)
-                    }.toThrow<AssertionError>().message.contains(atLeast, 2.3)
+                    }.toThrow<AssertionError> { message { contains(atLeast, 2.3) } }
                 }
                 test("${containsAtLeastTest("2.3, 1.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 2.3, 1.0)
-                    }.toThrow<AssertionError>().message.contains(atLeast, 2.3)
+                    }.toThrow<AssertionError> { message { contains(atLeast, 2.3) } }
                 }
                 test("${containsAtLeastTest("1.0, 2.3, 3.1 and 6.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.0, 2.3, 3.1, 6.0)
-                    }.toThrow<AssertionError>().message.contains(atLeast, 2.3, 3.1)
+                    }.toThrow<AssertionError> { message { contains(atLeast, 2.3, 3.1) } }
                 }
             }
 
@@ -124,12 +124,14 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
                 test("${containsAtLeastTest("5.0", "3 times")} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 5.0 (2)") {
                     expect {
                         fluent.containsAtLeastFun(3, 5.0)
-                    }.toThrow<AssertionError>().and.message {
-                        contains(
-                            "$containsInAnyOrder: 5.0",
-                            "$numberOfOccurrences: 2$separator"
-                        )
-                        endsWith("$atLeast: 3")
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsInAnyOrder: 5.0",
+                                "$numberOfOccurrences: 2$separator"
+                            )
+                            endsWith("$atLeast: 3")
+                        }
                     }
                 }
 
@@ -143,13 +145,15 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
                 test("${containsAtLeastTest("5.0 and 4.0", "3 times")} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)") {
                     expect {
                         fluent.containsAtLeastFun(3, 5.0, 4.0)
-                    }.toThrow<AssertionError>().and.message {
-                        contains(
-                            "$containsInAnyOrder: 5.0",
-                            "$numberOfOccurrences: 2$separator"
-                        )
-                        endsWith("$atLeast: 3")
-                        containsNot("$containsInAnyOrder: 4.0")
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsInAnyOrder: 5.0",
+                                "$numberOfOccurrences: 2$separator"
+                            )
+                            endsWith("$atLeast: 3")
+                            containsNot("$containsInAnyOrder: 4.0")
+                        }
                     }
                 }
             }

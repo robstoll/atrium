@@ -35,9 +35,11 @@ abstract class BooleanAssertionsSpec(
         test("$isFalse throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: false`") {
             expect {
                 fluent.isFalseFun()
-            }.toThrow<AssertionError>().and.message {
-                containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
-                contains(": false")
+            }.toThrow<AssertionError> {
+                message {
+                    containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
+                    contains(": false")
+                }
             }
         }
     }
@@ -48,7 +50,12 @@ abstract class BooleanAssertionsSpec(
         test("$isTrue throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: true`") {
             expect {
                 fluent.isTrueFun()
-            }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE).and.contains(": true")
+            }.toThrow<AssertionError> {
+                message {
+                    containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
+                    contains(": true")
+                }
+            }
         }
         test("$isFalse does not throw") {
             fluent.isFalseFun()

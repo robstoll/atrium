@@ -2,7 +2,6 @@ package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion.*
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
@@ -10,11 +9,9 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IThrowableFluent
 import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
-import ch.tutteli.atrium.spec.assertions.NarrowingAssertionsSpec
 import ch.tutteli.atrium.spec.creating.DownCastBuilderSpec
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -49,7 +46,7 @@ abstract class VerbSpec(
     plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
     plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
     plantExpect: Pair<String, (act: () -> Unit) -> IThrowableFluent>,
-    describePrefix : String = "[Atrium] "
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
@@ -90,10 +87,12 @@ abstract class VerbSpec(
                     isLessThan(0)
                     isGreaterThan(2)
                 }
-            }.toThrow<AssertionError>().and.message {
-                contains(": 1")
-                contains("${IS_LESS_THAN.getDefault()}: 0")
-                contains("${IS_GREATER_THAN.getDefault()}: 2")
+            }.toThrow<AssertionError> {
+                message {
+                    contains(": 1")
+                    contains("${IS_LESS_THAN.getDefault()}: 0")
+                    contains("${IS_GREATER_THAN.getDefault()}: 2")
+                }
             }
         }
     }
@@ -106,10 +105,12 @@ abstract class VerbSpec(
             }
             it("throws an AssertionError when calling isNotNull") {
                 expect {
-                    assertionVerb(null).isNotNull()
-                }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
-                    contains(Integer::class.java.name)
+                    assertionVerb(null).isNotNull {}
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                        contains(Integer::class.java.name)
+                    }
                 }
             }
         }
@@ -128,10 +129,12 @@ abstract class VerbSpec(
                     assertionVerb({
                         throw IllegalArgumentException()
                     }).toThrow<UnsupportedOperationException>()
-                }.toThrow<AssertionError>().and.message {
-                    containsDefaultTranslationOf(DescriptionThrowableAssertion.IS_A)
-                    contains(IllegalArgumentException::class.java.name,
-                        UnsupportedOperationException::class.java.name)
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionThrowableAssertion.IS_A)
+                        contains(IllegalArgumentException::class.java.name,
+                            UnsupportedOperationException::class.java.name)
+                    }
                 }
             }
         }

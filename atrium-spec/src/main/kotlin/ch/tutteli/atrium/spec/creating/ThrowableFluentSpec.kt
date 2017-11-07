@@ -25,9 +25,8 @@ abstract class ThrowableFluentSpec(
 
     fun SpecBody.checkToThrow(description: String,
                               act: (IThrowableFluent.() -> Unit) -> Unit,
-                              immediate: (IThrowableFluent.() -> Unit),
                               lazy: (IThrowableFluent.() -> Unit)) {
-        checkGenericNarrowingAssertion(description, act, immediate, lazy)
+        checkGenericNarrowingAssertion(description, act, lazy)
     }
 
 
@@ -39,12 +38,13 @@ abstract class ThrowableFluentSpec(
                 verbs.checkException {
                     /* no exception occurs */
                 }.doToThrow()
-            }.toThrow<AssertionError>().and.message {
-                containsDefaultTranslationOf(NO_EXCEPTION_OCCURRED)
-                contains("${IS_A.getDefault()}: ${IllegalArgumentException::class.simpleName}")
+            }.toThrow<AssertionError> {
+                message {
+                    containsDefaultTranslationOf(NO_EXCEPTION_OCCURRED)
+                    contains("${IS_A.getDefault()}: ${IllegalArgumentException::class.simpleName}")
+                }
             }
-        }, { toThrow(IllegalArgumentException::class, IS_A, NO_EXCEPTION_OCCURRED) },
-            { toThrow(IllegalArgumentException::class, IS_A, NO_EXCEPTION_OCCURRED) {} })
+        }, { toThrow(IllegalArgumentException::class, IS_A, NO_EXCEPTION_OCCURRED) {} })
 
         checkToThrow("it throws an AssertionError when the wrong exception occurs", { doToThrow ->
             verbs.checkException {
@@ -52,16 +52,20 @@ abstract class ThrowableFluentSpec(
                     throw UnsupportedOperationException()
                 }.doToThrow()
             }.toThrow<AssertionError> {
-                message.contains(UnsupportedOperationException::class.java.name, IS_SAME.getDefault(), IllegalArgumentException::class.java.name)
+                message {
+                    contains(
+                        UnsupportedOperationException::class.java.name,
+                        IS_SAME.getDefault(),
+                        IllegalArgumentException::class.java.name
+                    )
+                }
             }
-        }, { toThrow(IllegalArgumentException::class, IS_SAME, NO_EXCEPTION_OCCURRED) },
-            { toThrow(IllegalArgumentException::class, IS_SAME, NO_EXCEPTION_OCCURRED) {} })
+        }, { toThrow(IllegalArgumentException::class, IS_SAME, NO_EXCEPTION_OCCURRED) {} })
 
         checkToThrow("it allows to define assertions for the Throwable if the correct exception is thrown", { toThrowWithCheck ->
             verbs.checkException {
                 throw IllegalArgumentException("hello")
             }.toThrowWithCheck()
-        }, { toThrow(IllegalArgumentException::class, IS_A, NO_EXCEPTION_OCCURRED).and.message.toBe("hello") },
-            { toThrow(IllegalArgumentException::class, IS_A, NO_EXCEPTION_OCCURRED) { and.message.toBe("hello") } })
+        }, { toThrow(IllegalArgumentException::class, IS_A, NO_EXCEPTION_OCCURRED) { message { toBe("hello") } } })
     }
 })

@@ -62,7 +62,7 @@ abstract class CollectingAssertionPlantSpec(
             it("throws the exception when accessing subject") {
                 verbs.checkException {
                     testeeThrowing.subject
-                }.toThrow<PlantHasNoSubjectException>().and.toBe(plantHasNoSubjectException)
+                }.toThrow<PlantHasNoSubjectException> { toBe(plantHasNoSubjectException) }
             }
         }
     }

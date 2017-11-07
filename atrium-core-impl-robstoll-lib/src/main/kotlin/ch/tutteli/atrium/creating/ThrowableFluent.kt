@@ -25,17 +25,9 @@ class ThrowableFluent internal constructor(
     private val assertionChecker: IAssertionChecker
 ) : IThrowableFluent {
 
-    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable): IAssertionPlant<TExpected> {
+    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable, createAssertions: IAssertionPlant<TExpected>.() -> Unit) {
         val subjectPlant = AtriumFactory.newReportingPlantNullable(assertionVerb, throwable, assertionChecker, TranslatableRawString(nullRepresentation))
-        return AtriumFactory.newDownCastBuilder(description, expectedType, subjectPlant)
-            .cast()
-    }
-
-    override fun <TExpected : Throwable> toThrow(expectedType: KClass<TExpected>, description: ITranslatable, nullRepresentation: ITranslatable, createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected> {
-        val subjectPlant = AtriumFactory.newReportingPlantNullable(assertionVerb, throwable, assertionChecker, TranslatableRawString(nullRepresentation))
-        return AtriumFactory.newDownCastBuilder(description, expectedType, subjectPlant)
-            .withLazyAssertions(createAssertions)
-            .cast()
+        AtriumFactory.newDownCastBuilder(description, expectedType, subjectPlant, createAssertions).cast()
     }
 
     companion object {

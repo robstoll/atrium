@@ -434,7 +434,7 @@ interface IAtriumFactory {
      *
      * @see IDownCastBuilder
      */
-    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>): IDownCastBuilder<T, TSub>
+    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>, createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub>
 }
 
 /**
@@ -471,5 +471,5 @@ inline fun <T : Any> IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd(asserti
  *
  * @see IDownCastBuilder
  */
-inline fun <reified TSub : T, T : Any> IAtriumFactory.newDownCastBuilder(description: ITranslatable, subjectPlant: IBaseAssertionPlant<T?, *>): IDownCastBuilder<T, TSub>
-    = newDownCastBuilder(description, TSub::class, subjectPlant)
+inline fun <reified TSub : T, T : Any> IAtriumFactory.newDownCastBuilder(description: ITranslatable, subjectPlant: IBaseAssertionPlant<T?, *>, noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub>
+    = newDownCastBuilder(description, TSub::class, subjectPlant, createAssertions)

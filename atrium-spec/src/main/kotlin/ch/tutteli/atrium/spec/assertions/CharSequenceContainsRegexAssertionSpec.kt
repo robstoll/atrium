@@ -89,12 +89,12 @@ abstract class CharSequenceContainsRegexAssertionSpec(
             test("${containsAtMostTest("'[a-z]'", "16 times")} does not throw") {
                 expect {
                     fluent.containsAtMostFun(16, "[a-z]")
-                }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_MOST)
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
             }
             test("${containsAtMostIgnoringCase("'[a-z]'", "18 times")} does not throw") {
                 expect {
                     fluent.containsAtMostIgnoringCaseFun(18, "[a-z]")
-                }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_MOST)
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
             }
         }
     }

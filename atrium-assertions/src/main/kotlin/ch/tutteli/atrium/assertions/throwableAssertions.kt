@@ -5,8 +5,6 @@ import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion.NO_EXCEPTION_O
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IThrowableFluent
 
-inline fun <reified TExpected : Throwable> _toThrow(throwableFluent: IThrowableFluent)
-    = throwableFluent.toThrow(TExpected::class, IS_A, NO_EXCEPTION_OCCURRED)
-
-inline fun <reified TExpected : Throwable> _toThrow(throwableFluent: IThrowableFluent, noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-    = throwableFluent.toThrow(TExpected::class, IS_A, NO_EXCEPTION_OCCURRED, createAssertions)
+inline fun <reified TExpected : Throwable> _toThrow(throwableFluent: IThrowableFluent, noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit) {
+   throwableFluent.toThrow(TExpected::class, IS_A, NO_EXCEPTION_OCCURRED, createAssertions)
+}
