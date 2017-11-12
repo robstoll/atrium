@@ -5,14 +5,13 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion.*
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IThrowableFluent
 import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
-import ch.tutteli.atrium.spec.creating.DownCastBuilderSpec
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
@@ -30,7 +29,7 @@ private fun <T : Any?> assert(subject: T)
     = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 private fun expect(act: () -> Unit)
-    = AtriumFactory.newThrowableFluent(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = ThrowableThrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {
@@ -45,7 +44,7 @@ abstract class VerbSpec(
     plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
     plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
     plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
-    plantExpect: Pair<String, (act: () -> Unit) -> IThrowableFluent>,
+    plantExpect: Pair<String, (act: () -> Unit) -> ThrowableThrownBuilder>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -72,10 +71,6 @@ abstract class VerbSpec(
         }
     }
 
-
-    /**
-     * @see DownCastBuilderSpec - similar spec for lazy evaluated assertion verb
-     */
     prefixedDescribe("assertion verb '${plantCheckImmediately.first}' which lazily evaluates assertions") {
         val (_, assertionVerb) = plantCheckLazily
         it("does not throw an exception in case the assertion holds") {

@@ -21,7 +21,6 @@ import kotlin.reflect.KClass
  *
  * It provides factory methods to create:
  * - [IAssertionPlant]
- * - [IThrowableFluent]
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
@@ -30,7 +29,6 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [IReporter]
- * - [IDownCastBuilder]
  */
 object AtriumFactory : IAtriumFactory {
 
@@ -43,20 +41,11 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
         = AssertionPlantNullable(commonFields)
 
-    override fun <T : Any> newExplanatoryPlant(subjectPlant: IBaseAssertionPlant<*, *>, reasonWhyNoSubject: String, explanatoryGroupFactory: (IAssertion) -> ExplanatoryAssertionGroup): IAssertionPlant<T>
-        = ExplanatoryAssertionPlant(subjectPlant, reasonWhyNoSubject, explanatoryGroupFactory)
-
     override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
         = CheckingAssertionPlant(subject)
 
     override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
         = CollectingAssertionPlant(subjectProvider)
-
-    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
-        = newThrowableFluent(assertionVerb, act, newThrowingAssertionChecker(reporter))
-
-    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
-        = ThrowableFluent.create(assertionVerb, act, assertionChecker)
 
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
         = ThrowingAssertionChecker(reporter)
@@ -115,7 +104,4 @@ object AtriumFactory : IAtriumFactory {
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
         = OnlyFailureReporter(assertionFormatterFacade)
-
-    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>, createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub>
-        = DownCastBuilder(description, subType, subjectPlant, createAssertions)
 }

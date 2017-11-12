@@ -1,24 +1,25 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
+import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.spec.checkNarrowingAssertion
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 
 abstract class ThrowableAssertionsSpec(
     verbs: IAssertionVerbFactory,
-    //TODO move toThrow specs located in ThrowableFluentSpec to this place
-//    toThrowTriple: Triple<String,
-//        IThrowableFluent.() -> IAssertionPlant<Throwable>,
-//        IThrowableFluent.(createAssertions: IAssertionPlant<Throwable>.() -> Unit) -> IAssertionPlant<Throwable>
-//        >,
+    toThrowTriple: Triple<String,
+        ThrowableThrownBuilder.() -> Unit,
+        ThrowableThrownBuilder.(createAssertions: IAssertionPlant<Throwable>.() -> Unit) -> Unit
+        >,
     messagePair: Pair<String, IAssertionPlant<Throwable>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> Unit>,
     messageContainsFun: IAssertionPlant<Throwable>.(String) -> Unit
 ) : Spek({
@@ -27,6 +28,53 @@ abstract class ThrowableAssertionsSpec(
     val assert: (IllegalArgumentException) -> IAssertionPlant<IllegalArgumentException> = verbs::checkImmediately
 
     val (message, messageFun) = messagePair
+    val (toThrow, toThrowFun, toThrowFunLazy) = toThrowTriple
+
+    fun SpecBody.checkToThrow(
+        description: String,
+        act: (ThrowableThrownBuilder.() -> Unit) -> Unit,
+        lazy: (ThrowableThrownBuilder.() -> Unit),
+        immediate: (ThrowableThrownBuilder.() -> Unit)
+    ) {
+        checkGenericNarrowingAssertion(description, act, lazy, "immediate" to immediate)
+    }
+
+    describe("fun $toThrow") {
+        checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
+            verbs.checkException {
+                verbs.checkException {
+                    /* no exception occurs */
+                }.doToThrow()
+            }.toThrow<AssertionError> {
+                message {
+                    containsDefaultTranslationOf(DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED)
+                    contains("${DescriptionThrowableAssertion.IS_A.getDefault()}: ${IllegalArgumentException::class.simpleName}")
+                }
+            }
+        }, { toThrowFunLazy {} }, { toThrowFun() })
+
+        checkToThrow("it throws an AssertionError when the wrong exception occurs", { doToThrow ->
+            verbs.checkException {
+                verbs.checkException {
+                    throw UnsupportedOperationException()
+                }.doToThrow()
+            }.toThrow<AssertionError> {
+                message {
+                    contains(
+                        UnsupportedOperationException::class.java.name,
+                        DescriptionThrowableAssertion.IS_A.getDefault(),
+                        IllegalArgumentException::class.java.name
+                    )
+                }
+            }
+        }, { toThrowFunLazy {} }, { toThrowFun() })
+
+        checkToThrow("it allows to define assertions for the Throwable if the correct exception is thrown", { toThrowWithCheck ->
+            verbs.checkException {
+                throw IllegalArgumentException("hello")
+            }.toThrowWithCheck()
+        }, { toThrowFunLazy { message { toBe("hello") } } }, {})
+    }
 
     describe("fun `$message` (for Throwable)") {
         checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->

@@ -10,18 +10,15 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import java.util.*
-import kotlin.reflect.KClass
 
 /**
  * The minimum contract of the 'abstract factory' of atrium.
  *
- * It is extended with the following extension functions defined in the atrium-api (in the same file as this interface):
+ * It is extended with the following extension functions defined in the atrium-core-api (in the same file as this interface):
  * - [ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd]
- * - [ch.tutteli.atrium.newDownCastBuilder]
  *
  * It provides factory methods to create:
  * - [IAssertionPlant]
- * - [IThrowableFluent]
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
@@ -30,7 +27,6 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [IReporter]
- * - [IDownCastBuilder]
  */
 interface IAtriumFactory {
     /**
@@ -170,24 +166,6 @@ interface IAtriumFactory {
     fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
 
     /**
-     * Creates an [IAssertionPlant] which wraps an [added][IAssertionPlant.addAssertion] [IAssertion] into an
-     * [ExplanatoryAssertionGroup] (using the given [explanatoryGroupFactory]) and passed them on to the given
-     * [subjectPlant] when the assertions should be checked.
-     *
-     * It will furthermore use the given [reasonWhyNoSubject] as message of a [PlantHasNoSubjectException] which is
-     * thrown when one tries to access the [IAssertionPlant.subject].
-     *
-     * @param subjectPlant The plant to which the resulting [ExplanatoryAssertionGroup] will be added.
-     * @param reasonWhyNoSubject The message used for a [PlantHasNoSubjectException] which is thrown if one tries to
-     * access the [IAssertionPlant.subject].
-     * @param explanatoryGroupFactory The factory method which wraps a given [IAssertion] into an
-     * [ExplanatoryAssertionGroup].
-     *
-     * @return The newly created assertion plant.
-     */
-    fun <T : Any> newExplanatoryPlant(subjectPlant: IBaseAssertionPlant<*, *>, reasonWhyNoSubject: String, explanatoryGroupFactory: (IAssertion) -> ExplanatoryAssertionGroup): IAssertionPlant<T>
-
-    /**
      * Creates an [ICheckingAssertionPlant] which provides a method to check whether
      * [allAssertionsHold][ICheckingAssertionPlant.allAssertionsHold].
      *
@@ -211,37 +189,6 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
-
-    /**
-     * Creates an [IThrowableFluent] based on the given [assertionVerb] and the [act] function.
-     *
-     * It uses the given [reporter] for reporting.
-     *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param act The function which is expected to throw a [Throwable] which in turn will be used as subject
-     *        for postulated [IAssertion]s (see [ThrowableFluent] and
-     *        [IAssertionPlantWithCommonFields.CommonFields.subject]).
-     * @param reporter The reporter used to create a [newThrowingAssertionChecker] and used for failure reporting.
-     *
-     * @return The newly created [IThrowableFluent].
-     */
-    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
-
-    /**
-     * Creates an [IThrowableFluent] based on the given [assertionVerb] and the [act] function.
-     *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param act The function which is expected to throw a [Throwable] which in turn will be used as subject
-     *        for postulated [IAssertion]s (see [ThrowableFluent] and
-     *        [IAssertionPlantWithCommonFields.CommonFields.subject]).
-     * @param assertionChecker Used to report failures (see [IAssertionChecker.fail]
-     *        and [IAssertionPlantWithCommonFields.CommonFields.assertionChecker])).
-     *
-     * @return The newly created [IThrowableFluent].
-     */
-    fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
 
     /**
      * Creates an [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
@@ -419,22 +366,6 @@ interface IAtriumFactory {
      * @return The newly created reporter.
      */
     fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
-
-    /**n
-     * Use the extension function [ch.tutteli.atrium.newDownCastBuilder] with reified type parameter whenever possible.
-     *
-     * Prepares a down cast; use [IDownCastBuilder.cast] to perform the down cast.
-     *
-     * Call [IDownCastBuilder.withLazyAssertions]/[IDownCastBuilder.withNullRepresentation] to specialise the down-cast.
-     *
-     * @param description The description of the down-cast.
-     * @param commonFields The commonFields which will be used to create a [IDownCastBuilder].
-     *
-     * @return The newly created [IDownCastBuilder].
-     *
-     * @see IDownCastBuilder
-     */
-    fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>, createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub>
 }
 
 /**
@@ -458,18 +389,3 @@ interface IAtriumFactory {
 inline fun <T : Any> IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
     = newReportingPlantCheckLazily(assertionVerb, subject, reporter)
     .createAssertionsAndCheckThem(createAssertions)
-
-/**
- * Prepares a down cast; use [IDownCastBuilder.cast] to perform the down cast.
- *
- * Call [IDownCastBuilder.withLazyAssertions]/[IDownCastBuilder.withNullRepresentation] to specialise the down-cast.
- *
- * @param description The description of the down-cast.
- * @param commonFields The commonFields which will be used to create a [IDownCastBuilder].
- *
- * @return The newly created [IDownCastBuilder].
- *
- * @see IDownCastBuilder
- */
-inline fun <reified TSub : T, T : Any> IAtriumFactory.newDownCastBuilder(description: ITranslatable, subjectPlant: IBaseAssertionPlant<T?, *>, noinline createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub>
-    = newDownCastBuilder(description, TSub::class, subjectPlant, createAssertions)

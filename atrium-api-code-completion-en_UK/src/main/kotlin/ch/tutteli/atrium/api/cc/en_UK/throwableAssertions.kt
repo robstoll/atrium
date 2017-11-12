@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions._toThrow
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IThrowableFluent
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.creating.IThrowableFluent
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified TExpected : Throwable> IThrowableFluent.toThrow() {
+inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow() {
     toThrow<TExpected> {}
 }
 
@@ -30,7 +30,7 @@ inline fun <reified TExpected : Throwable> IThrowableFluent.toThrow() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified TExpected : Throwable> IThrowableFluent.toThrow(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit) {
+inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit) {
     _toThrow(this, createAssertions)
 }
 

@@ -2,12 +2,13 @@ package ch.tutteli.atrium.verbs.expect
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IThrowableFluent
 import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
+import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT
+import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
-import ch.tutteli.atrium.verbs.AssertionVerb.*
 
 /**
  * Creates an [IAssertionPlant] for [subject] which immediately evaluates [IAssertion]s.
@@ -40,9 +41,9 @@ inline fun <T : Any> expect(subject: T, createAssertions: IAssertionPlant<T>.() 
     = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(EXPECT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
- * Creates an [IThrowableFluent] for the given function [act].
+ * Creates an [ThrowableThrownBuilder] for the given function [act].
  *
- * @return The newly created [IThrowableFluent].
+ * @return The newly created [ThrowableThrownBuilder].
  */
 fun expect(act: () -> Unit)
-    = AtriumFactory.newThrowableFluent(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = ThrowableThrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
