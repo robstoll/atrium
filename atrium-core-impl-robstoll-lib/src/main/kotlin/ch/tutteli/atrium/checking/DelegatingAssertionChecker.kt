@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  * but want to add the created assertions to the original plant of the narrowed [IAssertionPlant.subject].
  * @param subjectPlant The plant which holds the assertions of the subject.
  */
-class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: IBaseAssertionPlant<T, *>) : IAssertionCheckerDelegateFail, IAssertionChecker {
+class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: IBaseAssertionPlant<T, *>) : IAssertionChecker {
 
     /**
      * [Adds][IAssertionPlant.addAssertion] the given [assertions] (wrapped into an [InvisibleAssertionGroup]) to the

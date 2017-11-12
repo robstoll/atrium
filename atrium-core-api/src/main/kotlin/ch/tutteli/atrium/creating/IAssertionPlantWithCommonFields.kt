@@ -45,17 +45,5 @@ interface IAssertionPlantWithCommonFields<out T> {
          */
         fun check(assertions: List<IAssertion>)
             = assertionChecker.check(assertionVerb, subject ?: nullRepresentation, assertions)
-
-        /**
-         * Uses [assertionChecker] to report a failing [assertion] (see [IAssertionChecker.fail]).
-         *
-         * In case [subject] is null, then [RawString.NULL] will be used as representation.
-         *
-         * @param assertion The failing assertion.
-         *
-         * @throws AssertionError Typically throws an [AssertionError] or another [Exception].
-         */
-        fun fail(assertion: IAssertion)
-            = assertionChecker.fail(assertionVerb, subject ?: nullRepresentation, assertion)
     }
 }

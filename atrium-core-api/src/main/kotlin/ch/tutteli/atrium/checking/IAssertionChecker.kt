@@ -17,16 +17,4 @@ interface IAssertionChecker {
      * @throws AssertionError An implementation is allowed to throw [AssertionError] if an assertion fails.
      */
     fun check(assertionVerb: ITranslatable, subject: Any, assertions: List<IAssertion>)
-
-    /**
-     * Reports that the given [assertion] fails (does not hold).
-     *
-     * @param assertionVerb The assertion verb which will be used in reporting.
-     * @param subject The subject for which the [assertion] has been created.
-     * @param assertion The [assertion] which fails.
-     *
-     * @throws AssertionError An implementation might throw [AssertionError].
-     * @throws IllegalArgumentException in case the [assertion] holds.
-     */
-    fun fail(assertionVerb: ITranslatable, subject: Any, assertion: IAssertion)
 }
