@@ -55,10 +55,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDown
             plant.addAssertion(BasicAssertion(description, subType, true))
             plant.createAssertionsAndCheckThem(createAssertions)
         } else {
-            //TODO should not be added to the subjectPlant like that but instead the failureHandler should wrap it into
-            //TODO an IAssertionGroup together with the ExplanatoryAssertionGroup
-            subjectPlant.addAssertion(BasicAssertion(description, subType, false))
-            failureHandler.createAndAddAssertionToPlant(subType, subjectPlant, createAssertions)
+            failureHandler.createAndAddAssertionToPlant(subType, subjectPlant, BasicAssertion(description, subType, false), createAssertions)
         }
     }
 }
