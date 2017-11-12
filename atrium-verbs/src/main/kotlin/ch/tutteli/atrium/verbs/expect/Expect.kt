@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT
 import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
@@ -37,7 +36,7 @@ fun <T : Any?> expect(subject: T)
  *
  * @see AtriumFactory.newReportingPlantCheckLazilyAtTheEnd
  */
-inline fun <T : Any> expect(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
+fun <T : Any> expect(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(EXPECT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**

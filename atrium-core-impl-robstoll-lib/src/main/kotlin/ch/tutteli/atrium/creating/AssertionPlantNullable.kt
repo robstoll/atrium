@@ -15,7 +15,6 @@ import ch.tutteli.atrium.reporting.RawString
 class AssertionPlantNullable<out T : Any?>(
     commonFields: IAssertionPlantWithCommonFields.CommonFields<T>
 ) : BaseReportingAssertionPlant<T, IAssertionPlantNullable<T>>(commonFields), IReportingAssertionPlantNullable<T> {
-
     override val self = this
 
     override fun addAssertion(assertion: IAssertion): IAssertionPlantNullable<T> {

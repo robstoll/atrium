@@ -18,4 +18,10 @@ class AssertionPlantCheckLazily<out T : Any>(
     commonFields: IAssertionPlantWithCommonFields.CommonFields<T>
 ) : BaseReportingAssertionPlant<T, IAssertionPlant<T>>(commonFields), IReportingAssertionPlant<T> {
     override val self = this
+
+    override fun addAssertionsCreatedBy(createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T> {
+        this.createAssertions()
+        checkAssertions()
+        return this
+    }
 }

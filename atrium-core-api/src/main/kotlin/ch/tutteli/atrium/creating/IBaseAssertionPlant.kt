@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * Represents a plant for [IAssertion]s and offers methods to [create][createAndAddAssertion] and
@@ -23,7 +20,7 @@ interface IBaseAssertionPlant<out T : Any?, out A : IBaseAssertionPlant<T, A>> {
     val subject: T
 
     /**
-     * Adds the given [assertion] to the plant.
+     * Adds the given [assertion] to this plant.
      *
      * @param assertion The assertion which will be added to this plant.
      *
@@ -33,5 +30,4 @@ interface IBaseAssertionPlant<out T : Any?, out A : IBaseAssertionPlant<T, A>> {
      *         evaluated (see [IReportingAssertionPlant]).
      */
     fun addAssertion(assertion: IAssertion): A
-
 }
