@@ -50,7 +50,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDown
         val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at https://github.com/robstoll/atrium/issues/new")
         if (subType.isInstance(subject)) {
             val assertionChecker = AtriumFactory.newDelegatingAssertionChecker(subjectPlant)
-            val plant = AtriumFactory.newReportingPlantCheckLazily(assertionVerb, subType.cast(subject), assertionChecker)
+            val plant = AtriumFactory.newReportingPlantCheckImmediately(assertionVerb, subType.cast(subject), assertionChecker)
             plant.addAssertion(BasicAssertion(description, subType, true))
             plant.addAssertionsCreatedBy(createAssertions)
         } else {

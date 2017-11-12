@@ -12,7 +12,7 @@ fun <T : Any, TProperty : Any> _property(plant: IAssertionPlant<T>, property: KP
     = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(property))
 
 fun <T : Any, TProperty : Any> _property(plant: IAssertionPlant<T>, property: KProperty0<TProperty>, createAssertions: IAssertionPlant<TProperty>.() -> Unit): IAssertionPlant<TProperty>
-    = AtriumFactory.newReportingPlantCheckLazily(plant.createCommonFieldsForFeatureFactory(property))
+    = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(property))
     .addAssertionsCreatedBy(createAssertions)
 
 fun <T : Any, TProperty : Any?> _property(plant: IAssertionPlant<T>, property: KProperty0<TProperty>): IAssertionPlantNullable<TProperty>
@@ -27,7 +27,7 @@ fun <T : Any, TReturnValue : Any> _returnValueOf(plant: IAssertionPlant<T>, meth
     = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method))
 
 fun <T : Any, TReturnValue : Any> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction0<TReturnValue>, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlantCheckLazily(plant.createCommonFieldsForFeatureFactory(method))
+    = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method))
     .addAssertionsCreatedBy(createAssertions)
 
 fun <T : Any, TReturnValue : Any?> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction0<TReturnValue>): IAssertionPlantNullable<TReturnValue>
@@ -39,7 +39,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> _returnValueOf(plant: IAssertionPla
     = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1))
 
 fun <T : Any, T1 : Any?, TReturnValue : Any> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction1<T1, TReturnValue>, arg1: T1, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlantCheckLazily(plant.createCommonFieldsForFeatureFactory(method, arg1))
+    = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1))
     .addAssertionsCreatedBy(createAssertions)
 
 fun <T : Any, T1 : Any?, TReturnValue : Any?> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlantNullable<TReturnValue>
@@ -51,7 +51,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> _returnValueOf(plant: IA
     = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2))
 
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlantCheckLazily(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2))
+    = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2))
     .addAssertionsCreatedBy(createAssertions)
 
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlantNullable<TReturnValue>
@@ -63,7 +63,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> _returnValueO
     = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlantCheckLazily(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
+    = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
     .addAssertionsCreatedBy(createAssertions)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlantNullable<TReturnValue>
@@ -75,7 +75,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> _r
     = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlantCheckLazily(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
+    = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
     .addAssertionsCreatedBy(createAssertions)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlantNullable<TReturnValue>
@@ -87,7 +87,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
     = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlantCheckLazily(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
+    = AtriumFactory.newReportingPlantCheckImmediately(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
     .addAssertionsCreatedBy(createAssertions)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any?> _returnValueOf(plant: IAssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlantNullable<TReturnValue>
