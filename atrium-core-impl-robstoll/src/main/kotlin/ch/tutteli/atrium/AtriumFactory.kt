@@ -35,7 +35,7 @@ object AtriumFactory : IAtriumFactory {
         = ReportingAssertionPlantCheckImmediately(commonFields)
 
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
-        = AssertionPlantNullable(commonFields)
+        = ReportingAssertionPlantNullable(commonFields)
 
     override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
         = CheckingAssertionPlant(subject)

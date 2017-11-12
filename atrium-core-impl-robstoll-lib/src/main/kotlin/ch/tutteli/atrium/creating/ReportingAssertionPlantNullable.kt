@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.RawString
  * @constructor An [IAssertionPlant] for nullable types.
  * @param commonFields The [IAssertionPlantWithCommonFields.CommonFields] of this [IAssertionPlant].
  */
-class AssertionPlantNullable<out T : Any?>(
+class ReportingAssertionPlantNullable<out T : Any?>(
     commonFields: IAssertionPlantWithCommonFields.CommonFields<T>
 ) : BaseReportingAssertionPlant<T, IAssertionPlantNullable<T>>(commonFields), IReportingAssertionPlantNullable<T> {
     override val self = this
