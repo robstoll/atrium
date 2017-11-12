@@ -11,6 +11,7 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
     AssertionVerbFactory,
     getIsNotNullPair(),
     Companion::isNotNullLess,
+    Companion::isNotNullGreaterAndLess,
     getNameIsA(),
     Companion::isAInt,
     Companion::isAString,
@@ -27,6 +28,9 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
 
         private fun isNotNullLess(plant: IAssertionPlantNullable<Int?>, number: Int)
             = plant.isNotNull { isLessThan(number) }
+
+        private fun isNotNullGreaterAndLess(plant: IAssertionPlantNullable<Int?>, lowerBound:Int, upperBound: Int)
+            = plant.isNotNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
 
 
         private fun getNameIsA(): String {

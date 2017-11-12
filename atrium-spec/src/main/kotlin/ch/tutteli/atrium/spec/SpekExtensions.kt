@@ -23,13 +23,6 @@ fun <T : Any> SpecBody.checkNarrowingAssertion(description: String,
     checkGenericNarrowingAssertion(description, act, lazy, *otherMethods)
 }
 
-fun <T> SpecBody.checkNarrowingNullableAssertion(description: String,
-                                                 act: (IAssertionPlantNullable<T>.() -> Unit) -> Unit,
-                                                 lazy: (IAssertionPlantNullable<T>.() -> Unit),
-                                                 vararg otherMethods: Pair<String, (IAssertionPlantNullable<T>.() -> Unit)>) {
-    checkGenericNarrowingAssertion(description, act, lazy, *otherMethods)
-}
-
 fun <T> SpecBody.checkGenericNarrowingAssertion(
     description: String,
     act: (T.() -> Unit) -> Unit,
