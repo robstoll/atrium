@@ -47,6 +47,21 @@ interface IAtriumFactory {
         = newReportingPlantCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
+     * Use this function to create a custom *assertion verb* which lazy evaluates assertions
+     * (see [IAtriumFactory.newReportingPlantCheckLazily]).
+     *
+     * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     *
+     * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
+     *
+     * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
+     *         created [IAssertion] does not hold.
+     */
+    fun <T : Any> newReportingPlantCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
+        = newReportingPlantCheckLazily(assertionVerb, subject, reporter)
+        .addAssertionsCreatedBy(createAssertions)
+
+    /**
      * Creates an [IReportingAssertionPlant] which does not check and report the created or
      * added [IAssertion]s until one calls [IReportingAssertionPlant.checkAssertions].
      *
@@ -367,25 +382,3 @@ interface IAtriumFactory {
      */
     fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
 }
-
-/**
- * Use this function to create a custom *assertion verb* which lazy evaluates assertions
- * (see [IAtriumFactory.newReportingPlantCheckLazily]).
- *
- * This function will create an [IAssertionPlant] which does not check the created assertions until one
- * calls [IAssertionPlant.checkAssertions].
- * However, it uses the given [createAssertions] function immediately after creating the [IAssertionPlant]
- * which might add some assertions and it then calls [IAssertionPlant.checkAssertions].
- * In case all assertions added so far hold, then it will not evaluate further added assertions until
- * one calls [IAssertionPlant.checkAssertions] again.
- *
- * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
- *
- * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
- *
- * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
- *         created [IAssertion] does not hold.
- */
-inline fun <T : Any> IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = newReportingPlantCheckLazily(assertionVerb, subject, reporter)
-    .createAssertionsAndCheckThem(createAssertions)
