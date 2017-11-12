@@ -1,6 +1,7 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.IAssertionGroupType
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
@@ -25,7 +26,6 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [IReporter]
- * - [IDownCastBuilder]
  */
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
@@ -48,16 +48,13 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
-    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
-        = throwUnsupportedOperationException()
-
-    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
-        = throwUnsupportedOperationException()
-
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
         = throwUnsupportedOperationException()
 
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+        = throwUnsupportedOperationException()
+
+    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
         = throwUnsupportedOperationException()
 
     override fun newMethodCallFormatter(): IMethodCallFormatter
@@ -95,9 +92,6 @@ object AtriumFactory : IAtriumFactory {
     ): Unit = throwUnsupportedOperationException()
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
-        = throwUnsupportedOperationException()
-
-    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: IAssertionPlantWithCommonFields.CommonFields<T?>): IDownCastBuilder<T, TSub>
         = throwUnsupportedOperationException()
 
     private fun throwUnsupportedOperationException(): Nothing

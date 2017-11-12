@@ -8,8 +8,10 @@ import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.IReportingAssertionPlant
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -31,7 +33,7 @@ abstract class AssertionPlantCheckLazilySpec(
     val subject = 10
     val assertionChecker = (verbs.checkLazily(1, {}) as IReportingAssertionPlant<Int>).commonFields.assertionChecker
     fun createTestee()
-        = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker))
+        = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker, RawString.NULL))
 
     val plant = createTestee()
 
@@ -47,28 +49,44 @@ abstract class AssertionPlantCheckLazilySpec(
         }
 
         setUp("in case of assertion which fails") {
-            val testee = createTestee()
-            testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, -12, { a == 0 })
-            val expectFun = verbs.checkException {
-                testee.checkAssertions()
-            }
-            setUp("throws an AssertionError when calling ${testee::checkAssertions.name}") {
-                context("exception message") {
-                    val assertMessage = expectFun.toThrow<AssertionError>().message
-                    it("contains the ${testee.commonFields::assertionVerb.name}'") {
-                        assertMessage.containsDefaultTranslationOf(assertionVerb)
-                    }
-                    it("contains the '${testee::subject.name}'") {
-                        assertMessage.contains(subject)
-                    }
-                    it("contains the '${IBasicAssertion::description.name}' of the assertion-message") {
-                        assertMessage.containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
-                    }
-                    it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
-                        assertMessage.contains(-12)
+            setUp("throws an AssertionError when calling ${plant::checkAssertions.name}") {
+                fun expectFun(): ThrowableThrownBuilder {
+                    val testee = createTestee()
+                    testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, -12, { a == 0 })
+                    return verbs.checkException {
+                        testee.checkAssertions()
                     }
                 }
-                on("re-checking the assertions (calling ${testee::checkAssertions.name} twice)") {
+
+                context("exception message") {
+
+                    it("contains the ${plant.commonFields::assertionVerb.name}'") {
+                        expectFun().toThrow<AssertionError> {
+                            message { containsDefaultTranslationOf(assertionVerb) }
+                        }
+                    }
+                    it("contains the '${plant::subject.name}'") {
+                        expectFun().toThrow<AssertionError> {
+                            message { contains(subject) }
+                        }
+                    }
+                    it("contains the '${IBasicAssertion::description.name}' of the assertion-message") {
+                        expectFun().toThrow<AssertionError> {
+                            message { containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE) }
+                        }
+                    }
+                    it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
+                        expectFun().toThrow<AssertionError> {
+                            message { contains(-12) }
+                        }
+                    }
+                }
+                on("re-checking the assertions (calling ${plant::checkAssertions.name} twice)") {
+                    val testee = createTestee()
+                    testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, -12, { a == 0 })
+                    verbs.checkException {
+                        testee.checkAssertions()
+                    }.toThrow<AssertionError>()
                     it("does not re-throw the exception") {
                         testee.checkAssertions()
                     }
@@ -90,27 +108,36 @@ abstract class AssertionPlantCheckLazilySpec(
         }
 
         setUp("in case of a custom ${IBasicAssertion::class.java.simpleName} which fails") {
-            val testee = createTestee()
-            testee.addAssertion(BasicAssertion(DescriptionAnyAssertion.TO_BE, "my expected result", false))
-            val expectFun = verbs.checkException {
-                testee.checkAssertions()
+            fun expectFun(): ThrowableThrownBuilder {
+                val testee = createTestee()
+                testee.addAssertion(BasicAssertion(DescriptionAnyAssertion.TO_BE, "my expected result", false))
+                return verbs.checkException {
+                    testee.checkAssertions()
+                }
             }
             setUp("throws an AssertionError") {
-                expectFun.toThrow<AssertionError>()
+                expectFun().toThrow<AssertionError>()
                 context("exception message") {
                     it("contains the messages of the custom assertion") {
-                        expectFun.toThrow<AssertionError>().message {
-                            containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
-                            contains("my expected result")
+                        expectFun().toThrow<AssertionError> {
+                            message {
+                                containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
+                                contains("my expected result")
+                            }
                         }
                     }
                     it("contains the assertionVerb") {
-                        expectFun.toThrow<AssertionError>().message {
-                            containsDefaultTranslationOf(assertionVerb)
+                        expectFun().toThrow<AssertionError> {
+                            message { containsDefaultTranslationOf(assertionVerb) }
                         }
                     }
                 }
-                on("re-checking the assertions (calling ${testee::checkAssertions.name} twice)") {
+                on("re-checking the assertions (calling ${plant::checkAssertions.name} twice)") {
+                    val testee = createTestee()
+                    testee.addAssertion(BasicAssertion(DescriptionAnyAssertion.TO_BE, "my expected result", false))
+                    verbs.checkException {
+                        testee.checkAssertions()
+                    }.toThrow<AssertionError>()
                     it("does not re-throw the exception") {
                         testee.checkAssertions()
                     }

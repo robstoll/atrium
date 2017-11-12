@@ -1,11 +1,13 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
+import ch.tutteli.atrium.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
@@ -19,7 +21,6 @@ import kotlin.reflect.KClass
  *
  * It provides factory methods to create:
  * - [IAssertionPlant]
- * - [IThrowableFluent]
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
@@ -28,7 +29,6 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [IReporter]
- * - [IDownCastBuilder]
  */
 object AtriumFactory : IAtriumFactory {
 
@@ -47,17 +47,14 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
         = CollectingAssertionPlant(subjectProvider)
 
-    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
-        = newThrowableFluent(assertionVerb, act, newThrowingAssertionChecker(reporter))
-
-    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
-        = ThrowableFluent.create(assertionVerb, act, assertionChecker)
-
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
         = ThrowingAssertionChecker(reporter)
 
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
         = FeatureAssertionChecker(subjectPlant)
+
+    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
+        = DelegatingAssertionChecker(subjectPlant)
 
     override fun newMethodCallFormatter(): IMethodCallFormatter
         = TextMethodCallFormatter
@@ -107,7 +104,4 @@ object AtriumFactory : IAtriumFactory {
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
         = OnlyFailureReporter(assertionFormatterFacade)
-
-    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, commonFields: CommonFields<T?>): IDownCastBuilder<T, TSub>
-        = DownCastBuilder(description, subType, commonFields)
 }

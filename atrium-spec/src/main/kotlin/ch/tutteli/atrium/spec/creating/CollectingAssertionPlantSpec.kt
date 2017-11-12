@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.ICollectingAssertionPlant
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -54,14 +55,14 @@ abstract class CollectingAssertionPlantSpec(
             }
         }
 
-        context("provider throws an ${ICollectingAssertionPlant.PlantHasNoSubjectException::class.simpleName}") {
-            val plantHasNoSubjectException = ICollectingAssertionPlant.PlantHasNoSubjectException("oho")
+        context("provider throws an ${PlantHasNoSubjectException::class.simpleName}") {
+            val plantHasNoSubjectException = PlantHasNoSubjectException("oho")
             val testeeThrowing = testeeFactory { throw plantHasNoSubjectException }
 
             it("throws the exception when accessing subject") {
                 verbs.checkException {
                     testeeThrowing.subject
-                }.toThrow<ICollectingAssertionPlant.PlantHasNoSubjectException>().and.toBe(plantHasNoSubjectException)
+                }.toThrow<PlantHasNoSubjectException> { toBe(plantHasNoSubjectException) }
             }
         }
     }

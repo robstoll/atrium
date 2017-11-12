@@ -41,12 +41,12 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
             test("for not at all or at most -1 -- only positive numbers") {
                 expect {
                     fluent.containsNotOrAtMostFun(-1, "")
-                }.toThrow<IllegalArgumentException>().and.message.contains("positive number", -1)
+                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
             }
             test("for not at all or at most 0 -- points to $containsNot") {
                 expect {
                     fluent.containsNotOrAtMostFun(0, "")
-                }.toThrow<IllegalArgumentException>().and.message.toBe(errorMsgContainsNot(0))
+                }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
             }
         }
 
@@ -70,22 +70,22 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                 test("${containsNotOrAtMostTest("'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l')
-                    }.toThrow<AssertionError>().message.containsDefaultTranslationOf(AT_MOST)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
                 }
                 test("${containsNotOrAtMostTest("'H', 'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'H', 'l')
-                    }.toThrow<AssertionError>().message.contains(atMost, 'l')
+                    }.toThrow<AssertionError> { message { contains(atMost, 'l') } }
                 }
                 test("${containsNotOrAtMostTest("'l', 'H'", "once")} once throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l', 'H')
-                    }.toThrow<AssertionError>().message.contains(atMost, 'l')
+                    }.toThrow<AssertionError> { message { contains(atMost, 'l') } }
                 }
                 test("${containsNotOrAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'o', 'E', 'W', 'l')
-                    }.toThrow<AssertionError>().message.contains(atMost, 'o', 'l')
+                    }.toThrow<AssertionError> { message { contains(atMost, 'o', 'l') } }
                 }
             }
 
@@ -93,12 +93,14 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                 test("${containsNotOrAtMostTest("'o'", "once")} throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'o')
-                    }.toThrow<AssertionError>().and.message {
-                        contains(
-                            "$containsDescr: 'o'",
-                            "$numberOfOccurrences: 2$separator"
-                        )
-                        endsWith("$atMost: 1")
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsDescr: 'o'",
+                                "$numberOfOccurrences: 2$separator"
+                            )
+                            endsWith("$atMost: 1")
+                        }
                     }
                 }
 
@@ -108,7 +110,7 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                 test("${containsNotOrAtMostIgnoringCase("'o'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostIgnoringCaseFun(2, 'o')
-                    }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(AT_MOST)
+                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
                 }
 
                 test("${containsNotOrAtMostTest("'o'", "3 times")} does not throw") {
@@ -117,13 +119,15 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                 test("${containsNotOrAtMostTest("'o' and 'l'", "twice")} throws AssertionError and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(2, 'o', 'l')
-                    }.toThrow<AssertionError>().and.message {
-                        contains(
-                            "$containsDescr: 'l'",
-                            "$numberOfOccurrences: 3$separator"
-                        )
-                        endsWith("$atMost: 2")
-                        containsNot("$containsDescr 'o'")
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsDescr: 'l'",
+                                "$numberOfOccurrences: 3$separator"
+                            )
+                            endsWith("$atMost: 2")
+                            containsNot("$containsDescr 'o'")
+                        }
                     }
                 }
                 test("${containsNotOrAtMostTest("'l'", "3 times")} does not throw") {

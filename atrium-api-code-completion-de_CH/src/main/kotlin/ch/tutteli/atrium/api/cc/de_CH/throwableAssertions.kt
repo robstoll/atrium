@@ -1,57 +1,51 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions._toThrow
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
-import ch.tutteli.atrium.creating.IThrowableFluent
 
 /**
- * Makes the assertion that [IThrowableFluent.commonFields]'
- * [subject][IAssertionPlantWithCommonFields.CommonFields.subject] is of the expected type [TExpected] and
- * reports an error if subject is `null` or another type than the expected one.
+ * Makes the assertion that the thrown [Throwable] is of type [TExpected].
  *
- * @return The newly created plant to support a fluent API.
+ * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the assertion
+ * (a [Throwable] was thrown and is of type [TExpected]) holds or not.
+ * If you want to define subsequent assertions on the down-casted [Throwable], then use the overload which expects a
+ * lambda (where you can define subsequent assertions).
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalStateException In case reporting a failure does not throw itself.
  */
-inline fun <reified TExpected : Throwable> IThrowableFluent.wirft(): IAssertionPlant<TExpected>
-    = _toThrow(this)
+inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.wirft() {
+    wirft<TExpected> {}
+}
 
 /**
- * Makes the assertion that [IThrowableFluent.commonFields]'
- * [subject][IAssertionPlantWithCommonFields.CommonFields.subject] is of the expected type [TExpected] and
- * reports an error if subject is `null` or another type than the expected one -- furthermore it [createAssertions]
+ * Makes the assertion that the thrown [Throwable] is of type [TExpected] and it [createAssertions]
  * which are checked additionally as well.
  *
- * @return The newly created plant to support a fluent API.
+ * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+ * assertion (a [Throwable] was thrown) holds or not.
+ * Define subsequent assertions via the [createAssertions] lambda.
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- * @throws IllegalStateException In case reporting a failure does not throw itself.
  */
-inline fun <reified TExpected : Throwable> IThrowableFluent.wirft(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit): IAssertionPlant<TExpected>
-    = _toThrow(this, createAssertions)
-
-/**
- * Creates an [IAssertionPlantNullable] for the [message][Throwable.message] of the plant's
- * [subject][IAssertionPlant.subject] (which is an [Throwable]) and makes the assertion that message [istNichtNull].
- *
- * @return An [IAssertionPlant] which immediately evaluates [IAssertion]s (see [IAtriumFactory.newReportingPlantCheckImmediately]).
- * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`.
- */
-val <T : Throwable> IAssertionPlant<T>.message: IAssertionPlant<String> get() = property(subject::message).istNichtNull()
+inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.wirft(noinline createAssertions: IAssertionPlant<TExpected>.() -> Unit) {
+    _toThrow(this, createAssertions)
+}
 
 /**
  * Creates an [IAssertionPlantNullable] for the [message][Throwable.message] of the plant's
  * [subject][IAssertionPlant.subject] (which is an [Throwable]) and makes the assertion that message [istNichtNull]
  * and uses [createAssertions] which might create further [IAssertion]s which are lazily evaluated at the end.
  *
- * @return An [IAssertionPlant] which lazily evaluates [IAssertion]s (see [IAtriumFactory.newReportingPlantCheckLazily]).
+ * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+ * assertion (message][Throwable.message] is not null) holds or not.
+ * Define subsequent assertions via the [createAssertions] lambda.
+ *
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *         or if an additionally created [IAssertion]s (by calling [createAssertions]) does not hold.
  */
-fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit): IAssertionPlant<String>
-    = property(subject::message).istNichtNull(createAssertions)
+fun <T : Throwable> IAssertionPlant<T>.message(createAssertions: IAssertionPlant<String>.() -> Unit) {
+    property(subject::message).istNichtNull(createAssertions)
+}

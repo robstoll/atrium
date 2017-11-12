@@ -42,21 +42,29 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
             test("$contains 1.0 throws AssertionError") {
                 expect {
                     fluentEmptyString.containsFun(1.0)
-                }.toThrow<AssertionError>().and.message
-                    .contains(
-                        "$containsInAnyOrderOnly:",
-                        "$failingBulletPoint$anEntryWhichIs: 1.0"
-                    ).containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(
+                            "$containsInAnyOrderOnly:",
+                            "$failingBulletPoint$anEntryWhichIs: 1.0"
+                        )
+                        containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                    }
+                }
             }
             test("$contains 1.0 and 4.0 throws AssertionError") {
                 expect {
                     fluentEmptyString.containsFun(1.0, 4.0)
-                }.toThrow<AssertionError>().and.message
-                    .contains(
-                        "$containsInAnyOrderOnly:",
-                        "$failingBulletPoint$anEntryWhichIs: 1.0",
-                        "$failingBulletPoint$anEntryWhichIs: 4.0"
-                    ).containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(
+                            "$containsInAnyOrderOnly:",
+                            "$failingBulletPoint$anEntryWhichIs: 1.0",
+                            "$failingBulletPoint$anEntryWhichIs: 4.0"
+                        )
+                        containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                    }
+                }
             }
         }
 
@@ -82,46 +90,58 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
                 test("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {
                     expect {
                         fluent.containsFun(1.0, 2.0, 3.0, 4.0)
-                    }.toThrow<AssertionError>().and.message
-                        .contains(
-                            "$containsInAnyOrderOnly:",
-                            "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                            "$successfulBulletPoint$anEntryWhichIs: 2.0",
-                            "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                            "$successfulBulletPoint$anEntryWhichIs: 4.0",
-                            "$warningBulletPoint$additionalEntries:",
-                            "${listBulletPoint}4.0"
-                        ).containsSize(5, 4)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsInAnyOrderOnly:",
+                                "$successfulBulletPoint$anEntryWhichIs: 1.0",
+                                "$successfulBulletPoint$anEntryWhichIs: 2.0",
+                                "$successfulBulletPoint$anEntryWhichIs: 3.0",
+                                "$successfulBulletPoint$anEntryWhichIs: 4.0",
+                                "$warningBulletPoint$additionalEntries:",
+                                "${listBulletPoint}4.0"
+                            )
+                            containsSize(5, 4)
+                        }
+                    }
                 }
 
                 test("1.0, 4.0 -- 2.0, 3.0 and 4.0 was missing") {
                     expect {
                         fluent.containsFun(1.0, 4.0)
-                    }.toThrow<AssertionError>().and.message
-                        .contains(
-                            "$containsInAnyOrderOnly:",
-                            "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                            "$successfulBulletPoint$anEntryWhichIs: 4.0",
-                            "$warningBulletPoint$additionalEntries:",
-                            "${listBulletPoint}2.0",
-                            "${listBulletPoint}3.0",
-                            "${listBulletPoint}4.0"
-                        ).containsSize(5, 2)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsInAnyOrderOnly:",
+                                "$successfulBulletPoint$anEntryWhichIs: 1.0",
+                                "$successfulBulletPoint$anEntryWhichIs: 4.0",
+                                "$warningBulletPoint$additionalEntries:",
+                                "${listBulletPoint}2.0",
+                                "${listBulletPoint}3.0",
+                                "${listBulletPoint}4.0"
+                            )
+                            containsSize(5, 2)
+                        }
+                    }
                 }
                 test("1.0, 3.0, 5.0 -- 5.0 is wrong and 2.0, 4.0 and 4.0 are missing") {
                     expect {
                         fluent.containsFun(1.0, 3.0, 5.0)
-                    }.toThrow<AssertionError>().and.message
-                        .contains(
-                            "$containsInAnyOrderOnly:",
-                            "$successfulBulletPoint$anEntryWhichIs: 1.0",
-                            "$successfulBulletPoint$anEntryWhichIs: 3.0",
-                            "$failingBulletPoint$anEntryWhichIs: 5.0",
-                            "$warningBulletPoint$additionalEntries:",
-                            "${listBulletPoint}2.0",
-                            "${listBulletPoint}4.0",
-                            "${listBulletPoint}4.0"
-                        ).containsSize(5, 3)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsInAnyOrderOnly:",
+                                "$successfulBulletPoint$anEntryWhichIs: 1.0",
+                                "$successfulBulletPoint$anEntryWhichIs: 3.0",
+                                "$failingBulletPoint$anEntryWhichIs: 5.0",
+                                "$warningBulletPoint$additionalEntries:",
+                                "${listBulletPoint}2.0",
+                                "${listBulletPoint}4.0",
+                                "${listBulletPoint}4.0"
+                            )
+                            containsSize(5, 3)
+                        }
+                    }
                 }
             }
         }
