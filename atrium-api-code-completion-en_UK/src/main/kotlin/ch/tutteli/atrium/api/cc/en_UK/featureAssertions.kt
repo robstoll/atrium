@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions._property
 import ch.tutteli.atrium.assertions._returnValueOf
@@ -10,12 +9,9 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import kotlin.reflect.*
 
 /**
- * Creates an [IAssertionPlant] which immediately evaluates [IAssertion]s using the given [property] as
- * [subject][IAssertionPlant.subject].
+ * Creates an [IAssertionPlant] using the given [property] as [subject][IAssertionPlant.subject].
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<TProperty>): IAssertionPlant<TProperty>
     = _property(this, property)
@@ -32,8 +28,6 @@ fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
  *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newReportingPlantCheckLazily]
  */
 fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<TProperty>, createAssertions: IAssertionPlant<TProperty>.() -> Unit): IAssertionPlant<TProperty>
     = _property(this, property, createAssertions)
@@ -54,8 +48,6 @@ fun <T : Any, TProperty : Any?> IAssertionPlant<T>.property(property: KProperty0
  * Delegates to [property].
  *
  * @return An [IAssertionPlant] for the given [feature], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
     = property(feature)
@@ -70,8 +62,6 @@ fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeatur
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
  *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newReportingPlantCheckLazily]
  */
 fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, createAssertions: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature>
     = property(feature, createAssertions)
@@ -91,8 +81,6 @@ fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeatu
  * [method] of the [subject][IAssertionPlant.subject].
  *
  * @return An [IAssertionPlant] for the given [method], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method)
@@ -109,8 +97,6 @@ fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunc
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
  *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newReportingPlantCheckLazily]
  */
 fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction0<TReturnValue>, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, createAssertions)
@@ -129,8 +115,6 @@ fun <T : Any, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(method: KFun
  * [method] of the [subject][IAssertionPlant.subject] with [arg1].
  *
  * @return An [IAssertionPlant] for the given [method], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1)
@@ -147,8 +131,6 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(me
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
  *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newReportingPlantCheckLazily]
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, createAssertions)
@@ -167,8 +149,6 @@ fun <T : Any, T1 : Any?, TReturnValue : Any?> IAssertionPlant<T>.returnValueOf(m
  * [method] of the [subject][IAssertionPlant.subject] with [arg1] and [arg2].
  *
  * @return An [IAssertionPlant] for the given [method], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2)
@@ -185,8 +165,6 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.retur
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
  *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newReportingPlantCheckLazily]
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, createAssertions)
@@ -206,8 +184,6 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> IAssertionPlant<T>.retu
  * [method] of the [subject][IAssertionPlant.subject] with [arg1], [arg2] and [arg3].
  *
  * @return An [IAssertionPlant] for the given [method], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3)
@@ -224,8 +200,6 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPla
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
  *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newReportingPlantCheckLazily]
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, createAssertions)
@@ -244,8 +218,6 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> IAssertionPl
  * [method] of the [subject][IAssertionPlant.subject] with [arg1], [arg2], [arg3] and [arg4].
  *
  * @return An [IAssertionPlant] for the given [method], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
@@ -262,8 +234,6 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IA
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
  *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newReportingPlantCheckLazily]
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, createAssertions)
@@ -282,8 +252,6 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> I
  * [method] of the [subject][IAssertionPlant.subject] with [arg1], [arg2], [arg3], [arg4] and [arg5].
  *
  * @return An [IAssertionPlant] for the given [method], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @See IAtriumFactory.newReportingPlantCheckImmediately
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
@@ -300,8 +268,6 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
  *         (by calling [createAssertions]) does not hold.
- *
- * @see [IAtriumFactory.newReportingPlantCheckLazily]
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5, createAssertions)
