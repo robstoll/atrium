@@ -1,5 +1,6 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.IReporter
@@ -17,7 +18,7 @@ internal fun <T : Any?> assert(subject: T)
     = AtriumFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal fun expect(act: () -> Unit)
-    = AtriumFactory.newThrowableFluent(AssertionVerb.EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = ThrowableThrownBuilder(AssertionVerb.EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 internal enum class AssertionVerb(override val value: String) : ISimpleTranslatable {
     ASSERT("assert"),

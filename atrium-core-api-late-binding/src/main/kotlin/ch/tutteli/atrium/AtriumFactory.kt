@@ -26,7 +26,6 @@ import kotlin.reflect.KClass
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [IReporter]
- * - [IDownCastBuilder]
  */
 @Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
@@ -43,19 +42,10 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
         = throwUnsupportedOperationException()
 
-    override fun <T : Any> newExplanatoryPlant(subjectPlant: IBaseAssertionPlant<*, *>, reasonWhyNoSubject: String, explanatoryGroupFactory: (IAssertion) -> ExplanatoryAssertionGroup): IAssertionPlant<T>
-        = throwUnsupportedOperationException()
-
     override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
     override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
-        = throwUnsupportedOperationException()
-
-    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, reporter: IReporter): IThrowableFluent
-        = throwUnsupportedOperationException()
-
-    override fun newThrowableFluent(assertionVerb: ITranslatable, act: () -> Unit, assertionChecker: IAssertionChecker): IThrowableFluent
         = throwUnsupportedOperationException()
 
     override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
@@ -102,9 +92,6 @@ object AtriumFactory : IAtriumFactory {
     ): Unit = throwUnsupportedOperationException()
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
-        = throwUnsupportedOperationException()
-
-    override fun <TSub : T, T : Any> newDownCastBuilder(description: ITranslatable, subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>, createAssertions: IAssertionPlant<TSub>.() -> Unit): IDownCastBuilder<T, TSub>
         = throwUnsupportedOperationException()
 
     private fun throwUnsupportedOperationException(): Nothing

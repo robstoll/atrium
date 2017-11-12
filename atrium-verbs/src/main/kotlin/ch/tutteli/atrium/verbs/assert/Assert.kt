@@ -3,9 +3,9 @@ package ch.tutteli.atrium.verbs.assert
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IThrowableFluent
 import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
@@ -42,11 +42,11 @@ inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() 
     = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
- * Creates an [IThrowableFluent] for the given function [act].
+ * Creates an [ThrowableThrownBuilder] for the given function [act].
  *
- * @return The newly created [IThrowableFluent].
+ * @return The newly created [ThrowableThrownBuilder].
  */
 fun assert(act: () -> Unit)
-    = AtriumFactory.newThrowableFluent(ASSERT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = ThrowableThrownBuilder(ASSERT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 
