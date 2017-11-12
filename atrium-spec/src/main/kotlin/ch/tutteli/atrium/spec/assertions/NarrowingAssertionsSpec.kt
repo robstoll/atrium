@@ -6,16 +6,16 @@ import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.checkNarrowingAssertion
-import ch.tutteli.atrium.spec.checkNarrowingNullableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.it
 
 abstract class NarrowingAssertionsSpec(
     verbs: IAssertionVerbFactory,
     isNotNullPair: Pair<String, IAssertionPlantNullable<Int?>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> Unit>,
     isNotNullLessFun: IAssertionPlantNullable<Int?>.(Int) -> Unit,
+    isNotNullGreaterAndLessFun: IAssertionPlantNullable<Int?>.(Int, Int) -> Unit,
     nameIsA: String,
     isAIntFun: IAssertionPlant<String>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> Unit,
     isAStringFun: IAssertionPlant<String>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> Unit,
@@ -33,24 +33,23 @@ abstract class NarrowingAssertionsSpec(
         val assert: (Int?) -> IAssertionPlantNullable<Int?> = verbs::checkNullable
 
         context("subject is null") {
-            checkNarrowingNullableAssertion<Int?>("it throws an AssertionError", { isNotNull ->
+            it("throws an AssertionError") {
                 expect {
                     val i: Int? = null
-                    assert(i).isNotNull()
+                    assert(i).isNotNullFun {}
                 }.toThrow<AssertionError> {
                     message {
                         containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
                         contains(Integer::class.java.name)
                     }
                 }
-
-            }, { isNotNullFun {} })
+            }
 
             context("it still allows to define assertion on the subject even if it is null") {
-                checkNarrowingNullableAssertion<Int?>("it throws an AssertionError and contains the additional assertion as explanation", { isNotNullWithCheck ->
+                it("throws an AssertionError and contains the additional assertion as explanation") {
                     expect {
                         val i: Int? = null
-                        assert(i).isNotNullWithCheck()
+                        assert(i).isNotNullLessFun(2)
                     }.toThrow<AssertionError> {
                         message {
                             containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
@@ -58,37 +57,69 @@ abstract class NarrowingAssertionsSpec(
                             containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
                         }
                     }
-                }, { isNotNullLessFun(2) })
+                }
             }
         }
 
         context("subject is not null") {
 
-            checkNarrowingNullableAssertion<Int?>("it does not throw", { isNotNull ->
+            it("does not throw") {
                 val i: Int? = 1
-                assert(i).isNotNull()
-            }, { isNotNullFun {} })
+                assert(i).isNotNullFun {}
+            }
 
-            context("it allows to define an assertion on the subject") {
-                checkNarrowingNullableAssertion<Int?>("it throws an AssertionError if the assertion does not hold", { isNotNullWithCheck ->
+            context("it allows to define an assertion for the subject") {
+                it("does not throw if the assertion holds") {
+                    val i: Int? = 1
+                    assert(i).isNotNullLessFun(2)
+                }
+
+                it("throws an AssertionError if the assertion does not hold") {
                     expect {
                         val i: Int? = 1
-                        assert(i).isNotNullWithCheck()
+                        assert(i).isNotNullLessFun(0)
                     }.toThrow<AssertionError>()
-                }, { isNotNullLessFun(0) })
-
-                checkNarrowingNullableAssertion<Int?>("it does not throw an Exception if assertion holds", { isNotNullWithCheck ->
+                }
+            }
+            context("it allows to define multiple assertions for the subject") {
+                it("does not throw if the assertions hold") {
                     val i: Int? = 1
-                    assert(i).isNotNullWithCheck()
-                }, { isNotNullLessFun(2) })
+                    assert(i).isNotNullGreaterAndLessFun(0, 2)
+                }
+
+                it("throws an AssertionError if one assertion does not hold") {
+                    expect {
+                        val i: Int? = 1
+                        assert(i).isNotNullGreaterAndLessFun(2, 5)
+                    }.toThrow<AssertionError> {
+                        message {
+                            containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
+                            containsNotDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                        }
+                    }
+                }
+
+                it("throws an AssertionError if both assertions do not hold and contains both messages") {
+                    expect {
+                        val i: Int? = 1
+                        assert(i).isNotNullGreaterAndLessFun(2, 0)
+                    }.toThrow<AssertionError> {
+                        message {
+                            containsDefaultTranslationOf(
+                                DescriptionNumberAssertion.IS_GREATER_THAN,
+                                DescriptionNumberAssertion.IS_LESS_THAN
+                            )
+                        }
+                    }
+                }
             }
         }
 
         context("in a feature assertion and subject is null") {
-            checkNarrowingNullableAssertion<Int?>("it throws an AssertionError", { isNotNull ->
+            it("throws an AssertionError") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { its(subject::i).isNotNull() }
+                    verbs.checkLazily(A()) { its(subject::i).isNotNull {} }
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
@@ -96,12 +127,12 @@ abstract class NarrowingAssertionsSpec(
                         contains(Integer::class.java.name)
                     }
                 }
-            }, { isNotNull {} })
+            }
 
-            checkNarrowingNullableAssertion<Int?>("it throws an AssertionError which contains subsequent assertions", { isNotNull ->
+            it("throws an AssertionError which contains subsequent assertions") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { its(subject::i).isNotNull() }
+                    verbs.checkLazily(A()) { its(subject::i).isNotNullLessFun(1) }
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
@@ -109,7 +140,7 @@ abstract class NarrowingAssertionsSpec(
                         contains(Integer::class.java.name)
                     }
                 }
-            }, { isNotNullLessFun(1) })
+            }
         }
     }
 
@@ -118,76 +149,75 @@ abstract class NarrowingAssertionsSpec(
         val assert: (String) -> IAssertionPlant<String> = verbs::checkImmediately
 
         context("subject is not in type hierarchy") {
-            checkNarrowingAssertion<String>("it throws an AssertionError", { isA ->
+            it("throws an AssertionError") {
                 expect {
-                    assert("hello").isA()
+                    assert("hello").isAIntFun {}
                 }.toThrow<AssertionError> {
                     message {
                         containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
                         contains(Integer::class.java.name)
                     }
                 }
-            }, { isAIntFun {} })
+            }
         }
         context("subject is the same type") {
-            checkNarrowingAssertion<String>("it does not throw an AssertionError", { isA ->
-                assert("hello").isA()
-            }, { isAStringFun {} })
+            it("does not throw an AssertionError") {
+                assert("hello").isAStringFun {}
+            }
 
             group("it allows to perform an assertion specific for the subtype...") {
 
-                checkNarrowingAssertion<Int>("... which holds -- does not throw", { isAWithAssertion ->
-                    verbs.checkImmediately(1).isAWithAssertion()
-                }, { isAIntLessFun(2) })
+                test("... which holds -- does not throw") {
+                    verbs.checkImmediately(1).isAIntLessFun(2)
+                }
 
                 val expectedLessThan = 2
                 val actualValue = 5
-                checkNarrowingAssertion<Int>("... which fails -- throws an AssertionError", { isAWithAssertion ->
+                test("... which fails -- throws an AssertionError") {
                     expect {
-                        verbs.checkImmediately(actualValue).isAWithAssertion()
+                        verbs.checkImmediately(actualValue).isAIntLessFun(expectedLessThan)
                     }.toThrow<AssertionError> {
                         message { contains(actualValue, DescriptionNumberAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
                     }
-                }, { isAIntLessFun(expectedLessThan) })
+                }
             }
         }
 
         context("subject is a subtype") {
-            checkNarrowingAssertion<String>("it does not throw an AssertionError if the subject is a subtype", { isA ->
-                assert("hello").isA()
-            }, { isACharSequenceFun {} })
+            it("does not throw an AssertionError if the subject is a subtype") {
+                assert("hello").isACharSequenceFun {}
+            }
 
             group("it allows to perform an assertion specific for the subtype...") {
 
-                checkNarrowingAssertion<Number>("... which holds -- does not throw", { isAWithAssertion ->
-                    verbs.checkImmediately(1).isAWithAssertion()
-                }, { isAIntLessFun(2) })
+                test("... which holds -- does not throw") {
+                    verbs.checkImmediately(1).isAIntLessFun(2)
+                }
 
                 val expectedLessThan = 2
                 val actualValue = 5
-                checkNarrowingAssertion<Number>("... which fails -- throws an AssertionError", { isAWithAssertion ->
+                test("... which fails -- throws an AssertionError") {
                     expect {
-                        verbs.checkImmediately(actualValue).isAWithAssertion()
+                        verbs.checkImmediately(actualValue).isAIntLessFun(expectedLessThan)
                     }.toThrow<AssertionError> {
                         message { contains(actualValue, DescriptionNumberAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
                     }
-                }, { isAIntLessFun(expectedLessThan) })
+                }
             }
         }
 
         context("subject is a supertype") {
-            checkNarrowingAssertion<SuperType>("it throws an AssertionError", { isA ->
+            it("throws an AssertionError") {
                 expect {
-                    verbs.checkImmediately(SuperType()).isA()
+                    verbs.checkImmediately(SuperType()).isASubTypeFun {}
                 }.toThrow<AssertionError> {
                     message { contains(SuperType::class.java.name, "is type or sub-type of", SubType::class.java.name) }
                 }
-            }, { isASubTypeFun {} })
+            }
         }
     }
 
 }) {
-
     open class SuperType
     class SubType : SuperType()
 }

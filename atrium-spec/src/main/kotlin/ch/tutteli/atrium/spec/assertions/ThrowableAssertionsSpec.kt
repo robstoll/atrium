@@ -89,7 +89,6 @@ abstract class ThrowableAssertionsSpec(
             }
         }, { messageFun {} })
 
-
         context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
             val throwable = IllegalArgumentException("oh no")
             checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageWithCheck ->
