@@ -1,11 +1,15 @@
 package ch.tutteli.atrium.spec.checking
 
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroup
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IBaseAssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerb
+import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
+import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.jetbrains.spek.api.Spek
@@ -14,9 +18,12 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 abstract class DelegatingAssertionCheckerSpec(
+    verbs: IAssertionVerbFactory,
     testeeFactory: (subjectFactory: IBaseAssertionPlant<Int, *>) -> IAssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    val assert: (IAssertion) -> IAssertionPlant<IAssertion> = verbs::checkImmediately
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
         prefixedDescribe(describePrefix, description, body)
@@ -56,8 +63,12 @@ abstract class DelegatingAssertionCheckerSpec(
                     //act
                     testee.check(assertionVerb, 1, assertions)
                     //assert
-                    assertions.forEach {
-                        verify(subjectFactory).addAssertion(it)
+                    val captor = argumentCaptor<IAssertion>()
+                    verify(subjectFactory).addAssertion(captor.capture())
+                    assert(captor.firstValue).isA<InvisibleAssertionGroup> {
+                        its(subject::assertions) {
+                            contains.inAnyOrder.only.objects(assertions.first(), *assertions.drop(1).toTypedArray())
+                        }
                     }
                 }
             }

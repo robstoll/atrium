@@ -15,6 +15,7 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
  */
 interface IAssertionPlantNullable<out T : Any?> : IBaseAssertionPlant<T, IAssertionPlantNullable<T>> {
 
+    //TODO move to atrium-assertions
     /**
      * Makes the assertion that [subject] is `null` and checks the assertion.
      *
@@ -24,6 +25,7 @@ interface IAssertionPlantNullable<out T : Any?> : IBaseAssertionPlant<T, IAssert
      */
     fun isNull()
 
+    //TODO move to atrium-translations
     /**
      * Use this description in an implementation to create an [IBasicAssertion].
      */
