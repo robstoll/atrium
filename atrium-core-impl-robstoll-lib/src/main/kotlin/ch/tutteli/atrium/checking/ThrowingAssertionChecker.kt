@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *              and uses the given [reporter] for reporting.
  * @param reporter Will be used for reporting.
  */
-class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionCheckerDelegateFail, IAssertionChecker {
+class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionChecker {
 
     /**
      * Creates an [IAssertionGroup] -- based on the given [assertionVerb], [subject] and [assertions] --
