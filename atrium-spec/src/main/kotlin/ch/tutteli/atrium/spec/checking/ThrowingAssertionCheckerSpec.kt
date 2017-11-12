@@ -41,28 +41,6 @@ abstract class ThrowingAssertionCheckerSpec(
         override fun holds() = false
     }
 
-    prefixedDescribe("fun ${testee::fail.name}") {
-        it("throws an IllegalArgumentException if the given assertion holds") {
-            verbs.checkException {
-                testee.fail(assertionVerb, 1, assertionWhichHolds)
-            }.toThrow<IllegalArgumentException> {
-                message {
-                    startsWith("the given assertion should fail:")
-                }
-            }
-        }
-
-        it("throws an AssertionError with the message formatted by the reporter") {
-            verbs.checkException {
-                testee.fail(assertionVerb, "1", assertionWhichFails)
-            }.toThrow<AssertionError> {
-                message {
-                    toBe(reporterResponse)
-                }
-            }
-        }
-    }
-
     prefixedDescribe("fun ${testee::check.name}") {
         it("does not throw an AssertionError if all assertions hold") {
             testee.check(assertionVerb, 1, listOf(

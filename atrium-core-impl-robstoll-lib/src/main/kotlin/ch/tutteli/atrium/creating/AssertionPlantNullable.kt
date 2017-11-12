@@ -25,16 +25,15 @@ class AssertionPlantNullable<out T : Any?>(
     }
 
     /**
-     * Checks whether [subject] is `null` and uses [commonFields]' method
-     * [fail][IAssertionPlantWithCommonFields.CommonFields.fail] to report an error if not.
+     * Makes the assertion that [subject] is `null`.
      *
-     * @throws AssertionError In case [subject] is not `null`.
+     * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
      *
-     * @see IAssertionPlantWithCommonFields.CommonFields.fail
+     * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
      */
     override fun isNull() {
         if (subject != null) {
-            commonFields.fail(BasicAssertion(IAssertionPlantNullable.AssertionDescription, RawString.NULL, false))
+            addAssertion(BasicAssertion(IAssertionPlantNullable.AssertionDescription, RawString.NULL, false))
         }
     }
 }
