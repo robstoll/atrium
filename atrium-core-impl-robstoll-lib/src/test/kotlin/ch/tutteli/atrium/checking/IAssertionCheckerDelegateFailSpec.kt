@@ -24,7 +24,9 @@ object IAssertionCheckerDelegateFailSpec : Spek({
         it("throws an IllegalArgumentException if the given assertion holds") {
             expect {
                 testee.fail(assertionVerb, 1, BasicAssertion(DescriptionAnyAssertion.IS_SAME, 1, true))
-            }.toThrow<IllegalArgumentException>().and.message.startsWith(IAssertionCheckerDelegateFail.THE_GIVEN_ASSERTION_SHOULD_FAIL)
+            }.toThrow<IllegalArgumentException> {
+                message { startsWith(IAssertionCheckerDelegateFail.THE_GIVEN_ASSERTION_SHOULD_FAIL) }
+            }
         }
 
         it("delegates to check") {

@@ -25,14 +25,16 @@ interface IAssertionPlantWithCommonFields<out T> {
      * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
      * @property subject The subject for which this plant will create/check [IAssertion]s.
      * @property assertionChecker The checker which will be used to check [IAssertion]s.
+     * @property nullRepresentation The representation used in reporting in case [subject] is `null`.
      *
      * @constructor
      * @param assertionVerb The assertion verb which will be used inter alia in error reporting.
      * @param subject The subject for which this plant will create/check [IAssertion]s.
      * @param assertionChecker The checker which will be used to check [IAssertion]s.
+     * @param nullRepresentation The representation used in reporting in case [subject] is `null`.
      *
      */
-    data class CommonFields<out T>(val assertionVerb: ITranslatable, val subject: T, val assertionChecker: IAssertionChecker) {
+    data class CommonFields<out T>(val assertionVerb: ITranslatable, val subject: T, val assertionChecker: IAssertionChecker, private val nullRepresentation: Any) {
 
         /**
          * Uses [assertionChecker] to check the given [assertions] (see [IAssertionChecker.check]).
@@ -42,7 +44,7 @@ interface IAssertionPlantWithCommonFields<out T> {
          * @throws AssertionError Might throw an [AssertionError] if any of the [assertions] does not hold.
          */
         fun check(assertions: List<IAssertion>)
-            = assertionChecker.check(assertionVerb, subject ?: RawString.NULL, assertions)
+            = assertionChecker.check(assertionVerb, subject ?: nullRepresentation, assertions)
 
         /**
          * Uses [assertionChecker] to report a failing [assertion] (see [IAssertionChecker.fail]).
@@ -54,6 +56,6 @@ interface IAssertionPlantWithCommonFields<out T> {
          * @throws AssertionError Typically throws an [AssertionError] or another [Exception].
          */
         fun fail(assertion: IAssertion)
-            = assertionChecker.fail(assertionVerb, subject ?: RawString.NULL, assertion)
+            = assertionChecker.fail(assertionVerb, subject ?: nullRepresentation, assertion)
     }
 }

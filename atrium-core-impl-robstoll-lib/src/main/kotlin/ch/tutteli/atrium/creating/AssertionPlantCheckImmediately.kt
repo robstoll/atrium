@@ -14,7 +14,8 @@ import ch.tutteli.atrium.assertions.IAssertion
  */
 class AssertionPlantCheckImmediately<out T : Any>(
     commonFields: IAssertionPlantWithCommonFields.CommonFields<T>
-) : BaseReportingAssertionPlant<T>(commonFields) {
+) : BaseReportingAssertionPlant<T, IAssertionPlant<T>>(commonFields), IReportingAssertionPlant<T> {
+    override val self = this
 
     override fun addAssertion(assertion: IAssertion): IAssertionPlant<T> {
         super.addAssertion(assertion)

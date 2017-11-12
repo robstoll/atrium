@@ -75,14 +75,14 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return4ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable4, "a", 1, true, 1.2).isNull() }
         val return5ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
 
-        val itsNullableHolds: F = { property(subject::nullableValue).istNichtNull() }
-        val propertyNullableHolds: F = { property(subject::nullableValue).istNichtNull() }
-        val return0ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable0).istNichtNull() }
-        val return1ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable1, "a").istNichtNull() }
-        val return2ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable2, "a", 1).istNichtNull() }
-        val return3ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable3, "a", 1, true).istNichtNull() }
-        val return4ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable4, "a", 1, true, 1.2).istNichtNull() }
-        val return5ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable5, "a", 1, true, 1.2, 'b').istNichtNull() }
+        val itsNullableHolds: F = { property(subject::nullableValue).istNichtNull {} }
+        val propertyNullableHolds: F = { property(subject::nullableValue).istNichtNull {} }
+        val return0ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable0).istNichtNull {} }
+        val return1ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable1, "a").istNichtNull {} }
+        val return2ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable2, "a", 1).istNichtNull {} }
+        val return3ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable3, "a", 1, true).istNichtNull {} }
+        val return4ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable4, "a", 1, true, 1.2).istNichtNull {} }
+        val return5ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable5, "a", 1, true, 1.2, 'b').istNichtNull {} }
 
         val itsLazyWithNestedImmediate: F = {
             property(subject::description) {

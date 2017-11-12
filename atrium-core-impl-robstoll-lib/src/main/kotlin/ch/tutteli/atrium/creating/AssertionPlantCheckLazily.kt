@@ -16,4 +16,6 @@ import ch.tutteli.atrium.assertions.IAssertion
  */
 class AssertionPlantCheckLazily<out T : Any>(
     commonFields: IAssertionPlantWithCommonFields.CommonFields<T>
-) : BaseReportingAssertionPlant<T>(commonFields)
+) : BaseReportingAssertionPlant<T, IAssertionPlant<T>>(commonFields), IReportingAssertionPlant<T> {
+    override val self = this
+}

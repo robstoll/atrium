@@ -2,7 +2,9 @@ package ch.tutteli.atrium.creating
 
 class CheckingAssertionPlant<out T : Any>(
     override val subject: T
-) : BaseAssertionPlant<T>(), ICheckingAssertionPlant<T> {
+) : BaseAssertionPlant<T, IAssertionPlant<T>>(), ICheckingAssertionPlant<T> {
+
+    override val self = this
 
     override fun allAssertionsHold(): Boolean {
         val assertions = getAssertions()

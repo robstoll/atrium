@@ -84,18 +84,22 @@ abstract class CharSequenceAssertionsSpec(
             test("$containsDefaultTranslationOf ${TestTranslatable.HELLO} and ${TestTranslatable.WELCOME}, throws AssertionError") {
                 expect {
                     fluent.containsDefaultTranslationOfFun(TestTranslatable.HELLO, TestTranslatable.WELCOME)
-                }.toThrow<AssertionError>().message {
-                    contains("$containsDescr: \"$welcome\"")
-                    containsNot("$containsDescr: \"$hello\"")
+                }.toThrow<AssertionError> {
+                    message {
+                        contains("$containsDescr: \"$welcome\"")
+                        containsNot("$containsDescr: \"$hello\"")
+                    }
                 }
             }
 
             test("$containsNotDefaultTranslationOf ${TestTranslatable.HELLO} and ${TestTranslatable.WELCOME}, throws AssertionError") {
                 expect {
                     fluent.containsNotDefaultTranslationOfFun(TestTranslatable.HELLO, TestTranslatable.WELCOME)
-                }.toThrow<AssertionError>().message {
-                    contains("$containsNot: \"$hello\"")
-                    containsNot("$containsNot: \"$welcome\"")
+                }.toThrow<AssertionError> {
+                    message {
+                        contains("$containsNot: \"$hello\"")
+                        containsNot("$containsNot: \"$welcome\"")
+                    }
                 }
             }
         }
@@ -114,13 +118,13 @@ abstract class CharSequenceAssertionsSpec(
             test("$isNotEmpty throws an AssertionError") {
                 expect {
                     assert("").isNotEmptyFun()
-                }.toThrow<AssertionError>().and.message.endsWith("$isNot: empty")
+                }.toThrow<AssertionError> { message { endsWith("$isNot: empty") } }
                 expect {
                     assert(StringBuilder()).isNotEmptyFun()
-                }.toThrow<AssertionError>().and.message.endsWith("$isNot: empty")
+                }.toThrow<AssertionError> { message { endsWith("$isNot: empty") } }
                 expect {
                     assert(StringBuffer()).isNotEmptyFun()
-                }.toThrow<AssertionError>().and.message.endsWith("$isNot: empty")
+                }.toThrow<AssertionError> { message { endsWith("$isNot: empty") } }
             }
         }
         context("string is not empty") {
@@ -128,13 +132,13 @@ abstract class CharSequenceAssertionsSpec(
             test("$isEmpty throws an AssertionError") {
                 expect {
                     assert(notEmptyString).isEmptyFun()
-                }.toThrow<AssertionError>().and.message.endsWith("$itIs: empty")
+                }.toThrow<AssertionError> { message { endsWith("$itIs: empty") } }
                 expect {
                     assert(StringBuilder(notEmptyString)).isEmptyFun()
-                }.toThrow<AssertionError>().and.message.endsWith("$itIs: empty")
+                }.toThrow<AssertionError> { message { endsWith("$itIs: empty") } }
                 expect {
                     assert(StringBuffer(notEmptyString)).isEmptyFun()
-                }.toThrow<AssertionError>().and.message.endsWith("$itIs: empty")
+                }.toThrow<AssertionError> { message { endsWith("$itIs: empty") } }
             }
             test("$isNotEmpty does not throw") {
                 assert(notEmptyString).isNotEmptyFun()
@@ -152,13 +156,13 @@ abstract class CharSequenceAssertionsSpec(
             test("$startsNotWith 'Hello' throws an AssertionError") {
                 expect {
                     fluent.startsNotWithFun("Hello")
-                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(STARTS_NOT_WITH)
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(STARTS_NOT_WITH) } }
             }
 
             test("$startsWith 'Robert' throws an AssertionError") {
                 expect {
                     fluent.startsWithFun("goodbye")
-                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(STARTS_WITH)
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(STARTS_WITH) } }
             }
             test("$startsNotWith 'Robert' does not throw") {
                 fluent.startsNotWithFun("goodbye")
@@ -171,7 +175,7 @@ abstract class CharSequenceAssertionsSpec(
             test("$endsWith 'Hello' throws an AssertionError") {
                 expect {
                     fluent.endsWithFun("Hello")
-                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(ENDS_WITH)
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(ENDS_WITH) } }
             }
             test("$endsNotWith 'Hello' does not throw") {
                 fluent.endsNotWithFun("Hello")
@@ -183,7 +187,7 @@ abstract class CharSequenceAssertionsSpec(
             test("$endsNotWith 'Robert' throws an AssertionError") {
                 expect {
                     fluent.endsNotWithFun("Robert")
-                }.toThrow<AssertionError>().and.message.containsDefaultTranslationOf(ENDS_NOT_WITH)
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(ENDS_NOT_WITH) } }
             }
         }
     }

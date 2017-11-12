@@ -18,24 +18,24 @@ fun TestContainer.check(description: String, body: TestBody.() -> Unit)
 
 fun <T : Any> SpecBody.checkNarrowingAssertion(description: String,
                                                act: (IAssertionPlant<T>.() -> Unit) -> Unit,
-                                               immediate: (IAssertionPlant<T>.() -> Unit),
                                                lazy: (IAssertionPlant<T>.() -> Unit),
                                                vararg otherMethods: Pair<String, (IAssertionPlant<T>.() -> Unit)>) {
-    checkGenericNarrowingAssertion(description, act, immediate, lazy, *otherMethods)
+    checkGenericNarrowingAssertion(description, act, lazy, *otherMethods)
 }
 
 fun <T> SpecBody.checkNarrowingNullableAssertion(description: String,
                                                  act: (IAssertionPlantNullable<T>.() -> Unit) -> Unit,
-                                                 immediate: (IAssertionPlantNullable<T>.() -> Unit),
                                                  lazy: (IAssertionPlantNullable<T>.() -> Unit),
                                                  vararg otherMethods: Pair<String, (IAssertionPlantNullable<T>.() -> Unit)>) {
-    checkGenericNarrowingAssertion(description, act, immediate, lazy, *otherMethods)
+    checkGenericNarrowingAssertion(description, act, lazy, *otherMethods)
 }
 
 fun <T> SpecBody.checkGenericNarrowingAssertion(
-    description: String, act: (T.() -> Unit) -> Unit,
-    immediate: (T.() -> Unit), lazy: (T.() -> Unit), vararg otherMethods: Pair<String, (T.() -> Unit)>)
-    = checkGenericNarrowingAssertion(description, act, "immediate" to immediate, "lazy" to lazy, *otherMethods)
+    description: String,
+    act: (T.() -> Unit) -> Unit,
+    lazy: (T.() -> Unit),
+    vararg otherMethods: Pair<String, (T.() -> Unit)>)
+    = checkGenericNarrowingAssertion(description, act, "lazy" to lazy, *otherMethods)
 
 fun <T> SpecBody.checkGenericNarrowingAssertion(
     description: String, act: (T.() -> Unit) -> Unit, vararg methods: Pair<String, (T.() -> Unit)>

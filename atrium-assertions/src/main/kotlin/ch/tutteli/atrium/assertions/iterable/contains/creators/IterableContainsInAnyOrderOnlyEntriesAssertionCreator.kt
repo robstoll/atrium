@@ -2,6 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.*
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlyDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -22,17 +23,17 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
             val featureAssertions = createSizeFeatureAssertion(allExpected, actualSize)
             if (mismatches == 0 && list.isNotEmpty()) {
                 featureAssertions.add(LazyThreadUnsafeAssertionGroup {
-                    createExplanatoryGroupForMismatchEtc(list, DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                    createExplanatoryGroupForMismatchEtc(list, WARNING_ADDITIONAL_ENTRIES)
                 })
             }
             assertions.add(AssertionGroup(FeatureAssertionGroupType, Untranslatable(list::size.name), RawString(actualSize.toString()), featureAssertions))
 
-            val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            val summary = AssertionGroup(SummaryAssertionGroupType, description, RawString(""), assertions)
+            val description = decorator.decorateDescription(CONTAINS)
+            val summary = AssertionGroup(SummaryAssertionGroupType, description, RawString(""), assertions.toList())
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {
-                    mismatches -> DescriptionIterableAssertion.WARNING_MISMATCHES
-                    else -> DescriptionIterableAssertion.WARNING_MISMATCHES_ADDITIONAL_ENTRIES
+                    mismatches -> WARNING_MISMATCHES
+                    else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
                 }
                 InvisibleAssertionGroup(listOf(
                     summary,
@@ -44,14 +45,13 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
         }
     }
 
-
     private fun createAssertionsForExpected(allExpected: List<IAssertionPlant<E>.() -> Unit>, list: MutableList<E>, assertions: MutableList<IAssertion>): Int {
         var mismatches = 0
         allExpected.forEach {
-            val explanatoryAssertions = AssertionCollector.collectAssertionsForExplanation(it, list.firstOrNull())
+            val explanatoryAssertions = collectIterableAssertionsForExplanation(it, list.firstOrNull())
             val found: Boolean = removeMatch(list, it)
             if (!found) ++mismatches
-            val fixHoldsAssertionGroup = FixHoldsAssertionGroup(ListAssertionGroupType, DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString(""), explanatoryAssertions, found)
+            val fixHoldsAssertionGroup = FixHoldsAssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), explanatoryAssertions, found)
             assertions.add(fixHoldsAssertionGroup)
         }
         return mismatches
@@ -78,6 +78,4 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
         val additionalEntries = AssertionGroup(ListAssertionGroupType, warning, RawString(""), assertions)
         return ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(additionalEntries))
     }
-
-
 }

@@ -90,7 +90,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
         it("throws an UnsupportedOperationException") {
             verbs.checkException {
                 testee.formatNonGroup(unsupportedAssertion, methodObject)
-            }.toThrow<UnsupportedOperationException>().message.contains(supportedAssertionGroupTypeClass.name)
+            }.toThrow<UnsupportedOperationException> { message { contains(supportedAssertionGroupTypeClass.name) } }
             verbs.checkImmediately(sb).isEmpty()
         }
     }
@@ -101,7 +101,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
         it("throws an UnsupportedOperationException for an ${IAssertionGroup::class.simpleName} with type object: ${IAssertionGroupType::class.simpleName}") {
             verbs.checkException {
                 testee.formatGroup(unsupportedAssertionGroup, methodObject, doNotFormatChildren)
-            }.toThrow<UnsupportedOperationException>().message.contains(supportedAssertionGroupTypeClass.name)
+            }.toThrow<UnsupportedOperationException> { message { contains(supportedAssertionGroupTypeClass.name) } }
             verbs.checkImmediately(sb).isEmpty()
         }
 

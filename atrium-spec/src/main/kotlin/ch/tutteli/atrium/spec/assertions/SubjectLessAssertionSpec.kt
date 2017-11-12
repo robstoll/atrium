@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.ICollectingAssertionPlant
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.spec.AssertionVerb
 import org.jetbrains.spek.api.Spek
 
@@ -16,7 +16,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
 
         createAssertions.forEach { (name, createAssertion) ->
             test(name) {
-                val collectingPlant = AtriumFactory.newCollectingPlant<T>({ throw ICollectingAssertionPlant.PlantHasNoSubjectException("no subject in this test") })
+                val collectingPlant = AtriumFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException("no subject in this test") })
                 collectingPlant.createAssertion()
                 val plant = AtriumFactory.newReportingPlantCheckLazily(AssertionVerb.ASSERT, 1.0,
                     AtriumFactory.newOnlyFailureReporter(
