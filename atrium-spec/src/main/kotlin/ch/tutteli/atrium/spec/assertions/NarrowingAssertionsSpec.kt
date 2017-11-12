@@ -55,8 +55,7 @@ abstract class NarrowingAssertionsSpec(
                         message {
                             containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
                             contains(Integer::class.java.name)
-                            //TODO fix IDownCastFailureHandler
-                            //containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                            containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
                         }
                     }
                 }, { isNotNullLessFun(2) })
@@ -99,20 +98,18 @@ abstract class NarrowingAssertionsSpec(
                 }
             }, { isNotNull {} })
 
-            //TODO change how DownCaster behaves, it should pass the assertion to the failureHandler such that the handler
-            //can wrap all assertions in one group
-//            checkNarrowingNullableAssertion<Int?>("it throws an AssertionError which contains subsequent assertions", { isNotNull ->
-//                class A(val i: Int? = null)
-//                expect {
-//                    verbs.checkLazily(A()) { its(subject::i).isNotNull() }
-//                }.toThrow<AssertionError> {
-//                    message {
-//                        contains(A::class.simpleName!!)
-//                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A, DescriptionNumberAssertion.IS_LESS_THAN)
-//                        contains(Integer::class.java.name)
-//                    }
-//                }
-//            }, { isNotNullLessFun(1) })
+            checkNarrowingNullableAssertion<Int?>("it throws an AssertionError which contains subsequent assertions", { isNotNull ->
+                class A(val i: Int? = null)
+                expect {
+                    verbs.checkLazily(A()) { its(subject::i).isNotNull() }
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(A::class.simpleName!!)
+                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A, DescriptionNumberAssertion.IS_LESS_THAN)
+                        contains(Integer::class.java.name)
+                    }
+                }
+            }, { isNotNullLessFun(1) })
         }
     }
 

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions.any.narrow
 
+import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.IThrowableThrown.IAbsentThrowableMessageProvider
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IBaseAssertionPlant
@@ -28,6 +29,8 @@ interface IAnyNarrow {
          * @param subType The type to which the [subjectPlant]'s [subject][IAssertionPlant.subject] should have been
          * down-casted.
          * @param subjectPlant The plant to which additional assertions would have been added.
+         * @param failingAssertion The [IAssertion] representing the failed assertion that [subjectPlant]'s
+         * [subject][IAssertionPlant.subject] can be down-casted to [TSub].
          * @param createAssertions The lambda function which could have created subsequent assertions for a down-casted
          * subject.
          *
@@ -36,6 +39,7 @@ interface IAnyNarrow {
         fun createAndAddAssertionToPlant(
             subType: KClass<TSub>,
             subjectPlant: IBaseAssertionPlant<T?, *>,
+            failingAssertion: IAssertion,
             createAssertions: IAssertionPlant<TSub>.() -> Unit)
     }
 }

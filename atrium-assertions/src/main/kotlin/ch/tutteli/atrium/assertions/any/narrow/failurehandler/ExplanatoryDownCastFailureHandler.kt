@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.assertions.any.narrow.failurehandler
 
-import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -26,16 +24,25 @@ class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : IAnyNarrow.IDownCas
      *
      * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
      */
-    override fun createAndAddAssertionToPlant(subType: KClass<TSub>, subjectPlant: IBaseAssertionPlant<T?, *>, createAssertions: IAssertionPlant<TSub>.() -> Unit) {
-        val warning = TranslatableWithArgs(DescriptionNarrowingAssertion.WARNING_DOWN_CAST_FAILED, subType.qualifiedName!!)
-        val explanatoryAssertions = collectAssertions(subType, warning, createAssertions)
-        subjectPlant.addAssertion(ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions))
+    override fun createAndAddAssertionToPlant(
+        subType: KClass<TSub>,
+        subjectPlant: IBaseAssertionPlant<T?, *>,
+        failingAssertion: IAssertion,
+        createAssertions: IAssertionPlant<TSub>.() -> Unit
+    ) {
+        val explanatoryAssertions = collectAssertions(subType, createAssertions)
+        subjectPlant.addAssertion(InvisibleAssertionGroup(listOf(
+            failingAssertion,
+            ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions)
+        )))
     }
 
-    private fun collectAssertions(subType: KClass<TSub>, warning: TranslatableWithArgs, createAssertions: IAssertionPlant<TSub>.() -> Unit)
+    private fun collectAssertions(subType: KClass<TSub>, createAssertions: IAssertionPlant<TSub>.() -> Unit)
         = AssertionCollector
         .doNotThrowIfNoAssertionIsCollected
         .collectAssertionsForExplanation(
-            "subject is not available because it could not be down-casted to ${subType.qualifiedName}", warning, createAssertions, null)
-
+            "subject is not available because it could not be down-casted to ${subType.qualifiedName}",
+            TranslatableWithArgs(DescriptionNarrowingAssertion.WARNING_DOWN_CAST_FAILED, subType.qualifiedName!!),
+            createAssertions,
+            null)
 }
