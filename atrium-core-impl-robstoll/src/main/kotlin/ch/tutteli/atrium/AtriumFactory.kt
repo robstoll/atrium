@@ -29,10 +29,10 @@ import java.util.*
 object AtriumFactory : IAtriumFactory {
 
     override fun <T : Any> newReportingPlantCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = AssertionPlantCheckLazily(commonFields)
+        = ReportingAssertionPlantCheckLazily(commonFields)
 
     override fun <T : Any> newReportingPlantCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = AssertionPlantCheckImmediately(commonFields)
+        = ReportingAssertionPlantCheckImmediately(commonFields)
 
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
         = AssertionPlantNullable(commonFields)
