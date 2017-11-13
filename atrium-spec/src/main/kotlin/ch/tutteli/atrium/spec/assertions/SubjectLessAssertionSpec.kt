@@ -24,7 +24,6 @@ abstract class SubjectLessAssertionSpec<T : Any>(
                     ))
                 val explanatoryGroup = ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, collectingPlant.getAssertions())
                 plant.addAssertion(explanatoryGroup)
-                plant.checkAssertions()
             }
         }
     }

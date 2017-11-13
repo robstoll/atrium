@@ -29,7 +29,7 @@ import java.util.*
 object AtriumFactory : IAtriumFactory {
 
     override fun <T : Any> newReportingPlant(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = ReportingAssertionPlantCheckImmediately(commonFields)
+        = ReportingAssertionPlant(commonFields)
 
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
         = ReportingAssertionPlantNullable(commonFields)
