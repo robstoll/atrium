@@ -1,7 +1,5 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
@@ -9,12 +7,10 @@ import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
-import kotlin.reflect.KClass
 
 /**
  * Robstoll's `abstract factory` of atrium.
@@ -32,14 +28,11 @@ import kotlin.reflect.KClass
  */
 object AtriumFactory : IAtriumFactory {
 
-    override fun <T : Any> newReportingPlantCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = AssertionPlantCheckLazily(commonFields)
-
-    override fun <T : Any> newReportingPlantCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = AssertionPlantCheckImmediately(commonFields)
+    override fun <T : Any> newReportingPlant(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
+        = ReportingAssertionPlant(commonFields)
 
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
-        = AssertionPlantNullable(commonFields)
+        = ReportingAssertionPlantNullable(commonFields)
 
     override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
         = CheckingAssertionPlant(subject)

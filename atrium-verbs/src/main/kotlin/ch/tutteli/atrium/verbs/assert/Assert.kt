@@ -6,7 +6,6 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
@@ -16,10 +15,20 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newReportingPlantCheckImmediately
+ * @see AtriumFactory.newReportingPlant
  */
 fun <T : Any> assert(subject: T)
-    = AtriumFactory.newReportingPlantCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+
+/**
+ * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
+ *
+ * @return The newly created plant.
+ *
+ * @see IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd
+ */
+fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
+    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] for [subject].
@@ -30,16 +39,6 @@ fun <T : Any> assert(subject: T)
  */
 fun <T : Any?> assert(subject: T)
     = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
-
-/**
- * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
- *
- * @return The newly created plant.
- *
- * @see IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd
- */
-inline fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [ThrowableThrownBuilder] for the given function [act].
