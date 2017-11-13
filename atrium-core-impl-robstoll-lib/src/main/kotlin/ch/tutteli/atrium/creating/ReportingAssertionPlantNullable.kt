@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.BasicAssertion
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.reporting.RawString
 
 /**
@@ -16,12 +15,6 @@ class ReportingAssertionPlantNullable<out T : Any?>(
     commonFields: IAssertionPlantWithCommonFields.CommonFields<T>
 ) : BaseReportingAssertionPlant<T, IAssertionPlantNullable<T>>(commonFields), IReportingAssertionPlantNullable<T> {
     override val self = this
-
-    override fun addAssertion(assertion: IAssertion): IAssertionPlantNullable<T> {
-        super.addAssertion(assertion)
-        checkAssertions()
-        return this
-    }
 
     /**
      * Makes the assertion that [subject] is `null`.

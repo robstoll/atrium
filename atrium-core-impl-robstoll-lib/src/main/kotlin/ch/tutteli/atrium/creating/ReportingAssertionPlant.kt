@@ -15,7 +15,7 @@ import ch.tutteli.atrium.assertions.InvisibleAssertionGroup
  *
  * This class is not thread-safe, but is also not intended for long-running procedures.
  */
-class ReportingAssertionPlantCheckImmediately<out T : Any>(
+class ReportingAssertionPlant<out T : Any>(
     commonFields: IAssertionPlantWithCommonFields.CommonFields<T>
 ) : BaseReportingAssertionPlant<T, IAssertionPlant<T>>(commonFields), IReportingAssertionPlant<T> {
     override val self = this
@@ -24,12 +24,6 @@ class ReportingAssertionPlantCheckImmediately<out T : Any>(
         val plant = AtriumFactory.newCollectingPlant { subject }
         plant.createAssertions()
         addAssertion(InvisibleAssertionGroup(plant.getAssertions()))
-        return this
-    }
-
-    override fun addAssertion(assertion: IAssertion): IAssertionPlant<T> {
-        super.addAssertion(assertion)
-        checkAssertions()
         return this
     }
 }
