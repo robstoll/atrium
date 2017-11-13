@@ -15,20 +15,10 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newReportingPlantCheckImmediately
+ * @see AtriumFactory.newReportingPlant
  */
 fun <T : Any> assert(subject: T)
-    = AtriumFactory.newReportingPlantCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
-
-/**
- * Creates an [IAssertionPlantNullable] for [subject].
- *
- * @return The newly created plant.
- *
- * @see AtriumFactory.newReportingPlantNullable
- */
-fun <T : Any?> assert(subject: T)
-    = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
@@ -39,6 +29,16 @@ fun <T : Any?> assert(subject: T)
  */
 fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+
+/**
+ * Creates an [IAssertionPlantNullable] for [subject].
+ *
+ * @return The newly created plant.
+ *
+ * @see AtriumFactory.newReportingPlantNullable
+ */
+fun <T : Any?> assert(subject: T)
+    = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [ThrowableThrownBuilder] for the given function [act].

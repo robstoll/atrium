@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
 internal fun <T : Any> esGilt(subject: T)
-    = AtriumFactory.newReportingPlantCheckImmediately(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlant(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal fun <T : Any> esGilt(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)

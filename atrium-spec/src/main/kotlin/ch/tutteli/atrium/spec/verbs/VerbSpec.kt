@@ -19,7 +19,7 @@ import org.jetbrains.spek.api.dsl.it
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
 private fun <T : Any> assert(subject: T): IAssertionPlant<T>
-    = AtriumFactory.newReportingPlantCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 private fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)

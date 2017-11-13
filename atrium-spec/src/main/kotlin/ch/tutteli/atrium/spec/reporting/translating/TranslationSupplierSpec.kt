@@ -52,7 +52,7 @@ abstract class TranslationSupplierSpec(
     }
 
     fun <T : Any> assert(subject: T)
-        = AtriumFactory.newReportingPlantCheckImmediately(AssertionVerb.ASSERT, subject, reporter)
+        = AtriumFactory.newReportingPlant(AssertionVerb.ASSERT, subject, reporter)
 
     fun <T : Any?> assert(subject: T)
         = AtriumFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, reporter)
