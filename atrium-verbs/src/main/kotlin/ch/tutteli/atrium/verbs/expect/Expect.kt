@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd
 import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT
 import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.verbs.AtriumReporterSupplier
@@ -15,10 +14,20 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newReportingPlantCheckImmediately
+ * @see AtriumFactory.newReportingPlant
  */
 fun <T : Any> expect(subject: T)
-    = AtriumFactory.newReportingPlantCheckImmediately(EXPECT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlant(EXPECT, subject, AtriumReporterSupplier.REPORTER)
+
+/**
+ * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
+ *
+ * @return The newly created plant.
+ *
+ * @see AtriumFactory.newReportingPlantCheckLazilyAtTheEnd
+ */
+fun <T : Any> expect(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
+    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(EXPECT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [IAssertionPlantNullable] for [subject].
@@ -29,16 +38,6 @@ fun <T : Any> expect(subject: T)
  */
 fun <T : Any?> expect(subject: T)
     = AtriumFactory.newReportingPlantNullable(EXPECT, subject, AtriumReporterSupplier.REPORTER)
-
-/**
- * Creates an [IAssertionPlant] for [subject] which lazily evaluates [IAssertion]s.
- *
- * @return The newly created plant.
- *
- * @see AtriumFactory.newReportingPlantCheckLazilyAtTheEnd
- */
-inline fun <T : Any> expect(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(EXPECT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
 
 /**
  * Creates an [ThrowableThrownBuilder] for the given function [act].

@@ -1,10 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.assertions._isNotSame
-import ch.tutteli.atrium.assertions._isSame
-import ch.tutteli.atrium.assertions._notToBe
-import ch.tutteli.atrium.assertions._toBe
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.IAssertionPlantNullable
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is (equals) [expected].
@@ -54,3 +52,23 @@ fun <T : Any> IAssertionPlant<T>.istSelbeInstanzWie(expected: T): IAssertionPlan
 fun <T : Any> IAssertionPlant<T>.istNichtSelbeInstanzWie(expected: T): IAssertionPlant<T>
     = addAssertion(_isNotSame(this, expected))
 
+/**
+ * Makes the assertion that [IAssertionPlant.subject] is `null`.
+ *
+ * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : Any?> IAssertionPlantNullable<T>.istNull() {
+    addAssertion(_isNull(this))
+}
+
+/**
+ * Can be used to separate assertions when using the fluent API.
+ *
+ * For instance `assert(1).isLessThan(2).and.isGreaterThan(0)` creates
+ * two assertions (not one assertion with two sub-assertions).
+ *
+ * @return This plant to support a fluent API.
+ */
+val <T : Any> IAssertionPlant<T>.und: IAssertionPlant<T> get() = this

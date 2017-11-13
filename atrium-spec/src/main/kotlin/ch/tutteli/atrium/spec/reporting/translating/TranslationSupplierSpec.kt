@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat
  *
  * the primary local: de_CH
  * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = ist
- * ch.tutteli.atrium.creating.IAssertionPlantNullable.AssertionDescription-TO_BE = ist
  *
  * the primary Locale's natural first fallback: de
  * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = ist nicht
@@ -52,7 +51,7 @@ abstract class TranslationSupplierSpec(
     }
 
     fun <T : Any> assert(subject: T)
-        = AtriumFactory.newReportingPlantCheckImmediately(AssertionVerb.ASSERT, subject, reporter)
+        = AtriumFactory.newReportingPlant(AssertionVerb.ASSERT, subject, reporter)
 
     fun <T : Any?> assert(subject: T)
         = AtriumFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, reporter)
@@ -67,7 +66,7 @@ abstract class TranslationSupplierSpec(
             }
         }
 
-        describe("translation for ${IAssertionPlantNullable.AssertionDescription::class.simpleName}.${IAssertionPlantNullable.AssertionDescription.name} is provided for 'de_CH'") {
+        describe("translation for ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} is provided for 'de_CH'") {
             it("a failing assertion contains 'ist' instead of 'to be' in the error message") {
                 verbs.checkException {
                     val a: Int? = 1

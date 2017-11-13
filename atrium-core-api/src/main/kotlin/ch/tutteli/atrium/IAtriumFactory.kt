@@ -14,9 +14,6 @@ import java.util.*
 /**
  * The minimum contract of the 'abstract factory' of atrium.
  *
- * It is extended with the following extension functions defined in the atrium-core-api (in the same file as this interface):
- * - [ch.tutteli.atrium.newReportingPlantCheckLazilyAtTheEnd]
- *
  * It provides factory methods to create:
  * - [IAssertionPlant]
  * - [IAssertionChecker]
@@ -29,9 +26,9 @@ import java.util.*
  * - [IReporter]
  */
 interface IAtriumFactory {
+
     /**
-     * Creates an [IReportingAssertionPlant] which does not check and report the created or
-     * added [IAssertion]s until one calls [IReportingAssertionPlant.checkAssertions].
+     * Creates an [IReportingAssertionPlant] which checks and reports added [IAssertion]s.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
@@ -43,12 +40,11 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlantCheckLazily(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IReportingAssertionPlant<T>
-        = newReportingPlantCheckLazily(assertionVerb, subject, newThrowingAssertionChecker(reporter))
+    fun <T : Any> newReportingPlant(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IReportingAssertionPlant<T>
+        = newReportingPlant(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
-     * Creates an [IReportingAssertionPlant] which does not check and report the created or
-     * added [IAssertion]s until one calls [IReportingAssertionPlant.checkAssertions].
+     * Creates an [IReportingAssertionPlant] which checks and reports added [IAssertion]s.
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
@@ -61,64 +57,36 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlantCheckLazily(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
-        = newReportingPlantCheckLazily(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
+    fun <T : Any> newReportingPlant(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
+        = newReportingPlant(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
 
     /**
-     * Creates an [IReportingAssertionPlant] which does not check and report the created or
-     * added [IAssertion]s until one calls [IReportingAssertionPlant.checkAssertions].
+     * Creates an [IReportingAssertionPlant] which checks and reports added [IAssertion]s.
      *
-     * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
+     * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
+     * assertion checking.
      *
      * @param commonFields The commonFields for the new assertion plant.
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlantCheckLazily(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
+    fun <T : Any> newReportingPlant(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
+
 
     /**
-     * Creates an [IReportingAssertionPlant] which immediately checks and reports added [IAssertion]s.
+     * Use this function to create a custom *assertion verb* which creates an [IReportingAssertionPlant] and
+     * [addAssertionsCreatedBy][IReportingAssertionPlant.addAssertionsCreatedBy] the given [createAssertions] lambda.
      *
-     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subject The subject for which this plant will create/check [IAssertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.subject]).
-     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
+     * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
      *
-     * @return The newly created assertion plant.
+     * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
+     *         created [IAssertion] does not hold.
      */
-    fun <T : Any> newReportingPlantCheckImmediately(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IReportingAssertionPlant<T>
-        = newReportingPlantCheckImmediately(assertionVerb, subject, newThrowingAssertionChecker(reporter))
-
-    /**
-     * Creates an [IReportingAssertionPlant] which immediately checks and reports added [IAssertion]s.
-     *
-     * It uses the given [assertionChecker] for assertion checking.
-     *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subject The subject for which this plant will create/check [IAssertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.subject]).
-     * @param assertionChecker The checker which will be used to check [IAssertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionChecker]).
-     *
-     * @return The newly created assertion plant.
-     */
-    fun <T : Any> newReportingPlantCheckImmediately(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
-        = newReportingPlantCheckImmediately(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
-
-    /**
-     * Creates an [IReportingAssertionPlant] which immediately checks and reports added [IAssertion]s.
-     *
-     * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
-     *
-     * @param commonFields The commonFields for the new assertion plant.
-     *
-     * @return The newly created assertion plant.
-     */
-    fun <T : Any> newReportingPlantCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
+    fun <T : Any> newReportingPlantCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
+        = newReportingPlant(assertionVerb, subject, reporter)
+        .addAssertionsCreatedBy(createAssertions)
 
 
     /**
@@ -157,7 +125,8 @@ interface IAtriumFactory {
     /**
      * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
-     * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for assertion checking.
+     * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
+     * assertion checking.
      *
      * @param commonFields The commonFields for the new assertion plant.
      *
@@ -367,25 +336,3 @@ interface IAtriumFactory {
      */
     fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
 }
-
-/**
- * Use this function to create a custom *assertion verb* which lazy evaluates assertions
- * (see [IAtriumFactory.newReportingPlantCheckLazily]).
- *
- * This function will create an [IAssertionPlant] which does not check the created assertions until one
- * calls [IAssertionPlant.checkAssertions].
- * However, it uses the given [createAssertions] function immediately after creating the [IAssertionPlant]
- * which might add some assertions and it then calls [IAssertionPlant.checkAssertions].
- * In case all assertions added so far hold, then it will not evaluate further added assertions until
- * one calls [IAssertionPlant.checkAssertions] again.
- *
- * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
- *
- * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
- *
- * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
- *         created [IAssertion] does not hold.
- */
-inline fun <T : Any> IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = newReportingPlantCheckLazily(assertionVerb, subject, reporter)
-    .createAssertionsAndCheckThem(createAssertions)
