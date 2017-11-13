@@ -18,7 +18,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
             test(name) {
                 val collectingPlant = AtriumFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException("no subject in this test") })
                 collectingPlant.createAssertion()
-                val plant = AtriumFactory.newReportingPlantCheckImmediately(AssertionVerb.ASSERT, 1.0,
+                val plant = AtriumFactory.newReportingPlant(AssertionVerb.ASSERT, 1.0,
                     AtriumFactory.newOnlyFailureReporter(
                         AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
                     ))

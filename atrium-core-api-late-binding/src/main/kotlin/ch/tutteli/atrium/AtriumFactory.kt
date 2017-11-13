@@ -27,8 +27,8 @@ object AtriumFactory : IAtriumFactory {
 
     private const val ERROR_MSG = "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
         "meaning as a substitute for a real implementation"
-    
-    override fun <T : Any> newReportingPlantCheckImmediately(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
+
+    override fun <T : Any> newReportingPlant(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
     override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>

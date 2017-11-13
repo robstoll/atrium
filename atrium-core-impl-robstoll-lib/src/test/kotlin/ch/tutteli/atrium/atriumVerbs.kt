@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
 internal fun <T : Any> assert(subject: T)
-    = AtriumFactory.newReportingPlantCheckImmediately(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
     = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
