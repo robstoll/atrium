@@ -66,14 +66,14 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return4ValueLazy: F = { rueckgabewertVon(subject::return4, "a", 1, true, 1.2) { enthaelt("hello") } }
         val return5ValueLazy: F = { rueckgabewertVon(subject::return5, "a", 1, true, 1.2, 'b') { enthaelt("hello") } }
 
-        val itsNullableDoesNotHold: F = { property(subject::nullableValue).isNull() }
-        val propertyNullableDoesNotHold: F = { property(subject::nullableValue).isNull() }
-        val return0ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable0).isNull() }
-        val return1ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable1, "a").isNull() }
-        val return2ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable2, "a", 1).isNull() }
-        val return3ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable3, "a", 1, true).isNull() }
-        val return4ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable4, "a", 1, true, 1.2).isNull() }
-        val return5ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
+        val itsNullableDoesNotHold: F = { property(subject::nullableValue).istNull() }
+        val propertyNullableDoesNotHold: F = { property(subject::nullableValue).istNull() }
+        val return0ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable0).istNull() }
+        val return1ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable1, "a").istNull() }
+        val return2ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable2, "a", 1).istNull() }
+        val return3ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable3, "a", 1, true).istNull() }
+        val return4ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable4, "a", 1, true, 1.2).istNull() }
+        val return5ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable5, "a", 1, true, 1.2, 'b').istNull() }
 
         val itsNullableHolds: F = { property(subject::nullableValue).istNichtNull {} }
         val propertyNullableHolds: F = { property(subject::nullableValue).istNichtNull {} }

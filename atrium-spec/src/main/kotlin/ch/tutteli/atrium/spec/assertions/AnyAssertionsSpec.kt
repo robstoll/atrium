@@ -1,14 +1,22 @@
 package ch.tutteli.atrium.spec.assertions
 
+import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
+import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.IReportingAssertionPlantNullable
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.setUp
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 
@@ -19,8 +27,11 @@ abstract class AnyAssertionsSpec(
     toBe: String,
     notToBe: String,
     isSame: String,
-    isNotSame: String
+    isNotSame: String,
+    isNullPair: Pair<String, IAssertionPlantNullable<Int?>.() -> Unit>
 ) : Spek({
+
+    //TODO extend SubjectLess with nullable
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
         toBe to mapToCreateAssertion { funInt.toBe(this, 1) },
@@ -30,6 +41,7 @@ abstract class AnyAssertionsSpec(
     ) {})
 
     val expect = verbs::checkException
+    val (isNull, isNullFun) = isNullPair
 
     describe("fun $toBe, $notToBe, $isSame and $isNotSame") {
 
@@ -142,6 +154,40 @@ abstract class AnyAssertionsSpec(
             }
         }
     }
+
+    describe("fun $isNull") {
+
+        context("subject is null") {
+            val subject: Int? = null
+            it("does not throw an Exception") {
+                verbs.checkNullable(subject).isNullFun()
+            }
+        }
+
+        context("subject is not null") {
+            val subject: Int? = 1
+            val testee = verbs.checkNullable(1) as IReportingAssertionPlantNullable<Int?>
+            val expectFun = verbs.checkException {
+                testee.isNullFun()
+            }
+            setUp("throws an AssertionError") {
+                context("exception message") {
+                    it("contains the '${testee::subject.name}'") {
+                        expectFun.toThrow<AssertionError> { message { contains(subject.toString()) } }
+                    }
+                    it("contains the '${IBasicAssertion::description.name}' of the assertion-message - which should be '${DescriptionAnyAssertion.TO_BE.getDefault()}'") {
+                        expectFun.toThrow<AssertionError> {
+                            message { containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE) }
+                        }
+                    }
+                    it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
+                        expectFun.toThrow<AssertionError> { message { contains(RawString.NULL.string) } }
+                    }
+                }
+            }
+        }
+    }
+
 }) {
     interface IAnyAssertionsSpecFunFactory<T : Any> {
         val toBe: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
