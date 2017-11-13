@@ -44,14 +44,5 @@ interface IAssertionPlant<out T : Any> : IBaseAssertionPlant<T, IAssertionPlant<
      */
     fun createAndAddAssertion(description: ITranslatable, expected: Any, test: () -> Boolean): IAssertionPlant<T>
         = addAssertion(BasicAssertion(description, expected, test))
-
-    /**
-     * Can be used to separate assertions when using the fluent API.
-     *
-     * For instance, `assert(1).isLessThan(2).and.isGreaterThan(0)`
-     *
-     * @return This plant to support a fluent API.
-     */
-    val and: IAssertionPlant<T> get() = this
 }
 

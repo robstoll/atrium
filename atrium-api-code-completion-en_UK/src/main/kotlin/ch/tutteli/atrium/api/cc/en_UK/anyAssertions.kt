@@ -62,3 +62,13 @@ fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T): IAssertionPlant<T>
 fun <T : Any?> IAssertionPlantNullable<T>.isNull() {
     addAssertion(_isNull(this))
 }
+
+/**
+ * Can be used to separate assertions when using the fluent API.
+ *
+ * For instance `assert(1).isLessThan(2).and.isGreaterThan(0)` creates
+ * two assertions (not one assertion with two sub-assertions).
+ *
+ * @return This plant to support a fluent API.
+ */
+val <T : Any> IAssertionPlant<T>.and: IAssertionPlant<T> get() = this

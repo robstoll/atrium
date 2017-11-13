@@ -13,7 +13,8 @@ object AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     IAssertionPlant<Int>::istNicht.name,
     IAssertionPlant<Int>::istSelbeInstanzWie.name,
     IAssertionPlant<Int>::istNichtSelbeInstanzWie.name,
-    IAssertionPlantNullable<Int?>::istNull.name to IAssertionPlantNullable<Int?>::istNull
+    IAssertionPlantNullable<Int?>::istNull.name to IAssertionPlantNullable<Int?>::istNull,
+    IAssertionPlant<Int>::und.name to IAssertionPlant<Int>::und
 ) {
     class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.IAnyAssertionsSpecFunFactory<T> {
         override val toBe = IAssertionPlant<T>::ist
