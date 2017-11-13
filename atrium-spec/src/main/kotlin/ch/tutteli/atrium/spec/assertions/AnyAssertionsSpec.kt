@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.assertions.IBasicAssertion
@@ -28,7 +25,8 @@ abstract class AnyAssertionsSpec(
     notToBe: String,
     isSame: String,
     isNotSame: String,
-    isNullPair: Pair<String, IAssertionPlantNullable<Int?>.() -> Unit>
+    isNullPair: Pair<String, IAssertionPlantNullable<Int?>.() -> Unit>,
+    andPair: Pair<String, IAssertionPlant<Int>.() -> IAssertionPlant<Int>>
 ) : Spek({
 
     //TODO extend SubjectLess with nullable
@@ -37,11 +35,14 @@ abstract class AnyAssertionsSpec(
         toBe to mapToCreateAssertion { funInt.toBe(this, 1) },
         notToBe to mapToCreateAssertion { funInt.notToBe(this, 1) },
         isSame to mapToCreateAssertion { funInt.isSame(this, 1) },
-        isNotSame to mapToCreateAssertion { funInt.isNotSame(this, 1) }
+        isNotSame to mapToCreateAssertion { funInt.isNotSame(this, 1) },
+        andPair.first to mapToCreateAssertion { andPair.second }
     ) {})
 
     val expect = verbs::checkException
+    val assert: (Int) -> IAssertionPlant<Int> = verbs::checkImmediately
     val (isNull, isNullFun) = isNullPair
+    val (and, andProperty) = andPair
 
     describe("fun $toBe, $notToBe, $isSame and $isNotSame") {
 
@@ -50,7 +51,6 @@ abstract class AnyAssertionsSpec(
             val notToBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.notToBe
             val isSameFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.isSame
             val isNotSameFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.isNotSame
-            val assert: (Int) -> IAssertionPlant<Int> = verbs::checkImmediately
 
             context("one equals the other") {
                 test("$toBe does not throw") {
@@ -185,6 +185,13 @@ abstract class AnyAssertionsSpec(
                     }
                 }
             }
+        }
+    }
+
+    describe("property $and") {
+        it("returns the same plant") {
+            val plant = assert(1)
+            verbs.checkImmediately(plant.andProperty()).toBe(plant)
         }
     }
 
