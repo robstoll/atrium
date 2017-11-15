@@ -36,6 +36,17 @@ abstract class CharSequenceAssertionsSpec(
         endsNotWithPair.first to mapToCreateAssertion { endsNotWithPair.second(this, "") }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+        checkingTriple(containsDefaultTranslationOfPair.first, { containsDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "a", "b"),
+        checkingTriple(containsNotDefaultTranslationOfPair.first, { containsNotDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "b", "a"),
+        checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, "", "not empty"),
+        checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, "not empty", ""),
+        checkingTriple(startsWithPair.first, { startsWithPair.second(this, "a") }, "abc", "xyz"),
+        checkingTriple(startsNotWithPair.first, { startsNotWithPair.second(this, "a") }, "xyz", "abc"),
+        checkingTriple(endsWithPair.first, { endsWithPair.second(this, "c") }, "abc", "xyz"),
+        checkingTriple(endsNotWithPair.first, { endsNotWithPair.second(this, "c") }, "xyz", "abc")
+    ) {})
+
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)

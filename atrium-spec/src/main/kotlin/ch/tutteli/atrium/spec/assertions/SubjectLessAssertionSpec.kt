@@ -15,7 +15,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
     group("assertion function can be used in ${ExplanatoryAssertionGroup::class.simpleName} and reported without failure") {
 
         createAssertions.forEach { (name, createAssertion) ->
-            test(name) {
+            test("fun $name") {
                 val collectingPlant = AtriumFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException("no subject in this test") })
                 collectingPlant.createAssertion()
                 val plant = AtriumFactory.newReportingPlant(AssertionVerb.ASSERT, 1.0,

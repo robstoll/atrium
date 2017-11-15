@@ -24,6 +24,11 @@ abstract class CollectionAssertionsSpec(
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<List<Int>>(verbs,
+        checkingTriple(hasSizePair.first, { hasSizePair.second(this, 1) }, listOf(1), listOf(1, 2)),
+        checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, listOf(), listOf(1, 2))
+    ) {})
+
     val assert: (List<Int>) -> IAssertionPlant<List<Int>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(listOf(1, 2))

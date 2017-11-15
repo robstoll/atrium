@@ -10,6 +10,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
+import org.jetbrains.spek.api.include
 
 abstract class NarrowingAssertionsSpec(
     verbs: IAssertionVerbFactory,
@@ -24,8 +25,11 @@ abstract class NarrowingAssertionsSpec(
     isAIntLessFun: IAssertionPlant<Number>.(Int) -> Unit
 ) : Spek({
 
-    val expect = verbs::checkException
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<SuperType>(verbs,
+        checkingTriple(nameIsA, { isASubTypeFun(this, {}) }, SubType(), SuperType())
+    ) {})
 
+    val expect = verbs::checkException
     val (nameIsNotNull, isNotNullFun) = isNotNullPair
 
     describe("fun $nameIsNotNull") {

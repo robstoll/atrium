@@ -22,6 +22,11 @@ abstract class BooleanAssertionsSpec(
         isFalsePair.first to mapToCreateAssertion { isFalsePair.second(this) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Boolean>(verbs,
+        checkingTriple(isTruePair.first, { isTruePair.second(this) }, true, false),
+        checkingTriple(isFalsePair.first, { isFalsePair.second(this) }, false, true)
+    ) {})
+
     val assert: (Boolean) -> IAssertionPlant<Boolean> = verbs::checkImmediately
     val expect = verbs::checkException
     val (isTrue, isTrueFun) = isTruePair
