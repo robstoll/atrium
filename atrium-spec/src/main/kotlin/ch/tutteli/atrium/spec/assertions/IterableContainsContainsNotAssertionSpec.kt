@@ -23,6 +23,11 @@ abstract class IterableContainsContainsNotAssertionSpec(
         containsNotPair.first to mapToCreateAssertion { containsNotPair.second(this, 2.5, arrayOf()) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs,
+        checkingTriple(containsPair.first, { containsPair.second(this, 1.2, arrayOf()) }, listOf(1.2) as Iterable<Double>, listOf()),
+        checkingTriple(containsNotPair.first, { containsNotPair.second(this, 2.5, arrayOf()) }, listOf(1.1) as Iterable<Double>, listOf(2.5))
+    ) {})
+
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)

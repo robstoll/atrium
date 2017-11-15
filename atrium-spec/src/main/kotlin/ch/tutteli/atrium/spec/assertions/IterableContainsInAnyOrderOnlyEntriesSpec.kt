@@ -24,6 +24,10 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
         containsEntriesPair.first to mapToCreateAssertion { containsEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs,
+        checkingTriple(containsEntriesPair.first , { containsEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5) as Iterable<Double>, listOf())
+    ) {})
+
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)

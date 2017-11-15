@@ -35,7 +35,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             = plant.contains.atMost(atMost).regex(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
-            "$contains.$ignoringCase, $atMost.$regex",
+            "$contains.$ignoringCase.$atMost.$regex",
             { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" },
             Companion::containsAtMostIgnoringCase
         )

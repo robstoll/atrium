@@ -27,6 +27,12 @@ abstract class CharSequenceContainsRegexAssertionSpec(
         containsAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 2, 2.3, arrayOf()) }, "2.3,2.3", "2.3"),
+        checkingTriple(containsAtMostTriple.first, { containsAtMostTriple.third(this, 2, 2.3, arrayOf()) }, "2.3", "2.3,2.3,2.3"),
+        checkingTriple(containsAtMostIgnoringCaseTriple.first, { containsAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }, "2.3", "2.3,2.3,2.3")
+    ) {})
+
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
 

@@ -27,6 +27,13 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
         containsAtLeastButAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, "string with 2.3", "string with 0.0"),
+        checkingTriple(containsAtLeastIgnoringCaseTriple.first, { containsAtLeastIgnoringCaseTriple.third(this, 1, 2.3, arrayOf()) }, "string with 2.3", "string with 0.0"),
+        checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3"),
+        checkingTriple(containsAtLeastButAtMostIgnoringCaseTriple.first, { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3" , "2.3 / 2.3 / 2.3")
+    ) {})
+
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)

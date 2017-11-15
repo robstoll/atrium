@@ -17,9 +17,14 @@ abstract class IterableContainsNullSpec(
     containsNotPair: Pair<String, IAssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> IAssertionPlant<Iterable<Double?>>>
 ) : IterableContainsSpecBase({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
-        containsPair.first to mapToCreateAssertion { containsPair.second(this, 1.25, arrayOf()) },
-        containsNotPair.first to mapToCreateAssertion { containsNotPair.second(this, 2.5, arrayOf()) }
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double?>>(
+        containsPair.first to mapToCreateAssertion { containsPair.second(this, null, arrayOf()) },
+        containsNotPair.first to mapToCreateAssertion { containsNotPair.second(this, null, arrayOf()) }
+    ) {})
+
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double?>>(verbs,
+        checkingTriple(containsPair.first, { containsPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
+        checkingTriple(containsNotPair.first, { containsNotPair.second(this, null, arrayOf()) }, listOf(1.2) as Iterable<Double?>, listOf(null))
     ) {})
 
     val assert: (Iterable<Double?>) -> IAssertionPlant<Iterable<Double?>> = verbs::checkImmediately

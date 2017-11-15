@@ -20,6 +20,11 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
         containsNotOrAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsNotOrAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+        checkingTriple(containsNotOrAtMostTriple.first, { containsNotOrAtMostTriple.third(this, 2, 2.3, arrayOf()) }, "not in there", "2.3,2.3,2.3"),
+        checkingTriple(containsNotOrAtMostIgnoringCaseTriple.first, { containsNotOrAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }, "not in there", "2.3,2.3,2.3")
+    ) {})
+
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
@@ -61,8 +66,11 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                 test("${containsNotOrAtMostTest("'W' and 'H' and 'e'", "once")} does not throw") {
                     fluentHelloWorld.containsNotOrAtMostFun(1, 'W', 'H', 'e')
                 }
-                test("${containsNotOrAtMostTest("'x' and 'y' and 'z'", "once")} does not throw") {
-                    fluentHelloWorld.containsNotOrAtMostFun(1, 'x', 'y', 'z')
+                test("${containsNotOrAtMostTest("'x' and 'y' and 'z'", "twice")} does not throw") {
+                    fluentHelloWorld.containsNotOrAtMostFun(2, 'x', 'y', 'z')
+                }
+                test("${containsNotOrAtMostIgnoringCase("'x' and 'y' and 'z'", "twice")} does not throw") {
+                    fluentHelloWorld.containsNotOrAtMostIgnoringCaseFun(2, 'x', 'y', 'z')
                 }
             }
 

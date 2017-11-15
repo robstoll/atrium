@@ -21,6 +21,11 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
         containsNotPair.first to mapToCreateAssertion { containsNotPair.second(this, "hello", arrayOf()) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+        checkingTriple(containsPair.first, { containsPair.second(this, "hello", arrayOf()) }, "hello robert", "by robert"),
+        checkingTriple(containsNotPair.first, { containsNotPair.second(this, "hello", arrayOf()) }, "by robert", "hello robert")
+    ) {})
+
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)

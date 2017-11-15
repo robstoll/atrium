@@ -25,6 +25,12 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
 //        containsAtLeastButAtMostTriple.first to mapToCreateAssertion { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) },
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs,
+        checkingTriple(containsAtLeastTriple.first          , { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, listOf(2.3, 2.3) as Iterable<Double>, listOf())
+        //TODO use as soon as containsAtLeastButAtMost exists
+        //checkingTriple(containsAtLeastButAtMostTriple.first , { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) },listOf(2.3) as Iterable<Double>,listOf())
+    ) {})
+
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)

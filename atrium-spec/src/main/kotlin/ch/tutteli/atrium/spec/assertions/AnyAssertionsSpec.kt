@@ -39,6 +39,13 @@ abstract class AnyAssertionsSpec(
         andPair.first to mapToCreateAssertion { andPair.second }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs,
+        checkingTriple(toBe, { funInt.toBe(this, 1) }, 1, 0),
+        checkingTriple(notToBe, { funInt.notToBe(this, 1) }, 0, 1),
+        checkingTriple(isSame, { funInt.isSame(this, 1) }, 1, 0),
+        checkingTriple(isNotSame, { funInt.isNotSame(this, 1) }, 0, 1)
+    ) {})
+
     val expect = verbs::checkException
     val assert: (Int) -> IAssertionPlant<Int> = verbs::checkImmediately
     val (isNull, isNullFun) = isNullPair

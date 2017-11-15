@@ -27,6 +27,13 @@ abstract class NumberAssertionsSpec(
         isGreaterOrEqualPair.first to mapToCreateAssertion { isGreaterOrEqualPair.second(this, 1) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs,
+        checkingTriple(isLessThanPair.first, { isLessThanPair.second(this, 1) }, 0, 1),
+        checkingTriple(isLessOrEqualPair.first, { isLessOrEqualPair.second(this, 1) }, 1, 2),
+        checkingTriple(isGreaterThanPair.first, { isGreaterThanPair.second(this, 1) }, 2, 1),
+        checkingTriple(isGreaterOrEqualPair.first, { isGreaterOrEqualPair.second(this, 1) }, 1, 0)
+    ) {})
+
     val expect = verbs::checkException
     val (isLessThan, isLessThanFun) = isLessThanPair
     val (isLessOrEqual, isLessOrEqualFun) = isLessOrEqualPair

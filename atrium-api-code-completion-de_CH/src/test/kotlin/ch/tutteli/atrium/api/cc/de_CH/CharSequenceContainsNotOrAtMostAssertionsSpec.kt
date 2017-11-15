@@ -28,7 +28,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.ass
         )
 
         private fun containsNotOrAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
-            = plant.enthaelt.ignoriereGrossKleinschreibung.hoechstens(atMost).werte(a, *aX)
+            = plant.enthaelt.ignoriereGrossKleinschreibung.nichtOderHoechstens(atMost).werte(a, *aX)
 
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

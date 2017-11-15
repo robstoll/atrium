@@ -9,6 +9,7 @@ import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.include
 
 @Suppress("UNUSED_PARAMETER")
 data class TestData(val description: String, val nullableValue: Int?) {
@@ -90,6 +91,35 @@ abstract class FeatureAssertionsSpec(
         Triple("`returnValueOf` with 4 arguments and lazy", return4ValueLazy, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
         Triple("`returnValueOf` with 5 arguments and lazy", return5ValueLazy, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')")
     )
+    val nullableFailingFunctions = arrayOf(
+        Triple("`its` isNull", itsNullableDoesNotHold, TestData::nullableValue.name),
+        Triple("`property` isNull", propertyNullableDoesNotHold, TestData::nullableValue.name),
+        Triple("`returnValueOf` without argument and isNull", return0ValueNullableDoesNotHold, "${TestData::returnNullable0.name}()"),
+        Triple("`returnValueOf` with 1 argument and isNull", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
+        Triple("`returnValueOf` with 2 arguments and isNull", return2ValueNullableDoesNotHold, "${TestData::returnNullable2.name}(\"a\", 1)"),
+        Triple("`returnValueOf` with 3 arguments and isNull", return3ValueNullableDoesNotHold, "${TestData::returnNullable3.name}(\"a\", 1, true)"),
+        Triple("`returnValueOf` with 4 arguments and isNull", return4ValueNullableDoesNotHold, "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)"),
+        Triple("`returnValueOf` with 5 arguments and isNull", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
+    )
+    val nullableHoldsFunctions = arrayOf(
+        "`its` isNotNull" to itsNullableHolds,
+        "`property` isNotNull" to propertyNullableHolds,
+        "`returnValueOf` with 1 argument and isNotNull" to return1ValueNullableHolds,
+        "`returnValueOf` without argument and isNotNull" to return0ValueNullableHolds,
+        "`returnValueOf` with 2 arguments and isNotNull" to return2ValueNullableHolds,
+        "`returnValueOf` with 3 arguments and isNotNull" to return3ValueNullableHolds,
+        "`returnValueOf` with 4 arguments and isNotNull" to return4ValueNullableHolds,
+        "`returnValueOf` with 5 arguments and isNotNull" to return5ValueNullableHolds
+    )
+
+    val failingTestData = TestData("hello robert", 1)
+    val holdingTestData = TestData("by robert", null)
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<TestData>(verbs,
+        *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
+        *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
+        *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
+        checkingTriple("`itsLazy`with nested immediate", itsLazyWithNestedImmediate, failingTestData, TestData("by robert", 1))
+    ) {})
 
     fun <T> SpecBody.checkGenericNarrowingAssertionWithExceptionMessage(
         description: String, act: (T.() -> Unit) -> Unit, vararg methods: Triple<String, (T.() -> Unit), String>
@@ -106,35 +136,18 @@ abstract class FeatureAssertionsSpec(
     }
 
     describe("different feature assertion functions") {
+
         checkGenericNarrowingAssertionWithExceptionMessage("it throws an AssertionError if the assertion does not hold", { andWithCheck ->
 
             assert(TestData("hallo robert", 1)).andWithCheck()
 
-        }, *functions,
-            Triple("`its` nullable", itsNullableDoesNotHold, TestData::nullableValue.name),
-            Triple("`property` nullable", propertyNullableDoesNotHold, TestData::nullableValue.name),
-            Triple("`returnValueOf` without argument and nullable", return0ValueNullableDoesNotHold, "${TestData::returnNullable0.name}()"),
-            Triple("`returnValueOf` with 1 argument and nullable", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
-            Triple("`returnValueOf` with 2 arguments and nullable", return2ValueNullableDoesNotHold, "${TestData::returnNullable2.name}(\"a\", 1)"),
-            Triple("`returnValueOf` with 3 arguments and nullable", return3ValueNullableDoesNotHold, "${TestData::returnNullable3.name}(\"a\", 1, true)"),
-            Triple("`returnValueOf` with 4 arguments and nullable", return4ValueNullableDoesNotHold, "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)"),
-            Triple("`returnValueOf` with 5 arguments and nullable", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
-        )
+        }, *functions, *nullableFailingFunctions)
 
         checkGenericNarrowingAssertion("it does not throw an exception if the assertion holds", { andWithCheck ->
 
             assert(TestData("hello robert", 1)).andWithCheck()
 
-        }, *functions.map { it.first to it.second }.toTypedArray(),
-            "`its` nullable" to itsNullableHolds,
-            "`property` nullable" to propertyNullableHolds,
-            "`returnValueOf` without argument and nullable" to return0ValueNullableHolds,
-            "`returnValueOf` with 1 argument and nullable" to return1ValueNullableHolds,
-            "`returnValueOf` with 2 arguments and nullable" to return2ValueNullableHolds,
-            "`returnValueOf` with 3 arguments and nullable" to return3ValueNullableHolds,
-            "`returnValueOf` with 4 arguments and nullable" to return4ValueNullableHolds,
-            "`returnValueOf` with 5 arguments and nullable" to return5ValueNullableHolds
-        )
+        }, *functions.map { it.first to it.second }.toTypedArray(), *nullableHoldsFunctions)
     }
 
     describe("assertion plant which checks immediately; use lazy property which has nested...") {

@@ -20,6 +20,11 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
         containsExactlyIgnoringCaseTriple.first to mapToCreateAssertion { containsExactlyIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
     ) {})
 
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+        checkingTriple(containsExactlyTriple.first, { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3"),
+        checkingTriple(containsExactlyIgnoringCaseTriple.first, { containsExactlyIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3")
+    ) {})
+
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
