@@ -17,5 +17,5 @@ fun <T : Any> _isSame(plant: IAssertionPlant<T>, expected: T): IAssertion
 fun <T : Any> _isNotSame(plant: IAssertionPlant<T>, expected: T): IAssertion
     = BasicAssertion(IS_NOT_SAME, expected, { plant.subject !== expected })
 
-fun <T : Any?> _isNull(plant: IAssertionPlantNullable<T>) : IAssertion
+fun <T : Any?> _isNull(plant: IAssertionPlantNullable<T>): IAssertion
     = BasicAssertion(TO_BE, RawString.NULL, { plant.subject == null })

@@ -26,7 +26,8 @@ abstract class AnyAssertionsSpec(
     isSame: String,
     isNotSame: String,
     isNullPair: Pair<String, IAssertionPlantNullable<Int?>.() -> Unit>,
-    andPair: Pair<String, IAssertionPlant<Int>.() -> IAssertionPlant<Int>>
+    andPair: Pair<String, IAssertionPlant<Int>.() -> IAssertionPlant<Int>>,
+    andLazyPair: Pair<String, IAssertionPlant<Int>.(IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>
 ) : Spek({
 
     //TODO extend SubjectLess with nullable
@@ -36,7 +37,8 @@ abstract class AnyAssertionsSpec(
         notToBe to mapToCreateAssertion { funInt.notToBe(this, 1) },
         isSame to mapToCreateAssertion { funInt.isSame(this, 1) },
         isNotSame to mapToCreateAssertion { funInt.isNotSame(this, 1) },
-        andPair.first to mapToCreateAssertion { andPair.second }
+        andPair.first to mapToCreateAssertion { andPair.second },
+        andLazyPair.first to mapToCreateAssertion{ andLazyPair.second }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs,
