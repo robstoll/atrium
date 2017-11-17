@@ -30,7 +30,6 @@ abstract class CharSequenceContainsNotOrAtMostCheckerBuilderBase<T : CharSequenc
     nameNotOrAtMostFun: String
 ) : CharSequenceContainsCheckerBuilder<T, D>(containsBuilder) {
 
-    override val checkers: List<IChecker> = listOf(
-        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameNotOrAtMostFun)
-    )
+    override val checkers: List<IChecker> =
+        listOf(CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameNotOrAtMostFun))
 }
