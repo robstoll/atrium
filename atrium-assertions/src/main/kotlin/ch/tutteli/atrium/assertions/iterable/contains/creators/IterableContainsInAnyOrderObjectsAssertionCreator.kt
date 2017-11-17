@@ -1,34 +1,19 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
+import ch.tutteli.atrium.assertions.base.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.RawString
 
 class IterableContainsInAnyOrderObjectsAssertionCreator<E, T : Iterable<E>>(
-    private val decorator: IterableContainsInAnyOrderDecorator,
-    private val checkers: List<IIterableContains.IChecker>
-) : IIterableContains.ICreator<T, E> {
+    decorator: IterableContainsInAnyOrderDecorator,
+    checkers: List<IIterableContains.IChecker>
+) : ContainsObjectsAssertionCreator<T, E, IterableContainsInAnyOrderDecorator, IIterableContains.IChecker>(decorator, checkers),
+    IIterableContains.ICreator<T, E> {
 
-    override fun createAssertionGroup(plant: IAssertionPlant<T>, expected: E, otherExpected: Array<out E>): IAssertionGroup {
-        val assertions = mutableListOf<IAssertion>()
-        listOf(expected, *otherExpected).forEach {
-            assertions.add(create(plant, it))
-        }
-        return InvisibleAssertionGroup(assertions.toList())
-    }
+    override val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
 
-    private fun create(plant: IAssertionPlant<T>, expected: E): IAssertionGroup {
-        return LazyThreadUnsafeAssertionGroup {
-            val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            val count = plant.subject.filter({ it == expected }).size
-            val assertions = mutableListOf<IAssertion>()
-            checkers.forEach {
-                assertions.add(it.createAssertion(count))
-            }
-            val featureAssertion = AssertionGroup(FeatureAssertionGroupType, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions.toList())
-            AssertionGroup(ListAssertionGroupType, description, expected ?: RawString.NULL, listOf(featureAssertion))
-        }
-    }
+    override fun search(plant: IAssertionPlant<T>, expected: E): Int
+        = plant.subject.filter({ it == expected }).size
 }
