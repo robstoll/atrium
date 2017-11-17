@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.assertions._entriesInAnyOrderOnly
-import ch.tutteli.atrium.assertions._objectsInAnyOrderOnly
+import ch.tutteli.atrium.assertions._containsEntriesInAnyOrderOnly
+import ch.tutteli.atrium.assertions._containsObjectsInAnyOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNoOpCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlyDecorator
@@ -32,7 +32,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  */
 fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T> {
     val checker = IterableContainsNoOpCheckerBuilder(this)
-    return checker.addAssertion(_objectsInAnyOrderOnly(checker, expected, otherExpected))
+    return checker.addAssertion(_containsObjectsInAnyOrderOnly(checker, expected, otherExpected))
 }
 
 /**
@@ -58,5 +58,5 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  */
 fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.entries(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T> {
     val checker = IterableContainsNoOpCheckerBuilder(this)
-    return checker.addAssertion(_entriesInAnyOrderOnly(checker, assertionCreator, otherAssertionCreators))
+    return checker.addAssertion(_containsEntriesInAnyOrderOnly(checker, assertionCreator, otherAssertionCreators))
 }

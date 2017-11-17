@@ -12,8 +12,9 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> IAssertionPlant<T>.contains get(): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpDecorator>
-    = CharSequenceContainsBuilder(this, CharSequenceContainsNoOpDecorator)
+val <T : CharSequence> IAssertionPlant<T>.contains
+    get(): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpDecorator>
+    = _containsBuilder(this)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [toString] representation
