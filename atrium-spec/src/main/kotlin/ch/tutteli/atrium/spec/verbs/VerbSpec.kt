@@ -15,14 +15,15 @@ import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
+import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
 private fun <T : Any> assert(subject: T): IAssertionPlant<T>
     = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-private fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+private fun <T : Any> assert(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
+    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 private fun <T : Any?> assert(subject: T)
     = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
@@ -41,7 +42,7 @@ private object AtriumReporterSupplier {
 
 abstract class VerbSpec(
     plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
-    plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
+    plantCheckLazily: Pair<String, (subject: Int, assertionCreator: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
     plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
     plantExpect: Pair<String, (act: () -> Unit) -> ThrowableThrownBuilder>,
     describePrefix: String = "[Atrium] "
@@ -72,20 +73,59 @@ abstract class VerbSpec(
 
     prefixedDescribe("assertion verb '${plantCheckImmediately.first}' which lazily evaluates assertions") {
         val (_, assertionVerb) = plantCheckLazily
-        it("does not throw an exception in case the assertion holds") {
-            assertionVerb(1) { toBe(1) }
-        }
-        it("evaluates all assertions and then throws an AssertionError") {
-            expect {
-                assertionVerb(1) {
-                    isLessThan(0)
-                    isGreaterThan(2)
+
+        context("the assertions hold") {
+            it("does not throw an exception") {
+                assertionVerb(1) { toBe(1) }
+            }
+            context("a subsequent assertion holds") {
+                it("does not throw an exception") {
+                    assertionVerb(1) { toBe(1) }.isLessThan(2)
                 }
-            }.toThrow<AssertionError> {
-                message {
-                    contains(": 1")
-                    contains("${IS_LESS_THAN.getDefault()}: 0")
-                    contains("${IS_GREATER_THAN.getDefault()}: 2")
+            }
+            context("a subsequent group of assertions hold") {
+                it("does not throw an exception") {
+                    assertionVerb(1) { toBe(1) }.and { isLessThan(2) }
+                }
+            }
+            context("a subsequent assertion fails") {
+                it("throws an AssertionError") {
+                    expect {
+                        assertionVerb(1) { toBe(1) }.isLessThan(1)
+                    }.toThrow<AssertionError> {
+                        message { contains("${IS_LESS_THAN.getDefault()}: 1") }
+                    }
+                }
+            }
+
+            context("multiple assertions of a subsequent group of assertion fails") {
+                it("evaluates all assertions and then throws an AssertionError") {
+                    expect {
+                        assertionVerb(1) { toBe(1) }.and { isLessThan(0); isGreaterThan(2) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(": 1")
+                            contains("${IS_LESS_THAN.getDefault()}: 0")
+                            contains("${IS_GREATER_THAN.getDefault()}: 2")
+                        }
+                    }
+                }
+            }
+        }
+
+        context("one assertion fails") {
+            it("evaluates all assertions and then throws an AssertionError") {
+                expect {
+                    assertionVerb(1) {
+                        isLessThan(0)
+                        isGreaterThan(2)
+                    }
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(": 1")
+                        contains("${IS_LESS_THAN.getDefault()}: 0")
+                        contains("${IS_GREATER_THAN.getDefault()}: 2")
+                    }
                 }
             }
         }

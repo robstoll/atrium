@@ -19,15 +19,15 @@ fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<
 /**
  * Creates an [IAssertionPlant] for the given [property] which eventually adds [IAssertionGroup]s with a
  * [IFeatureAssertionGroupType], containing the assertions created for the given [property], to the current plant --
- * starting with a group consisting of the [IAssertion]s created by the [createAssertions] lambda.
+ * starting with a group consisting of the [IAssertion]s created by the [assertionCreator] lambda.
  *
  * @return An [IAssertionPlant] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [createAssertions]) does not hold.
+ *         (by calling [assertionCreator]) does not hold.
  */
-fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<TProperty>, createAssertions: IAssertionPlant<TProperty>.() -> Unit): IAssertionPlant<TProperty>
-    = _property(this, property, createAssertions)
+fun <T : Any, TProperty : Any> IAssertionPlant<T>.property(property: KProperty0<TProperty>, assertionCreator: IAssertionPlant<TProperty>.() -> Unit): IAssertionPlant<TProperty>
+    = _property(this, property, assertionCreator)
 
 
 /**
@@ -53,16 +53,16 @@ fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KF
  * Creates an [IAssertionPlant], for the value returned by calling [method], which eventually adds
  * [IAssertionGroup]s with a [IFeatureAssertionGroupType], containing the assertions created for the return value,
  * to the current plant -- starting with a group consisting of the [IAssertion]s created by the
- * [createAssertions] lambda.
+ * [assertionCreator] lambda.
  *
  * @return An [IAssertionPlant] for the return value of the given [method],
  * using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [createAssertions]) does not hold.
+ *         (by calling [assertionCreator]) does not hold.
  */
-fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction0<TReturnValue>, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, createAssertions)
+fun <T : Any, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction0<TReturnValue>, assertionCreator: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, assertionCreator)
 
 /**
  * Creates an [IAssertionPlantNullable], for the value returned by calling [method], which eventually adds
@@ -89,16 +89,16 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon
  * Creates an [IAssertionPlant], for the value returned by calling [method] with [arg1], which eventually adds
  * [IAssertionGroup]s with a [IFeatureAssertionGroupType], containing the assertions created for the return value,
  * to the current plant -- starting with a group consisting of the [IAssertion]s created by the
- * [createAssertions] lambda.
+ * [assertionCreator] lambda.
  *
  * @return An [IAssertionPlant] for the return value of the given [method],
  * using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [createAssertions]) does not hold.
+ *         (by calling [assertionCreator]) does not hold.
  */
-fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, createAssertions)
+fun <T : Any, T1 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1, assertionCreator: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, assertionCreator)
 
 /**
  * Creates an [IAssertionPlantNullable], for the value returned by calling [method] with [arg1], which eventually adds
@@ -125,16 +125,16 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueck
  * Creates an [IAssertionPlant], for the value returned by calling [method] with [arg1] and [arg2], which eventually
  * adds [IAssertionGroup]s with a [IFeatureAssertionGroupType], containing the assertions created for the return value,
  * to the current plant -- starting with a group consisting of the [IAssertion]s created by the
- * [createAssertions] lambda.
+ * [assertionCreator] lambda.
  *
  * @return An [IAssertionPlant] for the return value of the given [method],
  * using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [createAssertions]) does not hold.
+ *         (by calling [assertionCreator]) does not hold.
  */
-fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, createAssertions)
+fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, assertionCreator: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, assertionCreator)
 
 /**
  * Creates an [IAssertionPlantNullable], for the value returned by calling [method] with [arg1] and [arg2], which
@@ -161,16 +161,16 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPla
  * Creates an [IAssertionPlant], for the value returned by calling [method] with [arg1], [arg2] and [arg3],
  * which eventually adds [IAssertionGroup]s with a [IFeatureAssertionGroupType], containing the assertions created
  * for the return value, to the current plant -- starting with a group consisting of the [IAssertion]s created by the
- * [createAssertions] lambda.
+ * [assertionCreator] lambda.
  *
  * @return An [IAssertionPlant] for the return value of the given [method],
  * using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [createAssertions]) does not hold.
+ *         (by calling [assertionCreator]) does not hold.
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, createAssertions)
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, assertionCreator: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, assertionCreator)
 
 /**
  * Creates an [IAssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2] and [arg3],
@@ -197,16 +197,16 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IA
  * Creates an [IAssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3] and [arg4],
  * which eventually adds [IAssertionGroup]s with a [IFeatureAssertionGroupType], containing the assertions created
  * for the return value, to the current plant -- starting with a group consisting of the [IAssertion]s created by the
- * [createAssertions] lambda.
+ * [assertionCreator] lambda.
  *
  * @return An [IAssertionPlant] for the return value of the given [method],
  * using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [createAssertions]) does not hold.
+ *         (by calling [assertionCreator]) does not hold.
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, createAssertions)
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, assertionCreator)
 
 /**
  * Creates an [IAssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2], [arg3]
@@ -233,16 +233,16 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  * Creates an [IAssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3], [arg4]
  * and [arg5], which eventually adds [IAssertionGroup]s with a [IFeatureAssertionGroupType], containing the assertions
  * created for the return value, to the current plant -- starting with a group consisting of the [IAssertion]s created
- * by the [createAssertions] lambda.
+ * by the [assertionCreator] lambda.
  *
  * @return An [IAssertionPlant] for the return value of the given [method],
  * using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [createAssertions]) does not hold.
+ *         (by calling [assertionCreator]) does not hold.
  */
-fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, createAssertions: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5, createAssertions)
+fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> IAssertionPlant<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: IAssertionPlant<TReturnValue>.() -> Unit): IAssertionPlant<TReturnValue>
+    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
 
 /**
  * Creates an [IAssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2], [arg3],

@@ -13,15 +13,15 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.assertions.ThrowableAsser
 
     companion object {
 
-        private fun getToThrowTriple(): Triple<String, ThrowableThrownBuilder.() -> Unit, ThrowableThrownBuilder.(createAssertions: IAssertionPlant<Throwable>.() -> Unit) -> Unit>
+        private fun getToThrowTriple(): Triple<String, ThrowableThrownBuilder.() -> Unit, ThrowableThrownBuilder.(assertionCreator: IAssertionPlant<Throwable>.() -> Unit) -> Unit>
             = Triple("toThrow", Companion::toThrowImmediate, Companion::toThrowLazy)
 
         private fun toThrowImmediate(builder: ThrowableThrownBuilder) {
             builder.toThrow<IllegalArgumentException>()
         }
 
-        private fun toThrowLazy(builder: ThrowableThrownBuilder, createAssertions: IAssertionPlant<Throwable>.() -> Unit) {
-            builder.toThrow<IllegalArgumentException>(createAssertions)
+        private fun toThrowLazy(builder: ThrowableThrownBuilder, assertionCreator: IAssertionPlant<Throwable>.() -> Unit) {
+            builder.toThrow<IllegalArgumentException>(assertionCreator)
         }
 
         private fun getMessagePair() =

@@ -74,19 +74,27 @@ interface IAtriumFactory {
 
 
     /**
-     * Use this function to create a custom *assertion verb* which creates an [IReportingAssertionPlant] and
-     * [addAssertionsCreatedBy][IReportingAssertionPlant.addAssertionsCreatedBy] the given [createAssertions] lambda.
+     * Creates an [IReportingAssertionPlant] which [IAssertionPlant.addAssertionsCreatedBy] the
+     * given [assertionCreator] lambda where the created [IAssertion]s are added as a group and usually (depending on
+     * the configured [IReporter]) reported as a whole.
      *
      * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     *
+     * @param assertionVerb The assertion verb which will be used inter alia in reporting
+     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     * @param subject The subject for which this plant will create/check [IAssertion]s.
+     *        (see [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
+     * @param assertionCreator The
      *
      * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
      *
      * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
      *         created [IAssertion] does not hold.
      */
-    fun <T : Any> newReportingPlantCheckLazilyAtTheEnd(assertionVerb: ITranslatable, subject: T, reporter: IReporter, createAssertions: IAssertionPlant<T>.() -> Unit)
+    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: ITranslatable, subject: T, reporter: IReporter, assertionCreator: IAssertionPlant<T>.() -> Unit)
         = newReportingPlant(assertionVerb, subject, reporter)
-        .addAssertionsCreatedBy(createAssertions)
+        .addAssertionsCreatedBy(assertionCreator)
 
 
     /**

@@ -14,14 +14,14 @@ import org.jetbrains.spek.api.include
 
 abstract class NarrowingAssertionsSpec(
     verbs: IAssertionVerbFactory,
-    isNotNullPair: Pair<String, IAssertionPlantNullable<Int?>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> Unit>,
+    isNotNullPair: Pair<String, IAssertionPlantNullable<Int?>.(assertionCreator: IAssertionPlant<Int>.() -> Unit) -> Unit>,
     isNotNullLessFun: IAssertionPlantNullable<Int?>.(Int) -> Unit,
     isNotNullGreaterAndLessFun: IAssertionPlantNullable<Int?>.(Int, Int) -> Unit,
     nameIsA: String,
-    isAIntFun: IAssertionPlant<String>.(createAssertions: IAssertionPlant<Int>.() -> Unit) -> Unit,
-    isAStringFun: IAssertionPlant<String>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> Unit,
-    isACharSequenceFun: IAssertionPlant<String>.(createAssertions: IAssertionPlant<CharSequence>.() -> Unit) -> Unit,
-    isASubTypeFun: IAssertionPlant<SuperType>.(createAssertions: IAssertionPlant<SubType>.() -> Unit) -> Unit,
+    isAIntFun: IAssertionPlant<String>.(assertionCreator: IAssertionPlant<Int>.() -> Unit) -> Unit,
+    isAStringFun: IAssertionPlant<String>.(assertionCreator: IAssertionPlant<String>.() -> Unit) -> Unit,
+    isACharSequenceFun: IAssertionPlant<String>.(assertionCreator: IAssertionPlant<CharSequence>.() -> Unit) -> Unit,
+    isASubTypeFun: IAssertionPlant<SuperType>.(assertionCreator: IAssertionPlant<SubType>.() -> Unit) -> Unit,
     isAIntLessFun: IAssertionPlant<Number>.(Int) -> Unit
 ) : Spek({
 
