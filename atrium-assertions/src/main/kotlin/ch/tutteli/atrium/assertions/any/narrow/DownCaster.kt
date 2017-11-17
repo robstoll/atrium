@@ -25,7 +25,7 @@ import kotlin.reflect.full.cast
 class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDownCastFailureHandler<T, TSub>) {
 
     /**
-     * Performs the down-cast and applies the given [createAssertions] to the down-casted
+     * Performs the down-cast and applies the given [assertionCreator] to the down-casted
      * [subject][IBaseAssertionPlant.subject] of [subjectPlant] if successful or passes it to the [failureHandler]
      * otherwise.
      *
@@ -35,7 +35,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDown
      * @param description
      * @param subType The type to which the [subjectPlant]'s [subject][IAssertionPlant.subject] should be down-casted.
      * @param subjectPlant The plant to which additional assertions will be added.
-     * @param createAssertions The lambda function which can create subsequent assertions for the down-casted subject.
+     * @param assertionCreator The lambda function which can create subsequent assertions for the down-casted subject.
      *
      * @throws AssertionError Might throw an [AssertionError] in case the down-cast cannot be performed, depending on
      * the [subjectPlant] and the [failureHandler].
@@ -44,7 +44,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDown
         description: ITranslatable,
         subType: KClass<TSub>,
         subjectPlant: IBaseAssertionPlant<T?, *>,
-        createAssertions: IAssertionPlant<TSub>.() -> Unit
+        assertionCreator: IAssertionPlant<TSub>.() -> Unit
     ) {
         val subject = subjectPlant.subject
         val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at https://github.com/robstoll/atrium/issues/new")
@@ -52,9 +52,9 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDown
             val assertionChecker = AtriumFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = AtriumFactory.newReportingPlant(assertionVerb, subType.cast(subject), assertionChecker)
             plant.addAssertion(BasicAssertion(description, subType, true))
-            plant.addAssertionsCreatedBy(createAssertions)
+            plant.addAssertionsCreatedBy(assertionCreator)
         } else {
-            failureHandler.createAndAddAssertionToPlant(subType, subjectPlant, BasicAssertion(description, subType, false), createAssertions)
+            failureHandler.createAndAddAssertionToPlant(subType, subjectPlant, BasicAssertion(description, subType, false), assertionCreator)
         }
     }
 }

@@ -37,22 +37,22 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
             return (f as KFunction<*>).name
         }
 
-        private inline fun <reified TSub : Any> isA(plant: IAssertionPlant<Any>, noinline createAssertions: IAssertionPlant<TSub>.() -> Unit) {
-            plant.istEin(createAssertions)
+        private inline fun <reified TSub : Any> isA(plant: IAssertionPlant<Any>, noinline assertionCreator: IAssertionPlant<TSub>.() -> Unit) {
+            plant.istEin(assertionCreator)
         }
 
         //TODO get rid of different overloads as soon as https://youtrack.jetbrains.com/issue/KT-19884 is fixed
-        private fun isAInt(plant: IAssertionPlant<Any>, createAssertions: IAssertionPlant<Int>.() -> Unit)
-            = isA(plant, createAssertions)
+        private fun isAInt(plant: IAssertionPlant<Any>, assertionCreator: IAssertionPlant<Int>.() -> Unit)
+            = isA(plant, assertionCreator)
 
-        private fun isAString(plant: IAssertionPlant<Any>, createAssertions: IAssertionPlant<String>.() -> Unit)
-            = isA(plant, createAssertions)
+        private fun isAString(plant: IAssertionPlant<Any>, assertionCreator: IAssertionPlant<String>.() -> Unit)
+            = isA(plant, assertionCreator)
 
-        private fun isACharSequence(plant: IAssertionPlant<Any>, createAssertions: IAssertionPlant<CharSequence>.() -> Unit)
-            = isA(plant, createAssertions)
+        private fun isACharSequence(plant: IAssertionPlant<Any>, assertionCreator: IAssertionPlant<CharSequence>.() -> Unit)
+            = isA(plant, assertionCreator)
 
-        private fun isASubType(plant: IAssertionPlant<Any>, createAssertions: IAssertionPlant<SubType>.() -> Unit)
-            = isA(plant, createAssertions)
+        private fun isASubType(plant: IAssertionPlant<Any>, assertionCreator: IAssertionPlant<SubType>.() -> Unit)
+            = isA(plant, assertionCreator)
 
         private fun isAIntLess(plant: IAssertionPlant<Number>, number: Int)
             = plant.istEin<Int> { istKleinerAls(number) }

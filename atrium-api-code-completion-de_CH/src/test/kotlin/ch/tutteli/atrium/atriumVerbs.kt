@@ -11,8 +11,8 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 internal fun <T : Any> esGilt(subject: T)
     = AtriumFactory.newReportingPlant(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-internal fun <T : Any> esGilt(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+internal fun <T : Any> esGilt(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
+    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 internal fun <T : Any?> esGilt(subject: T)
     = AtriumFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
@@ -38,7 +38,7 @@ internal object AtriumReporterSupplier {
  */
 internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
     "es gilt" to { subject -> esGilt(subject) },
-    "es gilt" to { subject, createAssertions -> esGilt(subject, createAssertions) },
+    "es gilt" to { subject, assertionCreator -> esGilt(subject, assertionCreator) },
     "es gilt" to { subject -> esGilt(subject) },
     "erwarte" to { act -> erwarte { act() } })
 
@@ -49,8 +49,8 @@ internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
  */
 internal object AssertionVerbFactory : IAssertionVerbFactory {
     override fun <T : Any> checkImmediately(subject: T) = esGilt(subject)
-    override fun <T : Any> checkLazily(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-        = esGilt(subject, createAssertions)
+    override fun <T : Any> checkLazily(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
+        = esGilt(subject, assertionCreator)
 
     override fun <T> checkNullable(subject: T) = esGilt(subject)
     override fun checkException(act: () -> Unit) = erwarte(act)

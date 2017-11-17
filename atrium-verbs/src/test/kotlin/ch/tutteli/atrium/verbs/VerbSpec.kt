@@ -7,18 +7,18 @@ import ch.tutteli.atrium.verbs.expect.expect
 
 object AssertSpec : VerbSpec(
     "assert" to { subject -> assert(subject) },
-    "assert" to { subject, createAssertions -> assert(subject, createAssertions) },
+    "assert" to { subject, assertionCreator -> assert(subject, assertionCreator) },
     "assert" to { subject-> assert(subject) },
     "assert" to { act -> assert { act() } })
 
 object AssertThatSpec : VerbSpec(
     "assertThat" to { subject-> assertThat(subject) },
-    "assertThat" to { subject, createAssertions -> assertThat(subject, createAssertions) },
+    "assertThat" to { subject, assertionCreator -> assertThat(subject, assertionCreator) },
     "assertThat" to { subject-> assertThat(subject) },
     "assertThat" to { act -> assertThat { act() } })
 
 object ExpectSpec : VerbSpec(
     "expect" to { subject-> expect(subject) },
-    "expect" to { subject, createAssertions -> expect(subject, createAssertions) },
+    "expect" to { subject, assertionCreator -> expect(subject, assertionCreator) },
     "expect" to { subject-> expect(subject) },
     "expect" to { act -> expect { act() } })

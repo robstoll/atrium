@@ -28,10 +28,10 @@ fun <T : Any> assertThat(subject: T)
  *
  * @return The newly created plant.
  *
- * @see IAtriumFactory.newReportingPlantCheckLazilyAtTheEnd
+ * @see IAtriumFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
 fun <T : Any> assertThat(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 /**
  * Creates an [IAssertionPlantNullable] for the given [subject] which might be `null`.

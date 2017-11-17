@@ -14,7 +14,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val failureHandler: IAnyNarrow.IDownCastFailureHandler<Throwable, TExpected>
 ) {
 
-    fun createAndAddAssertionToPlant(throwableThrownBuilder: ThrowableThrownBuilder, description: ITranslatable, expectedType: KClass<TExpected>, createAssertions: IAssertionPlant<TExpected>.() -> Unit) {
+    fun createAndAddAssertionToPlant(throwableThrownBuilder: ThrowableThrownBuilder, description: ITranslatable, expectedType: KClass<TExpected>, assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
         var throwable: Throwable? = null
         try {
             throwableThrownBuilder.act()
@@ -26,6 +26,6 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
             throwable,
             throwableThrownBuilder.reporter,
             absentThrowableMessageProvider.message)
-        DownCaster(failureHandler).downCast(description, expectedType, subjectPlant, createAssertions)
+        DownCaster(failureHandler).downCast(description, expectedType, subjectPlant, assertionCreator)
     }
 }
