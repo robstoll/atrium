@@ -42,11 +42,10 @@ abstract class CharSequenceContainsButAtMostCheckerBuilderBase<T : CharSequence,
 
         if (atLeastBuilder.times > times) throw IllegalArgumentException(
             "specifying $nameButAtMostFun($times) does not make sense if $nameAtLeastFun(${atLeastBuilder.times}) was used before")
-
     }
 
     override val checkers: List<IChecker> = listOf(
         *atLeastBuilder.checkers.toTypedArray(),
         CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameAtMostFun)
-        )
+    )
 }

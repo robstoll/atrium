@@ -29,6 +29,6 @@ abstract class CharSequenceContainsExactlyCheckerBuilderBase<T : CharSequence, D
     nameExactlyFun: String
 ) : CharSequenceContainsCheckerBuilder<T, D>(containsBuilder) {
 
-    override val checkers: List<IChecker> = listOf(CharSequenceContainsExactlyChecker(
-        times, nameContainsNotFun, nameExactlyFun))
+    override val checkers: List<IChecker> =
+        listOf(CharSequenceContainsExactlyChecker(times, nameContainsNotFun, nameExactlyFun))
 }

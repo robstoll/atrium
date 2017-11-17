@@ -3,10 +3,10 @@ package ch.tutteli.atrium.assertions.charsequence.contains
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
+import ch.tutteli.atrium.assertions.base.contains.IContains
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * Represents a creator of sophisticated `contains` assertions for [CharSequence].
@@ -59,19 +59,7 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
         }
     }
 
-    /**
-     * Represents a decoration behaviour of the input [CharSequence] of the search but leaves it up to the [ISearcher]
-     * to implement the behaviour -- yet, it provides a method to decorate the description (an [ITranslatable]) of the
-     * resulting [IAssertion] produced by [CharSequenceContainsAssertionCreator].
-     */
-    interface IDecorator {
-        /**
-         * Decorates the given [description] and returns the result.
-         *
-         * @return The decorated [description].
-         */
-        fun decorateDescription(description: ITranslatable): ITranslatable
-    }
+    interface IDecorator : IContains.IDecorator
 
     /**
      * Represents a searcher which supports the decoration behaviour [D] for a given input [CharSequence] of the search.
@@ -95,18 +83,5 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
         fun search(searchIn: CharSequence, searchFor: Any): Int
     }
 
-    /**
-     * Represents a check for the search result such as: the object is contained exactly once in the input string.
-     *
-     * It provides the method [createAssertion] which creates a corresponding Assertion which represents this check.
-     */
-    interface IChecker {
-        /**
-         * Creates an [IAssertion] representing the check based on the given [foundNumberOfTimes] which is the result
-         * of the search (usually produced by an [ISearcher]).
-         *
-         * @return The newly created [IAssertion].
-         */
-        fun createAssertion(foundNumberOfTimes: Int): IAssertion
-    }
+    interface IChecker : IContains.IChecker
 }
