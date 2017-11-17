@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.base.contains.builders
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.base.contains.IContains
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IChecker
 
 abstract class ContainsCheckerBuilder<out T : Any, D : IContains.IDecorator, out C : IContains.IChecker, out B : ContainsBuilder<T, D>>(
     val containsBuilder: B

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.decorators
 
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
