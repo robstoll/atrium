@@ -10,8 +10,8 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 internal fun <T : Any> assert(subject: T)
     = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-internal fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+internal fun <T : Any> assert(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
+    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 internal fun <T : Any?> assert(subject: T)
     = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)

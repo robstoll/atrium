@@ -9,20 +9,20 @@ import ch.tutteli.atrium.creating.IBaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import kotlin.reflect.KClass
 
-inline fun <reified T : Any> _isNotNull(plant: IAssertionPlantNullable<T?>, noinline createAssertions: IAssertionPlant<T>.() -> Unit) {
-    _downCast(IS_A, T::class, plant, createAssertions)
+inline fun <reified T : Any> _isNotNull(plant: IAssertionPlantNullable<T?>, noinline assertionCreator: IAssertionPlant<T>.() -> Unit) {
+    _downCast(IS_A, T::class, plant, assertionCreator)
 }
 
-inline fun <reified TSub : Any> _isA(plant: IAssertionPlant<Any>, noinline createAssertions: IAssertionPlant<TSub>.() -> Unit) {
-    _downCast(IS_A, TSub::class, plant, createAssertions)
+inline fun <reified TSub : Any> _isA(plant: IAssertionPlant<Any>, noinline assertionCreator: IAssertionPlant<TSub>.() -> Unit) {
+    _downCast(IS_A, TSub::class, plant, assertionCreator)
 }
 
 fun <T : Any, TSub : T> _downCast(
     description: ITranslatable,
     subType: KClass<TSub>,
     subjectPlant: IBaseAssertionPlant<T?, *>,
-    createAssertions: IAssertionPlant<TSub>.() -> Unit
+    assertionCreator: IAssertionPlant<TSub>.() -> Unit
 ) {
     DownCaster<T, TSub>(ExplanatoryDownCastFailureHandler())
-        .downCast(description, subType, subjectPlant, createAssertions)
+        .downCast(description, subType, subjectPlant, assertionCreator)
 }

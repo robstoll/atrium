@@ -10,12 +10,12 @@ import org.jetbrains.spek.api.Spek
 
 abstract class CheckingAssertionSpec<T : Any>(
     verbs: IAssertionVerbFactory,
-    vararg createAssertions: Triple<String, IAssertionPlant<T>.() -> Unit, Pair<T, T>>
+    vararg assertionCreator: Triple<String, IAssertionPlant<T>.() -> Unit, Pair<T, T>>
 ) : Spek({
 
     group("assertion function can be added to ${ICheckingAssertionPlant::class.simpleName}") {
 
-        createAssertions.forEach { (name, createAssertion, holdingAndFailingSubject) ->
+        assertionCreator.forEach { (name, createAssertion, holdingAndFailingSubject) ->
             val (holdingSubject, failingSubject) = holdingAndFailingSubject
             group("fun $name") {
                 test("assertion which holds -- does not throw, returns `true`") {

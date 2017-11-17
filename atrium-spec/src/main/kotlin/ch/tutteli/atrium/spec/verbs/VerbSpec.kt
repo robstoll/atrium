@@ -22,8 +22,8 @@ import org.jetbrains.spek.api.dsl.it
 private fun <T : Any> assert(subject: T): IAssertionPlant<T>
     = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-private fun <T : Any> assert(subject: T, createAssertions: IAssertionPlant<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantCheckLazilyAtTheEnd(ASSERT, subject, AtriumReporterSupplier.REPORTER, createAssertions)
+private fun <T : Any> assert(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
+    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 private fun <T : Any?> assert(subject: T)
     = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
@@ -42,7 +42,7 @@ private object AtriumReporterSupplier {
 
 abstract class VerbSpec(
     plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
-    plantCheckLazily: Pair<String, (subject: Int, createAssertions: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
+    plantCheckLazily: Pair<String, (subject: Int, assertionCreator: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
     plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
     plantExpect: Pair<String, (act: () -> Unit) -> ThrowableThrownBuilder>,
     describePrefix: String = "[Atrium] "

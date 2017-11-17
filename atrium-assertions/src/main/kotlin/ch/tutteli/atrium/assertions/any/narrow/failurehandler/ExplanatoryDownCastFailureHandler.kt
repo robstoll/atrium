@@ -14,13 +14,13 @@ import kotlin.reflect.KClass
  */
 class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : IAnyNarrow.IDownCastFailureHandler<T, TSub> {
     /**
-     * Wraps the assertions which might be created by [createAssertions] into an [ExplanatoryAssertionGroup] and adds it
+     * Wraps the assertions which might be created by [assertionCreator] into an [ExplanatoryAssertionGroup] and adds it
      * to the given [subjectPlant].
      *
      * @param subType The type to which the [subjectPlant]'s [subject][IAssertionPlant.subject] should have been
      * down-casted.
      * @param subjectPlant The plant to which additional assertions would have been added
-     * @param createAssertions The lambda function which could have created subsequent assertions for a down-casted
+     * @param assertionCreator The lambda function which could have created subsequent assertions for a down-casted
      *
      * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
      */
@@ -28,21 +28,21 @@ class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : IAnyNarrow.IDownCas
         subType: KClass<TSub>,
         subjectPlant: IBaseAssertionPlant<T?, *>,
         failingAssertion: IAssertion,
-        createAssertions: IAssertionPlant<TSub>.() -> Unit
+        assertionCreator: IAssertionPlant<TSub>.() -> Unit
     ) {
-        val explanatoryAssertions = collectAssertions(subType, createAssertions)
+        val explanatoryAssertions = collectAssertions(subType, assertionCreator)
         subjectPlant.addAssertion(InvisibleAssertionGroup(listOf(
             failingAssertion,
             ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions)
         )))
     }
 
-    private fun collectAssertions(subType: KClass<TSub>, createAssertions: IAssertionPlant<TSub>.() -> Unit)
+    private fun collectAssertions(subType: KClass<TSub>, assertionCreator: IAssertionPlant<TSub>.() -> Unit)
         = AssertionCollector
         .doNotThrowIfNoAssertionIsCollected
         .collectAssertionsForExplanation(
             "subject is not available because it could not be down-casted to ${subType.qualifiedName}",
             TranslatableWithArgs(DescriptionNarrowingAssertion.WARNING_DOWN_CAST_FAILED, subType.qualifiedName!!),
-            createAssertions,
+            assertionCreator,
             null)
 }
