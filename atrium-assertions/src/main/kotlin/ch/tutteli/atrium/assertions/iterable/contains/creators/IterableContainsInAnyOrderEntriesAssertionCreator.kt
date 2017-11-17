@@ -16,11 +16,8 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
 
     override fun createAssertionGroup(plant: IAssertionPlant<T>, expected: IAssertionPlant<E>.() -> Unit, otherExpected: Array<out IAssertionPlant<E>.() -> Unit>): IAssertionGroup {
         val description = decorator.decorateDescription(CONTAINS)
-        val assertions = mutableListOf<IAssertion>()
-        listOf(expected, *otherExpected).forEach {
-            assertions.add(create(plant, it))
-        }
-        return AssertionGroup(ListAssertionGroupType, description, RawString(""), assertions.toList())
+        val assertions = listOf(expected, *otherExpected).map { create(plant, it) }
+        return AssertionGroup(ListAssertionGroupType, description, RawString(""), assertions)
     }
 
     private fun <E : Any, T : Iterable<E>> create(plant: IAssertionPlant<T>, assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionGroup {
