@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.base.contains.builders.ContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IDecorator
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.creating.IAssertionPlant
 

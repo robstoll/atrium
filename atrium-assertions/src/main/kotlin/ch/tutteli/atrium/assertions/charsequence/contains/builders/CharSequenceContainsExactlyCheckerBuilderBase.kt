@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IChecker
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsExactlyChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IDecorator
 
 /**
  * The base class for builders which create a `contains exactly` check within the fluent API of a sophisticated

@@ -1,10 +1,10 @@
-package ch.tutteli.atrium.assertions.charsequence.contains
+package ch.tutteli.atrium.assertions.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
 import ch.tutteli.atrium.assertions.base.contains.IContains
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.*
+import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
@@ -24,7 +24,7 @@ import ch.tutteli.atrium.reporting.RawString
  * @param searcher The search method which is used to search for given objects.
  * @param checkers The checkers which create assertions based on the search result.
  */
-class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
+class CharSequenceContainsAssertionCreator<T : CharSequence, D : CharSequenceContainsAssertionCreator.IDecorator>(
     private val decorator: D,
     private val searcher: ISearcher<D>,
     private val checkers: List<IChecker>
