@@ -3,8 +3,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.creators
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
-import ch.tutteli.atrium.assertions.base.contains.IContains
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.*
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
@@ -24,7 +23,7 @@ import ch.tutteli.atrium.reporting.RawString
  * @param searcher The search method which is used to search for given objects.
  * @param checkers The checkers which create assertions based on the search result.
  */
-class CharSequenceContainsAssertionCreator<T : CharSequence, D : CharSequenceContainsAssertionCreator.IDecorator>(
+class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
     private val decorator: D,
     private val searcher: ISearcher<D>,
     private val checkers: List<IChecker>
@@ -59,29 +58,4 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : CharSequenceCon
         }
     }
 
-    interface IDecorator : IContains.IDecorator
-
-    /**
-     * Represents a searcher which supports the decoration behaviour [D] for a given input [CharSequence] of the search.
-     *
-     * @param D The decoration behaviour which should be applied to the input [CharSequence] in which the [ISearcher]
-     *          will look for something -- the actual decorator implementation happens in the [ISearcher]; [IDecorator]
-     *          only decorates [ITranslatable] for reporting.
-     */
-    interface ISearcher<D : IDecorator> {
-        /**
-         * Searches in the given [searchIn] for the given [searchFor], using its [toString][Any.toString]
-         * implementation, and returns the number of occurrences.
-         *
-         * Whether searches are disjoint or non-disjoint is up to the implementation.
-         *
-         * @param searchIn The input [CharSequence] in which this [ISearcher] shall search
-         * @param searchFor The object which shall be found
-         *
-         * @return The number of occurrences of [searchFor] in [searchIn].
-         */
-        fun search(searchIn: CharSequence, searchFor: Any): Int
-    }
-
-    interface IChecker : IContains.IChecker
 }

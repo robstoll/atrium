@@ -1,16 +1,13 @@
 package ch.tutteli.atrium.assertions.base.contains
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.ISearcher
+import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearcher
+import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 interface IContains {
-    /**
-     * Represents a decoration behaviour of the input [CharSequence] of the search but leaves it up to the [ISearcher]
-     * to implement the behaviour -- yet, it provides a method to decorate the description (an [ITranslatable]) of the
-     * resulting [IAssertion] produced by [CharSequenceContainsAssertionCreator].
-     */
+
     interface IDecorator {
         /**
          * Decorates the given [description] and returns the result.
@@ -33,5 +30,18 @@ interface IContains {
          * @return The newly created [IAssertion].
          */
         fun createAssertion(foundNumberOfTimes: Int): IAssertion
+    }
+
+    /**
+     * Represents the final step of a sophisticated `contains` assertion builder.
+     */
+    interface ICreator<in T1 : Any, in T2> {
+        /**
+         * Creates an [IAssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
+         * on the given [expected] and [otherExpected].
+         *
+         * @return The newly created [IAssertionGroup].
+         */
+        fun createAssertionGroup(plant: IAssertionPlant<T1>, expected: T2, otherExpected: Array<out T2>): IAssertionGroup
     }
 }
