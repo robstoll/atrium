@@ -30,10 +30,10 @@ fun <E, T : Iterable<E>> _objectsInAnyOrder(
 
 fun <E : Any, T : Iterable<E>> _entriesInAnyOrder(
     checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>,
-    createAssertions: IAssertionPlant<E>.() -> Unit,
-    otherCreateAssertionsFun: Array<out IAssertionPlant<E>.() -> Unit>
+    assertionCreator: IAssertionPlant<E>.() -> Unit,
+    otherAssertionCreators: Array<out IAssertionPlant<E>.() -> Unit>
 ): IAssertion
-    = createAssertionGroup(checker, createAssertions, otherCreateAssertionsFun, ::IterableContainsInAnyOrderEntriesAssertionCreator)
+    = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
 fun <E, T : Iterable<E>> _objectsInAnyOrderOnly(
     checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>,
@@ -44,10 +44,10 @@ fun <E, T : Iterable<E>> _objectsInAnyOrderOnly(
 
 fun <E : Any, T : Iterable<E>> _entriesInAnyOrderOnly(
     checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>,
-    createAssertions: IAssertionPlant<E>.() -> Unit,
-    otherCreateAssertionsFun: Array<out IAssertionPlant<E>.() -> Unit>
+    assertionCreator: IAssertionPlant<E>.() -> Unit,
+    otherAssertionCreators: Array<out IAssertionPlant<E>.() -> Unit>
 ): IAssertion
-    = createAssertionGroupWithoutChecker(checker, createAssertions, otherCreateAssertionsFun, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
+    = createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
 
 private fun <E, T : Iterable<E>, P, D : IIterableContains.IDecorator> createAssertionGroupWithoutChecker(
     checker: IterableContainsCheckerBuilder<E, T, D>,

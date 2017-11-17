@@ -76,29 +76,29 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
- * all assertions [createAssertions] might create.
+ * all assertions [assertionCreator] might create.
  *
- * @param createAssertions The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
  *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
  *
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.entry(createAssertions: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
-    = entries(createAssertions)
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.entry(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = entries(assertionCreator)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
- * all assertions [createAssertions] might create and search for entries which hold (one by one) the assertions
- * created by the [otherCreateAssertionsFun].
+ * all assertions [assertionCreator] might create and search for entries which hold (one by one) the assertions
+ * created by the [otherAssertionCreators].
  *
- * @param createAssertions The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
  *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
- * @param otherCreateAssertionsFun Additional lambda functions which each kind of identify (separately) an entry
+ * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
  *        which we are looking for.
  *
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.entries(createAssertions: IAssertionPlant<E>.() -> Unit, vararg otherCreateAssertionsFun: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
-    = addAssertion(_entriesInAnyOrder(this, createAssertions, otherCreateAssertionsFun))
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.entries(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = addAssertion(_entriesInAnyOrder(this, assertionCreator, otherAssertionCreators))

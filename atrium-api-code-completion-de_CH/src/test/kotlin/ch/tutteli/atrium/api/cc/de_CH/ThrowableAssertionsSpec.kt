@@ -19,8 +19,8 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.assertions.ThrowableAsser
             builder.wirft<IllegalArgumentException>()
         }
 
-        private fun toThrowLazy(builder: ThrowableThrownBuilder, createAssertions: IAssertionPlant<Throwable>.() -> Unit) {
-            builder.wirft<IllegalArgumentException>(createAssertions)
+        private fun toThrowLazy(builder: ThrowableThrownBuilder, assertionCreator: IAssertionPlant<Throwable>.() -> Unit) {
+            builder.wirft<IllegalArgumentException>(assertionCreator)
         }
 
         private fun getMessagePair() =

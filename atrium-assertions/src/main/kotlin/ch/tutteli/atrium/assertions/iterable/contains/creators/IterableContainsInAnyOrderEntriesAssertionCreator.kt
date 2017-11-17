@@ -23,10 +23,10 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
         return AssertionGroup(ListAssertionGroupType, description, RawString(""), assertions.toList())
     }
 
-    private fun <E : Any, T : Iterable<E>> create(plant: IAssertionPlant<T>, createAssertions: IAssertionPlant<E>.() -> Unit): IAssertionGroup {
+    private fun <E : Any, T : Iterable<E>> create(plant: IAssertionPlant<T>, assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val itr = plant.subject.iterator()
-            val (explanatoryAssertions, count) = getExplanatoryAssertionsAndMatchingCount(itr, createAssertions)
+            val (explanatoryAssertions, count) = getExplanatoryAssertionsAndMatchingCount(itr, assertionCreator)
             val assertions = checkers.map { it.createAssertion(count) }
             val featureAssertion = AssertionGroup(FeatureAssertionGroupType, NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions)
             AssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), listOf(
@@ -36,27 +36,27 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
         }
     }
 
-    private fun <E : Any> getExplanatoryAssertionsAndMatchingCount(itr: Iterator<E>, createAssertions: IAssertionPlant<E>.() -> Unit): Pair<List<IAssertion>, Int> {
+    private fun <E : Any> getExplanatoryAssertionsAndMatchingCount(itr: Iterator<E>, assertionCreator: IAssertionPlant<E>.() -> Unit): Pair<List<IAssertion>, Int> {
         return if (itr.hasNext()) {
             val first = itr.next()
-            val group = collectIterableAssertionsForExplanation(createAssertions, first)
+            val group = collectIterableAssertionsForExplanation(assertionCreator, first)
             val sequence = sequenceOf(first) + itr.asSequence()
-            val count = sequence.count { checkIfAssertionsHold(it, createAssertions) }
+            val count = sequence.count { checkIfAssertionsHold(it, assertionCreator) }
             group to count
         } else {
-            val group = collectIterableAssertionsForExplanation(createAssertions, null)
+            val group = collectIterableAssertionsForExplanation(assertionCreator, null)
             group to 0
         }
     }
 
-    private fun <E : Any> checkIfAssertionsHold(it: E, createAssertions: IAssertionPlant<E>.() -> Unit): Boolean {
+    private fun <E : Any> checkIfAssertionsHold(it: E, assertionCreator: IAssertionPlant<E>.() -> Unit): Boolean {
         val plant = AtriumFactory.newCheckingPlant(it)
-        plant.createAssertions()
+        plant.assertionCreator()
         return plant.allAssertionsHold()
     }
 }
 
-internal fun <E : Any> collectIterableAssertionsForExplanation(createAssertions: IAssertionPlant<E>.() -> Unit, subject: E?)
+internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator: IAssertionPlant<E>.() -> Unit, subject: E?)
     = AssertionCollector
     .throwIfNoAssertionIsCollected
-    .collectAssertionsForExplanation("the iterator was empty and thus no subject available", WARNING_SUBJECT_NOT_SET, createAssertions, subject)
+    .collectAssertionsForExplanation("the iterator was empty and thus no subject available", WARNING_SUBJECT_NOT_SET, assertionCreator, subject)

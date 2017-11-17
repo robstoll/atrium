@@ -5,8 +5,8 @@ class CheckingAssertionPlant<out T : Any>(
 ) : BaseAssertionPlant<T, IAssertionPlant<T>>(), ICheckingAssertionPlant<T> {
     override val self = this
 
-    override fun addAssertionsCreatedBy(createAssertions: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T> {
-        this.createAssertions()
+    override fun addAssertionsCreatedBy(assertionCreator: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T> {
+        this.assertionCreator()
         return this
     }
 

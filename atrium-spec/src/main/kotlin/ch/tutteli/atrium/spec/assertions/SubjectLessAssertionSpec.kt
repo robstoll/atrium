@@ -9,12 +9,12 @@ import ch.tutteli.atrium.spec.AssertionVerb
 import org.jetbrains.spek.api.Spek
 
 abstract class SubjectLessAssertionSpec<T : Any>(
-    vararg createAssertions: Pair<String, IAssertionPlant<T>.() -> Unit>
+    vararg assertionCreator: Pair<String, IAssertionPlant<T>.() -> Unit>
 ) : Spek({
 
     group("assertion function can be used in ${ExplanatoryAssertionGroup::class.simpleName} and reported without failure") {
 
-        createAssertions.forEach { (name, createAssertion) ->
+        assertionCreator.forEach { (name, createAssertion) ->
             test("fun $name") {
                 val collectingPlant = AtriumFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException("no subject in this test") })
                 collectingPlant.createAssertion()

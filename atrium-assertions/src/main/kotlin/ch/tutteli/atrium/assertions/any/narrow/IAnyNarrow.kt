@@ -24,14 +24,14 @@ interface IAnyNarrow {
     interface IDownCastFailureHandler<T : Any, TSub : T> {
 
         /**
-         * Makes something out of the given [createAssertions] lambda; might add assertions to [subjectPlant].
+         * Makes something with the given [assertionCreator] lambda; might add assertions to [subjectPlant].
          *
          * @param subType The type to which the [subjectPlant]'s [subject][IAssertionPlant.subject] should have been
          * down-casted.
          * @param subjectPlant The plant to which additional assertions would have been added.
          * @param failingAssertion The [IAssertion] representing the failed assertion that [subjectPlant]'s
          * [subject][IAssertionPlant.subject] can be down-casted to [TSub].
-         * @param createAssertions The lambda function which could have created subsequent assertions for a down-casted
+         * @param assertionCreator The lambda function which could have created subsequent assertions for a down-casted
          * subject.
          *
          * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
@@ -40,6 +40,6 @@ interface IAnyNarrow {
             subType: KClass<TSub>,
             subjectPlant: IBaseAssertionPlant<T?, *>,
             failingAssertion: IAssertion,
-            createAssertions: IAssertionPlant<TSub>.() -> Unit)
+            assertionCreator: IAssertionPlant<TSub>.() -> Unit)
     }
 }

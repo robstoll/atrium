@@ -17,9 +17,9 @@ abstract class ThrowableAssertionsSpec(
     verbs: IAssertionVerbFactory,
     toThrowTriple: Triple<String,
         ThrowableThrownBuilder.() -> Unit,
-        ThrowableThrownBuilder.(createAssertions: IAssertionPlant<Throwable>.() -> Unit) -> Unit
+        ThrowableThrownBuilder.(assertionCreator: IAssertionPlant<Throwable>.() -> Unit) -> Unit
         >,
-    messagePair: Pair<String, IAssertionPlant<Throwable>.(createAssertions: IAssertionPlant<String>.() -> Unit) -> Unit>,
+    messagePair: Pair<String, IAssertionPlant<Throwable>.(assertionCreator: IAssertionPlant<String>.() -> Unit) -> Unit>,
     messageContainsFun: IAssertionPlant<Throwable>.(String) -> Unit
 ) : Spek({
 
