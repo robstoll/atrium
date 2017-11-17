@@ -1,10 +1,11 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.ISearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseIndexSearcher
@@ -79,7 +80,7 @@ fun <T : CharSequence> _containsRegexIgnoringCase(
 ): IAssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
 
-private fun <T : CharSequence, D : CharSequenceContainsAssertionCreator.IDecorator> createAssertionGroup(
+private fun <T : CharSequence, D : ICharSequenceContains.IDecorator> createAssertionGroup(
     checker: CharSequenceContainsCheckerBuilder<T, D>,
     searcher: ISearcher<D>,
     expected: Any,

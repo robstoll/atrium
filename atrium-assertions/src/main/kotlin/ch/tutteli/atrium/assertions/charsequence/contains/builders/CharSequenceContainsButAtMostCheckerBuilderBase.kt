@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtMostChecker
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IChecker
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IDecorator
 
 /**
  * The base class for builders which create the second step of a `contains at least but at most` check within the

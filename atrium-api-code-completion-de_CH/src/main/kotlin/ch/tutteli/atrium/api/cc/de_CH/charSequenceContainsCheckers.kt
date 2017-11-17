@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.*
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IDecorator
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we are looking

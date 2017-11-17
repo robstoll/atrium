@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.base.contains.builders.ContainsCheckerBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 
 /**

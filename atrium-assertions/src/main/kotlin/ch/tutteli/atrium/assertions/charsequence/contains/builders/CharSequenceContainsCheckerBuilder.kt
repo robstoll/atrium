@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.base.contains.builders.ContainsCheckerBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IChecker
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator.IDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
 
 /**
  * The base class for builders which create [IChecker]s within the fluent API of a sophisticated
