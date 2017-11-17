@@ -3,6 +3,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.creators
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
@@ -27,7 +28,7 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
     private val decorator: D,
     private val searcher: ISearcher<D>,
     private val checkers: List<IChecker>
-) {
+) : ICharSequenceContains.ICreator<T, Any> {
     /**
      * Searches for the [expected] objects in the [plant]'s [subject][IAssertionPlant.subject] using the [searcher],
      * passes on the result to the [checkers] and creates an [IAssertionGroup] based on the resulting assertions.
@@ -37,9 +38,9 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
      *
      * @return An [IAssertionGroup] which contains the assertion created by the [checkers].
      */
-    fun create(plant: IAssertionPlant<T>, vararg expected: Any): IAssertionGroup {
+    override fun createAssertionGroup(plant: IAssertionPlant<T>, expected: Any, otherExpected: Array<out Any>): IAssertionGroup {
         val assertions = mutableListOf<IAssertion>()
-        expected.forEach {
+        listOf(expected, *otherExpected).forEach {
             assertions.add(create(plant, it))
         }
         return InvisibleAssertionGroup(assertions.toList())
