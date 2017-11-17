@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
+import ch.tutteli.atrium.assertions.base.contains.builders.validateAtMost
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtLeastChecker
@@ -35,8 +36,7 @@ abstract class CharSequenceContainsAtMostCheckerBuilderBase<T : CharSequence, D 
 ) : CharSequenceContainsCheckerBuilder<T, D>(containsBuilder) {
 
     init {
-        if (1 == times) throw IllegalArgumentException(
-            "use $nameExactlyFun($times) instead of $nameAtMostFun($times); $nameAtMostFun defines implicitly $nameAtLeastFun(1) as well")
+        validateAtMost(times, nameAtMostFun, nameAtLeastFun, nameExactlyFun)
     }
 
     override val checkers: List<IChecker> = listOf(
