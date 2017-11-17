@@ -13,6 +13,8 @@ interface ICharSequenceContains {
      */
     interface IDecorator : IContains.IDecorator
 
+    interface ICreator<in T1 : CharSequence, in T2> : IContains.ICreator<T1, T2>
+
     interface IChecker : IContains.IChecker
 
     /**
@@ -36,5 +38,4 @@ interface ICharSequenceContains {
          */
         fun search(searchIn: CharSequence, searchFor: Any): Int
     }
-
 }
