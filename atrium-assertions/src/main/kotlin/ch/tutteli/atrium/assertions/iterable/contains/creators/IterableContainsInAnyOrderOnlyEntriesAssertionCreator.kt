@@ -19,7 +19,7 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
             val actualSize = list.size
             val assertions = mutableListOf<IAssertion>()
             val allExpected = listOf(expected, *otherExpected)
-            val mismatches = assertionCreatorForExpected(allExpected, list, assertions)
+            val mismatches = createAssertionsForExpected(allExpected, list, assertions)
             val featureAssertions = createSizeFeatureAssertion(allExpected, actualSize)
             if (mismatches == 0 && list.isNotEmpty()) {
                 featureAssertions.add(LazyThreadUnsafeAssertionGroup {
@@ -45,7 +45,7 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
         }
     }
 
-    private fun assertionCreatorForExpected(allExpected: List<IAssertionPlant<E>.() -> Unit>, list: MutableList<E>, assertions: MutableList<IAssertion>): Int {
+    private fun createAssertionsForExpected(allExpected: List<IAssertionPlant<E>.() -> Unit>, list: MutableList<E>, assertions: MutableList<IAssertion>): Int {
         var mismatches = 0
         allExpected.forEach {
             val explanatoryAssertions = collectIterableAssertionsForExplanation(it, list.firstOrNull())
