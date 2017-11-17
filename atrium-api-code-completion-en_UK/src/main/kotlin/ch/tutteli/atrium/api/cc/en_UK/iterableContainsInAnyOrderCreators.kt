@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.assertions._entriesInAnyOrder
-import ch.tutteli.atrium.assertions._objectsInAnyOrder
+import ch.tutteli.atrium.assertions._containsEntriesInAnyOrder
+import ch.tutteli.atrium.assertions._containsObjectsInAnyOrder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -38,7 +38,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.values(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = addAssertion(_objectsInAnyOrder(this, expected, otherExpected))
+    = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
@@ -72,7 +72,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = addAssertion(_objectsInAnyOrder(this, expected, otherExpected))
+    = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
@@ -101,4 +101,4 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.entries(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
-    = addAssertion(_entriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
+    = addAssertion(_containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
