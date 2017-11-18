@@ -16,8 +16,8 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @property times The number which the check will compare against the actual number of times an expected object
  *                 is found in the input of the search.
  *
- * @constructor The base class for builders which create a `contains at most` check within the fluent API of a sophisticated
- *              `contains` assertion for [CharSequence].
+ * @constructor The base class for builders which create a `contains at most` check within the fluent API of a
+ *              sophisticated `contains` assertion for [CharSequence].
  * @param times The number which the check will compare against the actual number of times an expected object is
  *              found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
