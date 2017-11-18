@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IChecker
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtMostChecker
 
 /**
@@ -30,7 +29,6 @@ abstract class CharSequenceContainsNotOrAtMostCheckerBuilderBase<T : CharSequenc
     nameNotOrAtMostFun: String
 ) : CharSequenceContainsCheckerBuilder<T, D>(containsBuilder) {
 
-    override val checkers: List<IChecker> = listOf(
-        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameNotOrAtMostFun)
-    )
+    override val checkers: List<IChecker> =
+        listOf(CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameNotOrAtMostFun))
 }

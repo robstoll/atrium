@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContainsAssertionCreator.IDecorator
+import ch.tutteli.atrium.assertions.base.contains.builders.ContainsBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -18,5 +19,6 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @param decorator The decoration behaviour which shall be applied to the input of the search.
  */
 class CharSequenceContainsBuilder<out T : CharSequence, D : IDecorator>(
-    val plant: IAssertionPlant<T>, val decorator: D
-)
+    plant: IAssertionPlant<T>, decorator: D
+) : ContainsBuilder<T, D>(plant, decorator)
+

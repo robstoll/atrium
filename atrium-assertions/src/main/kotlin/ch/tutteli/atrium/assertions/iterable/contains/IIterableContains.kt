@@ -1,25 +1,15 @@
 package ch.tutteli.atrium.assertions.iterable.contains
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.assertions.base.contains.IContains
 
 /**
  * Defines the contract for sophisticated [Iterable] contains assertions.
  */
 interface IIterableContains {
 
-    interface IDecorator {
-        fun decorateDescription(description: ITranslatable): ITranslatable
-    }
+    interface IDecorator : IContains.IDecorator
 
-    interface ICreator<in T : Iterable<*>, in T2> {
-        fun createAssertionGroup(plant: IAssertionPlant<T>, expected: T2, otherExpected: Array<out T2>): IAssertionGroup
-    }
+    interface ICreator<in T1 : Iterable<*>, in T2> : IContains.ICreator<T1, T2>
 
-    interface IChecker {
-        fun createAssertion(foundNumberOfTimes: Int): IAssertion
-    }
-
+    interface IChecker : IContains.IChecker
 }
