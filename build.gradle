@@ -12,7 +12,7 @@ buildscript {
 
         //spek.gradle
         jacoco_tool_version = '0.7.9'
-        spek_version = '1.1.4'
+        spek_version = '1.1.5'
         junit_version = '1.0.0-RC3'
 
         //publish.gradle
