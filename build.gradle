@@ -4,16 +4,16 @@ buildscript {
         atrium_version = '0.4.0-SNAPSHOT'
         ghPages_version = '0.4.0-SNAPSHOT'
         kbox_version = '0.0.1'
-        kotlin_version = '1.1.51'
-        mockito_kotlin_version = '1.0.1'
+        kotlin_version = '1.1.60'
+        mockito_kotlin_version = '1.5.0'
         dokka_version = '0.9.14'
 
         srcKotlin = 'src/main/kotlin'
 
         //spek.gradle
         jacoco_tool_version = '0.7.9'
-        spek_version = '1.1.4'
-        junit_version = '1.0.0-RC3'
+        spek_version = '1.1.5'
+        junit_version = '1.0.2'
 
         //publish.gradle
         bintray_version = '1.7.3'
