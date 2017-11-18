@@ -31,7 +31,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
         checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, "string with 2.3", "string with 0.0"),
         checkingTriple(containsAtLeastIgnoringCaseTriple.first, { containsAtLeastIgnoringCaseTriple.third(this, 1, 2.3, arrayOf()) }, "string with 2.3", "string with 0.0"),
         checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3"),
-        checkingTriple(containsAtLeastButAtMostIgnoringCaseTriple.first, { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3" , "2.3 / 2.3 / 2.3")
+        checkingTriple(containsAtLeastButAtMostIgnoringCaseTriple.first, { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3")
     ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
@@ -199,11 +199,11 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
 
             group("using $containsAtLeastButAtMost") {
                 test("${containsAtLeastButAtMostTest("'o'", "once", "twice")} does not throw") {
-                    fluentHelloWorld.contains.atLeast(1).butAtMost(2).value('o')
+                    fluentHelloWorld.containsAtLeastButAtMostFun(1, 2, 'o')
                 }
                 test("${containsAtLeastButAtMostTest("'o' and 'l'", "once", "twice")} throws AssertionError and message contains both, at most: 2 and how many times it actually contained 'l' (3)") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(1).butAtMost(2).values('o', 'l')
+                        fluentHelloWorld.containsAtLeastButAtMostFun(1, 2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
                             contains(
@@ -217,7 +217,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                     }
                 }
                 test("${containsAtLeastButAtMostTest("'o' and 'l'", "twice", "3 times")} does not throw") {
-                    fluentHelloWorld.contains.atLeast(2).butAtMost(3).values('o', 'l')
+                    fluentHelloWorld.containsAtLeastButAtMostFun(2, 3, 'o', 'l')
                 }
                 test("${containsAtLeastButAtMostIgnoringCase("'o' and 'l'", "twice", "3 times")} does not throw") {
                     fluentHelloWorld.containsAtLeastButAtMostIgnoringCaseFun(2, 3, 'o', 'l')
@@ -225,7 +225,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
 
                 test("${containsAtLeastButAtMostTest("'o' and 'l'", "3 times", "4 times")} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 'o' (2)") {
                     expect {
-                        fluentHelloWorld.contains.atLeast(3).butAtMost(4).values('o', 'l')
+                        fluentHelloWorld.containsAtLeastButAtMostFun(3, 4, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
                             contains(
