@@ -18,6 +18,7 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
         val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES.getDefault()
 
         val atLeast = DescriptionIterableAssertion.AT_LEAST.getDefault()
+        val atMost = DescriptionIterableAssertion.AT_MOST.getDefault()
 
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = System.getProperty("line.separator")!!
