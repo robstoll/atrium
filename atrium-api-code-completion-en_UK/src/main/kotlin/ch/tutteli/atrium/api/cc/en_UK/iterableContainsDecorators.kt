@@ -5,8 +5,20 @@ import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContain
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlyDecorator
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsNoOpDecorator
 
+/**
+ * Defines that the search behaviour find entries `in any order` in the [Iterable] shall be applied to this
+ * sophisticated `contains` in [Iterable] assertion.
+ *
+ * @return The newly created builder.
+ */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>.inAnyOrder
     get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderDecorator)
 
+/**
+ * Defines that the constraint `only` the specified entries exist in the [Iterable] shall be applied to this sophisticated `contains`
+ * [Iterable] assertion.
+ *
+ * @return The newly created builder.
+ */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>.only
     get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderOnlyDecorator)
