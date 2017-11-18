@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.assertions._containsEntriesInAnyOrderOnly
 import ch.tutteli.atrium.assertions._containsObjectsInAnyOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNoOpCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlyDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
 
@@ -30,10 +29,8 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T> {
-    val checker = IterableContainsNoOpCheckerBuilder(this)
-    return checker.addAssertion(_containsObjectsInAnyOrderOnly(checker, expected, otherExpected))
-}
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+    = this.plant.addAssertion(_containsObjectsInAnyOrderOnly(this, expected, otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
@@ -56,7 +53,5 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.entries(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T> {
-    val checker = IterableContainsNoOpCheckerBuilder(this)
-    return checker.addAssertion(_containsEntriesInAnyOrderOnly(checker, assertionCreator, otherAssertionCreators))
-}
+fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.entries(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = this.plant.addAssertion(_containsEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))

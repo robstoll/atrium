@@ -3,6 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
+import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNoOpCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderEntriesAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderOnlyEntriesAssertionCreator
@@ -41,18 +42,22 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrder(
     = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
 fun <E, T : Iterable<E>> _containsObjectsInAnyOrderOnly(
-    checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>,
+    builder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>,
     expected: E,
     otherExpected: Array<out E>
-): IAssertion
-    = createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsInAnyOrderOnlyObjectsAssertionCreator)
+): IAssertion {
+    val checker = IterableContainsNoOpCheckerBuilder(builder)
+    return createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsInAnyOrderOnlyObjectsAssertionCreator)
+}
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrderOnly(
-    checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>,
+    builder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>,
     assertionCreator: IAssertionPlant<E>.() -> Unit,
     otherAssertionCreators: Array<out IAssertionPlant<E>.() -> Unit>
-): IAssertion
-    = createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
+): IAssertion {
+    val checker = IterableContainsNoOpCheckerBuilder(builder)
+    return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
+}
 
 private fun <E, T : Iterable<E>, P, D : IIterableContains.IDecorator> createAssertionGroupWithoutChecker(
     checker: IterableContainsCheckerBuilder<E, T, D>,
