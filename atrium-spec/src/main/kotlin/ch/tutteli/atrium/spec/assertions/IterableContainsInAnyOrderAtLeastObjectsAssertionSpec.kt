@@ -1,9 +1,11 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AT_LEAST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import com.nhaarman.mockito_kotlin.atMost
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -11,24 +13,20 @@ import org.jetbrains.spek.api.include
 abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
-    //TODO use as soon as containsAtLeastButAtMost exists
-    //containsAtLeastButAtMostPair: Triple<String, (String, String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
-    containsNotPair: Pair<String, (Int) -> String>
-    //TODO use as soon as exactly exists
-    //exactlyPair: Pair<String, (Int) -> String>,
-    //errorMsgAtLeastButAtMost: (Int, Int) -> String
+    containsAtLeastButAtMostTriple: Triple<String, (String, String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
+    containsNotPair: Pair<String, (Int) -> String>,
+    exactlyPair: Pair<String, (Int) -> String>,
+    errorMsgAtLeastButAtMost: (Int, Int) -> String
 ) : IterableContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
-        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }
-        //TODO use as soon as containsAtLeastButAtMost exists
-//        containsAtLeastButAtMostTriple.first to mapToCreateAssertion { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) },
+        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) },
+        containsAtLeastButAtMostTriple.first to mapToCreateAssertion { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs,
-        checkingTriple(containsAtLeastTriple.first          , { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, listOf(2.3, 2.3) as Iterable<Double>, listOf())
-        //TODO use as soon as containsAtLeastButAtMost exists
-        //checkingTriple(containsAtLeastButAtMostTriple.first , { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) },listOf(2.3) as Iterable<Double>,listOf())
+        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, listOf(2.3, 2.3) as Iterable<Double>, listOf()),
+        checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, listOf(2.3) as Iterable<Double>, listOf())
     ) {})
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
@@ -39,12 +37,15 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     fun IAssertionPlant<Iterable<Double>>.containsAtLeastFun(atLeast: Int, a: Double, vararg aX: Double)
         = containsAtLeastFunArr(atLeast, a, aX.toTypedArray())
 
-    val (containsNot, errorMsgContainsNot) = containsNotPair
-    //val (exactly, errorMsgExactly) = exactlyPair
+    val (containsAtLeastButAtMost, containsAtLeastButAtMostTest, containsAtLeastButAtMostFunArr) = containsAtLeastButAtMostTriple
+    fun IAssertionPlant<Iterable<Double>>.containsAtLeastButAtMostFun(atLeast: Int, atMost: Int, a: Double, vararg aX: Double)
+        = containsAtLeastButAtMostFunArr(atLeast, atMost, a, aX.toTypedArray())
 
-    //TODO use as soon as containsAtLeastButAtMost exists
-    //describe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
-    describe("fun $containsAtLeast") {
+
+    val (containsNot, errorMsgContainsNot) = containsNotPair
+    val (exactly, errorMsgExactly) = exactlyPair
+
+    describe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
         context("throws an $illegalArgumentException") {
             test("for at least -1 -- only positive numbers") {
                 expect {
@@ -56,30 +57,28 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
                     fluent.containsAtLeastFun(0, 9.0)
                 }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
             }
-            //TODO use as soon as containsAtLeastButAtMost exists
-//            group("using $containsAtLeastButAtMost") {
-//                test("for at least 1 but at most -1 -- since -1 is smaller than 1") {
-//                    expect {
-//                        fluent.containsAtLeastButAtMostFun(1, -1, 9.0)
-//                    }.toThrow<IllegalArgumentException>{ message { toBe(errorMsgAtLeastButAtMost(1, -1) } })
-//                }
-//                test("for at least 1 but at most 0 -- since 0 is smaller than 1") {
-//                    expect {
-//                        fluent.containsAtLeastButAtMostFun(1, 0, 9.0)
-//                    }.toThrow<IllegalArgumentException>{ message { toBe(errorMsgAtLeastButAtMost(1, 0) } })
-//                }
-//                test("for at least 2 but at most 1 -- since 1 is smaller than 2") {
-//                    expect {
-//                        fluent.containsAtLeastButAtMostFun(2, 1, 9.0)
-//                    }.toThrow<IllegalArgumentException>{ message { toBe(errorMsgAtLeastButAtMost(2, 1) } })
-//                }
-////                //TODO use as soon as exactly exists
-////                test("for at least 1 but at most 1 -- points to $exactly") {
-////                    expect {
-////                        fluent.containsAtLeastButAtMostFun(1, 1, 9.0)
-////                    }.toThrow<IllegalArgumentException>{ message { toBe(errorMsgExactly(1) } })
-////                }
-//            }
+            group("using $containsAtLeastButAtMost") {
+                test("for at least 1 but at most -1 -- since -1 is smaller than 1") {
+                    expect {
+                        fluent.containsAtLeastButAtMostFun(1, -1, 9.0)
+                    }.toThrow<IllegalArgumentException> { message { toBe(errorMsgAtLeastButAtMost(1, -1)) } }
+                }
+                test("for at least 1 but at most 0 -- since 0 is smaller than 1") {
+                    expect {
+                        fluent.containsAtLeastButAtMostFun(1, 0, 9.0)
+                    }.toThrow<IllegalArgumentException> { message { toBe(errorMsgAtLeastButAtMost(1, 0)) } }
+                }
+                test("for at least 2 but at most 1 -- since 1 is smaller than 2") {
+                    expect {
+                        fluent.containsAtLeastButAtMostFun(2, 1, 9.0)
+                    }.toThrow<IllegalArgumentException> { message { toBe(errorMsgAtLeastButAtMost(2, 1)) } }
+                }
+                test("for at least 1 but at most 1 -- points to $exactly") {
+                    expect {
+                        fluent.containsAtLeastButAtMostFun(1, 1, 9.0)
+                    }.toThrow<IllegalArgumentException> { message { toBe(errorMsgExactly(1)) } }
+                }
+            }
         }
 
         context("text $oneToSeven") {
@@ -164,42 +163,46 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
                 }
             }
 
-            //TODO as soon as containsAtLeastButAtMost is implemented
-//            group("using $containsAtLeastButAtMost") {
-//                test("${containsAtLeastButAtMostTest("5.0", "once", "twice")} does not throw") {
-//                    fluent.contains.atLeast(1).butAtMost(2).value(5.0)
-//                }
-//                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "once", "twice")} throws AssertionError and message contains both, at most: 2 and how many times it actually contained 4.0 (3)") {
-//                    expect {
-//                        fluent.contains.atLeast(1).butAtMost(2).values(5.0, 4.0)
-//                    }.toThrow<AssertionError>().and.message {
-//                        contains(
-//                            "$containsInAnyOrder: 4.0",
-//                            "$numberOfOccurrences: 3$separator"
-//                        )
-//                        endsWith(AT_MOST.getDefault() + ": 2")
-//                        containsNot("$containsInAnyOrder: 5.0")
-//                        containsNotDefaultTranslationOf(AT_LEAST)
-//                    }
-//                }
-//                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "twice", "3 times")} does not throw") {
-//                    fluent.contains.atLeast(2).butAtMost(3).values(5.0, 4.0)
-//                }
-//
-//                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "3 times", "4 times")} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)") {
-//                    expect {
-//                        fluent.contains.atLeast(3).butAtMost(4).values(5.0, 4.0)
-//                    }.toThrow<AssertionError>().and.message {
-//                        contains(
-//                            "$containsInAnyOrder: 5.0",
-//                            "$numberOfOccurrences: 2$separator"
-//                        )
-//                        endsWith("$atLeast: 3")
-//                        containsNot("$containsInAnyOrder: 4.0")
-//                        containsNotDefaultTranslationOf(AT_MOST)
-//                    }
-//                }
-//            }
+            group("using $containsAtLeastButAtMost") {
+                test("${containsAtLeastButAtMostTest("5.0", "once", "twice")} does not throw") {
+                    fluent.containsAtLeastButAtMostFun(1, 2, 5.0)
+                }
+                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "once", "twice")} throws AssertionError and message contains both, at most: 2 and how many times it actually contained 4.0 (3)") {
+                    expect {
+                        fluent.containsAtLeastButAtMostFun(1, 2, 5.0, 4.0)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsInAnyOrder: 4.0",
+                                "$numberOfOccurrences: 3$separator"
+                            )
+                            endsWith("$atMost: 2")
+                            containsNot("$containsInAnyOrder: 5.0")
+                            containsNotDefaultTranslationOf(AT_LEAST)
+                        }
+                    }
+                }
+                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "twice", "3 times")} does not throw") {
+
+                    fluent.containsAtLeastButAtMostFun(2, 3, 5.0, 4.0)
+                }
+
+                test("${containsAtLeastButAtMostTest("5.0 and 4.0", "3 times", "4 times")} throws AssertionError and message contains both, at least: 3 and how many times it actually contained 5.0 (2)") {
+                    expect {
+                        fluent.containsAtLeastButAtMostFun(3, 4, 5.0, 4.0)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(
+                                "$containsInAnyOrder: 5.0",
+                                "$numberOfOccurrences: 2$separator"
+                            )
+                            endsWith("$atLeast: 3")
+                            containsNot("$containsInAnyOrder: 4.0")
+                            containsNotDefaultTranslationOf(DescriptionIterableAssertion.AT_MOST)
+                        }
+                    }
+                }
+            }
         }
     }
 })
