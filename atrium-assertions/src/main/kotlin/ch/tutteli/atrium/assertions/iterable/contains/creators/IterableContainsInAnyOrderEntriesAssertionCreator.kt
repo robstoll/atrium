@@ -16,17 +16,14 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
 
     override fun createAssertionGroup(plant: IAssertionPlant<T>, expected: IAssertionPlant<E>.() -> Unit, otherExpected: Array<out IAssertionPlant<E>.() -> Unit>): IAssertionGroup {
         val description = decorator.decorateDescription(CONTAINS)
-        val assertions = mutableListOf<IAssertion>()
-        listOf(expected, *otherExpected).forEach {
-            assertions.add(create(plant, it))
-        }
-        return AssertionGroup(ListAssertionGroupType, description, RawString(""), assertions.toList())
+        val assertions = listOf(expected, *otherExpected).map { create(plant, it) }
+        return AssertionGroup(ListAssertionGroupType, description, RawString(""), assertions)
     }
 
     private fun <E : Any, T : Iterable<E>> create(plant: IAssertionPlant<T>, assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val itr = plant.subject.iterator()
-            val (explanatoryAssertions, count) = getExplanatoryAssertionsAndMatchingCount(itr, assertionCreator)
+            val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(itr, assertionCreator)
             val assertions = checkers.map { it.createAssertion(count) }
             val featureAssertion = AssertionGroup(FeatureAssertionGroupType, NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions)
             AssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), listOf(
@@ -36,7 +33,7 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
         }
     }
 
-    private fun <E : Any> getExplanatoryAssertionsAndMatchingCount(itr: Iterator<E>, assertionCreator: IAssertionPlant<E>.() -> Unit): Pair<List<IAssertion>, Int> {
+    private fun <E : Any> createExplanatoryAssertionsAndMatchingCount(itr: Iterator<E>, assertionCreator: IAssertionPlant<E>.() -> Unit): Pair<List<IAssertion>, Int> {
         return if (itr.hasNext()) {
             val first = itr.next()
             val group = collectIterableAssertionsForExplanation(assertionCreator, first)

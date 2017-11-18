@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.assertions._containsRegex
+import ch.tutteli.atrium.assertions._containsRegexIgnoringCase
+import ch.tutteli.atrium.assertions._containsValues
+import ch.tutteli.atrium.assertions._containsValuesIgnoringCase
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
-import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseIndexSearcher
-import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseRegexSearcher
-import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIndexSearcher
-import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -39,7 +39,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.werte(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
-    = addAssertion(CharSequenceContainsIndexSearcher(), expected, otherExpected)
+    = addAssertion(_containsValues(this, expected, otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
@@ -73,7 +73,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  */
 @JvmName("valuesIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>.werte(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
-    = addAssertion(CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
+    = addAssertion(_containsValuesIgnoringCase(this, expected, otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given [pattern] as well as
@@ -97,7 +97,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
-    = addAssertion(CharSequenceContainsRegexSearcher(), pattern, otherPatterns)
+    = addAssertion(_containsRegex(this, pattern, otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given [pattern] as well as
@@ -122,4 +122,4 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  */
 @JvmName("regexIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
-    = addAssertion(CharSequenceContainsIgnoringCaseRegexSearcher(), pattern, otherPatterns)
+    = addAssertion(_containsRegexIgnoringCase(this, pattern, otherPatterns))

@@ -1,10 +1,23 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseIndexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseRegexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIndexSearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+
+fun <T : CharSequence> _containsBuilder(plant: IAssertionPlant<T>)
+    = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpDecorator)
 
 fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, vararg otherExpected: Any): IAssertion {
     val assertions = mutableListOf<IAssertion>()
@@ -37,3 +50,42 @@ fun <T : CharSequence> _isEmpty(plant: IAssertionPlant<T>): IAssertion
 
 fun <T : CharSequence> _isNotEmpty(plant: IAssertionPlant<T>): IAssertion
     = BasicAssertion(DescriptionBasic.IS_NOT, TranslatableRawString(EMPTY), { plant.subject.isNotEmpty() })
+
+
+fun <T : CharSequence> _containsValues(
+    checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>,
+    expected: Any,
+    otherExpected: Array<out Any>
+): IAssertionGroup
+    = createAssertionGroup(checker, CharSequenceContainsIndexSearcher(), expected, otherExpected)
+
+fun <T : CharSequence> _containsValuesIgnoringCase(
+    checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>,
+    expected: Any,
+    otherExpected: Array<out Any>
+): IAssertionGroup
+    = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
+
+fun <T : CharSequence> _containsRegex(
+    checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>,
+    expected: Any,
+    otherExpected: Array<out Any>
+): IAssertionGroup
+    = createAssertionGroup(checker, CharSequenceContainsRegexSearcher(), expected, otherExpected)
+
+fun <T : CharSequence> _containsRegexIgnoringCase(
+    checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>,
+    expected: Any,
+    otherExpected: Array<out Any>
+): IAssertionGroup
+    = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
+
+private fun <T : CharSequence, D : ICharSequenceContains.IDecorator> createAssertionGroup(
+    checker: CharSequenceContainsCheckerBuilder<T, D>,
+    searcher: ISearcher<D>,
+    expected: Any,
+    otherExpected: Array<out Any>
+): IAssertionGroup {
+    return CharSequenceContainsAssertionCreator<T, D>(checker.containsBuilder.decorator, searcher, checker.checkers)
+        .createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
+}

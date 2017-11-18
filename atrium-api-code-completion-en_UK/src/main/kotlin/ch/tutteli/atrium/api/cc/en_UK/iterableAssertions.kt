@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
+import ch.tutteli.atrium.assertions._containsBuilder
 import ch.tutteli.atrium.assertions._containsNot
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsNoOpDecorator
@@ -13,7 +14,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  */
 val <E, T : Iterable<E>> IAssertionPlant<T>.contains
     get(): IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>
-    = IterableContainsBuilder(this, IterableContainsNoOpDecorator)
+    = _containsBuilder(this)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]
