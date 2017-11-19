@@ -8,24 +8,21 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 abstract class ContainsObjectsAssertionCreator<T : Any, E, D : IContains.IDecorator, C : IContains.IChecker>(
     private val decorator: D,
-    private val checkers: List<C>
-) : IContains.ICreator<T, E> {
+    checkers: List<C>
+) : ContainsAssertionCreator<T, E, C>(checkers) {
 
-    override final fun createAssertionGroup(plant: IAssertionPlant<T>, expected: E, otherExpected: Array<out E>): IAssertionGroup {
-        val assertions = listOf(expected, *otherExpected).map { create(plant, it) }
-        return InvisibleAssertionGroup(assertions)
+    override fun createAssertionGroup(assertions: List<IAssertion>): IAssertionGroup
+        = InvisibleAssertionGroup(assertions)
+
+    override final fun searchAndCreateAssertion(plant: IAssertionPlant<T>, expected: E, featureFactory: (Int, ITranslatable) -> IAssertionGroup): IAssertionGroup {
+        val count = search(plant, expected)
+        val featureAssertion = featureFactory(count, numberOfOccurrences)
+        val description = decorator.decorateDescription(descriptionContains)
+        return AssertionGroup(ListAssertionGroupType, description, expected ?: RawString.NULL, listOf(featureAssertion))
     }
 
-    private fun create(plant: IAssertionPlant<T>, expected: E): IAssertionGroup {
-        return LazyThreadUnsafeAssertionGroup {
-            val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            val count = search(plant, expected)
-            val assertions = checkers.map { it.createAssertion(count) }
-            val featureAssertion = AssertionGroup(FeatureAssertionGroupType, numberOfOccurrences, RawString(count.toString()), assertions)
-            AssertionGroup(ListAssertionGroupType, description, expected ?: RawString.NULL, listOf(featureAssertion))
-        }
-    }
-
+    protected abstract val descriptionContains: ITranslatable
     protected abstract val numberOfOccurrences: ITranslatable
+
     protected abstract fun search(plant: IAssertionPlant<T>, expected: E): Int
 }
