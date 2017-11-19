@@ -71,7 +71,7 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
     }
 
     private fun createSizeFeatureAssertion(allExpected: List<IAssertionPlant<E>.() -> Unit>, actualSize: Int): MutableList<IAssertion>
-        = mutableListOf(BasicAssertion(DescriptionAnyAssertion.TO_BE, RawString(allExpected.size.toString()), actualSize == allExpected.size))
+        = mutableListOf(BasicAssertion(DescriptionAnyAssertion.TO_BE, RawString(allExpected.size.toString()), { actualSize == allExpected.size }))
 
     private fun createExplanatoryGroupForMismatchEtc(list: MutableList<E>, warning: DescriptionIterableAssertion): ExplanatoryAssertionGroup {
         val assertions = list.map { ExplanatoryAssertion(it) }

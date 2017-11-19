@@ -59,7 +59,8 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
                         contains(
                             "$containsInAnyOrderOnly:",
                             "$failingBulletPoint$anEntryAfterFailing$isLessThanDescr: 1.0"
-                        ).containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                        )
+                        containsNot(additionalEntries)
                     }
                 }
             }
@@ -72,7 +73,8 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
                             "$containsInAnyOrderOnly:",
                             "$failingBulletPoint$anEntryAfterFailing$isLessThanDescr: 1.0",
                             "$failingBulletPoint$anEntryAfterFailing$isGreaterThanDescr: 4.0"
-                        ).containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                        )
+                        containsNot(additionalEntries)
                     }
                 }
             }

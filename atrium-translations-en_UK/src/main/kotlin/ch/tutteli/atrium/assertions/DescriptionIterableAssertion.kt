@@ -12,10 +12,14 @@ enum class DescriptionIterableAssertion(override val value: String) : ISimpleTra
     AT_MOST("is at most"),
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
+    ENTRY_WITH_INDEX("entry %s"),
     EXACTLY("is exactly"),
     IN_ANY_ORDER("%s, in any order"),
     IN_ANY_ORDER_ONLY("%s only, in any order"),
+    IN_ORDER("%, in order"),
+    IN_ORDER_ONLY("%s only, in order"),
     NUMBER_OF_OCCURRENCES("number of occurrences"),
+    SIZE_EXCEEDED("❗❗ hasNext() returned false"),
     WARNING_SUBJECT_NOT_SET("Could not evaluate the defined assertion(s) -- `Iterable` has no next entry.\n" +
         "It is not possible to evaluate the defined assertions because at least one of them requires to access an entry\n" +
         "whereas the given `Iterable` returned `false` for `hasNext()`.\n" +
