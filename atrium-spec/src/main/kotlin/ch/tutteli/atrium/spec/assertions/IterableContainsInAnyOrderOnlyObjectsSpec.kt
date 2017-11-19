@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsNotDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -52,7 +49,7 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
                             "$containsInAnyOrderOnly:",
                             "$failingBulletPoint$anEntryWhichIs: 1.0"
                         )
-                        containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                        containsNot(additionalEntries)
                     }
                 }
             }
@@ -66,7 +63,7 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
                             "$failingBulletPoint$anEntryWhichIs: 1.0",
                             "$failingBulletPoint$anEntryWhichIs: 4.0"
                         )
-                        containsNotDefaultTranslationOf(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
+                        containsNot(additionalEntries)
                     }
                 }
             }

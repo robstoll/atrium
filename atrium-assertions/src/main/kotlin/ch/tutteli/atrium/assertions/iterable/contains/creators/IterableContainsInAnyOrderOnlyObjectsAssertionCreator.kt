@@ -17,10 +17,7 @@ class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
             val actualSize = list.size
             val assertions = mutableListOf<IAssertion>()
             val allExpected = listOf(expected, *otherExpected)
-            allExpected.forEach {
-                val found: Boolean = list.remove(it)
-                assertions.add(BasicAssertion(DescriptionIterableAssertion.AN_ENTRY_WHICH_IS, it ?: RawString.NULL, found))
-            }
+            findAndRemove(allExpected, assertions, list)
             assertions.add(createSizeFeatureAssertion(allExpected, actualSize, list))
 
             val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
@@ -28,9 +25,17 @@ class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
         }
     }
 
+    private fun findAndRemove(allExpected: List<E>, assertions: MutableList<IAssertion>, list: MutableList<E>) {
+        allExpected.forEach {
+            val found: Boolean = list.remove(it)
+            assertions.add(BasicAssertion(DescriptionIterableAssertion.AN_ENTRY_WHICH_IS, it ?: RawString.NULL, found))
+        }
+    }
+
     private fun createSizeFeatureAssertion(allExpected: List<E>, actualSize: Int, list: MutableList<E>): IAssertionGroup {
         val featureAssertions = mutableListOf<IAssertion>()
-        featureAssertions.add(BasicAssertion(DescriptionAnyAssertion.TO_BE, RawString(allExpected.size.toString()), actualSize == allExpected.size))
+        featureAssertions.add(BasicAssertion(DescriptionAnyAssertion.TO_BE, RawString(allExpected.size.toString()), { actualSize == allExpected.size }))
+        //TODO is not as accurate as `in any order entries` where I distinguish between additional entries and mismatches
         if (list.isNotEmpty()) {
             featureAssertions.add(LazyThreadUnsafeAssertionGroup {
                 val assertions = mutableListOf<IAssertion>()
@@ -41,6 +46,6 @@ class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
                 ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(additionalEntries))
             })
         }
-        return AssertionGroup(FeatureAssertionGroupType, Untranslatable(list::size.name), RawString(actualSize.toString()), featureAssertions)
+        return AssertionGroup(FeatureAssertionGroupType, Untranslatable(list::size.name), RawString(actualSize.toString()), featureAssertions.toList())
     }
 }

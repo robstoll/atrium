@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.Iter
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlyDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlyDecorator
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsNoOpDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
 import kotlin.reflect.KProperty
@@ -19,8 +20,8 @@ abstract class IterableContainsSpecBase {
     //TODO as soon as other functions are implemented
     //    protected val notOrAtMost = IterableContainsBuilder<Double, Iterable<Double>, *>::notOrAtMost.name
     protected val inAnyOrder = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsNoOpDecorator>::inAnyOrder.name
+    protected val inOrder = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsNoOpDecorator>::inOrder.name
     protected val only = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderDecorator>::only.name
     protected val inAnyOrderOnlyValues = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderOnlyDecorator>::values.name
-
-
+    protected val inOrderOnlyValues = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInOrderOnlyDecorator>::values.name
 }
