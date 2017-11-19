@@ -2,35 +2,35 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET
+import ch.tutteli.atrium.assertions.base.contains.creators.ContainsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>>(
     private val decorator: IterableContainsInAnyOrderDecorator,
-    private val checkers: List<IIterableContains.IChecker>
-) : IIterableContains.ICreator<T, IAssertionPlant<E>.() -> Unit> {
+    checkers: List<IIterableContains.IChecker>
+) : ContainsAssertionCreator<T, IAssertionPlant<E>.() -> Unit, IIterableContains.IChecker>(checkers),
+    IIterableContains.ICreator<T, IAssertionPlant<E>.() -> Unit> {
 
-    override fun createAssertionGroup(plant: IAssertionPlant<T>, expected: IAssertionPlant<E>.() -> Unit, otherExpected: Array<out IAssertionPlant<E>.() -> Unit>): IAssertionGroup {
-        val description = decorator.decorateDescription(CONTAINS)
-        val assertions = listOf(expected, *otherExpected).map { create(plant, it) }
+    override fun createAssertionGroup(assertions: List<IAssertion>): IAssertionGroup {
+        val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
         return AssertionGroup(ListAssertionGroupType, description, RawString(""), assertions)
     }
 
-    private fun <E : Any, T : Iterable<E>> create(plant: IAssertionPlant<T>, assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionGroup {
-        return LazyThreadUnsafeAssertionGroup {
-            val itr = plant.subject.iterator()
-            val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(itr, assertionCreator)
-            val assertions = checkers.map { it.createAssertion(count) }
-            val featureAssertion = AssertionGroup(FeatureAssertionGroupType, NUMBER_OF_OCCURRENCES, RawString(count.toString()), assertions)
-            AssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), listOf(
-                ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions),
-                featureAssertion
-            ))
-        }
+    override fun searchAndCreateAssertion(plant: IAssertionPlant<T>, expected: IAssertionPlant<E>.() -> Unit, featureFactory: (Int, ITranslatable) -> IAssertionGroup): IAssertionGroup {
+        val itr = plant.subject.iterator()
+        val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(itr, expected)
+        val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
+        return AssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), listOf(
+            ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions),
+            featureAssertion
+        ))
     }
 
     private fun <E : Any> createExplanatoryAssertionsAndMatchingCount(itr: Iterator<E>, assertionCreator: IAssertionPlant<E>.() -> Unit): Pair<List<IAssertion>, Int> {
