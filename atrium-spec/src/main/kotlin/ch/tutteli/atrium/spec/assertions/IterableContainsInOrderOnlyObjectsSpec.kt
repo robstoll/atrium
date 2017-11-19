@@ -44,7 +44,6 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
     val indentFeatureArrow = " ".repeat(featureArrow.length)
 
     val entryWithIndex = DescriptionIterableAssertion.ENTRY_WITH_INDEX.getDefault()
-    val additionalEntries = DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
     val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint${DescriptionAnyAssertion.TO_BE.getDefault()}"
