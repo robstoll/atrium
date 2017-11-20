@@ -20,6 +20,8 @@ val <T : CharSequence> IAssertionPlant<T>.contains
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if defined), using a non disjoint search.
  *
+ * It is a shortcut for `contains.atLeast.values(expected, *otherExpected)`.
+ *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [expected]
  * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
@@ -30,7 +32,7 @@ val <T : CharSequence> IAssertionPlant<T>.contains
  * Meaning you might want to use:
  *   `contains.exactly(2).value('a')`
  * instead of:
- *   `contains.atLeast(1).values('a', 'a')`
+ *   `contains('a', 'a')`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
