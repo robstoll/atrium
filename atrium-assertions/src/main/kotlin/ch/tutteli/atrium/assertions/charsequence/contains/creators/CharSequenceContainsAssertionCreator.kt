@@ -30,6 +30,7 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
 ) : ContainsObjectsAssertionCreator<T, Any, D, ICharSequenceContains.IChecker>(decorator, checkers),
     ICharSequenceContains.ICreator<T, Any> {
 
+    override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS
     override val numberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
 
     override fun search(plant: IAssertionPlant<T>, expected: Any): Int

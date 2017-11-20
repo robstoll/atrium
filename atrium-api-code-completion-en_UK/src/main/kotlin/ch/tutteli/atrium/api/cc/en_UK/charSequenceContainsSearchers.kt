@@ -73,9 +73,9 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).value('a')`
+ *   `contains.ignoringCase.exactly(2).value('a')`
  * instead of:
- *   `contains.atLeast(1).values('a', 'a')`
+ *   `contains.ignoringCase.atLeast(1).values('a', 'a')`
  *
  * @param expected The object which is expected to be contained within the input of the search.
  * @param otherExpected Additional objects which are expected to be contained within the input of the search.
@@ -122,9 +122,9 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.exactly(2).regex('a(b)?')`
+ *   `contains.ignoringCase.exactly(2).regex('a(b)?')`
  * instead of:
- *   `contains.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *   `contains.ignoringCase.atLeast(1).regex('a(b)?', 'a(b)?')`
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.

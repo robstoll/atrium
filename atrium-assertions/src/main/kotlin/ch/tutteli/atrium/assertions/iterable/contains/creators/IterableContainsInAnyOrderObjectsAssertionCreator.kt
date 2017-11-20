@@ -12,6 +12,7 @@ class IterableContainsInAnyOrderObjectsAssertionCreator<E, T : Iterable<E>>(
 ) : ContainsObjectsAssertionCreator<T, E, IterableContainsInAnyOrderDecorator, IIterableContains.IChecker>(decorator, checkers),
     IIterableContains.ICreator<T, E> {
 
+    override val descriptionContains = DescriptionIterableAssertion.CONTAINS
     override val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
 
     override fun search(plant: IAssertionPlant<T>, expected: E): Int
