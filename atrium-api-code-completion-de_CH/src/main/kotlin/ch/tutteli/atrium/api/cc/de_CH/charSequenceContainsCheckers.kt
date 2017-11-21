@@ -63,8 +63,8 @@ fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.genau(t
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
- * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
+ * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
+ * @throws IllegalArgumentException In case [times] equals to one; use [genau] instead.
  */
 fun <T : CharSequence, D : IDecorator> CharSequenceContainsBuilder<T, D>.hoechstens(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, D>
     = CharSequenceContainsAtMostCheckerBuilder(times, this)
