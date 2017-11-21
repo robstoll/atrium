@@ -49,6 +49,7 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
                             "$failingBulletPoint$anEntryWhichIs: 1.0"
                         )
                         containsNot(additionalEntries)
+                        containsSize(0, 1)
                     }
                 }
             }
@@ -63,6 +64,7 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
                             "$failingBulletPoint$anEntryWhichIs: 4.0"
                         )
                         containsNot(additionalEntries)
+                        containsSize(0, 2)
                     }
                 }
             }
