@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.assertions.TestData
 
@@ -49,8 +48,8 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
 ) {
 
     companion object {
-        val itsImmediate: F = { property(subject::description).contains("hello") }
-        val itsLazy: F = { property(subject::description) { contains("hello") } }
+        val itsImmediate: F = { property(subject::description).enthaelt("hello") }
+        val itsLazy: F = { property(subject::description) { enthaelt("hello") } }
         val propertyImmediate: F = { property(subject::description).enthaelt("hello") }
         val propertyLazy: F = { property(subject::description) { enthaelt("hello") } }
         val return0ValueImmediate: F = { rueckgabewertVon(subject::return0).enthaelt("hello") }
