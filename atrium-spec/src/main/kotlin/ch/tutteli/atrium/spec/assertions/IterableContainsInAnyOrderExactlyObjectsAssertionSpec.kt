@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.EXACTLY
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.EXACTLY
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import org.jetbrains.spek.api.dsl.context

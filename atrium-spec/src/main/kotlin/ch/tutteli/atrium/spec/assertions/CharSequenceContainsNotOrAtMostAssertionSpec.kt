@@ -134,7 +134,7 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsDescr 'o'")
+                            containsNot("$containsDescr: 'o'")
                         }
                     }
                 }
