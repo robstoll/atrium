@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AT_LEAST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import com.nhaarman.mockito_kotlin.atMost
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
