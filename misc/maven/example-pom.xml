@@ -3,24 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <properties>
-        <atrium.version>0.3.0</atrium.version>
+        <atrium.version>0.4.0</atrium.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>ch.tutteli</groupId>
-            <artifactId>atrium-core-api</artifactId>
-            <version>${atrium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.tutteli</groupId>
-            <artifactId>atrium-assertions</artifactId>
-            <version>${atrium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.tutteli</groupId>
-            <artifactId>atrium-impl-robstoll</artifactId>
+            <artifactId>atrium-cc-en_UK-robstoll</artifactId>
             <version>${atrium.version}</version>
             <scope>test</scope>
         </dependency>

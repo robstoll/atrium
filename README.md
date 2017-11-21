@@ -3,22 +3,26 @@
 [![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
 
 # Atrium
-Atrium is an open-source assertion framework for Kotlin with a fluent API and supports different styles 
-(immediate vs lazy evaluation) which can be mixed and matched freely together (see [Examples](#examples) below).
+Atrium is an open-source assertion framework for Kotlin with a fluent API.
+
+It is designed to support different API styles and currently provides two APIs focusing on usability
+in conjunction with code completion functionality, once in English and once German. 
+See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
 **Table of Content**
 - [Installation](#installation)
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
 - [Examples](#examples)
-  - [Immediate vs. Lazy Evaluation](#immediate-vs-lazy-evaluation)
+  - [Single Assertions vs. Assertion Groups](#single-assertions-vs-assertion-groups)
   - [Nullable Variables](#nullable-variables)
   - [Expect an Exception](#expect-an-exception)
   - [Property Assertions](#property-assertions)
   - [Method Assertions](#method-assertions)
+  - [Collection Assertions](#collection-assertions)
   - [Further Examples](#further-examples)
 - [Write own Assertion Functions](#write-own-assertion-functions)
 - [Contribute](#contribute)
-- [KDoc - Code Documentation](#kdoc)
+- [KDoc - Code Documentation](#kdoc-code-documentation)
 - [Known Limitations](#known-limitations)
 - [Roadmap](#roadmap)
 - [License](#license)
@@ -30,15 +34,13 @@ but can also be retrieved directly from [bintray](https://bintray.com/robstoll/t
 gradle: 
 ```
 buildscript {
-    ext { atrium_version='0.3.0' }
+    ext { atrium_version='0.4.0' }
 }
 repositories {
     jcenter()
 }
 dependencies {
-    testCompile "ch.tutteli:atrium-core-api:$atrium_version"
-    testCompile "ch.tutteli:atrium-assertions:$atrium_version"
-    testCompile "ch.tutteli:atrium-impl-robstoll:$atrium_version"
+    testCompile "ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version"
 }
 ```
 
@@ -72,7 +74,7 @@ to your project in addition.
 gradle:
 ```
 dependencies {
-    //... see other dependencies in the example above
+    //... see other dependency in the example above
     testCompile "ch.tutteli:atrium-verbs:$atrium_version"
 }
 ```
@@ -82,43 +84,49 @@ Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/mas
 
 # Examples
 
-## Immediate vs. Lazy Evaluation
+## Single Assertions vs. Assertion Groups
 
 ```kotlin
- // immediate evaluation
-assert(1).isLessThan(5).isGreaterThan(10)
-    // assert: 5        (java.lang.Integer<199640888>)
-    // is less than: 5        (java.lang.Integer<199640888>)
+ // two single assertions
+assert(10).isLessThan(5).isGreaterThan(10)
+    // assert: 10        (java.lang.Integer <1841396611>)
+    // ◆ is less than: 5        (java.lang.Integer <1577592551>)
 
-// lazy evaluation
+// assertion groups
 assert(10) {
     isLessThan(5)
-    isGreaterThan(0)
+    isGreaterThan(10)
 }
-    // assert: 5        (java.lang.Integer<199640888>)
-    // is less than: 5        (java.lang.Integer<199640888>)
-    // is greater than: 5        (java.lang.Integer<199640888>)
+    // assert: 10        (java.lang.Integer <1841396611>)
+    // ◆ is less than: 5        (java.lang.Integer <1577592551>)
+    // ◆ is greater than: 10        (java.lang.Integer <1841396611>)
 ```
 
-Immediate evaluation throws an `AssertionError` as soon as an assertion is not correct 
--- in the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated. 
-In contrast to lazy evaluation which throws an `AssertionError` at the end of the block 
-and hence reports that both assertions do not hold.
+Using the fluent API allows to write the `assert(...)` part only once and to make several single assertions.
+So the first statement could also be written as follows:
+```kotlin
+assert(1).isLessThan(5)
+assert(1).isGreaterThan(10)
+``` 
+Correspondingly, the first assert statement (which does not hold) throws an `AssertionError`. 
+In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated. 
+
+You can use the assertion group syntax which throws an `AssertionError` at the end of the block; 
+hence reports that both assertions do not hold.
  
 ## Nullable Variables
 ```kotlin
 val subtitle : String? = "postulating assertions made easy"
 assert(subtitle).isNull()
-    // assert: "postulating assertions made easy"        <1574749319>
-    // to be: null
+    // assert: "postulating assertions made easy"        <22600334>
+    // ◆ to be: null
 
-assert(subtitle).isNotNull().and.contains("atrium")
-    // assert: "postulating assertions made easy"        <1574749319>
-    // contains: "atrium"        <225909961>
+assert(subtitle).isNotNull{ contains("atrium") }
+    //assert: "postulating assertions made easy"        <651100072>
+    //◆ starts with: "atrium"        <222427158>
 ```
 In case a variable has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html) then 
-you need to define first, whether you expect it to be `null` or not. As you can see, you can optionally 
-use `and` to separate assertions in the [immediate evaluation](#immediate-vs-lazy-evaluation) style.
+you need to define first, whether you expect it to be `null` or not.
  
 ## Expect an Exception
 ```kotlin
@@ -127,45 +135,41 @@ expect {
 }.toThrow<IllegalStateException> {
     message.contains("name")
 }
-    // expect the thrown exception: IllegalStateException (java.lang.IllegalStateException)
-    // is a: IllegalArgumentException (java.lang.IllegalArgumentException)
+    // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <2087885397>)
+    // ◆ is a: IllegalStateException (java.lang.IllegalStateException)
+    //     ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to java.lang.IllegalStateException failed.
 ```
 The method `toThrow` allows to make the assertion that a given lambda throws a certain exception 
-(`IllegalStateException` in the example above). In more detail, the function `expect` 
-(part of the 4 [assertion verbs](#use-own-assertion-verbs)) wraps the lambda into a ThrowableFluent and 
-ThrowableFluent provides the method `toThrow`.
-Notice `message` in the [lazy block](#immediate-vs-lazy-evaluation). It is a shortcut for 
-`its(subject::message).isNotNull()`, which prepares a feature assertion about `Throwable::message`.
+(`IllegalStateException` is expected in the example above). Notice `message` in the 
+[assertion group block](#single-assertions-vs-assertion-groups). It is a shortcut for 
+`property(it::message).isNotNull()`, which prepares a property assertion (see next section) about `Throwable::message`.
  
 ## Property Assertions
 ```kotlin
 data class Person(val name: String, val isStudent: Boolean)
 val person = Person("Robert", false) 
+
 assert(person) {
-    property(subject::isStudent).isTrue()
     its(subject::name).toBe("Peter")
+    property(it::isStudent).isTrue()
 }
-    // assert: Person(isStudent=false)
-    // -> isStudent: false
-    //    to be: true
-    // -> name: "Robert"        <1021436681>
-    //    to be: "Peter"        <1790585734>
+    // assert: Person(name=Robert, isStudent=false)        (Person <1841396611>)
+    // ◆ ▶ name: "Robert"        <1577592551>
+    //     ◾ to be: "Peter"        <854587510>
+    // ◆ ▶ isStudent: false
+    //     ◾ to be: true    
 ```
 There are two assertion functions which allow to make assertions about a particular property or feature 
 of a class: `property` and `its`. I recommend to use `property` for properties of type `Boolean` and 
-`its` for the rest. `subject` inside a [lazy block](#immediate-vs-lazy-evaluation) refers to the subject
- of the assertion (in the example above `subject` refers to `person`).
+`its` for the rest (`its` is actually just a delegate to `property`). `subject` inside a [assertion group block](#single-assertions-vs-assertion-groups) 
+refers to the subject of the assertion (in the example above `subject` refers to `person`).
+You can also use `it` is an alias for `subject`. 
 
 The only drawback IMO of using an existing property is that a few more key strokes are required compared to 
 [writing an own assertion function](#write-own-assertion-functions) once and then reuse it 
 (see `message` in [Expect an Exception](#expect-an-exception) for instance). Yet, I do not recommend to 
 write an own assertion function for every single property because renaming this property then should include 
 renaming the assertion function. Hence, only write an own assertion function in case you use it a lot.
-
-As side notice, the function `its` is mainly an alternative for `property` and was introduced to allow 
-a more natural flow in expressing assertions about particular features of a class. 
-I could have introduce `his`, `her`, `their` as well but decided against it in order that 
-you do not have to think to about gender or singular vs. plural.
 
 ## Method Assertions
 ```kotlin
@@ -180,25 +184,79 @@ val person: Person = Person("Robert", "Stoll")
 
 assert(person) {
     returnValueOf(subject::name).contains("treboR", "llotS")
-    returnValueOf(subject::nickname, false).toBe("Robert aka. Stoll")
+    returnValueOf(it::nickname, false).toBe("Robert aka. Stoll")
 }
-    // Person(firstName=Robert, lastName=Stoll)        (ch.tutteli.atrium.A$1$2$Person <360936478>)
-    // -> name(): "Robert Stoll"        <1209770703>
-    //    contains: "treboR"        <1186339926>
-    //    contains: "llotS"        <776484396>
-    // -> nickname(false): "Mr. Robert"        <519979933>
-    //    to be: "Robert aka. Stoll"        <199657303>
+    // assert: Person(firstName=Robert, lastName=Stoll)        (Person <1536031937>)
+    // ◆ ▶ name(): "Robert Stoll"        <798981583>
+    //     ◾ contains: "treboR"        <1954406292>
+    //       ⚬ ▶ number of occurrences: 0
+    //           ◾ is at least: 1
+    //     ◾ contains: "llotS"        <904058452>
+    //       ⚬ ▶ number of occurrences: 0
+    //           ◾ is at least: 1
+    // ◆ ▶ nickname(false): "Mr. Robert"        <29183965>
+    //     ◾ to be: "Robert aka. Stoll"        <1427651360>
 ```
 
 Feature assertions about the return value of a method call on the subject of the assertion can be made 
 with the help of `returnValueOf`. There are overloads for up to 5 parameters. You could go on and create 
 further overloads for 6 and more parameters but I suggest that you 
 [write a specific assertion function](#write-own-assertion-functions) for such a use case instead.
+You can use `it` as alternative for `subject` as in [Property Assertions](#property-assertions). 
+
+## Collection Assertions
+Atrium provides assertion builders which allow to make sophisticated `contains` 
+assertions (the builders actually support `Iterable<T>`).
+
+Following a few examples:
+
+```kotlin
+assert(listOf(1, 2, 2, 3)).contains.inAnyOrder.atLeast(2).butAtMost(3).value(3)
+
+    // assert: [1, 2, 2, 3]        (java.util.Arrays$ArrayList <1841396611>) 
+    // ◆ contains, in any order: 3        (java.lang.Integer <1577592551>)
+    //   ⚬ ▶ number of occurrences: 1
+    //       ◾ is at least: 2
+
+
+assert(listOf(1, 2, 2, 3)).contains.inAnyOrder.only.values(3, 2)    
+
+    // assert: [1, 2, 2, 3]        (java.util.Arrays$ArrayList <1790585734>)
+    // ◆ contains only, in any order: 
+    //   ✘ an entry which is: 5        (java.lang.Integer <22600334>)
+    //   ✔ an entry which is: 2        (java.lang.Integer <1961173763>)
+    //   ✘ ▶ size: 4
+    //       ◾ to be: 2
+    //   ❗❗ mismatches and additional entries detected: 
+    //      ⚬ 1        (java.lang.Integer <1202683709>)
+    //      ⚬ 2        (java.lang.Integer <1961173763>)
+    //      ⚬ 3        (java.lang.Integer <1577592551>)
+    
+    
+assert(listOf(1, 2, 2, 3)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
+
+    // assert: [1, 2, 2, 3]        (java.util.Arrays$ArrayList <2087885397>)
+    // ◆ contains only, in order:  
+    //   ✔ ▶ entry 0: 1        (java.lang.Integer <1961173763>)
+    //       ◾ an entry which: 
+    //         ⚬ is less than: 3        (java.lang.Integer <1577592551>)
+    //   ✘ ▶ entry 1: 2        (java.lang.Integer <22600334>)
+    //       ◾ an entry which: 
+    //         ⚬ is less than: 2        (java.lang.Integer <22600334>)
+    //   ✘ ▶ size: 4
+    //       ◾ to be: 2
+    //         ❗❗ additional entries: 
+    //            ⚬ entry 2: 2        (java.lang.Integer <22600334>)
+    //            ⚬ entry 3: 3        (java.lang.Integer <1577592551>) 
+```  
     
 ## Further Examples
 
-Have a look at the [specifications](https://github.com/robstoll/atrium/tree/master/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) for more examples.
-A [catalog of the available assertion functions](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium/index.html) can be found in the [KDoc](#kdoc). 
+Atrium supports further assertion builders (e.g, for `CharSequence`) and assertion functions.
+Have a look at the [specifications](https://github.com/robstoll/atrium/tree/master/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
+for more examples.
+A [catalog of the available assertion functions](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium/index.html) 
+can be found in the [KDoc](#kdoc). 
 
 # Write own Assertion Functions
 
@@ -211,7 +269,7 @@ Following an example:
 
 ```kotlin
 fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
-    DescriptionCommon.IS, TranslatableRawString(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
+    DescriptionBasic.IS, TranslatableRawString(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
 
 enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
     EVEN("an even number")
@@ -222,12 +280,11 @@ and its usage:
 
 ```kotlin
 assert(13).isEven()
-
-    //assert: 13        (java.lang.Integer <117009527>)
-    //is: an even number
+    // assert: 13        (java.lang.Integer <1841396611>)
+    // ◆ is: an even number
 ```
 
-# KDoc
+# KDoc - Code Documentation
 The code documentation is generated with dokka and is hosted on github-pages:
 [KDoc of atrium](https://robstoll.github.io/atrium/)
 
@@ -240,14 +297,14 @@ You are very welcome to contribute:
 According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
 library does not yet offer a lot of out of the box assertion functions. More functions will follow 
 but only if they are used somewhere by someone. So, let me know if you miss something by creating 
-a [feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
+a [feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
  
 Some assertion functions which I miss myself will follow in the next version. 
 They are listed in the [Roadmap](#roadmap) below.
 
 # Roadmap
 I plan that Atrium will support in the future:
-- Assertion functions for Collections: contains, in order vs. any order etc.
+- Assertion functions for Collections with nullable elements
 - Generating Testing Reports in html 
 - Inclusion of mockito's verify (so that it appears in the report as well)
     
