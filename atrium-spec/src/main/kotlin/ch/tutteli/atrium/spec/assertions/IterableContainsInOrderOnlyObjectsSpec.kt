@@ -76,6 +76,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
                         contains("$containsInOrderOnly:")
                         entryFailing(0, sizeExceeded, 1.0)
                         containsNot(additionalEntries)
+                        containsSize(0, 1)
                     }
                 }
             }
@@ -88,6 +89,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
                         entryFailing(0, sizeExceeded, 1.0)
                         entryFailing(1, sizeExceeded, 4.0)
                         containsNot(additionalEntries)
+                        containsSize(0, 2)
                     }
                 }
             }
@@ -156,7 +158,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
                         }
                     }
                 }
-                test("1.0, 3.0, 5.0 -- 5.0 is wrong and 2.0, 4.0 and 4.0 are missing") {
+                test("1.0, 3.0, 5.0 -- 5.0 is wrong and 4.0 and 4.0 are missing") {
                     expect {
                         fluent.containsFun(1.0, 3.0, 5.0)
                     }.toThrow<AssertionError> {

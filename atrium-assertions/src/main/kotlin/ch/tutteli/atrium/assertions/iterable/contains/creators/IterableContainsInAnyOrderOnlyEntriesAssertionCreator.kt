@@ -14,21 +14,33 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
 ) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, IAssertionPlant<E>.() -> Unit>(decorator) {
 
     override fun createAssertionForExpectedAndRemoveMatchFromList(expected: IAssertionPlant<E>.() -> Unit, list: MutableList<E>): Pair<Boolean, IAssertion> {
-        val explanatoryAssertions = collectIterableAssertionsForExplanation(expected, list.firstOrNull())
+        val explanatoryAssertions = createExplanatoryAssertions(expected, list)
         val found = removeMatch(list, expected)
-        return Pair(found, FixHoldsAssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), explanatoryAssertions, found))
+        return Pair(found, createEntryAssertion(explanatoryAssertions, found))
     }
 
     private fun removeMatch(list: MutableList<E>, assertionCreator: IAssertionPlant<E>.() -> Unit): Boolean {
         val itr = list.iterator()
         while (itr.hasNext()) {
-            val checkingPlant = AtriumFactory.newCheckingPlant(itr.next())
-            checkingPlant.assertionCreator()
-            if (checkingPlant.allAssertionsHold()) {
+            if (allCreatedAssertionsHold(itr.next(), assertionCreator)) {
                 itr.remove()
                 return true
             }
         }
         return false
     }
+}
+
+
+internal fun <E : Any> createExplanatoryAssertions(assertionCreator: IAssertionPlant<E>.() -> Unit, list: List<E>)
+    = collectIterableAssertionsForExplanation(assertionCreator, list.firstOrNull())
+
+internal fun createEntryAssertion(explanatoryAssertions: List<IAssertion>, found: Boolean) =
+    FixHoldsAssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), explanatoryAssertions, found)
+
+internal fun <E : Any> allCreatedAssertionsHold(subject: E, assertionCreator: IAssertionPlant<E>.() -> Unit): Boolean {
+    val checkingPlant = AtriumFactory.newCheckingPlant(subject)
+    checkingPlant.assertionCreator()
+    return checkingPlant.allAssertionsHold()
+
 }

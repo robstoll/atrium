@@ -66,6 +66,15 @@ fun <E, T : Iterable<E>> _containsObjectsInOrderOnly(
     return createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsInOrderOnlyObjectsAssertionCreator)
 }
 
+fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
+    builder: IterableContainsBuilder<E, T, IterableContainsInOrderOnlyDecorator>,
+    assertionCreator: IAssertionPlant<E>.() -> Unit,
+    otherAssertionCreators: Array<out IAssertionPlant<E>.() -> Unit>
+): IAssertion {
+    val checker = IterableContainsNoOpCheckerBuilder(builder)
+    return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInOrderOnlyEntriesAssertionCreator)
+}
+
 private fun <E, T : Iterable<E>, P, D : IIterableContains.IDecorator> createAssertionGroupWithoutChecker(
     checker: IterableContainsCheckerBuilder<E, T, D>,
     expected: P,

@@ -58,6 +58,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
                             "$failingBulletPoint$anEntryAfterFailing$isLessThanDescr: 1.0"
                         )
                         containsNot(additionalEntries)
+                        containsSize(0, 1)
                     }
                 }
             }
@@ -72,6 +73,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
                             "$failingBulletPoint$anEntryAfterFailing$isGreaterThanDescr: 4.0"
                         )
                         containsNot(additionalEntries)
+                        containsSize(0, 2)
                     }
                 }
             }
