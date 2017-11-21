@@ -89,3 +89,10 @@ val <T : Any> IAssertionPlant<T>.and: IAssertionPlant<T> get() = this
  */
 fun <T : Any> IAssertionPlant<T>.and(assertionCreator: IAssertionPlant<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)
+
+/**
+ * Alias for [IAssertionPlant.subject] useful in property assertions.
+ *
+ * @see ch.tutteli.atrium.api.cc.en_UK.property
+ */
+val <T : Any> IAssertionPlant<T>.it get() : T = subject
