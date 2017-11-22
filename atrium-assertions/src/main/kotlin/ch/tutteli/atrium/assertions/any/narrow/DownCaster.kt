@@ -17,6 +17,9 @@ import kotlin.reflect.full.cast
  * @param T The type of [IBaseAssertionPlant.subject].
  * @param TSub The type to which [IBaseAssertionPlant.subject] can be down-casted, hence needs to be a subtype of [T].
  *
+ * @property failureHandler The handler which deals with a lambda function which could have created subsequent assertions
+ *           for a down-casted subject.
+ *
  * @constructor Helps to make an assertion about the [IBaseAssertionPlant.subject], that it is of type [T] and can be
  *              down-casted to type [TSub].
  * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions
