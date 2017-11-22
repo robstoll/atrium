@@ -39,12 +39,14 @@ Misc modules:
 # Package ch.tutteli.atrium
 Contains the [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html) and its extension functions.
 
+
 # Package ch.tutteli.atrium.api.cc.de_CH
 Contains the code completion focused assertion function API in German. 
 
 # Package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
 assertions for CharSequence.
+
 
 # Package ch.tutteli.atrium.api.cc.en_UK
 Contains the code completion focused assertion function API in English.
@@ -53,17 +55,33 @@ Contains the code completion focused assertion function API in English.
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
 assertions for CharSequence.
 
+
 # Package ch.tutteli.atrium.assertions
 Contains different types of [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html), 
 e.g. [IAssertionGroup](./ch.tutteli.atrium.assertions/-i-assertion-group/index.html) etc.
 as well as the [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s 
 used in the assertion functions (e.g. [DescriptionAnyAssertion](./ch.tutteli.atrium.assertions/-description-any-assertion/index.html)).
 
+
 # Package ch.tutteli.atrium.assertions.any.narrow
 Contains inter alia the contract for narrowing assertion builders -- [IAnyNarrow](./ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/index.html).
 
 # Package ch.tutteli.atrium.assertions.any.narrow.failurehandler
 Contains [IDownCastFailureHandler](./ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/-i-down-cast-failure-handler/index.html)s.
+
+
+# Package ch.tutteli.atrium.assertions.basic.contains
+Contains the basic contract for contains assertion builders -- [IContains](./ch.tutteli.atrium.assertions.basic.contains/-i-contains/index.html).
+
+# Package ch.tutteli.atrium.assertions.basic.contains.builders
+Contains base classes for builders representing a step in the process of creating sophisticated `contains` assertions.
+
+# Package ch.tutteli.atrium.assertions.basic.contains.checkers
+Contains base classes for [IContains.IChecker](./ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-checker/index.html).
+
+# Package ch.tutteli.atrium.assertions.basic.contains.creators
+Contains base classes for [IContains.ICreators](./ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-creator/index.html).
+
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains
 Contains the [CharSequenceContainsAssertionCreator](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains-assertion-creator/index.html)
@@ -85,6 +103,7 @@ Contains [CharSequenceContainsAssertionCreator.ISearcher](./ch.tutteli.atrium.as
 # Package ch.tutteli.atrium.builders.charsequence.contains
 Code completion style API for sophisticated contains assertions for CharSequence. 
 
+
 # Package ch.tutteli.atrium.checking
 Everything involved in checking made [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
 
@@ -96,6 +115,7 @@ Everything involved in reporting made [IAssertion](./ch.tutteli.atrium.assertion
 
 # Package ch.tutteli.atrium.reporting.translating
 Everything involved in translating [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s.
+
 
 # Package ch.tutteli.atrium.spec
 Helper functions for specifications as well as the contract of [IAssertionVerbFactory](./ch.tutteli.atrium.spec/-i-assertion-verb-factory/index.html).
@@ -120,6 +140,7 @@ Specifications for [Assertion Verbs](https://github.com/robstoll/atrium#use-own-
 
 # Package ch.tutteli.atrium.spec.verbs
 Specifications for [Assertion Verbs](https://github.com/robstoll/atrium#use-own-assertion-verbs).
+
 
 # Package ch.tutteli.atrium.verbs
 Contains the [AssertionVerb](https://github.com/robstoll/atrium#use-own-assertion-verbs) which is an enum defining the 

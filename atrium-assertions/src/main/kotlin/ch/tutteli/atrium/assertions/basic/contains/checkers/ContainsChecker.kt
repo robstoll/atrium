@@ -2,11 +2,12 @@ package ch.tutteli.atrium.assertions.basic.contains.checkers
 
 import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.basic.contains.IContains
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * Represents a base class for checkers which compare how many occurrences of an expected object are found
+ * Represents a base class for [IContains.IChecker]s which compare how many occurrences of an expected object are found
  * in the input of the search, against how many [times] the check expect it to be contained.
  *
  * It further checks that [times] is bigger than 0 (throws an [IllegalArgumentException] otherwise) and additionally
@@ -21,13 +22,14 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *              found in the input of the search.
  * @param nameFunToUse The function which should be used instead of [nameFunUsed] when [times] equals to zero.
  * @param nameFunUsed The function which was used and should not be used if [times] equals to zero.
+ *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
 abstract class ContainsChecker(
     val times: Int,
     nameFunToUse: String,
     nameFunUsed: String
-) {
+) : IContains.IChecker {
     init {
         if (times < 0) throw IllegalArgumentException("only positive numbers allowed: $times given")
         if (times == 0) throw IllegalArgumentException("use $nameFunToUse instead of $nameFunUsed(0)")
