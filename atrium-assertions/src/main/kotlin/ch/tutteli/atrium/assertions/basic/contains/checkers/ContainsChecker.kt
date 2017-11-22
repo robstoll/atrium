@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.assertions.base.contains.checkers
+package ch.tutteli.atrium.assertions.basic.contains.checkers
 
 import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion

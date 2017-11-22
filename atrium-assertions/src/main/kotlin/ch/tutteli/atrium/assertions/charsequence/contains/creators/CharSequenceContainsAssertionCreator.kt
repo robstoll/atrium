@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.base.contains.creators.ContainsObjectsAssertionCreator
+import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -27,7 +27,7 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, D : IDecorator>(
     decorator: D,
     private val searcher: ISearcher<D>,
     checkers: List<IChecker>
-) : ContainsObjectsAssertionCreator<T, Any, D, ICharSequenceContains.IChecker>(decorator, checkers),
+) : ContainsObjectsAssertionCreator<T, Any, D, IChecker>(decorator, checkers),
     ICharSequenceContains.ICreator<T, Any> {
 
     override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS

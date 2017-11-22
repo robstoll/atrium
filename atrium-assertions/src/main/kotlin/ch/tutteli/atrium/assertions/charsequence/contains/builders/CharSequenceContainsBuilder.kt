@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.base.contains.builders.ContainsBuilder
+import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
 

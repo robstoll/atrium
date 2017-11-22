@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.iterable.contains
 
-import ch.tutteli.atrium.assertions.base.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.IContains
 
 /**
  * Defines the contract for sophisticated [Iterable] contains assertions.

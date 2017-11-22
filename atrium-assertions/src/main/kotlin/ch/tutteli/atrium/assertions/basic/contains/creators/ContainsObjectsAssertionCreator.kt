@@ -1,7 +1,7 @@
-package ch.tutteli.atrium.assertions.base.contains.creators
+package ch.tutteli.atrium.assertions.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.base.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.IContains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.assertions.base.contains.builders.validateAtMost
+import ch.tutteli.atrium.assertions.basic.contains.builders.validateAtMost
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtLeastChecker

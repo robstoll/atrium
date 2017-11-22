@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.assertions.base.contains.builders
+package ch.tutteli.atrium.assertions.basic.contains.builders
 
 fun validateAtMost(
     times: Int,
