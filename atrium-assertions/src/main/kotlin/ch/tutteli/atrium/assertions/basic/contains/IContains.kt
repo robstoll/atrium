@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.assertions.base.contains
+package ch.tutteli.atrium.assertions.basic.contains
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup

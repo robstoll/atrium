@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
-import ch.tutteli.atrium.assertions.base.contains.builders.validateButAtMost
+import ch.tutteli.atrium.assertions.basic.contains.builders.validateButAtMost
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.IChecker
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.IDecorator
 import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsAtMostChecker

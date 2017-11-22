@@ -1,7 +1,7 @@
-package ch.tutteli.atrium.assertions.base.contains.builders
+package ch.tutteli.atrium.assertions.basic.contains.builders
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.base.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.IContains
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
 
 abstract class ContainsCheckerBuilder<out T : Any, D : IContains.IDecorator, out C : IContains.IChecker, out B : ContainsBuilder<T, D>>(

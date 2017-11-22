@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET
-import ch.tutteli.atrium.assertions.base.contains.creators.ContainsAssertionCreator
+import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
 import ch.tutteli.atrium.creating.AssertionCollector

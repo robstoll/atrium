@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.base.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.IContains
 import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 

@@ -1,6 +1,6 @@
-package ch.tutteli.atrium.assertions.base.contains.builders
+package ch.tutteli.atrium.assertions.basic.contains.builders
 
-import ch.tutteli.atrium.assertions.base.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.IContains
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 abstract class ContainsBuilder<out T : Any, D: IContains.IDecorator>(
