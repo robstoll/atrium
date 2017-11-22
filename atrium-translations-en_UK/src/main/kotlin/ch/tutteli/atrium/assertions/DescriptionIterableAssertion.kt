@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 
 /**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Collection].
+ * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Iterable].
  */
 enum class DescriptionIterableAssertion(override val value: String) : ISimpleTranslatable {
     AN_ENTRY_WHICH("an entry which"),
@@ -27,7 +27,7 @@ enum class DescriptionIterableAssertion(override val value: String) : ISimpleTra
         "then most probably one of the used assertion functions is not implemented properly.\n" +
         "Please report a bug to the creator of the assertion function and pass on the hint, that assertion functions can be tested against `SubjectLessAssertionSpec` (located in atrium-spec).\n" +
         "Thank you :)"),
-    WARNING_ADDITIONAL_ENTRIES("additional entries"),
-    WARNING_MISMATCHES("following entries where mismatched"),
+    WARNING_ADDITIONAL_ENTRIES("additional entries detected"),
+    WARNING_MISMATCHES("following entries were mismatched"),
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("mismatches and additional entries detected"),
 }
