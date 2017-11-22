@@ -11,16 +11,16 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.cast
 
 /**
- * Helps to make an assertion about [IBaseAssertionPlant.subject] of type [T] that it can be
+ * Helps to make an assertion about the [IBaseAssertionPlant.subject], that it is of type [T] and can be
  * down-casted to type [TSub].
  *
  * @param T The type of [IBaseAssertionPlant.subject].
  * @param TSub The type to which [IBaseAssertionPlant.subject] can be down-casted, hence needs to be a subtype of [T].
  *
- * @constructor Helps to make an assertion about [IBaseAssertionPlant.subject] of type [T] that it can be
- * down-casted to type [TSub].
+ * @constructor Helps to make an assertion about the [IBaseAssertionPlant.subject], that it is of type [T] and can be
+ *              down-casted to type [TSub].
  * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions
- * for a down-casted subject.
+ *        for a down-casted subject.
  */
 class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDownCastFailureHandler<T, TSub>) {
 
@@ -38,7 +38,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDown
      * @param assertionCreator The lambda function which can create subsequent assertions for the down-casted subject.
      *
      * @throws AssertionError Might throw an [AssertionError] in case the down-cast cannot be performed, depending on
-     * the [subjectPlant] and the [failureHandler].
+     *         the [subjectPlant] and the [failureHandler].
      */
     fun downCast(
         description: ITranslatable,

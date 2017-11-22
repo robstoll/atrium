@@ -36,7 +36,6 @@ Misc modules:
   _atrium-core-api_) and assertion functions which can be reused by Atrium implementations 
   and assertion function API implementations to assure they fulfill the specifications.  
 
-
 # Package ch.tutteli.atrium
 Contains the [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html) and its extension functions.
 
@@ -59,6 +58,12 @@ Contains different types of [IAssertion](./ch.tutteli.atrium.assertions/-i-asser
 e.g. [IAssertionGroup](./ch.tutteli.atrium.assertions/-i-assertion-group/index.html) etc.
 as well as the [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s 
 used in the assertion functions (e.g. [DescriptionAnyAssertion](./ch.tutteli.atrium.assertions/-description-any-assertion/index.html)).
+
+# Package ch.tutteli.atrium.assertions.any.narrow
+Contains inter alia the contract for narrowing assertion builders -- [IAnyNarrow](./ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/index.html).
+
+# Package ch.tutteli.atrium.assertions.any.narrow.failurehandler
+Contains [IDownCastFailureHandler](./ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/-i-down-cast-failure-handler/index.html)s.
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains
 Contains the [CharSequenceContainsAssertionCreator](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains-assertion-creator/index.html)
