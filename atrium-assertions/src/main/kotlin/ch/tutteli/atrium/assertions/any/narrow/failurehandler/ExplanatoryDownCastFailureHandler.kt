@@ -11,6 +11,9 @@ import kotlin.reflect.KClass
 /**
  * Represents an [IAnyNarrow.IDownCastFailureHandler] which wraps subsequent assertions into an
  * [ExplanatoryAssertionGroup].
+ *
+ * @param T The type of the [IAssertionPlant.subject].
+ * @param T The type to which the [IAssertionPlant.subject] should have been down-casted.
  */
 class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : IAnyNarrow.IDownCastFailureHandler<T, TSub> {
     /**
@@ -18,9 +21,10 @@ class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : IAnyNarrow.IDownCas
      * to the given [subjectPlant].
      *
      * @param subType The type to which the [subjectPlant]'s [subject][IAssertionPlant.subject] should have been
-     * down-casted.
-     * @param subjectPlant The plant to which additional assertions would have been added
-     * @param assertionCreator The lambda function which could have created subsequent assertions for a down-casted
+     *        down-casted.
+     * @param subjectPlant The plant to which additional assertions would have been added.
+     * @param assertionCreator The lambda which could have created subsequent assertions for the down-casted
+     *        [IAssertionPlant.subject].
      *
      * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
      */
