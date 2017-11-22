@@ -18,7 +18,7 @@ class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec : ch.tutteli.at
         )
 
         private fun containsNotOrAtMost(plant: IAssertionPlant<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
-            = plant.enthaelt.inAnyOrder.nichtOderHoechstens(atMost).values(a, *aX)
+            = plant.enthaelt.inBeliebigerReihenfolge.nichtOderHoechstens(atMost).werte(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 

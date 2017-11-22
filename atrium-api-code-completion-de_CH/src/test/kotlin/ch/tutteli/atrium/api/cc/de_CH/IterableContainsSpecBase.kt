@@ -18,9 +18,9 @@ abstract class IterableContainsSpecBase {
     protected val exactly = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderDecorator>::genau.name
     protected val atMost = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderDecorator>::hoechstens.name
     protected val notOrAtMost = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderDecorator>::nichtOderHoechstens.name
-    protected val inAnyOrder = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsNoOpDecorator>::inAnyOrder.name
-    protected val inOrder = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsNoOpDecorator>::inOrder.name
-    protected val only = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderDecorator>::only.name
-    protected val inAnyOrderOnlyValues = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderOnlyDecorator>::values.name
-    protected val inOrderOnlyValues = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInOrderOnlyDecorator>::values.name
+    protected val inAnyOrder = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsNoOpDecorator>::inBeliebigerReihenfolge.name
+    protected val inOrder = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsNoOpDecorator>::inGegebenerReihenfolge.name
+    protected val only = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderDecorator>::nur.name
+    protected val inAnyOrderOnlyValues = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderOnlyDecorator>::werte.name
+    protected val inOrderOnlyValues = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInOrderOnlyDecorator>::werte.name
 }

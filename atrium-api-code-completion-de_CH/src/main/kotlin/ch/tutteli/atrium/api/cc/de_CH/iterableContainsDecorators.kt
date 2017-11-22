@@ -9,7 +9,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.decorators.*
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>.inAnyOrder
+val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>.inBeliebigerReihenfolge
     get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderDecorator)
 
 /**
@@ -18,7 +18,7 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecor
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>.only
+val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>.nur
     @JvmName("inAnyOrderOnly")
     get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderOnlyDecorator)
 
@@ -28,7 +28,7 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>.inOrder
+val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>.inGegebenerReihenfolge
     get() = IterableContainsBuilder(plant, IterableContainsInOrderDecorator)
 
 /**
@@ -37,6 +37,6 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecor
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderDecorator>.only
+val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderDecorator>.nur
     @JvmName("inOrderOnly")
     get() = IterableContainsBuilder(plant, IterableContainsInOrderOnlyDecorator)
