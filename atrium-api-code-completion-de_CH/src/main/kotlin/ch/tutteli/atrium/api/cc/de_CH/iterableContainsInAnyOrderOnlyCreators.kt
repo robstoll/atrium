@@ -16,8 +16,8 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.values(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = objects(expected, *otherExpected)
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.werte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+    = objekte(expected, *otherExpected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as the
@@ -29,7 +29,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.objekte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = this.plant.addAssertion(_containsObjectsInAnyOrderOnly(this, expected, otherExpected))
 
 /**
@@ -53,5 +53,5 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.entries(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlyDecorator>.eintraege(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = this.plant.addAssertion(_containsEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))

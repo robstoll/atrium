@@ -17,8 +17,13 @@ class IterableContainsInAnyOrderExactlyObjectsAssertionsSpec : ch.tutteli.atrium
             Companion::containsExactly
         )
 
-        private fun containsExactly(plant: IAssertionPlant<Iterable<Double>>, exactly: Int, a: Double, aX: Array<out Double>)
-            = plant.enthaelt.inAnyOrder.genau(exactly).objects(a, *aX)
+        private fun containsExactly(plant: IAssertionPlant<Iterable<Double>>, exactly: Int, a: Double, aX: Array<out Double>): IAssertionPlant<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.enthaelt.inBeliebigerReihenfolge.genau(exactly).objekt(a)
+            } else {
+                plant.enthaelt.inBeliebigerReihenfolge.genau(exactly).objekte(a, *aX)
+            }
+        }
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot
 

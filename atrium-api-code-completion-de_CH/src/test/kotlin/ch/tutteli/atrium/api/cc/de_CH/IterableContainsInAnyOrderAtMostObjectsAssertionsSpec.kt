@@ -19,7 +19,7 @@ class IterableContainsInAnyOrderAtMostObjectsAssertionsSpec : ch.tutteli.atrium.
         )
 
         private fun containsAtMost(plant: IAssertionPlant<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
-            = plant.enthaelt.inAnyOrder.hoechstens(atMost).values(a, *aX)
+            = plant.enthaelt.inBeliebigerReihenfolge.hoechstens(atMost).werte(a, *aX)
 
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

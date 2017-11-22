@@ -13,6 +13,6 @@ class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.asserti
             "$contains.$inAnyOrder.$only.$inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnly
 
         private fun containsInAnyOrderOnly(plant: IAssertionPlant<Iterable<Double>>, a: IAssertionPlant<Double>.() -> Unit, aX: Array<out IAssertionPlant<Double>.() -> Unit>)
-            = plant.enthaelt.inAnyOrder.only.entries(a, *aX)
+            = plant.enthaelt.inBeliebigerReihenfolge.nur.eintraege(a, *aX)
     }
 }

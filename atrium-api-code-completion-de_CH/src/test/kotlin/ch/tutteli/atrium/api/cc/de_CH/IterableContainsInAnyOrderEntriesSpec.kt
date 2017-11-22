@@ -12,15 +12,15 @@ class IterableContainsInAnyOrderEntriesSpec : ch.tutteli.atrium.spec.assertions.
 ) {
     companion object {
         fun getEntryPair()
-            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderDecorator>::entry.name to Companion::entry
+            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderDecorator>::eintrag.name to Companion::entry
 
         fun getEntriesPair()
-            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderDecorator>::entries.name to Companion::entries
+            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderDecorator>::eintraege.name to Companion::entries
 
         private fun entry(plant: IAssertionPlant<Iterable<Double>>, a: IAssertionPlant<Double>.() -> Unit)
-            = plant.enthaelt.inAnyOrder.zumindest(1).entry(a)
+            = plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(a)
 
         private fun entries(plant: IAssertionPlant<Iterable<Double>>, a: IAssertionPlant<Double>.() -> Unit, aX: Array<out IAssertionPlant<Double>.() -> Unit>)
-            = plant.enthaelt.inAnyOrder.zumindest(1).entries(a, *aX)
+            = plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(a, *aX)
     }
 }

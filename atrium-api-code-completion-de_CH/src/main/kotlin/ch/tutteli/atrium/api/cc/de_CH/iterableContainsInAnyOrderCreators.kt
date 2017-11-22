@@ -15,8 +15,8 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.value(expected: E): IAssertionPlant<T>
-    = values(expected)
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.wert(expected: E): IAssertionPlant<T>
+    = werte(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
@@ -27,9 +27,9 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * same entry. Use an option such as [zumindest], [hoechstens] and [genau] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `enthaelt.inAnyOrder.genau(2).value('a')`
+ *   `enthaelt.inBeliebigerReihenfolge.genau(2).wert('a')`
  * instead of:
- *   `enthaelt.inAnyOrder.zumindest(1).values('a', 'a')`
+ *   `enthaelt.inBeliebigerReihenfolge.zumindest(1).werte('a', 'a')`
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
@@ -37,7 +37,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.values(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.werte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
 
 /**
@@ -49,8 +49,8 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.`object`(expected: E): IAssertionPlant<T>
-    = objects(expected)
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.objekt(expected: E): IAssertionPlant<T>
+    = objekte(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as the
@@ -61,9 +61,9 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * same entry. Use an option such as [zumindest], [hoechstens] and [genau] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `enthaelt.inAnyOrder.genau(2).objects('a')`
+ *   `enthaelt.inBeliebigerReihenfolge.genau(2).objekte('a')`
  * instead of:
- *   `enthaelt.inAnyOrder.zumindest(1).objects('a', 'a')`
+ *   `enthaelt.inBeliebigerReihenfolge.zumindest(1).objekte('a', 'a')`
  *
  * @param expected The object which is expected to be contained within the [Iterable].
  * @param otherExpected Additional objects which are expected to be contained within [Iterable].
@@ -71,7 +71,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.objekte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
 
 /**
@@ -84,8 +84,8 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.entry(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
-    = entries(assertionCreator)
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.eintrag(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = eintraege(assertionCreator)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
@@ -100,5 +100,5 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.entries(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.eintraege(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = addAssertion(_containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
