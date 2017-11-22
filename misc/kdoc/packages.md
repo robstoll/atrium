@@ -1,32 +1,41 @@
 # Module atrium
 
 ## KDoc of Atrium
-Atrium is split up in different modules. The packages shown below contain 
-classes etc. of all modules excluding the once of _atrium-imp-robstoll_ and _atrium-imp-robstoll-lib_.
-Following a brief overview of the modules:
-- **atrium-core-api** defines the contracts of the core of Atrium.
-- **atrium-core-api-late-binding** defines the contract for 
-  [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
-  by providing dummy implementations which are eventually replaced by an atrium implementation. 
+Atrium is split up in different modules. The packages shown below contain classes etc. 
+of all modules excluding the one of _atrium-imp-robstoll_ and _atrium-imp-robstoll-lib_.
 
-  - **atrium-impl-robstoll** provides an [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
-    which uses the implementations of *atirum-impl-robstoll-lib*
-  - **atrium-impl-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of atrium.
-    
-- **atrium-assertions** contains all functions which can be used to create assertions as well as the 
-  [ReporterBuilder](./ch.tutteli.atrium.reporting/-reporter-builder/index.html).
+API modules:
+- **atrium-cc-en&#95;UK-robstoll** can be used as "shortcut" -- it defines dependencies on 
+  atrium-api-code-completion-en&#95;UK, atrium-translations-en_UK and atrium-core-impl-robstoll
 - **atrium-api-code-completion-de&#95;CH** provides an assertion function API in German where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
 - **atrium-api-code-completion-en&#95;UK** provides an assertion function API in English where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
-- **atrium-translations-de&#95;CH** provides translations for [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s in German.
-- **atrium-translations-en&#95;UK** provides translations for [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s in English.
+  
+  
+Assertion modules:
+- **atrium-assertions** contains all functions which can be used to create assertions as well as the 
+  [ReporterBuilder](./ch.tutteli.atrium.reporting/-reporter-builder/index.html).
+- **atrium-translations-de&#95;CH** provides translations in German for 
+  [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s used in assertion functions. 
+- **atrium-translations-en&#95;UK** provides translations in English for 
+  [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s used in assertion functions. 
+- **atrium-verbs** contains out of the box assertion verbs (we suggest to [use your own assertion verbs](https://github.com/robstoll/atrium#use-own-assertion-verbs)).
+
+Core modules:
+- **atrium-core-api** defines the contracts of the core of Atrium.
+- **atrium-core-api-late-binding** defines the contract for 
+  [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
+  by providing dummy implementations which are eventually replaced by an atrium implementation. 
+- **atrium-core-impl-robstoll** provides an [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
+  which uses the implementations of *atrium-impl-robstoll-lib*
+- **atrium-core-impl-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of atrium.
+
+Misc modules:
 - **atrium-spec** contains [Spek](http://spekframework.org/) specifications for interfaces (defined in 
   _atrium-core-api_) and assertion functions which can be reused by Atrium implementations 
-  and assertion function API implementations to assure they fulfill the specifications. 
-- **atrium-verbs** contains out of the box assertion verbs (we suggest to [use your own assertion verbs](https://github.com/robstoll/atrium#use-own-assertion-verbs)).
- 
- 
+  and assertion function API implementations to assure they fulfill the specifications.  
+
 
 # Package ch.tutteli.atrium
 Contains the [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html) and its extension functions.
