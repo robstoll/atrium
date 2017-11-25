@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.assertions._containsEntriesInAnyOrderOnly
 import ch.tutteli.atrium.assertions._containsObjectsInAnyOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**

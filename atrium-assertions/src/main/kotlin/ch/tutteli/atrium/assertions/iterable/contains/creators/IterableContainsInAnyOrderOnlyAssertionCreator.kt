@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.*
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable

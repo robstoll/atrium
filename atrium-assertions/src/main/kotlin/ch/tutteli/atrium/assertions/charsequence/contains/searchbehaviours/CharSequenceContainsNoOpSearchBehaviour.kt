@@ -1,7 +1,7 @@
-package ch.tutteli.atrium.assertions.charsequence.contains.decorators
+package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
 
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains
-import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpSearchBehaviour.decorateDescription
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour.decorateDescription
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**

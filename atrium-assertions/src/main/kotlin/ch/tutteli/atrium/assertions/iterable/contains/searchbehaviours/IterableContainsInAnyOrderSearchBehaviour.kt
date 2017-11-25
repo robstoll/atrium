@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.assertions.iterable.contains.decorators
+package ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
 
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains

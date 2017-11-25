@@ -1,7 +1,7 @@
-package ch.tutteli.atrium.assertions.iterable.contains.decorators
+package ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
 
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsNoOpSearchBehaviour.decorateDescription
+import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour.decorateDescription
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
