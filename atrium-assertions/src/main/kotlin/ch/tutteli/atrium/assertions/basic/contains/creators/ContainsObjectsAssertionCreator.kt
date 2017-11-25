@@ -27,7 +27,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, D : IContains.IDecora
     checkers: List<C>
 ) : ContainsAssertionCreator<T, S, C>(checkers) {
 
-    override fun createAssertionGroup(assertions: List<IAssertion>): IAssertionGroup
+    override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup
         = InvisibleAssertionGroup(assertions)
 
     override final fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: S, featureFactory: (Int, ITranslatable) -> IAssertionGroup): IAssertionGroup {

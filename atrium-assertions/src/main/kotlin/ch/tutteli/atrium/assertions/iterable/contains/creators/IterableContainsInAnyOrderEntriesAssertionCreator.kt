@@ -18,7 +18,7 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
 ) : ContainsAssertionCreator<T, IAssertionPlant<E>.() -> Unit, IIterableContains.IChecker>(checkers),
     IIterableContains.ICreator<T, IAssertionPlant<E>.() -> Unit> {
 
-    override fun createAssertionGroup(assertions: List<IAssertion>): IAssertionGroup {
+    override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup {
         val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
         return AssertionGroup(ListAssertionGroupType, description, RawString(""), assertions)
     }
