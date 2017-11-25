@@ -17,8 +17,7 @@ val <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt
     = _containsBuilder(this)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains [expected]
- * and the [otherExpected] (if defined).
+ * Makes the assertion that [IAssertionPlant.subject] contains [expected] and the [otherExpected] (if defined).
  *
  * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest.werte(expected, *otherExpected)`
  *
@@ -36,6 +35,31 @@ val <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt
  */
 fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).objekte(expected, *otherExpected)
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
+ * the defined order.
+ *
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.objekte(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.objekte(expected, *otherExpected)
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) in the defined order
+ * holding the assertions created by them.
+ *
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.eintraege(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.enthaeltStrikt(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not contain [expected]

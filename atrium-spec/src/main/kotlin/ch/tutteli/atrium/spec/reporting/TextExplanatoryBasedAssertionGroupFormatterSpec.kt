@@ -24,7 +24,4 @@ abstract class TextExplanatoryBasedAssertionGroupFormatterSpec<T: IExplanatoryAs
         groupFactory,
         describePrefix
     ) {})
-
-
-    //TODO write spec for use case where assertions have been collected where subject will throw an exception
 })

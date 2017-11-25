@@ -1,17 +1,16 @@
 package ch.tutteli.atrium.reporting.translating
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
+import ch.tutteli.atrium.creating.IAssertionPlant
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
 class LocaleOrderDeciderSpec : Spek({
-    val verbs: IAssertionVerbFactory = AssertionVerbFactory
+    val assert: (Iterable<Locale>) -> IAssertionPlant<Iterable<Locale>> = AssertionVerbFactory::checkImmediately
     val testee = LocaleOrderDecider()
-
 
     val variantA = "VariantA"
     val variantAB = "${variantA}_VariantB"
@@ -34,29 +33,17 @@ class LocaleOrderDeciderSpec : Spek({
 
     describe("without fallbackLocales") {
 
-
         describe(localeWithDe) {
             it("returns $localeWithDe and Locale.ROOT") {
-                val result = testee.determineOrder(localeDe, emptyArray())
-                //TODO implement contains for collections
-                //verbs.checkImmediately(result).containsStrict(Locale("de"), Locale.ROOT)
-                val iterator = result.iterator()
-                verbs.checkImmediately(iterator.next()).toBe(localeDe)
-                verbs.checkImmediately(iterator.next()).toBe(Locale.ROOT)
-                verbs.checkImmediately(iterator.hasNext()).toBe(false)
+                val result = testee.determineOrder(localeDe, emptyArray()).asIterable()
+                assert(result).containsStrictly(localeDe, Locale.ROOT)
             }
         }
 
-
         describe(localeWithDeCh) {
             it("returns $localeWithDeCh, $localeWithDe and Locale.ROOT") {
-                val result = testee.determineOrder(localeDeCh, emptyArray())
-                //TODO replace once assertion function contains for collections exists
-                val iterator = result.iterator()
-                verbs.checkImmediately(iterator.next()).toBe(localeDeCh)
-                verbs.checkImmediately(iterator.next()).toBe(localeDe)
-                verbs.checkImmediately(iterator.next()).toBe(Locale.ROOT)
-                verbs.checkImmediately(iterator.hasNext()).toBe(false)
+                val result = testee.determineOrder(localeDeCh, emptyArray()).asIterable()
+                assert(result).containsStrictly(localeDeCh, localeDe, Locale.ROOT)
             }
         }
 
@@ -66,17 +53,10 @@ class LocaleOrderDeciderSpec : Spek({
                 + "$localeWithDeCh, "
                 + "$localeWithDe, "
                 + "and Locale.ROOT") {
-                val result = testee.determineOrder(localeDeChVariantA, emptyArray())
-                //TODO replace once assertion function contains for collections exists
-                val iterator = result.iterator()
-                verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantA)
-                verbs.checkImmediately(iterator.next()).toBe(localeDeCh)
-                verbs.checkImmediately(iterator.next()).toBe(localeDe)
-                verbs.checkImmediately(iterator.next()).toBe(Locale.ROOT)
-                verbs.checkImmediately(iterator.hasNext()).toBe(false)
+                val result = testee.determineOrder(localeDeChVariantA, emptyArray()).asIterable()
+                assert(result).containsStrictly(localeDeChVariantA, localeDeCh, localeDe, Locale.ROOT)
             }
         }
-
 
         describe(localeWithDeChVariantAVariantB) {
             it("returns: "
@@ -85,15 +65,13 @@ class LocaleOrderDeciderSpec : Spek({
                 + "$localeWithDeCh, "
                 + "$localeWithDe, "
                 + "and Locale.ROOT") {
-                val result = testee.determineOrder(localeDeChVariantAVariantB, emptyArray())
-                //TODO replace once assertion function contains for collections exists
-                val iterator = result.iterator()
-                verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantAVariantB)
-                verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantA)
-                verbs.checkImmediately(iterator.next()).toBe(localeDeCh)
-                verbs.checkImmediately(iterator.next()).toBe(localeDe)
-                verbs.checkImmediately(iterator.next()).toBe(Locale.ROOT)
-                verbs.checkImmediately(iterator.hasNext()).toBe(false)
+                val result = testee.determineOrder(localeDeChVariantAVariantB, emptyArray()).asIterable()
+                assert(result).containsStrictly(
+                      localeDeChVariantAVariantB
+                    , localeDeChVariantA
+                    , localeDeCh
+                    , localeDe
+                    , Locale.ROOT)
             }
         }
 
@@ -106,17 +84,15 @@ class LocaleOrderDeciderSpec : Spek({
                 + "$localeWithDeCh, "
                 + "$localeWithDe, "
                 + "and Locale.ROOT") {
-                val result = testee.determineOrder(localeDeChVariantAScriptLatnBuilder.build(), emptyArray())
-                //TODO replace once assertion function contains for collections exists
-                val iterator = result.iterator()
-                verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantAScriptLatnBuilder.build())
-                verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantAScriptLatnBuilder.setVariant("").build())
-                verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantAScriptLatnBuilder.setRegion("").build())
-                verbs.checkImmediately(iterator.next()).toBe(localeDeChVariantA)
-                verbs.checkImmediately(iterator.next()).toBe(localeDeCh)
-                verbs.checkImmediately(iterator.next()).toBe(localeDe)
-                verbs.checkImmediately(iterator.next()).toBe(Locale.ROOT)
-                verbs.checkImmediately(iterator.hasNext()).toBe(false)
+                val result = testee.determineOrder(localeDeChVariantAScriptLatnBuilder.build(), emptyArray()).asIterable()
+                assert(result).containsStrictly(
+                      localeDeChVariantAScriptLatnBuilder.build()
+                    , localeDeChVariantAScriptLatnBuilder.setVariant("").build()
+                    , localeDeChVariantAScriptLatnBuilder.setRegion("").build()
+                    , localeDeChVariantA
+                    , localeDeCh
+                    , localeDe
+                    , Locale.ROOT)
             }
         }
     }
