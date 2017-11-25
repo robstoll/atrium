@@ -6,15 +6,15 @@ import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
 import ch.tutteli.atrium.creating.IAssertionPlant
 
-class IterableContainsInAnyOrderObjectsAssertionCreator<E, T : Iterable<E>>(
+class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(
     decorator: IterableContainsInAnyOrderDecorator,
     checkers: List<IIterableContains.IChecker>
-) : ContainsObjectsAssertionCreator<T, E, IterableContainsInAnyOrderDecorator, IIterableContains.IChecker>(decorator, checkers),
-    IIterableContains.ICreator<T, E> {
+) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderDecorator, IIterableContains.IChecker>(decorator, checkers),
+    IIterableContains.ICreator<T, S> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS
     override val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
 
-    override fun search(plant: IAssertionPlant<T>, expected: E): Int
-        = plant.subject.filter({ it == expected }).size
+    override fun search(plant: IAssertionPlant<T>, searchCriterion: S): Int
+        = plant.subject.filter({ it == searchCriterion }).size
 }

@@ -44,31 +44,30 @@ interface IContains {
         fun createAssertion(foundNumberOfTimes: Int): IAssertion
     }
 
-    //TODO rename T1 and T2, should be T and S (for search criteria)
     /**
      * Represents the final step of a sophisticated `contains` assertion builder which creates the [IAssertionGroup]
      * as such.
      *
-     * @param T1 The type of the [IAssertionPlant.subject].
-     * @param T2 The type of the search criteria.
+     * @param T The type of the [IAssertionPlant.subject].
+     * @param S The type of the search criteria.
      */
-    interface ICreator<in T1 : Any, in T2> {
+    interface ICreator<in T : Any, in S> {
         /**
          * Creates an [IAssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
-         * on the given [expected] and [otherExpected].
+         * on the given [searchCriterion] and possibly [otherSearchCriteria] (might be empty).
          *
-         * It is usually influenced by an [IDecorator] which defines the search behaviour and uses [IChecker]s which
-         * create [IAssertion]s based on a determined search result. The created [IAssertionGroup] represents the
-         * sophisticated `contains` assertion as a whole (including the assertions created by the [IChecker]s).
+         * The search process as such is usually influenced by an [IDecorator] which defines the search behaviour
+         * and [IChecker]s are used to create [IAssertion]s based on a determined search result which are grouped
+         * together into an [IAssertionGroup].
+         * This resulting [IAssertionGroup] represents the sophisticated `contains` assertion as a whole.
          *
          * @param plant The plant -- or rather its [subject][IAssertionPlant.subject] -- for which the [IAssertionGroup]
          *        is created.
-         * @param expected A search criteria.
-         * @param otherExpected Other search criteria (might be empty).
+         * @param searchCriterion A search criterion.
+         * @param otherSearchCriteria Other search criteria (might also be empty).
          *
          * @return The newly created [IAssertionGroup].
          */
-        //TODO rename expected and otherExpected to searchCriteria and OtherSearchCriteria
-        fun createAssertionGroup(plant: IAssertionPlant<T1>, expected: T2, otherExpected: Array<out T2>): IAssertionGroup
+        fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup
     }
 }

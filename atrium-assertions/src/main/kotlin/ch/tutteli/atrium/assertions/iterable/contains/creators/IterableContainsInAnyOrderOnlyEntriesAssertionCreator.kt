@@ -13,9 +13,9 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
     decorator: IterableContainsInAnyOrderOnlyDecorator
 ) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, IAssertionPlant<E>.() -> Unit>(decorator) {
 
-    override fun createAssertionForExpectedAndRemoveMatchFromList(expected: IAssertionPlant<E>.() -> Unit, list: MutableList<E>): Pair<Boolean, IAssertion> {
-        val explanatoryAssertions = createExplanatoryAssertions(expected, list)
-        val found = removeMatch(list, expected)
+    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: IAssertionPlant<E>.() -> Unit, list: MutableList<E>): Pair<Boolean, IAssertion> {
+        val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, list)
+        val found = removeMatch(list, searchCriterion)
         return Pair(found, createEntryAssertion(explanatoryAssertions, found))
     }
 
