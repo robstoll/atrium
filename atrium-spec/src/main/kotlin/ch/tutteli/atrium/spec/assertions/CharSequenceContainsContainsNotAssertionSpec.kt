@@ -151,7 +151,7 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                 test("$containsFunName 'treboR' and 'llotS' - error message contains '$nameWithArrow' exactly once") {
                     expect {
                         verbs.checkLazily(person) {
-                            its(subject::name).containsFun("treboR", "llotS")
+                            property(subject::name).containsFun("treboR", "llotS")
                         }
                     }.toThrow<AssertionError> {
                         message { contains.exactly(1).value(nameWithArrow) }
@@ -160,7 +160,7 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                 test("$containsNot 'Robert' and 'Stoll' - error message contains '$nameWithArrow' exactly once") {
                     expect {
                         verbs.checkLazily(person) {
-                            its(subject::name).containsNotFun("Robert", "Stoll")
+                            property(subject::name).containsNotFun("Robert", "Stoll")
                         }
                     }.toThrow<AssertionError> {
                         message { contains.exactly(1).value(nameWithArrow) }

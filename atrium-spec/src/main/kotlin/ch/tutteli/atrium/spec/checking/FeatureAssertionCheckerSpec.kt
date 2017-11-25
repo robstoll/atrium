@@ -41,24 +41,24 @@ abstract class FeatureAssertionCheckerSpec(
             verify(subjectFactory).addAssertion(captor.capture())
             check("its type is  ${IFeatureAssertionGroupType::class.simpleName}") {
                 verbs.checkImmediately(captor.firstValue).isA<IAssertionGroup> {
-                    its(subject::type).isA<IFeatureAssertionGroupType> {}
+                    property(subject::type).isA<IFeatureAssertionGroupType> {}
                 }
             }
 
             check("its ${IAssertionGroup::subject.name} corresponds to the passed assertionVerb") {
                 verbs.checkImmediately(captor.firstValue).isA<IAssertionGroup> {
-                    its(subject::name).toBe(assertionVerb)
+                    property(subject::name).toBe(assertionVerb)
                 }
             }
             check("its ${IAssertionGroup::subject.name} corresponds to the passed subject") {
                 verbs.checkImmediately(captor.firstValue).isA<IAssertionGroup> {
-                    its(subject::subject).toBe(valueUnderTest)
+                    property(subject::subject).toBe(valueUnderTest)
                 }
             }
             check("copies the assertion") {
                 assertions.clear()
                 verbs.checkImmediately(captor.firstValue).isA<IAssertionGroup> {
-                    its(subject::assertions).hasSize(1).and.isNotSame(assertions)
+                    property(subject::assertions).hasSize(1).and.isNotSame(assertions)
                 }
             }
         }

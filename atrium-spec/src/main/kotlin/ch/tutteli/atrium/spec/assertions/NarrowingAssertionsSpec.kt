@@ -123,7 +123,7 @@ abstract class NarrowingAssertionsSpec(
             it("throws an AssertionError") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { its(subject::i).isNotNull {} }
+                    verbs.checkLazily(A()) { property(subject::i).isNotNull {} }
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
@@ -136,7 +136,7 @@ abstract class NarrowingAssertionsSpec(
             it("throws an AssertionError which contains subsequent assertions") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { its(subject::i).isNotNullLessFun(1) }
+                    verbs.checkLazily(A()) { property(subject::i).isNotNullLessFun(1) }
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
