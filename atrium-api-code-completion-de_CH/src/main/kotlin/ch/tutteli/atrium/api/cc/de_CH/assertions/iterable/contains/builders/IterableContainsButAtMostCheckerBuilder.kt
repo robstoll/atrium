@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
 import ch.tutteli.atrium.api.cc.de_CH.*
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsButAtMostCheckerBuilderBase
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderSearchBehaviour
 
 /**
  * Represents the builder of the second step of a `contains at least but at most` check within the
@@ -20,8 +20,8 @@ import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContain
 open class IterableContainsButAtMostCheckerBuilder<E, T : Iterable<E>>(
     times: Int,
     atLeastBuilder: IterableContainsAtLeastCheckerBuilder<E, T>,
-    containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>
-) : IterableContainsButAtMostCheckerBuilderBase<E, T, IterableContainsInAnyOrderDecorator>(
+    containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+) : IterableContainsButAtMostCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     times,
     atLeastBuilder,
     containsBuilder,

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.assertions._containsEntriesInAnyOrder
 import ch.tutteli.atrium.assertions._containsObjectsInAnyOrder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.wert(expected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.wert(expected: E): IAssertionPlant<T>
     = werte(expected)
 
 /**
@@ -37,7 +37,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.werte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.werte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
 
 /**
@@ -49,7 +49,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.objekt(expected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.objekt(expected: E): IAssertionPlant<T>
     = objekte(expected)
 
 /**
@@ -71,7 +71,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.objekte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.objekte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
 
 /**
@@ -84,7 +84,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.eintrag(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.eintrag(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = eintraege(assertionCreator)
 
 /**
@@ -100,5 +100,5 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderDecorator>.eintraege(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.eintraege(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = addAssertion(_containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))

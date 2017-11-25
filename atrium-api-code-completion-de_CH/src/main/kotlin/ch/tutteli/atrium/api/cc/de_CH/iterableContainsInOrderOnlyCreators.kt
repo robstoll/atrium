@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.assertions._containsEntriesInOrderOnly
 import ch.tutteli.atrium.assertions._containsObjectsInOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlyDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlyDecorator>.werte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = objekte(expected, *otherExpected)
 
 /**
@@ -29,8 +29,8 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlyDecorator>.objekte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = this.plant.addAssertion(_containsObjectsInOrderOnly(this, expected, otherExpected))
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.objekte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+    = plant.addAssertion(_containsObjectsInOrderOnly(this, expected, otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
@@ -45,5 +45,5 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOn
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlyDecorator>.eintraege(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
-    = this.plant.addAssertion(_containsEntriesInOrderOnly(this, assertionCreator, otherAssertionCreators))
+fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.eintraege(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = plant.addAssertion(_containsEntriesInOrderOnly(this, assertionCreator, otherAssertionCreators))

@@ -1,30 +1,26 @@
 package ch.tutteli.atrium.assertions.charsequence.contains
 
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.basic.contains.IContains
-import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
-import ch.tutteli.atrium.reporting.translating.ITranslatable
 
+/**
+ * Defines the contract for sophisticated [CharSequence] `contains` assertions.
+ */
 interface ICharSequenceContains {
-    /**
-     * Represents a decoration behaviour of the input [CharSequence] of the search but leaves it up to the [ISearcher]
-     * to implement the behaviour -- yet, it provides a method to decorate the description (an [ITranslatable]) of the
-     * resulting [IAssertion] produced by [CharSequenceContainsAssertionCreator].
-     */
-    interface IDecorator : IContains.IDecorator
 
-    interface ICreator<in T1 : CharSequence, in T2> : IContains.ICreator<T1, T2>
+    interface ISearchBehaviour : IContains.ISearchBehaviour
+
+    interface ICreator<in T : CharSequence, in S> : IContains.ICreator<T, S>
 
     interface IChecker : IContains.IChecker
 
     /**
-     * Represents a searcher which supports the decoration behaviour [D] for a given input [CharSequence] of the search.
+     * Represents a searcher which supports the search behaviour [S] for a given input [CharSequence] of the search.
      *
-     * @param D The decoration behaviour which should be applied to the input [CharSequence] in which the [ISearcher]
-     *          will look for something -- the actual decorator implementation happens in the [ISearcher]; [IDecorator]
-     *          only decorates [ITranslatable] for reporting.
+     * @param S The search behaviour which should be applied to the input [CharSequence] in which the [ISearcher]
+     *          will look for something -- the actual implementation of the search behaviour happens in the
+     *          [ISearcher]; [ISearchBehaviour] only decorates the [ITranslatable] for reporting.
      */
-    interface ISearcher<D : IDecorator> {
+    interface ISearcher<S : ISearchBehaviour> {
         /**
          * Searches in the given [searchIn] for the given [searchFor], using its [toString][Any.toString]
          * implementation, and returns the number of occurrences.

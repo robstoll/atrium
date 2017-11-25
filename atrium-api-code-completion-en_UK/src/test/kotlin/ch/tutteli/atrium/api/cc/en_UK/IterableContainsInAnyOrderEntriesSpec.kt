@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 class IterableContainsInAnyOrderEntriesSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
@@ -12,10 +12,10 @@ class IterableContainsInAnyOrderEntriesSpec : ch.tutteli.atrium.spec.assertions.
 ) {
     companion object {
         fun getEntryPair()
-            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderDecorator>::entry.name to Companion::entry
+            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderSearchBehaviour>::entry.name to Companion::entry
 
         fun getEntriesPair()
-            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderDecorator>::entries.name to Companion::entries
+            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderSearchBehaviour>::entries.name to Companion::entries
 
         private fun entry(plant: IAssertionPlant<Iterable<Double>>, a: IAssertionPlant<Double>.() -> Unit)
             = plant.contains.inAnyOrder.atLeast(1).entry(a)

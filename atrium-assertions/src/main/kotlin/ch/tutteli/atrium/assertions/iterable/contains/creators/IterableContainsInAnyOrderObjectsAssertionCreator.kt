@@ -3,13 +3,13 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(
-    decorator: IterableContainsInAnyOrderDecorator,
+    decorator: IterableContainsInAnyOrderSearchBehaviour,
     checkers: List<IIterableContains.IChecker>
-) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderDecorator, IIterableContains.IChecker>(decorator, checkers),
+) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderSearchBehaviour, IIterableContains.IChecker>(decorator, checkers),
     IIterableContains.ICreator<T, S> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS

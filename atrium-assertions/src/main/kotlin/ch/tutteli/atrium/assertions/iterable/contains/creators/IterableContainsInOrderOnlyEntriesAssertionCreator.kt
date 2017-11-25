@@ -2,11 +2,11 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlyDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E>>(
-    decorator: IterableContainsInOrderOnlyDecorator
+    decorator: IterableContainsInOrderOnlySearchBehaviour
 ) : IterableContainsInOrderOnlyAssertionCreator<E, T, IAssertionPlant<E>.() -> Unit>(decorator) {
 
     override fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: IAssertionPlant<E>.() -> Unit, template: ((Boolean) -> IAssertion) -> IAssertionGroup): IAssertionGroup {

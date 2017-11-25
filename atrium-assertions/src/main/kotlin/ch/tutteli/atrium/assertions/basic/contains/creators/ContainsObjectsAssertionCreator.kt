@@ -14,16 +14,16 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *
  * @param T The type of the [IAssertionPlant.subject].
  * @param S The type of the search criteria.
- * @param D The type of the current [IContains.IDecorator].
+ * @param B The type of the current [IContains.ISearchBehaviour].
  * @param C The type of the checkers in use (typically a sub interface of [IContains.IChecker]).
  *
  * @constructor Represents the base class for [IContains.ICreator]s which use bare objects as search criteria (matching them
  * with `==`).
- * @param decorator The chosen search behaviour.
+ * @param searchBehaviour The chosen search behaviour.
  * @param checkers The [IContains.IChecker]s which shall be applied to the search result.
  */
-abstract class ContainsObjectsAssertionCreator<T : Any, S, D : IContains.IDecorator, C : IContains.IChecker>(
-    private val decorator: D,
+abstract class ContainsObjectsAssertionCreator<T : Any, S, B : IContains.ISearchBehaviour, C : IContains.IChecker>(
+    private val searchBehaviour: B,
     checkers: List<C>
 ) : ContainsAssertionCreator<T, S, C>(checkers) {
 
@@ -33,7 +33,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, D : IContains.IDecora
     override final fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: S, featureFactory: (Int, ITranslatable) -> IAssertionGroup): IAssertionGroup {
         val count = search(plant, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
-        val description = decorator.decorateDescription(descriptionContains)
+        val description = searchBehaviour.decorateDescription(descriptionContains)
         return AssertionGroup(ListAssertionGroupType, description, searchCriterion ?: RawString.NULL, listOf(featureAssertion))
     }
 

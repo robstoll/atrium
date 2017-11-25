@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.de_CH.enthaeltNicht
 import ch.tutteli.atrium.api.cc.de_CH.genau
 import ch.tutteli.atrium.api.cc.de_CH.hoechstens
 import ch.tutteli.atrium.api.cc.de_CH.zumindest
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilderBase
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  * sophisticated `contains` assertion for [CharSequence].
  *
  * @param T The input type of the search.
- * @param D The decoration behaviour which should be applied for the input of the search.
+ * @param S The search behaviour which should be applied for the input of the search.
  *
  * @constructor Represents the builder of a `contains at least once but at most` check within the fluent API of a
  *              sophisticated `contains` assertion for [CharSequence].
@@ -21,10 +21,10 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *              found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
-open class CharSequenceContainsAtMostCheckerBuilder<T : CharSequence, D : IDecorator>(
+open class CharSequenceContainsAtMostCheckerBuilder<T : CharSequence, S : ISearchBehaviour>(
     times: Int,
-    containsBuilder: CharSequenceContainsBuilder<T, D>
-) : CharSequenceContainsAtMostCheckerBuilderBase<T, D>(
+    containsBuilder: CharSequenceContainsBuilder<T, S>
+) : CharSequenceContainsAtMostCheckerBuilderBase<T, S>(
     times,
     containsBuilder,
     containsBuilder.plant::enthaeltNicht.name,

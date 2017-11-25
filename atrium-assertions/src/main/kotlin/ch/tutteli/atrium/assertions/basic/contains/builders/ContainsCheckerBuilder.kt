@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * `contains` assertion.
  *
  * @param T The type of the [IAssertionPlant.subject].
- * @param D The type of the current [IContains.IDecorator].
+ * @param S The type of the current [IContains.ISearchBehaviour].
  * @param C The type of the checkers in use (typically a sub interface of [IContains.IChecker]).
  * @param B The concrete type of the builder representing the entry point of the process of building a sophisticated
  *        `contains` assertion.
@@ -23,7 +23,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @param containsBuilder The builder representing the entry point of the process of building a sophisticated
  *        `contains` assertion.
  */
-abstract class ContainsCheckerBuilder<out T : Any, D : IContains.IDecorator, out C : IContains.IChecker, out B : ContainsBuilder<T, D>>(
+abstract class ContainsCheckerBuilder<out T : Any, S : IContains.ISearchBehaviour, out C : IContains.IChecker, out B : ContainsBuilder<T, S>>(
     val containsBuilder: B
 ) {
     /**

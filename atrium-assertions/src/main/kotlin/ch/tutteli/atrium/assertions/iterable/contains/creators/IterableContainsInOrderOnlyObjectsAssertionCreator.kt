@@ -4,11 +4,11 @@ import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlyDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.reporting.RawString
 
 class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
-    decorator: IterableContainsInOrderOnlyDecorator
+    decorator: IterableContainsInOrderOnlySearchBehaviour
 ) : IterableContainsInOrderOnlyAssertionCreator<E, T, E>(decorator) {
 
     override fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: E, template: ((Boolean) -> IAssertion) -> IAssertionGroup): IAssertionGroup

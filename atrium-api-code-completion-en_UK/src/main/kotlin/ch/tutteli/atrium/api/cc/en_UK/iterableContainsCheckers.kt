@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.*
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderSearchBehaviour
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we are looking
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContain
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>.atLeast(times: Int): IterableContainsAtLeastCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.atLeast(times: Int): IterableContainsAtLeastCheckerBuilder<E, T>
     = IterableContainsAtLeastCheckerBuilder(times, this)
 
 /**
@@ -47,7 +47,7 @@ fun <E, T : Iterable<E>> IterableContainsAtLeastCheckerBuilder<E, T>.butAtMost(t
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>.exactly(times: Int): IterableContainsExactlyCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.exactly(times: Int): IterableContainsExactlyCheckerBuilder<E, T>
     = IterableContainsExactlyCheckerBuilder(times, this)
 
 /**
@@ -66,7 +66,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>.atMost(times: Int): IterableContainsAtMostCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.atMost(times: Int): IterableContainsAtMostCheckerBuilder<E, T>
     = IterableContainsAtMostCheckerBuilder(times, this)
 
 /**
@@ -80,5 +80,5 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>.notOrAtMost(times: Int): IterableContainsNotOrAtMostCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.notOrAtMost(times: Int): IterableContainsNotOrAtMostCheckerBuilder<E, T>
     = IterableContainsNotOrAtMostCheckerBuilder(times, this)

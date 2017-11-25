@@ -5,8 +5,8 @@ import ch.tutteli.atrium.assertions._containsRegexIgnoringCase
 import ch.tutteli.atrium.assertions._containsValues
 import ch.tutteli.atrium.assertions._containsValuesIgnoringCase
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseDecorator
-import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsIgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -20,7 +20,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.value(expected: Any): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.value(expected: Any): IAssertionPlant<T>
     = values(expected)
 
 /**
@@ -44,7 +44,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
     = addAssertion(_containsValues(this, expected, otherExpected))
 
 /**
@@ -59,7 +59,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("valueIgnoringCase")
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>.value(expected: Any): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.value(expected: Any): IAssertionPlant<T>
     = values(expected)
 
 /**
@@ -84,7 +84,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("valuesIgnoringCase")
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
     = addAssertion(_containsValuesIgnoringCase(this, expected, otherExpected))
 
 /**
@@ -108,7 +108,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpDecorator>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
     = addAssertion(_containsRegex(this, pattern, otherPatterns))
 
 /**
@@ -133,5 +133,5 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseDecorator>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
     = addAssertion(_containsRegexIgnoringCase(this, pattern, otherPatterns))

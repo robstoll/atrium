@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlyDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S>(
-    private val decorator: IterableContainsInOrderOnlyDecorator
+    private val decorator: IterableContainsInOrderOnlySearchBehaviour
 ) : IIterableContains.ICreator<T, S> {
 
     override final fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
