@@ -32,7 +32,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, D : IContains.IDecora
 
     override final fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: S, featureFactory: (Int, ITranslatable) -> IAssertionGroup): IAssertionGroup {
         val count = search(plant, searchCriterion)
-        val featureAssertion = featureFactory(count, numberOfOccurrences)
+        val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
         val description = decorator.decorateDescription(descriptionContains)
         return AssertionGroup(ListAssertionGroupType, description, searchCriterion ?: RawString.NULL, listOf(featureAssertion))
     }
@@ -41,11 +41,11 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, D : IContains.IDecora
      * Provides the translation for `contains`.
      */
     protected abstract val descriptionContains: ITranslatable
-    //TODO rename to descriptionNumOfOccurrences
+
     /**
      * Provides the translation for `number of occurrences`.
      */
-    protected abstract val numberOfOccurrences: ITranslatable
+    protected abstract val descriptionNumberOfOccurrences: ITranslatable
 
     /**
      * Searches for something matching the given [searchCriterion] in the given [plant]'s
