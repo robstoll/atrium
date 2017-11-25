@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
 import ch.tutteli.atrium.assertions.FixHoldsAssertionGroup
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.ListAssertionGroupType
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.searchers
 
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearcher
-import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import java.util.regex.Pattern
 
 /**
