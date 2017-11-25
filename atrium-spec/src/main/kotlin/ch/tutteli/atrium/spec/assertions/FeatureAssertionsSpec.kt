@@ -31,8 +31,6 @@ private typealias F = IAssertionPlant<TestData>.() -> Unit
 abstract class FeatureAssertionsSpec(
     verbs: IAssertionVerbFactory,
 
-    itsImmediate: F,
-    itsLazy: F,
     propertyImmediate: F,
     propertyLazy: F,
     return0ValueImmediate: F,
@@ -48,7 +46,6 @@ abstract class FeatureAssertionsSpec(
     return4ValueLazy: F,
     return5ValueLazy: F,
 
-    itsNullableDoesNotHold: F,
     propertyNullableDoesNotHold: F,
     return0ValueNullableDoesNotHold: F,
     return1ValueNullableDoesNotHold: F,
@@ -57,7 +54,6 @@ abstract class FeatureAssertionsSpec(
     return4ValueNullableDoesNotHold: F,
     return5ValueNullableDoesNotHold: F,
 
-    itsNullableHolds: F,
     propertyNullableHolds: F,
     return0ValueNullableHolds: F,
     return1ValueNullableHolds: F,
@@ -74,8 +70,6 @@ abstract class FeatureAssertionsSpec(
     val expect = verbs::checkException
 
     val functions = arrayOf(
-        Triple("`its` immediate", itsImmediate, TestData::description.name),
-        Triple("`its` lazy", itsLazy, TestData::description.name),
         Triple("`property` immediate", propertyImmediate, TestData::description.name),
         Triple("`property` lazy", propertyLazy, TestData::description.name),
         Triple("`returnValueOf` without arguments and immediate", return0ValueImmediate, "${TestData::return0.name}()"),
@@ -92,7 +86,6 @@ abstract class FeatureAssertionsSpec(
         Triple("`returnValueOf` with 5 arguments and lazy", return5ValueLazy, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')")
     )
     val nullableFailingFunctions = arrayOf(
-        Triple("`its` isNull", itsNullableDoesNotHold, TestData::nullableValue.name),
         Triple("`property` isNull", propertyNullableDoesNotHold, TestData::nullableValue.name),
         Triple("`returnValueOf` without argument and isNull", return0ValueNullableDoesNotHold, "${TestData::returnNullable0.name}()"),
         Triple("`returnValueOf` with 1 argument and isNull", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
@@ -102,7 +95,6 @@ abstract class FeatureAssertionsSpec(
         Triple("`returnValueOf` with 5 arguments and isNull", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
     )
     val nullableHoldsFunctions = arrayOf(
-        "`its` isNotNull" to itsNullableHolds,
         "`property` isNotNull" to propertyNullableHolds,
         "`returnValueOf` with 1 argument and isNotNull" to return1ValueNullableHolds,
         "`returnValueOf` without argument and isNotNull" to return0ValueNullableHolds,
@@ -118,7 +110,7 @@ abstract class FeatureAssertionsSpec(
         *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
         *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
         *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
-        checkingTriple("`itsLazy`with nested immediate", itsLazyWithNestedImmediate, failingTestData, TestData("by robert", 1))
+        checkingTriple("`propertyLazy`with nested immediate", itsLazyWithNestedImmediate, failingTestData, TestData("by robert", 1))
     ) {})
 
     fun <T> SpecBody.checkGenericNarrowingAssertionWithExceptionMessage(

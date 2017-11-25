@@ -39,43 +39,6 @@ fun <T : Any, TProperty : Any?> IAssertionPlant<T>.property(property: KProperty0
     = _property(this, property)
 
 /**
- * Creates an [IAssertionPlant] for the given [feature] which eventually adds [IAssertionGroup]s with a
- * [IFeatureAssertionGroupType], containing the assertions created for the given [feature], to the current plant.
- *
- * Delegates to [property].
- *
- * @return An [IAssertionPlant] for the given [feature], using an [AtriumFactory.newFeatureAssertionChecker].
- */
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlant<TFeature>
-    = property(feature)
-
-/**
- * Creates an [IAssertionPlant] for the given [feature] which eventually adds [IAssertionGroup]s with a
- * [IFeatureAssertionGroupType], containing the assertions created for the given [feature], to the current plant --
- * starting with a group consisting of the [IAssertion]s created by the [assertionCreator] lambda.
- *
- * Delegates to [property].
- *
- * @return An [IAssertionPlant] for the given [feature], using an [AtriumFactory.newFeatureAssertionChecker].
- *
- * @throws AssertionError Might throw an [AssertionError] if an additionally created [IAssertion]
- *         (by calling [assertionCreator]) does not hold.
- */
-fun <T : Any, TFeature : Any> IAssertionPlant<T>.its(feature: KProperty0<TFeature>, assertionCreator: IAssertionPlant<TFeature>.() -> Unit): IAssertionPlant<TFeature>
-    = property(feature, assertionCreator)
-
-/**
- * Creates an [IAssertionPlantNullable] for the given [feature] which eventually adds [IAssertionGroup]s with a
- * [IFeatureAssertionGroupType], containing the assertions created for the given [feature], to the current plant.
- *
- * Delegates to [property].
- *
- * @return An [IAssertionPlantNullable] for the given [feature], using an [AtriumFactory.newFeatureAssertionChecker].
- */
-fun <T : Any, TFeature : Any?> IAssertionPlant<T>.its(feature: KProperty0<TFeature>): IAssertionPlantNullable<TFeature>
-    = property(feature)
-
-/**
  * Creates an [IAssertionPlant], for the value returned by calling [method], which eventually adds [IAssertionGroup]s
  * with a [IFeatureAssertionGroupType], containing the assertions created for the return value, to the current plant.
  *

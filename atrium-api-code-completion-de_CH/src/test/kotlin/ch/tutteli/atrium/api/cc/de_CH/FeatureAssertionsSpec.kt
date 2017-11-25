@@ -8,8 +8,6 @@ private typealias F = IAssertionPlant<TestData>.() -> Unit
 
 class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertionsSpec(
     AssertionVerbFactory,
-    itsImmediate,
-    itsLazy,
     propertyImmediate,
     propertyLazy,
     return0ValueImmediate,
@@ -25,7 +23,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
     return4ValueLazy,
     return5ValueLazy,
 
-    itsNullableDoesNotHold,
     propertyNullableDoesNotHold,
     return0ValueNullableDoesNotHold,
     return1ValueNullableDoesNotHold,
@@ -34,7 +31,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
     return4ValueNullableDoesNotHold,
     return5ValueNullableDoesNotHold,
 
-    itsNullableHolds,
     propertyNullableHolds,
     return0ValueNullableHolds,
     return1ValueNullableHolds,
@@ -43,13 +39,11 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
     return4ValueNullableHolds,
     return5ValueNullableHolds,
 
-    itsLazyWithNestedImmediate,
-    itsLazyWithNestedLazy
+    propertyLazyWithNestedImmediate,
+    propertyLazyWithNestedLazy
 ) {
 
     companion object {
-        val itsImmediate: F = { property(subject::description).enthaelt("hello") }
-        val itsLazy: F = { property(subject::description) { enthaelt("hello") } }
         val propertyImmediate: F = { property(subject::description).enthaelt("hello") }
         val propertyLazy: F = { property(subject::description) { enthaelt("hello") } }
         val return0ValueImmediate: F = { rueckgabewertVon(subject::return0).enthaelt("hello") }
@@ -65,7 +59,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return4ValueLazy: F = { rueckgabewertVon(subject::return4, "a", 1, true, 1.2) { enthaelt("hello") } }
         val return5ValueLazy: F = { rueckgabewertVon(subject::return5, "a", 1, true, 1.2, 'b') { enthaelt("hello") } }
 
-        val itsNullableDoesNotHold: F = { property(subject::nullableValue).istNull() }
         val propertyNullableDoesNotHold: F = { property(subject::nullableValue).istNull() }
         val return0ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable0).istNull() }
         val return1ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable1, "a").istNull() }
@@ -74,7 +67,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return4ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable4, "a", 1, true, 1.2).istNull() }
         val return5ValueNullableDoesNotHold: F = { rueckgabewertVon(subject::returnNullable5, "a", 1, true, 1.2, 'b').istNull() }
 
-        val itsNullableHolds: F = { property(subject::nullableValue).istNichtNull {} }
         val propertyNullableHolds: F = { property(subject::nullableValue).istNichtNull {} }
         val return0ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable0).istNichtNull {} }
         val return1ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable1, "a").istNichtNull {} }
@@ -83,14 +75,14 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return4ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable4, "a", 1, true, 1.2).istNichtNull {} }
         val return5ValueNullableHolds: F = { rueckgabewertVon(subject::returnNullable5, "a", 1, true, 1.2, 'b').istNichtNull {} }
 
-        val itsLazyWithNestedImmediate: F = {
-            property(subject::description) {
-                property(subject::length).ist(12)
+        val propertyLazyWithNestedImmediate: F = {
+            property(it::description) {
+                property(it::length).ist(12)
             }
         }
-        val itsLazyWithNestedLazy: F = {
-            property(subject::description) {
-                property(subject::length) { ist(12) }
+        val propertyLazyWithNestedLazy: F = {
+            property(it::description) {
+                property(it::length) { ist(12) }
             }
         }
     }

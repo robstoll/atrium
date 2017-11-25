@@ -8,8 +8,6 @@ private typealias F = IAssertionPlant<TestData>.() -> Unit
 
 class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertionsSpec(
     AssertionVerbFactory,
-    itsImmediate,
-    itsLazy,
     propertyImmediate,
     propertyLazy,
     return0ValueImmediate,
@@ -25,7 +23,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
     return4ValueLazy,
     return5ValueLazy,
 
-    itsNullableDoesNotHold,
     propertyNullableDoesNotHold,
     return0ValueNullableDoesNotHold,
     return1ValueNullableDoesNotHold,
@@ -34,7 +31,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
     return4ValueNullableDoesNotHold,
     return5ValueNullableDoesNotHold,
 
-    itsNullableHolds,
     propertyNullableHolds,
     return0ValueNullableHolds,
     return1ValueNullableHolds,
@@ -43,13 +39,11 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
     return4ValueNullableHolds,
     return5ValueNullableHolds,
 
-    itsLazyWithNestedImmediate,
-    itsLazyWithNestedLazy
+    propertyLazyWithNestedImmediate,
+    propertyLazyWithNestedLazy
 ) {
 
     companion object {
-        val itsImmediate: F = { its(subject::description).contains("hello") }
-        val itsLazy: F = { its(subject::description) { contains("hello") } }
         val propertyImmediate: F = { property(subject::description).contains("hello") }
         val propertyLazy: F = { property(subject::description) { contains("hello") } }
         val return0ValueImmediate: F = { returnValueOf(subject::return0).contains("hello") }
@@ -65,7 +59,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return4ValueLazy: F = { returnValueOf(subject::return4, "a", 1, true, 1.2) { contains("hello") } }
         val return5ValueLazy: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
 
-        val itsNullableDoesNotHold: F = { its(subject::nullableValue).isNull() }
         val propertyNullableDoesNotHold: F = { property(subject::nullableValue).isNull() }
         val return0ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable0).isNull() }
         val return1ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable1, "a").isNull() }
@@ -74,7 +67,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return4ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNull() }
         val return5ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
 
-        val itsNullableHolds: F = { its(subject::nullableValue).isNotNull {} }
         val propertyNullableHolds: F = { property(subject::nullableValue).isNotNull {} }
         val return0ValueNullableHolds: F = { returnValueOf(subject::returnNullable0).isNotNull {} }
         val return1ValueNullableHolds: F = { returnValueOf(subject::returnNullable1, "a").isNotNull {} }
@@ -84,14 +76,14 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return5ValueNullableHolds: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNotNull {} }
 
 
-        val itsLazyWithNestedImmediate: F = {
-            its(subject::description) {
-                its(subject::length).toBe(12)
+        val propertyLazyWithNestedImmediate: F = {
+            property(it::description) {
+                property(it::length).toBe(12)
             }
         }
-        val itsLazyWithNestedLazy: F = {
-            its(subject::description) {
-                its(subject::length) { toBe(12) }
+        val propertyLazyWithNestedLazy: F = {
+            property(it::description) {
+                property(it::length) { toBe(12) }
             }
         }
     }
