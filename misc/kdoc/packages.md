@@ -71,7 +71,8 @@ Contains [IDownCastFailureHandler](./ch.tutteli.atrium.assertions.any.narrow/-i-
 
 
 # Package ch.tutteli.atrium.assertions.basic.contains
-Contains the basic contract for contains assertion builders -- [IContains](./ch.tutteli.atrium.assertions.basic.contains/-i-contains/index.html).
+Contains the basic contract for contains assertion builders 
+-- [IContains](./ch.tutteli.atrium.assertions.basic.contains/-i-contains/index.html).
 
 # Package ch.tutteli.atrium.assertions.basic.contains.builders
 Contains base classes for builders representing a step in the process of creating sophisticated `contains` assertions.
@@ -84,24 +85,24 @@ Contains base classes for [IContains.ICreators](./ch.tutteli.atrium.assertions.b
 
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains
-Contains the [CharSequenceContainsAssertionCreator](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains-assertion-creator/index.html)
-which can be used to create sophisticated contains assertions.
+Contains the contract for sophisticated CharSequence `contains` assertions 
+-- [ICharSequenceContains](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/index.html)
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.builders
 Contains base classes for fluent API builders used in assertion function APIs 
 (e.g. [atrium-assertions-code-completion-en_UK](./ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/index.html)).
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.checkers
-Contains [CharSequenceContainsAssertionCreator.IChecker](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains-assertion-creator/-i-checker/index.html)s.
+Contains [ICharSequenceContains.IChecker](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-checker.html)s.
 
-# Package ch.tutteli.atrium.assertions.charsequence.contains.decorators
-Contains [CharSequenceContainsAssertionCreator.IDecorator](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains-assertion-creator/-i-decorator/index.html)s.
+# Package ch.tutteli.atrium.assertions.charsequence.contains.creators
+Contains [ICharSequenceContains.ICreator](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-creator.html)s.
+
+# Package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
+Contains [ICharSequenceContains.ISearchBehaviour](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-search-behaviour/index.html).
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.searchers
-Contains [CharSequenceContainsAssertionCreator.ISearcher](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains-assertion-creator/-i-searcher/index.html)s.
-
-# Package ch.tutteli.atrium.builders.charsequence.contains
-Code completion style API for sophisticated contains assertions for CharSequence. 
+Contains [ICharSequenceContains.ISearcher](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-searcher/index.html)s.
 
 
 # Package ch.tutteli.atrium.checking

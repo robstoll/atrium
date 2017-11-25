@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 
 /**
- * Represents an [ISearcher] which uses [kotlin.text.indexOf] to find expected objects.
+ * Represents an [ISearcher] which uses [CharSequence.indexOf] to find expected objects.
  */
 class CharSequenceContainsIndexSearcher : ISearcher<CharSequenceContainsNoOpSearchBehaviour> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int {

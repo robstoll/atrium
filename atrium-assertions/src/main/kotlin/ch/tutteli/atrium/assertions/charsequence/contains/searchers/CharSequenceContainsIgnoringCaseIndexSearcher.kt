@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
 
 /**
  * Represents an [ISearcher] which implements the [CharSequenceContainsIgnoringCaseSearchBehaviour] behaviour and uses
- * [CharSequence.indexOf][kotlin.text.indexOf] to find expected objects.
+ * [CharSequence.indexOf] to find expected objects.
  */
 class CharSequenceContainsIgnoringCaseIndexSearcher : ISearcher<CharSequenceContainsIgnoringCaseSearchBehaviour> {
     private val searcher = CharSequenceContainsIndexSearcher()
