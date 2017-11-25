@@ -24,29 +24,23 @@ abstract class ContainsAssertionCreator<T : Any, S, C : IContains.IChecker>(
 
     override final fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
         val assertions = listOf(searchCriterion, *otherSearchCriteria).map { createForSearchCriterion(plant, it) }
-        return createAssertionGroup(assertions)
+        return createAssertionGroupForSearchCriteriaAssertions(assertions)
     }
 
     /**
      * Creates an [IAssertionGroup] representing the sophisticated `contains` assertion as a whole based on the given
-     * [assertions].
+     * [assertions] which where created for the search criteria.
      *
      * @param assertions The assertions representing search criteria passed to [createAssertionGroup].
      *
      * @return The newly created [IAssertionGroup].
      */
-    //TODO rename fun is not really an overload of the above fun
-    protected abstract fun createAssertionGroup(assertions: List<IAssertion>): IAssertionGroup
+    protected abstract fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup
 
     private fun createForSearchCriterion(plant: IAssertionPlant<T>, searchCriterion: S): IAssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             searchAndCreateAssertion(plant, searchCriterion, this::featureFactory)
         }
-    }
-
-    private fun featureFactory(count: Int, numberOfOccurrences: ITranslatable): IAssertionGroup {
-        val assertions = checkers.map { it.createAssertion(count) }
-        return AssertionGroup(FeatureAssertionGroupType, numberOfOccurrences, RawString(count.toString()), assertions)
     }
 
     /**
@@ -67,4 +61,10 @@ abstract class ContainsAssertionCreator<T : Any, S, C : IContains.IChecker>(
         searchCriterion: S,
         featureFactory: (numberOfOccurrences: Int, description: ITranslatable) -> IAssertionGroup
     ): IAssertionGroup
+
+    private fun featureFactory(count: Int, numberOfOccurrences: ITranslatable): IAssertionGroup {
+        val assertions = checkers.map { it.createAssertion(count) }
+        return AssertionGroup(FeatureAssertionGroupType, numberOfOccurrences, RawString(count.toString()), assertions)
+    }
+
 }
