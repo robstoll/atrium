@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -49,11 +50,7 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
             }
 
             it("returns expected of the underlying ${BasicAssertion::class.simpleName}") {
-                //TODO implement contains for collections
-                //assert(resultAssertions).containsStrict(assertion)
-                val iterator = resultAssertions.iterator()
-                assert(iterator.next()).toBe(assertion)
-                assert(iterator.hasNext()).toBe(false)
+                assert(resultAssertions).containsStrictly(assertion)
             }
         }
     }

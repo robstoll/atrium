@@ -38,6 +38,31 @@ fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E, vararg otherEx
     = contains.inAnyOrder.atLeast(1).objects(expected, *otherExpected)
 
 /**
+ * Makes the assertion that [IAssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
+ * the defined order.
+ *
+ * It is a shortcut for `contains.inOrder.only.objects(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+    = contains.inOrder.only.objects(expected, *otherExpected)
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) in the defined order
+ * holding the assertions created by them.
+ *
+ * It is a shortcut for `contains.inOrder.only.entries(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
+
+/**
  * Makes the assertion that [IAssertionPlant.subject] does not contain [expected]
  * and neither one of the [otherExpected] (if defined).
  *
