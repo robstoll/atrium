@@ -11,12 +11,12 @@ class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
     decorator: IterableContainsInOrderOnlyDecorator
 ) : IterableContainsInOrderOnlyAssertionCreator<E, T, E>(decorator) {
 
-    override fun createEntryAssertion(iterableAsList: List<E>, expected: E, template: ((Boolean) -> IAssertion) -> IAssertionGroup): IAssertionGroup
-        = template(createEntryFeatureAssertion(expected))
+    override fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: E, template: ((Boolean) -> IAssertion) -> IAssertionGroup): IAssertionGroup
+        = template(createEntryFeatureAssertion(searchCriterion))
 
-    private fun createEntryFeatureAssertion(expected: E): (Boolean) -> IAssertion
-        = { found -> BasicAssertion(DescriptionAnyAssertion.TO_BE, expected ?: RawString.NULL, found) }
+    private fun createEntryFeatureAssertion(searchCriterion: E): (Boolean) -> IAssertion
+        = { found -> BasicAssertion(DescriptionAnyAssertion.TO_BE, searchCriterion ?: RawString.NULL, found) }
 
-    override fun holds(actual: E, expected: E): Boolean
-        = actual == expected
+    override fun matches(actual: E, searchCriterion: E): Boolean
+        = actual == searchCriterion
 }

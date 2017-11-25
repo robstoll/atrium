@@ -9,14 +9,14 @@ class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E
     decorator: IterableContainsInOrderOnlyDecorator
 ) : IterableContainsInOrderOnlyAssertionCreator<E, T, IAssertionPlant<E>.() -> Unit>(decorator) {
 
-    override fun createEntryAssertion(iterableAsList: List<E>, expected: IAssertionPlant<E>.() -> Unit, template: ((Boolean) -> IAssertion) -> IAssertionGroup): IAssertionGroup {
-        val explanatoryAssertions = createExplanatoryAssertions(expected, iterableAsList)
+    override fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: IAssertionPlant<E>.() -> Unit, template: ((Boolean) -> IAssertion) -> IAssertionGroup): IAssertionGroup {
+        val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, iterableAsList)
         return template(createEntryFeatureAssertion(explanatoryAssertions))
     }
 
     private fun createEntryFeatureAssertion(explanatoryAssertions: List<IAssertion>): (Boolean) -> IAssertion
         = { found -> createEntryAssertion(explanatoryAssertions, found) }
 
-    override fun holds(actual: E, expected: IAssertionPlant<E>.() -> Unit): Boolean
-        = allCreatedAssertionsHold(actual, expected)
+    override fun matches(actual: E, searchCriterion: IAssertionPlant<E>.() -> Unit): Boolean
+        = allCreatedAssertionsHold(actual, searchCriterion)
 }
