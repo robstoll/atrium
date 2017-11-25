@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * `contains` assertion.
  *
  * @param T The type of the [IAssertionPlant.subject].
- * @param D The type of the current [IContains.IDecorator].
+ * @param S The type of the current [IContains.ISearchBehaviour].
  *
  * @property plant The [IAssertionPlant] for which the sophisticated `contains` assertions shall be built.
  * @property decorator The search behaviour which shall be applied to the input of the search.
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @param plant The [IAssertionPlant] for which the sophisticated `contains` assertions shall be built.
  * @param decorator The search behaviour which shall be applied to the input of the search.
  */
-abstract class ContainsBuilder<out T : Any, D: IContains.IDecorator>(
+abstract class ContainsBuilder<out T : Any, S: IContains.ISearchBehaviour>(
     val plant: IAssertionPlant<T>,
-    val decorator: D
+    val decorator: S
 )

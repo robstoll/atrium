@@ -3,9 +3,9 @@ package ch.tutteli.atrium.assertions.iterable.contains.builders
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 
-class IterableContainsNoOpCheckerBuilder<E, T : Iterable<E>, D : IIterableContains.IDecorator>(
-    containsBuilder: IterableContainsBuilder<E, T, D>
-) : IterableContainsCheckerBuilder<E, T, D>(containsBuilder) {
+class IterableContainsNoOpCheckerBuilder<E, T : Iterable<E>, S : IIterableContains.ISearchBehaviour>(
+    containsBuilder: IterableContainsBuilder<E, T, S>
+) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
     override val checkers: List<IIterableContains.IChecker> = listOf(NotIntendedForUseChecker)
 

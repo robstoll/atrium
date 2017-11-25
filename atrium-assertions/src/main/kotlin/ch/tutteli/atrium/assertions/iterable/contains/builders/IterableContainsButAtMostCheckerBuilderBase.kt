@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.validateButAtMost
 import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.IChecker
-import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.IDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.ISearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsAtMostChecker
 
 /**
@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * fluent API of a sophisticated `contains` assertion for [Iterable].
  *
  * @param T The input type of the search.
- * @param D The decoration behaviour which should be applied to the input of the search.
+ * @param S The search behaviour which should be applied to the input of the search.
  *
  * @property times The number which the check will compare against the actual number of times an expected object
  *                 is found in the input of the search.
@@ -26,16 +26,16 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * @param nameAtMostFun The name of the function which was called and created this builder.
  * @param nameExactlyFun The name of the function which represents a `Iterable contains exactly` assertion.
  */
-abstract class IterableContainsButAtMostCheckerBuilderBase<E, T : Iterable<E>, D : IDecorator>(
+abstract class IterableContainsButAtMostCheckerBuilderBase<E, T : Iterable<E>, S : ISearchBehaviour>(
     val times: Int,
-    atLeastBuilder: IterableContainsAtLeastCheckerBuilderBase<E, T, D>,
-    containsBuilder: IterableContainsBuilder<E, T, D>,
+    atLeastBuilder: IterableContainsAtLeastCheckerBuilderBase<E, T, S>,
+    containsBuilder: IterableContainsBuilder<E, T, S>,
     nameContainsNotFun: String,
     nameAtMostFun: String,
     nameAtLeastFun: String,
     nameButAtMostFun: String,
     nameExactlyFun: String
-) : IterableContainsCheckerBuilder<E, T, D>(containsBuilder) {
+) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
     init {
         validateButAtMost(atLeastBuilder.times, times, nameAtLeastFun, nameButAtMostFun, nameExactlyFun)

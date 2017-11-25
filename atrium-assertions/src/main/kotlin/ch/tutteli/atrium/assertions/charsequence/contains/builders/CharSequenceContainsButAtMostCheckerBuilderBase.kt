@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.validateButAtMost
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtMostChecker
 
 /**
@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * fluent API of a sophisticated `contains` assertion for [CharSequence].
  *
  * @param T The input type of the search.
- * @param D The decoration behaviour which should be applied to the input of the search.
+ * @param S The search behaviour which should be applied to the input of the search.
  *
  * @property times The number which the check will compare against the actual number of times an expected object
  *                 is found in the input of the search.
@@ -26,16 +26,16 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @param nameAtMostFun The name of the function which was called and created this builder.
  * @param nameExactlyFun The name of the function which represents a `CharSequence contains exactly` assertion.
  */
-abstract class CharSequenceContainsButAtMostCheckerBuilderBase<T : CharSequence, D : IDecorator>(
+abstract class CharSequenceContainsButAtMostCheckerBuilderBase<T : CharSequence, S : ISearchBehaviour>(
     val times: Int,
-    atLeastBuilder: CharSequenceContainsAtLeastCheckerBuilderBase<T, D>,
-    containsBuilder: CharSequenceContainsBuilder<T, D>,
+    atLeastBuilder: CharSequenceContainsAtLeastCheckerBuilderBase<T, S>,
+    containsBuilder: CharSequenceContainsBuilder<T, S>,
     nameContainsNotFun: String,
     nameAtMostFun: String,
     nameAtLeastFun: String,
     nameButAtMostFun: String,
     nameExactlyFun: String
-) : CharSequenceContainsCheckerBuilder<T, D>(containsBuilder) {
+) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
 
     init {
         validateButAtMost(atLeastBuilder.times, times, nameAtLeastFun, nameButAtMostFun, nameExactlyFun)

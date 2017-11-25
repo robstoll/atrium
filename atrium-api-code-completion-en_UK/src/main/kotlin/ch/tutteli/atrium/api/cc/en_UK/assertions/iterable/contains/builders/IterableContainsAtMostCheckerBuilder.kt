@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsAtMostCheckerBuilderBase
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderSearchBehaviour
 
 /**
  * Represents the builder of a `contains at least once but at most` check within the fluent API of a
@@ -22,8 +22,8 @@ import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContain
  */
 open class IterableContainsAtMostCheckerBuilder<E, T : Iterable<E>>(
     times: Int,
-    containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>
-) : IterableContainsAtMostCheckerBuilderBase<E, T, IterableContainsInAnyOrderDecorator>(
+    containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+) : IterableContainsAtMostCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     times,
     containsBuilder,
     containsBuilder.plant::containsNot.name,

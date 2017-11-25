@@ -9,8 +9,8 @@ import ch.tutteli.atrium.assertions.iterable.contains.decorators.*
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>.inAnyOrder
-    get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderDecorator)
+val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inAnyOrder
+    get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderSearchBehaviour)
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -18,9 +18,9 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecor
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>.only
+val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.only
     @JvmName("inAnyOrderOnly")
-    get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderOnlyDecorator)
+    get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderOnlySearchBehaviour)
 
 /**
  * Defines that the search behaviour "find entries `in order` in the [Iterable]" shall be applied to this
@@ -28,8 +28,8 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>.inOrder
-    get() = IterableContainsBuilder(plant, IterableContainsInOrderDecorator)
+val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inOrder
+    get() = IterableContainsBuilder(plant, IterableContainsInOrderSearchBehaviour)
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -37,6 +37,6 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpDecor
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderDecorator>.only
+val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>.only
     @JvmName("inOrderOnly")
-    get() = IterableContainsBuilder(plant, IterableContainsInOrderOnlyDecorator)
+    get() = IterableContainsBuilder(plant, IterableContainsInOrderOnlySearchBehaviour)

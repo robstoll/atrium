@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.atLeast
 import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilderBase
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsInAnyOrderSearchBehaviour
 
 /**
  *  Represents the builder of a `contains at least` check within the fluent API of a sophisticated
@@ -20,8 +20,8 @@ import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContain
  */
 open class IterableContainsAtLeastCheckerBuilder<E, T : Iterable<E>>(
     times: Int,
-    containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderDecorator>
-) : IterableContainsAtLeastCheckerBuilderBase<E, T, IterableContainsInAnyOrderDecorator>(
+    containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+) : IterableContainsAtLeastCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     times,
     containsBuilder,
     containsBuilder.plant::containsNot.name,

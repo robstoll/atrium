@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.assertions._containsBuilder
 import ch.tutteli.atrium.assertions._containsNot
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsNoOpDecorator
+import ch.tutteli.atrium.assertions.iterable.contains.decorators.IterableContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt
-    get(): IterableContainsBuilder<E, T, IterableContainsNoOpDecorator>
+    get(): IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
     = _containsBuilder(this)
 
 /**

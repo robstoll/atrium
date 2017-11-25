@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpDecorator
+import ch.tutteli.atrium.assertions.charsequence.contains.decorators.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  * @return The newly created builder.
  */
 val <T : CharSequence> IAssertionPlant<T>.contains
-    get(): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpDecorator>
+    get(): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
     = _containsBuilder(this)
 
 /**

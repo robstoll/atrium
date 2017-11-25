@@ -6,10 +6,10 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 /**
- * Represents the decoration behaviour that an [ICharSequenceContains.ISearcher] should ignore case
+ * Represents the search behaviour that an [ICharSequenceContains.ISearcher] should ignore case
  * when searching for an expected object.
  */
-object CharSequenceContainsIgnoringCaseDecorator : ICharSequenceContains.IDecorator {
+object CharSequenceContainsIgnoringCaseSearchBehaviour : ICharSequenceContains.ISearchBehaviour {
 
     override fun decorateDescription(description: ITranslatable): ITranslatable
         = TranslatableWithArgs(DescriptionCharSequenceAssertion.IGNORING_CASE, description)

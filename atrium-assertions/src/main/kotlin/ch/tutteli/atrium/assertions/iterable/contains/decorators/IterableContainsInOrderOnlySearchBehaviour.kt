@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
-object IterableContainsInOrderOnlyDecorator : IIterableContains.IDecorator {
+object IterableContainsInOrderOnlySearchBehaviour : IIterableContains.ISearchBehaviour {
     override fun decorateDescription(description: ITranslatable): ITranslatable
         = TranslatableWithArgs(DescriptionIterableAssertion.IN_ORDER_ONLY, description)
 }
