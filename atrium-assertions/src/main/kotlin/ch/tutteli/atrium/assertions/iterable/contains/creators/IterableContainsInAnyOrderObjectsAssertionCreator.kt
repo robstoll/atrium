@@ -13,7 +13,7 @@ class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(
     IIterableContains.ICreator<T, S> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS
-    override val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
+    override val descriptionNumberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
 
     override fun search(plant: IAssertionPlant<T>, searchCriterion: S): Int
         = plant.subject.filter({ it == searchCriterion }).size
