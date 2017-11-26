@@ -5,7 +5,8 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 
 /**
- * Uses an [ITranslatable] as message which should explain an absent [Throwable].
+ * Represents an [IThrowableThrown.IAbsentThrowableMessageProvider] which is using a given [ITranslatable] which in $
+ * turn explains an absent [Throwable].
  */
 class TranslatableAsAbsentThrowableMessageProvider(translatable: ITranslatable) : IThrowableThrown.IAbsentThrowableMessageProvider {
     override val message = TranslatableRawString(translatable)

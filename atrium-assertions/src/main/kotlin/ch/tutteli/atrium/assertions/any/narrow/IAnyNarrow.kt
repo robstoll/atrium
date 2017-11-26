@@ -14,9 +14,9 @@ import kotlin.reflect.KClass
 interface IAnyNarrow {
 
     /**
-     * A handler which decides what to do with the lambda -- which could have created subsequent assertions for the
-     * down-casted [IAssertionPlant.subject] -- in case the down-cast of the [IAssertionPlant.subject] to type [TSub]
-     * would fail.
+     * A handler which decides how the lambda -- which could have created subsequent assertions for the
+     * down-casted [IAssertionPlant.subject], in case the down-cast of the [IAssertionPlant.subject] to type [TSub]
+     * did not have fail -- should be used in reporting.
      *
      * @param T The type of [IAssertionPlant.subject].
      * @param TSub The type to which [IAssertionPlant.subject] should have been be down-casted, hence needs to be a

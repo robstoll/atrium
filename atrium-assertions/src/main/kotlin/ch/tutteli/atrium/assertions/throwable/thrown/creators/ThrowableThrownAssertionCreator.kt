@@ -9,12 +9,26 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import kotlin.reflect.KClass
 
+/**
+ * Represents a creator of a sophisticated a [Throwable] (of type [TExpected]) was thrown assertion.
+ *
+ * It uses the given [absentThrowableMessageProvider] in case no [Throwable] was thrown at all and uses a [DownCaster]
+ * to perform the down-cast to the desired type [TExpected] (for this it passes on the given [failureHandler] to the
+ * [DownCaster])
+ *
+ * @param TExpected The type of the [Throwable] which we expect was thrown.
+ *
+ * @constructor Represents a creator of a sophisticated a [Throwable] (of type [TExpected]) was thrown assertion.
+ * @param absentThrowableMessageProvider Provides a description for the case no [Throwable] was thrown at all.
+ * @param failureHandler A handler which decides how the assertion creator lambda (see [executeActAndCreateAssertion])
+ *        is used in reporting.
+ */
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: IThrowableThrown.IAbsentThrowableMessageProvider,
     private val failureHandler: IAnyNarrow.IDownCastFailureHandler<Throwable, TExpected>
-) {
+) : IThrowableThrown.ICreator<TExpected> {
 
-    fun createAndAddAssertionToPlant(throwableThrownBuilder: ThrowableThrownBuilder, description: ITranslatable, expectedType: KClass<TExpected>, assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
+    override fun executeActAndCreateAssertion(throwableThrownBuilder: ThrowableThrownBuilder, description: ITranslatable, expectedType: KClass<TExpected>, assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
         var throwable: Throwable? = null
         try {
             throwableThrownBuilder.act()
