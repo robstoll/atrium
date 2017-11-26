@@ -35,7 +35,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDown
      * It also adds an [IBasicAssertion], representing the down-cast as such (succeeding or failing), to the given
      * [subjectPlant] using the given [description].
      *
-     * @param description
+     * @param description The [description][IBasicAssertion.description] of the resulting [IBasicAssertion].
      * @param subType The type to which the [subjectPlant]'s [subject][IAssertionPlant.subject] should be down-casted.
      * @param subjectPlant The plant to which additional assertions will be added.
      * @param assertionCreator The lambda function which can create subsequent assertions for the down-casted subject.

@@ -68,7 +68,7 @@ assertions for Iterable.
 Contains different types of [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html) --  
 e.g. [BasicAssertion](./ch.tutteli.atrium.assertions/-basic-assertion/index.html) -- 
 as well as assertion function templates which can be used in API modules such as 
-[ch.tutteli.atrium.api.cc.en_UK](./ch.tutteli.atrium.api.cc.en_-u-k/index.html).
+[ch.tutteli.atrium.api.cc.en_UK].
 
 # Package ch.tutteli.atrium.assertions.any.narrow
 Contains inter alia the contract for narrowing assertion builders -- [IAnyNarrow](./ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/index.html).
@@ -97,7 +97,7 @@ Contains the contract for sophisticated CharSequence `contains` assertions
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.builders
 Contains base classes for fluent API builders used in assertion function APIs 
-(e.g. [atrium-assertions-code-completion-en_UK](./ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/index.html)).
+(e.g. [atrium-assertions-code-completion-en_UK]).
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.checkers
 Contains [ICharSequenceContains.IChecker](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-checker.html)s.
@@ -118,7 +118,7 @@ Contains the contract for sophisticated Iterable `contains` assertions
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.builders
 Contains base classes for fluent API builders used in assertion function APIs 
-(e.g. [atrium-assertions-code-completion-en_UK](./ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/index.html)).
+(e.g. [atrium-assertions-code-completion-en_UK]).
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.checkers
 Contains [IIterableContains.IChecker](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-checker.html)s.
@@ -128,6 +128,21 @@ Contains [IIterableContains.ICreator](./ch.tutteli.atrium.assertions.iterable.co
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
 Contains [IIterableContains.ISearchBehaviour](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-search-behaviour.html).
+
+
+# Package ch.tutteli.atrium.assertions.throwable.thrown
+Contains the contract for sophisticated a Throwable was thrown assertions 
+-- [IThrowableThrown](./ch.tutteli.atrium.assertions.throwable.thrown/-i-throwable-thrown/index.html)
+
+# Package ch.tutteli.atrium.assertions.throwable.thrown.builders
+Contains the [ThrowableThrownBuilder](./ch.tutteli.atrium.assertions.throwable.thrown.builders/-throwable-thrown-builder/index.html)
+which typically is used to create an [assertion verb for expected exceptions](https://github.com/robstoll/atrium#use-own-assertion-verbs) 
+
+# Package ch.tutteli.atrium.assertions.throwable.thrown.creators
+Contains [IThrowableThrown.ICreator](./ch.tutteli.atrium.assertions.throwable.thrown/-i-throwable-thrown/-i-creator/index.html)s.
+
+# Package ch.tutteli.atrium.assertions.throwable.thrown.providers
+Contains [IIterableContains.IAbsentThrowableMessageProvider](./ch.tutteli.atrium.assertions.throwable.thrown/-i-throwable-thrown/-i-absent-throwable-message-provider/index.html)s.
 
 
 # Package ch.tutteli.atrium.checking
@@ -147,7 +162,7 @@ Everything involved in translating [ITranslatable](./ch.tutteli.atrium.reporting
 Helper functions for specifications as well as the contract of [IAssertionVerbFactory](./ch.tutteli.atrium.spec/-i-assertion-verb-factory/index.html).
 
 # Package ch.tutteli.atrium.spec.assertions
-Specifications for assertion function APIs (usually placed in the package [ch.tutteli.atrium])
+Specifications for assertion function APIs (usually placed in an API module -- e.g. [ch.tutteli.atrium.api.cc.de_CH]).
 
 # Package ch.tutteli.atrium.spec.checking
 Specifications for the API of the package [ch.tutteli.atrium.checking](./ch.tutteli.atrium.checking/index.html).
@@ -160,9 +175,6 @@ Specifications for the API of the package [ch.tutteli.atrium.reporting](./ch.tut
 
 # Package ch.tutteli.atrium.spec.reporting.translating
 Specifications for the API of the package [ch.tutteli.atrium.reporting.translating](./ch.tutteli.atrium.reporting.translating/index.html).
-
-# Package ch.tutteli.atrium.spec.reporting.translating
-Specifications for [Assertion Verbs](https://github.com/robstoll/atrium#use-own-assertion-verbs).
 
 # Package ch.tutteli.atrium.spec.verbs
 Specifications for [Assertion Verbs](https://github.com/robstoll/atrium#use-own-assertion-verbs).

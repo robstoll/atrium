@@ -11,5 +11,5 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 inline fun <reified TExpected : Throwable> _toThrow(throwableThrownBuilder: ThrowableThrownBuilder, noinline assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
     val provider = TranslatableAsAbsentThrowableMessageProvider(NO_EXCEPTION_OCCURRED)
     ThrowableThrownAssertionCreator<TExpected>(provider, ExplanatoryDownCastFailureHandler())
-        .createAndAddAssertionToPlant(throwableThrownBuilder, IS_A, TExpected::class, assertionCreator)
+        .executeActAndCreateAssertion(throwableThrownBuilder, IS_A, TExpected::class, assertionCreator)
 }
