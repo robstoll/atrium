@@ -17,6 +17,8 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  * @param B The type of the current [IContains.ISearchBehaviour].
  * @param C The type of the checkers in use (typically a sub interface of [IContains.IChecker]).
  *
+ * @property searchBehaviour The chosen search behaviour.
+ *
  * @constructor Represents the base class for [IContains.ICreator]s which use bare objects as search criteria (matching them
  * with `==`).
  * @param searchBehaviour The chosen search behaviour.

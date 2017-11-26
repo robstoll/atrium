@@ -37,7 +37,7 @@ Misc modules:
   and assertion function API implementations to assure they fulfill the specifications.  
 
 # Package ch.tutteli.atrium
-Contains the [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html) and its extension functions.
+Contains the [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html).
 
 
 # Package ch.tutteli.atrium.api.cc.de_CH
@@ -47,6 +47,10 @@ Contains the code completion focused assertion function API in German.
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
 assertions for CharSequence.
 
+# Package ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
+Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+assertions for Iterable.
+
 
 # Package ch.tutteli.atrium.api.cc.en_UK
 Contains the code completion focused assertion function API in English.
@@ -55,13 +59,16 @@ Contains the code completion focused assertion function API in English.
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
 assertions for CharSequence.
 
+# Package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
+Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+assertions for Iterable.
+
 
 # Package ch.tutteli.atrium.assertions
-Contains different types of [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html), 
-e.g. [IAssertionGroup](./ch.tutteli.atrium.assertions/-i-assertion-group/index.html) etc.
-as well as the [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s 
-used in the assertion functions (e.g. [DescriptionAnyAssertion](./ch.tutteli.atrium.assertions/-description-any-assertion/index.html)).
-
+Contains different types of [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html) --  
+e.g. [BasicAssertion](./ch.tutteli.atrium.assertions/-basic-assertion/index.html) -- 
+as well as assertion function templates which can be used in API modules such as 
+[ch.tutteli.atrium.api.cc.en_UK](./ch.tutteli.atrium.api.cc.en_-u-k/index.html).
 
 # Package ch.tutteli.atrium.assertions.any.narrow
 Contains inter alia the contract for narrowing assertion builders -- [IAnyNarrow](./ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/index.html).
@@ -99,10 +106,28 @@ Contains [ICharSequenceContains.IChecker](./ch.tutteli.atrium.assertions.charseq
 Contains [ICharSequenceContains.ICreator](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-creator.html)s.
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
-Contains [ICharSequenceContains.ISearchBehaviour](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-search-behaviour/index.html).
+Contains [ICharSequenceContains.ISearchBehaviour](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-search-behaviour.html).
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.searchers
 Contains [ICharSequenceContains.ISearcher](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-searcher/index.html)s.
+
+
+# Package ch.tutteli.atrium.assertions.iterable.contains
+Contains the contract for sophisticated Iterable `contains` assertions 
+-- [IIterableContains](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/index.html)
+
+# Package ch.tutteli.atrium.assertions.iterable.contains.builders
+Contains base classes for fluent API builders used in assertion function APIs 
+(e.g. [atrium-assertions-code-completion-en_UK](./ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/index.html)).
+
+# Package ch.tutteli.atrium.assertions.iterable.contains.checkers
+Contains [IIterableContains.IChecker](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-checker.html)s.
+
+# Package ch.tutteli.atrium.assertions.iterable.contains.creators
+Contains [IIterableContains.ICreator](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-creator.html)s.
+
+# Package ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
+Contains [IIterableContains.ISearchBehaviour](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-search-behaviour.html).
 
 
 # Package ch.tutteli.atrium.checking

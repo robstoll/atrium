@@ -12,6 +12,22 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
+/**
+ * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
+ * in any order and is identified by holding a group of assertions, created by an assertion creator lambda.
+ *
+ * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ *
+ * @property searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
+ *           decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ *
+ * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries
+ *              can appear in any order and are identified by holding a group of assertions, created by an assertion
+ *              creator lambda.
+ * @param searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
+ *        decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ * @param checkers The checkers which create assertions based on the search result.
+ */
 class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>>(
     private val searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
     checkers: List<IIterableContains.IChecker>
