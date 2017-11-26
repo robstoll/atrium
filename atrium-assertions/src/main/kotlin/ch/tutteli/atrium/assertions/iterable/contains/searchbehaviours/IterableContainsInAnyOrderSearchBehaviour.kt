@@ -5,6 +5,9 @@ import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
+/**
+ * Represents the search behaviour that expected entries might appear in any order within the [Iterable].
+ */
 object IterableContainsInAnyOrderSearchBehaviour : IIterableContains.ISearchBehaviour {
     override fun decorateDescription(description: ITranslatable): ITranslatable
         = TranslatableWithArgs(DescriptionIterableAssertion.IN_ANY_ORDER, description)

@@ -9,9 +9,22 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
+/**
+ * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries have
+ * to appear in the [Iterable] but in any order -- an entry is identified by holding a group of assertions
+ * created by an assertion creator lambda.
+ *
+ * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ *
+ * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected
+ *              entries have to appear in the [Iterable] but in any order -- an entry is identified by holding a group
+ *              of assertions created by an assertion creator lambda.
+ * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
+ *        decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ */
 class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E>>(
-    decorator: IterableContainsInAnyOrderOnlySearchBehaviour
-) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, IAssertionPlant<E>.() -> Unit>(decorator) {
+    searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
+) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, IAssertionPlant<E>.() -> Unit>(searchBehaviour) {
 
     override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: IAssertionPlant<E>.() -> Unit, list: MutableList<E>): Pair<Boolean, IAssertion> {
         val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, list)

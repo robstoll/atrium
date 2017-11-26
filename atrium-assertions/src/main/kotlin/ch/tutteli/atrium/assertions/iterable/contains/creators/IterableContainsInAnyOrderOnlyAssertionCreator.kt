@@ -8,8 +8,23 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
+/**
+ * Represents the base class for `in any order only` assertion creators and provides a corresponding template to fulfill
+ * its responsibility.
+ *
+ * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param S The type of the search criterion.
+ *
+ * @property searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
+ *           decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ *
+ * @constructor Represents the base class for `in any order only` assertion creators and provides a corresponding
+ *              template to fulfill its responsibility.
+ * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
+ *        decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ */
 abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>, S>(
-    private val decorator: IterableContainsInAnyOrderOnlySearchBehaviour
+    private val searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
 ) : IIterableContains.ICreator<T, S> {
 
     override final fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
@@ -28,7 +43,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>
             }
             assertions.add(AssertionGroup(FeatureAssertionGroupType, Untranslatable(list::size.name), RawString(actualSize.toString()), featureAssertions))
 
-            val description = decorator.decorateDescription(CONTAINS)
+            val description = searchBehaviour.decorateDescription(CONTAINS)
             val summary = AssertionGroup(SummaryAssertionGroupType, description, RawString(""), assertions.toList())
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {

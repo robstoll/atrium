@@ -6,10 +6,23 @@ import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
+/**
+ * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
+ * in any order and is identified by expected objects (equality comparison).
+ *
+ * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param S The type of the elements of the iterable, used as search criterion.
+ *
+ * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries
+ *              can appear in any order and are identified by expected objects (equality comparison).
+ * @param searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
+ *        decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ * @param checkers The checkers which create assertions based on the search result.
+ */
 class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(
-    decorator: IterableContainsInAnyOrderSearchBehaviour,
+    searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
     checkers: List<IIterableContains.IChecker>
-) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderSearchBehaviour, IIterableContains.IChecker>(decorator, checkers),
+) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderSearchBehaviour, IIterableContains.IChecker>(searchBehaviour, checkers),
     IIterableContains.ICreator<T, S> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS

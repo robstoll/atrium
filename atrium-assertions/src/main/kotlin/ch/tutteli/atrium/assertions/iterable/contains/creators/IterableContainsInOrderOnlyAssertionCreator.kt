@@ -9,8 +9,23 @@ import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
+/**
+ * Represents the base class for `in order only` assertion creators and provides a corresponding template to fulfill
+ * its responsibility.
+ *
+ * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param S The type of the search criterion.
+ *
+ * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
+ *           decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ *
+ * @constructor Represents the base class for `in any order only` assertion creators and provides a corresponding
+ *              template to fulfill its responsibility.
+ * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
+ *        decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ */
 abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S>(
-    private val decorator: IterableContainsInOrderOnlySearchBehaviour
+    private val searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
 ) : IIterableContains.ICreator<T, S> {
 
     override final fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
@@ -25,7 +40,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
             assertions.add(createSizeFeatureAssertion(allSearchCriteria.size, list, itr))
 
 
-            val description = decorator.decorateDescription(DescriptionIterableAssertion.CONTAINS)
+            val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
             AssertionGroup(SummaryAssertionGroupType, description, RawString(""), assertions.toList())
         }
     }

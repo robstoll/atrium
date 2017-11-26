@@ -11,9 +11,10 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Represents a creator of sophisticated `contains` assertions for [CharSequence].
  *
  * A sophisticated `contains` assertion is build up by a desired [ISearchBehaviour], a [ISearcher] and a number of
- * [IChecker]s. The [searcher] searches for specified objects, considering the given [decorator] and then passes on the
- * result to the given [checkers] which in turn create the assertions representing the corresponding check. Those
- * created assertions are then grouped into an [IAssertionGroup].
+ * [IChecker]s. The [searcher] searches for specified objects -- considering the given [searchBehaviour] -- and
+ * then passes on the result to the given [checkers] which in turn create the assertions representing the
+ * corresponding check. Those created assertions are then grouped into an [IAssertionGroup] which represents the
+ * sophisticated assertion as a whole.
  *
  * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
  * @param S The search behaviour which should be applied to the input of the search.

@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 interface ICharSequenceContains {
 
     /**
-     * Represents a search behaviour but leaves it up to the [ICreator] how this behaviour is implemented -- yet, it
+     * Represents a search behaviour but leaves it up to the [ISearcher] how this behaviour is implemented -- yet, it
      * provides a method to decorate a description (an [ITranslatable]) in order that it reflects the search behaviour.
      */
     interface ISearchBehaviour : IContains.ISearchBehaviour
