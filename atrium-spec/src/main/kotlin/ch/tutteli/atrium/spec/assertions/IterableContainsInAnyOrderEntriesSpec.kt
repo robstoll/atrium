@@ -11,39 +11,33 @@ import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderEntriesSpec(
     verbs: IAssertionVerbFactory,
-    containsEntryPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit) -> IAssertionPlant<Iterable<Double>>>,
     containsEntriesPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit, Array<out IAssertionPlant<Double>.() -> Unit>) -> IAssertionPlant<Iterable<Double>>>
 ) : IterableContainsEntriesSpecBase(verbs, {
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
-        containsEntryPair.first to mapToCreateAssertion { containsEntryPair.second(this, { toBe(1.2) }) },
         containsEntriesPair.first to mapToCreateAssertion { containsEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs,
-        checkingTriple(containsEntryPair.first   , { containsEntryPair.second(this, { toBe(1.2) }) }, listOf(1.2) as Iterable<Double>, listOf(2.2)),
-        checkingTriple(containsEntriesPair.first , { containsEntriesPair.second(this, { toBe(2.5) }, arrayOf()) },listOf(2.5) as Iterable<Double>, listOf())
+        checkingTriple(containsEntriesPair.first, { containsEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5) as Iterable<Double>, listOf())
     ) {})
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
-    val (containsEntry, containsEntryFun) = containsEntryPair
     val (containsEntries, containsEntriesFunArr) = containsEntriesPair
 
     fun IAssertionPlant<Iterable<Double>>.containsEntriesFun(t: IAssertionPlant<Double>.() -> Unit, vararg tX: (IAssertionPlant<Double>.() -> Unit))
         = containsEntriesFunArr(t, tX)
 
-    describe("fun $containsEntry and $containsEntries")
+    describe("fun $containsEntries")
     {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
-            test("$containsEntry{ $isLessThanFun(1.0) } throws AssertionError") {
+            test("$containsEntries{ $isLessThanFun(1.0) } throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntryFun {
-                        isLessThan(1.0)
-                    }
+                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -85,7 +79,7 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        fluent.containsEntryFun({ isGreaterThan(1.0); isLessThan(2.0) })
+                        fluent.containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.0) })
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
@@ -103,7 +97,7 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
 
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.1)") {
                 it("does not throw an exception") {
-                    fluent.containsEntryFun({ isGreaterThan(1.0); isLessThan(2.1) })
+                    fluent.containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.1) })
                 }
             }
 
@@ -117,11 +111,6 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
         }
 
         context("search for entry where the lambda does not specify any assertion") {
-            it("$containsEntry throws an ${IllegalArgumentException::class.simpleName}") {
-                expect {
-                    fluent.containsEntryFun({})
-                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
-            }
             it("$containsEntries throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsEntriesFun({})
