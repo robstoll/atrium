@@ -20,7 +20,7 @@ val <E, T : Iterable<E>> IAssertionPlant<T>.contains
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]
  * and the [otherExpected] (if defined).
  *
- * It is a shortcut for `contains.inAnyOrder.atLeast.values(expected, *otherExpected)`
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)`
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
  * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
@@ -36,6 +36,19 @@ val <E, T : Iterable<E>> IAssertionPlant<T>.contains
  */
 fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).objects(expected, *otherExpected)
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) where it does not matter
+ * in which order the entries appear.
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E: Any, T : Iterable<E>> IAssertionPlant<T>.contains(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
