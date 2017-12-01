@@ -3,10 +3,13 @@
 [![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
 
 # Atrium
-Atrium is an open-source assertion framework for Kotlin with a fluent API.
+Atrium is an open-source assertion library for Kotlin with a fluent API.
 
-It is designed to support different API styles and currently provides two APIs focusing on usability
-in conjunction with code completion functionality, once in English and once German. 
+It is designed to support different [APIs](#apis) and different reporting styles.
+The core of Atrium as well as the builders to create sophisticated assertions are designed to be extensible and 
+thus allow you to extend or replace components easily.  
+
+Atrium currently provides two [APIs](#apis) focusing on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
 **Table of Content**
@@ -21,6 +24,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [Collection Assertions](#collection-assertions)
   - [Further Examples](#further-examples)
 - [Write own Assertion Functions](#write-own-assertion-functions)
+- [APIs](#apis)
 - [Contribute](#contribute)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
@@ -283,6 +287,20 @@ assert(13).isEven()
     // assert: 13        (java.lang.Integer <1841396611>)
     // ◆ is: an even number
 ```
+
+# APIs
+Atrium supports currently two APIs, one in English and one in German. 
+Both have their design focus on interoperability with code completion functionality of your IDE 
+-- so that you can just type `.` and let your IDE do some of the work.
+
+Atrium is 
+[built up by different modules](https://robstoll.github.io/atrium/latest#/doc/) 
+and it is your chose which implementation you want to use. 
+Atrium provides two dependencies which bundle implementations so that you just have to have a dependency on that one bundle:
+
+- [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-en_UK-robstoll/build.gradle)
+- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-de_CH-robstoll/build.gradle)
+ 
 
 # Contribute
 You are very welcome to contribute:
