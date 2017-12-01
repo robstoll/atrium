@@ -17,7 +17,7 @@ interface ITranslatable {
     val name: String
 
     /**
-     * The id of this [ITranslatable] -- per default it is "[Class.name]-[name]"
+     * The id of this [ITranslatable] -- per default it is "[Class.name][ID_SEPARATOR][name]"
      */
     val id: String get() = this::class.java.name + ID_SEPARATOR + name
 

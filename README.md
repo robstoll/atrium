@@ -242,25 +242,65 @@ Are you missing an assertion function for a specific type and the generic functi
 [property](#property-assertions) and [returnValueOf](#method-assertions) 
 are not good enough?
 
-Writing one is very simple and a pull request of your new assertion function is welcome.
+Writing one is very simple and a pull request of your new assertion function is very welcome.
 Following an example:
 
 ```kotlin
-fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
-    DescriptionBasic.IS, TranslatableRawString(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
+fun IAssertionPlant<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
+    Untranslatable("is multiple of"), base, { subject % base == 0 })
+```
+and its usage:
 
-enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
-    EVEN("an even number")
-}
+```kotlin
+assert(12).isMultipleOf(5)
+    // assert: 12        (java.lang.Integer <934275857>)
+    // ◆ is multiple of: 5        (java.lang.Integer <1364913072>)
 ```
 
-and its usage:
+Let's see how we actually defined `isMultipleOf`. 
+First of, you need to know that `IAssertionPlant<T>` is the entry point for assertion functions.
+We get an `IAssertionPlant<Int>` when calling `assert(12)` and an `IAssertionPlant<String>` for `assert("hello")`.
+In our case we want to define the assertion function only for `subject`s of type `Int` 
+hence we define `isMultipleOf` as 
+[extension function](https://kotlinlang.org/docs/reference/extensions.html)
+of `IAssertionPlant<Int>`.
+We then use the method `createAndAddAssertion` (which is provided by `IAssertionPlant`) to create the assertion, 
+add it to the plant itself 
+and return the plant to support a fluent API. 
+The method [createAndAddAssertion](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.creating/-i-assertion-plant/create-and-add-assertion.html) expects:
+- an [ITranslatable](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)
+  as  description of your assertion.
+- the representation of the expected value.
+- and the actual check as lambda where you typically use the `subject` of the assertion.
+ 
+We use an `Untranslatable` as first argument here because we are not bothered with internationalization.
+Typically you use the expected value itself as its representation -- so you pass it as second argument.
+
+But not all assertion functions require a value which is somehow compared against the subject 
+-- some make an assertion about a property of a subject without comparing it against an expected value.
+Consider the following assertion function:
+
+```kotlin
+fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
+    DescriptionBasic.IS, RawString("an even number"), { subject % 2 == 0 })
+```
+We are using a [RawString](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
+here so that `"an even number"` is not treated as a `String` in reporting.
+Also notice, that we are reusing a common description (`DescriptionBasic.IS`) as first argument.
+Its usage looks then as follows:
 
 ```kotlin
 assert(13).isEven()
     // assert: 13        (java.lang.Integer <1841396611>)
     // ◆ is: an even number
 ```
+
+Do you want to write an own sophisticated assertion builder instead of an assertion function? 
+Have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
+[ch.tutteli.atrium.assertions.iterable.contains](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/assertions/iterable/contains).
+If you have a question, then please post it in the 
+[atrium-kotlin Slack channel](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM)
+and I will try to help you.
 
 # Use own Assertion Verbs
 
