@@ -54,8 +54,8 @@ class ResourceBundleBasedTranslator private constructor(
          *                      placeholders in the resulting translation of [ITranslatableWithArgs.translatable] with
          *                      the [ITranslatableWithArgs.arguments].
          * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
-         *                          [primaryLocale] or one of its secondary alternatives -- the fallbacks are used
-         *                          in the given order.
+         *                        [primaryLocale] or one of its secondary alternatives -- the [fallbackLocales] are
+         *                        used in the given order.
          */
         fun create(primaryLocale: Locale, vararg fallbackLocales: Locale): ResourceBundleBasedTranslator {
             val control = if (fallbackLocales.isEmpty()) {
