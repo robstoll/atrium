@@ -13,6 +13,8 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
  * using a non disjoint search.
  *
+ * Delegates to [werte].
+ *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
  * @param expected The object which is expected to be contained within the input of the search.
@@ -44,6 +46,8 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
  * (ignoring case), using a non disjoint search.
+ *
+ * Delegates to [werte].
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *

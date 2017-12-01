@@ -10,6 +10,8 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
  * within the [Iterable].
  *
+ * Delegates to [objects].
+ *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
@@ -22,14 +24,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
  * [otherExpected] values shall be searched within the [Iterable].
  *
- * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
- * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `contains.inAnyOrder.exactly(2).value('a')`
- * instead of:
- *   `contains.inAnyOrder.atLeast(1).values('a', 'a')`
+ * Delegates to [objects].
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
@@ -43,6 +38,8 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
  * within the [Iterable].
+ *
+ * Delegates to [objects].
  *
  * @param expected The object which is expected to be contained within the [Iterable].
  *
@@ -77,6 +74,8 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
  * all assertions [assertionCreator] might create.
+ *
+ * Delegates to [entries].
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
  *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
