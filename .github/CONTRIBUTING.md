@@ -60,14 +60,14 @@ prepend the title with `[NEED HELP]` and explain your problem in the description
  
 Following a small guidance how I would start.
  
-1. Fork the repository to your repositories 
-2. Use an IDE which supports Kotlin and gradle projects (I am currently using [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/))  
-3. Import the projects
-4. Read up the [Coding Conventions of Atrium](#coding-conventions)
+1. Fork the repository to your repositories. 
+2. Use an IDE which supports Kotlin and gradle projects (I am currently using [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/)).  
+3. Import the projects.
+4. Read up the [Coding Conventions of Atrium](#coding-conventions) (there are only 5 points).
 5. Get to know how [Spek](http://spekframework.org/docs/latest/) works or look at 
    the existing specifications in atrium-spec.
-6. Write a test-case for an existing class. This way you get familiar with the classes of atrium, 
-   you use atrium again and learn how spek works
+6. Write a test-case for an existing class. This way you get familiar with the classes of Atrium, 
+   you use Atrium and learn how Spek works.
 7. Read the [Pull Request Checklist](#pull-request-checklist) and create your first pull-request.
 8. :clap: you have submitted your first code contribution to Atrium :blush:
 
@@ -86,10 +86,10 @@ However, here a few hints in order that your pull request is merged quickly.
 
 ## Pull Request Checklist
 Make sure you can check every item on the following list before you create a pull request:  
-- [ ] your pull request is based on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
+- [ ] your pull request is rebased on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
 - [ ] your pull request should ideally consists of one small commit. If not then make sure
-     - [ ] it cannot be split up in several pull requests
-     - [ ] your commits are meaningful to others - e.g. do not include temporary commits like `before lunch`. 
+     - [ ] it cannot be split up in several pull requests.
+     - [ ] your commits are meaningful to others - e.g. do not include temporary commits like `before lunch`;
      [Squash commits](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#_squashing) where appropriate.
      
 Once you have created and submitted your pull request, then make sure:
