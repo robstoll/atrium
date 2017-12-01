@@ -14,7 +14,6 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 
 **Table of Content**
 - [Installation](#installation)
-- [Use own Assertion Verbs](#use-own-assertion-verbs)
 - [Examples](#examples)
   - [Single Assertions vs. Assertion Groups](#single-assertions-vs-assertion-groups)
   - [Nullable Variables](#nullable-variables)
@@ -24,6 +23,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [Collection Assertions](#collection-assertions)
   - [Further Examples](#further-examples)
 - [Write own Assertion Functions](#write-own-assertion-functions)
+- [Use own Assertion Verbs](#use-own-assertion-verbs)
 - [APIs](#apis)
 - [Contribute](#contribute)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
@@ -55,36 +55,10 @@ is provided to set up the repository as well as an
 [example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
 which includes the necessary dependencies.
 
-# Use own Assertion Verbs
+Next to specifying a dependency to a predefined [API](#apis) you have to [setup your assertion verbs](#use-own-assertion-verbs)
+(recommended way) or use the [predefined assertion verbs](#out-of-the-box-assertion-verbs).
 
-Atrium offers three assertion verbs for the impatient: `assert`, `assertThat` and `expect`. 
-However , I suggest that you **use your own assertion verbs** even in the case you name them
-`assert`, `assertThat` or `expect`. The benefit will be that you are able to change the
-reporting style in the future without modifying existing code. 
-For instance, you could change from same-line to multi-line reporting or 
-report not only failing but also successful assertions etc.
-
-In order to create an own assertion verb it suffices to copy the file content of 
-[atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
-paste it in your own atriumVerbs.kt, rename `assert` and `expect` as desired and rename the package to reflect yours.
-
-As you can see, it is up to you if you use the same name for all assertion functions or not 
-(Atrium itself uses `expect` to postulate assertions about thrown exceptions and `assert` for other assertions).
-
-## Out of the Box Assertion Verbs
-If you still insist of using the provided assertion verbs, then add the following dependency 
-to your project in addition.
-
-gradle:
-```
-dependencies {
-    //... see other dependency in the example above
-    testCompile "ch.tutteli:atrium-verbs:$atrium_version"
-}
-```
-
-maven:  
-Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml).
+That is all, you are all set. The next section shows you how to use Atrium.
 
 # Examples
 
@@ -287,6 +261,37 @@ assert(13).isEven()
     // assert: 13        (java.lang.Integer <1841396611>)
     // ◆ is: an even number
 ```
+
+# Use own Assertion Verbs
+
+Atrium offers three assertion verbs for the impatient: `assert`, `assertThat` and `expect`. 
+However , I suggest that you **use your own assertion verbs** even in the case you name them
+`assert`, `assertThat` or `expect`. The benefit will be that you are able to change the
+reporting style in the future without modifying existing test code. 
+For instance, you could change from same-line to multi-line reporting or 
+report not only failing but also successful assertions, change the output language etc.
+
+In order to create an own assertion verb it is sufficient to copy the file content of 
+[atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+paste it in your own atriumVerbs.kt, rename `assert` and `expect` as desired and rename the package to reflect yours.
+
+As you can see, it is up to you if you use the same name for all assertion functions or not 
+(Atrium itself uses `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions).
+
+## Out of the Box Assertion Verbs
+If you still insist of using the provided assertion verbs, then add the following dependency 
+to your project in addition (see [Installation](#installation) for the rest of the gradle script).
+
+gradle:
+```
+dependencies {
+    //... see other dependency in the example above
+    testCompile "ch.tutteli:atrium-verbs:$atrium_version"
+}
+```
+
+maven:  
+Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml).    
 
 # APIs
 Atrium supports currently two APIs, one in English and one in German. 
