@@ -4,10 +4,12 @@
 
 # Atrium
 Atrium is an open-source assertion library for Kotlin with a fluent API.
+The project was inspired by AssertJ at first (and was therefore named AssertK) but it moved on and provides now more 
+flexibility and features to its users (so to you :wink:).
 
-It is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization) (i18n). 
+It is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization) (i18n).
 The core of Atrium as well as the builders to create sophisticated assertions are designed to be extensible and 
-thus allow you to extend or replace components easily.  
+thus allow you to extend or replace components easily.
 
 Atrium currently provides two [APIs](#apis) focusing on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
@@ -32,6 +34,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 - [Contribute](#contribute)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
+- [FAQ](#faq)
 - [Roadmap](#roadmap)
 - [License](#license)
 
@@ -664,6 +667,10 @@ Atrium does especially not support yet:
 - assertion functions for floating point numbers (where precision matters)
 - infinite `Iterable`s
 - assertion functions for `Sequence` (you can use `asIterable` in the meantime)
+
+# FAQ
+So far there have not been frequently asked questions but you are invited to ask your question
+in the [atrium-kotlin Slack channel](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM).
 
 # Roadmap
 I plan that Atrium will support in the future:
