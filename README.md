@@ -22,7 +22,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [Further Examples](#further-examples)
 - [Write own Assertion Functions](#write-own-assertion-functions)
 - [Contribute](#contribute)
-- [KDoc - Code Documentation](#kdoc-code-documentation)
+- [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
 - [Roadmap](#roadmap)
 - [License](#license)
@@ -284,14 +284,16 @@ assert(13).isEven()
     // ◆ is: an even number
 ```
 
-# KDoc - Code Documentation
-The code documentation is generated with dokka and is hosted on github-pages:
-[KDoc of atrium](https://robstoll.github.io/atrium/)
-
 # Contribute
 You are very welcome to contribute:
 - [open an issue](https://github.com/robstoll/atrium/issues/new) or [create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
 - fork the repository and make a pull request
+- [ask a question](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM)
+  so that I better understand where Atrium needs to improve.
+
+# KDoc - Code Documentation
+The code documentation is generated with dokka and is hosted on github-pages:
+[KDoc of atrium](https://robstoll.github.io/atrium/)
 
 # Known Limitations
 According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
@@ -302,13 +304,19 @@ a [feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature
 Some assertion functions which I miss myself will follow in the next version. 
 They are listed in the [Roadmap](#roadmap) below.
 
+Atrium does especially not support yet:
+- assertion functions for floating point numbers (where precision matters)
+- infinite `Iterable`s
+- assertion functions for `Sequence` (you can use `asIterable` in the meantime)
+
 # Roadmap
 I plan that Atrium will support in the future:
-- Assertion functions for Collections with nullable elements
-- Generating Testing Reports in html 
+- Assertion functions for `Iterable` with nullable elements
+- Generating testing reports in html  
 - Inclusion of mockito's verify (so that it appears in the report as well)
     
-Feature Requests are very welcome.
+[Feature Requests](https://github.com/robstoll/atrium/issues/new?title=[Feature])
+and are very welcome.
 
 # License
 Atrium is published under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
