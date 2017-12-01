@@ -1,7 +1,7 @@
 # Module atrium
 
 ## KDoc of Atrium
-Atrium is split up in different modules. The packages shown below contain classes etc. 
+Atrium is built up by different modules. The packages shown below contain classes etc. 
 of all modules excluding the one of _atrium-imp-robstoll_ and _atrium-imp-robstoll-lib_.
 
 API modules:
