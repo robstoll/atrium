@@ -51,9 +51,11 @@ object AssertionCollector {
                 val collectingAssertionPlant = createPlant(subject, noSubjectMessage)
                 collectingAssertionPlant.assertionCreator()
                 val collectedAssertions = collectingAssertionPlant.getAssertions()
-                if (throwIfNoAssertionIsCollected && collectedAssertions.isEmpty()) {
-                    throw IllegalArgumentException("There was not any assertion created which could identify an entry. Specify at least one assertion")
+
+                require(!(throwIfNoAssertionIsCollected && collectedAssertions.isEmpty())) {
+                    "There was not any assertion created which could identify an entry. Specify at least one assertion"
                 }
+
                 collectedAssertions
             } catch (e: PlantHasNoSubjectException) {
                 listOf(ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(

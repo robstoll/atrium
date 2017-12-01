@@ -31,8 +31,8 @@ abstract class ContainsChecker(
     nameFunUsed: String
 ) : IContains.IChecker {
     init {
-        if (times < 0) throw IllegalArgumentException("only positive numbers allowed: $times given")
-        if (times == 0) throw IllegalArgumentException("use $nameFunToUse instead of $nameFunUsed(0)")
+        require(times != 0) { "use $nameFunToUse instead of $nameFunUsed(0)" }
+        require(times > 0) { "only positive numbers allowed: $times given" }
     }
 
     /**
