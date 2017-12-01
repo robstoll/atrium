@@ -15,13 +15,16 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 **Table of Content**
 - [Installation](#installation)
 - [Examples](#examples)
-  - [Single Assertions vs. Assertion Groups](#single-assertions-vs-assertion-groups)
-  - [Nullable Variables](#nullable-variables)
+  - [Your First Assertion](#your-first-assertion)
+  - [Define Single Assertions or Assertion Groups](#define-single-assertions-or-assertion-groups)
+  - [Nullable Types](#nullable-types)
   - [Expect an Exception](#expect-an-exception)
   - [Property Assertions](#property-assertions)
   - [Method Assertions](#method-assertions)
   - [Collection Assertions](#collection-assertions)
-  - [Further Examples](#further-examples)
+    - [Shortcut Functions](#shortcut-functions)
+    - [Sophisticated Assertion Builders](#sophisticated-assertion-builders)
+  - [Further Examples](#further-examples)  
 - [Write own Assertion Functions](#write-own-assertion-functions)
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
 - [Internationalization](#internationalization)
@@ -63,16 +66,57 @@ That is all, you are all set. The next section shows you how to use Atrium.
 
 # Examples
 
-## Single Assertions vs. Assertion Groups
+## Your First Assertion
+We start off with a simple example:
+```kotlin
+val x = 10
+assert(x).toBe(9)
+``` 
+The statement can be read as "I assert, x to be nine" and since this is false an `AssertionError` is thrown with the following message:
+```text
+assert: 10        (java.lang.Integer <934275857>)
+◆ to be: 9        (java.lang.Integer <1364913072>)
+```
+where `? ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
+The examples in the following sections include the error message (the output) in the code example itself as comments.
+
+Atrium lets you choose the assertion verb (`assert` in the above example). 
+Regardless whether you prefer `expect`, `assertThat` or yet another assertion verb/phrase
+you can [define your own assertion verbs](#use-own-assertion-verbs) which suit your coding style.
+In the following examples we will use `assert` for regular assertions 
+and `expect` to postulate that we [Expect an Exception](#expect-an-exception).
+
+The next section shows you how you can define multiple assertions for the same subject.   
+
+## Define Single Assertions or Assertion Groups
 
 ```kotlin
  // two single assertions
-assert(10).isLessThan(5).isGreaterThan(10)
+ 
+assert(4 + 6).isLessThan(5).isGreaterThan(10)
     // assert: 10        (java.lang.Integer <1841396611>)
     // ◆ is less than: 5        (java.lang.Integer <1577592551>)
+```
 
-// assertion groups
-assert(10) {
+
+Using the fluent API allows you to write the `assert(...)` part only once but making several single assertions for the same subject.
+The expression which determines the subject of the assertion (`4 + 6` in the above example) is evaluated only once. 
+
+So the first statement could also be written as follows (unless the expression determining the subject has side effects).
+```kotlin
+assert(4 + 6).isLessThan(5)
+assert(4 + 6).isGreaterThan(10)
+``` 
+
+Correspondingly, the first `assert` statement (which does not hold) throws an `AssertionError`. 
+In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated at all.
+
+If you want that both assertions are evaluated together, then use the assertion group syntax as follows: 
+
+```kotlin
+// assertion group
+
+assert(4 + 6) {
     isLessThan(5)
     isGreaterThan(10)
 }
@@ -81,56 +125,66 @@ assert(10) {
     // ◆ is greater than: 10        (java.lang.Integer <1841396611>)
 ```
 
-Using the fluent API allows to write the `assert(...)` part only once and to make several single assertions.
-So the first statement could also be written as follows:
-```kotlin
-assert(1).isLessThan(5)
-assert(1).isGreaterThan(10)
-``` 
-Correspondingly, the first assert statement (which does not hold) throws an `AssertionError`. 
-In the above example, `isLessThan(5)` is already wrong and thus `isGreaterThan(10)` was not evaluated. 
-
-You can use the assertion group syntax which throws an `AssertionError` at the end of the block; 
-hence reports that both assertions do not hold.
+An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
  
-## Nullable Variables
+## Nullable Types
 ```kotlin
 val subtitle : String? = "postulating assertions made easy"
 assert(subtitle).isNull()
     // assert: "postulating assertions made easy"        <22600334>
     // ◆ to be: null
 
-assert(subtitle).isNotNull{ contains("atrium") }
+assert(subtitle).isNotNull{ startsWith("atrium") }
     //assert: "postulating assertions made easy"        <651100072>
     //◆ starts with: "atrium"        <222427158>
 ```
-In case a variable has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html) then 
-you need to define first, whether you expect it to be `null` or not.
+If the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html) then 
+you need to define first, whether you expect it to be `null` or not. 
+In case you expect that it `isNotNull` you can define one or more subsequent assertions 
+for the subject as if it had a non-nullable type  (`String` in the above example) by defining an 
+[assertion group block](#define-single-assertions-or-assertion-groups) 
+-- `{ startsWith("atrium") }` in the above example.
  
 ## Expect an Exception
 ```kotlin
 expect {
+    //this block does something but eventually...
     throw IllegalArgumentException("name is empty")
-}.toThrow<IllegalStateException> {
-    message.contains("name")
-}
-    // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <2087885397>)
+}.toThrow<IllegalStateException>()
+
+    // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <1364913072>)
     // ◆ is a: IllegalStateException (java.lang.IllegalStateException)
-    //     ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to java.lang.IllegalStateException failed.
 ```
-The method `toThrow` allows to make the assertion that a given lambda throws a certain exception 
-(`IllegalStateException` is expected in the example above). Notice `message` in the 
-[assertion group block](#single-assertions-vs-assertion-groups). It is a shortcut for 
-`property(it::message).isNotNull()`, which prepares a property assertion (see next section) about `Throwable::message`.
+You can define an `expect` block together with the function `toThrow` to make the assertion that the block throws a certain exception 
+(`IllegalStateException` in the example above). 
+
+Moreover, you can define one or more subsequent assertions in the same assertion statement with the help of an 
+[assertion group block](#define-single-assertions-or-assertion-groups). 
+The subsequent assertions are evaluated in case the expected `Throwable` is thrown and is of the same type as the expected one (or a subtype).
+For instance:
+```kotlin
+expect {
+    throw IllegalArgumentException("name is empty")
+}.toThrow<IllegalArgumentException> {
+    message { startsWith("firstName") }
+}
+    // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <371800738>)
+    // ◆ ▶ message: "name is empty"        <1364767791>
+    //     ◾ starts with: "firstName"        <1499136125>
+```
+Notice `message` in the 
+[assertion group block](#define-single-assertions-or-assertion-groups) 
+is a shortcut for `property(subject::message).isNotNull()`, which creates a property assertion (see next section) 
+about `Throwable::message`.  
  
 ## Property Assertions
 ```kotlin
 data class Person(val name: String, val isStudent: Boolean)
-val person = Person("Robert", false) 
+val myPerson = Person("Robert", false) 
 
-assert(person) {
-    its(subject::name).toBe("Peter")
-    property(it::isStudent).isTrue()
+assert(myPerson) {
+    property(subject::name).toBe("Peter")
+    property(subject::isStudent).isTrue()
 }
     // assert: Person(name=Robert, isStudent=false)        (Person <1841396611>)
     // ◆ ▶ name: "Robert"        <1577592551>
@@ -138,104 +192,244 @@ assert(person) {
     // ◆ ▶ isStudent: false
     //     ◾ to be: true    
 ```
-There are two assertion functions which allow to make assertions about a particular property or feature 
-of a class: `property` and `its`. I recommend to use `property` for properties of type `Boolean` and 
-`its` for the rest (`its` is actually just a delegate to `property`). `subject` inside a [assertion group block](#single-assertions-vs-assertion-groups) 
-refers to the subject of the assertion (in the example above `subject` refers to `person`).
-You can also use `it` is an alias for `subject`. 
+You can also make assertions about one or several properties of the subject using `property` in an [assertion group block](#define-single-assertions-or-assertion-groups)
+-- general speaking, it allows you to create feature assertions without the need of own assertion functions. 
+In the above example, `subject` within the assertion group block refers to `myPerson`. 
+So we created two feature assertions: one for the property `name` and the other for the property `isStudent` of `myPerson`.
+
+A feature assertion is indicated as follows in the output. It starts with a `?` followed by the feature's name and its actual value.
+So the above output can be read as "I assert, Person's name (which is actually `"Robert"`) to be `"Peter"` and its property `isStudent` (which is actually `false`) to be `true`". 
+
+:information_source: You can also use `it` as alternative for `subject`. The above could have been written as:
+```kotlin
+assert(person) {
+    property(it::name).toBe("Peter")
+    property(it::isStudent).isTrue()
+}
+```
+
+:interrobang: You might be asking yourself why I bothered providing the assertion function `message` shown in the example 
+[Expect an Exception](#expect-an-exception) and whether it is better to [write own assertion functions](#write-own-assertion-functions) or use `property`: 
+
 
 The only drawback IMO of using an existing property is that a few more key strokes are required compared to 
-[writing an own assertion function](#write-own-assertion-functions) once and then reuse it 
-(see `message` in [Expect an Exception](#expect-an-exception) for instance). Yet, I do not recommend to 
-write an own assertion function for every single property because renaming this property then should include 
-renaming the assertion function. Hence, only write an own assertion function in case you use it a lot.
+[writing an own assertion function](#write-own-assertion-functions) once and then reuse it (as I did with `message`).
+Yet, I do not recommend to write an own assertion function for every single property, because one quickly forgets to 
+rename the assertion function if the property as such is renamed (e.g., as part of an IDE refactoring). 
+As you can see, you would need to keep the property and the assertion function in sync. 
+
+Hence, only write an own assertion function in case you use it a lot and you need to apply an `isNotNull` assertion first 
+-- which is the case when the property has a nullable type (as it is the case for `Throwable::message`, see [Nullable Types](#nullable-types) for further information). 
+In such a case I would find it too cumbersome to write `property(subject::xY).isNotNull { ... }` all the time and would prefer `xY { ... }` and make some extra effort when the property is renamed. 
 
 ## Method Assertions
 ```kotlin
 data class Person(val firstName: String, val lastName: String) {
-    fun name() = "$firstName $lastName"
+    fun fullName() = "$firstName $lastName"
     fun nickname(includeLastName: Boolean) = when(includeLastName){
         false -> "Mr. $firstName"
         true -> "$firstName aka. $lastName"
     }
 }
-val person: Person = Person("Robert", "Stoll")
+val person = Person("Robert", "Stoll")
 
 assert(person) {
-    returnValueOf(subject::name).contains("treboR", "llotS")
-    returnValueOf(it::nickname, false).toBe("Robert aka. Stoll")
+    returnValueOf(subject::fullName).contains("treboR", "llotS")
+    returnValueOf(subject::nickname, false).toBe("Robert aka. Stoll")
 }
-    // assert: Person(firstName=Robert, lastName=Stoll)        (Person <1536031937>)
-    // ◆ ▶ name(): "Robert Stoll"        <798981583>
-    //     ◾ contains: "treboR"        <1954406292>
+    // assert: Person(firstName=Robert, lastName=Stoll)        (ch.tutteli.atrium.api.cc.en_UK.IterableContainsInOrderOnlyEntriesSpec$1$2$Person <168907708>)
+    // ◆ ▶ fullName(): "Robert Stoll"        <447718425>
+    //     ◾ contains: "treboR"        <1206569586>
     //       ⚬ ▶ number of occurrences: 0
     //           ◾ is at least: 1
-    //     ◾ contains: "llotS"        <904058452>
+    //     ◾ contains: "llotS"        <1427381743>
     //       ⚬ ▶ number of occurrences: 0
     //           ◾ is at least: 1
-    // ◆ ▶ nickname(false): "Mr. Robert"        <29183965>
-    //     ◾ to be: "Robert aka. Stoll"        <1427651360>
+    // ◆ ▶ nickname(false): "Mr. Robert"        <1427646530>
+    //     ◾ to be: "Robert aka. Stoll"        <846254484>
 ```
+You can also make an assertion about a method of the subject or rather about the value which is returned when calling the method with some specified arguments. 
+Such feature assertions can be made with the help of the assertion function `returnValueOf`. 
+There are overloads to support methods with up to 5 parameters (notice, `fullName` has none and `nickname` has one parameter in the above example).
 
-Feature assertions about the return value of a method call on the subject of the assertion can be made 
-with the help of `returnValueOf`. There are overloads for up to 5 parameters. You could go on and create 
-further overloads for 6 and more parameters but I suggest that you 
-[write a specific assertion function](#write-own-assertion-functions) for such a use case instead.
-You can use `it` as alternative for `subject` as in [Property Assertions](#property-assertions). 
+The error message shows also another nice feature of Atrium. 
+It provides builders to create more sophisticated assertions.
+Using `contains("treboR", "llotS")` is actually a shortcut for calling an sophisticated assertion builder for `CharSequence`. 
+In this example it calls `contains.atLeast(1).values("treboR", "llotS")` which is reflected in the output. 
+Have a look at the [KDoc of the CharSequence contains Builders](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/index.html)
+to see more options.
+
+:information_source: You can use `it` as alternative for `subject` as you can in [Property Assertions](#property-assertions). 
+
+:interrobang: You might be asking yourself why I stopped at 5 Parameters.
+You could go on and create further overloads for 6 and more parameters, but... uh... can you smell it :stuck_out_tongue_winking_eye:.
+In case you have a function with 6 or more parameters and you do not want or cannot to get rid of it, 
+then I suggest that you [write a specific assertion function](#write-own-assertion-functions) for it.
 
 ## Collection Assertions
-Atrium provides assertion builders which allow to make sophisticated `contains` 
-assertions (the builders actually support `Iterable<T>`).
 
-Following a few examples:
+Atrium provides assertion builders which allow to make sophisticated `contains` assertions for `Iterable<T>`.
+Such a building process allows you to define very specific assertions, where the process is guided by a fluent builder pattern.
+You can either use such an 
+[Assertion Builder](#sophisticated-assertion-builders)
+to create a specific assertion or one of the 
+[Shortcut Functions](#shorcut-functions) in case you have kind of a common case.
+The following sub sections show both use cases by examples.
+
+### Shortcut Functions
+```kotlin
+assert(listOf(1, 2, 2, 4)).contains(2, 3)        
+
+    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1448525331>) 
+    // ◆ contains, in any order: 3        (java.lang.Integer <1108924067>)
+    //   ⚬ ▶ number of occurrences: 0
+    //       ◾ is at least: 1
+```
+ 
+The assertion function `contains(2, 3)` is a shortcut for using a 
+[Sophisticated Assertion Builder](#sophisticated-assertion-builders) -- it actually calls `contains.inAnyOrder.atLeast(1).values(2, 3)`. 
+This is reflected in the output, which tells us that we expected that the `number of occurrences` of `3` (which is actually `0`) `is at least: 1`.
+And what about the expected value `2`, why do we not see anything about it in the output?
+The output does not show anything about the expected value `2` because we defined an 
+[Only Failure Reporter](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium/-i-atrium-factory/new-only-failure-reporter.html) 
+which shows us only assertions (or sub assertions) which failed.
+
+Back to the shortcut functions Atrium provides for common `contains` assertions. 
+Next to expecting that certain values (or objects) are contained in or rather returned by an `Iterable`, 
+Atrium allows us to write identification lambdas in form of [assertion group blocks](#define-single-assertions-or-assertion-groups).
+An entry is considered as identified if it holds all specified assertions of such a block.
+Following an example:
+```kotlin
+assert(listOf(1, 2, 2, 4)).contains({ isLessThan(0) }, { isGreaterThan(2); isLessThan(4) })
+
+    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1144068272>) 
+    // ◆ contains, in any order:   
+    //   ⚬ an entry which:   
+    //       » is less than: 0        (java.lang.Integer <1985836631>) 
+    //     ⚬ ▶ number of occurrences: 0 
+    //         ◾ is at least: 1 
+    //   ⚬ an entry which:    
+    //       » is greater than: 2        (java.lang.Integer <1948471365>)
+    //       » is less than: 4        (java.lang.Integer <1636506029>) 
+    //     ⚬ ▶ number of occurrences: 0
+    //         ◾ is at least: 1
+```
+In the above example neither of the two identification lambdas matched any entries and thus both are reported as failing (sub) assertions.
+
+The last two `contains` shortcut functions which Atrium provides for `Iterable<T>` are kind of the opposite of `inAnyOrder.atLeast(1)` and are named `containsStrictly`.
+Again Atrium provides two overloads, one for values/objects, e.g. `containsStrictly(1, 2)` which calls `contains.inOrder.only.values(1, 2)` and
+a second one which expects one or more identification lambdas, e.g. `containsStriclty({ isLessThan(0) }, { isGreaterThan(5) })` 
+and effectively calls `contains.inOrder.only.entries({ isLessThan(2) }, { isGreaterThan(5) })`.
+We will spare the examples here and show them in the following sections.
+
+### Sophisticated Assertion Builders
+
+The sophisticated assertion builders Atrium provides, implement a fluent builder pattern.
+To use the assertion builder for sophisticated `Iterable<T>`-contains-assertions, you can type `contains` 
+-- as you would when using the [Shortcut Functions](#shortcut-functions) -- 
+but type `.` as next step (thus you are using the property `contains` instead of one of the shortcut functions). 
+Currently, the builder provides two options, either `inAnyOrder` or `inOrder`. 
+In case you are using an IDE, you do not really have to think too much; the fluent builders will guide you through your decision making :relaxed:
+
+Following on the last section we will start with an `inOrder` example:
+```kotlin
+assert(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
+ 
+    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <817978763>)
+    // ◆ contains only, in order:     
+    //   ✔ ▶ entry 0: 1        (java.lang.Integer <1578009262>)
+    //       ◾ an entry which:    
+    //         ⚬ is less than: 3        (java.lang.Integer <1108924067>)
+    //   ✘ ▶ entry 1: 2        (java.lang.Integer <1948471365>)
+    //       ◾ an entry which:    
+    //         ⚬ is less than: 2        (java.lang.Integer <1948471365>)
+    //   ✘ ▶ size: 4
+    //       ◾ to be: 2
+    //         ❗❗ additional entries detected:    
+    //            ⚬ entry 2: 2        (java.lang.Integer <1948471365>)
+    //            ⚬ entry 3: 4        (java.lang.Integer <1636506029>) 
+```  
+
+Since we have chosen the `only` option, Atrium shows us a summary where we see three things:
+- Whether a specified identification lambda matched (signified by `?` or `?`) 
+  the corresponding entry or not (e.g. `? ? entry 1:` was `2` and we expected, it `is less than 2`)
+- Whether the expected size was correct or not (`? size:` was `4`, we expected it, `to be: 2` -- see also [Property Assertions](#property-assertions))
+- and last but not least, mismatches or additional entries as further clue (`?? additional entries detected`).
+
+:heart_eyes: I am pretty sure you are going to love this feature as well
+-- in case you are dealing with large `Iterable` and do not want such a verbose output, 
+then let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]). 
+Also notice, that Atrium cannot yet deal with infinite `Iterable`s.
+
+Following one more example for `inOrder` as well as a few examples for `inAnyOrder`. 
+I think explanations are no longer required at this stage.
+In case you have a question (no matter about which section), then please turn up in the 
+[atrium-kotlin Slack channel](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM)
+and I happily answer your question there. 
 
 ```kotlin
-assert(listOf(1, 2, 2, 3)).contains.inAnyOrder.atLeast(2).butAtMost(3).value(3)
+assert(listOf(1, 2, 2, 4)).contains.inOrder.only.values(1, 2, 2, 3, 4)
 
-    // assert: [1, 2, 2, 3]        (java.util.Arrays$ArrayList <1841396611>) 
-    // ◆ contains, in any order: 3        (java.lang.Integer <1577592551>)
-    //   ⚬ ▶ number of occurrences: 1
-    //       ◾ is at least: 2
-
-
-assert(listOf(1, 2, 2, 3)).contains.inAnyOrder.only.values(3, 2)    
-
-    // assert: [1, 2, 2, 3]        (java.util.Arrays$ArrayList <1790585734>)
-    // ◆ contains only, in any order: 
-    //   ✘ an entry which is: 5        (java.lang.Integer <22600334>)
-    //   ✔ an entry which is: 2        (java.lang.Integer <1961173763>)
+    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1362728240>)
+    // ◆ contains only, in order:   
+    //   ✔ ▶ entry 0: 1        (java.lang.Integer <1578009262>)
+    //       ◾ to be: 1        (java.lang.Integer <1578009262>)
+    //   ✔ ▶ entry 1: 2        (java.lang.Integer <1948471365>)
+    //       ◾ to be: 2        (java.lang.Integer <1948471365>)
+    //   ✔ ▶ entry 2: 2        (java.lang.Integer <1948471365>)
+    //       ◾ to be: 2        (java.lang.Integer <1948471365>)
+    //   ✘ ▶ entry 3: 4        (java.lang.Integer <1636506029>)
+    //       ◾ to be: 3        (java.lang.Integer <1108924067>)
+    //   ✘ ▶ entry 4: ❗❗ hasNext() returned false
+    //       ◾ to be: 4        (java.lang.Integer <1636506029>)
     //   ✘ ▶ size: 4
-    //       ◾ to be: 2
-    //   ❗❗ mismatches and additional entries detected: 
-    //      ⚬ 1        (java.lang.Integer <1202683709>)
-    //      ⚬ 2        (java.lang.Integer <1961173763>)
-    //      ⚬ 3        (java.lang.Integer <1577592551>)
-    
-    
-assert(listOf(1, 2, 2, 3)).contains.inOrder.only.entries({ isLessThan(3) }, { isLessThan(2) })
+    //       ◾ to be: 5
 
-    // assert: [1, 2, 2, 3]        (java.util.Arrays$ArrayList <2087885397>)
-    // ◆ contains only, in order:  
-    //   ✔ ▶ entry 0: 1        (java.lang.Integer <1961173763>)
-    //       ◾ an entry which: 
-    //         ⚬ is less than: 3        (java.lang.Integer <1577592551>)
-    //   ✘ ▶ entry 1: 2        (java.lang.Integer <22600334>)
-    //       ◾ an entry which: 
-    //         ⚬ is less than: 2        (java.lang.Integer <22600334>)
-    //   ✘ ▶ size: 4
-    //       ◾ to be: 2
-    //         ❗❗ additional entries: 
-    //            ⚬ entry 2: 2        (java.lang.Integer <22600334>)
-    //            ⚬ entry 3: 3        (java.lang.Integer <1577592551>) 
-```  
+assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.atLeast(1).butAtMost(2).entries({ isLessThan(3) })
+
+    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <1092572064>)
+    // ◆ contains, in any order:   
+    //   ⚬ an entry which:   
+    //       » is less than: 3        (java.lang.Integer <1108924067>)
+    //     ⚬ ▶ number of occurrences: 3
+    //         ◾ is at most: 2
+
+
+assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(1, 2, 3, 4)
+            
+    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <922511709>)
+    // ◆ contains only, in any order:    
+    //   ✔ an entry which is: 1        (java.lang.Integer <1578009262>) 
+    //   ✔ an entry which is: 2        (java.lang.Integer <1948471365>) 
+    //   ✘ an entry which is: 3        (java.lang.Integer <1108924067>)  
+    //   ✔ an entry which is: 4        (java.lang.Integer <1636506029>) 
+    //   ✔ ▶ size: 4  
+    //       ◾ to be: 4
+    //   ❗❗ following entries were mismatched:    
+    //      ⚬ 2        (java.lang.Integer <1948471365>)
     
+assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
+
+    // assert: [1, 2, 2, 4]        (java.util.Arrays$ArrayList <331994761>)
+    // ◆ contains only, in any order:   
+    //   ✔ an entry which is: 4        (java.lang.Integer <1636506029>)
+    //   ✘ an entry which is: 3        (java.lang.Integer <1108924067>)
+    //   ✔ an entry which is: 2        (java.lang.Integer <1948471365>)
+    //   ✔ an entry which is: 2        (java.lang.Integer <1948471365>)
+    //   ✔ an entry which is: 1        (java.lang.Integer <1578009262>)
+    //   ✘ ▶ size: 4
+    //       ◾ to be: 5
+```     
+
+
 ## Further Examples
 
-Atrium supports further assertion builders (e.g, for `CharSequence`) and assertion functions.
-Have a look at the [specifications](https://github.com/robstoll/atrium/tree/master/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
+Atrium supports further assertion builders (e.g, for `CharSequence`) as well as assertion functions which have not been shown in the examples.
+Have a look at the 
+[specifications](https://github.com/robstoll/atrium/tree/master/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
 for more examples.
-A [catalog of the available assertion functions](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium/index.html) 
-can be found in the [KDoc](#kdoc). 
+A [catalog of the available assertion functions](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html) 
+can be found in the code documentation. 
 
 # Write own Assertion Functions
 
@@ -288,8 +482,7 @@ fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
 ```
 We are using a [RawString](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
 here so that `"an even number"` is not treated as a `String` in reporting.
-Once again, if you want to report in a different language, then have a look at [Internationalization](#internationalization).
-Also notice, that we are reusing a common description (`DescriptionBasic.IS` which supports internationalization) as first argument.
+Also notice, that we are reusing a common description (`DescriptionBasic.IS`) as first argument.
 Its usage looks then as follows:
 
 ```kotlin
@@ -301,6 +494,7 @@ assert(13).isEven()
 Do you want to write an own sophisticated assertion builder instead of an assertion function? 
 Have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
 [ch.tutteli.atrium.assertions.iterable.contains](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/assertions/iterable/contains).
+Notice that the implementation supports [Internationalization](#internationalization).
 If you have a question, then please post it in the 
 [atrium-kotlin Slack channel](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM)
 and I will try to help you.
@@ -446,7 +640,6 @@ Atrium provides two dependencies which bundle implementations so that you just h
 - [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-en_UK-robstoll/build.gradle)
 - [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-de_CH-robstoll/build.gradle)
  
-
 # Contribute
 You are very welcome to contribute:
 - [open an issue](https://github.com/robstoll/atrium/issues/new) or [create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
