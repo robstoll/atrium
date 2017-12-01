@@ -14,3 +14,4 @@ include 'atrium-verbs'
 
 //convenience module
 include 'atrium-cc-en_UK-robstoll'
+include 'atrium-cc-de_CH-robstoll'
