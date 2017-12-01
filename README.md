@@ -5,7 +5,7 @@
 # Atrium
 Atrium is an open-source assertion library for Kotlin with a fluent API.
 
-It is designed to support different [APIs](#apis) and different reporting styles.
+It is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization) (i18n). 
 The core of Atrium as well as the builders to create sophisticated assertions are designed to be extensible and 
 thus allow you to extend or replace components easily.  
 
@@ -24,6 +24,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [Further Examples](#further-examples)
 - [Write own Assertion Functions](#write-own-assertion-functions)
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
+- [Internationalization](#internationalization)
 - [APIs](#apis)
 - [Contribute](#contribute)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
@@ -274,6 +275,7 @@ The method [createAndAddAssertion](https://robstoll.github.io/atrium/latest#/doc
 - and the actual check as lambda where you typically use the `subject` of the assertion.
  
 We use an `Untranslatable` as first argument here because we are not bothered with internationalization.
+In case you want to report in a different language, then have a look at [Internationalization](#internationalization).
 Typically you use the expected value itself as its representation -- so you pass it as second argument.
 
 But not all assertion functions require a value which is somehow compared against the subject 
@@ -286,7 +288,8 @@ fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
 ```
 We are using a [RawString](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
 here so that `"an even number"` is not treated as a `String` in reporting.
-Also notice, that we are reusing a common description (`DescriptionBasic.IS`) as first argument.
+Once again, if you want to report in a different language, then have a look at [Internationalization](#internationalization).
+Also notice, that we are reusing a common description (`DescriptionBasic.IS` which supports internationalization) as first argument.
 Its usage looks then as follows:
 
 ```kotlin
@@ -332,6 +335,103 @@ dependencies {
 
 maven:  
 Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml).    
+
+# Internationalization
+
+We distinguish between to use cases. You might want to generate the [Report](#report) in a different language or you 
+might want to use the [API in a different language](#api-in-a-different-language). 
+
+## Report
+Following on the example in [Write own Assertion Functions](#write-own-assertion-functions)
+we show here how you write the function, so that it supports i18n. 
+This way the report could be generated in another language.
+
+The difference lies in the first argument passed to `createAndAddAssertion`; we do no longer use an `Untranslatable` but a proper 
+`ITranslatable`. 
+
+```kotlin
+fun IAssertionPlant<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
+    DescriptionIntAssertions.IS_MULTIPLE_OF, base, { subject % base == 0 })
+    
+enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
+    IS_MULTIPLE_OF("is multiple of")
+}    
+```
+Typically you would put `DescriptionIntAssertions` into an own module (jar) 
+so that it could be replaced (with zero performance cost) by another language representation.
+For instance,
+[atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-en_UK-robstoll/build.gradle)
+uses `atrium-translations-en_UK` whereas 
+[atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-de_CH-robstoll/build.gradle)
+uses `atrium-translations-de_CH`.  
+
+But you can also use a 
+[ITranslationSupplier](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-i-translation-supplier/index.html)
+based solution and configure the `ReporterBuilder` accordingly. 
+[Robstoll's implementation](https://github.com/robstoll/atrium/tree/master/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating)
+of the core of Atrium provides properties files based `ITranslatableSupplier`s which are more or less what
+[Resource Bundle](https://docs.oracle.com/javase/tutorial/i18n/resbundle/propfile.html)
+provides out of the box. 
+Yet, robstoll's implementation uses an own 
+[ResourceBundle.Control](https://docs.oracle.com/javase/7/docs/api/java/util/ResourceBundle.Control.html)
+which provides an enhanced fallback mechanism. 
+For further technical information, see 
+[ResourceBundleBasedTranslator](https://github.com/robstoll/atrium/blob/master/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating/ResourceBundleBasedTranslator.kt)
+and have a look at the
+[specifications of the `ITranslationSupplier`s](https://github.com/robstoll/atrium/tree/master/atrium-core-impl-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/reporting/translating)
+for an example how you have to configure the `ReporterBuilder`.
+
+Notice, Atrium does not yet support generating multiple reports (in different languages) 
+-- but Atrium is designed to support this use case. 
+Hence, if you need this feature, then please let me know it by writing a 
+[feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
+
+Let us rewrite the `isEven` assertion function from the section [Write own Assertion Functions](#write-own-assertion-functions)
+as second example:
+```kotlin
+fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
+    DescriptionCommon.IS, TranslatableRawString(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
+
+enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
+    EVEN("an even number")
+}
+```
+Once again we are wrapping the text which we want to be able to exchange with another language into an `ITranslatable`.
+But this time we cannot use it directly but have to wrap it into an [TranslatableRawString](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable-raw-string/index.html) 
+so that it is treated as raw string in reporting.
+
+## API in a different Language
+
+Following on the example in the previous section, 
+we want to write `isMultipleOf` such that one cannot only generate a report in a different language
+but also that one can use the function itself in a different language. 
+Or in other words, provide our API in a different language.
+
+We split up the function in two parts: API and implementation (well yes, its that simple). 
+Moreover we put the API function in one module (jar) and the implementation in another.
+In the implementation module we define, what we will call now an impl-function -- Atrium starts impl-functions with `_`):
+```kotlin
+fun _isMultipleOf(plant: IAssertionPlant<Int>, base: Int) =
+    BasicAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
+```
+Notice that it is not an extension function as before 
+because we do not want to pollute the API of `IAssertionPlant<Int>` with this function.
+
+In the API module we define the extension function and call the impl-function:
+```kotlin
+fun IAssertionPlant<Int>.isMultipleOf(base: Int)
+    = addAssertion(_isMultipleOf(this, base))
+```
+We do no longer have to create the assertion as in the example of
+[Write own Assertion Functions](#write-own-assertion-functions).
+Therefore we use the `addAssertion` method and call the impl-function which will create the assertion for us.
+
+You are ready to go, creating an API in a different language -- e.g. in German -- is now only a routine piece of work:
+```kotlin
+fun IAssertionPlant<Int>.istVielfachesVon(base: Int)
+    = addAssertion(_isMultipleOf(this, base))
+```
+
 
 # APIs
 Atrium supports currently two APIs, one in English and one in German. 
