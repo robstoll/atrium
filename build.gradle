@@ -1,8 +1,8 @@
 buildscript {
     def projectsWithoutSourcesBuildScript = project(":${project.name}-cc-en_UK-robstoll")
     ext {
-        atrium_version = '0.4.0'
-        ghPages_version = '0.4.0'
+        atrium_version = '0.5.0-SNAPSHOT'
+        ghPages_version = atrium_version
         kbox_version = '0.0.1'
         kotlin_version = '1.2.0'
         mockito_kotlin_version = '1.5.0'
@@ -151,7 +151,7 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 
 Release & deploy a commit
 --------------------------------
-1. change atrium_version and ghPages_version in build.gradle
+1. change atrium_version in build.gradle to X.Y.Z
 2. update github pages:
     a) gr ghPages
     b) change version number in atrium-gh-pages/latest/index.html
@@ -161,9 +161,10 @@ Release & deploy a commit
     a) update README.md:
         1) search for old version and replace with new (gradle and maven examples)
         2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage)
+        3) search for `latest#/doc` and replace with `X.Y.Z/doc`
     b) commit (modified build.gradle and README.md)
     c) git tag vX.Y.Z
-    d) push to origin
+    d) git push origin vX.Y.Z
 4. deploy to bintray:
     a) gr bintrayUpload
     b) Log in to bintray, check and publish new jars
@@ -172,7 +173,9 @@ Release & deploy a commit
 Prepare next dev cycle
 -----------------------
 1. change atrium_version in build.gradle to X.Y.Z-SNAPSHOT
-2. update README.md, search for `tag=vX.Y.Z` and replace it with branch=master
+2. update README.md
+   a) search for `tag=vX.Y.Z` and replace it with `branch=master`
+   b) search for `X.Y.Z/doc` and replace with `latest#/doc`
 3. commit & push changes
 
 */
