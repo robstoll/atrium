@@ -44,7 +44,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
      *
      * @param assertionGroup The assertion group which should be formatted.
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to with the result will be appended.
+     *        to which the result will be appended.
      * @param formatAssertions The function which should be called to format the
      *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].
      *        It itself expects a function which formats single [IAssertion]s in the context of the given
@@ -71,7 +71,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
      *
      * @param assertionGroup The assertion group which should be formatted.
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to with the result will be appended.
+     *        to which the result will be appended.
      *
      * @return The [AssertionFormatterMethodObject] which shall be used for the [IAssertionGroup.assertions].
      */
@@ -86,7 +86,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
      *        It itself expects a function which formats single [IAssertion]s in the context of the given
      *        [assertionGroup].
      * @param childMethodObject The method object which shall be used to format [IAssertionGroup.assertions] -- contains
-     * inter alia the [sb][AssertionFormatterMethodObject.sb] to with the result will be appended.
+     * inter alia the [sb][AssertionFormatterMethodObject.sb] to which the result will be appended.
      */
     protected abstract fun formatGroupAssertions(formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit, childMethodObject: AssertionFormatterMethodObject)
 }

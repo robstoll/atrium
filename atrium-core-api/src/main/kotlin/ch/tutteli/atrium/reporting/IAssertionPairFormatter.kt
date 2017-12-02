@@ -11,7 +11,7 @@ interface IAssertionPairFormatter {
      * and appends the result to the [sb][AssertionFormatterMethodObject.sb] of the given [methodObject].
      *
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to with the result will be appended.
+     *        to which the result will be appended.
      */
     fun format(methodObject: AssertionFormatterMethodObject, translatable: ITranslatable, representation: Any)
 }
