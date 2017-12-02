@@ -44,7 +44,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>
             assertions.add(AssertionGroup(FeatureAssertionGroupType, Untranslatable(list::size.name), RawString(actualSize.toString()), featureAssertions))
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
-            val summary = AssertionGroup(SummaryAssertionGroupType, description, RawString(""), assertions.toList())
+            val summary = AssertionGroup(SummaryAssertionGroupType, description, RawString.EMPTY, assertions.toList())
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {
                     mismatches -> WARNING_MISMATCHES
@@ -77,7 +77,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E>, warning: DescriptionIterableAssertion): ExplanatoryAssertionGroup {
         val assertions = list.map { ExplanatoryAssertion(it) }
-        val additionalEntries = AssertionGroup(ListAssertionGroupType, warning, RawString(""), assertions)
+        val additionalEntries = AssertionGroup(ListAssertionGroupType, warning, RawString.EMPTY, assertions)
         return ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(additionalEntries))
     }
 }

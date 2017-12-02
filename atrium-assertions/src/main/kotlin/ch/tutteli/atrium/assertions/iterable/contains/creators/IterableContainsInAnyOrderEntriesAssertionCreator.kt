@@ -36,14 +36,14 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
 
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup {
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        return AssertionGroup(ListAssertionGroupType, description, RawString(""), assertions)
+        return AssertionGroup(ListAssertionGroupType, description, RawString.EMPTY, assertions)
     }
 
     override fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: IAssertionPlant<E>.() -> Unit, featureFactory: (Int, ITranslatable) -> IAssertionGroup): IAssertionGroup {
         val itr = plant.subject.iterator()
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(itr, searchCriterion)
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        return AssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), listOf(
+        return AssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString.EMPTY, listOf(
             ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions),
             featureAssertion
         ))

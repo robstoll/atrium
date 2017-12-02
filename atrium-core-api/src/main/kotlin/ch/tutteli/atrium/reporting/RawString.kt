@@ -23,5 +23,9 @@ data class RawString(val string: String) : IRawString {
          * The representation for `null`.
          */
         val NULL = RawString("null")
+        /**
+         * An empty string as [RawString].
+         */
+        val EMPTY = RawString("")
     }
 }
