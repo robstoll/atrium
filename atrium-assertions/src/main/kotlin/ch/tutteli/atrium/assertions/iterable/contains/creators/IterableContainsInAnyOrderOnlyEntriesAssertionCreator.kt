@@ -49,7 +49,7 @@ internal fun <E : Any> createExplanatoryAssertions(assertionCreator: IAssertionP
     = collectIterableAssertionsForExplanation(assertionCreator, list.firstOrNull())
 
 internal fun createEntryAssertion(explanatoryAssertions: List<IAssertion>, found: Boolean) =
-    FixHoldsAssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString(""), explanatoryAssertions, found)
+    FixHoldsAssertionGroup(ListAssertionGroupType, AN_ENTRY_WHICH, RawString.EMPTY, explanatoryAssertions, found)
 
 internal fun <E : Any> allCreatedAssertionsHold(subject: E, assertionCreator: IAssertionPlant<E>.() -> Unit): Boolean {
     val checkingPlant = AtriumFactory.newCheckingPlant(subject)

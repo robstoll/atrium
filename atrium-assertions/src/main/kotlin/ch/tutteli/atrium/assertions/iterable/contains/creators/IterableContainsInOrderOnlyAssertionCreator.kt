@@ -41,7 +41,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
 
 
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            AssertionGroup(SummaryAssertionGroupType, description, RawString(""), assertions.toList())
+            AssertionGroup(SummaryAssertionGroupType, description, RawString.EMPTY, assertions.toList())
         }
     }
 
@@ -79,7 +79,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
                     BasicAssertion(description, it ?: RawString.NULL, true)
                 }
                 ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(
-                    AssertionGroup(ListAssertionGroupType, DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString(""), assertions)
+                    AssertionGroup(ListAssertionGroupType, DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
                 ))
             })
         }

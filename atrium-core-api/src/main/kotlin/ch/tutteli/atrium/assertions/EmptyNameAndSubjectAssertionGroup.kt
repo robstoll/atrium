@@ -21,7 +21,7 @@ abstract class EmptyNameAndSubjectAssertionGroup(override val type: IAssertionGr
     /**
      * The empty string.
      */
-    override val subject: Any = RawString("")
+    override val subject: Any = RawString.EMPTY
 
     /**
      * @suppress
