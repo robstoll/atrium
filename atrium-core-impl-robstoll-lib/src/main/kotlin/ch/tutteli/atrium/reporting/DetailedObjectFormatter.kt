@@ -61,13 +61,11 @@ class DetailedObjectFormatter(private val translator: ITranslator) : IObjectForm
     private fun format(charSequence: CharSequence) = "\"$charSequence\"" + INDENT + classNameAndIdentity(charSequence)
     private fun format(clazz: Class<*>) = "${clazz.simpleName} (${clazz.name})"
     private fun format(clazz: KClass<*>): String {
-        val kotlin = "${clazz.simpleName} (${clazz.qualifiedName})"
-        return if (clazz.qualifiedName == clazz.java.name) {
-            kotlin
-        } else if (clazz.java.isPrimitive) {
-            "$kotlin -- Class: ${clazz.java.simpleName}"
-        } else {
-            "$kotlin -- Class: ${format(clazz.java)}"
+        val kotlinClass = "${clazz.simpleName} (${clazz.qualifiedName})"
+        return when {
+            clazz.qualifiedName == clazz.java.name -> kotlinClass
+            clazz.java.isPrimitive -> "$kotlinClass -- Class: ${clazz.java.simpleName}"
+            else -> "$kotlinClass -- Class: ${format(clazz.java)}"
         }
     }
 
