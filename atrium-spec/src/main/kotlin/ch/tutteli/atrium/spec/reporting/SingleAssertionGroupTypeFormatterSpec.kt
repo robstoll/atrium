@@ -34,15 +34,15 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
     val unsupportedAssertion = object : IAssertion {
         override fun holds() = false
     }
-    val unsupportedAssertionGroup = AssertionGroup(object : IAssertionGroupType {}, Untranslatable(""), 1, listOf())
-    val supportedAssertionGroupWithAnonymousType = AssertionGroup(supportedAnonymousAssertionGroupType, Untranslatable(""), 1, listOf())
+    val unsupportedAssertionGroup = AssertionGroup(object : IAssertionGroupType {}, Untranslatable.EMPTY, 1, listOf())
+    val supportedAssertionGroupWithAnonymousType = AssertionGroup(supportedAnonymousAssertionGroupType, Untranslatable.EMPTY, 1, listOf())
     val supportedAnonymousAssertionGroupWithAnonymousType = object : IAssertionGroup {
         override val name = Untranslatable("test")
         override val type = supportedAnonymousAssertionGroupType
         override val subject = 1
         override val assertions: List<IAssertion> = emptyList()
     }
-    val supportedAssertionGroup = AssertionGroup(supportedAssertionGroupType, Untranslatable(""), 1, listOf())
+    val supportedAssertionGroup = AssertionGroup(supportedAssertionGroupType, Untranslatable.EMPTY, 1, listOf())
     val supportedAnonymousAssertionGroup = object : IAssertionGroup {
         override val name = Untranslatable("test")
         override val type = supportedAssertionGroupType
