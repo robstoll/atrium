@@ -26,8 +26,8 @@ abstract class CharSequenceAssertionsSpec(
 ) : CharSequenceContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
-        containsDefaultTranslationOfPair.first to mapToCreateAssertion { containsDefaultTranslationOfPair.second(this, Untranslatable(""), arrayOf()) },
-        containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable(""), arrayOf()) },
+        containsDefaultTranslationOfPair.first to mapToCreateAssertion { containsDefaultTranslationOfPair.second(this, Untranslatable.EMPTY, arrayOf()) },
+        containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable.EMPTY, arrayOf()) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) },
         startsWithPair.first to mapToCreateAssertion { startsWithPair.second(this, "") },

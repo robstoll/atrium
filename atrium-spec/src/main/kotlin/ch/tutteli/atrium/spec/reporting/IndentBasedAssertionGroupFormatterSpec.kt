@@ -38,7 +38,7 @@ abstract class IndentBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
         val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${assertionGroupTypeClass.simpleName}") {
-            val result = testee.canFormat(AssertionGroup(anonymousAssertionGroupType, Untranslatable(""), 1, listOf()))
+            val result = testee.canFormat(AssertionGroup(anonymousAssertionGroupType, Untranslatable.EMPTY, 1, listOf()))
             verbs.checkImmediately(result).isTrue()
         }
     }

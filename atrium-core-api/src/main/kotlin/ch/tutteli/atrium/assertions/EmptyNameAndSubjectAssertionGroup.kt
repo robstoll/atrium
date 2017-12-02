@@ -14,9 +14,9 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 abstract class EmptyNameAndSubjectAssertionGroup(override val type: IAssertionGroupType, override val assertions: List<IAssertion>) : IAssertionGroup {
 
     /**
-     * [Untranslatable] of an empty string.
+     * [Untranslatable.EMPTY] -- an empty string as [Untranslatable].
      */
-    override val name: ITranslatable = Untranslatable("")
+    override val name: ITranslatable = Untranslatable.EMPTY
 
     /**
      * The empty string.

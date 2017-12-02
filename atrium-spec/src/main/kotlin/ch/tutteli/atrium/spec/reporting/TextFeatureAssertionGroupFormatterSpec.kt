@@ -38,7 +38,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
         val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${IFeatureAssertionGroupType::class.simpleName}") {
-            val result = testee.canFormat(AssertionGroup(object : IFeatureAssertionGroupType {}, Untranslatable(""), 1, listOf()))
+            val result = testee.canFormat(AssertionGroup(object : IFeatureAssertionGroupType {}, Untranslatable.EMPTY, 1, listOf()))
             verbs.checkImmediately(result).isTrue()
         }
     }

@@ -34,7 +34,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
         val testee = testeeFactory(AtriumFactory.newAssertionFormatterController())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${IInvisibleAssertionGroupType::class.simpleName}") {
-            val result = testee.canFormat(AssertionGroup(object : IInvisibleAssertionGroupType {}, Untranslatable(""), 1, listOf()))
+            val result = testee.canFormat(AssertionGroup(object : IInvisibleAssertionGroupType {}, Untranslatable.EMPTY, 1, listOf()))
             verbs.checkImmediately(result).isTrue()
         }
     }

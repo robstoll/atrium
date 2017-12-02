@@ -16,7 +16,15 @@ class Untranslatable(representation: () -> String) : ITranslatable {
      *
      * @param representation The representation of this [ITranslatable].
      */
-    constructor(representation: CharSequence): this({representation.toString()})
-    override val name : String = representation()
+    constructor(representation: CharSequence) : this({ representation.toString() })
+
+    override val name: String = representation()
     override fun getDefault() = name
+
+    companion object {
+        /**
+         * An empty string as [Untranslatable].
+         */
+        val EMPTY = Untranslatable("")
+    }
 }
