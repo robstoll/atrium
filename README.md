@@ -10,6 +10,7 @@ It is licences under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl
 You are very welcome to contribute:
 - [open an issue or create a feature request](https://github.com/robstoll/atrium/issues/new)
 - [fork the repository](https://github.com/robstoll/atrium#fork-destination-box) and make a pull request
+- Have a lookt at [CONTRIBUTING](https://github.com/robstoll/atrium/blob/master/.github/CONTRIBUTING.md) for more ideas
 
 ## Versions
 
