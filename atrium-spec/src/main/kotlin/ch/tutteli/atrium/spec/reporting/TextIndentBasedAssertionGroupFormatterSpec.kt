@@ -15,7 +15,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 
-abstract class IndentBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
+abstract class TextIndentBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>(
     verbs: IAssertionVerbFactory,
     testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
     assertionGroupTypeClass: Class<T>,

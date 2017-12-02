@@ -16,7 +16,7 @@ abstract class TextExplanatoryBasedAssertionGroupFormatterSpec<T: IExplanatoryAs
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.reporting.IndentBasedAssertionGroupFormatterSpec<T>(
+    include(object : ch.tutteli.atrium.spec.reporting.TextIndentBasedAssertionGroupFormatterSpec<T>(
         verbs,
         testeeFactory,
         assertionGroupTypeClass,

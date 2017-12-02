@@ -11,7 +11,7 @@ abstract class TextIndentAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
     describePrefix: String = "[Atrium] "
-) : IndentBasedAssertionGroupFormatterSpec<IIndentAssertionGroupType>(
+) : TextIndentBasedAssertionGroupFormatterSpec<IIndentAssertionGroupType>(
     verbs,
     testeeFactory,
     IIndentAssertionGroupType::class.java,
