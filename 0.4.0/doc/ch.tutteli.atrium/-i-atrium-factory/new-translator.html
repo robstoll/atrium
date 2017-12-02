@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAtriumFactory.newTranslator - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">IAtriumFactory</a>&nbsp;/&nbsp;<a href=".">newTranslator</a><br/>
+<br/>
+<h1>newTranslator</h1>
+<a name="ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">newTranslator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/translationSupplier">translationSupplier</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translation-supplier/index.html"><span class="identifier">ITranslationSupplier</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<span class="identifier">Locale</span><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<span class="identifier">Locale</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html"><span class="identifier">ITranslator</span></a></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.reporting.translating/-i-translator/index.html">ITranslator</a> which translates <a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a>s to <a href="new-translator.html#ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</a> and falls back
+to <a href="new-translator.html#ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</a> (in the given order) in case no translation exists for <a href="new-translator.html#ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</a>.</p>
+<p>In case neither a translation exists for any <a href="new-translator.html#ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</a> then it uses
+<a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a>'s <a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/get-default.html">getDefault</a>.
+It uses the given <a href="new-translator.html#ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/translationSupplier">translationSupplier</a> to retrieve all available translations.</p>
+<h3>Parameters</h3>
+<a name="translationSupplier"></a>
+<code>translationSupplier</code> - Provides the translations for<a name="primaryLocale"></a>
+<code>primaryLocale</code> - The <a href="#">Locale</a> to which the translator translates per default.<a name="fallbackLocales"></a>
+<code>fallbackLocales</code> - Used in case a translation for a given <a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a> is not defined for
+    <a href="new-translator.html#ch.tutteli.atrium.IAtriumFactory$newTranslator(ch.tutteli.atrium.reporting.translating.ITranslationSupplier, java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</a> or one of its secondary alternatives -- the fallback <a href="#">Locale</a>s are used
+    in the given order.
+<p><strong>Return</strong><br/>
+The newly created translator.</p>
+</BODY>
+</HTML>

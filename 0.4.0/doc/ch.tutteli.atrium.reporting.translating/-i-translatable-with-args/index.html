@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ITranslatableWithArgs - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href=".">ITranslatableWithArgs</a><br/>
+<br/>
+<h1>ITranslatableWithArgs</h1>
+<code><span class="keyword">interface </span><span class="identifier">ITranslatableWithArgs</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>Represents a <a href="../-i-translatable/index.html">ITranslatable</a> with arguments.</p>
+<p>It uses a <a href="translatable.html">translatable</a>, which has placeholders, as basis and <a href="#">java.lang.String.format</a>
+to substitute the placeholders with the <a href="arguments.html">arguments</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="arguments.html">arguments</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">arguments</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>The arguments.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>The id of this <a href="../-i-translatable/index.html">ITranslatable</a> -- per default it is "<a href="#">Class.name</a><a href="name.html">name</a>"</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The name of this <a href="../-i-translatable/index.html">ITranslatable</a> -- the name together with its <a href="#">Class.name</a> should identify a <a href="../-i-translatable/index.html">ITranslatable</a> (see <a href="id.html">id</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="translatable.html">translatable</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">translatable</span><span class="symbol">: </span><a href="../-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>A <a href="../-i-translatable/index.html">ITranslatable</a> with placeholders for the arguments.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-default.html">getDefault</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getDefault</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Returns the default representation of this <a href="../-i-translatable/index.html">ITranslatable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-translatable-with-args/index.html">TranslatableWithArgs</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TranslatableWithArgs</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ITranslatableWithArgs</span></code>
+<p>An <a href="../-i-translatable/index.html">ITranslatable</a> which contains placeholders for arguments.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAnyNarrow.IDownCastFailureHandler - doc</title>
+<link rel="stylesheet" href="..\..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.assertions.any.narrow</a>&nbsp;/&nbsp;<a href="../index.html">IAnyNarrow</a>&nbsp;/&nbsp;<a href=".">IDownCastFailureHandler</a><br/>
+<br/>
+<h1>IDownCastFailureHandler</h1>
+<code><span class="keyword">interface </span><span class="identifier">IDownCastFailureHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>A handler which decides how the lambda -- which could have created subsequent assertions for the
+down-casted <a href="../../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a>, in case the down-cast of the <a href="../../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a> to type <a href="#">TSub</a>
+did not have fail -- should be used in reporting.</p>
+<h3>Parameters</h3>
+<a name="T"></a>
+<code>T</code> - The type of <a href="../../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a>.<a name="TSub"></a>
+<code>TSub</code> - The type to which <a href="../../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a> should have been be down-casted, hence needs to be a
+    subtype of <a href="#">T</a>.
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-and-add-assertion-to-plant.html">createAndAddAssertionToPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAndAddAssertionToPlant</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.IBaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.T, ch.tutteli.atrium.creating.IBaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.IAssertion, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), kotlin.Unit)))/subType">subType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.IBaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.T, ch.tutteli.atrium.creating.IBaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.IAssertion, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), kotlin.Unit)))/subjectPlant">subjectPlant</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-i-base-assertion-plant/index.html"><span class="identifier">IBaseAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.IBaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.T, ch.tutteli.atrium.creating.IBaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.IAssertion, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), kotlin.Unit)))/failingAssertion">failingAssertion</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.IBaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.T, ch.tutteli.atrium.creating.IBaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.IAssertion, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Makes something with the given <a href="create-and-add-assertion-to-plant.html#ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.IBaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.T, ch.tutteli.atrium.creating.IBaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.IAssertion, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a> lambda; might add assertions to <a href="create-and-add-assertion-to-plant.html#ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.IBaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.T, ch.tutteli.atrium.creating.IBaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.IAssertion, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow.IDownCastFailureHandler.TSub)), kotlin.Unit)))/subjectPlant">subjectPlant</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.any.narrow.failurehandler/-explanatory-down-cast-failure-handler/index.html">ExplanatoryDownCastFailureHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ExplanatoryDownCastFailureHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IDownCastFailureHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Represents an IAnyNarrow.IDownCastFailureHandler which wraps subsequent assertions into an
+<a href="../../../ch.tutteli.atrium.assertions/-explanatory-assertion-group/index.html">ExplanatoryAssertionGroup</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

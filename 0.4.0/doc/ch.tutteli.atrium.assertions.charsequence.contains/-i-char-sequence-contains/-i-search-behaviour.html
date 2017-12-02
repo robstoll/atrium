@@ -1,0 +1,53 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ICharSequenceContains.ISearchBehaviour - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.charsequence.contains</a>&nbsp;/&nbsp;<a href="index.html">ICharSequenceContains</a>&nbsp;/&nbsp;<a href=".">ISearchBehaviour</a><br/>
+<br/>
+<h1>ISearchBehaviour</h1>
+<code><span class="keyword">interface </span><span class="identifier">ISearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-search-behaviour/index.html"><span class="identifier">ISearchBehaviour</span></a></code>
+<p>Represents a search behaviour but leaves it up to the <a href="-i-searcher/index.html">ISearcher</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (an <a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a>) in order that it reflects the search behaviour.</p>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-search-behaviour/decorate-description.html">decorateDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">decorateDescription</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.IContains.ISearchBehaviour$decorateDescription(ch.tutteli.atrium.reporting.translating.ITranslatable)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>Decorates the given <a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-search-behaviour/decorate-description.html#ch.tutteli.atrium.assertions.basic.contains.IContains.ISearchBehaviour$decorateDescription(ch.tutteli.atrium.reporting.translating.ITranslatable)/description">description</a> so that it represents the search behaviour and returns the result.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-ignoring-case-search-behaviour/index.html">CharSequenceContainsIgnoringCaseSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">CharSequenceContainsIgnoringCaseSearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISearchBehaviour</span></code>
+<p>Represents the search behaviour that an <a href="-i-searcher/index.html">ICharSequenceContains.ISearcher</a> should ignore case
+when searching for an expected object.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-no-op-search-behaviour/index.html">CharSequenceContainsNoOpSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">CharSequenceContainsNoOpSearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISearchBehaviour</span></code>
+<p>Represents the default search behaviour or rather does not define a search behaviour at all.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

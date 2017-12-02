@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ContainsAssertionCreator - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.basic.contains.creators</a>&nbsp;/&nbsp;<a href=".">ContainsAssertionCreator</a><br/>
+<br/>
+<h1>ContainsAssertionCreator</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ContainsAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">S</span><span class="symbol">, </span><span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-checker/index.html"><span class="identifier">IChecker</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-creator/index.html"><span class="identifier">ICreator</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Represents the base class for <a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-creator/index.html">IContains.ICreator</a>s, providing a template to fulfill its job.</p>
+<h3>Parameters</h3>
+<a name="T"></a>
+<code>T</code> - The type of the <a href="../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a>.<a name="S"></a>
+<code>S</code> - The type of the search criteria.<a name="C"></a>
+<code>C</code> - The type of the checkers in use (typically a sub interface of <a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-checker/index.html">IContains.IChecker</a>).
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ContainsAssertionCreator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$<init>(kotlin.collections.List((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.C)))/checkers">checkers</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">C</span><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Represents the base class for <a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-creator/index.html">IContains.ICreator</a>s, providing a template to fulfill its job.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-assertion-group.html">createAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Array((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S)))/plant">plant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Array((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S)))/searchCriterion">searchCriterion</span><span class="symbol">:</span>&nbsp;<span class="identifier">S</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Array((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S)))/otherSearchCriteria">otherSearchCriteria</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html"><span class="identifier">IAssertionGroup</span></a></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a> representing the sophisticated <code>contains</code> assertion for the given <a href="create-assertion-group.html#ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Array((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S)))/plant">plant</a> based
+on the given <a href="create-assertion-group.html#ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Array((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S)))/searchCriterion">searchCriterion</a> and possibly <a href="create-assertion-group.html#ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$createAssertionGroup(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Array((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S)))/otherSearchCriteria">otherSearchCriteria</a> (might be empty).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create-assertion-group-for-search-criteria-assertions.html">createAssertionGroupForSearchCriteriaAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAssertionGroupForSearchCriteriaAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$createAssertionGroupForSearchCriteriaAssertions(kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html"><span class="identifier">IAssertionGroup</span></a></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a> representing the sophisticated <code>contains</code> assertion as a whole based on the given
+<a href="create-assertion-group-for-search-criteria-assertions.html#ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$createAssertionGroupForSearchCriteriaAssertions(kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</a> which where created for the search criteria.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="search-and-create-assertion.html">searchAndCreateAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">searchAndCreateAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$searchAndCreateAssertion(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Function2((kotlin.Int, ch.tutteli.atrium.reporting.translating.ITranslatable, ch.tutteli.atrium.assertions.IAssertionGroup)))/plant">plant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$searchAndCreateAssertion(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Function2((kotlin.Int, ch.tutteli.atrium.reporting.translating.ITranslatable, ch.tutteli.atrium.assertions.IAssertionGroup)))/searchCriterion">searchCriterion</span><span class="symbol">:</span>&nbsp;<span class="identifier">S</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$searchAndCreateAssertion(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Function2((kotlin.Int, ch.tutteli.atrium.reporting.translating.ITranslatable, ch.tutteli.atrium.assertions.IAssertionGroup)))/featureFactory">featureFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">numberOfOccurrences</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html"><span class="identifier">IAssertionGroup</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html"><span class="identifier">IAssertionGroup</span></a></code>
+<p>Searches for something fulfilling the given <a href="search-and-create-assertion.html#ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$searchAndCreateAssertion(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Function2((kotlin.Int, ch.tutteli.atrium.reporting.translating.ITranslatable, ch.tutteli.atrium.assertions.IAssertionGroup)))/searchCriterion">searchCriterion</a> in the given <a href="search-and-create-assertion.html#ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$searchAndCreateAssertion(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Function2((kotlin.Int, ch.tutteli.atrium.reporting.translating.ITranslatable, ch.tutteli.atrium.assertions.IAssertionGroup)))/plant">plant</a>'s
+<a href="../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">subject</a> and should pass on the number of occurrences to the given
+<a href="search-and-create-assertion.html#ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator$searchAndCreateAssertion(ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.T)), ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator.S, kotlin.Function2((kotlin.Int, ch.tutteli.atrium.reporting.translating.ITranslatable, ch.tutteli.atrium.assertions.IAssertionGroup)))/featureFactory">featureFactory</a> which creates feature assertions based on the <a href="#">checkers</a>, which in turn can be used to create
+a resulting <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a> representing the assertion for a search criteria as a whole.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-contains-objects-assertion-creator/index.html">ContainsObjectsAssertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ContainsObjectsAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">S</span><span class="symbol">, </span><span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-search-behaviour/index.html"><span class="identifier">ISearchBehaviour</span></a><span class="symbol">, </span><span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-checker/index.html"><span class="identifier">IChecker</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ContainsAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">,</span>&nbsp;<span class="identifier">C</span><span class="symbol">&gt;</span></code>
+<p>Represents the base class for <a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-creator/index.html">IContains.ICreator</a>s which use bare objects as search criteria (matching them
+with <code>==</code>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-any-order-entries-assertion-creator/index.html">IterableContainsInAnyOrderEntriesAssertionCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">IterableContainsInAnyOrderEntriesAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ContainsAssertionCreator</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-checker.html"><span class="identifier">IChecker</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-creator.html"><span class="identifier">ICreator</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where an expected entry can appear
+in any order and is identified by holding a group of assertions, created by an assertion creator lambda.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

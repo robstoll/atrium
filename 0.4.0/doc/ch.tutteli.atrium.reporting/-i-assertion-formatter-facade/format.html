@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionFormatterFacade.format - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">IAssertionFormatterFacade</a>&nbsp;/&nbsp;<a href=".">format</a><br/>
+<br/>
+<h1>format</h1>
+<a name="ch.tutteli.atrium.reporting.IAssertionFormatterFacade$format(ch.tutteli.atrium.assertions.IAssertion, java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.IAssertion, kotlin.Boolean)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.IAssertionFormatterFacade$format(ch.tutteli.atrium.assertions.IAssertion, java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.IAssertion, kotlin.Boolean)))/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.IAssertionFormatterFacade$format(ch.tutteli.atrium.assertions.IAssertion, java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.IAssertion, kotlin.Boolean)))/sb">sb</span><span class="symbol">:</span>&nbsp;<span class="identifier">StringBuilder</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.IAssertionFormatterFacade$format(ch.tutteli.atrium.assertions.IAssertion, java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.IAssertion, kotlin.Boolean)))/assertionFilter">assertionFilter</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the given <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatterFacade$format(ch.tutteli.atrium.assertions.IAssertion, java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.IAssertion, kotlin.Boolean)))/assertion">assertion</a> and appends the result to the given <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatterFacade$format(ch.tutteli.atrium.assertions.IAssertion, java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.IAssertion, kotlin.Boolean)))/sb">sb</a>.</p>
+<p>One can define an <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatterFacade$format(ch.tutteli.atrium.assertions.IAssertion, java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.IAssertion, kotlin.Boolean)))/assertionFilter">assertionFilter</a> to filter out <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s
+(for instance, filter out assertions which hold &rarr; see <a href="../../ch.tutteli.atrium/-i-atrium-factory/new-only-failure-reporter.html">IAtriumFactory.newOnlyFailureReporter</a>).</p>
+<h3>Parameters</h3>
+<a name="sb"></a>
+<code>sb</code> - The <a href="#">StringBuilder</a> to which the formatted <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatterFacade$format(ch.tutteli.atrium.assertions.IAssertion, java.lang.StringBuilder, kotlin.Function1((ch.tutteli.atrium.assertions.IAssertion, kotlin.Boolean)))/assertion">assertion</a> will be appended.<a name="assertion"></a>
+<code>assertion</code> - The assertion which should be formatted<a name="assertionFilter"></a>
+<code>assertionFilter</code> - Can be used used to filter out <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s which should not be formatted.
+</BODY>
+</HTML>

@@ -1,0 +1,169 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ISimpleTranslatable - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href=".">ISimpleTranslatable</a><br/>
+<br/>
+<h1>ISimpleTranslatable</h1>
+<code><span class="keyword">interface </span><span class="identifier">ISimpleTranslatable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>Something which is <a href="../-i-translatable/index.html">ITranslatable</a> and provides a default representation by <a href="value.html">value</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="value.html">value</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">value</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The default representation of this <a href="../-i-translatable/index.html">ITranslatable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-translatable/id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The id of this <a href="../-i-translatable/index.html">ITranslatable</a> -- per default it is "<a href="../-i-translatable/-i-d_-s-e-p-a-r-a-t-o-r.html">Class.name</a><a href="../-i-translatable/name.html">name</a>"</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-translatable/name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The name of this <a href="../-i-translatable/index.html">ITranslatable</a> -- the name together with its <a href="#">Class.name</a> should identify a <a href="../-i-translatable/index.html">ITranslatable</a> (see <a href="../-i-translatable/id.html">id</a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-default.html">getDefault</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">getDefault</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the default representation of this <a href="../-i-translatable/index.html">ITranslatable</a> which is <a href="value.html">value</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.verbs/-assertion-verb/index.html">AssertionVerb</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">AssertionVerb</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>The <a href="../-i-translatable/index.html">ITranslatable</a>s for the assertion functions <a href="../../ch.tutteli.atrium.verbs.assert/assert.html">assert</a>, <a href="../../ch.tutteli.atrium.verbs.assertthat/assert-that.html">assertThat</a> and <a href="../../ch.tutteli.atrium.verbs.expect/expect.html">expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions/-description-any-assertion/index.html">DescriptionAnyAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">DescriptionAnyAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains the <a href="../../ch.tutteli.atrium.assertions/-i-basic-assertion/description.html">IBasicAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions/-description-basic/index.html">DescriptionBasic</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">DescriptionBasic</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains the <a href="../../ch.tutteli.atrium.assertions/-i-basic-assertion/description.html">IBasicAssertion.description</a>s which are so basic that one does not want to use a different wording in
+a two different assertion functions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions/-description-char-sequence-assertion/index.html">DescriptionCharSequenceAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">DescriptionCharSequenceAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains the <a href="../../ch.tutteli.atrium.assertions/-i-basic-assertion/description.html">IBasicAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions/-description-collection-assertion/index.html">DescriptionCollectionAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">DescriptionCollectionAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains the <a href="../../ch.tutteli.atrium.assertions/-i-basic-assertion/description.html">IBasicAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions/-description-iterable-assertion/index.html">DescriptionIterableAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">DescriptionIterableAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains the <a href="../../ch.tutteli.atrium.assertions/-i-basic-assertion/description.html">IBasicAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions/-description-narrowing-assertion/index.html">DescriptionNarrowingAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">DescriptionNarrowingAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains the <a href="../../ch.tutteli.atrium.assertions/-i-basic-assertion/description.html">IBasicAssertion.description</a>s of the assertion functions which postulate that a
+<a href="../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a> of type <code>T</code> can be narrowed to <code>TSub</code> where <code>TSub &lt;: T</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions/-description-number-assertion/index.html">DescriptionNumberAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">DescriptionNumberAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains the <a href="../../ch.tutteli.atrium.assertions/-i-basic-assertion/description.html">IBasicAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-number/index.html">Number</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions/-description-throwable-assertion/index.html">DescriptionThrowableAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">DescriptionThrowableAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains the <a href="../../ch.tutteli.atrium.assertions/-i-basic-assertion/description.html">IBasicAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.spec.reporting/-empty-name-and-subject-assertion-group-formatter-spec/-test-description/index.html">TestDescription</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">TestDescription</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.spec.reporting.translating/-translation-supplier-spec/-test-translatable/index.html">TestTranslatable</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">TestTranslatable</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISimpleTranslatable</span></code>
+<p>Contains ISimpleTranslatables which are used in <a href="../../ch.tutteli.atrium.spec.reporting.translating/-translation-supplier-spec/index.html">TranslationSupplierSpec</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

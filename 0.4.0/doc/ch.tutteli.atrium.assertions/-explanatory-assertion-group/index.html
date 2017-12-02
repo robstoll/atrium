@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExplanatoryAssertionGroup - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href=".">ExplanatoryAssertionGroup</a><br/>
+<br/>
+<h1>ExplanatoryAssertionGroup</h1>
+<code><span class="keyword">class </span><span class="identifier">ExplanatoryAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-empty-name-and-subject-assertion-group/index.html"><span class="identifier">EmptyNameAndSubjectAssertionGroup</span></a></code>
+<p>Represents an <a href="../-i-assertion-group/index.html">IAssertionGroup</a> with an <a href="../-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>, which means an <a href="../../ch.tutteli.atrium.reporting/-i-reporter/index.html">IReporter</a> should not
+show whether the <a href="../-empty-name-and-subject-assertion-group/assertions.html">assertions</a> hold or not -- moreover <a href="holds.html">holds</a> always returns <code>true</code>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ExplanatoryAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup$<init>(ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/type">type</span><span class="symbol">:</span>&nbsp;<a href="../-i-explanatory-assertion-group-type.html"><span class="identifier">IExplanatoryAssertionGroupType</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup$<init>(ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/explanatoryAssertions">explanatoryAssertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Represents an <a href="../-i-assertion-group/index.html">IAssertionGroup</a> with an <a href="../-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>, which means an <a href="../../ch.tutteli.atrium.reporting/-i-reporter/index.html">IReporter</a>
+    should not show whether the <a href="../-empty-name-and-subject-assertion-group/assertions.html">assertions</a> hold or not -- moreover <a href="holds.html">holds</a> always returns <code>true</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-empty-name-and-subject-assertion-group/assertions.html">assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">assertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">&gt;</span></code>
+<p>The assertions of this group, which are defined for <a href="../-empty-name-and-subject-assertion-group/subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-subject-assertion-group/name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p><a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a> of an empty string.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-subject-assertion-group/subject.html">subject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">subject</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The empty string.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-empty-name-and-subject-assertion-group/type.html">type</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><a href="../-i-assertion-group-type.html"><span class="identifier">IAssertionGroupType</span></a></code>
+<p>The type of the group, e.g. <a href="../-root-assertion-group-type.html">RootAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Holds if all its <a href="../-empty-name-and-subject-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

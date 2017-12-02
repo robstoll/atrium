@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.reporting - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href=".">ch.tutteli.atrium.reporting</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.reporting</h2>
+<p>Everything involved in reporting made <a href="./ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-formatter-method-object/index.html">AssertionFormatterMethodObject</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AssertionFormatterMethodObject</span></code>
+<p>A method object used for interactions between <a href="-i-assertion-formatter-controller/index.html">IAssertionFormatterController</a> and <a href="-i-assertion-formatter/index.html">IAssertionFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-formatter/index.html">IAssertionFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionFormatter</span></code>
+<p>Represents a formatter for <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s and <a href="../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-formatter-controller/index.html">IAssertionFormatterController</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionFormatterController</span></code>
+<p>Responsible to control the flow of reporting using <a href="-i-assertion-formatter-controller/register.html">register</a>ed <a href="-i-assertion-formatter/index.html">IAssertionFormatter</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-formatter-facade/index.html">IAssertionFormatterFacade</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionFormatterFacade</span></code>
+<p>Responsible to call an appropriate <a href="-i-assertion-formatter/index.html">IAssertionFormatter</a> which supports <a href="-i-assertion-formatter-facade/format.html">format</a>ing a given <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-pair-formatter/index.html">IAssertionPairFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPairFormatter</span></code>
+<p>Represents a formatter of assertion pairs -- which consists of a <a href="../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a> and a representation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-method-call-formatter/index.html">IMethodCallFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IMethodCallFormatter</span></code>
+<p>Responsible to format a method call in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-object-formatter/index.html">IObjectFormatter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IObjectFormatter</span></code>
+<p>Represents a formatter for objects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-raw-string.html">IRawString</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IRawString</span></code>
+<p>Marker interface for types which provide a raw string functionality
+and should be treated accordingly in reporting (e.g., in <a href="-i-object-formatter/index.html">IObjectFormatter</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-reporter/index.html">IReporter</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IReporter</span></code>
+<p>Represents a reporter which reports about <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-raw-string/index.html">RawString</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RawString</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-raw-string.html"><span class="identifier">IRawString</span></a></code>
+<p>Use this class to represent a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> which should be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-builder/index.html">ReporterBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ReporterBuilder</span></code>
+<p>A builder to create an <a href="-i-reporter/index.html">IReporter</a> consisting of several components.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

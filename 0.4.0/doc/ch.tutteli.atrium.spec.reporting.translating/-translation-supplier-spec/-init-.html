@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TranslationSupplierSpec.<init> - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.spec.reporting.translating</a>&nbsp;/&nbsp;<a href="index.html">TranslationSupplierSpec</a>&nbsp;/&nbsp;<a href=".">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$&lt;init&gt;(ch.tutteli.atrium.spec.IAssertionVerbFactory, ch.tutteli.atrium.reporting.IReporter, kotlin.String)"></a>
+<code><span class="identifier">TranslationSupplierSpec</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$<init>(ch.tutteli.atrium.spec.IAssertionVerbFactory, ch.tutteli.atrium.reporting.IReporter, kotlin.String)/verbs">verbs</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.spec/-i-assertion-verb-factory/index.html"><span class="identifier">IAssertionVerbFactory</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$<init>(ch.tutteli.atrium.spec.IAssertionVerbFactory, ch.tutteli.atrium.reporting.IReporter, kotlin.String)/reporter">reporter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-i-reporter/index.html"><span class="identifier">IReporter</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$<init>(ch.tutteli.atrium.spec.IAssertionVerbFactory, ch.tutteli.atrium.reporting.IReporter, kotlin.String)/describePrefix">describePrefix</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"[Atrium] "<span class="symbol">)</span></code>
+<p>If you use this Spec then your reporter needs to use a translator which uses the following translations
+which should be in</p>
+<p>the primary local: de_CH
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = ist</p>
+<p>the primary Locale's natural first fallback: de
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = ist nicht</p>
+<p>the Locale.ROOT
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_SAME = ist dieselbe Instanz wie</p>
+<p>the fallback Locale: fr
+ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
+ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_KNOWN = %tD était %&lt;tA
+ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-PLACEHOLDER = Caractère de remplacement %s</p>
+<p>the Locale it:
+ch.tutteli.atrium.assertions.DescriptionNumberAssertion-IS_LESS_THAN = è meno di
+ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_UNKNOWN = solo %tA!!</p>
+</BODY>
+</HTML>

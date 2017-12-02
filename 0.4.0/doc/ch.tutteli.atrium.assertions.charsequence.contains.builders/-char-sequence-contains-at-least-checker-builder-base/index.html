@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CharSequenceContainsAtLeastCheckerBuilderBase - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders</a>&nbsp;/&nbsp;<a href=".">CharSequenceContainsAtLeastCheckerBuilderBase</a><br/>
+<br/>
+<h1>CharSequenceContainsAtLeastCheckerBuilderBase</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">CharSequenceContainsAtLeastCheckerBuilderBase</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-search-behaviour.html"><span class="identifier">ISearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-char-sequence-contains-checker-builder/index.html"><span class="identifier">CharSequenceContainsCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>The base class for builders which create a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+<h3>Parameters</h3>
+<a name="T"></a>
+<code>T</code> - The input type of the search.<a name="S"></a>
+<code>S</code> - The search behaviour which should be applied for the input of the search.
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">CharSequenceContainsAtLeastCheckerBuilderBase</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase$<init>(kotlin.Int, ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase.T, ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase.S)), kotlin.String, kotlin.String)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase$<init>(kotlin.Int, ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase.T, ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase.S)), kotlin.String, kotlin.String)/containsBuilder">containsBuilder</span><span class="symbol">:</span>&nbsp;<a href="../-char-sequence-contains-builder/index.html"><span class="identifier">CharSequenceContainsBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase$<init>(kotlin.Int, ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase.T, ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase.S)), kotlin.String, kotlin.String)/nameContainsNotFun">nameContainsNotFun</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase$<init>(kotlin.Int, ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase.T, ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase.S)), kotlin.String, kotlin.String)/nameAtLeastFun">nameAtLeastFun</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>The base class for builders which create a <code>contains at least</code> check within the fluent API of a
+    sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="checkers.html">checkers</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">checkers</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-checker.html"><span class="identifier">IChecker</span></a><span class="symbol">&gt;</span></code>
+<p>Contains all <a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-checker.html">IChecker</a>s which should be applied to the search result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="times.html">times</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">times</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The number which the check will compare against the actual number of times an expected object
+    is found in the input of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder/index.html">CharSequenceContainsAtLeastCheckerBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">CharSequenceContainsAtLeastCheckerBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-search-behaviour.html"><span class="identifier">ISearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequenceContainsAtLeastCheckerBuilderBase</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Represents the builder of a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder/index.html">CharSequenceContainsAtLeastCheckerBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">CharSequenceContainsAtLeastCheckerBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-search-behaviour.html"><span class="identifier">ISearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">CharSequenceContainsAtLeastCheckerBuilderBase</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Represents the builder of a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

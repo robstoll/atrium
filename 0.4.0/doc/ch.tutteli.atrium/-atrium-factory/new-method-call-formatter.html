@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtriumFactory.newMethodCallFormatter - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">AtriumFactory</a>&nbsp;/&nbsp;<a href=".">newMethodCallFormatter</a><br/>
+<br/>
+<h1>newMethodCallFormatter</h1>
+<a name="ch.tutteli.atrium.AtriumFactory$newMethodCallFormatter()"></a>
+<code><span class="keyword">fun </span><span class="identifier">newMethodCallFormatter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-i-method-call-formatter/index.html"><span class="identifier">IMethodCallFormatter</span></a></code>
+<p>Overrides <a href="../-i-atrium-factory/new-method-call-formatter.html">IAtriumFactory.newMethodCallFormatter</a></p>
+<p>Creates an <a href="../../ch.tutteli.atrium.reporting/-i-method-call-formatter/index.html">IMethodCallFormatter</a> which represents arguments of a method call by using their <a href="#">Object.toString</a>
+representation with the exception of:</p>
+<ul><li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>, is wrapped in quotes (<code>"</code>) and line breaks (CR or/and LF) are escaped so that the
+whole representation remains on one line.</li>
+<li><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> is wrapped in apostrophes (<code>'</code>)</li>
+</ul>
+<p><strong>Return</strong><br/>
+The newly created method call formatter.</p>
+</BODY>
+</HTML>

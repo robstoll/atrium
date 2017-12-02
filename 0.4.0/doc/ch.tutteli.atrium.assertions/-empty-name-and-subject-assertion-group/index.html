@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>EmptyNameAndSubjectAssertionGroup - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href=".">EmptyNameAndSubjectAssertionGroup</a><br/>
+<br/>
+<h1>EmptyNameAndSubjectAssertionGroup</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">EmptyNameAndSubjectAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-assertion-group/index.html"><span class="identifier">IAssertionGroup</span></a></code>
+<p>Represents a base class for <a href="../-i-assertion-group/index.html">IAssertionGroup</a>s which have an empty <a href="name.html">name</a> and <a href="subject.html">subject</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">EmptyNameAndSubjectAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.EmptyNameAndSubjectAssertionGroup$<init>(ch.tutteli.atrium.assertions.IAssertionGroupType, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/type">type</span><span class="symbol">:</span>&nbsp;<a href="../-i-assertion-group-type.html"><span class="identifier">IAssertionGroupType</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.EmptyNameAndSubjectAssertionGroup$<init>(ch.tutteli.atrium.assertions.IAssertionGroupType, kotlin.collections.List((ch.tutteli.atrium.assertions.IAssertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Represents a base class for <a href="../-i-assertion-group/index.html">IAssertionGroup</a>s which have an empty <a href="name.html">name</a> and <a href="subject.html">subject</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertions.html">assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">assertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">&gt;</span></code>
+<p>The assertions of this group, which are defined for <a href="subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p><a href="../../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">Untranslatable</a> of an empty string.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="subject.html">subject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">subject</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The empty string.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="type.html">type</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><a href="../-i-assertion-group-type.html"><span class="identifier">IAssertionGroupType</span></a></code>
+<p>The type of the group, e.g. <a href="../-root-assertion-group-type.html">RootAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-assertion-group/holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Holds if all its <a href="../-i-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-explanatory-assertion-group/index.html">ExplanatoryAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ExplanatoryAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">EmptyNameAndSubjectAssertionGroup</span></code>
+<p>Represents an <a href="../-i-assertion-group/index.html">IAssertionGroup</a> with an <a href="../-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>, which means an <a href="../../ch.tutteli.atrium.reporting/-i-reporter/index.html">IReporter</a> should not
+show whether the <a href="assertions.html">assertions</a> hold or not -- moreover <a href="../-explanatory-assertion-group/holds.html">holds</a> always returns <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-indent-assertion-group/index.html">IndentAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">IndentAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">EmptyNameAndSubjectAssertionGroup</span></code>
+<p>Represents an <a href="../-i-assertion-group/index.html">IAssertionGroup</a> with an <a href="../-i-indent-assertion-group-type.html">IIndentAssertionGroupType</a>, which means the <a href="assertions.html">assertions</a> shall be
+indented one extra level and <a href="name.html">name</a> and <a href="subject.html">subject</a> shall be neglected (not reported to the output).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-invisible-assertion-group/index.html">InvisibleAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">InvisibleAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">EmptyNameAndSubjectAssertionGroup</span></code>
+<p>Represents an <a href="../-i-assertion-group/index.html">IAssertionGroup</a> with an <a href="../-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a>, which means the grouping should be
+invisible in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

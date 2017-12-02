@@ -1,0 +1,119 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.reporting.translating - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href=".">ch.tutteli.atrium.reporting.translating</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.reporting.translating</h2>
+<p>Everything involved in translating <a href="./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a>s.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-arguments-supporting-translator/index.html">ArgumentsSupportingTranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ArgumentsSupportingTranslator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-translator/index.html"><span class="identifier">ITranslator</span></a></code>
+<p>Represents an <a href="-i-translator/index.html">ITranslator</a> which supports <a href="-i-translatable-with-args/index.html">ITranslatableWithArgs</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-locale-order-decider/index.html">ILocaleOrderDecider</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ILocaleOrderDecider</span></code>
+<p>Responsible to decide in which order <a href="#">Locale</a>s should be processed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-simple-translatable/index.html">ISimpleTranslatable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ISimpleTranslatable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>Something which is <a href="-i-translatable/index.html">ITranslatable</a> and provides a default representation by <a href="-i-simple-translatable/value.html">value</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-translatable/index.html">ITranslatable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ITranslatable</span></code>
+<p>Something which is translatable, identified by <a href="-i-translatable/id.html">id</a> with a default representation given by <a href="-i-translatable/get-default.html">getDefault</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-translatable-with-args/index.html">ITranslatableWithArgs</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ITranslatableWithArgs</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>Represents a <a href="-i-translatable/index.html">ITranslatable</a> with arguments.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-translation-supplier/index.html">ITranslationSupplier</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ITranslationSupplier</span></code>
+<p>A supplier of translations for <a href="-i-translatable/index.html">ITranslatable</a>s for particular <a href="#">Locale</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-translator/index.html">ITranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ITranslator</span></code>
+<p>Represents a translator of <a href="-i-translatable/index.html">ITranslatable</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-translatable-raw-string/index.html">TranslatableRawString</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">TranslatableRawString</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting/-i-raw-string.html"><span class="identifier">IRawString</span></a></code>
+<p>Use this class to represent an <a href="-i-translatable/index.html">ITranslatable</a> which shall be translated and
+then be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-translatable-with-args/index.html">TranslatableWithArgs</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TranslatableWithArgs</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-translatable-with-args/index.html"><span class="identifier">ITranslatableWithArgs</span></a></code>
+<p>An <a href="-i-translatable/index.html">ITranslatable</a> which contains placeholders for arguments.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-untranslatable/index.html">Untranslatable</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Untranslatable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>Represents an <a href="-i-translatable/index.html">ITranslatable</a> which is not translatable but has only a fixed <a href="-untranslatable/name.html">name</a> which serves as <a href="-untranslatable/get-default.html">getDefault</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-using-default-translator/index.html">UsingDefaultTranslator</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">UsingDefaultTranslator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-arguments-supporting-translator/index.html"><span class="identifier">ArgumentsSupportingTranslator</span></a></code>
+<p>This translator does not translate but uses <a href="-i-translatable/get-default.html">ITranslatable.getDefault</a> instead
+and uses <a href="#">Locale.getDefault</a> as <a href="-arguments-supporting-translator/primary-locale.html">primaryLocale</a> if not defined differently via constructor parameter.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

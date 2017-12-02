@@ -1,0 +1,74 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IBasicAssertion - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href=".">IBasicAssertion</a><br/>
+<br/>
+<h1>IBasicAssertion</h1>
+<code><span class="keyword">interface </span><span class="identifier">IBasicAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-assertion/index.html"><span class="identifier">IAssertion</span></a></code>
+<p>The base interface for <a href="../-i-assertion/index.html">IAssertion</a>s which only consists of the <a href="expected.html">expected</a> result with a complementary <a href="description.html">description</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>The complementary description to the <a href="expected.html">expected</a> result such as <code>contains</code>, <code>is not</code> etc.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="expected.html">expected</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">expected</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The expected result.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-assertion/holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Indicates whether the assertion holds or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-basic-assertion/index.html">BasicAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">BasicAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IBasicAssertion</span></code>
+<p>A default implementation for IBasicAssertion which lazily evaluates <a href="../-basic-assertion/holds.html">holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-lazy-thread-unsafe-basic-assertion/index.html">LazyThreadUnsafeBasicAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LazyThreadUnsafeBasicAssertion</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IBasicAssertion</span></code>
+<p>Represents an IBasicAssertion which is evaluated lazily where the lazy loading is not thread safe.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

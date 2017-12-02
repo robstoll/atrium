@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionFormatter.format - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">IAssertionFormatter</a>&nbsp;/&nbsp;<a href=".">format</a><br/>
+<br/>
+<h1>format</h1>
+<a name="ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the given <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> and appends the result to the <a href="../-assertion-formatter-method-object/sb.html">sb</a>
+of the given <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</a>.</p>
+<p>This method should not be overridden (unfortunately an interface method cannot yet be final in Kotlin). This
+default implementation checks whether the given <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a> and calls
+<a href="throw-not-intended-for-assertion-groups.html">throwNotIntendedForAssertionGroups</a> in case it is; calls <a href="format-non-group.html">formatNonGroup</a> with the given <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> and
+<a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</a> otherwise.</p>
+<p>This function should be in sync with <a href="can-format.html">canFormat</a>. If <a href="can-format.html">canFormat</a> returns <code>true</code> then this method should be able
+to format the given <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> without problems. If <a href="can-format.html">canFormat</a> returns <code>false</code> then this method should throw
+an <a href="#">UnsupportedOperationException</a>.
+Moreover, it should throw an <a href="#">UnsupportedOperationException</a> in case the <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a>
+-- use <a href="throw-not-intended-for-assertion-groups.html">IAssertionFormatter.throwNotIntendedForAssertionGroups</a> for this purpose.</p>
+<h3>Parameters</h3>
+<a name="assertion"></a>
+<code>assertion</code> - The assertion which should be formatted (not an <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a>).<a name="methodObject"></a>
+<code>methodObject</code> - The method object which contains inter alia the <a href="../-assertion-formatter-method-object/sb.html">sb</a>
+    to with the result will be appended.
+<h3>Exceptions</h3>
+<a name="UnsupportedOperationException"></a>
+<code>UnsupportedOperationException</code> - in case this <a href="index.html">IAssertionFormatter</a> cannot format the given <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a>
+    (<a href="can-format.html">canFormat</a> returns <code>false</code>) or if <a href="format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$format(ch.tutteli.atrium.assertions.IAssertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a>.
+</BODY>
+</HTML>

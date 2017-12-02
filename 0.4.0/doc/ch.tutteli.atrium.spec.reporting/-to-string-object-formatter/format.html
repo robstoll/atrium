@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ToStringObjectFormatter.format - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.spec.reporting</a>&nbsp;/&nbsp;<a href="index.html">ToStringObjectFormatter</a>&nbsp;/&nbsp;<a href=".">format</a><br/>
+<br/>
+<h1>format</h1>
+<a name="ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)"></a>
+<code><span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Overrides <a href="../../ch.tutteli.atrium.reporting/-i-object-formatter/format.html">IObjectFormatter.format</a></p>
+<p>Returns a formatted version of the given <a href="format.html#ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</a>.</p>
+<p>Following the minimum requirements for an <a href="../../ch.tutteli.atrium.reporting/-i-object-formatter/index.html">IObjectFormatter</a>:</p>
+<ul><li>it will return <a href="#">RawString.NULL</a>.<a href="#">string</a> in case <a href="format.html#ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</a> is <code>null</code></li>
+<li>it will return <a href="#">RawString.string</a> in case <a href="format.html#ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</a> is a <a href="#">RawString</a></li>
+<li>it will return the translation of <a href="format.html#ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</a> in case it is a <a href="#">TranslatableRawString</a></li>
+</ul>
+<p>Besides that it is up to the concrete implementation how it formats <a href="format.html#ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</a>.
+Nonetheless, following some conventions:</p>
+<ul><li>return <code>"true"</code> in case <a href="format.html#ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</a> is <code>true</code></li>
+<li>return <code>"false"</code> in case <a href="format.html#ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</a> is <code>false</code></li>
+<li>wrap <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char/index.html">Char</a> in apostrophes (e.g. <code>"'a'"</code>)</li>
+<li>wrap <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a> in quotes (e.g. <code>"\"hello\""</code>)</li>
+</ul>
+<h3>Parameters</h3>
+<a name="value"></a>
+<code>value</code> - The value which shall be formatted.
+<p><strong>Return</strong><br/>
+The formatted <a href="format.html#ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter$format(kotlin.Any)/value">value</a>.</p>
+</BODY>
+</HTML>

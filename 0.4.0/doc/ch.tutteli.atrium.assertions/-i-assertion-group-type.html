@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionGroupType - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href=".">IAssertionGroupType</a><br/>
+<br/>
+<h1>IAssertionGroupType</h1>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-bullet-point-identifier.html"><span class="identifier">IBulletPointIdentifier</span></a></code>
+<p>Represents a type of an <a href="-i-assertion-group/index.html">IAssertionGroup</a>.</p>
+<p>This interface is essentially a marker interface and should be sub-typed by other interfaces.</p>
+<p>As side notice: I decided to use a marker interface instead of an <code>enum class</code> -- which is not open for
+extension -- so that an unknown number of types can be created without the need to modify existing implementations.</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-i-do-not-filter-assertion-group-type.html">IDoNotFilterAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IDoNotFilterAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionGroupType</span></code>
+<p>An IAssertionGroupType which indicates that a <a href="../ch.tutteli.atrium.reporting/-i-reporter/index.html">IReporter</a> should not filter its <a href="-i-assertion-group/assertions.html">IAssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-feature-assertion-group-type.html">IFeatureAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IFeatureAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionGroupType</span></code>
+<p>Represents the IAssertionGroupType for <a href="-i-assertion-group/index.html">IAssertionGroup</a>s which contain some kind of feature assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-indent-assertion-group-type.html">IIndentAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IIndentAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionGroupType</span></code>
+<p>Represents the IAssertionGroupType for <a href="-i-assertion-group/index.html">IAssertionGroup</a>s whose <a href="-i-assertion-group/assertions.html">assertions</a>
+should be displayed with an extra indent. Such a group might have a <a href="-i-assertion-group/name.html">IAssertionGroup.name</a> and
+<a href="-i-assertion-group/subject.html">IAssertionGroup.subject</a> (by accident) but should not be mentioned in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-invisible-assertion-group-type.html">IInvisibleAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IInvisibleAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionGroupType</span></code>
+<p>Represents the IAssertionGroupType for <a href="-i-assertion-group/index.html">IAssertionGroup</a>s whose <a href="-i-assertion-group/assertions.html">assertions</a> should
+be displayed in a manner that the user does not even notice that the <a href="-i-assertion/index.html">IAssertion</a>s have been grouped.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-list-assertion-group-type.html">IListAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IListAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionGroupType</span></code>
+<p>Represents the IAssertionGroupType for <a href="-i-assertion-group/index.html">IAssertionGroup</a>s whose <a href="-i-assertion-group/assertions.html">assertions</a> should
+be displayed in a list (up to the <a href="../ch.tutteli.atrium.reporting/-i-reporter/index.html">IReporter</a> if it is a list with bullets, squares etc.).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-root-assertion-group-type.html">RootAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">RootAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IAssertionGroupType</span></code>
+<p>The IAssertionGroupType for <a href="-i-assertion-group/index.html">IAssertionGroup</a>s which are the root of all assertions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,120 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.creating - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href=".">ch.tutteli.atrium.creating</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.creating</h2>
+<p>Everything involved in creating <a href="./ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-collector/index.html">AssertionCollector</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">AssertionCollector</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-plant/index.html">IAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-assertion-plant/index.html"><span class="identifier">IBaseAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s based on a non nullable <a href="-i-base-assertion-plant/subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-plant-nullable.html">IAssertionPlantNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlantNullable</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-assertion-plant/index.html"><span class="identifier">IBaseAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="-i-assertion-plant-nullable.html"><span class="identifier">IAssertionPlantNullable</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents an assertion plant for nullable types.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-assertion-plant-with-common-fields/index.html">IAssertionPlantWithCommonFields</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAssertionPlantWithCommonFields</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>An assertion plant which has <a href="-i-assertion-plant-with-common-fields/-common-fields/index.html">CommonFields</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-base-assertion-plant/index.html">IBaseAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IBaseAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">A</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-assertion-plant/index.html"><span class="identifier">IBaseAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">A</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s and offers methods to <a href="#">create</a> and
+to <a href="-i-base-assertion-plant/add-assertion.html">add</a> assertions to this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-base-reporting-assertion-plant/index.html">IBaseReportingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IBaseReportingAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">A</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-assertion-plant/index.html"><span class="identifier">IBaseAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">A</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-assertion-plant/index.html"><span class="identifier">IBaseAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">A</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-i-assertion-plant-with-common-fields/index.html"><span class="identifier">IAssertionPlantWithCommonFields</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-checking-assertion-plant/index.html">ICheckingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ICheckingAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s and offers the possibility to check whether <a href="-i-checking-assertion-plant/all-assertions-hold.html">allAssertionsHold</a> which have been
+<a href="#">added</a> to this plant (since the last check).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-collecting-assertion-plant/index.html">ICollectingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ICollectingAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="-i-assertion-plant/index.html">IAssertionPlant</a> which is intended to serve as receiver object for lambdas which create
+<a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s, in which this assertion plant collects the so created assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-reporting-assertion-plant.html">IReportingAssertionPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IReportingAssertionPlant</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-i-base-reporting-assertion-plant/index.html"><span class="identifier">IBaseReportingAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s and offers the possibility to <a href="#">check</a> all
+the <a href="#">added</a> assertions which includes error reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-reporting-assertion-plant-nullable/index.html">IReportingAssertionPlantNullable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IReportingAssertionPlantNullable</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-assertion-plant-nullable.html"><span class="identifier">IAssertionPlantNullable</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><a href="-i-base-reporting-assertion-plant/index.html"><span class="identifier">IBaseReportingAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="-i-assertion-plant-nullable.html"><span class="identifier">IAssertionPlantNullable</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Exceptions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-plant-has-no-subject-exception/index.html">PlantHasNoSubjectException</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PlantHasNoSubjectException</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">RuntimeException</span></code>
+<p>Represents the <a href="#">Exception</a> that an <a href="-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a> was not defined but one tried to access it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

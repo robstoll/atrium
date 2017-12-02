@@ -1,0 +1,91 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ThrowableThrownBuilder - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.throwable.thrown.builders</a>&nbsp;/&nbsp;<a href=".">ThrowableThrownBuilder</a><br/>
+<br/>
+<h1>ThrowableThrownBuilder</h1>
+<code><span class="keyword">class </span><span class="identifier">ThrowableThrownBuilder</span></code>
+<p>Represents the entry point of the fluent API of sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> <code>was thrown</code> assertions.</p>
+<p>It contains the <a href="assertion-verb.html">assertionVerb</a> and <a href="reporter.html">reporter</a> which will be used to create an <a href="../../ch.tutteli.atrium.creating/-i-assertion-plant-nullable.html">IAssertionPlantNullable</a> as well as
+the <a href="act.html">act</a> function which is expected to throw a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ThrowableThrownBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/act">act</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder$<init>(ch.tutteli.atrium.reporting.translating.ITranslatable, kotlin.Function0((kotlin.Unit)), ch.tutteli.atrium.reporting.IReporter)/reporter">reporter</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-i-reporter/index.html"><span class="identifier">IReporter</span></a><span class="symbol">)</span></code>
+<p>Represents the entry point of the fluent API of sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> <code>was thrown</code> assertions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="act.html">act</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">act</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>The function which is expected to throw a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="assertion-verb.html">assertionVerb</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertionVerb</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html"><span class="identifier">ITranslatable</span></a></code>
+<p>The assertion verb which will be used inter alia in error reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="reporter.html">reporter</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">reporter</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting/-i-reporter/index.html"><span class="identifier">IReporter</span></a></code>
+<p>The reporter which will be use for a <a href="../../ch.tutteli.atrium/-i-atrium-factory/new-throwing-assertion-checker.html">IAtriumFactory.newThrowingAssertionChecker</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-u-k/to-throw.html">toThrow</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <span class="identifier">ThrowableThrownBuilder</span><span class="symbol">.</span><span class="identifier">toThrow</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Makes the assertion that the thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> is of type <a href="#">TExpected</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <span class="identifier">ThrowableThrownBuilder</span><span class="symbol">.</span><span class="identifier">toThrow</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_UK$toThrow(ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.api.cc.en_UK.toThrow.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Makes the assertion that the thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> is of type <a href="#">TExpected</a> and it <a href="../../ch.tutteli.atrium.api.cc.en_-u-k/to-throw.html#ch.tutteli.atrium.api.cc.en_UK$toThrow(ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.api.cc.en_UK.toThrow.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a>
+which are checked additionally as well.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.de_-c-h/wirft.html">wirft</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <span class="identifier">ThrowableThrownBuilder</span><span class="symbol">.</span><span class="identifier">wirft</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Makes the assertion that the thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> is of type <a href="#">TExpected</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span> <span class="identifier">ThrowableThrownBuilder</span><span class="symbol">.</span><span class="identifier">wirft</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$wirft(ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.api.cc.de_CH.wirft.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-i-assertion-plant/index.html"><span class="identifier">IAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TExpected</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Makes the assertion that the thrown <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> is of type <a href="#">TExpected</a> and it <a href="../../ch.tutteli.atrium.api.cc.de_-c-h/wirft.html#ch.tutteli.atrium.api.cc.de_CH$wirft(ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder, kotlin.Function1((ch.tutteli.atrium.creating.IAssertionPlant((ch.tutteli.atrium.api.cc.de_CH.wirft.TExpected)), kotlin.Unit)))/assertionCreator">assertionCreator</a>
+which are checked additionally as well.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

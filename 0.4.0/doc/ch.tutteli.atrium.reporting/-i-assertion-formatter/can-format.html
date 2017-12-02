@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAssertionFormatter.canFormat - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">IAssertionFormatter</a>&nbsp;/&nbsp;<a href=".">canFormat</a><br/>
+<br/>
+<h1>canFormat</h1>
+<a name="ch.tutteli.atrium.reporting.IAssertionFormatter$canFormat(ch.tutteli.atrium.assertions.IAssertion)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">canFormat</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.IAssertionFormatter$canFormat(ch.tutteli.atrium.assertions.IAssertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html"><span class="identifier">IAssertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Denotes whether this <a href="index.html">IAssertionFormatter</a> was created to format <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a>s such
+as the given <a href="can-format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$canFormat(ch.tutteli.atrium.assertions.IAssertion)/assertion">assertion</a> or not.</p>
+<p>This function should be in sync with <a href="format.html">format</a> and <a href="format-group.html">formatGroup</a>. If <a href="can-format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$canFormat(ch.tutteli.atrium.assertions.IAssertion)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a> and
+this method returns <code>true</code> then <a href="format-group.html">formatGroup</a> should be able to format the given <a href="can-format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$canFormat(ch.tutteli.atrium.assertions.IAssertion)/assertion">assertion</a>. On the other hand,
+if it returns <code>false</code> then <a href="format-group.html">formatGroup</a> should throw an <a href="#">UnsupportedOperationException</a>.
+The same applies for <a href="format.html">format</a> where format should additionally throw an <a href="#">UnsupportedOperationException</a>
+if an <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a> is passed.</p>
+<h3>Parameters</h3>
+<a name="assertion"></a>
+<code>assertion</code> - The <a href="../../ch.tutteli.atrium.assertions/-i-assertion/index.html">IAssertion</a> which builds the basis to answer the question whether this
+    <a href="index.html">IAssertionFormatter</a> can format such kinds or not.
+<p><strong>Returns</strong><br/>
+<code>true</code> if this <a href="index.html">IAssertionFormatter</a> can <a href="format.html">format</a> the given <a href="can-format.html#ch.tutteli.atrium.reporting.IAssertionFormatter$canFormat(ch.tutteli.atrium.assertions.IAssertion)/assertion">assertion</a>; <code>false</code> otherwise.</p>
+</BODY>
+</HTML>

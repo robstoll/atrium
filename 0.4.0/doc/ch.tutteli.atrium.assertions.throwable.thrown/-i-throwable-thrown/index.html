@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IThrowableThrown - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.throwable.thrown</a>&nbsp;/&nbsp;<a href=".">IThrowableThrown</a><br/>
+<br/>
+<h1>IThrowableThrown</h1>
+<code><span class="keyword">interface </span><span class="identifier">IThrowableThrown</span></code>
+<p>Defines the contract for sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> was thrown assertions.</p>
+<p>An assertion starts with a <a href="../../ch.tutteli.atrium.assertions.throwable.thrown.builders/-throwable-thrown-builder/index.html">ThrowableThrownBuilder</a> and is typically built up by an <a href="-i-absent-throwable-message-provider/index.html">IAbsentThrowableMessageProvider</a>
+and an <a href="../../ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/-i-down-cast-failure-handler/index.html">IAnyNarrow.IDownCastFailureHandler</a> which are passed to a <a href="-i-creator/index.html">ICreator</a> which finally builds the assertion.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-i-absent-throwable-message-provider/index.html">IAbsentThrowableMessageProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IAbsentThrowableMessageProvider</span></code>
+<p>Provides a message which can be used in reporting to represent the case that no <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> at all was thrown.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-creator/index.html">ICreator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ICreator</span><span class="symbol">&lt;</span><span class="identifier">TExpected</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> was thrown assertion builder which creates
+the <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a> as such.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IIterableContains - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.iterable.contains</a>&nbsp;/&nbsp;<a href=".">IIterableContains</a><br/>
+<br/>
+<h1>IIterableContains</h1>
+<code><span class="keyword">interface </span><span class="identifier">IIterableContains</span></code>
+<p>Defines the contract for sophisticated <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> <code>contains</code> assertions.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-i-checker.html">IChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-checker/index.html"><span class="identifier">IChecker</span></a></code>
+<p>Represents a check for the search result such as: the object is contained exactly once in the input of the search.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-creator.html">ICreator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ICreator</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-creator/index.html"><span class="identifier">ICreator</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../ch.tutteli.atrium.assertions/-i-assertion-group/index.html">IAssertionGroup</a>
+as such.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-search-behaviour.html">ISearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ISearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-search-behaviour/index.html"><span class="identifier">ISearchBehaviour</span></a></code>
+<p>Represents a search behaviour but leaves it up to the <a href="-i-creator.html">ICreator</a> how this behaviour is implemented -- yet, it
+provides a method to decorate a description (an <a href="../../ch.tutteli.atrium.reporting.translating/-i-translatable/index.html">ITranslatable</a>) in order that it reflects the search behaviour.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

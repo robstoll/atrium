@@ -1,0 +1,31 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAnyNarrow - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.any.narrow</a>&nbsp;/&nbsp;<a href=".">IAnyNarrow</a><br/>
+<br/>
+<h1>IAnyNarrow</h1>
+<code><span class="keyword">interface </span><span class="identifier">IAnyNarrow</span></code>
+<p>Defines the contract for sophisticated narrowing assertion builders.</p>
+<p>The assertion is typically created by the <a href="../-down-caster/index.html">DownCaster</a> which itself requires an <a href="../../ch.tutteli.atrium.assertions.throwable.thrown/-i-throwable-thrown/-i-absent-throwable-message-provider/index.html">IAbsentThrowableMessageProvider</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-i-down-cast-failure-handler/index.html">IDownCastFailureHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IDownCastFailureHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>A handler which decides how the lambda -- which could have created subsequent assertions for the
+down-casted <a href="../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a>, in case the down-cast of the <a href="../../ch.tutteli.atrium.creating/-i-base-assertion-plant/subject.html">IAssertionPlant.subject</a> to type <a href="#">TSub</a>
+did not have fail -- should be used in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

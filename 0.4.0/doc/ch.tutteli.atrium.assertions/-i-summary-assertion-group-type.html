@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ISummaryAssertionGroupType - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href=".">ISummaryAssertionGroupType</a><br/>
+<br/>
+<h1>ISummaryAssertionGroupType</h1>
+<code><span class="keyword">interface </span><span class="identifier">ISummaryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-do-not-filter-assertion-group-type.html"><span class="identifier">IDoNotFilterAssertionGroupType</span></a></code>
+<p>Represents the <a href="-i-assertion-group-type.html">IAssertionGroupType</a> for <a href="-i-assertion-group/index.html">IAssertionGroup</a>s whose <a href="-i-assertion-group/assertions.html">assertions</a> should
+all be reported in reporting (no filtering by an <a href="../ch.tutteli.atrium.reporting/-i-reporter/index.html">IReporter</a>) since it represents a summary which itself
+will point out which assertions hold and which do not.</p>
+<p>This <a href="-i-assertion-group-type.html">IAssertionGroupType</a> should only be used for cases where we need to present a result as a whole and where
+filtering out successful assertions would either be misleading or not complete.</p>
+<p>An <a href="../ch.tutteli.atrium.reporting/-i-assertion-formatter/index.html">IAssertionFormatter</a> will typically use <a href="-prefix-successful-summary-assertion.html">PrefixSuccessfulSummaryAssertion</a> and <a href="-prefix-failing-summary-assertion.html">PrefixFailingSummaryAssertion</a>
+to prefix the <a href="-i-assertion-group/assertions.html">IAssertionGroup.assertions</a>.</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-summary-assertion-group-type.html">SummaryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SummaryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ISummaryAssertionGroupType</span></code>
+<p>The <a href="-i-assertion-group-type.html">IAssertionGroupType</a> for <a href="-i-assertion-group/index.html">IAssertionGroup</a>s whose <a href="-i-assertion-group/assertions.html">assertions</a> should not be
+filtered (by an <a href="../ch.tutteli.atrium.reporting/-i-reporter/index.html">IReporter</a>) and for which an <a href="../ch.tutteli.atrium.reporting/-i-assertion-formatter/index.html">IAssertionFormatter</a> should state whether they hold or not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
