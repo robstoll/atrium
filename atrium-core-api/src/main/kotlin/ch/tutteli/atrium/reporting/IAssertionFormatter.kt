@@ -42,7 +42,7 @@ interface IAssertionFormatter {
      *
      * @param assertion The assertion which should be formatted (not an [IAssertionGroup]).
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to with the result will be appended.
+     *        to which the result will be appended.
      *
      * @throws UnsupportedOperationException in case this [IAssertionFormatter] cannot format the given [assertion]
      *         ([canFormat] returns `false`) or if [assertion] is an [IAssertionGroup].
@@ -66,7 +66,7 @@ interface IAssertionFormatter {
      *
      * @param assertion The assertion which should be formatted (not an [IAssertionGroup]).
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to with the result will be appended.
+     *        to which the result will be appended.
      *
      * @throws UnsupportedOperationException in case this [IAssertionFormatter] cannot format the given [assertion]
      *         ([canFormat] returns `false`).
@@ -91,7 +91,7 @@ interface IAssertionFormatter {
      *
      * @param assertionGroup The assertion group which should be formatted.
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to with the result will be appended.
+     *        to which the result will be appended.
      * @param formatAssertions The function which should be called to format the
      *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].
      *        It itself expects a [AssertionFormatterMethodObject] which is used for the child assertions and a function
