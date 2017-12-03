@@ -367,7 +367,8 @@ Also notice, that Atrium cannot yet deal with infinite `Iterable`s.
 Following one more example for `inOrder` as well as a few examples for `inAnyOrder`. 
 I think explanations are no longer required at this stage.
 In case you have a question (no matter about which section), then please turn up in the 
-[atrium-kotlin Slack channel](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM)
+[atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
+([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet) 
 and I happily answer your question there. 
 
 ```kotlin
@@ -499,7 +500,8 @@ Have a look at the implementation, for instance how the sophisticated assertion 
 [ch.tutteli.atrium.assertions.iterable.contains](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/assertions/iterable/contains).
 Notice that the implementation supports [Internationalization](#internationalization).
 If you have a question, then please post it in the 
-[atrium-kotlin Slack channel](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM)
+[atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet)
 and I will try to help you.
 
 # Use own Assertion Verbs
@@ -647,7 +649,7 @@ Atrium provides two dependencies which bundle implementations so that you just h
 You are very welcome to contribute:
 - [open an issue](https://github.com/robstoll/atrium/issues/new) or [create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
 - fork the repository and make a pull request
-- [ask a question](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM)
+- [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   so that I better understand where Atrium needs to improve.
 
 # KDoc - Code Documentation
@@ -670,7 +672,8 @@ Atrium does especially not support yet:
 
 # FAQ
 So far there have not been frequently asked questions but you are invited to ask your question
-in the [atrium-kotlin Slack channel](https://join.slack.com/t/atrium-kotlin/shared_invite/enQtMTk4NTkyODg2OTI5LTVlNjEzNmExN2QyNDIxZWQ4YWNlYTdlNWVhYjNkNzliN2I1OTEzZTA2YzNlYmFlNDg0NGU4MmZhYWE2OWUzMWM).
+in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
+In case you do not have an account for kotlinlang.slack.com yet, then please [Invite yourself](http://slack.kotlinlang.org/). 
 
 # Roadmap
 I plan that Atrium will support in the future:

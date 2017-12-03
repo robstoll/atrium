@@ -18,8 +18,10 @@ By participating, you are expected to uphold this code. Please report unacceptab
 ## How to Contribute
 - Need help in using Atrium?  
   Write your question on 
-  [slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ) 
+  [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
   and I will get back to you.
+  You do not yet have a account on kotlinlang.slack.com? 
+  [Invite yourself](http://slack.kotlinlang.org/) :wink:
   
 - Found a bug?  
   [Open an issue](https://github.com/robstoll/atrium/issues/new).
@@ -30,11 +32,11 @@ By participating, you are expected to uphold this code. Please report unacceptab
 - You would like to write an assertion function but have trouble to start?  
   Please read the section [Your First Code Contribution](#your-first-code-contribution). 
   If you still have trouble to start, then contact me on 
-  [slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ)
+  [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   and I will try to give you some additional hints.
   
 - You would like to add a new feature to atrium?  
-  Contact me on [slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ)
+  Contact me on [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   so that we can discuss it before you start.
   
 - Found spelling mistakes?  
@@ -45,16 +47,16 @@ By participating, you are expected to uphold this code. Please report unacceptab
   
 - You have other ideas how Atrium could be improved?  
   Contact me on 
-  [slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ),
+  [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ),
   I am looking forward to your ideas.
 
 In any case, if you are uncertain how you can contribute, then contact me on 
-[slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ)
+[slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 and we will figure it out together :smile:
 
 ## Your First Code Contribution
 Fantastic, thanks for your effort! Contact me on 
-[slack](https://join.slack.com/atrium-kotlin/shared_invite/MTk4NTkyODg2OTI5LTE0OTc2NDAzOTQtYWYzMTlmNjAxOQ)
+[slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 whenever you need help to get up and running or create a pull request and 
 prepend the title with `[NEED HELP]` and explain your problem in the description.
  
