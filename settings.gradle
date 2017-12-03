@@ -1,21 +1,23 @@
 rootProject.name = 'atrium'
-ext {
-    apiCodeCompletionDeCH = "${rootProject.name}-api-code-completion-de_CH"
-    apiCodeCompletionEnUK = "${rootProject.name}-api-code-completion-en_UK"
-    apisFolder = "${rootProject.projectDir}/apis"
+
+def includeApi(String name) { includeInSubFolder(name, "${rootProject.projectDir}/apis") }
+
+def includeCore(String name) { includeInSubFolder(name, "${rootProject.projectDir}/core") }
+
+def includeInSubFolder(String name, String folder) {
+    include ":$name"
+    project(":$name").projectDir = new File("$folder/$name")
 }
 
-include(":$apiCodeCompletionDeCH")
-project(":$apiCodeCompletionDeCH").projectDir = new File("$apisFolder/$apiCodeCompletionDeCH")
-include(":$apiCodeCompletionEnUK")
-project(":$apiCodeCompletionEnUK").projectDir = new File("$apisFolder/$apiCodeCompletionEnUK")
+includeApi("${rootProject.name}-api-code-completion-de_CH")
+includeApi("${rootProject.name}-api-code-completion-en_UK")
+includeCore("${rootProject.name}-core-api")
+includeCore("${rootProject.name}-core-api-late-binding")
+includeCore("${rootProject.name}-core-impl-robstoll")
+includeCore("${rootProject.name}-core-impl-robstoll-lib")
 include "${rootProject.name}-assertions"
 include "${rootProject.name}-translations-de_CH"
 include "${rootProject.name}-translations-en_UK"
-include "${rootProject.name}-core-api"
-include "${rootProject.name}-core-api-late-binding"
-include "${rootProject.name}-core-impl-robstoll"
-include "${rootProject.name}-core-impl-robstoll-lib"
 include "${rootProject.name}-spec"
 include "${rootProject.name}-verbs"
 
