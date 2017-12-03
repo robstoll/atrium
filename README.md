@@ -6,6 +6,8 @@ It is licences under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl
 - Code documentation is hosted here 
   - Go straight to the [latest version](./latest#/doc) or
   - Click [below](#versions) on the version you are looking for to get more information.
+- You can post questions in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
+  ([Invite yourself](http://slack.kotlinlang.org/) to kotlinlang.slack.com in case you have not yet an account)
 
 You are very welcome to contribute:
 - [open an issue or create a feature request](https://github.com/robstoll/atrium/issues/new)
