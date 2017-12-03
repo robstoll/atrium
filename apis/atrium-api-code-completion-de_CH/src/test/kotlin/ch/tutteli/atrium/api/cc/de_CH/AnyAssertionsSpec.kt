@@ -19,10 +19,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     getAndLazyPair()
     ) {
     class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.IAnyAssertionsSpecFunFactory<T> {
-        override val toBe = IAssertionPlant<T>::ist
-        override val notToBe = IAssertionPlant<T>::istNicht
-        override val isSame = IAssertionPlant<T>::istSelbeInstanzWie
-        override val isNotSame = IAssertionPlant<T>::istNichtSelbeInstanzWie
+        override val toBeFun = IAssertionPlant<T>::ist
+        override val notToBeFun = IAssertionPlant<T>::istNicht
+        override val isSameFun = IAssertionPlant<T>::istSelbeInstanzWie
+        override val isNotSameFun = IAssertionPlant<T>::istNichtSelbeInstanzWie
     }
 
     companion object {

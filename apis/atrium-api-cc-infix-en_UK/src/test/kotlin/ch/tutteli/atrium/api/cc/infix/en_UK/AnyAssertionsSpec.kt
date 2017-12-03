@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.en_UK
+package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -19,10 +19,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     getAndLazyPair()
 ) {
     class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.IAnyAssertionsSpecFunFactory<T> {
-        override val toBeFun = IAssertionPlant<T>::toBe
-        override val notToBeFun = IAssertionPlant<T>::notToBe
-        override val isSameFun = IAssertionPlant<T>::isSame
-        override val isNotSameFun = IAssertionPlant<T>::isNotSame
+        override val toBeFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T> = { this toBe it }
+        override val notToBeFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T> = { this notToBe it }
+        override val isSameFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T> = { this isSame it }
+        override val isNotSameFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T> = { this isNotSame it }
     }
 
     companion object {
