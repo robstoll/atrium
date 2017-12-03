@@ -23,7 +23,7 @@ includeTranslation "${rootProject.name}-translations-de_CH"
 includeTranslation "${rootProject.name}-translations-en_UK"
 include "${rootProject.name}-assertions"
 include "${rootProject.name}-spec"
-include "${rootProject.name}-verbs"
+includeInSubFolder("${rootProject.name}-verbs", "${rootProject.projectDir}/misc")
 
 //convenience modules
 includeBundle "${rootProject.name}-cc-en_UK-robstoll"
