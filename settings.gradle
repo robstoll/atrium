@@ -4,6 +4,8 @@ def includeApi(String name) { includeInSubFolder(name, "${rootProject.projectDir
 
 def includeCore(String name) { includeInSubFolder(name, "${rootProject.projectDir}/core") }
 
+def includeTranslation(String name) { includeInSubFolder(name, "${rootProject.projectDir}/translations") }
+
 def includeBundle(String name) { includeInSubFolder(name, "${rootProject.projectDir}/bundles") }
 
 def includeInSubFolder(String name, String folder) {
@@ -17,9 +19,9 @@ includeCore "${rootProject.name}-core-api"
 includeCore "${rootProject.name}-core-api-late-binding"
 includeCore "${rootProject.name}-core-impl-robstoll"
 includeCore "${rootProject.name}-core-impl-robstoll-lib"
+includeTranslation "${rootProject.name}-translations-de_CH"
+includeTranslation "${rootProject.name}-translations-en_UK"
 include "${rootProject.name}-assertions"
-include "${rootProject.name}-translations-de_CH"
-include "${rootProject.name}-translations-en_UK"
 include "${rootProject.name}-spec"
 include "${rootProject.name}-verbs"
 
