@@ -559,9 +559,9 @@ enum class DescriptionIntAssertions(override val value: String) : ISimpleTransla
 Typically you would put `DescriptionIntAssertions` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
-[atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-en_UK-robstoll/build.gradle)
+[atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
 uses `atrium-translations-en_UK` whereas 
-[atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-de_CH-robstoll/build.gradle)
+[atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
 uses `atrium-translations-de_CH`.  
 
 But you can also use a 
@@ -575,9 +575,9 @@ Yet, robstoll's implementation uses an own
 [ResourceBundle.Control](https://docs.oracle.com/javase/7/docs/api/java/util/ResourceBundle.Control.html)
 which provides an enhanced fallback mechanism. 
 For further technical information, see 
-[ResourceBundleBasedTranslator](https://github.com/robstoll/atrium/blob/master/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating/ResourceBundleBasedTranslator.kt)
+[ResourceBundleBasedTranslator](https://github.com/robstoll/atrium/tree/master/core/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating/ResourceBundleBasedTranslator.kt)
 and have a look at the
-[specifications of the `ITranslationSupplier`s](https://github.com/robstoll/atrium/tree/master/atrium-core-impl-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/reporting/translating)
+[specifications of the `ITranslationSupplier`s](https://github.com/robstoll/atrium/tree/master/core/atrium-core-impl-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/reporting/translating)
 for an example how you have to configure the `ReporterBuilder`.
 
 Notice, Atrium does not yet support generating multiple reports (in different languages) 
@@ -642,8 +642,8 @@ Atrium is
 and it is your chose which implementation you want to use. 
 Atrium provides two dependencies which bundle implementations so that you just have to have a dependency on that one bundle:
 
-- [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-en_UK-robstoll/build.gradle)
-- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/blob/master/atrium-cc-de_CH-robstoll/build.gradle)
+- [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
+- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
  
 # Contribute
 You are very welcome to contribute:

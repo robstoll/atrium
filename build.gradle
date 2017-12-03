@@ -161,7 +161,8 @@ Release & deploy a commit
     a) update README.md:
         1) search for old version and replace with new (gradle and maven examples)
         2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage)
-        3) search for `latest#/doc` and replace with `X.Y.Z/doc`
+        3) search for `tree/master` and replace it with `tree/X.Y.Z`
+        4) search for `latest#/doc` and replace with `X.Y.Z/doc`
     b) commit (modified build.gradle and README.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
@@ -175,7 +176,8 @@ Prepare next dev cycle
 1. change atrium_version in build.gradle to X.Y.Z-SNAPSHOT
 2. update README.md
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `X.Y.Z/doc` and replace with `latest#/doc`
+   b) search for `tree/X.Y.Z` and replace it with `tree/master`
+   c) search for `X.Y.Z/doc` and replace with `latest#/doc`
 3. commit & push changes
 
 */
