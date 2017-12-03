@@ -80,7 +80,7 @@ The statement can be read as "I assert, x to be nine" and since this is false an
 assert: 10        (java.lang.Integer <934275857>)
 ◆ to be: 9        (java.lang.Integer <1364913072>)
 ```
-where `? ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
+where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 The examples in the following sections include the error message (the output) in the code example itself as comments.
 
 Atrium lets you choose the assertion verb (`assert` in the above example). 
@@ -200,7 +200,7 @@ You can also make assertions about one or several properties of the subject usin
 In the above example, `subject` within the assertion group block refers to `myPerson`. 
 So we created two feature assertions: one for the property `name` and the other for the property `isStudent` of `myPerson`.
 
-A feature assertion is indicated as follows in the output. It starts with a `?` followed by the feature's name and its actual value.
+A feature assertion is indicated as follows in the output. It starts with a `▶` followed by the feature's name and its actual value.
 So the above output can be read as "I assert, Person's name (which is actually `"Robert"`) to be `"Peter"` and its property `isStudent` (which is actually `false`) to be `true`". 
 
 :information_source: You can also use `it` as alternative for `subject`. The above could have been written as:
@@ -354,10 +354,10 @@ assert(listOf(1, 2, 2, 4)).contains.inOrder.only.entries({ isLessThan(3) }, { is
 ```  
 
 Since we have chosen the `only` option, Atrium shows us a summary where we see three things:
-- Whether a specified identification lambda matched (signified by `?` or `?`) 
-  the corresponding entry or not (e.g. `? ? entry 1:` was `2` and we expected, it `is less than 2`)
-- Whether the expected size was correct or not (`? size:` was `4`, we expected it, `to be: 2` -- see also [Property Assertions](#property-assertions))
-- and last but not least, mismatches or additional entries as further clue (`?? additional entries detected`).
+- Whether a specified identification lambda matched (signified by `✔` or `✘`) 
+  the corresponding entry or not (e.g. `✘ ▶ entry 1:` was `2` and we expected, it `is less than 2`)
+- Whether the expected size was correct or not (`✘ ▶ size:` was `4`, we expected it, `to be: 2` -- see also [Property Assertions](#property-assertions))
+- and last but not least, mismatches or additional entries as further clue (`❗❗ additional entries detected`).
 
 :heart_eyes: I am pretty sure you are going to love this feature as well
 -- in case you are dealing with large `Iterable` and do not want such a verbose output, 
