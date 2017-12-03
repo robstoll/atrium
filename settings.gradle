@@ -1,17 +1,24 @@
 rootProject.name = 'atrium'
+ext {
+    apiCodeCompletionDeCH = "${rootProject.name}-api-code-completion-de_CH"
+    apiCodeCompletionEnUK = "${rootProject.name}-api-code-completion-en_UK"
+    apisFolder = "${rootProject.projectDir}/apis"
+}
 
-include 'atrium-core-api'
-include 'atrium-core-api-late-binding'
-include 'atrium-api-code-completion-de_CH'
-include 'atrium-api-code-completion-en_UK'
-include 'atrium-assertions'
-include 'atrium-translations-de_CH'
-include 'atrium-translations-en_UK'
-include 'atrium-core-impl-robstoll'
-include 'atrium-core-impl-robstoll-lib'
-include 'atrium-spec'
-include 'atrium-verbs'
+include(":$apiCodeCompletionDeCH")
+project(":$apiCodeCompletionDeCH").projectDir = new File("$apisFolder/$apiCodeCompletionDeCH")
+include(":$apiCodeCompletionEnUK")
+project(":$apiCodeCompletionEnUK").projectDir = new File("$apisFolder/$apiCodeCompletionEnUK")
+include "${rootProject.name}-assertions"
+include "${rootProject.name}-translations-de_CH"
+include "${rootProject.name}-translations-en_UK"
+include "${rootProject.name}-core-api"
+include "${rootProject.name}-core-api-late-binding"
+include "${rootProject.name}-core-impl-robstoll"
+include "${rootProject.name}-core-impl-robstoll-lib"
+include "${rootProject.name}-spec"
+include "${rootProject.name}-verbs"
 
 //convenience module
-include 'atrium-cc-en_UK-robstoll'
-include 'atrium-cc-de_CH-robstoll'
+include "${rootProject.name}-cc-en_UK-robstoll"
+include "${rootProject.name}-cc-de_CH-robstoll"
