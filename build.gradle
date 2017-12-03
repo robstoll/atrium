@@ -97,8 +97,8 @@ configure(projectsWithSources) {
 
         sourceDirs = files(
             srcKotlin,
-            "../${rootProject.name}-core-api/$srcKotlin",
-            "../${rootProject.name}-core-api-late-binding/$srcKotlin")
+            "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
+            "${rootProject.projectDir}/${rootProject.name}-core-api-late-binding/$srcKotlin")
     }
 
     task sourceJar(type: Jar) {
@@ -129,12 +129,12 @@ subprojects {
             publish_artifactId = subproject.name
             publish_version = atrium_version
         }
-        apply from: './gradle/scripts/publish.gradle', to: subproject
+        apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle", to: subproject
     }
 }
 
 configure(jacocoMulti.jacocoProjects) {
-    apply from: '../gradle/scripts/spek.gradle'
+    apply from: "${rootProject.projectDir}/gradle/scripts/spek.gradle"
 
     dependencies {
         testCompile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {

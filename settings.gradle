@@ -1,17 +1,30 @@
 rootProject.name = 'atrium'
 
-include 'atrium-core-api'
-include 'atrium-core-api-late-binding'
-include 'atrium-api-code-completion-de_CH'
-include 'atrium-api-code-completion-en_UK'
-include 'atrium-assertions'
-include 'atrium-translations-de_CH'
-include 'atrium-translations-en_UK'
-include 'atrium-core-impl-robstoll'
-include 'atrium-core-impl-robstoll-lib'
-include 'atrium-spec'
-include 'atrium-verbs'
+def includeApi(String name) { includeInSubFolder(name, "${rootProject.projectDir}/apis") }
 
-//convenience module
-include 'atrium-cc-en_UK-robstoll'
-include 'atrium-cc-de_CH-robstoll'
+def includeCore(String name) { includeInSubFolder(name, "${rootProject.projectDir}/core") }
+
+def includeTranslation(String name) { includeInSubFolder(name, "${rootProject.projectDir}/translations") }
+
+def includeBundle(String name) { includeInSubFolder(name, "${rootProject.projectDir}/bundles") }
+
+def includeInSubFolder(String name, String folder) {
+    include ":$name"
+    project(":$name").projectDir = new File("$folder/$name")
+}
+
+includeApi "${rootProject.name}-api-code-completion-de_CH"
+includeApi "${rootProject.name}-api-code-completion-en_UK"
+includeCore "${rootProject.name}-core-api"
+includeCore "${rootProject.name}-core-api-late-binding"
+includeCore "${rootProject.name}-core-impl-robstoll"
+includeCore "${rootProject.name}-core-impl-robstoll-lib"
+includeTranslation "${rootProject.name}-translations-de_CH"
+includeTranslation "${rootProject.name}-translations-en_UK"
+include "${rootProject.name}-assertions"
+include "${rootProject.name}-spec"
+includeInSubFolder("${rootProject.name}-verbs", "${rootProject.projectDir}/misc")
+
+//convenience modules
+includeBundle "${rootProject.name}-cc-en_UK-robstoll"
+includeBundle "${rootProject.name}-cc-de_CH-robstoll"
