@@ -1,0 +1,13 @@
+buildscript {
+    ext.publish_description = 'An API in en_UK with a focus on code completion and infix functions, ' +
+            'meaning it provides a fluent API in en_UK which is designed to ease the usage of code completion'
+}
+
+dependencies {
+    compile project(":${rootProject.name}-core-api")
+    compileOnly project(":${rootProject.name}-core-api-late-binding")
+    compile project(":${rootProject.name}-assertions")
+
+    testCompile project(":${rootProject.name}-core-impl-robstoll")
+    testCompile project(":${rootProject.name}-spec")
+}
