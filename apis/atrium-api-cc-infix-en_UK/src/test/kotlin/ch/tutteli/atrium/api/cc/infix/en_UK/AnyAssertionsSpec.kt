@@ -14,7 +14,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     IAssertionPlant<Int>::notToBe.name,
     IAssertionPlant<Int>::isSame.name,
     IAssertionPlant<Int>::isNotSame.name,
-    IAssertionPlantNullable<Int?>::isNull.name to IAssertionPlantNullable<Int?>::isNull,
+    "${IAssertionPlantNullable<Int?>::toBe.name} null" to Companion::isNull,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
@@ -26,6 +26,10 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     }
 
     companion object {
+
+        private fun isNull(plant: IAssertionPlantNullable<Int?>){
+            plant toBe null
+        }
 
         private fun andImmediateName(): String {
             val f: KProperty1<IAssertionPlant<Int>, IAssertionPlant<Int>> = IAssertionPlant<Int>::and
