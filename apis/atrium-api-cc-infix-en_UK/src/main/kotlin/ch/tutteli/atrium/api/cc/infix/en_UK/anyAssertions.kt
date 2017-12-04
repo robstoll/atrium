@@ -59,9 +59,10 @@ infix fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T): IAssertionPlant<T
  *
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  *
+ * @param onlyNullAllowed Has to be `null`.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any?> IAssertionPlantNullable<T>.isNull() {
+infix fun <T : Any?> IAssertionPlantNullable<T>.toBe(onlyNullAllowed: Nothing?) {
     addAssertion(_isNull(this))
 }
 
