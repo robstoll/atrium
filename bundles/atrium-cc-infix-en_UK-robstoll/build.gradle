@@ -1,0 +1,9 @@
+buildscript {
+    ext.publish_description = 'Represents a convenience module which merely bundles dependencies'
+}
+
+dependencies {
+    compile project(":${rootProject.name}-api-cc-infix-en_UK")
+    compile project(":${rootProject.name}-translations-en_UK")
+    compile project(":${rootProject.name}-core-impl-robstoll")
+}
