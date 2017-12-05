@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec
-import kotlin.reflect.KProperty1
+import kotlin.reflect.KFunction2
 
 class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     AssertionVerbFactory,
@@ -31,16 +31,11 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
             plant toBe null
         }
 
-        private fun andImmediateName(): String {
-            val f: KProperty1<IAssertionPlant<Int>, IAssertionPlant<Int>> = IAssertionPlant<Int>::and
-            return f.name
-        }
-
         fun getAndImmediatePair(): Pair<String, IAssertionPlant<Int>.() -> IAssertionPlant<Int>>
-            = andImmediateName() to IAssertionPlant<Int>::and
+            = andLazyName() to IAssertionPlant<Int>::and
 
         private fun andLazyName(): String {
-            val f: KProperty1<IAssertionPlant<Int>, IAssertionPlant<Int>> = IAssertionPlant<Int>::and
+            val f: KFunction2<IAssertionPlant<Int>, IAssertionPlant<Int>.() -> Unit, IAssertionPlant<Int>> = IAssertionPlant<Int>::and
             return f.name
         }
 
@@ -48,3 +43,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
             = andLazyName() to IAssertionPlant<Int>::and
     }
 }
+
+/**
+ * not supported in the API, we provide it here so that we can still reuse AnyAssertionsSpec
+ */
+private val IAssertionPlant<Int>.and: IAssertionPlant<Int> get() = this
