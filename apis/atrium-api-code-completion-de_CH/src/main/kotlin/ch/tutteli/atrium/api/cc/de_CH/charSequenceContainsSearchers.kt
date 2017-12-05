@@ -80,8 +80,8 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
     = addAssertion(_containsValuesIgnoringCase(this, expected, otherExpected))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given [pattern] as well as
- * the [otherPatterns] are expected to have a match, using a non disjoint search.
+ * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
+ * as well as the [otherPatterns] are expected to have a match, using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
@@ -100,12 +100,12 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): IAssertionPlant<T>
     = addAssertion(_containsRegex(this, pattern, otherPatterns))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the given [pattern] as well as
- * the [otherPatterns] are expected to have a match (ignoring case), using a non disjoint search.
+ * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
+ * as well as the [otherPatterns] are expected to have a match (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
@@ -125,5 +125,5 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.regex(pattern: Any, vararg otherPatterns: Any): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): IAssertionPlant<T>
     = addAssertion(_containsRegexIgnoringCase(this, pattern, otherPatterns))
