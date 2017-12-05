@@ -57,26 +57,14 @@ infix fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T): IAssertionPlant<T
 /**
  * Makes the assertion that [IAssertionPlant.subject] is `null`.
  *
- * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
- *
  * @param onlyNullAllowed Has to be `null`.
+ *
+ * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any?> IAssertionPlantNullable<T>.toBe(onlyNullAllowed: Nothing?) {
+infix fun <T : Any?> IAssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") onlyNullAllowed: Nothing?) {
     addAssertion(_isNull(this))
 }
-
-/**
- * Can be used to separate assertions when using the fluent API.
- *
- * For instance `assert(1).isLessThan(2).and.isGreaterThan(0)` creates
- * two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and a second
- * asserts that 1 is greater than 0. If the first assertion fails, then usually (depending on the configured
- * [IAssertionChecker]) the second assertion is not evaluated.
- *
- * @return This plant to support a fluent API.
- */
-val <T : Any> IAssertionPlant<T>.and: IAssertionPlant<T> get() = this
 
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
