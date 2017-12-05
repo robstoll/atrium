@@ -56,6 +56,7 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
             = isA(plant, assertionCreator)
 
         private fun isAIntLess(plant: IAssertionPlant<Number>, number: Int)
+            //TODO change to infix as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
             = plant.isA<Int> { isLessThan(number) }
     }
 }
