@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.en_UK
+package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions._hasSize
 import ch.tutteli.atrium.assertions._isEmpty
@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> IAssertionPlant<T>.hasSize(size: Int): IAssertionPlant<T>
+infix fun <T : Collection<*>> IAssertionPlant<T>.hasSize(size: Int): IAssertionPlant<T>
     = addAssertion(_hasSize(this, size))
 
 /**
@@ -20,7 +20,7 @@ fun <T : Collection<*>> IAssertionPlant<T>.hasSize(size: Int): IAssertionPlant<T
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> IAssertionPlant<T>.isEmpty(): IAssertionPlant<T>
+infix fun <T : Collection<*>> IAssertionPlant<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): IAssertionPlant<T>
     = addAssertion(_isEmpty(this))
 
 /**
@@ -29,5 +29,5 @@ fun <T : Collection<*>> IAssertionPlant<T>.isEmpty(): IAssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> IAssertionPlant<T>.isNotEmpty(): IAssertionPlant<T>
+infix fun <T : Collection<*>> IAssertionPlant<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): IAssertionPlant<T>
     = addAssertion(_isNotEmpty(this))

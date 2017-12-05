@@ -141,12 +141,12 @@ infix fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequen
 /**
  * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
  *
- * @param onlyEmptyAllowed Has to be `Empty`.
+ * @param Empty Has to be `Empty`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.toBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty): IAssertionPlant<T>
+infix fun <T : CharSequence> IAssertionPlant<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): IAssertionPlant<T>
     = addAssertion(_isEmpty(this))
 
 /**

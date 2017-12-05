@@ -10,3 +10,6 @@ fun <T : Collection<*>> _hasSize(plant: IAssertionPlant<T>, size: Int): IAsserti
 
 fun <T : Collection<*>> _isEmpty(plant: IAssertionPlant<T>): IAssertion
     = BasicAssertion(DescriptionBasic.IS, TranslatableRawString(EMPTY), { plant.subject.isEmpty() })
+
+fun <T : Collection<*>> _isNotEmpty(plant: IAssertionPlant<T>): IAssertion
+    = BasicAssertion(DescriptionBasic.IS_NOT, TranslatableRawString(EMPTY), { plant.subject.isNotEmpty() })

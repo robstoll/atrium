@@ -7,6 +7,8 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
 /**
  * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
  *
+ * @param case Has to be `case`.
+ *
  * @return The newly created builder.
  */
 infix fun <T : CharSequence> CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case)

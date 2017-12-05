@@ -38,6 +38,19 @@ If you forget to do it, then the compiler will complain that you have the same e
 
 Atrium provides different APIs where the API differ in its style and the language in which it is written.
 This site focuses on the different styles of APIs and compares their en_UK versions. 
+We do not show every single difference but merely where the APIs differ in naming.
+For instance, the assertion function `IAssertionPlant<Any>.toBe`:
+
+*atrium-api-cc-en_UK*
+```kotlin
+assert(x).toBe(2)
+``` 
+*atrium-api-cc-infix-en_UK*
+```kotlin
+assert(x) toBe 2
+``` 
+
+is to similar, we will not list it here (ok, now we did, but I guess you get the point).
 
 ## Nullable Types
 
@@ -54,7 +67,7 @@ assert(x) toBe null
 assert(x) notToBeNull { isLessThan(1) }
 ```
 
-## Empty CharSequence
+## Empty CharSequence / Collection
 
 *atrium-api-cc-en_UK*
 ```kotlin
