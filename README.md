@@ -633,17 +633,23 @@ fun IAssertionPlant<Int>.istVielfachesVon(base: Int)
 
 
 # APIs
-Atrium supports currently two APIs, one in English and one in German. 
-Both have their design focus on interoperability with code completion functionality of your IDE 
--- so that you can just type `.` and let your IDE do some of the work.
+Atrium supports currently two API styles: fluent (`cc`) and infix (`cc-infix`) 
+where fluent exists in English and German; infix only in English.
+All have their design focus on interoperability with code completion (thus `cc`) functionality of your IDE 
+-- so that you can let your IDE do some of the work.
 
 Atrium is 
 [built up by different modules](https://robstoll.github.io/atrium/latest#/doc/) 
 and it is your chose which implementation you want to use. 
-Atrium provides two dependencies which bundle implementations so that you just have to have a dependency on that one bundle:
+Atrium provides three modules which bundle API, translation and implementation, so that you just have to have a dependency on that one bundle:
 
 - [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
 - [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
+- [atrium-cc-infix-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-infix-en_UK-robstoll/build.gradle)
+
+Have a look at 
+[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+for more information and to see how the API styles differ.
  
 # Contribute
 You are very welcome to contribute:
