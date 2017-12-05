@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec
 import kotlin.reflect.KProperty1
+import kotlin.reflect.KFunction2
 
 class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     AssertionVerbFactory,
@@ -36,7 +37,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
             = andImmediateName() to IAssertionPlant<Int>::and
 
         private fun andLazyName(): String {
-            val f: KProperty1<IAssertionPlant<Int>, IAssertionPlant<Int>> = IAssertionPlant<Int>::and
+            val f: KFunction2<IAssertionPlant<Int>, IAssertionPlant<Int>.() -> Unit, IAssertionPlant<Int>> = IAssertionPlant<Int>::and
             return f.name
         }
 
