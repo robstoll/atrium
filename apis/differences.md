@@ -82,3 +82,23 @@ assert(x) { /*...*/ } and { /*...*/ }
 // does only support the group syntax
 assert(x) { /*...*/ } and { /*...*/ }
 ```
+
+## CharSequence contains
+
+*atrium-api-cc-en_UK*
+```kotlin
+assert(x).contains("hello", "world")
+assert(x).contains.atLeast(1).butAtMost(2).value("hello")
+assert(x).contains.exactly(1).values("hello", "robert")
+assert(x).contains.atMost(2).regex("h(e|a)llo")
+assert(x).contains.ignoringCase.notOrAtMost(1).regex("h(e|a)llo", "[Rr]obert")
+```
+
+*atrium-api-cc-infix-en_UK*
+```kotlin
+assert(x) contains Values("hello", "world")
+assert(x) to contain atLeast 1 butAtMost 2 value "hello"
+assert(x) to contain exactly 1 the Values("hello", "robert")
+assert(x) to contain atMost 2 regex "h(e|a)llo"
+assert(x) to contain ignoring case notOrAtMost 1 the RegularPatterns("h(e|a)llo", "[Rr]obert")
+```
