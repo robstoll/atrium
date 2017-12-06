@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
  * using a non disjoint search.
  *
- * Delegates to [the] [Values].
+ * Delegates to `the Values(expected)`.
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
@@ -48,11 +48,12 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(values: Values): IAssertionPlant<T>
     = addAssertion(_containsValues(this, values.expected, values.otherExpected))
 
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
  * (ignoring case), using a non disjoint search.
  *
- * Delegates to [the] [Values].
+ * Delegates to `the Values(expected)`.
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
@@ -89,11 +90,12 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(values: Values): IAssertionPlant<T>
     = addAssertion(_containsValuesIgnoringCase(this, values.expected, values.otherExpected))
 
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
  * is expected to have a match, using a non disjoint search.
  *
- * Delegates to [the] [RegexPatterns].
+ * Delegates to `the RegexPatterns(pattern)`.
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
@@ -126,11 +128,12 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(patterns: RegexPatterns): IAssertionPlant<T>
     = addAssertion(_containsRegex(this, patterns.pattern, patterns.otherPatterns))
 
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
  * is expected to have a match (ignoring case), using a non disjoint search.
  *
- * Delegates to [the] [RegexPatterns].
+ * Delegates to `the RegexPatterns(pattern)`.
  *
  * @param pattern The patterns which is expected to have a match against the input of the search.
  *
@@ -138,7 +141,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.regex(pattern: String): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.regex(pattern: String): IAssertionPlant<T>
     = this the RegexPatterns(pattern)
 
 /**
