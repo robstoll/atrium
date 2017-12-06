@@ -36,13 +36,11 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertio
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int)
-            //TODO error message should reflect infix API as well
-            = "use $containsNotValues instead of $atMost($times)"
+            = "use $containsNotValues instead of `$atMost $times`"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 
         private fun getErrorMsgExactly(times: Int)
-            //TODO error message should reflect infix API as well
-            = "use $exactly($times) instead of $atMost($times); $atMost defines implicitly $atLeast($times) as well"
+            = "use `$exactly $times` instead of `$atMost $times`; `$atMost $times` defines implicitly `$atLeast $times` as well"
     }
 }

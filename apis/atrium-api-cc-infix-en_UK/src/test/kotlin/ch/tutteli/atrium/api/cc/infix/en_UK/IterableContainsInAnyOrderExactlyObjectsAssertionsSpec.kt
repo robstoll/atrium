@@ -28,8 +28,7 @@ class IterableContainsInAnyOrderExactlyObjectsAssertionsSpec : ch.tutteli.atrium
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int)
-            //TODO error message should reflect infix API as well
-            = "use $containsNotValues instead of $exactly($times)"
+            = "use $containsNotValues instead of `$exactly $times`"
 
     }
 }

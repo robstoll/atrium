@@ -23,8 +23,7 @@ class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec : ch.tutteli.at
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
         private fun getErrorMsgContainsNot(times: Int)
-            //TODO error message should reflect infix API as well
-            = "use $containsNotValues instead of $notOrAtMost($times)"
+            = "use $containsNotValues instead of `$notOrAtMost $times`"
 
     }
 }

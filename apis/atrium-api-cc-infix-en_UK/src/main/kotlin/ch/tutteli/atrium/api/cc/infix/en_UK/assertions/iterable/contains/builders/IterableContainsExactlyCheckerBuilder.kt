@@ -24,5 +24,5 @@ open class IterableContainsExactlyCheckerBuilder<E, T : Iterable<E>>(
     times,
     containsBuilder,
     nameContainsNotValuesFun(),
-    containsBuilder::exactly.name
+    { "`${containsBuilder::exactly.name} $it`" }
 )

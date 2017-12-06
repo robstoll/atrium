@@ -26,5 +26,5 @@ open class CharSequenceContainsNotOrAtMostCheckerBuilder<T : CharSequence, S : I
     times,
     containsBuilder,
     containsBuilder.plant::containsNot.name,
-    containsBuilder::notOrAtMost.name
+    { "${containsBuilder::notOrAtMost.name}($it)" }
 )

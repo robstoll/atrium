@@ -24,5 +24,5 @@ open class IterableContainsAtLeastCheckerBuilder<E, T : Iterable<E>>(
     times,
     containsBuilder,
     nameContainsNotValuesFun(),
-    containsBuilder::atLeast.name
+    { "`${containsBuilder::atLeast.name} $it`" }
 )

@@ -25,6 +25,6 @@ open class CharSequenceContainsAtLeastCheckerBuilder<T : CharSequence, S : ISear
     times,
     containsBuilder,
     nameContainsNotValuesFun(),
-    containsBuilder::atLeast.name
+    { "`${containsBuilder::atLeast.name} $it`" }
 )
 
