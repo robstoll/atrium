@@ -16,7 +16,7 @@ class IterableContainsInAnyOrderOnlyObjectsSpec : ch.tutteli.atrium.spec.asserti
             return if (aX.isEmpty()) {
                 plant to contain inAny order but only `object` a
             } else {
-                plant to contain inAny order but only the Objects(a, *aX)
+                plant to contain inAny order but only the Objects(a, aX)
             }
         }
 
