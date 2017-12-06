@@ -11,7 +11,8 @@ It is designed to support different [APIs](#apis), different reporting styles an
 The core of Atrium as well as the builders to create sophisticated assertions are designed to be extensible and 
 thus allow you to extend or replace components easily.
 
-Atrium currently provides two [APIs](#apis) focusing on usability in conjunction with code completion functionality provided by your IDE.
+Atrium currently provides two [APIs](#apis) styles:
+pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
 **Table of Content**
@@ -68,6 +69,12 @@ Next to specifying a dependency to a predefined [API](#apis) you have to [setup 
 That is all, you are all set. The next section shows you how to use Atrium.
 
 # Examples
+We are using the API provided by the bundle module 
+[atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
+in the following examples. It provides a pure fluent API. 
+Have a look at 
+[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+to see how the infix API looks like.
 
 ## Your First Assertion
 We start off with a simple example:
@@ -431,9 +438,10 @@ assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 Atrium supports further assertion builders (e.g, for `CharSequence`) as well as assertion functions which have not been shown in the examples.
 Have a look at the 
 [specifications](https://github.com/robstoll/atrium/tree/master/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
-for more examples.
-A [catalog of the available assertion functions](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html) 
-can be found in the code documentation. 
+for more examples above.
+
+Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md) for a few more examples.
+This site contains also a list of all APIs with links to their assertion function catalogs.
 
 # Write own Assertion Functions
 
@@ -633,17 +641,23 @@ fun IAssertionPlant<Int>.istVielfachesVon(base: Int)
 
 
 # APIs
-Atrium supports currently two APIs, one in English and one in German. 
-Both have their design focus on interoperability with code completion functionality of your IDE 
--- so that you can just type `.` and let your IDE do some of the work.
+Atrium supports currently two API styles: pure fluent (`cc`) and infix (`cc-infix`) 
+where `cc` exists in English and German; `cc-infix` only in English.
+All have their design focus on interoperability with code completion (thus `cc`) functionality of your IDE 
+-- so that you can let your IDE do some of the work.
 
 Atrium is 
 [built up by different modules](https://robstoll.github.io/atrium/latest#/doc/) 
 and it is your chose which implementation you want to use. 
-Atrium provides two dependencies which bundle implementations so that you just have to have a dependency on that one bundle:
+Atrium provides three modules which bundle API, translation and implementation, so that you just have to have a dependency on that one bundle:
 
 - [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
 - [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
+- [atrium-cc-infix-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-infix-en_UK-robstoll/build.gradle)
+
+Have a look at 
+[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+for more information and to see how the API styles differ.
  
 # Contribute
 You are very welcome to contribute:
@@ -651,6 +665,10 @@ You are very welcome to contribute:
 - fork the repository and make a pull request
 - [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   so that I better understand where Atrium needs to improve.
+
+Please have a look at 
+[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
+for further suggestions and guidelines.
 
 # KDoc - Code Documentation
 The code documentation is generated with dokka and is hosted on github-pages:

@@ -28,7 +28,7 @@ open class CharSequenceContainsAtMostCheckerBuilder<T : CharSequence, S : ISearc
     times,
     containsBuilder,
     containsBuilder.plant::containsNot.name,
-    containsBuilder::atMost.name,
-    containsBuilder::atLeast.name,
-    containsBuilder::exactly.name
+    { "${containsBuilder::atMost.name}($it)" },
+    { "${containsBuilder::atLeast.name}($it)" },
+    { "${containsBuilder::exactly.name}($it)" }
 )

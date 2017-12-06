@@ -78,7 +78,7 @@ fun <T : CharSequence, S : ISearchBehaviour> CharSequenceContainsBuilder<T, S>.a
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [enhaeltNicht] instead.
+ * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
 fun <T : CharSequence, S : ISearchBehaviour> CharSequenceContainsBuilder<T, S>.notOrAtMost(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
     = CharSequenceContainsNotOrAtMostCheckerBuilder(times, this)

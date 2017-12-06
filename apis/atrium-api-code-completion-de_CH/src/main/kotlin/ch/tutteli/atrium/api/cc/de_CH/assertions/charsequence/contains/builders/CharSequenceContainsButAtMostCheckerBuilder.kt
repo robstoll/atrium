@@ -27,8 +27,9 @@ open class CharSequenceContainsButAtMostCheckerBuilder<T : CharSequence, S : ISe
     atLeastBuilder,
     containsBuilder,
     containsBuilder.plant::enthaeltNicht.name,
-    containsBuilder::hoechstens.name,
-    containsBuilder::zumindest.name,
-    atLeastBuilder::aberHoechstens.name,
-    containsBuilder::genau.name
+    { l, u -> "${containsBuilder::zumindest.name}($l).${atLeastBuilder::aberHoechstens.name}($u)" },
+    { "${containsBuilder::hoechstens.name}($it)" },
+    { "${containsBuilder::zumindest.name}($it)" },
+    { "${atLeastBuilder::aberHoechstens.name}($it)" },
+    { "${containsBuilder::genau.name}($it)" }
 )
