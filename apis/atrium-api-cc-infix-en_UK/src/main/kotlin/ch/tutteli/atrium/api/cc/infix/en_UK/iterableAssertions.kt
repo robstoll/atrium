@@ -153,7 +153,7 @@ infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(entries
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not contain the [expected] value.
  *
- * Delegates to [containsNot] [Objects].
+ * Delegates to `containsNot Objects(expected)`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -164,13 +164,13 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(expected: E): IAss
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not contain the expected [values].
  *
- * Delegates to [containsNot] [Objects].
+ * Delegates to `containsNot Objects(values)`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(values: Values<E>): IAssertionPlant<T>
-    = this containsNot Objects(values.expected, *values.otherExpected)
+    = this containsNot Objects(values)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not contain the expected [objects].

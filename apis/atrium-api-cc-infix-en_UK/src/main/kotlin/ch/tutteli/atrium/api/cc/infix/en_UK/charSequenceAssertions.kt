@@ -85,7 +85,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values<Any>)
 infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationsOf: DefaultTranslationsOf): IAssertionPlant<T> {
     return this contains(Values(
         defaultTranslationsOf.expected.getDefault(),
-        *defaultTranslationsOf.otherExpected.map { it.getDefault() }.toTypedArray()
+        defaultTranslationsOf.otherExpected.map { it.getDefault() }.toTypedArray()
     ))
 }
 

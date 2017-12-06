@@ -21,7 +21,7 @@ class IterableContainsInAnyOrderExactlyObjectsAssertionsSpec : ch.tutteli.atrium
             return if (aX.isEmpty()) {
                 plant to contain inAny order exactly exactly `object` a
             } else {
-                plant to contain inAny order exactly exactly the Objects(a, *aX)
+                plant to contain inAny order exactly exactly the Objects(a, aX)
             }
         }
 
