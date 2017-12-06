@@ -51,7 +51,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.contains(values: Values): IAssertionPlant<T>
+infix fun <T : CharSequence> IAssertionPlant<T>.contains(values: Values<Any>): IAssertionPlant<T>
     = this to contain atLeast 1 the values
 
 /**
@@ -63,7 +63,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.contains(values: Values): IAsser
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any)
-    = containsNot(Values(expected))
+    = this containsNot Values(expected)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not contain the [toString] representation
@@ -72,7 +72,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values): IAssertionPlant<T>
+infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values<Any>): IAssertionPlant<T>
     = addAssertion(_containsNot(this, values.expected, *values.otherExpected))
 
 /**
@@ -83,7 +83,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values): IAs
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationsOf: DefaultTranslationsOf): IAssertionPlant<T> {
-    return contains(Values(
+    return this contains(Values(
         defaultTranslationsOf.expected.getDefault(),
         *defaultTranslationsOf.otherExpected.map { it.getDefault() }.toTypedArray()
     ))
@@ -159,7 +159,3 @@ infix fun <T : CharSequence> IAssertionPlant<T>.toBe(@Suppress("UNUSED_PARAMETER
  */
 infix fun <T : CharSequence> IAssertionPlant<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty): IAssertionPlant<T>
     = addAssertion(_isNotEmpty(this))
-
-class Values(val expected: Any, vararg val otherExpected: Any)
-class RegexPatterns(val pattern: String, vararg val otherPatterns: String)
-class DefaultTranslationsOf(val expected: ITranslatable, vararg val otherExpected: ITranslatable)
