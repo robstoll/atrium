@@ -15,6 +15,7 @@ The links point to the KDoc of their included API where you find an overview of 
 
 - [atrium-cc-de_CH-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h/index.html)
 - [atrium-cc-en_UK-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html)
+- [atrium-cc-infix-en_UK-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-u-k/index.html)
 
 ----
 
@@ -114,4 +115,72 @@ assert(x) to contain atLeast 1 butAtMost 2 value "hello"
 assert(x) to contain exactly 1 the Values("hello", "robert")
 assert(x) to contain atMost 2 regex "h(e|a)llo"
 assert(x) to contain ignoring case notOrAtMost 1 the RegularPatterns("h(e|a)llo", "[Rr]obert")
+```
+
+## Iterable contains in any order
+
+*atrium-api-cc-en_UK*
+```kotlin
+assert(x).contains(1.2)
+assert(x).contains(1.2, 5.7)
+assert(x).contains({ isLessThan(2) })
+assert(x).contains({ isLessThan(2) }, { isGreaterThan 5 })
+assert(x).contains.inAnyOrder.atLeast(1).butAtMost(2).value(3.2)
+assert(x).contains.inAnyOrder.exactly(1).values("hello", "robert")
+assert(x).contains.inAnyOrder.atMost(2).`object`(y)
+assert(x).contains.inAnyOrder.notOrAtMost(2).objects(y, z)
+assert(x).contains.inAnyOrder.only.value("hello")
+assert(x).contains.inAnyOrder.only.values("hello", "world")
+assert(x).contains.inAnyOrder.only.`object`(personA)
+assert(x).contains.inAnyOrder.only.objects(personA, personB)
+assert(x).contains.inAnyOrder.only.entry { isLessThan(2) }
+assert(x).contains.inAnyOrder.only.entries({ toBe(3) }, { isLessThan(2) })
+```
+
+*atrium-api-cc-infix-en_UK*
+```kotlin
+assert(x) contains 1.2
+assert(x) contains Values(1.2, 5.7) // or Objects as alternative
+assert(x) contains { this isLessThan 2 }
+assert(x) contains Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
+assert(x) to contain inAny order atLeast 1 butAtMost 2 value 3.2
+assert(x) to contain inAny order exactly 1 the Values("hello", "robert")
+assert(x) to contain inAny order atMost 2 `object` y
+assert(x) to contain inAny order notOrAtMost 2 the Objects(y, z)
+assert(x) to contain inAny order but only value "hello")
+assert(x) to contain inAny order but only the Values("hello", "world")
+assert(x) to contain inAny order but only `object` personA
+assert(x) to contain inAny order but only the Objects(personA, personB)
+assert(x) to contain inAny order but only entry { this isLessThan 2 } 
+assert(x) to contain inAny order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
+```
+
+## Iterable contains in any order
+
+*atrium-api-cc-en_UK*
+```kotlin
+assert(x).containsStrictly(1.2)
+assert(x).containsStrictly(1.2, 5.7)
+assert(x).containsStrictly({ isLessThan(2) })
+assert(x).containsStrictly({ isLessThan(2) }, { isGreaterThan 5 })
+assert(x).contains.inOrder.only.value("hello")
+assert(x).contains.inOrder.only.values("hello", "world")
+assert(x).contains.inOrder.only.`object`(personA)
+assert(x).contains.inOrder.only.objects(personA, personB)
+assert(x).contains.inOrder.only.entry { isLessThan(2) }
+assert(x).contains.inOrder.only.entries({ toBe(3) }, { isLessThan(2) })
+```
+
+*atrium-api-cc-infix-en_UK*
+```kotlin
+assert(x) containsStrictly 1.2
+assert(x) containsStrictly Values(1.2, 5.7) // or Objects as alternative
+assert(x) containsStrictly { this isLessThan 2 }
+assert(x) containsStrictly Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
+assert(x) contains inGiven order but only value "hello"
+assert(x) contains inGiven order but only the Values("hello", "world")
+assert(x) contains inGiven order but only `object` personA
+assert(x) contains inGiven order but only the Objects(personA, personB)
+assert(x) contains inGiven order but only entry { this isLessThan 2 }
+assert(x) contains inGiven order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
 ```
