@@ -658,6 +658,10 @@ You are very welcome to contribute:
 - [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   so that I better understand where Atrium needs to improve.
 
+Please have a look at 
+[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
+for further suggestions and guidelines.
+
 # KDoc - Code Documentation
 The code documentation is generated with dokka and is hosted on github-pages:
 [KDoc of atrium](https://robstoll.github.io/atrium/)
