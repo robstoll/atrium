@@ -38,7 +38,7 @@ fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E, vararg otherEx
     = contains.inAnyOrder.atLeast(1).objects(expected, *otherExpected)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that [IAssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) where it does not matter
  * in which order the entries appear.
  *
