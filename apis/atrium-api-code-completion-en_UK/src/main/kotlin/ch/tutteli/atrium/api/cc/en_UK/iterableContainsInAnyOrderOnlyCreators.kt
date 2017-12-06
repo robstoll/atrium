@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
  * [otherExpected] values need to be contained in [Iterable] where it does not matter in which order.
  *
- * Delegates to [objects].
+ * Delegates to `objects(expected, *otherExpected)`.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].

@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
  * using a non disjoint search.
  *
- * Delegates to [values].
+ * Delegates to `values(expected)`.
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
@@ -49,11 +49,12 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
     = addAssertion(_containsValues(this, expected, otherExpected))
 
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
  * (ignoring case), using a non disjoint search.
  *
- * Delegates to [values].
+ * Delegates to `values(expected)`.
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
@@ -90,6 +91,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
 @JvmName("valuesIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
     = addAssertion(_containsValuesIgnoringCase(this, expected, otherExpected))
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
