@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
 
+import ch.tutteli.atrium.api.cc.en_UK.atMost
 import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
@@ -25,5 +26,5 @@ open class IterableContainsExactlyCheckerBuilder<E, T : Iterable<E>>(
     times,
     containsBuilder,
     containsBuilder.plant::containsNot.name,
-    containsBuilder::exactly.name
+    { "${containsBuilder::exactly.name}($it)" }
 )

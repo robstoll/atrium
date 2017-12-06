@@ -26,7 +26,7 @@ open class IterableContainsAtMostCheckerBuilder<E, T : Iterable<E>>(
     times,
     containsBuilder,
     nameContainsNotValuesFun(),
-    containsBuilder::atMost.name,
-    containsBuilder::atLeast.name,
-    containsBuilder::exactly.name
+    { "`${containsBuilder::atMost.name} $it`" },
+    { "`${containsBuilder::atLeast.name} $it`" },
+    { "`${containsBuilder::exactly.name} $it`" }
 )

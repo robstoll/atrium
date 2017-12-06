@@ -24,5 +24,5 @@ open class IterableContainsNotOrAtMostCheckerBuilder<E, T : Iterable<E>>(
     times,
     containsBuilder,
     nameContainsNotValuesFun(),
-    containsBuilder::notOrAtMost.name
+    { "`${containsBuilder::notOrAtMost.name} $it`" }
 )

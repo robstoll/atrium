@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders
 
+import ch.tutteli.atrium.api.cc.infix.en_UK.exactly
 import ch.tutteli.atrium.api.cc.infix.en_UK.notOrAtMost
 import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
@@ -25,5 +26,5 @@ open class CharSequenceContainsNotOrAtMostCheckerBuilder<T : CharSequence, S : I
     times,
     containsBuilder,
     nameContainsNotValuesFun(),
-    containsBuilder::notOrAtMost.name
+    { "`${containsBuilder::notOrAtMost.name} $it`" }
 )
