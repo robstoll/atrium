@@ -26,7 +26,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             return if (aX.isEmpty()) {
                 plant to contain atLeast atLeast regex a
             } else {
-                plant to contain atLeast atLeast the RegexPatterns(a, *aX)
+                plant to contain atLeast atLeast the RegexPatterns(a, aX)
             }
         }
 
@@ -37,7 +37,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
         )
 
         private fun containsAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
-            = plant to contain atMost atMost the RegexPatterns(a, *aX)
+            = plant to contain atMost atMost the RegexPatterns(a, aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
             "$toContain $ignoringCase $atMost $regex",
@@ -49,11 +49,11 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atMost atMost regex a
             } else {
-                plant to contain ignoring case atMost atMost the RegexPatterns(a, *aX)
+                plant to contain ignoring case atMost atMost the RegexPatterns(a, aX)
             }
         }
 
         private fun containsExactly(plant: IAssertionPlant<CharSequence>, exactly: Int, a: String, aX: Array<out String>)
-            = plant to contain exactly exactly the RegexPatterns(a, *aX)
+            = plant to contain exactly exactly the RegexPatterns(a, aX)
     }
 }

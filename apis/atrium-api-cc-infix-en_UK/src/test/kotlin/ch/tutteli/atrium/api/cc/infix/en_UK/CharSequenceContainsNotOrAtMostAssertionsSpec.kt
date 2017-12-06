@@ -19,7 +19,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.ass
         )
 
         private fun containsNotOrAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
-            = plant to contain notOrAtMost atMost the Values(a, *aX)
+            = plant to contain notOrAtMost atMost the Values(a, aX)
 
         private fun getNotOrAtMostIgnoringCaseTriple() = Triple(
             "$toContain $ignoringCase $notOrAtMost",
@@ -28,7 +28,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.ass
         )
 
         private fun containsNotOrAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
-            = plant to contain ignoring case notOrAtMost atMost the Values(a, *aX)
+            = plant to contain ignoring case notOrAtMost atMost the Values(a, aX)
 
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot

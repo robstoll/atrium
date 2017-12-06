@@ -14,12 +14,12 @@ class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.asserti
         fun getContainsPair() = containsFun.name to Companion::contains
 
         private fun contains(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant contains Values(a, *aX)
+            = plant contains Values(a, aX)
 
         private val containsNotFun: KFunction2<IAssertionPlant<Iterable<Double>>, Values<Double>, IAssertionPlant<Iterable<Double>>> = IAssertionPlant<Iterable<Double>>::containsNot
         fun getContainsNotPair() = containsNotFun.name to Companion::containsNot
 
         private fun containsNot(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant containsNot Values(a, *aX)
+            = plant containsNot Values(a, aX)
     }
 }

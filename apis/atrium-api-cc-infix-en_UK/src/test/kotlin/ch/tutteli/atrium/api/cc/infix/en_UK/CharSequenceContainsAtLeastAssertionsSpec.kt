@@ -26,7 +26,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
             return if (aX.isEmpty()) {
                 plant to contain atLeast atLeast value a
             } else {
-                plant to contain atLeast atLeast the Values(a, *aX)
+                plant to contain atLeast atLeast the Values(a, aX)
             }
         }
 
@@ -40,7 +40,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atLeast atLeast value a
             } else {
-                plant to contain ignoring case atLeast atLeast the Values(a, *aX)
+                plant to contain ignoring case atLeast atLeast the Values(a, aX)
             }
         }
 
@@ -51,7 +51,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
         )
 
         private fun containsAtLeastButAtMost(plant: IAssertionPlant<CharSequence>, atLeast: Int, butAtMost: Int, a: Any, aX: Array<out Any>)
-            = plant to contain atLeast atLeast butAtMost butAtMost the Values(a, *aX)
+            = plant to contain atLeast atLeast butAtMost butAtMost the Values(a, aX)
 
         private fun getAtLeastBustAtMostIgnoringCaseTriple() = Triple(
             "$toContain $ignoringCase $atLeast $butAtMost",
@@ -60,7 +60,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
         )
 
         private fun containsAtLeastButAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atLeast: Int, butAtMost: Int, a: Any, aX: Array<out Any>)
-            = plant to contain ignoring case atLeast atLeast butAtMost butAtMost the Values(a, *aX)
+            = plant to contain ignoring case atLeast atLeast butAtMost butAtMost the Values(a, aX)
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
 
