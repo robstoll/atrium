@@ -7,6 +7,20 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
+ * [expected] object.
+ *
+ * Delegate to `objekte(expected)`.
+ *
+ * @param expected The object which is expected to be contained within the [Iterable].
+ *
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.wert(expected: E): IAssertionPlant<T>
+    = objekte(expected)
+
+/**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
  * [otherExpected] values need to be contained in [Iterable] in the specified order.
  *
@@ -21,6 +35,21 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = objekte(expected, *otherExpected)
 
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
+ * [expected] object.
+ *
+ * Delegate to `objekte(expected)`.
+ *
+ * @param expected The object which is expected to be contained within the [Iterable].
+ *
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.objekt(expected: E): IAssertionPlant<T>
+    = objekte(expected)
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as the
  * [otherExpected] objects need to be contained in [Iterable] in the specified order.
@@ -33,6 +62,21 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOn
  */
 fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.objekte(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = plant.addAssertion(_containsObjectsInOrderOnly(this, expected, otherExpected))
+
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
+ * entry which holds all assertions created by the given [assertionCreator].
+ *
+ * Delegates to `eintraege(assertionCreator)`.
+ *
+ * @param assertionCreator The identification lambda.
+ *
+ * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.eintrag(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+    = eintraege(assertionCreator)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the

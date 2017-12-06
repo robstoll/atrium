@@ -45,8 +45,14 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMostIgnoringCase
         )
 
-        private fun containsAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
-            = plant to contain ignoring case atMost atMost the RegexPatterns(a, *aX)
+        private fun containsAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>): IAssertionPlant<CharSequence> {
+            return if (aX.isEmpty()) {
+                plant to contain ignoring case atMost atMost regex a
+            } else {
+                plant to contain ignoring case atMost atMost the RegexPatterns(a, *aX)
+            }
+        }
+
 
         private fun containsExactly(plant: IAssertionPlant<CharSequence>, exactly: Int, a: String, aX: Array<out String>)
             = plant to contain exactly exactly the RegexPatterns(a, *aX)

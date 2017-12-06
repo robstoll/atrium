@@ -16,8 +16,13 @@ class IterableContainsInOrderOnlyEntriesSpec : Spek({
         fun getContainsPair() =
             "$contains.$inOrder.$only.$inOrderOnlyValues" to Companion::containsInOrderOnly
 
-        private fun containsInOrderOnly(plant: IAssertionPlant<Iterable<Double>>, a: IAssertionPlant<Double>.() -> Unit, aX: Array<out IAssertionPlant<Double>.() -> Unit>)
-            = plant.contains.inOrder.only.entries(a, *aX)
+        private fun containsInOrderOnly(plant: IAssertionPlant<Iterable<Double>>, a: IAssertionPlant<Double>.() -> Unit, aX: Array<out IAssertionPlant<Double>.() -> Unit>): IAssertionPlant<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.contains.inOrder.only.entry(a)
+            } else {
+                plant.contains.inOrder.only.entries(a, *aX)
+            }
+        }
 
         private fun getContainsShortcutName(): String {
             val f: KFunction3<IAssertionPlant<Iterable<Double>>, IAssertionPlant<Double>.() -> Unit, Array<out IAssertionPlant<Double>.() -> Unit>, IAssertionPlant<Iterable<Double>>> = IAssertionPlant<Iterable<Double>>::containsStrictly
