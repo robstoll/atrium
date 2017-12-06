@@ -26,5 +26,5 @@ open class CharSequenceContainsExactlyCheckerBuilder<T : CharSequence, S : ISear
     times,
     containsBuilder,
     containsBuilder.plant::containsNot.name,
-    containsBuilder::exactly.name
+    { "${containsBuilder::exactly.name}($it)" }
 )

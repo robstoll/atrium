@@ -21,28 +21,29 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  *              found in the [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  * @param nameContainsNotFun The name of the function which represents a `Iterable contains not` assertion.
- * @param nameAtMostFun The name of the function which represents a `Iterable contains at most` assertion.
- * @param nameAtLeastFun The name of the function which represents a `Iterable contains at least` assertion.
- * @param nameAtMostFun The name of the function which was called and created this builder.
- * @param nameExactlyFun The name of the function which represents a `Iterable contains exactly` assertion.
+ * @param atMostCall The name of the function which represents a `Iterable contains at most` assertion.
+ * @param atLeastCall The name of the function which represents a `Iterable contains at least` assertion.
+ * @param atMostCall The name of the function which was called and created this builder.
+ * @param exactlyCall The name of the function which represents a `Iterable contains exactly` assertion.
  */
 abstract class IterableContainsButAtMostCheckerBuilderBase<E, T : Iterable<E>, S : ISearchBehaviour>(
     val times: Int,
     atLeastBuilder: IterableContainsAtLeastCheckerBuilderBase<E, T, S>,
     containsBuilder: IterableContainsBuilder<E, T, S>,
     nameContainsNotFun: String,
-    nameAtMostFun: String,
-    nameAtLeastFun: String,
-    nameButAtMostFun: String,
-    nameExactlyFun: String
+    atLeastButAtMostCall: (Int, Int) -> String,
+    atMostCall: (Int) -> String,
+    atLeastCall: (Int) -> String,
+    butAtMostCall: (Int) -> String,
+    exactlyCall: (Int) -> String
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
     init {
-        validateButAtMost(atLeastBuilder.times, times, nameAtLeastFun, nameButAtMostFun, nameExactlyFun)
+        validateButAtMost(atLeastBuilder.times, times, atLeastButAtMostCall, atLeastCall, butAtMostCall, exactlyCall)
     }
 
     override val checkers: List<IChecker> = listOf(
         *atLeastBuilder.checkers.toTypedArray(),
-        IterableContainsAtMostChecker(times, nameContainsNotFun, nameAtMostFun)
+        IterableContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
     )
 }

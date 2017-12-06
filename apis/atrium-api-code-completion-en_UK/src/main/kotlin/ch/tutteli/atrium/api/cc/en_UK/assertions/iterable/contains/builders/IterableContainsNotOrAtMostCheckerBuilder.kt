@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.containsNot
+import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.api.cc.en_UK.notOrAtMost
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilderBase
@@ -25,5 +26,5 @@ open class IterableContainsNotOrAtMostCheckerBuilder<E, T : Iterable<E>>(
     times,
     containsBuilder,
     containsBuilder.plant::containsNot.name,
-    containsBuilder::notOrAtMost.name
+    { "${containsBuilder::notOrAtMost.name}($it)" }
 )

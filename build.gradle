@@ -158,12 +158,12 @@ Release & deploy a commit
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
 3. update master:
-    a) update README.md:
-        1) search for old version and replace with new (gradle and maven examples)
-        2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage)
-        3) search for `tree/master` and replace it with `tree/X.Y.Z`
-        4) search for `latest#/doc` and replace with `X.Y.Z/doc`
-    b) commit (modified build.gradle and README.md)
+    a) point to the tag
+        1) search for old version and replace with new (gradle and maven examples in README.md)
+        2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
+        3) search for `tree/master` and replace it with `tree/X.Y.Z` (README.md)
+        4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
+    b) commit (modified build.gradle, README.md and differences.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:

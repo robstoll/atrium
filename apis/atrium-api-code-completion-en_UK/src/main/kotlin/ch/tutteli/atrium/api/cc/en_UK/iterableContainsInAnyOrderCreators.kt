@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
  * within the [Iterable].
  *
- * Delegates to [objects].
+ * Delegates to `objects(expected)`.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
@@ -18,13 +18,13 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.value(expected: E): IAssertionPlant<T>
-    = values(expected)
+    = objects(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
  * [otherExpected] values shall be searched within the [Iterable].
  *
- * Delegates to [objects].
+ * Delegates to `objects(expected, *otherExpected)`.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
@@ -33,13 +33,14 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.values(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
+    = objects(expected, *otherExpected)
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
  * within the [Iterable].
  *
- * Delegates to [objects].
+ * Delegates to `objects(expected)`.
  *
  * @param expected The object which is expected to be contained within the [Iterable].
  *
@@ -71,11 +72,12 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
 fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
 
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
  * all assertions [assertionCreator] might create.
  *
- * Delegates to [entries].
+ * Delegates to `entries(expected)`.
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
  *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.

@@ -40,6 +40,6 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertio
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 
-        private fun getErrorMsgExactly(times: Int) = "use $exactly($times) instead of $atMost($times); $atMost defines implicitly $atLeast($times) as well"
+        private fun getErrorMsgExactly(times: Int) = "use $exactly($times) instead of $atMost($times); $atMost($times) defines implicitly $atLeast($times) as well"
     }
 }

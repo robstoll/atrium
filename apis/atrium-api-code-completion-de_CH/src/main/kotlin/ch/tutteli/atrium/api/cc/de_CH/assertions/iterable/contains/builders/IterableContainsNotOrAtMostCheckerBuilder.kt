@@ -25,5 +25,5 @@ open class IterableContainsNotOrAtMostCheckerBuilder<E, T : Iterable<E>>(
     times,
     containsBuilder,
     containsBuilder.plant::enthaeltNicht.name,
-    containsBuilder::nichtOderHoechstens.name
+    { "${containsBuilder::nichtOderHoechstens.name}($it)" }
 )

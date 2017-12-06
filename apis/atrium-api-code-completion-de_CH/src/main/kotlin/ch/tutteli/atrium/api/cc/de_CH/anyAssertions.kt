@@ -87,7 +87,7 @@ val <T : Any> IAssertionPlant<T>.und: IAssertionPlant<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
-fun <T : Any> IAssertionPlant<T>.und(assertionCreator: IAssertionPlant<T>.() -> Unit)
+infix fun <T : Any> IAssertionPlant<T>.und(assertionCreator: IAssertionPlant<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)
 
 /**
