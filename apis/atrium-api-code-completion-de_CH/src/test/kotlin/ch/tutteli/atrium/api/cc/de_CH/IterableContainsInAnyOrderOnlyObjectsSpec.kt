@@ -12,7 +12,12 @@ class IterableContainsInAnyOrderOnlyObjectsSpec : ch.tutteli.atrium.spec.asserti
         fun getContainsPair() =
             "$contains.$inAnyOrder.$only.$inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnly
 
-        private fun containsInAnyOrderOnly(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant.enthaelt.inBeliebigerReihenfolge.nur.werte(a, *aX)
+        private fun containsInAnyOrderOnly(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>): IAssertionPlant<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.enthaelt.inBeliebigerReihenfolge.nur.wert(a)
+            } else {
+                plant.enthaelt.inBeliebigerReihenfolge.nur.werte(a, *aX)
+            }
+        }
     }
 }
