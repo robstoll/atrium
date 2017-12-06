@@ -12,7 +12,7 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.ass
     "▶ "
 ) {
     companion object {
-        private val containsFun: KFunction2<IAssertionPlant<CharSequence>, Values, IAssertionPlant<CharSequence>> = IAssertionPlant<CharSequence>::contains
+        private val containsFun: KFunction2<IAssertionPlant<CharSequence>, Values<Any>, IAssertionPlant<CharSequence>> = IAssertionPlant<CharSequence>::contains
         fun getContainsPair() = containsFun.name to Companion::contains
 
         private fun contains(plant: IAssertionPlant<CharSequence>, a: Any, aX: Array<out Any>): IAssertionPlant<CharSequence> {

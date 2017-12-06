@@ -53,7 +53,6 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             }
         }
 
-
         private fun containsExactly(plant: IAssertionPlant<CharSequence>, exactly: Int, a: String, aX: Array<out String>)
             = plant to contain exactly exactly the RegexPatterns(a, *aX)
     }
