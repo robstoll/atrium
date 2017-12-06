@@ -26,7 +26,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
         }
 
         private fun containsDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: ITranslatable, otherExpected: Array<out ITranslatable>)
-            = plant contains DefaultTranslationsOf(expected, *otherExpected)
+            = plant contains DefaultTranslationsOf(expected, otherExpected)
 
         fun getContainsNotDefaultTranslationOfPair()
             = getContainsNotName() to Companion::containsNotDefaultTranslationOf
@@ -37,7 +37,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
         }
 
         private fun containsNotDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: ITranslatable, otherExpected: Array<out ITranslatable>)
-            = plant containsNot DefaultTranslationsOf(expected, *otherExpected)
+            = plant containsNot DefaultTranslationsOf(expected, otherExpected)
 
         fun toBeEmpty(plant: IAssertionPlant<CharSequence>)
             = plant toBe Empty

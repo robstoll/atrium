@@ -20,7 +20,7 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
             return if (aX.isEmpty()) {
                 plant to contain inAny order atLeast 1 entry a
             } else {
-                plant to contain inAny order atLeast 1 the Entries(a, *aX)
+                plant to contain inAny order atLeast 1 the Entries(a, aX)
             }
         }
 
@@ -36,7 +36,7 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
             return if (aX.isEmpty()) {
                 plant contains a
             } else {
-                plant contains Entries(a, *aX)
+                plant contains Entries(a, aX)
             }
         }
     }

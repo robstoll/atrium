@@ -19,7 +19,7 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.asserti
         )
 
         private fun containsExactly(plant: IAssertionPlant<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
-            = plant to contain exactly exactly the Values(a, *aX)
+            = plant to contain exactly exactly the Values(a, aX)
 
         private fun getExactlyIgnoringCaseTriple() = Triple(
             "$toContain $ignoringCase $exactly",
@@ -28,7 +28,7 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.asserti
         )
 
         private fun containsExactlyIgnoringCase(plant: IAssertionPlant<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
-            = plant to contain ignoring case exactly exactly the Values(a, *aX)
+            = plant to contain ignoring case exactly exactly the Values(a, aX)
 
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot
