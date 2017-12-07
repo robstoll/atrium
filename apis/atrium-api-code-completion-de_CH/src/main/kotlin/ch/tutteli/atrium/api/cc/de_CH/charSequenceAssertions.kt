@@ -48,7 +48,7 @@ fun <T : CharSequence> IAssertionPlant<T>.enthaelt(expected: Any, vararg otherEx
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.enthaeltNicht(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
-    = addAssertion(_containsNot(this, expected, *otherExpected))
+    = addAssertion(_containsNot(this, expected, otherExpected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][ITranslatable.getDefault]
@@ -69,7 +69,7 @@ fun <T : CharSequence> IAssertionPlant<T>.enthaeltStandardUebersetzungVon(expect
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.enthaeltNichtDieStandardUebersetzungVon(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
-    = addAssertion(_containsNotDefaultTranslationOf(this, expected, *otherExpected))
+    = addAssertion(_containsNotDefaultTranslationOf(this, expected, otherExpected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] starts with [expected].

@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.RawString
 fun <E, T : Iterable<E>> _containsBuilder(plant: IAssertionPlant<T>)
     = IterableContainsBuilder(plant, IterableContainsNoOpSearchBehaviour)
 
-fun <E, T : Iterable<E>> _containsNot(plant: IAssertionPlant<T>, expected: E, vararg otherExpected: E): IAssertion {
+fun <E, T : Iterable<E>> _containsNot(plant: IAssertionPlant<T>, expected: E, otherExpected: Array<out E>): IAssertion {
     val assertions = mutableListOf<IAssertion>()
     listOf(expected, *otherExpected).forEach {
         assertions.add(LazyThreadUnsafeBasicAssertion {

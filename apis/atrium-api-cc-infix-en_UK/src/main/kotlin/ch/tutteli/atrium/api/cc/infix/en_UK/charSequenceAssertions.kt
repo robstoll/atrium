@@ -73,7 +73,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values<Any>): IAssertionPlant<T>
-    = addAssertion(_containsNot(this, values.expected, *values.otherExpected))
+    = addAssertion(_containsNot(this, values.expected, values.otherExpected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [DefaultTranslationsOf.expected]'s [getDefault][ITranslatable.getDefault]
@@ -83,7 +83,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values<Any>)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationsOf: DefaultTranslationsOf): IAssertionPlant<T> {
-    return this contains(Values(
+    return this contains (Values(
         defaultTranslationsOf.expected.getDefault(),
         defaultTranslationsOf.otherExpected.map { it.getDefault() }.toTypedArray()
     ))
@@ -98,7 +98,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationsOf: 
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf): IAssertionPlant<T>
-    = addAssertion(_containsNotDefaultTranslationOf(this, defaultTranslationsOf.expected, *defaultTranslationsOf.otherExpected))
+    = addAssertion(_containsNotDefaultTranslationOf(this, defaultTranslationsOf.expected, defaultTranslationsOf.otherExpected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] starts with [expected].

@@ -19,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 fun <T : CharSequence> _containsBuilder(plant: IAssertionPlant<T>)
     = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour)
 
-fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, vararg otherExpected: Any): IAssertion {
+fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, otherExpected: Array<out Any>): IAssertion {
     val assertions = mutableListOf<IAssertion>()
     arrayOf(expected, *otherExpected).forEach {
         assertions.add(LazyThreadUnsafeBasicAssertion {
@@ -30,8 +30,8 @@ fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, va
     return InvisibleAssertionGroup(assertions)
 }
 
-fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: IAssertionPlant<T>, expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertion
-    = _containsNot(plant, expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: IAssertionPlant<T>, expected: ITranslatable, otherExpected: Array<out ITranslatable>): IAssertion
+    = _containsNot(plant, expected.getDefault(), otherExpected.map { it.getDefault() }.toTypedArray())
 
 fun <T : CharSequence> _startsWith(plant: IAssertionPlant<T>, expected: CharSequence): IAssertion
     = BasicAssertion(STARTS_WITH, expected, { plant.subject.startsWith(expected) })

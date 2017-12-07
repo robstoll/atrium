@@ -47,7 +47,7 @@ fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E, vararg otherEx
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any, T : Iterable<E>> IAssertionPlant<T>.contains(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.contains(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
 /**
@@ -83,4 +83,4 @@ fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(assertionCrea
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = addAssertion(_containsNot(this, expected, *otherExpected))
+    = addAssertion(_containsNot(this, expected, otherExpected))

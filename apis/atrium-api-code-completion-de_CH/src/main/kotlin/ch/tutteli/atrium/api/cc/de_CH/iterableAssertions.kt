@@ -82,4 +82,4 @@ fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.enthaeltStrikt(assertionCreato
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaeltNicht(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = addAssertion(_containsNot(this, expected, *otherExpected))
+    = addAssertion(_containsNot(this, expected, otherExpected))
