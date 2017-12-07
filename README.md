@@ -136,6 +136,17 @@ assert(4 + 6) {
 ```
 
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
+
+:information_source: You can use `and` as filling element between single assertions and assertion group blocks:
+```kotlin
+assert(4 + 6).isLessThan(5).and.isGreaterThan(10)
+
+assert(4 + 6) { 
+    // ... 
+} and { 
+    // ...
+}
+```
  
 ## Nullable Types
 ```kotlin
