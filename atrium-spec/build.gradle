@@ -1,12 +1,13 @@
 buildscript {
     ext.publish_description = 'Provides specifications of Atrium -- an assertion framework for Kotlin -- which can' +
-            ' be reused by implementations of Atrium, to verify that they fulfill the specification.'
+        ' be reused by implementations of Atrium, to verify that they fulfill the specification.'
 }
 
 dependencies {
     compile project(":${rootProject.name}-core-api")
     compileOnly project(":${rootProject.name}-core-api-late-binding")
-    compile project(":${rootProject.name}-api-code-completion-en_UK")
+    compileOnly project(":${rootProject.name}-api-code-completion-en_UK") // for us
+    runtimeOnly project(":${rootProject.name}-api-code-completion-en_UK") // for depending modules
     compile project(":${rootProject.name}-translations-en_UK")
 }
 
