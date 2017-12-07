@@ -179,4 +179,4 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(values: Values<E>)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(objects: Objects<E>): IAssertionPlant<T>
-    = addAssertion(_containsNot(this, objects.expected, *objects.otherExpected))
+    = addAssertion(_containsNot(this, objects.expected, objects.otherExpected))

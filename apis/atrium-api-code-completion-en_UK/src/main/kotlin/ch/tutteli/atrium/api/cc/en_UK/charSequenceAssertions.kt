@@ -48,7 +48,7 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherEx
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
-    = addAssertion(_containsNot(this, expected, *otherExpected))
+    = addAssertion(_containsNot(this, expected, otherExpected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][ITranslatable.getDefault]
@@ -69,7 +69,7 @@ fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(expected:
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNotDefaultTranslationOf(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
-    = addAssertion(_containsNotDefaultTranslationOf(this, expected, *otherExpected))
+    = addAssertion(_containsNotDefaultTranslationOf(this, expected, otherExpected))
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] starts with [expected].
