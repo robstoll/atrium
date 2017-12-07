@@ -1,4 +1,5 @@
 [![EUPL](https://img.shields.io/badge/license-EUPL%201.2-brightgreen.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12)
+[![Slack](https://img.shields.io/badge/Slack-atrium@kotlinglang-blue.svg)](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 [![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
 [![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
 
