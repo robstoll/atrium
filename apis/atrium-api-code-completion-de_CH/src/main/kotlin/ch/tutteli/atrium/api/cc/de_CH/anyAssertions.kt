@@ -93,6 +93,6 @@ infix fun <T : Any> IAssertionPlant<T>.und(assertionCreator: IAssertionPlant<T>.
 /**
  * Alias for [IAssertionPlant.subject] useful in property assertions.
  *
- * @see ch.tutteli.atrium.api.cc.en_UK.property
+ * @see property
  */
 val <T : Any> IAssertionPlant<T>.it get() : T = subject

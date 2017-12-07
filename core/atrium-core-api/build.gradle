@@ -1,5 +1,5 @@
 buildscript {
-    ext.publish_description = 'API of Atrium -- an assertion framework for Kotlin.'
+    ext.publish_description = 'API of Atrium -- an assertion library for Kotlin.'
 }
 
 dokka {
