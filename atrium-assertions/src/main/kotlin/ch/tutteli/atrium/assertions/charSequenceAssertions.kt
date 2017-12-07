@@ -106,6 +106,6 @@ private fun <T : CharSequence, S : ICharSequenceContains.ISearchBehaviour> creat
     expected: Any,
     otherExpected: Array<out Any>
 ): IAssertionGroup {
-    return CharSequenceContainsAssertionCreator<T, S>(checker.containsBuilder.decorator, searcher, checker.checkers)
+    return CharSequenceContainsAssertionCreator<T, S>(checker.containsBuilder.searchBehaviour, searcher, checker.checkers)
         .createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
 }
