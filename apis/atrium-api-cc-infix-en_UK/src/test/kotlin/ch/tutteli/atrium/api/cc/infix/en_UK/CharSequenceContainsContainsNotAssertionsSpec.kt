@@ -19,7 +19,7 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.ass
             return if (aX.isEmpty()) {
                 plant contains a
             } else {
-                plant contains Values(a, aX)
+                plant contains Values(a, *aX)
             }
         }
 
@@ -27,7 +27,7 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.ass
             return if (aX.isEmpty()) {
                 plant containsNot a
             } else {
-                plant containsNot Values(a, aX)
+                plant containsNot Values(a, *aX)
             }
         }
     }

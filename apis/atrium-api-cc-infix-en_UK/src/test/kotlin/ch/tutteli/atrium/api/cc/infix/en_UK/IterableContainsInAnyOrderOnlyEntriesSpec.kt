@@ -16,7 +16,7 @@ class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.asserti
             return if (aX.isEmpty()) {
                 plant to contain inAny order but only entry a
             } else {
-                plant to contain inAny order but only the Entries(a, aX)
+                plant to contain inAny order but only the Entries(a, *aX)
             }
         }
 

@@ -26,7 +26,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
             return if (aX.isEmpty()) {
                 plant to contain atLeast atLeast defaultTranslationOf a
             } else {
-                plant to contain atLeast atLeast the DefaultTranslationsOf(a, aX)
+                plant to contain atLeast atLeast the DefaultTranslationsOf(a, *aX)
             }
         }
 
@@ -37,7 +37,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
         )
 
         private fun containsAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: ITranslatable, aX: Array<out ITranslatable>)
-            = plant to contain atMost atMost the DefaultTranslationsOf(a, aX)
+            = plant to contain atMost atMost the DefaultTranslationsOf(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
             "$toContain $ignoringCase $atMost $defaultTranslationOf",
@@ -49,7 +49,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atMost atMost defaultTranslationOf a
             } else {
-                plant to contain ignoring case atMost atMost the DefaultTranslationsOf(a, aX)
+                plant to contain ignoring case atMost atMost the DefaultTranslationsOf(a, *aX)
             }
         }
     }
