@@ -1,7 +1,7 @@
 [![EUPL](https://img.shields.io/badge/license-EUPL%201.2-brightgreen.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12)
 [![Slack](https://img.shields.io/badge/Slack-atrium@kotlinglang-blue.svg)](https://kotlinlang.slack.com/messages/C887ZKGCQ)
-[![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
-[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
+[![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=dev)](https://travis-ci.org/robstoll/atrium/branches)
+[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=dev)](https://codecov.io/github/robstoll/atrium?branch=dev)
 
 # Atrium
 Atrium is an open-source assertion library for Kotlin with a fluent API.
@@ -59,9 +59,9 @@ dependencies {
 
 maven:  
 Because maven is a bit more verbose than gradle, the example is not listed here but 
-an [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
+an [settings.xml](https://github.com/robstoll/atrium/tree/dev/misc/maven/settings.xml) 
 is provided to set up the repository as well as an 
-[example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
+[example pom.xml](https://github.com/robstoll/atrium/tree/dev/misc/maven/example-pom.xml)
 which includes the necessary dependencies.
 
 Next to specifying a dependency to a predefined [API](#apis) you have to [setup your assertion verbs](#use-own-assertion-verbs)
@@ -71,10 +71,10 @@ That is all, you are all set. The next section shows you how to use Atrium.
 
 # Examples
 We are using the API provided by the bundle module 
-[atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
+[atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/dev/bundles/atrium-cc-en_UK-robstoll/build.gradle)
 in the following examples. It provides a pure fluent API. 
 Have a look at 
-[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+[apis/differences.md](https://github.com/robstoll/atrium/tree/dev/apis/differences.md)
 to see how the infix API looks like.
 
 ## Your First Assertion
@@ -449,10 +449,10 @@ assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 
 Atrium supports further assertion builders (e.g, for `CharSequence`) as well as assertion functions which have not been shown in the examples.
 Have a look at the 
-[specifications](https://github.com/robstoll/atrium/tree/master/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
+[specifications](https://github.com/robstoll/atrium/tree/dev/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
 for more examples above.
 
-Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md) for a few more examples.
+Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/dev/apis/differences.md) for a few more examples.
 This site contains also a list of all APIs with links to their assertion function catalogs.
 
 # Write own Assertion Functions
@@ -517,7 +517,7 @@ assert(13).isEven()
 
 Do you want to write an own sophisticated assertion builder instead of an assertion function? 
 Have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
-[ch.tutteli.atrium.assertions.iterable.contains](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/assertions/iterable/contains).
+[ch.tutteli.atrium.assertions.iterable.contains](https://github.com/robstoll/atrium/tree/dev/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/assertions/iterable/contains).
 Notice that the implementation supports [Internationalization](#internationalization).
 If you have a question, then please post it in the 
 [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
@@ -534,7 +534,7 @@ For instance, you could change from same-line to multi-line reporting or
 report not only failing but also successful assertions, change the output language etc.
 
 In order to create an own assertion verb it is sufficient to copy the file content of 
-[atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+[atriumVerbs.kt](https://github.com/robstoll/atrium/tree/dev/atrium-assertions/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
 paste it in your own atriumVerbs.kt, rename `assert` and `expect` as desired and rename the package to reflect yours.
 
 As you can see, it is up to you if you use the same name for all assertion functions or not 
@@ -553,7 +553,7 @@ dependencies {
 ```
 
 maven:  
-Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml).    
+Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/dev/misc/maven/example-pom.xml).    
 
 # Internationalization
 
@@ -579,15 +579,15 @@ enum class DescriptionIntAssertions(override val value: String) : ISimpleTransla
 Typically you would put `DescriptionIntAssertions` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
-[atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
+[atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/dev/bundles/atrium-cc-en_UK-robstoll/build.gradle)
 uses `atrium-translations-en_UK` whereas 
-[atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
+[atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/dev/bundles/atrium-cc-de_CH-robstoll/build.gradle)
 uses `atrium-translations-de_CH`.  
 
 But you can also use a 
 [ITranslationSupplier](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-i-translation-supplier/index.html)
 based solution and configure the `ReporterBuilder` accordingly. 
-[Robstoll's implementation](https://github.com/robstoll/atrium/tree/master/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating)
+[Robstoll's implementation](https://github.com/robstoll/atrium/tree/dev/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating)
 of the core of Atrium provides properties files based `ITranslatableSupplier`s which are more or less what
 [Resource Bundle](https://docs.oracle.com/javase/tutorial/i18n/resbundle/propfile.html)
 provides out of the box. 
@@ -595,9 +595,9 @@ Yet, robstoll's implementation uses an own
 [ResourceBundle.Control](https://docs.oracle.com/javase/7/docs/api/java/util/ResourceBundle.Control.html)
 which provides an enhanced fallback mechanism. 
 For further technical information, see 
-[ResourceBundleBasedTranslator](https://github.com/robstoll/atrium/tree/master/core/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating/ResourceBundleBasedTranslator.kt)
+[ResourceBundleBasedTranslator](https://github.com/robstoll/atrium/tree/dev/core/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating/ResourceBundleBasedTranslator.kt)
 and have a look at the
-[specifications of the `ITranslationSupplier`s](https://github.com/robstoll/atrium/tree/master/core/atrium-core-impl-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/reporting/translating)
+[specifications of the `ITranslationSupplier`s](https://github.com/robstoll/atrium/tree/dev/core/atrium-core-impl-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/reporting/translating)
 for an example how you have to configure the `ReporterBuilder`.
 
 Notice, Atrium does not yet support generating multiple reports (in different languages) 
@@ -663,12 +663,12 @@ Atrium is
 and it is your chose which implementation you want to use. 
 Atrium provides three modules which bundle API, translation and implementation, so that you just have to have a dependency on that one bundle:
 
-- [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
-- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
-- [atrium-cc-infix-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-infix-en_UK-robstoll/build.gradle)
+- [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/dev/bundles/atrium-cc-en_UK-robstoll/build.gradle)
+- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/dev/bundles/atrium-cc-de_CH-robstoll/build.gradle)
+- [atrium-cc-infix-en_UK-robstoll](https://github.com/robstoll/atrium/tree/dev/bundles/atrium-cc-infix-en_UK-robstoll/build.gradle)
 
 Have a look at 
-[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+[apis/differences.md](https://github.com/robstoll/atrium/tree/dev/apis/differences.md)
 for more information and to see how the API styles differ.
  
 # Contribute
@@ -679,7 +679,7 @@ You are very welcome to contribute:
   so that I better understand where Atrium needs to improve.
 
 Please have a look at 
-[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/dev/.github/CONTRIBUTING.md)
 for further suggestions and guidelines.
 
 # KDoc - Code Documentation
