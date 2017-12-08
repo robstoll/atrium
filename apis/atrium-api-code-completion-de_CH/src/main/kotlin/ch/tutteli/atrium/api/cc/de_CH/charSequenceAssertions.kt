@@ -52,13 +52,28 @@ fun <T : CharSequence> IAssertionPlant<T>.enthaeltNicht(expected: Any, vararg ot
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][ITranslatable.getDefault]
- * representation and the [getDefault][ITranslatable.getDefault] representations of the [otherExpected] (if defined).
+ * representation and the [getDefault][ITranslatable.getDefault] representations of the [otherExpected] (if defined),
+ * using a non disjoint search.
+ *
+ * It is a shortcut for `enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)`.
+ *
+ * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
+ * default translation of [expected] is defined as `'a'` and one default translation of the
+ * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * same sequence in the input of the search. Use an option such as [zumindest], [hoestens] and [genau] to control
+ * the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `enthaelt.genau(2).standardUebersetzungVon(IS)`
+ * instead of:
+ *   `enthaeltStandardUebersetzungVon(IS, IS)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.enthaeltStandardUebersetzungVon(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
-    = enthaelt(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+    = enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does  not contain [expected]'s

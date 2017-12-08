@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 infix fun <T : CharSequence> IAssertionPlant<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
     = _containsBuilder(this)
 
+
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains the [toString] representation of the given [expected]
  * using a non disjoint search.
@@ -54,6 +55,45 @@ infix fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any)
 infix fun <T : CharSequence> IAssertionPlant<T>.contains(values: Values<Any>): IAssertionPlant<T>
     = this to contain atLeast 1 the values
 
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] contains the [getDefault][ITranslatable.getDefault]
+ * representation of the given [translatable].
+ *
+ * It is a shortcut for `to contain atLeast 1 defaultTranslationOf translatable)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(translatable: ITranslatable): IAssertionPlant<T>
+    = this to contain atLeast 1 defaultTranslationOf translatable
+
+/**
+ * Makes the assertion that [IAssertionPlant.subject] contains [DefaultTranslationsOf.expected]'s
+ * [getDefault][ITranslatable.getDefault] representation and the [getDefault][ITranslatable.getDefault] representations
+ * of the [DefaultTranslationsOf.otherExpected] (if defined), using a non disjoint search.
+ *
+ * It is a shortcut for `to contain atLeast 1 the DefaultTranslationsOf(...)`
+ *
+ * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
+ * default translation of [DefaultTranslationsOf.expected] is defined as `'a'` and one default translation of the
+ * [DefaultTranslationsOf.otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * same sequence in the input of the search. Use an option such as [zumindest], [hoestens] and [genau] to control
+ * the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `to contain exactly 2 defaultTranslationOf IS`
+ * instead of:
+ *   `to contain atLeast 1 the DefaultTranslationOf(IS, IS)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationOf: DefaultTranslationsOf): IAssertionPlant<T>
+    = this to contain atLeast 1 the defaultTranslationOf
+
+
 /**
  * Makes the assertion that [IAssertionPlant.subject] does not [expected]'s [toString] representation.
  *
@@ -75,19 +115,6 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any)
 infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values<Any>): IAssertionPlant<T>
     = addAssertion(_containsNot(this, values.expected, values.otherExpected))
 
-/**
- * Makes the assertion that [IAssertionPlant.subject] contains [DefaultTranslationsOf.expected]'s [getDefault][ITranslatable.getDefault]
- * representation and the [getDefault][ITranslatable.getDefault] representations of the [DefaultTranslationsOf.otherExpected] (if defined).
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationsOf: DefaultTranslationsOf): IAssertionPlant<T> {
-    return this contains (Values(
-        defaultTranslationsOf.expected.getDefault(),
-        defaultTranslationsOf.otherExpected.map { it.getDefault() }.toTypedArray()
-    ))
-}
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does  not contain [DefaultTranslationsOf.expected]'s
@@ -99,6 +126,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationsOf: 
  */
 infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf): IAssertionPlant<T>
     = addAssertion(_containsNotDefaultTranslationOf(this, defaultTranslationsOf.expected, defaultTranslationsOf.otherExpected))
+
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] starts with [expected].
