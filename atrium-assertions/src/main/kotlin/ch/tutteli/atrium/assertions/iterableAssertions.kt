@@ -81,7 +81,7 @@ private fun <E, T : Iterable<E>, S, B : IIterableContains.ISearchBehaviour> crea
     otherExpected: Array<out S>,
     factory: (B) -> IIterableContains.ICreator<T, S>
 ): IAssertionGroup {
-    val creator = factory(checker.containsBuilder.decorator)
+    val creator = factory(checker.containsBuilder.searchBehaviour)
     return creator.createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
 }
 
@@ -94,6 +94,6 @@ private fun <E, T : Iterable<E>, S, B : IIterableContains.ISearchBehaviour> crea
     otherExpected: Array<out S>,
     factory: (B, List<IIterableContains.IChecker>) -> IIterableContains.ICreator<T, S>
 ): IAssertionGroup {
-    val creator = factory(checker.containsBuilder.decorator, checker.checkers)
+    val creator = factory(checker.containsBuilder.searchBehaviour, checker.checkers)
     return creator.createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
 }

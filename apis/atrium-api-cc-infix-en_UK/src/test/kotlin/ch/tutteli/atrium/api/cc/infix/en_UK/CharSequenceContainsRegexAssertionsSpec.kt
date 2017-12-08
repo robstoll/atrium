@@ -8,13 +8,12 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
     getNameContainsRegex(),
     getAtLeastTriple(),
     getAtMostTriple(),
-    getAtMostIgnoringCaseTriple(),
-    Companion::containsExactly
+    getAtMostIgnoringCaseTriple()
 ) {
 
     companion object : CharSequenceContainsSpecBase() {
 
-        private fun getNameContainsRegex() = "contains with search mode $regex"
+        private fun getNameContainsRegex() = "$toContain with search mode $regex"
 
         private fun getAtLeastTriple() = Triple(
             "$toContain $atLeast $regex",
@@ -52,8 +51,5 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
                 plant to contain ignoring case atMost atMost the RegexPatterns(a, aX)
             }
         }
-
-        private fun containsExactly(plant: IAssertionPlant<CharSequence>, exactly: Int, a: String, aX: Array<out String>)
-            = plant to contain exactly exactly the RegexPatterns(a, aX)
     }
 }

@@ -17,5 +17,6 @@ abstract class CharSequenceContainsSpecBase {
     protected val atMost = CharSequenceContainsBuilder<*, *>::atMost.name
     protected val notOrAtMost = CharSequenceContainsBuilder<*, *>::notOrAtMost.name
     protected val regex = CharSequenceContainsCheckerBuilder<*, CharSequenceContainsNoOpSearchBehaviour>::regex.name
+    protected val defaultTranslationOf = CharSequenceContainsCheckerBuilder<*, CharSequenceContainsNoOpSearchBehaviour>::defaultTranslationOf.name
     protected val ignoringCase = CharSequenceContainsBuilder<*, CharSequenceContainsNoOpSearchBehaviour>::ignoringCase.name
 }
