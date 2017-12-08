@@ -20,7 +20,7 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
             return if (aX.isEmpty()) {
                 plant to contain inGiven order but only `object` a
             } else {
-                plant to contain inGiven order but only the Objects(a, aX)
+                plant to contain inGiven order but only the Objects(a, *aX)
             }
         }
 
@@ -37,7 +37,7 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
             return if (aX.isEmpty()) {
                 plant containsStrictly a
             } else {
-                plant containsStrictly Objects(a, aX)
+                plant containsStrictly Objects(a, *aX)
             }
         }
     }

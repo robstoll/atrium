@@ -13,13 +13,23 @@ class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.asserti
         private val containsFun: KFunction2<IAssertionPlant<Iterable<Double>>, Values<Double>, IAssertionPlant<Iterable<Double>>> = IAssertionPlant<Iterable<Double>>::contains
         fun getContainsPair() = containsFun.name to Companion::contains
 
-        private fun contains(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant contains Values(a, aX)
+        private fun contains(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>): IAssertionPlant<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant contains a
+            } else {
+                plant contains Objects(a, *aX)
+            }
+        }
 
         private val containsNotFun: KFunction2<IAssertionPlant<Iterable<Double>>, Values<Double>, IAssertionPlant<Iterable<Double>>> = IAssertionPlant<Iterable<Double>>::containsNot
         fun getContainsNotPair() = containsNotFun.name to Companion::containsNot
 
-        private fun containsNot(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant containsNot Values(a, aX)
+        private fun containsNot(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>): IAssertionPlant<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant containsNot a
+            } else {
+                plant containsNot Objects(a, *aX)
+            }
+        }
     }
 }

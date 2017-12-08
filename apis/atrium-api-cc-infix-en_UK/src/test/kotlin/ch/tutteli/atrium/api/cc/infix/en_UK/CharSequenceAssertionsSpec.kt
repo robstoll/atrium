@@ -29,7 +29,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
             return if (otherExpected.isEmpty()) {
                 plant containsDefaultTranslationOf expected
             } else {
-                plant contains DefaultTranslationsOf(expected, otherExpected)
+                plant contains DefaultTranslationsOf(expected, *otherExpected)
             }
         }
 
@@ -43,7 +43,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
         }
 
         private fun containsNotDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: ITranslatable, otherExpected: Array<out ITranslatable>)
-            = plant containsNot DefaultTranslationsOf(expected, otherExpected)
+            = plant containsNot DefaultTranslationsOf(expected, *otherExpected)
 
         fun toBeEmpty(plant: IAssertionPlant<CharSequence>)
             = plant toBe Empty

@@ -24,7 +24,7 @@ class IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec : ch.tutteli.atrium
             return if (aX.isEmpty()) {
                 plant to contain inAny order atLeast atLeast value a
             } else {
-                plant to contain inAny order atLeast atLeast the Values(a, aX)
+                plant to contain inAny order atLeast atLeast the Values(a, *aX)
             }
         }
 
@@ -38,7 +38,7 @@ class IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec : ch.tutteli.atrium
             return if (aX.isEmpty()) {
                 plant to contain inAny order atLeast atLeast butAtMost butAtMost `object` a
             } else {
-                plant to contain inAny order atLeast atLeast butAtMost butAtMost the Values(a, aX)
+                plant to contain inAny order atLeast atLeast butAtMost butAtMost the Values(a, *aX)
             }
         }
 
