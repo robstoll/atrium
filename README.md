@@ -2,6 +2,7 @@
 [![EUPL](https://img.shields.io/badge/license-EUPL%201.2-brightgreen.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12)
 [![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
 [![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
+
 # Atrium
 Atrium is an open-source assertion library for Kotlin with a fluent API.
 The project was inspired by AssertJ at first (and was therefore named AssertK) but it moved on and provides now more 
