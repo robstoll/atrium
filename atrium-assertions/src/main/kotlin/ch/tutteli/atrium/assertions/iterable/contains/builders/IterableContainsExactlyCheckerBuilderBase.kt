@@ -21,15 +21,15 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsE
  *              found in the [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  * @param nameContainsNotFun The name of the function which represents a `Iterable contains not` assertion.
- * @param nameExactlyFun The name of the function which was called and created this builder.
+ * @param exactlyCall The name of the function which was called and created this builder.
  */
 abstract class IterableContainsExactlyCheckerBuilderBase<E, T : Iterable<E>, S : ISearchBehaviour>(
     val times: Int,
     containsBuilder: IterableContainsBuilder<E, T, S>,
     nameContainsNotFun: String,
-    nameExactlyFun: String
+    exactlyCall: (Int) -> String
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
     override val checkers: List<IChecker> =
-        listOf(IterableContainsExactlyChecker(times, nameContainsNotFun, nameExactlyFun))
+        listOf(IterableContainsExactlyChecker(times, nameContainsNotFun, exactlyCall))
 }

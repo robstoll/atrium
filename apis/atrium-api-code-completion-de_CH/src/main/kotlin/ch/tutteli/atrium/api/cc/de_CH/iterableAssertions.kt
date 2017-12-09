@@ -37,7 +37,7 @@ fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt(expected: E, vararg otherEx
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).objekte(expected, *otherExpected)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that [IAssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) where it does not matter
  * in which order the entries appear.
  *
@@ -82,4 +82,4 @@ fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.enthaeltStrikt(assertionCreato
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaeltNicht(expected: E, vararg otherExpected: E): IAssertionPlant<T>
-    = addAssertion(_containsNot(this, expected, *otherExpected))
+    = addAssertion(_containsNot(this, expected, otherExpected))

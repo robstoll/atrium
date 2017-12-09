@@ -16,11 +16,12 @@ val <T : CharSequence> IAssertionPlant<T>.contains
     get(): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
     = _containsBuilder(this)
 
+
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if defined), using a non disjoint search.
  *
- * It is a shortcut for `contains.atLeast.values(expected, *otherExpected)`.
+ * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [expected]
@@ -48,17 +49,33 @@ fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any, vararg otherEx
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
-    = addAssertion(_containsNot(this, expected, *otherExpected))
+    = addAssertion(_containsNot(this, expected, otherExpected))
+
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][ITranslatable.getDefault]
- * representation and the [getDefault][ITranslatable.getDefault] representations of the [otherExpected] (if defined).
+ * representation and the [getDefault][ITranslatable.getDefault] representations of the [otherExpected] (if defined),
+ * using a non disjoint search.
+ *
+ * It is a shortcut for `contains.atLeast(1).defaultTranslationOf(expected, *otherExpected)`.
+ *
+ * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
+ * default translation of [expected] is defined as `'a'` and one default translation of the
+ * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
+ * the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `contains.exactly(2).defaultTranslationOf(IS)`
+ * instead of:
+ *   `containsDefaultTranslationOf(IS, IS)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
-    = contains(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+    = contains.atLeast(1).defaultTranslationOf(expected, *otherExpected)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does  not contain [expected]'s
@@ -69,7 +86,8 @@ fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(expected:
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> IAssertionPlant<T>.containsNotDefaultTranslationOf(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
-    = addAssertion(_containsNotDefaultTranslationOf(this, expected, *otherExpected))
+    = addAssertion(_containsNotDefaultTranslationOf(this, expected, otherExpected))
+
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] starts with [expected].

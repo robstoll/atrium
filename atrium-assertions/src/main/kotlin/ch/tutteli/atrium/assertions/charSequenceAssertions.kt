@@ -19,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 fun <T : CharSequence> _containsBuilder(plant: IAssertionPlant<T>)
     = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour)
 
-fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, vararg otherExpected: Any): IAssertion {
+fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, otherExpected: Array<out Any>): IAssertion {
     val assertions = mutableListOf<IAssertion>()
     arrayOf(expected, *otherExpected).forEach {
         assertions.add(LazyThreadUnsafeBasicAssertion {
@@ -30,8 +30,8 @@ fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, va
     return InvisibleAssertionGroup(assertions)
 }
 
-fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: IAssertionPlant<T>, expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertion
-    = _containsNot(plant, expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
+fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: IAssertionPlant<T>, expected: ITranslatable, otherExpected: Array<out ITranslatable>): IAssertion
+    = _containsNot(plant, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
 fun <T : CharSequence> _startsWith(plant: IAssertionPlant<T>, expected: CharSequence): IAssertion
     = BasicAssertion(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
@@ -66,6 +66,25 @@ fun <T : CharSequence> _containsValuesIgnoringCase(
 ): IAssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
 
+
+fun <T : CharSequence> _containsDefaultTranslationOf(
+    checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
+    expected: ITranslatable,
+    otherExpected: Array<out ITranslatable>
+): IAssertionGroup
+    = _containsValues(checker, expected.getDefault(), mapDefaultTranslations(otherExpected))
+
+fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
+    checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
+    expected: ITranslatable,
+    otherExpected: Array<out ITranslatable>
+): IAssertionGroup
+    = _containsValuesIgnoringCase(checker, expected.getDefault(), mapDefaultTranslations(otherExpected))
+
+private fun mapDefaultTranslations(otherExpected: Array<out ITranslatable>) =
+    otherExpected.map { it.getDefault() }.toTypedArray()
+
+
 fun <T : CharSequence> _containsRegex(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
     expected: Any,
@@ -80,12 +99,13 @@ fun <T : CharSequence> _containsRegexIgnoringCase(
 ): IAssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
 
+
 private fun <T : CharSequence, S : ICharSequenceContains.ISearchBehaviour> createAssertionGroup(
     checker: CharSequenceContainsCheckerBuilder<T, S>,
     searcher: ISearcher<S>,
     expected: Any,
     otherExpected: Array<out Any>
 ): IAssertionGroup {
-    return CharSequenceContainsAssertionCreator<T, S>(checker.containsBuilder.decorator, searcher, checker.checkers)
+    return CharSequenceContainsAssertionCreator<T, S>(checker.containsBuilder.searchBehaviour, searcher, checker.checkers)
         .createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
 }

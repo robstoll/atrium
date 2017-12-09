@@ -15,22 +15,21 @@ import java.util.regex.PatternSyntaxException
 abstract class CharSequenceContainsRegexAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsRegex: String,
-    containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsExactlyFunArr: IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>
+    containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, String, Array<out String>) -> IAssertionPlant<CharSequence>>,
+    containsAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, String, Array<out String>) -> IAssertionPlant<CharSequence>>,
+    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, String, Array<out String>) -> IAssertionPlant<CharSequence>>
 ) : Spek({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
-        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 2, 2.3, arrayOf()) },
-        containsAtMostTriple.first to mapToCreateAssertion { containsAtMostTriple.third(this, 2, 2.3, arrayOf()) },
-        containsAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
+        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 2, "a|b", arrayOf()) },
+        containsAtMostTriple.first to mapToCreateAssertion { containsAtMostTriple.third(this, 2, "a|b", arrayOf()) },
+        containsAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtMostIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
-        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 2, 2.3, arrayOf()) }, "2.3,2.3", "2.3"),
-        checkingTriple(containsAtMostTriple.first, { containsAtMostTriple.third(this, 2, 2.3, arrayOf()) }, "2.3", "2.3,2.3,2.3"),
-        checkingTriple(containsAtMostIgnoringCaseTriple.first, { containsAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }, "2.3", "2.3,2.3,2.3")
+        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 2, "a|b", arrayOf()) }, "a, b", "a"),
+        checkingTriple(containsAtMostTriple.first, { containsAtMostTriple.third(this, 2, "a|b", arrayOf()) }, "a", "a,ba"),
+        checkingTriple(containsAtMostIgnoringCaseTriple.first, { containsAtMostIgnoringCaseTriple.third(this, 2, "a|b", arrayOf()) }, "a", "bbb")
     ) {})
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
@@ -42,30 +41,27 @@ abstract class CharSequenceContainsRegexAssertionSpec(
     val fluent = assert(text)
 
     val (_, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
-    fun IAssertionPlant<CharSequence>.containsAtLeastFun(atLeast: Int, a: Any, vararg aX: Any)
+    fun IAssertionPlant<CharSequence>.containsAtLeastFun(atLeast: Int, a: String, vararg aX: String)
         = containsAtLeastFunArr(atLeast, a, aX)
 
     val (_, containsAtMostTest, containsAtMostFunArr) = containsAtMostTriple
-    fun IAssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: Any, vararg aX: Any)
+    fun IAssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: String, vararg aX: String)
         = containsAtMostFunArr(atLeast, a, aX)
 
     val (_, containsAtMostIgnoringCase, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCaseTriple
-    fun IAssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
+    fun IAssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
-
-    fun IAssertionPlant<CharSequence>.containsExactlyFun(atLeast: Int, a: Any, vararg aX: Any)
-        = containsExactlyFunArr(atLeast, a, aX)
 
     describe("fun $containsRegex") {
         context("throws an ${PatternSyntaxException::class.simpleName}") {
             test("if an erroneous pattern is passed") {
                 expect {
-                    assert("a").containsExactlyFun(1, "notA(validPattern")
+                    assert("a").containsAtLeastFun(1, "notA(validPattern")
                 }.toThrow<PatternSyntaxException>()
             }
             test("if an erroneous pattern is passed as second regex") {
                 expect {
-                    assert("a").containsExactlyFun(1, "h(a|e)llo", "notA(validPattern")
+                    assert("a").containsAtLeastFun(1, "h(a|e)llo", "notA(validPattern")
                 }.toThrow<PatternSyntaxException>()
             }
         }
@@ -92,12 +88,12 @@ abstract class CharSequenceContainsRegexAssertionSpec(
                 fluent.containsAtMostIgnoringCaseFun(19, "[a-z]", "[A-Z]")
             }
 
-            test("${containsAtMostTest("'[a-z]'", "16 times")} does not throw") {
+            test("${containsAtMostTest("'[a-z]'", "16 times")} throws AssertionError") {
                 expect {
                     fluent.containsAtMostFun(16, "[a-z]")
                 }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
             }
-            test("${containsAtMostIgnoringCase("'[a-z]'", "18 times")} does not throw") {
+            test("${containsAtMostIgnoringCase("'[a-z]'", "18 times")} throws AssertionError") {
                 expect {
                     fluent.containsAtMostIgnoringCaseFun(18, "[a-z]")
                 }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }

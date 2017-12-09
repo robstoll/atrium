@@ -20,15 +20,15 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  *              found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
- * @param nameExactlyFun The name of the function which was called and created this builder.
+ * @param exactlyCall The function call which should not be used if [times] equals to zero.
  */
 abstract class CharSequenceContainsExactlyCheckerBuilderBase<T : CharSequence, S : ISearchBehaviour>(
     val times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, S>,
     nameContainsNotFun: String,
-    nameExactlyFun: String
+    exactlyCall: (Int) -> String
 ) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
 
     override val checkers: List<IChecker> =
-        listOf(CharSequenceContainsExactlyChecker(times, nameContainsNotFun, nameExactlyFun))
+        listOf(CharSequenceContainsExactlyChecker(times, nameContainsNotFun, exactlyCall))
 }

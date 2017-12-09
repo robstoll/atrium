@@ -22,25 +22,25 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  *              found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
- * @param nameAtMostFun The name of the function which was called and created this builder.
- * @param nameAtLeastFun The name of the function which represents a `CharSequence contains at least` assertion.
- * @param nameExactlyFun The name of the function which represents a `CharSequence contains exactly` assertion.
+ * @param atMostCall The name of the function which was called and created this builder.
+ * @param atLeastCall The name of the function which represents a `CharSequence contains at least` assertion.
+ * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
 abstract class CharSequenceContainsAtMostCheckerBuilderBase<T : CharSequence, S : ISearchBehaviour>(
     val times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, S>,
     nameContainsNotFun: String,
-    nameAtMostFun: String,
-    nameAtLeastFun: String,
-    nameExactlyFun: String
+    atMostCall: (Int) -> String,
+    atLeastCall: (Int) -> String,
+    exactlyCall: (Int) -> String
 ) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
 
     init {
-        validateAtMost(times, nameAtMostFun, nameAtLeastFun, nameExactlyFun)
+        validateAtMost(times, atMostCall, atLeastCall, exactlyCall)
     }
 
     override val checkers: List<IChecker> = listOf(
-        CharSequenceContainsAtLeastChecker(1, nameContainsNotFun, nameAtMostFun),
-        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameAtMostFun)
+        CharSequenceContainsAtLeastChecker(1, nameContainsNotFun, atLeastCall),
+        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
     )
 }

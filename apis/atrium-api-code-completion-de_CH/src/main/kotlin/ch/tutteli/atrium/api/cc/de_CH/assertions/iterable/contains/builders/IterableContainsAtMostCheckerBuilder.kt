@@ -27,7 +27,7 @@ open class IterableContainsAtMostCheckerBuilder<E, T : Iterable<E>>(
     times,
     containsBuilder,
     containsBuilder.plant::enthaeltNicht.name,
-    containsBuilder::hoechstens.name,
-    containsBuilder::zumindest.name,
-    containsBuilder::genau.name
+    { "${containsBuilder::hoechstens.name}($it)" },
+    { "${containsBuilder::zumindest.name}($it)" },
+    { "${containsBuilder::genau.name}($it)" }
 )

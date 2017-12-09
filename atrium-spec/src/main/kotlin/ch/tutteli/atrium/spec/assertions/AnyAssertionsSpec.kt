@@ -33,19 +33,19 @@ abstract class AnyAssertionsSpec(
     //TODO extend SubjectLess with nullable
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
-        toBe to mapToCreateAssertion { funInt.toBe(this, 1) },
-        notToBe to mapToCreateAssertion { funInt.notToBe(this, 1) },
-        isSame to mapToCreateAssertion { funInt.isSame(this, 1) },
-        isNotSame to mapToCreateAssertion { funInt.isNotSame(this, 1) },
+        toBe to mapToCreateAssertion { funInt.toBeFun(this, 1) },
+        notToBe to mapToCreateAssertion { funInt.notToBeFun(this, 1) },
+        isSame to mapToCreateAssertion { funInt.isSameFun(this, 1) },
+        isNotSame to mapToCreateAssertion { funInt.isNotSameFun(this, 1) },
         andPair.first to mapToCreateAssertion { andPair.second },
         andLazyPair.first to mapToCreateAssertion{ andLazyPair.second }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs,
-        checkingTriple(toBe, { funInt.toBe(this, 1) }, 1, 0),
-        checkingTriple(notToBe, { funInt.notToBe(this, 1) }, 0, 1),
-        checkingTriple(isSame, { funInt.isSame(this, 1) }, 1, 0),
-        checkingTriple(isNotSame, { funInt.isNotSame(this, 1) }, 0, 1)
+        checkingTriple(toBe, { funInt.toBeFun(this, 1) }, 1, 0),
+        checkingTriple(notToBe, { funInt.notToBeFun(this, 1) }, 0, 1),
+        checkingTriple(isSame, { funInt.isSameFun(this, 1) }, 1, 0),
+        checkingTriple(isNotSame, { funInt.isNotSameFun(this, 1) }, 0, 1)
     ) {})
 
     val expect = verbs::checkException
@@ -56,10 +56,10 @@ abstract class AnyAssertionsSpec(
     describe("fun $toBe, $notToBe, $isSame and $isNotSame") {
 
         context("primitive") {
-            val toBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.toBe
-            val notToBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.notToBe
-            val isSameFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.isSame
-            val isNotSameFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.isNotSame
+            val toBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.toBeFun
+            val notToBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.notToBeFun
+            val isSameFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.isSameFun
+            val isNotSameFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.isNotSameFun
 
             context("one equals the other") {
                 test("$toBe does not throw") {
@@ -101,10 +101,10 @@ abstract class AnyAssertionsSpec(
         context("class") {
             val test = DataClass(true)
             val fluent = verbs.checkImmediately(test)
-            val toBeFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.toBe
-            val notToBeFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.notToBe
-            val isSameFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.isSame
-            val isNotSameFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.isNotSame
+            val toBeFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.toBeFun
+            val notToBeFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.notToBeFun
+            val isSameFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.isSameFun
+            val isNotSameFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.isNotSameFun
             context("same") {
                 test("$toBe does not throw") {
                     fluent.toBeFun(test)
@@ -206,10 +206,10 @@ abstract class AnyAssertionsSpec(
 
 }) {
     interface IAnyAssertionsSpecFunFactory<T : Any> {
-        val toBe: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
-        val notToBe: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
-        val isSame: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
-        val isNotSame: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
+        val toBeFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
+        val notToBeFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
+        val isSameFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
+        val isNotSameFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
     }
 
     data class DataClass(val isWhatever: Boolean)

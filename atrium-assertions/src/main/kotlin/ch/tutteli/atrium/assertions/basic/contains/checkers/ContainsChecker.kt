@@ -20,18 +20,18 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *              in the input of the search, against how many [times] the check expect it to be contained.
  * @param times The number which the check uses to compare against the actual number of times an expected object is
  *              found in the input of the search.
- * @param nameFunToUse The function which should be used instead of [nameFunUsed] when [times] equals to zero.
- * @param nameFunUsed The function which was used and should not be used if [times] equals to zero.
+ * @param correctCall The function which should be used instead of `wrongCall` when [times] equals to zero.
+ * @param wrongCall The function call which was used and should not be used if [times] equals to zero.
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
 abstract class ContainsChecker(
     val times: Int,
-    nameFunToUse: String,
-    nameFunUsed: String
+    correctCall: String,
+    wrongCall: (Int) -> String
 ) : IContains.IChecker {
     init {
-        require(times != 0) { "use $nameFunToUse instead of $nameFunUsed(0)" }
+        require(times != 0) { "use $correctCall instead of ${wrongCall(0)}" }
         require(times > 0) { "only positive numbers allowed: $times given" }
     }
 

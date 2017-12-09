@@ -87,12 +87,12 @@ val <T : Any> IAssertionPlant<T>.und: IAssertionPlant<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
-fun <T : Any> IAssertionPlant<T>.und(assertionCreator: IAssertionPlant<T>.() -> Unit)
+infix fun <T : Any> IAssertionPlant<T>.und(assertionCreator: IAssertionPlant<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)
 
 /**
  * Alias for [IAssertionPlant.subject] useful in property assertions.
  *
- * @see ch.tutteli.atrium.api.cc.en_UK.property
+ * @see property
  */
 val <T : Any> IAssertionPlant<T>.it get() : T = subject

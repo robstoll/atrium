@@ -158,12 +158,13 @@ Release & deploy a commit
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
 3. update master:
-    a) update README.md:
-        1) search for old version and replace with new (gradle and maven examples)
-        2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage)
-        3) search for `tree/master` and replace it with `tree/X.Y.Z`
-        4) search for `latest#/doc` and replace with `X.Y.Z/doc`
-    b) commit (modified build.gradle and README.md)
+    a) point to the tag
+        1) search for old version and replace with new (gradle and maven examples in README.md)
+        2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
+        3) search for `tree/master` and replace it with `tree/X.Y.Z` (README.md)
+        4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
+        5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
+    b) commit (modified build.gradle, README.md and differences.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
 4. deploy to bintray:
@@ -174,10 +175,13 @@ Release & deploy a commit
 Prepare next dev cycle
 -----------------------
 1. change atrium_version in build.gradle to X.Y.Z-SNAPSHOT
-2. update README.md
+2. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
    b) search for `tree/X.Y.Z` and replace it with `tree/master`
    c) search for `X.Y.Z/doc` and replace with `latest#/doc`
+4. update README
+   a) place the warning about taking a sneak peek back into README
+   b) update version in the warning to X.Y.Z and update the link as well
 3. commit & push changes
 
 */

@@ -21,28 +21,29 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  *              found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
- * @param nameAtMostFun The name of the function which represents a `CharSequence contains at most` assertion.
- * @param nameAtLeastFun The name of the function which represents a `CharSequence contains at least` assertion.
- * @param nameAtMostFun The name of the function which was called and created this builder.
- * @param nameExactlyFun The name of the function which represents a `CharSequence contains exactly` assertion.
+ * @param atMostCall The name of the function which represents a `CharSequence contains at most` assertion.
+ * @param atLeastCall The name of the function which represents a `CharSequence contains at least` assertion.
+ * @param butAtMostCall The name of the function which was called and created this builder.
+ * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
 abstract class CharSequenceContainsButAtMostCheckerBuilderBase<T : CharSequence, S : ISearchBehaviour>(
     val times: Int,
     atLeastBuilder: CharSequenceContainsAtLeastCheckerBuilderBase<T, S>,
     containsBuilder: CharSequenceContainsBuilder<T, S>,
     nameContainsNotFun: String,
-    nameAtMostFun: String,
-    nameAtLeastFun: String,
-    nameButAtMostFun: String,
-    nameExactlyFun: String
+    atLeastButAtMostCall: (Int, Int) -> String,
+    atMostCall: (Int) -> String,
+    atLeastCall: (Int) -> String,
+    butAtMostCall: (Int) -> String,
+    exactlyCall: (Int) -> String
 ) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
 
     init {
-        validateButAtMost(atLeastBuilder.times, times, nameAtLeastFun, nameButAtMostFun, nameExactlyFun)
+        validateButAtMost(atLeastBuilder.times, times, atLeastButAtMostCall, atLeastCall, butAtMostCall, exactlyCall)
     }
 
     override val checkers: List<IChecker> = listOf(
         *atLeastBuilder.checkers.toTypedArray(),
-        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, nameAtMostFun)
+        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
     )
 }

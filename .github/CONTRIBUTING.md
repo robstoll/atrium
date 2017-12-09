@@ -32,11 +32,11 @@ By participating, you are expected to uphold this code. Please report unacceptab
 - You would like to write an assertion function but have trouble to start?  
   Please read the section [Your First Code Contribution](#your-first-code-contribution). 
   If you still have trouble to start, then contact me on 
-  [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+  [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/)
   and I will try to give you some additional hints.
   
 - You would like to add a new feature to atrium?  
-  Contact me on [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+  Contact me on [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/)
   so that we can discuss it before you start.
   
 - Found spelling mistakes?  
@@ -47,18 +47,21 @@ By participating, you are expected to uphold this code. Please report unacceptab
   
 - You have other ideas how Atrium could be improved?  
   Contact me on 
-  [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ),
+  [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/),
   I am looking forward to your ideas.
 
 In any case, if you are uncertain how you can contribute, then contact me on 
-[slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
+[slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/)
 and we will figure it out together :smile:
 
 ## Your First Code Contribution
 Fantastic, thanks for your effort! Contact me on 
-[slack](https://kotlinlang.slack.com/messages/C887ZKGCQ)
-whenever you need help to get up and running or create a pull request and 
-prepend the title with `[NEED HELP]` and explain your problem in the description.
+[slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
+or post into the 
+[atrium channel](https://kotlinlang.slack.com/messages/C887ZKGCQ/) 
+whenever you need help to get up and running. 
+You can also create a pull request and prepend the title with `[NEED HELP]` 
+and explain your problem in the description.
  
 Following a small guidance how I would start.
  
@@ -89,7 +92,7 @@ However, here a few hints in order that your pull request is merged quickly.
 ## Pull Request Checklist
 Make sure you can check every item on the following list before you create a pull request:  
 - [ ] your pull request is rebased on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
-- [ ] your pull request should ideally consists of one small commit. If not then make sure
+- [ ] your pull request should ideally consists of one small commit. If not then make sure:
      - [ ] it cannot be split up in several pull requests.
      - [ ] your commits are meaningful to others - e.g. do not include temporary commits like `before lunch`;
      [Squash commits](https://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#_squashing) where appropriate.

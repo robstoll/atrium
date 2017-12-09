@@ -26,6 +26,6 @@ open class CharSequenceContainsAtLeastCheckerBuilder<T : CharSequence, S : ISear
     times,
     containsBuilder,
     containsBuilder.plant::enthaeltNicht.name,
-    containsBuilder::zumindest.name
+    { "${containsBuilder::zumindest.name}($it)" }
 )
 
