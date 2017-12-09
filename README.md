@@ -1,3 +1,4 @@
+[![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/atrium/images/download.svg) ](https://bintray.com/robstoll/tutteli-jars/atrium/_latestVersion)
 [![Slack](https://img.shields.io/badge/Slack-atrium@kotlinlang-blue.svg)](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 [![Apache license](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg)](http://opensource.org/licenses/Apache2.0)
 [![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
