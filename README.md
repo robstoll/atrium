@@ -9,7 +9,7 @@ The project was inspired by AssertJ at first (and was therefore named AssertK) b
 flexibility and features to its users (so to you :wink:).
 
 ----
-:warning: You are *sneaking a peak* at the next version. 
+:warning: You are taking a *sneak peek* at the next version. 
 Please have a look at the README of the git tag in case you are looking for the documentation of the corresponding version.
 For instance, the [REAMDE of v0.4.0](https://github.com/robstoll/atrium/tree/v0.4.0/README.md).
 
