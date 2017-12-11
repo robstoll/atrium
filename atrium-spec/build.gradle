@@ -9,8 +9,8 @@ dependencies {
     }
     compile project(":${rootProject.name}-core-api")
     compileOnly project(":${rootProject.name}-core-api-late-binding")
-    compileOnly project(":${rootProject.name}-api-code-completion-en_UK") // for us
-    runtimeOnly project(":${rootProject.name}-api-code-completion-en_UK") // for depending modules
+    compileOnly project(":${rootProject.name}-api-cc-en_UK") // for us
+    runtimeOnly project(":${rootProject.name}-api-cc-en_UK") // for depending modules
     compile project(":${rootProject.name}-translations-en_UK")
 }
 

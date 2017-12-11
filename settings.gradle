@@ -13,9 +13,9 @@ def includeInSubFolder(String name, String folder) {
     project(":$name").projectDir = new File("$folder/$name")
 }
 
+includeApi "${rootProject.name}-api-cc-de_CH"
+includeApi "${rootProject.name}-api-cc-en_UK"
 includeApi "${rootProject.name}-api-cc-infix-en_UK"
-includeApi "${rootProject.name}-api-code-completion-de_CH"
-includeApi "${rootProject.name}-api-code-completion-en_UK"
 includeCore "${rootProject.name}-core-api"
 includeCore "${rootProject.name}-core-api-late-binding"
 includeCore "${rootProject.name}-core-impl-robstoll"
