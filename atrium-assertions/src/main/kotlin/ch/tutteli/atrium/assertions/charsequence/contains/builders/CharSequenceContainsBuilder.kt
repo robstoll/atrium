@@ -16,9 +16,9 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @constructor Represents the entry point of the fluent API of sophisticated `contains` assertions.
  * @param plant The [IAssertionPlant] for which the sophisticated `contains` assertions shall be built.
- * @param decorator The decoration behaviour which shall be applied to the input of the search.
+ * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
 class CharSequenceContainsBuilder<out T : CharSequence, S : ISearchBehaviour>(
-    plant: IAssertionPlant<T>, decorator: S
-) : ContainsBuilder<T, S>(plant, decorator)
+    plant: IAssertionPlant<T>, searchBehaviour: S
+) : ContainsBuilder<T, S>(plant, searchBehaviour)
 
