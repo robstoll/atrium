@@ -4,10 +4,9 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.EXACTLY
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
@@ -25,9 +24,8 @@ abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
         checkingTriple(containsExactlyTriple.first, { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) }, listOf(2.3, 2.3) as Iterable<Double>, listOf(2.3))
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -41,7 +39,7 @@ abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
 
     val exactly = EXACTLY.getDefault()
 
-    prefixedDescribe("fun $containsExactly") {
+    describeFun(containsExactly) {
         context("throws an $illegalArgumentException") {
             test("for exactly -1 -- only positive numbers") {
                 expect {

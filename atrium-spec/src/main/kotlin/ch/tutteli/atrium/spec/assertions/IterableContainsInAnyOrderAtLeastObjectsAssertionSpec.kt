@@ -5,10 +5,9 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AT_LEAST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
@@ -31,9 +30,8 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
         checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, listOf(2.3) as Iterable<Double>, listOf())
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -51,7 +49,7 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    prefixedDescribe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
+    describeFun("$containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
         context("throws an $illegalArgumentException") {
             test("for at least -1 -- only positive numbers") {
                 expect {

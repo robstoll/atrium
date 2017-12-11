@@ -9,10 +9,9 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceAssertionsSpec(
@@ -50,9 +49,8 @@ abstract class CharSequenceAssertionsSpec(
         checkingTriple(endsNotWithPair.first, { endsNotWithPair.second(this, "c") }, "xyz", "abc")
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -77,7 +75,7 @@ abstract class CharSequenceAssertionsSpec(
     val hello = TestTranslatable.HELLO.getDefault()
     val welcome = TestTranslatable.WELCOME.getDefault()
 
-    prefixedDescribe("fun $containsDefaultTranslationOf and $containsNotDefaultTranslationOf") {
+    describeFun("$containsDefaultTranslationOf and $containsNotDefaultTranslationOf") {
 
         context("text '$text' and translatables ${TestTranslatable.HELLO} ($hello) and ${TestTranslatable.WELCOME} ($welcome)") {
             test("$containsDefaultTranslationOf ${TestTranslatable.HELLO} does not throw") {
@@ -127,7 +125,7 @@ abstract class CharSequenceAssertionsSpec(
 
     val isNot = DescriptionBasic.IS_NOT.getDefault()
     val itIs = DescriptionBasic.IS.getDefault()
-    prefixedDescribe("fun $isEmpty and $isNotEmpty") {
+    describeFun("$isEmpty and $isNotEmpty") {
         context("string is empty") {
             test("$isEmpty does not throw") {
                 assert("").isEmptyFun()
@@ -167,7 +165,7 @@ abstract class CharSequenceAssertionsSpec(
         }
     }
 
-    prefixedDescribe("fun $startsWith and $startsNotWith") {
+    describeFun("$startsWith and $startsNotWith") {
         context("text '$text'") {
             test("$startsWith 'Hello' does not throw") {
                 fluent.startsWithFun("Hello")
@@ -189,7 +187,7 @@ abstract class CharSequenceAssertionsSpec(
         }
     }
 
-    prefixedDescribe("fun $endsWith and $endsNotWith") {
+    describeFun("$endsWith and $endsNotWith") {
         context("text '$text'") {
             test("$endsWith 'Hello' throws an AssertionError") {
                 expect {

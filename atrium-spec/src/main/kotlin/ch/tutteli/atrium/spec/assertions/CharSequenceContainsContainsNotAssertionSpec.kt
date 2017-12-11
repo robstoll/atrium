@@ -5,10 +5,9 @@ import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsContainsNotAssertionSpec(
@@ -29,9 +28,8 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, "hello", arrayOf()) }, "by robert", "hello robert")
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -45,7 +43,7 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
     fun IAssertionPlant<CharSequence>.containsNotFun(t: String, vararg tX: String)
         = containsNotFunArr(t, tX)
 
-    prefixedDescribe("fun $containsFunName and $containsNot") {
+    describeFun("$containsFunName and $containsNot") {
         context("empty string") {
             val fluentEmptyString = assert("")
             test("$containsFunName 'Hello' throws AssertionError") {

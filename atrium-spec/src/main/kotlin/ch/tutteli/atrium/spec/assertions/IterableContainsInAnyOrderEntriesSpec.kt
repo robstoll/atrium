@@ -4,10 +4,9 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
@@ -25,9 +24,8 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
         checkingTriple(containsEntriesPair.first, { containsEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5) as Iterable<Double>, listOf())
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -38,7 +36,7 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
     fun IAssertionPlant<Iterable<Double>>.containsEntriesFun(t: IAssertionPlant<Double>.() -> Unit, vararg tX: (IAssertionPlant<Double>.() -> Unit))
         = containsEntriesFunArr(t, tX)
 
-    prefixedDescribe("fun $containsEntries") {
+    describeFun(containsEntries) {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$containsEntries{ $isLessThanFun(1.0) } throws AssertionError") {
