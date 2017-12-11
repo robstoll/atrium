@@ -5,6 +5,8 @@ import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_LEAST
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -17,7 +19,8 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
     containsAtLeastButAtMostIgnoringCaseTriple: Triple<String, (String, String, String) -> String, IAssertionPlant<CharSequence>.(Int, Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
-    errorMsgAtLeastButAtMost: (Int, Int) -> String
+    errorMsgAtLeastButAtMost: (Int, Int) -> String,
+    describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
@@ -33,6 +36,10 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
         checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3"),
         checkingTriple(containsAtLeastButAtMostIgnoringCaseTriple.first, { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3")
     ) {})
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -58,7 +65,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    describe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
+    prefixedDescribe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
         context("throws an $illegalArgumentException") {
             test("for at least -1 -- only positive numbers") {
                 expect {

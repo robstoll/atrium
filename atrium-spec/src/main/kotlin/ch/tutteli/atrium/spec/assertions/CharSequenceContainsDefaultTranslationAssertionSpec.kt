@@ -9,7 +9,9 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -19,7 +21,8 @@ abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
     containsDefaultTranslationOf: String,
     containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>,
     containsAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>
+    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
@@ -33,6 +36,10 @@ abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
         checkingTriple(containsAtMostTriple.first, { containsAtMostTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }, "assert", "assert, assert and assert"),
         checkingTriple(containsAtMostIgnoringCaseTriple.first, { containsAtMostIgnoringCaseTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }, "Assert aSSert", "assert Assert AsSert")
     ) {})
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -52,7 +59,7 @@ abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
     fun IAssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: ITranslatable, vararg aX: ITranslatable)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
-    describe("fun $containsDefaultTranslationOf") {
+    prefixedDescribe("fun $containsDefaultTranslationOf") {
 
         context("text $text") {
             test("${containsAtLeastTest("${AssertionVerb.ASSERT}", "once")} does not throw") {

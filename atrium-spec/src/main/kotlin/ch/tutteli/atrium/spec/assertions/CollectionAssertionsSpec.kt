@@ -7,7 +7,9 @@ import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -17,7 +19,8 @@ abstract class CollectionAssertionsSpec(
     verbs: IAssertionVerbFactory,
     hasSizePair: Pair<String, IAssertionPlant<List<Int>>.(Int) -> IAssertionPlant<List<Int>>>,
     isEmptyPair: Pair<String, IAssertionPlant<List<Int>>.() -> IAssertionPlant<List<Int>>>,
-    isNotEmptyPair: Pair<String, IAssertionPlant<List<Int>>.() -> IAssertionPlant<List<Int>>>
+    isNotEmptyPair: Pair<String, IAssertionPlant<List<Int>>.() -> IAssertionPlant<List<Int>>>,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<List<Int>>(
@@ -32,6 +35,10 @@ abstract class CollectionAssertionsSpec(
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, listOf(2), listOf())
     ) {})
 
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
+
     val assert: (List<Int>) -> IAssertionPlant<List<Int>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(listOf(1, 2))
@@ -40,7 +47,7 @@ abstract class CollectionAssertionsSpec(
     val (isEmpty, isEmptyFun) = isEmptyPair
     val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
 
-    describe("fun $hasSize") {
+    prefixedDescribe("fun $hasSize") {
         context("collection with two entries") {
             test("expect 2 does not throw") {
                 fluent.hasSizeFun(2)
@@ -58,7 +65,7 @@ abstract class CollectionAssertionsSpec(
         }
     }
 
-    describe("fun $isEmpty") {
+    prefixedDescribe("fun $isEmpty") {
         it("does not throw if a collection is empty") {
             assert(listOf()).isEmptyFun()
         }
@@ -70,7 +77,7 @@ abstract class CollectionAssertionsSpec(
         }
     }
 
-    describe("fun $isNotEmpty") {
+    prefixedDescribe("fun $isNotEmpty") {
         it("does not throw if a collection is not empty") {
             assert(listOf(1)).isNotEmptyFun()
         }

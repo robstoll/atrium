@@ -6,6 +6,8 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AT_MOST
 
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -13,7 +15,8 @@ import org.jetbrains.spek.api.include
 abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsNotOrAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
-    containsNotPair: Pair<String, (Int) -> String>
+    containsNotPair: Pair<String, (Int) -> String>,
+    describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
@@ -24,6 +27,10 @@ abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
         checkingTriple(containsNotOrAtMostTriple.first, { containsNotOrAtMostTriple.third(this, 2, 2.3, arrayOf()) }, listOf<Double>() as Iterable<Double>, listOf(2.3, 2.3, 2.3))
     ) {})
 
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
+
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
@@ -33,7 +40,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
         = containsNotOrAtMostFunArr(atLeast, a, aX.toTypedArray())
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
-    describe("fun $containsNotOrAtMost") {
+    prefixedDescribe("fun $containsNotOrAtMost") {
 
         context("throws an $illegalArgumentException") {
             test("for not at all or at most -1 -- only positive numbers") {

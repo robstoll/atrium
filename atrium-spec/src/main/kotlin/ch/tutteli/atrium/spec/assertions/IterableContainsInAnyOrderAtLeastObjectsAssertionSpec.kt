@@ -5,6 +5,8 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AT_LEAST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -15,7 +17,8 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     containsAtLeastButAtMostTriple: Triple<String, (String, String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
-    errorMsgAtLeastButAtMost: (Int, Int) -> String
+    errorMsgAtLeastButAtMost: (Int, Int) -> String,
+    describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
@@ -27,6 +30,10 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
         checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, listOf(2.3, 2.3) as Iterable<Double>, listOf()),
         checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, listOf(2.3) as Iterable<Double>, listOf())
     ) {})
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -44,7 +51,7 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    describe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
+    prefixedDescribe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
         context("throws an $illegalArgumentException") {
             test("for at least -1 -- only positive numbers") {
                 expect {

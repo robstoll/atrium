@@ -4,6 +4,8 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.EXACTLY
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -11,7 +13,8 @@ import org.jetbrains.spek.api.include
 abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsExactlyTriple: Triple<String, (String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
-    containsNotPair: Pair<String, (Int) -> String>
+    containsNotPair: Pair<String, (Int) -> String>,
+    describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
@@ -21,6 +24,10 @@ abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs,
         checkingTriple(containsExactlyTriple.first, { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) }, listOf(2.3, 2.3) as Iterable<Double>, listOf(2.3))
     ) {})
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -34,7 +41,7 @@ abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
 
     val exactly = EXACTLY.getDefault()
 
-    describe("fun $containsExactly") {
+    prefixedDescribe("fun $containsExactly") {
         context("throws an $illegalArgumentException") {
             test("for exactly -1 -- only positive numbers") {
                 expect {

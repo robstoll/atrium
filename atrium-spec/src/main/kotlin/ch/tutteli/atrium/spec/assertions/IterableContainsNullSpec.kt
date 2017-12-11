@@ -7,6 +7,8 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -14,7 +16,8 @@ import org.jetbrains.spek.api.include
 abstract class IterableContainsNullSpec(
     verbs: IAssertionVerbFactory,
     containsPair: Pair<String, IAssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> IAssertionPlant<Iterable<Double?>>>,
-    containsNotPair: Pair<String, IAssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> IAssertionPlant<Iterable<Double?>>>
+    containsNotPair: Pair<String, IAssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> IAssertionPlant<Iterable<Double?>>>,
+    describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double?>>(
@@ -26,6 +29,10 @@ abstract class IterableContainsNullSpec(
         checkingTriple(containsPair.first, { containsPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, null, arrayOf()) }, listOf(1.2) as Iterable<Double?>, listOf(null))
     ) {})
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val assert: (Iterable<Double?>) -> IAssertionPlant<Iterable<Double?>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -40,7 +47,7 @@ abstract class IterableContainsNullSpec(
     fun IAssertionPlant<Iterable<Double?>>.containsNotFun(t: Double?, vararg tX: Double?)
         = containsNotFunArr(t, tX)
 
-    describe("fun $contains and $containsNot") {
+    prefixedDescribe("fun $contains and $containsNot") {
 
         context("iterable '$list'") {
             listOf(
