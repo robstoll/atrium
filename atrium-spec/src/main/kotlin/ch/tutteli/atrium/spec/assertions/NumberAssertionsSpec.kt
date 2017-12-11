@@ -7,8 +7,9 @@ import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
@@ -17,7 +18,8 @@ abstract class NumberAssertionsSpec(
     isLessThanPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
     isLessOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
     isGreaterThanPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
-    isGreaterOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>
+    isGreaterOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
@@ -41,7 +43,7 @@ abstract class NumberAssertionsSpec(
     val (isGreaterOrEqual, isGreaterOrEqualFun) = isGreaterOrEqualPair
 
     val fluent = verbs.checkImmediately(10)
-    context("assert(10)") {
+    group("$describePrefix context subject is 10") {
         describe("$isLessThan...") {
             test("... 11 does not throw") {
                 fluent.isLessThanFun(11)

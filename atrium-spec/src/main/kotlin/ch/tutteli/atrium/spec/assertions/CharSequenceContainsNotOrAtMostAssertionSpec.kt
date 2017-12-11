@@ -4,6 +4,8 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -12,7 +14,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsNotOrAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsNotOrAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsNotPair: Pair<String, (Int) -> String>
+    containsNotPair: Pair<String, (Int) -> String>,
+    describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
@@ -24,6 +27,10 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
         checkingTriple(containsNotOrAtMostTriple.first, { containsNotOrAtMostTriple.third(this, 2, 2.3, arrayOf()) }, "not in there", "2.3,2.3,2.3"),
         checkingTriple(containsNotOrAtMostIgnoringCaseTriple.first, { containsNotOrAtMostIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }, "not in there", "2.3,2.3,2.3")
     ) {})
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
+        prefixedDescribe(describePrefix, description, body)
+    }
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -40,7 +47,7 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
-    describe("fun $containsNotOrAtMost") {
+    prefixedDescribe("fun $containsNotOrAtMost") {
 
         context("throws an $illegalArgumentException") {
             test("for not at all or at most -1 -- only positive numbers") {
