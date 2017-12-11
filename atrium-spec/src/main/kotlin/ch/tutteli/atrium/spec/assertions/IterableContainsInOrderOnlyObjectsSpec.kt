@@ -5,6 +5,8 @@ import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -18,16 +20,20 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
     warningBulletPoint: String,
     listBulletPoint: String,
     featureArrow: String,
-    featureBulletPoint: String
+    featureBulletPoint: String,
+    describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, 2.5, arrayOf()) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsPair.first, { containsPair.second(this, 2.5, arrayOf(1.2)) }, listOf(2.5, 1.2) as Iterable<Double>, listOf(2.5, 2.2))
     ) {})
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -65,7 +71,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
                 "$toBeAfterFailing: $expected")
     }
 
-    describe("fun $contains") {
+    describeFun(contains) {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$contains 1.0 throws AssertionError") {

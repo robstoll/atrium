@@ -9,9 +9,10 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
@@ -19,20 +20,24 @@ abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
     containsDefaultTranslationOf: String,
     containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>,
     containsAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>
+    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) },
         containsAtMostTriple.first to mapToCreateAssertion { containsAtMostTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) },
         containsAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtMostIgnoringCaseTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }, "assert a, assert b", "a"),
         checkingTriple(containsAtMostTriple.first, { containsAtMostTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }, "assert", "assert, assert and assert"),
         checkingTriple(containsAtMostIgnoringCaseTriple.first, { containsAtMostIgnoringCaseTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }, "Assert aSSert", "assert Assert AsSert")
     ) {})
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -52,7 +57,7 @@ abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
     fun IAssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: ITranslatable, vararg aX: ITranslatable)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
-    describe("fun $containsDefaultTranslationOf") {
+    describeFun(containsDefaultTranslationOf) {
 
         context("text $text") {
             test("${containsAtLeastTest("${AssertionVerb.ASSERT}", "once")} does not throw") {

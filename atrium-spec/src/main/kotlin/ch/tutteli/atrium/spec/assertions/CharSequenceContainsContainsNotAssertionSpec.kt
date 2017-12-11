@@ -5,26 +5,31 @@ import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsContainsNotAssertionSpec(
     verbs: IAssertionVerbFactory,
     containsPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, IAssertionPlant<CharSequence>.(String, Array<out String>) -> IAssertionPlant<CharSequence>>,
-    featureArrow: String
+    featureArrow: String,
+    describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, "hello", arrayOf()) },
         containsNotPair.first to mapToCreateAssertion { containsNotPair.second(this, "hello", arrayOf()) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsPair.first, { containsPair.second(this, "hello", arrayOf()) }, "hello robert", "by robert"),
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, "hello", arrayOf()) }, "by robert", "hello robert")
     ) {})
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -38,7 +43,7 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
     fun IAssertionPlant<CharSequence>.containsNotFun(t: String, vararg tX: String)
         = containsNotFunArr(t, tX)
 
-    describe("fun $containsFunName and $containsNot") {
+    describeFun(containsFunName, containsNot) {
         context("empty string") {
             val fluentEmptyString = assert("")
             test("$containsFunName 'Hello' throws AssertionError") {

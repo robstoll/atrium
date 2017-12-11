@@ -5,8 +5,9 @@ import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_LEAST
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsAtLeastAssertionSpec(
@@ -17,22 +18,26 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
     containsAtLeastButAtMostIgnoringCaseTriple: Triple<String, (String, String, String) -> String, IAssertionPlant<CharSequence>.(Int, Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
-    errorMsgAtLeastButAtMost: (Int, Int) -> String
+    errorMsgAtLeastButAtMost: (Int, Int) -> String,
+    describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) },
         containsAtLeastIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastIgnoringCaseTriple.third(this, 1, 2.3, arrayOf()) },
         containsAtLeastButAtMostTriple.first to mapToCreateAssertion { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) },
         containsAtLeastButAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, "string with 2.3", "string with 0.0"),
         checkingTriple(containsAtLeastIgnoringCaseTriple.first, { containsAtLeastIgnoringCaseTriple.third(this, 1, 2.3, arrayOf()) }, "string with 2.3", "string with 0.0"),
         checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3"),
         checkingTriple(containsAtLeastButAtMostIgnoringCaseTriple.first, { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3")
     ) {})
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -58,7 +63,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    describe("fun $containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
+    describeFun(containsAtLeast, containsAtLeastButAtMost) {
         context("throws an $illegalArgumentException") {
             test("for at least -1 -- only positive numbers") {
                 expect {

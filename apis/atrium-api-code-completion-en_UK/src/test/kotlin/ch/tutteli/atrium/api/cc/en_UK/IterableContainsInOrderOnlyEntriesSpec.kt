@@ -39,12 +39,14 @@ class IterableContainsInOrderOnlyEntriesSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyEntriesSpec(
         AssertionVerbFactory,
         getContainsPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ "
+        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyEntriesSpec(
         AssertionVerbFactory,
         getContainsShortcutPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ "
+        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "[Atrium][Shortcut] "
     )
 }

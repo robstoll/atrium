@@ -5,13 +5,10 @@ import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
-import ch.tutteli.atrium.spec.checkNarrowingAssertion
+import ch.tutteli.atrium.spec.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 
 abstract class ThrowableAssertionsSpec(
     verbs: IAssertionVerbFactory,
@@ -20,8 +17,15 @@ abstract class ThrowableAssertionsSpec(
         ThrowableThrownBuilder.(assertionCreator: IAssertionPlant<Throwable>.() -> Unit) -> Unit
         >,
     messagePair: Pair<String, IAssertionPlant<Throwable>.(assertionCreator: IAssertionPlant<String>.() -> Unit) -> Unit>,
-    messageContainsFun: IAssertionPlant<Throwable>.(String) -> Unit
+    messageContainsFun: IAssertionPlant<Throwable>.(String) -> Unit,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
+
+    fun describeProperty(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeProperty(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val assert: (IllegalArgumentException) -> IAssertionPlant<IllegalArgumentException> = verbs::checkImmediately
@@ -38,7 +42,7 @@ abstract class ThrowableAssertionsSpec(
         checkGenericNarrowingAssertion(description, act, lazy, "immediate" to immediate)
     }
 
-    describe("fun $toThrow") {
+    describeFun(toThrow) {
         checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
             verbs.checkException {
                 verbs.checkException {
@@ -75,7 +79,7 @@ abstract class ThrowableAssertionsSpec(
         }, { toThrowFunLazy { message { toBe("hello") } } }, {})
     }
 
-    describe("fun `$message` (for Throwable)") {
+    describeProperty(message) {
         checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
             val throwable = IllegalArgumentException()
             expect {

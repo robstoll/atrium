@@ -22,7 +22,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
 
         private fun getContainsName(): String {
             val f: KFunction2<IAssertionPlant<CharSequence>, DefaultTranslationsOf, IAssertionPlant<CharSequence>> = IAssertionPlant<CharSequence>::contains
-            return f.name
+            return "${f.name} ${DefaultTranslationsOf::class.simpleName}"
         }
 
         private fun containsDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: ITranslatable, otherExpected: Array<out ITranslatable>): IAssertionPlant<CharSequence> {
@@ -39,7 +39,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
 
         private fun getContainsNotName(): String {
             val f: KFunction2<IAssertionPlant<CharSequence>, DefaultTranslationsOf, IAssertionPlant<CharSequence>> = IAssertionPlant<CharSequence>::containsNot
-            return f.name
+            return "${f.name} ${DefaultTranslationsOf::class.simpleName}"
         }
 
         private fun containsNotDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: ITranslatable, otherExpected: Array<out ITranslatable>)

@@ -7,8 +7,9 @@ import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.context
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
@@ -17,17 +18,18 @@ abstract class NumberAssertionsSpec(
     isLessThanPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
     isLessOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
     isGreaterThanPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
-    isGreaterOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>
+    isGreaterOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(describePrefix,
         isLessThanPair.first to mapToCreateAssertion { isLessThanPair.second(this, 1) },
         isLessOrEqualPair.first to mapToCreateAssertion { isLessOrEqualPair.second(this, 1) },
         isGreaterThanPair.first to mapToCreateAssertion { isGreaterThanPair.second(this, 1) },
         isGreaterOrEqualPair.first to mapToCreateAssertion { isGreaterOrEqualPair.second(this, 1) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs, describePrefix,
         checkingTriple(isLessThanPair.first, { isLessThanPair.second(this, 1) }, 0, 1),
         checkingTriple(isLessOrEqualPair.first, { isLessOrEqualPair.second(this, 1) }, 1, 2),
         checkingTriple(isGreaterThanPair.first, { isGreaterThanPair.second(this, 1) }, 2, 1),
@@ -41,8 +43,8 @@ abstract class NumberAssertionsSpec(
     val (isGreaterOrEqual, isGreaterOrEqualFun) = isGreaterOrEqualPair
 
     val fluent = verbs.checkImmediately(10)
-    context("assert(10)") {
-        describe("$isLessThan...") {
+    group("$describePrefix context subject is 10") {
+        describe("$isLessThan ...") {
             test("... 11 does not throw") {
                 fluent.isLessThanFun(11)
             }
@@ -68,7 +70,7 @@ abstract class NumberAssertionsSpec(
             }
         }
 
-        describe("$isLessOrEqual...") {
+        describe("$isLessOrEqual ...") {
             test("... 11 does not throw") {
                 fluent.isLessOrEqualFun(11)
             }
