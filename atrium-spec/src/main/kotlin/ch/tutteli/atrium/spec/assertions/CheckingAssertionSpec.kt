@@ -10,14 +10,15 @@ import org.jetbrains.spek.api.Spek
 
 abstract class CheckingAssertionSpec<T : Any>(
     verbs: IAssertionVerbFactory,
+    groupPrefix: String,
     vararg assertionCreator: Triple<String, IAssertionPlant<T>.() -> Unit, Pair<T, T>>
 ) : Spek({
 
-    group("assertion function can be added to ${ICheckingAssertionPlant::class.simpleName}") {
+    group("${groupPrefix}assertion function can be added to ${ICheckingAssertionPlant::class.simpleName}") {
 
         assertionCreator.forEach { (name, createAssertion, holdingAndFailingSubject) ->
             val (holdingSubject, failingSubject) = holdingAndFailingSubject
-            group("fun $name") {
+            group("fun `$name`") {
                 test("assertion which holds -- does not throw, returns `true`") {
                     val checkingPlant = AtriumFactory.newCheckingPlant(holdingSubject)
                     checkingPlant.createAssertion()
@@ -34,5 +35,5 @@ abstract class CheckingAssertionSpec<T : Any>(
     }
 })
 
-fun <T: Any> checkingTriple(name: String, createAssertion: IAssertionPlant<T>.() -> Unit, holdingSubject: T, failingSubject: T)
+fun <T : Any> checkingTriple(name: String, createAssertion: IAssertionPlant<T>.() -> Unit, holdingSubject: T, failingSubject: T)
     = Triple(name, createAssertion, holdingSubject to failingSubject)

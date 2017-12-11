@@ -17,12 +17,12 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsExactlyTriple.first to mapToCreateAssertion { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) },
         containsExactlyIgnoringCaseTriple.first to mapToCreateAssertion { containsExactlyIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsExactlyTriple.first, { containsExactlyTriple.third(this, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3"),
         checkingTriple(containsExactlyIgnoringCaseTriple.first, { containsExactlyIgnoringCaseTriple.third(this, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3")
     ) {})

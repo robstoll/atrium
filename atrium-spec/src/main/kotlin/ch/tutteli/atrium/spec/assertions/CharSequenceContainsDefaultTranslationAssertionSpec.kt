@@ -24,13 +24,13 @@ abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) },
         containsAtMostTriple.first to mapToCreateAssertion { containsAtMostTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) },
         containsAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtMostIgnoringCaseTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }, "assert a, assert b", "a"),
         checkingTriple(containsAtMostTriple.first, { containsAtMostTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }, "assert", "assert, assert and assert"),
         checkingTriple(containsAtMostIgnoringCaseTriple.first, { containsAtMostIgnoringCaseTriple.third(this, 2, AssertionVerb.ASSERT, arrayOf()) }, "Assert aSSert", "assert Assert AsSert")

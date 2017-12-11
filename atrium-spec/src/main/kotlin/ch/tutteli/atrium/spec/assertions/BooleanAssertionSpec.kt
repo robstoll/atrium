@@ -10,7 +10,6 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class BooleanAssertionsSpec(
@@ -20,12 +19,12 @@ abstract class BooleanAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Boolean>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Boolean>(describePrefix,
         isTruePair.first to mapToCreateAssertion { isTruePair.second(this) },
         isFalsePair.first to mapToCreateAssertion { isFalsePair.second(this) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Boolean>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Boolean>(verbs, describePrefix,
         checkingTriple(isTruePair.first, { isTruePair.second(this) }, true, false),
         checkingTriple(isFalsePair.first, { isFalsePair.second(this) }, false, true)
     ) {})

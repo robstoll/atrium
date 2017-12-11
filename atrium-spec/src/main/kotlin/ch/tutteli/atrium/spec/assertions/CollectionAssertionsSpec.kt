@@ -22,13 +22,13 @@ abstract class CollectionAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<List<Int>>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<List<Int>>(describePrefix,
         hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 1) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<List<Int>>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<List<Int>>(verbs, describePrefix,
         checkingTriple(hasSizePair.first, { hasSizePair.second(this, 1) }, listOf(1), listOf(1, 2)),
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, listOf(), listOf(1, 2)),
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, listOf(2), listOf())

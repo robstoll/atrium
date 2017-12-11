@@ -27,7 +27,7 @@ abstract class CharSequenceAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsDefaultTranslationOfPair.first to mapToCreateAssertion { containsDefaultTranslationOfPair.second(this, Untranslatable.EMPTY, arrayOf()) },
         containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable.EMPTY, arrayOf()) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
@@ -38,7 +38,7 @@ abstract class CharSequenceAssertionsSpec(
         endsNotWithPair.first to mapToCreateAssertion { endsNotWithPair.second(this, "") }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsDefaultTranslationOfPair.first, { containsDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "a", "b"),
         checkingTriple(containsNotDefaultTranslationOfPair.first, { containsNotDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "b", "a"),
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, "", "not empty"),

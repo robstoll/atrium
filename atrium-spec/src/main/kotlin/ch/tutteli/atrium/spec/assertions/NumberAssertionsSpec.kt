@@ -22,14 +22,14 @@ abstract class NumberAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(describePrefix,
         isLessThanPair.first to mapToCreateAssertion { isLessThanPair.second(this, 1) },
         isLessOrEqualPair.first to mapToCreateAssertion { isLessOrEqualPair.second(this, 1) },
         isGreaterThanPair.first to mapToCreateAssertion { isGreaterThanPair.second(this, 1) },
         isGreaterOrEqualPair.first to mapToCreateAssertion { isGreaterOrEqualPair.second(this, 1) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs, describePrefix,
         checkingTriple(isLessThanPair.first, { isLessThanPair.second(this, 1) }, 0, 1),
         checkingTriple(isLessOrEqualPair.first, { isLessOrEqualPair.second(this, 1) }, 1, 2),
         checkingTriple(isGreaterThanPair.first, { isGreaterThanPair.second(this, 1) }, 2, 1),

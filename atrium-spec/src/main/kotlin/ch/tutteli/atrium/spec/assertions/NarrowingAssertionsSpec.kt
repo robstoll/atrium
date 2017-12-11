@@ -27,7 +27,7 @@ abstract class NarrowingAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<SuperType>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<SuperType>(verbs, describePrefix,
         checkingTriple(nameIsA, { isASubTypeFun(this, {}) }, SubType(), SuperType())
     ) {})
 
