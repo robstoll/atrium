@@ -214,6 +214,24 @@ interface IAtriumFactory {
 
 
     /**
+     * Creates an [ITranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
+     * the structure of the properties files.
+     *
+     * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
+     * stored in a properties file named `DescriptionAnyAssertion_de_CH.properties` in the folder `/ch/tutteli/atrium/`.
+     * Moreover the files need to be encoded in ISO-8859-1 (restriction to be compatible with [ResourceBundle]).
+     *
+     * An entry in such a file would look like as follows:
+     * `TO_BE = a translation for TO_BE`
+     * However, it shall apply an extended fallback mechanism. Instead of falling back to [Locale.getDefault] (as
+     * [ResourceBundle] would do per default) one shall be able to specify fallback [Locale]s oneself.
+     * Whether this includes [Locale.getDefault] or not is up to the user.
+     *
+     * @return The newly created translation supplier.
+     */
+    fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
+
+    /**
      * Creates an [ITranslator] which translates [ITranslatable]s to [primaryLocale] and falls back
      * to [fallbackLocales] (in the given order) in case no translation exists for [primaryLocale].
      *
