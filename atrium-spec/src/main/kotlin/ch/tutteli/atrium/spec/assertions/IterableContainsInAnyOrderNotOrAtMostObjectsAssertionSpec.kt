@@ -1,15 +1,13 @@
 package ch.tutteli.atrium.spec.assertions
 
+
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AT_MOST
-
-
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
@@ -27,9 +25,8 @@ abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
         checkingTriple(containsNotOrAtMostTriple.first, { containsNotOrAtMostTriple.third(this, 2, 2.3, arrayOf()) }, listOf<Double>() as Iterable<Double>, listOf(2.3, 2.3, 2.3))
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -40,7 +37,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
         = containsNotOrAtMostFunArr(atLeast, a, aX.toTypedArray())
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
-    prefixedDescribe("fun $containsNotOrAtMost") {
+    describeFun(containsNotOrAtMost) {
 
         context("throws an $illegalArgumentException") {
             test("for not at all or at most -1 -- only positive numbers") {

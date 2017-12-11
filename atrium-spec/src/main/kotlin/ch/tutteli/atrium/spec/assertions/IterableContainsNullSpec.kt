@@ -7,10 +7,9 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsNullSpec(
@@ -30,9 +29,8 @@ abstract class IterableContainsNullSpec(
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, null, arrayOf()) }, listOf(1.2) as Iterable<Double?>, listOf(null))
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (Iterable<Double?>) -> IAssertionPlant<Iterable<Double?>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -47,7 +45,7 @@ abstract class IterableContainsNullSpec(
     fun IAssertionPlant<Iterable<Double?>>.containsNotFun(t: Double?, vararg tX: Double?)
         = containsNotFunArr(t, tX)
 
-    prefixedDescribe("fun $contains and $containsNot") {
+    describeFun("$contains and $containsNot") {
 
         context("iterable '$list'") {
             listOf(

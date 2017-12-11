@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
@@ -31,9 +31,8 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
         checkingTriple(containsEntriesPair.first, { containsEntriesPair.second(this, { toBe(2.5) }, arrayOf()) }, listOf(2.5) as Iterable<Double>, listOf())
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -73,7 +72,7 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
                 "$indentBulletPoint$indentFailingBulletPoint$anEntryAfterFailing$expected")
     }
 
-    prefixedDescribe("fun $containsEntries") {
+    describeFun(containsEntries) {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$isLessThanFun(1.0) throws AssertionError") {
@@ -115,7 +114,7 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
                     fluent.containsEntriesFun({ toBe(1.0) }, { toBe(2.0) }, { toBe(3.0) }, { toBe(4.0) }, { toBe(4.0) })
                 }
                 test("$isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0), $isLessThanFun(5.0)") {
-                    fluent.containsEntriesFun({ isLessThan(5.0) }, { isLessThan(5.0) }, { isLessThan(5.0) }, { isLessThan(5.0) }, { isLessThan(5.0) } )
+                    fluent.containsEntriesFun({ isLessThan(5.0) }, { isLessThan(5.0) }, { isLessThan(5.0) }, { isLessThan(5.0) }, { isLessThan(5.0) })
                 }
             }
 

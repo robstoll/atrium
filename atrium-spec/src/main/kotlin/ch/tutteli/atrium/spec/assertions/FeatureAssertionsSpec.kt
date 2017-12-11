@@ -9,7 +9,6 @@ import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 @Suppress("UNUSED_PARAMETER")
@@ -68,9 +67,8 @@ abstract class FeatureAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
+        = prefixedDescribe(describePrefix, description, body)
 
     val assert: (TestData) -> IAssertionPlant<TestData> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -122,7 +120,7 @@ abstract class FeatureAssertionsSpec(
     fun <T> SpecBody.checkGenericNarrowingAssertionWithExceptionMessage(
         description: String, act: (T.() -> Unit) -> Unit, vararg methods: Triple<String, (T.() -> Unit), String>
     ) {
-        group(description) {
+        group(describePrefix + description) {
             methods.forEach { (checkMethod, assertion, stringInExceptionMessage) ->
                 test("in case of $checkMethod evaluation") {
                     expect {

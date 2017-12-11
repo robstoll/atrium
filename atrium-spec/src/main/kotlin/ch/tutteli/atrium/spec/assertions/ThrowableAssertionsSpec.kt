@@ -8,11 +8,10 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.spec.checkNarrowingAssertion
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 
 abstract class ThrowableAssertionsSpec(
     verbs: IAssertionVerbFactory,
@@ -25,9 +24,8 @@ abstract class ThrowableAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val expect = verbs::checkException
     val assert: (IllegalArgumentException) -> IAssertionPlant<IllegalArgumentException> = verbs::checkImmediately
@@ -44,7 +42,7 @@ abstract class ThrowableAssertionsSpec(
         checkGenericNarrowingAssertion(description, act, lazy, "immediate" to immediate)
     }
 
-    prefixedDescribe("fun $toThrow") {
+    describeFun(toThrow) {
         checkToThrow("it throws an AssertionError when no exception occurs", { doToThrow ->
             verbs.checkException {
                 verbs.checkException {
@@ -81,7 +79,7 @@ abstract class ThrowableAssertionsSpec(
         }, { toThrowFunLazy { message { toBe("hello") } } }, {})
     }
 
-    prefixedDescribe("fun `$message` (for Throwable)") {
+    describeFun("`$message` (for Throwable)") {
         checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
             val throwable = IllegalArgumentException()
             expect {

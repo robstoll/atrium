@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
@@ -32,9 +32,8 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
         checkingTriple(containsPair.first, { containsPair.second(this, 2.5, arrayOf(1.2)) }, listOf(2.5, 1.2) as Iterable<Double>, listOf(2.5, 2.2))
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -72,7 +71,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
                 "$toBeAfterFailing: $expected")
     }
 
-    prefixedDescribe("fun $contains") {
+    describeFun(contains) {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$contains 1.0 throws AssertionError") {

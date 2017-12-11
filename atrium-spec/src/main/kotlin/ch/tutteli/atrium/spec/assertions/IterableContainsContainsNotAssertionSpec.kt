@@ -8,10 +8,9 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsContainsNotAssertionSpec(
@@ -31,10 +30,8 @@ abstract class IterableContainsContainsNotAssertionSpec(
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, 2.5, arrayOf()) }, listOf(1.1) as Iterable<Double>, listOf(2.5))
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
-
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -49,7 +46,7 @@ abstract class IterableContainsContainsNotAssertionSpec(
         = containsNotFunArr(t, tX.toTypedArray())
 
 
-    prefixedDescribe("fun $contains and $containsNot") {
+    describeFun("$contains and $containsNot") {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$contains 1.0 throws AssertionError") {

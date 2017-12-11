@@ -6,11 +6,10 @@ import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
@@ -32,14 +31,13 @@ abstract class NarrowingAssertionsSpec(
         checkingTriple(nameIsA, { isASubTypeFun(this, {}) }, SubType(), SuperType())
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val expect = verbs::checkException
     val (nameIsNotNull, isNotNullFun) = isNotNullPair
 
-    prefixedDescribe("fun $nameIsNotNull") {
+    describeFun(nameIsNotNull) {
 
         val assert: (Int?) -> IAssertionPlantNullable<Int?> = verbs::checkNullable
 
@@ -155,7 +153,7 @@ abstract class NarrowingAssertionsSpec(
         }
     }
 
-    prefixedDescribe("fun $nameIsA") {
+    describeFun(nameIsA) {
 
         val assert: (String) -> IAssertionPlant<String> = verbs::checkImmediately
 

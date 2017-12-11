@@ -9,12 +9,12 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.setUp
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
@@ -51,9 +51,11 @@ abstract class AnyAssertionsSpec(
         checkingTriple(isNotSame, { funInt.isNotSameFun(this, 1) }, 0, 1)
     ) {})
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
+        = prefixedDescribe(describePrefix, description, body)
+
+    fun describeFun(description: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, description, body)
 
     val expect = verbs::checkException
     val assert: (Int) -> IAssertionPlant<Int> = verbs::checkImmediately
@@ -61,7 +63,7 @@ abstract class AnyAssertionsSpec(
     val (and, andProperty) = andPair
     val (andLazy, andLazyGroup) = andLazyPair
 
-    prefixedDescribe("fun $toBe, $notToBe, $isSame and $isNotSame") {
+    describeFun("$toBe, $notToBe, $isSame and $isNotSame") {
 
         context("primitive") {
             val toBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.toBeFun
@@ -172,7 +174,7 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    prefixedDescribe("fun $isNull") {
+    describeFun(isNull) {
 
         context("subject is null") {
             val subject: Int? = null
