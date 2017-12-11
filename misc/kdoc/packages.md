@@ -6,12 +6,12 @@ of all modules excluding the one of _atrium-imp-robstoll_ and _atrium-imp-robsto
 
 API modules:
 - **atrium-cc-de&#95;CH-robstoll** represents a convenience module which bundles other dependencies -- it defines 
-  to have a dependency on atrium-api-code-completion-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-impl-robstoll
+  to have a dependency on atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-impl-robstoll
 - **atrium-cc-en&#95;UK-robstoll** represents a convenience module which bundles other dependencies -- it defines 
-  to have a dependency on atrium-api-code-completion-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll
-- **atrium-api-code-completion-de&#95;CH** provides an assertion function API in German where the main 
+  to have a dependency on atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll
+- **atrium-api-cc-de&#95;CH** provides an assertion function API in German where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
-- **atrium-api-code-completion-en&#95;UK** provides an assertion function API in English where the main 
+- **atrium-api-cc-en&#95;UK** provides an assertion function API in English where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
   
   
@@ -100,7 +100,7 @@ Contains the contract for sophisticated CharSequence `contains` assertions
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.builders
 Contains base classes for fluent API builders used in assertion function APIs 
-(e.g. [atrium-assertions-code-completion-en_UK]).
+(e.g. [atrium-assertions-cc-en_UK]).
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.checkers
 Contains [ICharSequenceContains.IChecker](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-checker.html)s.
@@ -121,7 +121,7 @@ Contains the contract for sophisticated Iterable `contains` assertions
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.builders
 Contains base classes for fluent API builders used in assertion function APIs 
-(e.g. [atrium-assertions-code-completion-en_UK]).
+(e.g. [atrium-assertions-cc-en_UK]).
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.checkers
 Contains [IIterableContains.IChecker](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-checker.html)s.

@@ -13,7 +13,7 @@ dependencies {
     compileOnly project(":${rootProject.name}-core-api-late-binding")
 
     testCompile project(":${rootProject.name}-core-impl-robstoll")
-    testCompile project(":${rootProject.name}-api-code-completion-en_UK")
+    testCompile project(":${rootProject.name}-api-cc-en_UK")
     testCompile project(":${rootProject.name}-spec")
 }
 

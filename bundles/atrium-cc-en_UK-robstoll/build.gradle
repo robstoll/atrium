@@ -3,7 +3,7 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-api-code-completion-en_UK")
+    compile project(":${rootProject.name}-api-cc-en_UK")
     compile project(":${rootProject.name}-translations-en_UK")
     compile project(":${rootProject.name}-core-impl-robstoll")
 }
