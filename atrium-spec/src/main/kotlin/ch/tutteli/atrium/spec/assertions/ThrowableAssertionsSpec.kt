@@ -5,10 +5,7 @@ import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
-import ch.tutteli.atrium.spec.checkNarrowingAssertion
-import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.spec.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -24,8 +21,11 @@ abstract class ThrowableAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
+
+    fun describeProperty(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeProperty(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val assert: (IllegalArgumentException) -> IAssertionPlant<IllegalArgumentException> = verbs::checkImmediately
@@ -79,7 +79,7 @@ abstract class ThrowableAssertionsSpec(
         }, { toThrowFunLazy { message { toBe("hello") } } }, {})
     }
 
-    describeFun("`$message` (for Throwable)") {
+    describeProperty(message) {
         checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { message ->
             val throwable = IllegalArgumentException()
             expect {

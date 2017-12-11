@@ -36,8 +36,8 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
         checkingTriple(containsAtLeastButAtMostIgnoringCaseTriple.first, { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3")
     ) {})
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -63,7 +63,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    describeFun("$containsAtLeast (and sometimes $containsAtLeastButAtMost)") {
+    describeFun(containsAtLeast, containsAtLeastButAtMost) {
         context("throws an $illegalArgumentException") {
             test("for at least -1 -- only positive numbers") {
                 expect {

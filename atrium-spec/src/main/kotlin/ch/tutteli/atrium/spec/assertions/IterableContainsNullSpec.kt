@@ -29,8 +29,8 @@ abstract class IterableContainsNullSpec(
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, null, arrayOf()) }, listOf(1.2) as Iterable<Double?>, listOf(null))
     ) {})
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (Iterable<Double?>) -> IAssertionPlant<Iterable<Double?>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -45,7 +45,7 @@ abstract class IterableContainsNullSpec(
     fun IAssertionPlant<Iterable<Double?>>.containsNotFun(t: Double?, vararg tX: Double?)
         = containsNotFunArr(t, tX)
 
-    describeFun("$contains and $containsNot") {
+    describeFun(contains, containsNot) {
 
         context("iterable '$list'") {
             listOf(

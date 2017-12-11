@@ -28,8 +28,8 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, "hello", arrayOf()) }, "by robert", "hello robert")
     ) {})
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -43,7 +43,7 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
     fun IAssertionPlant<CharSequence>.containsNotFun(t: String, vararg tX: String)
         = containsNotFunArr(t, tX)
 
-    describeFun("$containsFunName and $containsNot") {
+    describeFun(containsFunName, containsNot) {
         context("empty string") {
             val fluentEmptyString = assert("")
             test("$containsFunName 'Hello' throws AssertionError") {

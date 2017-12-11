@@ -31,8 +31,8 @@ abstract class NarrowingAssertionsSpec(
         checkingTriple(nameIsA, { isASubTypeFun(this, {}) }, SubType(), SuperType())
     ) {})
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val (nameIsNotNull, isNotNullFun) = isNotNullPair

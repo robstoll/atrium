@@ -30,8 +30,8 @@ abstract class IterableContainsContainsNotAssertionSpec(
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, 2.5, arrayOf()) }, listOf(1.1) as Iterable<Double>, listOf(2.5))
     ) {})
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -46,7 +46,7 @@ abstract class IterableContainsContainsNotAssertionSpec(
         = containsNotFunArr(t, tX.toTypedArray())
 
 
-    describeFun("$contains and $containsNot") {
+    describeFun(contains, containsNot) {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$contains 1.0 throws AssertionError") {

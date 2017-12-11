@@ -44,7 +44,7 @@ abstract class NumberAssertionsSpec(
 
     val fluent = verbs.checkImmediately(10)
     group("$describePrefix context subject is 10") {
-        describe("$isLessThan...") {
+        describe("$isLessThan ...") {
             test("... 11 does not throw") {
                 fluent.isLessThanFun(11)
             }
@@ -70,7 +70,7 @@ abstract class NumberAssertionsSpec(
             }
         }
 
-        describe("$isLessOrEqual...") {
+        describe("$isLessOrEqual ...") {
             test("... 11 does not throw") {
                 fluent.isLessOrEqualFun(11)
             }

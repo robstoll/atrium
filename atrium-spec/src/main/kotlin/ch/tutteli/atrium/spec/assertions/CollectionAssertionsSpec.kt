@@ -34,8 +34,8 @@ abstract class CollectionAssertionsSpec(
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, listOf(2), listOf())
     ) {})
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (List<Int>) -> IAssertionPlant<List<Int>> = verbs::checkImmediately
     val expect = verbs::checkException
