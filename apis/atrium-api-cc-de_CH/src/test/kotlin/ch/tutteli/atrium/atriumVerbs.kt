@@ -27,7 +27,11 @@ internal enum class AssertionVerb(override val value: String) : ISimpleTranslata
 
 internal object AtriumReporterSupplier {
     val REPORTER by lazy {
-        ReporterBuilder.withDetailedObjectFormatter()
+        ReporterBuilder
+            .withoutTranslations()
+            .withDetailedObjectFormatter()
+            .withDefaultAssertionFormatterController()
+            .withDefaultAssertionFormatterFacade()
             .withSameLineTextAssertionFormatter()
             .buildOnlyFailureReporter()
     }

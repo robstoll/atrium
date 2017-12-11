@@ -33,7 +33,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
      * @return A [Map] containing the resulting keys (based on the [Properties], see [keyCreator]) with its translations.
      */
     protected fun getOrLoadProperties(key: T, name: String, keyCreator: (String) -> String): Map<String, String> {
-        val translations = translations.getOrPut(key, {
+        return this.translations.getOrPut(key, {
             val file = this::class.java.getResourceAsStream("/${name.replace('.', '/')}.properties")
             if (file != null) {
                 val properties = Properties()
@@ -47,6 +47,5 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
                 emptyMap()
             }
         })
-        return translations
     }
 }
