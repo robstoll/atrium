@@ -2,6 +2,7 @@ package ch.tutteli.atrium.verbs
 
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.reporting.ReporterBuilder.Companion
 import ch.tutteli.atrium.verbs.assert.assert
 import ch.tutteli.atrium.verbs.assertthat.assertThat
 import ch.tutteli.atrium.verbs.expect.expect
@@ -15,7 +16,10 @@ import ch.tutteli.atrium.verbs.expect.expect
      */
     val REPORTER by lazy {
         ReporterBuilder
+            .withoutTranslations()
             .withDetailedObjectFormatter()
+            .withDefaultAssertionFormatterController()
+            .withDefaultAssertionFormatterFacade()
             .withSameLineTextAssertionFormatter()
             .buildOnlyFailureReporter()
     }
