@@ -9,13 +9,14 @@ import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.setUp
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
-
 
 abstract class AnyAssertionsSpec(
     verbs: IAssertionVerbFactory,
@@ -27,33 +28,41 @@ abstract class AnyAssertionsSpec(
     isNotSame: String,
     isNullPair: Pair<String, IAssertionPlantNullable<Int?>.() -> Unit>,
     andPair: Pair<String, IAssertionPlant<Int>.() -> IAssertionPlant<Int>>,
-    andLazyPair: Pair<String, IAssertionPlant<Int>.(IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>
+    andLazyPair: Pair<String, IAssertionPlant<Int>.(IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
     //TODO extend SubjectLess with nullable
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(describePrefix,
         toBe to mapToCreateAssertion { funInt.toBeFun(this, 1) },
         notToBe to mapToCreateAssertion { funInt.notToBeFun(this, 1) },
         isSame to mapToCreateAssertion { funInt.isSameFun(this, 1) },
         isNotSame to mapToCreateAssertion { funInt.isNotSameFun(this, 1) },
         andPair.first to mapToCreateAssertion { andPair.second },
-        andLazyPair.first to mapToCreateAssertion{ andLazyPair.second }
+        andLazyPair.first to mapToCreateAssertion { andLazyPair.second }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs, describePrefix,
         checkingTriple(toBe, { funInt.toBeFun(this, 1) }, 1, 0),
         checkingTriple(notToBe, { funInt.notToBeFun(this, 1) }, 0, 1),
         checkingTriple(isSame, { funInt.isSameFun(this, 1) }, 1, 0),
         checkingTriple(isNotSame, { funInt.isNotSameFun(this, 1) }, 0, 1)
     ) {})
 
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
+        = prefixedDescribe(describePrefix, description, body)
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
+
     val expect = verbs::checkException
     val assert: (Int) -> IAssertionPlant<Int> = verbs::checkImmediately
     val (isNull, isNullFun) = isNullPair
     val (and, andProperty) = andPair
+    val (andLazy, andLazyGroup) = andLazyPair
 
-    describe("fun $toBe, $notToBe, $isSame and $isNotSame") {
+    describeFun(toBe, notToBe, isSame, isNotSame) {
 
         context("primitive") {
             val toBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.toBeFun
@@ -164,7 +173,7 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describe("fun $isNull") {
+    describeFun(isNull) {
 
         context("subject is null") {
             val subject: Int? = null
@@ -197,10 +206,16 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describe("property $and") {
+    prefixedDescribe("property `$and` immediate") {
         it("returns the same plant") {
             val plant = assert(1)
             verbs.checkImmediately(plant.andProperty()).toBe(plant)
+        }
+    }
+    prefixedDescribe("`$andLazy` group") {
+        it("returns the same plant") {
+            val plant = assert(1)
+            verbs.checkImmediately(plant.andLazyGroup { }).toBe(plant)
         }
     }
 

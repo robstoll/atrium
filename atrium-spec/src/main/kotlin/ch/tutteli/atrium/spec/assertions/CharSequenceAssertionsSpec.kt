@@ -9,8 +9,9 @@ import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceAssertionsSpec(
@@ -22,10 +23,11 @@ abstract class CharSequenceAssertionsSpec(
     startsWithPair: Pair<String, IAssertionPlant<CharSequence>.(CharSequence) -> IAssertionPlant<CharSequence>>,
     startsNotWithPair: Pair<String, IAssertionPlant<CharSequence>.(CharSequence) -> IAssertionPlant<CharSequence>>,
     endsWithPair: Pair<String, IAssertionPlant<CharSequence>.(CharSequence) -> IAssertionPlant<CharSequence>>,
-    endsNotWithPair: Pair<String, IAssertionPlant<CharSequence>.(CharSequence) -> IAssertionPlant<CharSequence>>
+    endsNotWithPair: Pair<String, IAssertionPlant<CharSequence>.(CharSequence) -> IAssertionPlant<CharSequence>>,
+    describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsDefaultTranslationOfPair.first to mapToCreateAssertion { containsDefaultTranslationOfPair.second(this, Untranslatable.EMPTY, arrayOf()) },
         containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable.EMPTY, arrayOf()) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
@@ -36,7 +38,7 @@ abstract class CharSequenceAssertionsSpec(
         endsNotWithPair.first to mapToCreateAssertion { endsNotWithPair.second(this, "") }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs, describePrefix,
         checkingTriple(containsDefaultTranslationOfPair.first, { containsDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "a", "b"),
         checkingTriple(containsNotDefaultTranslationOfPair.first, { containsNotDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "b", "a"),
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, "", "not empty"),
@@ -46,6 +48,9 @@ abstract class CharSequenceAssertionsSpec(
         checkingTriple(endsWithPair.first, { endsWithPair.second(this, "c") }, "abc", "xyz"),
         checkingTriple(endsNotWithPair.first, { endsNotWithPair.second(this, "c") }, "xyz", "abc")
     ) {})
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -69,7 +74,8 @@ abstract class CharSequenceAssertionsSpec(
     val containsNot = DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault()
     val hello = TestTranslatable.HELLO.getDefault()
     val welcome = TestTranslatable.WELCOME.getDefault()
-    describe("fun $containsDefaultTranslationOf and $containsNotDefaultTranslationOf") {
+
+    describeFun(containsDefaultTranslationOf, containsNotDefaultTranslationOf) {
 
         context("text '$text' and translatables ${TestTranslatable.HELLO} ($hello) and ${TestTranslatable.WELCOME} ($welcome)") {
             test("$containsDefaultTranslationOf ${TestTranslatable.HELLO} does not throw") {
@@ -119,7 +125,7 @@ abstract class CharSequenceAssertionsSpec(
 
     val isNot = DescriptionBasic.IS_NOT.getDefault()
     val itIs = DescriptionBasic.IS.getDefault()
-    describe("fun $isEmpty and $isNotEmpty") {
+    describeFun(isEmpty, isNotEmpty) {
         context("string is empty") {
             test("$isEmpty does not throw") {
                 assert("").isEmptyFun()
@@ -159,7 +165,7 @@ abstract class CharSequenceAssertionsSpec(
         }
     }
 
-    describe("fun $startsWith and $startsNotWith") {
+    describeFun(startsWith, startsNotWith) {
         context("text '$text'") {
             test("$startsWith 'Hello' does not throw") {
                 fluent.startsWithFun("Hello")
@@ -181,7 +187,7 @@ abstract class CharSequenceAssertionsSpec(
         }
     }
 
-    describe("fun $endsWith and $endsNotWith") {
+    describeFun(endsWith, endsNotWith) {
         context("text '$text'") {
             test("$endsWith 'Hello' throws an AssertionError") {
                 expect {

@@ -14,7 +14,7 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
 }) {
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$toContain.$inOrder.$butOnly.$inOrderOnlyValues" to Companion::containsInOrderOnly
+            "$toContain $inOrder $butOnly $inOrderOnlyValues" to Companion::containsInOrderOnly
 
         private fun containsInOrderOnly(plant: IAssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>): IAssertionPlant<Iterable<Double>> {
             return if (aX.isEmpty()) {
@@ -45,13 +45,15 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec(
         AssertionVerbFactory,
         getContainsPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ "
+        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec(
         AssertionVerbFactory,
         getContainsShortcutPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ "
+        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "[Atrium][Shortcut] "
     )
 }
 

@@ -4,6 +4,8 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -14,16 +16,20 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
     successfulBulletPoint: String,
     failingBulletPoint: String,
     warningBulletPoint: String,
-    listBulletPoint: String
+    listBulletPoint: String,
+    describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, 2.5, arrayOf()) }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
         checkingTriple(containsPair.first, { containsPair.second(this, 2.5, arrayOf()) }, listOf(2.5) as Iterable<Double>, listOf(2.5, 2.2))
     ) {})
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -36,7 +42,7 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
 
     val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
 
-    describe("fun $containsObjects") {
+    describeFun(containsObjects) {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$containsObjects 1.0 throws AssertionError") {

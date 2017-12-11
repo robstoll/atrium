@@ -6,9 +6,10 @@ import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
@@ -22,17 +23,21 @@ abstract class NarrowingAssertionsSpec(
     isAStringFun: IAssertionPlant<String>.(assertionCreator: IAssertionPlant<String>.() -> Unit) -> Unit,
     isACharSequenceFun: IAssertionPlant<String>.(assertionCreator: IAssertionPlant<CharSequence>.() -> Unit) -> Unit,
     isASubTypeFun: IAssertionPlant<SuperType>.(assertionCreator: IAssertionPlant<SubType>.() -> Unit) -> Unit,
-    isAIntLessFun: IAssertionPlant<Number>.(Int) -> Unit
+    isAIntLessFun: IAssertionPlant<Number>.(Int) -> Unit,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<SuperType>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<SuperType>(verbs, describePrefix,
         checkingTriple(nameIsA, { isASubTypeFun(this, {}) }, SubType(), SuperType())
     ) {})
+
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val (nameIsNotNull, isNotNullFun) = isNotNullPair
 
-    describe("fun $nameIsNotNull") {
+    describeFun(nameIsNotNull) {
 
         val assert: (Int?) -> IAssertionPlantNullable<Int?> = verbs::checkNullable
 
@@ -148,7 +153,7 @@ abstract class NarrowingAssertionsSpec(
         }
     }
 
-    describe("fun $nameIsA") {
+    describeFun(nameIsA) {
 
         val assert: (String) -> IAssertionPlant<String> = verbs::checkImmediately
 

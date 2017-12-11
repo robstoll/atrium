@@ -6,9 +6,9 @@ import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
+import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
-import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 @Suppress("UNUSED_PARAMETER")
@@ -63,8 +63,12 @@ abstract class FeatureAssertionsSpec(
     return5ValueNullableHolds: F,
 
     itsLazyWithNestedImmediate: F,
-    itsLazyWithNestedLazy: F
+    itsLazyWithNestedLazy: F,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
+        = prefixedDescribe(describePrefix, description, body)
 
     val assert: (TestData) -> IAssertionPlant<TestData> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -106,11 +110,11 @@ abstract class FeatureAssertionsSpec(
 
     val failingTestData = TestData("hello robert", 1)
     val holdingTestData = TestData("by robert", null)
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<TestData>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<TestData>(verbs, describePrefix,
         *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
         *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
         *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
-        checkingTriple("`propertyLazy`with nested immediate", itsLazyWithNestedImmediate, failingTestData, TestData("by robert", 1))
+        checkingTriple("`propertyLazy` with nested immediate", itsLazyWithNestedImmediate, failingTestData, TestData("by robert", 1))
     ) {})
 
     fun <T> SpecBody.checkGenericNarrowingAssertionWithExceptionMessage(
@@ -127,7 +131,7 @@ abstract class FeatureAssertionsSpec(
         }
     }
 
-    describe("different feature assertion functions") {
+    prefixedDescribe("different feature assertion functions") {
 
         checkGenericNarrowingAssertionWithExceptionMessage("it throws an AssertionError if the assertion does not hold", { andWithCheck ->
 
@@ -142,7 +146,7 @@ abstract class FeatureAssertionsSpec(
         }, *functions.map { it.first to it.second }.toTypedArray(), *nullableHoldsFunctions)
     }
 
-    describe("assertion plant which checks immediately; use lazy property which has nested...") {
+    prefixedDescribe("assertion plant which checks immediately; use lazy property which has nested...") {
         test("... immediate feature property") {
             assert(TestData("hallo robert", 1)).itsLazyWithNestedImmediate()
         }

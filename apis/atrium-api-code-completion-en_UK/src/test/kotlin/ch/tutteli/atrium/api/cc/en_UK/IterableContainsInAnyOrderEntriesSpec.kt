@@ -40,11 +40,13 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
 
     object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
         AssertionVerbFactory,
-        getEntriesPair()
+        getEntriesPair(),
+        "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
         AssertionVerbFactory,
-        getEntriesShortcutPair()
+        getEntriesShortcutPair(),
+        "[Atrium][Shortcut] "
     )
 }
