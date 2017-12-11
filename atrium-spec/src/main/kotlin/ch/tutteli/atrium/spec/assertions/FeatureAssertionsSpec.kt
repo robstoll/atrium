@@ -114,13 +114,13 @@ abstract class FeatureAssertionsSpec(
         *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
         *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
         *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
-        checkingTriple("`propertyLazy`with nested immediate", itsLazyWithNestedImmediate, failingTestData, TestData("by robert", 1))
+        checkingTriple("`propertyLazy` with nested immediate", itsLazyWithNestedImmediate, failingTestData, TestData("by robert", 1))
     ) {})
 
     fun <T> SpecBody.checkGenericNarrowingAssertionWithExceptionMessage(
         description: String, act: (T.() -> Unit) -> Unit, vararg methods: Triple<String, (T.() -> Unit), String>
     ) {
-        group(describePrefix + description) {
+        group(description) {
             methods.forEach { (checkMethod, assertion, stringInExceptionMessage) ->
                 test("in case of $checkMethod evaluation") {
                     expect {

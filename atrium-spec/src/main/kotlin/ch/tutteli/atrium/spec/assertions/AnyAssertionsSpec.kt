@@ -18,7 +18,6 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-
 abstract class AnyAssertionsSpec(
     verbs: IAssertionVerbFactory,
     funInt: IAnyAssertionsSpecFunFactory<Int>,
@@ -54,8 +53,8 @@ abstract class AnyAssertionsSpec(
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
         = prefixedDescribe(describePrefix, description, body)
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val assert: (Int) -> IAssertionPlant<Int> = verbs::checkImmediately
@@ -63,7 +62,7 @@ abstract class AnyAssertionsSpec(
     val (and, andProperty) = andPair
     val (andLazy, andLazyGroup) = andLazyPair
 
-    describeFun("$toBe, $notToBe, $isSame and $isNotSame") {
+    describeFun(toBe, notToBe, isSame, isNotSame) {
 
         context("primitive") {
             val toBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.toBeFun
@@ -207,13 +206,13 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    prefixedDescribe("property $and immediate") {
+    prefixedDescribe("property `$and` immediate") {
         it("returns the same plant") {
             val plant = assert(1)
             verbs.checkImmediately(plant.andProperty()).toBe(plant)
         }
     }
-    prefixedDescribe("$andLazy group") {
+    prefixedDescribe("`$andLazy` group") {
         it("returns the same plant") {
             val plant = assert(1)
             verbs.checkImmediately(plant.andLazyGroup { }).toBe(plant)

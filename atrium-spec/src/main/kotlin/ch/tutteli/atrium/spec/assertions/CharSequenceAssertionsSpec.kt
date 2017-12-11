@@ -49,8 +49,8 @@ abstract class CharSequenceAssertionsSpec(
         checkingTriple(endsNotWithPair.first, { endsNotWithPair.second(this, "c") }, "xyz", "abc")
     ) {})
 
-    fun describeFun(description: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, description, body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -75,7 +75,7 @@ abstract class CharSequenceAssertionsSpec(
     val hello = TestTranslatable.HELLO.getDefault()
     val welcome = TestTranslatable.WELCOME.getDefault()
 
-    describeFun("$containsDefaultTranslationOf and $containsNotDefaultTranslationOf") {
+    describeFun(containsDefaultTranslationOf, containsNotDefaultTranslationOf) {
 
         context("text '$text' and translatables ${TestTranslatable.HELLO} ($hello) and ${TestTranslatable.WELCOME} ($welcome)") {
             test("$containsDefaultTranslationOf ${TestTranslatable.HELLO} does not throw") {
@@ -125,7 +125,7 @@ abstract class CharSequenceAssertionsSpec(
 
     val isNot = DescriptionBasic.IS_NOT.getDefault()
     val itIs = DescriptionBasic.IS.getDefault()
-    describeFun("$isEmpty and $isNotEmpty") {
+    describeFun(isEmpty, isNotEmpty) {
         context("string is empty") {
             test("$isEmpty does not throw") {
                 assert("").isEmptyFun()
@@ -165,7 +165,7 @@ abstract class CharSequenceAssertionsSpec(
         }
     }
 
-    describeFun("$startsWith and $startsNotWith") {
+    describeFun(startsWith, startsNotWith) {
         context("text '$text'") {
             test("$startsWith 'Hello' does not throw") {
                 fluent.startsWithFun("Hello")
@@ -187,7 +187,7 @@ abstract class CharSequenceAssertionsSpec(
         }
     }
 
-    describeFun("$endsWith and $endsNotWith") {
+    describeFun(endsWith, endsNotWith) {
         context("text '$text'") {
             test("$endsWith 'Hello' throws an AssertionError") {
                 expect {
