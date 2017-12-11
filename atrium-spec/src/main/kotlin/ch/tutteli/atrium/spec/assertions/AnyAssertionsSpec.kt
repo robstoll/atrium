@@ -34,7 +34,7 @@ abstract class AnyAssertionsSpec(
 
     //TODO extend SubjectLess with nullable
 
-    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(
+    include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Int>(describePrefix,
         toBe to mapToCreateAssertion { funInt.toBeFun(this, 1) },
         notToBe to mapToCreateAssertion { funInt.notToBeFun(this, 1) },
         isSame to mapToCreateAssertion { funInt.isSameFun(this, 1) },
@@ -43,7 +43,7 @@ abstract class AnyAssertionsSpec(
         andLazyPair.first to mapToCreateAssertion { andLazyPair.second }
     ) {})
 
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Int>(verbs, describePrefix,
         checkingTriple(toBe, { funInt.toBeFun(this, 1) }, 1, 0),
         checkingTriple(notToBe, { funInt.notToBeFun(this, 1) }, 0, 1),
         checkingTriple(isSame, { funInt.isSameFun(this, 1) }, 1, 0),

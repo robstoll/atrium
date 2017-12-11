@@ -110,7 +110,7 @@ abstract class FeatureAssertionsSpec(
 
     val failingTestData = TestData("hello robert", 1)
     val holdingTestData = TestData("by robert", null)
-    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<TestData>(verbs,
+    include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<TestData>(verbs, describePrefix,
         *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
         *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
         *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
