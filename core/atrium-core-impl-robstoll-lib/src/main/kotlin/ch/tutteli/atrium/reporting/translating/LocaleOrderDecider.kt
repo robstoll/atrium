@@ -19,9 +19,7 @@ class LocaleOrderDecider : ILocaleOrderDecider {
 
     private suspend fun SequenceBuilder<Locale>.suspendedResolve(locale: Locale, fallbackLocales: Array<out Locale>) {
         internalResolve(locale)
-        fallbackLocales.forEach {
-            internalResolve(it)
-        }
+        fallbackLocales.forEach { internalResolve(it) }
     }
 
     private suspend fun SequenceBuilder<Locale>.internalResolve(locale: Locale) {
@@ -30,6 +28,7 @@ class LocaleOrderDecider : ILocaleOrderDecider {
             "zh" -> specialCaseChinese(locale)
             else -> normalCase(locale)
         }
+        yield(Locale.ROOT)
     }
 
     private suspend fun SequenceBuilder<Locale>.specialCaseNorwegian(locale: Locale) {
@@ -55,6 +54,7 @@ class LocaleOrderDecider : ILocaleOrderDecider {
             }
         } else if (locale.language == "nn" || isNorwegianNynorsk) {
             normalCase(locale, language = "nn", variant = variant)
+            // Insert no_NO_NY, no_NO and no after nn
             yield(Locale("no", "NO", "NY"))
             yield(Locale("no", "NO", ""))
             yield(Locale("no", "", ""))
@@ -94,7 +94,6 @@ class LocaleOrderDecider : ILocaleOrderDecider {
         fallbackDueToCountry(language, script, country, createAdditional)
         fallbackDueToScript(language, script, country, variant, createAdditional)
         fallbackDueToLanguage(language, createAdditional)
-        yield(Locale.ROOT)
     }
 
 
