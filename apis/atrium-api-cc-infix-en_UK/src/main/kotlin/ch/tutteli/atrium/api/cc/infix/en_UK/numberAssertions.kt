@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions._isGreaterOrEquals
 import ch.tutteli.atrium.assertions._isGreaterThan
 import ch.tutteli.atrium.assertions._isLessOrEquals
 import ch.tutteli.atrium.assertions._isLessThan
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -12,7 +13,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> IAssertionPlant<T>.isLessThan(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
+infix fun <T> Assert<T>.isLessThan(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
     = addAssertion(_isLessThan(this, expected))
 
 /**
@@ -21,7 +22,7 @@ infix fun <T> IAssertionPlant<T>.isLessThan(expected: T): IAssertionPlant<T> whe
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> IAssertionPlant<T>.isLessOrEquals(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
+infix fun <T> Assert<T>.isLessOrEquals(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
     = addAssertion(_isLessOrEquals(this, expected))
 
 /**
@@ -30,7 +31,7 @@ infix fun <T> IAssertionPlant<T>.isLessOrEquals(expected: T): IAssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> IAssertionPlant<T>.isGreaterThan(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
+infix fun <T> Assert<T>.isGreaterThan(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
     = addAssertion(_isGreaterThan(this, expected))
 
 /**
@@ -39,6 +40,6 @@ infix fun <T> IAssertionPlant<T>.isGreaterThan(expected: T): IAssertionPlant<T> 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> IAssertionPlant<T>.isGreaterOrEquals(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
+infix fun <T> Assert<T>.isGreaterOrEquals(expected: T): IAssertionPlant<T> where T : Number, T : Comparable<T>
     = addAssertion(_isGreaterOrEquals(this, expected))
 

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions._toThrow
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 
@@ -46,6 +47,6 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.wirft(noinline
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *         or if an additionally created [IAssertion]s (by calling [assertionCreator]) does not hold.
  */
-fun <T : Throwable> IAssertionPlant<T>.message(assertionCreator: IAssertionPlant<String>.() -> Unit) {
+fun <T : Throwable> Assert<T>.message(assertionCreator: IAssertionPlant<String>.() -> Unit) {
     property(subject::message).istNichtNull(assertionCreator)
 }
