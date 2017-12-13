@@ -26,8 +26,8 @@ import java.util.*
 class Translator(
     private val translationSupplier: ITranslationSupplier,
     primaryLocale: Locale,
-    private val fallbackLocales: Array<out Locale>
-) : ArgumentsSupportingTranslator(primaryLocale) {
+    fallbackLocales: Array<out Locale>
+) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
     /**
      * Decides in which order [Locale]s are processed to find a translation for a given [ITranslatable].

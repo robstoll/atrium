@@ -19,67 +19,28 @@ class LocaleOrderDecider : ILocaleOrderDecider {
 
     private suspend fun SequenceBuilder<Locale>.suspendedResolve(locale: Locale, fallbackLocales: Array<out Locale>) {
         internalResolve(locale)
-        fallbackLocales.forEach {
-            internalResolve(it)
-        }
+        fallbackLocales.forEach { internalResolve(it) }
     }
 
     private suspend fun SequenceBuilder<Locale>.internalResolve(locale: Locale) {
         when (locale.language) {
-            "no", "nb", "nn" -> specialCaseNorwegian(locale)
             "zh" -> specialCaseChinese(locale)
             else -> normalCase(locale)
         }
-    }
-
-    private suspend fun SequenceBuilder<Locale>.specialCaseNorwegian(locale: Locale) {
-        var isNorwegianNynorsk = false
-        var isNorwegianBokmal = false
-        var variant = locale.variant
-
-        if (locale.language == "no") {
-            if (locale.country == "NO" && variant == "NY") {
-                variant = ""
-                isNorwegianNynorsk = true
-            } else {
-                isNorwegianBokmal = true
-            }
-        }
-
-        if (locale.language == "nb" || isNorwegianBokmal) {
-            normalCase(locale, language = "nb") {
-                if (it.language.isNotEmpty()) {
-                    val fallback = createLocale("no", it.script, it.country, it.variant)
-                    yield(fallback)
-                }
-            }
-        } else if (locale.language == "nn" || isNorwegianNynorsk) {
-            normalCase(locale, language = "nn", variant = variant)
-            yield(Locale("no", "NO", "NY"))
-            yield(Locale("no", "NO", ""))
-            yield(Locale("no", "", ""))
-        }
+        yield(Locale.ROOT)
     }
 
     private suspend fun SequenceBuilder<Locale>.specialCaseChinese(locale: Locale) {
         var script = locale.script
-        var country = locale.country
-        if (script.isEmpty() && country.isNotEmpty()) {
-            // Supply script for users who want to use zh_Hans/zh_Hant as bundle names (recommended for Java7+)
-            script = when (country) {
+        if (script.isEmpty() && locale.country.isNotEmpty()) {
+            // Supply script for users who want to use zh-Hans/zh-Hant as bundle names (recommended for Java7+)
+            script = when (locale.country) {
                 "TW", "HK", "MO" -> "Hant"
                 "CN", "SG" -> "Hans"
                 else -> ""
             }
-        } else if (script.isNotEmpty() && country.isEmpty()) {
-            // Supply country(region) for users who still package Chinese bundles using old convension.
-            country = when (script) {
-                "Hans" -> "CN"
-                "Hant" -> "TW"
-                else -> ""
-            }
         }
-        normalCase(locale, script = script, country = country)
+        normalCase(locale, script = script)
     }
 
     private suspend fun SequenceBuilder<Locale>.normalCase(
@@ -94,7 +55,6 @@ class LocaleOrderDecider : ILocaleOrderDecider {
         fallbackDueToCountry(language, script, country, createAdditional)
         fallbackDueToScript(language, script, country, variant, createAdditional)
         fallbackDueToLanguage(language, createAdditional)
-        yield(Locale.ROOT)
     }
 
 
