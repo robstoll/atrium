@@ -19,7 +19,18 @@ import java.util.*
  *                      placeholders in the resulting translation of [ITranslatableWithArgs.translatable] with
  *                      the [ITranslatableWithArgs.arguments].
  */
-abstract class ArgumentsSupportingTranslator(protected val primaryLocale: Locale) : ITranslator {
+abstract class ArgumentsSupportingTranslator(
+    protected val primaryLocale: Locale,
+    protected val fallbackLocales: Array<out Locale>
+) : ITranslator {
+
+    init {
+        listOf(primaryLocale, *fallbackLocales).forEach {
+            require(it.language != "no") {
+                "The macrolanguage `no` is not supported but $it given.\nUse either nb_... or nn_..."
+            }
+        }
+    }
 
     /**
      * Returns the translation of the given [translatable] or its [getDefault][ITranslatable.getDefault]

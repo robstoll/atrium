@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
+import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toBe
+import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
@@ -30,10 +33,9 @@ abstract class TranslatorSpec(
         = testeeFactory(translationSupplier, locale, fallbackLocals)
 
     fun mockTranslationProvider(locale: Locale, translatable: ITranslatable, translation: String): ITranslationSupplier {
-        val provider = mock<ITranslationSupplier> {
+        return mock {
             on { get(translatable, locale) }.doReturn(translation)
         }
-        return provider
     }
 
     val localeUK = Locale.UK
@@ -83,10 +85,45 @@ abstract class TranslatorSpec(
 
     prefixedDescribe("fun ${ITranslator::translate.name}") {
 
+        describe("error cases") {
+            listOf(
+                Locale("no"),
+                Locale("no", "NO"),
+                Locale("no", "NO", "NY"),
+                Locale("no", "NO", "B"),
+                Locale("no", "ZZ")
+            ).forEach { locale ->
+                context("primary Locale's language is $locale") {
+                    it("throws an ${IllegalArgumentException::class.simpleName}") {
+                        verbs.checkException {
+                            testeeFactory(mock(), locale)
+                        }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale) } }
+                    }
+                }
+
+                context("first fallback Locale is $locale") {
+                    it("throws an ${IllegalArgumentException::class.simpleName}") {
+                        verbs.checkException {
+                            testeeFactory(mock(), Locale.UK, locale)
+                        }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale) } }
+                    }
+                }
+
+                context("second fallback Locale is $locale") {
+                    it("throws an ${IllegalArgumentException::class.simpleName}") {
+                        verbs.checkException {
+                            testeeFactory(mock(), Locale.UK, Locale.FRENCH, locale)
+                        }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported") } }
+                    }
+                }
+            }
+
+        }
+
         describe("translating a ${ITranslatable::class.simpleName} to $localeUK without fallbacks") {
 
             context("no translations provided at all") {
-                val testee = testeeFactory(mock<ITranslationSupplier>(), localeUK)
+                val testee = testeeFactory(mock(), localeUK)
                 checkUsesDefaultOfTranslatable(testee)
             }
 

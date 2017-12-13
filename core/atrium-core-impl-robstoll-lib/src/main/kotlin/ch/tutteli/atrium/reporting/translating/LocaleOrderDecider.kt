@@ -24,41 +24,10 @@ class LocaleOrderDecider : ILocaleOrderDecider {
 
     private suspend fun SequenceBuilder<Locale>.internalResolve(locale: Locale) {
         when (locale.language) {
-            "no", "nb", "nn" -> specialCaseNorwegian(locale)
             "zh" -> specialCaseChinese(locale)
             else -> normalCase(locale)
         }
         yield(Locale.ROOT)
-    }
-
-    private suspend fun SequenceBuilder<Locale>.specialCaseNorwegian(locale: Locale) {
-        var isNorwegianNynorsk = false
-        var isNorwegianBokmal = false
-        var variant = locale.variant
-
-        if (locale.language == "no") {
-            if (locale.country == "NO" && variant == "NY") {
-                variant = ""
-                isNorwegianNynorsk = true
-            } else {
-                isNorwegianBokmal = true
-            }
-        }
-
-        if (locale.language == "nb" || isNorwegianBokmal) {
-            normalCase(locale, language = "nb") {
-                if (it.language.isNotEmpty()) {
-                    val fallback = createLocale("no", it.script, it.country, it.variant)
-                    yield(fallback)
-                }
-            }
-        } else if (locale.language == "nn" || isNorwegianNynorsk) {
-            normalCase(locale, language = "nn", variant = variant)
-            // Insert no_NO_NY, no_NO and no after nn
-            yield(Locale("no", "NO", "NY"))
-            yield(Locale("no", "NO", ""))
-            yield(Locale("no", "", ""))
-        }
     }
 
     private suspend fun SequenceBuilder<Locale>.specialCaseChinese(locale: Locale) {
