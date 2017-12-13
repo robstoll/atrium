@@ -260,11 +260,19 @@ interface IAtriumFactory {
      * - fr => found
      * - ROOT (not processed anymore)
      *
-     * Notice, that a [ITranslator] should not support [Locale]s with [language][Locale.getLanguage] equal to `no` and
+     * Notice, that a [ITranslator] should treat the two special cases Norwegian and Chinese differently than
+     * [ResourceBundle] suggests (the actual implementation for Java seems to be buggy anyway).
+     *
+     * A [ITranslator] should not support [Locale]s with [language][Locale.getLanguage] equal to `no` and
      * should throw an [IllegalArgumentException] instead.
      * A user has to use either `nn` (for Nynorsk) or `nb` (for Bokmål). One can still define the other Locale as
      * fallback, which effectively makes the ambiguous `no` Locale obsolete. As an example, one can define `nn_NO` as
      * [primaryLocale] and `nb_NO` as [fallbackLocales].
+     *
+     * Furthermore it should throw an [IllegalArgumentException] in case one has specified `zh` as language, did not
+     * define a country but script `Hant` or script `Hans`.
+     * A user should use a corresponding country instead and only provide a script in case one wants to be explicit to
+     * avoid ambiguity (e.g., zh-Hans_HK for Chinese in simplified script in Hong Kong).
      *
      * @param translationSupplier Provides the translations for a desired [Locale].
      * @param primaryLocale The [Locale] to which the translator translates per default.
@@ -272,6 +280,9 @@ interface IAtriumFactory {
      *        or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
      *
      * @return The newly created translator.
+     *
+     * @throws IllegalArgumentException in case [primaryLocale] or [fallbackLocales] have as language `no` or if they
+     *         have: as language `zh`, country is not set and script is either `Hant` or `Hans`.
      */
     fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
 

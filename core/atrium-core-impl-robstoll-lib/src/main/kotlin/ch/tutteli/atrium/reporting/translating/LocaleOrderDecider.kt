@@ -32,23 +32,15 @@ class LocaleOrderDecider : ILocaleOrderDecider {
 
     private suspend fun SequenceBuilder<Locale>.specialCaseChinese(locale: Locale) {
         var script = locale.script
-        var country = locale.country
-        if (script.isEmpty() && country.isNotEmpty()) {
-            // Supply script for users who want to use zh_Hans/zh_Hant as bundle names (recommended for Java7+)
-            script = when (country) {
+        if (script.isEmpty() && locale.country.isNotEmpty()) {
+            // Supply script for users who want to use zh-Hans/zh-Hant as bundle names (recommended for Java7+)
+            script = when (locale.country) {
                 "TW", "HK", "MO" -> "Hant"
                 "CN", "SG" -> "Hans"
                 else -> ""
             }
-        } else if (script.isNotEmpty() && country.isEmpty()) {
-            // Supply country(region) for users who still package Chinese bundles using old convension.
-            country = when (script) {
-                "Hans" -> "CN"
-                "Hant" -> "TW"
-                else -> ""
-            }
         }
-        normalCase(locale, script = script, country = country)
+        normalCase(locale, script = script)
     }
 
     private suspend fun SequenceBuilder<Locale>.normalCase(

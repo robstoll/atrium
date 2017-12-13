@@ -6,10 +6,10 @@ import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
+import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
@@ -56,6 +56,48 @@ abstract class TranslatorErrorCaseSpec(
                         testeeFactory(Locale.UK, Locale.FRENCH, locale)
                     }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported") } }
                 }
+            }
+        }
+
+        val builder = Locale.Builder().setLanguage("zh")
+        listOf("Hant", "Hans").forEach { script ->
+            val locale = builder.setScript(script).build()
+            context("primary Locale's language is $locale") {
+                it("throws an ${IllegalArgumentException::class.simpleName}") {
+                    verbs.checkException {
+                        testeeFactory(locale)
+                    }.toThrow<IllegalArgumentException> { message { contains("Script `$script` for Locale with language `zh` is not supported.") } }
+                }
+            }
+            context("first fallback Locale is $locale") {
+                it("throws an ${IllegalArgumentException::class.simpleName}") {
+                    verbs.checkException {
+                        testeeFactory(Locale.UK, locale)
+                    }.toThrow<IllegalArgumentException> { message { contains("Script `$script` for Locale with language `zh` is not supported.") } }
+                }
+            }
+
+            context("second fallback Locale is $locale") {
+                it("throws an ${IllegalArgumentException::class.simpleName}") {
+                    verbs.checkException {
+                        testeeFactory(Locale.UK, Locale.FRENCH, locale)
+                    }.toThrow<IllegalArgumentException> { message { contains("Script `$script` for Locale with language `zh` is not supported.") } }
+                }
+            }
+        }
+
+        describe("exceptions for zh_...") {
+
+            listOf("Hant", "Hans").forEach { script ->
+                it("does not throw if Country is even though script is `$script`") {
+                    val locale = builder.setRegion("ZZ").setScript(script).build()
+                    testeeFactory(locale)
+                }
+            }
+
+            it("does not throw if Country is empty and script is neither `Hant` nor `Hans`") {
+                val locale = builder.setScript("Tata").build()
+                testeeFactory(locale)
             }
         }
     }
