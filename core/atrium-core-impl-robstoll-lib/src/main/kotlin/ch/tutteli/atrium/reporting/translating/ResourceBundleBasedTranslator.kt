@@ -19,29 +19,29 @@ import java.util.*
  * `TO_BE = a translation for TO_BE`
  *
  * @property resourceBundleControl The [ResourceBundle.Control] which inter alia defines the order in which
- *                                 fallback [Locale]s are processed.
+ *           fallback [Locale]s are processed.
  *
  * @constructor  Represents an [ITranslator] which reuses [ResourceBundle] properties based capabilities but uses
  *               an enhanced fallback mechanism. Instead of falling back to [Locale.getDefault] one is able to
  *               specify fallback [Locale] oneself. Whether this includes [Locale.getDefault] or not is up to the user.
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
- *                      which will be used in [java.lang.String.format], which in turn is used to substitute the
- *                      placeholders in the resulting translation of [ITranslatableWithArgs.translatable] with
- *                      the [ITranslatableWithArgs.arguments].
+ *        which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in the
+ *        resulting translation of [ITranslatableWithArgs.translatable] with the [ITranslatableWithArgs.arguments].
  * @param resourceBundleControl The [ResourceBundle.Control] which inter alia defines the order in which
- *                              fallback [Locale]s are processed.
+ *        fallback [Locale]s are processed.
  */
 class ResourceBundleBasedTranslator private constructor(
     primaryLocale: Locale,
+    fallbackLocales: Array<out Locale>,
     private val resourceBundleControl: ResourceBundle.Control
-) : ArgumentsSupportingTranslator(primaryLocale) {
+) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
     override fun translateWithoutArgs(translatable: ITranslatable): String {
-        try {
+        return try {
             val bundle = ResourceBundle.getBundle(translatable::class.java.name, primaryLocale, resourceBundleControl)
-            return bundle.getString(translatable.name)
+            bundle.getString(translatable.name)
         } catch(ex: MissingResourceException) {
-            return translatable.getDefault()
+            translatable.getDefault()
         }
     }
 
@@ -63,7 +63,7 @@ class ResourceBundleBasedTranslator private constructor(
             } else {
                 FallbackResourceBundleControl(listOf(primaryLocale, *fallbackLocales))
             }
-            return ResourceBundleBasedTranslator(primaryLocale, control)
+            return ResourceBundleBasedTranslator(primaryLocale, fallbackLocales, control)
         }
     }
 

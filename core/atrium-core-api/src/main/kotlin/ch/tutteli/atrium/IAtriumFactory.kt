@@ -223,9 +223,6 @@ interface IAtriumFactory {
      *
      * An entry in such a file would look like as follows:
      * `TO_BE = a translation for TO_BE`
-     * However, it shall apply an extended fallback mechanism. Instead of falling back to [Locale.getDefault] (as
-     * [ResourceBundle] would do per default) one shall be able to specify fallback [Locale]s oneself.
-     * Whether this includes [Locale.getDefault] or not is up to the user.
      *
      * @return The newly created translation supplier.
      */
@@ -235,15 +232,44 @@ interface IAtriumFactory {
      * Creates an [ITranslator] which translates [ITranslatable]s to [primaryLocale] and falls back
      * to [fallbackLocales] (in the given order) in case no translation exists for [primaryLocale].
      *
-     * In case neither a translation exists for any [fallbackLocales] then it uses
+     * In case any translation exists (neither for the [primaryLocale] nor for any [fallbackLocales]) then it uses
      * [ITranslatable]'s [getDefault][ITranslatable.getDefault].
      * It uses the given [translationSupplier] to retrieve all available translations.
      *
-     * @param translationSupplier Provides the translations for
+     * It shall be more or less compatible with [ResourceBundle] in terms of how candidate [Locale]s are determined.
+     * So, more or less the same rules apply as described in [ResourceBundle.Control.getCandidateLocales].
+     * However, it shall apply an extended fallback mechanism. In case not a single properties file could be found
+     * for one of the candidate [Locale]s, then instead of falling back to [Locale.getDefault] (as [ResourceBundle]
+     * would do per default), one shall be able to specify fallback [Locale]s oneself. Whether this includes
+     * [Locale.getDefault] or not is up to the user of Atrium.
+     * Moreover, the fallback even applies if a properties file for one of the candidate [Locale]s is specified but does
+     * not contain the property which we are looking for ([ResourceBundle] would throw a [MissingResourceException] in
+     * such a case).
+     *
+     * Following an example. `de_CH` is used as [primaryLocale] and `fr_CH` as [fallbackLocales].
+     * We are looking for the translation of `DescriptionAnyAssertions.TO_BE`. The following files exists:
+     *
+     * *DescriptionAnyAssertions_de_CH.properties* with NOT_WHAT_WE_ARE_LOOKING_FOR = foo
+     * *DescriptionAnyAssertions_fr.properties* with TO_BE = est
+     *
+     * The resolution would be as follows:
+     * - de_CH
+     * - de
+     * - ROOT
+     * - fr_CH
+     * - fr => found
+     * - ROOT (not processed anymore)
+     *
+     * Notice, that a [ITranslator] should not support [Locale]s with [language][Locale.getLanguage] equal to `no` and
+     * should throw an [IllegalArgumentException] instead.
+     * A user has to use either `nn` (for Nynorsk) or `nb` (for Bokmål). One can still define the other Locale as
+     * fallback, which effectively makes the ambiguous `no` Locale obsolete. As an example, one can define `nn_NO` as
+     * [primaryLocale] and `nb_NO` as [fallbackLocales].
+     *
+     * @param translationSupplier Provides the translations for a desired [Locale].
      * @param primaryLocale The [Locale] to which the translator translates per default.
-     * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
-     *                        [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used
-     *                        in the given order.
+     * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for [primaryLocale]
+     *        or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
      *
      * @return The newly created translator.
      */
