@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
@@ -22,18 +22,16 @@ abstract class TranslatorSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     fun testeeFactory(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)
         = testeeFactory(translationSupplier, locale, fallbackLocals)
 
     fun mockTranslationProvider(locale: Locale, translatable: ITranslatable, translation: String): ITranslationSupplier {
-        val provider = mock<ITranslationSupplier> {
+        return mock {
             on { get(translatable, locale) }.doReturn(translation)
         }
-        return provider
     }
 
     val localeUK = Locale.UK
@@ -81,12 +79,12 @@ abstract class TranslatorSpec(
     val translationFrFr = "salut"
     val providerWithFrFr = mockTranslationProvider(Locale.FRANCE, translatableHello, translationFrFr)
 
-    prefixedDescribe("fun ${ITranslator::translate.name}") {
+    describeFun(ITranslator::translate.name) {
 
         describe("translating a ${ITranslatable::class.simpleName} to $localeUK without fallbacks") {
 
             context("no translations provided at all") {
-                val testee = testeeFactory(mock<ITranslationSupplier>(), localeUK)
+                val testee = testeeFactory(mock(), localeUK)
                 checkUsesDefaultOfTranslatable(testee)
             }
 
@@ -161,6 +159,13 @@ abstract class TranslatorSpec(
                     val testee = testeeFactory(providerWithFr, localeUK, Locale.CANADA, Locale.GERMAN, Locale.FRENCH)
                     checkTranslationSuccessfulForDesiredTranslatable(testee, translationFr, Locale.FRANCE)
                 }
+            }
+        }
+
+        val localeZhWithScriptAndCountry = Locale.Builder().setLanguage("zh").setRegion("TW").setScript("Hant").build()
+        describe("translating a ${ITranslatable::class.simpleName} to $localeZhWithScriptAndCountry") {
+            context("translation provided in Locale zh_TW with script Hant") {
+
             }
         }
     }

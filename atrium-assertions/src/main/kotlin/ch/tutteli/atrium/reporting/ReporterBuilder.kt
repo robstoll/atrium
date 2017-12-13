@@ -1,11 +1,9 @@
 package ch.tutteli.atrium.reporting
 
+
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
-import ch.tutteli.atrium.reporting.translating.ITranslator
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 
 /**
@@ -31,19 +29,42 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
     companion object {
 
         /**
-         * Uses [UsingDefaultTranslator] as [ITranslator] (which does not translate
-         * but uses the [ITranslatable]'s [getDefault][ITranslatable.getDefault])
-         * and the given [primaryLocale] which falls back to [Locale.getDefault] if not given.
+         * Uses [UsingDefaultTranslator] as [ITranslator] where the given [primaryLocale] is used to format arguments
+         * of [ITranslatableWithArgs].
+         *
+         * Notice that [UsingDefaultTranslator] does not translate but uses what [ITranslatable.getDefault] returns.
+         * Also notice, that if you omit the [primaryLocale] then [Locale.getDefault] is used.
+         *
+         * @param primaryLocale The [Locale] used to format arguments of [ITranslatableWithArgs].
          */
         fun withoutTranslations(primaryLocale: Locale = Locale.getDefault())
             = ObjectFormatterOptions(UsingDefaultTranslator(primaryLocale))
 
         /**
-         * Uses [AtriumFactory.newTranslator] with the given [translationSupplier] as [ITranslator], uses [locale] as primary
-         * [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
+         * Uses [AtriumFactory.newTranslator] as [ITranslator] and [AtriumFactory.newPropertiesBasedTranslationSupplier]
+         * as its [ITranslationSupplier]. It uses the [primaryLocale] as primary [Locale] and the optional
+         * [fallbackLocales] as fallback [Locale]s.
+         *
+         * @param primaryLocale The [Locale] for which the [ITranslator] will first search translations --
+         *        it will also be used to format arguments of [ITranslatableWithArgs].
+         * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
+         *        in case no translation was found the previous primary Locale.
          */
-        fun withTranslations(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocales: Locale)
-            = ObjectFormatterOptions(AtriumFactory.newTranslator(translationSupplier, locale, *fallbackLocales))
+        fun withDefaultTranslatorAndSupplier(primaryLocale: Locale, vararg fallbackLocales: Locale)
+            = withDefaultTranslator(AtriumFactory.newPropertiesBasedTranslationSupplier(), primaryLocale, *fallbackLocales)
+
+        /**
+         * Uses [AtriumFactory.newTranslator] as [ITranslator] where the given [translationSupplier] is used retrieve
+         * translations, [primaryLocale] is used as primary [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
+         *
+         * @param translationSupplier The supplier which provides translations for [ITranslatable].
+         * @param primaryLocale The [Locale] for which the [ITranslator] will first search translations --
+         *        it will also be used to format arguments of [ITranslatableWithArgs].
+         * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
+         *        in case no translation was found the previous primary Locale.
+         */
+        fun withDefaultTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale)
+            = ObjectFormatterOptions(AtriumFactory.newTranslator(translationSupplier, primaryLocale, *fallbackLocales))
 
         /**
          * Uses the given [translator] as [ITranslator].
@@ -52,14 +73,13 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
             = ObjectFormatterOptions(translator)
 
         /**
-         * Shortcut for [withoutTranslations].[ObjectFormatterOptions.withDetailedObjectFormatter].
-         * [AssertionFormatterControllerOptions.withDefaultAssertionFormatterController].
-         * [AssertionFormatterFacadeOptions.withDefaultAssertionFormatterFacade]
-         * -- uses [UsingDefaultTranslator] as [ITranslator]
-         * and [AtriumFactory.newDetailedObjectFormatter] as [IObjectFormatter].
-         *
-         * (!) Might be removed in the future
+         * Deprecated do not use it any longer and replace it with suggestion instead.
          */
+        @Deprecated("will be removed in 0.6.0", ReplaceWith("ReporterBuilder\n" +
+            "    .withoutTranslations()\n" +
+            "    .withDetailedObjectFormatter()\n" +
+            "    .withDefaultAssertionFormatterController()\n" +
+            "    .withDefaultAssertionFormatterFacade()"))
         fun withDetailedObjectFormatter()
             = withoutTranslations()
             .withDetailedObjectFormatter()

@@ -7,9 +7,7 @@ import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
-import ch.tutteli.atrium.reporting.translating.ITranslator
-import ch.tutteli.atrium.reporting.translating.Translator
+import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 
 /**
@@ -51,6 +49,9 @@ object AtriumFactory : IAtriumFactory {
 
     override fun newMethodCallFormatter(): IMethodCallFormatter
         = TextMethodCallFormatter
+
+    override fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
+        = PropertiesPerEntityAndLocaleTranslationSupplier()
 
     override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
         = Translator(translationSupplier, primaryLocale, fallbackLocales)

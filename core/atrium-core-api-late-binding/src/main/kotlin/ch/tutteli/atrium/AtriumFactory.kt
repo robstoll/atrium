@@ -52,6 +52,9 @@ object AtriumFactory : IAtriumFactory {
     override fun newMethodCallFormatter(): IMethodCallFormatter
         = throwUnsupportedOperationException()
 
+    override fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
+        = throwUnsupportedOperationException()
+
     override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
         = throwUnsupportedOperationException()
 
