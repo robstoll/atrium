@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions._containsBuilder
 import ch.tutteli.atrium.assertions._containsNot
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -12,7 +13,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IAssertionPlant<T>.contains
+val <E, T : Iterable<E>> Assert<T>.contains
     get(): IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
     = _containsBuilder(this)
 
@@ -34,7 +35,7 @@ val <E, T : Iterable<E>> IAssertionPlant<T>.contains
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).objects(expected, *otherExpected)
 
 /**
@@ -47,7 +48,7 @@ fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E, vararg otherEx
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.contains(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
 /**
@@ -59,7 +60,7 @@ fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.contains(assertionCreator: IAs
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = contains.inOrder.only.objects(expected, *otherExpected)
 
 /**
@@ -72,7 +73,7 @@ fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(expected: E, vararg
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
 
 /**
@@ -82,5 +83,5 @@ fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(assertionCrea
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = addAssertion(_containsNot(this, expected, otherExpected))

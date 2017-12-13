@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -10,7 +11,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun IAssertionPlant<Boolean>.isTrue() = toBe(true)
+fun Assert<Boolean>.isTrue() = toBe(true)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is `false`.
@@ -20,4 +21,4 @@ fun IAssertionPlant<Boolean>.isTrue() = toBe(true)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun IAssertionPlant<Boolean>.isFalse() = toBe(false)
+fun Assert<Boolean>.isFalse() = toBe(false)

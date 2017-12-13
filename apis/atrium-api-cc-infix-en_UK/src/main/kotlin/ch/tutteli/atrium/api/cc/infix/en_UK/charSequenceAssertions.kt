@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
@@ -13,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
+infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
     = _containsBuilder(this)
 
 
@@ -28,7 +29,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.to(@Suppress("UNUSED_PARAMETER")
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any)
+infix fun <T : CharSequence> Assert<T>.contains(expected: Any)
     = this to contain atLeast 1 value expected
 
 /**
@@ -52,7 +53,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.contains(expected: Any)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.contains(values: Values<Any>): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): IAssertionPlant<T>
     = this to contain atLeast 1 the values
 
 
@@ -65,7 +66,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.contains(values: Values<Any>): I
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(translatable: ITranslatable): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable: ITranslatable): IAssertionPlant<T>
     = this to contain atLeast 1 defaultTranslationOf translatable
 
 /**
@@ -90,7 +91,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsDefaultTranslationOf(tra
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationOf: DefaultTranslationsOf): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTranslationsOf): IAssertionPlant<T>
     = this to contain atLeast 1 the defaultTranslationOf
 
 
@@ -102,7 +103,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.contains(defaultTranslationOf: D
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any)
+infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
     = this containsNot Values(expected)
 
 /**
@@ -112,7 +113,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(expected: Any)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values<Any>): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>): IAssertionPlant<T>
     = addAssertion(_containsNot(this, values.expected, values.otherExpected))
 
 
@@ -124,7 +125,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(values: Values<Any>)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf): IAssertionPlant<T>
     = addAssertion(_containsNotDefaultTranslationOf(this, defaultTranslationsOf.expected, defaultTranslationsOf.otherExpected))
 
 
@@ -134,7 +135,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.containsNot(defaultTranslationsO
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequence): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence): IAssertionPlant<T>
     = addAssertion(_startsWith(this, expected))
 
 /**
@@ -143,7 +144,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.startsWith(expected: CharSequenc
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequence): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence): IAssertionPlant<T>
     = addAssertion(_startsNotWith(this, expected))
 
 
@@ -153,7 +154,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.startsNotWith(expected: CharSequ
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence): IAssertionPlant<T>
     = addAssertion(_endsWith(this, expected))
 
 /**
@@ -162,7 +163,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.endsWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequence): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence): IAssertionPlant<T>
     = addAssertion(_endsNotWith(this, expected))
 
 
@@ -174,7 +175,7 @@ infix fun <T : CharSequence> IAssertionPlant<T>.endsNotWith(expected: CharSequen
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): IAssertionPlant<T>
     = addAssertion(_isEmpty(this))
 
 /**
@@ -185,5 +186,5 @@ infix fun <T : CharSequence> IAssertionPlant<T>.toBe(@Suppress("UNUSED_PARAMETER
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> IAssertionPlant<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty): IAssertionPlant<T>
     = addAssertion(_isNotEmpty(this))
