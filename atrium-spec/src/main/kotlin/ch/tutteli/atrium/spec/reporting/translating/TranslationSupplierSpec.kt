@@ -27,9 +27,6 @@ import java.text.SimpleDateFormat
  * the primary Locale's natural first fallback: de
  * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = ist nicht
  *
- * the Locale.ROOT
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_SAME = ist dieselbe Instanz wie
- *
  * the fallback Locale: fr
  * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME = n'est pas la même instance que
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
@@ -73,15 +70,6 @@ abstract class TranslationSupplierSpec(
                     verbs.checkException {
                         assert(1).notToBe(1)
                     }.toThrow<AssertionError> { message { contains("$text: 1") } }
-                }
-            }
-
-            describe("translation for $descriptionAnyAssertion.${DescriptionAnyAssertion.IS_SAME} is provided for 'Locale.ROOT'") {
-                val text = "ist dieselbe Instanz wie"
-                it("a failing assertion contains '$text' instead of 'is same as' in the error message") {
-                    verbs.checkException {
-                        assert(1).isSame(2)
-                    }.toThrow<AssertionError> { message { contains("$text: 2") } }
                 }
             }
 
