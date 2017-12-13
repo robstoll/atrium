@@ -14,6 +14,6 @@ object TranslatorSpec : Spek({
 
     object AtriumsTranslatorErrorCaseSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorErrorCaseSpec(
         AssertionVerbFactory,
-        { p, f -> Translator(AtriumFactory.newPropertiesBasedTranslationSupplier(), p, f) },
+        { p, f -> Translator(AtriumFactory.newPropertiesBasedTranslationSupplier(), AtriumFactory.newLocaleOrderDecider(), p, f) },
         "[Atrium's TranslatorErrorCaseSpec] ")
 }

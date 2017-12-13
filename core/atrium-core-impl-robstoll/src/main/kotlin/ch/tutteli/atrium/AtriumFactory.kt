@@ -18,6 +18,8 @@ import java.util.*
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
+ * - [ITranslationSupplier]
+ * - [LocaleOrderDecider]
  * - [IObjectFormatter]
  * - [IAssertionFormatterFacade]
  * - [IAssertionFormatterController]
@@ -50,11 +52,14 @@ object AtriumFactory : IAtriumFactory {
     override fun newMethodCallFormatter(): IMethodCallFormatter
         = TextMethodCallFormatter
 
+    override fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+        = Translator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
+
     override fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
         = PropertiesPerEntityAndLocaleTranslationSupplier()
 
-    override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
-        = Translator(translationSupplier, primaryLocale, fallbackLocales)
+    override fun newLocaleOrderDecider(): ILocaleOrderDecider
+        = LocaleOrderDecider()
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
         = DetailedObjectFormatter(translator)

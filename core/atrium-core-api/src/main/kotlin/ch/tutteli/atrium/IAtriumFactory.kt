@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
@@ -19,6 +20,8 @@ import java.util.*
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
+ * - [ITranslationSupplier]
+ * - [ILocaleOrderDecider]
  * - [IObjectFormatter]
  * - [IAssertionFormatterFacade]
  * - [IAssertionFormatterController]
@@ -214,29 +217,19 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [ITranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
-     * the structure of the properties files.
-     *
-     * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
-     * stored in a properties file named `DescriptionAnyAssertion_de_CH.properties` in the folder `/ch/tutteli/atrium/`.
-     * Moreover the files need to be encoded in ISO-8859-1 (restriction to be compatible with [ResourceBundle]).
-     *
-     * An entry in such a file would look like as follows:
-     * `TO_BE = a translation for TO_BE`
-     *
-     * @return The newly created translation supplier.
-     */
-    fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
-
-    /**
      * Creates an [ITranslator] which translates [ITranslatable]s to [primaryLocale] and falls back
      * to [fallbackLocales] (in the given order) in case no translation exists for [primaryLocale].
      *
-     * In case any translation exists (neither for the [primaryLocale] nor for any [fallbackLocales]) then it uses
-     * [ITranslatable]'s [getDefault][ITranslatable.getDefault].
      * It uses the given [translationSupplier] to retrieve all available translations.
+     * In case no translation exists for a given property (neither for the [primaryLocale] nor for
+     * any [fallbackLocales]) then it uses [ITranslatable]'s [getDefault][ITranslatable.getDefault].
+     * As consequence an [ITranslator] does not or rather should not support [Locale.ROOT] -- users are discouraged
+     * to define properties files for Locale.ROOT.
+     * An implementation based on [ResourceBundle] would still take Locale.ROOT into account but apply it before the
+     * defined [fallbackLocales] have been considered.
      *
-     * It shall be more or less compatible with [ResourceBundle] in terms of how candidate [Locale]s are determined.
+     * It shall be more or less compatible with [ResourceBundle] in terms of how candidate [Locale]s are determined
+     * (which is actually the responsibility of [localeOrderDecider]).
      * So, more or less the same rules apply as described in [ResourceBundle.Control.getCandidateLocales].
      * However, it shall apply an extended fallback mechanism. In case not a single properties file could be found
      * for one of the candidate [Locale]s, then instead of falling back to [Locale.getDefault] (as [ResourceBundle]
@@ -275,6 +268,8 @@ interface IAtriumFactory {
      * avoid ambiguity (e.g., zh-Hans_HK for Chinese in simplified script in Hong Kong).
      *
      * @param translationSupplier Provides the translations for a desired [Locale].
+     * @param localeOrderDecider Decides in which order [Locale]s are processed to find a translation for a
+     *        given [ITranslatable].
      * @param primaryLocale The [Locale] to which the translator translates per default.
      * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for [primaryLocale]
      *        or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
@@ -284,7 +279,38 @@ interface IAtriumFactory {
      * @throws IllegalArgumentException in case [primaryLocale] or [fallbackLocales] have as language `no` or if they
      *         have: as language `zh`, country is not set and script is either `Hant` or `Hans`.
      */
-    fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+    fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+
+    /**
+     * Creates an [ITranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
+     * the structure of the properties files.
+     *
+     * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
+     * stored in a properties file named `DescriptionAnyAssertion_de_CH.properties` in the folder `/ch/tutteli/atrium/`.
+     * Moreover the files need to be encoded in ISO-8859-1 (restriction to be compatible with [ResourceBundle]).
+     *
+     * An entry in such a file would look like as follows:
+     * `TO_BE = a translation for TO_BE`
+     *
+     * @return The newly created translation supplier.
+     */
+    fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
+
+    /**
+     * Creates an [ILocaleOrderDecider] which decides in which order [Locale]s are processed to find a translation for a
+     * given [ITranslatable].
+     *
+     * It has to be compatible with [ResourceBundle.Control.getCandidateLocales] except for:
+     * - special case Norwegian; language `no` does not need to be considered, is not supported by
+     *   [ITranslator] (see [newTranslator] for more information).
+     * - special case Chinese; language `zh` with script `Hant` or `Hans` without providing a country does not need to
+     *   be treated specially because [ITranslator] does not support it. However, it still has to set script to `Hant`
+     *   or `Hans` in case script is not defined by the user but country was.
+     *
+     * @return The newly created [Locale] order decider.
+     */
+    fun newLocaleOrderDecider(): ILocaleOrderDecider
+
 
     /**
      * Creates an [IObjectFormatter] which represents objects by using their [Object.toString] representation
