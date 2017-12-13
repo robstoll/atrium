@@ -472,7 +472,7 @@ Writing one is very simple and a pull request of your new assertion function is 
 Following an example:
 
 ```kotlin
-fun IAssertionPlant<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
+fun Assert<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
     Untranslatable("is multiple of"), base, { subject % base == 0 })
 ```
 and its usage:
@@ -484,12 +484,15 @@ assert(12).isMultipleOf(5)
 ```
 
 Let's see how we actually defined `isMultipleOf`. 
-First of, you need to know that `IAssertionPlant<T>` is the entry point for assertion functions.
+First of all, you need to know that `Assert` is a typealias for `IAssertionPlant<T>` which in turn is the entry point for assertion functions.
 We get an `IAssertionPlant<Int>` when calling `assert(12)` and an `IAssertionPlant<String>` for `assert("hello")`.
 In our case we want to define the assertion function only for `subject`s of type `Int` 
 hence we define `isMultipleOf` as 
 [extension function](https://kotlinlang.org/docs/reference/extensions.html)
-of `IAssertionPlant<Int>`.
+of `Assert<Int>`. You could have written the extension for `IAssertionPlant<Int>` which is exactly the same. 
+Whether you prefer `Assert` or `IAssertionPlant` is up to you, 
+though we recommend to use `Assert` for API functions and `IAssertionPlant` in other cases 
+(such as impl-functions, see [API in a different Language](#api-in-a-different-language) for instance). 
 We then use the method `createAndAddAssertion` (which is provided by `IAssertionPlant`) to create the assertion, 
 add it to the plant itself 
 and return the plant to support a fluent API. 
@@ -508,7 +511,7 @@ But not all assertion functions require a value which is somehow compared agains
 Consider the following assertion function:
 
 ```kotlin
-fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
+fun Assert<Int>.isEven() = createAndAddAssertion(
     DescriptionBasic.IS, RawString("an even number"), { subject % 2 == 0 })
 ```
 We are using a [RawString](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
@@ -576,7 +579,7 @@ The difference lies in the first argument passed to `createAndAddAssertion`; we 
 `ITranslatable`. 
 
 ```kotlin
-fun IAssertionPlant<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
+fun Assert<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
     DescriptionIntAssertions.IS_MULTIPLE_OF, base, { subject % base == 0 })
     
 enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
@@ -615,7 +618,7 @@ Hence, if you need this feature, then please let me know it by writing a
 Let us rewrite the `isEven` assertion function from the section [Write own Assertion Functions](#write-own-assertion-functions)
 as second example:
 ```kotlin
-fun IAssertionPlant<Int>.isEven() = createAndAddAssertion(
+fun Assert<Int>.isEven() = createAndAddAssertion(
     DescriptionCommon.IS, TranslatableRawString(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
 
 enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
@@ -641,11 +644,12 @@ fun _isMultipleOf(plant: IAssertionPlant<Int>, base: Int) =
     BasicAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
 ```
 Notice that it is not an extension function as before 
-because we do not want to pollute the API of `IAssertionPlant<Int>` with this function.
+because we do not want to pollute the API of `IAssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
+We typically use `IAssertionPlant` for impl-functions and `Assert` for API functions.  
 
 In the API module we define the extension function and call the impl-function:
 ```kotlin
-fun IAssertionPlant<Int>.isMultipleOf(base: Int)
+fun Assert<Int>.isMultipleOf(base: Int)
     = addAssertion(_isMultipleOf(this, base))
 ```
 We do no longer have to create the assertion as in the example of
@@ -654,7 +658,7 @@ Therefore we use the `addAssertion` method and call the impl-function which will
 
 You are ready to go, creating an API in a different language -- e.g. in German -- is now only a routine piece of work:
 ```kotlin
-fun IAssertionPlant<Int>.istVielfachesVon(base: Int)
+fun Assert<Int>.istVielfachesVon(base: Int)
     = addAssertion(_isMultipleOf(this, base))
 ```
 
