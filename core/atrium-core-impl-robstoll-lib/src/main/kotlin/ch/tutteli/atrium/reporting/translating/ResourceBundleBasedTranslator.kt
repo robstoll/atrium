@@ -23,7 +23,7 @@ import java.util.*
  */
 class ResourceBundleBasedTranslator(
     primaryLocale: Locale,
-    vararg fallbackLocales: Locale
+    fallbackLocales: Array<out Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
     override fun translateWithoutArgs(translatable: ITranslatable): String {
@@ -37,5 +37,21 @@ class ResourceBundleBasedTranslator(
             }
         }
         return translatable.getDefault()
+    }
+
+    companion object {
+        /**
+         * Creates a [ResourceBundleBasedTranslator] and aggregates it with a [ResourceBundle.Control] which either
+         * makes use of the given [fallbackLocales] if provided or uses only the given [primaryLocale].
+         *
+         * @param primaryLocale The primary [Locale] which will be used in [java.lang.String.format] to substitute the
+         *        placeholders in the resulting translation of [ITranslatableWithArgs.translatable] with
+         *        the [ITranslatableWithArgs.arguments].
+         * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
+         *        [primaryLocale] or one of its secondary alternatives -- the [fallbackLocales] are used in the
+         *        given order.
+         */
+        fun create(primaryLocale: Locale, vararg fallbackLocales: Locale)
+            = ResourceBundleBasedTranslator(primaryLocale, fallbackLocales)
     }
 }
