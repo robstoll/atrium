@@ -36,14 +36,14 @@ class LocaleOrderDeciderSpec : Spek({
         describe(localeWithDe) {
             it("returns $localeWithDe and Locale.ROOT") {
                 val result = testee.determineOrder(localeDe, emptyArray()).asIterable()
-                assert(result).containsStrictly(localeDe, Locale.ROOT)
+                assert(result).containsStrictly(localeDe)
             }
         }
 
         describe(localeWithDeCh) {
             it("returns $localeWithDeCh, $localeWithDe and Locale.ROOT") {
                 val result = testee.determineOrder(localeDeCh, emptyArray()).asIterable()
-                assert(result).containsStrictly(localeDeCh, localeDe, Locale.ROOT)
+                assert(result).containsStrictly(localeDeCh, localeDe)
             }
         }
 
@@ -54,7 +54,7 @@ class LocaleOrderDeciderSpec : Spek({
                 + "$localeWithDe, "
                 + "and Locale.ROOT") {
                 val result = testee.determineOrder(localeDeChVariantA, emptyArray()).asIterable()
-                assert(result).containsStrictly(localeDeChVariantA, localeDeCh, localeDe, Locale.ROOT)
+                assert(result).containsStrictly(localeDeChVariantA, localeDeCh, localeDe)
             }
         }
 
@@ -70,8 +70,7 @@ class LocaleOrderDeciderSpec : Spek({
                       localeDeChVariantAVariantB
                     , localeDeChVariantA
                     , localeDeCh
-                    , localeDe
-                    , Locale.ROOT)
+                    , localeDe)
             }
         }
 
@@ -91,8 +90,7 @@ class LocaleOrderDeciderSpec : Spek({
                     , localeDeChVariantAScriptLatnBuilder.setRegion("").build()
                     , localeDeChVariantA
                     , localeDeCh
-                    , localeDe
-                    , Locale.ROOT)
+                    , localeDe)
             }
         }
     }

@@ -1,9 +1,18 @@
 package ch.tutteli.atrium.reporting.translating
 
+import ch.tutteli.atrium.IAtriumFactory
 import java.util.*
 
 /**
  * Responsible to decide in which order [Locale]s should be processed.
+ *
+ * It has to be compatible with [ResourceBundle.Control.getCandidateLocales] except for:
+ * - special case Norwegian; language `no` does not need to be considered, is not supported by
+ *   [ITranslator] (see [IAtriumFactory.newTranslator] for more information).
+ * - special case Chinese; language `zh` with script `Hant` or `Hans` without providing a country does not need to
+ *   be treated specially because [ITranslator] does not support it. However, it still has to set script to `Hant`
+ *   or `Hans` in case script is not defined by the user but country was.
+ * - [Locale.ROOT] which should not be a candidate at all.
  */
 interface ILocaleOrderDecider {
     /**

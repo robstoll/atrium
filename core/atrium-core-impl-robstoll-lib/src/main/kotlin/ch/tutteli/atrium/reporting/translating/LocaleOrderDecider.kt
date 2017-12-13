@@ -27,7 +27,6 @@ class LocaleOrderDecider : ILocaleOrderDecider {
             "zh" -> specialCaseChinese(locale)
             else -> normalCase(locale)
         }
-        yield(Locale.ROOT)
     }
 
     private suspend fun SequenceBuilder<Locale>.specialCaseChinese(locale: Locale) {

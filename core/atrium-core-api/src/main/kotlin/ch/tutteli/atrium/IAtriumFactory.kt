@@ -228,44 +228,8 @@ interface IAtriumFactory {
      * An implementation based on [ResourceBundle] would still take Locale.ROOT into account but apply it before the
      * defined [fallbackLocales] have been considered.
      *
-     * It shall be more or less compatible with [ResourceBundle] in terms of how candidate [Locale]s are determined
-     * (which is actually the responsibility of [localeOrderDecider]).
-     * So, more or less the same rules apply as described in [ResourceBundle.Control.getCandidateLocales].
-     * However, it shall apply an extended fallback mechanism. In case not a single properties file could be found
-     * for one of the candidate [Locale]s, then instead of falling back to [Locale.getDefault] (as [ResourceBundle]
-     * would do per default), one shall be able to specify fallback [Locale]s oneself. Whether this includes
-     * [Locale.getDefault] or not is up to the user of Atrium.
-     * Moreover, the fallback even applies if a properties file for one of the candidate [Locale]s is specified but does
-     * not contain the property which we are looking for ([ResourceBundle] would throw a [MissingResourceException] in
-     * such a case).
-     *
-     * Following an example. `de_CH` is used as [primaryLocale] and `fr_CH` as [fallbackLocales].
-     * We are looking for the translation of `DescriptionAnyAssertions.TO_BE`. The following files exists:
-     *
-     * *DescriptionAnyAssertions_de_CH.properties* with NOT_WHAT_WE_ARE_LOOKING_FOR = foo
-     * *DescriptionAnyAssertions_fr.properties* with TO_BE = est
-     *
-     * The resolution would be as follows:
-     * - de_CH
-     * - de
-     * - ROOT
-     * - fr_CH
-     * - fr => found
-     * - ROOT (not processed anymore)
-     *
-     * Notice, that a [ITranslator] should treat the two special cases Norwegian and Chinese differently than
-     * [ResourceBundle] suggests (the actual implementation for Java seems to be buggy anyway).
-     *
-     * A [ITranslator] should not support [Locale]s with [language][Locale.getLanguage] equal to `no` and
-     * should throw an [IllegalArgumentException] instead.
-     * A user has to use either `nn` (for Nynorsk) or `nb` (for Bokmål). One can still define the other Locale as
-     * fallback, which effectively makes the ambiguous `no` Locale obsolete. As an example, one can define `nn_NO` as
-     * [primaryLocale] and `nb_NO` as [fallbackLocales].
-     *
-     * Furthermore it should throw an [IllegalArgumentException] in case one has specified `zh` as language, did not
-     * define a country but script `Hant` or script `Hans`.
-     * A user should use a corresponding country instead and only provide a script in case one wants to be explicit to
-     * avoid ambiguity (e.g., zh-Hans_HK for Chinese in simplified script in Hong Kong).
+     * Please refer to the documentation of [ITranslator] to see to which extend a translator has to be compatible
+     * with [ResourceBundle].
      *
      * @param translationSupplier Provides the translations for a desired [Locale].
      * @param localeOrderDecider Decides in which order [Locale]s are processed to find a translation for a
@@ -300,12 +264,8 @@ interface IAtriumFactory {
      * Creates an [ILocaleOrderDecider] which decides in which order [Locale]s are processed to find a translation for a
      * given [ITranslatable].
      *
-     * It has to be compatible with [ResourceBundle.Control.getCandidateLocales] except for:
-     * - special case Norwegian; language `no` does not need to be considered, is not supported by
-     *   [ITranslator] (see [newTranslator] for more information).
-     * - special case Chinese; language `zh` with script `Hant` or `Hans` without providing a country does not need to
-     *   be treated specially because [ITranslator] does not support it. However, it still has to set script to `Hant`
-     *   or `Hans` in case script is not defined by the user but country was.
+     * Please refer to the documentation of [ILocaleOrderDecider] to see to which extend a translator has to be
+     * compatible with [ResourceBundle].
      *
      * @return The newly created [Locale] order decider.
      */
