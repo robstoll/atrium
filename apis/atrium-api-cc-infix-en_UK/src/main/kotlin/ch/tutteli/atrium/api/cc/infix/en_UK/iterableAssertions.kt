@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.assertions._containsBuilder
 import ch.tutteli.atrium.assertions._containsNot
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -11,7 +12,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @return The newly created builder.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
+infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
     = _containsBuilder(this)
 
 /**
@@ -22,7 +23,7 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.to(@Suppress("UNUSED_PARAMETER
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E)
+infix fun <E, T : Iterable<E>> Assert<T>.contains(expected: E)
     = this to contain inAny order atLeast 1 value expected
 
 /**
@@ -42,7 +43,7 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(expected: E)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(values: Values<E>): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): IAssertionPlant<T>
     = this to contain inAny order atLeast 1 the values
 
 /**
@@ -62,7 +63,7 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(values: Values<E>): I
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(objects: Objects<E>): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.contains(objects: Objects<E>): IAssertionPlant<T>
     = this to contain inAny order atLeast 1 the objects
 
 /**
@@ -74,7 +75,7 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.contains(objects: Objects<E>):
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.contains(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
 /**
@@ -87,7 +88,7 @@ infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.contains(assertionCreato
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.contains(entries: Entries<E>): IAssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): IAssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
 
@@ -99,7 +100,7 @@ infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.contains(entries: Entrie
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(expected: E): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): IAssertionPlant<T>
     = this to contain inGiven order but only value expected
 
 /**
@@ -110,7 +111,7 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(expected: E):
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(values: Values<E>): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): IAssertionPlant<T>
     = this to contain inGiven order but only the values
 
 /**
@@ -121,7 +122,7 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(values: Value
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(objects: Objects<E>): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(objects: Objects<E>): IAssertionPlant<T>
     = this to contain inGiven order but only the objects
 
 /**
@@ -133,7 +134,7 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(objects: Obje
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = this to contain inGiven order but only entry assertionCreator
 
 /**
@@ -146,7 +147,7 @@ infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(asserti
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(entries: Entries<E>): IAssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): IAssertionPlant<T>
     = this to contain inGiven order but only the entries
 
 
@@ -158,7 +159,7 @@ infix fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.containsStrictly(entries
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(expected: E): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): IAssertionPlant<T>
     = this containsNot Objects(expected)
 
 /**
@@ -169,7 +170,7 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(expected: E): IAss
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(values: Values<E>): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): IAssertionPlant<T>
     = this containsNot Objects(values)
 
 /**
@@ -178,5 +179,5 @@ infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(values: Values<E>)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IAssertionPlant<T>.containsNot(objects: Objects<E>): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsNot(objects: Objects<E>): IAssertionPlant<T>
     = addAssertion(_containsNot(this, objects.expected, objects.otherExpected))

@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.reporting.IReporter
@@ -15,7 +16,7 @@ import ch.tutteli.atrium.reporting.IReporter
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any> IAssertionPlant<T>.toBe(expected: T): IAssertionPlant<T>
+infix fun <T : Any> Assert<T>.toBe(expected: T): IAssertionPlant<T>
     = addAssertion(_toBe(this, expected))
 
 /**
@@ -27,7 +28,7 @@ infix fun <T : Any> IAssertionPlant<T>.toBe(expected: T): IAssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any> IAssertionPlant<T>.notToBe(expected: T): IAssertionPlant<T>
+infix fun <T : Any> Assert<T>.notToBe(expected: T): IAssertionPlant<T>
     = addAssertion(_notToBe(this, expected))
 
 /**
@@ -39,7 +40,7 @@ infix fun <T : Any> IAssertionPlant<T>.notToBe(expected: T): IAssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any> IAssertionPlant<T>.isSame(expected: T): IAssertionPlant<T>
+infix fun <T : Any> Assert<T>.isSame(expected: T): IAssertionPlant<T>
     = addAssertion(_isSame(this, expected))
 
 /**
@@ -51,7 +52,7 @@ infix fun <T : Any> IAssertionPlant<T>.isSame(expected: T): IAssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any> IAssertionPlant<T>.isNotSame(expected: T): IAssertionPlant<T>
+infix fun <T : Any> Assert<T>.isNotSame(expected: T): IAssertionPlant<T>
     = addAssertion(_isNotSame(this, expected))
 
 /**
