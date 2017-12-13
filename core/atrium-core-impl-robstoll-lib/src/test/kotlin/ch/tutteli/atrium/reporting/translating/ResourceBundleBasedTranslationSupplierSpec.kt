@@ -7,7 +7,7 @@ import java.util.*
 class ResourceBundleBasedTranslationSupplierSpec : ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec(
     AssertionVerbFactory,
     ReporterBuilder
-        .withTranslator(ResourceBundleBasedTranslator.create(Locale("de", "CH"), Locale("fr")))
+        .withTranslator(ResourceBundleBasedTranslator(Locale("de", "CH"), Locale("fr")))
         .withDetailedObjectFormatter()
         .withDefaultAssertionFormatterController()
         .withDefaultAssertionFormatterFacade()
