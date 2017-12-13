@@ -8,7 +8,9 @@ import java.util.*
 object PropertiesPerEntityAndLocaleTranslationSupplierSpec : TranslationSupplierSpec(
     AssertionVerbFactory,
     ReporterBuilder
-        .withDefaultTranslator(PropertiesPerEntityAndLocaleTranslationSupplier(), Locale("de", "CH"), Locale("fr"))
+        .withTranslationSupplier(PropertiesPerEntityAndLocaleTranslationSupplier())
+        .withDefaultLocaleOrderDecider()
+        .withDefaultTranslator(Locale("de", "CH"), Locale("fr"))
         .withDetailedObjectFormatter()
         .withDefaultAssertionFormatterController()
         .withDefaultAssertionFormatterFacade()

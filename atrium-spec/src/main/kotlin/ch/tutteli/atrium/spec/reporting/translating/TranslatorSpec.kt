@@ -1,10 +1,8 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
+import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.*
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import com.nhaarman.mockito_kotlin.doReturn
@@ -18,7 +16,7 @@ import java.util.*
 
 abstract class TranslatorSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (translationSupplier: ITranslationSupplier, locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator,
+    testeeFactory: (translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -26,7 +24,7 @@ abstract class TranslatorSpec(
         = describeFun(describePrefix, funName, body = body)
 
     fun testeeFactory(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)
-        = testeeFactory(translationSupplier, locale, fallbackLocals)
+        = testeeFactory(translationSupplier, AtriumFactory.newLocaleOrderDecider(), locale, fallbackLocals)
 
     fun mockTranslationProvider(locale: Locale, translatable: ITranslatable, translation: String): ITranslationSupplier {
         return mock {

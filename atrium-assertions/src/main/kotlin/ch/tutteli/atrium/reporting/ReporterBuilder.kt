@@ -24,13 +24,16 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
         = factory(assertionFormatterFacade)
 
     /**
-     * Provides options to create an [ITranslator].
+     * Provides options to create an [ITranslator] or [ITranslationSupplier].
      */
     companion object {
 
         /**
          * Uses [UsingDefaultTranslator] as [ITranslator] where the given [primaryLocale] is used to format arguments
          * of [ITranslatableWithArgs].
+         *
+         * [UsingDefaultTranslator] does not require an [ITranslationSupplier] nor an [ILocaleOrderDecider] and thus
+         * the options to specify implementations of them are skipped.
          *
          * Notice that [UsingDefaultTranslator] does not translate but uses what [ITranslatable.getDefault] returns.
          * Also notice, that if you omit the [primaryLocale] then [Locale.getDefault] is used.
@@ -41,36 +44,25 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
             = ObjectFormatterOptions(UsingDefaultTranslator(primaryLocale))
 
         /**
-         * Uses [AtriumFactory.newTranslator] as [ITranslator] and [AtriumFactory.newPropertiesBasedTranslationSupplier]
-         * as its [ITranslationSupplier]. It uses the [primaryLocale] as primary [Locale] and the optional
-         * [fallbackLocales] as fallback [Locale]s.
-         *
-         * @param primaryLocale The [Locale] for which the [ITranslator] will first search translations --
-         *        it will also be used to format arguments of [ITranslatableWithArgs].
-         * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
-         *        in case no translation was found the previous primary Locale.
-         */
-        fun withDefaultTranslatorAndSupplier(primaryLocale: Locale, vararg fallbackLocales: Locale)
-            = withDefaultTranslator(AtriumFactory.newPropertiesBasedTranslationSupplier(), primaryLocale, *fallbackLocales)
-
-        /**
-         * Uses [AtriumFactory.newTranslator] as [ITranslator] where the given [translationSupplier] is used retrieve
-         * translations, [primaryLocale] is used as primary [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
-         *
-         * @param translationSupplier The supplier which provides translations for [ITranslatable].
-         * @param primaryLocale The [Locale] for which the [ITranslator] will first search translations --
-         *        it will also be used to format arguments of [ITranslatableWithArgs].
-         * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
-         *        in case no translation was found the previous primary Locale.
-         */
-        fun withDefaultTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale)
-            = ObjectFormatterOptions(AtriumFactory.newTranslator(translationSupplier, primaryLocale, *fallbackLocales))
-
-        /**
-         * Uses the given [translator] as [ITranslator].
+         * Uses the given [translator] as [ITranslator] skipping the options for [ITranslationSupplier] and
+         * [ILocaleOrderDecider] assuming the given [translator] is implemented differently -- use
+         * [withDefaultTranslationSupplier] or [withTranslationSupplier] in case the given [translator] requires
+         * an [ITranslationSupplier] or an [ILocaleOrderDecider].
          */
         fun withTranslator(translator: ITranslator)
             = ObjectFormatterOptions(translator)
+
+        /**
+         * Uses [AtriumFactory.newPropertiesBasedTranslationSupplier] as [ITranslationSupplier].
+         */
+        fun withDefaultTranslationSupplier()
+            = LocaleOrderDeciderOptions(AtriumFactory.newPropertiesBasedTranslationSupplier())
+
+        /**
+         * Uses the given [translationSupplier] as [ITranslationSupplier].
+         */
+        fun withTranslationSupplier(translationSupplier: ITranslationSupplier)
+            = LocaleOrderDeciderOptions(translationSupplier)
 
         /**
          * Deprecated do not use it any longer and replace it with suggestion instead.
@@ -85,6 +77,43 @@ class ReporterBuilder(private val assertionFormatterFacade: IAssertionFormatterF
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
+    }
+
+    class LocaleOrderDeciderOptions(private val translationSupplier: ITranslationSupplier) {
+
+        /**
+         * Uses [AtriumFactory.newLocaleOrderDecider] as [ILocaleOrderDecider].
+         */
+        fun withDefaultLocaleOrderDecider()
+            = TranslatorOptions(translationSupplier, AtriumFactory.newLocaleOrderDecider())
+
+        /**
+         * Uses [localeOrderDecider] as [ILocaleOrderDecider].
+         */
+        fun withLocaleOrderDecider(localeOrderDecider: ILocaleOrderDecider)
+            = TranslatorOptions(translationSupplier, localeOrderDecider)
+    }
+
+    class TranslatorOptions(private val translationSupplier: ITranslationSupplier, private val localeOrderDecider: ILocaleOrderDecider) {
+
+        /**
+         * Uses [AtriumFactory.newTranslator] as [ITranslator] where the specified [translationSupplier] is used to
+         * retrieve translations, the specified [localeOrderDecider] to determine candidate [Locale]s and
+         * [primaryLocale] is used as primary [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
+         *
+         * @param primaryLocale The [Locale] for which the [ITranslator] will first search translations --
+         *        it will also be used to format arguments of [ITranslatableWithArgs].
+         * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
+         *        in case no translation was found the previous primary Locale.
+         */
+        fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale)
+            = ObjectFormatterOptions(AtriumFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales))
+
+        /**
+         * Uses the given [factory] to build a [ITranslator].
+         */
+        fun withTranslator(factory: (ITranslationSupplier, ILocaleOrderDecider) -> ITranslator)
+            = ObjectFormatterOptions(factory(translationSupplier, localeOrderDecider))
     }
 
     /**

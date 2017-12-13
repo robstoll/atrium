@@ -4,10 +4,12 @@ import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
 import ch.tutteli.atrium.reporting.translating.ITranslator
 import java.util.*
 
+@Suppress("UNUSED_PARAMETER")
 /**
  * A dummy implementation of [IAtriumFactory] which should be replaced by an actual implementation.
  *
@@ -16,13 +18,14 @@ import java.util.*
  * - [IAssertionChecker]
  * - [IMethodCallFormatter]
  * - [ITranslator]
+ * - [ITranslationSupplier]
+ * - [ILocaleOrderDecider]
  * - [IObjectFormatter]
  * - [IAssertionFormatterFacade]
  * - [IAssertionFormatterController]
  * - [IAssertionFormatter]
  * - [IReporter]
  */
-@Suppress("UNUSED_PARAMETER")
 object AtriumFactory : IAtriumFactory {
 
     private const val ERROR_MSG = "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
@@ -52,10 +55,13 @@ object AtriumFactory : IAtriumFactory {
     override fun newMethodCallFormatter(): IMethodCallFormatter
         = throwUnsupportedOperationException()
 
+    override fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+        = throwUnsupportedOperationException()
+
     override fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
         = throwUnsupportedOperationException()
 
-    override fun newTranslator(translationSupplier: ITranslationSupplier, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+    override fun newLocaleOrderDecider(): ILocaleOrderDecider
         = throwUnsupportedOperationException()
 
     override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
