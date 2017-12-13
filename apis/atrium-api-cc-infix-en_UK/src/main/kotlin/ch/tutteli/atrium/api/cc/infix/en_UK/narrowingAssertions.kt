@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions._isA
 import ch.tutteli.atrium.assertions._isNotNull
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 
@@ -29,6 +30,6 @@ infix inline fun <reified T : Any> IAssertionPlantNullable<T?>.notToBeNull(noinl
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix inline fun <reified TSub : Any> IAssertionPlant<Any>.isA(noinline assertionCreator: IAssertionPlant<TSub>.() -> Unit) {
+infix inline fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: IAssertionPlant<TSub>.() -> Unit) {
     _isA(this, assertionCreator)
 }

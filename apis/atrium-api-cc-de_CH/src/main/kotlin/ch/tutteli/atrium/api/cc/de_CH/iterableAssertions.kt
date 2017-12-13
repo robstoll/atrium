@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions._containsBuilder
 import ch.tutteli.atrium.assertions._containsNot
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -12,7 +13,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt
+val <E, T : Iterable<E>> Assert<T>.enthaelt
     get(): IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
     = _containsBuilder(this)
 
@@ -33,7 +34,7 @@ val <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).objekte(expected, *otherExpected)
 
 /**
@@ -46,7 +47,7 @@ fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaelt(expected: E, vararg otherEx
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any, T : Iterable<E>> IAssertionPlant<T>.enthaelt(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E: Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
@@ -58,7 +59,7 @@ fun <E: Any, T : Iterable<E>> IAssertionPlant<T>.enthaelt(assertionCreator: IAss
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.objekte(expected, *otherExpected)
 
 /**
@@ -71,7 +72,7 @@ fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaeltStrikt(expected: E, vararg o
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.enthaeltStrikt(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
@@ -81,5 +82,5 @@ fun <E : Any, T : Iterable<E>> IAssertionPlant<T>.enthaeltStrikt(assertionCreato
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IAssertionPlant<T>.enthaeltNicht(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E): IAssertionPlant<T>
     = addAssertion(_containsNot(this, expected, otherExpected))
