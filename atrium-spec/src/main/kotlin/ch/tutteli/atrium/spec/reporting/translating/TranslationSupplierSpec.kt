@@ -85,16 +85,14 @@ abstract class TranslationSupplierSpec(
                 }
             }
 
-
-            //TODO ResourceBundleBasedTranslationSupplier should look for fallback even if a file for the primary bundle is specified.
-//            describe("translation for $descriptionAnyAssertion.${DescriptionAnyAssertion.IS_NOT_SAME} is provided 'fr'") {
-//                val text = "n'est pas la même instance que"
-//                it("a failing assertion contains '$text' instead of 'assert' in the error message") {
-//                    verbs.checkException {
-//                        assert(1).isNotSame(1)
-//                    }.toThrow<AssertionError> { message { contains("$text: 1") } }
-//                }
-//            }
+            describe("translation for $descriptionAnyAssertion.${DescriptionAnyAssertion.IS_NOT_SAME} is provided 'fr'") {
+                val text = "n'est pas la même instance que"
+                it("a failing assertion contains '$text' instead of 'assert' in the error message") {
+                    verbs.checkException {
+                        assert(1).isNotSame(1)
+                    }.toThrow<AssertionError> { message { contains("$text: 1") } }
+                }
+            }
         }
 
         context("properties file for ${AssertionVerb::class.simpleName} is not provided for 'de_CH' nor one of its parents") {
