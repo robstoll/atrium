@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
-import ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec
+import ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierIntSpec
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
@@ -35,7 +35,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
         BasicAssertion(AssertionVerb.ASSERT, 1, true),
         BasicAssertion(AssertionVerb.EXPECT_THROWN, 2, true)
     )
-    val listAssertionGroup = AssertionGroup(anonymousAssertionGroupType, TranslationSupplierSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
+    val listAssertionGroup = AssertionGroup(anonymousAssertionGroupType, TranslationSupplierIntSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
 
     prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
         val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())

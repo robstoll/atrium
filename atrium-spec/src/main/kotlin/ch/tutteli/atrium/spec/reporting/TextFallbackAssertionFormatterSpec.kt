@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.IS_SAME
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
 import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.IObjectFormatter
@@ -14,8 +13,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
-import ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec
-import org.jetbrains.spek.api.Spek
+import ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierIntSpec
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
@@ -67,7 +65,7 @@ abstract class TextFallbackAssertionFormatterSpec(
             it("uses the system line separator to separate the assertions") {
                 facade.format(object : IAssertionGroup {
                     override val type = RootAssertionGroupType
-                    override val name = TranslationSupplierSpec.TestTranslatable.DATE_KNOWN
+                    override val name = TranslationSupplierIntSpec.TestTranslatable.DATE_KNOWN
                     override val subject = sb
                     override val assertions = listOf(
                         BasicAssertion(IS_SAME, "b", false),

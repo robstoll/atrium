@@ -15,12 +15,8 @@ import java.util.*
  */
 class PropertiesPerLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<Locale>() {
 
-    override fun get(translatable: ITranslatable, locale: Locale): String? {
-        val name = if (locale != Locale.ROOT) {
-            this::class.java.`package`.name + ".Atrium_" + locale.toString()
-        } else {
-            this::class.java.`package`.name + ".Atrium"
-        }
+    override fun getNotForRoot(translatable: ITranslatable, locale: Locale): String? {
+        val name = this::class.java.`package`.name + ".Atrium_" + locale.toString()
         val translations = getOrLoadProperties(locale, name, { it })
         return translations[translatable.id]
     }

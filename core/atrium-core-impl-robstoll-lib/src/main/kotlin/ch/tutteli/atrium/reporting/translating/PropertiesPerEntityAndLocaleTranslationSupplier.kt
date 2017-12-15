@@ -15,14 +15,10 @@ import java.util.*
  */
 class PropertiesPerEntityAndLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<String>() {
 
-    override fun get(translatable: ITranslatable, locale: Locale): String? {
+    override fun getNotForRoot(translatable: ITranslatable, locale: Locale): String? {
         val qualifiedName = translatable::class.java.name
-        val key = if (locale != Locale.ROOT) {
-            //using _ here to be compatible with ResourceBundle
-            qualifiedName + "_" + locale.toString()
-        } else {
-            qualifiedName
-        }
+        //using _ here to be compatible with ResourceBundle
+        val key = qualifiedName + "_" + locale.toString()
         val translations = getOrLoadProperties(key, key, { qualifiedName + ITranslatable.ID_SEPARATOR + it })
         return translations[translatable.id]
     }
