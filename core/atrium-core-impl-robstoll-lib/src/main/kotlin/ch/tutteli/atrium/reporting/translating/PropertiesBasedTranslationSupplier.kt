@@ -18,6 +18,23 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
      */
     private val translations = ConcurrentHashMap<T, Map<String, String>>()
 
+    override final fun get(translatable: ITranslatable, locale: Locale): String? {
+        require(locale != Locale.ROOT) {
+            "Locale.ROOT is not supported -- most likely a bug in the chosen implementation of ${ILocaleOrderDecider::class.simpleName}"
+        }
+        return getNotForRoot(translatable, locale)
+    }
+
+    /**
+     * Returns the translation for the given [translatable] and the given [locale] or `null` if it does not have
+     * any translation.
+     *
+     * It does not have to check if [locale] is [Locale.ROOT] anymore, this is already done in [get].
+     *
+     * @return The translation or null if no translation was found.
+     */
+    protected abstract fun getNotForRoot(translatable: ITranslatable, locale: Locale): String?
+
     /**
      * Gets the cached [Properties] content as [Map] for the given [key] or
      * loads the properties file with the given [name] and creates a map out of it using the given [keyCreator]
