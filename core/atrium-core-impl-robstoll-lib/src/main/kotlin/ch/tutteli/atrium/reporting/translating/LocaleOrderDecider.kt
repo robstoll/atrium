@@ -11,14 +11,13 @@ import kotlin.coroutines.experimental.buildSequence
  * Adopted from [ResourceBundle.Control.getCandidateLocales] and [ResourceBundle.Control.getFallbackLocale]
  * but allows to define more than one fallback [Locale] and does not use [Locale.getDefault] implicitly
  * (one can define it explicitly as fallback [Locale] though).
+ *
+ * There are further differences -- e.g., it does not return [Locale.ROOT] -- for more information,
+ * have a look at [ILocaleOrderDecider].
  */
 class LocaleOrderDecider : ILocaleOrderDecider {
     override fun determineOrder(primaryLocale: Locale, fallbackLocales: Array<out Locale>) = buildSequence {
-        suspendedResolve(primaryLocale, fallbackLocales)
-    }
-
-    private suspend fun SequenceBuilder<Locale>.suspendedResolve(locale: Locale, fallbackLocales: Array<out Locale>) {
-        internalResolve(locale)
+        internalResolve(primaryLocale)
         fallbackLocales.forEach { internalResolve(it) }
     }
 
@@ -30,14 +29,14 @@ class LocaleOrderDecider : ILocaleOrderDecider {
     }
 
     private suspend fun SequenceBuilder<Locale>.specialCaseChinese(locale: Locale) {
-        var script = locale.script
-        if (script.isEmpty() && locale.country.isNotEmpty()) {
-            // Supply script for users who want to use zh-Hans/zh-Hant as bundle names (recommended for Java7+)
-            script = when (locale.country) {
+        val script = if (locale.script.isEmpty() && locale.country.isNotEmpty()) {
+            when (locale.country) {
                 "TW", "HK", "MO" -> "Hant"
                 "CN", "SG" -> "Hans"
                 else -> ""
             }
+        } else {
+            locale.script
         }
         normalCase(locale, script = script)
     }
@@ -47,25 +46,23 @@ class LocaleOrderDecider : ILocaleOrderDecider {
         language: String = locale.language,
         script: String = locale.script,
         country: String = locale.country,
-        variant: String = locale.variant,
-        createAdditional: suspend SequenceBuilder<Locale>.(locale: Locale) -> Unit = {}
+        variant: String = locale.variant
     ) {
-        fallbackDueToVariant(language, script, country, variant, createAdditional)
-        fallbackDueToCountry(language, script, country, createAdditional)
-        fallbackDueToScript(language, script, country, variant, createAdditional)
-        fallbackDueToLanguage(language, createAdditional)
+        fallbackDueToVariant(language, script, country, variant)
+        fallbackDueToCountry(language, script, country)
+        fallbackDueToScript(language, script, country, variant)
+        fallbackDueToLanguage(language)
     }
 
 
     private suspend fun SequenceBuilder<Locale>.fallbackDueToVariant(
-        language: String, script: String, country: String, variant: String,
-        createAdditional: suspend SequenceBuilder<Locale>.(locale: Locale) -> Unit
+        language: String, script: String, country: String, variant: String
     ) {
         if (variant.isNotEmpty()) {
             var newVariant = variant
             do {
                 val fallback = createLocale(language, script, country, newVariant)
-                yieldAndCreateAdditional(fallback, createAdditional)
+                yield(fallback)
                 newVariant = newVariant.substringBeforeLast('_', "")
             } while (newVariant.isNotEmpty())
         }
@@ -73,46 +70,34 @@ class LocaleOrderDecider : ILocaleOrderDecider {
 
 
     private suspend fun SequenceBuilder<Locale>.fallbackDueToCountry(
-        language: String, script: String, country: String,
-        createAdditional: suspend SequenceBuilder<Locale>.(locale: Locale) -> Unit
+        language: String, script: String, country: String
     ) {
         if (country.isNotEmpty()) {
             val fallback = createLocale(language, script, country, "")
-            yieldAndCreateAdditional(fallback, createAdditional)
+            yield(fallback)
         }
     }
 
     private suspend fun SequenceBuilder<Locale>.fallbackDueToScript(
-        language: String, script: String, country: String, variant: String,
-        createAdditional: suspend SequenceBuilder<Locale>.(locale: Locale) -> Unit
+        language: String, script: String, country: String, variant: String
     ) {
         if (script.isNotEmpty()) {
             val fallback = createLocale(language, script, "", "")
-            yieldAndCreateAdditional(fallback, createAdditional)
+            yield(fallback)
 
             // fallback variants without considering script
-            fallbackDueToVariant(language, "", country, variant, createAdditional)
+            fallbackDueToVariant(language, "", country, variant)
 
             // fallback country without considering script
-            fallbackDueToCountry(language, "", country, createAdditional)
+            fallbackDueToCountry(language, "", country)
         }
     }
 
-    private suspend fun SequenceBuilder<Locale>.fallbackDueToLanguage(
-        language: String, createAdditional: suspend SequenceBuilder<Locale>.(locale: Locale) -> Unit
-    ) {
+    private suspend fun SequenceBuilder<Locale>.fallbackDueToLanguage(language: String) {
         if (language.isNotEmpty()) {
             val fallback = createLocale(language, "", "", "")
-            yieldAndCreateAdditional(fallback, createAdditional)
+            yield(fallback)
         }
-    }
-
-
-    private suspend fun SequenceBuilder<Locale>.yieldAndCreateAdditional(
-        fallback: Locale, createAdditional: suspend SequenceBuilder<Locale>.(locale: Locale) -> Unit
-    ) {
-        yield(fallback)
-        createAdditional(fallback)
     }
 
     private fun createLocale(language: String, script: String, country: String, variant: String): Locale
