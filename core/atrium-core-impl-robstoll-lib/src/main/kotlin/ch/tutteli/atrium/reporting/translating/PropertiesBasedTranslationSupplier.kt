@@ -42,7 +42,8 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
      *
      * @param key The key which identifies the [Properties]
      * @param fileName The fileName of the properties file without file extension, including the package in which it resides
-     *             as absolute path but without leading '/' (/ is prepended). Hence it is always searched with an
+     *             as absolute path (no '../' are allowed). In case it does not start with '/' (which would be a
+     *             relative path), then a '/' is prepended. Hence it is always searched with an
      *             absolute path -- which is the same behaviour as for a properties based [ResourceBundle].
      * @param keyCreator The function used to create keys of the resulting [Map] (in case the properties file needs
      *                   to be loaded). It is called passing in a key of a property of the properties file.
@@ -50,8 +51,12 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
      * @return A [Map] containing the resulting keys (based on the [Properties], see [keyCreator]) with its translations.
      */
     protected fun getOrLoadProperties(key: T, fileName: String, keyCreator: (String) -> String): Map<String, String> {
+        require(!fileName.contains("../")) {
+            "only absolute paths without any '../' are allowed"
+        }
         return this.translations.getOrPut(key, {
-            val file = this::class.java.getResourceAsStream("/$fileName.properties")
+            val absoluteFileName = if (fileName.startsWith('/')) fileName else "/$fileName";
+            val file = this::class.java.getResourceAsStream("$absoluteFileName.properties")
             if (file != null) {
                 val properties = Properties()
                 file.use {
