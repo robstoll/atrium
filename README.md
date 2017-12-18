@@ -212,7 +212,7 @@ about `Throwable::message`.
 data class Person(val name: String, val isStudent: Boolean)
 val myPerson = Person("Robert", false) 
 
-assert(myPerson) {
+assert(myPerson) { subject ->
     property(subject::name).toBe("Peter")
     property(subject::isStudent).isTrue()
 }
