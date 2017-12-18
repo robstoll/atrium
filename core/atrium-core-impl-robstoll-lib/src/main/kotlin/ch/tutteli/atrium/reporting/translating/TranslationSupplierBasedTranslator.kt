@@ -22,7 +22,7 @@ import java.util.*
  * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
  *        [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  */
-class Translator(
+class TranslationSupplierBasedTranslator(
     private val translationSupplier: ITranslationSupplier,
     private val localeOrderDecider: ILocaleOrderDecider,
     primaryLocale: Locale,
