@@ -4,27 +4,29 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
-import java.util.*
 
 class PropertiesPerLocaleTranslationSupplierSpec : Spek({
     include(AtriumsTranslationSupplierSpec)
-    include(AtriumsTranslationSupplierIntSpec)
+    include(AtriumsTranslationIntSpec)
 }) {
 
     object AtriumsTranslationSupplierSpec : ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec(
-        AssertionVerbFactory, ::PropertiesPerLocaleTranslationSupplier)
+        AssertionVerbFactory, ::PropertiesPerLocaleTranslationSupplier, "[Atrium's TranslationSupplierSpec] ")
 
-
-    object AtriumsTranslationSupplierIntSpec : ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierIntSpec(
+    object AtriumsTranslationIntSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec(
         AssertionVerbFactory,
-        ReporterBuilder
-            .withTranslationSupplier(PropertiesPerLocaleTranslationSupplier())
-            .withDefaultLocaleOrderDecider()
-            .withDefaultTranslator(Locale("de", "CH"), Locale("fr"))
-            .withDetailedObjectFormatter()
-            .withDefaultAssertionFormatterController()
-            .withDefaultAssertionFormatterFacade()
-            .withSameLineTextAssertionFormatter()
-            .buildOnlyFailureReporter()
+        { primaryLocale, fallbackLocales ->
+            ReporterBuilder
+                .withTranslationSupplier(PropertiesPerLocaleTranslationSupplier())
+                .withDefaultLocaleOrderDecider()
+                .withDefaultTranslator(primaryLocale, *fallbackLocales)
+                .withDetailedObjectFormatter()
+                .withDefaultAssertionFormatterController()
+                .withDefaultAssertionFormatterFacade()
+                .withSameLineTextAssertionFormatter()
+                .buildOnlyFailureReporter()
+        },
+        true,
+        "[Atrium's TranslationIntSpec] "
     )
 }

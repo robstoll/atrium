@@ -159,13 +159,6 @@ abstract class TranslatorSpec(
                 }
             }
         }
-
-        val localeZhWithScriptAndCountry = Locale.Builder().setLanguage("zh").setRegion("TW").setScript("Hant").build()
-        describe("translating a ${ITranslatable::class.simpleName} to $localeZhWithScriptAndCountry") {
-            context("translation provided in Locale zh_TW with script Hant") {
-
-            }
-        }
     }
 
 })
