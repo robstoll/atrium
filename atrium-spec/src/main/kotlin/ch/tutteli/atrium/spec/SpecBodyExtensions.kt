@@ -4,7 +4,7 @@ import ch.tutteli.kbox.joinToString
 import org.jetbrains.spek.api.dsl.SpecBody
 
 fun SpecBody.describeFun(describePrefix: String, funNames: Array<out String>, funNamePrefix: String = "`", funNameSuffix: String = "`", body: SpecBody.() -> Unit)
-    = prefixedDescribe(describePrefix, "fun ", giveWrappedNames(funNames, funNamePrefix, funNameSuffix), body)
+    = prefixedDescribe(describePrefix, " fun ", giveWrappedNames(funNames, funNamePrefix, funNameSuffix), body)
 
 fun SpecBody.describeProperty(describePrefix: String, propertyNames: Array<out String>, propertyNamePrefix: String = "`", propertyNameSuffix: String = "`", body: SpecBody.() -> Unit)
     = prefixedDescribe(describePrefix, "property ", giveWrappedNames(propertyNames, propertyNamePrefix, propertyNameSuffix), body)
