@@ -37,21 +37,21 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
 
     /**
      * Gets the cached [Properties] content as [Map] for the given [key] or
-     * loads the properties file with the given [name] and creates a map out of it using the given [keyCreator]
+     * loads the properties file with the given [fileName] and creates a map out of it using the given [keyCreator]
      * function to create the keys of the map, based on a key of a property.
      *
      * @param key The key which identifies the [Properties]
-     * @param name The name of the properties file, including the package in which it resides if necessary
-     *             but without file extension. It is always searched with an absolute path (/ is prepended)
-     *             -- the same behaviour as for a properties based [ResourceBundle]
+     * @param fileName The fileName of the properties file without file extension, including the package in which it resides
+     *             as absolute path but without leading '/' (/ is prepended). Hence it is always searched with an
+     *             absolute path -- which is the same behaviour as for a properties based [ResourceBundle].
      * @param keyCreator The function used to create keys of the resulting [Map] (in case the properties file needs
      *                   to be loaded). It is called passing in a key of a property of the properties file.
      *
      * @return A [Map] containing the resulting keys (based on the [Properties], see [keyCreator]) with its translations.
      */
-    protected fun getOrLoadProperties(key: T, name: String, keyCreator: (String) -> String): Map<String, String> {
+    protected fun getOrLoadProperties(key: T, fileName: String, keyCreator: (String) -> String): Map<String, String> {
         return this.translations.getOrPut(key, {
-            val file = this::class.java.getResourceAsStream("/${name.replace('.', '/')}.properties")
+            val file = this::class.java.getResourceAsStream("/$fileName.properties")
             if (file != null) {
                 val properties = Properties()
                 file.use {
@@ -64,5 +64,34 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
                 emptyMap()
             }
         })
+    }
+
+    /**
+     * Returns the name of the properties file without extension -- including the package (as prefixed relative path)
+     * in which it resides if necessary -- in which we expect to find a translation in the given [locale] for
+     * [baseName].
+     *
+     * The implementation is based on [ResourceBundle.Control.toBundleName].
+     * @param baseName Usually the [ITranslatable] or another identifier for which we are searching translations. Has to
+     *        contain the package name as well if necessary ('.' will be replaced with '/').
+     * @param locale The [Locale] for which we are searching a translation.
+     *
+     * @return The name of the properties file.
+     */
+    protected fun getFileNameFor(baseName: String, locale: Locale): String {
+        val sb = StringBuilder(baseName)
+            //using _ as separator to be compatible with ResourceBundle
+            .append('_').append(locale.language)
+
+        if (locale.script.isNotEmpty()) {
+            sb.append('_').append(locale.script)
+        }
+        if (locale.country.isNotEmpty()) {
+            sb.append('_').append(locale.country)
+        }
+        if (locale.variant.isNotEmpty()) {
+            sb.append('_').append(locale.variant)
+        }
+        return sb.toString().replace('.', '/')
     }
 }

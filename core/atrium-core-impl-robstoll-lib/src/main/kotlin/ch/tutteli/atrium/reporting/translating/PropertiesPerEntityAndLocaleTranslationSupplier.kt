@@ -17,9 +17,8 @@ class PropertiesPerEntityAndLocaleTranslationSupplier : PropertiesBasedTranslati
 
     override fun getNotForRoot(translatable: ITranslatable, locale: Locale): String? {
         val qualifiedName = translatable::class.java.name
-        //using _ here to be compatible with ResourceBundle
-        val key = qualifiedName + "_" + locale.toString()
-        val translations = getOrLoadProperties(key, key, { qualifiedName + ITranslatable.ID_SEPARATOR + it })
+        val fileName = getFileNameFor(qualifiedName, locale)
+        val translations = getOrLoadProperties(fileName, fileName, { qualifiedName + ITranslatable.ID_SEPARATOR + it })
         return translations[translatable.id]
     }
 }

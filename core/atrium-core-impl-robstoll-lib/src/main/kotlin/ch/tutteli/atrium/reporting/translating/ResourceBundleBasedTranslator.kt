@@ -14,14 +14,18 @@ import java.util.*
  * An entry in such a file would look like as follows:
  * `TO_BE = a translation for TO_BE`
  *
+ * This class is only used as reference implementation to see that compatibility with ResourceBundle is still given.
+ *
  * @constructor  Represents an [ITranslator] which reuses [ResourceBundle] properties based capabilities but uses
  *               an enhanced fallback mechanism. Instead of falling back to [Locale.getDefault] one is able to
  *               specify fallback [Locale] oneself. Whether this includes [Locale.getDefault] or not is up to the user.
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
  *        which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in the
  *        resulting translation of [ITranslatableWithArgs.translatable] with the [ITranslatableWithArgs.arguments].
+ * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
+ *        [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  */
-class ResourceBundleBasedTranslator(
+internal class ResourceBundleBasedTranslator(
     primaryLocale: Locale,
     fallbackLocales: Array<out Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
