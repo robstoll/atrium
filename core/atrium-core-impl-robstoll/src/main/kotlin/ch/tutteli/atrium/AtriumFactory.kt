@@ -53,7 +53,7 @@ object AtriumFactory : IAtriumFactory {
         = TextMethodCallFormatter
 
     override fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
-        = Translator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
+        = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
 
     override fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
         = PropertiesPerEntityAndLocaleTranslationSupplier()

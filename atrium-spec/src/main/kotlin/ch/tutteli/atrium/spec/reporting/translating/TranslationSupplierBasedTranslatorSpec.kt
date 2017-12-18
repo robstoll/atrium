@@ -14,7 +14,7 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
-abstract class TranslatorSpec(
+abstract class TranslationSupplierBasedTranslatorSpec(
     verbs: IAssertionVerbFactory,
     testeeFactory: (translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator,
     describePrefix: String = "[Atrium] "
