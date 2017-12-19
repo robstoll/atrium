@@ -213,7 +213,7 @@ data class Person(val name: String, val isStudent: Boolean)
 val myPerson = Person("Robert", false) 
 
 assert(myPerson) {
-    property(subject::name).toBe("Peter")
+    property(subject::name).toBe("Peter") // subject is a property of the receiver. This is the assertion subject
     property(subject::isStudent).isTrue()
 }
     // assert: Person(name=Robert, isStudent=false)        (Person <1841396611>)
@@ -233,7 +233,7 @@ So the above output can be read as "I assert, Person's name (which is actually `
 :information_source: You can also use `it` as alternative for `subject`. The above could have been written as:
 ```kotlin
 assert(person) {
-    property(it::name).toBe("Peter")
+    property(it::name).toBe("Peter") // The assertion subject is also passed as an implicit lambda parameter so you can use it
     property(it::isStudent).isTrue()
 }
 ```
