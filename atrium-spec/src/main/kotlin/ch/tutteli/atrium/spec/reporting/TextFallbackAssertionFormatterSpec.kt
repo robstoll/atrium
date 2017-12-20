@@ -10,10 +10,10 @@ import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.IObjectFormatter
 import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
-import ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
@@ -35,8 +35,19 @@ abstract class TextFallbackAssertionFormatterSpec(
     }
 
     prefixedDescribe("fun ${testee::canFormat.name}") {
-        it("returns always true even for an anonymous class of ${IAssertion::class.simpleName}") {
-            testee.canFormat(unsupportedAssertion)
+        group("check that it always returns true even for...") {
+            it("... an anonymous class of ${IAssertion::class.simpleName}") {
+                testee.canFormat(unsupportedAssertion)
+            }
+            it("... an anonymous class of ${IAssertionGroup::class.simpleName} with an anonymous ${IAssertionGroupType::class.simpleName}") {
+                testee.canFormat(object : IAssertionGroup {
+                    override val type = object : IAssertionGroupType {}
+                    override val name = Untranslatable("outer group")
+                    override val subject = "subject of outer group"
+                    override val assertions = listOf<IAssertion>()
+                }
+                )
+            }
         }
     }
 
@@ -59,21 +70,59 @@ abstract class TextFallbackAssertionFormatterSpec(
             }
         }
 
-        context("${IAssertionGroup::class.simpleName} with multiple assertions") {
+        context("${IAssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
             val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
             facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-            it("uses the system line separator to separate the assertions") {
-                facade.format(object : IAssertionGroup {
-                    override val type = RootAssertionGroupType
-                    override val name = TranslatorIntSpec.TestTranslatable.DATE_KNOWN
-                    override val subject = sb
-                    override val assertions = listOf(
-                        BasicAssertion(IS_SAME, "b", false),
-                        BasicAssertion(TO_BE, "d", false)
-                    )
-                }, sb, alwaysTrueAssertionFilter)
 
-                verbs.checkImmediately(sb).contains("${IS_SAME.getDefault()}: b$separator$bulletPoint ${TO_BE.getDefault()}: d")
+            context("only ${BasicAssertion::class.simpleName}") {
+                it("uses the system line separator to separate the assertions") {
+                    facade.format(object : IAssertionGroup {
+                        override val type = RootAssertionGroupType
+                        override val name = Untranslatable("group")
+                        override val subject = "subject of group"
+                        override val assertions = listOf(
+                            BasicAssertion(IS_SAME, "b", false),
+                            BasicAssertion(TO_BE, "d", false)
+                        )
+                    }, sb, alwaysTrueAssertionFilter)
+
+                    verbs.checkImmediately(sb).contains(
+                        "group: subject of group$separator" +
+                            "$bulletPoint ${IS_SAME.getDefault()}: b$separator" +
+                            "$bulletPoint ${TO_BE.getDefault()}: d")
+                }
+            }
+
+            context("${IAssertionGroup::class.simpleName} with an unsupported ${IAssertionGroupType::class.simpleName} and an unsupported ${IAssertion::class.simpleName}") {
+
+                val indentBulletPoint = " ".repeat(bulletPoint.length + 1)
+                it("uses the system line separator to separate the assertions") {
+                    facade.format(object : IAssertionGroup {
+                        override val type = RootAssertionGroupType
+                        override val name = Untranslatable("outer group")
+                        override val subject = "subject of outer group"
+                        override val assertions = listOf(
+                            object : IAssertionGroup {
+                                override val type = object : IAssertionGroupType {}
+                                override val name = Untranslatable("inner group")
+                                override val subject = "subject of inner group"
+                                override val assertions = listOf(
+                                    BasicAssertion(IS_SAME, "b", false),
+                                    BasicAssertion(TO_BE, "d", false)
+                                )
+                            },
+                            unsupportedAssertion
+                        )
+                    }, sb, alwaysTrueAssertionFilter)
+
+                    verbs.checkImmediately(sb).contains(
+                        "outer group: subject of outer group$separator" +
+                            "$bulletPoint inner group: subject of inner group$separator" +
+                            "$indentBulletPoint$bulletPoint ${IS_SAME.getDefault()}: b$separator" +
+                            "$indentBulletPoint$bulletPoint ${TO_BE.getDefault()}: d",
+                        "$bulletPoint Unsupported type ${unsupportedAssertion::class.java.name}"
+                    )
+                }
             }
         }
     }
