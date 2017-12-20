@@ -90,10 +90,3 @@ val <T : Any> IAssertionPlant<T>.und: IAssertionPlant<T> get() = this
  */
 infix fun <T : Any> IAssertionPlant<T>.und(assertionCreator: IAssertionPlant<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)
-
-/**
- * Alias for [IAssertionPlant.subject] useful in property assertions.
- *
- * @see property
- */
-val <T : Any> IAssertionPlant<T>.it get() : T = subject
