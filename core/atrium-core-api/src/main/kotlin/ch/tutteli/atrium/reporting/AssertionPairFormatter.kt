@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Represents a formatter of assertion pairs -- which consists of a [ITranslatable] and a representation.
+ * Represents a formatter of assertion pairs -- which consists of a [Translatable] and a representation.
  */
 interface AssertionPairFormatter {
     /**
@@ -13,5 +13,5 @@ interface AssertionPairFormatter {
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
      *        to which the result will be appended.
      */
-    fun format(methodObject: AssertionFormatterMethodObject, translatable: ITranslatable, representation: Any)
+    fun format(methodObject: AssertionFormatterMethodObject, translatable: Translatable, representation: Any)
 }

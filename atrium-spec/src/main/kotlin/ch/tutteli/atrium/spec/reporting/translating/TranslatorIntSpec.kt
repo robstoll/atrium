@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -250,9 +250,9 @@ abstract class TranslatorIntSpec(
     }
 }) {
     /**
-     * Contains [ISimpleTranslatable]s which are used in [TranslatorIntSpec].
+     * Contains [StringBasedTranslatable]s which are used in [TranslatorIntSpec].
      */
-    enum class TestTranslatable(override val value: String) : ISimpleTranslatable {
+    enum class TestTranslatable(override val value: String) : StringBasedTranslatable {
         DATE_KNOWN("%tD is a %<tA"),
         DATE_UNKNOWN("only %tA"),
         PLACEHOLDER("placeholder %s")

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider
+import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.kbox.joinToString
@@ -15,7 +15,7 @@ import java.util.*
 
 abstract class LocaleOrderDeciderSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: () -> ILocaleOrderDecider,
+    testeeFactory: () -> LocaleOrderDecider,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

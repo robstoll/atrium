@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 
 /**
@@ -19,6 +19,6 @@ interface RawString {
         val EMPTY = RawString.create("")
 
         fun create(string: String): RawString = StringBasedRawString(string)
-        fun create(translatable: ITranslatable): RawString = TranslatableBasedRawString(translatable)
+        fun create(translatable: Translatable): RawString = TranslatableBasedRawString(translatable)
     }
 }

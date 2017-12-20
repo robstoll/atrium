@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IBaseAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
 import kotlin.reflect.full.cast
@@ -44,7 +44,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyNarrow.DownCa
      *         the [subjectPlant] and the [failureHandler].
      */
     fun downCast(
-        description: ITranslatable,
+        description: Translatable,
         subType: KClass<TSub>,
         subjectPlant: IBaseAssertionPlant<T?, *>,
         assertionCreator: IAssertionPlant<TSub>.() -> Unit

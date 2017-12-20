@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Creates an [CharSequenceContainsBuilder] based on this [IAssertionPlant] which allows to define
@@ -58,7 +58,7 @@ infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): IAssertion
 
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains the [getDefault][ITranslatable.getDefault]
+ * Makes the assertion that [IAssertionPlant.subject] contains the [getDefault][Translatable.getDefault]
  * representation of the given [translatable].
  *
  * It is a shortcut for `to contain atLeast 1 defaultTranslationOf translatable)`
@@ -66,12 +66,12 @@ infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): IAssertion
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable: ITranslatable): IAssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable: Translatable): IAssertionPlant<T>
     = this to contain atLeast 1 defaultTranslationOf translatable
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] contains [DefaultTranslationsOf.expected]'s
- * [getDefault][ITranslatable.getDefault] representation and the [getDefault][ITranslatable.getDefault] representations
+ * [getDefault][Translatable.getDefault] representation and the [getDefault][Translatable.getDefault] representations
  * of the [DefaultTranslationsOf.otherExpected] (if defined), using a non disjoint search.
  *
  * It is a shortcut for `to contain atLeast 1 the DefaultTranslationsOf(...)`
@@ -119,8 +119,8 @@ infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>): IAssert
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does  not contain [DefaultTranslationsOf.expected]'s
- * [getDefault][ITranslatable.getDefault] representation and neither one of the [DefaultTranslationsOf.otherExpected]'s
- * [getDefault][ITranslatable.getDefault] representation (if defined).
+ * [getDefault][Translatable.getDefault] representation and neither one of the [DefaultTranslationsOf.otherExpected]'s
+ * [getDefault][Translatable.getDefault] representation (if defined).
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

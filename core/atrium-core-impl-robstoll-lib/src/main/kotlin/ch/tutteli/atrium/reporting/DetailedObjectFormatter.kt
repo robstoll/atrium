@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import kotlin.reflect.KClass
 
@@ -15,13 +15,13 @@ import kotlin.reflect.KClass
  * Consider the following error message "error, assert: 1 to be 1" would not be very helpful.
  * "error, assert: 1 (Int <123>) to be 1 (Double <456>)" on the other hand is helpful.
  *
- * @property translator The [ITranslator] used to translate [TranslatableBasedRawString]s.
+ * @property translator The [Translator] used to translate [TranslatableBasedRawString]s.
  *
  * @constructor Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
  * (in most cases).
- * @param translator The [ITranslator] used to translate [TranslatableBasedRawString]s.
+ * @param translator The [Translator] used to translate [TranslatableBasedRawString]s.
  */
-class DetailedObjectFormatter(private val translator: ITranslator) : ObjectFormatter {
+class DetailedObjectFormatter(private val translator: Translator) : ObjectFormatter {
 
     /**
      * Returns a formatted version of the given [value].

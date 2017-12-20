@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * An assertion plant which has [CommonFields].
@@ -33,7 +33,7 @@ interface IAssertionPlantWithCommonFields<out T> {
      * @param nullRepresentation The representation used in reporting in case [subject] is `null`.
      *
      */
-    data class CommonFields<out T>(val assertionVerb: ITranslatable, val subject: T, val assertionChecker: IAssertionChecker, private val nullRepresentation: Any) {
+    data class CommonFields<out T>(val assertionVerb: Translatable, val subject: T, val assertionChecker: IAssertionChecker, private val nullRepresentation: Any) {
 
         /**
          * Uses [assertionChecker] to check the given [assertions] (see [IAssertionChecker.check]).

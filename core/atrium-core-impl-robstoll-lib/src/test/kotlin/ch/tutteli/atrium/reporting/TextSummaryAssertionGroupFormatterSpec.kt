@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.ISummaryAssertionGroupType
 import ch.tutteli.atrium.assertions.SummaryAssertionGroupType
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
 import org.jetbrains.spek.api.Spek
@@ -36,7 +36,7 @@ class TextSummaryAssertionGroupFormatterSpec : Spek({
             TextSummaryAssertionGroupFormatter(bulletPoints, controller, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator()))
         }
 
-        fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator ->
+        fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextSummaryAssertionGroupFormatter(bulletPoints, controller, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }

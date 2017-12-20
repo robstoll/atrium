@@ -6,8 +6,7 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 object AssertionCollector {
 
@@ -47,7 +46,7 @@ object AssertionCollector {
          * function does not even create one [IAssertion] -- depending on the previously chosen option (see
          * [throwIfNoAssertionIsCollected] and [doNotThrowIfNoAssertionIsCollected]).
          */
-        fun <E : Any> collectAssertionsForExplanation(noSubjectMessage: String, warning: ITranslatable, assertionCreator: IAssertionPlant<E>.() -> Unit, subject: E?): List<IAssertion> {
+        fun <E : Any> collectAssertionsForExplanation(noSubjectMessage: String, warning: Translatable, assertionCreator: IAssertionPlant<E>.() -> Unit, subject: E?): List<IAssertion> {
             return try {
                 val collectingAssertionPlant = createPlant(subject, noSubjectMessage)
                 collectingAssertionPlant.assertionCreator()

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.checking
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * An [IAssertionChecker] useful for feature assertions. It creates an [IAssertionGroup] of [type][IAssertionGroup]
@@ -40,7 +40,7 @@ class FeatureAssertionChecker<out T : Any>(private val subjectPlant: IAssertionP
      *
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
-    override fun check(assertionVerb: ITranslatable, subject: Any, assertions: List<IAssertion>) {
+    override fun check(assertionVerb: Translatable, subject: Any, assertions: List<IAssertion>) {
         val featureAssertionGroup = AssertionGroup(FeatureAssertionGroupType, assertionVerb, subject, ArrayList(assertions))
         subjectPlant.addAssertion(featureAssertionGroup)
     }

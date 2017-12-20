@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterBuilder
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
 internal fun <T : Any> assert(subject: T)
@@ -23,7 +23,7 @@ internal fun expect(act: () -> Unit)
     = ThrowableThrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 
-internal enum class AssertionVerb(override val value: String) : ISimpleTranslatable {
+internal enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("assert"),
     EXPECT_THROWN("expect the thrown exception"),
 }

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
@@ -15,7 +15,7 @@ import java.util.*
 
 abstract class TranslatorErrorCaseSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator,
+    testeeFactory: (locale: Locale, fallbackLocals: Array<out Locale>) -> Translator,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -25,7 +25,7 @@ abstract class TranslatorErrorCaseSpec(
     fun testeeFactory(locale: Locale, vararg fallbackLocals: Locale)
         = testeeFactory(locale, fallbackLocals)
 
-    describeFun(ITranslator::translate.name) {
+    describeFun(Translator::translate.name) {
 
         listOf(
             Locale("no"),

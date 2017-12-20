@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
-class DefaultTranslationsOf(val expected: ITranslatable, vararg val otherExpected: ITranslatable)
+class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected: Translatable)
 
 class Entries<T : Any>(val assertionCreator: IAssertionPlant<T>.() -> Unit, vararg val otherAssertionCreators: IAssertionPlant<T>.() -> Unit)
 

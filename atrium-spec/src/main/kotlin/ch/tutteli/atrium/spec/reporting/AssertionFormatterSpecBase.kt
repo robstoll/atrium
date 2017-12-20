@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.reporting
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.Spec
@@ -39,13 +39,13 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
 
         fun createFacade() = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
 
-        fun createFacade(testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, ITranslator) -> AssertionFormatter): AssertionFormatterFacade
+        fun createFacade(testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
             = createFacade(mapOf(), testeeFactory)
 
-        fun createFacade(bulletPoint: Pair<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, ITranslator) -> AssertionFormatter): AssertionFormatterFacade
+        fun createFacade(bulletPoint: Pair<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
             = createFacade(mapOf(bulletPoint), testeeFactory)
 
-        fun createFacade(extendedBulletPoints: Map<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, ITranslator) -> AssertionFormatter): AssertionFormatterFacade {
+        fun createFacade(extendedBulletPoints: Map<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade {
             val facade = createFacade()
             facade.register { testeeFactory(extendedBulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
             facade.register { AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }

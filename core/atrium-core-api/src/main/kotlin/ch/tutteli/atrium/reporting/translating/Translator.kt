@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting.translating
 import java.util.*
 
 /**
- * Represents a translator of [ITranslatable]s.
+ * Represents a translator of [Translatable]s.
  *
  * It shall be more or less compatible with [ResourceBundle] in terms of how candidate [Locale]s are determined.
  * So, more or less the same rules apply as described in [ResourceBundle.Control.getCandidateLocales].
@@ -29,10 +29,10 @@ import java.util.*
  * - fr => found
  * - ROOT (not processed anymore)
  *
- * Notice, that a [ITranslator] should treat the two special cases Norwegian and Chinese differently than
+ * Notice, that a [Translator] should treat the two special cases Norwegian and Chinese differently than
  * [ResourceBundle] suggests (the actual implementation for Java seems to be buggy anyway).
  *
- * A [ITranslator] should not support [Locale]s with [language][Locale.getLanguage] equal to `no` and
+ * A [Translator] should not support [Locale]s with [language][Locale.getLanguage] equal to `no` and
  * should throw an [IllegalArgumentException] instead.
  * A user has to use either `nn` (for Nynorsk) or `nb` (for Bokmål). One can still define the other Locale as
  * fallback, which effectively makes the ambiguous `no` Locale obsolete. As an example, one can define `nn_NO` as
@@ -43,14 +43,14 @@ import java.util.*
  * A user should use a corresponding country instead and only provide a script in case one wants to be explicit to
  * avoid ambiguity (e.g., zh-Hans_HK for Chinese in simplified script in Hong Kong).
  */
-interface ITranslator {
+interface Translator {
     /**
-     * Returns the translation of the given [translatable] or its [getDefault][ITranslatable.getDefault]
+     * Returns the translation of the given [translatable] or its [getDefault][Translatable.getDefault]
      * in case there is not a translation defined for it.
      *
-     *  @param translatable The [ITranslatable] which shall be translated.
+     *  @param translatable The [Translatable] which shall be translated.
      *
      * @return The result of the translation for the given [translatable].
      */
-    fun translate(translatable: ITranslatable): String
+    fun translate(translatable: Translatable): String
 }

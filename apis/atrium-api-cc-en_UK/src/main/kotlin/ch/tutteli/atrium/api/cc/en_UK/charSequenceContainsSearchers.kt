@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
@@ -93,7 +93,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
- * [getDefault][ITranslatable.getDefault] representation as well as the [getDefault][ITranslatable.getDefault]
+ * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
  * representations of the [otherExpected] (if defined) shall be searched, using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
@@ -111,12 +111,12 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.defaultTranslationOf(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): IAssertionPlant<T>
     = addAssertion(_containsDefaultTranslationOf(this, expected, otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
- * [getDefault][ITranslatable.getDefault] representation as well as the [getDefault][ITranslatable.getDefault]
+ * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
  * representations of the [otherExpected] (if defined) shall be searched (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
@@ -135,7 +135,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("defaultTranslationOfIgnoringCase")
-fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.defaultTranslationOf(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
+fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): IAssertionPlant<T>
     = addAssertion(_containsDefaultTranslationOfIgnoringCase(this, expected, otherExpected))
 
 

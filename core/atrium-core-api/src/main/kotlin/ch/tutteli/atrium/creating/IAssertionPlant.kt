@@ -5,7 +5,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents a plant for [IAssertion]s based on a non nullable [subject].
@@ -42,7 +42,7 @@ interface IAssertionPlant<out T : Any> : IBaseAssertionPlant<T, IAssertionPlant<
      * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
      *         evaluated (see [IReportingAssertionPlant]).
      */
-    fun createAndAddAssertion(description: ITranslatable, expected: Any, test: () -> Boolean): IAssertionPlant<T>
+    fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): IAssertionPlant<T>
         = addAssertion(BasicAssertion(description, expected, test))
 }
 

@@ -6,10 +6,10 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider
-import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
+import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslationSupplier
+import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
 /**
@@ -19,9 +19,9 @@ import java.util.*
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [MethodCallFormatter]
- * - [ITranslator]
- * - [ITranslationSupplier]
- * - [ILocaleOrderDecider]
+ * - [Translator]
+ * - [TranslationSupplier]
+ * - [LocaleOrderDecider]
  * - [ObjectFormatter]
  * - [AssertionFormatterFacade]
  * - [AssertionFormatterController]
@@ -43,7 +43,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(assertionVerb: ITranslatable, subject: T, reporter: Reporter): IReportingAssertionPlant<T>
+    fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, reporter: Reporter): IReportingAssertionPlant<T>
         = newReportingPlant(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
@@ -60,7 +60,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
+    fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
         = newReportingPlant(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
 
     /**
@@ -95,7 +95,7 @@ interface IAtriumFactory {
      * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
      *         created [IAssertion] does not hold.
      */
-    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: ITranslatable, subject: T, reporter: Reporter, assertionCreator: IAssertionPlant<T>.() -> Unit)
+    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: Translatable, subject: T, reporter: Reporter, assertionCreator: IAssertionPlant<T>.() -> Unit)
         = newReportingPlant(assertionVerb, subject, reporter)
         .addAssertionsCreatedBy(assertionCreator)
 
@@ -113,7 +113,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, reporter: Reporter, nullRepresentation: Any = RawString.NULL): IReportingAssertionPlantNullable<T>
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, reporter: Reporter, nullRepresentation: Any = RawString.NULL): IReportingAssertionPlantNullable<T>
         = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
 
     /**
@@ -130,7 +130,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, assertionChecker: IAssertionChecker, nullRepresentation: Any): IReportingAssertionPlantNullable<T>
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, assertionChecker: IAssertionChecker, nullRepresentation: Any): IReportingAssertionPlantNullable<T>
         = newReportingPlantNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, nullRepresentation))
 
     /**
@@ -217,25 +217,25 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [ITranslator] which translates [ITranslatable]s to [primaryLocale] and falls back
+     * Creates an [Translator] which translates [Translatable]s to [primaryLocale] and falls back
      * to [fallbackLocales] (in the given order) in case no translation exists for [primaryLocale].
      *
      * It uses the given [translationSupplier] to retrieve all available translations.
      * In case no translation exists for a given property (neither for the [primaryLocale] nor for
-     * any [fallbackLocales]) then it uses [ITranslatable]'s [getDefault][ITranslatable.getDefault].
-     * As consequence an [ITranslator] does not or rather should not support [Locale.ROOT] -- users are discouraged
+     * any [fallbackLocales]) then it uses [Translatable]'s [getDefault][Translatable.getDefault].
+     * As consequence an [Translator] does not or rather should not support [Locale.ROOT] -- users are discouraged
      * to define properties files for Locale.ROOT.
      * An implementation based on [ResourceBundle] would still take Locale.ROOT into account but apply it before the
      * defined [fallbackLocales] have been considered.
      *
-     * Please refer to the documentation of [ITranslator] to see to which extend a translator has to be compatible
+     * Please refer to the documentation of [Translator] to see to which extend a translator has to be compatible
      * with [ResourceBundle].
      *
      * @param translationSupplier Provides the translations for a desired [Locale].
      * @param localeOrderDecider Decides in which order [Locale]s are processed to find a translation for a
      *        given [ITranslatable].
      * @param primaryLocale The [Locale] to which the translator translates per default.
-     * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for [primaryLocale]
+     * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for [primaryLocale]
      *        or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
      *
      * @return The newly created translator.
@@ -243,10 +243,10 @@ interface IAtriumFactory {
      * @throws IllegalArgumentException in case [primaryLocale] or [fallbackLocales] have as language `no` or if they
      *         have: as language `zh`, country is not set and script is either `Hant` or `Hans`.
      */
-    fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+    fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
 
     /**
-     * Creates an [ITranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
+     * Creates an [TranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
      * the structure of the properties files.
      *
      * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
@@ -258,18 +258,18 @@ interface IAtriumFactory {
      *
      * @return The newly created translation supplier.
      */
-    fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
+    fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
 
     /**
-     * Creates an [ILocaleOrderDecider] which decides in which order [Locale]s are processed to find a translation for a
-     * given [ITranslatable].
+     * Creates an [LocaleOrderDecider] which decides in which order [Locale]s are processed to find a translation for a
+     * given [Translatable].
      *
-     * Please refer to the documentation of [ILocaleOrderDecider] to see to which extend a translator has to be
+     * Please refer to the documentation of [LocaleOrderDecider] to see to which extend a translator has to be
      * compatible with [ResourceBundle].
      *
      * @return The newly created [Locale] order decider.
      */
-    fun newLocaleOrderDecider(): ILocaleOrderDecider
+    fun newLocaleOrderDecider(): LocaleOrderDecider
 
 
     /**
@@ -278,7 +278,7 @@ interface IAtriumFactory {
      *
      * @return The newly created object formatter.
      */
-    fun newDetailedObjectFormatter(translator: ITranslator): ObjectFormatter
+    fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter
 
     /**
      * Creates an [AssertionFormatterController] which all be used per default for [newAssertionFormatterFacade].
@@ -306,11 +306,11 @@ interface IAtriumFactory {
      * for [RootAssertionGroupType] as prefix for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
-     * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
+     * @param translator The translator which is used to translate [Translatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
 
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
@@ -321,11 +321,11 @@ interface IAtriumFactory {
      * for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
-     * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
+     * @param translator The translator which is used to translate [Translatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
 
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
@@ -335,11 +335,11 @@ interface IAtriumFactory {
      * for [IListAssertionGroupType] as prefix for each [IAssertion] in [IAssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
-     * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
+     * @param translator The translator which is used to translate [Translatable] such as [IBasicAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
 
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
@@ -367,13 +367,13 @@ interface IAtriumFactory {
      * @param assertionFormatterFacade The [AssertionFormatterFacade] to which all [AssertionFormatter]s with
      *        same line capabilities and text reporting should be registered.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
-     * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
+     * @param translator The translator which is used to translate [Translatable] such as [IBasicAssertion.description].
      */
     fun registerSameLineTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
         objectFormatter: ObjectFormatter,
-        translator: ITranslator)
+        translator: Translator)
 
     /**
      * Creates an [Reporter] which reports only failing assertions

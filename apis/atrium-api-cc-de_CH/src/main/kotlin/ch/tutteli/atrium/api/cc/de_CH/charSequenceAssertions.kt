@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Creates an [CharSequenceContainsBuilder] based on this [IAssertionPlant] which allows to define
@@ -52,8 +52,8 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
     = addAssertion(_containsNot(this, expected, otherExpected))
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][ITranslatable.getDefault]
- * representation and the [getDefault][ITranslatable.getDefault] representations of the [otherExpected] (if defined),
+ * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
+ * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if defined),
  * using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)`.
@@ -73,18 +73,18 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): IAssertionPlant<T>
     = enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] does  not contain [expected]'s
- * [getDefault][ITranslatable.getDefault] representation and neither one of the [otherExpected]'s
- * [getDefault][ITranslatable.getDefault] representation (if defined).
+ * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
+ * [getDefault][Translatable.getDefault] representation (if defined).
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: ITranslatable, vararg otherExpected: ITranslatable): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): IAssertionPlant<T>
     = addAssertion(_containsNotDefaultTranslationOf(this, expected, otherExpected))
 
 /**

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * An [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
@@ -29,7 +29,7 @@ class ThrowingAssertionChecker(private val reporter: Reporter) : IAssertionCheck
      *
      * @throws AssertionError In case the created [IAssertionGroup] does not hold.
      */
-    override fun check(assertionVerb: ITranslatable, subject: Any, assertions: List<IAssertion>) {
+    override fun check(assertionVerb: Translatable, subject: Any, assertions: List<IAssertion>) {
         val assertionGroup = AssertionGroup(RootAssertionGroupType, assertionVerb, subject, assertions)
         val sb = StringBuilder()
         reporter.format(assertionGroup, sb)

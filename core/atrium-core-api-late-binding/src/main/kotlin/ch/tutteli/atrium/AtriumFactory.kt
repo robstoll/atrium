@@ -4,9 +4,9 @@ import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider
-import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
+import ch.tutteli.atrium.reporting.translating.TranslationSupplier
+import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
 @Suppress("UNUSED_PARAMETER")
@@ -17,9 +17,9 @@ import java.util.*
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [MethodCallFormatter]
- * - [ITranslator]
- * - [ITranslationSupplier]
- * - [ILocaleOrderDecider]
+ * - [Translator]
+ * - [TranslationSupplier]
+ * - [LocaleOrderDecider]
  * - [ObjectFormatter]
  * - [AssertionFormatterFacade]
  * - [AssertionFormatterController]
@@ -55,16 +55,16 @@ object AtriumFactory : IAtriumFactory {
     override fun newMethodCallFormatter(): MethodCallFormatter
         = throwUnsupportedOperationException()
 
-    override fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+    override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
         = throwUnsupportedOperationException()
 
-    override fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
+    override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
         = throwUnsupportedOperationException()
 
-    override fun newLocaleOrderDecider(): ILocaleOrderDecider
+    override fun newLocaleOrderDecider(): LocaleOrderDecider
         = throwUnsupportedOperationException()
 
-    override fun newDetailedObjectFormatter(translator: ITranslator): ObjectFormatter
+    override fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter
         = throwUnsupportedOperationException()
 
     override fun newAssertionFormatterController(): AssertionFormatterController
@@ -73,13 +73,13 @@ object AtriumFactory : IAtriumFactory {
     override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
         = throwUnsupportedOperationException()
 
-    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = throwUnsupportedOperationException()
 
-    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = throwUnsupportedOperationException()
 
-    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = throwUnsupportedOperationException()
 
     override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
@@ -89,7 +89,7 @@ object AtriumFactory : IAtriumFactory {
         bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
         objectFormatter: ObjectFormatter,
-        translator: ITranslator
+        translator: Translator
     ): Unit = throwUnsupportedOperationException()
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter

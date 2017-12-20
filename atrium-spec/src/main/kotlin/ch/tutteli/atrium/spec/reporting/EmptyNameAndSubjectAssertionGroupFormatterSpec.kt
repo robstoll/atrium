@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.IAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
@@ -61,7 +61,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : IAssertionGrou
         }
     }
 }) {
-    enum class TestDescription(override val value: String) : ISimpleTranslatable {
+    enum class TestDescription(override val value: String) : StringBasedTranslatable {
         TEST_NAME("testName"),
     }
 }

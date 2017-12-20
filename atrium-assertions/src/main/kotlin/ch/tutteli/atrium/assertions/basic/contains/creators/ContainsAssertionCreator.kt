@@ -4,8 +4,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
@@ -60,10 +59,10 @@ abstract class ContainsAssertionCreator<T : Any, S, C : Contains.Checker>(
     protected abstract fun searchAndCreateAssertion(
         plant: IAssertionPlant<T>,
         searchCriterion: S,
-        featureFactory: (numberOfOccurrences: Int, description: ITranslatable) -> IAssertionGroup
+        featureFactory: (numberOfOccurrences: Int, description: Translatable) -> IAssertionGroup
     ): IAssertionGroup
 
-    private fun featureFactory(count: Int, numberOfOccurrences: ITranslatable): IAssertionGroup {
+    private fun featureFactory(count: Int, numberOfOccurrences: Translatable): IAssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
         return AssertionGroup(FeatureAssertionGroupType, numberOfOccurrences, RawString.create(count.toString()), assertions)
     }

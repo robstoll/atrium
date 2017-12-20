@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
@@ -32,7 +32,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBe
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup
         = InvisibleAssertionGroup(assertions)
 
-    override final fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: S, featureFactory: (Int, ITranslatable) -> IAssertionGroup): IAssertionGroup {
+    override final fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: S, featureFactory: (Int, Translatable) -> IAssertionGroup): IAssertionGroup {
         val count = search(plant, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
         val description = searchBehaviour.decorateDescription(descriptionContains)
@@ -42,12 +42,12 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBe
     /**
      * Provides the translation for `contains`.
      */
-    protected abstract val descriptionContains: ITranslatable
+    protected abstract val descriptionContains: Translatable
 
     /**
      * Provides the translation for `number of occurrences`.
      */
-    protected abstract val descriptionNumberOfOccurrences: ITranslatable
+    protected abstract val descriptionNumberOfOccurrences: Translatable
 
     /**
      * Searches for something matching the given [searchCriterion] in the given [plant]'s

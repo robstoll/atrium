@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
@@ -90,7 +90,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [getDefault][ITranslatable.getDefault]
+ * Finishes the specification of the sophisticated `contains` assertion where the [getDefault][Translatable.getDefault]
  * representation of the given [translatable] shall be searched, using a non disjoint search.
  *
  * Delegates to `the DefaultTranslationsOf(translatable)`.
@@ -100,11 +100,11 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.defaultTranslationOf(translatable: ITranslatable): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.defaultTranslationOf(translatable: Translatable): IAssertionPlant<T>
     = this the DefaultTranslationsOf(translatable)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [getDefault][ITranslatable.getDefault]
+ * Finishes the specification of the sophisticated `contains` assertion where the [getDefault][Translatable.getDefault]
  * representation of the given [translatables] shall be searched, using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
@@ -127,7 +127,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [getDefault][ITranslatable.getDefault]
+ * Finishes the specification of the sophisticated `contains` assertion where the [getDefault][Translatable.getDefault]
  * representation of the given [translatable] shall be searched (ignoring case), using a non disjoint search.
  *
  * Delegates to `the DefaultTranslationsOf(translatable)`.
@@ -138,11 +138,11 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("defaultTranslationOfIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.defaultTranslationOf(translatable: ITranslatable): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.defaultTranslationOf(translatable: Translatable): IAssertionPlant<T>
     = this the DefaultTranslationsOf(translatable)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [getDefault][ITranslatable.getDefault]
+ * Finishes the specification of the sophisticated `contains` assertion where the [getDefault][Translatable.getDefault]
  * representation of the given [translatables] shall be searched (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
