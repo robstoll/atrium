@@ -77,13 +77,13 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertion
         val return5ValueNullableHolds: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b') notToBeNull {} }
 
         val propertyLazyWithNestedImmediate: F = {
-            property(it::description) {
-                property(it::length).toBe(12)
+            property(subject::description) {
+                property(subject::length).toBe(12)
             }
         }
         val propertyLazyWithNestedLazy: F = {
-            property(it::description) {
-                property(it::length) { toBe(12) }
+            property(subject::description) {
+                property(subject::length) { toBe(12) }
             }
         }
     }
