@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IBaseAssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
@@ -25,9 +26,8 @@ abstract class DelegatingAssertionCheckerSpec(
 
     val assert: (IAssertion) -> IAssertionPlant<IAssertion> = verbs::checkImmediately
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assertions = ArrayList<IAssertion>()
     assertions.add(object : IAssertion {
@@ -41,7 +41,7 @@ abstract class DelegatingAssertionCheckerSpec(
         override fun holds() = true
     }
 
-    prefixedDescribe("fun ${IAssertionChecker::check.name}") {
+    describeFun(IAssertionChecker::check.name) {
         context("empty assertion list") {
             it("does not throw an exception") {
                 val testee = testeeFactory(mock())

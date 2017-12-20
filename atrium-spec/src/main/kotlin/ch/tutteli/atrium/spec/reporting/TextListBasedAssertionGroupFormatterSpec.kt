@@ -12,6 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -27,9 +28,8 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assertions = listOf(
         BasicAssertion(AssertionVerb.ASSERT, 1, true),
@@ -37,7 +37,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
     )
     val listAssertionGroup = AssertionGroup(anonymousAssertionGroupType, TranslatorIntSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
 
-    prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
+    describeFun(IAssertionFormatter::canFormat.name) {
         val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${assertionGroupClass.simpleName}") {
             val result = testee.canFormat(AssertionGroup(anonymousAssertionGroupType, Untranslatable.EMPTY, 1, listOf()))
@@ -45,7 +45,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : IAssertionGroupType>
         }
     }
 
-    prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
+    describeFun(IAssertionFormatter::formatGroup.name) {
 
         mapOf(
             "•" to "▪",

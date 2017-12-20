@@ -17,6 +17,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -28,9 +29,9 @@ abstract class AssertionFormatterSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
+
 
     val testee = testeeFactory(mapOf(), AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
@@ -41,7 +42,7 @@ abstract class AssertionFormatterSpec(
         methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
     }
 
-    prefixedDescribe("fun ${testee::format.name}") {
+    describeFun(testee::format.name) {
         it("throws an UnsupportedOperationException if ${IAssertionGroup::class.simpleName} is passed") {
             verbs.checkException {
                 testee.format(object : IAssertionGroup {

@@ -19,9 +19,8 @@ abstract class CollectingAssertionPlantSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
+        = prefixedDescribe(describePrefix, description, body)
 
     val testee = testeeFactory({ 1 })
 

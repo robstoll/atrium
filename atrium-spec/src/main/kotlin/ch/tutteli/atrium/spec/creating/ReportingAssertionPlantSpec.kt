@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.IReportingAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.setUp
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -27,9 +27,8 @@ abstract class ReportingAssertionPlantSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
     val assertionVerb = AssertionVerb.VERB
@@ -83,7 +82,7 @@ abstract class ReportingAssertionPlantSpec(
             { addAssertionsCreatedBy { addAssertionsCreatedBy { addAssertion(basicAssertionWhichFails) } } }
         )
     ).forEach { (funName, holdingFun, failingFun) ->
-        prefixedDescribe("fun $funName") {
+        describeFun(funName) {
             setUp("in case of an assertion which holds") {
                 val testee = createTestee()
                 it("does not throw an Exception") {

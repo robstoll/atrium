@@ -3,6 +3,7 @@ package ch.tutteli.atrium.spec.reporting
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.reporting.IMethodCallFormatter
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -16,13 +17,12 @@ abstract class TextMethodCallFormatterSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val testee = testeeFactory()
 
-    prefixedDescribe("fun ${testee::format.name}") {
+    describeFun(testee::format.name) {
 
         context("a method call without arguments") {
             it("returns the name of the method with parentheses") {

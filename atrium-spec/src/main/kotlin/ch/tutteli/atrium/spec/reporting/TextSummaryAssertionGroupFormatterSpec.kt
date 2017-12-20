@@ -10,6 +10,7 @@ import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -22,9 +23,8 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val successBulletPoint = "(/)"
     val indentSuccessBulletPoint = " ".repeat(successBulletPoint.length + 1)
@@ -40,7 +40,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
 
     val onlyFailingAssertionFilter: (IAssertion) -> Boolean = { !it.holds() }
 
-    prefixedDescribe("fun ${IAssertionFormatter::canFormat.name}") {
+    describeFun(IAssertionFormatter::canFormat.name) {
         val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${ISummaryAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(AssertionGroup(object : ISummaryAssertionGroupType {}, Untranslatable.EMPTY, 1, listOf()))
@@ -48,7 +48,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
         }
     }
 
-    prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
+    describeFun(IAssertionFormatter::formatGroup.name) {
         context("${IAssertionGroup::class.simpleName} of ${SummaryAssertionGroupType::class.simpleName} and does not hold") {
             val assertions = listOf(
                 BasicAssertion(AssertionVerb.ASSERT, 1, true),

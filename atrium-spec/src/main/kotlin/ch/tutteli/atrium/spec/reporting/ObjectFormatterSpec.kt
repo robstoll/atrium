@@ -8,6 +8,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.TranslatableRawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
@@ -23,9 +24,8 @@ abstract class ObjectFormatterSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val translatable = AssertionVerb.ASSERT
     val translatedText = "es gilt"
@@ -34,7 +34,7 @@ abstract class ObjectFormatterSpec(
     }
     val testee = testeeFactory(translator)
 
-    prefixedDescribe("fun ${testee::format.name}") {
+    describeFun(testee::format.name) {
 
         context("`null`") {
             val i: Int? = null

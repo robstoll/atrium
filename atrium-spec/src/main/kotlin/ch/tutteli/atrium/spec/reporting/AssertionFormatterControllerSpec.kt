@@ -9,6 +9,7 @@ import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -21,9 +22,8 @@ abstract class AssertionFormatterControllerSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val testee = testeeFactory()
     val arrow = "  >>"
@@ -49,7 +49,7 @@ abstract class AssertionFormatterControllerSpec(
 
     val separator = System.getProperty("line.separator")!!
 
-    prefixedDescribe("fun ${testee::format}") {
+    describeFun(testee::format.name) {
 
         context("assertionFilter which always returns `false`") {
             var sb = StringBuilder()

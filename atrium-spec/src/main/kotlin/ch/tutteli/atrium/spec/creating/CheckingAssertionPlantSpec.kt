@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.creating.ICheckingAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
@@ -19,14 +20,13 @@ abstract class CheckingAssertionPlantSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val subject = 10
     val testee = testeeFactory(subject)
 
-    prefixedDescribe("fun ${testee::allAssertionsHold.name}") {
+    describeFun(testee::allAssertionsHold.name) {
         inCaseOf("no assertion has been added so far") {
             it("throws an ${IllegalStateException::class.simpleName}") {
                 verbs.checkException {
@@ -36,7 +36,7 @@ abstract class CheckingAssertionPlantSpec(
         }
     }
 
-    prefixedDescribe("fun ${testee::createAndAddAssertion.name}") {
+    describeFun(testee::createAndAddAssertion.name) {
 
         val a = subject
         inCaseOf("an assertion which holds") {
@@ -63,7 +63,7 @@ abstract class CheckingAssertionPlantSpec(
 
     }
 
-    prefixedDescribe("fun ${testee::addAssertion.name}") {
+    describeFun(testee::addAssertion.name) {
         inCaseOf("a custom assertion which holds") {
             testee.addAssertion(object : IAssertion {
                 override fun holds() = true
