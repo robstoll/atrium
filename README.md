@@ -146,6 +146,13 @@ assert(4 + 6) {
 
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
 
+Such a block is actually nothing else than a [lambda with a receiver](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver)
+of type `IAssertionPlant` (code-ish speaking `IAssertionPlant<T>.() -> Unit`).
+The only thing you need to know about `IAssertionPlant` at the moment is, that `assert(4 + 6)` creates an `IAssertionPlant<Int>` 
+and that all assertion functions are defined as [extension function](https://kotlinlang.org/docs/reference/extensions.html)
+of `IAssertionPlant`.
+Have a look at [writing an own assertion function](#write-own-assertion-functions) to get more information about `IAssertionPlant`.
+
 :information_source: You can use `and` as filling element between single assertions and assertion group blocks:
 ```kotlin
 assert(4 + 6).isLessThan(5).and.isGreaterThan(10)
@@ -213,7 +220,7 @@ data class Person(val name: String, val isStudent: Boolean)
 val myPerson = Person("Robert", false) 
 
 assert(myPerson) {
-    property(subject::name).toBe("Peter") // subject is a property of the receiver. This is the assertion subject
+    property(subject::name).toBe("Peter")
     property(subject::isStudent).isTrue()
 }
     // assert: Person(name=Robert, isStudent=false)        (Person <1841396611>)
@@ -224,9 +231,12 @@ assert(myPerson) {
 ```
 You can also make assertions about one or several properties of the subject using `property` in an [assertion group block](#define-single-assertions-or-assertion-groups)
 -- general speaking, it allows you to create feature assertions without the need of own assertion functions. 
-In the above example, `subject` within the assertion group block refers to `myPerson`. 
-So we created two feature assertions: one for the property `name` and the other for the property `isStudent` of `myPerson`.
 
+`subject` within an assertion group block refers to the subject of the assertion (`myPerson` in the above example). 
+As a reminder, an assertion group block is a lambda with the `IAssertionPlant` created by `assert(...)` as receiver (see [assertion group block](#define-single-assertions-or-assertion-groups) for further details). 
+You probably have already guessed it, `subject` is actually a property of `IAssertionPlant`. 
+
+Back to property assertions. In the above example we created two feature assertions: one for the property `name` and the other for the property `isStudent` of `myPerson`.
 A feature assertion is indicated as follows in the output. It starts with a `▶` followed by the feature's name and its actual value.
 So the above output can be read as "I assert, Person's name (which is actually `"Robert"`) to be `"Peter"` and its property `isStudent` (which is actually `false`) to be `true`". 
 
