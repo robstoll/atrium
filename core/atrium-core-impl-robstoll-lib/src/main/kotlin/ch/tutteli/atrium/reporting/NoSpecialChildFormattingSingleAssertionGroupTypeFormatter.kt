@@ -30,12 +30,4 @@ abstract class NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<in T : 
             assertionFormatterController.format(it, childMethodObject)
         }
     }
-
-    private fun formatSpecificGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit): Unit {
-        val childMethodObject = formatGroupHeaderAndGetChildMethodObject(assertionGroup, methodObject)
-        formatAssertions(childMethodObject) {
-            assertionFormatterController.format(it, childMethodObject)
-        }
-    }
-
 }
