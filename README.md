@@ -240,7 +240,7 @@ A feature assertion is indicated as follows in the output. It starts with a `▶
 So the above output can be read as "I assert, Person's name (which is actually `"Robert"`) to be `"Peter"` and its property `isStudent` (which is actually `false`) to be `true`". 
 
 :interrobang: You might be asking yourself why I bothered providing the assertion function `message` shown in the example 
-[Expect an Exception](#expect-an-exception) and whether it is better to [write own assertion functions](#write-own-assertion-functions) or use `property`: 
+[Expect an Exception](#expect-an-exception) and whether it is better to [write an own assertion function](#write-own-assertion-functions) or use `property`: 
 
 
 The only drawback IMO of using an existing property is that a few more key strokes are required compared to 
@@ -285,7 +285,7 @@ There are overloads to support methods with up to 5 parameters (notice, `fullNam
 
 The error message shows also another nice feature of Atrium. 
 It provides builders to create more sophisticated assertions.
-Using `contains("treboR", "llotS")` is actually a shortcut for calling an sophisticated assertion builder for `CharSequence`. 
+Using `contains("treboR", "llotS")` is actually a shortcut for calling a sophisticated assertion builder for `CharSequence`. 
 In this example it calls `contains.atLeast(1).values("treboR", "llotS")` which is reflected in the output. 
 Have a look at the [KDoc of the CharSequence contains Builders](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/index.html)
 to see more options.
@@ -470,7 +470,7 @@ Are you missing an assertion function for a specific type and the generic functi
 [property](#property-assertions) and [returnValueOf](#method-assertions) 
 are not good enough?
 
-Writing one is very simple and a pull request of your new assertion function is very welcome.
+Writing one is very simple and a pull request of your new assertion function is very much appreciated.
 Following an example:
 
 ```kotlin
@@ -509,7 +509,7 @@ In case you want to report in a different language, then have a look at [Interna
 Typically you use the expected value itself as its representation -- so you pass it as second argument.
 
 But not all assertion functions require a value which is somehow compared against the subject 
--- some make an assertion about a property of a subject without comparing it against an expected value.
+-- some make an assertion about a property of the `subject` without comparing it against an expected value.
 Consider the following assertion function:
 
 ```kotlin
@@ -569,8 +569,8 @@ Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/mas
 
 # Internationalization
 
-We distinguish between to use cases. You might want to generate the [Report](#report) in a different language or you 
-might want to use the [API in a different language](#api-in-a-different-language). 
+We distinguish between two use cases. 
+You might want to generate the [Report](#report) in a different language or/and you might want to use the [API in a different language](#api-in-a-different-language). 
 
 ## Report
 Following on the example in [Write own Assertion Functions](#write-own-assertion-functions)
@@ -612,7 +612,7 @@ and have a look at the
 [specifications of the `ITranslationSupplier`s](https://github.com/robstoll/atrium/tree/master/core/atrium-core-impl-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/reporting/translating)
 for an example how you have to configure the `ReporterBuilder`.
 
-Notice, Atrium does not yet support generating multiple reports (in different languages) 
+Notice, Atrium does not yet support generating multiple reports (e.g., in different languages) in the same test run 
 -- but Atrium is designed to support this use case. 
 Hence, if you need this feature, then please let me know it by writing a 
 [feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
@@ -640,7 +640,8 @@ Or in other words, provide our API in a different language.
 
 We split up the function in two parts: API and implementation (well yes, its that simple). 
 Moreover we put the API function in one module (jar) and the implementation in another.
-In the implementation module we define, what we will call now an impl-function -- Atrium starts impl-functions with `_`):
+In the implementation module we define, what we will call hereafter an impl-function 
+-- we follow the convention that impl-functions are prefixed with `_`):
 ```kotlin
 fun _isMultipleOf(plant: IAssertionPlant<Int>, base: Int) =
     BasicAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
