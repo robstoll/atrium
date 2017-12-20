@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -97,7 +97,7 @@ import java.util.*
  */
 abstract class TranslatorIntSpec(
     verbs: IAssertionVerbFactory,
-    reporterFactory: (Locale, Array<out Locale>) -> IReporter,
+    reporterFactory: (Locale, Array<out Locale>) -> Reporter,
     //TODO Remove as soon as http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
     withSpecialCases: Boolean = true,
     describePrefix: String = "[Atrium] "

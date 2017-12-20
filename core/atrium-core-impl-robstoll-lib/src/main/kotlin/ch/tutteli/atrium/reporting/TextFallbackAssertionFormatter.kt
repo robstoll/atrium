@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *
  * In addition it defines a fallback for unknown [IAssertionGroupType]s as well as for unknown [IAssertion] types.
  *
- * @property assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
+ * @property assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *           the reporting process.
  * @property assertionPairFormatter The formatter used to format assertion pairs (e.g. [IBasicAssertion.description]
  *           and [IBasicAssertion.expected])
@@ -27,17 +27,17 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *              and [IBasicAssertion.expected]) is formatted.
  * @param bulletPoints The formatter uses the bullet point defined for [RootAssertionGroupType]
  *        (`"◆ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
- * @param assertionFormatterController The [IAssertionFormatterController] used to steer the control flow of
+ * @param assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *        the reporting process.
  * @param assertionPairFormatter The formatter used to format assertion pairs (e.g. [IBasicAssertion.description]
  *        and [IBasicAssertion.expected])
  */
 class TextFallbackAssertionFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-    private val assertionFormatterController: IAssertionFormatterController,
-    private val assertionPairFormatter: IAssertionPairFormatter,
-    private val objectFormatter: IObjectFormatter
-) : IAssertionFormatter {
+    private val assertionFormatterController: AssertionFormatterController,
+    private val assertionPairFormatter: AssertionPairFormatter,
+    private val objectFormatter: ObjectFormatter
+) : AssertionFormatter {
     private val formatter = TextPrefixBasedAssertionGroupFormatter(
         bulletPoints[RootAssertionGroupType::class.java] ?: "◆ ")
 

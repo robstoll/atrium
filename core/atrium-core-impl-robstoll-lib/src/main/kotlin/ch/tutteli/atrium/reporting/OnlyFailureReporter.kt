@@ -3,14 +3,14 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.assertions.IAssertion
 
 /**
- * An [IReporter] which reports only failing assertions.
+ * An [Reporter] which reports only failing assertions.
  *
  * @property assertionFormatterFacade The formatter used to format [IAssertion]s.
  *
- * @constructor An [IReporter] which reports only failing assertions.
+ * @constructor An [Reporter] which reports only failing assertions.
  * @param assertionFormatterFacade The formatter used to format [IAssertion]s.
  */
-class OnlyFailureReporter(private val assertionFormatterFacade: IAssertionFormatterFacade) : IReporter {
+class OnlyFailureReporter(private val assertionFormatterFacade: AssertionFormatterFacade) : Reporter {
 
     /**
      * Formats the given [assertion] with the help of the defined [assertionFormatterFacade]

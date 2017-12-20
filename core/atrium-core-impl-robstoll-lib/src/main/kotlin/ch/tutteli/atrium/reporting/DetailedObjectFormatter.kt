@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.reporting.translating.ITranslator
-import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import kotlin.reflect.KClass
 
 /**
@@ -15,25 +15,25 @@ import kotlin.reflect.KClass
  * Consider the following error message "error, assert: 1 to be 1" would not be very helpful.
  * "error, assert: 1 (Int <123>) to be 1 (Double <456>)" on the other hand is helpful.
  *
- * @property translator The [ITranslator] used to translate [TranslatableRawString]s.
+ * @property translator The [ITranslator] used to translate [TranslatableBasedRawString]s.
  *
  * @constructor Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
  * (in most cases).
- * @param translator The [ITranslator] used to translate [TranslatableRawString]s.
+ * @param translator The [ITranslator] used to translate [TranslatableBasedRawString]s.
  */
-class DetailedObjectFormatter(private val translator: ITranslator) : IObjectFormatter {
+class DetailedObjectFormatter(private val translator: ITranslator) : ObjectFormatter {
 
     /**
      * Returns a formatted version of the given [value].
      *
      * The following rules apply for the representation of an object:
-     * - `null` is represented as [RawString.NULL].[RawString.string]
+     * - `null` is represented as [RawString.NULL].[StringBasedRawString.string]
      * - [Char] is put in apostrophes
      * - [Boolean] is represented with its [toString] representation
      * - [String] is put in quotes and its [Class.getName] is omitted
      * - [CharSequence] is put in quotes, but [KClass.qualifiedName] is used in contrast to [String]
-     * - [RawString] is represented as [RawString.string]
-     * - [TranslatableRawString] is represented as result of its translation (by [translator])
+     * - [StringBasedRawString] is represented as [StringBasedRawString.string]
+     * - [TranslatableBasedRawString] is represented as result of its translation (by [translator])
      * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [KClass] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [Enum] is represented as "[toString] ([Class.getName])
@@ -49,8 +49,8 @@ class DetailedObjectFormatter(private val translator: ITranslator) : IObjectForm
         is Boolean -> value.toString()
         is String -> format(value)
         is CharSequence -> format(value)
-        is RawString -> value.string
-        is TranslatableRawString -> translator.translate(value.translatable)
+        is StringBasedRawString -> value.string
+        is TranslatableBasedRawString -> translator.translate(value.translatable)
         is Class<*> -> format(value)
         is KClass<*> -> format(value)
         is Enum<*> -> format(value)

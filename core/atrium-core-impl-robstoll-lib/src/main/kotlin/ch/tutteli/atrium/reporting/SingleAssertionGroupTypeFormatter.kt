@@ -5,20 +5,20 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IAssertionGroupType
 
 /**
- * A base type for [IAssertionFormatter] which [canFormat][IAssertionFormatter.canFormat] only
+ * A base type for [AssertionFormatter] which [canFormat][AssertionFormatter.canFormat] only
  * [IAssertionGroup]s of one specific [IAssertionGroupType].
  *
- * @param T The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
+ * @param T The [IAssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  *
- * @property clazz The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
+ * @property clazz The [IAssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  *
- * @constructor A base type for [IAssertionFormatter] which [canFormat][IAssertionFormatter.canFormat] only
+ * @constructor A base type for [AssertionFormatter] which [canFormat][AssertionFormatter.canFormat] only
  *              [IAssertionGroup]s of one specific [IAssertionGroupType].
- * @param clazz The [IAssertionGroupType] which the concrete sub class [canFormat][IAssertionFormatter.canFormat].
+ * @param clazz The [IAssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  */
 abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
     private val clazz: Class<T>
-) : IAssertionFormatter {
+) : AssertionFormatter {
 
     /**
      * Returns true if the given [assertion] is an [IAssertionGroup] and its [type][IAssertionGroup.type]
@@ -28,13 +28,13 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
         = assertion is IAssertionGroup && clazz.isAssignableFrom(assertion.type::class.java)
 
     /**
-     * Always throws an [UnsupportedOperationException], because this [IAssertionFormatter] can only format
+     * Always throws an [UnsupportedOperationException], because this [AssertionFormatter] can only format
      * [IAssertionGroup]s.
      *
      * @throws UnsupportedOperationException always!
      */
     override final fun formatNonGroup(assertion: IAssertion, methodObject: AssertionFormatterMethodObject)
-        = throw UnsupportedOperationException("supports only ${clazz.name} for which one has to call ${IAssertionFormatter::formatGroup.name}")
+        = throw UnsupportedOperationException("supports only ${clazz.name} for which one has to call ${AssertionFormatter::formatGroup.name}")
 
     /**
      * Checks whether [assertionGroup] is [T] or a sub type and if so, calls [formatGroupHeaderAndGetChildMethodObject]
@@ -50,7 +50,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
      *        It itself expects a function which formats single [IAssertion]s in the context of the given
      *        [assertionGroup].
      *
-     * @see [IAssertionFormatter.formatGroup].
+     * @see [AssertionFormatter.formatGroup].
      *
      * @throws UnsupportedOperationException if the given [assertionGroup] is not [T] or a sub type of it.
      */
@@ -79,7 +79,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : IAssertionGroupType>(
 
     /**
      * Formats the [IAssertionGroup.assertions] -- has to call the given [formatAssertions] function in order that
-     * the [IAssertionFormatterController] can steer the process.
+     * the [AssertionFormatterController] can steer the process.
      *
      * @param formatAssertions The function which should be called to format the
      *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].

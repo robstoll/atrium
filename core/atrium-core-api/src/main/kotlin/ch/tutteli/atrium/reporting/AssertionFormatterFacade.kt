@@ -4,9 +4,9 @@ import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.IAssertion
 
 /**
- * Responsible to call an appropriate [IAssertionFormatter] which supports [format]ing a given [IAssertion].
+ * Responsible to call an appropriate [AssertionFormatter] which supports [format]ing a given [IAssertion].
  */
-interface IAssertionFormatterFacade {
+interface AssertionFormatterFacade {
     /**
      * Formats the given [assertion] and appends the result to the given [sb].
      *
@@ -20,10 +20,10 @@ interface IAssertionFormatterFacade {
     fun format(assertion: IAssertion, sb: StringBuilder, assertionFilter: (IAssertion) -> Boolean)
 
     /**
-     * Uses the given [assertionFormatterFactory] to create and register an [IAssertionFormatter] -- which means
-     * the created [IAssertionFormatter] will be considered when an [IAssertion] shall be [format]ted.
+     * Uses the given [assertionFormatterFactory] to create and register an [AssertionFormatter] -- which means
+     * the created [AssertionFormatter] will be considered when an [IAssertion] shall be [format]ted.
      *
-     * @param assertionFormatterFactory The factory method to create an [IAssertionFormatter] which shall be registered.
+     * @param assertionFormatterFactory The factory method to create an [AssertionFormatter] which shall be registered.
      */
-    fun register(assertionFormatterFactory: (IAssertionFormatterController) -> IAssertionFormatter)
+    fun register(assertionFormatterFactory: (AssertionFormatterController) -> AssertionFormatter)
 }

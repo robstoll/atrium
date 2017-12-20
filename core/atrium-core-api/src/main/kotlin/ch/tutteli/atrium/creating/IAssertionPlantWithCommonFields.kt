@@ -3,7 +3,6 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**

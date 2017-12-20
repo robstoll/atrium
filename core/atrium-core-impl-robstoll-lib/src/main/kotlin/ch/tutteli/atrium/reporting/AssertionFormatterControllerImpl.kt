@@ -5,20 +5,20 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 import java.util.*
 
 /**
- * Represents an [IAssertionFormatterController] which does nothing special in addition
+ * Represents an [AssertionFormatterController] which does nothing special in addition
  * but just the job of the controller :)
  *
- * @see IAssertionFormatterController
+ * @see AssertionFormatterController
  */
-class AssertionFormatterController : IAssertionFormatterController {
-    private val assertionFormatters = ArrayDeque<IAssertionFormatter>()
+class AssertionFormatterControllerImpl : AssertionFormatterController {
+    private val assertionFormatters = ArrayDeque<AssertionFormatter>()
 
     override fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {
         if (noNeedToFormat(assertion, methodObject)) return
 
         val assertionFormatter = assertionFormatters
             .firstOrNull { it.canFormat(assertion) }
-            ?: IAssertionFormatterController.noSuitableAssertionFormatterFound(assertion)
+            ?: AssertionFormatterController.noSuitableAssertionFormatterFound(assertion)
 
         when (assertion) {
             is IAssertionGroup -> formatGroup(assertion, assertionFormatter, methodObject)
@@ -28,14 +28,14 @@ class AssertionFormatterController : IAssertionFormatterController {
 
     private fun noNeedToFormat(assertion: IAssertion, methodObject: AssertionFormatterMethodObject): Boolean {
         //assertionFilter only applies if:
-        // - we are not in an explanatory assertion group and
-        // - if the given assertion isn't one either.
+        // - we are not in an assertion group which should not be filtered (e.g. explanatory or summary group) and
+        // - if the given assertion is not an explanatory assertion group either.
         return methodObject.isNotInDoNotFilterGroup()
             && !isExplanatoryAssertionGroup(assertion)
             && !methodObject.assertionFilter(assertion)
     }
 
-    private fun formatGroup(assertionGroup: IAssertionGroup, assertionFormatter: IAssertionFormatter, methodObject: AssertionFormatterMethodObject) {
+    private fun formatGroup(assertionGroup: IAssertionGroup, assertionFormatter: AssertionFormatter, methodObject: AssertionFormatterMethodObject) {
         assertionFormatter.formatGroup(assertionGroup, methodObject) { childMethodObject, formatAssertionInGroup ->
             assertionGroup.assertions
                 .filter { !noNeedToFormat(it, childMethodObject) }
@@ -43,7 +43,7 @@ class AssertionFormatterController : IAssertionFormatterController {
         }
     }
 
-    override fun register(assertionFormatter: IAssertionFormatter) {
+    override fun register(assertionFormatter: AssertionFormatter) {
         assertionFormatters.add(assertionFormatter)
     }
 }

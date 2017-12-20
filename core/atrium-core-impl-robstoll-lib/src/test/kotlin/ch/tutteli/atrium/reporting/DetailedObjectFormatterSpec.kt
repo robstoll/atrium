@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.DetailedObjectFormatter.Companion.INDENT
 import ch.tutteli.atrium.reporting.translating.ITranslator
-import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ObjectFormatterSpec
 import com.nhaarman.mockito_kotlin.doReturn
@@ -77,20 +77,20 @@ object DetailedObjectFormatterSpec : Spek({
         }
 
 
-        on("a ${RawString::class.simpleName}") {
-            val result = testee.format(RawString("hello"))
+        on("a ${StringBasedRawString::class.simpleName}") {
+            val result = testee.format(RawString.create("hello"))
             it("returns the containing string") {
                 assert(result).toBe("hello")
             }
         }
 
-        on("a ${TranslatableRawString::class.simpleName}") {
+        on("a ${TranslatableBasedRawString::class.simpleName}") {
             val translation = "es gilt"
             val translator = mock<ITranslator> {
                 on { translate(AssertionVerb.ASSERT) } doReturn translation
             }
             val testeeWithMockedTranslation = DetailedObjectFormatter(translator)
-            val result = testeeWithMockedTranslation.format(TranslatableRawString(AssertionVerb.ASSERT))
+            val result = testeeWithMockedTranslation.format(RawString.create(AssertionVerb.ASSERT))
             it("returns the translated string") {
                 assert(result).toBe(translation)
             }

@@ -6,10 +6,10 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 /**
  * Represents a formatter for [IAssertion]s and [IAssertionGroup]s.
  */
-interface IAssertionFormatter {
+interface AssertionFormatter {
 
     /**
-     * Denotes whether this [IAssertionFormatter] was created to format [IAssertion]s such
+     * Denotes whether this [AssertionFormatter] was created to format [IAssertion]s such
      * as the given [assertion] or not.
      *
      * This function should be in sync with [format] and [formatGroup]. If [assertion] is an [IAssertionGroup] and
@@ -21,7 +21,7 @@ interface IAssertionFormatter {
      * @param assertion The [IAssertion] which builds the basis to answer the question whether this
      *                  [IAssertionFormatter] can format such kinds or not.
      *
-     * @returns `true` if this [IAssertionFormatter] can [format] the given [assertion]; `false` otherwise.
+     * @returns `true` if this [AssertionFormatter] can [format] the given [assertion]; `false` otherwise.
      */
     fun canFormat(assertion: IAssertion): Boolean
 
@@ -38,17 +38,17 @@ interface IAssertionFormatter {
      * to format the given [assertion] without problems. If [canFormat] returns `false` then this method should throw
      * an [UnsupportedOperationException].
      * Moreover, it should throw an [UnsupportedOperationException] in case the [assertion] is an [IAssertionGroup]
-     * -- use [IAssertionFormatter.throwNotIntendedForAssertionGroups] for this purpose.
+     * -- use [AssertionFormatter.throwNotIntendedForAssertionGroups] for this purpose.
      *
      * @param assertion The assertion which should be formatted (not an [IAssertionGroup]).
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
      *        to which the result will be appended.
      *
-     * @throws UnsupportedOperationException in case this [IAssertionFormatter] cannot format the given [assertion]
+     * @throws UnsupportedOperationException in case this [AssertionFormatter] cannot format the given [assertion]
      *         ([canFormat] returns `false`) or if [assertion] is an [IAssertionGroup].
      */
     fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
-        is IAssertionGroup -> IAssertionFormatter.throwNotIntendedForAssertionGroups()
+        is IAssertionGroup -> AssertionFormatter.throwNotIntendedForAssertionGroups()
         else -> formatNonGroup(assertion, methodObject)
     }
 
@@ -68,7 +68,7 @@ interface IAssertionFormatter {
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
      *        to which the result will be appended.
      *
-     * @throws UnsupportedOperationException in case this [IAssertionFormatter] cannot format the given [assertion]
+     * @throws UnsupportedOperationException in case this [AssertionFormatter] cannot format the given [assertion]
      *         ([canFormat] returns `false`).
      */
     fun formatNonGroup(assertion: IAssertion, methodObject: AssertionFormatterMethodObject)
@@ -81,7 +81,7 @@ interface IAssertionFormatter {
      *
      * 1. formatting the group header (e.g. [name][IAssertionGroup.name]: [subject][IAssertionGroup.name])
      * 2. formatting the [IAssertionGroup.assertions] where the control flow for formatting should be steered
-     * by the [IAssertionFormatterController] for which an [IAssertionFormatter] has to call [formatAssertions]
+     * by the [AssertionFormatterController] for which an [AssertionFormatter] has to call [formatAssertions]
      * and define a child-[AssertionFormatterMethodObject] which inter alia proposes the indent level to use, the
      * prefix which should be for each assertion etc.
      *
@@ -100,12 +100,12 @@ interface IAssertionFormatter {
     fun formatGroup(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit)
 
     companion object {
-        val CALL_FORMAT_GROUP = "do not use `${IAssertionFormatter::format.name}` for " +
+        val CALL_FORMAT_GROUP = "do not use `${AssertionFormatter::format.name}` for " +
             "`${IAssertionGroup::class.simpleName}`s, " +
-            "use `${IAssertionFormatter::formatGroup.name}` instead."
+            "use `${AssertionFormatter::formatGroup.name}` instead."
 
         fun throwNotIntendedForAssertionGroups() {
-            throw UnsupportedOperationException(IAssertionFormatter.CALL_FORMAT_GROUP)
+            throw UnsupportedOperationException(AssertionFormatter.CALL_FORMAT_GROUP)
         }
     }
 }

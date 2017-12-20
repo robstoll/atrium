@@ -39,13 +39,13 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
 
         fun createFacade() = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
 
-        fun createFacade(testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter): IAssertionFormatterFacade
+        fun createFacade(testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, ITranslator) -> AssertionFormatter): AssertionFormatterFacade
             = createFacade(mapOf(), testeeFactory)
 
-        fun createFacade(bulletPoint: Pair<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter): IAssertionFormatterFacade
+        fun createFacade(bulletPoint: Pair<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, ITranslator) -> AssertionFormatter): AssertionFormatterFacade
             = createFacade(mapOf(bulletPoint), testeeFactory)
 
-        fun createFacade(extendedBulletPoints: Map<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter): IAssertionFormatterFacade {
+        fun createFacade(extendedBulletPoints: Map<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, ITranslator) -> AssertionFormatter): AssertionFormatterFacade {
             val facade = createFacade()
             facade.register { testeeFactory(extendedBulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
             facade.register { AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }

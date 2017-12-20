@@ -5,7 +5,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 /**
  * Represents a formatter of assertion pairs -- which consists of a [ITranslatable] and a representation.
  */
-interface IAssertionPairFormatter {
+interface AssertionPairFormatter {
     /**
      * Formats the assertion pair consisting of the given [translatable] and the given [representation]
      * and appends the result to the [sb][AssertionFormatterMethodObject.sb] of the given [methodObject].

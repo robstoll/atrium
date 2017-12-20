@@ -1,18 +1,18 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.IAtriumFactory
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.AssertionFormatter
+import ch.tutteli.atrium.reporting.Reporter
 
 /**
  * Represents the [IAssertionGroupType] for [IAssertionGroup]s whose [assertions][IAssertionGroup.assertions] should
- * all be reported in reporting (no filtering by an [IReporter]) since it represents a summary which itself
+ * all be reported in reporting (no filtering by an [Reporter]) since it represents a summary which itself
  * will point out which assertions hold and which do not.
  *
  * This [IAssertionGroupType] should only be used for cases where we need to present a result as a whole and where
  * filtering out successful assertions would either be misleading or not complete.
  *
- * An [IAssertionFormatter] will typically use [PrefixSuccessfulSummaryAssertion] and [PrefixFailingSummaryAssertion]
+ * An [AssertionFormatter] will typically use [PrefixSuccessfulSummaryAssertion] and [PrefixFailingSummaryAssertion]
  * to prefix the [IAssertionGroup.assertions].
  */
 interface ISummaryAssertionGroupType : IDoNotFilterAssertionGroupType
@@ -35,6 +35,6 @@ class PrefixFailingSummaryAssertion private constructor() : IBulletPointIdentifi
 
 /**
  * The [IAssertionGroupType] for [IAssertionGroup]s whose [assertions][IAssertionGroup.assertions] should not be
- * filtered (by an [IReporter]) and for which an [IAssertionFormatter] should state whether they hold or not.
+ * filtered (by an [Reporter]) and for which an [AssertionFormatter] should state whether they hold or not.
  */
 object SummaryAssertionGroupType : ISummaryAssertionGroupType

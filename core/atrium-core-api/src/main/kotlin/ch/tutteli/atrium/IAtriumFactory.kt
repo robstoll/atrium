@@ -18,15 +18,15 @@ import java.util.*
  * It provides factory methods to create:
  * - [IAssertionPlant]
  * - [IAssertionChecker]
- * - [IMethodCallFormatter]
+ * - [MethodCallFormatter]
  * - [ITranslator]
  * - [ITranslationSupplier]
  * - [ILocaleOrderDecider]
- * - [IObjectFormatter]
- * - [IAssertionFormatterFacade]
- * - [IAssertionFormatterController]
- * - [IAssertionFormatter]
- * - [IReporter]
+ * - [ObjectFormatter]
+ * - [AssertionFormatterFacade]
+ * - [AssertionFormatterController]
+ * - [AssertionFormatter]
+ * - [Reporter]
  */
 interface IAtriumFactory {
 
@@ -43,7 +43,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(assertionVerb: ITranslatable, subject: T, reporter: IReporter): IReportingAssertionPlant<T>
+    fun <T : Any> newReportingPlant(assertionVerb: ITranslatable, subject: T, reporter: Reporter): IReportingAssertionPlant<T>
         = newReportingPlant(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
@@ -79,7 +79,7 @@ interface IAtriumFactory {
     /**
      * Creates an [IReportingAssertionPlant] which [IAssertionPlant.addAssertionsCreatedBy] the
      * given [assertionCreator] lambda where the created [IAssertion]s are added as a group and usually (depending on
-     * the configured [IReporter]) reported as a whole.
+     * the configured [Reporter]) reported as a whole.
      *
      * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
@@ -95,7 +95,7 @@ interface IAtriumFactory {
      * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
      *         created [IAssertion] does not hold.
      */
-    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: ITranslatable, subject: T, reporter: IReporter, assertionCreator: IAssertionPlant<T>.() -> Unit)
+    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: ITranslatable, subject: T, reporter: Reporter, assertionCreator: IAssertionPlant<T>.() -> Unit)
         = newReportingPlant(assertionVerb, subject, reporter)
         .addAssertionsCreatedBy(assertionCreator)
 
@@ -113,7 +113,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, reporter: IReporter, nullRepresentation: Any = RawString.NULL): IReportingAssertionPlantNullable<T>
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: ITranslatable, subject: T, reporter: Reporter, nullRepresentation: Any = RawString.NULL): IReportingAssertionPlantNullable<T>
         = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
 
     /**
@@ -178,7 +178,7 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion checker.
      */
-    fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
+    fun newThrowingAssertionChecker(reporter: Reporter): IAssertionChecker
 
     /**
      * Creates an [IAssertionChecker] which creates an [IAssertionGroup] of [type][IAssertionGroup.type]
@@ -205,7 +205,7 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [IMethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
+     * Creates an [MethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
      * representation with the exception of:
      * - [CharSequence], is wrapped in quotes (`"`) and line breaks (CR or/and LF) are escaped so that the
      *   whole representation remains on one line.
@@ -213,7 +213,7 @@ interface IAtriumFactory {
      *
      * @return The newly created method call formatter.
      */
-    fun newMethodCallFormatter(): IMethodCallFormatter
+    fun newMethodCallFormatter(): MethodCallFormatter
 
 
     /**
@@ -273,31 +273,31 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [IObjectFormatter] which represents objects by using their [Object.toString] representation
+     * Creates an [ObjectFormatter] which represents objects by using their [Object.toString] representation
      * including [Class.name] and their [System.identityHashCode].
      *
      * @return The newly created object formatter.
      */
-    fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
+    fun newDetailedObjectFormatter(translator: ITranslator): ObjectFormatter
 
     /**
-     * Creates an [IAssertionFormatterController] which all be used per default for [newAssertionFormatterFacade].
+     * Creates an [AssertionFormatterController] which all be used per default for [newAssertionFormatterFacade].
      *
      * @return The newly created assertion formatter controller.
      */
-    fun newAssertionFormatterController(): IAssertionFormatterController
+    fun newAssertionFormatterController(): AssertionFormatterController
 
     /**
-     * Creates an [IAssertionFormatterFacade] which shall be used per default for [newOnlyFailureReporter].
+     * Creates an [AssertionFormatterFacade] which shall be used per default for [newOnlyFailureReporter].
      *
-     * @param assertionFormatterController The [IAssertionFormatterController] which shall be used for formatting.
+     * @param assertionFormatterController The [AssertionFormatterController] which shall be used for formatting.
      *
      * @return The newly created assertion formatter facade.
      */
-    fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
+    fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
 
     /**
-     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and serves as
+     * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and serves as
      * fallback if no other formatter is able to format a given [IAssertion].
      *
      * Typically this includes the formatting of the [IAssertionGroup] with a [RootAssertionGroupType].
@@ -310,10 +310,10 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
 
     /**
-     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
+     * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
      * formats [IAssertionGroup]s of type [IFeatureAssertionGroupType].
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
@@ -325,10 +325,10 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
 
     /**
-     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
+     * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
      * formats [IAssertionGroup]s of type [IListAssertionGroupType].
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
@@ -339,10 +339,10 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
 
     /**
-     * Creates an [IAssertionFormatter] which is intended for text output (e.g. for the console) and
+     * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
      * formats [IAssertionGroup]s of type [IExplanatoryAssertionGroupType] by creating an
      * [AssertionFormatterMethodObject] which indicates that formatting its [IAssertionGroup.assertions] happens within
      * an explanatory assertion group.
@@ -353,10 +353,10 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
+    fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
 
     /**
-     * Registers all available [IAssertionFormatter]s -- which put assertion pairs on the same line and report in
+     * Registers all available [AssertionFormatter]s -- which put assertion pairs on the same line and report in
      * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
      *
      * Should at least support [RootAssertionGroupType], [IFeatureAssertionGroupType], [IListAssertionGroupType],
@@ -364,24 +364,24 @@ interface IAtriumFactory {
      *
      * @param bulletPoints The bullet points used in reporting to prefix each [IAssertion] in
      * [IAssertionGroup.assertions].
-     * @param assertionFormatterFacade The [IAssertionFormatterFacade] to which all [IAssertionFormatter]s with
+     * @param assertionFormatterFacade The [AssertionFormatterFacade] to which all [AssertionFormatter]s with
      *        same line capabilities and text reporting should be registered.
      * @param objectFormatter The formatter which is used to format objects other than [IAssertion]s.
      * @param translator The translator which is used to translate [ITranslatable] such as [IBasicAssertion.description].
      */
     fun registerSameLineTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-        assertionFormatterFacade: IAssertionFormatterFacade,
-        objectFormatter: IObjectFormatter,
+        assertionFormatterFacade: AssertionFormatterFacade,
+        objectFormatter: ObjectFormatter,
         translator: ITranslator)
 
     /**
-     * Creates an [IReporter] which reports only failing assertions
+     * Creates an [Reporter] which reports only failing assertions
      * and uses the given [assertionFormatterFacade] to format assertions and messages.
      *
      * @param assertionFormatterFacade The formatter which is used to format [IAssertion]s.
      *
      * @return The newly created reporter.
      */
-    fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
+    fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
 }

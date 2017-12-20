@@ -5,7 +5,8 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import ch.tutteli.atrium.reporting.StringBasedRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -54,7 +55,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
             val entry = itr.next()
             Pair(matches(entry, searchCriterion), entry ?: RawString.NULL)
         } else {
-            Pair(false, TranslatableRawString(DescriptionIterableAssertion.SIZE_EXCEEDED))
+            Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
         }
         val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, index)
         AssertionGroup(FeatureAssertionGroupType, description, entryRepresentation, listOf(
@@ -71,7 +72,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
             additionalEntries.add(itr.next())
         }
         val featureAssertions = mutableListOf<IAssertion>()
-        featureAssertions.add(BasicAssertion(DescriptionAnyAssertion.TO_BE, RawString(expectedSize.toString()), { actualSize == expectedSize }))
+        featureAssertions.add(BasicAssertion(DescriptionAnyAssertion.TO_BE, RawString.create(expectedSize.toString()), { actualSize == expectedSize }))
         if (actualSize > expectedSize) {
             featureAssertions.add(LazyThreadUnsafeAssertionGroup {
                 val assertions = additionalEntries.mapIndexed { index, it ->
@@ -83,6 +84,6 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
                 ))
             })
         }
-        return AssertionGroup(FeatureAssertionGroupType, Untranslatable(additionalEntries::size.name), RawString(actualSize.toString()), featureAssertions.toList())
+        return AssertionGroup(FeatureAssertionGroupType, Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
     }
 }

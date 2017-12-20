@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
@@ -36,7 +37,7 @@ abstract class ContainsChecker(
     }
 
     /**
-     * Creates an [IBasicAssertion] based on the given [description], the property [times] as [RawString]
+     * Creates an [IBasicAssertion] based on the given [description], the property [times] as [StringBasedRawString]
      * and the given [check].
      *
      * @param description The description used for [IBasicAssertion.description]
@@ -45,5 +46,5 @@ abstract class ContainsChecker(
      * @return The newly created [IBasicAssertion].
      */
     protected fun createBasicAssertion(description: ITranslatable, check: Boolean): IBasicAssertion
-        = BasicAssertion(description, RawString(times.toString()), check)
+        = BasicAssertion(description, RawString.create(times.toString()), check)
 }

@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.Reporter
 
 /**
  * Makes the assertion that [IAssertionPlant.subject] is (equals) [expected].
@@ -73,7 +72,7 @@ infix fun <T : Any?> IAssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER
  * For instance `assert(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
  * two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
  * second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
- * Hence the reporting might (depending on the configured [IReporter]) contain both failing sub-assertions.
+ * Hence the reporting might (depending on the configured [Reporter]) contain both failing sub-assertions.
  *
  * @return This plant to support a fluent API.
  */

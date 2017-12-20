@@ -5,13 +5,12 @@ import ch.tutteli.atrium.api.cc.en_UK.isEmpty
 import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IAssertionFormatterController
+import ch.tutteli.atrium.reporting.AssertionFormatter
+import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
@@ -19,7 +18,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class TextSummaryAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
+    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
@@ -40,7 +39,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
 
     val onlyFailingAssertionFilter: (IAssertion) -> Boolean = { !it.holds() }
 
-    describeFun(IAssertionFormatter::canFormat.name) {
+    describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController())
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${ISummaryAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(AssertionGroup(object : ISummaryAssertionGroupType {}, Untranslatable.EMPTY, 1, listOf()))
@@ -48,7 +47,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
         }
     }
 
-    describeFun(IAssertionFormatter::formatGroup.name) {
+    describeFun(AssertionFormatter::formatGroup.name) {
         context("${IAssertionGroup::class.simpleName} of ${SummaryAssertionGroupType::class.simpleName} and does not hold") {
             val assertions = listOf(
                 BasicAssertion(AssertionVerb.ASSERT, 1, true),

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.throwable.thrown.builders
 
 import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
@@ -23,5 +23,5 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
 class ThrowableThrownBuilder(
     val assertionVerb: ITranslatable,
     val act: () -> Unit,
-    val reporter: IReporter
+    val reporter: Reporter
 )

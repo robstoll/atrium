@@ -38,11 +38,11 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factoryWithBulletPoints(), "[Atrium's AssertionFormatterSpec] ")
 
     companion object {
-        fun factory() = { assertionFormatterController: IAssertionFormatterController ->
+        fun factory() = { assertionFormatterController: AssertionFormatterController ->
             TextIndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
         }
 
-        fun factoryWithBulletPoints() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
+        fun factoryWithBulletPoints() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: ITranslator ->
             TextIndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
         }
     }

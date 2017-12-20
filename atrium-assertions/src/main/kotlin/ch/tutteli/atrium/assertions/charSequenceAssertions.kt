@@ -13,8 +13,9 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequence
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIndexSearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
 import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 
 fun <T : CharSequence> _containsBuilder(plant: IAssertionPlant<T>)
     = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour)
@@ -46,10 +47,10 @@ fun <T : CharSequence> _endsNotWith(plant: IAssertionPlant<T>, expected: CharSeq
     = BasicAssertion(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
 
 fun <T : CharSequence> _isEmpty(plant: IAssertionPlant<T>): IAssertion
-    = BasicAssertion(DescriptionBasic.IS, TranslatableRawString(EMPTY), { plant.subject.isEmpty() })
+    = BasicAssertion(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
 
 fun <T : CharSequence> _isNotEmpty(plant: IAssertionPlant<T>): IAssertion
-    = BasicAssertion(DescriptionBasic.IS_NOT, TranslatableRawString(EMPTY), { plant.subject.isNotEmpty() })
+    = BasicAssertion(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
 
 
 fun <T : CharSequence> _containsValues(
