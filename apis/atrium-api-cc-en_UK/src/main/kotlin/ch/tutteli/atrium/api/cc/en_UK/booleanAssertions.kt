@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] is `true`.
+ * Makes the assertion that [AssertionPlant.subject] is `true`.
  *
  * Delegates to [toBe] with argument `true`.
  *
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 fun Assert<Boolean>.isTrue() = toBe(true)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] is `false`.
+ * Makes the assertion that [AssertionPlant.subject] is `false`.
  *
  * Delegates to [toBe] with argument `false`.
  *

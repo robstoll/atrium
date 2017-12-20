@@ -2,9 +2,9 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
 
-interface IReportingAssertionPlantNullable<out T>
-    : IAssertionPlantNullable<T>, IBaseReportingAssertionPlant<T, IAssertionPlantNullable<T>> {
-    
+interface ReportingAssertionPlantNullable<out T>
+    : AssertionPlantNullable<T>, BaseReportingAssertionPlant<T, AssertionPlantNullable<T>> {
+
     /**
      * The subject for which this plant will create, check and report [IAssertion]s.
      */

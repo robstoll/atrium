@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
@@ -14,8 +14,8 @@ import org.jetbrains.spek.api.include
 
 abstract class BooleanAssertionsSpec(
     verbs: IAssertionVerbFactory,
-    isTruePair: Pair<String, IAssertionPlant<Boolean>.() -> IAssertionPlant<Boolean>>,
-    isFalsePair: Pair<String, IAssertionPlant<Boolean>.() -> IAssertionPlant<Boolean>>,
+    isTruePair: Pair<String, AssertionPlant<Boolean>.() -> AssertionPlant<Boolean>>,
+    isFalsePair: Pair<String, AssertionPlant<Boolean>.() -> AssertionPlant<Boolean>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -33,7 +33,7 @@ abstract class BooleanAssertionsSpec(
         prefixedDescribe(describePrefix, description, body)
     }
 
-    val assert: (Boolean) -> IAssertionPlant<Boolean> = verbs::checkImmediately
+    val assert: (Boolean) -> AssertionPlant<Boolean> = verbs::checkImmediately
     val expect = verbs::checkException
     val (isTrue, isTrueFun) = isTruePair
     val (isFalse, isFalseFun) = isFalsePair

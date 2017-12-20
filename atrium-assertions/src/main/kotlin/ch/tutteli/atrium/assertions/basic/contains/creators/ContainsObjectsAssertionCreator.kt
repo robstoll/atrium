@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.basic.contains.Contains
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * It provides a template to fulfill the job of creating the sophisticated `contains` assertion.
  *
- * @param T The type of the [IAssertionPlant.subject].
+ * @param T The type of the [AssertionPlant.subject].
  * @param S The type of the search criteria.
  * @param B The type of the current [Contains.SearchBehaviour].
  * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
@@ -32,7 +32,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBe
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup
         = InvisibleAssertionGroup(assertions)
 
-    override final fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: S, featureFactory: (Int, Translatable) -> IAssertionGroup): IAssertionGroup {
+    override final fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: S, featureFactory: (Int, Translatable) -> IAssertionGroup): IAssertionGroup {
         val count = search(plant, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
         val description = searchBehaviour.decorateDescription(descriptionContains)
@@ -51,13 +51,13 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBe
 
     /**
      * Searches for something matching the given [searchCriterion] in the given [plant]'s
-     * [subject][IAssertionPlant.subject] and returns the number of occurrences.
+     * [subject][AssertionPlant.subject] and returns the number of occurrences.
      *
-     * @param plant The plant or rather its [subject][IAssertionPlant.subject] in which we shall look for something
+     * @param plant The plant or rather its [subject][AssertionPlant.subject] in which we shall look for something
      *        matching the given [searchCriterion].
      * @param searchCriterion The search criterion used to determine whether something matches or not.
      *
-     * @return The number of times the [searchCriterion] matched in the [plant]'s [subject][IAssertionPlant.subject].
+     * @return The number of times the [searchCriterion] matched in the [plant]'s [subject][AssertionPlant.subject].
      */
-    protected abstract fun search(plant: IAssertionPlant<T>, searchCriterion: S): Int
+    protected abstract fun search(plant: AssertionPlant<T>, searchCriterion: S): Int
 }

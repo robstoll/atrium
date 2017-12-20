@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions.basic.contains
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains.*
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -46,7 +46,7 @@ interface Contains {
      * Represents the final step of a sophisticated `contains` assertion builder which creates the [IAssertionGroup]
      * as such.
      *
-     * @param T The type of the [IAssertionPlant.subject].
+     * @param T The type of the [AssertionPlant.subject].
      * @param S The type of the search criteria.
      */
     interface Creator<in T : Any, in S> {
@@ -59,13 +59,13 @@ interface Contains {
          * together into an [IAssertionGroup].
          * This resulting [IAssertionGroup] represents the sophisticated `contains` assertion as a whole.
          *
-         * @param plant The plant -- or rather its [subject][IAssertionPlant.subject] -- for which the [IAssertionGroup]
+         * @param plant The plant -- or rather its [subject][AssertionPlant.subject] -- for which the [IAssertionGroup]
          *        is created.
          * @param searchCriterion A search criterion.
          * @param otherSearchCriteria Other search criteria (might also be empty).
          *
          * @return The newly created [IAssertionGroup].
          */
-        fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup
+        fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup
     }
 }

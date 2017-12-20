@@ -3,7 +3,7 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -16,8 +16,8 @@ import java.util.*
  * The minimum contract of the 'abstract factory' of atrium.
  *
  * It provides factory methods to create:
- * - [IAssertionPlant]
- * - [IAssertionChecker]
+ * - [AssertionPlant]
+ * - [AssertionChecker]
  * - [MethodCallFormatter]
  * - [Translator]
  * - [TranslationSupplier]
@@ -31,7 +31,7 @@ import java.util.*
 interface IAtriumFactory {
 
     /**
-     * Creates an [IReportingAssertionPlant] which checks and reports added [IAssertion]s.
+     * Creates an [ReportingAssertionPlant] which checks and reports added [IAssertion]s.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
@@ -43,11 +43,11 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, reporter: Reporter): IReportingAssertionPlant<T>
+    fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, reporter: Reporter): ReportingAssertionPlant<T>
         = newReportingPlant(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
-     * Creates an [IReportingAssertionPlant] which checks and reports added [IAssertion]s.
+     * Creates an [ReportingAssertionPlant] which checks and reports added [IAssertion]s.
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
@@ -60,24 +60,24 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, assertionChecker: IAssertionChecker): IReportingAssertionPlant<T>
-        = newReportingPlant(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
+    fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, assertionChecker: AssertionChecker): ReportingAssertionPlant<T>
+        = newReportingPlant(AssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
 
     /**
-     * Creates an [IReportingAssertionPlant] which checks and reports added [IAssertion]s.
+     * Creates an [ReportingAssertionPlant] which checks and reports added [IAssertion]s.
      *
-     * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
+     * It uses the [AssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
      * assertion checking.
      *
      * @param commonFields The commonFields for the new assertion plant.
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
+    fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
 
 
     /**
-     * Creates an [IReportingAssertionPlant] which [IAssertionPlant.addAssertionsCreatedBy] the
+     * Creates an [ReportingAssertionPlant] which [AssertionPlant.addAssertionsCreatedBy] the
      * given [assertionCreator] lambda where the created [IAssertion]s are added as a group and usually (depending on
      * the configured [Reporter]) reported as a whole.
      *
@@ -90,18 +90,18 @@ interface IAtriumFactory {
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      * @param assertionCreator The
      *
-     * @return The newly created [IAssertionPlant] which can be used to postulate further assertions.
+     * @return The newly created [AssertionPlant] which can be used to postulate further assertions.
      *
-     * @throws AssertionError The newly created [IAssertionPlant] might throw an [AssertionError] in case a
+     * @throws AssertionError The newly created [AssertionPlant] might throw an [AssertionError] in case a
      *         created [IAssertion] does not hold.
      */
-    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: Translatable, subject: T, reporter: Reporter, assertionCreator: IAssertionPlant<T>.() -> Unit)
+    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: Translatable, subject: T, reporter: Reporter, assertionCreator: AssertionPlant<T>.() -> Unit)
         = newReportingPlant(assertionVerb, subject, reporter)
         .addAssertionsCreatedBy(assertionCreator)
 
 
     /**
-     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
+     * Creates an [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
@@ -113,11 +113,11 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, reporter: Reporter, nullRepresentation: Any = RawString.NULL): IReportingAssertionPlantNullable<T>
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, reporter: Reporter, nullRepresentation: Any = RawString.NULL): ReportingAssertionPlantNullable<T>
         = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
 
     /**
-     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
+     * Creates an [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
@@ -130,37 +130,37 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, assertionChecker: IAssertionChecker, nullRepresentation: Any): IReportingAssertionPlantNullable<T>
-        = newReportingPlantNullable(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, nullRepresentation))
+    fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, assertionChecker: AssertionChecker, nullRepresentation: Any): ReportingAssertionPlantNullable<T>
+        = newReportingPlantNullable(AssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, nullRepresentation))
 
     /**
-     * Creates an [IReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
+     * Creates an [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
-     * It uses the [IAssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
+     * It uses the [AssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
      * assertion checking.
      *
      * @param commonFields The commonFields for the new assertion plant.
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
+    fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
 
     /**
-     * Creates an [ICheckingAssertionPlant] which provides a method to check whether
-     * [allAssertionsHold][ICheckingAssertionPlant.allAssertionsHold].
+     * Creates an [CheckingAssertionPlant] which provides a method to check whether
+     * [allAssertionsHold][CheckingAssertionPlant.allAssertionsHold].
      *
      * @param subject The subject for which this plant will create [IAssertion]s.
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
+    fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
 
     /**
-     * Creates an [ICollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
+     * Creates an [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
      * created [IAssertion]s inside the lambda.
      *
-     * Notice, that this [IAssertionPlant] might not even provide a [IAssertionPlant.subject] in which case it
-     * throws an [PlantHasNoSubjectException] if [subject][IAssertionPlant.subject] is accessed.
+     * Notice, that this [AssertionPlant] might not even provide a [AssertionPlant.subject] in which case it
+     * throws an [PlantHasNoSubjectException] if [subject][AssertionPlant.subject] is accessed.
      * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
      *
      * @param subjectProvider The function which will either provide the subject for this plant or throw an
@@ -168,40 +168,40 @@ interface IAtriumFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
+    fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
 
     /**
-     * Creates an [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
+     * Creates an [AssertionChecker] which throws [AssertionError]s in case an assertion fails
      * and uses the given [reporter] for reporting.
      *
      * @param reporter The reporter which is used to report [IAssertion]s.
      *
      * @return The newly created assertion checker.
      */
-    fun newThrowingAssertionChecker(reporter: Reporter): IAssertionChecker
+    fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
 
     /**
-     * Creates an [IAssertionChecker] which creates an [IAssertionGroup] of [type][IAssertionGroup.type]
+     * Creates an [AssertionChecker] which creates an [IAssertionGroup] of [type][IAssertionGroup.type]
      * [IFeatureAssertionGroupType] instead of checking assertions and delegates this task to the given
-     * [subjectPlant] by adding (see [IAssertionPlant.addAssertion]) the created assertion group to it.
+     * [subjectPlant] by adding (see [AssertionPlant.addAssertion]) the created assertion group to it.
      *
      * @param subjectPlant The assertion plant to which the created [IAssertionGroup] of [type][IAssertionGroup.type]
      *        [IFeatureAssertionGroupType] will be [added][IAssertionPlant.addAssertion].
      *
      * @return The newly created assertion checker.
      */
-    fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+    fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
 
 
     /**
-     * Creates an [IAssertionChecker] which delegates the checking of [IAssertion]s to the given [subjectPlant]
-     * by adding (see [IAssertionPlant.addAssertion]) the assertions to the given [subjectPlant].
+     * Creates an [AssertionChecker] which delegates the checking of [IAssertion]s to the given [subjectPlant]
+     * by adding (see [AssertionPlant.addAssertion]) the assertions to the given [subjectPlant].
      *
-     * @param subjectPlant The assertion plant to which the [IAssertion]s will be [added][IAssertionPlant.addAssertion].
+     * @param subjectPlant The assertion plant to which the [IAssertion]s will be [added][AssertionPlant.addAssertion].
      *
      * @return The newly created assertion checker.
      */
-    fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
+    fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
 
 
     /**

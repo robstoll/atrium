@@ -4,11 +4,11 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Creates an [CharSequenceContainsBuilder] based on this [IAssertionPlant] which allows to define
+ * Creates an [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
@@ -18,7 +18,7 @@ val <T : CharSequence> Assert<T>.enthaelt
     = _containsBuilder(this)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [toString] representation
+ * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if defined), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).werte(expected, *otherExpected)`.
@@ -38,21 +38,21 @@ val <T : CharSequence> Assert<T>.enthaelt
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
     = enthaelt.zumindest(1).werte(expected, *otherExpected)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] does not contain [expected]'s [toString] representation
+ * Makes the assertion that [AssertionPlant.subject] does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if defined).
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpected: Any): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
     = addAssertion(_containsNot(this, expected, otherExpected))
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
+ * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
  * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if defined),
  * using a non disjoint search.
  *
@@ -73,72 +73,72 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
     = enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] does  not contain [expected]'s
+ * Makes the assertion that [AssertionPlant.subject] does  not contain [expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if defined).
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
     = addAssertion(_containsNotDefaultTranslationOf(this, expected, otherExpected))
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] starts with [expected].
+ * Makes the assertion that [AssertionPlant.subject] starts with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence): AssertionPlant<T>
     = addAssertion(_startsWith(this, expected))
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] does not start with [expected].
+ * Makes the assertion that [AssertionPlant.subject] does not start with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence): AssertionPlant<T>
     = addAssertion(_startsNotWith(this, expected))
 
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] ends with [expected].
+ * Makes the assertion that [AssertionPlant.subject] ends with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence): AssertionPlant<T>
     = addAssertion(_endsWith(this, expected))
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] does not end with [expected].
+ * Makes the assertion that [AssertionPlant.subject] does not end with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence): AssertionPlant<T>
     = addAssertion(_endsNotWith(this, expected))
 
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
+ * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.istLeer(): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.istLeer(): AssertionPlant<T>
     = addAssertion(_isEmpty(this))
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
+ * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.istNichtLeer(): IAssertionPlant<T>
+fun <T : CharSequence> Assert<T>.istNichtLeer(): AssertionPlant<T>
     = addAssertion(_isNotEmpty(this))

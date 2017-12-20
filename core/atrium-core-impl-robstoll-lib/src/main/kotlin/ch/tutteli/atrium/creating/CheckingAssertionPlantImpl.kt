@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.creating
 
-class CheckingAssertionPlant<out T : Any>(
+class CheckingAssertionPlantImpl<out T : Any>(
     override val subject: T
-) : BaseAssertionPlant<T, IAssertionPlant<T>>(), ICheckingAssertionPlant<T> {
+) : MutableListBasedAssertionPlant<T, AssertionPlant<T>>(), CheckingAssertionPlant<T> {
     override val self = this
 
-    override fun addAssertionsCreatedBy(assertionCreator: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T> {
+    override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T> {
         this.assertionCreator()
         return this
     }

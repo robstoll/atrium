@@ -3,13 +3,12 @@ package ch.tutteli.atrium.spec.checking
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroup
-import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IBaseAssertionPlant
+import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
@@ -20,11 +19,11 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class DelegatingAssertionCheckerSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (subjectFactory: IBaseAssertionPlant<Int, *>) -> IAssertionChecker,
+    testeeFactory: (subjectFactory: BaseAssertionPlant<Int, *>) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val assert: (IAssertion) -> IAssertionPlant<IAssertion> = verbs::checkImmediately
+    val assert: (IAssertion) -> AssertionPlant<IAssertion> = verbs::checkImmediately
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
@@ -41,7 +40,7 @@ abstract class DelegatingAssertionCheckerSpec(
         override fun holds() = true
     }
 
-    describeFun(IAssertionChecker::check.name) {
+    describeFun(AssertionChecker::check.name) {
         context("empty assertion list") {
             it("does not throw an exception") {
                 val testee = testeeFactory(mock())
@@ -58,7 +57,7 @@ abstract class DelegatingAssertionCheckerSpec(
             context(description) {
                 it("adds the assertion(s) to the subject plant") {
                     //arrange
-                    val subjectFactory = mock<IAssertionPlant<Int>>()
+                    val subjectFactory = mock<AssertionPlant<Int>>()
                     val testee = testeeFactory(subjectFactory)
                     //act
                     testee.check(assertionVerb, 1, assertions)

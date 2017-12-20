@@ -9,13 +9,13 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
-fun <E, T : Iterable<E>> _containsBuilder(plant: IAssertionPlant<T>)
+fun <E, T : Iterable<E>> _containsBuilder(plant: AssertionPlant<T>)
     = IterableContainsBuilder(plant, IterableContainsNoOpSearchBehaviour)
 
-fun <E, T : Iterable<E>> _containsNot(plant: IAssertionPlant<T>, expected: E, otherExpected: Array<out E>): IAssertion {
+fun <E, T : Iterable<E>> _containsNot(plant: AssertionPlant<T>, expected: E, otherExpected: Array<out E>): IAssertion {
     val assertions = mutableListOf<IAssertion>()
     listOf(expected, *otherExpected).forEach {
         assertions.add(LazyThreadUnsafeBasicAssertion {
@@ -34,8 +34,8 @@ fun <E, T : Iterable<E>> _containsObjectsInAnyOrder(
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrder(
     checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
-    assertionCreator: IAssertionPlant<E>.() -> Unit,
-    otherAssertionCreators: Array<out IAssertionPlant<E>.() -> Unit>
+    assertionCreator: AssertionPlant<E>.() -> Unit,
+    otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
 ): IAssertion
     = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
@@ -50,8 +50,8 @@ fun <E, T : Iterable<E>> _containsObjectsInAnyOrderOnly(
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrderOnly(
     builder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>,
-    assertionCreator: IAssertionPlant<E>.() -> Unit,
-    otherAssertionCreators: Array<out IAssertionPlant<E>.() -> Unit>
+    assertionCreator: AssertionPlant<E>.() -> Unit,
+    otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
 ): IAssertion {
     val checker = IterableContainsNoOpCheckerBuilder(builder)
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
@@ -68,8 +68,8 @@ fun <E, T : Iterable<E>> _containsObjectsInOrderOnly(
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
     builder: IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>,
-    assertionCreator: IAssertionPlant<E>.() -> Unit,
-    otherAssertionCreators: Array<out IAssertionPlant<E>.() -> Unit>
+    assertionCreator: AssertionPlant<E>.() -> Unit,
+    otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
 ): IAssertion {
     val checker = IterableContainsNoOpCheckerBuilder(builder)
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInOrderOnlyEntriesAssertionCreator)

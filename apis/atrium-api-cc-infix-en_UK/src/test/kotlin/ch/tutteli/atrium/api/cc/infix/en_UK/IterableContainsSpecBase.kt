@@ -5,12 +5,12 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import kotlin.reflect.KFunction2
 
 abstract class IterableContainsSpecBase {
-    private val containsNotFun: KFunction2<IAssertionPlant<Iterable<Double>>, Double, IAssertionPlant<Iterable<Double>>> = IAssertionPlant<Iterable<Double>>::containsNot
-    protected val toContain = "${IAssertionPlant<Iterable<Double>>::to.name} ${contain::class.simpleName}"
+    private val containsNotFun: KFunction2<AssertionPlant<Iterable<Double>>, Double, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::containsNot
+    protected val toContain = "${AssertionPlant<Iterable<Double>>::to.name} ${contain::class.simpleName}"
     protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
     protected val atLeast = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::atLeast.name
     protected val butAtMost = IterableContainsAtLeastCheckerBuilder<Double, Iterable<Double>>::butAtMost.name
@@ -20,7 +20,7 @@ abstract class IterableContainsSpecBase {
     protected val inAnyOrder = "${IterableContainsBuilder<Double, Iterable<Double>, IterableContainsNoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
     protected val inOrder = "${IterableContainsBuilder<Double, Iterable<Double>, IterableContainsNoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
     protected val butOnly = "${IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::but.name} ${only::class.simpleName}"
-    private val theFun: KFunction2<IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderOnlySearchBehaviour>, Values<Double>, IAssertionPlant<Iterable<Double>>>
+    private val theFun: KFunction2<IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderOnlySearchBehaviour>, Values<Double>, AssertionPlant<Iterable<Double>>>
         = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderOnlySearchBehaviour>::the
     protected val the = theFun.name
     private val values = Values::class.simpleName

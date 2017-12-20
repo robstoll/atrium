@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.creating
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.creating.ICollectingAssertionPlant
+import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
@@ -15,7 +15,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class CollectingAssertionPlantSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (() -> Int) -> ICollectingAssertionPlant<Int>,
+    testeeFactory: (() -> Int) -> CollectingAssertionPlant<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

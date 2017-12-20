@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction3
@@ -18,7 +18,7 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
         fun getEntriesPair()
             = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderSearchBehaviour>::eintraege.name to Companion::entries
 
-        private fun entries(plant: IAssertionPlant<Iterable<Double>>, a: IAssertionPlant<Double>.() -> Unit, aX: Array<out IAssertionPlant<Double>.() -> Unit>): IAssertionPlant<Iterable<Double>> {
+        private fun entries(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(a)
             } else {
@@ -27,14 +27,14 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
         }
 
         private fun getContainsShortcutName(): String {
-            val f: KFunction3<IAssertionPlant<Iterable<Double>>, IAssertionPlant<Double>.() -> Unit, Array<out IAssertionPlant<Double>.() -> Unit>, IAssertionPlant<Iterable<Double>>> = IAssertionPlant<Iterable<Double>>::enthaelt
+            val f: KFunction3<AssertionPlant<Iterable<Double>>, AssertionPlant<Double>.() -> Unit, Array<out AssertionPlant<Double>.() -> Unit>, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::enthaelt
             return f.name
         }
 
         fun getEntriesShortcutPair()
             = getContainsShortcutName() to Companion::entriesShortcut
 
-        private fun entriesShortcut(plant: IAssertionPlant<Iterable<Double>>, a: IAssertionPlant<Double>.() -> Unit, aX: Array<out IAssertionPlant<Double>.() -> Unit>)
+        private fun entriesShortcut(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>)
             = plant.enthaelt(a, *aX)
     }
 

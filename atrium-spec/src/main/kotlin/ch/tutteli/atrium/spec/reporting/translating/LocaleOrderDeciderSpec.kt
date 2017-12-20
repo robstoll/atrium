@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -22,7 +22,7 @@ abstract class LocaleOrderDeciderSpec(
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
         = prefixedDescribe(describePrefix, description, body)
 
-    val assert: (Iterable<Locale>) -> IAssertionPlant<Iterable<Locale>> = verbs::checkImmediately
+    val assert: (Iterable<Locale>) -> AssertionPlant<Iterable<Locale>> = verbs::checkImmediately
     val testee = testeeFactory()
 
     val variantA = "VariantA"

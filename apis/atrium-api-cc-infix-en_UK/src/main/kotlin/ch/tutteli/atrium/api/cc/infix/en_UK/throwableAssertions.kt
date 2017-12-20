@@ -4,8 +4,8 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions._toThrow
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].
@@ -31,13 +31,13 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinline assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
+infix inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
     _toThrow(this, assertionCreator)
 }
 
 /**
- * Creates an [IAssertionPlantNullable] for the [message][Throwable.message] of the plant's
- * [subject][IAssertionPlant.subject] (which is an [Throwable]) and makes the assertion that the message ought
+ * Creates an [AssertionPlantNullable] for the [message][Throwable.message] of the plant's
+ * [subject][AssertionPlant.subject] (which is an [Throwable]) and makes the assertion that the message ought
  * [notToBeNull] and uses [assertionCreator] which might create further [IAssertion]s which are lazily evaluated at the end.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
@@ -47,7 +47,7 @@ infix inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *         or if an additionally created [IAssertion]s (by calling [assertionCreator]) does not hold.
  */
-infix fun <T : Throwable> Assert<T>.message(assertionCreator: IAssertionPlant<String>.() -> Unit) {
+infix fun <T : Throwable> Assert<T>.message(assertionCreator: AssertionPlant<String>.() -> Unit) {
     property(subject::message).notToBeNull(assertionCreator)
 }
 

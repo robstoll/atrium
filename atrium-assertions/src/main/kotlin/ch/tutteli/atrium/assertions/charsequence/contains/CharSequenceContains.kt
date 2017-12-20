@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -21,7 +21,7 @@ interface CharSequenceContains {
      * Represents the final step of a sophisticated `contains` assertion builder which creates the [IAssertionGroup]
      * as such.
      *
-     * @param T The type of the [IAssertionPlant.subject].
+     * @param T The type of the [AssertionPlant.subject].
      * @param S The type of the search criteria.
      */
     interface Creator<in T : CharSequence, in S> : Contains.Creator<T, S>

@@ -5,18 +5,17 @@ import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.creating.ICheckingAssertionPlant
+import ch.tutteli.atrium.creating.CheckingAssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.inCaseOf
-import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
 
 abstract class CheckingAssertionPlantSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (Int) -> ICheckingAssertionPlant<Int>,
+    testeeFactory: (Int) -> CheckingAssertionPlant<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

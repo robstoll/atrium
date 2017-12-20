@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions._containsEntriesInAnyOrder
 import ch.tutteli.atrium.assertions._containsObjectsInAnyOrder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
@@ -14,10 +14,10 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.value(expected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.value(expected: E): AssertionPlant<T>
     = objects(expected)
 
 /**
@@ -29,10 +29,10 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.values(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.values(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = objects(expected, *otherExpected)
 
 
@@ -44,10 +44,10 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  *
  * @param expected The object which is expected to be contained within the [Iterable].
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.`object`(expected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.`object`(expected: E): AssertionPlant<T>
     = objects(expected)
 
 /**
@@ -66,10 +66,10 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @param expected The object which is expected to be contained within the [Iterable].
  * @param otherExpected Additional objects which are expected to be contained within [Iterable].
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.objects(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.objects(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = addAssertion(_containsObjectsInAnyOrder(this, expected, otherExpected))
 
 
@@ -82,10 +82,10 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
  *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.entry(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.entry(assertionCreator: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
     = entries(assertionCreator)
 
 /**
@@ -98,8 +98,8 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
  *        which we are looking for.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.entries(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.entries(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
     = addAssertion(_containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))

@@ -30,14 +30,14 @@ object AssertionCollector {
 
         /**
          * Collects the [IAssertion] created by [assertionCreator] and uses the given [subject] as
-         * [ICollectingAssertionPlant.subject] if not null.
+         * [CollectingAssertionPlant.subject] if not null.
          *
          * In case [subject] is null then an [PlantHasNoSubjectException] is thrown in case the
          * subject is accessed (which does not need to be the case all the time). In such a case a single
          * [ExplanatoryAssertionGroup] is returned containing a warning.
          *
          * @param assertionCreator The function which should at least create one assertion.
-         * @param subject The subject which will be used for the [IAssertionPlant].
+         * @param subject The subject which will be used for the [AssertionPlant].
          *
          * @return A list with the collected assertion or an [ExplanatoryAssertionGroup] with a warning if [subject] is
          * `null` and an assertion function tries to access it.
@@ -46,7 +46,7 @@ object AssertionCollector {
          * function does not even create one [IAssertion] -- depending on the previously chosen option (see
          * [throwIfNoAssertionIsCollected] and [doNotThrowIfNoAssertionIsCollected]).
          */
-        fun <E : Any> collectAssertionsForExplanation(noSubjectMessage: String, warning: Translatable, assertionCreator: IAssertionPlant<E>.() -> Unit, subject: E?): List<IAssertion> {
+        fun <E : Any> collectAssertionsForExplanation(noSubjectMessage: String, warning: Translatable, assertionCreator: AssertionPlant<E>.() -> Unit, subject: E?): List<IAssertion> {
             return try {
                 val collectingAssertionPlant = createPlant(subject, noSubjectMessage)
                 collectingAssertionPlant.assertionCreator()
@@ -64,7 +64,7 @@ object AssertionCollector {
             }
         }
 
-        private fun <E : Any> createPlant(subject: E?, noSubjectMessage: String): ICollectingAssertionPlant<E> {
+        private fun <E : Any> createPlant(subject: E?, noSubjectMessage: String): CollectingAssertionPlant<E> {
             return AtriumFactory.newCollectingPlant {
                 subject ?: throw PlantHasNoSubjectException(noSubjectMessage)
             }

@@ -3,8 +3,8 @@ package ch.tutteli.atrium.assertions.any.narrow.failurehandler
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
 import ch.tutteli.atrium.creating.AssertionCollector
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IBaseAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import kotlin.reflect.KClass
 
@@ -12,15 +12,15 @@ import kotlin.reflect.KClass
  * Represents an [AnyNarrow.DownCastFailureHandler] which wraps subsequent assertions into an
  * [ExplanatoryAssertionGroup].
  *
- * @param T The type of the [IAssertionPlant.subject].
- * @param T The type to which the [IAssertionPlant.subject] should have been down-casted.
+ * @param T The type of the [AssertionPlant.subject].
+ * @param T The type to which the [AssertionPlant.subject] should have been down-casted.
  */
 class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : AnyNarrow.DownCastFailureHandler<T, TSub> {
     /**
      * Wraps the assertions which might be created by [assertionCreator] into an [ExplanatoryAssertionGroup] and adds it
      * to the given [subjectPlant].
      *
-     * @param subType The type to which the [subjectPlant]'s [subject][IAssertionPlant.subject] should have been
+     * @param subType The type to which the [subjectPlant]'s [subject][AssertionPlant.subject] should have been
      *        down-casted.
      * @param subjectPlant The plant to which additional assertions would have been added.
      * @param assertionCreator The lambda which could have created subsequent assertions for the down-casted
@@ -30,9 +30,9 @@ class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : AnyNarrow.DownCastF
      */
     override fun createAndAddAssertionToPlant(
         subType: KClass<TSub>,
-        subjectPlant: IBaseAssertionPlant<T?, *>,
+        subjectPlant: BaseAssertionPlant<T?, *>,
         failingAssertion: IAssertion,
-        assertionCreator: IAssertionPlant<TSub>.() -> Unit
+        assertionCreator: AssertionPlant<TSub>.() -> Unit
     ) {
         val explanatoryAssertions = collectAssertions(subType, assertionCreator)
         subjectPlant.addAssertion(InvisibleAssertionGroup(listOf(
@@ -41,7 +41,7 @@ class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : AnyNarrow.DownCastF
         )))
     }
 
-    private fun collectAssertions(subType: KClass<TSub>, assertionCreator: IAssertionPlant<TSub>.() -> Unit)
+    private fun collectAssertions(subType: KClass<TSub>, assertionCreator: AssertionPlant<TSub>.() -> Unit)
         = AssertionCollector
         .doNotThrowIfNoAssertionIsCollected
         .collectAssertionsForExplanation(

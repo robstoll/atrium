@@ -12,14 +12,14 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequence
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseRegexSearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIndexSearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-fun <T : CharSequence> _containsBuilder(plant: IAssertionPlant<T>)
+fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)
     = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour)
 
-fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, otherExpected: Array<out Any>): IAssertion {
+fun <T : CharSequence> _containsNot(plant: AssertionPlant<T>, expected: Any, otherExpected: Array<out Any>): IAssertion {
     val assertions = mutableListOf<IAssertion>()
     arrayOf(expected, *otherExpected).forEach {
         assertions.add(LazyThreadUnsafeBasicAssertion {
@@ -30,25 +30,25 @@ fun <T : CharSequence> _containsNot(plant: IAssertionPlant<T>, expected: Any, ot
     return InvisibleAssertionGroup(assertions)
 }
 
-fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: IAssertionPlant<T>, expected: Translatable, otherExpected: Array<out Translatable>): IAssertion
+fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: AssertionPlant<T>, expected: Translatable, otherExpected: Array<out Translatable>): IAssertion
     = _containsNot(plant, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
-fun <T : CharSequence> _startsWith(plant: IAssertionPlant<T>, expected: CharSequence): IAssertion
+fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): IAssertion
     = BasicAssertion(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
 
-fun <T : CharSequence> _startsNotWith(plant: IAssertionPlant<T>, expected: CharSequence): IAssertion
+fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): IAssertion
     = BasicAssertion(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
 
-fun <T : CharSequence> _endsWith(plant: IAssertionPlant<T>, expected: CharSequence): IAssertion
+fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): IAssertion
     = BasicAssertion(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
 
-fun <T : CharSequence> _endsNotWith(plant: IAssertionPlant<T>, expected: CharSequence): IAssertion
+fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): IAssertion
     = BasicAssertion(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
 
-fun <T : CharSequence> _isEmpty(plant: IAssertionPlant<T>): IAssertion
+fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): IAssertion
     = BasicAssertion(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
 
-fun <T : CharSequence> _isNotEmpty(plant: IAssertionPlant<T>): IAssertion
+fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): IAssertion
     = BasicAssertion(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
 
 

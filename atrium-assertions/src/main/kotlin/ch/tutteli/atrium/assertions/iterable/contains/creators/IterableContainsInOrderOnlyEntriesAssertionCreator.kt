@@ -3,14 +3,14 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries
  * have to appear in the specified order and where an entry is identified by holding a group of assertions,
  * created by an assertion creator lambda.
  *
- * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the
  *              expected entries have to appear in the specified order and where an entry is identified by holding a
@@ -20,9 +20,9 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  */
 class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E>>(
     searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
-) : IterableContainsInOrderOnlyAssertionCreator<E, T, IAssertionPlant<E>.() -> Unit>(searchBehaviour) {
+) : IterableContainsInOrderOnlyAssertionCreator<E, T, AssertionPlant<E>.() -> Unit>(searchBehaviour) {
 
-    override fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: IAssertionPlant<E>.() -> Unit, template: ((Boolean) -> IAssertion) -> IAssertionGroup): IAssertionGroup {
+    override fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: AssertionPlant<E>.() -> Unit, template: ((Boolean) -> IAssertion) -> IAssertionGroup): IAssertionGroup {
         val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, iterableAsList)
         return template(createEntryFeatureAssertion(explanatoryAssertions))
     }
@@ -30,6 +30,6 @@ class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E
     private fun createEntryFeatureAssertion(explanatoryAssertions: List<IAssertion>): (Boolean) -> IAssertion
         = { found -> createEntryAssertion(explanatoryAssertions, found) }
 
-    override fun matches(actual: E, searchCriterion: IAssertionPlant<E>.() -> Unit): Boolean
+    override fun matches(actual: E, searchCriterion: AssertionPlant<E>.() -> Unit): Boolean
         = allCreatedAssertionsHold(actual, searchCriterion)
 }
