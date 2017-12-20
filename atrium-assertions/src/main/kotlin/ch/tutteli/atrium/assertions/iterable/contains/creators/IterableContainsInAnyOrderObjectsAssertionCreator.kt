@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
-import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
+import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
@@ -21,9 +21,9 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  */
 class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(
     searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
-    checkers: List<IIterableContains.IChecker>
-) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderSearchBehaviour, IIterableContains.IChecker>(searchBehaviour, checkers),
-    IIterableContains.ICreator<T, S> {
+    checkers: List<IterableContains.Checker>
+) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderSearchBehaviour, IterableContains.Checker>(searchBehaviour, checkers),
+    IterableContains.Creator<T, S> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES

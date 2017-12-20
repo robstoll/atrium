@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.validateAtMost
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.IChecker
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Checker
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtLeastChecker
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtMostChecker
 
@@ -26,7 +26,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @param atLeastCall The name of the function which represents a `CharSequence contains at least` assertion.
  * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
-abstract class CharSequenceContainsAtMostCheckerBuilderBase<T : CharSequence, S : ISearchBehaviour>(
+abstract class CharSequenceContainsAtMostCheckerBuilderBase<T : CharSequence, S : SearchBehaviour>(
     val times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, S>,
     nameContainsNotFun: String,
@@ -39,7 +39,7 @@ abstract class CharSequenceContainsAtMostCheckerBuilderBase<T : CharSequence, S 
         validateAtMost(times, atMostCall, atLeastCall, exactlyCall)
     }
 
-    override val checkers: List<IChecker> = listOf(
+    override val checkers: List<Checker> = listOf(
         CharSequenceContainsAtLeastChecker(1, nameContainsNotFun, atLeastCall),
         CharSequenceContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
     )

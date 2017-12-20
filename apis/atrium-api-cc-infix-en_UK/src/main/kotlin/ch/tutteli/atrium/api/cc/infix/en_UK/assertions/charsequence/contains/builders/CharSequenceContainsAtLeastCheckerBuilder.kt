@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.atLeast
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *              found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
-open class CharSequenceContainsAtLeastCheckerBuilder<T : CharSequence, S : ISearchBehaviour>(
+open class CharSequenceContainsAtLeastCheckerBuilder<T : CharSequence, S : SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, S>
 ) : CharSequenceContainsAtLeastCheckerBuilderBase<T, S>(

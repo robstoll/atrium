@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.ISearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
@@ -66,7 +66,7 @@ fun <T : CharSequence> _containsValuesIgnoringCase(
 ): IAssertionGroup
     = checkOnlyAllowedTypeAndCreateAssertionGroup(checker, CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
 
-private fun <T : CharSequence, S : ICharSequenceContains.ISearchBehaviour> checkOnlyAllowedTypeAndCreateAssertionGroup(
+private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeAndCreateAssertionGroup(
     checker: CharSequenceContainsCheckerBuilder<T, S>,
     searcher: ISearcher<S>,
     expected: Any,
@@ -113,7 +113,7 @@ fun <T : CharSequence> _containsRegexIgnoringCase(
     = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
 
 
-private fun <T : CharSequence, S : ICharSequenceContains.ISearchBehaviour> createAssertionGroup(
+private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
     checker: CharSequenceContainsCheckerBuilder<T, S>,
     searcher: ISearcher<S>,
     expected: Any,

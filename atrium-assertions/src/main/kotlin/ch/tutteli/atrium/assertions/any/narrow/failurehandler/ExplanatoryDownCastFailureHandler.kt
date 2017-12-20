@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.any.narrow.failurehandler
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow
+import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IBaseAssertionPlant
@@ -9,13 +9,13 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import kotlin.reflect.KClass
 
 /**
- * Represents an [IAnyNarrow.IDownCastFailureHandler] which wraps subsequent assertions into an
+ * Represents an [AnyNarrow.DownCastFailureHandler] which wraps subsequent assertions into an
  * [ExplanatoryAssertionGroup].
  *
  * @param T The type of the [IAssertionPlant.subject].
  * @param T The type to which the [IAssertionPlant.subject] should have been down-casted.
  */
-class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : IAnyNarrow.IDownCastFailureHandler<T, TSub> {
+class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : AnyNarrow.DownCastFailureHandler<T, TSub> {
     /**
      * Wraps the assertions which might be created by [assertionCreator] into an [ExplanatoryAssertionGroup] and adds it
      * to the given [subjectPlant].

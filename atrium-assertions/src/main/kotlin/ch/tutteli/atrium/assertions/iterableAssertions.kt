@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
+import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNoOpCheckerBuilder
@@ -75,11 +75,11 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInOrderOnlyEntriesAssertionCreator)
 }
 
-private fun <E, T : Iterable<E>, S, B : IIterableContains.ISearchBehaviour> createAssertionGroupWithoutChecker(
+private fun <E, T : Iterable<E>, S, B : IterableContains.SearchBehaviour> createAssertionGroupWithoutChecker(
     checker: IterableContainsCheckerBuilder<E, T, B>,
     expected: S,
     otherExpected: Array<out S>,
-    factory: (B) -> IIterableContains.ICreator<T, S>
+    factory: (B) -> IterableContains.Creator<T, S>
 ): IAssertionGroup {
     val creator = factory(checker.containsBuilder.searchBehaviour)
     return creator.createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
@@ -88,11 +88,11 @@ private fun <E, T : Iterable<E>, S, B : IIterableContains.ISearchBehaviour> crea
 /**
  * @param S The type of the search criteria
  */
-private fun <E, T : Iterable<E>, S, B : IIterableContains.ISearchBehaviour> createAssertionGroup(
+private fun <E, T : Iterable<E>, S, B : IterableContains.SearchBehaviour> createAssertionGroup(
     checker: IterableContainsCheckerBuilder<E, T, B>,
     expected: S,
     otherExpected: Array<out S>,
-    factory: (B, List<IIterableContains.IChecker>) -> IIterableContains.ICreator<T, S>
+    factory: (B, List<IterableContains.Checker>) -> IterableContains.Creator<T, S>
 ): IAssertionGroup {
     val creator = factory(checker.containsBuilder.searchBehaviour, checker.checkers)
     return creator.createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
