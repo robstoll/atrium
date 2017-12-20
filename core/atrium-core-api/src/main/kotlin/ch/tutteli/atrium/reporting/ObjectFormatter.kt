@@ -2,22 +2,22 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 
 /**
  * Represents a formatter for objects.
  *
  * Typically it formats [IAssertionPlant.subject]s and expected values of [IAssertion]s.
  */
-interface IObjectFormatter {
+interface ObjectFormatter {
 
     /**
      * Returns a formatted version of the given [value].
      *
-     * Following the minimum requirements for an [IObjectFormatter]:
-     * - it will return [RawString.NULL].[string][RawString.string] in case [value] is `null`
-     * - it will return [RawString.string] in case [value] is a [RawString]
-     * - it will return the translation of [value] in case it is a [TranslatableRawString]
+     * Following the minimum requirements for an [ObjectFormatter]:
+     * - it will return [RawString.NULL].[string][StringBasedRawString.string] in case [value] is `null`
+     * - it will return [StringBasedRawString.string] in case [value] is a [StringBasedRawString]
+     * - it will return the translation of [value] in case it is a [TranslatableBasedRawString]
      *
      * Besides that it is up to the concrete implementation how it formats [value].
      * Nonetheless, following some conventions:

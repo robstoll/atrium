@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.assertions
 
-import  ch.tutteli.atrium.reporting.IObjectFormatter
+import  ch.tutteli.atrium.reporting.ObjectFormatter
 
 /**
  * Represents an [IAssertion] which is typically used in an [IAssertionGroup] with a [IExplanatoryAssertionGroupType]
- * and provides an [explanation] which is typically formatted by an [IObjectFormatter] in reporting.
+ * and provides an [explanation] which is typically formatted by an [ObjectFormatter] in reporting.
  *
  * It is not of importance whether the assertions holds or not and thus it overrides [holds] and return always `true`.
  */

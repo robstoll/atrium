@@ -38,7 +38,7 @@ class InvisibleAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factory(), "[Atrium's AssertionFormatterSpec] ")
 
     companion object {
-        fun factory() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
+        fun factory() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: ITranslator ->
             InvisibleAssertionGroupFormatter(assertionFormatterController)
         }
     }

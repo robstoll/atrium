@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 
 /**
- * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IExplanatoryAssertionGroupType] by
+ * Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [IExplanatoryAssertionGroupType] by
  * neglecting the group header and defining an child-[AssertionFormatterMethodObject] which indicates that we are in an
  * explanatory assertion.
  *
@@ -17,7 +17,7 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an
+ * @constructor Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an
  *              [IExplanatoryAssertionGroupType] by defining only an [AssertionFormatterMethodObject] -- which indicates
  *              that we are in an explanatory assertion group and uses the given [bulletPoint] as prefix -- and
  *              completely ignoring [IAssertionGroup.name] and [IAssertionGroup.subject].
@@ -31,7 +31,7 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
  */
 class TextExplanatoryAssertionGroupFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-    assertionFormatterController: IAssertionFormatterController
+    assertionFormatterController: AssertionFormatterController
 ) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IExplanatoryAssertionGroupType>(IExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
     private val explanatoryBulletPoint = bulletPoints[IExplanatoryAssertionGroupType::class.java] ?: "» "
     private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class.java] ?: "❗❗ "

@@ -5,14 +5,14 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IDoNotFilterAssertionGroupType
 
 /**
- * A method object used for interactions between [IAssertionFormatterController] and [IAssertionFormatter].
+ * A method object used for interactions between [AssertionFormatterController] and [AssertionFormatter].
  *
  * @property sb The [StringBuilder] to which the formatted [IAssertion] will be appended.
  * @property prefix The current prefix per assertion.
  * @property indentLevel The current indentation level.
  * @property assertionFilter Can be used used to filter out [IAssertion]s which should not be formatted.
  *
- * @constructor A method object used for interactions between [IAssertionFormatterController] and [IAssertionFormatter].
+ * @constructor A method object used for interactions between [AssertionFormatterController] and [AssertionFormatter].
  * @param sb The [StringBuilder] to which the formatted [IAssertion] will be appended.
  * @param prefix The current prefix per assertion.
  * @param indentLevel The current indentation level.

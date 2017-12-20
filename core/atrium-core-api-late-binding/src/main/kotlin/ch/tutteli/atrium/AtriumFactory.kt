@@ -16,15 +16,15 @@ import java.util.*
  * It provides factory methods which all throw an [UnsupportedOperationException] to create:
  * - [IAssertionPlant]
  * - [IAssertionChecker]
- * - [IMethodCallFormatter]
+ * - [MethodCallFormatter]
  * - [ITranslator]
  * - [ITranslationSupplier]
  * - [ILocaleOrderDecider]
- * - [IObjectFormatter]
- * - [IAssertionFormatterFacade]
- * - [IAssertionFormatterController]
- * - [IAssertionFormatter]
- * - [IReporter]
+ * - [ObjectFormatter]
+ * - [AssertionFormatterFacade]
+ * - [AssertionFormatterController]
+ * - [AssertionFormatter]
+ * - [Reporter]
  */
 object AtriumFactory : IAtriumFactory {
 
@@ -43,7 +43,7 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
-    override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
+    override fun newThrowingAssertionChecker(reporter: Reporter): IAssertionChecker
         = throwUnsupportedOperationException()
 
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
@@ -52,7 +52,7 @@ object AtriumFactory : IAtriumFactory {
     override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
         = throwUnsupportedOperationException()
 
-    override fun newMethodCallFormatter(): IMethodCallFormatter
+    override fun newMethodCallFormatter(): MethodCallFormatter
         = throwUnsupportedOperationException()
 
     override fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
@@ -64,35 +64,35 @@ object AtriumFactory : IAtriumFactory {
     override fun newLocaleOrderDecider(): ILocaleOrderDecider
         = throwUnsupportedOperationException()
 
-    override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
+    override fun newDetailedObjectFormatter(translator: ITranslator): ObjectFormatter
         = throwUnsupportedOperationException()
 
-    override fun newAssertionFormatterController(): IAssertionFormatterController
+    override fun newAssertionFormatterController(): AssertionFormatterController
         = throwUnsupportedOperationException()
 
-    override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
+    override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
         = throwUnsupportedOperationException()
 
-    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
         = throwUnsupportedOperationException()
 
-    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
         = throwUnsupportedOperationException()
 
-    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
         = throwUnsupportedOperationException()
 
-    override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
+    override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
         = throwUnsupportedOperationException()
 
     override fun registerSameLineTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-        assertionFormatterFacade: IAssertionFormatterFacade,
-        objectFormatter: IObjectFormatter,
+        assertionFormatterFacade: AssertionFormatterFacade,
+        objectFormatter: ObjectFormatter,
         translator: ITranslator
     ): Unit = throwUnsupportedOperationException()
 
-    override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
+    override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
         = throwUnsupportedOperationException()
 
     private fun throwUnsupportedOperationException(): Nothing

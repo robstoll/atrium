@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IAssertionPlantNullable
 import ch.tutteli.atrium.creating.IReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe

@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
@@ -64,7 +65,7 @@ abstract class ContainsAssertionCreator<T : Any, S, C : Contains.Checker>(
 
     private fun featureFactory(count: Int, numberOfOccurrences: ITranslatable): IAssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
-        return AssertionGroup(FeatureAssertionGroupType, numberOfOccurrences, RawString(count.toString()), assertions)
+        return AssertionGroup(FeatureAssertionGroupType, numberOfOccurrences, RawString.create(count.toString()), assertions)
     }
 
 }

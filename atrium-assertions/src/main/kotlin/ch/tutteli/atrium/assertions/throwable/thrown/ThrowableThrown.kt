@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.AbsentThrow
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.Creator
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.IRawString
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 import kotlin.reflect.KClass
 
@@ -24,9 +24,9 @@ interface ThrowableThrown {
      */
     interface AbsentThrowableMessageProvider {
         /**
-         * The message can be used in reporting to represent the case that no [Throwable] at all was thrown.
+         * The message can be used in reporting to represent the case that no [Throwable] was thrown at all.
          */
-        val message: IRawString
+        val message: RawString
     }
 
     /**

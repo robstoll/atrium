@@ -8,14 +8,14 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IFeatureAssertionGroupType] by
+ * Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [IFeatureAssertionGroupType] by
  * using the given [assertionPairFormatter] to format the group header, additionally prefixing it with the
  * "bullet point" (typically an arrow) defined for [PrefixFeatureAssertionGroupHeader] and uses the bullet point
  * defined for [IFeatureAssertionGroupType] as prefix for the [IAssertionGroup.assertions].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an
+ * @constructor Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an
  * [IFeatureAssertionGroupType] by using the given [assertionPairFormatter] to format the group header, additionally
  * prefixing it with the "bullet point" (typically an arrow) defined for [PrefixFeatureAssertionGroupHeader] and uses
  * the bullet point defined for [IFeatureAssertionGroupType] as prefix for the [IAssertionGroup.assertions].
@@ -29,8 +29,8 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  */
 class TextFeatureAssertionGroupFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-    assertionFormatterController: IAssertionFormatterController,
-    private val assertionPairFormatter: IAssertionPairFormatter
+    assertionFormatterController: AssertionFormatterController,
+    private val assertionPairFormatter: AssertionPairFormatter
 ) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IFeatureAssertionGroupType>(IFeatureAssertionGroupType::class.java, assertionFormatterController) {
 
     private val prefix = (bulletPoints[IFeatureAssertionGroupType::class.java] ?: "◾ ")

@@ -31,7 +31,7 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
 
 
     companion object {
-        internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
+        internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator ->
             TextFeatureAssertionGroupFormatter(bulletPoints, controller, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }

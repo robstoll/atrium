@@ -32,11 +32,11 @@ class TextSummaryAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factory(), "[Atrium's AssertionFormatterSpec] ")
 
     companion object {
-        fun factoryWithoutObjectFormatter() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: IAssertionFormatterController ->
+        fun factoryWithoutObjectFormatter() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: AssertionFormatterController ->
             TextSummaryAssertionGroupFormatter(bulletPoints, controller, TextSameLineAssertionPairFormatter(ToStringObjectFormatter, UsingDefaultTranslator()))
         }
 
-        fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator ->
+        fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator ->
             TextSummaryAssertionGroupFormatter(bulletPoints, controller, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }

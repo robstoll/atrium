@@ -1,21 +1,21 @@
 package ch.tutteli.atrium.reporting.translating
 
-import ch.tutteli.atrium.reporting.IObjectFormatter
-import ch.tutteli.atrium.reporting.IRawString
+import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.RawString
 
 /**
  * Use this class to represent an [ITranslatable] which shall be translated and
  * then be treated as raw [String] in reporting.
  *
- * @see IObjectFormatter
+ * @see ObjectFormatter
  *
  * @property translatable The [ITranslatable] who's translation should be treated as raw [String].
  *
- * @constructor
+ * @constructor Use [RawString.create] to create a [ITranslatable] based [RawString].
  * @param translatable The [ITranslatable] who's translation should be treated as raw [String].
  *
  */
-data class TranslatableRawString(val translatable: ITranslatable) : IRawString {
+data class TranslatableBasedRawString internal constructor(val translatable: ITranslatable) : RawString {
     /**
      * @suppress No need to document this behaviour
      */

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  *              and uses the given [reporter] for reporting.
  * @param reporter Will be used for reporting.
  */
-class ThrowingAssertionChecker(private val reporter: IReporter) : IAssertionChecker {
+class ThrowingAssertionChecker(private val reporter: Reporter) : IAssertionChecker {
 
     /**
      * Creates an [IAssertionGroup] -- based on the given [assertionVerb], [subject] and [assertions] --

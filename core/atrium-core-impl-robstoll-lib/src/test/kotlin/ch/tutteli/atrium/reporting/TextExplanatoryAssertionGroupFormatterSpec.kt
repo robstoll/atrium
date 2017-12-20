@@ -42,15 +42,15 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     )
 
     companion object {
-        private fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController ->
+        private fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController ->
             TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
         }
 
-        private fun factoryWithoutBulletPoint() = { assertionFormatterController: IAssertionFormatterController ->
+        private fun factoryWithoutBulletPoint() = { assertionFormatterController: AssertionFormatterController ->
             factory()(mapOf(IExplanatoryAssertionGroupType::class.java to "*"), assertionFormatterController)
         }
 
-        private fun factoryWithObjectFormatter() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
+        private fun factoryWithObjectFormatter() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: ITranslator ->
             factory()(bulletPoints, assertionFormatterController)
         }
     }

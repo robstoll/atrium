@@ -5,8 +5,9 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertion
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
-import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 
 object AssertionCollector {
 
@@ -59,7 +60,7 @@ object AssertionCollector {
                 collectedAssertions
             } catch (e: PlantHasNoSubjectException) {
                 listOf(ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(
-                    ExplanatoryAssertion(TranslatableRawString(warning))
+                    ExplanatoryAssertion(RawString.create(warning))
                 )))
             }
         }

@@ -5,13 +5,13 @@ import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
 
 /**
- * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IListAssertionGroupType] by
+ * Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [IListAssertionGroupType] by
  * using the given [assertionPairFormatter] to format the group header and uses the bullet point defined for
  * [IListAssertionGroupType] as prefix for the [IAssertionGroup.assertions].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [IListAssertionGroupType]
+ * @constructor Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [IListAssertionGroupType]
  *              by putting each assertion on an own line prefixed with a bullet point.
  * @param bulletPoints The formatter uses the bullet point defined for [IListAssertionGroupType]
  *        (`" ⚬ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
@@ -21,8 +21,8 @@ import ch.tutteli.atrium.assertions.IListAssertionGroupType
  */
 class TextListAssertionGroupFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-    assertionFormatterController: IAssertionFormatterController,
-    assertionPairFormatter: IAssertionPairFormatter
+    assertionFormatterController: AssertionFormatterController,
+    assertionPairFormatter: AssertionPairFormatter
 ) : TextListBasedAssertionGroupFormatter<IListAssertionGroupType>(
     bulletPoints[IListAssertionGroupType::class.java] ?: "⚬ ",
     assertionFormatterController,

@@ -4,10 +4,9 @@ import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.IObjectFormatter
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterBuilder
-import ch.tutteli.atrium.reporting.ReporterBuilder.Companion
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
@@ -51,7 +50,7 @@ internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
     "expect" to { act -> expect { act() } })
 
 /**
- * Only required if you implement a custom component (for instance an own [IReporter], [IObjectFormatter] etc.)
+ * Only required if you implement a custom component (for instance an own [Reporter], [ObjectFormatter] etc.)
  * or an own assertion function API (e.g., atrium-api-cc-en_UK in a different language)
  * and you want to reuse a specification from atrium-spec to test your custom component against it.
  */

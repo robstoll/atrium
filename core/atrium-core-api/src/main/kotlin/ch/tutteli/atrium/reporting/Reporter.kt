@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.IAtriumFactory
+import ch.tutteli.atrium.assertions.IAssertion
 
 /**
  * Represents a reporter which reports about [IAssertion]s.
  */
-interface IReporter {
+interface Reporter {
 
     /**
      * Reports about the given [assertion], using the given [sb] where the actual

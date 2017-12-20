@@ -3,14 +3,14 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.assertions.*
 
 /**
- * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [ISummaryAssertionGroupType] by
+ * Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [ISummaryAssertionGroupType] by
  * using the given [assertionPairFormatter] to format the group header and uses the bullet point defined
  * for [PrefixSuccessfulSummaryAssertion] as prefix for successful [IAssertionGroup.assertions] and the bullet point
  * defined for [PrefixFeatureAssertionGroupHeader] as prefix for failing [IAssertionGroup.assertions].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an
+ * @constructor Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an
  * [ISummaryAssertionGroupType] by using the given [assertionPairFormatter] to format the group header and uses the
  * bullet point defined for [PrefixSuccessfulSummaryAssertion] as prefix for successful [IAssertionGroup.assertions]
  * and the bullet point defined for [PrefixFeatureAssertionGroupHeader] as prefix for failing [IAssertionGroup.assertions].
@@ -25,8 +25,8 @@ import ch.tutteli.atrium.assertions.*
  */
 class TextSummaryAssertionGroupFormatter(
     bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-    private val assertionFormatterController: IAssertionFormatterController,
-    private val assertionPairFormatter: IAssertionPairFormatter
+    private val assertionFormatterController: AssertionFormatterController,
+    private val assertionPairFormatter: AssertionPairFormatter
 ) : SingleAssertionGroupTypeFormatter<ISummaryAssertionGroupType>(ISummaryAssertionGroupType::class.java) {
     private val successful = (bulletPoints[PrefixSuccessfulSummaryAssertion::class.java] ?: "✔ ")
     private val failing = (bulletPoints[PrefixFailingSummaryAssertion::class.java] ?: "✘ ")

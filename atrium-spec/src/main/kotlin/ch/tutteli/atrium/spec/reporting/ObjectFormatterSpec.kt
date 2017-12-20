@@ -2,14 +2,14 @@ package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.api.cc.en_UK.isSame
 import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.reporting.IObjectFormatter
+import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.ITranslator
-import ch.tutteli.atrium.reporting.translating.TranslatableRawString
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -20,7 +20,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class ObjectFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (ITranslator) -> IObjectFormatter,
+    testeeFactory: (ITranslator) -> ObjectFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -44,17 +44,17 @@ abstract class ObjectFormatterSpec(
             }
         }
 
-        context("a ${RawString::class.simpleName}") {
+        context("a ${StringBasedRawString::class.simpleName}") {
             val text = "test message"
-            val result = testee.format(RawString(text))
-            it("should still be the ${RawString::class.simpleName}") {
+            val result = testee.format(RawString.create(text))
+            it("should still be the ${StringBasedRawString::class.simpleName}") {
                 verbs.checkLazily(result) { isSame(text) }
             }
         }
 
-        context("a ${TranslatableRawString::class.simpleName}") {
-            val result = testee.format(TranslatableRawString(translatable))
-            it("should be 1:1 the translation (like it was wrapped in an ${RawString::class.simpleName})") {
+        context("a ${TranslatableBasedRawString::class.simpleName}") {
+            val result = testee.format(RawString.create(translatable))
+            it("should be 1:1 the translation (like it was wrapped in an ${StringBasedRawString::class.simpleName})") {
                 verbs.checkImmediately(result).isSame(translatedText)
             }
         }
