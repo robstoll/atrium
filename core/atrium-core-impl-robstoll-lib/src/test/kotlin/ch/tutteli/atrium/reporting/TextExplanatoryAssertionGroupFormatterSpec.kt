@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
@@ -50,7 +50,7 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
             factory()(mapOf(IExplanatoryAssertionGroupType::class.java to "*"), assertionFormatterController)
         }
 
-        private fun factoryWithObjectFormatter() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: ITranslator ->
+        private fun factoryWithObjectFormatter() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
             factory()(bulletPoints, assertionFormatterController)
         }
     }

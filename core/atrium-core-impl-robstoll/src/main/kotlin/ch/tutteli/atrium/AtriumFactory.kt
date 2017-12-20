@@ -17,9 +17,9 @@ import java.util.*
  * - [IAssertionPlant]
  * - [IAssertionChecker]
  * - [MethodCallFormatter]
- * - [ITranslator]
- * - [ITranslationSupplier]
- * - [LocaleOrderDecider]
+ * - [Translator]
+ * - [TranslationSupplier]
+ * - [CoroutineBasedLocaleOrderDecider]
  * - [ObjectFormatter]
  * - [AssertionFormatterFacade]
  * - [AssertionFormatterController]
@@ -52,16 +52,16 @@ object AtriumFactory : IAtriumFactory {
     override fun newMethodCallFormatter(): MethodCallFormatter
         = TextMethodCallFormatter
 
-    override fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+    override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
         = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
 
-    override fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
+    override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
         = PropertiesPerEntityAndLocaleTranslationSupplier()
 
-    override fun newLocaleOrderDecider(): ILocaleOrderDecider
-        = LocaleOrderDecider()
+    override fun newLocaleOrderDecider(): LocaleOrderDecider
+        = CoroutineBasedLocaleOrderDecider()
 
-    override fun newDetailedObjectFormatter(translator: ITranslator): ObjectFormatter
+    override fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter
         = DetailedObjectFormatter(translator)
 
     override fun newAssertionFormatterController(): AssertionFormatterController
@@ -70,13 +70,13 @@ object AtriumFactory : IAtriumFactory {
     override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
         = AssertionFormatterControllerBasedFacade(assertionFormatterController)
 
-    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator), objectFormatter)
 
-    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFeatureAssertionGroupFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator): AssertionFormatter
+    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
     override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
@@ -86,7 +86,7 @@ object AtriumFactory : IAtriumFactory {
         bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
         objectFormatter: ObjectFormatter,
-        translator: ITranslator
+        translator: Translator
     ) {
         val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         assertionFormatterFacade.register { TextListAssertionGroupFormatter(bulletPoints, it, pairFormatter) }
@@ -98,7 +98,7 @@ object AtriumFactory : IAtriumFactory {
         assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, pairFormatter, objectFormatter) }
     }
 
-    private fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: ITranslator)
+    private fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
         = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter

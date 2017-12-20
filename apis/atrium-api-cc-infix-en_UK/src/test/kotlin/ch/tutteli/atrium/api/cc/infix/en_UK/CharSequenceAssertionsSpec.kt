@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KFunction2
 
 class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceAssertionsSpec(
@@ -25,7 +25,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
             return "${f.name} ${DefaultTranslationsOf::class.simpleName}"
         }
 
-        private fun containsDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: ITranslatable, otherExpected: Array<out ITranslatable>): IAssertionPlant<CharSequence> {
+        private fun containsDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>): IAssertionPlant<CharSequence> {
             return if (otherExpected.isEmpty()) {
                 plant containsDefaultTranslationOf expected
             } else {
@@ -42,7 +42,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
             return "${f.name} ${DefaultTranslationsOf::class.simpleName}"
         }
 
-        private fun containsNotDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: ITranslatable, otherExpected: Array<out ITranslatable>)
+        private fun containsNotDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>)
             = plant containsNot DefaultTranslationsOf(expected, *otherExpected)
 
         fun toBeEmpty(plant: IAssertionPlant<CharSequence>)

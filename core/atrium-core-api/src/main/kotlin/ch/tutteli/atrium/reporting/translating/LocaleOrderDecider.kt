@@ -8,15 +8,15 @@ import java.util.*
  *
  * It has to be compatible with [ResourceBundle.Control.getCandidateLocales] except for:
  * - special case Norwegian; language `no` does not need to be considered, is not supported by
- *   [ITranslator] (see [IAtriumFactory.newTranslator] for more information).
+ *   [Translator] (see [IAtriumFactory.newTranslator] for more information).
  * - special case Chinese; language `zh` with script `Hant` or `Hans` without providing a country does not need to
- *   be treated specially because [ITranslator] does not support it. However, it still has to set script to `Hant`
+ *   be treated specially because [Translator] does not support it. However, it still has to set script to `Hant`
  *   or `Hans` in case script is not defined by the user but country was.
  * - [Locale.ROOT] which should not be a candidate at all.
  */
-interface ILocaleOrderDecider {
+interface LocaleOrderDecider {
     /**
-     * Defines the [Sequence] of [Locale]s which should be used in [ITranslator.translate].
+     * Defines the [Sequence] of [Locale]s which should be used in [Translator.translate].
      *
      * The first [Locale] of the [Sequence] is the given [primaryLocale], then secondary alternatives follow
      * as defined by [ResourceBundle.Control.getCandidateLocales] and finally the given [fallbackLocales]

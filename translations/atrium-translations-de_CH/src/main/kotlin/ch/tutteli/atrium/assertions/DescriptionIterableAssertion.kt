@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
  * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Iterable].
  */
-enum class DescriptionIterableAssertion(override val value: String) : ISimpleTranslatable {
+enum class DescriptionIterableAssertion(override val value: String) : StringBasedTranslatable {
     AN_ENTRY_WHICH("ein Eintrag, welcher"),
     AN_ENTRY_WHICH_IS(" Eintrag"),
     AT_LEAST("ist zumindest"),

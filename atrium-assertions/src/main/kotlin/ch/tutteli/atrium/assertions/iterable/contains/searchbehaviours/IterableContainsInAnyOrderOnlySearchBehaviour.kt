@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
 
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 /**
@@ -10,6 +10,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
  * the resulting assertion should not hold if there are less entries than expected or more.
  */
 object IterableContainsInAnyOrderOnlySearchBehaviour : IterableContains.SearchBehaviour {
-    override fun decorateDescription(description: ITranslatable): ITranslatable
+    override fun decorateDescription(description: Translatable): Translatable
         = TranslatableWithArgs(DescriptionIterableAssertion.IN_ANY_ORDER_ONLY, description)
 }

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents a base class for [Contains.Checker]s which compare how many occurrences of an expected object are found
@@ -45,6 +45,6 @@ abstract class ContainsChecker(
      *
      * @return The newly created [IBasicAssertion].
      */
-    protected fun createBasicAssertion(description: ITranslatable, check: Boolean): IBasicAssertion
+    protected fun createBasicAssertion(description: Translatable, check: Boolean): IBasicAssertion
         = BasicAssertion(description, RawString.create(times.toString()), check)
 }

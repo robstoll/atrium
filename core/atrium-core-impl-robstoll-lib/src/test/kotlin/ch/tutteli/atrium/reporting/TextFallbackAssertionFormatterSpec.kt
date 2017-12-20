@@ -9,7 +9,7 @@ import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.spec.reporting.alwaysTrueAssertionFilter
@@ -63,7 +63,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
     )
 
     companion object {
-        internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator ->
+        internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator), objectFormatter)
         }
     }

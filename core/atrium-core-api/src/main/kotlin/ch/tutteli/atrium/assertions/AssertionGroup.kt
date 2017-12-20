@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents a group of [IAssertion]s -- it has a certain [type], a [name], a [subject] and of course [assertions].
@@ -14,6 +14,6 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  */
 data class AssertionGroup(
     override val type: IAssertionGroupType,
-    override val name: ITranslatable,
+    override val name: Translatable,
     override val subject: Any,
     override val assertions: List<IAssertion>) : IAssertionGroup

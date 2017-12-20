@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents a group of [IAssertion]s -- it has a certain [type], a [name], a [subject], [assertions] and a fixed
@@ -19,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  */
 data class FixHoldsAssertionGroup(
     override val type: IAssertionGroupType,
-    override val name: ITranslatable,
+    override val name: Translatable,
     override val subject: Any,
     override val assertions: List<IAssertion>,
     private val holds: Boolean) : IAssertionGroup {

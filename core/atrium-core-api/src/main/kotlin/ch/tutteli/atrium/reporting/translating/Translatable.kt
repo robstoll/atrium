@@ -3,21 +3,21 @@ package ch.tutteli.atrium.reporting.translating
 /**
  * Something which is translatable, identified by [id] with a default representation given by [getDefault].
  */
-interface ITranslatable {
+interface Translatable {
     /**
-     * Returns the default representation of this [ITranslatable].
+     * Returns the default representation of this [Translatable].
      *
-     * @return The default representation of this [ITranslatable].
+     * @return The default representation of this [Translatable].
      */
     fun getDefault(): String
 
     /**
-     * The name of this [ITranslatable] -- the name together with its [Class.name] should identify a [ITranslatable] (see [id]).
+     * The name of this [Translatable] -- the name together with its [Class.name] should identify a [Translatable] (see [id]).
      */
     val name: String
 
     /**
-     * The id of this [ITranslatable] -- per default it is "[Class.name][ID_SEPARATOR][name]"
+     * The id of this [Translatable] -- per default it is "[Class.name][ID_SEPARATOR][name]"
      */
     val id: String get() = this::class.java.name + ID_SEPARATOR + name
 

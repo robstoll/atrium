@@ -4,7 +4,7 @@ import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
 /**
- * A base class for properties based [ITranslationSupplier]s which provides a loading
+ * A base class for properties based [TranslationSupplier]s which provides a loading
  * and caching mechanism of properties files.
  *
  * There is no way to purge the cache. This class is intended for a one run process where
@@ -12,15 +12,15 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * @param T Translations are grouped by a certain aspect (for instance, by [Locale]). [T] defines the type of it.
  */
-abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
+abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
     /**
      * The cached translations.
      */
     private val translations = ConcurrentHashMap<T, Map<String, String>>()
 
-    override final fun get(translatable: ITranslatable, locale: Locale): String? {
+    override final fun get(translatable: Translatable, locale: Locale): String? {
         require(locale != Locale.ROOT) {
-            "Locale.ROOT is not supported -- most likely a bug in the chosen implementation of ${ILocaleOrderDecider::class.simpleName}"
+            "Locale.ROOT is not supported -- most likely a bug in the chosen implementation of ${LocaleOrderDecider::class.simpleName}"
         }
         return getNotForRoot(translatable, locale)
     }
@@ -33,7 +33,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
      *
      * @return The translation or null if no translation was found.
      */
-    protected abstract fun getNotForRoot(translatable: ITranslatable, locale: Locale): String?
+    protected abstract fun getNotForRoot(translatable: Translatable, locale: Locale): String?
 
     /**
      * Gets the cached [Properties] content as [Map] for the given [key] or
@@ -77,7 +77,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : ITranslationSupplier {
      * [baseName].
      *
      * The implementation is based on [ResourceBundle.Control.toBundleName].
-     * @param baseName Usually the [ITranslatable] or another identifier for which we are searching translations. Has to
+     * @param baseName Usually the [Translatable] or another identifier for which we are searching translations. Has to
      *        contain the package name as well if necessary ('.' will be replaced with '/').
      * @param locale The [Locale] for which we are searching a translation.
      *

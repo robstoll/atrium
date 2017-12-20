@@ -13,9 +13,9 @@ import kotlin.coroutines.experimental.buildSequence
  * (one can define it explicitly as fallback [Locale] though).
  *
  * There are further differences -- e.g., it does not return [Locale.ROOT] -- for more information,
- * have a look at [ILocaleOrderDecider].
+ * have a look at [LocaleOrderDecider].
  */
-class LocaleOrderDecider : ILocaleOrderDecider {
+class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
     override fun determineOrder(primaryLocale: Locale, fallbackLocales: Array<out Locale>) = buildSequence {
         internalResolve(primaryLocale)
         fallbackLocales.forEach { internalResolve(it) }

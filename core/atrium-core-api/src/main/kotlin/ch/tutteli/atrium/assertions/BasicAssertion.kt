@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * A default implementation for [IBasicAssertion] which lazily evaluates [holds].
@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  * @param test Lazily determines whether [BasicAssertion.holds].
  */
 class BasicAssertion(
-    override val description: ITranslatable,
+    override val description: Translatable,
     override val expected: Any,
     private val test: () -> Boolean
 ) : IBasicAssertion {
@@ -25,7 +25,7 @@ class BasicAssertion(
      * @param representation The [BasicAssertion.expected].
      * @param holds Determines whether [BasicAssertion.holds] or not
      */
-    constructor(description: ITranslatable, representation: Any, holds: Boolean)
+    constructor(description: Translatable, representation: Any, holds: Boolean)
         : this(description, representation, { holds })
 
     override fun holds() = test()

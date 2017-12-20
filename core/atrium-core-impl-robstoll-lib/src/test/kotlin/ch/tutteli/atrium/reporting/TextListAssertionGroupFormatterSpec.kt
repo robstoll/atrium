@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IListAssertionGroupType
 import ch.tutteli.atrium.assertions.ListAssertionGroupType
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
@@ -31,7 +31,7 @@ class TextListAssertionGroupFormatterSpec : Spek({
     )
 
     companion object {
-        internal fun factoryWithBullet() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: ITranslator ->
+        internal fun factoryWithBullet() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }

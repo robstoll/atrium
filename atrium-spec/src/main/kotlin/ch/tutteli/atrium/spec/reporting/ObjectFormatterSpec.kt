@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -20,7 +20,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class ObjectFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (ITranslator) -> ObjectFormatter,
+    testeeFactory: (Translator) -> ObjectFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -29,7 +29,7 @@ abstract class ObjectFormatterSpec(
 
     val translatable = AssertionVerb.ASSERT
     val translatedText = "es gilt"
-    val translator = mock<ITranslator> {
+    val translator = mock<Translator> {
         on { translate(any()) } doReturn (translatedText)
     }
     val testee = testeeFactory(translator)

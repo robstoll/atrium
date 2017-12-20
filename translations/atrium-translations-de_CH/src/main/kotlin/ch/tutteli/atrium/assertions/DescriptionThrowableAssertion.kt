@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
  * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Throwable].
  */
-enum class DescriptionThrowableAssertion(override val value: String) : ISimpleTranslatable {
+enum class DescriptionThrowableAssertion(override val value: String) : StringBasedTranslatable {
     IS_A("ist ein"),
     NO_EXCEPTION_OCCURRED("keine Exception wurde geworfen"),
 }

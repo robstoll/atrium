@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
 /**
@@ -28,7 +28,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val failureHandler: AnyNarrow.DownCastFailureHandler<Throwable, TExpected>
 ) : ThrowableThrown.Creator<TExpected> {
 
-    override fun executeActAndCreateAssertion(throwableThrownBuilder: ThrowableThrownBuilder, description: ITranslatable, expectedType: KClass<TExpected>, assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
+    override fun executeActAndCreateAssertion(throwableThrownBuilder: ThrowableThrownBuilder, description: Translatable, expectedType: KClass<TExpected>, assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
         var throwable: Throwable? = null
         try {
             throwableThrownBuilder.act()

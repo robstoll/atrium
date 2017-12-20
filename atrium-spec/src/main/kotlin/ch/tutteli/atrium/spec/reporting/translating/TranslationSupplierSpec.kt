@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.reporting.translating.ITranslationSupplier
+import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -12,7 +12,7 @@ import java.util.*
 
 abstract class TranslationSupplierSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: () -> ITranslationSupplier,
+    testeeFactory: () -> TranslationSupplier,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

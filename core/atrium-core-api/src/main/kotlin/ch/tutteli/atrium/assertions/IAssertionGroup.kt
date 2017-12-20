@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * The base interface for [IAssertion] groups, providing a default implementation for [IAssertion.holds]
@@ -10,7 +10,7 @@ interface IAssertionGroup : IAssertion {
     /**
      * The name of the group.
      */
-    val name: ITranslatable
+    val name: Translatable
     /**
      * The type of the group, e.g. [RootAssertionGroupType].
      */

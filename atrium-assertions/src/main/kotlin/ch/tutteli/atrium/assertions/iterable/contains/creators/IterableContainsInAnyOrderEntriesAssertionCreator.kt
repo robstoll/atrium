@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -39,7 +39,7 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
         return AssertionGroup(ListAssertionGroupType, description, RawString.EMPTY, assertions)
     }
 
-    override fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: IAssertionPlant<E>.() -> Unit, featureFactory: (Int, ITranslatable) -> IAssertionGroup): IAssertionGroup {
+    override fun searchAndCreateAssertion(plant: IAssertionPlant<T>, searchCriterion: IAssertionPlant<E>.() -> Unit, featureFactory: (Int, Translatable) -> IAssertionGroup): IAssertionGroup {
         val itr = plant.subject.iterator()
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(itr, searchCriterion)
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)

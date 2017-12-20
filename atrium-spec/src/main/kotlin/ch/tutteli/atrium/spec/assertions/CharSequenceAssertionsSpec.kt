@@ -5,8 +5,8 @@ import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -16,8 +16,8 @@ import org.jetbrains.spek.api.include
 
 abstract class CharSequenceAssertionsSpec(
     verbs: IAssertionVerbFactory,
-    containsDefaultTranslationOfPair: Pair<String, IAssertionPlant<CharSequence>.(ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>,
-    containsNotDefaultTranslationOfPair: Pair<String, IAssertionPlant<CharSequence>.(ITranslatable, Array<out ITranslatable>) -> IAssertionPlant<CharSequence>>,
+    containsDefaultTranslationOfPair: Pair<String, IAssertionPlant<CharSequence>.(Translatable, Array<out Translatable>) -> IAssertionPlant<CharSequence>>,
+    containsNotDefaultTranslationOfPair: Pair<String, IAssertionPlant<CharSequence>.(Translatable, Array<out Translatable>) -> IAssertionPlant<CharSequence>>,
     isEmptyPair: Pair<String, IAssertionPlant<CharSequence>.() -> IAssertionPlant<CharSequence>>,
     isNotEmptyPair: Pair<String, IAssertionPlant<CharSequence>.() -> IAssertionPlant<CharSequence>>,
     startsWithPair: Pair<String, IAssertionPlant<CharSequence>.(CharSequence) -> IAssertionPlant<CharSequence>>,
@@ -65,10 +65,10 @@ abstract class CharSequenceAssertionsSpec(
     val (endsWith, endsWithFun) = endsWithPair
     val (endsNotWith, endsNotWithFun) = endsNotWithPair
 
-    fun IAssertionPlant<CharSequence>.containsDefaultTranslationOfFun(t: ITranslatable, vararg tX: ITranslatable)
+    fun IAssertionPlant<CharSequence>.containsDefaultTranslationOfFun(t: Translatable, vararg tX: Translatable)
         = containsDefaultTranslationOfFunArr(t, tX)
 
-    fun IAssertionPlant<CharSequence>.containsNotDefaultTranslationOfFun(t: ITranslatable, vararg tX: ITranslatable)
+    fun IAssertionPlant<CharSequence>.containsNotDefaultTranslationOfFun(t: Translatable, vararg tX: Translatable)
         = containsNotDefaultTranslationOfFunArr(t, tX)
 
     val containsNot = DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault()
@@ -209,7 +209,7 @@ abstract class CharSequenceAssertionsSpec(
         }
     }
 }) {
-    private enum class TestTranslatable(override val value: String) : ISimpleTranslatable {
+    private enum class TestTranslatable(override val value: String) : StringBasedTranslatable {
         HELLO("Hello"),
         WELCOME("Welcome")
     }

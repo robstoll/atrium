@@ -24,44 +24,44 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
         = factory(assertionFormatterFacade)
 
     /**
-     * Provides options to create an [ITranslator] or [ITranslationSupplier].
+     * Provides options to create an [Translator] or [TranslationSupplier].
      */
     companion object {
 
         /**
-         * Uses [UsingDefaultTranslator] as [ITranslator] where the given [primaryLocale] is used to format arguments
-         * of [ITranslatableWithArgs].
+         * Uses [UsingDefaultTranslator] as [Translator] where the given [primaryLocale] is used to format arguments
+         * of [TranslatableWithArgs].
          *
-         * [UsingDefaultTranslator] does not require an [ITranslationSupplier] nor an [ILocaleOrderDecider] and thus
+         * [UsingDefaultTranslator] does not require an [TranslationSupplier] nor an [LocaleOrderDecider] and thus
          * the options to specify implementations of them are skipped.
          *
-         * Notice that [UsingDefaultTranslator] does not translate but uses what [ITranslatable.getDefault] returns.
+         * Notice that [UsingDefaultTranslator] does not translate but uses what [Translatable.getDefault] returns.
          * Also notice, that if you omit the [primaryLocale] then [Locale.getDefault] is used.
          *
-         * @param primaryLocale The [Locale] used to format arguments of [ITranslatableWithArgs].
+         * @param primaryLocale The [Locale] used to format arguments of [TranslatableWithArgs].
          */
         fun withoutTranslations(primaryLocale: Locale = Locale.getDefault())
             = ObjectFormatterOptions(UsingDefaultTranslator(primaryLocale))
 
         /**
-         * Uses the given [translator] as [ITranslator] skipping the options for [ITranslationSupplier] and
-         * [ILocaleOrderDecider] assuming the given [translator] is implemented differently -- use
+         * Uses the given [translator] as [Translator] skipping the options for [TranslationSupplier] and
+         * [LocaleOrderDecider] assuming the given [translator] is implemented differently -- use
          * [withDefaultTranslationSupplier] or [withTranslationSupplier] in case the given [translator] requires
-         * an [ITranslationSupplier] or an [ILocaleOrderDecider].
+         * an [TranslationSupplier] or an [LocaleOrderDecider].
          */
-        fun withTranslator(translator: ITranslator)
+        fun withTranslator(translator: Translator)
             = ObjectFormatterOptions(translator)
 
         /**
-         * Uses [AtriumFactory.newPropertiesBasedTranslationSupplier] as [ITranslationSupplier].
+         * Uses [AtriumFactory.newPropertiesBasedTranslationSupplier] as [TranslationSupplier].
          */
         fun withDefaultTranslationSupplier()
             = LocaleOrderDeciderOptions(AtriumFactory.newPropertiesBasedTranslationSupplier())
 
         /**
-         * Uses the given [translationSupplier] as [ITranslationSupplier].
+         * Uses the given [translationSupplier] as [TranslationSupplier].
          */
-        fun withTranslationSupplier(translationSupplier: ITranslationSupplier)
+        fun withTranslationSupplier(translationSupplier: TranslationSupplier)
             = LocaleOrderDeciderOptions(translationSupplier)
 
         /**
@@ -79,29 +79,29 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
             .withDefaultAssertionFormatterFacade()
     }
 
-    class LocaleOrderDeciderOptions(private val translationSupplier: ITranslationSupplier) {
+    class LocaleOrderDeciderOptions(private val translationSupplier: TranslationSupplier) {
 
         /**
-         * Uses [AtriumFactory.newLocaleOrderDecider] as [ILocaleOrderDecider].
+         * Uses [AtriumFactory.newLocaleOrderDecider] as [LocaleOrderDecider].
          */
         fun withDefaultLocaleOrderDecider()
             = TranslatorOptions(translationSupplier, AtriumFactory.newLocaleOrderDecider())
 
         /**
-         * Uses [localeOrderDecider] as [ILocaleOrderDecider].
+         * Uses [localeOrderDecider] as [LocaleOrderDecider].
          */
-        fun withLocaleOrderDecider(localeOrderDecider: ILocaleOrderDecider)
+        fun withLocaleOrderDecider(localeOrderDecider: LocaleOrderDecider)
             = TranslatorOptions(translationSupplier, localeOrderDecider)
     }
 
-    class TranslatorOptions(private val translationSupplier: ITranslationSupplier, private val localeOrderDecider: ILocaleOrderDecider) {
+    class TranslatorOptions(private val translationSupplier: TranslationSupplier, private val localeOrderDecider: LocaleOrderDecider) {
 
         /**
-         * Uses [AtriumFactory.newTranslator] as [ITranslator] where the specified [translationSupplier] is used to
+         * Uses [AtriumFactory.newTranslator] as [Translator] where the specified [translationSupplier] is used to
          * retrieve translations, the specified [localeOrderDecider] to determine candidate [Locale]s and
          * [primaryLocale] is used as primary [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
          *
-         * @param primaryLocale The [Locale] for which the [ITranslator] will first search translations --
+         * @param primaryLocale The [Locale] for which the [Translator] will first search translations --
          *        it will also be used to format arguments of [ITranslatableWithArgs].
          * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
          *        in case no translation was found the previous primary Locale.
@@ -110,16 +110,16 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
             = ObjectFormatterOptions(AtriumFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales))
 
         /**
-         * Uses the given [factory] to build a [ITranslator].
+         * Uses the given [factory] to build a [Translator].
          */
-        fun withTranslator(factory: (ITranslationSupplier, ILocaleOrderDecider) -> ITranslator)
+        fun withTranslator(factory: (TranslationSupplier, LocaleOrderDecider) -> Translator)
             = ObjectFormatterOptions(factory(translationSupplier, localeOrderDecider))
     }
 
     /**
      * Provides options to create an [ObjectFormatter].
      */
-    class ObjectFormatterOptions(private val translator: ITranslator) {
+    class ObjectFormatterOptions(private val translator: Translator) {
         /**
          * Uses [AtriumFactory.newDetailedObjectFormatter] as [ObjectFormatter].
          */
@@ -129,14 +129,14 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
         /**
          * Uses the given [factory] to build a custom [ObjectFormatter].
          */
-        fun withObjectFormatter(factory: (ITranslator) -> ObjectFormatter)
+        fun withObjectFormatter(factory: (Translator) -> ObjectFormatter)
             = AssertionFormatterControllerOptions(factory(translator), translator)
     }
 
     /**
      * Provides options to create an [AssertionFormatterController].
      */
-    class AssertionFormatterControllerOptions(private val objectFormatter: ObjectFormatter, private val translator: ITranslator) {
+    class AssertionFormatterControllerOptions(private val objectFormatter: ObjectFormatter, private val translator: Translator) {
         /**
          * Uses [AtriumFactory.newAssertionFormatterController] as [AssertionFormatterController].
          */
@@ -153,7 +153,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     /**
      * Provides options to create an [AssertionFormatterFacade].
      */
-    class AssertionFormatterFacadeOptions(private val assertionFormatterController: AssertionFormatterController, private val objectFormatter: ObjectFormatter, private val translator: ITranslator) {
+    class AssertionFormatterFacadeOptions(private val assertionFormatterController: AssertionFormatterController, private val objectFormatter: ObjectFormatter, private val translator: Translator) {
         /**
          * Uses [AtriumFactory.newAssertionFormatterFacade] as [AssertionFormatterFacade].
          */
@@ -172,7 +172,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
      *
      * @see AssertionFormatterFacadeOptions
      */
-    class AssertionFormatterOptions(private val assertionFormatterFacade: AssertionFormatterFacade, private val objectFormatter: ObjectFormatter, private val translator: ITranslator) {
+    class AssertionFormatterOptions(private val assertionFormatterFacade: AssertionFormatterFacade, private val objectFormatter: ObjectFormatter, private val translator: Translator) {
 
         /**
          * Uses [AtriumFactory.registerSameLineTextAssertionFormatterCapabilities] to register [AssertionFormatter] to

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the basic contract for sophisticated `contains` assertion builders.
@@ -16,7 +16,7 @@ interface Contains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
-     * provides a method to decorate a description (an [ITranslatable]) in order that it reflects the search behaviour.
+     * provides a method to decorate a description (an [Translatable]) in order that it reflects the search behaviour.
      */
     interface SearchBehaviour {
         /**
@@ -24,7 +24,7 @@ interface Contains {
          *
          * @return The decorated [description].
          */
-        fun decorateDescription(description: ITranslatable): ITranslatable
+        fun decorateDescription(description: Translatable): Translatable
     }
 
     /**
