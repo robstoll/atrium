@@ -38,7 +38,7 @@ abstract class TranslatorErrorCaseSpec(
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale) } }
+                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale.toString()) } }
                 }
             }
 
@@ -46,7 +46,7 @@ abstract class TranslatorErrorCaseSpec(
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(Locale.UK, locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale) } }
+                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale.toString()) } }
                 }
             }
 
@@ -54,7 +54,7 @@ abstract class TranslatorErrorCaseSpec(
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(Locale.UK, Locale.FRENCH, locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported") } }
+                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale.toString()) } }
                 }
             }
         }
