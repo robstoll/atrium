@@ -79,10 +79,3 @@ infix fun <T : Any?> IAssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER
  */
 infix fun <T : Any> IAssertionPlant<T>.and(assertionCreator: IAssertionPlant<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)
-
-/**
- * Alias for [IAssertionPlant.subject] useful in property assertions.
- *
- * @see ch.tutteli.atrium.api.cc.infix.en_UK.property
- */
-val <T : Any> IAssertionPlant<T>.it get() : T = subject
