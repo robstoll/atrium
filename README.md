@@ -239,14 +239,6 @@ Back to property assertions. In the above example we created two feature asserti
 A feature assertion is indicated as follows in the output. It starts with a `▶` followed by the feature's name and its actual value.
 So the above output can be read as "I assert, Person's name (which is actually `"Robert"`) to be `"Peter"` and its property `isStudent` (which is actually `false`) to be `true`". 
 
-:information_source: You can also use `it` as alternative for `subject`. The above could have been written as:
-```kotlin
-assert(person) {
-    property(it::name).toBe("Peter") // The assertion subject is also passed as an implicit lambda parameter so you can use it
-    property(it::isStudent).isTrue()
-}
-```
-
 :interrobang: You might be asking yourself why I bothered providing the assertion function `message` shown in the example 
 [Expect an Exception](#expect-an-exception) and whether it is better to [write own assertion functions](#write-own-assertion-functions) or use `property`: 
 
