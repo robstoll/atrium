@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.spec
 
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 
 interface IAssertionVerbFactory {
-    fun <T : Any> checkImmediately(subject: T): IAssertionPlant<T>
-    fun <T : Any> checkLazily(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T>
-    fun <T : Any?> checkNullable(subject: T): IAssertionPlantNullable<T>
+    fun <T : Any> checkImmediately(subject: T): AssertionPlant<T>
+    fun <T : Any> checkLazily(subject: T, assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T>
+    fun <T : Any?> checkNullable(subject: T): AssertionPlantNullable<T>
     fun checkException(act: () -> Unit): ThrowableThrownBuilder
 }
 

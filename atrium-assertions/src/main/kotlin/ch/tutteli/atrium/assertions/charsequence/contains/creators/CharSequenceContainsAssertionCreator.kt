@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.*
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
  * Represents a creator of sophisticated `contains` assertions for [CharSequence].
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * corresponding check. Those created assertions are then grouped into an [IAssertionGroup] which represents the
  * sophisticated assertion as a whole.
  *
- * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
  * @param S The search behaviour which should be applied to the input of the search.
  *
  * @constructor Represents a creator for sophisticated `contains` assertions for [CharSequence].
@@ -34,6 +34,6 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, S : SearchBehaviour
     override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
 
-    override fun search(plant: IAssertionPlant<T>, searchCriterion: Any): Int
+    override fun search(plant: AssertionPlant<T>, searchCriterion: Any): Int
         = searcher.search(plant.subject, searchCriterion)
 }

@@ -3,10 +3,8 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.StringBasedRawString
-import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -14,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * Represents the base class for `in order only` assertion creators and provides a corresponding template to fulfill
  * its responsibility.
  *
- * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
  * @param S The type of the search criterion.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
@@ -29,7 +27,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
     private val searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {
 
-    override final fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
+    override final fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val assertions = mutableListOf<IAssertion>()
             val allSearchCriteria = listOf(searchCriterion, *otherSearchCriteria)

@@ -4,8 +4,8 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
-import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.*
 import com.nhaarman.mockito_kotlin.argumentCaptor
 import com.nhaarman.mockito_kotlin.mock
@@ -15,7 +15,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 
 abstract class FeatureAssertionCheckerSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (subjectFactory: IAssertionPlant<Int>) -> IAssertionChecker,
+    testeeFactory: (subjectFactory: AssertionPlant<Int>) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -28,7 +28,7 @@ abstract class FeatureAssertionCheckerSpec(
     })
     val assertionVerb = AssertionVerb.VERB
     val valueUnderTest = 1
-    val subjectFactory = mock<IAssertionPlant<Int>>()
+    val subjectFactory = mock<AssertionPlant<Int>>()
     val testee = testeeFactory(subjectFactory)
 
 

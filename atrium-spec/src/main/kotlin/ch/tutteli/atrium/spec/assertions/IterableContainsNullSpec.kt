@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,8 +14,8 @@ import org.jetbrains.spek.api.include
 
 abstract class IterableContainsNullSpec(
     verbs: IAssertionVerbFactory,
-    containsPair: Pair<String, IAssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> IAssertionPlant<Iterable<Double?>>>,
-    containsNotPair: Pair<String, IAssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> IAssertionPlant<Iterable<Double?>>>,
+    containsPair: Pair<String, AssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> AssertionPlant<Iterable<Double?>>>,
+    containsNotPair: Pair<String, AssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> AssertionPlant<Iterable<Double?>>>,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -32,17 +32,17 @@ abstract class IterableContainsNullSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double?>) -> IAssertionPlant<Iterable<Double?>> = verbs::checkImmediately
+    val assert: (Iterable<Double?>) -> AssertionPlant<Iterable<Double?>> = verbs::checkImmediately
     val expect = verbs::checkException
     val list = listOf(null, 1.0, null, 3.0)
     val fluent = assert(list)
 
     val (contains, containsFunArr) = containsPair
-    fun IAssertionPlant<Iterable<Double?>>.containsFun(t: Double?, vararg tX: Double?)
+    fun AssertionPlant<Iterable<Double?>>.containsFun(t: Double?, vararg tX: Double?)
         = containsFunArr(t, tX)
 
     val (containsNot, containsNotFunArr) = containsNotPair
-    fun IAssertionPlant<Iterable<Double?>>.containsNotFun(t: Double?, vararg tX: Double?)
+    fun AssertionPlant<Iterable<Double?>>.containsNotFun(t: Double?, vararg tX: Double?)
         = containsNotFunArr(t, tX)
 
     describeFun(contains, containsNot) {

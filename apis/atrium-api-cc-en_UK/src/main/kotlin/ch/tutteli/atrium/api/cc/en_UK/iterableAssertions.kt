@@ -5,10 +5,10 @@ import ch.tutteli.atrium.assertions._containsNot
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
- * Creates an [IterableContainsBuilder] based on this [IAssertionPlant] which allows to define
+ * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
@@ -18,7 +18,7 @@ val <E, T : Iterable<E>> Assert<T>.contains
     = _containsBuilder(this)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains [expected]
+ * Makes the assertion that [AssertionPlant.subject] contains [expected]
  * and the [otherExpected] (if defined).
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)`
@@ -35,11 +35,11 @@ val <E, T : Iterable<E>> Assert<T>.contains
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).objects(expected, *otherExpected)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) where it does not matter
  * in which order the entries appear.
  *
@@ -48,11 +48,11 @@ fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
+ * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
  * the defined order.
  *
  * It is a shortcut for `contains.inOrder.only.objects(expected, *otherExpected)`
@@ -60,11 +60,11 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: IAssertionPl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = contains.inOrder.only.objects(expected, *otherExpected)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) in the defined order
  * holding the assertions created by them.
  *
@@ -73,15 +73,15 @@ fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExp
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: IAssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
 
 /**
- * Makes the assertion that [IAssertionPlant.subject] does not contain [expected]
+ * Makes the assertion that [AssertionPlant.subject] does not contain [expected]
  * and neither one of the [otherExpected] (if defined).
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E): IAssertionPlant<T>
+fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = addAssertion(_containsNot(this, expected, otherExpected))

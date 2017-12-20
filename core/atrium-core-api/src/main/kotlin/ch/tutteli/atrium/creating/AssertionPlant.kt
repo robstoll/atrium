@@ -10,12 +10,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Represents a plant for [IAssertion]s based on a non nullable [subject].
  *
- * It is the entry point for most assertion functions and provides only a reduced set of [IReportingAssertionPlant]
+ * It is the entry point for most assertion functions and provides only a reduced set of [ReportingAssertionPlant]
  * which is actually created when a user of Atrium is using an assertion verb function.
  *
- * @param T The type of the [subject] of this [IAssertionPlant].
+ * @param T The type of the [subject] of this [AssertionPlant].
  */
-interface IAssertionPlant<out T : Any> : IBaseAssertionPlant<T, IAssertionPlant<T>> {
+interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>> {
 
     /**
      * Adds the assertions created by the [assertionCreator] lambda to this plant.
@@ -27,7 +27,7 @@ interface IAssertionPlant<out T : Any> : IBaseAssertionPlant<T, IAssertionPlant<
      * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
      *         evaluated (see [IReportingAssertionPlant]).
      */
-    fun addAssertionsCreatedBy(assertionCreator: IAssertionPlant<T>.() -> Unit): IAssertionPlant<T>
+    fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T>
 
     /**
      * Creates an [IBasicAssertion] based on the given [description], [expected] and [test] and [adds][addAssertion] it
@@ -42,7 +42,7 @@ interface IAssertionPlant<out T : Any> : IBaseAssertionPlant<T, IAssertionPlant<
      * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
      *         evaluated (see [IReportingAssertionPlant]).
      */
-    fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): IAssertionPlant<T>
+    fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): AssertionPlant<T>
         = addAssertion(BasicAssertion(description, expected, test))
 }
 

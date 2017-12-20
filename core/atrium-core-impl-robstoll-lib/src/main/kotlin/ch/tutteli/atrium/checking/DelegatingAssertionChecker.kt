@@ -2,26 +2,26 @@ package ch.tutteli.atrium.checking
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroup
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IBaseAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * An [IAssertionChecker] useful for narrowing assertion functions which have to create an own [IAssertionPlant]
+ * An [AssertionChecker] useful for narrowing assertion functions which have to create an own [AssertionPlant]
  * but want to add the created assertions to the original plant (the [subjectPlant]) of the narrowed subject.
  *
- * @param T The type of the [subject][IAssertionPlant.subject] of the given [subjectPlant].
+ * @param T The type of the [subject][AssertionPlant.subject] of the given [subjectPlant].
  *
  * @property subjectPlant The plant which holds the assertions of the subject.
  *
- * @constructor An [IAssertionChecker] useful for narrowing assertion functions which have to create an own [IAssertionPlant]
- * but want to add the created assertions to the original plant of the narrowed [IAssertionPlant.subject].
+ * @constructor An [AssertionChecker] useful for narrowing assertion functions which have to create an own [AssertionPlant]
+ * but want to add the created assertions to the original plant of the narrowed [AssertionPlant.subject].
  * @param subjectPlant The plant which holds the assertions of the subject.
  */
-class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: IBaseAssertionPlant<T, *>) : IAssertionChecker {
+class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAssertionPlant<T, *>) : AssertionChecker {
 
     /**
-     * [Adds][IAssertionPlant.addAssertion] the given [assertions] (wrapped into an [InvisibleAssertionGroup]) to the
+     * [Adds][AssertionPlant.addAssertion] the given [assertions] (wrapped into an [InvisibleAssertionGroup]) to the
      * original plant of the subject (the [subjectPlant]).
      *
      * @param assertionVerb Is ignored.

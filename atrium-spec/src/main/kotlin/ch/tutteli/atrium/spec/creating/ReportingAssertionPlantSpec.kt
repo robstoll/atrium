@@ -7,9 +7,9 @@ import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.IBasicAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields
-import ch.tutteli.atrium.creating.IReportingAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
+import ch.tutteli.atrium.creating.ReportingAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -23,7 +23,7 @@ import org.jetbrains.spek.api.dsl.on
 
 abstract class ReportingAssertionPlantSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionPlantWithCommonFields.CommonFields<Int>) -> IReportingAssertionPlant<Int>,
+    testeeFactory: (AssertionPlantWithCommonFields.CommonFields<Int>) -> ReportingAssertionPlant<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -36,13 +36,13 @@ abstract class ReportingAssertionPlantSpec(
     val description = TO_BE
     val expected = -12
 
-    val assertionChecker = (verbs.checkLazily(1, {}) as IReportingAssertionPlant<Int>).commonFields.assertionChecker
+    val assertionChecker = (verbs.checkLazily(1, {}) as ReportingAssertionPlant<Int>).commonFields.assertionChecker
     fun createTestee()
-        = testeeFactory(IAssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker, RawString.NULL))
+        = testeeFactory(AssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker, RawString.NULL))
 
     val plant = createTestee()
 
-    fun triple(funName: String, holdingFun: IAssertionPlant<Int>.() -> IAssertionPlant<Int>, failingFun: IAssertionPlant<Int>.() -> IAssertionPlant<Int>): Triple<String, IAssertionPlant<Int>.() -> IAssertionPlant<Int>, IAssertionPlant<Int>.() -> IAssertionPlant<Int>>
+    fun triple(funName: String, holdingFun: AssertionPlant<Int>.() -> AssertionPlant<Int>, failingFun: AssertionPlant<Int>.() -> AssertionPlant<Int>): Triple<String, AssertionPlant<Int>.() -> AssertionPlant<Int>, AssertionPlant<Int>.() -> AssertionPlant<Int>>
         = Triple(funName, holdingFun, failingFun)
 
     val basicAssertionWhichHolds = object : IBasicAssertion {

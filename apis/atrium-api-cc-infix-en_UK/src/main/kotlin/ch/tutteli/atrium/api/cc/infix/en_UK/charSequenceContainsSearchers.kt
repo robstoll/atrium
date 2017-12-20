@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -17,10 +17,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param expected The object which is expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.value(expected: Any): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.value(expected: Any): AssertionPlant<T>
     = this the Values(expected)
 
 /**
@@ -40,10 +40,10 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * @param values The objects which are expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(values: Values<Any>): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
     = addAssertion(_containsValues(this, values.expected, values.otherExpected))
 
 
@@ -57,11 +57,11 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * @param expected The object which is expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("valueIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.value(expected: Any): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.value(expected: Any): AssertionPlant<T>
     = this the Values(expected)
 
 /**
@@ -81,11 +81,11 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * @param values The objects which are expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("valuesIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(values: Values<Any>): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
     = addAssertion(_containsValuesIgnoringCase(this, values.expected, values.otherExpected))
 
 
@@ -97,10 +97,10 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.defaultTranslationOf(translatable: Translatable): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.defaultTranslationOf(translatable: Translatable): AssertionPlant<T>
     = this the DefaultTranslationsOf(translatable)
 
 /**
@@ -119,10 +119,10 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * instead of:
  *   `to contain atLeast 1 the DefaultTranslationsOf(IS, IS)`
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(translatables: DefaultTranslationsOf): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
     = addAssertion(_containsDefaultTranslationOf(this, translatables.expected, translatables.otherExpected))
 
 
@@ -134,11 +134,11 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("defaultTranslationOfIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.defaultTranslationOf(translatable: Translatable): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.defaultTranslationOf(translatable: Translatable): AssertionPlant<T>
     = this the DefaultTranslationsOf(translatable)
 
 /**
@@ -158,11 +158,11 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * @param translatables The objects which are expected to be contained within the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("valuesIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(translatables: DefaultTranslationsOf): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
     = addAssertion(_containsDefaultTranslationOfIgnoringCase(this, translatables.expected, translatables.otherExpected))
 
 
@@ -174,10 +174,10 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.regex(pattern: String): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.regex(pattern: String): AssertionPlant<T>
     = this the RegexPatterns(pattern)
 
 /**
@@ -197,10 +197,10 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * @param patterns The patterns which are expected to have a match against the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(patterns: RegexPatterns): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
     = addAssertion(_containsRegex(this, patterns.pattern, patterns.otherPatterns))
 
 
@@ -212,11 +212,11 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * @param pattern The patterns which is expected to have a match against the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.regex(pattern: String): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.regex(pattern: String): AssertionPlant<T>
     = this the RegexPatterns(pattern)
 
 /**
@@ -236,9 +236,9 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  *
  * @param patterns The patterns which are expected to have a match against the input of the search.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("regexIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): IAssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
     = addAssertion(_containsRegexIgnoringCase(this, patterns.pattern, patterns.otherPatterns))

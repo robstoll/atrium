@@ -1,16 +1,16 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.creating.IAssertionPlantWithCommonFields.CommonFields
+import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * An assertion plant which has [CommonFields].
  *
- * @param T The type of [CommonFields.subject] of this [IAssertionPlant].
+ * @param T The type of [CommonFields.subject] of this [AssertionPlant].
  */
-interface IAssertionPlantWithCommonFields<out T> {
+interface AssertionPlantWithCommonFields<out T> {
     /**
      * [CommonFields] of this plant.
      */
@@ -19,7 +19,7 @@ interface IAssertionPlantWithCommonFields<out T> {
     /**
      * Common fields of an assertion plant.
      *
-     * @param T The type of the [subject] of this [IAssertionPlant].
+     * @param T The type of the [subject] of this [AssertionPlant].
      *
      * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
      * @property subject The subject for which this plant will create/check [IAssertion]s.
@@ -33,10 +33,10 @@ interface IAssertionPlantWithCommonFields<out T> {
      * @param nullRepresentation The representation used in reporting in case [subject] is `null`.
      *
      */
-    data class CommonFields<out T>(val assertionVerb: Translatable, val subject: T, val assertionChecker: IAssertionChecker, private val nullRepresentation: Any) {
+    data class CommonFields<out T>(val assertionVerb: Translatable, val subject: T, val assertionChecker: AssertionChecker, private val nullRepresentation: Any) {
 
         /**
-         * Uses [assertionChecker] to check the given [assertions] (see [IAssertionChecker.check]).
+         * Uses [assertionChecker] to check the given [assertions] (see [AssertionChecker.check]).
          *
          * @param assertions The assertions which shall be checked.
          *

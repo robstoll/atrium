@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Checks given [IAssertion]s and reports if one of them fails.
  */
-interface IAssertionChecker {
+interface AssertionChecker {
     /**
      * Checks given [assertions] and reports if one of them fails (does not hold).
      *

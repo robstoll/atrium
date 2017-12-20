@@ -8,16 +8,16 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * An [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
+ * An [AssertionChecker] which throws [AssertionError]s in case an assertion fails
  * and uses the given [reporter] for reporting.
  *
  * @property reporter Will be used for reporting.
  *
- * @constructor An [IAssertionChecker] which throws [AssertionError]s in case an assertion fails
+ * @constructor An [AssertionChecker] which throws [AssertionError]s in case an assertion fails
  *              and uses the given [reporter] for reporting.
  * @param reporter Will be used for reporting.
  */
-class ThrowingAssertionChecker(private val reporter: Reporter) : IAssertionChecker {
+class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecker {
 
     /**
      * Creates an [IAssertionGroup] -- based on the given [assertionVerb], [subject] and [assertions] --

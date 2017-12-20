@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -11,8 +11,8 @@ import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsAtMostAssertionSpec(
     verbs: IAssertionVerbFactory,
-    containsAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> IAssertionPlant<CharSequence>>,
+    containsAtMostTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> AssertionPlant<CharSequence>>,
+    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> AssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
     describePrefix: String = "[Atrium] "
@@ -31,17 +31,17 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
+    val assert: (CharSequence) -> AssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
     val fluentHelloWorld = assert(helloWorld)
 
     val (containsAtMost, containsAtMostTest, containsAtMostFunArr) = containsAtMostTriple
-    fun IAssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: Any, vararg aX: Any)
+    fun AssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsAtMostFunArr(atLeast, a, aX)
 
     val (_, containsAtMostIgnoringCase, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCaseTriple
-    fun IAssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
+    fun AssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
     val (containsNot, errorMsgContainsNot) = containsNotPair

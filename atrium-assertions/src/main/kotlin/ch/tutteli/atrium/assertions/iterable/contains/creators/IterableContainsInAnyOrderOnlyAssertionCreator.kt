@@ -4,16 +4,15 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.*
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Represents the base class for `in any order only` assertion creators and provides a corresponding template to fulfill
  * its responsibility.
  *
- * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
  * @param S The type of the search criterion.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
@@ -28,7 +27,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>
     private val searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {
 
-    override final fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
+    override final fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val list = plant.subject.toMutableList()
             val actualSize = list.size

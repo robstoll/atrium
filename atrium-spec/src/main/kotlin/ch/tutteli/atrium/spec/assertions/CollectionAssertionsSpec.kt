@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
@@ -16,9 +16,9 @@ import org.jetbrains.spek.api.include
 
 abstract class CollectionAssertionsSpec(
     verbs: IAssertionVerbFactory,
-    hasSizePair: Pair<String, IAssertionPlant<List<Int>>.(Int) -> IAssertionPlant<List<Int>>>,
-    isEmptyPair: Pair<String, IAssertionPlant<List<Int>>.() -> IAssertionPlant<List<Int>>>,
-    isNotEmptyPair: Pair<String, IAssertionPlant<List<Int>>.() -> IAssertionPlant<List<Int>>>,
+    hasSizePair: Pair<String, AssertionPlant<List<Int>>.(Int) -> AssertionPlant<List<Int>>>,
+    isEmptyPair: Pair<String, AssertionPlant<List<Int>>.() -> AssertionPlant<List<Int>>>,
+    isNotEmptyPair: Pair<String, AssertionPlant<List<Int>>.() -> AssertionPlant<List<Int>>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -37,7 +37,7 @@ abstract class CollectionAssertionsSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (List<Int>) -> IAssertionPlant<List<Int>> = verbs::checkImmediately
+    val assert: (List<Int>) -> AssertionPlant<List<Int>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(listOf(1, 2))
 

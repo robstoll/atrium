@@ -5,14 +5,14 @@ import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries
  * have to appear in the specified order and where an entry is identified by an expected object (equality comparison).
  *
- * @param T The type of the [IAssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the
  *              expected entries have to appear in the specified order and where an entry is identified by an

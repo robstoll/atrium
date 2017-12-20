@@ -1,7 +1,7 @@
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -14,8 +14,8 @@ import java.util.*
  * A dummy implementation of [IAtriumFactory] which should be replaced by an actual implementation.
  *
  * It provides factory methods which all throw an [UnsupportedOperationException] to create:
- * - [IAssertionPlant]
- * - [IAssertionChecker]
+ * - [AssertionPlant]
+ * - [AssertionChecker]
  * - [MethodCallFormatter]
  * - [Translator]
  * - [TranslationSupplier]
@@ -31,25 +31,25 @@ object AtriumFactory : IAtriumFactory {
     private const val ERROR_MSG = "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
         "meaning as a substitute for a real implementation"
 
-    override fun <T : Any> newReportingPlant(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
+    override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
-    override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
+    override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
         = throwUnsupportedOperationException()
 
-    override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
+    override fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
-    override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
+    override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = throwUnsupportedOperationException()
 
-    override fun newThrowingAssertionChecker(reporter: Reporter): IAssertionChecker
+    override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = throwUnsupportedOperationException()
 
-    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
         = throwUnsupportedOperationException()
 
-    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
+    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
         = throwUnsupportedOperationException()
 
     override fun newMethodCallFormatter(): MethodCallFormatter

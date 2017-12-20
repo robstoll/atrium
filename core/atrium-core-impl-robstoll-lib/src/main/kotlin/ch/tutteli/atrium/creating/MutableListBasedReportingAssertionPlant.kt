@@ -2,9 +2,9 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.IAssertion
 
-abstract class BaseReportingAssertionPlant<out T : Any?, out A : IBaseAssertionPlant<T, A>>(
-    override val commonFields: IAssertionPlantWithCommonFields.CommonFields<T>
-) : BaseAssertionPlant<T, A>(), IBaseReportingAssertionPlant<T, A> {
+abstract class MutableListBasedReportingAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>>(
+    override val commonFields: AssertionPlantWithCommonFields.CommonFields<T>
+) : MutableListBasedAssertionPlant<T, A>(), BaseReportingAssertionPlant<T, A> {
 
     override final fun addAssertion(assertion: IAssertion): A {
         super.addAssertion(assertion)

@@ -3,7 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
-import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
@@ -14,8 +14,8 @@ import java.util.*
  * Robstoll's `abstract factory` of atrium.
  *
  * It provides factory methods to create:
- * - [IAssertionPlant]
- * - [IAssertionChecker]
+ * - [AssertionPlant]
+ * - [AssertionChecker]
  * - [MethodCallFormatter]
  * - [Translator]
  * - [TranslationSupplier]
@@ -28,25 +28,25 @@ import java.util.*
  */
 object AtriumFactory : IAtriumFactory {
 
-    override fun <T : Any> newReportingPlant(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = ReportingAssertionPlant(commonFields)
+    override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
+        = ReportingAssertionPlantImpl(commonFields)
 
-    override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
-        = ReportingAssertionPlantNullable(commonFields)
+    override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
+        = ReportingAssertionPlantNullableImpl(commonFields)
 
-    override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
-        = CheckingAssertionPlant(subject)
+    override fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
+        = CheckingAssertionPlantImpl(subject)
 
-    override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
-        = CollectingAssertionPlant(subjectProvider)
+    override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
+        = CollectingAssertionPlantImpl(subjectProvider)
 
-    override fun newThrowingAssertionChecker(reporter: Reporter): IAssertionChecker
+    override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = ThrowingAssertionChecker(reporter)
 
-    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
         = FeatureAssertionChecker(subjectPlant)
 
-    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
+    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
         = DelegatingAssertionChecker(subjectPlant)
 
     override fun newMethodCallFormatter(): MethodCallFormatter

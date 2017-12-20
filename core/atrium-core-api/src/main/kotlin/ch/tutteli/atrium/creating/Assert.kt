@@ -1,3 +1,3 @@
 package ch.tutteli.atrium.creating
 
-typealias Assert<T> = IAssertionPlant<T>
+typealias Assert<T> = AssertionPlant<T>

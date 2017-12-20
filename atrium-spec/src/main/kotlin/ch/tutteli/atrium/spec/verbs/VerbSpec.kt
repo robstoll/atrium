@@ -6,10 +6,9 @@ import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion.*
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.ReporterBuilder
-import ch.tutteli.atrium.reporting.ReporterBuilder.Companion
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.spec.inCaseOf
@@ -20,10 +19,10 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
-private fun <T : Any> assert(subject: T): IAssertionPlant<T>
+private fun <T : Any> assert(subject: T): AssertionPlant<T>
     = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-private fun <T : Any> assert(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
+private fun <T : Any> assert(subject: T, assertionCreator: AssertionPlant<T>.() -> Unit)
     = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 private fun <T : Any?> assert(subject: T)
@@ -45,9 +44,9 @@ private object AtriumReporterSupplier {
 }
 
 abstract class VerbSpec(
-    plantCheckImmediately: Pair<String, (subject: Int) -> IAssertionPlant<Int>>,
-    plantCheckLazily: Pair<String, (subject: Int, assertionCreator: IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
-    plantNullable: Pair<String, (subject: Int?) -> IAssertionPlantNullable<Int?>>,
+    plantCheckImmediately: Pair<String, (subject: Int) -> AssertionPlant<Int>>,
+    plantCheckLazily: Pair<String, (subject: Int, assertionCreator: AssertionPlant<Int>.() -> Unit) -> AssertionPlant<Int>>,
+    plantNullable: Pair<String, (subject: Int?) -> AssertionPlantNullable<Int?>>,
     plantExpect: Pair<String, (act: () -> Unit) -> ThrowableThrownBuilder>,
     describePrefix: String = "[Atrium] "
 ) : Spek({

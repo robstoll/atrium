@@ -9,6 +9,6 @@ import ch.tutteli.atrium.assertions.IAssertion
  * You can think of it as an [IAssertion] factory which does more than just factoring
  * but also provides quality assurance capabilities.
  *
- * @param T The type of the [subject] of this [IAssertionPlant].
+ * @param T The type of the [subject] of this [AssertionPlant].
  */
-interface IReportingAssertionPlant<out T : Any> : IAssertionPlant<T>, IBaseReportingAssertionPlant<T, IAssertionPlant<T>>
+interface ReportingAssertionPlant<out T : Any> : AssertionPlant<T>, BaseReportingAssertionPlant<T, AssertionPlant<T>>

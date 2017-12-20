@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AssertionVerb
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.DetailedObjectFormatter.Companion.INDENT
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
@@ -150,7 +150,7 @@ object DetailedObjectFormatterSpec : Spek({
         ).forEach { (typeName, value) ->
             on(typeName) {
                 val result = testee.format(value)
-                it("returns ${IAssertionPlant<*>::subject.name}.toString() $typeNameAndHash") {
+                it("returns ${AssertionPlant<*>::subject.name}.toString() $typeNameAndHash") {
                     assert(result).toBe(value.toString() + INDENT
                         + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
                 }

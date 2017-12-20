@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,10 +14,10 @@ abstract class ThrowableAssertionsSpec(
     verbs: IAssertionVerbFactory,
     toThrowTriple: Triple<String,
         ThrowableThrownBuilder.() -> Unit,
-        ThrowableThrownBuilder.(assertionCreator: IAssertionPlant<Throwable>.() -> Unit) -> Unit
+        ThrowableThrownBuilder.(assertionCreator: AssertionPlant<Throwable>.() -> Unit) -> Unit
         >,
-    messagePair: Pair<String, IAssertionPlant<Throwable>.(assertionCreator: IAssertionPlant<String>.() -> Unit) -> Unit>,
-    messageContainsFun: IAssertionPlant<Throwable>.(String) -> Unit,
+    messagePair: Pair<String, AssertionPlant<Throwable>.(assertionCreator: AssertionPlant<String>.() -> Unit) -> Unit>,
+    messageContainsFun: AssertionPlant<Throwable>.(String) -> Unit,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -28,7 +28,7 @@ abstract class ThrowableAssertionsSpec(
         = describeProperty(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-    val assert: (IllegalArgumentException) -> IAssertionPlant<IllegalArgumentException> = verbs::checkImmediately
+    val assert: (IllegalArgumentException) -> AssertionPlant<IllegalArgumentException> = verbs::checkImmediately
 
     val (message, messageFun) = messagePair
     val (toThrow, toThrowFun, toThrowFunLazy) = toThrowTriple

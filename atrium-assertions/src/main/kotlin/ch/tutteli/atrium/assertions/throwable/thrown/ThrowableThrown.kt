@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.AbsentThrowableMessageProvider
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.Creator
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
@@ -52,7 +52,7 @@ interface ThrowableThrown {
             throwableThrownBuilder: ThrowableThrownBuilder,
             description: Translatable,
             expectedType: KClass<TExpected>,
-            assertionCreator: IAssertionPlant<TExpected>.() -> Unit
+            assertionCreator: AssertionPlant<TExpected>.() -> Unit
         )
     }
 }

@@ -1,16 +1,16 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 object CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceAssertionsSpec(
     AssertionVerbFactory,
-    IAssertionPlant<CharSequence>::containsDefaultTranslationOf.name to IAssertionPlant<CharSequence>::containsDefaultTranslationOf,
-    IAssertionPlant<CharSequence>::containsNotDefaultTranslationOf.name to IAssertionPlant<CharSequence>::containsNotDefaultTranslationOf,
-    IAssertionPlant<CharSequence>::isEmpty.name to IAssertionPlant<CharSequence>::isEmpty,
-    IAssertionPlant<CharSequence>::isNotEmpty.name to IAssertionPlant<CharSequence>::isNotEmpty,
-    IAssertionPlant<CharSequence>::startsWith.name to IAssertionPlant<CharSequence>::startsWith,
-    IAssertionPlant<CharSequence>::startsNotWith.name to IAssertionPlant<CharSequence>::startsNotWith,
-    IAssertionPlant<CharSequence>::endsWith.name to IAssertionPlant<CharSequence>::endsWith,
-    IAssertionPlant<CharSequence>::endsNotWith.name to IAssertionPlant<CharSequence>::endsNotWith
+    AssertionPlant<CharSequence>::containsDefaultTranslationOf.name to AssertionPlant<CharSequence>::containsDefaultTranslationOf,
+    AssertionPlant<CharSequence>::containsNotDefaultTranslationOf.name to AssertionPlant<CharSequence>::containsNotDefaultTranslationOf,
+    AssertionPlant<CharSequence>::isEmpty.name to AssertionPlant<CharSequence>::isEmpty,
+    AssertionPlant<CharSequence>::isNotEmpty.name to AssertionPlant<CharSequence>::isNotEmpty,
+    AssertionPlant<CharSequence>::startsWith.name to AssertionPlant<CharSequence>::startsWith,
+    AssertionPlant<CharSequence>::startsNotWith.name to AssertionPlant<CharSequence>::startsNotWith,
+    AssertionPlant<CharSequence>::endsWith.name to AssertionPlant<CharSequence>::endsWith,
+    AssertionPlant<CharSequence>::endsNotWith.name to AssertionPlant<CharSequence>::endsNotWith
 )

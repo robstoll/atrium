@@ -3,7 +3,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterBuilder
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 internal fun <T : Any> assert(subject: T)
     = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-internal fun <T : Any> assert(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
+internal fun <T : Any> assert(subject: T, assertionCreator: AssertionPlant<T>.() -> Unit)
     = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 internal fun <T : Any?> assert(subject: T)
@@ -56,7 +56,7 @@ internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
  */
 internal object AssertionVerbFactory : IAssertionVerbFactory {
     override fun <T : Any> checkImmediately(subject: T) = assert(subject)
-    override fun <T : Any> checkLazily(subject: T, assertionCreator: IAssertionPlant<T>.() -> Unit)
+    override fun <T : Any> checkLazily(subject: T, assertionCreator: AssertionPlant<T>.() -> Unit)
         = assert(subject, assertionCreator)
 
     override fun <T> checkNullable(subject: T) = assert(subject)

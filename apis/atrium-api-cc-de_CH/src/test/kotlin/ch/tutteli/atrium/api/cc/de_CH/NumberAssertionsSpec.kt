@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 object NumberAssertionsSpec : ch.tutteli.atrium.spec.assertions.NumberAssertionsSpec(
     AssertionVerbFactory,
-    IAssertionPlant<Int>::istKleinerAls.name to IAssertionPlant<Int>::istKleinerAls,
-    IAssertionPlant<Int>::istKleinerOderGleich.name to IAssertionPlant<Int>::istKleinerOderGleich,
-    IAssertionPlant<Int>::istGroesserAls.name to IAssertionPlant<Int>::istGroesserAls,
-    IAssertionPlant<Int>::istGroesserOderGleich.name to IAssertionPlant<Int>::istGroesserOderGleich
+    AssertionPlant<Int>::istKleinerAls.name to AssertionPlant<Int>::istKleinerAls,
+    AssertionPlant<Int>::istKleinerOderGleich.name to AssertionPlant<Int>::istKleinerOderGleich,
+    AssertionPlant<Int>::istGroesserAls.name to AssertionPlant<Int>::istGroesserAls,
+    AssertionPlant<Int>::istGroesserOderGleich.name to AssertionPlant<Int>::istGroesserOderGleich
 )

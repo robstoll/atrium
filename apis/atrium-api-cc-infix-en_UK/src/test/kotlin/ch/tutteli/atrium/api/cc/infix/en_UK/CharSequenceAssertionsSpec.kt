@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KFunction2
 
@@ -9,23 +9,23 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
     AssertionVerbFactory,
     getContainsDefaultTranslationOfPair(),
     getContainsNotDefaultTranslationOfPair(),
-    "${IAssertionPlant<CharSequence>::toBe.name} ${Empty::class.simpleName}" to Companion::toBeEmpty,
-    "${IAssertionPlant<CharSequence>::notToBe.name} ${Empty::class.simpleName}" to Companion::notToBeEmpty,
-    IAssertionPlant<CharSequence>::startsWith.name to Companion::startsWith,
-    IAssertionPlant<CharSequence>::startsNotWith.name to Companion::startsNotWith,
-    IAssertionPlant<CharSequence>::endsWith.name to Companion::endsWith,
-    IAssertionPlant<CharSequence>::endsNotWith.name to Companion::endsNotWith
+    "${AssertionPlant<CharSequence>::toBe.name} ${Empty::class.simpleName}" to Companion::toBeEmpty,
+    "${AssertionPlant<CharSequence>::notToBe.name} ${Empty::class.simpleName}" to Companion::notToBeEmpty,
+    AssertionPlant<CharSequence>::startsWith.name to Companion::startsWith,
+    AssertionPlant<CharSequence>::startsNotWith.name to Companion::startsNotWith,
+    AssertionPlant<CharSequence>::endsWith.name to Companion::endsWith,
+    AssertionPlant<CharSequence>::endsNotWith.name to Companion::endsNotWith
 ) {
     companion object {
         fun getContainsDefaultTranslationOfPair()
             = getContainsName() to Companion::containsDefaultTranslationOf
 
         private fun getContainsName(): String {
-            val f: KFunction2<IAssertionPlant<CharSequence>, DefaultTranslationsOf, IAssertionPlant<CharSequence>> = IAssertionPlant<CharSequence>::contains
+            val f: KFunction2<AssertionPlant<CharSequence>, DefaultTranslationsOf, AssertionPlant<CharSequence>> = AssertionPlant<CharSequence>::contains
             return "${f.name} ${DefaultTranslationsOf::class.simpleName}"
         }
 
-        private fun containsDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>): IAssertionPlant<CharSequence> {
+        private fun containsDefaultTranslationOf(plant: AssertionPlant<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>): AssertionPlant<CharSequence> {
             return if (otherExpected.isEmpty()) {
                 plant containsDefaultTranslationOf expected
             } else {
@@ -38,29 +38,29 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenc
             = getContainsNotName() to Companion::containsNotDefaultTranslationOf
 
         private fun getContainsNotName(): String {
-            val f: KFunction2<IAssertionPlant<CharSequence>, DefaultTranslationsOf, IAssertionPlant<CharSequence>> = IAssertionPlant<CharSequence>::containsNot
+            val f: KFunction2<AssertionPlant<CharSequence>, DefaultTranslationsOf, AssertionPlant<CharSequence>> = AssertionPlant<CharSequence>::containsNot
             return "${f.name} ${DefaultTranslationsOf::class.simpleName}"
         }
 
-        private fun containsNotDefaultTranslationOf(plant: IAssertionPlant<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>)
+        private fun containsNotDefaultTranslationOf(plant: AssertionPlant<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>)
             = plant containsNot DefaultTranslationsOf(expected, *otherExpected)
 
-        fun toBeEmpty(plant: IAssertionPlant<CharSequence>)
+        fun toBeEmpty(plant: AssertionPlant<CharSequence>)
             = plant toBe Empty
 
-        fun notToBeEmpty(plant: IAssertionPlant<CharSequence>)
+        fun notToBeEmpty(plant: AssertionPlant<CharSequence>)
             = plant notToBe Empty
 
-        fun startsWith(plant: IAssertionPlant<CharSequence>, expected: CharSequence)
+        fun startsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
             = plant startsWith expected
 
-        fun startsNotWith(plant: IAssertionPlant<CharSequence>, expected: CharSequence)
+        fun startsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
             = plant startsNotWith expected
 
-        fun endsWith(plant: IAssertionPlant<CharSequence>, expected: CharSequence)
+        fun endsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
             = plant endsWith expected
 
-        fun endsNotWith(plant: IAssertionPlant<CharSequence>, expected: CharSequence)
+        fun endsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
             = plant endsNotWith expected
     }
 }

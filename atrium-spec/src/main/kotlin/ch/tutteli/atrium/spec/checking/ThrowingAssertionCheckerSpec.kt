@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.checking.IAssertionChecker
+import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -17,7 +17,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class ThrowingAssertionCheckerSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (Reporter) -> IAssertionChecker,
+    testeeFactory: (Reporter) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
