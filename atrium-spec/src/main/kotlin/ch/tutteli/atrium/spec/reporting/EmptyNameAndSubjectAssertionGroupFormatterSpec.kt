@@ -12,6 +12,7 @@ import ch.tutteli.atrium.reporting.IAssertionFormatter
 import ch.tutteli.atrium.reporting.IAssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -27,9 +28,8 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : IAssertionGrou
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val testee = testeeFactory(AtriumFactory.newAssertionFormatterController())
 
@@ -40,7 +40,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : IAssertionGrou
 
     val testString = "bla blu"
     val testSubject = "testSubject"
-    prefixedDescribe("fun ${IAssertionFormatter::formatGroup.name}") {
+    describeFun(IAssertionFormatter::formatGroup.name) {
 
         context("has ${IAssertionGroup::name.name} and ${IAssertionGroup::subject.name}") {
             mapOf(

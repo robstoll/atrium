@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -25,9 +26,8 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val testee = testeeFactory(mapOf(), AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
@@ -57,7 +57,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
         methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
     }
 
-    prefixedDescribe("fun ${testee::canFormat.name}") {
+    describeFun(testee::canFormat.name) {
         it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroupWithAnonymousType)
             verbs.checkImmediately(result).isTrue()
@@ -86,7 +86,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
         }
     }
 
-    prefixedDescribe("fun ${testee::formatNonGroup.name}") {
+    describeFun(testee::formatNonGroup.name) {
         it("throws an UnsupportedOperationException") {
             verbs.checkException {
                 testee.formatNonGroup(unsupportedAssertion, methodObject)
@@ -95,7 +95,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : IAssertionGroupType
         }
     }
 
-    prefixedDescribe("fun ${testee::formatGroup.name}") {
+    describeFun(testee::formatGroup.name) {
         val doNotFormatChildren: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit = { _, _ -> }
 
         it("throws an UnsupportedOperationException for an ${IAssertionGroup::class.simpleName} with type object: ${IAssertionGroupType::class.simpleName}") {

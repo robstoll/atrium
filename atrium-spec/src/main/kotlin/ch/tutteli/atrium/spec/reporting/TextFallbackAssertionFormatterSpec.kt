@@ -13,6 +13,7 @@ import ch.tutteli.atrium.reporting.translating.ITranslator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -24,9 +25,8 @@ abstract class TextFallbackAssertionFormatterSpec(
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
@@ -34,7 +34,7 @@ abstract class TextFallbackAssertionFormatterSpec(
         override fun holds() = false
     }
 
-    prefixedDescribe("fun ${testee::canFormat.name}") {
+    describeFun(testee::canFormat.name) {
         group("check that it always returns true even for...") {
             it("... an anonymous class of ${IAssertion::class.simpleName}") {
                 testee.canFormat(unsupportedAssertion)
@@ -51,7 +51,7 @@ abstract class TextFallbackAssertionFormatterSpec(
         }
     }
 
-    prefixedDescribe("fun ${testee::format.name}") {
+    describeFun(testee::format.name) {
 
         context("unsupported ${IAssertion::class.simpleName}") {
             it("writes whether the assertion holds including a message telling the type is unsupported") {

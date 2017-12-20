@@ -9,6 +9,7 @@ import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
@@ -25,9 +26,8 @@ abstract class OnlyFailureReporterSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val translator = UsingDefaultTranslator()
     val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
@@ -39,7 +39,7 @@ abstract class OnlyFailureReporterSpec(
     }
     val testee = testeeFactory(facade)
 
-    prefixedDescribe("fun ${testee::format.name}") {
+    describeFun(testee::format.name) {
         val sb = StringBuilder()
         val assertion = object : IAssertion {
             override fun holds() = true

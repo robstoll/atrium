@@ -9,6 +9,7 @@ import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.reporting.IReporter
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
@@ -22,9 +23,8 @@ abstract class ThrowingAssertionCheckerSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
@@ -41,7 +41,7 @@ abstract class ThrowingAssertionCheckerSpec(
         override fun holds() = false
     }
 
-    prefixedDescribe("fun ${testee::check.name}") {
+    describeFun(testee::check.name) {
         it("does not throw an AssertionError if all assertions hold") {
             testee.check(assertionVerb, 1, listOf(
                 assertionWhichHolds,

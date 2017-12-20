@@ -19,9 +19,8 @@ abstract class FeatureAssertionCheckerSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
-        prefixedDescribe(describePrefix, description, body)
-    }
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
+        = describeFun(describePrefix, funName, body = body)
 
     val assertions = ArrayList<IAssertion>()
     assertions.add(object : IAssertion {
@@ -33,7 +32,7 @@ abstract class FeatureAssertionCheckerSpec(
     val testee = testeeFactory(subjectFactory)
 
 
-    prefixedDescribe("fun ${testee::check.name}") {
+    describeFun(testee::check.name) {
         setUp("creates a ${IAssertionGroup::class.simpleName} and passes it to its subjectFactory") {
 
             testee.check(assertionVerb, valueUnderTest, assertions)
