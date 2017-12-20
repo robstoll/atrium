@@ -4,97 +4,125 @@ import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ILocaleOrderDecider
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.kbox.joinToString
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.SpecBody
+import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
 abstract class LocaleOrderDeciderSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: () -> ILocaleOrderDecider
+    testeeFactory: () -> ILocaleOrderDecider,
+    describePrefix: String = "[Atrium] "
 ) : Spek({
+
+    fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
+        = prefixedDescribe(describePrefix, description, body)
+
     val assert: (Iterable<Locale>) -> IAssertionPlant<Iterable<Locale>> = verbs::checkImmediately
     val testee = testeeFactory()
 
     val variantA = "VariantA"
     val variantAB = "${variantA}_VariantB"
     val localeDe = Locale("de")
-    val localeWithDe = "Locale(de)"
     val localeDeCh = Locale("de", "ch")
-    val localeWithDeCh = "Locale(de, CH)"
     val localeDeChVariantA = Locale("de", "ch", variantA)
-    val localeWithDeChVariantA = "Locale(de, CH, VariantA)"
     val localeDeChVariantAVariantB = Locale("de", "ch", variantAB)
-    val localeWithDeChVariantAVariantB = "Locale(de, CH, VariantA_VariantB)"
     val localeDeChVariantAScriptLatnBuilder = Locale.Builder()
         .setLanguage("de")
-        .setScript("latn")
+        .setScript("Latn")
         .setRegion("ch")
         .setVariant(variantA)
-    val localeWithDeChVariantAScriptLatn = "Locale(de, CH, VariantA, script=latn)"
-    val localeWithDeChScriptLatn = "Locale(de, CH, script=latn)"
-    val localeWithDeScriptLatn = "Locale(de, script=latn)"
+    val localeDeScriptLatnChVariantA = localeDeChVariantAScriptLatnBuilder.build()
+    val localeDeScriptLatnCh = localeDeChVariantAScriptLatnBuilder.setVariant("").build()
+    val localeDeScriptLatn = localeDeChVariantAScriptLatnBuilder.setRegion("").build()
+    listOf(
+        Triple("without fallbackLocales", emptyArray(), emptyArray()),
+        Triple("with fallback fr", arrayOf(Locale.FRENCH), arrayOf(Locale.FRENCH)),
+        Triple("with fallback fr_FR", arrayOf(Locale.FRANCE), arrayOf(Locale.FRANCE, Locale.FRENCH)),
+        Triple("with fallback fr_CH and fr_FR", arrayOf(Locale("fr", "CH"), Locale.FRANCE), arrayOf(Locale("fr", "CH"), Locale.FRENCH, Locale.FRANCE, Locale.FRENCH))
 
-    describe("without fallbackLocales") {
-
-        describe(localeWithDe) {
-            it("returns $localeWithDe and Locale.ROOT") {
-                val result = testee.determineOrder(localeDe, emptyArray()).asIterable()
-                assert(result).containsStrictly(localeDe)
-            }
+    ).forEach { (description, fallbackLocales, additionalLocaleCandidates) ->
+        val andAdditional = if (additionalLocaleCandidates.isNotEmpty()) {
+            ", " + additionalLocaleCandidates.joinToString(", ", " and ", { it, sb -> sb.append(it) })
+        } else {
+            ""
         }
+        prefixedDescribe(description) {
 
-        describe(localeWithDeCh) {
-            it("returns $localeWithDeCh, $localeWithDe and Locale.ROOT") {
-                val result = testee.determineOrder(localeDeCh, emptyArray()).asIterable()
-                assert(result).containsStrictly(localeDeCh, localeDe)
+            context("primary locale is $localeDe") {
+                it("returns $localeDe$andAdditional") {
+                    val result = testee.determineOrder(localeDe, fallbackLocales).asIterable()
+                    assert(result).containsStrictly(
+                        localeDe
+                        , *additionalLocaleCandidates)
+                }
             }
-        }
 
-        describe(localeWithDeChVariantA) {
-            it("returns "
-                + "$localeWithDeChVariantA, "
-                + "$localeWithDeCh, "
-                + "$localeWithDe, "
-                + "and Locale.ROOT") {
-                val result = testee.determineOrder(localeDeChVariantA, emptyArray()).asIterable()
-                assert(result).containsStrictly(localeDeChVariantA, localeDeCh, localeDe)
+            context("primary locale is $localeDeCh") {
+                it("returns $localeDeCh, $localeDe$andAdditional") {
+                    val result = testee.determineOrder(localeDeCh, fallbackLocales).asIterable()
+                    assert(result).containsStrictly(
+                        localeDeCh
+                        , localeDe
+                        , *additionalLocaleCandidates)
+                }
             }
-        }
 
-        describe(localeWithDeChVariantAVariantB) {
-            it("returns: "
-                + "$localeWithDeChVariantAVariantB, "
-                + "$localeWithDeChVariantA, "
-                + "$localeWithDeCh, "
-                + "$localeWithDe, "
-                + "and Locale.ROOT") {
-                val result = testee.determineOrder(localeDeChVariantAVariantB, emptyArray()).asIterable()
-                assert(result).containsStrictly(
-                    localeDeChVariantAVariantB
-                    , localeDeChVariantA
-                    , localeDeCh
-                    , localeDe)
+            context("primary locale is $localeDeChVariantA") {
+                it("returns "
+                    + "$localeDeChVariantA, "
+                    + "$localeDeCh, "
+                    + "$localeDe"
+                    + andAdditional) {
+                    val result = testee.determineOrder(localeDeChVariantA, fallbackLocales).asIterable()
+                    assert(result).containsStrictly(
+                        localeDeChVariantA
+                        , localeDeCh
+                        , localeDe
+                        , *additionalLocaleCandidates)
+                }
             }
-        }
 
-        describe(localeWithDeChVariantAScriptLatn) {
-            it("returns: "
-                + "$localeWithDeChVariantAScriptLatn, "
-                + "$localeWithDeChScriptLatn, "
-                + "$localeWithDeScriptLatn, "
-                + "$localeWithDeChVariantA, "
-                + "$localeWithDeCh, "
-                + "$localeWithDe, "
-                + "and Locale.ROOT") {
-                val result = testee.determineOrder(localeDeChVariantAScriptLatnBuilder.build(), emptyArray()).asIterable()
-                assert(result).containsStrictly(
-                    localeDeChVariantAScriptLatnBuilder.build()
-                    , localeDeChVariantAScriptLatnBuilder.setVariant("").build()
-                    , localeDeChVariantAScriptLatnBuilder.setRegion("").build()
-                    , localeDeChVariantA
-                    , localeDeCh
-                    , localeDe)
+            describe("$localeDeChVariantAVariantB") {
+                it("returns: "
+                    + "$localeDeChVariantAVariantB, "
+                    + "$localeDeChVariantA, "
+                    + "$localeDeCh, "
+                    + "$localeDe"
+                    + andAdditional) {
+                    val result = testee.determineOrder(localeDeChVariantAVariantB, fallbackLocales).asIterable()
+                    assert(result).containsStrictly(
+                        localeDeChVariantAVariantB
+                        , localeDeChVariantA
+                        , localeDeCh
+                        , localeDe
+                        , *additionalLocaleCandidates)
+                }
+            }
+
+            describe("$localeDeScriptLatnChVariantA") {
+                it("returns: "
+                    + "$localeDeScriptLatnChVariantA, "
+                    + "$localeDeScriptLatnCh, "
+                    + "$localeDeScriptLatn, "
+                    + "$localeDeChVariantA, "
+                    + "$localeDeCh, "
+                    + "$localeDe"
+                    + andAdditional) {
+                    val result = testee.determineOrder(localeDeScriptLatnChVariantA, fallbackLocales).asIterable()
+                    assert(result).containsStrictly(
+                        localeDeScriptLatnChVariantA
+                        , localeDeScriptLatnCh
+                        , localeDeScriptLatn
+                        , localeDeChVariantA
+                        , localeDeCh
+                        , localeDe
+                        , *additionalLocaleCandidates)
+                }
             }
         }
     }
