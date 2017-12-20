@@ -65,17 +65,27 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
                     fluent.containsAtMostFun(1, "")
                 }.toThrow<IllegalArgumentException> { message { toBe(errorMsgExactly(1)) } }
             }
+            test("if an object is passed as first expected") {
+                expect {
+                    fluent.containsAtMostFun(2, fluent)
+                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+            }
+            test("if an object is passed as second expected") {
+                expect {
+                    fluent.containsAtMostFun(2, "that's fine", fluent)
+                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+            }
         }
 
         context("text '$helloWorld'") {
             group("happy case with $containsAtMost twice") {
-                test("${containsAtMostTest("'H'", "once")} does not throw") {
+                test("${containsAtMostTest("'H'", "twice")} does not throw") {
                     fluentHelloWorld.containsAtMostFun(2, 'H')
                 }
-                test("${containsAtMostTest("'H' and 'e' and 'W'", "once")} does not throw") {
+                test("${containsAtMostTest("'H' and 'e' and 'W'", "twice")} does not throw") {
                     fluentHelloWorld.containsAtMostFun(2, 'H', 'e', 'W')
                 }
-                test("${containsAtMostTest("'W' and 'H' and 'e'", "once")} does not throw") {
+                test("${containsAtMostTest("'W' and 'H' and 'e'", "twice")} does not throw") {
                     fluentHelloWorld.containsAtMostFun(2, 'W', 'H', 'e')
                 }
             }
