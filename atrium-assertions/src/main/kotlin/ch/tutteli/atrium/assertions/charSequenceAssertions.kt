@@ -57,15 +57,28 @@ fun <T : CharSequence> _containsValues(
     expected: Any,
     otherExpected: Array<out Any>
 ): IAssertionGroup
-    = createAssertionGroup(checker, CharSequenceContainsIndexSearcher(), expected, otherExpected)
+    = checkOnlyAllowedTypeAndCreateAssertionGroup(checker, CharSequenceContainsIndexSearcher(), expected, otherExpected)
 
 fun <T : CharSequence> _containsValuesIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
     expected: Any,
     otherExpected: Array<out Any>
 ): IAssertionGroup
-    = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
+    = checkOnlyAllowedTypeAndCreateAssertionGroup(checker, CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
 
+private fun <T : CharSequence, S : ICharSequenceContains.ISearchBehaviour> checkOnlyAllowedTypeAndCreateAssertionGroup(
+    checker: CharSequenceContainsCheckerBuilder<T, S>,
+    searcher: ISearcher<S>,
+    expected: Any,
+    otherExpected: Array<out Any>
+): IAssertionGroup {
+    listOf(expected, *otherExpected).forEach {
+        require(it is CharSequence || it is Number || it is Char) {
+            "Only CharSequence, Number and Char are allowed, `$it` given.\nWe provide an API with Any for convenience (so that you can mix String and Int for instance)."
+        }
+    }
+    return createAssertionGroup(checker, searcher, expected, otherExpected)
+}
 
 fun <T : CharSequence> _containsDefaultTranslationOf(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
@@ -87,15 +100,15 @@ private fun mapDefaultTranslations(otherExpected: Array<out ITranslatable>) =
 
 fun <T : CharSequence> _containsRegex(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
-    expected: Any,
-    otherExpected: Array<out Any>
+    expected: String,
+    otherExpected: Array<out String>
 ): IAssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsRegexSearcher(), expected, otherExpected)
 
 fun <T : CharSequence> _containsRegexIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
-    expected: Any,
-    otherExpected: Array<out Any>
+    expected: String,
+    otherExpected: Array<out String>
 ): IAssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
 

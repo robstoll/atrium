@@ -23,17 +23,17 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
 ) : CharSequenceContainsSpecBase({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<CharSequence>(describePrefix,
-        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) },
-        containsAtLeastIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastIgnoringCaseTriple.third(this, 1, 2.3, arrayOf()) },
-        containsAtLeastButAtMostTriple.first to mapToCreateAssertion { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) },
+        containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 1, "2.3", arrayOf()) },
+        containsAtLeastIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastIgnoringCaseTriple.third(this, 1, 'a', arrayOf()) },
+        containsAtLeastButAtMostTriple.first to mapToCreateAssertion { containsAtLeastButAtMostTriple.third(this, 1, 2, "aA", arrayOf()) },
         containsAtLeastButAtMostIgnoringCaseTriple.first to mapToCreateAssertion { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<String>(verbs, describePrefix,
-        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 1, 2.3, arrayOf()) }, "string with 2.3", "string with 0.0"),
-        checkingTriple(containsAtLeastIgnoringCaseTriple.first, { containsAtLeastIgnoringCaseTriple.third(this, 1, 2.3, arrayOf()) }, "string with 2.3", "string with 0.0"),
-        checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3"),
-        checkingTriple(containsAtLeastButAtMostIgnoringCaseTriple.first, { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, 2.3, arrayOf()) }, "2.3 / 2.3", "2.3 / 2.3 / 2.3")
+        checkingTriple(containsAtLeastTriple.first, { containsAtLeastTriple.third(this, 1, "2.3", arrayOf()) }, "string with 2.3", "string with 0.0"),
+        checkingTriple(containsAtLeastIgnoringCaseTriple.first, { containsAtLeastIgnoringCaseTriple.third(this, 1, 'a', arrayOf()) }, "a", "bbb"),
+        checkingTriple(containsAtLeastButAtMostTriple.first, { containsAtLeastButAtMostTriple.third(this, 1, 2, "aa", arrayOf()) }, "aaa", "aaaa"),
+        checkingTriple(containsAtLeastButAtMostIgnoringCaseTriple.first, { containsAtLeastButAtMostIgnoringCaseTriple.third(this, 1, 2, "aA", arrayOf()) }, "aaa", "aaaa")
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
@@ -75,6 +75,17 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                     fluent.containsAtLeastFun(0, "")
                 }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
             }
+            test("if an object is passed as first expected") {
+                expect {
+                    fluent.containsAtLeastFun(1, fluent)
+                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+            }
+            test("if an object is passed as second expected") {
+                expect {
+                    fluent.containsAtLeastFun(1, "that's fine", fluent)
+                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+            }
+
             group("using $containsAtLeastButAtMost") {
                 test("for at least 1 but at most -1 -- since -1 is smaller than 1") {
                     expect {
@@ -95,6 +106,16 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                     expect {
                         fluent.containsAtLeastButAtMostFun(1, 1, "")
                     }.toThrow<IllegalArgumentException> { message { toBe(errorMsgExactly(1)) } }
+                }
+                test("if an object is passed as first expected") {
+                    expect {
+                        fluent.containsAtLeastButAtMostFun(1, 2, fluent)
+                    }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }
+                test("if an object is passed as second expected") {
+                    expect {
+                        fluent.containsAtLeastButAtMostFun(1, 2, "that's fine", fluent)
+                    }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
                 }
             }
         }

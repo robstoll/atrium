@@ -58,6 +58,16 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                     fluent.containsNotOrAtMostFun(0, "")
                 }.toThrow<IllegalArgumentException> { message { toBe(errorMsgContainsNot(0)) } }
             }
+            test("if an object is passed as first expected") {
+                expect {
+                    fluent.containsNotOrAtMostFun(1, fluent)
+                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+            }
+            test("if an object is passed as second expected") {
+                expect {
+                    fluent.containsNotOrAtMostFun(1, "that's fine", fluent)
+                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+            }
         }
 
         context("text '$helloWorld'") {
