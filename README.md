@@ -291,8 +291,6 @@ In this example it calls `contains.atLeast(1).values("treboR", "llotS")` which i
 Have a look at the [KDoc of the CharSequence contains Builders](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/index.html)
 to see more options.
 
-:information_source: You can use `it` as alternative for `subject` as you can in [Property Assertions](#property-assertions). 
-
 :interrobang: You might be asking yourself why I stopped at 5 Parameters.
 You could go on and create further overloads for 6 and more parameters, but... uh... can you smell it :stuck_out_tongue_winking_eye:.
 In case you have a function with 6 or more parameters and you do not want or cannot to get rid of it, 
