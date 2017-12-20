@@ -155,12 +155,6 @@ assert(x) to contain inAny order but only entry { this isLessThan 2 }
 assert(x) to contain inAny order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
 ```
 
-Unfortunately we have to repeat `this` (at least for now) within an 
-[assertion group block](https://github.com/robstoll/atrium/tree/master/README.md#define-single-assertions-or-assertion-groups)
-due to a restriction/bug in the type inference system of Kotlin. 
-You might want to up-vote the following reported issue: 
-[KT-21663](https://youtrack.jetbrains.com/issue/KT-21663)
-
 ## Iterable contains in any order
 
 *atrium-api-cc-en_UK*
@@ -190,9 +184,3 @@ assert(x) contains inGiven order but only the Objects(personA, personB)
 assert(x) contains inGiven order but only entry { this isLessThan 2 }
 assert(x) contains inGiven order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
 ```
-
-Unfortunately we have to repeat `this` (at least for now) within an 
-[assertion group block](https://github.com/robstoll/atrium/tree/master/README.md#define-single-assertions-or-assertion-groups)
-due to a restriction/bug in the type inference system of Kotlin. 
-You might want to up-vote the following reported issue: 
-[KT-21663](https://youtrack.jetbrains.com/issue/KT-21663)
