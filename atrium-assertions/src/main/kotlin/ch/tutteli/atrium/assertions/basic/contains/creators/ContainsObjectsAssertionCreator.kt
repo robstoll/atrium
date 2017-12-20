@@ -1,30 +1,30 @@
 package ch.tutteli.atrium.assertions.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.basic.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * Represents the base class for [IContains.ICreator]s which use bare objects as search criteria (matching them
+ * Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
  * with `==`).
  *
  * It provides a template to fulfill the job of creating the sophisticated `contains` assertion.
  *
  * @param T The type of the [IAssertionPlant.subject].
  * @param S The type of the search criteria.
- * @param B The type of the current [IContains.ISearchBehaviour].
- * @param C The type of the checkers in use (typically a sub interface of [IContains.IChecker]).
+ * @param B The type of the current [Contains.SearchBehaviour].
+ * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
  *
  * @property searchBehaviour The chosen search behaviour.
  *
- * @constructor Represents the base class for [IContains.ICreator]s which use bare objects as search criteria (matching them
+ * @constructor Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
  * with `==`).
  * @param searchBehaviour The chosen search behaviour.
- * @param checkers The [IContains.IChecker]s which shall be applied to the search result.
+ * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsObjectsAssertionCreator<T : Any, S, B : IContains.ISearchBehaviour, C : IContains.IChecker>(
+abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBehaviour, C : Contains.Checker>(
     private val searchBehaviour: B,
     checkers: List<C>
 ) : ContainsAssertionCreator<T, S, C>(checkers) {

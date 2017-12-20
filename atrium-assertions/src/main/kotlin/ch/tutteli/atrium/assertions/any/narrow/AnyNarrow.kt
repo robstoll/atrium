@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.assertions.any.narrow
 
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.throwable.thrown.IThrowableThrown.IAbsentThrowableMessageProvider
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.creating.IBaseAssertionPlant
 import kotlin.reflect.KClass
@@ -9,20 +8,20 @@ import kotlin.reflect.KClass
 /**
  * Defines the contract for sophisticated narrowing assertion builders.
  *
- * The assertion is typically created by the [DownCaster] which itself requires an [IAbsentThrowableMessageProvider].
+ * The assertion is typically created by the [DownCaster] which itself requires a [DownCastFailureHandler].
  */
-interface IAnyNarrow {
+interface AnyNarrow {
 
     /**
      * A handler which decides how the lambda -- which could have created subsequent assertions for the
-     * down-casted [IAssertionPlant.subject], in case the down-cast of the [IAssertionPlant.subject] to type [TSub]
-     * did not have fail -- should be used in reporting.
+     * down-casted [IAssertionPlant.subject] if the down-cast of the [IAssertionPlant.subject] to type [TSub]
+     * did not fail -- should be used in reporting.
      *
      * @param T The type of [IAssertionPlant.subject].
      * @param TSub The type to which [IAssertionPlant.subject] should have been be down-casted, hence needs to be a
      *        subtype of [T].
      */
-    interface IDownCastFailureHandler<T : Any, TSub : T> {
+    interface DownCastFailureHandler<T : Any, TSub : T> {
 
         /**
          * Makes something with the given [assertionCreator] lambda; might add assertions to [subjectPlant].

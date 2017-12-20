@@ -1,26 +1,26 @@
 package ch.tutteli.atrium.assertions.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.basic.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * Represents the base class for [IContains.ICreator]s, providing a template to fulfill its job.
+ * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  *
  * @param T The type of the [IAssertionPlant.subject].
  * @param S The type of the search criteria.
- * @param C The type of the checkers in use (typically a sub interface of [IContains.IChecker]).
+ * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
  *
- * @property checkers The [IContains.IChecker]s which shall be applied to the search result.
+ * @property checkers The [Contains.Checker]s which shall be applied to the search result.
  *
- * @constructor Represents the base class for [IContains.ICreator]s, providing a template to fulfill its job.
- * @param checkers The [IContains.IChecker]s which shall be applied to the search result.
+ * @constructor Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
+ * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsAssertionCreator<T : Any, S, C : IContains.IChecker>(
+abstract class ContainsAssertionCreator<T : Any, S, C : Contains.Checker>(
     private val checkers: List<C>
-) : IContains.ICreator<T, S> {
+) : Contains.Creator<T, S> {
 
     override final fun createAssertionGroup(plant: IAssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
         val assertions = listOf(searchCriterion, *otherSearchCriteria).map { createForSearchCriterion(plant, it) }

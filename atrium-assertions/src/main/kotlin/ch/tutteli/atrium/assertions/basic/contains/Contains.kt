@@ -2,23 +2,23 @@ package ch.tutteli.atrium.assertions.basic.contains
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.basic.contains.IContains.*
+import ch.tutteli.atrium.assertions.basic.contains.Contains.*
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * Defines the basic contract for sophisticated `contains` assertion builders.
  *
- * A builder typically allows a user to choose a desired [ISearchBehaviour], one or more [IChecker]s and uses an
- * [ICreator] to finish the building process.
+ * A builder typically allows a user to choose a desired [SearchBehaviour], one or more [Checker]s and uses an
+ * [Creator] to finish the building process.
  */
-interface IContains {
+interface Contains {
 
     /**
-     * Represents a search behaviour but leaves it up to the [ICreator] how this behaviour is implemented -- yet, it
+     * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
      * provides a method to decorate a description (an [ITranslatable]) in order that it reflects the search behaviour.
      */
-    interface ISearchBehaviour {
+    interface SearchBehaviour {
         /**
          * Decorates the given [description] so that it represents the search behaviour and returns the result.
          *
@@ -32,7 +32,7 @@ interface IContains {
      *
      * It provides the method [createAssertion] which creates an [IAssertion] representing this check.
      */
-    interface IChecker {
+    interface Checker {
         /**
          * Creates an [IAssertion] representing this check based on the given [foundNumberOfTimes] which is the result
          * of the search.
@@ -49,13 +49,13 @@ interface IContains {
      * @param T The type of the [IAssertionPlant.subject].
      * @param S The type of the search criteria.
      */
-    interface ICreator<in T : Any, in S> {
+    interface Creator<in T : Any, in S> {
         /**
          * Creates an [IAssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
          * on the given [searchCriterion] and possibly [otherSearchCriteria] (might be empty).
          *
-         * The search process as such is usually influenced by an [ISearchBehaviour] which defines the search behaviour
-         * and [IChecker]s are used to create [IAssertion]s based on a determined search result which are grouped
+         * The search process as such is usually influenced by an [SearchBehaviour] which defines the search behaviour
+         * and [Checker]s are used to create [IAssertion]s based on a determined search result which are grouped
          * together into an [IAssertionGroup].
          * This resulting [IAssertionGroup] represents the sophisticated `contains` assertion as a whole.
          *

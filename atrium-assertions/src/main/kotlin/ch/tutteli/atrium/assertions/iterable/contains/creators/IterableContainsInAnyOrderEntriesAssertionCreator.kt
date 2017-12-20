@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator
-import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains
+import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.IAssertionPlant
@@ -30,9 +30,9 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  */
 class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>>(
     private val searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
-    checkers: List<IIterableContains.IChecker>
-) : ContainsAssertionCreator<T, IAssertionPlant<E>.() -> Unit, IIterableContains.IChecker>(checkers),
-    IIterableContains.ICreator<T, IAssertionPlant<E>.() -> Unit> {
+    checkers: List<IterableContains.Checker>
+) : ContainsAssertionCreator<T, IAssertionPlant<E>.() -> Unit, IterableContains.Checker>(checkers),
+    IterableContains.Creator<T, IAssertionPlant<E>.() -> Unit> {
 
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup {
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)

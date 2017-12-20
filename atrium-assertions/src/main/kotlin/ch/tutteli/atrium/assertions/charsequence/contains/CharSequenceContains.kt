@@ -2,20 +2,20 @@ package ch.tutteli.atrium.assertions.charsequence.contains
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.basic.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
  * Defines the contract for sophisticated [CharSequence] `contains` assertions.
  */
-interface ICharSequenceContains {
+interface CharSequenceContains {
 
     /**
      * Represents a search behaviour but leaves it up to the [ISearcher] how this behaviour is implemented -- yet, it
      * provides a method to decorate a description (an [ITranslatable]) in order that it reflects the search behaviour.
      */
-    interface ISearchBehaviour : IContains.ISearchBehaviour
+    interface SearchBehaviour : Contains.SearchBehaviour
 
     /**
      * Represents the final step of a sophisticated `contains` assertion builder which creates the [IAssertionGroup]
@@ -24,7 +24,7 @@ interface ICharSequenceContains {
      * @param T The type of the [IAssertionPlant.subject].
      * @param S The type of the search criteria.
      */
-    interface ICreator<in T : CharSequence, in S> : IContains.ICreator<T, S>
+    interface Creator<in T : CharSequence, in S> : Contains.Creator<T, S>
 
     /**
      * Represents a check for the search result such as: the object is contained exactly once in the input of the
@@ -32,7 +32,7 @@ interface ICharSequenceContains {
      *
      * It provides the method [createAssertion] which creates an [IAssertion] representing this check.
      */
-    interface IChecker : IContains.IChecker
+    interface Checker : Contains.Checker
 
     /**
      * Represents a searcher which supports the search behaviour [S] for a given input [CharSequence] of the search.
@@ -41,7 +41,7 @@ interface ICharSequenceContains {
      *          will look for something -- the actual implementation of the search behaviour happens in the
      *          [ISearcher]; [ISearchBehaviour] only decorates the [ITranslatable] for reporting.
      */
-    interface ISearcher<S : ISearchBehaviour> {
+    interface ISearcher<S : SearchBehaviour> {
         /**
          * Searches in the given [searchIn] for the given [searchFor], using its [toString][Any.toString]
          * implementation, and returns the number of occurrences.

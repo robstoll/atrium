@@ -2,12 +2,12 @@ package ch.tutteli.atrium.assertions.basic.contains.checkers
 
 import ch.tutteli.atrium.assertions.BasicAssertion
 import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.assertions.basic.contains.IContains
+import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.ITranslatable
 
 /**
- * Represents a base class for [IContains.IChecker]s which compare how many occurrences of an expected object are found
+ * Represents a base class for [Contains.Checker]s which compare how many occurrences of an expected object are found
  * in the input of the search, against how many [times] the check expect it to be contained.
  *
  * It further checks that [times] is bigger than 0 (throws an [IllegalArgumentException] otherwise) and additionally
@@ -29,7 +29,7 @@ abstract class ContainsChecker(
     val times: Int,
     correctCall: String,
     wrongCall: (Int) -> String
-) : IContains.IChecker {
+) : Contains.Checker {
     init {
         require(times != 0) { "use $correctCall instead of ${wrongCall(0)}" }
         require(times > 0) { "only positive numbers allowed: $times given" }

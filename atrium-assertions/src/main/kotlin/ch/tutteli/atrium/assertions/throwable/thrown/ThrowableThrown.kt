@@ -3,9 +3,9 @@ package ch.tutteli.atrium.assertions.throwable.thrown
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow
-import ch.tutteli.atrium.assertions.throwable.thrown.IThrowableThrown.IAbsentThrowableMessageProvider
-import ch.tutteli.atrium.assertions.throwable.thrown.IThrowableThrown.ICreator
+import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
+import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.AbsentThrowableMessageProvider
+import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.Creator
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.IAssertionPlant
 import ch.tutteli.atrium.reporting.IRawString
@@ -15,14 +15,14 @@ import kotlin.reflect.KClass
 /**
  * Defines the contract for sophisticated a [Throwable] was thrown assertions.
  *
- * An assertion starts with a [ThrowableThrownBuilder] and is typically built up by an [IAbsentThrowableMessageProvider]
- * and an [IAnyNarrow.IDownCastFailureHandler] which are passed to a [ICreator] which finally builds the assertion.
+ * An assertion starts with a [ThrowableThrownBuilder] and is typically built up by an [AbsentThrowableMessageProvider]
+ * and an [AnyNarrow.DownCastFailureHandler] which are passed to a [Creator] which finally builds the assertion.
  */
-interface IThrowableThrown {
+interface ThrowableThrown {
     /**
      * Provides a message which can be used in reporting to represent the case that no [Throwable] at all was thrown.
      */
-    interface IAbsentThrowableMessageProvider {
+    interface AbsentThrowableMessageProvider {
         /**
          * The message can be used in reporting to represent the case that no [Throwable] at all was thrown.
          */
@@ -35,7 +35,7 @@ interface IThrowableThrown {
      *
      * @param TExpected The type of the [Throwable] which is expected to be thrown.
      */
-    interface ICreator<TExpected : Throwable> {
+    interface Creator<TExpected : Throwable> {
         /**
          * Executes the [act][ThrowableThrownBuilder.act] lambda of the given [throwableThrownBuilder], catches any
          * thrown [Throwable], creates based on it a corresponding [IAssertion] representing the sophisticated

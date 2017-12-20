@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.creating.IAssertionPlant
 
 /**
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @param plant The [IAssertionPlant] for which the sophisticated `contains` assertions shall be built.
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
-class CharSequenceContainsBuilder<out T : CharSequence, S : ISearchBehaviour>(
+class CharSequenceContainsBuilder<out T : CharSequence, S : SearchBehaviour>(
     plant: IAssertionPlant<T>, searchBehaviour: S
 ) : ContainsBuilder<T, S>(plant, searchBehaviour)
 

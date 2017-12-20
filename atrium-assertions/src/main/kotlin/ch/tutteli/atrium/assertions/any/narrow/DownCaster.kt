@@ -25,7 +25,7 @@ import kotlin.reflect.full.cast
  * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions
  *        for a down-casted subject.
  */
-class DownCaster<T : Any, TSub : T>(private val failureHandler: IAnyNarrow.IDownCastFailureHandler<T, TSub>) {
+class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyNarrow.DownCastFailureHandler<T, TSub>) {
 
     /**
      * Performs the down-cast and applies the given [assertionCreator] to the down-casted
