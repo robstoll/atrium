@@ -4,16 +4,24 @@
 Atrium is built up by different modules. The packages shown below contain classes etc. 
 of all modules excluding the one of _atrium-imp-robstoll_ and _atrium-imp-robstoll-lib_.
 
-API modules:
-- **atrium-cc-de&#95;CH-robstoll** represents a convenience module which bundles other dependencies -- it defines 
-  to have a dependency on atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-impl-robstoll
-- **atrium-cc-en&#95;UK-robstoll** represents a convenience module which bundles other dependencies -- it defines 
-  to have a dependency on atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll
+Bundle modules (convenience modules which bundle other modules):
+- **atrium-cc-de&#95;CH-robstoll** defines to have a dependency on 
+  atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-impl-robstoll
+- **atrium-cc-en&#95;UK-robstoll**  defines to have a dependency on   
+  atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll
+- **atrium-cc-infix-en&#95;UK-robstoll**  defines to have a dependency on  
+  atrium-api-cc-infix-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll
+  
+API modules:  
 - **atrium-api-cc-de&#95;CH** provides an assertion function API in German where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is a pure fluent API.
 - **atrium-api-cc-en&#95;UK** provides an assertion function API in English where the main 
   focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
-  
+  It is a pure fluent API.
+- **atrium-api-cc-infix-en&#95;UK** provides an assertion function API in English where the main 
+  focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is an infix API.  
   
 Assertion modules:
 - **atrium-assertions** contains all [impl-functions](https://github.com/robstoll/atrium#api-in-a-different-language)
@@ -44,7 +52,7 @@ Contains the [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html).
 
 
 # Package ch.tutteli.atrium.api.cc.de_CH
-Contains the code completion focused assertion function API in German. 
+Contains API which provides a pure fluent API in German and which has its design focus on usability in conjunction with code completion.
 
 # Package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
@@ -56,7 +64,7 @@ assertions for Iterable.
 
 
 # Package ch.tutteli.atrium.api.cc.en_UK
-Contains the code completion focused assertion function API in English.
+Contains API which provides a pure fluent API in English and which has its design focus on usability in conjunction with code completion.
 
 # Package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
@@ -66,6 +74,17 @@ assertions for CharSequence.
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
 assertions for Iterable.
 
+
+# Package ch.tutteli.atrium.api.cc.infix.en_UK
+Contains API which provides an infix API in English and which has its design focus on usability in conjunction with code completion.
+
+# Package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders
+Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+assertions for CharSequence.
+
+# Package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders
+Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
+assertions for Iterable.
 
 # Package ch.tutteli.atrium.assertions
 Contains different types of [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html) --  
@@ -149,13 +168,13 @@ Contains [IIterableContains.IAbsentThrowableMessageProvider](./ch.tutteli.atrium
 
 
 # Package ch.tutteli.atrium.checking
-Everything involved in checking made [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
+Everything involved in checking [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
 
 # Package ch.tutteli.atrium.creating
 Everything involved in creating [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
 
 # Package ch.tutteli.atrium.reporting
-Everything involved in reporting made [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
+Everything involved in reporting [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
 
 # Package ch.tutteli.atrium.reporting.translating
 Everything involved in translating [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s.

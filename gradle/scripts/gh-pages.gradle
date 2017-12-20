@@ -43,10 +43,10 @@ dokka {
     }
     docProjects.each { subProject ->
         linkMapping {
-            dir = "${subProject.name}/src/main/kotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/master/${subProject.name}/src/main/kotlin"
+            dir = "${subProject.projectDir}/src/main/kotlin"
+            url = "https://github.com/robstoll/${project.name}/tree/master/${subProject.projectDir}/src/main/kotlin"
             suffix = '#L'
         }
     }
-    sourceDirs = docProjects.collect { subProject -> file("${subProject.name}/src/main/kotlin") }
+    sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/src/main/kotlin") }
 }
