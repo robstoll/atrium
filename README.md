@@ -304,7 +304,7 @@ Such a building process allows you to define very specific assertions, where the
 You can either use such an 
 [Assertion Builder](#sophisticated-assertion-builders)
 to create a specific assertion or one of the 
-[Shortcut Functions](#shorcut-functions) in case you have kind of a common case.
+[Shortcut Functions](#shortcut-functions) in case you have kind of a common case.
 The following sub sections show both use cases by examples.
 
 ### Shortcut Functions
@@ -703,7 +703,8 @@ Some assertion functions which I miss myself will follow in the next version.
 They are listed in the [Roadmap](#roadmap) below.
 
 Atrium does especially not support yet:
-- assertion functions for floating point numbers (where precision matters)
+- assertion functions for floating point numbers (where precision matters; 
+  please open a [Feature Requests](https://github.com/robstoll/atrium/issues/new?title=[Feature]) if you need them) 
 - infinite `Iterable`s
 - assertion functions for `Sequence` (you can use `asIterable` in the meantime)
 
@@ -715,7 +716,9 @@ In case you do not have an account for kotlinlang.slack.com yet, then please [In
 # Roadmap
 I plan that Atrium will support in the future:
 - Assertion functions for `Iterable` with nullable elements
-- Generating testing reports in html  
+- Generating testing reports in html
+  - generate multiple reports in the same test run
+  - extension for Spek so that reporting includes the `describe`, `it` etc. 
 - Inclusion of mockito's verify (so that it appears in the report as well)
     
 [Feature Requests](https://github.com/robstoll/atrium/issues/new?title=[Feature])
