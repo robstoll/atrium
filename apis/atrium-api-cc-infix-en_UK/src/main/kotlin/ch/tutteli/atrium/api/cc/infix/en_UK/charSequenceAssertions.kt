@@ -29,7 +29,7 @@ infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain:
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.contains(expected: Any)
+infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T>
     = this to contain atLeast 1 value expected
 
 /**
@@ -113,7 +113,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
     = addAssertion(_containsNot(this, values.expected, values.otherExpected))
 
 
@@ -125,7 +125,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>): Asserti
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf)
     = addAssertion(_containsNotDefaultTranslationOf(this, defaultTranslationsOf.expected, defaultTranslationsOf.otherExpected))
 
 
@@ -135,7 +135,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: Defaul
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
     = addAssertion(_startsWith(this, expected))
 
 /**
@@ -144,7 +144,7 @@ infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence): Asser
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
     = addAssertion(_startsNotWith(this, expected))
 
 
@@ -154,7 +154,7 @@ infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence): As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
     = addAssertion(_endsWith(this, expected))
 
 /**
@@ -163,7 +163,7 @@ infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence): Asserti
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
     = addAssertion(_endsNotWith(this, expected))
 
 
@@ -175,7 +175,7 @@ infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence): Asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(_isEmpty(this))
 
 /**
@@ -186,5 +186,5 @@ infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty:
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty)
     = addAssertion(_isNotEmpty(this))

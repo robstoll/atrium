@@ -48,7 +48,7 @@ fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: A
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpected: Any)
     = addAssertion(_containsNot(this, expected, otherExpected))
 
 /**
@@ -84,7 +84,7 @@ fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Trans
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable)
     = addAssertion(_containsNotDefaultTranslationOf(this, expected, otherExpected))
 
 /**
@@ -93,7 +93,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expecte
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
     = addAssertion(_startsWith(this, expected))
 
 /**
@@ -102,7 +102,7 @@ fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence): AssertionPl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
     = addAssertion(_startsNotWith(this, expected))
 
 
@@ -112,7 +112,7 @@ fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence): Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
     = addAssertion(_endsWith(this, expected))
 
 /**
@@ -121,7 +121,7 @@ fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence): AssertionPlan
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
     = addAssertion(_endsNotWith(this, expected))
 
 
@@ -131,7 +131,7 @@ fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence): Assertio
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.istLeer(): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.istLeer()
     = addAssertion(_isEmpty(this))
 
 /**
@@ -140,5 +140,5 @@ fun <T : CharSequence> Assert<T>.istLeer(): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.istNichtLeer(): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.istNichtLeer()
     = addAssertion(_isNotEmpty(this))

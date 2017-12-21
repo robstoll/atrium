@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Assert<T>.istKleinerAls(expected: T): AssertionPlant<T> where T : Number, T : Comparable<T>
+fun <T> Assert<T>.istKleinerAls(expected: T) where T : Number, T : Comparable<T>
     = addAssertion(_isLessThan(this, expected))
 
 /**
@@ -22,7 +22,7 @@ fun <T> Assert<T>.istKleinerAls(expected: T): AssertionPlant<T> where T : Number
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Assert<T>.istKleinerOderGleich(expected: T): AssertionPlant<T> where T : Number, T : Comparable<T>
+fun <T> Assert<T>.istKleinerOderGleich(expected: T) where T : Number, T : Comparable<T>
     = addAssertion(_isLessOrEquals(this, expected))
 
 /**
@@ -31,7 +31,7 @@ fun <T> Assert<T>.istKleinerOderGleich(expected: T): AssertionPlant<T> where T :
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Assert<T>.istGroesserAls(expected: T): AssertionPlant<T> where T : Number, T : Comparable<T>
+fun <T> Assert<T>.istGroesserAls(expected: T) where T : Number, T : Comparable<T>
     = addAssertion(_isGreaterThan(this, expected))
 
 /**
@@ -40,6 +40,6 @@ fun <T> Assert<T>.istGroesserAls(expected: T): AssertionPlant<T> where T : Numbe
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T> Assert<T>.istGroesserOderGleich(expected: T): AssertionPlant<T> where T : Number, T : Comparable<T>
+fun <T> Assert<T>.istGroesserOderGleich(expected: T) where T : Number, T : Comparable<T>
     = addAssertion(_isGreaterOrEquals(this, expected))
 

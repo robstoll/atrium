@@ -12,7 +12,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Assert<T>.hasSize(size: Int): AssertionPlant<T>
+fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
     = addAssertion(_hasSize(this, size))
 
 /**
@@ -21,7 +21,7 @@ fun <T : Collection<*>> Assert<T>.hasSize(size: Int): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Assert<T>.isEmpty(): AssertionPlant<T>
+fun <T : Collection<*>> Assert<T>.isEmpty()
     = addAssertion(_isEmpty(this))
 
 /**
@@ -30,5 +30,5 @@ fun <T : Collection<*>> Assert<T>.isEmpty(): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Collection<*>> Assert<T>.isNotEmpty(): AssertionPlant<T>
+fun <T : Collection<*>> Assert<T>.isNotEmpty()
     = addAssertion(_isNotEmpty(this))
