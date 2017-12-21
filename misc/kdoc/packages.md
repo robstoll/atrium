@@ -4,7 +4,7 @@
 Atrium is built up by different modules. The packages shown below contain classes etc. 
 of all modules excluding the one of _atrium-imp-robstoll_ and _atrium-imp-robstoll-lib_.
 
-Bundle modules (convenience modules which bundle other modules):
+Bundle modules:
 - **atrium-cc-de&#95;CH-robstoll** defines to have a dependency on 
   atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-impl-robstoll
 - **atrium-cc-en&#95;UK-robstoll**  defines to have a dependency on   

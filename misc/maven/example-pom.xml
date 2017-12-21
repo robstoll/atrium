@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <properties>
-        <atrium.version>0.4.0</atrium.version>
+        <atrium.version>0.5.0</atrium.version>
     </properties>
     <dependencies>
         <dependency>

@@ -1,12 +1,13 @@
 buildscript {
     def projectsWithoutSourcesBuildScript = project(":${project.name}-cc-en_UK-robstoll")
     ext {
-        atrium_version = '0.5.0-SNAPSHOT'
+        atrium_version = '0.5.0'
         ghPages_version = atrium_version
         kbox_version = '0.1.0'
         kotlin_version = '1.2.10'
         mockito_kotlin_version = '1.5.0'
         dokka_version = '0.9.14'
+        dokka_sourceMapping = 'tree/v0.5.0'
 
         srcKotlin = 'src/main/kotlin'
 
@@ -86,12 +87,12 @@ configure(projectsWithSources) {
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}/$srcKotlin"
+            url = "https://github.com/robstoll/${project.name}/${dokka_sourceMapping}/${project.name}/$srcKotlin"
             suffix = '#L'
         }
         linkMapping {
             dir = "../${project.name}-core-api/$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/tree/master/${project.name}-core-api/$srcKotlin"
+            url = "https://github.com/robstoll/${project.name}/${dokka_sourceMapping}/${project.name}-core-api/$srcKotlin"
             suffix = '#L'
         }
 
@@ -152,21 +153,21 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 Release & deploy a commit
 --------------------------------
 1. change atrium_version in build.gradle to X.Y.Z
-2. update github pages:
-    a) gr ghPages
-    b) change version number in atrium-gh-pages/latest/index.html
-    c) add new version to atrium-gh-pages/README.md
-    d) commit & push changes
-3. update master:
+2. update master:
     a) point to the tag
-        1) search for old version and replace with new (gradle and maven examples in README.md)
+        1) search for old version and replace with new (gradle and maven)
         2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
-        3) search for `tree/master` and replace it with `tree/X.Y.Z` (README.md)
+        3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
         4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
         5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
     b) commit (modified build.gradle, README.md and differences.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
+3. update github pages:
+    a) gr ghPages
+    b) change version number in atrium-gh-pages/latest/index.html
+    c) add new version to atrium-gh-pages/README.md
+    d) commit & push changes
 4. deploy to bintray:
     a) gr bintrayUpload
     b) Log in to bintray, check and publish new jars
@@ -177,7 +178,7 @@ Prepare next dev cycle
 1. change atrium_version in build.gradle to X.Y.Z-SNAPSHOT
 2. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `tree/X.Y.Z` and replace it with `tree/master`
+   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
    c) search for `X.Y.Z/doc` and replace with `latest#/doc`
 4. update README
    a) place the warning about taking a sneak peek back into README
