@@ -3,8 +3,8 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -13,8 +13,8 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
-    verbs: IAssertionVerbFactory,
-    containsEntriesPair: Pair<String, IAssertionPlant<Iterable<Double>>.(IAssertionPlant<Double>.() -> Unit, Array<out IAssertionPlant<Double>.() -> Unit>) -> IAssertionPlant<Iterable<Double>>>,
+    verbs: AssertionVerbFactory,
+    containsEntriesPair: Pair<String, AssertionPlant<Iterable<Double>>.(AssertionPlant<Double>.() -> Unit, Array<out AssertionPlant<Double>.() -> Unit>) -> AssertionPlant<Iterable<Double>>>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -34,13 +34,13 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
+    val assert: (Iterable<Double>) -> AssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)
     val fluent = assert(oneToFour)
 
     val (containsEntries, containsEntriesFunArr) = containsEntriesPair
-    fun IAssertionPlant<Iterable<Double>>.containsEntriesFun(t: IAssertionPlant<Double>.() -> Unit, vararg tX: IAssertionPlant<Double>.() -> Unit)
+    fun AssertionPlant<Iterable<Double>>.containsEntriesFun(t: AssertionPlant<Double>.() -> Unit, vararg tX: AssertionPlant<Double>.() -> Unit)
         = containsEntriesFunArr(t, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
@@ -102,7 +102,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
                     arrayOf(4.0, 4.0, 3.0, 2.0, 1.0)
                 ).forEach {
                     test("${it.joinToString()} with matcher $toBeFun") {
-                        fluent.containsEntriesFun({ toBe(it.first()) }, *(it.drop(1).map { val f: IAssertionPlant<Double>.() -> Unit = { toBe(it) }; f }).toTypedArray())
+                        fluent.containsEntriesFun({ toBe(it.first()) }, *(it.drop(1).map { val f: AssertionPlant<Double>.() -> Unit = { toBe(it) }; f }).toTypedArray())
                     }
                 }
 

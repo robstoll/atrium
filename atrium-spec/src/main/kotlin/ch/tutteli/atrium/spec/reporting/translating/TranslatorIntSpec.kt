@@ -4,11 +4,11 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.reporting.IReporter
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -96,8 +96,8 @@ import java.util.*
  * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
  */
 abstract class TranslatorIntSpec(
-    verbs: IAssertionVerbFactory,
-    reporterFactory: (Locale, Array<out Locale>) -> IReporter,
+    verbs: AssertionVerbFactory,
+    reporterFactory: (Locale, Array<out Locale>) -> Reporter,
     //TODO Remove as soon as http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
     withSpecialCases: Boolean = true,
     describePrefix: String = "[Atrium] "
@@ -250,9 +250,9 @@ abstract class TranslatorIntSpec(
     }
 }) {
     /**
-     * Contains [ISimpleTranslatable]s which are used in [TranslatorIntSpec].
+     * Contains [StringBasedTranslatable]s which are used in [TranslatorIntSpec].
      */
-    enum class TestTranslatable(override val value: String) : ISimpleTranslatable {
+    enum class TestTranslatable(override val value: String) : StringBasedTranslatable {
         DATE_KNOWN("%tD is a %<tA"),
         DATE_UNKNOWN("only %tA"),
         PLACEHOLDER("placeholder %s")

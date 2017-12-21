@@ -1,12 +1,11 @@
 package ch.tutteli.atrium.assertions
 
 /**
- * Represents an [IAssertionGroup] with an [InvisibleAssertionGroupType], which means the grouping should be
+ * Represents an [AssertionGroup] with a [DefaultInvisibleAssertionGroupType], which means the grouping should be
  * invisible in reporting.
  *
- * @constructor Represents an [IAssertionGroup] with an [InvisibleAssertionGroupType], which means the grouping should be
- *              invisible in reporting.
+ * @constructor Use [AssertionGroup.Builder.invisible] to create an [InvisibleAssertionGroup].
  * @param assertions The assertions of this group.
  */
-class InvisibleAssertionGroup(assertions: List<IAssertion>)
-    : EmptyNameAndSubjectAssertionGroup(InvisibleAssertionGroupType, assertions)
+class InvisibleAssertionGroup internal constructor(assertions: List<Assertion>)
+    : EmptyNameAndSubjectAssertionGroup(DefaultInvisibleAssertionGroupType, assertions)

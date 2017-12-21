@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsRegexAssertionSpec(
     AssertionVerbFactory,
@@ -21,7 +21,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: IAssertionPlant<CharSequence>, atLeast: Int, a: String, aX: Array<out String>): IAssertionPlant<CharSequence> {
+        private fun containsAtLeast(plant: AssertionPlant<CharSequence>, atLeast: Int, a: String, aX: Array<out String>): AssertionPlant<CharSequence> {
             return if (aX.isEmpty()) {
                 plant to contain atLeast atLeast regex a
             } else {
@@ -35,7 +35,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
+        private fun containsAtMost(plant: AssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
             = plant to contain atMost atMost the RegexPatterns(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
@@ -44,7 +44,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMostIgnoringCase
         )
 
-        private fun containsAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>): IAssertionPlant<CharSequence> {
+        private fun containsAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>): AssertionPlant<CharSequence> {
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atMost atMost regex a
             } else {

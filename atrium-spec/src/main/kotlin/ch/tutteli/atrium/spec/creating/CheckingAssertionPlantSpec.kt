@@ -1,22 +1,21 @@
 package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.BasicAssertion
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.creating.ICheckingAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.creating.CheckingAssertionPlant
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.inCaseOf
-import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
 
 abstract class CheckingAssertionPlantSpec(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: (Int) -> ICheckingAssertionPlant<Int>,
+    verbs: AssertionVerbFactory,
+    testeeFactory: (Int) -> CheckingAssertionPlant<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -65,7 +64,7 @@ abstract class CheckingAssertionPlantSpec(
 
     describeFun(testee::addAssertion.name) {
         inCaseOf("a custom assertion which holds") {
-            testee.addAssertion(object : IAssertion {
+            testee.addAssertion(object : Assertion {
                 override fun holds() = true
             })
             test("${testee::allAssertionsHold.name} returns `true` and does not throw an Exception") {
@@ -74,8 +73,8 @@ abstract class CheckingAssertionPlantSpec(
             }
         }
 
-        inCaseOf("a custom ${IBasicAssertion::class.java.simpleName} which fails") {
-            testee.addAssertion(BasicAssertion(DescriptionAnyAssertion.TO_BE, "my expected result", false))
+        inCaseOf("a custom ${DescriptiveAssertion::class.java.simpleName} which fails") {
+            testee.addAssertion(BasicDescriptiveAssertion(DescriptionAnyAssertion.TO_BE, "my expected result", false))
             test("${testee::allAssertionsHold.name} returns `false` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()
                 verbs.checkImmediately(result).isFalse()

@@ -7,20 +7,20 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.dsl.Spec
 import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction0
 
-abstract class IterableContainsEntriesSpecBase(verbs: IAssertionVerbFactory, spec: Spec.() -> Unit) : IterableContainsSpecBase(spec) {
+abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec: Spec.() -> Unit) : IterableContainsSpecBase(spec) {
     init {
-        val plant: IAssertionPlant<Double> = verbs.checkImmediately(1.0)
+        val plant: AssertionPlant<Double> = verbs.checkImmediately(1.0)
         isLessThanFun = plant::isLessThan.name
         isGreaterThanFun = plant::isGreaterThan.name
         toBeFun = plant::toBe.name
         //TODO make simpler once https://youtrack.jetbrains.com/issue/KT-12963 is fixed
-        val f: (KFunction0<Int>) -> IAssertionPlant<Int> = plant::returnValueOf
+        val f: (KFunction0<Int>) -> AssertionPlant<Int> = plant::returnValueOf
         returnValueOfFun = (f as KFunction<*>).name
     }
 

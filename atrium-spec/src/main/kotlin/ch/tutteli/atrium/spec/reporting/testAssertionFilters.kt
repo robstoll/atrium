@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 
-val alwaysTrueAssertionFilter : (IAssertion) -> Boolean = { true }
-val alwaysFalseAssertionFilter: (IAssertion) -> Boolean = { false }
+val alwaysTrueAssertionFilter : (Assertion) -> Boolean = { true }
+val alwaysFalseAssertionFilter: (Assertion) -> Boolean = { false }

@@ -1,31 +1,24 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
+
 /**
- * Use this class to represent a [String] which should be treated as raw [String] in reporting.
- * @see IObjectFormatter
- *
- * @property string The string which should be treated as raw [String].
- *
- * @constructor Use this class to represent a [String] which should be treated as raw [String] in reporting.
- * @param string The string which should be treated as raw [String].
+ * Marker interface for types which provide a raw string functionality
+ * and should be treated accordingly in reporting (e.g., in [ObjectFormatter]).
  */
-data class RawString(val string: String) : IRawString {
-
-    /**
-     * @suppress No need to document this behaviour
-     */
-    override fun toString(): String {
-        return "$string (RawString)"
-    }
-
+interface RawString {
     companion object {
         /**
-         * The representation for `null`.
+         * The representation for `null` as [StringBasedRawString].
          */
-        val NULL = RawString("null")
+        val NULL = StringBasedRawString("null")
         /**
          * An empty string as [RawString].
          */
-        val EMPTY = RawString("")
+        val EMPTY = RawString.create("")
+
+        fun create(string: String): RawString = StringBasedRawString(string)
+        fun create(translatable: Translatable): RawString = TranslatableBasedRawString(translatable)
     }
 }

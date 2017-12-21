@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsRegexAssertionSpec(
     AssertionVerbFactory,
@@ -21,7 +21,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: IAssertionPlant<CharSequence>, atLeast: Int, a: String, aX: Array<out String>)
+        private fun containsAtLeast(plant: AssertionPlant<CharSequence>, atLeast: Int, a: String, aX: Array<out String>)
             = plant.enthaelt.zumindest(atLeast).regex(a, *aX)
 
         private fun getAtMostTriple() = Triple(
@@ -30,7 +30,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
+        private fun containsAtMost(plant: AssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
             = plant.enthaelt.hoechstens(atMost).regex(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
@@ -39,7 +39,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMostIgnoringCase
         )
 
-        private fun containsAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
+        private fun containsAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
             = plant.enthaelt.ignoriereGrossKleinschreibung.hoechstens(atMost).regex(a, *aX)
     }
 }

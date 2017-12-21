@@ -28,9 +28,9 @@ Assertion modules:
   and builder templates which can be used to create an API. Moreover it contains the 
   [ReporterBuilder](./ch.tutteli.atrium.reporting/-reporter-builder/index.html).
 - **atrium-translations-de&#95;CH** provides translations in German for 
-  [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s used in assertion functions. 
+  [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in assertion functions. 
 - **atrium-translations-en&#95;UK** provides translations in English for 
-  [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s used in assertion functions. 
+  [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s used in assertion functions. 
 - **atrium-verbs** contains out of the box assertion verbs (we suggest to [use your own assertion verbs](https://github.com/robstoll/atrium#use-own-assertion-verbs)).
 
 Core modules:
@@ -87,101 +87,101 @@ Contains the builders - necessary to provide an extensible fluent API - which al
 assertions for Iterable.
 
 # Package ch.tutteli.atrium.assertions
-Contains different types of [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html) --  
-e.g. [BasicAssertion](./ch.tutteli.atrium.assertions/-basic-assertion/index.html) -- 
+Contains different types of [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html) --  
+e.g. [BasicDescriptiveAssertion](./ch.tutteli.atrium.assertions/-basic-descriptive-assertion/index.html) -- 
 as well as assertion function templates which can be used in API modules such as 
 [ch.tutteli.atrium.api.cc.en_UK].
 
 # Package ch.tutteli.atrium.assertions.any.narrow
-Contains inter alia the contract for narrowing assertion builders -- [IAnyNarrow](./ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/index.html).
+Contains inter alia the contract for narrowing assertion builders -- [AnyNarrow](./ch.tutteli.atrium.assertions.any.narrow/-any-narrow/index.html).
 
 # Package ch.tutteli.atrium.assertions.any.narrow.failurehandler
-Contains [IDownCastFailureHandler](./ch.tutteli.atrium.assertions.any.narrow/-i-any-narrow/-i-down-cast-failure-handler/index.html)s.
+Contains [DownCastFailureHandler](./ch.tutteli.atrium.assertions.any.narrow/-any-narrow/-down-cast-failure-handler/index.html)s.
 
 
 # Package ch.tutteli.atrium.assertions.basic.contains
 Contains the basic contract for contains assertion builders 
--- [IContains](./ch.tutteli.atrium.assertions.basic.contains/-i-contains/index.html).
+-- [Contains](./ch.tutteli.atrium.assertions.basic.contains/-contains/index.html).
 
 # Package ch.tutteli.atrium.assertions.basic.contains.builders
 Contains base classes for builders representing a step in the process of creating sophisticated `contains` assertions.
 
 # Package ch.tutteli.atrium.assertions.basic.contains.checkers
-Contains base classes for [IContains.IChecker](./ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-checker/index.html).
+Contains base classes for [Contains.Checker](./ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/index.html).
 
 # Package ch.tutteli.atrium.assertions.basic.contains.creators
-Contains base classes for [IContains.ICreators](./ch.tutteli.atrium.assertions.basic.contains/-i-contains/-i-creator/index.html).
+Contains base classes for [Contains.Creators](./ch.tutteli.atrium.assertions.basic.contains/-contains/-creator/index.html).
 
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains
 Contains the contract for sophisticated CharSequence `contains` assertions 
--- [ICharSequenceContains](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/index.html)
+-- [CharSequenceContains](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/index.html)
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.builders
 Contains base classes for fluent API builders used in assertion function APIs 
-(e.g. [atrium-assertions-cc-en_UK]).
+(e.g. [ch.tutteli.atrium.api.cc.infix.en_UK]).
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.checkers
-Contains [ICharSequenceContains.IChecker](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-checker.html)s.
+Contains [CharSequenceContains.Checker](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html)s.
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.creators
-Contains [ICharSequenceContains.ICreator](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-creator.html)s.
+Contains [CharSequenceContains.Creator](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-creator.html)s.
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
-Contains [ICharSequenceContains.ISearchBehaviour](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-search-behaviour.html).
+Contains [CharSequenceContains.SearchBehaviour](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html).
 
 # Package ch.tutteli.atrium.assertions.charsequence.contains.searchers
-Contains [ICharSequenceContains.ISearcher](./ch.tutteli.atrium.assertions.charsequence.contains/-i-char-sequence-contains/-i-searcher/index.html)s.
+Contains [CharSequenceContains.Searcher](./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher/index.html)s.
 
 
 # Package ch.tutteli.atrium.assertions.iterable.contains
 Contains the contract for sophisticated Iterable `contains` assertions 
--- [IIterableContains](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/index.html)
+-- [IterableContains](./ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/index.html)
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.builders
 Contains base classes for fluent API builders used in assertion function APIs 
-(e.g. [atrium-assertions-cc-en_UK]).
+(e.g. [ch.tutteli.atrium.api.cc.en_UK]).
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.checkers
-Contains [IIterableContains.IChecker](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-checker.html)s.
+Contains [IterableContains.Checker](./ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html)s.
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.creators
-Contains [IIterableContains.ICreator](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-creator.html)s.
+Contains [IterableContains.Creator](./ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-creator.html)s.
 
 # Package ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours
-Contains [IIterableContains.ISearchBehaviour](./ch.tutteli.atrium.assertions.iterable.contains/-i-iterable-contains/-i-search-behaviour.html).
+Contains [IterableContains.SearchBehaviour](./ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-search-behaviour.html).
 
 
 # Package ch.tutteli.atrium.assertions.throwable.thrown
 Contains the contract for sophisticated a Throwable was thrown assertions 
--- [IThrowableThrown](./ch.tutteli.atrium.assertions.throwable.thrown/-i-throwable-thrown/index.html)
+-- [ThrowableThrown](./ch.tutteli.atrium.assertions.throwable.thrown/-throwable-thrown/index.html)
 
 # Package ch.tutteli.atrium.assertions.throwable.thrown.builders
 Contains the [ThrowableThrownBuilder](./ch.tutteli.atrium.assertions.throwable.thrown.builders/-throwable-thrown-builder/index.html)
 which typically is used to create an [assertion verb for expected exceptions](https://github.com/robstoll/atrium#use-own-assertion-verbs) 
 
 # Package ch.tutteli.atrium.assertions.throwable.thrown.creators
-Contains [IThrowableThrown.ICreator](./ch.tutteli.atrium.assertions.throwable.thrown/-i-throwable-thrown/-i-creator/index.html)s.
+Contains [ThrowableThrown.Creator](./ch.tutteli.atrium.assertions.throwable.thrown/-throwable-thrown/-creator/index.html)s.
 
 # Package ch.tutteli.atrium.assertions.throwable.thrown.providers
-Contains [IIterableContains.IAbsentThrowableMessageProvider](./ch.tutteli.atrium.assertions.throwable.thrown/-i-throwable-thrown/-i-absent-throwable-message-provider/index.html)s.
+Contains [IterableContains.AbsentThrowableMessageProvider](./ch.tutteli.atrium.assertions.throwable.thrown/-throwable-thrown/-absent-throwable-message-provider/index.html)s.
 
 
 # Package ch.tutteli.atrium.checking
-Everything involved in checking [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
+Everything involved in checking [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html).
 
 # Package ch.tutteli.atrium.creating
-Everything involved in creating [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
+Everything involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html).
 
 # Package ch.tutteli.atrium.reporting
-Everything involved in reporting [IAssertion](./ch.tutteli.atrium.assertions/-i-assertion/index.html).
+Everything involved in reporting [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html).
 
 # Package ch.tutteli.atrium.reporting.translating
-Everything involved in translating [ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)s.
+Everything involved in translating [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s.
 
 
 # Package ch.tutteli.atrium.spec
-Helper functions for specifications as well as the contract of [IAssertionVerbFactory](./ch.tutteli.atrium.spec/-i-assertion-verb-factory/index.html).
+Helper functions for specifications as well as the contract of [AssertionVerbFactory](./ch.tutteli.atrium.spec/-assertion-verb-factory/index.html).
 
 # Package ch.tutteli.atrium.spec.assertions
 Specifications for assertion function APIs (usually placed in an API module -- e.g. [ch.tutteli.atrium.api.cc.de_CH]).
@@ -204,7 +204,7 @@ Specifications for [Assertion Verbs](https://github.com/robstoll/atrium#use-own-
 
 # Package ch.tutteli.atrium.verbs
 Contains the [AssertionVerb](https://github.com/robstoll/atrium#use-own-assertion-verbs) which is an enum defining the 
-[ITranslatable](./ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)
+[Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)
 of the [out-of-the-box Assertion Verbs](https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs).
  
 # Package ch.tutteli.atrium.verbs.assert

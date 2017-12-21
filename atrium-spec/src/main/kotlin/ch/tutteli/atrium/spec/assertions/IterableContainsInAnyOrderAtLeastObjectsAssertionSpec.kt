@@ -3,17 +3,17 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AT_LEAST
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
-    verbs: IAssertionVerbFactory,
-    containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
-    containsAtLeastButAtMostTriple: Triple<String, (String, String, String) -> String, IAssertionPlant<Iterable<Double>>.(Int, Int, Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
+    verbs: AssertionVerbFactory,
+    containsAtLeastTriple: Triple<String, (String, String) -> String, AssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> AssertionPlant<Iterable<Double>>>,
+    containsAtLeastButAtMostTriple: Triple<String, (String, String, String) -> String, AssertionPlant<Iterable<Double>>.(Int, Int, Double, Array<out Double>) -> AssertionPlant<Iterable<Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
     errorMsgAtLeastButAtMost: (Int, Int) -> String,
@@ -33,16 +33,16 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
+    val assert: (Iterable<Double>) -> AssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
     val (containsAtLeast, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
-    fun IAssertionPlant<Iterable<Double>>.containsAtLeastFun(atLeast: Int, a: Double, vararg aX: Double)
+    fun AssertionPlant<Iterable<Double>>.containsAtLeastFun(atLeast: Int, a: Double, vararg aX: Double)
         = containsAtLeastFunArr(atLeast, a, aX.toTypedArray())
 
     val (containsAtLeastButAtMost, containsAtLeastButAtMostTest, containsAtLeastButAtMostFunArr) = containsAtLeastButAtMostTriple
-    fun IAssertionPlant<Iterable<Double>>.containsAtLeastButAtMostFun(atLeast: Int, atMost: Int, a: Double, vararg aX: Double)
+    fun AssertionPlant<Iterable<Double>>.containsAtLeastButAtMostFun(atLeast: Int, atMost: Int, a: Double, vararg aX: Double)
         = containsAtLeastButAtMostFunArr(atLeast, atMost, a, aX.toTypedArray())
 
 

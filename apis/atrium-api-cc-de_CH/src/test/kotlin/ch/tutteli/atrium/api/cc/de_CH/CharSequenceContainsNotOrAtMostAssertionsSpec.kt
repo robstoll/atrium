@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsNotOrAtMostAssertionSpec(
     AssertionVerbFactory,
@@ -18,7 +18,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.ass
             Companion::containsNotOrAtMost
         )
 
-        private fun containsNotOrAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
+        private fun containsNotOrAtMost(plant: AssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.nichtOderHoechstens(atMost).werte(a, *aX)
 
         private fun getNotOrAtMostIgnoringCaseTriple() = Triple(
@@ -27,7 +27,7 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.ass
             Companion::containsNotOrAtMostIgnoringCase
         )
 
-        private fun containsNotOrAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
+        private fun containsNotOrAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.ignoriereGrossKleinschreibung.nichtOderHoechstens(atMost).werte(a, *aX)
 
 

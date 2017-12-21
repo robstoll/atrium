@@ -4,12 +4,12 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.bui
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import kotlin.reflect.KFunction2
 
 abstract class CharSequenceContainsSpecBase {
-    private val containsNotFun: KFunction2<IAssertionPlant<String>, Any, IAssertionPlant<String>> = IAssertionPlant<String>::containsNot
-    protected val toContain = "${IAssertionPlant<String>::to.name} ${contain::class.simpleName}"
+    private val containsNotFun: KFunction2<AssertionPlant<String>, Any, AssertionPlant<String>> = AssertionPlant<String>::containsNot
+    protected val toContain = "${AssertionPlant<String>::to.name} ${contain::class.simpleName}"
     protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
     protected val atLeast = CharSequenceContainsBuilder<*, *>::atLeast.name
     protected val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<*, *>::butAtMost.name

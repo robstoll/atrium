@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.spec
 
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.AssertionPlant
 import org.jetbrains.spek.api.dsl.ActionBody
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.TestBody
@@ -17,9 +16,9 @@ fun TestContainer.check(description: String, body: TestBody.() -> Unit)
     = test(description, body = body)
 
 fun <T : Any> SpecBody.checkNarrowingAssertion(description: String,
-                                               act: (IAssertionPlant<T>.() -> Unit) -> Unit,
-                                               lazy: (IAssertionPlant<T>.() -> Unit),
-                                               vararg otherMethods: Pair<String, (IAssertionPlant<T>.() -> Unit)>) {
+                                               act: (AssertionPlant<T>.() -> Unit) -> Unit,
+                                               lazy: (AssertionPlant<T>.() -> Unit),
+                                               vararg otherMethods: Pair<String, (AssertionPlant<T>.() -> Unit)>) {
     checkGenericNarrowingAssertion(description, act, lazy, *otherMethods)
 }
 

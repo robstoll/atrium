@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsAtMostAssertionSpec(
     AssertionVerbFactory,
@@ -19,7 +19,7 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertio
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
+        private fun containsAtMost(plant: AssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.hoechstens(atMost).werte(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
@@ -28,7 +28,7 @@ class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.assertio
             Companion::containsAtMostIgnoringCase
         )
 
-        private fun containsAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
+        private fun containsAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atMost: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.ignoriereGrossKleinschreibung.hoechstens(atMost).werte(a, *aX)
 
 

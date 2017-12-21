@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 class IterableContainsInAnyOrderAtMostObjectsAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderAtMostObjectsAssertionSpec(
     AssertionVerbFactory,
@@ -18,7 +18,7 @@ class IterableContainsInAnyOrderAtMostObjectsAssertionsSpec : ch.tutteli.atrium.
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: IAssertionPlant<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
+        private fun containsAtMost(plant: AssertionPlant<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
             = plant.contains.inAnyOrder.atMost(atMost).values(a, *aX)
 
 

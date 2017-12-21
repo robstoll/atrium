@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
 
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour.decorateDescription
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents the default search behaviour or rather does not define a search behaviour at all.
@@ -10,10 +10,10 @@ import ch.tutteli.atrium.reporting.translating.ITranslatable
  * It furthermore implements a no operation for [decorateDescription], meaning it passes back the description which
  * is passed in (identity function).
  */
-object CharSequenceContainsNoOpSearchBehaviour : ICharSequenceContains.ISearchBehaviour {
+object CharSequenceContainsNoOpSearchBehaviour : CharSequenceContains.SearchBehaviour {
     /**
      * Returns the given [description].
      * @return the given [description].
      */
-    override fun decorateDescription(description: ITranslatable) = description
+    override fun decorateDescription(description: Translatable) = description
 }

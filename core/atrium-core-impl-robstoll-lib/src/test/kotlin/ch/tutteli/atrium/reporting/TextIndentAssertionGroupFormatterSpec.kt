@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.DefaultIndentAssertionGroupType
 import ch.tutteli.atrium.assertions.IndentAssertionGroupType
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
@@ -19,18 +19,18 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
     object AtriumsTextIndentAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.TextIndentAssertionGroupFormatterSpec(
         AssertionVerbFactory, ::TextIndentAssertionGroupFormatter, "[Atrium's IndentGroup...Spec] ")
 
-    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IIndentAssertionGroupType>(
+    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IndentAssertionGroupType>(
         AssertionVerbFactory, factory(),
-        IIndentAssertionGroupType::class.java,
-        IndentAssertionGroupType,
-        object : IIndentAssertionGroupType {},
+        IndentAssertionGroupType::class.java,
+        DefaultIndentAssertionGroupType,
+        object : IndentAssertionGroupType {},
         "[Atrium's EmptyNameAndSubject...Spec] ")
 
-    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IIndentAssertionGroupType>(
+    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IndentAssertionGroupType>(
         AssertionVerbFactory, factoryWithBulletPoints(),
-        IIndentAssertionGroupType::class.java,
-        IndentAssertionGroupType,
-        object : IIndentAssertionGroupType {},
+        IndentAssertionGroupType::class.java,
+        DefaultIndentAssertionGroupType,
+        object : IndentAssertionGroupType {},
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
@@ -38,12 +38,12 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factoryWithBulletPoints(), "[Atrium's AssertionFormatterSpec] ")
 
     companion object {
-        fun factory() = { assertionFormatterController: IAssertionFormatterController ->
-            TextIndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
+        fun factory() = { assertionFormatterController: AssertionFormatterController ->
+            TextIndentAssertionGroupFormatter(mapOf(IndentAssertionGroupType::class.java to "**"), assertionFormatterController)
         }
 
-        fun factoryWithBulletPoints() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
-            TextIndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
+        fun factoryWithBulletPoints() = { _: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
+            TextIndentAssertionGroupFormatter(mapOf(IndentAssertionGroupType::class.java to "**"), assertionFormatterController)
         }
     }
 }

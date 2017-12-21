@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.DefaultExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
@@ -22,18 +22,18 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     object AtriumsTextWarningAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextWarningAssertionGroupFormatterSpec(
         AssertionVerbFactory, factory(), "[Atrium's TextWarning...Spec] ")
 
-    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IExplanatoryAssertionGroupType>(
+    object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<ExplanatoryAssertionGroupType>(
         AssertionVerbFactory, factoryWithoutBulletPoint(),
-        IExplanatoryAssertionGroupType::class.java,
-        ExplanatoryAssertionGroupType,
-        object : IExplanatoryAssertionGroupType {},
+        ExplanatoryAssertionGroupType::class.java,
+        DefaultExplanatoryAssertionGroupType,
+        object : ExplanatoryAssertionGroupType {},
         "[Atrium's EmptyNameAndSubject...Spec] ")
 
-    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IExplanatoryAssertionGroupType>(
+    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<ExplanatoryAssertionGroupType>(
         AssertionVerbFactory, factoryWithObjectFormatter(),
-        IExplanatoryAssertionGroupType::class.java,
-        object : IExplanatoryAssertionGroupType {},
-        ExplanatoryAssertionGroupType,
+        ExplanatoryAssertionGroupType::class.java,
+        object : ExplanatoryAssertionGroupType {},
+        DefaultExplanatoryAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
@@ -42,15 +42,15 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     )
 
     companion object {
-        private fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController ->
+        private fun factory() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController ->
             TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
         }
 
-        private fun factoryWithoutBulletPoint() = { assertionFormatterController: IAssertionFormatterController ->
-            factory()(mapOf(IExplanatoryAssertionGroupType::class.java to "*"), assertionFormatterController)
+        private fun factoryWithoutBulletPoint() = { assertionFormatterController: AssertionFormatterController ->
+            factory()(mapOf(ExplanatoryAssertionGroupType::class.java to "*"), assertionFormatterController)
         }
 
-        private fun factoryWithObjectFormatter() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, _: IObjectFormatter, _: ITranslator ->
+        private fun factoryWithObjectFormatter() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
             factory()(bulletPoints, assertionFormatterController)
         }
     }

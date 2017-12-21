@@ -2,11 +2,11 @@ package ch.tutteli.atrium.assertions.throwable.thrown.creators
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.any.narrow.DownCaster
-import ch.tutteli.atrium.assertions.any.narrow.IAnyNarrow
-import ch.tutteli.atrium.assertions.throwable.thrown.IThrowableThrown
+import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
+import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
 /**
@@ -24,11 +24,11 @@ import kotlin.reflect.KClass
  *        is used in reporting.
  */
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
-    private val absentThrowableMessageProvider: IThrowableThrown.IAbsentThrowableMessageProvider,
-    private val failureHandler: IAnyNarrow.IDownCastFailureHandler<Throwable, TExpected>
-) : IThrowableThrown.ICreator<TExpected> {
+    private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider,
+    private val failureHandler: AnyNarrow.DownCastFailureHandler<Throwable, TExpected>
+) : ThrowableThrown.Creator<TExpected> {
 
-    override fun executeActAndCreateAssertion(throwableThrownBuilder: ThrowableThrownBuilder, description: ITranslatable, expectedType: KClass<TExpected>, assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
+    override fun executeActAndCreateAssertion(throwableThrownBuilder: ThrowableThrownBuilder, description: Translatable, expectedType: KClass<TExpected>, assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
         var throwable: Throwable? = null
         try {
             throwableThrownBuilder.act()

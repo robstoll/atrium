@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.validateAtMost
-import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.IChecker
-import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.ISearchBehaviour
+import ch.tutteli.atrium.assertions.iterable.contains.IterableContains.Checker
+import ch.tutteli.atrium.assertions.iterable.contains.IterableContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsAtLeastChecker
 import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsAtMostChecker
 
@@ -26,7 +26,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * @param atLeastCall The name of the function which represents a `CharSequence contains at least` assertion.
  * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
-abstract class IterableContainsAtMostCheckerBuilderBase<E, T : Iterable<E>, S : ISearchBehaviour>(
+abstract class IterableContainsAtMostCheckerBuilderBase<E, T : Iterable<E>, S : SearchBehaviour>(
     val times: Int,
     containsBuilder: IterableContainsBuilder<E, T, S>,
     nameContainsNotFun: String,
@@ -39,7 +39,7 @@ abstract class IterableContainsAtMostCheckerBuilderBase<E, T : Iterable<E>, S : 
         validateAtMost(times, atMostCall, atLeastCall, exactlyCall)
     }
 
-    override val checkers: List<IChecker> = listOf(
+    override val checkers: List<Checker> = listOf(
         IterableContainsAtLeastChecker(1, nameContainsNotFun, atLeastCall),
         IterableContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
     )

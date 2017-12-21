@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Number].
+ * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Number].
  */
-enum class DescriptionNumberAssertion(override val value: String) : ISimpleTranslatable {
+enum class DescriptionNumberAssertion(override val value: String) : StringBasedTranslatable {
     IS_LESS_THAN("is less than"),
     IS_LESS_OR_EQUALS("is less or equals"),
     IS_GREATER_THAN("is greater than"),

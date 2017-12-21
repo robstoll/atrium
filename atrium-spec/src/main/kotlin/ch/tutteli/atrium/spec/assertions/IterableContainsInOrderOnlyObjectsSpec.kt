@@ -3,8 +3,8 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -12,8 +12,8 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInOrderOnlyObjectsSpec(
-    verbs: IAssertionVerbFactory,
-    containsPair: Pair<String, IAssertionPlant<Iterable<Double>>.(Double, Array<out Double>) -> IAssertionPlant<Iterable<Double>>>,
+    verbs: AssertionVerbFactory,
+    containsPair: Pair<String, AssertionPlant<Iterable<Double>>.(Double, Array<out Double>) -> AssertionPlant<Iterable<Double>>>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -35,13 +35,13 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> IAssertionPlant<Iterable<Double>> = verbs::checkImmediately
+    val assert: (Iterable<Double>) -> AssertionPlant<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)
     val fluent = assert(oneToFour)
 
     val (contains, containsFunArr) = containsPair
-    fun IAssertionPlant<Iterable<Double>>.containsFun(t: Double, vararg tX: Double)
+    fun AssertionPlant<Iterable<Double>>.containsFun(t: Double, vararg tX: Double)
         = containsFunArr(t, tX.toTypedArray())
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
@@ -59,13 +59,13 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
     fun entry(index: Int)
         = String.format(entryWithIndex, index)
 
-    fun IAssertionPlant<CharSequence>.entrySuccess(index: Int, actual: Any, expected: Double): IAssertionPlant<CharSequence> {
+    fun AssertionPlant<CharSequence>.entrySuccess(index: Int, actual: Any, expected: Double): AssertionPlant<CharSequence> {
         return this.contains.exactly(1).regex(
             "$successfulBulletPoint$featureArrow${entry(index)}: \\Q$actual\\E.*$separator" +
                 "$toBeAfterSuccess: $expected")
     }
 
-    fun IAssertionPlant<CharSequence>.entryFailing(index: Int, actual: Any, expected: Double): IAssertionPlant<CharSequence> {
+    fun AssertionPlant<CharSequence>.entryFailing(index: Int, actual: Any, expected: Double): AssertionPlant<CharSequence> {
         return this.contains.exactly(1).regex(
             "$failingBulletPoint$featureArrow${entry(index)}: \\Q$actual\\E.*$separator" +
                 "$toBeAfterFailing: $expected")

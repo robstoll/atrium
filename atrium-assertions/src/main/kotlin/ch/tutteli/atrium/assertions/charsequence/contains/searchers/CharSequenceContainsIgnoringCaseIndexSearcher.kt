@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.searchers
 
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Searcher
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 
 /**
- * Represents an [ISearcher] which implements the [CharSequenceContainsIgnoringCaseSearchBehaviour] behaviour and uses
+ * Represents a [Searcher] which implements the [CharSequenceContainsIgnoringCaseSearchBehaviour] behaviour and uses
  * [CharSequence.indexOf] to find expected objects.
  */
-class CharSequenceContainsIgnoringCaseIndexSearcher : ISearcher<CharSequenceContainsIgnoringCaseSearchBehaviour> {
+class CharSequenceContainsIgnoringCaseIndexSearcher : Searcher<CharSequenceContainsIgnoringCaseSearchBehaviour> {
     private val searcher = CharSequenceContainsIndexSearcher()
 
     override fun search(searchIn: CharSequence, searchFor: Any): Int

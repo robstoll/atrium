@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.checkers
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.assertions.IAssertion
 
 /**
  * Represents a check that an expected entry is contained at least [times] in the [Iterable].
@@ -18,6 +18,6 @@ class IterableContainsAtLeastChecker(
     atLeastCall: (Int) -> String
 ) : IterableContainsChecker(times, nameContainsNotFun, atLeastCall) {
 
-    override fun createAssertion(foundNumberOfTimes: Int): IAssertion
+    override fun createAssertion(foundNumberOfTimes: Int): Assertion
         = createBasicAssertion(DescriptionIterableAssertion.AT_LEAST, foundNumberOfTimes >= times)
 }

@@ -4,24 +4,23 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IAssertionFormatterController
-import ch.tutteli.atrium.reporting.IObjectFormatter
-import ch.tutteli.atrium.reporting.translating.ITranslator
+import ch.tutteli.atrium.reporting.AssertionFormatter
+import ch.tutteli.atrium.reporting.AssertionFormatterController
+import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 abstract class TextFeatureAssertionGroupFormatterSpec(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController, IObjectFormatter, ITranslator) -> IAssertionFormatter,
+    verbs: AssertionVerbFactory,
+    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
@@ -29,30 +28,30 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
         = describeFun(describePrefix, funName, body = body)
 
     val assertions = listOf(
-        BasicAssertion(AssertionVerb.ASSERT, 1, true),
-        BasicAssertion(AssertionVerb.EXPECT_THROWN, 2, true)
+        BasicDescriptiveAssertion(AssertionVerb.ASSERT, 1, true),
+        BasicDescriptiveAssertion(AssertionVerb.EXPECT_THROWN, 2, true)
     )
-    val featureAssertionGroup = AssertionGroup(object : IFeatureAssertionGroupType {}, TranslatorIntSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
+    val featureAssertionGroup = AssertionGroup.Builder.withType(object : FeatureAssertionGroupType {}).create(TranslatorIntSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
 
-    describeFun(IAssertionFormatter::canFormat.name) {
+    describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
-        it("returns true for an ${IAssertionGroup::class.simpleName} with type object: ${IFeatureAssertionGroupType::class.simpleName}") {
-            val result = testee.canFormat(AssertionGroup(object : IFeatureAssertionGroupType {}, Untranslatable.EMPTY, 1, listOf()))
+        it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${FeatureAssertionGroupType::class.simpleName}") {
+            val result = testee.canFormat(AssertionGroup.Builder.withType(object : FeatureAssertionGroupType {}).create(Untranslatable.EMPTY, 1, listOf()))
             verbs.checkImmediately(result).isTrue()
         }
     }
 
-    describeFun(IAssertionFormatter::formatGroup.name) {
+    describeFun(AssertionFormatter::formatGroup.name) {
 
         val facade = createFacade()
         facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
         facade.register { AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
         facade.register { AtriumFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
 
-        context("${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
+        context("${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
             context("format directly the group") {
 
-                it("starts feature ${IAssertionGroup::name.name} with '$arrow' followed by the feature ${IAssertionGroup::subject.name} and prepends the ${IAssertionGroup::assertions.name} all prefixed with a `$featureBulletPoint`") {
+                it("starts feature ${AssertionGroup::name.name} with '$arrow' followed by the feature ${AssertionGroup::subject.name} and prepends the ${AssertionGroup::assertions.name} all prefixed with a `$featureBulletPoint`") {
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
                         + "$arrow placeholder %s: 2$separator"
@@ -61,9 +60,9 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                 }
             }
 
-            context("in an ${IAssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
-                val listAssertions = listOf(featureAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 20, false))
-                val listAssertionGroup = AssertionGroup(ListAssertionGroupType, AssertionVerb.ASSERT, 10, listAssertions)
+            context("in an ${AssertionGroup::class.simpleName} of type ${DefaultListAssertionGroupType::class.simpleName}") {
+                val listAssertions = listOf(featureAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.ASSERT, 20, false))
+                val listAssertionGroup = AssertionGroup.Builder.list.create(AssertionVerb.ASSERT, 10, listAssertions)
                 it("does only indent the assertions but not the feature") {
                     facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
@@ -74,10 +73,10 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         + "$listBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                 }
             }
-            context("in another ${IAssertionGroup::class.simpleName} of type ${IFeatureAssertionGroupType::class.simpleName}") {
-                it("indents the group ${IAssertionGroup::name.name} as well as the ${IAssertionGroup::assertions.name} accordingly - uses `$featureBulletPoint` for each assertion and `$listBulletPoint` for each element in the list group") {
-                    val featureAssertions = listOf(BasicAssertion(AssertionVerb.ASSERT, 5, false), featureAssertionGroup, BasicAssertion(AssertionVerb.ASSERT, 30, false))
-                    val featureAssertionGroup2 = AssertionGroup(object : IFeatureAssertionGroupType {}, AssertionVerb.EXPECT_THROWN, 10, featureAssertions)
+            context("in another ${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
+                it("indents the group ${AssertionGroup::name.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$featureBulletPoint` for each assertion and `$listBulletPoint` for each element in the list group") {
+                    val featureAssertions = listOf(BasicDescriptiveAssertion(AssertionVerb.ASSERT, 5, false), featureAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.ASSERT, 30, false))
+                    val featureAssertionGroup2 = AssertionGroup.Builder.withType(object : FeatureAssertionGroupType {}).create(AssertionVerb.EXPECT_THROWN, 10, featureAssertions)
                     facade.format(featureAssertionGroup2, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
                         + "$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$separator"

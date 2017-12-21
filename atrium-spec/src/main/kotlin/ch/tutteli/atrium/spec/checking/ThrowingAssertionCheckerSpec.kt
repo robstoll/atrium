@@ -1,16 +1,14 @@
 package ch.tutteli.atrium.spec.checking
 
 import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.startsWith
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.checking.IAssertionChecker
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.mock
 import org.jetbrains.spek.api.Spek
@@ -18,8 +16,8 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
 
 abstract class ThrowingAssertionCheckerSpec(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: (IReporter) -> IAssertionChecker,
+    verbs: AssertionVerbFactory,
+    testeeFactory: (Reporter) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -28,16 +26,16 @@ abstract class ThrowingAssertionCheckerSpec(
 
     val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
-    val reporter = mock<IReporter> {
+    val reporter = mock<Reporter> {
         on { format(any(), any<StringBuilder>()) }.thenAnswer {
             (it.arguments[1] as StringBuilder).append(reporterResponse)
         }
     }
     val testee = testeeFactory(reporter)
-    val assertionWhichHolds = object : IAssertion {
+    val assertionWhichHolds = object : Assertion {
         override fun holds() = true
     }
-    val assertionWhichFails = object : IAssertion {
+    val assertionWhichFails = object : Assertion {
         override fun holds() = false
     }
 

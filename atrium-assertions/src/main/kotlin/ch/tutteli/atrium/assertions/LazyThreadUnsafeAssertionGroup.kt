@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.assertions
 
 /**
- * Represents an [IAssertionGroup] which is evaluated lazily where the lazy loading is not thread safe.
+ * Represents an [AssertionGroup] which is evaluated lazily where the lazy loading is not thread safe.
  *
- * @constructor Represents an [IAssertionGroup] which is evaluated lazily where the lazy loading is not thread safe.
+ * @constructor Represents an [AssertionGroup] which is evaluated lazily where the lazy loading is not thread safe.
  * @param assertionCreator The factory function which is used for lazy loading.
  */
-class LazyThreadUnsafeAssertionGroup(assertionCreator: () -> IAssertionGroup) : IAssertionGroup {
+class LazyThreadUnsafeAssertionGroup(assertionCreator: () -> AssertionGroup) : AssertionGroup {
     private val basicAssertion by lazy(LazyThreadSafetyMode.NONE) {
         assertionCreator()
     }

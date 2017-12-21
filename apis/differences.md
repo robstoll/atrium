@@ -40,7 +40,7 @@ If you forget to do it, then the compiler will complain that you have the same e
 Atrium provides different APIs where the API differ in its style and the language in which it is written.
 This site focuses on the different styles of APIs and compares their en_UK versions. 
 We do not show every single difference but merely where the APIs differ in naming.
-For instance, the assertion function `IAssertionPlant<Any>.toBe`:
+For instance, the assertion function `AssertionPlant<Any>.toBe`:
 
 *atrium-api-cc-en_UK*
 ```kotlin
@@ -51,7 +51,7 @@ assert(x).toBe(2)
 assert(x) toBe 2
 ``` 
 
-is to similar, we will not list it here (ok, now we did, but I guess you get the point).
+is too similar, we will not list it here (ok, we did now but I guess you get the point).
 
 ## Nullable Types
 

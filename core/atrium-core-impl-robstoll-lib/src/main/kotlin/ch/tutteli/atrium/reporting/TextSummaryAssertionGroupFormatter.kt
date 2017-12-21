@@ -3,42 +3,42 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.assertions.*
 
 /**
- * Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an [ISummaryAssertionGroupType] by
+ * Represents an [AssertionFormatter] which formats [AssertionGroup]s with a [SummaryAssertionGroupType] by
  * using the given [assertionPairFormatter] to format the group header and uses the bullet point defined
- * for [PrefixSuccessfulSummaryAssertion] as prefix for successful [IAssertionGroup.assertions] and the bullet point
- * defined for [PrefixFeatureAssertionGroupHeader] as prefix for failing [IAssertionGroup.assertions].
+ * for [PrefixSuccessfulSummaryAssertion] as prefix for successful [AssertionGroup.assertions] and the bullet point
+ * defined for [PrefixFeatureAssertionGroupHeader] as prefix for failing [AssertionGroup.assertions].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [IAssertionFormatter] which formats [IAssertionGroup]s with an
- * [ISummaryAssertionGroupType] by using the given [assertionPairFormatter] to format the group header and uses the
- * bullet point defined for [PrefixSuccessfulSummaryAssertion] as prefix for successful [IAssertionGroup.assertions]
- * and the bullet point defined for [PrefixFeatureAssertionGroupHeader] as prefix for failing [IAssertionGroup.assertions].
+ * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an
+ * [SummaryAssertionGroupType] by using the given [assertionPairFormatter] to format the group header and uses the
+ * bullet point defined for [PrefixSuccessfulSummaryAssertion] as prefix for successful [AssertionGroup.assertions]
+ * and the bullet point defined for [PrefixFeatureAssertionGroupHeader] as prefix for failing [AssertionGroup.assertions].
  *
  * @param bulletPoints The formatter uses the bullet point defined for [PrefixSuccessfulSummaryAssertion]
- * (`"✔ "` if absent) as prefix for successful assertions in [IAssertionGroup.assertions] and the bullet point defined
+ * (`"✔ "` if absent) as prefix for successful assertions in [AssertionGroup.assertions] and the bullet point defined
  * for [PrefixFailingSummaryAssertion] (`"✘ "` if absent) for failing assertions.
  *
  * @param assertionFormatterController The controller to which this formatter gives back the control
- *        when it comes to format children of an [IAssertionGroup].
+ *        when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter used to format assertion pairs.
  */
 class TextSummaryAssertionGroupFormatter(
-    bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-    private val assertionFormatterController: IAssertionFormatterController,
-    private val assertionPairFormatter: IAssertionPairFormatter
-) : SingleAssertionGroupTypeFormatter<ISummaryAssertionGroupType>(ISummaryAssertionGroupType::class.java) {
+    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+    private val assertionFormatterController: AssertionFormatterController,
+    private val assertionPairFormatter: AssertionPairFormatter
+) : SingleAssertionGroupTypeFormatter<SummaryAssertionGroupType>(SummaryAssertionGroupType::class.java) {
     private val successful = (bulletPoints[PrefixSuccessfulSummaryAssertion::class.java] ?: "✔ ")
     private val failing = (bulletPoints[PrefixFailingSummaryAssertion::class.java] ?: "✘ ")
 
-    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         methodObject.appendLnIndentAndPrefix()
         assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
         //the prefix which should be used for assertions is defined in the formatGroupAssertions is defined in formatGroupAssertions
         return methodObject.createForDoNotFilterAssertionGroup()
     }
 
-    override fun formatGroupAssertions(formatAssertions: (AssertionFormatterMethodObject, (IAssertion) -> Unit) -> Unit, childMethodObject: AssertionFormatterMethodObject) {
+    override fun formatGroupAssertions(formatAssertions: (AssertionFormatterMethodObject, (Assertion) -> Unit) -> Unit, childMethodObject: AssertionFormatterMethodObject) {
         val successfulMethodObject = childMethodObject.createChildWithNewPrefix(successful)
         val failingMethodObject = childMethodObject.createChildWithNewPrefix(failing)
         formatAssertions(childMethodObject) {

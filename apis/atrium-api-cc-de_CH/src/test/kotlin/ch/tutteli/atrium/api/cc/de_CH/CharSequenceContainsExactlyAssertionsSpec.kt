@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsExactlyAssertionSpec(
     AssertionVerbFactory,
@@ -18,7 +18,7 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.asserti
             Companion::containsExactly
         )
 
-        private fun containsExactly(plant: IAssertionPlant<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
+        private fun containsExactly(plant: AssertionPlant<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.genau(exactly).werte(a, *aX)
 
         private fun getExactlyIgnoringCaseTriple() = Triple(
@@ -27,7 +27,7 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.asserti
             Companion::containsExactlyIgnoringCase
         )
 
-        private fun containsExactlyIgnoringCase(plant: IAssertionPlant<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
+        private fun containsExactlyIgnoringCase(plant: AssertionPlant<CharSequence>, exactly: Int, a: Any, aX: Array<out Any>)
             = plant.enthaelt.ignoriereGrossKleinschreibung.genau(exactly).werte(a, *aX)
 
 

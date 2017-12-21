@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting.translating
 import java.util.*
 
 /**
- * Represents an [ITranslationSupplier] which is based on properties-files which are structured per
+ * Represents a [TranslationSupplier] which is based on properties-files which are structured per
  * entity (enum, object or class) and [Locale].
  *
  * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
@@ -15,10 +15,10 @@ import java.util.*
  */
 class PropertiesPerEntityAndLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<String>() {
 
-    override fun getNotForRoot(translatable: ITranslatable, locale: Locale): String? {
+    override fun getNotForRoot(translatable: Translatable, locale: Locale): String? {
         val qualifiedName = translatable::class.java.name
         val fileName = getFileNameFor(qualifiedName, locale)
-        val translations = getOrLoadProperties(fileName, fileName, { qualifiedName + ITranslatable.ID_SEPARATOR + it })
+        val translations = getOrLoadProperties(fileName, fileName, { qualifiedName + Translatable.ID_SEPARATOR + it })
         return translations[translatable.id]
     }
 }
