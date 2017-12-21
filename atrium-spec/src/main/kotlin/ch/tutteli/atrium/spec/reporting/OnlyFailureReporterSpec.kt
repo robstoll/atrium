@@ -56,7 +56,7 @@ abstract class OnlyFailureReporterSpec(
             override val subject = 0
             override val assertions = listOf(assertion, basicAssertion, basicAssertionAnonymous)
         }
-        val assertionGroup = AssertionGroup(RootAssertionGroupType, AssertionVerb.VERB, 1, listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
+        val assertionGroup = AssertionGroupBuilder.root.create(AssertionVerb.VERB, 1, listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
 
         mapOf(
             "object: ${IAssertion::class.simpleName}" to assertion,

@@ -27,7 +27,7 @@ fun <T : CharSequence> _containsNot(plant: AssertionPlant<T>, expected: Any, oth
             BasicAssertion(CONTAINS_NOT, expectedString, { !plant.subject.contains(expectedString) })
         })
     }
-    return InvisibleAssertionGroup(assertions)
+    return AssertionGroupBuilder.invisible.create(assertions)
 }
 
 fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: AssertionPlant<T>, expected: Translatable, otherExpected: Array<out Translatable>): IAssertion

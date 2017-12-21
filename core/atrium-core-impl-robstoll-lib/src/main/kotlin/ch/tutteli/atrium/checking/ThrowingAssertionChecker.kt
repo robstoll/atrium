@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.checking
 
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroupBuilder
 import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.RootAssertionGroupType
+import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -30,7 +29,7 @@ class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecke
      * @throws AssertionError In case the created [IAssertionGroup] does not hold.
      */
     override fun check(assertionVerb: Translatable, subject: Any, assertions: List<IAssertion>) {
-        val assertionGroup = AssertionGroup(RootAssertionGroupType, assertionVerb, subject, assertions)
+        val assertionGroup = AssertionGroupBuilder.root.create(assertionVerb, subject, assertions)
         val sb = StringBuilder()
         reporter.format(assertionGroup, sb)
         if (!assertionGroup.holds()) {
