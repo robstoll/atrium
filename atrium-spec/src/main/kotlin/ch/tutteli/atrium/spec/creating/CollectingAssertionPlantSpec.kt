@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.spec.IAssertionVerbFactory
@@ -32,7 +32,7 @@ abstract class CollectingAssertionPlantSpec(
             }
 
             inCaseOf("an assertion is added") {
-                val assertion: IAssertion = object : IAssertion {
+                val assertion: Assertion = object : Assertion {
                     override fun holds() = true
                 }
                 testee.addAssertion(assertion)

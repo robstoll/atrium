@@ -5,9 +5,9 @@ import ch.tutteli.atrium.api.cc.en_UK.isEmpty
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
@@ -24,7 +24,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class AssertionFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -42,13 +42,13 @@ abstract class AssertionFormatterSpec(
     }
 
     describeFun(testee::format.name) {
-        it("throws an UnsupportedOperationException if ${IAssertionGroup::class.simpleName} is passed") {
+        it("throws an UnsupportedOperationException if ${AssertionGroup::class.simpleName} is passed") {
             verbs.checkException {
-                testee.format(object : IAssertionGroup {
+                testee.format(object : AssertionGroup {
                     override val name = Untranslatable("test")
                     override val type = RootAssertionGroupType
                     override val subject = 1
-                    override val assertions: List<IAssertion> = emptyList()
+                    override val assertions: List<Assertion> = emptyList()
                 }, methodObject)
             }.toThrow<UnsupportedOperationException> { message { toBe(AssertionFormatter.CALL_FORMAT_GROUP) } }
             verbs.checkImmediately(sb).isEmpty()

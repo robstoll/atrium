@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
-import ch.tutteli.atrium.assertions.BasicAssertion
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH_IS
-import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
@@ -23,8 +23,8 @@ class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
     searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
 ) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
 
-    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: E, list: MutableList<E>): Pair<Boolean, IAssertion> {
+    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: E, list: MutableList<E>): Pair<Boolean, Assertion> {
         val found: Boolean = list.remove(searchCriterion)
-        return Pair(found, BasicAssertion(AN_ENTRY_WHICH_IS, searchCriterion ?: RawString.NULL, found))
+        return Pair(found, BasicDescriptiveAssertion(AN_ENTRY_WHICH_IS, searchCriterion ?: RawString.NULL, found))
     }
 }

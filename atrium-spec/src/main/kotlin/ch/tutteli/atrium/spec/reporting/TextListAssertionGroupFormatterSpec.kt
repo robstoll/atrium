@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.IListAssertionGroupType
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
@@ -11,12 +11,12 @@ import ch.tutteli.atrium.spec.IAssertionVerbFactory
 
 abstract class TextListAssertionGroupFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
-) : TextListBasedAssertionGroupFormatterSpec<IListAssertionGroupType>(
+) : TextListBasedAssertionGroupFormatterSpec<ListAssertionGroupType>(
     verbs,
     testeeFactory,
-    IListAssertionGroupType::class.java,
-    ListAssertionGroupType,
-    object : IListAssertionGroupType {},
+    ListAssertionGroupType::class.java,
+    DefaultListAssertionGroupType,
+    object : ListAssertionGroupType {},
     describePrefix)

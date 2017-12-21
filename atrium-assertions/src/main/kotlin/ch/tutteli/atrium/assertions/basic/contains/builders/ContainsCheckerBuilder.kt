@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.basic.contains.builders
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.assertions.basic.contains.Contains.Checker
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -39,6 +39,6 @@ abstract class ContainsCheckerBuilder<out T : Any, S : Contains.SearchBehaviour,
      *
      * @return The plant to support a fluent API.
      */
-    fun addAssertion(assertion: IAssertion)
+    fun addAssertion(assertion: Assertion)
         = containsBuilder.plant.addAssertion(assertion)
 }

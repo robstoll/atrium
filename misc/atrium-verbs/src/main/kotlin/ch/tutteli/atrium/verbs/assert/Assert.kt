@@ -2,7 +2,7 @@ package ch.tutteli.atrium.verbs.assert
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.IAtriumFactory
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -23,7 +23,7 @@ fun <T : Any> assert(subject: T)
 
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
- * given [assertionCreator] lambda where the created [IAssertion]s are added as a group and usually (depending on
+ * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
  * the configured [Reporter]) reported as a whole.
  *
  * @return The newly created plant.

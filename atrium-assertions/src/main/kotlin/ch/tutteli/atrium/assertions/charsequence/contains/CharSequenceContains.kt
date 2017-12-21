@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -18,7 +18,7 @@ interface CharSequenceContains {
     interface SearchBehaviour : Contains.SearchBehaviour
 
     /**
-     * Represents the final step of a sophisticated `contains` assertion builder which creates the [IAssertionGroup]
+     * Represents the final step of a sophisticated `contains` assertion builder which creates the [AssertionGroup]
      * as such.
      *
      * @param T The type of the [AssertionPlant.subject].
@@ -30,7 +30,7 @@ interface CharSequenceContains {
      * Represents a check for the search result such as: the object is contained exactly once in the input of the
      * search.
      *
-     * It provides the method [createAssertion] which creates an [IAssertion] representing this check.
+     * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
     interface Checker : Contains.Checker
 

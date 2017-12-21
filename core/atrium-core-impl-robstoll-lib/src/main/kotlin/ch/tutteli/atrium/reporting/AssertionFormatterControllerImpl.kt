@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import java.util.*
 
 /**
@@ -13,7 +13,7 @@ import java.util.*
 class AssertionFormatterControllerImpl : AssertionFormatterController {
     private val assertionFormatters = ArrayDeque<AssertionFormatter>()
 
-    override fun format(assertion: IAssertion, methodObject: AssertionFormatterMethodObject) {
+    override fun format(assertion: Assertion, methodObject: AssertionFormatterMethodObject) {
         if (noNeedToFormat(assertion, methodObject)) return
 
         val assertionFormatter = assertionFormatters
@@ -21,12 +21,12 @@ class AssertionFormatterControllerImpl : AssertionFormatterController {
             ?: AssertionFormatterController.noSuitableAssertionFormatterFound(assertion)
 
         when (assertion) {
-            is IAssertionGroup -> formatGroup(assertion, assertionFormatter, methodObject)
+            is AssertionGroup -> formatGroup(assertion, assertionFormatter, methodObject)
             else -> assertionFormatter.format(assertion, methodObject)
         }
     }
 
-    private fun noNeedToFormat(assertion: IAssertion, methodObject: AssertionFormatterMethodObject): Boolean {
+    private fun noNeedToFormat(assertion: Assertion, methodObject: AssertionFormatterMethodObject): Boolean {
         //assertionFilter only applies if:
         // - we are not in an assertion group which should not be filtered (e.g. explanatory or summary group) and
         // - if the given assertion is not an explanatory assertion group either.
@@ -35,7 +35,7 @@ class AssertionFormatterControllerImpl : AssertionFormatterController {
             && !methodObject.assertionFilter(assertion)
     }
 
-    private fun formatGroup(assertionGroup: IAssertionGroup, assertionFormatter: AssertionFormatter, methodObject: AssertionFormatterMethodObject) {
+    private fun formatGroup(assertionGroup: AssertionGroup, assertionFormatter: AssertionFormatter, methodObject: AssertionFormatterMethodObject) {
         assertionFormatter.formatGroup(assertionGroup, methodObject) { childMethodObject, formatAssertionInGroup ->
             assertionGroup.assertions
                 .filter { !noNeedToFormat(it, childMethodObject) }

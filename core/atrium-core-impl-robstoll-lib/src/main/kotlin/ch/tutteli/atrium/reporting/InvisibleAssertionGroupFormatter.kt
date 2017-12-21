@@ -1,17 +1,17 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 
 /**
- * Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [IInvisibleAssertionGroupType] or rather
+ * Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [InvisibleAssertionGroupType] or rather
  * does not format them but only passes on the given [AssertionFormatterMethodObject] as
- * child-[AssertionFormatterMethodObject] for the formatting of the [IAssertionGroup.assertions].
+ * child-[AssertionFormatterMethodObject] for the formatting of the [AssertionGroup.assertions].
  *
  * It does not include a group header in its result or in other words, skips the first part of formatting an
- * [IAssertionGroup] as defined in [AssertionFormatter.formatGroup].
+ * [AssertionGroup] as defined in [AssertionFormatter.formatGroup].
  *
- * @constructor Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an
+ * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an
  *              [IInvisibleAssertionGroupType] by neglecting [IAssertionGroup.name] and [IAssertionGroup.subject] and
  *              passes on the given [AssertionFormatterMethodObject] which is used to format
  *              [IAssertionGroup.assertions].
@@ -20,8 +20,8 @@ import ch.tutteli.atrium.assertions.IInvisibleAssertionGroupType
  */
 class InvisibleAssertionGroupFormatter(
     assertionFormatterController: AssertionFormatterController
-) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IInvisibleAssertionGroupType>(IInvisibleAssertionGroupType::class.java, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<InvisibleAssertionGroupType>(InvisibleAssertionGroupType::class.java, assertionFormatterController) {
 
-    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject)
         = methodObject
 }

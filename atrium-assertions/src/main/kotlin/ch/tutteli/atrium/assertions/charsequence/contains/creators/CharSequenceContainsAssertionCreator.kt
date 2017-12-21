@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.creators
 
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.*
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * A sophisticated `contains` assertion is build up by a desired [SearchBehaviour], a [ISearcher] and a number of
  * [Checker]s. The [searcher] searches for specified objects -- considering the given [searchBehaviour] -- and
  * then passes on the result to the given [checkers] which in turn create the assertions representing the
- * corresponding check. Those created assertions are then grouped into an [IAssertionGroup] which represents the
+ * corresponding check. Those created assertions are then grouped into an [AssertionGroup] which represents the
  * sophisticated assertion as a whole.
  *
  * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.

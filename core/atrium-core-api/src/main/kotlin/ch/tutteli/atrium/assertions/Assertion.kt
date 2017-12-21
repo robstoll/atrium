@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 /**
  * The base interface of all assertions, providing the method [holds].
  */
-interface IAssertion {
+interface Assertion {
     /**
      * Indicates whether the assertion holds or not.
      *

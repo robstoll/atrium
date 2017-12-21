@@ -20,7 +20,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class TextFallbackAssertionFormatterSpec(
     verbs: IAssertionVerbFactory,
-    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
@@ -29,21 +29,21 @@ abstract class TextFallbackAssertionFormatterSpec(
 
     val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
-    val unsupportedAssertion = object : IAssertion {
+    val unsupportedAssertion = object : Assertion {
         override fun holds() = false
     }
 
     describeFun(testee::canFormat.name) {
         group("check that it always returns true even for...") {
-            it("... an anonymous class of ${IAssertion::class.simpleName}") {
+            it("... an anonymous class of ${Assertion::class.simpleName}") {
                 testee.canFormat(unsupportedAssertion)
             }
-            it("... an anonymous class of ${IAssertionGroup::class.simpleName} with an anonymous ${IAssertionGroupType::class.simpleName}") {
-                testee.canFormat(object : IAssertionGroup {
-                    override val type = object : IAssertionGroupType {}
+            it("... an anonymous class of ${AssertionGroup::class.simpleName} with an anonymous ${AssertionGroupType::class.simpleName}") {
+                testee.canFormat(object : AssertionGroup {
+                    override val type = object : AssertionGroupType {}
                     override val name = Untranslatable("outer group")
                     override val subject = "subject of outer group"
-                    override val assertions = listOf<IAssertion>()
+                    override val assertions = listOf<Assertion>()
                 }
                 )
             }
@@ -52,7 +52,7 @@ abstract class TextFallbackAssertionFormatterSpec(
 
     describeFun(testee::format.name) {
 
-        context("unsupported ${IAssertion::class.simpleName}") {
+        context("unsupported ${Assertion::class.simpleName}") {
             it("writes whether the assertion holds including a message telling the type is unsupported") {
                 testee.format(unsupportedAssertion, methodObject)
                 verbs.checkLazily(sb) {
@@ -61,27 +61,27 @@ abstract class TextFallbackAssertionFormatterSpec(
                 }
             }
         }
-        context("assertion of type ${IBasicAssertion::class.simpleName}") {
-            it("writes ${IBasicAssertion::description.name} and ${IBasicAssertion::expected.name} on the same line separated by colon and space") {
-                val assertion = BasicAssertion(IS_SAME, "bli", false)
+        context("assertion of type ${DescriptiveAssertion::class.simpleName}") {
+            it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::expected.name} on the same line separated by colon and space") {
+                val assertion = BasicDescriptiveAssertion(IS_SAME, "bli", false)
                 testee.format(assertion, methodObject)
                 verbs.checkImmediately(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
             }
         }
 
-        context("${IAssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
+        context("${AssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
             val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
             facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
 
-            context("only ${BasicAssertion::class.simpleName}") {
+            context("only ${BasicDescriptiveAssertion::class.simpleName}") {
                 it("uses the system line separator to separate the assertions") {
-                    facade.format(object : IAssertionGroup {
+                    facade.format(object : AssertionGroup {
                         override val type = RootAssertionGroupType
                         override val name = Untranslatable("group")
                         override val subject = "subject of group"
                         override val assertions = listOf(
-                            BasicAssertion(IS_SAME, "b", false),
-                            BasicAssertion(TO_BE, "d", false)
+                            BasicDescriptiveAssertion(IS_SAME, "b", false),
+                            BasicDescriptiveAssertion(TO_BE, "d", false)
                         )
                     }, sb, alwaysTrueAssertionFilter)
 
@@ -92,22 +92,22 @@ abstract class TextFallbackAssertionFormatterSpec(
                 }
             }
 
-            context("${IAssertionGroup::class.simpleName} with an unsupported ${IAssertionGroupType::class.simpleName} and an unsupported ${IAssertion::class.simpleName}") {
+            context("${AssertionGroup::class.simpleName} with an unsupported ${AssertionGroupType::class.simpleName} and an unsupported ${Assertion::class.simpleName}") {
 
                 val indentBulletPoint = " ".repeat(bulletPoint.length + 1)
                 it("uses the system line separator to separate the assertions") {
-                    facade.format(object : IAssertionGroup {
+                    facade.format(object : AssertionGroup {
                         override val type = RootAssertionGroupType
                         override val name = Untranslatable("outer group")
                         override val subject = "subject of outer group"
                         override val assertions = listOf(
-                            object : IAssertionGroup {
-                                override val type = object : IAssertionGroupType {}
+                            object : AssertionGroup {
+                                override val type = object : AssertionGroupType {}
                                 override val name = Untranslatable("inner group")
                                 override val subject = "subject of inner group"
                                 override val assertions = listOf(
-                                    BasicAssertion(IS_SAME, "b", false),
-                                    BasicAssertion(TO_BE, "d", false)
+                                    BasicDescriptiveAssertion(IS_SAME, "b", false),
+                                    BasicDescriptiveAssertion(TO_BE, "d", false)
                                 )
                             },
                             unsupportedAssertion

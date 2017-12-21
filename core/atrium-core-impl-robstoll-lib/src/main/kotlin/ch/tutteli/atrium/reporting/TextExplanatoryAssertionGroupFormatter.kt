@@ -1,23 +1,23 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 
 /**
- * Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [IExplanatoryAssertionGroupType] by
+ * Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [ExplanatoryAssertionGroupType] by
  * neglecting the group header and defining an child-[AssertionFormatterMethodObject] which indicates that we are in an
  * explanatory assertion.
  *
  * Furthermore it uses the bullet point defined for [WarningAssertionGroupType] in `bulletPoints` (see constructor)
- * (`"❗❗ "` if absent) as prefix for the child-[AssertionFormatterMethodObject] if the [IAssertionGroup.type] is a
- * [WarningAssertionGroupType]. Otherwise it is using the bullet point defined for [IExplanatoryAssertionGroupType]
+ * (`"❗❗ "` if absent) as prefix for the child-[AssertionFormatterMethodObject] if the [AssertionGroup.type] is a
+ * [WarningAssertionGroupType]. Otherwise it is using the bullet point defined for [ExplanatoryAssertionGroupType]
  * (`"» "` if absent).
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an
+ * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an
  *              [IExplanatoryAssertionGroupType] by defining only an [AssertionFormatterMethodObject] -- which indicates
  *              that we are in an explanatory assertion group and uses the given [bulletPoint] as prefix -- and
  *              completely ignoring [IAssertionGroup.name] and [IAssertionGroup.subject].
@@ -30,13 +30,13 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
  *        when it comes to format children of an [IAssertionGroup].
  */
 class TextExplanatoryAssertionGroupFormatter(
-    bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
+    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController
-) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IExplanatoryAssertionGroupType>(IExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
-    private val explanatoryBulletPoint = bulletPoints[IExplanatoryAssertionGroupType::class.java] ?: "» "
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<ExplanatoryAssertionGroupType>(ExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
+    private val explanatoryBulletPoint = bulletPoints[ExplanatoryAssertionGroupType::class.java] ?: "» "
     private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class.java] ?: "❗❗ "
 
-    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         val bulletPoint = when (assertionGroup.type) {
             is WarningAssertionGroupType -> warningBulletPoint
             else -> explanatoryBulletPoint

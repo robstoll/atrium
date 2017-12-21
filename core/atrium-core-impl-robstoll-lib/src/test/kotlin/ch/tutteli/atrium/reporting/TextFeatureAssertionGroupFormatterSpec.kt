@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.DefaultFeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.IFeatureAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
@@ -18,11 +18,11 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
     object AtriumsTextFeatureAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.TextFeatureAssertionGroupFormatterSpec(
         AssertionVerbFactory, factory(), "[Atrium's TextFeature...Spec] ")
 
-    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IFeatureAssertionGroupType>(
+    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<FeatureAssertionGroupType>(
         AssertionVerbFactory, factory(),
-        IFeatureAssertionGroupType::class.java,
-        object : IFeatureAssertionGroupType {},
-        FeatureAssertionGroupType,
+        FeatureAssertionGroupType::class.java,
+        object : FeatureAssertionGroupType {},
+        DefaultFeatureAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
@@ -31,7 +31,7 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
 
 
     companion object {
-        internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+        internal fun factory() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextFeatureAssertionGroupFormatter(bulletPoints, controller, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }

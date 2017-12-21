@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.IListAssertionGroupType
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
@@ -18,11 +18,11 @@ class TextListAssertionGroupFormatterSpec : Spek({
     object AtriumsTextListAssertionFormatterSpec : ch.tutteli.atrium.spec.reporting.TextListAssertionGroupFormatterSpec(
         AssertionVerbFactory, factoryWithBullet(), "[Atrium's TextList...Spec] ")
 
-    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IListAssertionGroupType>(
+    object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<ListAssertionGroupType>(
         AssertionVerbFactory, factoryWithBullet(),
-        IListAssertionGroupType::class.java,
-        object : IListAssertionGroupType {},
-        ListAssertionGroupType,
+        ListAssertionGroupType::class.java,
+        object : ListAssertionGroupType {},
+        DefaultListAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 
@@ -31,7 +31,7 @@ class TextListAssertionGroupFormatterSpec : Spek({
     )
 
     companion object {
-        internal fun factoryWithBullet() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+        internal fun factoryWithBullet() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator))
         }
     }

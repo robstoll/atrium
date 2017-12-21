@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
@@ -45,12 +45,12 @@ abstract class ReportingAssertionPlantSpec(
     fun triple(funName: String, holdingFun: AssertionPlant<Int>.() -> AssertionPlant<Int>, failingFun: AssertionPlant<Int>.() -> AssertionPlant<Int>): Triple<String, AssertionPlant<Int>.() -> AssertionPlant<Int>, AssertionPlant<Int>.() -> AssertionPlant<Int>>
         = Triple(funName, holdingFun, failingFun)
 
-    val basicAssertionWhichHolds = object : IBasicAssertion {
+    val basicAssertionWhichHolds = object : DescriptiveAssertion {
         override val description = description
         override val expected = expected
         override fun holds() = true
     }
-    val basicAssertionWhichFails = object : IBasicAssertion {
+    val basicAssertionWhichFails = object : DescriptiveAssertion {
         override val description = description
         override val expected = expected
         override fun holds() = false
@@ -117,12 +117,12 @@ abstract class ReportingAssertionPlantSpec(
                                 message { contains(subject) }
                             }
                         }
-                        it("contains the '${IBasicAssertion::description.name}' of the assertion-message") {
+                        it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message") {
                             expectFun().toThrow<AssertionError> {
                                 message { containsDefaultTranslationOf(description) }
                             }
                         }
-                        it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
+                        it("contains the '${DescriptiveAssertion::expected.name}' of the assertion-message") {
                             expectFun().toThrow<AssertionError> {
                                 message { contains(expected) }
                             }

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [CharSequence].
+ * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [CharSequence].
  */
 enum class DescriptionCharSequenceAssertion(override val value: String) : StringBasedTranslatable {
     AT_LEAST("is at least"),

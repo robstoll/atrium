@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -22,14 +22,14 @@ interface AssertionPlantWithCommonFields<out T> {
      * @param T The type of the [subject] of this [AssertionPlant].
      *
      * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
-     * @property subject The subject for which this plant will create/check [IAssertion]s.
-     * @property assertionChecker The checker which will be used to check [IAssertion]s.
+     * @property subject The subject for which this plant will create/check [Assertion]s.
+     * @property assertionChecker The checker which will be used to check [Assertion]s.
      * @property nullRepresentation The representation used in reporting in case [subject] is `null`.
      *
      * @constructor
      * @param assertionVerb The assertion verb which will be used inter alia in error reporting.
-     * @param subject The subject for which this plant will create/check [IAssertion]s.
-     * @param assertionChecker The checker which will be used to check [IAssertion]s.
+     * @param subject The subject for which this plant will create/check [Assertion]s.
+     * @param assertionChecker The checker which will be used to check [Assertion]s.
      * @param nullRepresentation The representation used in reporting in case [subject] is `null`.
      *
      */
@@ -42,7 +42,7 @@ interface AssertionPlantWithCommonFields<out T> {
          *
          * @throws AssertionError Might throw an [AssertionError] if any of the [assertions] does not hold.
          */
-        fun check(assertions: List<IAssertion>)
+        fun check(assertions: List<Assertion>)
             = assertionChecker.check(assertionVerb, subject ?: nullRepresentation, assertions)
     }
 }

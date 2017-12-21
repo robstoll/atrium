@@ -32,20 +32,20 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
         val bulletPoints
             get() = mapOf(
                 RootAssertionGroupType::class.java to "$bulletPoint ",
-                IListAssertionGroupType::class.java to "$listBulletPoint ",
+                ListAssertionGroupType::class.java to "$listBulletPoint ",
                 PrefixFeatureAssertionGroupHeader::class.java to "$arrow ",
-                IFeatureAssertionGroupType::class.java to "$featureBulletPoint "
+                FeatureAssertionGroupType::class.java to "$featureBulletPoint "
             )
 
         fun createFacade() = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
 
-        fun createFacade(testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
+        fun createFacade(testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
             = createFacade(mapOf(), testeeFactory)
 
-        fun createFacade(bulletPoint: Pair<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
+        fun createFacade(bulletPoint: Pair<Class<out BulletPointIdentifier>, String>, testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
             = createFacade(mapOf(bulletPoint), testeeFactory)
 
-        fun createFacade(extendedBulletPoints: Map<Class<out IBulletPointIdentifier>, String>, testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade {
+        fun createFacade(extendedBulletPoints: Map<Class<out BulletPointIdentifier>, String>, testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade {
             val facade = createFacade()
             facade.register { testeeFactory(extendedBulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
             facade.register { AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }

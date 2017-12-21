@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.checking
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -32,10 +32,10 @@ abstract class ThrowingAssertionCheckerSpec(
         }
     }
     val testee = testeeFactory(reporter)
-    val assertionWhichHolds = object : IAssertion {
+    val assertionWhichHolds = object : Assertion {
         override fun holds() = true
     }
-    val assertionWhichFails = object : IAssertion {
+    val assertionWhichFails = object : Assertion {
         override fun holds() = false
     }
 

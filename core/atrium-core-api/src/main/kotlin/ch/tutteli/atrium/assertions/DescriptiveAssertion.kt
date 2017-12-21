@@ -3,9 +3,9 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * The base interface for [IAssertion]s which only consists of the [expected] result with a complementary [description].
+ * The base interface for [Assertion]s which only consists of the [expected] result with a complementary [description].
  */
-interface IBasicAssertion : IAssertion {
+interface DescriptiveAssertion : Assertion {
     /**
      * The expected result.
      */

@@ -29,10 +29,10 @@ abstract class AssertionFormatterControllerSpec(
     val warning = "  !!"
     val bulletPoint = "*"
     val listBulletPoint = "=="
-    val bulletPoints = mapOf<Class<out IBulletPointIdentifier>, String>(
-        IExplanatoryAssertionGroupType::class.java to "$arrow ",
+    val bulletPoints = mapOf<Class<out BulletPointIdentifier>, String>(
+        ExplanatoryAssertionGroupType::class.java to "$arrow ",
         WarningAssertionGroupType::class.java to "$warning ",
-        IListAssertionGroupType::class.java to "$listBulletPoint ",
+        ListAssertionGroupType::class.java to "$listBulletPoint ",
         RootAssertionGroupType::class.java to "$bulletPoint "
     )
 
@@ -43,8 +43,8 @@ abstract class AssertionFormatterControllerSpec(
     testee.register(AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
     testee.register(AtriumFactory.newTextFallbackAssertionFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
 
-    val assertion = BasicAssertion(IS_GREATER_OR_EQUALS, 1, true)
-    val failingAssertion = BasicAssertion(IS_LESS_OR_EQUALS, 2, false)
+    val assertion = BasicDescriptiveAssertion(IS_GREATER_OR_EQUALS, 1, true)
+    val failingAssertion = BasicDescriptiveAssertion(IS_LESS_OR_EQUALS, 2, false)
 
     val separator = System.getProperty("line.separator")!!
 
@@ -58,16 +58,16 @@ abstract class AssertionFormatterControllerSpec(
                 methodObject = AssertionFormatterMethodObject.new(sb, alwaysFalseAssertionFilter)
             }
 
-            val anonymousType = object : IExplanatoryAssertionGroupType {}
+            val anonymousType = object : ExplanatoryAssertionGroupType {}
 
-            listOf<Pair<String, (IExplanatoryAssertionGroupType, List<IAssertion>) -> IAssertionGroup>>(
-                ExplanatoryAssertionGroup::class.simpleName!! to { t, a -> AssertionGroupBuilder.explanatory.withType(t).create(a) },
-                BasicAssertionGroup::class.simpleName!! to { t, a -> AssertionGroupBuilder.withType(t).create(AssertionVerb.VERB, 1, a) },
+            listOf<Pair<String, (ExplanatoryAssertionGroupType, List<Assertion>) -> AssertionGroup>>(
+                ExplanatoryAssertionGroup::class.simpleName!! to { t, a -> AssertionGroup.Builder.explanatory.withType(t).create(a) },
+                BasicAssertionGroup::class.simpleName!! to { t, a -> AssertionGroup.Builder.withType(t).create(AssertionVerb.VERB, 1, a) },
                 FixHoldsAssertionGroup::class.simpleName!! to { t, a -> FixHoldsAssertionGroup(t, AssertionVerb.VERB, 1, a, false) }
             ).forEach { (groupName, factory) ->
                 listOf(
                     Triple(
-                        "$groupName with type object: ${IExplanatoryAssertionGroupType::class.simpleName}",
+                        "$groupName with type object: ${ExplanatoryAssertionGroupType::class.simpleName}",
                         factory(anonymousType, listOf(assertion)) to factory(anonymousType, listOf(failingAssertion)),
                         arrow
                     ),
@@ -101,7 +101,7 @@ abstract class AssertionFormatterControllerSpec(
         }
 
         context("assertionFilter which returns `false` except for the RootAssertionGroup") {
-            val onlyRootAssertionGroup: (IAssertion) -> Boolean = { it is IAssertionGroup && it.type is RootAssertionGroupType }
+            val onlyRootAssertionGroup: (Assertion) -> Boolean = { it is AssertionGroup && it.type is RootAssertionGroupType }
             var sb = StringBuilder()
             var methodObject = AssertionFormatterMethodObject.new(sb, onlyRootAssertionGroup)
             afterEachTest {
@@ -109,9 +109,9 @@ abstract class AssertionFormatterControllerSpec(
                 methodObject = AssertionFormatterMethodObject.new(sb, onlyRootAssertionGroup)
             }
 
-            context("first an ${IExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
-                val rootGroup = AssertionGroupBuilder.root.create(AssertionVerb.ASSERT, 5, listOf(
-                    AssertionGroupBuilder.explanatory.withDefault.create(listOf(assertion)),
+            context("first an ${ExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
+                val rootGroup = AssertionGroup.Builder.root.create(AssertionVerb.ASSERT, 5, listOf(
+                    AssertionGroup.Builder.explanatory.withDefault.create(listOf(assertion)),
                     assertion
                 ))
 
@@ -122,10 +122,10 @@ abstract class AssertionFormatterControllerSpec(
                 }
             }
 
-            context("first a regular assertion, then an ${IExplanatoryAssertionGroupType::class.simpleName} and finally a regular assertion again") {
-                val rootGroup = AssertionGroupBuilder.root.create(AssertionVerb.ASSERT, 5, listOf(
+            context("first a regular assertion, then an ${ExplanatoryAssertionGroupType::class.simpleName} and finally a regular assertion again") {
+                val rootGroup = AssertionGroup.Builder.root.create(AssertionVerb.ASSERT, 5, listOf(
                     assertion,
-                    AssertionGroupBuilder.explanatory.withWarning.create(assertion),
+                    AssertionGroup.Builder.explanatory.withWarning.create(assertion),
                     assertion
                 ))
 
@@ -136,10 +136,10 @@ abstract class AssertionFormatterControllerSpec(
                 }
             }
 
-            context("an assertion group with assertions within an ${IExplanatoryAssertionGroupType::class.simpleName}") {
-                val assertionGroup = AssertionGroupBuilder.list.create(AssertionVerb.EXPECT_THROWN, 2, listOf(assertion, failingAssertion))
-                val explanatoryAssertionGroup = AssertionGroupBuilder.explanatory.withDefault.create(listOf(assertionGroup, assertion))
-                val rootGroup = AssertionGroupBuilder.root.create(AssertionVerb.ASSERT, 5, listOf(explanatoryAssertionGroup))
+            context("an assertion group with assertions within an ${ExplanatoryAssertionGroupType::class.simpleName}") {
+                val assertionGroup = AssertionGroup.Builder.list.create(AssertionVerb.EXPECT_THROWN, 2, listOf(assertion, failingAssertion))
+                val explanatoryAssertionGroup = AssertionGroup.Builder.explanatory.withDefault.create(listOf(assertionGroup, assertion))
+                val rootGroup = AssertionGroup.Builder.root.create(AssertionVerb.ASSERT, 5, listOf(explanatoryAssertionGroup))
 
                 it("appends the explanatory assertion group including all its assertions") {
                     testee.format(rootGroup, methodObject)
@@ -150,9 +150,9 @@ abstract class AssertionFormatterControllerSpec(
                         "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
                 }
 
-                context("within another ${IExplanatoryAssertionGroupType::class.simpleName} which is preceded and followed by a regular assertion ") {
-                    val explanatoryAssertionGroup2 = AssertionGroupBuilder.explanatory.withWarning.create(listOf(explanatoryAssertionGroup))
-                    val rootGroup2 = AssertionGroupBuilder.root.create(IS_LESS_THAN, 10, listOf(failingAssertion, explanatoryAssertionGroup2, assertion))
+                context("within another ${ExplanatoryAssertionGroupType::class.simpleName} which is preceded and followed by a regular assertion ") {
+                    val explanatoryAssertionGroup2 = AssertionGroup.Builder.explanatory.withWarning.create(listOf(explanatoryAssertionGroup))
+                    val rootGroup2 = AssertionGroup.Builder.root.create(IS_LESS_THAN, 10, listOf(failingAssertion, explanatoryAssertionGroup2, assertion))
 
                     it("appends the explanatory assertion group including all its assertions") {
                         testee.format(rootGroup2, methodObject)
