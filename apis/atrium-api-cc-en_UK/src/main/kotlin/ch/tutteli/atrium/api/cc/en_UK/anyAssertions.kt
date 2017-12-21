@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Assert<T>.toBe(expected: T): AssertionPlant<T>
+fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(_toBe(this, expected))
 
 /**
@@ -28,7 +28,7 @@ fun <T : Any> Assert<T>.toBe(expected: T): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Assert<T>.notToBe(expected: T): AssertionPlant<T>
+fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(_notToBe(this, expected))
 
 /**
@@ -40,7 +40,7 @@ fun <T : Any> Assert<T>.notToBe(expected: T): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Assert<T>.isSame(expected: T): AssertionPlant<T>
+fun <T : Any> Assert<T>.isSame(expected: T)
     = addAssertion(_isSame(this, expected))
 
 /**
@@ -52,7 +52,7 @@ fun <T : Any> Assert<T>.isSame(expected: T): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : Any> Assert<T>.isNotSame(expected: T): AssertionPlant<T>
+fun <T : Any> Assert<T>.isNotSame(expected: T)
     = addAssertion(_isNotSame(this, expected))
 
 /**

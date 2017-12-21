@@ -12,7 +12,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int): AssertionPlant<T>
+infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
     = addAssertion(_hasSize(this, size))
 
 /**
@@ -21,7 +21,7 @@ infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): AssertionPlant<T>
+infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(_isEmpty(this))
 
 /**
@@ -30,5 +30,5 @@ infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Collection<*>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty): AssertionPlant<T>
+infix fun <T : Collection<*>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(_isNotEmpty(this))

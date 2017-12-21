@@ -179,5 +179,5 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): Asserti
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> Assert<T>.containsNot(objects: Objects<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsNot(objects: Objects<E>)
     = addAssertion(_containsNot(this, objects.expected, objects.otherExpected))
