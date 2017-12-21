@@ -31,4 +31,6 @@ interface IAssertionGroup : IAssertion {
      * @return `true` if all [assertions] hold; `false` otherwise.
      */
     override fun holds() = assertions.all(IAssertion::holds)
+
+
 }

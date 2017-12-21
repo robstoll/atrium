@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.assertions.any.narrow.failurehandler
 
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.AssertionGroupBuilder
+import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.IAssertion
 import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -35,9 +38,9 @@ class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : AnyNarrow.DownCastF
         assertionCreator: AssertionPlant<TSub>.() -> Unit
     ) {
         val explanatoryAssertions = collectAssertions(subType, assertionCreator)
-        subjectPlant.addAssertion(InvisibleAssertionGroup(listOf(
+        subjectPlant.addAssertion(AssertionGroupBuilder.invisible.create(listOf(
             failingAssertion,
-            ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, explanatoryAssertions)
+            AssertionGroupBuilder.explanatory.withDefault.create(explanatoryAssertions)
         )))
     }
 

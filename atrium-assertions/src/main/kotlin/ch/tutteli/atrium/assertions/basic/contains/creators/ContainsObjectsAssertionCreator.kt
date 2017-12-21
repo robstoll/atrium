@@ -30,13 +30,13 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBe
 ) : ContainsAssertionCreator<T, S, C>(checkers) {
 
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup
-        = InvisibleAssertionGroup(assertions)
+        = AssertionGroupBuilder.invisible.create(assertions)
 
     override final fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: S, featureFactory: (Int, Translatable) -> IAssertionGroup): IAssertionGroup {
         val count = search(plant, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
         val description = searchBehaviour.decorateDescription(descriptionContains)
-        return AssertionGroup(ListAssertionGroupType, description, searchCriterion ?: RawString.NULL, listOf(featureAssertion))
+        return AssertionGroupBuilder.list.create(description, searchCriterion ?: RawString.NULL, featureAssertion)
     }
 
     /**

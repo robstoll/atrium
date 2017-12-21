@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.assertions.DefaultExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.IBulletPointIdentifier
 import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -25,7 +25,7 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IExplanatoryAssertionGroupType>(
         AssertionVerbFactory, factoryWithoutBulletPoint(),
         IExplanatoryAssertionGroupType::class.java,
-        ExplanatoryAssertionGroupType,
+        DefaultExplanatoryAssertionGroupType,
         object : IExplanatoryAssertionGroupType {},
         "[Atrium's EmptyNameAndSubject...Spec] ")
 
@@ -33,7 +33,7 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
         AssertionVerbFactory, factoryWithObjectFormatter(),
         IExplanatoryAssertionGroupType::class.java,
         object : IExplanatoryAssertionGroupType {},
-        ExplanatoryAssertionGroupType,
+        DefaultExplanatoryAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
     )
 

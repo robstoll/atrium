@@ -22,7 +22,7 @@ fun <E, T : Iterable<E>> _containsNot(plant: AssertionPlant<T>, expected: E, oth
             BasicAssertion(DescriptionIterableAssertion.CONTAINS_NOT, it ?: RawString.NULL, { !plant.subject.contains(it) })
         })
     }
-    return InvisibleAssertionGroup(assertions)
+    return AssertionGroupBuilder.invisible.create(assertions)
 }
 
 fun <E, T : Iterable<E>> _containsObjectsInAnyOrder(

@@ -11,7 +11,7 @@ interface IExplanatoryAssertionGroupType : IDoNotFilterAssertionGroupType
  * The [IAssertionGroupType] for [IAssertionGroup]s whose [assertions][IAssertionGroup.assertions] are used to explain
  * something rather than pointing something out -- accordingly the [IAssertionGroup.holds] should always return `true`.
  */
-object ExplanatoryAssertionGroupType : IExplanatoryAssertionGroupType
+object DefaultExplanatoryAssertionGroupType : IExplanatoryAssertionGroupType
 
 /**
  * The [IAssertionGroupType] for [IAssertionGroup]s whose [assertions][IAssertionGroup.assertions] are used to state

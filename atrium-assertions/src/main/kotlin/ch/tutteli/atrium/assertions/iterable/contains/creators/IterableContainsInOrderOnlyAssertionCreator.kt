@@ -40,7 +40,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
 
 
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            AssertionGroup(SummaryAssertionGroupType, description, RawString.EMPTY, assertions.toList())
+            AssertionGroupBuilder.summary.create(description, RawString.EMPTY, assertions.toList())
         }
     }
 
@@ -56,9 +56,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
             Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
         }
         val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, index)
-        AssertionGroup(FeatureAssertionGroupType, description, entryRepresentation, listOf(
-            createEntryFeatureAssertion(found)
-        ))
+        AssertionGroupBuilder.feature.create(description, entryRepresentation, createEntryFeatureAssertion(found))
     }
 
     abstract fun matches(actual: E, searchCriterion: S): Boolean
@@ -77,11 +75,11 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
                     val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, expectedSize + index)
                     BasicAssertion(description, it ?: RawString.NULL, true)
                 }
-                ExplanatoryAssertionGroup(WarningAssertionGroupType, listOf(
-                    AssertionGroup(ListAssertionGroupType, DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
-                ))
+                AssertionGroupBuilder.explanatory.withWarning.create(
+                    AssertionGroupBuilder.list.create(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
+                )
             })
         }
-        return AssertionGroup(FeatureAssertionGroupType, Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
+        return AssertionGroupBuilder.feature.create(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
     }
 }

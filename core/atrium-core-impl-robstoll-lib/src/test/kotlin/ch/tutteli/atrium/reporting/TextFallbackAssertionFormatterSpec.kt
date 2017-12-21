@@ -43,7 +43,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
     describe("fun ${TextFallbackAssertionFormatter::format.name}") {
         context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name}") {
-                facade.format(AssertionGroup(RootAssertionGroupType, ASSERT, "subject", listOf(
+                facade.format(AssertionGroupBuilder.root.create(ASSERT, "subject",listOf(
                     BasicAssertion(TO_BE, "bli", false),
                     BasicAssertion(NOT_TO_BE, "bye", false)
                 )), sb, alwaysTrueAssertionFilter)
