@@ -32,7 +32,7 @@ object AssertionCollector {
          * Collects the [Assertion] created by [assertionCreator] and uses the given [subject] as
          * [CollectingAssertionPlant.subject] if not null.
          *
-         * In case [subject] is null then an [PlantHasNoSubjectException] is thrown in case the
+         * In case [subject] is null then a [PlantHasNoSubjectException] is thrown in case the
          * subject is accessed (which does not need to be the case all the time). In such a case a single
          * [ExplanatoryAssertionGroup] is returned containing a warning.
          *

@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 /**
- * Represents the search behaviour that an [CharSequenceContains.ISearcher] should ignore case
+ * Represents the search behaviour that a [CharSequenceContains.Searcher] should ignore case
  * when searching for an expected object.
  */
 object CharSequenceContainsIgnoringCaseSearchBehaviour : CharSequenceContains.SearchBehaviour {

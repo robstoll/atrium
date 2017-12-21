@@ -25,12 +25,12 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
      * @return This plant to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
-     *         evaluated (see [IReportingAssertionPlant]).
+     *         evaluated (see [ReportingAssertionPlant]).
      */
     fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T>
 
     /**
-     * Creates an [DescriptiveAssertion] based on the given [description], [expected] and [test] and [adds][addAssertion] it
+     * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test] and [adds][addAssertion] it
      * to the plant.
      *
      * @param description The description of the assertion, e.g., `is less than`.
@@ -40,7 +40,7 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
      * @return This plant to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
-     *         evaluated (see [IReportingAssertionPlant]).
+     *         evaluated (see [ReportingAssertionPlant]).
      */
     fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): AssertionPlant<T>
         = addAssertion(BasicDescriptiveAssertion(description, expected, test))

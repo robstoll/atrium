@@ -5,7 +5,7 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Represents an [ThrowableThrown.AbsentThrowableMessageProvider] which is using a given [Translatable] which in $
+ * Represents a [ThrowableThrown.AbsentThrowableMessageProvider] which is using a given [Translatable] which in $
  * turn explains an absent [Throwable].
  */
 class TranslatableAsAbsentThrowableMessageProvider(translatable: Translatable) : ThrowableThrown.AbsentThrowableMessageProvider {

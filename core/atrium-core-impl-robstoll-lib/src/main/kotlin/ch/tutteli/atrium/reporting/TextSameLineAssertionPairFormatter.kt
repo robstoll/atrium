@@ -14,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.Translator
  * @property translator Used to translate [Translatable]s such as [DescriptiveAssertion.description].
  *
  * @constructor Represents an [AssertionPairFormatter] formatter of assertion pairs -- which consists of a
- *              [ITranslatable] and a representation -- where it puts them on the same line in the form:
+ *              [Translatable] and a representation -- where it puts them on the same line in the form:
  *              `translation: representation`.
  * @param objectFormatter Used to format objects such as [DescriptiveAssertion.expected].
  * @param translator Used to translate [Translatable]s such as [DescriptiveAssertion.description].

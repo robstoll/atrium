@@ -13,7 +13,7 @@ import ch.tutteli.atrium.assertions.AssertionGroupType
  * @property clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  *
  * @constructor A base type for [AssertionFormatter] which [canFormat][AssertionFormatter.canFormat] only
- *              [IAssertionGroup]s of one specific [IAssertionGroupType].
+ *              [AssertionGroup]s of one specific [AssertionGroupType].
  * @param clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  */
 abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
@@ -46,8 +46,8 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
      *        to which the result will be appended.
      * @param formatAssertions The function which should be called to format the
-     *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].
-     *        It itself expects a function which formats single [IAssertion]s in the context of the given
+     *        [assertions][AssertionGroup.assertions] of the given [assertionGroup].
+     *        It itself expects a function which formats single [Assertion]s in the context of the given
      *        [assertionGroup].
      *
      * @see [AssertionFormatter.formatGroup].
@@ -82,8 +82,8 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * the [AssertionFormatterController] can steer the process.
      *
      * @param formatAssertions The function which should be called to format the
-     *        [assertions][IAssertionGroup.assertions] of the given [assertionGroup].
-     *        It itself expects a function which formats single [IAssertion]s in the context of the given
+     *        [assertions][AssertionGroup.assertions] of the given [assertionGroup].
+     *        It itself expects a function which formats single [Assertion]s in the context of the given
      *        [assertionGroup].
      * @param childMethodObject The method object which shall be used to format [AssertionGroup.assertions] -- contains
      * inter alia the [sb][AssertionFormatterMethodObject.sb] to which the result will be appended.

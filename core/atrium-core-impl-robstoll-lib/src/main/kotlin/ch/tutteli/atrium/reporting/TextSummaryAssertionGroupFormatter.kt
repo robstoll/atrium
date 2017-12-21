@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.assertions.*
 
 /**
- * Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [SummaryAssertionGroupType] by
+ * Represents an [AssertionFormatter] which formats [AssertionGroup]s with a [SummaryAssertionGroupType] by
  * using the given [assertionPairFormatter] to format the group header and uses the bullet point defined
  * for [PrefixSuccessfulSummaryAssertion] as prefix for successful [AssertionGroup.assertions] and the bullet point
  * defined for [PrefixFeatureAssertionGroupHeader] as prefix for failing [AssertionGroup.assertions].
@@ -20,7 +20,7 @@ import ch.tutteli.atrium.assertions.*
  * for [PrefixFailingSummaryAssertion] (`"✘ "` if absent) for failing assertions.
  *
  * @param assertionFormatterController The controller to which this formatter gives back the control
- *        when it comes to format children of an [IAssertionGroup].
+ *        when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter used to format assertion pairs.
  */
 class TextSummaryAssertionGroupFormatter(

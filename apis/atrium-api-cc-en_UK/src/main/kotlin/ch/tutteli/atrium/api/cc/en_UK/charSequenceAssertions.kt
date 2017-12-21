@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Creates an [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Searcher
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
@@ -68,7 +68,7 @@ fun <T : CharSequence> _containsValuesIgnoringCase(
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeAndCreateAssertionGroup(
     checker: CharSequenceContainsCheckerBuilder<T, S>,
-    searcher: ISearcher<S>,
+    searcher: Searcher<S>,
     expected: Any,
     otherExpected: Array<out Any>
 ): AssertionGroup {
@@ -115,7 +115,7 @@ fun <T : CharSequence> _containsRegexIgnoringCase(
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
     checker: CharSequenceContainsCheckerBuilder<T, S>,
-    searcher: ISearcher<S>,
+    searcher: Searcher<S>,
     expected: Any,
     otherExpected: Array<out Any>
 ): AssertionGroup {

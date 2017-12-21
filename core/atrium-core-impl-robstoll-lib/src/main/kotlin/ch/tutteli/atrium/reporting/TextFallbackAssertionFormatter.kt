@@ -20,17 +20,17 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @property assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *           the reporting process.
  * @property assertionPairFormatter The formatter used to format assertion pairs (e.g. [DescriptiveAssertion.description]
- *           and [IBasicAssertion.expected])
+ *           and [DescriptiveAssertion.expected])
  *
  * @constructor Formats an [Assertion] for text output (e.g. for the console) where it uses a given
- *              [assertionPairFormatter] which defines how an assertion pair (e.g. [IBasicAssertion.description]
- *              and [IBasicAssertion.expected]) is formatted.
+ *              [assertionPairFormatter] which defines how an assertion pair (e.g. [DescriptiveAssertion.description]
+ *              and [DescriptiveAssertion.expected]) is formatted.
  * @param bulletPoints The formatter uses the bullet point defined for [RootAssertionGroupType]
  *        (`"◆ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *        the reporting process.
  * @param assertionPairFormatter The formatter used to format assertion pairs (e.g. [DescriptiveAssertion.description]
- *        and [IBasicAssertion.expected])
+ *        and [DescriptiveAssertion.expected])
  */
 class TextFallbackAssertionFormatter(
     bulletPoints: Map<Class<out BulletPointIdentifier>, String>,

@@ -5,18 +5,18 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.ListAssertionGroupType
 
 /**
- * Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [ListAssertionGroupType] by
+ * Represents an [AssertionFormatter] which formats [AssertionGroup]s with a [ListAssertionGroupType] by
  * using the given [assertionPairFormatter] to format the group header and uses the bullet point defined for
  * [ListAssertionGroupType] as prefix for the [AssertionGroup.assertions].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [ListAssertionGroupType]
+ * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with a [ListAssertionGroupType]
  *              by putting each assertion on an own line prefixed with a bullet point.
  * @param bulletPoints The formatter uses the bullet point defined for [ListAssertionGroupType]
  *        (`" ⚬ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The controller to which this formatter gives back the control
- *        when it comes to format children of an [IAssertionGroup].
+ *        when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter used to format assertion pairs.
  */
 class TextListAssertionGroupFormatter(

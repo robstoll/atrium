@@ -37,7 +37,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinli
 
 /**
  * Creates an [AssertionPlantNullable] for the [message][Throwable.message] of the plant's
- * [subject][AssertionPlant.subject] (which is an [Throwable]) and makes the assertion that message [isNotNull]
+ * [subject][AssertionPlant.subject] (which is a [Throwable]) and makes the assertion that message [isNotNull]
  * and uses [assertionCreator] which might create further [Assertion]s which are lazily evaluated at the end.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
@@ -45,7 +45,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinli
  * Define subsequent assertions via the [assertionCreator] lambda.
  *
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
- *         or if an additionally created [IAssertion]s (by calling [assertionCreator]) does not hold.
+ *         or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
 fun <T : Throwable> Assert<T>.message(assertionCreator: AssertionPlant<String>.() -> Unit) {
     property(subject::message).isNotNull(assertionCreator)

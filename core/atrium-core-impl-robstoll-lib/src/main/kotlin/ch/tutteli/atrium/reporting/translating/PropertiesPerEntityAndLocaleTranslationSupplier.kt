@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting.translating
 import java.util.*
 
 /**
- * Represents an [TranslationSupplier] which is based on properties-files which are structured per
+ * Represents a [TranslationSupplier] which is based on properties-files which are structured per
  * entity (enum, object or class) and [Locale].
  *
  * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are

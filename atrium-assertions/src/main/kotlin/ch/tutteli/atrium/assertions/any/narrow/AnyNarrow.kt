@@ -31,9 +31,9 @@ interface AnyNarrow {
          *        down-casted.
          * @param subjectPlant The plant to which additional assertions would have been added.
          * @param failingAssertion The [Assertion] representing the failed assertion that [subjectPlant]'s
-         *        [subject][IAssertionPlant.subject] can be down-casted to [TSub].
+         *        [subject][AssertionPlant.subject] can be down-casted to [TSub].
          * @param assertionCreator The lambda which could have created subsequent assertions for the down-casted
-         *        [IAssertionPlant.subject].
+         *        [AssertionPlant.subject].
          *
          * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
          */

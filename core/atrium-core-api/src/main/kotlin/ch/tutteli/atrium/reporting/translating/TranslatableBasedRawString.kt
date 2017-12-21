@@ -4,7 +4,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 
 /**
- * Use this class to represent an [Translatable] which shall be translated and
+ * Use this class to represent a [Translatable] which shall be translated and
  * then be treated as raw [String] in reporting.
  *
  * @see ObjectFormatter

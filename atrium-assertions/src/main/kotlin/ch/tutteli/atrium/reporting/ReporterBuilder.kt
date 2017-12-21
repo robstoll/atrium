@@ -1,13 +1,12 @@
 package ch.tutteli.atrium.reporting
 
-
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 
 /**
- * A builder to create an [Reporter] consisting of several components.
+ * A builder to create a [Reporter] consisting of several components.
  */
 class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFacade) {
 
@@ -24,7 +23,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
         = factory(assertionFormatterFacade)
 
     /**
-     * Provides options to create an [Translator] or [TranslationSupplier].
+     * Provides options to create a [Translator] or [TranslationSupplier].
      */
     companion object {
 
@@ -32,7 +31,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * Uses [UsingDefaultTranslator] as [Translator] where the given [primaryLocale] is used to format arguments
          * of [TranslatableWithArgs].
          *
-         * [UsingDefaultTranslator] does not require an [TranslationSupplier] nor an [LocaleOrderDecider] and thus
+         * [UsingDefaultTranslator] does not require a [TranslationSupplier] nor a [LocaleOrderDecider] and thus
          * the options to specify implementations of them are skipped.
          *
          * Notice that [UsingDefaultTranslator] does not translate but uses what [Translatable.getDefault] returns.
@@ -47,7 +46,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * Uses the given [translator] as [Translator] skipping the options for [TranslationSupplier] and
          * [LocaleOrderDecider] assuming the given [translator] is implemented differently -- use
          * [withDefaultTranslationSupplier] or [withTranslationSupplier] in case the given [translator] requires
-         * an [TranslationSupplier] or an [LocaleOrderDecider].
+         * a [TranslationSupplier] or a [LocaleOrderDecider].
          */
         fun withTranslator(translator: Translator)
             = ObjectFormatterOptions(translator)
@@ -102,7 +101,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * [primaryLocale] is used as primary [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
          *
          * @param primaryLocale The [Locale] for which the [Translator] will first search translations --
-         *        it will also be used to format arguments of [ITranslatableWithArgs].
+         *        it will also be used to format arguments of [TranslatableWithArgs].
          * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
          *        in case no translation was found the previous primary Locale.
          */

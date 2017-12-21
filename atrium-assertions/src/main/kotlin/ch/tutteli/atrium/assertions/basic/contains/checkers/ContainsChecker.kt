@@ -37,7 +37,7 @@ abstract class ContainsChecker(
     }
 
     /**
-     * Creates an [DescriptiveAssertion] based on the given [description], the property [times] as [StringBasedRawString]
+     * Creates a [DescriptiveAssertion] based on the given [description], the property [times] as [StringBasedRawString]
      * and the given [check].
      *
      * @param description The description used for [DescriptiveAssertion.description]

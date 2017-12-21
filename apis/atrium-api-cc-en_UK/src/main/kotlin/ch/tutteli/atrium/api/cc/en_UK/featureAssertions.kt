@@ -11,7 +11,7 @@ import kotlin.reflect.*
  * Creates an [AssertionPlant] for the given [property] which eventually adds [AssertionGroup]s with a
  * [FeatureAssertionGroupType], containing the assertions created for the given [property], to the current plant.
  *
- * @return An [AssertionPlant] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the given [property]; using an [AtriumFactory.newFeatureAssertionChecker].
  */
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlant<TProperty>
     = _property(this, property)
@@ -21,7 +21,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty
  * [FeatureAssertionGroupType], containing the assertions created for the given [property], to the current plant --
  * starting with a group consisting of the [Assertion]s created by the [assertionCreator] lambda.
  *
- * @return An [AssertionPlant] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the given [property]; using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *         (by calling [assertionCreator]) does not hold.
@@ -34,7 +34,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty
  * Creates an [AssertionPlantNullable] for the given [property] which eventually adds [AssertionGroup]s with a
  * [FeatureAssertionGroupType], containing the assertions created for the given [property], to the current plant.
  *
- * @return An [AssertionPlantNullable] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlantNullable] for the given [property]; using an [AtriumFactory.newFeatureAssertionChecker].
  */
 fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
     = _property(this, property)
