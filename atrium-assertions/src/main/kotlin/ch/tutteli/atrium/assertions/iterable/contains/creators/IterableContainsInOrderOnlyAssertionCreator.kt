@@ -16,12 +16,12 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param S The type of the search criterion.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
- *           decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ *           decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  *
  * @constructor Represents the base class for `in any order only` assertion creators and provides a corresponding
  *              template to fulfill its responsibility.
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
- *        decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
 abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S>(
     private val searchBehaviour: IterableContainsInOrderOnlySearchBehaviour

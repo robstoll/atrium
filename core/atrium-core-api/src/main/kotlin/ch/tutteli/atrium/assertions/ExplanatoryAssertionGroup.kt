@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
- * Represents an [AssertionGroup] with an [DefaultExplanatoryAssertionGroupType], which means an [Reporter] should not
+ * Represents an [AssertionGroup] with an [ExplanatoryAssertionGroupType], which means a [Reporter] should not
  * show whether the [assertions] hold or not -- moreover [holds] always returns `true`.
  *
  * @constructor Use [AssertionGroup.Builder.explanatory] to create an [ExplanatoryAssertionGroup].

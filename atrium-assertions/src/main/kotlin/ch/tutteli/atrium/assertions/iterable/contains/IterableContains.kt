@@ -13,7 +13,7 @@ interface IterableContains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
-     * provides a method to decorate a description (an [Translatable]) in order that it reflects the search behaviour.
+     * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
      */
     interface SearchBehaviour : Contains.SearchBehaviour
 

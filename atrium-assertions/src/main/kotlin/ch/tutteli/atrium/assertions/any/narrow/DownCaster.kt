@@ -32,7 +32,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyNarrow.DownCa
      * [subject][BaseAssertionPlant.subject] of [subjectPlant] if successful or passes it to the [failureHandler]
      * otherwise.
      *
-     * It also adds an [DescriptiveAssertion], representing the down-cast as such (succeeding or failing), to the given
+     * It also adds a [DescriptiveAssertion], representing the down-cast as such (succeeding or failing), to the given
      * [subjectPlant] using the given [description].
      *
      * @param description The [description][DescriptiveAssertion.description] of the resulting [DescriptiveAssertion].

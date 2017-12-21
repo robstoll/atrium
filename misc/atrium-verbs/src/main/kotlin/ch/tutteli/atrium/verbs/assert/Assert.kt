@@ -44,7 +44,7 @@ fun <T : Any?> assert(subject: T)
     = AtriumFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
- * Creates an [ThrowableThrownBuilder] for the given function [act] which is expected to throw a [Throwable].
+ * Creates a [ThrowableThrownBuilder] for the given function [act] which is expected to throw a [Throwable].
  *
  * @return The newly created [ThrowableThrownBuilder].
  */

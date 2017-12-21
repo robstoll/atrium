@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.RawString
  *              expected entries have to appear in the specified order and where an entry is identified by an
  *              expected object (equality comparison).
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
- *        decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
 class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
     searchBehaviour: IterableContainsInOrderOnlySearchBehaviour

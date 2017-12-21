@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting.translating
 
 /**
- * Represents an [Translatable] which is not translatable but has only a fixed [name] which serves as [getDefault].
+ * Represents a [Translatable] which is not translatable but has only a fixed [name] which serves as [getDefault].
  *
  * Use this class to represent identifiers (method/property names etc.) and the like.
  *

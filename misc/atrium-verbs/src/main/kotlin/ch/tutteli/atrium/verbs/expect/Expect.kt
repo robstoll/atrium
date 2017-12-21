@@ -44,7 +44,7 @@ fun <T : Any?> expect(subject: T)
     = AtriumFactory.newReportingPlantNullable(EXPECT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
- * Creates an [ThrowableThrownBuilder] for the given function [act] which is expected to throw a [Throwable].
+ * Creates a [ThrowableThrownBuilder] for the given function [act] which is expected to throw a [Throwable].
  *
  * @return The newly created [ThrowableThrownBuilder].
  */

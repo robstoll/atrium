@@ -27,7 +27,7 @@ class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : AnyNarrow.DownCastF
      *        down-casted.
      * @param subjectPlant The plant to which additional assertions would have been added.
      * @param assertionCreator The lambda which could have created subsequent assertions for the down-casted
-     *        [IAssertionPlant.subject].
+     *        [AssertionPlant.subject].
      *
      * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
      */

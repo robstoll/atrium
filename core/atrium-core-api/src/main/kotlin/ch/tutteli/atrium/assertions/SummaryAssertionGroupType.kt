@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.Reporter
 
 /**
  * Represents the [AssertionGroupType] for [AssertionGroup]s whose [assertions][AssertionGroup.assertions] should
- * all be reported in reporting (no filtering by an [Reporter]) since it represents a summary which itself
+ * all be reported in reporting (no filtering by a [Reporter]) since it represents a summary which itself
  * will point out which assertions hold and which do not.
  *
  * This [AssertionGroupType] should only be used for cases where we need to present a result as a whole and where
@@ -35,6 +35,6 @@ class PrefixFailingSummaryAssertion private constructor() : BulletPointIdentifie
 
 /**
  * The [AssertionGroupType] for [AssertionGroup]s whose [assertions][AssertionGroup.assertions] should not be
- * filtered (by an [Reporter]) and for which an [AssertionFormatter] should state whether they hold or not.
+ * filtered (by a [Reporter]) and for which an [AssertionFormatter] should state whether they hold or not.
  */
 object DefaultSummaryAssertionGroupType : SummaryAssertionGroupType

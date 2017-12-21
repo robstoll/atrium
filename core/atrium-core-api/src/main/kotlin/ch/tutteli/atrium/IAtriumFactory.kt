@@ -31,14 +31,14 @@ import java.util.*
 interface IAtriumFactory {
 
     /**
-     * Creates an [ReportingAssertionPlant] which checks and reports added [Assertion]s.
+     * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
@@ -47,16 +47,16 @@ interface IAtriumFactory {
         = newReportingPlant(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
-     * Creates an [ReportingAssertionPlant] which checks and reports added [Assertion]s.
+     * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param assertionChecker The checker which will be used to check [Assertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionChecker]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
      *
      * @return The newly created assertion plant.
      */
@@ -64,7 +64,7 @@ interface IAtriumFactory {
         = newReportingPlant(AssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
 
     /**
-     * Creates an [ReportingAssertionPlant] which checks and reports added [Assertion]s.
+     * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
      * It uses the [AssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
      * assertion checking.
@@ -77,23 +77,23 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [ReportingAssertionPlant] which [AssertionPlant.addAssertionsCreatedBy] the
+     * Creates a [ReportingAssertionPlant] which [AssertionPlant.addAssertionsCreatedBy] the
      * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
      * the configured [Reporter]) reported as a whole.
      *
      * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      * @param assertionCreator The
      *
      * @return The newly created [AssertionPlant] which can be used to postulate further assertions.
      *
      * @throws AssertionError The newly created [AssertionPlant] might throw an [AssertionError] in case a
-     *         created [IAssertion] does not hold.
+     *         created [Assertion] does not hold.
      */
     fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: Translatable, subject: T, reporter: Reporter, assertionCreator: AssertionPlant<T>.() -> Unit)
         = newReportingPlant(assertionVerb, subject, reporter)
@@ -101,14 +101,14 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
+     * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
@@ -117,16 +117,16 @@ interface IAtriumFactory {
         = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
 
     /**
-     * Creates an [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
+     * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It uses the given [assertionChecker] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.subject]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param assertionChecker The checker which will be used to check [Assertion]s.
-     *        (see [IAssertionPlantWithCommonFields.CommonFields.assertionChecker]).
+     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
      *
      * @return The newly created assertion plant.
      */
@@ -134,7 +134,7 @@ interface IAtriumFactory {
         = newReportingPlantNullable(AssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, nullRepresentation))
 
     /**
-     * Creates an [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
+     * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
      * It uses the [AssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
      * assertion checking.
@@ -146,7 +146,7 @@ interface IAtriumFactory {
     fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
 
     /**
-     * Creates an [CheckingAssertionPlant] which provides a method to check whether
+     * Creates a [CheckingAssertionPlant] which provides a method to check whether
      * [allAssertionsHold][CheckingAssertionPlant.allAssertionsHold].
      *
      * @param subject The subject for which this plant will create [Assertion]s.
@@ -156,11 +156,11 @@ interface IAtriumFactory {
     fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
 
     /**
-     * Creates an [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
+     * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
      * created [Assertion]s inside the lambda.
      *
      * Notice, that this [AssertionPlant] might not even provide a [AssertionPlant.subject] in which case it
-     * throws an [PlantHasNoSubjectException] if [subject][AssertionPlant.subject] is accessed.
+     * throws a [PlantHasNoSubjectException] if [subject][AssertionPlant.subject] is accessed.
      * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
      *
      * @param subjectProvider The function which will either provide the subject for this plant or throw an
@@ -186,7 +186,7 @@ interface IAtriumFactory {
      * [subjectPlant] by adding (see [AssertionPlant.addAssertion]) the created assertion group to it.
      *
      * @param subjectPlant The assertion plant to which the created [AssertionGroup] of [type][AssertionGroup.type]
-     *        [IFeatureAssertionGroupType] will be [added][IAssertionPlant.addAssertion].
+     *        [FeatureAssertionGroupType] will be [added][AssertionPlant.addAssertion].
      *
      * @return The newly created assertion checker.
      */
@@ -205,7 +205,7 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [MethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
+     * Creates a [MethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
      * representation with the exception of:
      * - [CharSequence], is wrapped in quotes (`"`) and line breaks (CR or/and LF) are escaped so that the
      *   whole representation remains on one line.
@@ -217,13 +217,13 @@ interface IAtriumFactory {
 
 
     /**
-     * Creates an [Translator] which translates [Translatable]s to [primaryLocale] and falls back
+     * Creates a [Translator] which translates [Translatable]s to [primaryLocale] and falls back
      * to [fallbackLocales] (in the given order) in case no translation exists for [primaryLocale].
      *
      * It uses the given [translationSupplier] to retrieve all available translations.
      * In case no translation exists for a given property (neither for the [primaryLocale] nor for
      * any [fallbackLocales]) then it uses [Translatable]'s [getDefault][Translatable.getDefault].
-     * As consequence an [Translator] does not or rather should not support [Locale.ROOT] -- users are discouraged
+     * As consequence a [Translator] does not or rather should not support [Locale.ROOT] -- users are discouraged
      * to define properties files for Locale.ROOT.
      * An implementation based on [ResourceBundle] would still take Locale.ROOT into account but apply it before the
      * defined [fallbackLocales] have been considered.
@@ -233,7 +233,7 @@ interface IAtriumFactory {
      *
      * @param translationSupplier Provides the translations for a desired [Locale].
      * @param localeOrderDecider Decides in which order [Locale]s are processed to find a translation for a
-     *        given [ITranslatable].
+     *        given [Translatable].
      * @param primaryLocale The [Locale] to which the translator translates per default.
      * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for [primaryLocale]
      *        or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
@@ -246,7 +246,7 @@ interface IAtriumFactory {
     fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
 
     /**
-     * Creates an [TranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
+     * Creates a [TranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
      * the structure of the properties files.
      *
      * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
@@ -261,7 +261,7 @@ interface IAtriumFactory {
     fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
 
     /**
-     * Creates an [LocaleOrderDecider] which decides in which order [Locale]s are processed to find a translation for a
+     * Creates a [LocaleOrderDecider] which decides in which order [Locale]s are processed to find a translation for a
      * given [Translatable].
      *
      * Please refer to the documentation of [LocaleOrderDecider] to see to which extend a translator has to be
@@ -376,7 +376,7 @@ interface IAtriumFactory {
         translator: Translator)
 
     /**
-     * Creates an [Reporter] which reports only failing assertions
+     * Creates a [Reporter] which reports only failing assertions
      * and uses the given [assertionFormatterFacade] to format assertions and messages.
      *
      * @param assertionFormatterFacade The formatter which is used to format [Assertion]s.

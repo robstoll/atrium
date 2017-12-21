@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions
 
 /**
- * Represents an [AssertionGroup] with an [DefaultInvisibleAssertionGroupType], which means the grouping should be
+ * Represents an [AssertionGroup] with a [DefaultInvisibleAssertionGroupType], which means the grouping should be
  * invisible in reporting.
  *
  * @constructor Use [AssertionGroup.Builder.invisible] to create an [InvisibleAssertionGroup].

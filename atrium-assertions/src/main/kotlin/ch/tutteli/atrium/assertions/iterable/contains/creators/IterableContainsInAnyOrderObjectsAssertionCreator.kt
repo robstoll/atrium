@@ -16,7 +16,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries
  *              can appear in any order and are identified by expected objects (equality comparison).
  * @param searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
- *        decorate the description (an [ITranslatable]) which is used for the [IAssertionGroup].
+ *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
 class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(

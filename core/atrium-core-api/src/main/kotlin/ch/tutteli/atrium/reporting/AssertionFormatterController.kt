@@ -23,7 +23,7 @@ interface AssertionFormatterController {
      *
      * @param assertion The assertion which shall be formatted.
      * @param methodObject Used to share data between this [AssertionFormatterController] and the [register]ed
-     *        [IAssertionFormatter]s.
+     *        [AssertionFormatter]s.
      *
      * @throws UnsupportedOperationException if no suitable [AssertionFormatter] is found.
      *

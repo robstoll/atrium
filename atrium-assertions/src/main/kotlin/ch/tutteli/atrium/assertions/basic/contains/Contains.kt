@@ -16,7 +16,7 @@ interface Contains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
-     * provides a method to decorate a description (an [Translatable]) in order that it reflects the search behaviour.
+     * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
      */
     interface SearchBehaviour {
         /**
@@ -54,7 +54,7 @@ interface Contains {
          * Creates an [AssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
          * on the given [searchCriterion] and possibly [otherSearchCriteria] (might be empty).
          *
-         * The search process as such is usually influenced by an [SearchBehaviour] which defines the search behaviour
+         * The search process as such is usually influenced by a [SearchBehaviour] which defines the search behaviour
          * and [Checker]s are used to create [Assertion]s based on a determined search result which are grouped
          * together into an [AssertionGroup].
          * This resulting [AssertionGroup] represents the sophisticated `contains` assertion as a whole.

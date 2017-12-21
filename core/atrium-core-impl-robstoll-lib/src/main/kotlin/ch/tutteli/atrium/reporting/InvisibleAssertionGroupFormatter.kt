@@ -12,11 +12,11 @@ import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
  * [AssertionGroup] as defined in [AssertionFormatter.formatGroup].
  *
  * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an
- *              [IInvisibleAssertionGroupType] by neglecting [IAssertionGroup.name] and [IAssertionGroup.subject] and
+ *              [InvisibleAssertionGroupType] by neglecting [AssertionGroup.name] and [AssertionGroup.subject] and
  *              passes on the given [AssertionFormatterMethodObject] which is used to format
- *              [IAssertionGroup.assertions].
+ *              [AssertionGroup.assertions].
  * @param assertionFormatterController The controller to which this formatter gives back the control
- *        when it comes to format children of an [IAssertionGroup].
+ *        when it comes to format children of an [AssertionGroup].
  */
 class InvisibleAssertionGroupFormatter(
     assertionFormatterController: AssertionFormatterController
