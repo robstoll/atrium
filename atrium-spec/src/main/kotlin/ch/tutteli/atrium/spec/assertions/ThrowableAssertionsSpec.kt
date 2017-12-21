@@ -11,7 +11,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 
 abstract class ThrowableAssertionsSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     toThrowTriple: Triple<String,
         ThrowableThrownBuilder.() -> Unit,
         ThrowableThrownBuilder.(assertionCreator: AssertionPlant<Throwable>.() -> Unit) -> Unit

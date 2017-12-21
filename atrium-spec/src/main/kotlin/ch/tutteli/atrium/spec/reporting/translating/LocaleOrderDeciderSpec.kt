@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.kbox.joinToString
 import org.jetbrains.spek.api.Spek
@@ -14,7 +14,7 @@ import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
 abstract class LocaleOrderDeciderSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: () -> LocaleOrderDecider,
     describePrefix: String = "[Atrium] "
 ) : Spek({

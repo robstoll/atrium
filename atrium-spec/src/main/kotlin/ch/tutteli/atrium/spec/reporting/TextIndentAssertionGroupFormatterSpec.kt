@@ -5,10 +5,10 @@ import ch.tutteli.atrium.assertions.IndentAssertionGroup
 import ch.tutteli.atrium.assertions.IndentAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 
 abstract class TextIndentAssertionGroupFormatterSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : TextIndentBasedAssertionGroupFormatterSpec<IndentAssertionGroupType>(

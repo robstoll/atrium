@@ -14,7 +14,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 
 abstract class FeatureAssertionCheckerSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: (subjectFactory: AssertionPlant<Int>) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({

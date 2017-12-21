@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -15,7 +15,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class CollectionAssertionsSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     hasSizePair: Pair<String, AssertionPlant<List<Int>>.(Int) -> AssertionPlant<List<Int>>>,
     isEmptyPair: Pair<String, AssertionPlant<List<Int>>.() -> AssertionPlant<List<Int>>>,
     isNotEmptyPair: Pair<String, AssertionPlant<List<Int>>.() -> AssertionPlant<List<Int>>>,

@@ -5,11 +5,11 @@ import ch.tutteli.atrium.api.cc.en_UK.isFalse
 import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 
 abstract class CheckingAssertionSpec<T : Any>(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     groupPrefix: String,
     vararg assertionCreator: Triple<String, AssertionPlant<T>.() -> Unit, Pair<T, T>>
 ) : Spek({

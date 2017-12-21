@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 
 internal fun <T : Any> esGilt(subject: T)
     = AtriumFactory.newReportingPlant(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
@@ -51,7 +51,7 @@ internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
  * or an own assertion function API (e.g., atrium-api-cc-de_CH in a different language)
  * and you want to reuse a specification from atrium-spec to test your custom component against it.
  */
-internal object AssertionVerbFactory : IAssertionVerbFactory {
+internal object AssertionVerbFactory : AssertionVerbFactory {
     override fun <T : Any> checkImmediately(subject: T) = esGilt(subject)
     override fun <T : Any> checkLazily(subject: T, assertionCreator: AssertionPlant<T>.() -> Unit)
         = esGilt(subject, assertionCreator)

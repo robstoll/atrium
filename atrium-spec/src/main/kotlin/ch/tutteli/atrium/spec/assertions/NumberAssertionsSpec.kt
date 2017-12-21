@@ -6,13 +6,13 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class NumberAssertionsSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     isLessThanPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
     isLessOrEqualPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
     isGreaterThanPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,

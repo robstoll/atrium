@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.reporting.translating.*
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -15,7 +15,7 @@ import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
 abstract class TranslationSupplierBasedTranslatorSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: Locale, fallbackLocals: Array<out Locale>) -> Translator,
     describePrefix: String = "[Atrium] "
 ) : Spek({

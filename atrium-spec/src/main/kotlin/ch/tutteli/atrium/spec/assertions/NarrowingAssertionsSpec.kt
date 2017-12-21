@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,7 +14,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class NarrowingAssertionsSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     isNotNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: AssertionPlant<Int>.() -> Unit) -> Unit>,
     isNotNullLessFun: AssertionPlantNullable<Int?>.(Int) -> Unit,
     isNotNullGreaterAndLessFun: AssertionPlantNullable<Int?>.(Int, Int) -> Unit,
