@@ -39,7 +39,7 @@ abstract class TextMethodCallFormatterSpec(
                 }
             }
 
-            context("two arguments fo type Int and Float") {
+            context("two arguments of type Int and Float") {
                 it("returns the name of the method, followed by the first and second argument in parentheses and separated by a comma") {
                     val result = testee.format(TextMethodCallFormatterSpec::methodArg2, arrayOf(1, 1.2))()
                     verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodArg2.name}(1, 1.2)")
@@ -50,6 +50,13 @@ abstract class TextMethodCallFormatterSpec(
                 it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in apostrophes") {
                     val result = testee.format(TextMethodCallFormatterSpec::methodWithCharArg, arrayOf('a'))()
                     verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodWithCharArg.name}('a')")
+                }
+            }
+
+            context("`null`") {
+                it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in apostrophes") {
+                    val result = testee.format(TextMethodCallFormatterSpec::methodWithNullableInt, arrayOf<Int?>(null))()
+                    verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodWithNullableInt.name}(null)")
                 }
             }
 
@@ -90,5 +97,6 @@ abstract class TextMethodCallFormatterSpec(
     private fun methodArg2(i: Int, float: Float) {}
     private fun methodWithStringArg(s: String) {}
     private fun methodWithCharArg(s: Char) {}
+    private fun methodWithNullableInt(s: Int?) {}
 }
 
