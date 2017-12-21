@@ -6,14 +6,14 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.include
 
 abstract class BooleanAssertionsSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     isTruePair: Pair<String, AssertionPlant<Boolean>.() -> AssertionPlant<Boolean>>,
     isFalsePair: Pair<String, AssertionPlant<Boolean>.() -> AssertionPlant<Boolean>>,
     describePrefix: String = "[Atrium] "

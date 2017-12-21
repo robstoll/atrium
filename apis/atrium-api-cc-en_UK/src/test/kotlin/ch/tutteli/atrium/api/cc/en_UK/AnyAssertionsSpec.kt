@@ -4,8 +4,8 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec
-import kotlin.reflect.KProperty1
 import kotlin.reflect.KFunction2
+import kotlin.reflect.KProperty1
 
 class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     AssertionVerbFactory,
@@ -19,7 +19,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
-    class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.IAnyAssertionsSpecFunFactory<T> {
+    class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
         override val toBeFun = AssertionPlant<T>::toBe
         override val notToBeFun = AssertionPlant<T>::notToBe
         override val isSameFun = AssertionPlant<T>::isSame

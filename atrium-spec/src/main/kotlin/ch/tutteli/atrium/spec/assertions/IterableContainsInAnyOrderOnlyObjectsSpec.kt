@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -11,7 +11,7 @@ import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     containsPair: Pair<String, AssertionPlant<Iterable<Double>>.(Double, Array<out Double>) -> AssertionPlant<Iterable<Double>>>,
     successfulBulletPoint: String,
     failingBulletPoint: String,

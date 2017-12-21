@@ -7,10 +7,10 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 
 abstract class TextListAssertionGroupFormatterSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : TextListBasedAssertionGroupFormatterSpec<ListAssertionGroupType>(

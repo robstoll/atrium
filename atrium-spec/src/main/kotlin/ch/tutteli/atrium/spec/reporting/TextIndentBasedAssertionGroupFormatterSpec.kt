@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -16,7 +16,7 @@ import org.jetbrains.spek.api.dsl.it
 
 
 abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
     assertionGroupTypeClass: Class<T>,
     anonymousAssertionGroupType: T,

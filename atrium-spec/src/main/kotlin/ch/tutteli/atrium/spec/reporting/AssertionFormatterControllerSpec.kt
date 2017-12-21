@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -16,7 +16,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 abstract class AssertionFormatterControllerSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: () -> AssertionFormatterController,
     describePrefix: String = "[Atrium] "
 ) : Spek({

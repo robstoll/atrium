@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
@@ -29,7 +29,7 @@ data class TestData(val description: String, val nullableValue: Int?) {
 private typealias F = AssertionPlant<TestData>.() -> Unit
 
 abstract class FeatureAssertionsSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
 
     propertyImmediate: F,
     propertyLazy: F,

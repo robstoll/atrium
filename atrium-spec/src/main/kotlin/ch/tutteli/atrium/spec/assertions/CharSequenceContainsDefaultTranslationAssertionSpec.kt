@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -16,7 +16,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     containsDefaultTranslationOf: String,
     containsAtLeastTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Translatable, Array<out Translatable>) -> AssertionPlant<CharSequence>>,
     containsAtMostTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Translatable, Array<out Translatable>) -> AssertionPlant<CharSequence>>,

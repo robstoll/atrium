@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.setUp
@@ -19,9 +19,9 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class AnyAssertionsSpec(
-    verbs: IAssertionVerbFactory,
-    funInt: IAnyAssertionsSpecFunFactory<Int>,
-    funDataClass: IAnyAssertionsSpecFunFactory<DataClass>,
+    verbs: AssertionVerbFactory,
+    funInt: AnyAssertionsSpecFunFactory<Int>,
+    funDataClass: AnyAssertionsSpecFunFactory<DataClass>,
     toBe: String,
     notToBe: String,
     isSame: String,
@@ -220,7 +220,7 @@ abstract class AnyAssertionsSpec(
     }
 
 }) {
-    interface IAnyAssertionsSpecFunFactory<T : Any> {
+    interface AnyAssertionsSpecFunFactory<T : Any> {
         val toBeFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
         val notToBeFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
         val isSameFun: AssertionPlant<T>.(T) -> AssertionPlant<T>

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
@@ -14,7 +14,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 abstract class CollectingAssertionPlantSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: (() -> Int) -> CollectingAssertionPlant<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({

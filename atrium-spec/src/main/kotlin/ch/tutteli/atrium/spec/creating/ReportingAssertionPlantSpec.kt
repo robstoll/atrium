@@ -12,7 +12,7 @@ import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.ReportingAssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.setUp
 import org.jetbrains.spek.api.Spek
@@ -22,7 +22,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
 abstract class ReportingAssertionPlantSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     testeeFactory: (AssertionPlantWithCommonFields.CommonFields<Int>) -> ReportingAssertionPlant<Int>,
     describePrefix: String = "[Atrium] "
 ) : Spek({

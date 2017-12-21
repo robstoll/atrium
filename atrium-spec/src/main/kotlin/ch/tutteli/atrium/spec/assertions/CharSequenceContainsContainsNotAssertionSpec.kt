@@ -4,14 +4,14 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsContainsNotAssertionSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     containsPair: Pair<String, AssertionPlant<CharSequence>.(String, Array<out String>) -> AssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, AssertionPlant<CharSequence>.(String, Array<out String>) -> AssertionPlant<CharSequence>>,
     featureArrow: String,

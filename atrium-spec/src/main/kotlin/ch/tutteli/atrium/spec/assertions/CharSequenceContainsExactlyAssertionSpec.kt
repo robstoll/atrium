@@ -3,14 +3,14 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.EXACTLY
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsExactlyAssertionSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     containsExactlyTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> AssertionPlant<CharSequence>>,
     containsExactlyIgnoringCaseTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Any, Array<out Any>) -> AssertionPlant<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,

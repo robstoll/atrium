@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,7 +14,7 @@ import org.jetbrains.spek.api.include
 import java.util.regex.PatternSyntaxException
 
 abstract class CharSequenceContainsRegexAssertionSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     containsRegex: String,
     containsAtLeastTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, String, Array<out String>) -> AssertionPlant<CharSequence>>,
     containsAtMostTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, String, Array<out String>) -> AssertionPlant<CharSequence>>,
