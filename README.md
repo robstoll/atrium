@@ -118,7 +118,8 @@ assert(4 + 6).isLessThan(5).isGreaterThan(10)
 ```
 
 
-Using the fluent API allows you to write the `assert(...)` part only once but making several single assertions for the same subject.
+Using the fluent API allows you to write the `assert(...)` part only once but making several single assertions for the same 
+[subject](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.creating/-base-assertion-plant/subject.html).
 The expression which determines the subject of the assertion (`4 + 6` in the above example) is evaluated only once. 
 
 So the first statement could also be written as follows (unless the expression determining the subject has side effects).
@@ -147,11 +148,11 @@ assert(4 + 6) {
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
 
 Such a block is actually nothing else than a [lambda with a receiver](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver)
-of type `IAssertionPlant` (code-ish speaking `IAssertionPlant<T>.() -> Unit`).
-The only thing you need to know about `IAssertionPlant` at the moment is, that `assert(4 + 6)` creates an `IAssertionPlant<Int>` 
+of type `AssertionPlant` (code-ish speaking `AssertionPlant<T>.() -> Unit`).
+The only thing you need to know about `AssertionPlant` at the moment is, that `assert(4 + 6)` creates an `AssertionPlant<Int>` 
 and that all assertion functions are defined as [extension function](https://kotlinlang.org/docs/reference/extensions.html)
-of `IAssertionPlant`.
-Have a look at [writing an own assertion function](#write-own-assertion-functions) to get more information about `IAssertionPlant`.
+of `AssertionPlant`.
+Have a look at [writing an own assertion function](#write-own-assertion-functions) to get more information about `AssertionPlant`.
 
 :information_source: You can use `and` as filling element between single assertions and assertion group blocks:
 ```kotlin
@@ -233,8 +234,8 @@ You can also make assertions about one or several properties of the subject usin
 -- general speaking, it allows you to create feature assertions without the need of own assertion functions. 
 
 `subject` within an assertion group block refers to the subject of the assertion (`myPerson` in the above example). 
-As a reminder, an assertion group block is a lambda with the `IAssertionPlant` created by `assert(...)` as receiver (see [assertion group block](#define-single-assertions-or-assertion-groups) for further details). 
-You probably have already guessed it, `subject` is actually a property of `IAssertionPlant`. 
+As a reminder, an assertion group block is a lambda with the `AssertionPlant` created by `assert(...)` as receiver (see [assertion group block](#define-single-assertions-or-assertion-groups) for further details). 
+You probably have already guessed it, `subject` is actually a property of `AssertionPlant`. 
 
 Back to property assertions. In the above example we created two feature assertions: one for the property `name` and the other for the property `isStudent` of `myPerson`.
 A feature assertion is indicated as follows in the output. It starts with a `▶` followed by the feature's name and its actual value.
@@ -485,20 +486,20 @@ assert(12).isMultipleOf(5)
 ```
 
 Let's see how we actually defined `isMultipleOf`. 
-First of all, you need to know that `Assert` is a typealias for `IAssertionPlant<T>` which in turn is the entry point for assertion functions.
-We get an `IAssertionPlant<Int>` when calling `assert(12)` and an `IAssertionPlant<String>` for `assert("hello")`.
+First of all, you need to know that `Assert` is a typealias for `AssertionPlant<T>` which in turn is the entry point for assertion functions.
+We get an `AssertionPlant<Int>` when calling `assert(12)` and an `AssertionPlant<String>` for `assert("hello")`.
 In our case we want to define the assertion function only for `subject`s of type `Int` 
 hence we define `isMultipleOf` as 
 [extension function](https://kotlinlang.org/docs/reference/extensions.html)
-of `Assert<Int>`. You could have written the extension for `IAssertionPlant<Int>` which is exactly the same. 
-Whether you prefer `Assert` or `IAssertionPlant` is up to you, 
-though we recommend to use `Assert` for API functions and `IAssertionPlant` in other cases 
+of `Assert<Int>`. You could have written the extension for `AssertionPlant<Int>` which is exactly the same. 
+Whether you prefer `Assert` or `AssertionPlant` is up to you, 
+though we recommend to use `Assert` for API functions and `AssertionPlant` in other cases 
 (such as impl-functions, see [API in a different Language](#api-in-a-different-language) for instance). 
-We then use the method `createAndAddAssertion` (which is provided by `IAssertionPlant`) to create the assertion, 
+We then use the method `createAndAddAssertion` (which is provided by `AssertionPlant`) to create the assertion, 
 add it to the plant itself 
 and return the plant to support a fluent API. 
-The method [createAndAddAssertion](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.creating/-i-assertion-plant/create-and-add-assertion.html) expects:
-- an [ITranslatable](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-i-translatable/index.html)
+The method [createAndAddAssertion](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.creating/-assertion-plant/create-and-add-assertion.html) expects:
+- a [Translatable](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
   as  description of your assertion.
 - the representation of the expected value.
 - and the actual check as lambda where you typically use the `subject` of the assertion.
@@ -513,7 +514,7 @@ Consider the following assertion function:
 
 ```kotlin
 fun Assert<Int>.isEven() = createAndAddAssertion(
-    DescriptionBasic.IS, RawString("an even number"), { subject % 2 == 0 })
+    DescriptionBasic.IS, RawString.create("an even number"), { subject % 2 == 0 })
 ```
 We are using a [RawString](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
 here so that `"an even number"` is not treated as a `String` in reporting.
@@ -577,13 +578,13 @@ we show here how you write the function, so that it supports i18n.
 This way the report could be generated in another language.
 
 The difference lies in the first argument passed to `createAndAddAssertion`; we do no longer use an `Untranslatable` but a proper 
-`ITranslatable`. 
+`Translatable`. 
 
 ```kotlin
 fun Assert<Int>.isMultipleOf(base: Int) = createAndAddAssertion(
     DescriptionIntAssertions.IS_MULTIPLE_OF, base, { subject % base == 0 })
     
-enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
+enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")
 }    
 ```
@@ -596,20 +597,14 @@ uses `atrium-translations-en_UK` whereas
 uses `atrium-translations-de_CH`.  
 
 But you can also use a 
-[ITranslationSupplier](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-i-translation-supplier/index.html)
-based solution and configure the `ReporterBuilder` accordingly. 
-[Robstoll's implementation](https://github.com/robstoll/atrium/tree/master/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating)
-of the core of Atrium provides properties files based `ITranslatableSupplier`s which are more or less what
-[Resource Bundle](https://docs.oracle.com/javase/tutorial/i18n/resbundle/propfile.html)
+[TranslationSupplier](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html)
+based [Translator](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html)
+by configuring the `ReporterBuilder` accordingly (e.g. use `withDefaultTranslationSupplier` instead of `withoutTranslations`). 
+Atrium supports a properties files based `TranslationSupplier` which is more or less what
+[ResourceBundle](https://docs.oracle.com/javase/tutorial/i18n/resbundle/propfile.html)
 provides out of the box. 
-Yet, robstoll's implementation uses an own 
-[ResourceBundle.Control](https://docs.oracle.com/javase/7/docs/api/java/util/ResourceBundle.Control.html)
-which provides an enhanced fallback mechanism. 
-For further technical information, see 
-[ResourceBundleBasedTranslator](https://github.com/robstoll/atrium/tree/master/core/atrium-core-impl-robstoll-lib/src/main/kotlin/ch/tutteli/atrium/reporting/translating/ResourceBundleBasedTranslator.kt)
-and have a look at the
-[specifications of the `ITranslationSupplier`s](https://github.com/robstoll/atrium/tree/master/core/atrium-core-impl-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/reporting/translating)
-for an example how you have to configure the `ReporterBuilder`.
+Yet, a `Translator` uses a more enhanced fallback mechanism compared to a `ResourceBundle`. 
+For further technical information have a look at the KDoc of [Translator](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html).
 
 Notice, Atrium does not yet support generating multiple reports (e.g., in different languages) in the same test run 
 -- but Atrium is designed to support this use case. 
@@ -620,15 +615,14 @@ Let us rewrite the `isEven` assertion function from the section [Write own Asser
 as second example:
 ```kotlin
 fun Assert<Int>.isEven() = createAndAddAssertion(
-    DescriptionCommon.IS, TranslatableRawString(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
+    DescriptionCommon.IS, RawString.create(DescriptionIntAssertions.EVEN), { subject % 2 == 0 })
 
-enum class DescriptionIntAssertions(override val value: String) : ISimpleTranslatable {
+enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     EVEN("an even number")
 }
 ```
-Once again we are wrapping the text which we want to be able to exchange with another language into an `ITranslatable`.
-But this time we cannot use it directly but have to wrap it into an [TranslatableRawString](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable-raw-string/index.html) 
-so that it is treated as raw string in reporting.
+Once again we have to wrap the text which we want to be able to exchange with another language into an `Translatable`. 
+Since we want that the translation as such is treated as a raw string in reporting, we wrap it into a `RawString` as we did before. 
 
 ## API in a different Language
 
@@ -642,12 +636,12 @@ Moreover we put the API function in one module (jar) and the implementation in a
 In the implementation module we define, what we will call hereafter an impl-function 
 -- we follow the convention that impl-functions are prefixed with `_`):
 ```kotlin
-fun _isMultipleOf(plant: IAssertionPlant<Int>, base: Int) =
-    BasicAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
+fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion =
+    BasicDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
 ```
 Notice that it is not an extension function as before 
-because we do not want to pollute the API of `IAssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
-We typically use `IAssertionPlant` for impl-functions and `Assert` for API functions.  
+because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
+We typically use `AssertionPlant` for impl-functions and `Assert` for API functions.  
 
 In the API module we define the extension function and call the impl-function:
 ```kotlin
