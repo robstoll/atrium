@@ -1,0 +1,25 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatterMethodObject.createChildWithNewPrefixAndAdditionalIndent - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">AssertionFormatterMethodObject</a>&nbsp;/&nbsp;<a href=".">createChildWithNewPrefixAndAdditionalIndent</a><br/>
+<br/>
+<h1>createChildWithNewPrefixAndAdditionalIndent</h1>
+<a name="ch.tutteli.atrium.reporting.AssertionFormatterMethodObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)"></a>
+<code><span class="keyword">fun </span><span class="identifier">createChildWithNewPrefixAndAdditionalIndent</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterMethodObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/newPrefix">newPrefix</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterMethodObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/additionalIndent">additionalIndent</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">AssertionFormatterMethodObject</span></a></code>
+<p>Creates an <a href="index.html">AssertionFormatterMethodObject</a> for kind of a child of the current method object using the given
+<a href="create-child-with-new-prefix-and-additional-indent.html#ch.tutteli.atrium.reporting.AssertionFormatterMethodObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/newPrefix">newPrefix</a> and an <a href="create-child-with-new-prefix-and-additional-indent.html#ch.tutteli.atrium.reporting.AssertionFormatterMethodObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/additionalIndent">additionalIndent</a> (the child will typically be used to indent <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s one level more).</p>
+<p>Technically speaking it means that the child's <a href="#">indentLevel</a> is based on the current method object but increased
+by the current method object's <a href="prefix.html">prefix</a>.<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/length.html">length</a> as well as the given <a href="create-child-with-new-prefix-and-additional-indent.html#ch.tutteli.atrium.reporting.AssertionFormatterMethodObject$createChildWithNewPrefixAndAdditionalIndent(kotlin.String, kotlin.Int)/additionalIndent">additionalIndent</a>.</p>
+<h3>Parameters</h3>
+<a name="newPrefix"></a>
+<code>newPrefix</code> - The new prefix to be used.<a name="additionalIndent"></a>
+<code>additionalIndent</code> - The additional indent which should be added to the current <a href="#">indentLevel</a> next to the
+    current <a href="prefix.html">prefix</a>.<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/length.html">length</a>.
+<p><strong>Return</strong><br/>
+The newly created <a href="index.html">AssertionFormatterMethodObject</a>.</p>
+</BODY>
+</HTML>

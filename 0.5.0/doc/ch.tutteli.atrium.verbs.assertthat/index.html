@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.verbs.assertthat - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href=".">ch.tutteli.atrium.verbs.assertthat</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.verbs.assertthat</h2>
+<p>Contains the <a href="https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs">Assertion Verbs</a> functions named <code>assertThat</code>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assert-that.html">assertThat</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">assertThat</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.verbs.assertthat$assertThat(ch.tutteli.atrium.verbs.assertthat.assertThat.T)/subject">subject</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> for the given <a href="assert-that.html#ch.tutteli.atrium.verbs.assertthat$assertThat(ch.tutteli.atrium.verbs.assertthat.assertThat.T)/subject">subject</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">assertThat</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.verbs.assertthat$assertThat(ch.tutteli.atrium.verbs.assertthat.assertThat.T, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.verbs.assertthat.assertThat.T)), kotlin.Unit)))/subject">subject</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.verbs.assertthat$assertThat(ch.tutteli.atrium.verbs.assertthat.assertThat.T, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.verbs.assertthat.assertThat.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Creates an <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> for the given <a href="assert-that.html#ch.tutteli.atrium.verbs.assertthat$assertThat(ch.tutteli.atrium.verbs.assertthat.assertThat.T, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.verbs.assertthat.assertThat.T)), kotlin.Unit)))/subject">subject</a> and <a href="../ch.tutteli.atrium.creating/-assertion-plant/add-assertions-created-by.html">AssertionPlant.addAssertionsCreatedBy</a> the
+given <a href="assert-that.html#ch.tutteli.atrium.verbs.assertthat$assertThat(ch.tutteli.atrium.verbs.assertthat.assertThat.T, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.verbs.assertthat.assertThat.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> lambda where the created <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s are added as a group and usually (depending on
+the configured <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) reported as a whole.</p>
+<code><span class="keyword">fun </span><span class="identifier">assertThat</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.verbs.assertthat$assertThat(kotlin.Function0((kotlin.Unit)))/act">act</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.assertions.throwable.thrown.builders/-throwable-thrown-builder/index.html"><span class="identifier">ThrowableThrownBuilder</span></a></code>
+<p>Creates a <a href="../ch.tutteli.atrium.assertions.throwable.thrown.builders/-throwable-thrown-builder/index.html">ThrowableThrownBuilder</a> for the given function <a href="assert-that.html#ch.tutteli.atrium.verbs.assertthat$assertThat(kotlin.Function0((kotlin.Unit)))/act">act</a> which is expected to throw a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

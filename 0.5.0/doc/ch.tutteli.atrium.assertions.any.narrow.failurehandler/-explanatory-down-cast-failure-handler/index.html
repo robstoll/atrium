@@ -1,0 +1,49 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExplanatoryDownCastFailureHandler - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.any.narrow.failurehandler</a>&nbsp;/&nbsp;<a href=".">ExplanatoryDownCastFailureHandler</a><br/>
+<br/>
+<h1>ExplanatoryDownCastFailureHandler</h1>
+<code><span class="keyword">class </span><span class="identifier">ExplanatoryDownCastFailureHandler</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.any.narrow/-any-narrow/-down-cast-failure-handler/index.html"><span class="identifier">DownCastFailureHandler</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">TSub</span><span class="symbol">&gt;</span></code>
+<p>Represents an <a href="../../ch.tutteli.atrium.assertions.any.narrow/-any-narrow/-down-cast-failure-handler/index.html">AnyNarrow.DownCastFailureHandler</a> which wraps subsequent assertions into an
+<a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group/index.html">ExplanatoryAssertionGroup</a>.</p>
+<h3>Parameters</h3>
+<a name="T"></a>
+<code>T</code> - The type of the <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a>.<a name="T"></a>
+<code>T</code> - The type to which the <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> should have been down-casted.
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ExplanatoryDownCastFailureHandler</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Represents an <a href="../../ch.tutteli.atrium.assertions.any.narrow/-any-narrow/-down-cast-failure-handler/index.html">AnyNarrow.DownCastFailureHandler</a> which wraps subsequent assertions into an
+<a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group/index.html">ExplanatoryAssertionGroup</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-and-add-assertion-to-plant.html">createAndAddAssertionToPlant</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createAndAddAssertionToPlant</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.Assertion, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), kotlin.Unit)))/subType">subType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.Assertion, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), kotlin.Unit)))/subjectPlant">subjectPlant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/index.html"><span class="identifier">BaseAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">?</span><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.Assertion, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), kotlin.Unit)))/failingAssertion">failingAssertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.Assertion, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">TSub</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Wraps the assertions which might be created by <a href="create-and-add-assertion-to-plant.html#ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.Assertion, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a> into an <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group/index.html">ExplanatoryAssertionGroup</a> and adds it
+to the given <a href="create-and-add-assertion-to-plant.html#ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler$createAndAddAssertionToPlant(kotlin.reflect.KClass((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), ch.tutteli.atrium.creating.BaseAssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.T, ch.tutteli.atrium.creating.BaseAssertionPlant((kotlin.Any, )))), ch.tutteli.atrium.assertions.Assertion, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler.TSub)), kotlin.Unit)))/subjectPlant">subjectPlant</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

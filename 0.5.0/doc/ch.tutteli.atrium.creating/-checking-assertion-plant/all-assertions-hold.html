@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CheckingAssertionPlant.allAssertionsHold - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">CheckingAssertionPlant</a>&nbsp;/&nbsp;<a href=".">allAssertionsHold</a><br/>
+<br/>
+<h1>allAssertionsHold</h1>
+<a name="ch.tutteli.atrium.creating.CheckingAssertionPlant$allAssertionsHold()"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">allAssertionsHold</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Checks whether the newly <a href="#">added</a> <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s hold.</p>
+<p>Calling this method more than once should not re-check previously <a href="#">added</a> <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.
+In contrast to <a href="../-reporting-assertion-plant.html">ReportingAssertionPlant</a>, this method should not report or throw an exception
+if an assertion does not hold. It merely states whether the newly <a href="#">added</a> <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s hold.</p>
+<p>However, it should throw an <a href="#">IllegalStateException</a> in case no new assertions have been added to this plant.
+Particularly after one called allAssertionsHold and a second call happens without adding an additional
+assertion in between.</p>
+<h3>Exceptions</h3>
+<a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - in case no new assertions have been added to this plant.
+<p><strong>Return</strong><br/>
+<code>true</code> if the <a href="#">added</a> <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s hold; <code>false</code> otherwise.</p>
+</BODY>
+</HTML>

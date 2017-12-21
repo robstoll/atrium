@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IAtriumFactory.newPropertiesBasedTranslationSupplier - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">IAtriumFactory</a>&nbsp;/&nbsp;<a href=".">newPropertiesBasedTranslationSupplier</a><br/>
+<br/>
+<h1>newPropertiesBasedTranslationSupplier</h1>
+<a name="ch.tutteli.atrium.IAtriumFactory$newPropertiesBasedTranslationSupplier()"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">newPropertiesBasedTranslationSupplier</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html"><span class="identifier">TranslationSupplier</span></a></code>
+<p>Creates a <a href="../../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a> which is based on properties and is compatible with <a href="#">ResourceBundle</a> concerning
+the structure of the properties files.</p>
+<p>For instance, the translations for <code>ch.tutteli.atrium.DescriptionAnyAssertion</code> and the <a href="#">Locale</a> <code>de_CH</code> are
+stored in a properties file named <code>DescriptionAnyAssertion_de_CH.properties</code> in the folder <code>/ch/tutteli/atrium/</code>.
+Moreover the files need to be encoded in ISO-8859-1 (restriction to be compatible with <a href="#">ResourceBundle</a>).</p>
+<p>An entry in such a file would look like as follows:
+<code>TO_BE = a translation for TO_BE</code></p>
+<p><strong>Return</strong><br/>
+The newly created translation supplier.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TranslatorIntSpec - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.spec.reporting.translating</a>&nbsp;/&nbsp;<a href=".">TranslatorIntSpec</a><br/>
+<br/>
+<h1>TranslatorIntSpec</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">TranslatorIntSpec</span></code>
+<p>If you use this Spec then your reporter needs to use a translator which uses the following translations
+which should be in</p>
+<p>the primary local: de_CH
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = ist</p>
+<p>the primary Locale's natural first fallback: de
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = ist (de)
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = ist nicht</p>
+<p>the fallback Locale: fr
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = est
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = n'est pas
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME = n'est pas la même instance que
+ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
+ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_KNOWN = %tD était %&lt;tA
+ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-PLACEHOLDER = Caractère de remplacement %s</p>
+<p>the Locale it:
+ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_KNOWN = solo %tA!!
+ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_UNKNOWN = solo %tA!!</p>
+<p>the Locale zh_Hant_TW:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_TW</p>
+<p>the Locale zh_TW:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_TW
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_TW
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_TW</p>
+<p>the Locale zh_Hant_HK:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_HK</p>
+<p>the Locale zh_HK:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_HK
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_HK
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_HK</p>
+<p>the Locale zh_Hant_MO:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_MO</p>
+<p>the Locale zh_MO:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_MO
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_MO
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_MO</p>
+<p>the natural first fallback of zh_TW, zh_TK, zh_MO: zh_Hant
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = zh_Hant
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = NOT_TO_BE zh_Hant</p>
+<p>the Locale zh_Hans_CN:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans_CN</p>
+<p>the Locale zh_CN:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_CN
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_CN
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_CN</p>
+<p>the Locale zh_Hans_SG:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans_SG</p>
+<p>the Locale zh_SG:
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_SG
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_SG
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_SG</p>
+<p>the natural first fallback of zh_CN and zh_SG: zh_Hans
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = NOT_TO_BE zh_Hans</p>
+<p>the natural second fallback for zh_... =&gt; zh
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE =TO_BE zh
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
+ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_SAME=IS_SAME zh</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-test-translatable/index.html">TestTranslatable</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">TestTranslatable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-string-based-translatable/index.html"><span class="identifier">StringBasedTranslatable</span></a></code>
+<p>Contains <a href="../../ch.tutteli.atrium.reporting.translating/-string-based-translatable/index.html">StringBasedTranslatable</a>s which are used in TranslatorIntSpec.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TranslatorIntSpec</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec$<init>(ch.tutteli.atrium.spec.AssertionVerbFactory, kotlin.Function2((java.util.Locale, kotlin.Array(()), ch.tutteli.atrium.reporting.Reporter)), kotlin.Boolean, kotlin.String)/verbs">verbs</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.spec/-assertion-verb-factory/index.html"><span class="identifier">AssertionVerbFactory</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec$<init>(ch.tutteli.atrium.spec.AssertionVerbFactory, kotlin.Function2((java.util.Locale, kotlin.Array(()), ch.tutteli.atrium.reporting.Reporter)), kotlin.Boolean, kotlin.String)/reporterFactory">reporterFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">Locale</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">Locale</span><span class="symbol">&gt;</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting/-reporter/index.html"><span class="identifier">Reporter</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec$<init>(ch.tutteli.atrium.spec.AssertionVerbFactory, kotlin.Function2((java.util.Locale, kotlin.Array(()), ch.tutteli.atrium.reporting.Reporter)), kotlin.Boolean, kotlin.String)/withSpecialCases">withSpecialCases</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;true<span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec$<init>(ch.tutteli.atrium.spec.AssertionVerbFactory, kotlin.Function2((java.util.Locale, kotlin.Array(()), ch.tutteli.atrium.reporting.Reporter)), kotlin.Boolean, kotlin.String)/describePrefix">describePrefix</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;"[Atrium] "<span class="symbol">)</span></code>
+<p>If you use this Spec then your reporter needs to use a translator which uses the following translations
+which should be in</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

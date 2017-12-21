@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IterableContainsChecker.<init> - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.iterable.contains.checkers</a>&nbsp;/&nbsp;<a href="index.html">IterableContainsChecker</a>&nbsp;/&nbsp;<a href=".">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsChecker$&lt;init&gt;(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))"></a>
+<code><span class="identifier">IterableContainsChecker</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/correctCall">correctCall</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/wrongCall">wrongCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Represents the base class for <a href="../../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html">IterableContains.Checker</a>.</p>
+<p>It does not do much more than specifying that its super class is <a href="../../ch.tutteli.atrium.assertions.basic.contains.checkers/-contains-checker/index.html">ContainsChecker</a> and sub-classes have to implement
+<a href="../../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html">IterableContains.Checker</a>.</p>
+<h3>Parameters</h3>
+<a name="correctCall"></a>
+<code>correctCall</code> - The function which should be used instead of <code>wrongCall</code> when <a href="-init-.html#ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</a> equals to zero.<a name="wrongCall"></a>
+<code>wrongCall</code> - The function call which was used and should not be used if <a href="-init-.html#ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</a> equals to zero.
+<h3>Exceptions</h3>
+<a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - In case <a href="-init-.html#ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</a> is smaller than 1.
+</BODY>
+</HTML>

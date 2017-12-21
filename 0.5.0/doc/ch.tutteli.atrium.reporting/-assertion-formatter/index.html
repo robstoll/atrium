@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatter - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href=".">AssertionFormatter</a><br/>
+<br/>
+<h1>AssertionFormatter</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatter</span></code>
+<p>Represents a formatter for <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="can-format.html">canFormat</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">canFormat</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$canFormat(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Denotes whether this AssertionFormatter was created to format <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s such
+as the given <a href="can-format.html#ch.tutteli.atrium.reporting.AssertionFormatter$canFormat(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</a> or not.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="format.html">format</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> and appends the result to the <a href="../-assertion-formatter-method-object/sb.html">sb</a>
+of the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="format-group.html">formatGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">formatGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$formatGroup(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )))/assertionGroup">assertionGroup</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$formatGroup(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )))/methodObject">methodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$formatGroup(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )))/formatAssertions">formatAssertions</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">,</span>&nbsp;<span class="symbol">(</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the given <a href="format-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatGroup(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )))/assertionGroup">assertionGroup</a> and appends the result to the <a href="../-assertion-formatter-method-object/sb.html">sb</a>
+of the given <a href="format-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatGroup(ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function2((ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, kotlin.Function1((ch.tutteli.atrium.assertions.Assertion, kotlin.Unit)), )))/methodObject">methodObject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="format-non-group.html">formatNonGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">formatNonGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the given <a href="format-non-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> and appends the result to the <a href="../-assertion-formatter-method-object/sb.html">sb</a>
+of the given <a href="format-non-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-c-a-l-l_-f-o-r-m-a-t_-g-r-o-u-p.html">CALL_FORMAT_GROUP</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">CALL_FORMAT_GROUP</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="throw-not-intended-for-assertion-groups.html">throwNotIntendedForAssertionGroups</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">throwNotIntendedForAssertionGroups</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

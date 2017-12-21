@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionChecker.check - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.checking</a>&nbsp;/&nbsp;<a href="index.html">AssertionChecker</a>&nbsp;/&nbsp;<a href=".">check</a><br/>
+<br/>
+<h1>check</h1>
+<a name="ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">check</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Checks given <a href="check.html#ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</a> and reports if one of them fails (does not hold).</p>
+<h3>Parameters</h3>
+<a name="assertionVerb"></a>
+<code>assertionVerb</code> - The assertion verb which will be used in error reporting.<a name="subject"></a>
+<code>subject</code> - The subject for which the <a href="check.html#ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</a> have been created.<a name="assertions"></a>
+<code>assertions</code> - The <a href="check.html#ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</a> which are checked.
+<h3>Exceptions</h3>
+<a name="AssertionError"></a>
+<code>AssertionError</code> - An implementation is allowed to throw <a href="#">AssertionError</a> if an assertion fails.
+</BODY>
+</HTML>

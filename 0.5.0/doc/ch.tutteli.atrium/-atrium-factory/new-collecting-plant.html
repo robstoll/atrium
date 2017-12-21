@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AtriumFactory.newCollectingPlant - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium</a>&nbsp;/&nbsp;<a href="index.html">AtriumFactory</a>&nbsp;/&nbsp;<a href=".">newCollectingPlant</a><br/>
+<br/>
+<h1>newCollectingPlant</h1>
+<a name="ch.tutteli.atrium.AtriumFactory$newCollectingPlant(kotlin.Function0((ch.tutteli.atrium.AtriumFactory.newCollectingPlant.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">newCollectingPlant</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.AtriumFactory$newCollectingPlant(kotlin.Function0((ch.tutteli.atrium.AtriumFactory.newCollectingPlant.T)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">T</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html"><span class="identifier">CollectingAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Overrides <a href="../-i-atrium-factory/new-collecting-plant.html">IAtriumFactory.newCollectingPlant</a></p>
+<p>Creates a <a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html">CollectingAssertionPlant</a> which is intended to be used as receiver object in lambdas to collect
+created <a href="#">Assertion</a>s inside the lambda.</p>
+<p>Notice, that this <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> might not even provide a <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> in which case it
+throws a <a href="../../ch.tutteli.atrium.creating/-plant-has-no-subject-exception/index.html">PlantHasNoSubjectException</a> if <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">subject</a> is accessed.
+Use <a href="new-checking-plant.html">newCheckingPlant</a> instead if you want to know whether the assertions hold.</p>
+<h3>Parameters</h3>
+<a name="subjectProvider"></a>
+<code>subjectProvider</code> - The function which will either provide the subject for this plant or throw an
+<a href="../../ch.tutteli.atrium.creating/-plant-has-no-subject-exception/index.html">PlantHasNoSubjectException</a> in case it cannot be provided.
+<p><strong>Return</strong><br/>
+The newly created assertion plant.</p>
+</BODY>
+</HTML>

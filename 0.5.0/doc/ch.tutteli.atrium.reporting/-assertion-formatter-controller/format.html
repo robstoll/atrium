@@ -1,0 +1,33 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatterController.format - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">AssertionFormatterController</a>&nbsp;/&nbsp;<a href=".">format</a><br/>
+<br/>
+<h1>format</h1>
+<a name="ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Finds a suitable <a href="../-assertion-formatter/index.html">AssertionFormatter</a> -- which was previously <a href="register.html">register</a>ed -- for the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> and
+formats it.</p>
+<p>The <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatterController$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</a> allows to define an <a href="../-assertion-formatter-method-object/assertion-filter.html">assertionFilter</a>
+to filter out <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s (for instance, filter out messages which hold
+&rarr; see <a href="../../ch.tutteli.atrium/-i-atrium-factory/new-only-failure-reporter.html">IAtriumFactory.newOnlyFailureReporter</a>).
+Moreover the controller should take into account whether the control flow
+<a href="../-assertion-formatter-method-object/is-not-in-do-not-filter-group.html">AssertionFormatterMethodObject.isNotInDoNotFilterGroup</a> or is in such group, in which case the filtering should
+not apply.</p>
+<h3>Parameters</h3>
+<a name="assertion"></a>
+<code>assertion</code> - The assertion which shall be formatted.<a name="methodObject"></a>
+<code>methodObject</code> - Used to share data between this <a href="index.html">AssertionFormatterController</a> and the <a href="register.html">register</a>ed
+    <a href="../-assertion-formatter/index.html">AssertionFormatter</a>s.
+<h3>Exceptions</h3>
+<a name="UnsupportedOperationException"></a>
+<code>UnsupportedOperationException</code> - if no suitable <a href="../-assertion-formatter/index.html">AssertionFormatter</a> is found.
+<p><strong>See Also</strong><br/>
+<p><a href="../-assertion-formatter-method-object/index.html">AssertionFormatterMethodObject</a></p>
+</p>
+</BODY>
+</HTML>

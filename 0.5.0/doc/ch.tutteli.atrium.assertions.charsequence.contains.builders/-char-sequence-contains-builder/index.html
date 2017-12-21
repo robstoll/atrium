@@ -1,0 +1,215 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CharSequenceContainsBuilder - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders</a>&nbsp;/&nbsp;<a href=".">CharSequenceContainsBuilder</a><br/>
+<br/>
+<h1>CharSequenceContainsBuilder</h1>
+<code><span class="keyword">class </span><span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/index.html"><span class="identifier">ContainsBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Represents the entry point of the fluent API of sophisticated <code>contains</code> assertions.
+It contains the <a href="../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/plant.html">plant</a> for which the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be build as well as the decoration behaviour which shall be
+applied to the <a href="../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/plant.html">plant</a>'s <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">subject</a>.</p>
+<h3>Parameters</h3>
+<a name="T"></a>
+<code>T</code> - The input type of the search which is the same as the type of the <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">subject</a> of the
+    <a href="../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/plant.html">plant</a>.<a name="S"></a>
+<code>S</code> - The search behaviour which should be applied for the input of the search.
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder$<init>(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder.T)), ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder.S)/plant">plant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder$<init>(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder.T)), ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder.S)/searchBehaviour">searchBehaviour</span><span class="symbol">:</span>&nbsp;<span class="identifier">S</span><span class="symbol">)</span></code>
+<p>Represents the entry point of the fluent API of sophisticated <code>contains</code> assertions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/plant.html">plant</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">plant</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>The <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> for which the sophisticated <code>contains</code> assertions shall be built.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/search-behaviour.html">searchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">searchBehaviour</span><span class="symbol">: </span><span class="identifier">S</span></code>
+<p>The search behaviour which shall be applied to the input of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.de_-c-h/ignoriere-gross-kleinschreibung.html">ignoriereGrossKleinschreibung</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-no-op-search-behaviour/index.html"><span class="identifier">CharSequenceContainsNoOpSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">ignoriereGrossKleinschreibung</span><span class="symbol">: </span><span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-ignoring-case-search-behaviour/index.html"><span class="identifier">CharSequenceContainsIgnoringCaseSearchBehaviour</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the decoration behaviour <code>ignore case</code> shall be applied to this sophisticated <code>contains</code> assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-u-k/ignoring-case.html">ignoringCase</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-no-op-search-behaviour/index.html"><span class="identifier">CharSequenceContainsNoOpSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">ignoringCase</span><span class="symbol">: </span><span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-ignoring-case-search-behaviour/index.html"><span class="identifier">CharSequenceContainsIgnoringCaseSearchBehaviour</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the decoration behaviour <code>ignore case</code> shall be applied to this sophisticated <code>contains</code> assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-u-k/at-least.html">atLeast</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">atLeast</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_UK$atLeast(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.en_UK.atLeast.T, ch.tutteli.atrium.api.cc.en_UK.atLeast.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder/index.html"><span class="identifier">CharSequenceContainsAtLeastCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we are looking
+for, occurs <code>at least</code> number of <a href="../../ch.tutteli.atrium.api.cc.en_-u-k/at-least.html#ch.tutteli.atrium.api.cc.en_UK$atLeast(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.en_UK.atLeast.T, ch.tutteli.atrium.api.cc.en_UK.atLeast.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/at-least.html">atLeast</a></p>
+</td>
+<td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">atLeast</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK$atLeast(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.atLeast.T, ch.tutteli.atrium.api.cc.infix.en_UK.atLeast.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder/index.html"><span class="identifier">CharSequenceContainsAtLeastCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we are looking
+for, occurs <code>at least</code> number of <a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/at-least.html#ch.tutteli.atrium.api.cc.infix.en_UK$atLeast(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.atLeast.T, ch.tutteli.atrium.api.cc.infix.en_UK.atLeast.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-u-k/at-most.html">atMost</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">atMost</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_UK$atMost(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.en_UK.atMost.T, ch.tutteli.atrium.api.cc.en_UK.atMost.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-most-checker-builder/index.html"><span class="identifier">CharSequenceContainsAtMostCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>at least</code> once but <code>at most</code> number of <a href="../../ch.tutteli.atrium.api.cc.en_-u-k/at-most.html#ch.tutteli.atrium.api.cc.en_UK$atMost(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.en_UK.atMost.T, ch.tutteli.atrium.api.cc.en_UK.atMost.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/at-most.html">atMost</a></p>
+</td>
+<td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">atMost</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK$atMost(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.atMost.T, ch.tutteli.atrium.api.cc.infix.en_UK.atMost.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-most-checker-builder/index.html"><span class="identifier">CharSequenceContainsAtMostCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>at least</code> once but <code>at most</code> number of <a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/at-most.html#ch.tutteli.atrium.api.cc.infix.en_UK$atMost(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.atMost.T, ch.tutteli.atrium.api.cc.infix.en_UK.atMost.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-u-k/exactly.html">exactly</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">exactly</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_UK$exactly(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.en_UK.exactly.T, ch.tutteli.atrium.api.cc.en_UK.exactly.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-exactly-checker-builder/index.html"><span class="identifier">CharSequenceContainsExactlyCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>exactly</code> number of <a href="../../ch.tutteli.atrium.api.cc.en_-u-k/exactly.html#ch.tutteli.atrium.api.cc.en_UK$exactly(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.en_UK.exactly.T, ch.tutteli.atrium.api.cc.en_UK.exactly.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/exactly.html">exactly</a></p>
+</td>
+<td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">exactly</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK$exactly(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.exactly.T, ch.tutteli.atrium.api.cc.infix.en_UK.exactly.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-exactly-checker-builder/index.html"><span class="identifier">CharSequenceContainsExactlyCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>exactly</code> number of <a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/exactly.html#ch.tutteli.atrium.api.cc.infix.en_UK$exactly(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.exactly.T, ch.tutteli.atrium.api.cc.infix.en_UK.exactly.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.de_-c-h/genau.html">genau</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">genau</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$genau(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.de_CH.genau.T, ch.tutteli.atrium.api.cc.de_CH.genau.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-exactly-checker-builder/index.html"><span class="identifier">CharSequenceContainsExactlyCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>exactly</code> number of <a href="../../ch.tutteli.atrium.api.cc.de_-c-h/genau.html#ch.tutteli.atrium.api.cc.de_CH$genau(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.de_CH.genau.T, ch.tutteli.atrium.api.cc.de_CH.genau.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.de_-c-h/hoechstens.html">hoechstens</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">hoechstens</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$hoechstens(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.de_CH.hoechstens.T, ch.tutteli.atrium.api.cc.de_CH.hoechstens.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-at-most-checker-builder/index.html"><span class="identifier">CharSequenceContainsAtMostCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>at least</code> once but <code>at most</code> number of <a href="../../ch.tutteli.atrium.api.cc.de_-c-h/hoechstens.html#ch.tutteli.atrium.api.cc.de_CH$hoechstens(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.de_CH.hoechstens.T, ch.tutteli.atrium.api.cc.de_CH.hoechstens.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/ignoring.html">ignoring</a></p>
+</td>
+<td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-no-op-search-behaviour/index.html"><span class="identifier">CharSequenceContainsNoOpSearchBehaviour</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">ignoring</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK$ignoring(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.ignoring.T, ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour)), ch.tutteli.atrium.api.cc.infix.en_UK.case)/case">case</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/case.html"><span class="identifier">case</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-ignoring-case-search-behaviour/index.html"><span class="identifier">CharSequenceContainsIgnoringCaseSearchBehaviour</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the decoration behaviour <code>ignore case</code> shall be applied to this sophisticated <code>contains</code> assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.de_-c-h/nicht-oder-hoechstens.html">nichtOderHoechstens</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">nichtOderHoechstens</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$nichtOderHoechstens(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.de_CH.nichtOderHoechstens.T, ch.tutteli.atrium.api.cc.de_CH.nichtOderHoechstens.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-not-or-at-most-checker-builder/index.html"><span class="identifier">CharSequenceContainsNotOrAtMostCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>not at all or at most</code> number of <a href="../../ch.tutteli.atrium.api.cc.de_-c-h/nicht-oder-hoechstens.html#ch.tutteli.atrium.api.cc.de_CH$nichtOderHoechstens(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.de_CH.nichtOderHoechstens.T, ch.tutteli.atrium.api.cc.de_CH.nichtOderHoechstens.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-u-k/not-or-at-most.html">notOrAtMost</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notOrAtMost</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_UK$notOrAtMost(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.en_UK.notOrAtMost.T, ch.tutteli.atrium.api.cc.en_UK.notOrAtMost.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-or-at-most-checker-builder/index.html"><span class="identifier">CharSequenceContainsNotOrAtMostCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>not at all or at most</code> number of <a href="../../ch.tutteli.atrium.api.cc.en_-u-k/not-or-at-most.html#ch.tutteli.atrium.api.cc.en_UK$notOrAtMost(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.en_UK.notOrAtMost.T, ch.tutteli.atrium.api.cc.en_UK.notOrAtMost.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/not-or-at-most.html">notOrAtMost</a></p>
+</td>
+<td>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">notOrAtMost</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.infix.en_UK$notOrAtMost(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.notOrAtMost.T, ch.tutteli.atrium.api.cc.infix.en_UK.notOrAtMost.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-or-at-most-checker-builder/index.html"><span class="identifier">CharSequenceContainsNotOrAtMostCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we
+are looking for, occurs <code>not at all or at most</code> number of <a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k/not-or-at-most.html#ch.tutteli.atrium.api.cc.infix.en_UK$notOrAtMost(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.infix.en_UK.notOrAtMost.T, ch.tutteli.atrium.api.cc.infix.en_UK.notOrAtMost.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.de_-c-h/zumindest.html">zumindest</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <span class="identifier">CharSequenceContainsBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">zumindest</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$zumindest(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.de_CH.zumindest.T, ch.tutteli.atrium.api.cc.de_CH.zumindest.S)), kotlin.Int)/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder/index.html"><span class="identifier">CharSequenceContainsAtLeastCheckerBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span></code>
+<p>Restricts a <code>contains</code> assertion by specifying that the number of occurrences of the object which we are looking
+for, occurs <code>at least</code> number of <a href="../../ch.tutteli.atrium.api.cc.de_-c-h/zumindest.html#ch.tutteli.atrium.api.cc.de_CH$zumindest(ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder((ch.tutteli.atrium.api.cc.de_CH.zumindest.T, ch.tutteli.atrium.api.cc.de_CH.zumindest.S)), kotlin.Int)/times">times</a> within the search input.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
