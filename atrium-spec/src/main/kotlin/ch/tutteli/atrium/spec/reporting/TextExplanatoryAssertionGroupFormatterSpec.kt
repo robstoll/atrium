@@ -1,22 +1,21 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.IExplanatoryAssertionGroupType
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IAssertionFormatterController
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.reporting.AssertionFormatter
+import ch.tutteli.atrium.reporting.AssertionFormatterController
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 
 abstract class TextExplanatoryAssertionGroupFormatterSpec(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
+    verbs: AssertionVerbFactory,
+    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
-) : TextExplanatoryBasedAssertionGroupFormatterSpec<IExplanatoryAssertionGroupType>(
+) : TextExplanatoryBasedAssertionGroupFormatterSpec<ExplanatoryAssertionGroupType>(
     verbs,
     testeeFactory,
-    IExplanatoryAssertionGroupType::class.java,
-    object : IExplanatoryAssertionGroupType {},
-    { ExplanatoryAssertionGroup(ExplanatoryAssertionGroupType, it) },
+    ExplanatoryAssertionGroupType::class.java,
+    object : ExplanatoryAssertionGroupType {},
+    { AssertionGroup.Builder.explanatory.withDefault.create(it) },
     describePrefix
 )

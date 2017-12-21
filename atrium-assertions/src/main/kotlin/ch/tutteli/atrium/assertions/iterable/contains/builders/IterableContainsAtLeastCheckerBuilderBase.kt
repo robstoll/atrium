@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
-import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.IChecker
-import ch.tutteli.atrium.assertions.iterable.contains.IIterableContains.ISearchBehaviour
+import ch.tutteli.atrium.assertions.iterable.contains.IterableContains.Checker
+import ch.tutteli.atrium.assertions.iterable.contains.IterableContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsAtLeastChecker
 
 /**
@@ -22,13 +22,13 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param atLeastCall The name of the function which was called and created this builder.
  */
-abstract class IterableContainsAtLeastCheckerBuilderBase<E, T : Iterable<E>, S : ISearchBehaviour>(
+abstract class IterableContainsAtLeastCheckerBuilderBase<E, T : Iterable<E>, S : SearchBehaviour>(
     val times: Int,
     containsBuilder: IterableContainsBuilder<E, T, S>,
     nameContainsNotFun: String,
     atLeastCall: (Int) -> String
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
-    override val checkers: List<IChecker> =
+    override val checkers: List<Checker> =
         listOf(IterableContainsAtLeastChecker(times, nameContainsNotFun, atLeastCall))
 }

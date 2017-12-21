@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsDefaultTranslationAssertionSpec(
     AssertionVerbFactory,
@@ -22,7 +22,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: IAssertionPlant<CharSequence>, atLeast: Int, a: ITranslatable, aX: Array<out ITranslatable>): IAssertionPlant<CharSequence> {
+        private fun containsAtLeast(plant: AssertionPlant<CharSequence>, atLeast: Int, a: Translatable, aX: Array<out Translatable>): AssertionPlant<CharSequence> {
             return if (aX.isEmpty()) {
                 plant to contain atLeast atLeast defaultTranslationOf a
             } else {
@@ -36,7 +36,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: IAssertionPlant<CharSequence>, atMost: Int, a: ITranslatable, aX: Array<out ITranslatable>)
+        private fun containsAtMost(plant: AssertionPlant<CharSequence>, atMost: Int, a: Translatable, aX: Array<out Translatable>)
             = plant to contain atMost atMost the DefaultTranslationsOf(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
@@ -45,7 +45,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
             Companion::containsAtMostIgnoringCase
         )
 
-        private fun containsAtMostIgnoringCase(plant: IAssertionPlant<CharSequence>, atMost: Int, a: ITranslatable, aX: Array<out ITranslatable>): IAssertionPlant<CharSequence> {
+        private fun containsAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atMost: Int, a: Translatable, aX: Array<out Translatable>): AssertionPlant<CharSequence> {
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atMost atMost defaultTranslationOf a
             } else {

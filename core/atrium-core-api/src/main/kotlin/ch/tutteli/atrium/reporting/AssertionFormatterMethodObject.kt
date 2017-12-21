@@ -1,33 +1,33 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IDoNotFilterAssertionGroupType
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.DoNotFilterAssertionGroupType
 
 /**
- * A method object used for interactions between [IAssertionFormatterController] and [IAssertionFormatter].
+ * A method object used for interactions between [AssertionFormatterController] and [AssertionFormatter].
  *
- * @property sb The [StringBuilder] to which the formatted [IAssertion] will be appended.
+ * @property sb The [StringBuilder] to which the formatted [Assertion] will be appended.
  * @property prefix The current prefix per assertion.
  * @property indentLevel The current indentation level.
- * @property assertionFilter Can be used used to filter out [IAssertion]s which should not be formatted.
+ * @property assertionFilter Can be used used to filter out [Assertion]s which should not be formatted.
  *
- * @constructor A method object used for interactions between [IAssertionFormatterController] and [IAssertionFormatter].
- * @param sb The [StringBuilder] to which the formatted [IAssertion] will be appended.
+ * @constructor A method object used for interactions between [AssertionFormatterController] and [AssertionFormatter].
+ * @param sb The [StringBuilder] to which the formatted [Assertion] will be appended.
  * @param prefix The current prefix per assertion.
  * @param indentLevel The current indentation level.
- * @param assertionFilter Can be used used to filter out [IAssertion]s which should not be formatted.
+ * @param assertionFilter Can be used used to filter out [Assertion]s which should not be formatted.
  */
 class AssertionFormatterMethodObject private constructor(
     val sb: StringBuilder,
     val prefix: String,
     private val indentLevel: Int,
-    val assertionFilter: (IAssertion) -> Boolean,
+    val assertionFilter: (Assertion) -> Boolean,
     private val numberOfDoNotFilterGroups: Int) {
 
     /**
      * Creates an [AssertionFormatterMethodObject] for kind of a child of the current method object using the given
-     * [newPrefix] (the child will typically be used to indent [IAssertion]s one level more).
+     * [newPrefix] (the child will typically be used to indent [Assertion]s one level more).
      *
      * Technically speaking it means that the child's [indentLevel] is based on the current method object but increased
      * by the current method object's [prefix].[length][String.length].
@@ -41,7 +41,7 @@ class AssertionFormatterMethodObject private constructor(
 
     /**
      * Creates an [AssertionFormatterMethodObject] for kind of a child of the current method object using the given
-     * [newPrefix] and an [additionalIndent] (the child will typically be used to indent [IAssertion]s one level more).
+     * [newPrefix] and an [additionalIndent] (the child will typically be used to indent [Assertion]s one level more).
      *
      * Technically speaking it means that the child's [indentLevel] is based on the current method object but increased
      * by the current method object's [prefix].[length][String.length] as well as the given [additionalIndent].
@@ -58,8 +58,8 @@ class AssertionFormatterMethodObject private constructor(
 
     /**
      * Clones the current [AssertionFormatterMethodObject] and increases [numberOfDoNotFilterGroups] by one because
-     * it is assumed that the resulting methodObject is used to format an [IAssertionGroup] of
-     * type [IDoNotFilterAssertionGroupType].
+     * it is assumed that the resulting methodObject is used to format an [AssertionGroup] of
+     * type [DoNotFilterAssertionGroupType].
      *
      * @return The newly created [AssertionFormatterMethodObject].
      */
@@ -67,8 +67,8 @@ class AssertionFormatterMethodObject private constructor(
         = AssertionFormatterMethodObject(sb, prefix, indentLevel, assertionFilter, numberOfDoNotFilterGroups + 1)
 
     /**
-     * Indicates that the formatting process is currently not formatting the [IAssertion]s (or any nested assertion)
-     * of an [IAssertionGroup] of type [IDoNotFilterAssertionGroupType].
+     * Indicates that the formatting process is currently not formatting the [Assertion]s (or any nested assertion)
+     * of an [AssertionGroup] of type [DoNotFilterAssertionGroupType].
      *
      * @return `true` if the formatting process is currently within an explanatory assertion group; `false` otherwise.
      */
@@ -101,7 +101,7 @@ class AssertionFormatterMethodObject private constructor(
          *
          * @return The newly created [AssertionFormatterMethodObject].
          */
-        fun new(sb: StringBuilder, assertionFilter: (IAssertion) -> Boolean): AssertionFormatterMethodObject {
+        fun new(sb: StringBuilder, assertionFilter: (Assertion) -> Boolean): AssertionFormatterMethodObject {
 
             return AssertionFormatterMethodObject(sb, "", 0, assertionFilter, numberOfDoNotFilterGroups = 0)
         }

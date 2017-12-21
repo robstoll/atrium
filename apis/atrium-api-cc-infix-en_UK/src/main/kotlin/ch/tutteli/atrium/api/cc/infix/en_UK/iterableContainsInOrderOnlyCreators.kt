@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions._containsEntriesInOrderOnly
 import ch.tutteli.atrium.assertions._containsObjectsInOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
@@ -14,10 +14,10 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.value(expected: E): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.value(expected: E): AssertionPlant<T>
     = this the Objects(expected)
 
 /**
@@ -28,10 +28,10 @@ infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInO
  *
  * @param values The values which are expected to be contained within the [Iterable].
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.the(values: Values<E>): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
     = this the Objects(values)
 
 
@@ -43,10 +43,10 @@ infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInO
  *
  * @param expected The object which is expected to be contained within the [Iterable].
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.`object`(expected: E): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.`object`(expected: E): AssertionPlant<T>
     = this the Objects(expected)
 
 /**
@@ -55,10 +55,10 @@ infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInO
  *
  * @param objects The value which are expected to be contained within the [Iterable].
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.the(objects: Objects<E>): IAssertionPlant<T>
+infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
     = plant.addAssertion(_containsObjectsInOrderOnly(this, objects.expected, objects.otherExpected))
 
 
@@ -70,10 +70,10 @@ infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInO
  *
  * @param assertionCreator The identification lambda.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.entry(assertionCreator: IAssertionPlant<E>.() -> Unit): IAssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.entry(assertionCreator: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
     = this the Entries(assertionCreator)
 
 
@@ -84,8 +84,8 @@ infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableConta
  *
  * @param entries The method object containing the identification lambdas.
  *
- * @return The [IAssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.the(entries: Entries<E>): IAssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
     = plant.addAssertion(_containsEntriesInOrderOnly(this, entries.assertionCreator, entries.otherAssertionCreators))

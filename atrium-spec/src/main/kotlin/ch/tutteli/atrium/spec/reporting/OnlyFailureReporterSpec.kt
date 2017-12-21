@@ -4,13 +4,12 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.isEmpty
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.reporting.IAssertionFormatterFacade
-import ch.tutteli.atrium.reporting.IReporter
+import ch.tutteli.atrium.reporting.AssertionFormatterFacade
+import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock
@@ -21,8 +20,8 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
 abstract class OnlyFailureReporterSpec(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterFacade) -> IReporter,
+    verbs: AssertionVerbFactory,
+    testeeFactory: (AssertionFormatterFacade) -> Reporter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -41,29 +40,29 @@ abstract class OnlyFailureReporterSpec(
 
     describeFun(testee::format.name) {
         val sb = StringBuilder()
-        val assertion = object : IAssertion {
+        val assertion = object : Assertion {
             override fun holds() = true
         }
-        val basicAssertion = BasicAssertion(TO_BE, 0, true)
-        val basicAssertionAnonymous = object : IBasicAssertion {
+        val basicAssertion = BasicDescriptiveAssertion(TO_BE, 0, true)
+        val basicAssertionAnonymous = object : DescriptiveAssertion {
             override val expected = 1
             override val description = AssertionVerb.VERB
             override fun holds() = true
         }
 
-        val assertionGroupAnonymous = object : IAssertionGroup {
+        val assertionGroupAnonymous = object : AssertionGroup {
             override val type = RootAssertionGroupType
             override val name = AssertionVerb.VERB
             override val subject = 0
             override val assertions = listOf(assertion, basicAssertion, basicAssertionAnonymous)
         }
-        val assertionGroup = AssertionGroup(RootAssertionGroupType, AssertionVerb.VERB, 1, listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
+        val assertionGroup = AssertionGroup.Builder.root.create(AssertionVerb.VERB, 1, listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
 
         mapOf(
-            "object: ${IAssertion::class.simpleName}" to assertion,
-            "object: ${IBasicAssertion::class.simpleName}" to basicAssertionAnonymous,
+            "object: ${Assertion::class.simpleName}" to assertion,
+            "object: ${DescriptiveAssertion::class.simpleName}" to basicAssertionAnonymous,
             "${basicAssertion::class.simpleName}" to basicAssertion,
-            "object: ${IAssertionGroup::class.simpleName}" to assertionGroupAnonymous,
+            "object: ${AssertionGroup::class.simpleName}" to assertionGroupAnonymous,
             "${assertionGroup::class.simpleName}" to assertionGroup
         ).forEach { (typeRepresentation, assertion) ->
             it("does not append anything if $typeRepresentation holds") {
@@ -73,7 +72,7 @@ abstract class OnlyFailureReporterSpec(
         }
 
         context("dependencies") {
-            val assertionFormatterFacade = mock<IAssertionFormatterFacade>()
+            val assertionFormatterFacade = mock<AssertionFormatterFacade>()
             val testeeWithMockedFacade = testeeFactory(assertionFormatterFacade)
 
             it("delegates to ${assertionFormatterFacade::class.java.simpleName}") {

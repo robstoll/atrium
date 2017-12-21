@@ -3,12 +3,12 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
-import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.creating.IReportingAssertionPlantNullable
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.prefixedDescribe
 import ch.tutteli.atrium.spec.setUp
@@ -19,16 +19,16 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class AnyAssertionsSpec(
-    verbs: IAssertionVerbFactory,
-    funInt: IAnyAssertionsSpecFunFactory<Int>,
-    funDataClass: IAnyAssertionsSpecFunFactory<DataClass>,
+    verbs: AssertionVerbFactory,
+    funInt: AnyAssertionsSpecFunFactory<Int>,
+    funDataClass: AnyAssertionsSpecFunFactory<DataClass>,
     toBe: String,
     notToBe: String,
     isSame: String,
     isNotSame: String,
-    isNullPair: Pair<String, IAssertionPlantNullable<Int?>.() -> Unit>,
-    andPair: Pair<String, IAssertionPlant<Int>.() -> IAssertionPlant<Int>>,
-    andLazyPair: Pair<String, IAssertionPlant<Int>.(IAssertionPlant<Int>.() -> Unit) -> IAssertionPlant<Int>>,
+    isNullPair: Pair<String, AssertionPlantNullable<Int?>.() -> Unit>,
+    andPair: Pair<String, AssertionPlant<Int>.() -> AssertionPlant<Int>>,
+    andLazyPair: Pair<String, AssertionPlant<Int>.(AssertionPlant<Int>.() -> Unit) -> AssertionPlant<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -57,7 +57,7 @@ abstract class AnyAssertionsSpec(
         = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-    val assert: (Int) -> IAssertionPlant<Int> = verbs::checkImmediately
+    val assert: (Int) -> AssertionPlant<Int> = verbs::checkImmediately
     val (isNull, isNullFun) = isNullPair
     val (and, andProperty) = andPair
     val (andLazy, andLazyGroup) = andLazyPair
@@ -65,10 +65,10 @@ abstract class AnyAssertionsSpec(
     describeFun(toBe, notToBe, isSame, isNotSame) {
 
         context("primitive") {
-            val toBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.toBeFun
-            val notToBeFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.notToBeFun
-            val isSameFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.isSameFun
-            val isNotSameFun: IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int> = funInt.isNotSameFun
+            val toBeFun: AssertionPlant<Int>.(Int) -> AssertionPlant<Int> = funInt.toBeFun
+            val notToBeFun: AssertionPlant<Int>.(Int) -> AssertionPlant<Int> = funInt.notToBeFun
+            val isSameFun: AssertionPlant<Int>.(Int) -> AssertionPlant<Int> = funInt.isSameFun
+            val isNotSameFun: AssertionPlant<Int>.(Int) -> AssertionPlant<Int> = funInt.isNotSameFun
 
             context("one equals the other") {
                 test("$toBe does not throw") {
@@ -110,10 +110,10 @@ abstract class AnyAssertionsSpec(
         context("class") {
             val test = DataClass(true)
             val fluent = verbs.checkImmediately(test)
-            val toBeFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.toBeFun
-            val notToBeFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.notToBeFun
-            val isSameFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.isSameFun
-            val isNotSameFun: IAssertionPlant<DataClass>.(DataClass) -> IAssertionPlant<DataClass> = funDataClass.isNotSameFun
+            val toBeFun: AssertionPlant<DataClass>.(DataClass) -> AssertionPlant<DataClass> = funDataClass.toBeFun
+            val notToBeFun: AssertionPlant<DataClass>.(DataClass) -> AssertionPlant<DataClass> = funDataClass.notToBeFun
+            val isSameFun: AssertionPlant<DataClass>.(DataClass) -> AssertionPlant<DataClass> = funDataClass.isSameFun
+            val isNotSameFun: AssertionPlant<DataClass>.(DataClass) -> AssertionPlant<DataClass> = funDataClass.isNotSameFun
             context("same") {
                 test("$toBe does not throw") {
                     fluent.toBeFun(test)
@@ -184,7 +184,7 @@ abstract class AnyAssertionsSpec(
 
         context("subject is not null") {
             val subject: Int? = 1
-            val testee = verbs.checkNullable(1) as IReportingAssertionPlantNullable<Int?>
+            val testee = verbs.checkNullable(1) as ReportingAssertionPlantNullable<Int?>
             val expectFun = verbs.checkException {
                 testee.isNullFun()
             }
@@ -193,12 +193,12 @@ abstract class AnyAssertionsSpec(
                     it("contains the '${testee::subject.name}'") {
                         expectFun.toThrow<AssertionError> { message { contains(subject.toString()) } }
                     }
-                    it("contains the '${IBasicAssertion::description.name}' of the assertion-message - which should be '${DescriptionAnyAssertion.TO_BE.getDefault()}'") {
+                    it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message - which should be '${DescriptionAnyAssertion.TO_BE.getDefault()}'") {
                         expectFun.toThrow<AssertionError> {
                             message { containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE) }
                         }
                     }
-                    it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
+                    it("contains the '${DescriptiveAssertion::expected.name}' of the assertion-message") {
                         expectFun.toThrow<AssertionError> { message { contains(RawString.NULL.string) } }
                     }
                 }
@@ -220,11 +220,11 @@ abstract class AnyAssertionsSpec(
     }
 
 }) {
-    interface IAnyAssertionsSpecFunFactory<T : Any> {
-        val toBeFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
-        val notToBeFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
-        val isSameFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
-        val isNotSameFun: IAssertionPlant<T>.(T) -> IAssertionPlant<T>
+    interface AnyAssertionsSpecFunFactory<T : Any> {
+        val toBeFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
+        val notToBeFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
+        val isSameFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
+        val isNotSameFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
     }
 
     data class DataClass(val isWhatever: Boolean)

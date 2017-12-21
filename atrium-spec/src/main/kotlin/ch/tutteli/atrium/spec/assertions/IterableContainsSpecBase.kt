@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.api.cc.en_UK.regex
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.Spec
 
@@ -27,7 +27,7 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = System.getProperty("line.separator")!!
 
-        fun IAssertionPlant<CharSequence>.containsSize(actual:Int, expected: Int)
+        fun AssertionPlant<CharSequence>.containsSize(actual:Int, expected: Int)
             = contains.exactly(1).regex("size: $actual[^:]+: $expected")
     }
 }

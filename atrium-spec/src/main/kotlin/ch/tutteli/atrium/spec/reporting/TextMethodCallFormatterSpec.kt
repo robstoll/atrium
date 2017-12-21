@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.reporting.IMethodCallFormatter
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.reporting.MethodCallFormatter
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -12,8 +11,8 @@ import org.jetbrains.spek.api.dsl.it
 
 @Suppress("UNUSED_PARAMETER")
 abstract class TextMethodCallFormatterSpec(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: () -> IMethodCallFormatter,
+    verbs: AssertionVerbFactory,
+    testeeFactory: () -> MethodCallFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

@@ -1,13 +1,14 @@
 package ch.tutteli.atrium.assertions.basic.contains.checkers
 
-import ch.tutteli.atrium.assertions.BasicAssertion
-import ch.tutteli.atrium.assertions.IBasicAssertion
-import ch.tutteli.atrium.assertions.basic.contains.IContains
+import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.ITranslatable
+import ch.tutteli.atrium.reporting.StringBasedRawString
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Represents a base class for [IContains.IChecker]s which compare how many occurrences of an expected object are found
+ * Represents a base class for [Contains.Checker]s which compare how many occurrences of an expected object are found
  * in the input of the search, against how many [times] the check expect it to be contained.
  *
  * It further checks that [times] is bigger than 0 (throws an [IllegalArgumentException] otherwise) and additionally
@@ -29,21 +30,21 @@ abstract class ContainsChecker(
     val times: Int,
     correctCall: String,
     wrongCall: (Int) -> String
-) : IContains.IChecker {
+) : Contains.Checker {
     init {
         require(times != 0) { "use $correctCall instead of ${wrongCall(0)}" }
         require(times > 0) { "only positive numbers allowed: $times given" }
     }
 
     /**
-     * Creates an [IBasicAssertion] based on the given [description], the property [times] as [RawString]
+     * Creates a [DescriptiveAssertion] based on the given [description], the property [times] as [StringBasedRawString]
      * and the given [check].
      *
-     * @param description The description used for [IBasicAssertion.description]
-     * @param check The check used for [IBasicAssertion.holds]
+     * @param description The description used for [DescriptiveAssertion.description]
+     * @param check The check used for [DescriptiveAssertion.holds]
      *
-     * @return The newly created [IBasicAssertion].
+     * @return The newly created [DescriptiveAssertion].
      */
-    protected fun createBasicAssertion(description: ITranslatable, check: Boolean): IBasicAssertion
-        = BasicAssertion(description, RawString(times.toString()), check)
+    protected fun createBasicAssertion(description: Translatable, check: Boolean): DescriptiveAssertion
+        = BasicDescriptiveAssertion(description, RawString.create(times.toString()), check)
 }

@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions._toThrow
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].
@@ -31,22 +31,22 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.wirft() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.wirft(noinline assertionCreator: IAssertionPlant<TExpected>.() -> Unit) {
+inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.wirft(noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
     _toThrow(this, assertionCreator)
 }
 
 /**
- * Creates an [IAssertionPlantNullable] for the [message][Throwable.message] of the plant's
- * [subject][IAssertionPlant.subject] (which is an [Throwable]) and makes the assertion that message [istNichtNull]
- * and uses [assertionCreator] which might create further [IAssertion]s which are lazily evaluated at the end.
+ * Creates an [AssertionPlantNullable] for the [message][Throwable.message] of the plant's
+ * [subject][AssertionPlant.subject] (which is a [Throwable]) and makes the assertion that message [istNichtNull]
+ * and uses [assertionCreator] which might create further [Assertion]s which are lazily evaluated at the end.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
  * assertion (message][Throwable.message] is not null) holds or not.
  * Define subsequent assertions via the [assertionCreator] lambda.
  *
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
- *         or if an additionally created [IAssertion]s (by calling [assertionCreator]) does not hold.
+ *         or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
-fun <T : Throwable> Assert<T>.message(assertionCreator: IAssertionPlant<String>.() -> Unit) {
+fun <T : Throwable> Assert<T>.message(assertionCreator: AssertionPlant<String>.() -> Unit) {
     property(subject::message).istNichtNull(assertionCreator)
 }

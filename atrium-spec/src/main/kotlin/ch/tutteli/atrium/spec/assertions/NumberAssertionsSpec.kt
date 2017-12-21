@@ -5,20 +5,18 @@ import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
-import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class NumberAssertionsSpec(
-    verbs: IAssertionVerbFactory,
-    isLessThanPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
-    isLessOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
-    isGreaterThanPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
-    isGreaterOrEqualPair: Pair<String, IAssertionPlant<Int>.(Int) -> IAssertionPlant<Int>>,
+    verbs: AssertionVerbFactory,
+    isLessThanPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
+    isLessOrEqualPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
+    isGreaterThanPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
+    isGreaterOrEqualPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

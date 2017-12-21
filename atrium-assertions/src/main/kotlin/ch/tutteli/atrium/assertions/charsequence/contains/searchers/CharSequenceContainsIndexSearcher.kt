@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.searchers
 
-import ch.tutteli.atrium.assertions.charsequence.contains.ICharSequenceContains.ISearcher
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Searcher
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 
 /**
- * Represents an [ISearcher] which uses [CharSequence.indexOf] to find expected objects.
+ * Represents a [Searcher] which uses [CharSequence.indexOf] to find expected objects.
  */
-class CharSequenceContainsIndexSearcher : ISearcher<CharSequenceContainsNoOpSearchBehaviour> {
+class CharSequenceContainsIndexSearcher : Searcher<CharSequenceContainsNoOpSearchBehaviour> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int {
         val expected = searchFor.toString()
         var index = searchIn.indexOf(expected)

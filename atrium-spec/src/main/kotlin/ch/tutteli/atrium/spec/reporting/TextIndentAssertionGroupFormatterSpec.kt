@@ -1,21 +1,21 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
-import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.IndentAssertionGroup
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IAssertionFormatterController
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.assertions.IndentAssertionGroupType
+import ch.tutteli.atrium.reporting.AssertionFormatter
+import ch.tutteli.atrium.reporting.AssertionFormatterController
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 
 abstract class TextIndentAssertionGroupFormatterSpec(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: (Map<Class<out IBulletPointIdentifier>, String>, IAssertionFormatterController) -> IAssertionFormatter,
+    verbs: AssertionVerbFactory,
+    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
-) : TextIndentBasedAssertionGroupFormatterSpec<IIndentAssertionGroupType>(
+) : TextIndentBasedAssertionGroupFormatterSpec<IndentAssertionGroupType>(
     verbs,
     testeeFactory,
-    IIndentAssertionGroupType::class.java,
-    object : IIndentAssertionGroupType {},
+    IndentAssertionGroupType::class.java,
+    object : IndentAssertionGroupType {},
     { IndentAssertionGroup(it) },
     describePrefix
 )

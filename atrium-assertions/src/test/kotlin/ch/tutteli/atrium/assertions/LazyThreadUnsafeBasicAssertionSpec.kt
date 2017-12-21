@@ -14,7 +14,7 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
         var count = 0
         val testee = LazyThreadUnsafeBasicAssertion {
             ++count
-            BasicAssertion(Untranslatable("a"), 2, false)
+            BasicDescriptiveAssertion(Untranslatable("a"), 2, false)
         }
         test("does not evaluate anything") {
             assert(count).toBe(0)
@@ -30,7 +30,7 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
                 assert(count).toBe(1)
             }
 
-            it("returns holds() of the underlying ${BasicAssertion::class.simpleName}") {
+            it("returns holds() of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
                 assert(resultHolds).toBe(false)
             }
         }
@@ -43,11 +43,11 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
                 assert(count).toBe(1)
             }
 
-            it("returns holds() of the underlying ${BasicAssertion::class.simpleName}") {
+            it("returns holds() of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
                 assert(resultHolds).toBe(false)
             }
 
-            it("returns expected of the underlying ${BasicAssertion::class.simpleName}") {
+            it("returns expected of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
                 assert(resultExpected).toBe(2)
             }
         }

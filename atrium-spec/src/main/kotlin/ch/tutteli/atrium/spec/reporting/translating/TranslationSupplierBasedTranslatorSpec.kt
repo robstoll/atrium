@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.reporting.translating.*
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
@@ -15,49 +15,49 @@ import org.jetbrains.spek.api.dsl.it
 import java.util.*
 
 abstract class TranslationSupplierBasedTranslatorSpec(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: (translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, locale: Locale, fallbackLocals: Array<out Locale>) -> ITranslator,
+    verbs: AssertionVerbFactory,
+    testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: Locale, fallbackLocals: Array<out Locale>) -> Translator,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    fun testeeFactory(translationSupplier: ITranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)
+    fun testeeFactory(translationSupplier: TranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)
         = testeeFactory(translationSupplier, AtriumFactory.newLocaleOrderDecider(), locale, fallbackLocals)
 
-    fun mockTranslationProvider(locale: Locale, translatable: ITranslatable, translation: String): ITranslationSupplier {
+    fun mockTranslationProvider(locale: Locale, translatable: Translatable, translation: String): TranslationSupplier {
         return mock {
             on { get(translatable, locale) }.doReturn(translation)
         }
     }
 
     val localeUK = Locale.UK
-    val translatableTest = object : ISimpleTranslatable {
+    val translatableTest = object : StringBasedTranslatable {
         override val value = "test"
         override val name = "test"
     }
-    val translatableHello = object : ISimpleTranslatable {
+    val translatableHello = object : StringBasedTranslatable {
         override val value = "hello"
         override val name = "hello"
     }
 
-    fun SpecBody.checkUsesDefaultOfTranslatable(testee: ITranslator) {
-        it("uses ${ITranslatable::class.simpleName}'s ${ITranslatable::getDefault.name}") {
+    fun SpecBody.checkUsesDefaultOfTranslatable(testee: Translator) {
+        it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
             val result = testee.translate(translatableHello)
             verbs.checkImmediately(result).toBe(translatableHello.value)
         }
     }
 
-    fun SpecBody.checkTranslationSuccessfulForDesiredTranslatable(testee: ITranslator, translation: String, locale: Locale) {
-        context("but for the wrong ${ITranslatable::class.simpleName}") {
-            it("uses ${ITranslatable::class.simpleName}'s ${ITranslatable::getDefault.name}") {
+    fun SpecBody.checkTranslationSuccessfulForDesiredTranslatable(testee: Translator, translation: String, locale: Locale) {
+        context("but for the wrong ${Translatable::class.simpleName}") {
+            it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
                 val result = testee.translate(translatableTest)
                 verbs.checkImmediately(result).toBe(translatableTest.value)
             }
         }
 
-        context("for the desired ${ITranslatable::class.simpleName}") {
+        context("for the desired ${Translatable::class.simpleName}") {
             it("uses the translation of Locale $locale") {
                 val result = testee.translate(translatableHello)
                 verbs.checkImmediately(result).toBe(translation)
@@ -77,9 +77,9 @@ abstract class TranslationSupplierBasedTranslatorSpec(
     val translationFrFr = "salut"
     val providerWithFrFr = mockTranslationProvider(Locale.FRANCE, translatableHello, translationFrFr)
 
-    describeFun(ITranslator::translate.name) {
+    describeFun(Translator::translate.name) {
 
-        describe("translating a ${ITranslatable::class.simpleName} to $localeUK without fallbacks") {
+        describe("translating a ${Translatable::class.simpleName} to $localeUK without fallbacks") {
 
             context("no translations provided at all") {
                 val testee = testeeFactory(mock(), localeUK)
@@ -108,7 +108,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
 
         }
 
-        describe("translating a ${ITranslatable::class.simpleName} to $localeUK with fallbacks") {
+        describe("translating a ${Translatable::class.simpleName} to $localeUK with fallbacks") {
 
             context("translation provided but for Locale fr_FR without a fallback to it") {
                 val testee = testeeFactory(providerWithFrFr, localeUK)

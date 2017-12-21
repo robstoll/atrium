@@ -4,8 +4,8 @@ import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,11 +14,11 @@ import org.jetbrains.spek.api.include
 import java.util.regex.PatternSyntaxException
 
 abstract class CharSequenceContainsRegexAssertionSpec(
-    verbs: IAssertionVerbFactory,
+    verbs: AssertionVerbFactory,
     containsRegex: String,
-    containsAtLeastTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, String, Array<out String>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, String, Array<out String>) -> IAssertionPlant<CharSequence>>,
-    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, IAssertionPlant<CharSequence>.(Int, String, Array<out String>) -> IAssertionPlant<CharSequence>>,
+    containsAtLeastTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, String, Array<out String>) -> AssertionPlant<CharSequence>>,
+    containsAtMostTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, String, Array<out String>) -> AssertionPlant<CharSequence>>,
+    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, String, Array<out String>) -> AssertionPlant<CharSequence>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -37,7 +37,7 @@ abstract class CharSequenceContainsRegexAssertionSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (CharSequence) -> IAssertionPlant<CharSequence> = verbs::checkImmediately
+    val assert: (CharSequence) -> AssertionPlant<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
 
     val text = "Hello my name is Robert"
@@ -46,15 +46,15 @@ abstract class CharSequenceContainsRegexAssertionSpec(
     val fluent = assert(text)
 
     val (_, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
-    fun IAssertionPlant<CharSequence>.containsAtLeastFun(atLeast: Int, a: String, vararg aX: String)
+    fun AssertionPlant<CharSequence>.containsAtLeastFun(atLeast: Int, a: String, vararg aX: String)
         = containsAtLeastFunArr(atLeast, a, aX)
 
     val (_, containsAtMostTest, containsAtMostFunArr) = containsAtMostTriple
-    fun IAssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: String, vararg aX: String)
+    fun AssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: String, vararg aX: String)
         = containsAtMostFunArr(atLeast, a, aX)
 
     val (_, containsAtMostIgnoringCase, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCaseTriple
-    fun IAssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
+    fun AssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
     describeFun(containsRegex) {

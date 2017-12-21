@@ -1,17 +1,17 @@
 package ch.tutteli.atrium.assertions.basic.contains.builders
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.basic.contains.IContains
-import ch.tutteli.atrium.assertions.basic.contains.IContains.IChecker
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.basic.contains.Contains
+import ch.tutteli.atrium.assertions.basic.contains.Contains.Checker
+import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
  * Represents the base class for builders representing a checking step in the process of building a sophisticated
  * `contains` assertion.
  *
- * @param T The type of the [IAssertionPlant.subject].
- * @param S The type of the current [IContains.ISearchBehaviour].
- * @param C The type of the checkers in use (typically a sub interface of [IContains.IChecker]).
+ * @param T The type of the [AssertionPlant.subject].
+ * @param S The type of the current [Contains.SearchBehaviour].
+ * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
  * @param B The concrete type of the builder representing the entry point of the process of building a sophisticated
  *        `contains` assertion.
  *
@@ -23,13 +23,13 @@ import ch.tutteli.atrium.creating.IAssertionPlant
  * @param containsBuilder The builder representing the entry point of the process of building a sophisticated
  *        `contains` assertion.
  */
-abstract class ContainsCheckerBuilder<out T : Any, S : IContains.ISearchBehaviour, out C : IContains.IChecker, out B : ContainsBuilder<T, S>>(
+abstract class ContainsCheckerBuilder<out T : Any, S : Contains.SearchBehaviour, out C : Contains.Checker, out B : ContainsBuilder<T, S>>(
     val containsBuilder: B
 ) {
     /**
-     * Contains all [IChecker]s which should be applied to the search result.
+     * Contains all [Checker]s which should be applied to the search result.
      *
-     * It typically contains the [IChecker] this builder created and might contain other [IChecker]s which builders,
+     * It typically contains the [Checker] this builder created and might contain other [Checker]s which builders,
      * precedent to this builder within the fluent API, created already.
      */
     abstract val checkers: List<C>
@@ -39,6 +39,6 @@ abstract class ContainsCheckerBuilder<out T : Any, S : IContains.ISearchBehaviou
      *
      * @return The plant to support a fluent API.
      */
-    fun addAssertion(assertion: IAssertion)
+    fun addAssertion(assertion: Assertion)
         = containsBuilder.plant.addAssertion(assertion)
 }

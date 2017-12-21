@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.IAssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlant
 
 class IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
     AssertionVerbFactory,
@@ -20,7 +20,7 @@ class IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec : ch.tutteli.atrium
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: IAssertionPlant<Iterable<Double>>, atLeast: Int, a: Double, aX: Array<out Double>): IAssertionPlant<Iterable<Double>> {
+        private fun containsAtLeast(plant: AssertionPlant<Iterable<Double>>, atLeast: Int, a: Double, aX: Array<out Double>): AssertionPlant<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant.contains.inAnyOrder.atLeast(atLeast).value(a)
             } else {
@@ -34,7 +34,7 @@ class IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec : ch.tutteli.atrium
             Companion::containsAtLeastButAtMost
         )
 
-        private fun containsAtLeastButAtMost(plant: IAssertionPlant<Iterable<Double>>, atLeast: Int, butAtMost: Int, a: Double, aX: Array<out Double>)
+        private fun containsAtLeastButAtMost(plant: AssertionPlant<Iterable<Double>>, atLeast: Int, butAtMost: Int, a: Double, aX: Array<out Double>)
             = plant.contains.inAnyOrder.atLeast(atLeast).butAtMost(butAtMost).objects(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

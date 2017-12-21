@@ -3,9 +3,9 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.creating.IAssertionPlant
-import ch.tutteli.atrium.creating.IAssertionPlantNullable
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,16 +14,16 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class NarrowingAssertionsSpec(
-    verbs: IAssertionVerbFactory,
-    isNotNullPair: Pair<String, IAssertionPlantNullable<Int?>.(assertionCreator: IAssertionPlant<Int>.() -> Unit) -> Unit>,
-    isNotNullLessFun: IAssertionPlantNullable<Int?>.(Int) -> Unit,
-    isNotNullGreaterAndLessFun: IAssertionPlantNullable<Int?>.(Int, Int) -> Unit,
+    verbs: AssertionVerbFactory,
+    isNotNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: AssertionPlant<Int>.() -> Unit) -> Unit>,
+    isNotNullLessFun: AssertionPlantNullable<Int?>.(Int) -> Unit,
+    isNotNullGreaterAndLessFun: AssertionPlantNullable<Int?>.(Int, Int) -> Unit,
     nameIsA: String,
-    isAIntFun: IAssertionPlant<String>.(assertionCreator: IAssertionPlant<Int>.() -> Unit) -> Unit,
-    isAStringFun: IAssertionPlant<String>.(assertionCreator: IAssertionPlant<String>.() -> Unit) -> Unit,
-    isACharSequenceFun: IAssertionPlant<String>.(assertionCreator: IAssertionPlant<CharSequence>.() -> Unit) -> Unit,
-    isASubTypeFun: IAssertionPlant<SuperType>.(assertionCreator: IAssertionPlant<SubType>.() -> Unit) -> Unit,
-    isAIntLessFun: IAssertionPlant<Number>.(Int) -> Unit,
+    isAIntFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<Int>.() -> Unit) -> Unit,
+    isAStringFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<String>.() -> Unit) -> Unit,
+    isACharSequenceFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<CharSequence>.() -> Unit) -> Unit,
+    isASubTypeFun: AssertionPlant<SuperType>.(assertionCreator: AssertionPlant<SubType>.() -> Unit) -> Unit,
+    isAIntLessFun: AssertionPlant<Number>.(Int) -> Unit,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -39,7 +39,7 @@ abstract class NarrowingAssertionsSpec(
 
     describeFun(nameIsNotNull) {
 
-        val assert: (Int?) -> IAssertionPlantNullable<Int?> = verbs::checkNullable
+        val assert: (Int?) -> AssertionPlantNullable<Int?> = verbs::checkNullable
 
         context("subject is null") {
             it("throws an AssertionError") {
@@ -155,7 +155,7 @@ abstract class NarrowingAssertionsSpec(
 
     describeFun(nameIsA) {
 
-        val assert: (String) -> IAssertionPlant<String> = verbs::checkImmediately
+        val assert: (String) -> AssertionPlant<String> = verbs::checkImmediately
 
         context("subject is not in type hierarchy") {
             it("throws an AssertionError") {

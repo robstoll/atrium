@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.checkers
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
-import ch.tutteli.atrium.assertions.IAssertion
 
 /**
  * Represents a check that an expected object is contained exactly [times] in the search input.
@@ -19,6 +19,6 @@ class CharSequenceContainsExactlyChecker(
     exactlyCall: (Int) -> String
 ) : CharSequenceContainsChecker(times, nameContainsNotFun, exactlyCall) {
 
-    override fun createAssertion(foundNumberOfTimes: Int): IAssertion
+    override fun createAssertion(foundNumberOfTimes: Int): Assertion
         = createBasicAssertion(DescriptionCharSequenceAssertion.EXACTLY, foundNumberOfTimes == times)
 }

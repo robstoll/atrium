@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting.translating
 import java.util.*
 
 /**
- * Represents an [ITranslator] which reuses [ResourceBundle] properties based capabilities but uses an enhanced
+ * Represents a [Translator] which reuses [ResourceBundle] properties based capabilities but uses an enhanced
  * fallback mechanism. Instead of falling back to [Locale.getDefault] one is able to specify fallback [Locale] oneself.
  * Whether this includes [Locale.getDefault] or not is up to the user.
  *
@@ -16,13 +16,13 @@ import java.util.*
  *
  * This class is only used as reference implementation to see that compatibility with ResourceBundle is still given.
  *
- * @constructor  Represents an [ITranslator] which reuses [ResourceBundle] properties based capabilities but uses
+ * @constructor  Represents a [Translator] which reuses [ResourceBundle] properties based capabilities but uses
  *               an enhanced fallback mechanism. Instead of falling back to [Locale.getDefault] one is able to
  *               specify fallback [Locale] oneself. Whether this includes [Locale.getDefault] or not is up to the user.
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
  *        which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in the
- *        resulting translation of [ITranslatableWithArgs.translatable] with the [ITranslatableWithArgs.arguments].
- * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
+ *        resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
+ * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
  *        [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  */
 internal class ResourceBundleBasedTranslator(
@@ -30,7 +30,7 @@ internal class ResourceBundleBasedTranslator(
     fallbackLocales: Array<out Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
-    override fun translateWithoutArgs(translatable: ITranslatable): String {
+    override fun translateWithoutArgs(translatable: Translatable): String {
         val control = ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
         listOf(primaryLocale, *fallbackLocales).forEach { locale ->
             try {
@@ -49,9 +49,9 @@ internal class ResourceBundleBasedTranslator(
          * makes use of the given [fallbackLocales] if provided or uses only the given [primaryLocale].
          *
          * @param primaryLocale The primary [Locale] which will be used in [java.lang.String.format] to substitute the
-         *        placeholders in the resulting translation of [ITranslatableWithArgs.translatable] with
-         *        the [ITranslatableWithArgs.arguments].
-         * @param fallbackLocales Used in case a translation for a given [ITranslatable] is not defined for
+         *        placeholders in the resulting translation of [TranslatableWithArgs.translatable] with
+         *        the [TranslatableWithArgs.arguments].
+         * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
          *        [primaryLocale] or one of its secondary alternatives -- the [fallbackLocales] are used in the
          *        given order.
          */

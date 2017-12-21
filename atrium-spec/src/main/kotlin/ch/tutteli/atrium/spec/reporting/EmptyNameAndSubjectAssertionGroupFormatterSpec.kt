@@ -5,23 +5,21 @@ import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.containsNotDefaultTranslationOf
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IAssertionGroupType
+import ch.tutteli.atrium.assertions.AssertionGroupType
+import ch.tutteli.atrium.reporting.AssertionFormatter
+import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
-import ch.tutteli.atrium.reporting.IAssertionFormatter
-import ch.tutteli.atrium.reporting.IAssertionFormatterController
-import ch.tutteli.atrium.reporting.translating.ISimpleTranslatable
-import ch.tutteli.atrium.spec.IAssertionVerbFactory
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
+import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.spec.prefixedDescribe
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 
-abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : IAssertionGroupType>(
-    verbs: IAssertionVerbFactory,
-    testeeFactory: (IAssertionFormatterController) -> IAssertionFormatter,
+abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroupType>(
+    verbs: AssertionVerbFactory,
+    testeeFactory: (AssertionFormatterController) -> AssertionFormatter,
     assertionGroupClass: Class<T>,
     assertionGroupType: T,
     anonymousAssertionGroupType: T,
@@ -40,16 +38,16 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : IAssertionGrou
 
     val testString = "bla blu"
     val testSubject = "testSubject"
-    describeFun(IAssertionFormatter::formatGroup.name) {
+    describeFun(AssertionFormatter::formatGroup.name) {
 
-        context("has ${IAssertionGroup::name.name} and ${IAssertionGroup::subject.name}") {
+        context("has ${AssertionGroup::name.name} and ${AssertionGroup::subject.name}") {
             mapOf(
                 "object: ${assertionGroupClass.simpleName}" to anonymousAssertionGroupType,
                 "${assertionGroupType::class.simpleName}" to assertionGroupType
             ).forEach { typeRepresentation, type ->
-                context("formatting an ${IAssertionGroup::class.simpleName} of type $typeRepresentation") {
-                    it("does not include ${IAssertionGroup::name.name} or ${IAssertionGroup::subject.name}") {
-                        val assertionGroup = AssertionGroup(type, TestDescription.TEST_NAME, testSubject, listOf())
+                context("formatting an ${AssertionGroup::class.simpleName} of type $typeRepresentation") {
+                    it("does not include ${AssertionGroup::name.name} nor ${AssertionGroup::subject.name}") {
+                        val assertionGroup = AssertionGroup.Builder.withType(type).create(TestDescription.TEST_NAME, testSubject, listOf())
                         val methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
                         testee.formatGroup(assertionGroup, methodObject, { _, _ -> sb.append(testString) })
                         verbs.checkImmediately(sb.toString())
@@ -62,7 +60,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : IAssertionGrou
         }
     }
 }) {
-    enum class TestDescription(override val value: String) : ISimpleTranslatable {
+    enum class TestDescription(override val value: String) : StringBasedTranslatable {
         TEST_NAME("testName"),
     }
 }

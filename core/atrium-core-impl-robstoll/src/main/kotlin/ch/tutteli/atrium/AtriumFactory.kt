@@ -1,9 +1,9 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
-import ch.tutteli.atrium.checking.IAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
@@ -14,79 +14,79 @@ import java.util.*
  * Robstoll's `abstract factory` of atrium.
  *
  * It provides factory methods to create:
- * - [IAssertionPlant]
- * - [IAssertionChecker]
- * - [IMethodCallFormatter]
- * - [ITranslator]
- * - [ITranslationSupplier]
- * - [LocaleOrderDecider]
- * - [IObjectFormatter]
- * - [IAssertionFormatterFacade]
- * - [IAssertionFormatterController]
- * - [IAssertionFormatter]
- * - [IReporter]
+ * - [AssertionPlant]
+ * - [AssertionChecker]
+ * - [MethodCallFormatter]
+ * - [Translator]
+ * - [TranslationSupplier]
+ * - [CoroutineBasedLocaleOrderDecider]
+ * - [ObjectFormatter]
+ * - [AssertionFormatterFacade]
+ * - [AssertionFormatterController]
+ * - [AssertionFormatter]
+ * - [Reporter]
  */
 object AtriumFactory : IAtriumFactory {
 
-    override fun <T : Any> newReportingPlant(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlant<T>
-        = ReportingAssertionPlant(commonFields)
+    override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
+        = ReportingAssertionPlantImpl(commonFields)
 
-    override fun <T : Any?> newReportingPlantNullable(commonFields: IAssertionPlantWithCommonFields.CommonFields<T>): IReportingAssertionPlantNullable<T>
-        = ReportingAssertionPlantNullable(commonFields)
+    override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
+        = ReportingAssertionPlantNullableImpl(commonFields)
 
-    override fun <T : Any> newCheckingPlant(subject: T): ICheckingAssertionPlant<T>
-        = CheckingAssertionPlant(subject)
+    override fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
+        = CheckingAssertionPlantImpl(subject)
 
-    override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): ICollectingAssertionPlant<T>
-        = CollectingAssertionPlant(subjectProvider)
+    override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
+        = CollectingAssertionPlantImpl(subjectProvider)
 
-    override fun newThrowingAssertionChecker(reporter: IReporter): IAssertionChecker
+    override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = ThrowingAssertionChecker(reporter)
 
-    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: IAssertionPlant<T>): IAssertionChecker
+    override fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
         = FeatureAssertionChecker(subjectPlant)
 
-    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: IBaseAssertionPlant<T, *>): IAssertionChecker
+    override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
         = DelegatingAssertionChecker(subjectPlant)
 
-    override fun newMethodCallFormatter(): IMethodCallFormatter
+    override fun newMethodCallFormatter(): MethodCallFormatter
         = TextMethodCallFormatter
 
-    override fun newTranslator(translationSupplier: ITranslationSupplier, localeOrderDecider: ILocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): ITranslator
+    override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
         = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
 
-    override fun newPropertiesBasedTranslationSupplier(): ITranslationSupplier
+    override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
         = PropertiesPerEntityAndLocaleTranslationSupplier()
 
-    override fun newLocaleOrderDecider(): ILocaleOrderDecider
-        = LocaleOrderDecider()
+    override fun newLocaleOrderDecider(): LocaleOrderDecider
+        = CoroutineBasedLocaleOrderDecider()
 
-    override fun newDetailedObjectFormatter(translator: ITranslator): IObjectFormatter
+    override fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter
         = DetailedObjectFormatter(translator)
 
-    override fun newAssertionFormatterController(): IAssertionFormatterController
-        = AssertionFormatterController()
+    override fun newAssertionFormatterController(): AssertionFormatterController
+        = AssertionFormatterControllerImpl()
 
-    override fun newAssertionFormatterFacade(assertionFormatterController: IAssertionFormatterController): IAssertionFormatterFacade
-        = AssertionFormatterFacade(assertionFormatterController)
+    override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
+        = AssertionFormatterControllerBasedFacade(assertionFormatterController)
 
-    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator), objectFormatter)
 
-    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFeatureAssertionGroupFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController, objectFormatter: IObjectFormatter, translator: ITranslator): IAssertionFormatter
+    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
-    override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: IAssertionFormatterController): IAssertionFormatter
+    override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
         = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
 
     override fun registerSameLineTextAssertionFormatterCapabilities(
-        bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
-        assertionFormatterFacade: IAssertionFormatterFacade,
-        objectFormatter: IObjectFormatter,
-        translator: ITranslator
+        bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+        assertionFormatterFacade: AssertionFormatterFacade,
+        objectFormatter: ObjectFormatter,
+        translator: Translator
     ) {
         val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         assertionFormatterFacade.register { TextListAssertionGroupFormatter(bulletPoints, it, pairFormatter) }
@@ -98,9 +98,9 @@ object AtriumFactory : IAtriumFactory {
         assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, pairFormatter, objectFormatter) }
     }
 
-    private fun newTextSameLineAssertionPairFormatter(objectFormatter: IObjectFormatter, translator: ITranslator)
+    private fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
         = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
-    override fun newOnlyFailureReporter(assertionFormatterFacade: IAssertionFormatterFacade): IReporter
+    override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
         = OnlyFailureReporter(assertionFormatterFacade)
 }
