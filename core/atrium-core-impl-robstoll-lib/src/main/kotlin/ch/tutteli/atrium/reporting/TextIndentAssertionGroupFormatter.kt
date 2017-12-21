@@ -1,20 +1,20 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
 
 /**
- * Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [IIndentAssertionGroupType] or rather
+ * Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [IIndentAssertionGroupType] or rather
  * creates a child-[AssertionFormatterMethodObject] which proposes to use the bullet point defined
- * for [IIndentAssertionGroupType] for the [IAssertionGroup.assertions].
+ * for [IIndentAssertionGroupType] for the [AssertionGroup.assertions].
  *
  * It does not include a group header in its result or in other words, skips the first part of formatting an
- * [IAssertionGroup] as defined in [AssertionFormatter.formatGroup].
+ * [AssertionGroup] as defined in [AssertionFormatter.formatGroup].
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @constructor Represents an [AssertionFormatter] which formats [IAssertionGroup]s with an [IIndentAssertionGroupType]
+ * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [IIndentAssertionGroupType]
  *              or rather creates a child-[AssertionFormatterMethodObject] which proposes to use the bullet point
  *              defined for [IIndentAssertionGroupType] for the [IAssertionGroup.assertions].
  * @param bulletPoints The formatter uses the bullet point defined for [IIndentAssertionGroupType]
@@ -23,12 +23,12 @@ import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
  *        when it comes to format children of an [IAssertionGroup].
  */
 class TextIndentAssertionGroupFormatter(
-    bulletPoints: Map<Class<out IBulletPointIdentifier>, String>,
+    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController
 ) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IIndentAssertionGroupType>(IIndentAssertionGroupType::class.java, assertionFormatterController) {
     private val bulletPoint = bulletPoints[IIndentAssertionGroupType::class.java] ?: " ⋄ "
 
-    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: IAssertionGroup, methodObject: AssertionFormatterMethodObject)
+    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject)
         = methodObject.createChildWithNewPrefix(bulletPoint)
 
 }

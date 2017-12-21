@@ -13,10 +13,10 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
 
     describe("creating it") {
         var count = 0
-        val assertion = BasicAssertion(Untranslatable("b"), 3, false)
+        val assertion = BasicDescriptiveAssertion(Untranslatable("b"), 3, false)
         val testee = LazyThreadUnsafeAssertionGroup {
             ++count
-            AssertionGroupBuilder.feature.create(Untranslatable("a"), 2, assertion)
+            AssertionGroup.Builder.feature.create(Untranslatable("a"), 2, assertion)
         }
         test("does not evaluate anything") {
             assert(count).toBe(0)
@@ -32,7 +32,7 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
                 assert(count).toBe(1)
             }
 
-            it("returns holds() of the underlying ${BasicAssertion::class.simpleName}") {
+            it("returns holds() of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
                 assert(resultHolds).toBe(false)
             }
         }
@@ -45,11 +45,11 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
                 assert(count).toBe(1)
             }
 
-            it("returns holds() of the underlying ${BasicAssertion::class.simpleName}") {
+            it("returns holds() of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
                 assert(resultHolds).toBe(false)
             }
 
-            it("returns expected of the underlying ${BasicAssertion::class.simpleName}") {
+            it("returns expected of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
                 assert(resultAssertions).containsStrictly(assertion)
             }
         }

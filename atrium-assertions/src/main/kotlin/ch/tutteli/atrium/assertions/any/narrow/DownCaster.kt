@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.any.narrow
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.BasicAssertion
-import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -32,10 +32,10 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyNarrow.DownCa
      * [subject][BaseAssertionPlant.subject] of [subjectPlant] if successful or passes it to the [failureHandler]
      * otherwise.
      *
-     * It also adds an [IBasicAssertion], representing the down-cast as such (succeeding or failing), to the given
+     * It also adds an [DescriptiveAssertion], representing the down-cast as such (succeeding or failing), to the given
      * [subjectPlant] using the given [description].
      *
-     * @param description The [description][IBasicAssertion.description] of the resulting [IBasicAssertion].
+     * @param description The [description][DescriptiveAssertion.description] of the resulting [DescriptiveAssertion].
      * @param subType The type to which the [subjectPlant]'s [subject][AssertionPlant.subject] should be down-casted.
      * @param subjectPlant The plant to which additional assertions will be added.
      * @param assertionCreator The lambda function which can create subsequent assertions for the down-casted subject.
@@ -54,10 +54,10 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyNarrow.DownCa
         if (subType.isInstance(subject)) {
             val assertionChecker = AtriumFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = AtriumFactory.newReportingPlant(assertionVerb, subType.cast(subject), assertionChecker)
-            plant.addAssertion(BasicAssertion(description, subType, true))
+            plant.addAssertion(BasicDescriptiveAssertion(description, subType, true))
             plant.addAssertionsCreatedBy(assertionCreator)
         } else {
-            failureHandler.createAndAddAssertionToPlant(subType, subjectPlant, BasicAssertion(description, subType, false), assertionCreator)
+            failureHandler.createAndAddAssertionToPlant(subType, subjectPlant, BasicDescriptiveAssertion(description, subType, false), assertionCreator)
         }
     }
 }

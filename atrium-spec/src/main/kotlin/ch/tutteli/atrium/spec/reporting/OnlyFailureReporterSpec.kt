@@ -40,29 +40,29 @@ abstract class OnlyFailureReporterSpec(
 
     describeFun(testee::format.name) {
         val sb = StringBuilder()
-        val assertion = object : IAssertion {
+        val assertion = object : Assertion {
             override fun holds() = true
         }
-        val basicAssertion = BasicAssertion(TO_BE, 0, true)
-        val basicAssertionAnonymous = object : IBasicAssertion {
+        val basicAssertion = BasicDescriptiveAssertion(TO_BE, 0, true)
+        val basicAssertionAnonymous = object : DescriptiveAssertion {
             override val expected = 1
             override val description = AssertionVerb.VERB
             override fun holds() = true
         }
 
-        val assertionGroupAnonymous = object : IAssertionGroup {
+        val assertionGroupAnonymous = object : AssertionGroup {
             override val type = RootAssertionGroupType
             override val name = AssertionVerb.VERB
             override val subject = 0
             override val assertions = listOf(assertion, basicAssertion, basicAssertionAnonymous)
         }
-        val assertionGroup = AssertionGroupBuilder.root.create(AssertionVerb.VERB, 1, listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
+        val assertionGroup = AssertionGroup.Builder.root.create(AssertionVerb.VERB, 1, listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
 
         mapOf(
-            "object: ${IAssertion::class.simpleName}" to assertion,
-            "object: ${IBasicAssertion::class.simpleName}" to basicAssertionAnonymous,
+            "object: ${Assertion::class.simpleName}" to assertion,
+            "object: ${DescriptiveAssertion::class.simpleName}" to basicAssertionAnonymous,
             "${basicAssertion::class.simpleName}" to basicAssertion,
-            "object: ${IAssertionGroup::class.simpleName}" to assertionGroupAnonymous,
+            "object: ${AssertionGroup::class.simpleName}" to assertionGroupAnonymous,
             "${assertionGroup::class.simpleName}" to assertionGroup
         ).forEach { (typeRepresentation, assertion) ->
             it("does not append anything if $typeRepresentation holds") {

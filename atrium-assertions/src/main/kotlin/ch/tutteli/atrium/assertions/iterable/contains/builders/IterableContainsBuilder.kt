@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
  * Represents the entry point of the fluent API of sophisticated `contains` assertions.
- * It contains the [plant] for which the [IAssertion] shall be build as well as the decoration behaviour which shall be
+ * It contains the [plant] for which the [Assertion] shall be build as well as the decoration behaviour which shall be
  * applied to the [plant]'s [subject][AssertionPlant.subject].
  *
  * @param T The input type of the search which is the same as the type of the [subject][AssertionPlant.subject] of the

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.checking
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroup
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -23,20 +23,20 @@ abstract class DelegatingAssertionCheckerSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    val assert: (IAssertion) -> AssertionPlant<IAssertion> = verbs::checkImmediately
+    val assert: (Assertion) -> AssertionPlant<Assertion> = verbs::checkImmediately
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assertions = ArrayList<IAssertion>()
-    assertions.add(object : IAssertion {
+    val assertions = ArrayList<Assertion>()
+    assertions.add(object : Assertion {
         override fun holds() = true
     })
     val assertionVerb = AssertionVerb.VERB
-    val assertionWhichFails = object : IAssertion {
+    val assertionWhichFails = object : Assertion {
         override fun holds() = false
     }
-    val assertionWhichHolds = object : IAssertion {
+    val assertionWhichHolds = object : Assertion {
         override fun holds() = true
     }
 
@@ -62,7 +62,7 @@ abstract class DelegatingAssertionCheckerSpec(
                     //act
                     testee.check(assertionVerb, 1, assertions)
                     //assert
-                    val captor = argumentCaptor<IAssertion>()
+                    val captor = argumentCaptor<Assertion>()
                     verify(subjectFactory).addAssertion(captor.capture())
                     assert(captor.firstValue).isA<InvisibleAssertionGroup> {
                         property(subject::assertions) {

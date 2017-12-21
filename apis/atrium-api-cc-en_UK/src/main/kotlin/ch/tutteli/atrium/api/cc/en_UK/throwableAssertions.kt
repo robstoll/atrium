@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions._toThrow
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
@@ -38,7 +38,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinli
 /**
  * Creates an [AssertionPlantNullable] for the [message][Throwable.message] of the plant's
  * [subject][AssertionPlant.subject] (which is an [Throwable]) and makes the assertion that message [isNotNull]
- * and uses [assertionCreator] which might create further [IAssertion]s which are lazily evaluated at the end.
+ * and uses [assertionCreator] which might create further [Assertion]s which are lazily evaluated at the end.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
  * assertion (message][Throwable.message] is not null) holds or not.

@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 
 /**
- * Represents a plant for [IAssertion]s and offers methods to [addAssertion]s to this plant.
+ * Represents a plant for [Assertion]s and offers methods to [addAssertion]s to this plant.
  *
  * It defines what [AssertionPlant] and [AssertionPlantNullable] have in common but is typically not used as entry
  * point for assertion functions (with a few exceptions like equality and identity assertions). Most of the time you
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.assertions.IAssertion
  */
 interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
     /**
-     * The subject for which this plant will create [IAssertion]s.
+     * The subject for which this plant will create [Assertion]s.
      */
     val subject: T
 
@@ -25,8 +25,8 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
      *
      * @return This plant to support a fluent API.
      *
-     * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
+     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *         evaluated (see [IReportingAssertionPlant]).
      */
-    fun addAssertion(assertion: IAssertion): A
+    fun addAssertion(assertion: Assertion): A
 }

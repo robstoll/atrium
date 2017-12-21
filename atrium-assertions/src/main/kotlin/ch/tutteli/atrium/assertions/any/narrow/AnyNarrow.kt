@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.assertions.any.narrow
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow.DownCastFailureHandler
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import kotlin.reflect.KClass
@@ -29,7 +30,7 @@ interface AnyNarrow {
          * @param subType The type to which the [subjectPlant]'s [subject][AssertionPlant.subject] should have been
          *        down-casted.
          * @param subjectPlant The plant to which additional assertions would have been added.
-         * @param failingAssertion The [IAssertion] representing the failed assertion that [subjectPlant]'s
+         * @param failingAssertion The [Assertion] representing the failed assertion that [subjectPlant]'s
          *        [subject][IAssertionPlant.subject] can be down-casted to [TSub].
          * @param assertionCreator The lambda which could have created subsequent assertions for the down-casted
          *        [IAssertionPlant.subject].
@@ -39,7 +40,7 @@ interface AnyNarrow {
         fun createAndAddAssertionToPlant(
             subType: KClass<TSub>,
             subjectPlant: BaseAssertionPlant<T?, *>,
-            failingAssertion: IAssertion,
+            failingAssertion: Assertion,
             assertionCreator: AssertionPlant<TSub>.() -> Unit)
     }
 }

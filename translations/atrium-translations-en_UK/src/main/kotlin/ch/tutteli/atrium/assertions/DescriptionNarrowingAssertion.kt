@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
- * Contains the [IBasicAssertion.description]s of the assertion functions which postulate that a
+ * Contains the [DescriptiveAssertion.description]s of the assertion functions which postulate that a
  * [AssertionPlant.subject] of type `T` can be narrowed to `TSub` where `TSub <: T`.
  */
 enum class DescriptionNarrowingAssertion(override val value: String) : StringBasedTranslatable {

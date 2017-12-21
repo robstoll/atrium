@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Any].
+ * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Any].
  */
 enum class DescriptionAnyAssertion(override val value: String) : StringBasedTranslatable {
     TO_BE("ist"),

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.IIndentAssertionGroupType
 import ch.tutteli.atrium.assertions.IndentAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -42,7 +42,7 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
             TextIndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
         }
 
-        fun factoryWithBulletPoints() = { _: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
+        fun factoryWithBulletPoints() = { _: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
             TextIndentAssertionGroupFormatter(mapOf(IIndentAssertionGroupType::class.java to "**"), assertionFormatterController)
         }
     }

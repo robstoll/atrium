@@ -6,9 +6,12 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
@@ -41,11 +44,11 @@ class TextFallbackAssertionFormatterSpec : Spek({
     val separator = System.getProperty("line.separator")!!
 
     describe("fun ${TextFallbackAssertionFormatter::format.name}") {
-        context("a ${IAssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
-            it("includes the group ${IAssertionGroup::name.name}, its ${IAssertionGroup::subject.name} as well as the ${IAssertionGroup::assertions.name}") {
-                facade.format(AssertionGroupBuilder.root.create(ASSERT, "subject",listOf(
-                    BasicAssertion(TO_BE, "bli", false),
-                    BasicAssertion(NOT_TO_BE, "bye", false)
+        context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
+            it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::subject.name} as well as the ${AssertionGroup::assertions.name}") {
+                facade.format(AssertionGroup.Builder.root.create(ASSERT, "subject",listOf(
+                    BasicDescriptiveAssertion(TO_BE, "bli", false),
+                    BasicDescriptiveAssertion(NOT_TO_BE, "bye", false)
                 )), sb, alwaysTrueAssertionFilter)
                 assert(sb.toString()).toBe("assert: subject$separator" +
                     "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
@@ -63,7 +66,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
     )
 
     companion object {
-        internal fun factory() = { bulletPoints: Map<Class<out IBulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+        internal fun factory() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, TextSameLineAssertionPairFormatter(objectFormatter, translator), objectFormatter)
         }
     }

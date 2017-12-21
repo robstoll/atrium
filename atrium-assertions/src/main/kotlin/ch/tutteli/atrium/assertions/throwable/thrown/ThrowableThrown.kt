@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.throwable.thrown
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
-import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.AbsentThrowableMessageProvider
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.Creator
@@ -31,19 +31,19 @@ interface ThrowableThrown {
 
     /**
      * Represents the final step of a sophisticated a [Throwable] was thrown assertion builder which creates
-     * the [IAssertionGroup] as such.
+     * the [AssertionGroup] as such.
      *
      * @param TExpected The type of the [Throwable] which is expected to be thrown.
      */
     interface Creator<TExpected : Throwable> {
         /**
          * Executes the [act][ThrowableThrownBuilder.act] lambda of the given [throwableThrownBuilder], catches any
-         * thrown [Throwable], creates based on it a corresponding [IAssertion] representing the sophisticated
+         * thrown [Throwable], creates based on it a corresponding [Assertion] representing the sophisticated
          * assertion and also checks whether it holds or not.
          *
          * @param throwableThrownBuilder The [ThrowableThrownBuilder] containing inter alia the
          *        [act][ThrowableThrownBuilder.act] lambda.
-         * @param description The [description][IBasicAssertion.description] of the resulting [IBasicAssertion].
+         * @param description The [description][DescriptiveAssertion.description] of the resulting [DescriptiveAssertion].
          * @param expectedType The expected type of the [Throwable] used for casting and probably in reporting.
          * @param assertionCreator The assertion creator which defines subsequent assertions for the [Throwable] in
          *        case it was thrown as expected and is of the expected type [TExpected].

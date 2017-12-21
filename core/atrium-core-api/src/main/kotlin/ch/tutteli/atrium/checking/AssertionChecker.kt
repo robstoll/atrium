@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.checking
 
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Checks given [IAssertion]s and reports if one of them fails.
+ * Checks given [Assertion]s and reports if one of them fails.
  */
 interface AssertionChecker {
     /**
@@ -16,5 +16,5 @@ interface AssertionChecker {
      *
      * @throws AssertionError An implementation is allowed to throw [AssertionError] if an assertion fails.
      */
-    fun check(assertionVerb: Translatable, subject: Any, assertions: List<IAssertion>)
+    fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>)
 }

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.reporting
 
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.IBulletPointIdentifier
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 
@@ -179,10 +179,10 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * the [assertionFormatterFacade] where the given [bulletPoints] can be used to customise the predefined bullet
          * points.
          *
-         * Have a look at the sub types of [IBulletPointIdentifier] to get a feel for what and how you can customise
+         * Have a look at the sub types of [BulletPointIdentifier] to get a feel for what and how you can customise
          * bullet points.
          */
-        fun withSameLineTextAssertionFormatter(vararg bulletPoints: Pair<Class<out IBulletPointIdentifier>, String>): ReporterBuilder {
+        fun withSameLineTextAssertionFormatter(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterBuilder {
             AtriumFactory.registerSameLineTextAssertionFormatterCapabilities(
                 bulletPoints.toMap(), assertionFormatterFacade, objectFormatter, translator)
             return ReporterBuilder(assertionFormatterFacade)

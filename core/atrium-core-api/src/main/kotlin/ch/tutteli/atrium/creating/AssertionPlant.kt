@@ -2,13 +2,13 @@
 
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.BasicAssertion
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Represents a plant for [IAssertion]s based on a non nullable [subject].
+ * Represents a plant for [Assertion]s based on a non nullable [subject].
  *
  * It is the entry point for most assertion functions and provides only a reduced set of [ReportingAssertionPlant]
  * which is actually created when a user of Atrium is using an assertion verb function.
@@ -24,13 +24,13 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
      *
      * @return This plant to support a fluent API.
      *
-     * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
+     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *         evaluated (see [IReportingAssertionPlant]).
      */
     fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T>
 
     /**
-     * Creates an [IBasicAssertion] based on the given [description], [expected] and [test] and [adds][addAssertion] it
+     * Creates an [DescriptiveAssertion] based on the given [description], [expected] and [test] and [adds][addAssertion] it
      * to the plant.
      *
      * @param description The description of the assertion, e.g., `is less than`.
@@ -39,10 +39,10 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
      *
      * @return This plant to support a fluent API.
      *
-     * @throws AssertionError Might throw an [AssertionError] in case [IAssertion]s are immediately
+     * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
      *         evaluated (see [IReportingAssertionPlant]).
      */
     fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): AssertionPlant<T>
-        = addAssertion(BasicAssertion(description, expected, test))
+        = addAssertion(BasicDescriptiveAssertion(description, expected, test))
 }
 

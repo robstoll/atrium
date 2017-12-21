@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator
@@ -34,22 +36,22 @@ class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E>
 ) : ContainsAssertionCreator<T, AssertionPlant<E>.() -> Unit, IterableContains.Checker>(checkers),
     IterableContains.Creator<T, AssertionPlant<E>.() -> Unit> {
 
-    override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup {
+    override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup {
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        return AssertionGroupBuilder.list.create(description, RawString.EMPTY, assertions)
+        return AssertionGroup.Builder.list.create(description, RawString.EMPTY, assertions)
     }
 
-    override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: AssertionPlant<E>.() -> Unit, featureFactory: (Int, Translatable) -> IAssertionGroup): IAssertionGroup {
+    override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: AssertionPlant<E>.() -> Unit, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val itr = plant.subject.iterator()
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(itr, searchCriterion)
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        return AssertionGroupBuilder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
-            AssertionGroupBuilder.explanatory.withDefault.create(explanatoryAssertions),
+        return AssertionGroup.Builder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
+            AssertionGroup.Builder.explanatory.withDefault.create(explanatoryAssertions),
             featureAssertion
         ))
     }
 
-    private fun <E : Any> createExplanatoryAssertionsAndMatchingCount(itr: Iterator<E>, assertionCreator: AssertionPlant<E>.() -> Unit): Pair<List<IAssertion>, Int> {
+    private fun <E : Any> createExplanatoryAssertionsAndMatchingCount(itr: Iterator<E>, assertionCreator: AssertionPlant<E>.() -> Unit): Pair<List<Assertion>, Int> {
         return if (itr.hasNext()) {
             val first = itr.next()
             val group = collectIterableAssertionsForExplanation(assertionCreator, first)

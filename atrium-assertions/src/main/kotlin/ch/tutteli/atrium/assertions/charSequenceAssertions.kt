@@ -19,51 +19,51 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)
     = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour)
 
-fun <T : CharSequence> _containsNot(plant: AssertionPlant<T>, expected: Any, otherExpected: Array<out Any>): IAssertion {
-    val assertions = mutableListOf<IAssertion>()
+fun <T : CharSequence> _containsNot(plant: AssertionPlant<T>, expected: Any, otherExpected: Array<out Any>): Assertion {
+    val assertions = mutableListOf<Assertion>()
     arrayOf(expected, *otherExpected).forEach {
         assertions.add(LazyThreadUnsafeBasicAssertion {
             val expectedString = it.toString()
-            BasicAssertion(CONTAINS_NOT, expectedString, { !plant.subject.contains(expectedString) })
+            BasicDescriptiveAssertion(CONTAINS_NOT, expectedString, { !plant.subject.contains(expectedString) })
         })
     }
-    return AssertionGroupBuilder.invisible.create(assertions)
+    return AssertionGroup.Builder.invisible.create(assertions)
 }
 
-fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: AssertionPlant<T>, expected: Translatable, otherExpected: Array<out Translatable>): IAssertion
+fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: AssertionPlant<T>, expected: Translatable, otherExpected: Array<out Translatable>): Assertion
     = _containsNot(plant, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
-fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): IAssertion
-    = BasicAssertion(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
+fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
+    = BasicDescriptiveAssertion(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
 
-fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): IAssertion
-    = BasicAssertion(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
+fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
+    = BasicDescriptiveAssertion(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
 
-fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): IAssertion
-    = BasicAssertion(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
+fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
+    = BasicDescriptiveAssertion(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
 
-fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): IAssertion
-    = BasicAssertion(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
+fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
+    = BasicDescriptiveAssertion(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
 
-fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): IAssertion
-    = BasicAssertion(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
+    = BasicDescriptiveAssertion(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
 
-fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): IAssertion
-    = BasicAssertion(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
+    = BasicDescriptiveAssertion(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
 
 
 fun <T : CharSequence> _containsValues(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
     expected: Any,
     otherExpected: Array<out Any>
-): IAssertionGroup
+): AssertionGroup
     = checkOnlyAllowedTypeAndCreateAssertionGroup(checker, CharSequenceContainsIndexSearcher(), expected, otherExpected)
 
 fun <T : CharSequence> _containsValuesIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
     expected: Any,
     otherExpected: Array<out Any>
-): IAssertionGroup
+): AssertionGroup
     = checkOnlyAllowedTypeAndCreateAssertionGroup(checker, CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeAndCreateAssertionGroup(
@@ -71,7 +71,7 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
     searcher: ISearcher<S>,
     expected: Any,
     otherExpected: Array<out Any>
-): IAssertionGroup {
+): AssertionGroup {
     listOf(expected, *otherExpected).forEach {
         require(it is CharSequence || it is Number || it is Char) {
             "Only CharSequence, Number and Char are allowed, `$it` given.\nWe provide an API with Any for convenience (so that you can mix String and Int for instance)."
@@ -84,14 +84,14 @@ fun <T : CharSequence> _containsDefaultTranslationOf(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
     expected: Translatable,
     otherExpected: Array<out Translatable>
-): IAssertionGroup
+): AssertionGroup
     = _containsValues(checker, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
 fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
     expected: Translatable,
     otherExpected: Array<out Translatable>
-): IAssertionGroup
+): AssertionGroup
     = _containsValuesIgnoringCase(checker, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
 private fun mapDefaultTranslations(otherExpected: Array<out Translatable>) =
@@ -102,14 +102,14 @@ fun <T : CharSequence> _containsRegex(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
     expected: String,
     otherExpected: Array<out String>
-): IAssertionGroup
+): AssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsRegexSearcher(), expected, otherExpected)
 
 fun <T : CharSequence> _containsRegexIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
     expected: String,
     otherExpected: Array<out String>
-): IAssertionGroup
+): AssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
 
 
@@ -118,7 +118,7 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> createA
     searcher: ISearcher<S>,
     expected: Any,
     otherExpected: Array<out Any>
-): IAssertionGroup {
+): AssertionGroup {
     return CharSequenceContainsAssertionCreator<T, S>(checker.containsBuilder.searchBehaviour, searcher, checker.checkers)
         .createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
 }

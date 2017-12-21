@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.assertions.basic.contains.creators
 
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
@@ -22,22 +24,22 @@ abstract class ContainsAssertionCreator<T : Any, S, C : Contains.Checker>(
     private val checkers: List<C>
 ) : Contains.Creator<T, S> {
 
-    override final fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup {
+    override final fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
         val assertions = listOf(searchCriterion, *otherSearchCriteria).map { createForSearchCriterion(plant, it) }
         return createAssertionGroupForSearchCriteriaAssertions(assertions)
     }
 
     /**
-     * Creates an [IAssertionGroup] representing the sophisticated `contains` assertion as a whole based on the given
+     * Creates an [AssertionGroup] representing the sophisticated `contains` assertion as a whole based on the given
      * [assertions] which where created for the search criteria.
      *
      * @param assertions The assertions representing search criteria passed to [createAssertionGroup].
      *
-     * @return The newly created [IAssertionGroup].
+     * @return The newly created [AssertionGroup].
      */
-    protected abstract fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<IAssertion>): IAssertionGroup
+    protected abstract fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
 
-    private fun createForSearchCriterion(plant: AssertionPlant<T>, searchCriterion: S): IAssertionGroup {
+    private fun createForSearchCriterion(plant: AssertionPlant<T>, searchCriterion: S): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             searchAndCreateAssertion(plant, searchCriterion, this::featureFactory)
         }
@@ -47,24 +49,24 @@ abstract class ContainsAssertionCreator<T : Any, S, C : Contains.Checker>(
      * Searches for something fulfilling the given [searchCriterion] in the given [plant]'s
      * [subject][AssertionPlant.subject] and should pass on the number of occurrences to the given
      * [featureFactory] which creates feature assertions based on the [checkers], which in turn can be used to create
-     * a resulting [IAssertionGroup] representing the assertion for a search criteria as a whole.
+     * a resulting [AssertionGroup] representing the assertion for a search criteria as a whole.
      *
      * @param plant The plant for which the assertion is created.
      * @param searchCriterion A search criterion.
      * @param featureFactory The feature factory which should be called, passing the number of occurrences (matching
      *        the given [searchCriterion]) including a translation for `number of occurrences`.
      *
-     * @return The newly created [IAssertionGroup].
+     * @return The newly created [AssertionGroup].
      */
     protected abstract fun searchAndCreateAssertion(
         plant: AssertionPlant<T>,
         searchCriterion: S,
-        featureFactory: (numberOfOccurrences: Int, description: Translatable) -> IAssertionGroup
-    ): IAssertionGroup
+        featureFactory: (numberOfOccurrences: Int, description: Translatable) -> AssertionGroup
+    ): AssertionGroup
 
-    private fun featureFactory(count: Int, numberOfOccurrences: Translatable): IAssertionGroup {
+    private fun featureFactory(count: Int, numberOfOccurrences: Translatable): AssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
-        return AssertionGroupBuilder.feature.create(numberOfOccurrences, RawString.create(count.toString()), assertions)
+        return AssertionGroup.Builder.feature.create(numberOfOccurrences, RawString.create(count.toString()), assertions)
     }
 
 }

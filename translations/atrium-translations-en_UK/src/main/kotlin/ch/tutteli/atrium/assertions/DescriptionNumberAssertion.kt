@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
- * Contains the [IBasicAssertion.description]s of the assertion functions which are applicable to [Number].
+ * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Number].
  */
 enum class DescriptionNumberAssertion(override val value: String) : StringBasedTranslatable {
     IS_LESS_THAN("is less than"),

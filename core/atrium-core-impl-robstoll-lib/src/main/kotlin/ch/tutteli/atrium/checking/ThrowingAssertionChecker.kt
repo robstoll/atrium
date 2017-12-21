@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.checking
 
-import ch.tutteli.atrium.assertions.AssertionGroupBuilder
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -19,17 +18,17 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecker {
 
     /**
-     * Creates an [IAssertionGroup] -- based on the given [assertionVerb], [subject] and [assertions] --
+     * Creates an [AssertionGroup] -- based on the given [assertionVerb], [subject] and [assertions] --
      * formats it for reporting using the [reporter] and checks whether it holds.
      *
-     * @param assertionVerb I used as [IAssertionGroup.name].
-     * @param subject Is used as [IAssertionGroup.subject].
-     * @param assertions Is used as [IAssertionGroup.assertions].
+     * @param assertionVerb I used as [AssertionGroup.name].
+     * @param subject Is used as [AssertionGroup.subject].
+     * @param assertions Is used as [AssertionGroup.assertions].
      *
-     * @throws AssertionError In case the created [IAssertionGroup] does not hold.
+     * @throws AssertionError In case the created [AssertionGroup] does not hold.
      */
-    override fun check(assertionVerb: Translatable, subject: Any, assertions: List<IAssertion>) {
-        val assertionGroup = AssertionGroupBuilder.root.create(assertionVerb, subject, assertions)
+    override fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>) {
+        val assertionGroup = AssertionGroup.Builder.root.create(assertionVerb, subject, assertions)
         val sb = StringBuilder()
         reporter.format(assertionGroup, sb)
         if (!assertionGroup.holds()) {

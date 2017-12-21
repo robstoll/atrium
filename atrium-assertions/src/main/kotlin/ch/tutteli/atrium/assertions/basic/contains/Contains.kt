@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.basic.contains
 
-import ch.tutteli.atrium.assertions.IAssertion
-import ch.tutteli.atrium.assertions.IAssertionGroup
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains.*
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -30,20 +30,20 @@ interface Contains {
     /**
      * Represents a check for the search result such as: the object is contained exactly once in the input of the search.
      *
-     * It provides the method [createAssertion] which creates an [IAssertion] representing this check.
+     * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
     interface Checker {
         /**
-         * Creates an [IAssertion] representing this check based on the given [foundNumberOfTimes] which is the result
+         * Creates an [Assertion] representing this check based on the given [foundNumberOfTimes] which is the result
          * of the search.
          *
-         * @return The newly created [IAssertion].
+         * @return The newly created [Assertion].
          */
-        fun createAssertion(foundNumberOfTimes: Int): IAssertion
+        fun createAssertion(foundNumberOfTimes: Int): Assertion
     }
 
     /**
-     * Represents the final step of a sophisticated `contains` assertion builder which creates the [IAssertionGroup]
+     * Represents the final step of a sophisticated `contains` assertion builder which creates the [AssertionGroup]
      * as such.
      *
      * @param T The type of the [AssertionPlant.subject].
@@ -51,21 +51,21 @@ interface Contains {
      */
     interface Creator<in T : Any, in S> {
         /**
-         * Creates an [IAssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
+         * Creates an [AssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
          * on the given [searchCriterion] and possibly [otherSearchCriteria] (might be empty).
          *
          * The search process as such is usually influenced by an [SearchBehaviour] which defines the search behaviour
-         * and [Checker]s are used to create [IAssertion]s based on a determined search result which are grouped
-         * together into an [IAssertionGroup].
-         * This resulting [IAssertionGroup] represents the sophisticated `contains` assertion as a whole.
+         * and [Checker]s are used to create [Assertion]s based on a determined search result which are grouped
+         * together into an [AssertionGroup].
+         * This resulting [AssertionGroup] represents the sophisticated `contains` assertion as a whole.
          *
-         * @param plant The plant -- or rather its [subject][AssertionPlant.subject] -- for which the [IAssertionGroup]
+         * @param plant The plant -- or rather its [subject][AssertionPlant.subject] -- for which the [AssertionGroup]
          *        is created.
          * @param searchCriterion A search criterion.
          * @param otherSearchCriteria Other search criteria (might also be empty).
          *
-         * @return The newly created [IAssertionGroup].
+         * @return The newly created [AssertionGroup].
          */
-        fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): IAssertionGroup
+        fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup
     }
 }

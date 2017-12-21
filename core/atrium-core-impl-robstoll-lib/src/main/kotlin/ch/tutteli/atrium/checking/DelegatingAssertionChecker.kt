@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.checking
 
-import ch.tutteli.atrium.assertions.AssertionGroupBuilder
-import ch.tutteli.atrium.assertions.IAssertion
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
@@ -31,7 +31,7 @@ class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAss
      *
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
-    override fun check(assertionVerb: Translatable, subject: Any, assertions: List<IAssertion>) {
-        subjectPlant.addAssertion(AssertionGroupBuilder.invisible.create(assertions))
+    override fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>) {
+        subjectPlant.addAssertion(AssertionGroup.Builder.invisible.create(assertions))
     }
 }

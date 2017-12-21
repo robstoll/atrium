@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
-import ch.tutteli.atrium.assertions.IBasicAssertion
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
@@ -193,12 +193,12 @@ abstract class AnyAssertionsSpec(
                     it("contains the '${testee::subject.name}'") {
                         expectFun.toThrow<AssertionError> { message { contains(subject.toString()) } }
                     }
-                    it("contains the '${IBasicAssertion::description.name}' of the assertion-message - which should be '${DescriptionAnyAssertion.TO_BE.getDefault()}'") {
+                    it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message - which should be '${DescriptionAnyAssertion.TO_BE.getDefault()}'") {
                         expectFun.toThrow<AssertionError> {
                             message { containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE) }
                         }
                     }
-                    it("contains the '${IBasicAssertion::expected.name}' of the assertion-message") {
+                    it("contains the '${DescriptiveAssertion::expected.name}' of the assertion-message") {
                         expectFun.toThrow<AssertionError> { message { contains(RawString.NULL.string) } }
                     }
                 }

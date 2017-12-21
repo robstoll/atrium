@@ -5,13 +5,13 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Represents a base class for [IAssertionGroup]s which have an empty [name] and [subject].
+ * Represents a base class for [AssertionGroup]s which have an empty [name] and [subject].
  *
- * @constructor Represents a base class for [IAssertionGroup]s which have an empty [name] and [subject].
- * @param type The type of the group, e.g. [IInvisibleAssertionGroupType].
+ * @constructor Represents a base class for [AssertionGroup]s which have an empty [name] and [subject].
+ * @param type The type of the group, e.g. [InvisibleAssertionGroupType].
  * @param assertions The assertions of this group.
  */
-abstract class EmptyNameAndSubjectAssertionGroup(override val type: IAssertionGroupType, override val assertions: List<IAssertion>) : IAssertionGroup {
+abstract class EmptyNameAndSubjectAssertionGroup(override val type: AssertionGroupType, override val assertions: List<Assertion>) : AssertionGroup {
 
     /**
      * [Untranslatable.EMPTY] -- an empty string as [Untranslatable].
