@@ -24,10 +24,14 @@ infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain:
  *
  * It is a shortcut for `to contain atLeast 1 value expected`
  *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T>
     = this to contain atLeast 1 value expected
@@ -37,6 +41,9 @@ infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T
  * using a non disjoint search.
  *
  * It is a shortcut for `to contain atLeast 1 the Values(...)`
+ *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [Values.expected]
@@ -52,6 +59,7 @@ infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionPlant<T>
     = this to contain atLeast 1 the values
