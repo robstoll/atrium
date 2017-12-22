@@ -24,6 +24,9 @@ val <T : CharSequence> Assert<T>.contains
  *
  * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
  *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and [expected]
  * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
@@ -38,6 +41,8 @@ val <T : CharSequence> Assert<T>.contains
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
+ *         [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
     = contains.atLeast(1).values(expected, *otherExpected)
