@@ -62,20 +62,6 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          */
         fun withTranslationSupplier(translationSupplier: TranslationSupplier)
             = LocaleOrderDeciderOptions(translationSupplier)
-
-        /**
-         * Deprecated do not use it any longer and replace it with suggestion instead.
-         */
-        @Deprecated("will be removed in 0.6.0", ReplaceWith("ReporterBuilder\n" +
-            "    .withoutTranslations()\n" +
-            "    .withDetailedObjectFormatter()\n" +
-            "    .withDefaultAssertionFormatterController()\n" +
-            "    .withDefaultAssertionFormatterFacade()"))
-        fun withDetailedObjectFormatter()
-            = withoutTranslations()
-            .withDetailedObjectFormatter()
-            .withDefaultAssertionFormatterController()
-            .withDefaultAssertionFormatterFacade()
     }
 
     class LocaleOrderDeciderOptions(private val translationSupplier: TranslationSupplier) {
