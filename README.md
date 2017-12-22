@@ -58,6 +58,8 @@ buildscript {
 }
 repositories {
     jcenter()
+    // either use jcenter or the repository below
+    // maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
 }
 dependencies {
     testCompile "ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version"
