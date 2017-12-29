@@ -86,20 +86,20 @@ object AtriumFactory : IAtriumFactory {
     override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
         = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
 
-    override fun registerSameLineTextAssertionFormatterCapabilities(
+    override fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
+        textAssertionPairFormatter: AssertionPairFormatter,
         objectFormatter: ObjectFormatter,
         translator: Translator
     ) {
-        val assertionPairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-        assertionFormatterFacade.register { TextListAssertionGroupFormatter(bulletPoints, it, assertionPairFormatter) }
-        assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(bulletPoints, it, assertionPairFormatter) }
+        assertionFormatterFacade.register { TextListAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter) }
+        assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter) }
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(bulletPoints, it) }
         assertionFormatterFacade.register { TextIndentAssertionGroupFormatter(bulletPoints, it) }
-        assertionFormatterFacade.register { TextSummaryAssertionGroupFormatter(bulletPoints, it, assertionPairFormatter) }
-        assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, assertionPairFormatter, objectFormatter) }
+        assertionFormatterFacade.register { TextSummaryAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter) }
+        assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, textAssertionPairFormatter, objectFormatter) }
     }
 
 
