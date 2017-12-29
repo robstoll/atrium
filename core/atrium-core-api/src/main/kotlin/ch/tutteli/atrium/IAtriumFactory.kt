@@ -26,6 +26,7 @@ import java.util.*
  * - [AssertionFormatterFacade]
  * - [AssertionFormatterController]
  * - [AssertionFormatter]
+ * - [AssertionPairFormatter]
  * - [Reporter]
  */
 interface IAtriumFactory {
@@ -297,10 +298,22 @@ interface IAtriumFactory {
     fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
 
     /**
+     * Creates an [AssertionPairFormatter] which is intended for text output (e.g. for the console) and puts assertion
+     * pairs on the same line.
+     *
+     * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
+     * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
+     *
+     * @return The newly created assertion formatter.
+     */
+    fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
+
+    /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and serves as
      * fallback if no other formatter is able to format a given [Assertion].
      *
      * Typically this includes the formatting of the [AssertionGroup] with a [RootAssertionGroupType].
+     * It uses [newAssertionPairFormatter] to create an [AssertionPairFormatter] if necessary.
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
      * for [RootAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
