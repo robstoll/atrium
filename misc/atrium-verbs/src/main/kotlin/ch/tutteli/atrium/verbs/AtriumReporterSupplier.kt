@@ -19,7 +19,8 @@ import ch.tutteli.atrium.verbs.expect.expect
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
-            .withSameLineTextAssertionFormatter()
+            .withTextSameLineAssertionPairFormatter()
+            .withDefaultTextCapabilities()
             .buildOnlyFailureReporter()
     }
 }

@@ -23,7 +23,8 @@ class PropertiesPerLocaleTranslationSupplierSpec : Spek({
                 .withDetailedObjectFormatter()
                 .withDefaultAssertionFormatterController()
                 .withDefaultAssertionFormatterFacade()
-                .withSameLineTextAssertionFormatter()
+                .withTextSameLineAssertionPairFormatter()
+                .withDefaultTextCapabilities()
                 .buildOnlyFailureReporter()
         },
         true,

@@ -89,9 +89,10 @@ object AtriumFactory : IAtriumFactory {
     override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
         = throwUnsupportedOperationException()
 
-    override fun registerSameLineTextAssertionFormatterCapabilities(
+    override fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
+        textAssertionPairFormatter: AssertionPairFormatter,
         objectFormatter: ObjectFormatter,
         translator: Translator
     ): Unit = throwUnsupportedOperationException()

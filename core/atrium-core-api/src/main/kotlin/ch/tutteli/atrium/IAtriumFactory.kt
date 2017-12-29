@@ -369,22 +369,24 @@ interface IAtriumFactory {
     fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
 
     /**
-     * Registers all available [AssertionFormatter]s -- which put assertion pairs on the same line and report in
-     * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
+     * Registers all available [AssertionFormatter]s  -- which are intended for text format (e.g. for the console)
+     * -- to the given [assertionFormatterFacade] using the given [textAssertionPairFormatter].
      *
      * Should at least support [RootAssertionGroupType], [FeatureAssertionGroupType], [ListAssertionGroupType],
      * [SummaryAssertionGroupType] and [ExplanatoryAssertionGroupType] (see [AssertionGroup.Builder]).
      *
      * @param bulletPoints The bullet points used in reporting to prefix each [Assertion] in
      * [AssertionGroup.assertions].
-     * @param assertionFormatterFacade The [AssertionFormatterFacade] to which all [AssertionFormatter]s with
-     *        same line capabilities and text reporting should be registered.
+     * @param assertionFormatterFacade The [AssertionFormatterFacade] to which all [AssertionFormatter]s with text
+     *        reporting capabilities should be registered.
+     * @param textAssertionPairFormatter An [AssertionPairFormatter] which is intended for text format.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
      * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
      */
-    fun registerSameLineTextAssertionFormatterCapabilities(
+    fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
+        textAssertionPairFormatter: AssertionPairFormatter,
         objectFormatter: ObjectFormatter,
         translator: Translator)
 

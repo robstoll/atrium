@@ -32,7 +32,8 @@ internal object AtriumReporterSupplier {
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
-            .withSameLineTextAssertionFormatter()
+            .withTextSameLineAssertionPairFormatter()
+            .withDefaultTextCapabilities()
             .buildOnlyFailureReporter()
     }
 }
