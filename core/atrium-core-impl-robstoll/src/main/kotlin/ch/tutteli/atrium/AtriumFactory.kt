@@ -24,6 +24,7 @@ import java.util.*
  * - [AssertionFormatterFacade]
  * - [AssertionFormatterController]
  * - [AssertionFormatter]
+ * - [AssertionPairFormatter]
  * - [Reporter]
  */
 object AtriumFactory : IAtriumFactory {
@@ -70,6 +71,9 @@ object AtriumFactory : IAtriumFactory {
     override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
         = AssertionFormatterControllerBasedFacade(assertionFormatterController)
 
+    override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
+        = TextSameLineAssertionPairFormatter(objectFormatter, translator)
+
     override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator), objectFormatter)
 
@@ -88,18 +92,16 @@ object AtriumFactory : IAtriumFactory {
         objectFormatter: ObjectFormatter,
         translator: Translator
     ) {
-        val pairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-        assertionFormatterFacade.register { TextListAssertionGroupFormatter(bulletPoints, it, pairFormatter) }
-        assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(bulletPoints, it, pairFormatter) }
+        val assertionPairFormatter = newTextSameLineAssertionPairFormatter(objectFormatter, translator)
+        assertionFormatterFacade.register { TextListAssertionGroupFormatter(bulletPoints, it, assertionPairFormatter) }
+        assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(bulletPoints, it, assertionPairFormatter) }
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(bulletPoints, it) }
         assertionFormatterFacade.register { TextIndentAssertionGroupFormatter(bulletPoints, it) }
-        assertionFormatterFacade.register { TextSummaryAssertionGroupFormatter(bulletPoints, it, pairFormatter) }
-        assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, pairFormatter, objectFormatter) }
+        assertionFormatterFacade.register { TextSummaryAssertionGroupFormatter(bulletPoints, it, assertionPairFormatter) }
+        assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, assertionPairFormatter, objectFormatter) }
     }
 
-    private fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
-        = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
         = OnlyFailureReporter(assertionFormatterFacade)

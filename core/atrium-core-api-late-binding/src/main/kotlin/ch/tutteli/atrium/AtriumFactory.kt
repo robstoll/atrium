@@ -24,6 +24,7 @@ import java.util.*
  * - [AssertionFormatterFacade]
  * - [AssertionFormatterController]
  * - [AssertionFormatter]
+ * - [AssertionPairFormatter]
  * - [Reporter]
  */
 object AtriumFactory : IAtriumFactory {
@@ -71,6 +72,9 @@ object AtriumFactory : IAtriumFactory {
         = throwUnsupportedOperationException()
 
     override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
+        = throwUnsupportedOperationException()
+
+    override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
         = throwUnsupportedOperationException()
 
     override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
