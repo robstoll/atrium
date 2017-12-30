@@ -25,7 +25,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *        as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *        when it comes to format children of an [AssertionGroup].
- * @param assertionPairFormatter The formatter used to format assertion pairs.
+ * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
 class TextFeatureAssertionGroupFormatter(
     bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
@@ -39,7 +39,9 @@ class TextFeatureAssertionGroupFormatter(
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         methodObject.appendLnIndentAndPrefix()
         val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), assertionGroup.name)
-        assertionPairFormatter.format(methodObject, translatable, assertionGroup.subject)
-        return methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length)
+
+        val newMethodObject = methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length)
+        assertionPairFormatter.formatGroupHeader(methodObject, translatable, assertionGroup.subject, newMethodObject)
+        return newMethodObject
     }
 }
