@@ -21,7 +21,7 @@ import ch.tutteli.atrium.assertions.*
  *
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *        when it comes to format children of an [AssertionGroup].
- * @param assertionPairFormatter The formatter used to format assertion pairs.
+ * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
 class TextSummaryAssertionGroupFormatter(
     bulletPoints: Map<Class<out BulletPointIdentifier>, String>,

@@ -29,8 +29,8 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *        (`"◆ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *        the reporting process.
- * @param assertionPairFormatter The formatter used to format assertion pairs (e.g. [DescriptiveAssertion.description]
- *        and [DescriptiveAssertion.expected])
+ * @param assertionPairFormatter The formatter which is used to format assertion pairs
+ *        (e.g. [DescriptiveAssertion.description] and [DescriptiveAssertion.expected])
  */
 class TextFallbackAssertionFormatter(
     bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
@@ -38,8 +38,8 @@ class TextFallbackAssertionFormatter(
     private val assertionPairFormatter: AssertionPairFormatter,
     private val objectFormatter: ObjectFormatter
 ) : AssertionFormatter {
-    private val formatter = TextPrefixBasedAssertionGroupFormatter(
-        bulletPoints[RootAssertionGroupType::class.java] ?: "◆ ")
+    private val rootPrefix = bulletPoints[RootAssertionGroupType::class.java] ?: "◆ "
+    private val formatter = TextPrefixBasedAssertionGroupFormatter(rootPrefix)
 
     override fun canFormat(assertion: Assertion): Boolean {
         // two fallback are implemented one for IAssertionGroup (uses always formatGroup)
@@ -50,13 +50,13 @@ class TextFallbackAssertionFormatter(
     override fun formatNonGroup(assertion: Assertion, methodObject: AssertionFormatterMethodObject) {
         methodObject.appendLnIndentAndPrefix()
         when (assertion) {
-            is DescriptiveAssertion -> appendBasicAssertion(assertion, methodObject)
+            is DescriptiveAssertion -> appendDescriptiveAssertion(assertion, methodObject)
             is ExplanatoryAssertion -> appendExplanatoryAssertion(assertion, methodObject)
             else -> formatFallback(assertion, methodObject)
         }
     }
 
-    private fun appendBasicAssertion(basicAssertion: DescriptiveAssertion, methodObject: AssertionFormatterMethodObject) {
+    private fun appendDescriptiveAssertion(basicAssertion: DescriptiveAssertion, methodObject: AssertionFormatterMethodObject) {
         assertionPairFormatter.format(methodObject, basicAssertion.description, basicAssertion.expected)
     }
 
