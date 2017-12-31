@@ -102,6 +102,41 @@ infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable
 infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTranslationsOf): AssertionPlant<T>
     = this to contain atLeast 1 the defaultTranslationOf
 
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given [pattern].
+ *
+ * It is a shortcut for `to contain atLeast 1 regex pattern`.
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): AssertionPlant<T>
+    = this to contain atLeast 1 regex pattern
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given [patterns]
+ * using a non disjoint search.
+ *
+ * It is a shortcut for `to contain atLeast 1 the RegexPatterns(...)`.
+ *
+ * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [RegexPatterns.pattern]
+ * is defined as `'a(b)?'` and one of the [RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
+ * control the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `to contain exactly 2 the regex 'a(b)?'`
+ * instead of:
+ *   `to contain atLeast 1 the RegexPatterns('a(b)?', 'a(b)?')`
+ *
+ * @param patterns The patterns which are expected to have a match against the input of the search.
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <T : CharSequence> Assert<T>.contains(patterns: RegexPatterns): AssertionPlant<T>
+    = this to contain atLeast 1 the patterns
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not [expected]'s [toString] representation.

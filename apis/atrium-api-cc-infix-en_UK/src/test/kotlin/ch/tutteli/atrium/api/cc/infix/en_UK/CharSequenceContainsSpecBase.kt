@@ -5,12 +5,14 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression
 import kotlin.reflect.KFunction2
 
 abstract class CharSequenceContainsSpecBase {
     private val containsNotFun: KFunction2<AssertionPlant<String>, Any, AssertionPlant<String>> = AssertionPlant<String>::containsNot
     protected val toContain = "${AssertionPlant<String>::to.name} ${contain::class.simpleName}"
     protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
+    protected val containsRegex = "${AssertionPlant<String>::to.name} ${contain::class.simpleName} ${RegularExpression::class.simpleName}"
     protected val atLeast = CharSequenceContainsBuilder<*, *>::atLeast.name
     protected val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<*, *>::butAtMost.name
     protected val exactly = CharSequenceContainsBuilder<*, *>::exactly.name

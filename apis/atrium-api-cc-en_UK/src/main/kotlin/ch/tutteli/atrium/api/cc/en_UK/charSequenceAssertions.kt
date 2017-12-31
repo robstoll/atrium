@@ -96,6 +96,32 @@ fun <T : CharSequence> Assert<T>.containsNotDefaultTranslationOf(expected: Trans
 
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given regular expression
+ * [pattern] as well as the [otherPatterns] (if defined), using a non disjoint search.
+ *
+ * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
+ *
+ * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [pattern]
+ * is defined as `'a(b)?'` and one of the [otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
+ * control the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `contains.exactly(2).regex('a(b)?')`
+ * instead of:
+ *   `contains.atLeast(1).regex('a(b)?', 'a(b)?')`
+ *
+ * @param pattern The pattern which is expected to have a match against the input of the search.
+ * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : CharSequence> Assert<T>.containsRegex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
+    = contains.atLeast(1).regex(pattern, *otherPatterns)
+
+/**
  * Makes the assertion that [AssertionPlant.subject] starts with [expected].
  *
  * @return This plant to support a fluent API.

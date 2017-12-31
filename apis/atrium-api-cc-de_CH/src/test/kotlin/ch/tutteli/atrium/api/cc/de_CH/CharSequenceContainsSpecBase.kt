@@ -11,6 +11,7 @@ abstract class CharSequenceContainsSpecBase {
     private val containsProp: KProperty<*> = AssertionPlant<String>::enthaelt
     protected val contains = containsProp.name
     protected val containsNot = AssertionPlant<String>::enthaeltNicht.name
+    protected val containsRegex = AssertionPlant<String>::enthaeltRegex.name
     protected val atLeast = CharSequenceContainsBuilder<*, *>::zumindest.name
     protected val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<*, *>::aberHoechstens.name
     protected val exactly = CharSequenceContainsBuilder<*, *>::genau.name
