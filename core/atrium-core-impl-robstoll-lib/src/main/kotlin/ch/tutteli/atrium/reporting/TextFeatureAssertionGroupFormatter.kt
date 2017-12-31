@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.assertions.PrefixFeatureAssertionGroupHeader
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -39,9 +40,16 @@ class TextFeatureAssertionGroupFormatter(
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         methodObject.appendLnIndentAndPrefix()
         val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), assertionGroup.name)
-
+        val group = NameDecoratingAssertionGroup(translatable, assertionGroup)
         val newMethodObject = methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length)
-        assertionPairFormatter.formatGroupHeader(methodObject, translatable, assertionGroup.subject, newMethodObject)
+        assertionPairFormatter.formatGroupHeader(methodObject, group, newMethodObject)
         return newMethodObject
+    }
+
+    private class NameDecoratingAssertionGroup(
+        newName: Translatable,
+        assertionGroup: AssertionGroup
+    ) : AssertionGroup by assertionGroup {
+        override val name: Translatable = newName
     }
 }

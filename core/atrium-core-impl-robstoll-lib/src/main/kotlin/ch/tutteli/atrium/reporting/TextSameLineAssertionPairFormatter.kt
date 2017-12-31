@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -24,8 +25,8 @@ class TextSameLineAssertionPairFormatter(
     private val translator: Translator
 ) : AssertionPairFormatter {
 
-    override fun formatGroupHeader(methodObject: AssertionFormatterMethodObject, name: Translatable, subject: Any, newMethodObject: AssertionFormatterMethodObject)
-        = format(methodObject, name, subject)
+    override fun formatGroupHeader(methodObject: AssertionFormatterMethodObject, assertionGroup: AssertionGroup, newMethodObject: AssertionFormatterMethodObject)
+        = format(methodObject, assertionGroup.name, assertionGroup.subject)
 
     override fun format(methodObject: AssertionFormatterMethodObject, translatable: Translatable, representation: Any) {
         methodObject.sb.append(translator.translate(translatable)).append(": ").append(objectFormatter.format(representation))
