@@ -15,7 +15,7 @@ import ch.tutteli.atrium.assertions.AssertionGroupType
  * @param bulletPoint The bullet point (might also be more than one character) which shall be used.
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *        when it comes to format children of an [AssertionGroup].
- * @param assertionPairFormatter The formatter used to format assertion pairs.
+ * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  * @param clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  */
 abstract class TextListBasedAssertionGroupFormatter<in T : AssertionGroupType>(

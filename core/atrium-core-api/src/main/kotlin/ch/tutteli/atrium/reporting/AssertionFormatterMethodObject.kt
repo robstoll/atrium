@@ -84,10 +84,23 @@ class AssertionFormatterMethodObject private constructor(
     }
 
     /**
+     * Appends a new line (system separator), spaces equal to the number of [indentLevel] and the [prefix] to [sb].
+     */
+    fun appendLnAndIndent() {
+        sb.appendln()
+        indent()
+    }
+
+    /**
      *  Appends spaces equal to the number of [indentLevel] to [sb].
      */
-    private fun indent() {
-        for (i in 0 until indentLevel) {
+    private fun indent() = indent(indentLevel)
+
+    /**
+     *  Appends spaces equal to [numberOfSpaces] to [sb].
+     */
+    fun indent(numberOfSpaces: Int){
+        for (i in 0 until numberOfSpaces) {
             sb.append(' ')
         }
     }
@@ -106,6 +119,4 @@ class AssertionFormatterMethodObject private constructor(
             return AssertionFormatterMethodObject(sb, "", 0, assertionFilter, numberOfDoNotFilterGroups = 0)
         }
     }
-
-
 }
