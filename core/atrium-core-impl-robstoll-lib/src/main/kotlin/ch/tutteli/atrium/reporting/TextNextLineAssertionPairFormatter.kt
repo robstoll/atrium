@@ -33,7 +33,7 @@ class TextNextLineAssertionPairFormatter(
         = format(methodObject, translatable, representation, methodObject)
 
     private fun format(methodObject: AssertionFormatterMethodObject, translatable: Translatable, representation: Any, newMethodObject: AssertionFormatterMethodObject) {
-        methodObject.sb.append(translator.translate(translatable)).append(": ")
+        methodObject.sb.append(translator.translate(translatable)).append(":")
         if (representation !is RawString || representation != RawString.EMPTY) {
             newMethodObject.appendLnAndIndent()
             newMethodObject.indent(newMethodObject.prefix.length)
