@@ -8,7 +8,7 @@ import ch.tutteli.atrium.IAtriumFactory
 interface FeatureAssertionGroupType : AssertionGroupType
 
 /**
- * This class is only used as identifier for [IAtriumFactory.registerSameLineTextAssertionFormatterCapabilities].
+ * This class is only used as identifier for [IAtriumFactory.registerTextAssertionFormatterCapabilities].
  */
 class PrefixFeatureAssertionGroupHeader private constructor() : BulletPointIdentifier
 

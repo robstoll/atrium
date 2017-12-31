@@ -50,11 +50,11 @@ abstract class TextFallbackAssertionFormatterSpec(
         }
     }
 
-    describeFun(testee::format.name) {
+    describeFun(testee::formatNonGroup.name) {
 
         context("unsupported ${Assertion::class.simpleName}") {
             it("writes whether the assertion holds including a message telling the type is unsupported") {
-                testee.format(unsupportedAssertion, methodObject)
+                testee.formatNonGroup(unsupportedAssertion, methodObject)
                 verbs.checkLazily(sb) {
                     contains("false")
                     contains("Unsupported type ${unsupportedAssertion::class.java.name}")
@@ -64,11 +64,13 @@ abstract class TextFallbackAssertionFormatterSpec(
         context("assertion of type ${DescriptiveAssertion::class.simpleName}") {
             it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::expected.name} on the same line separated by colon and space") {
                 val assertion = BasicDescriptiveAssertion(IS_SAME, "bli", false)
-                testee.format(assertion, methodObject)
+                testee.formatNonGroup(assertion, methodObject)
                 verbs.checkImmediately(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
             }
         }
+    }
 
+    describeFun(testee::formatGroup.name) {
         context("${AssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
             val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
             facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })

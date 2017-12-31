@@ -11,8 +11,9 @@ class TextPrefixBasedAssertionGroupFormatter(
     }
 
     fun formatAfterAppendLnEtc(assertionPairFormatter: AssertionPairFormatter, assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
-        assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
-        return methodObject.createChildWithNewPrefix(prefix)
+        val newMethodObject = methodObject.createChildWithNewPrefix(prefix)
+        assertionPairFormatter.formatGroupHeader(methodObject, assertionGroup, newMethodObject)
+        return newMethodObject
     }
 
 }

@@ -143,13 +143,41 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * Uses [AtriumFactory.newAssertionFormatterFacade] as [AssertionFormatterFacade].
          */
         fun withDefaultAssertionFormatterFacade()
-            = AssertionFormatterOptions(AtriumFactory.newAssertionFormatterFacade(assertionFormatterController), objectFormatter, translator)
+            = AssertionPairFormatterOptions(AssertionFormatterChosenOptions(
+            AtriumFactory.newAssertionFormatterFacade(assertionFormatterController), objectFormatter, translator))
 
         /**
          * Uses the given [factory] to build a custom [AssertionFormatterFacade].
          */
         fun withAssertionFormatterFacade(factory: (AssertionFormatterController) -> AssertionFormatterFacade)
-            = AssertionFormatterOptions(factory(assertionFormatterController), objectFormatter, translator)
+            = AssertionPairFormatterOptions(AssertionFormatterChosenOptions(
+            factory(assertionFormatterController), objectFormatter, translator))
+    }
+
+    class AssertionFormatterChosenOptions(val assertionFormatterFacade: AssertionFormatterFacade, val objectFormatter: ObjectFormatter, val translator: Translator)
+
+    /**
+     * Provides options to create an [AssertionPairFormatter].
+     */
+    class AssertionPairFormatterOptions(private val options: AssertionFormatterChosenOptions) {
+
+        /**
+         * Uses [AtriumFactory.newTextSameLineAssertionPairFormatter] as [AssertionPairFormatter].
+         */
+        fun withTextSameLineAssertionPairFormatter()
+            = TextAssertionFormatterOptions(options, AtriumFactory.newTextSameLineAssertionPairFormatter(options.objectFormatter, options.translator))
+
+        /**
+         * Uses the given [factory] to build a custom [AssertionPairFormatter].
+         */
+        fun withTextAssertionPairFormatter(factory: (ObjectFormatter, Translator) -> AssertionPairFormatter)
+            = TextAssertionFormatterOptions(options, factory(options.objectFormatter, options.translator))
+
+        @Deprecated("Will be removed in 0.7.0 -- choose an AssertionPairFormatter instead, use the suggestion replacement if you want to stick to same line formatting",
+            ReplaceWith("withTextSameLineAssertionPairFormatter().withDefaultTextCapabilities(bulletPoints)"))
+        fun withSameLineTextAssertionFormatter(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterBuilder
+            = withTextSameLineAssertionPairFormatter()
+            .withDefaultTextCapabilities(*bulletPoints)
     }
 
     /**
@@ -157,29 +185,36 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
      *
      * @see AssertionFormatterFacadeOptions
      */
-    class AssertionFormatterOptions(private val assertionFormatterFacade: AssertionFormatterFacade, private val objectFormatter: ObjectFormatter, private val translator: Translator) {
+    class TextAssertionFormatterOptions(private val options: AssertionFormatterChosenOptions, private val assertionPairFormatter: AssertionPairFormatter) {
 
         /**
-         * Uses [AtriumFactory.registerSameLineTextAssertionFormatterCapabilities] to register [AssertionFormatter] to
-         * the [assertionFormatterFacade] where the given [bulletPoints] can be used to customise the predefined bullet
-         * points.
+         * Uses [AtriumFactory.registerTextAssertionFormatterCapabilities] to register the default [AssertionFormatter]s
+         * intended for text output -- using the defined [assertionPairFormatter],
+         * [AssertionFormatterChosenOptions.objectFormatter] and [AssertionFormatterChosenOptions.translator]
+         * -- to the specified [AssertionFormatterChosenOptions.assertionFormatterFacade] where the given [bulletPoints] can be used to customise
+         * the predefined bullet points.
          *
          * Have a look at the sub types of [BulletPointIdentifier] to get a feel for what and how you can customise
          * bullet points.
          */
-        fun withSameLineTextAssertionFormatter(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterBuilder {
-            AtriumFactory.registerSameLineTextAssertionFormatterCapabilities(
-                bulletPoints.toMap(), assertionFormatterFacade, objectFormatter, translator)
-            return ReporterBuilder(assertionFormatterFacade)
+        fun withDefaultTextCapabilities(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterBuilder {
+            AtriumFactory.registerTextAssertionFormatterCapabilities(
+                bulletPoints.toMap(), options.assertionFormatterFacade, assertionPairFormatter, options.objectFormatter, options.translator)
+            return ReporterBuilder(options.assertionFormatterFacade)
         }
 
         /**
-         * Uses the given [assertionFormatterFactory] to create and register an [AssertionFormatter] to the
-         * [assertionFormatterFacade].
+         * Uses the given [factory] and [otherFactories] to create and register [AssertionFormatter]s to
+         * the specified [AssertionFormatterChosenOptions.assertionFormatterFacade].
          */
-        fun withAssertionFormatter(assertionFormatterFactory: (AssertionFormatterController) -> AssertionFormatter): ReporterBuilder {
-            assertionFormatterFacade.register(assertionFormatterFactory)
-            return ReporterBuilder(assertionFormatterFacade)
+        fun withTextAssertionFormatter(
+            factory: (AssertionFormatterChosenOptions) -> (AssertionFormatterController) -> AssertionFormatter,
+            vararg otherFactories: (AssertionFormatterChosenOptions) -> (AssertionFormatterController) -> AssertionFormatter
+        ): ReporterBuilder {
+            listOf(factory, *otherFactories).forEach {
+                options.assertionFormatterFacade.register(it(options))
+            }
+            return ReporterBuilder(options.assertionFormatterFacade)
         }
     }
 }

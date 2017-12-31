@@ -20,7 +20,8 @@ object ResourceBundleBasedTranslatorSpec : Spek({
                 .withDetailedObjectFormatter()
                 .withDefaultAssertionFormatterController()
                 .withDefaultAssertionFormatterFacade()
-                .withSameLineTextAssertionFormatter()
+                .withTextSameLineAssertionPairFormatter()
+                .withDefaultTextCapabilities()
                 .buildOnlyFailureReporter()
         },
         //TODO should be true as soon as http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8

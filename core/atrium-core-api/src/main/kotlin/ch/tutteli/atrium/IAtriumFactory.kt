@@ -26,6 +26,7 @@ import java.util.*
  * - [AssertionFormatterFacade]
  * - [AssertionFormatterController]
  * - [AssertionFormatter]
+ * - [AssertionPairFormatter]
  * - [Reporter]
  */
 interface IAtriumFactory {
@@ -297,10 +298,22 @@ interface IAtriumFactory {
     fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
 
     /**
+     * Creates an [AssertionPairFormatter] which is intended for text output (e.g. for the console) and puts assertion
+     * pairs on the same line.
+     *
+     * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
+     * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
+     *
+     * @return The newly created assertion formatter.
+     */
+    fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
+
+    /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and serves as
      * fallback if no other formatter is able to format a given [Assertion].
      *
      * Typically this includes the formatting of the [AssertionGroup] with a [RootAssertionGroupType].
+     * It uses [newAssertionPairFormatter] to create an [AssertionPairFormatter] if necessary.
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
      * for [RootAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
@@ -356,22 +369,24 @@ interface IAtriumFactory {
     fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
 
     /**
-     * Registers all available [AssertionFormatter]s -- which put assertion pairs on the same line and report in
-     * text format (e.g. for the console) -- to the given [assertionFormatterFacade].
+     * Registers all available [AssertionFormatter]s  -- which are intended for text format (e.g. for the console)
+     * -- to the given [assertionFormatterFacade] using the given [textAssertionPairFormatter].
      *
      * Should at least support [RootAssertionGroupType], [FeatureAssertionGroupType], [ListAssertionGroupType],
      * [SummaryAssertionGroupType] and [ExplanatoryAssertionGroupType] (see [AssertionGroup.Builder]).
      *
      * @param bulletPoints The bullet points used in reporting to prefix each [Assertion] in
      * [AssertionGroup.assertions].
-     * @param assertionFormatterFacade The [AssertionFormatterFacade] to which all [AssertionFormatter]s with
-     *        same line capabilities and text reporting should be registered.
+     * @param assertionFormatterFacade The [AssertionFormatterFacade] to which all [AssertionFormatter]s with text
+     *        reporting capabilities should be registered.
+     * @param textAssertionPairFormatter An [AssertionPairFormatter] which is intended for text format.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
      * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
      */
-    fun registerSameLineTextAssertionFormatterCapabilities(
+    fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
+        textAssertionPairFormatter: AssertionPairFormatter,
         objectFormatter: ObjectFormatter,
         translator: Translator)
 

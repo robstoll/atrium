@@ -21,7 +21,7 @@ interface SummaryAssertionGroupType : DoNotFilterAssertionGroupType
  * Represents the identifier for bullet points used to prefix [Assertion]s which hold, in context of an
  * [AssertionGroup] with type [SummaryAssertionGroupType].
  *
- * See also [IAtriumFactory.registerSameLineTextAssertionFormatterCapabilities].
+ * See also [IAtriumFactory.registerTextAssertionFormatterCapabilities].
  */
 class PrefixSuccessfulSummaryAssertion private constructor() : BulletPointIdentifier
 
@@ -29,7 +29,7 @@ class PrefixSuccessfulSummaryAssertion private constructor() : BulletPointIdenti
  * Represents the identifier for bullet points used to prefix [Assertion]s which do not hold, in context of an
  * [AssertionGroup] with type [SummaryAssertionGroupType].
  *
- * See also [IAtriumFactory.registerSameLineTextAssertionFormatterCapabilities].
+ * See also [IAtriumFactory.registerTextAssertionFormatterCapabilities].
  */
 class PrefixFailingSummaryAssertion private constructor() : BulletPointIdentifier
 
