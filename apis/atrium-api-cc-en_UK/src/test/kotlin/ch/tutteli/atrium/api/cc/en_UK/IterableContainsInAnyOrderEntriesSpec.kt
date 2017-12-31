@@ -14,6 +14,18 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
     include(ShortcutSpec)
 
 }) {
+    object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
+        AssertionVerbFactory,
+        getEntriesPair(),
+        "[Atrium][Builder] "
+    )
+
+    object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
+        AssertionVerbFactory,
+        getEntriesShortcutPair(),
+        "[Atrium][Shortcut] "
+    )
+
     companion object {
         fun getEntriesPair()
             = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderSearchBehaviour>::entries.name to Companion::entries
@@ -37,16 +49,4 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
         private fun entriesShortcut(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>)
             = plant.contains(a, *aX)
     }
-
-    object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
-        AssertionVerbFactory,
-        getEntriesPair(),
-        "[Atrium][Builder] "
-    )
-
-    object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
-        AssertionVerbFactory,
-        getEntriesShortcutPair(),
-        "[Atrium][Shortcut] "
-    )
 }
