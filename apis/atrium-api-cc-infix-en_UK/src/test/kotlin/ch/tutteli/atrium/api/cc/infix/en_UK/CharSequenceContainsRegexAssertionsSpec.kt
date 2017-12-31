@@ -7,6 +7,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
     AssertionVerbFactory,
     getNameContainsRegex(),
     getAtLeastTriple(),
+    getShortcutTriple(),
     getAtMostTriple(),
     getAtMostIgnoringCaseTriple()
 ) {
@@ -26,6 +27,20 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
                 plant to contain atLeast atLeast regex a
             } else {
                 plant to contain atLeast atLeast the RegexPatterns(a, *aX)
+            }
+        }
+
+        private fun getShortcutTriple() = Triple(
+            containsRegex,
+            { what: String, times: String -> "$toContain $what $atLeast $times" },
+            Companion::containsShortcut
+        )
+
+        private fun containsShortcut(plant: AssertionPlant<CharSequence>, a: String, aX: Array<out String>): AssertionPlant<CharSequence> {
+            return if (aX.isEmpty()) {
+                plant containsRegex a
+            } else {
+                plant contains RegexPatterns(a, *aX)
             }
         }
 
