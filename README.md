@@ -106,7 +106,23 @@ you can [define your own assertion verbs](#use-own-assertion-verbs) which suit y
 In the following examples we will use `assert` for regular assertions 
 and `expect` to postulate that we [Expect an Exception](#expect-an-exception).
 
-The next section shows you how you can define multiple assertions for the same subject.   
+:information_source: In case you prefer multi-line reporting, then you can configure `ReporterBuilder` accordingly.
+Instead of using `.withTextSameLineAssertionPairFormatter()` you use the following:
+```
+.withTextAssertionPairFormatter { objectFormatter, translator ->
+    TextNextLineAssertionPairFormatter(objectFormatter, translator)
+}
+```
+The shown output above would then look as follows:
+```text
+assert: 
+  10        (java.lang.Integer <934275857>)
+◆ to be: 
+  9        (java.lang.Integer <1364913072>)
+```
+
+
+The next section shows how you can define multiple assertions for the same subject.   
 
 ## Define Single Assertions or Assertion Groups
 
