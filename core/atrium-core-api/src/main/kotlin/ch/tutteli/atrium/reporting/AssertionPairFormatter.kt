@@ -9,15 +9,16 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface AssertionPairFormatter {
 
     /**
-     * Formats the header of an assertion group consisting of its [name] and the [subject].
+     * Formats the header ([name][AssertionGroup.name] and [subject][AssertionGroup.subject]) of the given
+     * [assertionGroup] and appends the result to the [sb][AssertionFormatterMethodObject.sb]
+     * of the given [methodObject].
      *
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
      *        to which the result will be appended.
-     * @param name The [AssertionGroup.name].
-     * @param subject The [AssertionGroup.subject].
+     * @param assertionGroup The [AssertionGroup] of which we want to format the header.
      * @param newMethodObject The [AssertionFormatterMethodObject] used for the [AssertionGroup.assertions].
      */
-    fun formatGroupHeader(methodObject: AssertionFormatterMethodObject, name: Translatable, subject: Any, newMethodObject: AssertionFormatterMethodObject)
+    fun formatGroupHeader(methodObject: AssertionFormatterMethodObject, assertionGroup: AssertionGroup, newMethodObject: AssertionFormatterMethodObject)
 
     /**
      * Formats the assertion pair consisting of the given [translatable] and the given [representation]
