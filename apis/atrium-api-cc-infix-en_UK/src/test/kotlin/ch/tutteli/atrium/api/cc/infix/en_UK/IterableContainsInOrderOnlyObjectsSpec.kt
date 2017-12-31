@@ -12,6 +12,20 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
     include(ShortcutSpec)
 
 }) {
+    object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec(
+        AssertionVerbFactory,
+        getContainsPair(),
+        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "[Atrium][Builder] "
+    )
+
+    object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec(
+        AssertionVerbFactory,
+        getContainsShortcutPair(),
+        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "[Atrium][Shortcut] "
+    )
+
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
             "$toContain $inOrder $butOnly $inOrderOnlyValues" to Companion::containsInOrderOnly
@@ -41,19 +55,5 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
             }
         }
     }
-
-    object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec(
-        AssertionVerbFactory,
-        getContainsPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
-        "[Atrium][Builder] "
-    )
-
-    object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec(
-        AssertionVerbFactory,
-        getContainsShortcutPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
-        "[Atrium][Shortcut] "
-    )
 }
 

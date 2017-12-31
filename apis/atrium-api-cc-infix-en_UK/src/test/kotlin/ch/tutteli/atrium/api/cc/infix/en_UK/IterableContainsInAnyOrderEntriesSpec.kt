@@ -12,6 +12,18 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
     include(ShortcutSpec)
 
 }) {
+    object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
+        AssertionVerbFactory,
+        getEntriesPair(),
+        "[Atrium][Builder] "
+    )
+
+    object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
+        AssertionVerbFactory,
+        getEntriesShortcutPair(),
+        "[Atrium][Shortcut] "
+    )
+
     companion object : IterableContainsSpecBase() {
         fun getEntriesPair()
             = "$the ${Entries::class.simpleName}" to Companion::entries
@@ -40,16 +52,4 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
             }
         }
     }
-
-    object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
-        AssertionVerbFactory,
-        getEntriesPair(),
-        "[Atrium][Builder] "
-    )
-
-    object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec(
-        AssertionVerbFactory,
-        getEntriesShortcutPair(),
-        "[Atrium][Shortcut] "
-    )
 }
