@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
  * Represents the search behaviour that expected entries might appear in any order within the [Iterable] but that
  * the resulting assertion should not hold if there are less entries than expected or more.
  */
-object IterableContainsInAnyOrderOnlySearchBehaviour : IterableContains.SearchBehaviour {
+open class IterableContainsInAnyOrderOnlySearchBehaviour : IterableContains.SearchBehaviour {
     override fun decorateDescription(description: Translatable): Translatable
         = TranslatableWithArgs(DescriptionIterableAssertion.IN_ANY_ORDER_ONLY, description)
 }
