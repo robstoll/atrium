@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
 
-import ch.tutteli.atrium.api.cc.de_CH.*
+import ch.tutteli.atrium.api.cc.de_CH.aberHoechstens
+import ch.tutteli.atrium.api.cc.de_CH.genau
+import ch.tutteli.atrium.api.cc.de_CH.hoechstens
+import ch.tutteli.atrium.api.cc.de_CH.zumindest
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsButAtMostCheckerBuilderBase
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
@@ -25,7 +28,7 @@ open class IterableContainsButAtMostCheckerBuilder<E, T : Iterable<E>>(
     times,
     atLeastBuilder,
     containsBuilder,
-    containsBuilder.plant::enthaeltNicht.name,
+    nameContainsNotValuesFun(),
     { l, u -> "${containsBuilder::zumindest.name}($l).${atLeastBuilder::aberHoechstens.name}($u)" },
     { "${containsBuilder::hoechstens.name}($it)" },
     { "${containsBuilder::zumindest.name}($it)" },

@@ -186,3 +186,21 @@ assert(x) contains inGiven order but only the Objects(personA, personB)
 assert(x) contains inGiven order but only entry { this isLessThan 2 }
 assert(x) contains inGiven order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
 ```
+
+## Iterable contains not
+
+*atrium-api-cc-en_UK*
+```kotlin
+assert(x).containsNot(1.2)
+assert(x).containsNot(1.2, 5.7)
+assert(x).containsNot.entry { isLessThan(2) }
+assert(x).containsNot.entries({ isLessThan(2) }, { isGreaterThan 5 })
+```
+
+*atrium-api-cc-infix-en_UK*
+```kotlin
+assert(x) containsNot 1.2
+assert(x) containsNot Values(1.2, 5.7) // or Objects as alternative
+assert(x) notTo contain entry { this isLessThan 2 }
+assert(x) notTo contain the Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
+```
