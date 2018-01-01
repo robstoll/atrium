@@ -7,13 +7,19 @@ import kotlin.reflect.KFunction3
 class IterableContainsNullSpec : ch.tutteli.atrium.spec.assertions.IterableContainsNullSpec(
     AssertionVerbFactory,
     getContainsPair(),
-    AssertionPlant<Iterable<Double?>>::containsNot.name to AssertionPlant<Iterable<Double?>>::containsNot
+    getContainsNotPair()
 ) {
-    companion object {
+    companion object : IterableContainsSpecBase() {
         private val containsFun: KFunction3<AssertionPlant<Iterable<Double?>>, Double?, Array<out Double?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::contains
-        fun getContainsPair() = containsFun.name to Companion::contains
+        fun getContainsPair() = containsFun.name to Companion::containsShortcut
 
-        private fun contains(plant: AssertionPlant<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
+        private fun containsShortcut(plant: AssertionPlant<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
             = plant.contains(a, *aX)
+
+        private val containsNotFun: KFunction3<AssertionPlant<Iterable<Double?>>, Double?, Array<out Double?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::containsNot
+        private fun getContainsNotPair() = containsNotFun.name to Companion::containsNotShortcut
+
+        private fun containsNotShortcut(plant: AssertionPlant<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
+            = plant.containsNot(a, *aX)
     }
 }

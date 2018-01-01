@@ -5,15 +5,15 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNoOpCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.creators.*
-import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
-import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
-import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
-import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
 fun <E, T : Iterable<E>> _containsBuilder(plant: AssertionPlant<T>)
     = IterableContainsBuilder(plant, IterableContainsNoOpSearchBehaviour())
+
+fun <E, T : Iterable<E>> _containsNotBuilder(plant: AssertionPlant<T>)
+    = IterableContainsBuilder(plant, IterableContainsNotSearchBehaviour())
 
 fun <E, T : Iterable<E>> _containsNot(plant: AssertionPlant<T>, expected: E, otherExpected: Array<out E>): Assertion {
     val assertions = mutableListOf<Assertion>()
