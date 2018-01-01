@@ -48,10 +48,10 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
             = getContainsShortcutName() to Companion::containsInOrderOnlyShortcut
 
         private fun containsInOrderOnlyShortcut(plant: AssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>): AssertionPlant<Iterable<Double>> {
-            return if (aX.isEmpty()) {
-                plant containsStrictly a
-            } else {
-                plant containsStrictly Objects(a, *aX)
+            return when {
+                aX.isEmpty() -> plant containsStrictly a
+                aX.size == 1 -> plant containsStrictly Objects(a, *aX)
+                else -> plant containsStrictly Values(a, *aX)
             }
         }
     }
