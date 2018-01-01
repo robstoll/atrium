@@ -1,9 +1,11 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder
 import ch.tutteli.atrium.assertions._containsBuilder
-import ch.tutteli.atrium.assertions._containsNot
+import ch.tutteli.atrium.assertions._containsNotBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNotSearchBehaviour
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 
@@ -13,9 +15,17 @@ import ch.tutteli.atrium.creating.AssertionPlant
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Assert<T>.enthaelt
-    get(): IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
-    = _containsBuilder(this)
+val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
+    get() = _containsBuilder(this)
+
+/**
+ * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * more sophisticated `contains not` assertions.
+ *
+ * @return The newly created builder.
+ */
+val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: IterableContainsNotCheckerBuilder<E, T, IterableContainsNotSearchBehaviour>
+    get() = IterableContainsNotCheckerBuilder(_containsNotBuilder(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected] and the [otherExpected] (if defined).
@@ -47,7 +57,7 @@ fun <E, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E: Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
@@ -79,8 +89,10 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]
  * and neither one of the [otherExpected] (if defined).
  *
+ * It is a shortcut for `enthaeltNicht.objekte(expected, *otherExpected)`
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
-    = addAssertion(_containsNot(this, expected, otherExpected))
+    = enthaeltNicht.objekte(expected, *otherExpected)

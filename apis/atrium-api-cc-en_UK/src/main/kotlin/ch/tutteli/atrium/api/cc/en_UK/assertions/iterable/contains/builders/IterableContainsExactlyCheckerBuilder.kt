@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
 
-import ch.tutteli.atrium.api.cc.en_UK.atMost
-import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsExactlyCheckerBuilderBase
@@ -25,6 +23,6 @@ open class IterableContainsExactlyCheckerBuilder<E, T : Iterable<E>>(
 ) : IterableContainsExactlyCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     times,
     containsBuilder,
-    containsBuilder.plant::containsNot.name,
+    nameContainsNotValuesFun(),
     { "${containsBuilder::exactly.name}($it)" }
 )

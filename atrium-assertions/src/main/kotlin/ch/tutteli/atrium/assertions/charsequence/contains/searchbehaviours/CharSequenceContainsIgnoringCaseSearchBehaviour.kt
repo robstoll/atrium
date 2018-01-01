@@ -9,8 +9,12 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
  * Represents the search behaviour that a [CharSequenceContains.Searcher] should ignore case
  * when searching for an expected object.
  */
-object CharSequenceContainsIgnoringCaseSearchBehaviour : CharSequenceContains.SearchBehaviour {
+open class CharSequenceContainsIgnoringCaseSearchBehaviour(
+    private val previousBehaviour: CharSequenceContainsNoOpSearchBehaviour
+) : CharSequenceContains.SearchBehaviour {
 
-    override fun decorateDescription(description: Translatable): Translatable
-        = TranslatableWithArgs(DescriptionCharSequenceAssertion.IGNORING_CASE, description)
+    override fun decorateDescription(description: Translatable): Translatable {
+        val previousDecorated = previousBehaviour.decorateDescription(description)
+        return TranslatableWithArgs(DescriptionCharSequenceAssertion.IGNORING_CASE, previousDecorated)
+    }
 }

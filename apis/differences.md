@@ -106,6 +106,7 @@ assert(x).contains.atLeast(1).butAtMost(2).value("hello")
 assert(x).contains.exactly(1).values("hello", "robert")
 assert(x).contains.atMost(2).regex("h(e|a)llo")
 assert(x).contains.ignoringCase.notOrAtMost(1).regex("h(e|a)llo", "[Rr]obert")
+assert(x).containsNot.defaultTranslationOf(DescriptionBasic.IS_NOT)
 ```
 
 *atrium-api-cc-infix-en_UK*
@@ -115,6 +116,7 @@ assert(x) to contain atLeast 1 butAtMost 2 value "hello"
 assert(x) to contain exactly 1 the Values("hello", "robert")
 assert(x) to contain atMost 2 regex "h(e|a)llo"
 assert(x) to contain ignoring case notOrAtMost 1 the RegularPatterns("h(e|a)llo", "[Rr]obert")
+assert(x) notTo contain defaultTranslationOf DescriptionBasic.IS_NOT
 ```
 
 ## Iterable contains in any order
@@ -183,4 +185,22 @@ assert(x) contains inGiven order but only `object` personA
 assert(x) contains inGiven order but only the Objects(personA, personB)
 assert(x) contains inGiven order but only entry { this isLessThan 2 }
 assert(x) contains inGiven order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
+```
+
+## Iterable contains not
+
+*atrium-api-cc-en_UK*
+```kotlin
+assert(x).containsNot(1.2)
+assert(x).containsNot(1.2, 5.7)
+assert(x).containsNot.entry { isLessThan(2) }
+assert(x).containsNot.entries({ isLessThan(2) }, { isGreaterThan 5 })
+```
+
+*atrium-api-cc-infix-en_UK*
+```kotlin
+assert(x) containsNot 1.2
+assert(x) containsNot Values(1.2, 5.7) // or Objects as alternative
+assert(x) notTo contain entry { this isLessThan 2 }
+assert(x) notTo contain the Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
 ```

@@ -1,8 +1,10 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -13,9 +15,18 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> Assert<T>.enthaelt
-    get(): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    = _containsBuilder(this)
+val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
+    get() = _containsBuilder(this)
+
+/**
+ * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
+ * more sophisticated `contains not` assertions.
+ *
+ * @return The newly created builder.
+ */
+val <T : CharSequence> Assert<T>.enthaeltNicht: CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
+    get() = CharSequenceContainsNotCheckerBuilder(_containsNotBuilder(this))
+
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation
@@ -50,11 +61,13 @@ fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: A
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if defined).
  *
+ * It is a shortcut for `enthaeltNicht.werte(expected, *otherExpected)`.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpected: Any)
-    = addAssertion(_containsNot(this, expected, otherExpected))
+    = enthaeltNicht.werte(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
@@ -86,11 +99,13 @@ fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Trans
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if defined).
  *
+ * It is a shortcut for `enthaeltNicht.standardUebersetzungVon(expected, *otherExpected)`.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable)
-    = addAssertion(_containsNotDefaultTranslationOf(this, expected, otherExpected))
+    = enthaeltNicht.standardUebersetzungVon(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given regular expression

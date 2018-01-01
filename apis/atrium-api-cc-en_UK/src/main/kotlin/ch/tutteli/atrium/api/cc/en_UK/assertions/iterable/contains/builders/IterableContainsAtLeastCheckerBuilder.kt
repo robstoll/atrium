@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.atLeast
-import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilderBase
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
@@ -24,6 +23,6 @@ open class IterableContainsAtLeastCheckerBuilder<E, T : Iterable<E>>(
 ) : IterableContainsAtLeastCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     times,
     containsBuilder,
-    containsBuilder.plant::containsNot.name,
+    nameContainsNotValuesFun(),
     { "${containsBuilder::atLeast.name}($it)" }
 )

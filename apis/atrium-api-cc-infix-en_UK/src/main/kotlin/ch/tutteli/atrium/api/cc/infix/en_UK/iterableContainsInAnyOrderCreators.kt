@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.assertions._containsEntriesInAnyOrder
-import ch.tutteli.atrium.assertions._containsObjectsInAnyOrder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
+import ch.tutteli.atrium.assertions.iterable.contains.creators._containsEntriesInAnyOrder
+import ch.tutteli.atrium.assertions.iterable.contains.creators._containsObjectsInAnyOrder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 

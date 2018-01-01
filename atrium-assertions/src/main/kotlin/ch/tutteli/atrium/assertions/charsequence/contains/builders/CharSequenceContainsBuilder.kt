@@ -18,7 +18,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param plant The [AssertionPlant] for which the sophisticated `contains` assertions shall be built.
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
-class CharSequenceContainsBuilder<out T : CharSequence, S : SearchBehaviour>(
+class CharSequenceContainsBuilder<out T : CharSequence, out S : SearchBehaviour>(
     plant: AssertionPlant<T>, searchBehaviour: S
 ) : ContainsBuilder<T, S>(plant, searchBehaviour)
 

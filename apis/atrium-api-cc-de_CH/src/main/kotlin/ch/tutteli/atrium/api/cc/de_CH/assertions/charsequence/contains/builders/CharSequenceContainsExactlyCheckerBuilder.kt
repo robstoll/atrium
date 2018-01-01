@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.api.cc.de_CH.enthaeltNicht
 import ch.tutteli.atrium.api.cc.de_CH.genau
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
@@ -25,6 +24,6 @@ open class CharSequenceContainsExactlyCheckerBuilder<T : CharSequence, S : Searc
 ) : CharSequenceContainsExactlyCheckerBuilderBase<T, S>(
     times,
     containsBuilder,
-    containsBuilder.plant::enthaeltNicht.name,
+    nameContainsNotValuesFun(),
     { "${containsBuilder::genau.name}($it)" }
 )

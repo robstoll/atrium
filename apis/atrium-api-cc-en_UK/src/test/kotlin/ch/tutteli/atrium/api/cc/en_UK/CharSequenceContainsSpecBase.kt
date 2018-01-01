@@ -10,7 +10,8 @@ import kotlin.reflect.KProperty
 abstract class CharSequenceContainsSpecBase {
     private val containsProp: KProperty<*> = AssertionPlant<String>::contains
     protected val contains = containsProp.name
-    protected val containsNot = AssertionPlant<String>::containsNot.name
+    private val containsNotProp: KProperty<*> = AssertionPlant<String>::containsNot
+    protected val containsNot = containsNotProp.name
     protected val containsRegex = AssertionPlant<String>::containsRegex.name
     protected val atLeast = CharSequenceContainsBuilder<*, *>::atLeast.name
     protected val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<*, *>::butAtMost.name

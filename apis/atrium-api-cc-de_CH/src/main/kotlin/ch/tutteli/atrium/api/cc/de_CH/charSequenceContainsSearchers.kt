@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.creators.*
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant

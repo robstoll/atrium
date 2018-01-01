@@ -59,7 +59,7 @@ abstract class IterableContainsInAnyOrderAtMostObjectsAssertionSpec(
             }
         }
 
-        context("text $oneToSeven") {
+        context(oneToSeven.toString()) {
             group("happy case with $containsAtMost twice") {
                 test("${containsAtMostTest("1.0", "once")} does not throw") {
                     fluent.containsAtMostFun(2, 1.0)

@@ -1,0 +1,32 @@
+package ch.tutteli.atrium.api.cc.en_UK
+
+import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.creating.AssertionPlant
+
+class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsNotAssertionSpec(
+    AssertionVerbFactory,
+    getContainsNotTriple(),
+    getContainsNotIgnoringCaseTriple()
+) {
+
+    companion object : CharSequenceContainsSpecBase() {
+
+        private fun getContainsNotTriple() = Triple(
+            containsNot,
+            { what: String -> "$containsNot $what" },
+            Companion::containsNotFun
+        )
+
+        private fun containsNotFun(plant: AssertionPlant<CharSequence>, a: Any, aX: Array<out Any>)
+            = plant.containsNot.values(a, *aX)
+
+        private fun getContainsNotIgnoringCaseTriple() = Triple(
+            "$containsNot.$ignoringCase",
+            { what: String -> "$containsNot $ignoringCase $what" },
+            Companion::containsNotIgnoringCase
+        )
+
+        private fun containsNotIgnoringCase(plant: AssertionPlant<CharSequence>, a: Any, aX: Array<out Any>)
+            = plant.containsNot.ignoringCase.values(a, *aX)
+    }
+}
