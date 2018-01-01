@@ -23,7 +23,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param containsBuilder The builder representing the entry point of the process of building a sophisticated
  *        `contains` assertion.
  */
-abstract class ContainsCheckerBuilder<out T : Any, S : Contains.SearchBehaviour, out C : Contains.Checker, out B : ContainsBuilder<T, S>>(
+abstract class ContainsCheckerBuilder<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : ContainsBuilder<T, S>>(
     val containsBuilder: B
 ) {
     /**

@@ -3,6 +3,8 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -15,12 +17,17 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
+infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
     = _containsBuilder(this)
 
-infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain)
-    = CharSequenceContainsNotCheckerBuilder(_containsBuilder(this))
-
+/**
+ * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
+ * more sophisticated `contains not` assertions.
+ *
+ * @return The newly created builder.
+ */
+infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
+    = CharSequenceContainsNotCheckerBuilder(_containsNotBuilder(this))
 
 
 /**
@@ -158,11 +165,13 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
  * Makes the assertion that [AssertionPlant.subject] does not contain the [toString] representation
  * of the given [values].
  *
+ * It is a shortcut for `notTo contain the Values(expected, *otherExpected)`.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
-    = addAssertion(_containsNot(this, values.expected, values.otherExpected))
+    = this notTo contain the values
 
 
 /**
@@ -170,11 +179,13 @@ infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
  * [getDefault][Translatable.getDefault] representation and neither one of the [DefaultTranslationsOf.otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if defined).
  *
+ * It is a shortcut for `notTo contain the DefaultTranslationsOf(expected, *otherExpected)`.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf)
-    = addAssertion(_containsNotDefaultTranslationOf(this, defaultTranslationsOf.expected, defaultTranslationsOf.otherExpected))
+    = this notTo contain the defaultTranslationsOf
 
 
 /**
