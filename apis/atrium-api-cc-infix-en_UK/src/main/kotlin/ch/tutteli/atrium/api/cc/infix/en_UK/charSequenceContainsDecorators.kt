@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.bui
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 
 /**
  * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
@@ -13,7 +14,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
  * @return The newly created builder.
  */
 infix fun <T : CharSequence> CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case)
-    = CharSequenceContainsBuilder(plant, CharSequenceContainsIgnoringCaseSearchBehaviour)
+    = CharSequenceContainsBuilder(plant, CharSequenceContainsIgnoringCaseSearchBehaviour(searchBehaviour))
 
 /**
  * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
@@ -22,5 +23,5 @@ infix fun <T : CharSequence> CharSequenceContainsBuilder<T, CharSequenceContains
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case)
+infix fun <T : CharSequence> CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case)
     = CharSequenceContainsNotCheckerBuilder(containsBuilder ignoring case)

@@ -8,6 +8,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
 import ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseIndexSearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseRegexSearcher
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIndexSearcher
@@ -17,21 +18,11 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)
-    = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour)
+    = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour())
 
-fun <T : CharSequence> _containsNot(plant: AssertionPlant<T>, expected: Any, otherExpected: Array<out Any>): Assertion {
-    val assertions = mutableListOf<Assertion>()
-    arrayOf(expected, *otherExpected).forEach {
-        assertions.add(LazyThreadUnsafeBasicAssertion {
-            val expectedString = it.toString()
-            BasicDescriptiveAssertion(CONTAINS_NOT, expectedString, { !plant.subject.contains(expectedString) })
-        })
-    }
-    return AssertionGroup.Builder.invisible.create(assertions)
-}
+fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>)
+    = CharSequenceContainsBuilder(plant, CharSequenceContainsNotSearchBehaviour())
 
-fun <T : CharSequence> _containsNotDefaultTranslationOf(plant: AssertionPlant<T>, expected: Translatable, otherExpected: Array<out Translatable>): Assertion
-    = _containsNot(plant, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
     = BasicDescriptiveAssertion(STARTS_WITH, expected, { plant.subject.startsWith(expected) })

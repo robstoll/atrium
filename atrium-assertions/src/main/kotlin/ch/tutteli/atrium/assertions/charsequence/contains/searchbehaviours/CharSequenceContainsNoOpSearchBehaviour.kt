@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour.decorateDescription
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -10,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * It furthermore implements a no operation for [decorateDescription], meaning it passes back the description which
  * is passed in (identity function).
  */
-object CharSequenceContainsNoOpSearchBehaviour : CharSequenceContains.SearchBehaviour {
+open class CharSequenceContainsNoOpSearchBehaviour : CharSequenceContains.SearchBehaviour {
     /**
      * Returns the given [description].
      * @return the given [description].

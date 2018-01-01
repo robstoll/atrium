@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -23,8 +24,8 @@ val <T : CharSequence> Assert<T>.contains: CharSequenceContainsBuilder<T, CharSe
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> Assert<T>.containsNot: CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    get() = CharSequenceContainsNotCheckerBuilder(this.contains)
+val <T : CharSequence> Assert<T>.containsNot: CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
+    get() = CharSequenceContainsNotCheckerBuilder(_containsNotBuilder(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation
@@ -59,11 +60,13 @@ fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: A
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if defined).
  *
+ * It is a shortcut for `containsNot.values(expected, *otherExpected)`.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.containsNot(expected: Any, vararg otherExpected: Any)
-    = addAssertion(_containsNot(this, expected, otherExpected))
+    = containsNot.values(expected, *otherExpected)
 
 
 /**
@@ -96,11 +99,13 @@ fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(expected: Translat
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if defined).
  *
+ * It is a shortcut for `containsNot.defaultTranslationOf(expected, *otherExpected)`.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.containsNotDefaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable)
-    = addAssertion(_containsNotDefaultTranslationOf(this, expected, otherExpected))
+    = containsNot.defaultTranslationOf(expected, * otherExpected)
 
 
 /**

@@ -15,7 +15,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *              `contains` assertion for [CharSequence].
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
-open class CharSequenceContainsNotCheckerBuilder<T : CharSequence, S : SearchBehaviour>(
+open class CharSequenceContainsNotCheckerBuilder<T : CharSequence, out S : SearchBehaviour>(
     containsBuilder: CharSequenceContainsBuilder<T, S>
 ) : CharSequenceContainsNotCheckerBuilderBase<T, S>(containsBuilder)
 
