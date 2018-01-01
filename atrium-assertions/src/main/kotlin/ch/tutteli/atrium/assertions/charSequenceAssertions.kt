@@ -23,7 +23,6 @@ fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)
 fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>)
     = CharSequenceContainsBuilder(plant, CharSequenceContainsNotSearchBehaviour())
 
-
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
     = BasicDescriptiveAssertion(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
 
