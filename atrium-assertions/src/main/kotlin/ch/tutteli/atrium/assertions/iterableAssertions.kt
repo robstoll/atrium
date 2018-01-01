@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
 fun <E, T : Iterable<E>> _containsBuilder(plant: AssertionPlant<T>)
-    = IterableContainsBuilder(plant, IterableContainsNoOpSearchBehaviour)
+    = IterableContainsBuilder(plant, IterableContainsNoOpSearchBehaviour())
 
 fun <E, T : Iterable<E>> _containsNot(plant: AssertionPlant<T>, expected: E, otherExpected: Array<out E>): Assertion {
     val assertions = mutableListOf<Assertion>()

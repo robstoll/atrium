@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 /**
  * Represents the search behaviour that expected entries have to appear in the given order within the [Iterable].
  */
-object IterableContainsInOrderSearchBehaviour : IterableContains.SearchBehaviour {
+open class IterableContainsInOrderSearchBehaviour : IterableContains.SearchBehaviour {
     override fun decorateDescription(description: Translatable): Translatable
         = TranslatableWithArgs(DescriptionIterableAssertion.IN_ORDER, description)
 }
