@@ -22,7 +22,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param atLeastCall The name of the function which was called and created this builder.
  */
-abstract class IterableContainsAtLeastCheckerBuilderBase<E, T : Iterable<E>, S : SearchBehaviour>(
+abstract class IterableContainsAtLeastCheckerBuilderBase<E, T : Iterable<E>, out S : SearchBehaviour>(
     val times: Int,
     containsBuilder: IterableContainsBuilder<E, T, S>,
     nameContainsNotFun: String,
