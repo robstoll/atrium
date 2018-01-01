@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.api.cc.de_CH.enthaeltNicht
 import ch.tutteli.atrium.api.cc.de_CH.genau
 import ch.tutteli.atrium.api.cc.de_CH.hoechstens
 import ch.tutteli.atrium.api.cc.de_CH.zumindest
@@ -27,7 +26,7 @@ open class CharSequenceContainsAtMostCheckerBuilder<T : CharSequence, S : Search
 ) : CharSequenceContainsAtMostCheckerBuilderBase<T, S>(
     times,
     containsBuilder,
-    containsBuilder.plant::enthaeltNicht.name,
+    nameContainsNotValuesFun(),
     { "${containsBuilder::hoechstens.name}($it)" },
     { "${containsBuilder::zumindest.name}($it)" },
     { "${containsBuilder::genau.name}($it)" }

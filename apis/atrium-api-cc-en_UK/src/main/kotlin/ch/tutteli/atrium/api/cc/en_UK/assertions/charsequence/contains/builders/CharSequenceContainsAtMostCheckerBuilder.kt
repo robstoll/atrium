@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.atLeast
 import ch.tutteli.atrium.api.cc.en_UK.atMost
-import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilderBase
@@ -27,7 +26,7 @@ open class CharSequenceContainsAtMostCheckerBuilder<T : CharSequence, S : Search
 ) : CharSequenceContainsAtMostCheckerBuilderBase<T, S>(
     times,
     containsBuilder,
-    containsBuilder.plant::containsNot.name,
+    nameContainsNotValuesFun(),
     { "${containsBuilder::atMost.name}($it)" },
     { "${containsBuilder::atLeast.name}($it)" },
     { "${containsBuilder::exactly.name}($it)" }

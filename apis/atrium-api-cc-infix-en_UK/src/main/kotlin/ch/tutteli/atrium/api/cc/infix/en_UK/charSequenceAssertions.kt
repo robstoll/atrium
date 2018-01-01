@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
+import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.Assert
@@ -16,6 +17,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
     = _containsBuilder(this)
+
+infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain)
+    = CharSequenceContainsNotCheckerBuilder(_containsBuilder(this))
+
 
 
 /**

@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.api.cc.en_UK.atLeast
+import ch.tutteli.atrium.api.cc.en_UK.atMost
+import ch.tutteli.atrium.api.cc.en_UK.butAtMost
+import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilderBase
@@ -26,7 +29,7 @@ open class CharSequenceContainsButAtMostCheckerBuilder<T : CharSequence, S : Sea
     times,
     atLeastBuilder,
     containsBuilder,
-    containsBuilder.plant::containsNot.name,
+    nameContainsNotValuesFun(),
     { l, u -> "${containsBuilder::atLeast.name}($l).${atLeastBuilder::butAtMost.name}($u)" },
     { "${containsBuilder::atMost.name}($it)" },
     { "${containsBuilder::atLeast.name}($it)" },
