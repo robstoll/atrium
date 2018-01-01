@@ -53,7 +53,7 @@ abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
             }
         }
 
-        context("text $oneToSeven") {
+        context(oneToSeven.toString()) {
 
             group("happy case with $containsExactly once") {
                 test("${containsExactlyTest("1.0", "once")} does not throw") {

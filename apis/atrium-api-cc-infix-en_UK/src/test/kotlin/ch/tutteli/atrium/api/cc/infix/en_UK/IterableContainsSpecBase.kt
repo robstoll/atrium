@@ -11,6 +11,7 @@ import kotlin.reflect.KFunction2
 abstract class IterableContainsSpecBase {
     private val containsNotFun: KFunction2<AssertionPlant<Iterable<Double>>, Double, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::containsNot
     protected val toContain = "${AssertionPlant<Iterable<Double>>::to.name} ${contain::class.simpleName}"
+    protected val containsNot = "${AssertionPlant<Iterable<Double>>::notTo.name} ${contain::class.simpleName}"
     protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
     protected val atLeast = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::atLeast.name
     protected val butAtMost = IterableContainsAtLeastCheckerBuilder<Double, Iterable<Double>>::butAtMost.name

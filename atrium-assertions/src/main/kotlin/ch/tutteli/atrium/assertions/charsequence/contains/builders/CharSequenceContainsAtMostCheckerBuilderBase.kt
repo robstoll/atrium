@@ -26,7 +26,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @param atLeastCall The name of the function which represents a `CharSequence contains at least` assertion.
  * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
-abstract class CharSequenceContainsAtMostCheckerBuilderBase<T : CharSequence, S : SearchBehaviour>(
+abstract class CharSequenceContainsAtMostCheckerBuilderBase<T : CharSequence, out S : SearchBehaviour>(
     val times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, S>,
     nameContainsNotFun: String,

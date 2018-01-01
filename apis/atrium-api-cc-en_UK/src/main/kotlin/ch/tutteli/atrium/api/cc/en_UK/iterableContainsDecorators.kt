@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.*
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inAnyOrder
-    get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderSearchBehaviour)
+    get() = _containsInAnyOrder(this)
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -20,7 +20,7 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearc
  */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.only
     @JvmName("inAnyOrderOnly")
-    get() = IterableContainsBuilder(plant, IterableContainsInAnyOrderOnlySearchBehaviour)
+    get() = _containsInAnyOrderOnly(this)
 
 /**
  * Defines that the search behaviour "find entries `in order` in the [Iterable]" shall be applied to this
@@ -29,7 +29,7 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inOrder
-    get() = IterableContainsBuilder(plant, IterableContainsInOrderSearchBehaviour)
+    get() = _containsInOrder(this)
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -39,4 +39,4 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearc
  */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>.only
     @JvmName("inOrderOnly")
-    get() = IterableContainsBuilder(plant, IterableContainsInOrderOnlySearchBehaviour)
+    get() = _containsInOrderOnly(this)

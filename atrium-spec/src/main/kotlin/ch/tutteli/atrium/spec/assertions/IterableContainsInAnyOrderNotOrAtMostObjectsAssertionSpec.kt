@@ -52,7 +52,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
             }
         }
 
-        context("text $oneToSeven") {
+        context(oneToSeven.toString()) {
             group("happy case with $containsNotOrAtMost once") {
                 test("${containsNotOrAtMostTest("1.0", "once")} does not throw") {
                     fluent.containsNotOrAtMostFun(1, 1.0)

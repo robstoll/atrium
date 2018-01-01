@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
+import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder
 import ch.tutteli.atrium.assertions._containsBuilder
-import ch.tutteli.atrium.assertions._containsNot
+import ch.tutteli.atrium.assertions._containsNotBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -14,6 +15,15 @@ import ch.tutteli.atrium.creating.AssertionPlant
  */
 infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
     = _containsBuilder(this)
+
+/**
+ * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * more sophisticated `contains not` assertions.
+ *
+ * @return The newly created builder.
+ */
+infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain)
+    = IterableContainsNotCheckerBuilder(_containsNotBuilder(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the [expected] value.
@@ -142,7 +152,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) in the defined order
  * holding the assertions created by them.
  *
- * It is a shortcut for ``to contain inGiven order but only the Entries(...)`
+ * It is a shortcut for `to contain inGiven order but only the Entries(...)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -176,8 +186,10 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): Asserti
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the expected [objects].
  *
+ * It is a shortcut for `notTo contain the Objects(...)`
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Assert<T>.containsNot(objects: Objects<E>)
-    = addAssertion(_containsNot(this, objects.expected, objects.otherExpected))
+    = this notTo contain the objects
