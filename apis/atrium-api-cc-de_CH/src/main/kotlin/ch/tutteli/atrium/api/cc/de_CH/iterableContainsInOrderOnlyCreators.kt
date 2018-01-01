@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.assertions._containsEntriesInOrderOnly
-import ch.tutteli.atrium.assertions._containsObjectsInOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.assertions.iterable.contains.creators._containsEntriesInOrderOnly
+import ch.tutteli.atrium.assertions.iterable.contains.creators._containsObjectsInOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 

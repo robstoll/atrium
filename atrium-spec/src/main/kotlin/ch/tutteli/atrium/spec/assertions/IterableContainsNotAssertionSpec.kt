@@ -41,7 +41,7 @@ abstract class IterableContainsNotAssertionSpec(
 
     describeFun(containsNot) {
 
-        context("text $oneToSeven") {
+        context(oneToSeven.toString()) {
             group("happy case with $containsNot once") {
                 test("${containsNotTest("1.1")} does not throw") {
                     fluent.containsNotFun(1.1)
