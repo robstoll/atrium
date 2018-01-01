@@ -7,23 +7,12 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsN
 import ch.tutteli.atrium.assertions.iterable.contains.creators.*
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.reporting.RawString
 
 fun <E, T : Iterable<E>> _containsBuilder(plant: AssertionPlant<T>)
     = IterableContainsBuilder(plant, IterableContainsNoOpSearchBehaviour())
 
 fun <E, T : Iterable<E>> _containsNotBuilder(plant: AssertionPlant<T>)
     = IterableContainsBuilder(plant, IterableContainsNotSearchBehaviour())
-
-fun <E, T : Iterable<E>> _containsNot(plant: AssertionPlant<T>, expected: E, otherExpected: Array<out E>): Assertion {
-    val assertions = mutableListOf<Assertion>()
-    listOf(expected, *otherExpected).forEach {
-        assertions.add(LazyThreadUnsafeBasicAssertion {
-            BasicDescriptiveAssertion(DescriptionIterableAssertion.CONTAINS_NOT, it ?: RawString.NULL, { !plant.subject.contains(it) })
-        })
-    }
-    return AssertionGroup.Builder.invisible.create(assertions)
-}
 
 fun <E, T : Iterable<E>> _containsObjectsInAnyOrder(
     checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,

@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder
 import ch.tutteli.atrium.assertions._containsBuilder
-import ch.tutteli.atrium.assertions._containsNot
 import ch.tutteli.atrium.assertions._containsNotBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
@@ -92,8 +91,10 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Asse
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]
  * and neither one of the [otherExpected] (if defined).
  *
+ *  It is a shortcut for `containsNot.objects(expected, *otherExpected)`
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E)
-    = addAssertion(_containsNot(this, expected, otherExpected))
+    = containsNot.objects(expected, *otherExpected)
