@@ -11,6 +11,7 @@ import kotlin.reflect.KFunction2
 abstract class CharSequenceContainsSpecBase {
     private val containsNotFun: KFunction2<AssertionPlant<String>, Any, AssertionPlant<String>> = AssertionPlant<String>::containsNot
     protected val toContain = "${AssertionPlant<String>::to.name} ${contain::class.simpleName}"
+    protected val notToContain = "${AssertionPlant<String>::notTo.name} ${contain::class.simpleName}"
     protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
     protected val containsRegex = "${AssertionPlant<String>::to.name} ${contain::class.simpleName} ${RegularExpression::class.simpleName}"
     protected val atLeast = CharSequenceContainsBuilder<*, *>::atLeast.name

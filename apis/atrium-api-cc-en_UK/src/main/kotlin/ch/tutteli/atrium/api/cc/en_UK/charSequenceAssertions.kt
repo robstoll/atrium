@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
@@ -13,10 +14,17 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> Assert<T>.contains
-    get(): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    = _containsBuilder(this)
+val <T : CharSequence> Assert<T>.contains: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
+    get() = _containsBuilder(this)
 
+/**
+ * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
+ * more sophisticated `contains not` assertions.
+ *
+ * @return The newly created builder.
+ */
+val <T : CharSequence> Assert<T>.containsNot: CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
+    get() = CharSequenceContainsNotCheckerBuilder(this.contains)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation
