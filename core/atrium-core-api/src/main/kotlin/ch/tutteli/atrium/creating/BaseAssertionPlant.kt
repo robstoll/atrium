@@ -5,11 +5,11 @@ import ch.tutteli.atrium.assertions.Assertion
 /**
  * Represents a plant for [Assertion]s and offers methods to [addAssertion]s to this plant.
  *
- * It defines what [AssertionPlant] and [AssertionPlantNullable] have in common but is typically not used as entry
- * point for assertion functions (with a few exceptions like equality and identity assertions). Most of the time you
- * want to define an assertion function for [AssertionPlant].
+ * It defines what [AssertionPlant] and [AssertionPlantNullable] have in common. However it is typically not used as
+ * entry point for assertion functions. Most of the time you want to define an assertion function for [AssertionPlant],
+ * [Assert] respectively ([Assert] is a `typealias` of [AssertionPlant]).
  *
- * @param T The type of the [subject] of this [AssertionPlant].
+ * @param T The type of the [subject] of this [BaseAssertionPlant].
  * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API.
  */
 interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
