@@ -115,7 +115,7 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
         }
 
         context("search for entry where the lambda does not specify any assertion") {
-            it("$containsEntries throws an ${IllegalArgumentException::class.simpleName}") {
+            it("throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsEntriesFun({})
                 }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }

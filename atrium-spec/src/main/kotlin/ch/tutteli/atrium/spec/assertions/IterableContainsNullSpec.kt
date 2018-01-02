@@ -11,6 +11,7 @@ import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsNullSpec(
@@ -222,6 +223,14 @@ abstract class IterableContainsNullSpec(
                 }
             }
         }
+
+        context("search for entry where the lambda does not specify any assertion") {
+            it("throws an ${IllegalArgumentException::class.simpleName}") {
+                expect {
+                    fluent.containsInAnyOrderNullableEntriesFun({})
+                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
+            }
+        }
     }
 
     describeFun(containsInAnyOrderOnlyNullableEntries) {
@@ -280,6 +289,14 @@ abstract class IterableContainsNullSpec(
                 }
             }
         }
+
+        context("search for entry where the lambda does not specify any assertion") {
+            it("throws an ${IllegalArgumentException::class.simpleName}") {
+                expect {
+                    fluent.containsInAnyOrderOnlyNullableEntriesFun({})
+                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
+            }
+        }
     }
 
     describeFun(containsInOrderOnlyNullableEntries) {
@@ -326,6 +343,14 @@ abstract class IterableContainsNullSpec(
                         }
                     }
                 }
+            }
+        }
+
+        context("search for entry where the lambda does not specify any assertion") {
+            it("throws an ${IllegalArgumentException::class.simpleName}") {
+                expect {
+                    fluent.containsInAnyOrderOnlyNullableEntriesFun({})
+                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
             }
         }
     }
