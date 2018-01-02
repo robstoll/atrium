@@ -27,8 +27,7 @@ class IterableContainsNullSpec : Spek({
         getContainsNotValuesPair(),
         getContainsEntriesPair(),
         getContainsInAnyOrderOnlyNullableEntriesPair(),
-        //TODO replace with getContainsStrictEntries(),
-        getContainsInOrderOnlyNullableEntriesPair(),
+        getContainsStrictlyEntriesPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
@@ -56,6 +55,7 @@ class IterableContainsNullSpec : Spek({
             }
         }
 
+
         private val containsNotNullableValuesFun: KFunction2<AssertionPlant<Iterable<Double?>>, Values<Double?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::containsNot
         fun getContainsNotNullableValuesPair() = containsNotNullableValuesFun.name to Companion::containsNotNullableValues
 
@@ -77,6 +77,7 @@ class IterableContainsNullSpec : Spek({
                 plant containsNot Values(a, *aX)
             }
         }
+
 
         fun getContainsInAnyOrderNullableEntriesPair()
             = "$toContain $inAnyOrder $inAnyOrderEntries" to Companion::containsNullableEntries
@@ -100,6 +101,7 @@ class IterableContainsNullSpec : Spek({
             }
         }
 
+
         fun getContainsInAnyOrderOnlyNullableEntriesPair()
             = "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyNullableEntriesPair
 
@@ -108,6 +110,18 @@ class IterableContainsNullSpec : Spek({
                 plant to contain inAny order but only entry a
             } else {
                 plant to contain inAny order but only the Entries(a, *aX)
+            }
+        }
+
+
+        private val containsStrictlyEntriesFun: KFunction2<AssertionPlant<Iterable<Double?>>, Entries<Double, (AssertionPlant<Double>.() -> Unit)?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::containsStrictly
+        fun getContainsStrictlyEntriesPair() = containsStrictlyEntriesFun.name to Companion::containsStrictlyEntries
+
+        private fun containsStrictlyEntries(plant: AssertionPlant<Iterable<Double?>>, a: (AssertionPlant<Double>.() -> Unit)?, aX: Array<out (AssertionPlant<Double>.() -> Unit)?>): AssertionPlant<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant containsStrictly a
+            } else {
+                plant containsStrictly Entries(a, *aX)
             }
         }
 

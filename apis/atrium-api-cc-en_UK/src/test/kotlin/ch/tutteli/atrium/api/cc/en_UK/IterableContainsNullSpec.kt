@@ -27,8 +27,7 @@ class IterableContainsNullSpec : Spek({
         getContainsNotValuesPair(),
         getContainsEntriesPair(),
         getContainsInAnyOrderOnlyNullableEntriesPair(),
-        //TODO replace with getContainsStrictEntries(),
-        getContainsInOrderOnlyNullableEntriesPair(),
+        getContainsStrictlyEntriesPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
@@ -98,6 +97,13 @@ class IterableContainsNullSpec : Spek({
                 plant.contains.inAnyOrder.only.entries(a, *aX)
             }
         }
+
+
+        private val containsStrictlyEntriesFun: KFunction3<AssertionPlant<Iterable<Double?>>, (AssertionPlant<Double>.() -> Unit)?, Array<out (AssertionPlant<Double>.() -> Unit)?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::containsStrictly
+        fun getContainsStrictlyEntriesPair() = containsStrictlyEntriesFun.name to Companion::containsStrictlyEntries
+
+        private fun containsStrictlyEntries(plant: AssertionPlant<Iterable<Double?>>, a: (AssertionPlant<Double>.() -> Unit)?, aX: Array<out (AssertionPlant<Double>.() -> Unit)?>)
+            = plant.containsStrictly(a, *aX)
 
         fun getContainsInOrderOnlyNullableEntriesPair()
             = "$contains.$inOrder.$only.$inOrderOnlyEntries" to Companion::containsInOrderOnlyNullableEntriesPair
