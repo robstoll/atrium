@@ -78,7 +78,8 @@ infix fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * Delegates to `the Entries(assertionCreator)`.
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
+ *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *        or not.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -106,7 +107,8 @@ infix fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, Iterab
  * Delegates to `entries(expected)`.
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
+ *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *        or not.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
