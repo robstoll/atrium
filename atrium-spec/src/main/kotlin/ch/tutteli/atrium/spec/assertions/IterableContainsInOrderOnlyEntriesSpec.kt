@@ -8,6 +8,7 @@ import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInOrderOnlyEntriesSpec(
@@ -207,6 +208,14 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
                         }
                     }
                 }
+            }
+        }
+
+        context("search for entry where the lambda does not specify any assertion") {
+            it("throws an ${IllegalArgumentException::class.simpleName}") {
+                expect {
+                    fluent.containsEntriesFun({})
+                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
             }
         }
     }
