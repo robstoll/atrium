@@ -26,7 +26,7 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
 
     companion object : IterableContainsSpecBase() {
         fun getEntriesPair()
-            = "$the ${Entries::class.simpleName}" to Companion::entries
+            = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::entries
 
         private fun entries(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
             return if (aX.isEmpty()) {
