@@ -25,6 +25,14 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrder(
 ): Assertion
     = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
+@JvmName("_containsNullableEntriesInAnyOrder")
+fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrder(
+    checker: IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>,
+    assertionCreator: (AssertionPlant<E>.() -> Unit)?,
+    otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
+): Assertion
+    = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
+
 fun <E, T : Iterable<E>> _containsObjectsInAnyOrderOnly(
     builder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>,
     expected: E,

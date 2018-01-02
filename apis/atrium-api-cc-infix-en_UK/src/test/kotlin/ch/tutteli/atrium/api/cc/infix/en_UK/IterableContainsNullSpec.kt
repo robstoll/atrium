@@ -7,13 +7,14 @@ import kotlin.reflect.KFunction2
 class IterableContainsNullSpec : ch.tutteli.atrium.spec.assertions.IterableContainsNullSpec(
     AssertionVerbFactory,
     getContainsPair(),
-    getContainsNotPair()
+    getContainsNotPair(),
+    getContainsInAnyOrderNullableEntriesPair()
 ) {
-    companion object {
+    companion object : IterableContainsSpecBase() {
         private val containsFun: KFunction2<AssertionPlant<Iterable<Double?>>, Values<Double?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::contains
-        fun getContainsPair() = containsFun.name to Companion::contains
+        fun getContainsPair() = containsFun.name to Companion::containsShortcut
 
-        private fun contains(plant: AssertionPlant<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): AssertionPlant<Iterable<Double?>> {
+        private fun containsShortcut(plant: AssertionPlant<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): AssertionPlant<Iterable<Double?>> {
             return if (aX.isEmpty()) {
                 plant contains a
             } else {
@@ -21,15 +22,25 @@ class IterableContainsNullSpec : ch.tutteli.atrium.spec.assertions.IterableConta
             }
         }
 
-
         private val containsNotFun: KFunction2<AssertionPlant<Iterable<Double?>>, Values<Double?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::containsNot
-        fun getContainsNotPair() = containsNotFun.name to Companion::containsNot
+        fun getContainsNotPair() = containsNotFun.name to Companion::containsNotShortcut
 
-        private fun containsNot(plant: AssertionPlant<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): AssertionPlant<Iterable<Double?>> {
+        private fun containsNotShortcut(plant: AssertionPlant<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): AssertionPlant<Iterable<Double?>> {
             return if (aX.isEmpty()) {
                 plant containsNot a
             } else {
                 plant containsNot Values(a, *aX)
+            }
+        }
+
+        fun getContainsInAnyOrderNullableEntriesPair()
+            = "$toContain $inAnyOrder $the ${Entries::class.simpleName}" to Companion::containsNullableEntries
+
+        private fun containsNullableEntries(plant: AssertionPlant<Iterable<Double?>>, a: (AssertionPlant<Double>.() -> Unit)?, aX: Array<out (AssertionPlant<Double>.() -> Unit)?>): AssertionPlant<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant to contain inAny order atLeast 1 entry a
+            } else {
+                plant to contain inAny order atLeast 1 the Entries(a, *aX)
             }
         }
     }

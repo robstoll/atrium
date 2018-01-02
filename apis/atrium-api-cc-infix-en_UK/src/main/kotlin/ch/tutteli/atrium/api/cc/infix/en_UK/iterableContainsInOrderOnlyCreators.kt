@@ -87,5 +87,5 @@ infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableConta
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.the(entries: Entries<E, AssertionPlant<E>.() -> Unit>): AssertionPlant<T>
     = plant.addAssertion(_containsEntriesInOrderOnly(this, entries.assertionCreator, entries.otherAssertionCreators))
