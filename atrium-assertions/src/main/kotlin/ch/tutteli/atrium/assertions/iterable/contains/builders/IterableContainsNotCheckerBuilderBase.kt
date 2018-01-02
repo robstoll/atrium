@@ -14,7 +14,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsN
  * @constructor The base class for builders which create a `contains at least` check within the fluent API of a
  *              sophisticated `contains` assertion for [Iterable].
  */
-abstract class IterableContainsNotCheckerBuilderBase<E, T : Iterable<E>, out S : SearchBehaviour>(
+abstract class IterableContainsNotCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     containsBuilder: IterableContainsBuilder<E, T, S>
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 

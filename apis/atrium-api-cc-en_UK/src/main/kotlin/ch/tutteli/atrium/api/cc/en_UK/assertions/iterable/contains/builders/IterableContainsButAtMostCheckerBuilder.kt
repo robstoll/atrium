@@ -20,7 +20,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
  *              found in the [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  */
-open class IterableContainsButAtMostCheckerBuilder<E, T : Iterable<E>>(
+open class IterableContainsButAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
     atLeastBuilder: IterableContainsAtLeastCheckerBuilder<E, T>,
     containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>

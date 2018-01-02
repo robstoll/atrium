@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
  *
  * The checking as such is then usually carried out be the [IterableContains.Creator].
  */
-class IterableContainsNoOpCheckerBuilder<E, T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
+class IterableContainsNoOpCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
     containsBuilder: IterableContainsBuilder<E, T, S>
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
