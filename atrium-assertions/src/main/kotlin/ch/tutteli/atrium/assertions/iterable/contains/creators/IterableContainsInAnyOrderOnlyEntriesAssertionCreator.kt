@@ -43,17 +43,3 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
         return false
     }
 }
-
-internal fun <E : Any> createExplanatoryAssertions(assertionCreator: (AssertionPlant<E>.() -> Unit)?, list: List<E?>)
-    = collectIterableAssertionsForExplanation(assertionCreator, list.firstOrNull())
-
-internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean) =
-    FixHoldsAssertionGroup(DefaultListAssertionGroupType, AN_ENTRY_WHICH, RawString.EMPTY, explanatoryAssertions, found)
-
-internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean = when (subject) {
-    null -> assertionCreator == null
-    else -> assertionCreator != null &&
-        AtriumFactory.newCheckingPlant(subject)
-            .addAssertionsCreatedBy(assertionCreator)
-            .allAssertionsHold()
-}

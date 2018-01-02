@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
-import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
@@ -8,7 +7,6 @@ import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
-import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -63,20 +61,3 @@ open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterab
         }
     }
 }
-
-internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(assertionCreator: (AssertionPlant<E>.() -> Unit)?, first: E?): List<Assertion> {
-    return if (first != null) {
-        collectIterableAssertionsForExplanation(assertionCreator, first)
-    } else {
-        collectIterableAssertionsForExplanation("subject was null, cannot down-cast it to the non-nullable type", assertionCreator, null)
-    }
-}
-
-internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
-    = collectIterableAssertionsForExplanation("The iterator was empty and thus no subject available", assertionCreator, subject)
-
-internal fun <E : Any> collectIterableAssertionsForExplanation(reason: String, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
-    = AssertionCollector
-    .throwIfNoAssertionIsCollected
-    .collectAssertionsForExplanation(reason, DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET, assertionCreator, subject)
-
