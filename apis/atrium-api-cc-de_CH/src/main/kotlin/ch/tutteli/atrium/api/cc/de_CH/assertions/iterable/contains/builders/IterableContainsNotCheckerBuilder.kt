@@ -16,7 +16,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsN
  *              `contains not` assertion for [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  */
-open class IterableContainsNotCheckerBuilder<E, T : Iterable<E>, out S : SearchBehaviour>(
+open class IterableContainsNotCheckerBuilder<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     containsBuilder: IterableContainsBuilder<E, T, S>
 ) : IterableContainsNotCheckerBuilderBase<E, T, S>(containsBuilder)
 

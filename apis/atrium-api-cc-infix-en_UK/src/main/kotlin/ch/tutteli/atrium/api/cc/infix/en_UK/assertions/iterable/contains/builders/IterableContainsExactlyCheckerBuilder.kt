@@ -17,7 +17,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
  *              found in the [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  */
-open class IterableContainsExactlyCheckerBuilder<E, T : Iterable<E>>(
+open class IterableContainsExactlyCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
     containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
 ) : IterableContainsExactlyCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(

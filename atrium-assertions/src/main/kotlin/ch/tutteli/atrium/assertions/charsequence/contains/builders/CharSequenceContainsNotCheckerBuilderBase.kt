@@ -14,7 +14,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  *              sophisticated `contains` assertion for [CharSequence].
 
  */
-abstract class CharSequenceContainsNotCheckerBuilderBase<T : CharSequence, out S : SearchBehaviour>(
+abstract class CharSequenceContainsNotCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
     containsBuilder: CharSequenceContainsBuilder<T, S>
 ) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
 
