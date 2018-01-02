@@ -51,7 +51,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
     val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$listBulletPoint"
 
     describeFun(containsEntries) {
-        context("empty collection $containsEntries ...") {
+        context("empty collection") {
             val fluentEmptyString = assert(setOf())
             test("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
@@ -91,7 +91,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
 
         context("iterable '$oneToFour'") {
 
-            describe("happy cases $containsEntries ...") {
+            describe("happy cases") {
 
                 listOf(
                     arrayOf(1.0, 2.0, 3.0, 4.0, 4.0),
@@ -117,7 +117,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
                 }
             }
 
-            describe("error cases $containsEntries ... throws AssertionError") {
+            describe("error cases (throws AssertionError)") {
 
                 context("additional entries") {
                     test("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {

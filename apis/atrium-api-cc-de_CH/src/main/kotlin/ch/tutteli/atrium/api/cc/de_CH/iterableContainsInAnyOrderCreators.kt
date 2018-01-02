@@ -122,7 +122,7 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("nullableEntry")
+@JvmName("nullableEintrag")
 fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.eintrag(assertionCreator: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
     = eintraege(assertionCreator)
 
@@ -140,7 +140,7 @@ fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableCo
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("nullableEntries")
+@JvmName("nullableEintraege")
 fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.eintraege(
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?

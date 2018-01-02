@@ -19,12 +19,12 @@ import ch.tutteli.atrium.reporting.RawString
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
+class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>(
     searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
 ) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
 
-    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: E, list: MutableList<E>): Pair<Boolean, Assertion> {
+    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: E, list: MutableList<E?>): Pair<Boolean, Assertion> {
         val found: Boolean = list.remove(searchCriterion)
-        return Pair(found, BasicDescriptiveAssertion(AN_ENTRY_WHICH_IS, searchCriterion ?: RawString.NULL, found))
+        return found to BasicDescriptiveAssertion(AN_ENTRY_WHICH_IS, searchCriterion ?: RawString.NULL, found)
     }
 }
