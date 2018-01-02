@@ -166,6 +166,10 @@ abstract class IterableContainsNullSpec(
                 test("$toBeFun(3.0), null and $toBeFun(1.0)") {
                     fluent.containsInAnyOrderNullableEntriesFun({ toBe(3.0) }, null, { toBe(1.0) })
                 }
+                test("null, null, null") {
+                    //finds twice the same entry with null but that is fine since we do not search for unique entries in this case
+                    fluent.containsInAnyOrderNullableEntriesFun(null, null, null)
+                }
             }
 
             context("failing cases") {
