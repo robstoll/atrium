@@ -79,7 +79,7 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
             }
         }
 
-        context("iterable '$oneToSeven'") {
+        context("iterable $oneToSeven") {
             context("search for entry which $isGreaterThanFun(1.0) and $isLessThanFun(2.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {

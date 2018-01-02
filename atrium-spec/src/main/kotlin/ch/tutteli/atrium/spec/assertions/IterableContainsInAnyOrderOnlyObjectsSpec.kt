@@ -76,7 +76,7 @@ abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
             }
         }
 
-        context("iterable '$oneToFour'") {
+        context("iterable $oneToFour") {
 
             describe("happy cases $containsObjects") {
                 listOf(

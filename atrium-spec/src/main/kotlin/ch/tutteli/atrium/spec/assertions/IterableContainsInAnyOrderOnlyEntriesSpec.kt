@@ -89,7 +89,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
             }
         }
 
-        context("iterable '$oneToFour'") {
+        context("iterable $oneToFour") {
 
             describe("happy cases") {
 
