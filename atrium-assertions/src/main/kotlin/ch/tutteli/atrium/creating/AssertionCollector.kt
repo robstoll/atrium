@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.BasicExplanatoryAssertion
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -46,11 +43,9 @@ object AssertionCollector {
          * function does not even create one [Assertion] -- depending on the previously chosen option (see
          * [throwIfNoAssertionIsCollected] and [doNotThrowIfNoAssertionIsCollected]).
          */
-        fun <E : Any> collectAssertionsForExplanation(noSubjectMessage: String, warning: Translatable, assertionCreator: AssertionPlant<E>.() -> Unit, subject: E?): List<Assertion> {
+        fun <E : Any> collectAssertionsForExplanation(noSubjectMessage: String, warning: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
             return try {
-                val collectingAssertionPlant = createPlant(subject, noSubjectMessage)
-                collectingAssertionPlant.assertionCreator()
-                val collectedAssertions = collectingAssertionPlant.getAssertions()
+                val collectedAssertions = collect(noSubjectMessage, assertionCreator, subject)
 
                 require(!(throwIfNoAssertionIsCollected && collectedAssertions.isEmpty())) {
                     "There was not any assertion created which could identify an entry. Specify at least one assertion"
@@ -62,6 +57,16 @@ object AssertionCollector {
                     BasicExplanatoryAssertion(RawString.create(warning))
                 ))
             }
+        }
+
+        private fun <E : Any> collect(noSubjectMessage: String, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
+            val collectingAssertionPlant = createPlant(subject, noSubjectMessage)
+            if (assertionCreator != null) {
+                collectingAssertionPlant.addAssertionsCreatedBy(assertionCreator)
+            } else {
+                collectingAssertionPlant.createAndAddAssertion(DescriptionBasic.IS, RawString.NULL, { subject == null })
+            }
+            return collectingAssertionPlant.getAssertions()
         }
 
         private fun <E : Any> createPlant(subject: E?, noSubjectMessage: String): CollectingAssertionPlant<E> {

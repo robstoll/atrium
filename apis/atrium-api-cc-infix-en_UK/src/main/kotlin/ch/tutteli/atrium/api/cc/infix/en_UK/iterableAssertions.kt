@@ -98,7 +98,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, AssertionPlant<E>.() -> Unit>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
 
@@ -157,7 +157,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E, AssertionPlant<E>.() -> Unit>): AssertionPlant<T>
     = this to contain inGiven order but only the entries
 
 
