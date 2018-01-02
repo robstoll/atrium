@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 import kotlin.reflect.KFunction3
 
@@ -11,7 +8,9 @@ class IterableContainsNullSpec : ch.tutteli.atrium.spec.assertions.IterableConta
     AssertionVerbFactory,
     getContainsPair(),
     getContainsNotPair(),
-    getContainsInAnyOrderNullableEntriesPair()
+    getContainsInAnyOrderNullableEntriesPair(),
+    getContainsInAnyOrderOnlyNullableEntriesPair(),
+    "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ "
 ) {
     companion object : IterableContainsSpecBase() {
         private val containsFun: KFunction3<AssertionPlant<Iterable<Double?>>, Double?, Array<out Double?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::contains
@@ -34,6 +33,17 @@ class IterableContainsNullSpec : ch.tutteli.atrium.spec.assertions.IterableConta
                 plant.contains.inAnyOrder.atLeast(1).entry(a)
             } else {
                 plant.contains.inAnyOrder.atLeast(1).entries(a, *aX)
+            }
+        }
+
+        fun getContainsInAnyOrderOnlyNullableEntriesPair()
+            = "$contains.$inAnyOrder.$only.$inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyNullableEntriesPair
+
+        private fun containsInAnyOrderOnlyNullableEntriesPair(plant: AssertionPlant<Iterable<Double?>>, a: (AssertionPlant<Double>.() -> Unit)?, aX: Array<out (AssertionPlant<Double>.() -> Unit)?>): AssertionPlant<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant.contains.inAnyOrder.only.entry(a)
+            } else {
+                plant.contains.inAnyOrder.only.entries(a, *aX)
             }
         }
     }

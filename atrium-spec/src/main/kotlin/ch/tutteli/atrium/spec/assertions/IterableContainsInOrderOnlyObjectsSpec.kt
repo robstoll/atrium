@@ -74,7 +74,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
     describeFun(contains) {
         context("empty collection") {
             val fluentEmptyString = assert(setOf())
-            test("$contains 1.0 throws AssertionError") {
+            test("1.0 throws AssertionError") {
                 expect {
                     fluentEmptyString.containsFun(1.0)
                 }.toThrow<AssertionError> {
@@ -86,7 +86,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
                     }
                 }
             }
-            test("$contains 1.0 and 4.0 throws AssertionError") {
+            test("1.0 and 4.0 throws AssertionError") {
                 expect {
                     fluentEmptyString.containsFun(1.0, 4.0)
                 }.toThrow<AssertionError> {
@@ -109,7 +109,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
                 }
             }
 
-            describe("error cases $contains ... throws AssertionError") {
+            describe("error cases (throws AssertionError)") {
 
                 test("4.0, 1.0, 2.0, 3.0, 4.0 -- wrong order") {
                     expect {

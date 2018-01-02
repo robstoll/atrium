@@ -55,20 +55,12 @@ open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterab
             val first = itr.next()
             val group = collectIterableAssertionsForExplanationWithFirst(assertionCreator, first)
             val sequence = sequenceOf(first) + itr.asSequence()
-            val count = sequence.count { checkIfAssertionsHold(it, assertionCreator) }
+            val count = sequence.count { allCreatedAssertionsHold(it, assertionCreator) }
             group to count
         } else {
             val group = collectIterableAssertionsForExplanation(assertionCreator, null)
             group to 0
         }
-    }
-
-    private fun checkIfAssertionsHold(it: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean = when (it) {
-        null -> assertionCreator == null
-        else -> assertionCreator != null
-            && AtriumFactory.newCheckingPlant(it)
-            .addAssertionsCreatedBy(assertionCreator)
-            .allAssertionsHold()
     }
 }
 
