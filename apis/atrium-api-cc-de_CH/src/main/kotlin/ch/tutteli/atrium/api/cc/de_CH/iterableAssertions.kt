@@ -61,6 +61,21 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: AssertionPla
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) where it does not matter
+ * in which order the entries appear.
+ *
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("enthaeltNullable")
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaelt(assertionCreator: (AssertionPlant<E>.() -> Unit)?, vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
+
+
+/**
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
  * the defined order.
  *
