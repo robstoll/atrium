@@ -10,7 +10,8 @@ class IterableContainsNullSpec : ch.tutteli.atrium.spec.assertions.IterableConta
     getContainsNotPair(),
     getContainsInAnyOrderNullableEntriesPair(),
     getContainsInAnyOrderOnlyNullableEntriesPair(),
-    "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ "
+    getContainsInOrderOnlyNullableEntriesPair(),
+    "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ "
 ) {
     companion object : IterableContainsSpecBase() {
         private val containsFun: KFunction3<AssertionPlant<Iterable<Double?>>, Double?, Array<out Double?>, AssertionPlant<Iterable<Double?>>> = AssertionPlant<Iterable<Double?>>::enthaelt
@@ -44,6 +45,17 @@ class IterableContainsNullSpec : ch.tutteli.atrium.spec.assertions.IterableConta
                 plant.enthaelt.inBeliebigerReihenfolge.nur.eintrag(a)
             } else {
                 plant.enthaelt.inBeliebigerReihenfolge.nur.eintraege(a, *aX)
+            }
+        }
+
+        fun getContainsInOrderOnlyNullableEntriesPair()
+            = "$contains.$inAnyOrder.$only.$inOrderOnlyEntries" to Companion::containsInOrderOnlyNullableEntriesPair
+
+        private fun containsInOrderOnlyNullableEntriesPair(plant: AssertionPlant<Iterable<Double?>>, a: (AssertionPlant<Double>.() -> Unit)?, aX: Array<out (AssertionPlant<Double>.() -> Unit)?>): AssertionPlant<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant.enthaelt.inGegebenerReihenfolge.nur.eintrag(a)
+            } else {
+                plant.enthaelt.inGegebenerReihenfolge.nur.eintraege(a, *aX)
             }
         }
     }

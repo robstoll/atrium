@@ -101,7 +101,7 @@ abstract class IterableContainsInOrderOnlyObjectsSpec(
             }
         }
 
-        context("iterable '$oneToFour'") {
+        context("iterable $oneToFour") {
 
             describe("happy case $contains") {
                 test("1.0, 2.0, 3.0, 4.0, 4.0") {

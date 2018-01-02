@@ -18,11 +18,11 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E>>(
+class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E?>>(
     searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
-) : IterableContainsInOrderOnlyAssertionCreator<E, T, AssertionPlant<E>.() -> Unit>(searchBehaviour) {
+) : IterableContainsInOrderOnlyAssertionCreator<E, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour) {
 
-    override fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: AssertionPlant<E>.() -> Unit, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup {
+    override fun createEntryAssertion(iterableAsList: List<E?>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup {
         val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, iterableAsList)
         return template(createEntryFeatureAssertion(explanatoryAssertions))
     }
@@ -30,6 +30,6 @@ class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E
     private fun createEntryFeatureAssertion(explanatoryAssertions: List<Assertion>): (Boolean) -> Assertion
         = { found -> createEntryAssertion(explanatoryAssertions, found) }
 
-    override fun matches(actual: E, searchCriterion: AssertionPlant<E>.() -> Unit): Boolean
+    override fun matches(actual: E?, searchCriterion: (AssertionPlant<E>.() -> Unit)?): Boolean
         = allCreatedAssertionsHold(actual, searchCriterion)
 }

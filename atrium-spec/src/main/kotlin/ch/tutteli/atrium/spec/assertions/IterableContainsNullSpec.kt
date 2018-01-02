@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionBasic
+import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -9,6 +10,7 @@ import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
+import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsNullSpec(
@@ -17,11 +19,14 @@ abstract class IterableContainsNullSpec(
     containsNotPair: Pair<String, AssertionPlant<Iterable<Double?>>.(Double?, Array<out Double?>) -> AssertionPlant<Iterable<Double?>>>,
     containsInAnyOrderNullableEntriesPair: Pair<String, AssertionPlant<Iterable<Double?>>.((AssertionPlant<Double>.() -> Unit)?, Array<out (AssertionPlant<Double>.() -> Unit)?>) -> AssertionPlant<Iterable<Double?>>>,
     containsInAnyOrderOnlyNullableEntriesPair: Pair<String, AssertionPlant<Iterable<Double?>>.((AssertionPlant<Double>.() -> Unit)?, Array<out (AssertionPlant<Double>.() -> Unit)?>) -> AssertionPlant<Iterable<Double?>>>,
+    containsInOrderOnlyNullableEntriesPair: Pair<String, AssertionPlant<Iterable<Double?>>.((AssertionPlant<Double>.() -> Unit)?, Array<out (AssertionPlant<Double>.() -> Unit)?>) -> AssertionPlant<Iterable<Double?>>>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
     warningBulletPoint: String,
     listBulletPoint: String,
+    featureArrow: String,
+    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
@@ -29,14 +34,16 @@ abstract class IterableContainsNullSpec(
         containsPair.first to mapToCreateAssertion { containsPair.second(this, null, arrayOf()) },
         containsNotPair.first to mapToCreateAssertion { containsNotPair.second(this, null, arrayOf()) },
         containsInAnyOrderNullableEntriesPair.first to mapToCreateAssertion { containsInAnyOrderNullableEntriesPair.second(this, null, arrayOf()) },
-        containsInAnyOrderOnlyNullableEntriesPair.first to mapToCreateAssertion { containsInAnyOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }
+        containsInAnyOrderOnlyNullableEntriesPair.first to mapToCreateAssertion { containsInAnyOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) },
+        containsInOrderOnlyNullableEntriesPair.first to mapToCreateAssertion { containsInOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
         checkingTriple(containsPair.first, { containsPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
         checkingTriple(containsNotPair.first, { containsNotPair.second(this, null, arrayOf()) }, listOf(1.2) as Iterable<Double?>, listOf(null)),
         checkingTriple(containsInAnyOrderNullableEntriesPair.first, { containsInAnyOrderNullableEntriesPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
-        checkingTriple(containsInAnyOrderOnlyNullableEntriesPair.first, { containsInAnyOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2))
+        checkingTriple(containsInAnyOrderOnlyNullableEntriesPair.first, { containsInAnyOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
+        checkingTriple(containsInOrderOnlyNullableEntriesPair.first, { containsInOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2))
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
@@ -63,13 +70,43 @@ abstract class IterableContainsNullSpec(
     fun AssertionPlant<Iterable<Double?>>.containsInAnyOrderOnlyNullableEntriesFun(t: (AssertionPlant<Double>.() -> Unit)?, vararg tX: (AssertionPlant<Double>.() -> Unit)?)
         = containsInAnyOrderOnlyNullableEntriesArr(t, tX)
 
+    val (containsInOrderOnlyNullableEntries, containsInOrderOnlyNullableEntriesArr) = containsInOrderOnlyNullableEntriesPair
+    fun AssertionPlant<Iterable<Double?>>.containsInOrderOnlyNullableEntriesFun(t: (AssertionPlant<Double>.() -> Unit)?, vararg tX: (AssertionPlant<Double>.() -> Unit)?)
+        = containsInOrderOnlyNullableEntriesArr(t, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
+    val indentFeatureArrow = " ".repeat(featureArrow.length)
+    val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
 
     val anEntryAfterSuccess = "$anEntryWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$listBulletPoint"
     val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$listBulletPoint"
+
+    val entryWithIndex = DescriptionIterableAssertion.ENTRY_WITH_INDEX.getDefault()
+    val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
+    val listBulletPointWithIndent = "$indentFeatureArrow$indentFeatureBulletPoint$listBulletPoint"
+
+    val entryWhichWithFeature = "$indentFeatureArrow$featureBulletPoint$anEntryWhich"
+    val anEntryWithFeatureAfterSuccess = "$entryWhichWithFeature: $separator$indentBulletPoint$indentSuccessfulBulletPoint$listBulletPointWithIndent"
+    val anEntryWithFeatureAfterFailing = "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$listBulletPointWithIndent"
+
+    fun entry(index: Int)
+        = String.format(entryWithIndex, index)
+
+    fun AssertionPlant<CharSequence>.entrySuccess(index: Int, actual: Any, expected: String): AssertionPlant<CharSequence> {
+        return this.contains.exactly(1).regex(
+            "$successfulBulletPoint$featureArrow${entry(index)}: \\Q$actual\\E.*$separator" +
+                "$indentBulletPoint$indentSuccessfulBulletPoint$anEntryWithFeatureAfterSuccess$expected")
+    }
+
+    fun AssertionPlant<CharSequence>.entryFailing(index: Int, actual: Any, expected: String): AssertionPlant<CharSequence> {
+        return this.contains.exactly(1).regex(
+            "$failingBulletPoint$featureArrow${entry(index)}: \\Q$actual\\E.*$separator" +
+                "$indentBulletPoint$indentFailingBulletPoint$anEntryWithFeatureAfterFailing$expected")
+    }
+
+    val isDescr = DescriptionBasic.IS.getDefault()
 
     describeFun(containsNullable, containsNot) {
 
@@ -168,7 +205,7 @@ abstract class IterableContainsNullSpec(
             }
         }
 
-        context("iterable $oneToSeven"){
+        context("iterable $oneToSeven") {
             test("null") {
                 expect {
                     assert(oneToSeven).containsInAnyOrderNullableEntriesFun(null)
@@ -177,7 +214,7 @@ abstract class IterableContainsNullSpec(
                         contains(
                             "$containsInAnyOrder: $separator",
                             "$anEntryWhich: $separator",
-                            "${DescriptionBasic.IS.getDefault()}: null",
+                            "$isDescr: null",
                             "$numberOfOccurrences: 0",
                             "$atLeast: 1"
                         )
@@ -191,7 +228,7 @@ abstract class IterableContainsNullSpec(
         context("iterable $list") {
             context("happy cases (do not throw)") {
                 test("null, $toBeFun(1.0), null, $toBeFun(3.0)") {
-                    fluent.containsInAnyOrderOnlyNullableEntriesFun(null, { toBe(1.0) },  null, { toBe(3.0) })
+                    fluent.containsInAnyOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) })
                 }
                 test("$toBeFun(1.0), null, null, $toBeFun(3.0)") {
                     fluent.containsInAnyOrderOnlyNullableEntriesFun({ toBe(1.0) }, null, null, { toBe(3.0) })
@@ -212,7 +249,7 @@ abstract class IterableContainsNullSpec(
                         message {
                             contains(
                                 "$containsInAnyOrderOnly:",
-                                "$successfulBulletPoint$anEntryAfterSuccess${DescriptionBasic.IS.getDefault()}: null",
+                                "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
                                 "$warningBulletPoint$additionalEntries:",
@@ -231,13 +268,61 @@ abstract class IterableContainsNullSpec(
                             contains(
                                 "$containsInAnyOrderOnly:",
                                 "$successfulBulletPoint$anEntryAfterSuccess$isLessThanDescr: 4.0",
-                                "$successfulBulletPoint$anEntryAfterSuccess${DescriptionBasic.IS.getDefault()}: null",
-                                "$successfulBulletPoint$anEntryAfterSuccess${DescriptionBasic.IS.getDefault()}: null",
+                                "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
+                                "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
                                 "$failingBulletPoint$anEntryAfterFailing$toBeDescr: 1.0",
                                 "$warningBulletPoint$mismatches:",
                                 "${listBulletPoint}3.0"
                             )
                             containsSize(4, 4)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(containsInOrderOnlyNullableEntries) {
+        context("iterable $list") {
+
+            describe("happy case") {
+                test("null, 1.0, null, 3.0") {
+                    fluent.containsInOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) })
+                }
+                test("null, $isLessThanFun(5.0), null, $isLessThanFun(5.0)") {
+                    fluent.containsInOrderOnlyNullableEntriesFun(null, { isLessThan(5.0) }, null, { isLessThan(5.0) })
+                }
+            }
+
+            describe("error cases (throws AssertionError)") {
+
+                test("null, null, $isLessThanFun(5.0), $isGreaterThanFun(2.0) -- wrong order") {
+                    expect {
+                        fluent.containsInOrderOnlyNullableEntriesFun(null, null, { isLessThan(5.0) }, { isGreaterThan(2.0) })
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$containsInOrderOnly:")
+                            entrySuccess(0, 1.0, "$isDescr: null")
+                            entryFailing(1, 2.0, "$isDescr: null")
+                            entryFailing(2, 3.0, "$isLessThanDescr: 5.0")
+                            entrySuccess(3, 4.0, "$isGreaterThanDescr: 2.0")
+                            containsSize(4, 4)
+                        }
+                    }
+                }
+
+                test("null, 1.0, null, 3.0, null -- null too much") {
+                    expect {
+                        fluent.containsInOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) }, null)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$containsInOrderOnly:")
+                            entrySuccess(0, 1.0, "$isDescr: null")
+                            entrySuccess(1, 2.0, "$toBeDescr: 1.0")
+                            entrySuccess(2, 3.0, "$isDescr: null")
+                            entrySuccess(3, 4.0, "$toBeDescr: 3.0")
+                            entryFailing(4, sizeExceeded, "$isDescr: null")
+                            containsSize(4, 5)
                         }
                     }
                 }

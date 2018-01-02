@@ -79,6 +79,17 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInOrderOnlyEntriesAssertionCreator)
 }
 
+@JvmName("_containsNullableEntriesInOrderOnly")
+fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnly(
+    builder: IterableContainsBuilder<E?, T, IterableContainsInOrderOnlySearchBehaviour>,
+    assertionCreator: (AssertionPlant<E>.() -> Unit)?,
+    otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
+): Assertion {
+    val checker = IterableContainsNoOpCheckerBuilder(builder)
+    return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInOrderOnlyEntriesAssertionCreator)
+}
+
+
 private fun <E, T : Iterable<E>, S, B : IterableContains.SearchBehaviour> createAssertionGroupWithoutChecker(
     checker: IterableContainsCheckerBuilder<E, T, B>,
     expected: S,
