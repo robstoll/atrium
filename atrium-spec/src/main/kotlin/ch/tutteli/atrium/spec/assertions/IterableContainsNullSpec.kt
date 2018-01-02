@@ -302,10 +302,10 @@ abstract class IterableContainsNullSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains("$containsInOrderOnly:")
-                            entrySuccess(0, 1.0, "$isDescr: null")
-                            entryFailing(1, 2.0, "$isDescr: null")
-                            entryFailing(2, 3.0, "$isLessThanDescr: 5.0")
-                            entrySuccess(3, 4.0, "$isGreaterThanDescr: 2.0")
+                            entrySuccess(0, "null", "$isDescr: null")
+                            entryFailing(1, 1.0, "$isDescr: null")
+                            entryFailing(2, "null", "$isLessThanDescr: 5.0")
+                            entrySuccess(3, 3.0, "$isGreaterThanDescr: 2.0")
                             containsSize(4, 4)
                         }
                     }
@@ -317,10 +317,10 @@ abstract class IterableContainsNullSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains("$containsInOrderOnly:")
-                            entrySuccess(0, 1.0, "$isDescr: null")
-                            entrySuccess(1, 2.0, "$toBeDescr: 1.0")
-                            entrySuccess(2, 3.0, "$isDescr: null")
-                            entrySuccess(3, 4.0, "$toBeDescr: 3.0")
+                            entrySuccess(0, "null", "$isDescr: null")
+                            entrySuccess(1, 1.0, "$toBeDescr: 1.0")
+                            entrySuccess(2, "null", "$isDescr: null")
+                            entrySuccess(3, 3.0, "$toBeDescr: 3.0")
                             entryFailing(4, sizeExceeded, "$isDescr: null")
                             containsSize(4, 5)
                         }
