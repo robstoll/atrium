@@ -34,7 +34,7 @@ class IterableContainsNullSpec : ch.tutteli.atrium.spec.assertions.IterableConta
         }
 
         fun getContainsInAnyOrderNullableEntriesPair()
-            = "$toContain $inAnyOrder $the ${Entries::class.simpleName}" to Companion::containsNullableEntries
+            = "$toContain $inAnyOrder $inAnyOrderEntries" to Companion::containsNullableEntries
 
         private fun containsNullableEntries(plant: AssertionPlant<Iterable<Double?>>, a: (AssertionPlant<Double>.() -> Unit)?, aX: Array<out (AssertionPlant<Double>.() -> Unit)?>): AssertionPlant<Iterable<Double?>> {
             return if (aX.isEmpty()) {

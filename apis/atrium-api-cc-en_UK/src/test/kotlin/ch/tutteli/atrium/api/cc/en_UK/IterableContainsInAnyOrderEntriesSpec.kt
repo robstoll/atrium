@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
@@ -26,9 +24,9 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
         "[Atrium][Shortcut] "
     )
 
-    companion object {
+    companion object: IterableContainsSpecBase() {
         fun getEntriesPair()
-            = IterableContainsCheckerBuilder<Int, Iterable<Int>, IterableContainsInAnyOrderSearchBehaviour>::entries.name to Companion::entries
+            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::entries
 
         private fun entries(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
             return if (aX.isEmpty()) {

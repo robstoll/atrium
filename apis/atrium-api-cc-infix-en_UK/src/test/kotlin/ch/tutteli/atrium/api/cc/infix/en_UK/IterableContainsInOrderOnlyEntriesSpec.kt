@@ -28,7 +28,7 @@ class IterableContainsInOrderOnlyEntriesSpec : Spek({
 
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$toContain $inOrder $butOnly $inOrderOnlyValues" to Companion::containsInOrderOnly
+            "$toContain $inOrder $butOnly $inOrderOnlyEntries" to Companion::containsInOrderOnly
 
         private fun containsInOrderOnly(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
             return if (aX.isEmpty()) {

@@ -85,7 +85,7 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
             }
         }
 
-        context(oneToSeven.toString()) {
+        context("iterable $oneToSeven") {
 
             group("happy case with $containsAtLeast once") {
                 test("${containsAtLeastTest("1.0", "once")} does not throw") {
