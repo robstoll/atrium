@@ -1,8 +1,8 @@
 
 # Could not evaluate the defined assertion(s)
 You come across this warning in two situations:
-- if you have defined an assertion which implies narrowing the subject and have defined subsequent assertions for the narrowed subject
-- if you have defined an identification lambda on an empty list and your assertion requires a present subject.
+- if you have defined an assertion which implies narrowing the `subject`  and have defined subsequent assertions for the narrowed `subject`
+- if you have defined an identification lambda on an empty iterable or one which only returns `null` and your identification lambda requires a present `subject`.
 
 The first case applies to `isNotNull`, `isA` and `toThrow` assertions and the like 
 where it might be that the subject is actually `null` is not of the expected type or no `Exception` was thrown at all.
