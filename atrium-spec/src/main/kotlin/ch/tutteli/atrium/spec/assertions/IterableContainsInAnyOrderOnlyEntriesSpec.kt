@@ -51,11 +51,11 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
     val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$listBulletPoint"
 
     describeFun(containsEntries) {
-        context("empty collection $containsEntries ...") {
-            val fluentEmptyString = assert(setOf())
+        context("empty collection") {
+            val fluentEmpty = assert(setOf())
             test("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) })
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -69,7 +69,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
             }
             test("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -84,14 +84,14 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
             }
             test("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET) } }
+                    fluentEmpty.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
             }
         }
 
-        context("iterable '$oneToFour'") {
+        context("iterable $oneToFour") {
 
-            describe("happy cases $containsEntries ...") {
+            describe("happy cases") {
 
                 listOf(
                     arrayOf(1.0, 2.0, 3.0, 4.0, 4.0),
@@ -117,7 +117,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
                 }
             }
 
-            describe("error cases $containsEntries ... throws AssertionError") {
+            describe("error cases (throws AssertionError)") {
 
                 context("additional entries") {
                     test("1.0, 2.0, 3.0, 4.0 -- 4.0 was missing") {

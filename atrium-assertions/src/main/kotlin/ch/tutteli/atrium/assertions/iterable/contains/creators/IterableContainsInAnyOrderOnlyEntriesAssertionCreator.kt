@@ -22,17 +22,17 @@ import ch.tutteli.atrium.reporting.RawString
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E>>(
+class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E?>>(
     searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
-) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, AssertionPlant<E>.() -> Unit>(searchBehaviour) {
+) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour) {
 
-    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: AssertionPlant<E>.() -> Unit, list: MutableList<E>): Pair<Boolean, Assertion> {
+    override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: (AssertionPlant<E>.() -> Unit)?, list: MutableList<E?>): Pair<Boolean, Assertion> {
         val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, list)
         val found = removeMatch(list, searchCriterion)
-        return Pair(found, createEntryAssertion(explanatoryAssertions, found))
+        return found to createEntryAssertion(explanatoryAssertions, found)
     }
 
-    private fun removeMatch(list: MutableList<E>, assertionCreator: AssertionPlant<E>.() -> Unit): Boolean {
+    private fun removeMatch(list: MutableList<E?>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean {
         val itr = list.iterator()
         while (itr.hasNext()) {
             if (allCreatedAssertionsHold(itr.next(), assertionCreator)) {
@@ -42,18 +42,4 @@ class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, T : Iterabl
         }
         return false
     }
-}
-
-
-internal fun <E : Any> createExplanatoryAssertions(assertionCreator: AssertionPlant<E>.() -> Unit, list: List<E>)
-    = collectIterableAssertionsForExplanation(assertionCreator, list.firstOrNull())
-
-internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean) =
-    FixHoldsAssertionGroup(DefaultListAssertionGroupType, AN_ENTRY_WHICH, RawString.EMPTY, explanatoryAssertions, found)
-
-internal fun <E : Any> allCreatedAssertionsHold(subject: E, assertionCreator: AssertionPlant<E>.() -> Unit): Boolean {
-    val checkingPlant = AtriumFactory.newCheckingPlant(subject)
-    checkingPlant.assertionCreator()
-    return checkingPlant.allAssertionsHold()
-
 }

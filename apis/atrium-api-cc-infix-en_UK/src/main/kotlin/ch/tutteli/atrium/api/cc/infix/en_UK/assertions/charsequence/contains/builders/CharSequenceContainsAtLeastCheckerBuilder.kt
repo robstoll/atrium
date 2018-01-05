@@ -18,7 +18,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *              found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
-open class CharSequenceContainsAtLeastCheckerBuilder<T : CharSequence, S : SearchBehaviour>(
+open class CharSequenceContainsAtLeastCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, S>
 ) : CharSequenceContainsAtLeastCheckerBuilderBase<T, S>(

@@ -80,7 +80,8 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * Delegates to `entries(expected)`.
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
+ *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *        or not.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -94,12 +95,54 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * created by the [otherAssertionCreators].
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for.
+ *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *        or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
  *        which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.entries(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.entries(
+    assertionCreator: AssertionPlant<E>.() -> Unit,
+    vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit
+): AssertionPlant<T>
+    = addAssertion(_containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
+ * holds all assertions [assertionCreator] might create or is `null` in case [assertionCreator] is null as well.
+ *
+ * Delegates to `entries(expected)`.
+ *
+ * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *        or not.
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("nullableEntry")
+fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.entry(assertionCreator: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+    = entries(assertionCreator)
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
+ * holds all assertions [assertionCreator] might create or is `null` in case [assertionCreator] is null as well --
+ * likewise an entry (can be the same) is searched for each of the [otherAssertionCreators].
+ *
+ * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *        or not.
+ * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
+ *        which we are looking for.
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("nullableEntries")
+fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.entries(
+    assertionCreator: (AssertionPlant<E>.() -> Unit)?,
+    vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?
+): AssertionPlant<T>
     = addAssertion(_containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
