@@ -12,8 +12,7 @@ fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, property: KPr
     = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(property))
 
 fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, property: KProperty0<TProperty>, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(property))
-    .addAssertionsCreatedBy(assertionCreator)
+    = _property(plant, property).addAssertionsCreatedBy(assertionCreator)
 
 fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
     = AtriumFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(property))
@@ -24,76 +23,77 @@ private fun <T : Any, TFeature : Any?> AssertionPlant<T>.createCommonFieldsForFe
 
 //Arg0
 fun <T : Any, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction0<TReturnValue>): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method))
+    = plant.createPlantForMethod(method)
 
 fun <T : Any, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction0<TReturnValue>, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method))
-    .addAssertionsCreatedBy(assertionCreator)
+    = _returnValueOf(plant, method).addAssertionsCreatedBy(assertionCreator)
 
 fun <T : Any, TReturnValue : Any?> _returnValueOf(plant: AssertionPlant<T>, method: KFunction0<TReturnValue>): AssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(method))
+    = plant.createPlantForMethod(method)
 
 
 //Arg1
 fun <T : Any, T1 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction1<T1, TReturnValue>, arg1: T1): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1))
+    = plant.createPlantForMethod(method, arg1)
 
 fun <T : Any, T1 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction1<T1, TReturnValue>, arg1: T1, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1))
-    .addAssertionsCreatedBy(assertionCreator)
+    = _returnValueOf(plant, method, arg1).addAssertionsCreatedBy(assertionCreator)
 
 fun <T : Any, T1 : Any?, TReturnValue : Any?> _returnValueOf(plant: AssertionPlant<T>, method: KFunction1<T1, TReturnValue>, arg1: T1): AssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(method, arg1))
+    = plant.createPlantForMethod(method, arg1)
 
 
 //Arg2
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2))
+    = plant.createPlantForMethod(method, arg1, arg2)
 
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2))
-    .addAssertionsCreatedBy(assertionCreator)
+    = _returnValueOf(plant, method, arg1, arg2).addAssertionsCreatedBy(assertionCreator)
 
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> _returnValueOf(plant: AssertionPlant<T>, method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2))
+    = plant.createPlantForMethod(method, arg1, arg2)
 
 
 //Arg3
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
+    = plant.createPlantForMethod(method, arg1, arg2, arg3)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
-    .addAssertionsCreatedBy(assertionCreator)
+    = _returnValueOf(plant, method, arg1, arg2, arg3).addAssertionsCreatedBy(assertionCreator)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> _returnValueOf(plant: AssertionPlant<T>, method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3))
+    = plant.createPlantForMethod(method, arg1, arg2, arg3)
 
 
 //Arg4
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
+    = plant.createPlantForMethod(method, arg1, arg2, arg3, arg4)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
-    .addAssertionsCreatedBy(assertionCreator)
+    = _returnValueOf(plant, method, arg1, arg2, arg3, arg4).addAssertionsCreatedBy(assertionCreator)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> _returnValueOf(plant: AssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4))
+    = plant.createPlantForMethod(method, arg1, arg2, arg3, arg4)
 
 
 //Arg5
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
+    = plant.createPlantForMethod(method, arg1, arg2, arg3, arg4, arg5)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AtriumFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
-    .addAssertionsCreatedBy(assertionCreator)
+    = _returnValueOf(plant, method, arg1, arg2, arg3, arg4, arg5).addAssertionsCreatedBy(assertionCreator)
 
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any?> _returnValueOf(plant: AssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<TReturnValue>
-    = AtriumFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(method, arg1, arg2, arg3, arg4, arg5))
+    = plant.createPlantForMethod(method, arg1, arg2, arg3, arg4, arg5)
 
-private fun <T : Any, TReturnValue : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(method: KFunction<TReturnValue>, vararg arguments: Any?) =
+
+private fun <T : Any, TReturnValue : Any> AssertionPlant<T>.createPlantForMethod(method: KFunction<TReturnValue>, vararg arguments: Any?)
+    = AtriumFactory.newReportingPlant(createCommonFieldsForFeatureFactory(method, arguments))
+
+private fun <T : Any, TReturnValue : Any?> AssertionPlant<T>.createPlantForMethod(method: KFunction<TReturnValue>, vararg arguments: Any?)
+    = AtriumFactory.newReportingPlantNullable(createCommonFieldsForFeatureFactory(method, arguments))
+
+private fun <T : Any, TReturnValue : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(method: KFunction<TReturnValue>, arguments: Array<out Any?>) =
     AssertionPlantWithCommonFields.CommonFields(
         Untranslatable(AtriumFactory.newMethodCallFormatter().format(method, arguments)),
         method.call(*arguments),
