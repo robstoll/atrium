@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
+import ch.tutteli.atrium.assertions._method
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -13,6 +15,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
+import kotlin.reflect.KFunction1
 
 abstract class IterableContainsNullSpec(
     verbs: AssertionVerbFactory,
@@ -109,6 +112,41 @@ abstract class IterableContainsNullSpec(
 
     val isDescr = DescriptionBasic.IS.getDefault()
 
+    fun SpecBody.absentSubjectTests(testeeFun: AssertionPlant<Iterable<Double?>>.((AssertionPlant<Double>.() -> Unit)?, Array<out (AssertionPlant<Double>.() -> Unit)?>) -> AssertionPlant<Iterable<Double?>>) {
+        context("$returnValueOfFun(...), absent subject and explanation required") {
+            test("empty iterable, states that iterable was empty") {
+                expect {
+                    //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
+                    assert(setOf()).testeeFun({ _method(this, "compareTo", subject::compareTo, 2.0).toBe(0) }, arrayOf())
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
+            }
+            test("only null, states that iterable only returned null") {
+                expect {
+                    assert(listOf(null, null)).testeeFun({
+                        //TODO get rid of val as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
+                        val f: KFunction1<Double, Int> = subject::compareTo
+                        returnValueOf(f, 2.0)
+                    }, arrayOf())
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_ONLY_NULL) } }
+            }
+
+            test("$list, it outputs explanation (since we have a non-null entry)") {
+                expect {
+                    //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
+                    assert(list).testeeFun({ _method(this, "compareTo", subject::compareTo, 2.0).toBe(0) }, arrayOf())
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(
+                            "$anEntryWhich: $separator",
+                            "compareTo(2.0):",
+                            "${DescriptionAnyAssertion.TO_BE.getDefault()}: 0"
+                        )
+                    }
+                }
+            }
+        }
+    }
+
     describeFun(containsNullable, containsNot) {
 
         context("iterable $list") {
@@ -152,6 +190,8 @@ abstract class IterableContainsNullSpec(
     }
 
     describeFun(containsInAnyOrderNullableEntries) {
+        absentSubjectTests(AssertionPlant<Iterable<Double?>>::containsInAnyOrderNullableEntriesFun)
+
         context("iterable $list") {
             context("happy cases (do not throw)") {
                 test("$toBeFun(1.0)") {
@@ -238,6 +278,8 @@ abstract class IterableContainsNullSpec(
     }
 
     describeFun(containsInAnyOrderOnlyNullableEntries) {
+        absentSubjectTests(AssertionPlant<Iterable<Double?>>::containsInAnyOrderOnlyNullableEntriesFun)
+
         context("iterable $list") {
             context("happy cases (do not throw)") {
                 test("null, $toBeFun(1.0), null, $toBeFun(3.0)") {
@@ -304,6 +346,8 @@ abstract class IterableContainsNullSpec(
     }
 
     describeFun(containsInOrderOnlyNullableEntries) {
+        absentSubjectTests(AssertionPlant<Iterable<Double?>>::containsInOrderOnlyNullableEntriesFun)
+
         context("iterable $list") {
 
             describe("happy case") {
@@ -353,7 +397,7 @@ abstract class IterableContainsNullSpec(
         context("search for entry where the lambda does not specify any assertion") {
             it("throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
-                    fluent.containsInAnyOrderOnlyNullableEntriesFun({})
+                    fluent.containsInOrderOnlyNullableEntriesFun({})
                 }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
             }
         }

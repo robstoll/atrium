@@ -52,10 +52,10 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
 
     describeFun(containsEntries) {
         context("empty collection") {
-            val fluentEmptyString = assert(setOf())
+            val fluentEmpty = assert(setOf())
             test("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) })
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -69,7 +69,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
             }
             test("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -84,8 +84,8 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
             }
             test("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET) } }
+                    fluentEmpty.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
             }
         }
 

@@ -50,14 +50,26 @@ open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterab
 
     private fun createExplanatoryAssertionsAndMatchingCount(itr: Iterator<E?>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Pair<List<Assertion>, Int> {
         return if (itr.hasNext()) {
-            val first = itr.next()
-            val group = collectIterableAssertionsForExplanationWithFirst(assertionCreator, first)
-            val sequence = sequenceOf(first) + itr.asSequence()
+            val (firstNonNullOrNull, sequence) = getFirstNonNullAndSequence(itr, sequenceOf())
+            val group = collectIterableAssertionsForExplanationWithFirst(assertionCreator, firstNonNullOrNull)
             val count = sequence.count { allCreatedAssertionsHold(it, assertionCreator) }
             group to count
         } else {
             val group = collectIterableAssertionsForExplanation(assertionCreator, null)
             group to 0
+        }
+    }
+
+    private tailrec fun getFirstNonNullAndSequence(itr: Iterator<E?>, sequence: Sequence<E?>): Pair<E?, Sequence<E?>> {
+        return if (itr.hasNext()) {
+            val first = itr.next()
+            if (first != null) {
+                first to sequenceOf(first) + itr.asSequence()
+            } else {
+                getFirstNonNullAndSequence(itr, sequence + sequenceOf(first))
+            }
+        } else {
+            null to sequence
         }
     }
 }
