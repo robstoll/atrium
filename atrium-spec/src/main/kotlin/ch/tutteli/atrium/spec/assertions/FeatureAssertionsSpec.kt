@@ -108,13 +108,13 @@ abstract class FeatureAssertionsSpec(
         "`returnValueOf` with 5 arguments and isNotNull" to return5ValueNullableHolds
     )
 
-    val failingTestData = TestData("hello robert", 1)
-    val holdingTestData = TestData("by robert", null)
+    val holdingTestData = TestData("hello robert", 1)
+    val failingTestData = TestData("by robert", null)
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<TestData>(verbs, describePrefix,
-        *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
-        *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
-        *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
-        checkingTriple("`propertyLazy` with nested immediate", itsLazyWithNestedImmediate, failingTestData, TestData("by robert", 1))
+        *(functions.map { (description, lambda, _) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
+        *(nullableFailingFunctions.map { (description, lambda, _) -> checkingTriple(description, lambda, failingTestData, holdingTestData) }.toTypedArray()),
+        *(nullableHoldsFunctions.map { (description, lambda) -> checkingTriple(description, lambda, holdingTestData, failingTestData) }.toTypedArray()),
+        checkingTriple("propertyLazy with nested immediate", itsLazyWithNestedImmediate, holdingTestData, TestData("by robert", 1))
     ) {})
 
     fun <T> SpecBody.checkGenericNarrowingAssertionWithExceptionMessage(
@@ -135,7 +135,7 @@ abstract class FeatureAssertionsSpec(
 
         checkGenericNarrowingAssertionWithExceptionMessage("it throws an AssertionError if the assertion does not hold", { andWithCheck ->
 
-            assert(TestData("hallo robert", 1)).andWithCheck()
+            assert(TestData("what ever", 1)).andWithCheck()
 
         }, *functions, *nullableFailingFunctions)
 
@@ -148,10 +148,10 @@ abstract class FeatureAssertionsSpec(
 
     prefixedDescribe("assertion plant which checks immediately; use lazy property which has nested...") {
         test("... immediate feature property") {
-            assert(TestData("hallo robert", 1)).itsLazyWithNestedImmediate()
+            assert(TestData("hello robert", 1)).itsLazyWithNestedImmediate()
         }
         test("... lazy feature property") {
-            assert(TestData("hallo robert", 1)).itsLazyWithNestedLazy()
+            assert(TestData("hello robert", 1)).itsLazyWithNestedLazy()
         }
     }
 
