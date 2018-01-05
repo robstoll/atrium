@@ -88,5 +88,5 @@ val <T : Any> AssertionPlant<T>.und: AssertionPlant<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
-infix fun <T : Any> AssertionPlant<T>.und(assertionCreator: AssertionPlant<T>.() -> Unit)
+infix fun <T : Any> AssertionPlant<T>.und(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)

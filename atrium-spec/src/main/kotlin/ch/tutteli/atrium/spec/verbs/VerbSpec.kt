@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion.*
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.ReporterBuilder
@@ -22,7 +23,7 @@ import org.jetbrains.spek.api.dsl.it
 private fun <T : Any> assert(subject: T): AssertionPlant<T>
     = AtriumFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
-private fun <T : Any> assert(subject: T, assertionCreator: AssertionPlant<T>.() -> Unit)
+private fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
     = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 private fun <T : Any?> assert(subject: T)

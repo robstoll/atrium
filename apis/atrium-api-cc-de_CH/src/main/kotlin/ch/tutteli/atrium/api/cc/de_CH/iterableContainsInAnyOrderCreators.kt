@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsC
 import ch.tutteli.atrium.assertions.iterable.contains.creators._containsEntriesInAnyOrder
 import ch.tutteli.atrium.assertions.iterable.contains.creators._containsObjectsInAnyOrder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
@@ -86,7 +87,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.eintrag(assertionCreator: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.eintrag(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = eintraege(assertionCreator)
 
 /**
@@ -104,8 +105,8 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.eintraege(
-    assertionCreator: AssertionPlant<E>.() -> Unit,
-    vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit
+    assertionCreator: Assert<E>.() -> Unit,
+    vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
     = addAssertion(_containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
 
@@ -123,7 +124,7 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("nullableEintrag")
-fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.eintrag(assertionCreator: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.eintrag(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = eintraege(assertionCreator)
 
 /**
@@ -142,7 +143,7 @@ fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableCo
  */
 @JvmName("nullableEintraege")
 fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.eintraege(
-    assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-    vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?
+    assertionCreator: (Assert<E>.() -> Unit)?,
+    vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
     = addAssertion(_containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))

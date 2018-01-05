@@ -4,6 +4,7 @@ import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.IAtriumFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.Reporter
@@ -30,7 +31,7 @@ fun <T : Any> assertThat(subject: T)
  *
  * @see IAtriumFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
-fun <T : Any> assertThat(subject: T, assertionCreator: AssertionPlant<T>.() -> Unit)
+fun <T : Any> assertThat(subject: T, assertionCreator: Assert<T>.() -> Unit)
     = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 /**
