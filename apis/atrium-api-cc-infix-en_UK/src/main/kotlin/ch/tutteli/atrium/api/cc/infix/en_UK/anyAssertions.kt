@@ -76,5 +76,5 @@ infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER"
  *
  * @return This plant to support a fluent API.
  */
-infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: AssertionPlant<T>.() -> Unit)
+infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)

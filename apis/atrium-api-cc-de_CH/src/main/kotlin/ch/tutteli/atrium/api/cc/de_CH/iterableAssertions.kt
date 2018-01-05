@@ -57,7 +57,7 @@ fun <E, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
@@ -71,7 +71,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: AssertionPla
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("enthaeltNullable")
-fun <E : Any, T : Iterable<E?>> Assert<T>.enthaelt(assertionCreator: (AssertionPlant<E>.() -> Unit)?, vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaelt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
 
 
@@ -97,7 +97,7 @@ fun <E, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpec
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
@@ -111,7 +111,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("enthaeltStriktNullable")
-fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (AssertionPlant<E>.() -> Unit)?, vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)
 
 

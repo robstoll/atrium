@@ -85,7 +85,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(objects: Objects<E>): Assertio
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
 /**
@@ -98,7 +98,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, AssertionPlant<E>.() -> Unit>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
 /**
@@ -111,7 +111,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Asse
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("containsNullable")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
 
@@ -126,7 +126,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Asse
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("containsNullable")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (AssertionPlant<E>.() -> Unit)?>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
 /**
@@ -171,7 +171,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(objects: Objects<E>): 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = this to contain inGiven order but only entry assertionCreator
 
 /**
@@ -184,7 +184,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E, AssertionPlant<E>.() -> Unit>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
     = this to contain inGiven order but only the entries
 
 /**
@@ -197,7 +197,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("containsStrictlyNullable")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inGiven order but only entry assertionCreator
 
 /**
@@ -211,7 +211,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreato
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("containsStrictlyNullable")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (AssertionPlant<E>.() -> Unit)?>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inGiven order but only the entries
 
 

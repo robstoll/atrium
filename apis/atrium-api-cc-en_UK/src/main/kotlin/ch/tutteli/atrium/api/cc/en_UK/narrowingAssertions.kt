@@ -16,7 +16,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified T : Any> AssertionPlantNullable<T?>.isNotNull(noinline assertionCreator: AssertionPlant<T>.() -> Unit) {
+inline fun <reified T : Any> AssertionPlantNullable<T?>.isNotNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     _isNotNull(this, assertionCreator)
 }
 

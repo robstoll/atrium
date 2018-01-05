@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
 import ch.tutteli.atrium.assertions.iterable.contains.creators._containsEntriesInOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.creators._containsObjectsInOrderOnly
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
@@ -75,7 +76,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.eintrag(assertionCreator: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.eintrag(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = eintraege(assertionCreator)
 
 /**
@@ -92,7 +93,10 @@ fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInO
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.eintraege(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>.eintraege(
+    assertionCreator: Assert<E>.() -> Unit,
+    vararg otherAssertionCreators: Assert<E>.() -> Unit
+): AssertionPlant<T>
     = plant.addAssertion(_containsEntriesInOrderOnly(this, assertionCreator, otherAssertionCreators))
 
 /**
@@ -107,7 +111,7 @@ fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInO
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("nullableEintrag")
-fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsInOrderOnlySearchBehaviour>.eintrag(assertionCreator: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsInOrderOnlySearchBehaviour>.eintrag(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = eintraege(assertionCreator)
 
 /**
@@ -133,5 +137,8 @@ fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsI
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("nullableEintraege")
-fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsInOrderOnlySearchBehaviour>.eintraege(assertionCreator: (AssertionPlant<E>.() -> Unit)?, vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsInOrderOnlySearchBehaviour>.eintraege(
+    assertionCreator: (Assert<E>.() -> Unit)?,
+    vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
+): AssertionPlant<T>
     = plant.addAssertion(_containsEntriesInOrderOnly(this, assertionCreator, otherAssertionCreators))
