@@ -38,10 +38,10 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
 
     describeFun(containsEntries) {
         context("empty collection") {
-            val fluentEmptyString = assert(setOf())
-            test("$containsEntries{ $isLessThanFun(1.0) } throws AssertionError") {
+            val fluentEmpty = assert(setOf())
+            test("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) })
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains(
@@ -54,9 +54,9 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                     }
                 }
             }
-            test("$containsEntries({ $isLessThanFun(1.0) }, { $isGreaterThanFun(2.0) }) throws AssertionError") {
+            test("$isLessThanFun(1.0) and $isGreaterThanFun(2.0) throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(2.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains.exactly(2).values(
@@ -72,10 +72,10 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                     }
                 }
             }
-            test("$containsEntries({ $returnValueOfFun(...) }) states warning that subject is not set") {
+            test("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET) } }
+                    fluentEmpty.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
             }
         }
 
