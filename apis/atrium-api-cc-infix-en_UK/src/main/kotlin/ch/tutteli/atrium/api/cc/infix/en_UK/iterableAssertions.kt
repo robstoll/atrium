@@ -98,9 +98,36 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, AssertionPlant<E>.() -> Unit>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [assertionCreator] where it does not matter in which order the entries appear.
+ *
+ * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("containsNullable")
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+    = this to contain inAny order atLeast 1 entry assertionCreator
+
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) where it
+ * does not matter in which order the entries appear.
+ *
+ * It is a shortcut for `to contain inAny order atLeast 1 the Entries(...)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("containsNullable")
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (AssertionPlant<E>.() -> Unit)?>): AssertionPlant<T>
+    = this to contain inAny order atLeast 1 the entries
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the [expected] value.
@@ -157,7 +184,34 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E, AssertionPlant<E>.() -> Unit>): AssertionPlant<T>
+    = this to contain inGiven order but only the entries
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
+ * by the [assertionCreator].
+ *
+ * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("containsStrictlyNullable")
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+    = this to contain inGiven order but only entry assertionCreator
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) in the defined order
+ * holding the assertions created by them.
+ *
+ * It is a shortcut for `to contain inGiven order but only the Entries(...)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("containsStrictlyNullable")
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (AssertionPlant<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inGiven order but only the entries
 
 

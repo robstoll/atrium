@@ -25,8 +25,8 @@ abstract class TextMethodCallFormatterSpec(
 
         context("a method call without arguments") {
             it("returns the name of the method with parentheses") {
-                val result = testee.format(TextMethodCallFormatterSpec::methodWithoutArgument, arrayOf())()
-                verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodWithoutArgument.name}()")
+                val result = testee.format("withoutArg", arrayOf())()
+                verbs.checkImmediately(result).toBe("withoutArg()")
             }
         }
 
@@ -34,29 +34,29 @@ abstract class TextMethodCallFormatterSpec(
 
             context("one argument of type Int") {
                 it("returns the name of the method with its argument in parentheses") {
-                    val result = testee.format(TextMethodCallFormatterSpec::methodArg1, arrayOf(1))()
-                    verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodArg1.name}(1)")
+                    val result = testee.format("withArg1", arrayOf(1))()
+                    verbs.checkImmediately(result).toBe("withArg1(1)")
                 }
             }
 
             context("two arguments of type Int and Float") {
                 it("returns the name of the method, followed by the first and second argument in parentheses and separated by a comma") {
-                    val result = testee.format(TextMethodCallFormatterSpec::methodArg2, arrayOf(1, 1.2))()
-                    verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodArg2.name}(1, 1.2)")
+                    val result = testee.format("withArg2", arrayOf(1, 1.2))()
+                    verbs.checkImmediately(result).toBe("withArg2(1, 1.2)")
                 }
             }
 
             context("an argument of type Char") {
                 it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in apostrophes") {
-                    val result = testee.format(TextMethodCallFormatterSpec::methodWithCharArg, arrayOf('a'))()
-                    verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodWithCharArg.name}('a')")
+                    val result = testee.format("withArg1", arrayOf('a'))()
+                    verbs.checkImmediately(result).toBe("withArg1('a')")
                 }
             }
 
             context("`null`") {
                 it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in apostrophes") {
-                    val result = testee.format(TextMethodCallFormatterSpec::methodWithNullableInt, arrayOf<Int?>(null))()
-                    verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodWithNullableInt.name}(null)")
+                    val result = testee.format("withArg1", arrayOf<Int?>(null))()
+                    verbs.checkImmediately(result).toBe("withArg1(null)")
                 }
             }
 
@@ -64,8 +64,8 @@ abstract class TextMethodCallFormatterSpec(
 
                 context("without line breaks") {
                     it("returns the name of the method with its argument in parentheses whereas the argument is wrapped in quotes") {
-                        val result = testee.format(TextMethodCallFormatterSpec::methodWithStringArg, arrayOf("a"))()
-                        verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodWithStringArg.name}(\"a\")")
+                        val result = testee.format("withArg1", arrayOf("a"))()
+                        verbs.checkImmediately(result).toBe("withArg1(\"a\")")
                     }
                 }
 
@@ -76,27 +76,20 @@ abstract class TextMethodCallFormatterSpec(
 
                     context("with $escapedChar as line break") {
                         it("returns the argument on one line and $escapedChar is escaped with $doubleEscapedChar") {
-                            val result = testee.format(TextMethodCallFormatterSpec::methodWithStringArg, arrayOf("a${char}b"))()
-                            verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodWithStringArg.name}(\"a${escapedChar}b\")")
+                            val result = testee.format("withArg1", arrayOf("a${char}b"))()
+                            verbs.checkImmediately(result).toBe("withArg1(\"a${escapedChar}b\")")
                         }
                     }
 
                     context("with multiple $escapedChar as line break") {
                         it("returns the argument on one line and $escapedChar is escaped with $doubleEscapedChar") {
-                            val result = testee.format(TextMethodCallFormatterSpec::methodWithStringArg, arrayOf("a${char}b${char}c${char}d"))()
-                            verbs.checkImmediately(result).toBe("${TextMethodCallFormatterSpec::methodWithStringArg.name}(\"a${escapedChar}b${escapedChar}c${escapedChar}d\")")
+                            val result = testee.format("withArg1", arrayOf("a${char}b${char}c${char}d"))()
+                            verbs.checkImmediately(result).toBe("withArg1(\"a${escapedChar}b${escapedChar}c${escapedChar}d\")")
                         }
                     }
                 }
             }
         }
     }
-}) {
-    private fun methodWithoutArgument() {}
-    private fun methodArg1(i: Int) {}
-    private fun methodArg2(i: Int, float: Float) {}
-    private fun methodWithStringArg(s: String) {}
-    private fun methodWithCharArg(s: Char) {}
-    private fun methodWithNullableInt(s: Int?) {}
-}
+})
 

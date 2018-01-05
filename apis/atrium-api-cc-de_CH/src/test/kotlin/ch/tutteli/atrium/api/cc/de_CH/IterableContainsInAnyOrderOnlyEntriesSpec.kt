@@ -10,7 +10,7 @@ class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.asserti
 ) {
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$contains.$inAnyOrder.$only.$inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnly
+            "$contains.$inAnyOrder.$only.$inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnly
 
         private fun containsInAnyOrderOnly(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
             return if (aX.isEmpty()) {

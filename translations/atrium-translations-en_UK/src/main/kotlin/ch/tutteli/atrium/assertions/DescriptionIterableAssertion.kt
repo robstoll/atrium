@@ -20,14 +20,11 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     IN_ORDER_ONLY("%s only, in order"),
     NUMBER_OF_OCCURRENCES("number of occurrences"),
     SIZE_EXCEEDED("❗❗ hasNext() returned false"),
-    WARNING_SUBJECT_NOT_SET("Could not evaluate the defined assertion(s) -- `Iterable` has no next entry.\n" +
-        "It is not possible to evaluate the defined assertions because at least one of them requires to access an entry\n" +
-        "whereas the given `Iterable` returned `false` for `hasNext()`.\n" +
-        "In case you have not used `subject` in your assertion and your assertion does not access `subject` through reflection,\n" +
-        "then most probably one of the used assertion functions is not implemented properly.\n" +
-        "Please report a bug to the creator of the assertion function and pass on the hint, that assertion functions can be tested against `SubjectLessAssertionSpec` (located in atrium-spec).\n" +
-        "Thank you :)"),
+    CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("Could not evaluate the defined assertion(s) -- `Iterable` has no next entry.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
+    CANNOT_EVALUATE_SUBJECT_ONLY_NULL("Could not evaluate the defined assertion(s) -- `Iterable` returns only `null` for `next()`.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     WARNING_ADDITIONAL_ENTRIES("additional entries detected"),
     WARNING_MISMATCHES("following entries were mismatched"),
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("mismatches and additional entries detected"),
 }
+
+internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS = "Visit the following site for an explanation: https://robstoll.github.io/atrium/could-not-evaluate-assertions"

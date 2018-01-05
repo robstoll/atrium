@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.kbox.appendToStringBuilder
-import kotlin.reflect.KCallable
 
 /**
  * Responsible to format a method call for text output (e.g. to the console) where it represents arguments of a
@@ -12,8 +11,8 @@ import kotlin.reflect.KCallable
  * - [Char] is wrapped in apostrophes (`'`)
  */
 object TextMethodCallFormatter : MethodCallFormatter {
-    override fun format(method: KCallable<*>, arguments: Array<out Any?>): () -> String = {
-        val sb = StringBuilder(method.name).append("(")
+    override fun format(name: String, arguments: Array<out Any?>): () -> String = {
+        val sb = StringBuilder(name).append("(")
         arguments.asList().appendToStringBuilder(sb, ", ") { it, innerSb ->
             innerSb.appendArgument(it)
         }

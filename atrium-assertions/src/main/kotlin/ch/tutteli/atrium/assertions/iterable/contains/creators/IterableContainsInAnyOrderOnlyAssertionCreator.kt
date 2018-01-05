@@ -23,7 +23,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>, S>(
+abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?>, S>(
     private val searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {
 
@@ -60,7 +60,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>
         }
     }
 
-    private fun createAssertionsForAllSearchCriteria(allSearchCriteria: List<S>, list: MutableList<E>, assertions: MutableList<Assertion>): Int {
+    private fun createAssertionsForAllSearchCriteria(allSearchCriteria: List<S>, list: MutableList<E?>, assertions: MutableList<Assertion>): Int {
         var mismatches = 0
         allSearchCriteria.forEach {
             val (found, assertion) = createAssertionForSearchCriterionAndRemoveMatchFromList(it, list)
@@ -70,12 +70,12 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E>
         return mismatches
     }
 
-    protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: S, list: MutableList<E>): Pair<Boolean, Assertion>
+    protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: S, list: MutableList<E?>): Pair<Boolean, Assertion>
 
     private fun createSizeFeatureAssertion(allSearchCriteria: List<S>, actualSize: Int): MutableList<Assertion>
         = mutableListOf(BasicDescriptiveAssertion(DescriptionAnyAssertion.TO_BE, RawString.create(allSearchCriteria.size.toString()), { actualSize == allSearchCriteria.size }))
 
-    private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E>, warning: DescriptionIterableAssertion): ExplanatoryAssertionGroup {
+    private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): ExplanatoryAssertionGroup {
         val assertions = list.map { BasicExplanatoryAssertion(it) }
         val additionalEntries = AssertionGroup.Builder.list.create(warning, RawString.EMPTY, assertions)
         return AssertionGroup.Builder.explanatory.withWarning.create(additionalEntries)

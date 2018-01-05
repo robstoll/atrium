@@ -15,6 +15,9 @@ import java.util.*
  *
  * It provides factory methods to create:
  * - [AssertionPlant]
+ * - [AssertionPlantNullable]
+ * - [CheckingAssertionPlant]
+ * - [CollectingAssertionPlant]
  * - [AssertionChecker]
  * - [MethodCallFormatter]
  * - [Translator]

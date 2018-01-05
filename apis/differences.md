@@ -204,3 +204,18 @@ assert(x) containsNot Values(1.2, 5.7) // or Objects as alternative
 assert(x) notTo contain entry { this isLessThan 2 }
 assert(x) notTo contain the Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
 ```
+
+## Iterable contains with nullable elements
+
+*atrium-api-cc-en_UK*
+```kotlin
+assert(listOf(null, 1)).contains.inAnyOrder.entry(null)
+assert(listOf(null, 1)).contains.inAnyOrder.only.entries(null, { isLessThan(2) })
+//see above for other inAnyOrder and inOrder examples
+```
+
+*atrium-api-cc-infix-en_UK*
+```kotlin
+assert(listOf(null, 1)) to contain inAny order entry null
+assert(listOf(null, 1)) to contain inAny order but only the Entries(null, { this isLessThan 2 })
+```

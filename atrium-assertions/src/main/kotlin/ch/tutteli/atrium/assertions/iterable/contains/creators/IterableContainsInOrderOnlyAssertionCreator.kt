@@ -23,7 +23,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
  *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S>(
+abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, S>(
     private val searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {
 
@@ -44,9 +44,9 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
         }
     }
 
-    abstract fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: S, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup
+    abstract fun createEntryAssertion(iterableAsList: List<E?>, searchCriterion: S, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup
 
-    private fun createEntryAssertionTemplate(itr: Iterator<E>, index: Int, searchCriterion: S): ((Boolean) -> Assertion) -> AssertionGroup
+    private fun createEntryAssertionTemplate(itr: Iterator<E?>, index: Int, searchCriterion: S): ((Boolean) -> Assertion) -> AssertionGroup
         = { createEntryFeatureAssertion ->
 
         val (found, entryRepresentation) = if (itr.hasNext()) {
@@ -59,10 +59,10 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E>, S
         AssertionGroup.Builder.feature.create(description, entryRepresentation, createEntryFeatureAssertion(found))
     }
 
-    abstract fun matches(actual: E, searchCriterion: S): Boolean
+    abstract fun matches(actual: E?, searchCriterion: S): Boolean
 
-    private fun createSizeFeatureAssertion(expectedSize: Int, iterableAsList: List<E>, itr: Iterator<E>): AssertionGroup {
-        val additionalEntries = mutableListOf<E>()
+    private fun createSizeFeatureAssertion(expectedSize: Int, iterableAsList: List<E?>, itr: Iterator<E?>): AssertionGroup {
+        val additionalEntries = mutableListOf<E?>()
         val actualSize = iterableAsList.size
         while (itr.hasNext()) {
             additionalEntries.add(itr.next())

@@ -8,6 +8,7 @@ import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInOrderOnlyEntriesSpec(
@@ -74,10 +75,10 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
 
     describeFun(containsEntries) {
         context("empty collection") {
-            val fluentEmptyString = assert(setOf())
+            val fluentEmpty = assert(setOf())
             test("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) })
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains("$containsInOrderOnly:")
@@ -89,7 +90,7 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
             }
             test("$isLessThanFun(1.0) and $isGreaterThanFun(4.0) throws AssertionError") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
+                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         contains("$containsInOrderOnly:")
@@ -102,12 +103,12 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
             }
             test("$returnValueOfFun(...) states warning that subject is not set") {
                 expect {
-                    fluentEmptyString.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.WARNING_SUBJECT_NOT_SET) } }
+                    fluentEmpty.containsEntriesFun({ returnValueOf(subject::dec).toBe(1.0) })
+                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
             }
         }
 
-        context("iterable '$oneToFour'") {
+        context("iterable $oneToFour") {
 
             describe("happy case $containsEntries") {
                 test("1.0, 2.0, 3.0, 4.0, 4.0") {
@@ -207,6 +208,14 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
                         }
                     }
                 }
+            }
+        }
+
+        context("search for entry where the lambda does not specify any assertion") {
+            it("throws an ${IllegalArgumentException::class.simpleName}") {
+                expect {
+                    fluent.containsEntriesFun({})
+                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
             }
         }
     }

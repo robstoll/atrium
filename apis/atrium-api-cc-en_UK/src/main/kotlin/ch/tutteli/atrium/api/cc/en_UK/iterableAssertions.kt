@@ -63,6 +63,21 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: AssertionPla
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) where it does not matter
+ * in which order the entries appear.
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("containsNullable")
+fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (AssertionPlant<E>.() -> Unit)?, vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+    = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
+
+
+/**
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
  * the defined order.
  *
@@ -86,6 +101,21 @@ fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExp
  */
 fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: AssertionPlant<E>.() -> Unit, vararg otherAssertionCreators: AssertionPlant<E>.() -> Unit): AssertionPlant<T>
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) in the defined order
+ * holding the assertions created by them.
+ *
+ * It is a shortcut for `contains.inOrder.only.entries(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("containsStrictlyNulllable")
+fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (AssertionPlant<E>.() -> Unit)?, vararg otherAssertionCreators: (AssertionPlant<E>.() -> Unit)?): AssertionPlant<T>
+    = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
+
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]

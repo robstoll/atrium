@@ -20,16 +20,16 @@ import ch.tutteli.atrium.reporting.RawString
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E>>(
+class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>(
     searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
 ) : IterableContainsInOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
 
-    override fun createEntryAssertion(iterableAsList: List<E>, searchCriterion: E, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup
+    override fun createEntryAssertion(iterableAsList: List<E?>, searchCriterion: E, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup
         = template(createEntryFeatureAssertion(searchCriterion))
 
     private fun createEntryFeatureAssertion(searchCriterion: E): (Boolean) -> Assertion
         = { found -> BasicDescriptiveAssertion(DescriptionAnyAssertion.TO_BE, searchCriterion ?: RawString.NULL, found) }
 
-    override fun matches(actual: E, searchCriterion: E): Boolean
+    override fun matches(actual: E?, searchCriterion: E): Boolean
         = actual == searchCriterion
 }
