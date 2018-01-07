@@ -6,8 +6,8 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.DetailedObjectFormatter.Companion.INDENT
-import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
+import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ObjectFormatterSpec
 import com.nhaarman.mockito_kotlin.doReturn
