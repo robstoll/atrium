@@ -1,13 +1,8 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
-import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
-import ch.tutteli.atrium.assertions.FixHoldsAssertionGroup
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.reporting.RawString
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where exactly the expected entries have

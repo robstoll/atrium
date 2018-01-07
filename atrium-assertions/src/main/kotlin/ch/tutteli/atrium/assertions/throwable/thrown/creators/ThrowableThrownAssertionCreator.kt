@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.throwable.thrown.creators
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.any.narrow.DownCaster
 import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
+import ch.tutteli.atrium.assertions.any.narrow.DownCaster
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.AssertionPlant

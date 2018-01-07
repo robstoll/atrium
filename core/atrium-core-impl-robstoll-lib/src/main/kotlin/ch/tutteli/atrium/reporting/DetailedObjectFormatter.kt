@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
+import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
 
 /**
