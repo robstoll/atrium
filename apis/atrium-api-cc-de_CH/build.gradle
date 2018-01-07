@@ -11,5 +11,8 @@ dependencies {
     compile project(":${rootProject.name}-assertions")
 
     testCompile project(":${rootProject.name}-core-impl-robstoll")
-    testCompile project(":${rootProject.name}-spec")
+    testCompile(project(":${rootProject.name}-spec")) {
+        exclude module: "${rootProject.name}-translations-en_UK"
+    }
+    testCompile project(":${rootProject.name}-translations-de_CH")
 }
