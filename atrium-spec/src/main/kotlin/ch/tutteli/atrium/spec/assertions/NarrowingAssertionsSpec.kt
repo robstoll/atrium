@@ -220,7 +220,7 @@ abstract class NarrowingAssertionsSpec(
                 expect {
                     verbs.checkImmediately(SuperType()).isASubTypeFun {}
                 }.toThrow<AssertionError> {
-                    message { contains(SuperType::class.java.name, "is type or sub-type of", SubType::class.java.name) }
+                    message { contains(SuperType::class.java.name, DescriptionNarrowingAssertion.IS_A.getDefault(), SubType::class.java.name) }
                 }
             }
         }

@@ -9,5 +9,5 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionNarrowingAssertion(override val value: String) : StringBasedTranslatable {
     IS_A("ist der Typ oder ein Subtyp von"),
-    WARNING_DOWN_CAST_FAILED("Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten -- down-cast zu %s schlug fehl."),
+    WARNING_DOWN_CAST_FAILED("Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten -- down-cast zu %s schlug fehl.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
 }

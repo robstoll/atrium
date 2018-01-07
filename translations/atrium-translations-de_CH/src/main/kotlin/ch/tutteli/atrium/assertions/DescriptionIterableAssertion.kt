@@ -20,8 +20,11 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     IN_ORDER_ONLY("%s ausschliesslich, in gegebener Reihenfolge"),
     NUMBER_OF_OCCURRENCES("Anzahl Treffer"),
     SIZE_EXCEEDED("❗❗ hasNext() hat `false` zurückgegeben"),
-    WARNING_SUBJECT_NOT_SET("Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten -- `Iterable` gibt keinen nächsten Eintrag zurück."),
+    CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten -- `Iterable` gibt keinen nächsten Eintrag zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
+    CANNOT_EVALUATE_SUBJECT_ONLY_NULL("Konnte die zusätzlichen Aussagen (Assertions) nicht auswerten -- `Iterable` gibt nur `null` zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     WARNING_ADDITIONAL_ENTRIES("zusätzliche Einträge entdeckt"),
     WARNING_MISMATCHES("folgende Einträge erfüllten keine Aussage (Diskrepanzen)"),
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("Diskrepanzen und zusätzliche Einträge entdeckt"),
 }
+
+internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS = "Besuchen Sie die folgende Website für weiterführende Informationen (in Englisch): https://robstoll.github.io/atrium/could-not-evaluate-assertions"
