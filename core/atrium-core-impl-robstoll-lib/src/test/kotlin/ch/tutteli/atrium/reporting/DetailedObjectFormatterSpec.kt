@@ -104,6 +104,13 @@ object DetailedObjectFormatterSpec : Spek({
             }
         }
 
+        on("a Throwable") {
+            val result = testee.format(AssertionError("blablabla"))
+            it("returns only its Class.name") {
+                assert(result).toBe(AssertionError::class.java.name)
+            }
+        }
+
         on("a ${Class::class.simpleName}") {
             val result = testee.format(DetailedObjectFormatterSpec::class.java)
             it("returns its simpleName and name in parenthesis") {

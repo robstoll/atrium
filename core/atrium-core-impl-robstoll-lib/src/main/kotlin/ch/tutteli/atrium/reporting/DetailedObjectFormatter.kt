@@ -54,6 +54,7 @@ class DetailedObjectFormatter(private val translator: Translator) : ObjectFormat
         is Class<*> -> format(value)
         is KClass<*> -> format(value)
         is Enum<*> -> format(value)
+        is Throwable -> format(value)
         else -> value.toString() + INDENT + classNameAndIdentity(value)
     }
 
@@ -70,6 +71,7 @@ class DetailedObjectFormatter(private val translator: Translator) : ObjectFormat
     }
 
     private fun format(enum: Enum<*>) = enum.toString() + INDENT + "(" + enum::class.java.name + ")"
+    private fun format(throwable: Throwable) = throwable::class.java.name
 
     private fun classNameAndIdentity(any: Any)
         = "(${any::class.java.name} ${identityHash(any)})"
