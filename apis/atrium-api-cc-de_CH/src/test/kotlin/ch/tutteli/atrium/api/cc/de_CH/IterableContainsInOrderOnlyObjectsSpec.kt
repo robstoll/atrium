@@ -15,14 +15,14 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec(
         AssertionVerbFactory,
         getContainsPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "* ", "(/) ", "(x) ", "(!) ", "- ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec(
         AssertionVerbFactory,
         getContainsShortcutPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "* ", "(/) ", "(x) ", "(!) ", "- ", ">> ", "=> ",
         "[Atrium][Shortcut] "
     )
 

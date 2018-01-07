@@ -63,13 +63,13 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
 
     fun AssertionPlant<CharSequence>.entrySuccess(index: Int, actual: Any, expected: String): AssertionPlant<CharSequence> {
         return this.contains.exactly(1).regex(
-            "$successfulBulletPoint$featureArrow${entry(index)}: \\Q$actual\\E.*$separator" +
+            "\\Q$successfulBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentSuccessfulBulletPoint$anEntryAfterSuccess$expected")
     }
 
     fun AssertionPlant<CharSequence>.entryFailing(index: Int, actual: Any, expected: String): AssertionPlant<CharSequence> {
         return this.contains.exactly(1).regex(
-            "$failingBulletPoint$featureArrow${entry(index)}: \\Q$actual\\E.*$separator" +
+            "\\Q$failingBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$anEntryAfterFailing$expected")
     }
 

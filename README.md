@@ -38,6 +38,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [Further Examples](#further-examples)  
 - [Write own Assertion Functions](#write-own-assertion-functions)
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
+  - [ReporterBuilder](#reporterbuilder)
 - [Internationalization](#internationalization)
 - [APIs](#apis)
 - [Contribute](#contribute)
@@ -106,7 +107,9 @@ you can [define your own assertion verbs](#use-own-assertion-verbs) which suit y
 In the following examples we will use `assert` for regular assertions 
 and `expect` to postulate that we [Expect an Exception](#expect-an-exception).
 
-:information_source: In case you prefer multi-line reporting, then you can configure `ReporterBuilder` accordingly.
+:information_source: An [own assertion verb](#use-own-assertion-verbs) lets you configure inter alia the reporting style by using the [`ReporterBuilder`](#reporterbuilder). 
+For instance, in case you prefer multi-line reporting over single-line reporting,
+then you can configure `ReporterBuilder` as follows.
 Instead of using `.withTextSameLineAssertionPairFormatter()` you use the following:
 ```
 .withTextAssertionPairFormatter { objectFormatter, translator ->
@@ -121,7 +124,8 @@ assert:
   9        (java.lang.Integer <1364913072>)
 ```
 
-
+There are more options to choose from if you use your [own assertion verb](#use-own-assertion-verbs). 
+But back to the examples. 
 The next section shows how you can define multiple assertions for the same subject.   
 
 ## Define Single Assertions or Assertion Groups
@@ -582,6 +586,18 @@ paste it in your own atriumVerbs.kt, rename `assert` and `expect` as desired and
 As you can see, it is up to you if you use the same name for all assertion functions or not 
 (Atrium itself uses `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions).
 
+## ReporterBuilder
+
+The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
+For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
+Have a look at [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/master/apis/atrium-api-cc-de_CH/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+where you can find an example.
+
+You would like to switch to multi-line reporting, have a look at [Your First Assertion](#your-first-assertion) where the configuration of the `ReporterBuilder` is presented.
+
+You prefer another reporting style but Atrium does not yet support it? 
+Please let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
+
 ## Out of the Box Assertion Verbs
 If you still insist of using the provided assertion verbs, then add the following dependency 
 to your project in addition (see [Installation](#installation) for the rest of the gradle script).
@@ -629,7 +645,7 @@ uses `atrium-translations-de_CH`.
 But you can also use a 
 [TranslationSupplier](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html)
 based [Translator](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html)
-by configuring the `ReporterBuilder` accordingly (e.g. use `withDefaultTranslationSupplier` instead of `withoutTranslations`). 
+by configuring the [`ReporterBuilder`](#reporterbuilder) accordingly (e.g. use `withDefaultTranslationSupplier` instead of `withoutTranslations`). 
 Atrium supports a properties files based `TranslationSupplier` which is more or less what
 [ResourceBundle](https://docs.oracle.com/javase/tutorial/i18n/resbundle/propfile.html)
 provides out of the box. 
