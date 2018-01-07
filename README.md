@@ -94,7 +94,8 @@ We start off with a simple example:
 val x = 10
 assert(x).toBe(9)
 ``` 
-The statement can be read as "I assert, x to be nine" and since this is false an `AssertionError` is thrown with the following message:
+The statement can be read as "I assert, x to be nine" where an equality check is used (use `isSame` for an identity check). 
+Since this is false an `AssertionError` is thrown with the following message:
 ```text
 assert: 10        (java.lang.Integer <934275857>)
 ◆ to be: 9        (java.lang.Integer <1364913072>)
