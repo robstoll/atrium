@@ -17,7 +17,7 @@ class IterableContainsNullSpec : Spek({
         getContainsInAnyOrderNullableEntriesPair(),
         getContainsInAnyOrderOnlyNullableEntriesPair(),
         getContainsInOrderOnlyNullableEntriesPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "* ", "(/) ", "(x) ", "(!) ", "- ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 
@@ -28,7 +28,7 @@ class IterableContainsNullSpec : Spek({
         getContainsEntriesPair(),
         getContainsInAnyOrderOnlyNullableEntriesPair(),
         getContainsStrictlyEntriesPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
+        "* ", "(/) ", "(x) ", "(!) ", "- ", ">> ", "=> ",
         "[Atrium][Shortcut] "
     )
 

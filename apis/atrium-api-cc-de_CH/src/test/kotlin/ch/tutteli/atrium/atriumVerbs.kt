@@ -1,5 +1,6 @@
 package ch.tutteli.atrium
 
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.ObjectFormatter
@@ -33,7 +34,16 @@ internal object AtriumReporterSupplier {
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
-            .withDefaultTextCapabilities()
+            .withDefaultTextCapabilities(
+                RootAssertionGroupType::class.java to "* ",
+                ListAssertionGroupType::class.java to "- ",
+                FeatureAssertionGroupType::class.java to "=> ",
+                IndentAssertionGroupType::class.java to "| ",
+                PrefixFeatureAssertionGroupHeader::class.java to ">> ",
+                PrefixSuccessfulSummaryAssertion::class.java to "(/) ",
+                PrefixFailingSummaryAssertion::class.java to "(x) ",
+                WarningAssertionGroupType::class.java to "(!) "
+            )
             .buildOnlyFailureReporter()
     }
 }
