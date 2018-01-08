@@ -2,6 +2,8 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
+import java.math.BigDecimal
+import java.text.DecimalFormat
 import kotlin.reflect.KClass
 
 /**
@@ -22,6 +24,11 @@ import kotlin.reflect.KClass
  * @param translator The [Translator] used to translate [TranslatableBasedRawString]s.
  */
 class DetailedObjectFormatter(private val translator: Translator) : ObjectFormatter {
+    private val decimalFormat = DecimalFormat("0.0")
+
+    init {
+        decimalFormat.maximumFractionDigits = 340
+    }
 
     /**
      * Returns a formatted version of the given [value].
@@ -37,6 +44,7 @@ class DetailedObjectFormatter(private val translator: Translator) : ObjectFormat
      * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [KClass] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [Enum] is represented as "[toString] ([Class.getName])
+     * - [Throwable] is represented as "[Class.getName]"
      * - All other objects are represented as "[toString] ([Class.getName] <[System.identityHashCode]>)"
      *
      * @param value The value which shall be formatted.
