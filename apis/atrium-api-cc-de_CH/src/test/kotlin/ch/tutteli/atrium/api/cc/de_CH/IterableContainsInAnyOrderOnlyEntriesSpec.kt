@@ -8,6 +8,7 @@ class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.asserti
     getContainsPair(),
     "* ", "(/) ", "(x) ", "(!) ", "- "
 ) {
+    //TODO this test fails now due to toBeWithErrorTolerance for float/double
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
             "$contains.$inAnyOrder.$only.$inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnly

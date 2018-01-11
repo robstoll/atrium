@@ -20,26 +20,41 @@ abstract class FloatingPointAssertionsSpec(
     toBeWithErrorToleranceFloatPair: Pair<String, AssertionPlant<Float>.(Float, Float) -> AssertionPlant<Float>>,
     toBeWithErrorToleranceDoublePair: Pair<String, AssertionPlant<Double>.(Double, Double) -> AssertionPlant<Double>>,
     toBeWithErrorToleranceBigDecimalPair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal, BigDecimal) -> AssertionPlant<BigDecimal>>,
+    toBeFloatPair: Pair<String, AssertionPlant<Float>.(Float) -> AssertionPlant<Float>>,
+    toBeDoublePair: Pair<String, AssertionPlant<Double>.(Double) -> AssertionPlant<Double>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Float>("$describePrefix[Float] ",
-        toBeWithErrorToleranceFloatPair.first to mapToCreateAssertion { toBeWithErrorToleranceFloatPair.second(this, 1.0f, 0.01f) }) {})
+        toBeWithErrorToleranceFloatPair.first to mapToCreateAssertion { toBeWithErrorToleranceFloatPair.second(this, 1.0f, 0.01f) },
+        toBeFloatPair.first to mapToCreateAssertion { toBeFloatPair.second(this, 1.0f) }
+    ) {})
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<Double>("$describePrefix[Double] ",
-        toBeWithErrorToleranceDoublePair.first to mapToCreateAssertion { toBeWithErrorToleranceDoublePair.second(this, 1.0, 0.01) }) {})
+        toBeWithErrorToleranceDoublePair.first to mapToCreateAssertion { toBeWithErrorToleranceDoublePair.second(this, 1.0, 0.01) },
+        toBeDoublePair.first to mapToCreateAssertion { toBeDoublePair.second(this, 1.0) }
+    ) {})
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<BigDecimal>("$describePrefix[BigDecimal] ",
         toBeWithErrorToleranceBigDecimalPair.first to mapToCreateAssertion { toBeWithErrorToleranceBigDecimalPair.second(this, BigDecimal.TEN, BigDecimal("0.00001")) }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Float>(verbs, "$describePrefix[Float] ",
-        checkingTriple(toBeWithErrorToleranceFloatPair.first, { toBeWithErrorToleranceFloatPair.second(this, 1.0f, 0.01f) }, 0.99f, 0.98f)) {})
+        checkingTriple(toBeWithErrorToleranceFloatPair.first, { toBeWithErrorToleranceFloatPair.second(this, 1.0f, 0.01f) }, 0.99f, 0.98f),
+        checkingTriple(toBeFloatPair.first, { toBeFloatPair.second(this, 1.0f) }, 1.0f, 0.9999999f)
+    ) {})
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<Double>(verbs, "$describePrefix[Double] ",
-        checkingTriple(toBeWithErrorToleranceDoublePair.first, { toBeWithErrorToleranceDoublePair.second(this, 1.0, 0.5) }, 1.5, 1.6)) {})
+        checkingTriple(toBeWithErrorToleranceDoublePair.first, { toBeWithErrorToleranceDoublePair.second(this, 1.0, 0.5) }, 1.5, 1.6),
+        checkingTriple(toBeDoublePair.first, { toBeDoublePair.second(this, 1.0) }, 1.0, 0.9999999999)
+    ) {})
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<BigDecimal>(verbs, "$describePrefix[BigDecimal] ",
         checkingTriple(toBeWithErrorToleranceBigDecimalPair.first, { toBeWithErrorToleranceBigDecimalPair.second(this, BigDecimal.TEN, BigDecimal("0.00001")) }, BigDecimal("9.99999999"), BigDecimal("9.999"))
     ) {})
 
     val expect = verbs::checkException
+    val toBeFloatPairWrapped: Pair<String, AssertionPlant<Float>.(Float, Float) -> AssertionPlant<Float>>
+        = toBeFloatPair.first to ({ e, _ -> toBeFloatPair.second(this, e) })
+
+    val toBeDoublePairWrapped: Pair<String, AssertionPlant<Double>.(Double, Double) -> AssertionPlant<Double>>
+        = toBeDoublePair.first to ({ e, _ -> toBeDoublePair.second(this, e) })
 
     data class TestData<out T : Any>(val subject: T, val tolerance: T, val holding: List<T>, val failing: List<T>)
 
@@ -105,6 +120,13 @@ abstract class FloatingPointAssertionsSpec(
         TestData(BigDecimal("9.99999999999999"), BigDecimal("0.00000000000001"),
             listOf(BigDecimal.TEN, BigDecimal("9.999999999999999999999999"), BigDecimal("9.99999999999998")),
             listOf(BigDecimal("10.0000000000000000001"), BigDecimal("9.99999999999997"), BigDecimal("9.9999999999999799999999999999999999")))
+    ))
+
+    describeFun(toBeFloatPairWrapped, true, { a, b -> (a - b).absoluteValue }, listOf(
+        TestData(0.001f, 0.0f, listOf(0.001f), listOf(0.0010001f))
+    ))
+    describeFun(toBeDoublePairWrapped, true, { a, b -> (a - b).absoluteValue }, listOf(
+        TestData(0.001, 0.0, listOf(0.001), listOf(0.0010001))
     ))
 })
 

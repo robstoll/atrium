@@ -6,6 +6,31 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import java.math.BigDecimal
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] is equal to [expected] without any error tolerance.
+ *
+ * It effectively delegates to `istMitFehlerToleranz(expected, 0.0f)`.
+ * You might want to use [istMitFehlerToleranz] instead and specify a tolerance which suits your needs.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun Assert<Float>.ist(expected: Float)
+    = istMitFehlerToleranz(expected, 0.0f)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] is equal to [expected] without any error tolerance.
+ *
+ * It effectively delegates to `istMitFehlerToleranz(expected, 0.0)`.
+ * You might want to use [istMitFehlerToleranz] instead and specify a tolerance which suits your needs.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun Assert<Double>.ist(expected: Double)
+    = istMitFehlerToleranz(expected, 0.0)
+
+
+/**
  * Makes the assertion that [AssertionPlant.subject] is equal to [expected] with an error [tolerance]
  * (range including bounds).
  *

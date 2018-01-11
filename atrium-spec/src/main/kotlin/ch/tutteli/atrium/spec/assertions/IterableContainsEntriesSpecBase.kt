@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.isLessThan
 import ch.tutteli.atrium.api.cc.en_UK.returnValueOf
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
+import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertions
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -32,6 +33,6 @@ abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec
         val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH.getDefault()
         val isLessThanDescr = DescriptionNumberAssertion.IS_LESS_THAN.getDefault()
         val isGreaterThanDescr = DescriptionNumberAssertion.IS_GREATER_THAN.getDefault()
-        val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+        val toBeDescr = DescriptionFloatingPointAssertions.TO_BE_WITH_ERROR_TOLERANCE.getDefault()
     }
 }

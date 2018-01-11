@@ -3,14 +3,16 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.math.BigDecimal
+import kotlin.reflect.KFunction2
 import kotlin.reflect.KFunction3
 
 class FloatingPointAssertionsSpec : ch.tutteli.atrium.spec.assertions.FloatingPointAssertionsSpec(
     AssertionVerbFactory,
     toBeWithErrorToleranceFloatPair(),
     toBeWithErrorToleranceDoublePair(),
-    toBeWithErrorToleranceBigDecimalPair()
-
+    toBeWithErrorToleranceBigDecimalPair(),
+    toBeFloatPair(),
+    toBeDoublePair()
 ) {
     companion object {
 
@@ -34,5 +36,20 @@ class FloatingPointAssertionsSpec : ch.tutteli.atrium.spec.assertions.FloatingPo
 
         private fun toBeWithErrorToleranceBigDecimal(plant: AssertionPlant<BigDecimal>, expected: BigDecimal, tolerance: BigDecimal)
             = plant.toBeWithErrorTolerance(expected, tolerance)
+
+
+        private val toBeFloatFun: KFunction2<AssertionPlant<Float>, Float, AssertionPlant<Float>> = AssertionPlant<Float>::toBe
+        fun toBeFloatPair()
+            = "${toBeFloatFun.name} for Float" to Companion::toBeFloat
+
+        private fun toBeFloat(plant: AssertionPlant<Float>, expected: Float)
+            = plant.toBe(expected)
+
+        private val toBeDoubleFun: KFunction2<AssertionPlant<Double>, Double, AssertionPlant<Double>> = AssertionPlant<Double>::toBe
+        fun toBeDoublePair()
+            = "${toBeDoubleFun.name} for Double" to Companion::toBeDouble
+
+        private fun toBeDouble(plant: AssertionPlant<Double>, expected: Double)
+            = plant.toBe(expected)
     }
 }
