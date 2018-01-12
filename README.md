@@ -20,7 +20,7 @@ Atrium is designed to support different [APIs](#apis), different reporting style
 The core of Atrium as well as the builders to create sophisticated assertions are designed to be extensible and 
 thus allow you to extend or replace components easily.
 
-Atrium currently provides two [APIs](#apis) styles:
+Atrium currently provides two [API](#apis) styles:
 pure fluent and infix where both of them have their design focus on usability in conjunction with code completion functionality provided by your IDE.
 See [Examples](#examples) below to get a feel for how you could benefit from Atrium.
 
@@ -50,10 +50,12 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 - [License](#license)
 
 # Installation
+
+## 1. Set Up Dependency
 Atrium is linked to [jcenter](https://bintray.com/bintray/jcenter?filterByPkgName=atrium)
 but can also be retrieved directly from [bintray](https://bintray.com/robstoll/tutteli-jars/atrium). 
 
-gradle: 
+*gradle*: 
 ```
 buildscript {
     ext { atrium_version='0.5.0' }
@@ -68,12 +70,14 @@ dependencies {
 }
 ```
 
-maven:  
+*maven*:  
 Because maven is a bit more verbose than gradle, the example is not listed here but 
-an [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
+a [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
 is provided to set up the repository as well as an 
 [example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
 which includes the necessary dependencies.
+
+## 2. Set Up Assertion Verbs
 
 Next to specifying a dependency to a predefined [API](#apis) you have to [setup your assertion verbs](#use-own-assertion-verbs)
 (recommended way) or use the [predefined assertion verbs](#out-of-the-box-assertion-verbs).
