@@ -22,6 +22,16 @@ import java.math.BigDecimal
 infix fun <T : BigDecimal> Assert<T>.toBe(expected: T)
     = addAssertion(_toBe(this, expected, this::isNumericallyEqualTo.name))
 
+@Suppress("unused")
+@Deprecated("Use `isNotNumericallyEqualTo` if you expect that the following assertion is wrong:\n" +
+    "`assert(BigDecimal(\"10\") notToBe BigDecimal(\"10.0\")`\n" +
+    "However, if you expect it to hold, then the `notToBe` function is the right one for you, use the overload with `Any`.",
+    ReplaceWith("notToBe(expected as Any)"))
+infix fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
+    = throw UnsupportedOperationException("BigDecimal::equals compares also BigDecimal::scale, which you might not be aware of.\n" +
+    "If you know it and still want to use `notToBe` instead of `isNotNumericallyEqualTo` then use the overload with `Any`.")
+
+
 /**
  * Makes the assertion that [AssertionPlant.subject] is numerically equal to [expected].
  *

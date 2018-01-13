@@ -22,6 +22,15 @@ import java.math.BigDecimal
 fun <T : BigDecimal> Assert<T>.ist(expected: T)
     = addAssertion(_toBe(this, expected, this::istNumerischGleichWie.name))
 
+@Suppress("unused")
+@Deprecated("Verwende `istNichtNumerischGleichWie` wenn du erwartest, dass die folgende Behauptung falsch ist:\n" +
+    "`esGilt(BigDecimal(\"10\").istNicht(BigDecimal(\"10.0\"))`\n" +
+    "Erwartest du hingegen, dass die Behauptung stimmt, dann ist die Funktion `istNicht` schon die richtige. Verwende in diesem Fall die Überladung mit `Any`.",
+    ReplaceWith("istNicht(expected as Any)"))
+fun <T : BigDecimal> Assert<T>.istNicht(expected: T): Nothing
+    = throw UnsupportedOperationException("BigDecimal::equals vergleicht auch BigDecimal::scale, was dir womöglich nicht bewusst war.\n" +
+    "Falls doch und du immer noch `istNicht` anstelle von `istNichtNumerischGleichWie` verwenden möchtest, dann verwende die Überladung mit `Any`.")
+
 /**
  * Makes the assertion that [AssertionPlant.subject] is numerically equal to [expected].
  *
