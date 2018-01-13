@@ -7,15 +7,20 @@ import kotlin.reflect.KFunction2
 
 class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
-    isNumericallyEqualToPair()
+    isNumericallyEqualToPair(),
+    toBePair()
 ) {
     companion object {
-
-        private val isNumericallyEqualToFun: KFunction2<AssertionPlant<BigDecimal>, BigDecimal, AssertionPlant<BigDecimal>> = AssertionPlant<BigDecimal>::isNumericallyEqualTo
         fun isNumericallyEqualToPair()
-            = isNumericallyEqualToFun.name to Companion::isNumericallyEqualTo
+            = AssertionPlant<BigDecimal>::isNumericallyEqualTo.name to Companion::isNumericallyEqualTo
 
         private fun isNumericallyEqualTo(plant: AssertionPlant<BigDecimal>, expected: BigDecimal)
             = plant isNumericallyEqualTo expected
+
+        fun toBePair()
+            = AssertionPlant<BigDecimal>::toBe.name to Companion::toBe
+
+        private fun toBe(plant: AssertionPlant<BigDecimal>, expected: BigDecimal)
+            = plant toBe expected
     }
 }
