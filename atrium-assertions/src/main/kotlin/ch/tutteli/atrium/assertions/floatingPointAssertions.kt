@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertions.TO_BE_WITH_ERROR_TOLERANCE
+import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertions.*
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.RawString
@@ -25,14 +25,14 @@ fun <T : BigDecimal> _toBeWithErrorTolerance(plant: AssertionPlant<T>, expected:
 private fun <T : Comparable<T>> toBeWithErrorToleranceOfFloatOrDouble(plant: AssertionPlant<T>, expected: T, tolerance: T, absDiff: () -> T): Assertion {
     return toBeWithErrorTolerance(expected, tolerance, absDiff) { df ->
         listOf(
-            BasicExplanatoryAssertion(RawString.create(TranslatableWithArgs(DescriptionFloatingPointAssertions.FAILURE_DUE_TO_FLOATING_POINT_NUMBER, plant.subject::class.java.name))),
+            BasicExplanatoryAssertion(RawString.create(TranslatableWithArgs(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, plant.subject::class.java.name))),
             createToBeWithErrorToleranceExplained(df, plant, expected, absDiff, tolerance)
         )
     }
 }
 
 private fun <T : Comparable<T>> createToBeWithErrorToleranceExplained(df: DecimalFormat, plant: AssertionPlant<T>, expected: T, absDiff: () -> T, tolerance: T)
-    = BasicExplanatoryAssertion(RawString.create(TranslatableWithArgs(DescriptionFloatingPointAssertions.TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED, df.format(plant.subject), df.format(expected), df.format(absDiff()), df.format(tolerance))))
+    = BasicExplanatoryAssertion(RawString.create(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED, df.format(plant.subject), df.format(expected), df.format(absDiff()), df.format(tolerance))))
 
 private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T, absDiff: () -> T, explanatoryAssertionCreator: (DecimalFormat) -> List<Assertion>): Assertion {
     val isWithinRange = try {
