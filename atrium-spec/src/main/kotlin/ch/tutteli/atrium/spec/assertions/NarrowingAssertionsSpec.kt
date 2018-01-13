@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
-import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
+import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -63,7 +63,7 @@ abstract class NarrowingAssertionsSpec(
                         message {
                             containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
                             contains(Integer::class.java.name)
-                            containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                            containsDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
                         }
                     }
                 }
@@ -102,8 +102,8 @@ abstract class NarrowingAssertionsSpec(
                         assert(i).isNotNullGreaterAndLessFun(2, 5)
                     }.toThrow<AssertionError> {
                         message {
-                            containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
-                            containsNotDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                            containsDefaultTranslationOf(DescriptionComparableAssertion.IS_GREATER_THAN)
+                            containsNotDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
                         }
                     }
                 }
@@ -115,8 +115,8 @@ abstract class NarrowingAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             containsDefaultTranslationOf(
-                                DescriptionNumberAssertion.IS_GREATER_THAN,
-                                DescriptionNumberAssertion.IS_LESS_THAN
+                                DescriptionComparableAssertion.IS_GREATER_THAN,
+                                DescriptionComparableAssertion.IS_LESS_THAN
                             )
                         }
                     }
@@ -145,7 +145,7 @@ abstract class NarrowingAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
-                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A, DescriptionNumberAssertion.IS_LESS_THAN)
+                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A, DescriptionComparableAssertion.IS_LESS_THAN)
                         contains(Integer::class.java.name)
                     }
                 }
@@ -186,7 +186,7 @@ abstract class NarrowingAssertionsSpec(
                     expect {
                         verbs.checkImmediately(actualValue).isAIntLessFun(expectedLessThan)
                     }.toThrow<AssertionError> {
-                        message { contains(actualValue, DescriptionNumberAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
+                        message { contains(actualValue, DescriptionComparableAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
                     }
                 }
             }
@@ -209,7 +209,7 @@ abstract class NarrowingAssertionsSpec(
                     expect {
                         verbs.checkImmediately(actualValue).isAIntLessFun(expectedLessThan)
                     }.toThrow<AssertionError> {
-                        message { contains(actualValue, DescriptionNumberAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
+                        message { contains(actualValue, DescriptionComparableAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
                     }
                 }
             }

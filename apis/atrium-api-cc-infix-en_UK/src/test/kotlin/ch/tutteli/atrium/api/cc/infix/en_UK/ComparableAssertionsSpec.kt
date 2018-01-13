@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 
-class NumberAssertionsSpec : ch.tutteli.atrium.spec.assertions.NumberAssertionsSpec(
+class ComparableAssertionsSpec : ch.tutteli.atrium.spec.assertions.ComparableAssertionsSpec(
     AssertionVerbFactory,
     AssertionPlant<Int>::isLessThan.name to Companion::isLessThan,
     AssertionPlant<Int>::isLessOrEquals.name to Companion::isLessOrEquals,

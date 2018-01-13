@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Assert<T>.isLessThan(expected: T) where T : Number, T : Comparable<T>
+infix fun <T : Comparable<T>> Assert<T>.isLessThan(expected: T)
     = addAssertion(_isLessThan(this, expected))
 
 /**
@@ -22,7 +22,7 @@ infix fun <T> Assert<T>.isLessThan(expected: T) where T : Number, T : Comparable
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Assert<T>.isLessOrEquals(expected: T) where T : Number, T : Comparable<T>
+infix fun <T : Comparable<T>> Assert<T>.isLessOrEquals(expected: T)
     = addAssertion(_isLessOrEquals(this, expected))
 
 /**
@@ -31,7 +31,7 @@ infix fun <T> Assert<T>.isLessOrEquals(expected: T) where T : Number, T : Compar
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Assert<T>.isGreaterThan(expected: T) where T : Number, T : Comparable<T>
+infix fun <T : Comparable<T>> Assert<T>.isGreaterThan(expected: T)
     = addAssertion(_isGreaterThan(this, expected))
 
 /**
@@ -40,6 +40,6 @@ infix fun <T> Assert<T>.isGreaterThan(expected: T) where T : Number, T : Compara
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T> Assert<T>.isGreaterOrEquals(expected: T) where T : Number, T : Comparable<T>
+infix fun <T : Comparable<T>> Assert<T>.isGreaterOrEquals(expected: T)
     = addAssertion(_isGreaterOrEquals(this, expected))
 

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 
-object NumberAssertionsSpec : ch.tutteli.atrium.spec.assertions.NumberAssertionsSpec(
+object ComparableAssertionsSpec : ch.tutteli.atrium.spec.assertions.ComparableAssertionsSpec(
     AssertionVerbFactory,
     AssertionPlant<Int>::istKleinerAls.name to AssertionPlant<Int>::istKleinerAls,
     AssertionPlant<Int>::istKleinerOderGleich.name to AssertionPlant<Int>::istKleinerOderGleich,

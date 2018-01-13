@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
-import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
+import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -114,7 +114,7 @@ abstract class TranslatorIntSpec(
     val descriptionAnyAssertion = DescriptionAnyAssertion::class.simpleName
     val testTranslatable = TestTranslatable::class.simpleName
 
-    val descriptionNumberAssertion = DescriptionNumberAssertion::class.simpleName
+    val descriptionNumberAssertion = DescriptionComparableAssertion::class.simpleName
     val toBe = DescriptionAnyAssertion.TO_BE
     val notToBe = DescriptionAnyAssertion.NOT_TO_BE
     val isNotSame = DescriptionAnyAssertion.IS_NOT_SAME
@@ -164,11 +164,11 @@ abstract class TranslatorIntSpec(
 
         context("properties file for $descriptionNumberAssertion is not provided for 'de_CH' nor one of its parents") {
 
-            describe("translation for $descriptionNumberAssertion.${DescriptionNumberAssertion.IS_LESS_THAN} is provided for 'it'") {
-                it("throws an AssertionError which message contains the default of $descriptionNumberAssertion.${DescriptionNumberAssertion.IS_LESS_THAN}") {
+            describe("translation for $descriptionNumberAssertion.${DescriptionComparableAssertion.IS_LESS_THAN} is provided for 'it'") {
+                it("throws an AssertionError which message contains the default of $descriptionNumberAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
                     verbs.checkException {
                         assertWithDeCh(1).isLessThan(1)
-                    }.toThrow<AssertionError> { message { contains("${DescriptionNumberAssertion.IS_LESS_THAN.getDefault()}: 1") } }
+                    }.toThrow<AssertionError> { message { contains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") } }
                 }
             }
         }
