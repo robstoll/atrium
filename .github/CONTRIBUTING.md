@@ -34,8 +34,12 @@ By participating, you are expected to uphold this code. Please report unacceptab
   If you still have trouble to start, then contact me on 
   [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/)
   and I will try to give you some additional hints.
+
+- You do not have a particular assertion function in mind but would like to contribute with code?
+  Please have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+  (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
   
-- You would like to add a new feature to atrium?  
+- You would like to add a new feature to Atrium?  
   Contact me on [slack](https://kotlinlang.slack.com/messages/D3CL4DDLG/)
   so that we can discuss it before you start.
   
