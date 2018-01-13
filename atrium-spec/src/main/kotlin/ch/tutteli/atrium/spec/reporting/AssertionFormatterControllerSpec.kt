@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.reporting
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.DescriptionNumberAssertion.*
+import ch.tutteli.atrium.assertions.DescriptionComparableAssertion.*
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator

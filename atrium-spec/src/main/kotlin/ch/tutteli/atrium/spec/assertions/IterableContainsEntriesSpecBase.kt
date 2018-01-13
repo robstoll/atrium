@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.cc.en_UK.returnValueOf
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
+import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.dsl.Spec
@@ -30,8 +30,8 @@ abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec
         var toBeFun = ""
         var returnValueOfFun = ""
         val anEntryWhich = DescriptionIterableAssertion.AN_ENTRY_WHICH.getDefault()
-        val isLessThanDescr = DescriptionNumberAssertion.IS_LESS_THAN.getDefault()
-        val isGreaterThanDescr = DescriptionNumberAssertion.IS_GREATER_THAN.getDefault()
+        val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+        val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
         val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     }
 }
