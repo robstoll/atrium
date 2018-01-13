@@ -1,5 +1,6 @@
 buildscript {
-    def projectsWithoutSourcesBuildScript = project(":${project.name}-cc-en_UK-robstoll")
+    def projectsWithoutSourcesBuildScript = subprojects.findAll { it.path.contains("bundles") }
+    def translationProjects = subprojects.findAll { it.path.contains("translations") }
     ext {
         atrium_version = '0.6.0-SNAPSHOT'
         ghPages_version = atrium_version
@@ -43,10 +44,8 @@ buildscript {
                     it.name != "${project.name}-core-api" &&
                         it.name != "${project.name}-core-api-late-binding" &&
                         it.name != "${project.name}-core-impl-robstoll" &&
-                        it.name != "${project.name}-spec" &&
-                        it.name != "${project.name}-translations-de_CH" &&
-                        it.name != "${project.name}-translations-en_UK"
-                } - projectsWithoutSourcesBuildScript
+                        it.name != "${project.name}-spec"
+                } - projectsWithoutSourcesBuildScript - translationProjects
         ]
     }
 
@@ -91,7 +90,7 @@ configure(projectsWithSources) {
             suffix = '#L'
         }
         linkMapping {
-            dir = "../${project.name}-core-api/$srcKotlin"
+            dir = "${rootProject.projectDir}/${project.name}-core-api/$srcKotlin"
             url = "https://github.com/robstoll/${project.name}/${dokka_sourceMapping}/${project.name}-core-api/$srcKotlin"
             suffix = '#L'
         }
