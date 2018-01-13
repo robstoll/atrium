@@ -32,7 +32,7 @@ task ghPages {
 dokka {
     moduleName = 'doc'
     outputFormat = 'html'
-    outputDirectory = "../${project.name}-gh-pages/$ghPages_version"
+    outputDirectory = "$ghPagesPathWithoutVersion/$ghPages_version"
 
     includes = ['misc/kdoc/packages.md']
     jdkVersion = 6
