@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertions.FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL
-import ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertions.IS_NUMERICALLY_EQUAL_TO
+import ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertions.*
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.RawString
@@ -34,3 +33,6 @@ fun <T : BigDecimal> _isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T
 
 private fun <T : BigDecimal> isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
     = plant.subject.compareTo(expected) == 0
+
+fun <T : BigDecimal> _isNotNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
+    = BasicDescriptiveAssertion(IS_NOT_NUMERICALLY_EQUAL_TO, expected, { isNumericallyEqualTo(plant, expected).not() })

@@ -3,11 +3,11 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.math.BigDecimal
-import kotlin.reflect.KFunction2
 
 class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
     isNumericallyEqualToPair(),
+    isNotNumericallyEqualToPair(),
     toBePair()
 ) {
     companion object {
@@ -16,6 +16,13 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAss
 
         private fun isNumericallyEqualTo(plant: AssertionPlant<BigDecimal>, expected: BigDecimal)
             = plant isNumericallyEqualTo expected
+
+        fun isNotNumericallyEqualToPair()
+            = AssertionPlant<BigDecimal>::isNotNumericallyEqualTo.name to Companion::isNotNumericallyEqualTo
+
+        private fun isNotNumericallyEqualTo(plant: AssertionPlant<BigDecimal>, expected: BigDecimal)
+            = plant isNotNumericallyEqualTo expected
+
 
         fun toBePair()
             = AssertionPlant<BigDecimal>::toBe.name to Companion::toBe

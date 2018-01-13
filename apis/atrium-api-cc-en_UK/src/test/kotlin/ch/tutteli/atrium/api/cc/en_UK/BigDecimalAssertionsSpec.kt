@@ -6,16 +6,11 @@ import java.math.BigDecimal
 
 class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
-    isNumericallyEqualToPair(),
+    AssertionPlant<BigDecimal>::isNumericallyEqualTo.name to AssertionPlant<BigDecimal>::isNumericallyEqualTo,
+    AssertionPlant<BigDecimal>::isNotNumericallyEqualTo.name to AssertionPlant<BigDecimal>::isNotNumericallyEqualTo,
     toBePair()
 ) {
     companion object {
-        fun isNumericallyEqualToPair()
-            = AssertionPlant<BigDecimal>::isNumericallyEqualTo.name to Companion::isNumericallyEqualTo
-
-        private fun isNumericallyEqualTo(plant: AssertionPlant<BigDecimal>, expected: BigDecimal)
-            = plant.isNumericallyEqualTo(expected)
-
         fun toBePair()
             = AssertionPlant<BigDecimal>::toBe.name to Companion::toBe
 
