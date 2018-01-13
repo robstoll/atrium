@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.assertions._isNumericallyEqual
 import ch.tutteli.atrium.assertions._toBeWithErrorTolerance
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -50,5 +51,5 @@ fun Assert<Double>.istMitFehlerToleranz(expected: Double, tolerance: Double)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun Assert<BigDecimal>.istMitFehlerToleranz(expected: BigDecimal, tolerance: BigDecimal)
+fun <T : BigDecimal> Assert<T>.istMitFehlerToleranz(expected: T, tolerance: T)
     = addAssertion(_toBeWithErrorTolerance(this, expected, tolerance))

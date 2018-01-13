@@ -1,3 +1,4 @@
+
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
@@ -15,7 +16,7 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.math.absoluteValue
 
-abstract class FloatingPointAssertionsSpec(
+abstract class FloatingPointWithErrorToleranceAssertionsSpec(
     verbs: AssertionVerbFactory,
     toBeWithErrorToleranceFloatPair: Pair<String, AssertionPlant<Float>.(Float, Float) -> AssertionPlant<Float>>,
     toBeWithErrorToleranceDoublePair: Pair<String, AssertionPlant<Double>.(Double, Double) -> AssertionPlant<Double>>,
@@ -104,7 +105,10 @@ abstract class FloatingPointAssertionsSpec(
     describeFun(toBeWithErrorToleranceBigDecimalPair, false, { a, b -> (a - b).abs() }, listOf(
         TestData(BigDecimal("9.99999999999999"), BigDecimal("0.00000000000001"),
             listOf(BigDecimal.TEN, BigDecimal("9.999999999999999999999999"), BigDecimal("9.99999999999998")),
-            listOf(BigDecimal("10.0000000000000000001"), BigDecimal("9.99999999999997"), BigDecimal("9.9999999999999799999999999999999999")))
+            listOf(BigDecimal("10.0000000000000000001"), BigDecimal("9.99999999999997"), BigDecimal("9.9999999999999799999999999999999999"))),
+        TestData(BigDecimal("10.0"), BigDecimal("0.001"),
+            listOf(BigDecimal.TEN, BigDecimal("10"), BigDecimal("10.000"), BigDecimal("10.001"), BigDecimal("10.0000000000000000001")),
+            listOf(BigDecimal("10.001000000001"), BigDecimal("9.99899999")))
     ))
 })
 
