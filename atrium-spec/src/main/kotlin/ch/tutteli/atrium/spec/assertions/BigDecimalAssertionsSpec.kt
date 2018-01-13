@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsNot
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertions
 import ch.tutteli.atrium.creating.Assert
@@ -22,6 +19,8 @@ abstract class BigDecimalAssertionsSpec(
     isNumericallyEqualToPair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal) -> AssertionPlant<BigDecimal>>,
     isNotNumericallyEqualToPair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal) -> AssertionPlant<BigDecimal>>,
     toBePair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal) -> AssertionPlant<BigDecimal>>,
+    notToBePair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal) -> AssertionPlant<BigDecimal>>,
+    notToBeAnyFun: AssertionPlant<Any>.(Any) -> AssertionPlant<Any>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -46,6 +45,7 @@ abstract class BigDecimalAssertionsSpec(
     val (isNumericallyEqualTo, isNumericallyEqualToFun) = isNumericallyEqualToPair
     val (isNotNumericallyEqualTo, isNotNumericallyEqualToFun) = isNotNumericallyEqualToPair
     val (toBe, toBeFun) = toBePair
+    val (notToBe, notToBeFun) = notToBePair
 
     describeFun(isNumericallyEqualTo, isNotNumericallyEqualTo) {
         mapOf(
@@ -143,7 +143,30 @@ abstract class BigDecimalAssertionsSpec(
                 }
             }
         }
+    }
 
+    describeFun(notToBe) {
+        listOf(
+            BigDecimal("9"),
+            BigDecimal("10.0")
+        ).forEach { expected ->
+            context("subject is 10 and expected is $expected") {
+                test("overload with BigDecimal throws ${UnsupportedOperationException::class.simpleName}") {
+                    expect {
+                        assert(BigDecimal.TEN).notToBeFun(expected)
+                    }.toThrow<UnsupportedOperationException>()
+                }
+                test("overload with Any does not throw") {
+                    assert(BigDecimal.TEN).notToBeAnyFun(expected)
+                }
+            }
+        }
+
+        test("overload with BigDecimal where subject is 10 and expected is 10 -- still throws ${UnsupportedOperationException::class.simpleName}") {
+            expect {
+                assert(BigDecimal.TEN).notToBeFun(BigDecimal.TEN)
+            }.toThrow<UnsupportedOperationException>()
+        }
     }
 })
 

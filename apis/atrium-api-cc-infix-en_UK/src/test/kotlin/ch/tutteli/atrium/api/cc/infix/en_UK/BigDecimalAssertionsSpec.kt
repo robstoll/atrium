@@ -4,11 +4,14 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.math.BigDecimal
 
+
 class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
     isNumericallyEqualToPair(),
     isNotNumericallyEqualToPair(),
-    toBePair()
+    toBePair(),
+    notToBePair(),
+    Companion::notToBeAny
 ) {
     companion object {
         fun isNumericallyEqualToPair()
@@ -29,5 +32,17 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAss
 
         private fun toBe(plant: AssertionPlant<BigDecimal>, expected: BigDecimal)
             = plant toBe expected
+
+        @Suppress("DEPRECATION")
+        fun notToBePair()
+            = AssertionPlant<BigDecimal>::notToBe.name to Companion::notToBe
+
+        @Suppress("DEPRECATION")
+        private fun notToBe(plant: AssertionPlant<BigDecimal>, expected: BigDecimal): Nothing
+            = plant notToBe expected
+
+        private fun notToBeAny(plant: AssertionPlant<Any>, expected: Any)
+            = plant notToBe expected
+
     }
 }

@@ -8,13 +8,7 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAss
     AssertionVerbFactory,
     AssertionPlant<BigDecimal>::istNumerischGleichWie.name to AssertionPlant<BigDecimal>::istNumerischGleichWie,
     AssertionPlant<BigDecimal>::istNichtNumerischGleichWie.name to AssertionPlant<BigDecimal>::istNichtNumerischGleichWie,
-    toBePair()
-) {
-    companion object {
-        fun toBePair()
-            = AssertionPlant<BigDecimal>::ist.name to Companion::toBe
-
-        private fun toBe(plant: AssertionPlant<BigDecimal>, expected: BigDecimal)
-            = plant.ist(expected)
-    }
-}
+    AssertionPlant<BigDecimal>::ist.name to AssertionPlant<BigDecimal>::ist,
+    @Suppress("DEPRECATION") AssertionPlant<BigDecimal>::istNicht.name to @Suppress("DEPRECATION") AssertionPlant<BigDecimal>::istNicht,
+    AssertionPlant<Any>::istNicht
+)
