@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.assertions._isNotNumericallyEqualTo
-import ch.tutteli.atrium.assertions._isNumericallyEqualTo
 import ch.tutteli.atrium.assertions._isEqualIncludingScale
 import ch.tutteli.atrium.assertions._isNotEqualIncludingScale
+import ch.tutteli.atrium.assertions._isNotNumericallyEqualTo
+import ch.tutteli.atrium.assertions._isNumericallyEqualTo
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.math.BigDecimal
@@ -13,7 +13,7 @@ import java.math.BigDecimal
     "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo(expected) or isEqualIncludingScale(expected)"))
 @Suppress("unused")
-infix fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
+fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
     = throw UnsupportedOperationException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
     "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`.")
 
@@ -22,7 +22,7 @@ infix fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
     "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `isNotEqualIncludingScale`.",
     ReplaceWith("isNotNumericallyEqualTo(expected) or isNotEqualIncludingScale(expected)"))
 @Suppress("unused")
-infix fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
+fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
     = throw UnsupportedOperationException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
     "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`.")
 
