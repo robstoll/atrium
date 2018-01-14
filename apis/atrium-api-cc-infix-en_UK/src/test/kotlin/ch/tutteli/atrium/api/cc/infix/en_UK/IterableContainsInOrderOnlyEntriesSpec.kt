@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
@@ -30,7 +30,7 @@ class IterableContainsInOrderOnlyEntriesSpec : Spek({
         fun getContainsPair() =
             "$toContain $inOrder $butOnly $inOrderOnlyEntries" to Companion::containsInOrderOnly
 
-        private fun containsInOrderOnly(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
+        private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant to contain inGiven order but only entry a
             } else {
@@ -39,14 +39,14 @@ class IterableContainsInOrderOnlyEntriesSpec : Spek({
         }
 
         private fun getContainsShortcutName(): String {
-            val f: KFunction2<AssertionPlant<Iterable<Double>>, Entries<Double, AssertionPlant<Double>.() -> Unit>, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::containsStrictly
+            val f: KFunction2<Assert<Iterable<Double>>, Entries<Double, Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
             return f.name
         }
 
         fun getContainsShortcutPair()
             = getContainsShortcutName() to Companion::containsInOrderOnlyShortcut
 
-        private fun containsInOrderOnlyShortcut(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
+        private fun containsInOrderOnlyShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant containsStrictly a
             } else {

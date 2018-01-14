@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -12,7 +12,7 @@ import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderEntriesSpec(
     verbs: AssertionVerbFactory,
-    containsEntriesPair: Pair<String, AssertionPlant<Iterable<Double>>.(AssertionPlant<Double>.() -> Unit, Array<out AssertionPlant<Double>.() -> Unit>) -> AssertionPlant<Iterable<Double>>>,
+    containsEntriesPair: Pair<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>) -> Assert<Iterable<Double>>>,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
@@ -27,13 +27,13 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> AssertionPlant<Iterable<Double>> = verbs::checkImmediately
+    val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
     val (containsEntries, containsEntriesFunArr) = containsEntriesPair
 
-    fun AssertionPlant<Iterable<Double>>.containsEntriesFun(t: AssertionPlant<Double>.() -> Unit, vararg tX: (AssertionPlant<Double>.() -> Unit))
+    fun Assert<Iterable<Double>>.containsEntriesFun(t: Assert<Double>.() -> Unit, vararg tX: (Assert<Double>.() -> Unit))
         = containsEntriesFunArr(t, tX)
 
     describeFun(containsEntries) {

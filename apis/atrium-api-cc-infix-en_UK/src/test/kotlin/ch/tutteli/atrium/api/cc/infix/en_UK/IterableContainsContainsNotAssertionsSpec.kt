@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KFunction2
 
 class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsContainsNotAssertionSpec(
@@ -10,10 +10,10 @@ class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.asserti
     getContainsNotPair()
 ) {
     companion object {
-        private val containsFun: KFunction2<AssertionPlant<Iterable<Double>>, Values<Double>, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::contains
+        private val containsFun: KFunction2<Assert<Iterable<Double>>, Values<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains
         fun getContainsPair() = containsFun.name to Companion::contains
 
-        private fun contains(plant: AssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>): AssertionPlant<Iterable<Double>> {
+        private fun contains(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant contains a
             } else {
@@ -21,10 +21,10 @@ class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.asserti
             }
         }
 
-        private val containsNotFun: KFunction2<AssertionPlant<Iterable<Double>>, Values<Double>, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::containsNot
+        private val containsNotFun: KFunction2<Assert<Iterable<Double>>, Values<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsNot
         fun getContainsNotPair() = containsNotFun.name to Companion::containsNot
 
-        private fun containsNot(plant: AssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>): AssertionPlant<Iterable<Double>> {
+        private fun containsNot(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant containsNot a
             } else {

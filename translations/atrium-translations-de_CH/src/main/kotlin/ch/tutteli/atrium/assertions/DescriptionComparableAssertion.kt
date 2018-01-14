@@ -3,9 +3,9 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
- * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Number].
+ * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Comparable].
  */
-enum class DescriptionNumberAssertion(override val value: String) : StringBasedTranslatable {
+enum class DescriptionComparableAssertion(override val value: String) : StringBasedTranslatable {
     IS_LESS_THAN("ist weniger als"),
     IS_LESS_OR_EQUALS("ist weniger oder gleich"),
     IS_GREATER_THAN("ist grösser als"),

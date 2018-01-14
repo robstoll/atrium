@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is (equals) [expected].
+ * Makes the assertion that [AssertionPlant.subject] is (equal to) [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).ist(1.0)`
@@ -20,7 +20,7 @@ fun <T : Any> Assert<T>.ist(expected: T)
     = addAssertion(_toBe(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not (does not equal) [expected].
+ * Makes the assertion that [AssertionPlant.subject] is not (equal to) [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).istNicht(1.0)`

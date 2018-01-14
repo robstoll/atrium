@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
-import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -15,15 +15,15 @@ import org.jetbrains.spek.api.include
 
 abstract class NarrowingAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isNotNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: AssertionPlant<Int>.() -> Unit) -> Unit>,
+    isNotNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit>,
     isNotNullLessFun: AssertionPlantNullable<Int?>.(Int) -> Unit,
     isNotNullGreaterAndLessFun: AssertionPlantNullable<Int?>.(Int, Int) -> Unit,
     nameIsA: String,
-    isAIntFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<Int>.() -> Unit) -> Unit,
-    isAStringFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<String>.() -> Unit) -> Unit,
-    isACharSequenceFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<CharSequence>.() -> Unit) -> Unit,
-    isASubTypeFun: AssertionPlant<SuperType>.(assertionCreator: AssertionPlant<SubType>.() -> Unit) -> Unit,
-    isAIntLessFun: AssertionPlant<Number>.(Int) -> Unit,
+    isAIntFun: Assert<String>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit,
+    isAStringFun: Assert<String>.(assertionCreator: Assert<String>.() -> Unit) -> Unit,
+    isACharSequenceFun: Assert<String>.(assertionCreator: Assert<CharSequence>.() -> Unit) -> Unit,
+    isASubTypeFun: Assert<SuperType>.(assertionCreator: Assert<SubType>.() -> Unit) -> Unit,
+    isAIntLessFun: Assert<Number>.(Int) -> Unit,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -63,7 +63,7 @@ abstract class NarrowingAssertionsSpec(
                         message {
                             containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
                             contains(Integer::class.java.name)
-                            containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                            containsDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
                         }
                     }
                 }
@@ -102,8 +102,8 @@ abstract class NarrowingAssertionsSpec(
                         assert(i).isNotNullGreaterAndLessFun(2, 5)
                     }.toThrow<AssertionError> {
                         message {
-                            containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
-                            containsNotDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                            containsDefaultTranslationOf(DescriptionComparableAssertion.IS_GREATER_THAN)
+                            containsNotDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
                         }
                     }
                 }
@@ -115,8 +115,8 @@ abstract class NarrowingAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             containsDefaultTranslationOf(
-                                DescriptionNumberAssertion.IS_GREATER_THAN,
-                                DescriptionNumberAssertion.IS_LESS_THAN
+                                DescriptionComparableAssertion.IS_GREATER_THAN,
+                                DescriptionComparableAssertion.IS_LESS_THAN
                             )
                         }
                     }
@@ -145,7 +145,7 @@ abstract class NarrowingAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
-                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A, DescriptionNumberAssertion.IS_LESS_THAN)
+                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A, DescriptionComparableAssertion.IS_LESS_THAN)
                         contains(Integer::class.java.name)
                     }
                 }
@@ -155,7 +155,7 @@ abstract class NarrowingAssertionsSpec(
 
     describeFun(nameIsA) {
 
-        val assert: (String) -> AssertionPlant<String> = verbs::checkImmediately
+        val assert: (String) -> Assert<String> = verbs::checkImmediately
 
         context("subject is not in type hierarchy") {
             it("throws an AssertionError") {
@@ -186,7 +186,7 @@ abstract class NarrowingAssertionsSpec(
                     expect {
                         verbs.checkImmediately(actualValue).isAIntLessFun(expectedLessThan)
                     }.toThrow<AssertionError> {
-                        message { contains(actualValue, DescriptionNumberAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
+                        message { contains(actualValue, DescriptionComparableAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
                     }
                 }
             }
@@ -209,7 +209,7 @@ abstract class NarrowingAssertionsSpec(
                     expect {
                         verbs.checkImmediately(actualValue).isAIntLessFun(expectedLessThan)
                     }.toThrow<AssertionError> {
-                        message { contains(actualValue, DescriptionNumberAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
+                        message { contains(actualValue, DescriptionComparableAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
                     }
                 }
             }

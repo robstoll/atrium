@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,7 +14,7 @@ import org.jetbrains.spek.api.include
 
 abstract class IterableContainsNotAssertionSpec(
     verbs: AssertionVerbFactory,
-    containsNotTriple: Triple<String, (String) -> String, AssertionPlant<Iterable<Double>>.(Double, Array<out Double>) -> AssertionPlant<Iterable<Double>>>,
+    containsNotTriple: Triple<String, (String) -> String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -29,12 +29,12 @@ abstract class IterableContainsNotAssertionSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> AssertionPlant<Iterable<Double>> = verbs::checkImmediately
+    val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
     val (containsNot, containsNotTest, containsNotFunArr) = containsNotTriple
-    fun AssertionPlant<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double)
+    fun Assert<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double)
         = containsNotFunArr(a, aX.toTypedArray())
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()

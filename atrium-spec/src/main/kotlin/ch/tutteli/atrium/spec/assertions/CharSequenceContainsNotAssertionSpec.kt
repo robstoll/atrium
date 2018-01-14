@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -14,8 +14,8 @@ import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsNotAssertionSpec(
     verbs: AssertionVerbFactory,
-    containsNotTriple: Triple<String, (String) -> String, AssertionPlant<CharSequence>.(Any, Array<out Any>) -> AssertionPlant<CharSequence>>,
-    containsNotIgnoringCaseTriple: Triple<String, (String) -> String, AssertionPlant<CharSequence>.(Any, Array<out Any>) -> AssertionPlant<CharSequence>>,
+    containsNotTriple: Triple<String, (String) -> String, Assert<CharSequence>.(Any, Array<out Any>) -> Assert<CharSequence>>,
+    containsNotIgnoringCaseTriple: Triple<String, (String) -> String, Assert<CharSequence>.(Any, Array<out Any>) -> Assert<CharSequence>>,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -32,17 +32,17 @@ abstract class CharSequenceContainsNotAssertionSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (CharSequence) -> AssertionPlant<CharSequence> = verbs::checkImmediately
+    val assert: (CharSequence) -> Assert<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
     val fluentHelloWorld = assert(helloWorld)
 
     val (containsNot, containsNotTest, containsNotFunArr) = containsNotTriple
-    fun AssertionPlant<CharSequence>.containsNotFun(a: Any, vararg aX: Any)
+    fun Assert<CharSequence>.containsNotFun(a: Any, vararg aX: Any)
         = containsNotFunArr(a, aX)
 
     val (_, containsNotIgnoringCaseTest, containsNotIgnoringCaseFunArr) = containsNotIgnoringCaseTriple
-    fun AssertionPlant<CharSequence>.containsNotIgnoringCaseFun(a: Any, vararg aX: Any)
+    fun Assert<CharSequence>.containsNotIgnoringCaseFun(a: Any, vararg aX: Any)
         = containsNotIgnoringCaseFunArr(a, aX)
 
     val containsNotDescr = DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault()

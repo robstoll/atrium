@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -13,7 +13,7 @@ import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInOrderOnlyEntriesSpec(
     verbs: AssertionVerbFactory,
-    containsEntriesPair: Pair<String, AssertionPlant<Iterable<Double>>.(AssertionPlant<Double>.() -> Unit, Array<out AssertionPlant<Double>.() -> Unit>) -> AssertionPlant<Iterable<Double>>>,
+    containsEntriesPair: Pair<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>) -> Assert<Iterable<Double>>>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -35,13 +35,13 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> AssertionPlant<Iterable<Double>> = verbs::checkImmediately
+    val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)
     val fluent = assert(oneToFour)
 
     val (containsEntries, containsEntriesFunArr) = containsEntriesPair
-    fun AssertionPlant<Iterable<Double>>.containsEntriesFun(t: AssertionPlant<Double>.() -> Unit, vararg tX: AssertionPlant<Double>.() -> Unit)
+    fun Assert<Iterable<Double>>.containsEntriesFun(t: Assert<Double>.() -> Unit, vararg tX: Assert<Double>.() -> Unit)
         = containsEntriesFunArr(t, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
@@ -61,13 +61,13 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
     fun entry(index: Int)
         = String.format(entryWithIndex, index)
 
-    fun AssertionPlant<CharSequence>.entrySuccess(index: Int, actual: Any, expected: String): AssertionPlant<CharSequence> {
+    fun Assert<CharSequence>.entrySuccess(index: Int, actual: Any, expected: String): Assert<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentSuccessfulBulletPoint$anEntryAfterSuccess$expected")
     }
 
-    fun AssertionPlant<CharSequence>.entryFailing(index: Int, actual: Any, expected: String): AssertionPlant<CharSequence> {
+    fun Assert<CharSequence>.entryFailing(index: Int, actual: Any, expected: String): Assert<CharSequence> {
         return this.contains.exactly(1).regex(
             "\\Q$failingBulletPoint$featureArrow${entry(index)}: $actual\\E.*$separator" +
                 "$indentBulletPoint$indentFailingBulletPoint$anEntryAfterFailing$expected")

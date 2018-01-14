@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 object CollectionAssertionsSpec : ch.tutteli.atrium.spec.assertions.CollectionAssertionsSpec(
     AssertionVerbFactory,
-    AssertionPlant<List<Int>>::hasSize.name to AssertionPlant<List<Int>>::hasSize,
-    AssertionPlant<List<Int>>::isEmpty.name to AssertionPlant<List<Int>>::isEmpty,
-    AssertionPlant<List<Int>>::isNotEmpty.name to AssertionPlant<List<Int>>::isNotEmpty
+    Assert<List<Int>>::hasSize.name to Assert<List<Int>>::hasSize,
+    Assert<List<Int>>::isEmpty.name to Assert<List<Int>>::isEmpty,
+    Assert<List<Int>>::isNotEmpty.name to Assert<List<Int>>::isNotEmpty
 )

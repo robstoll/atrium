@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
@@ -27,8 +27,8 @@ abstract class AnyAssertionsSpec(
     isSame: String,
     isNotSame: String,
     isNullPair: Pair<String, AssertionPlantNullable<Int?>.() -> Unit>,
-    andPair: Pair<String, AssertionPlant<Int>.() -> AssertionPlant<Int>>,
-    andLazyPair: Pair<String, AssertionPlant<Int>.(AssertionPlant<Int>.() -> Unit) -> AssertionPlant<Int>>,
+    andPair: Pair<String, Assert<Int>.() -> Assert<Int>>,
+    andLazyPair: Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -57,7 +57,7 @@ abstract class AnyAssertionsSpec(
         = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-    val assert: (Int) -> AssertionPlant<Int> = verbs::checkImmediately
+    val assert: (Int) -> Assert<Int> = verbs::checkImmediately
     val (isNull, isNullFun) = isNullPair
     val (and, andProperty) = andPair
     val (andLazy, andLazyGroup) = andLazyPair
@@ -65,10 +65,10 @@ abstract class AnyAssertionsSpec(
     describeFun(toBe, notToBe, isSame, isNotSame) {
 
         context("primitive") {
-            val toBeFun: AssertionPlant<Int>.(Int) -> AssertionPlant<Int> = funInt.toBeFun
-            val notToBeFun: AssertionPlant<Int>.(Int) -> AssertionPlant<Int> = funInt.notToBeFun
-            val isSameFun: AssertionPlant<Int>.(Int) -> AssertionPlant<Int> = funInt.isSameFun
-            val isNotSameFun: AssertionPlant<Int>.(Int) -> AssertionPlant<Int> = funInt.isNotSameFun
+            val toBeFun: Assert<Int>.(Int) -> Assert<Int> = funInt.toBeFun
+            val notToBeFun: Assert<Int>.(Int) -> Assert<Int> = funInt.notToBeFun
+            val isSameFun: Assert<Int>.(Int) -> Assert<Int> = funInt.isSameFun
+            val isNotSameFun: Assert<Int>.(Int) -> Assert<Int> = funInt.isNotSameFun
 
             context("one equals the other") {
                 test("$toBe does not throw") {
@@ -110,10 +110,10 @@ abstract class AnyAssertionsSpec(
         context("class") {
             val test = DataClass(true)
             val fluent = verbs.checkImmediately(test)
-            val toBeFun: AssertionPlant<DataClass>.(DataClass) -> AssertionPlant<DataClass> = funDataClass.toBeFun
-            val notToBeFun: AssertionPlant<DataClass>.(DataClass) -> AssertionPlant<DataClass> = funDataClass.notToBeFun
-            val isSameFun: AssertionPlant<DataClass>.(DataClass) -> AssertionPlant<DataClass> = funDataClass.isSameFun
-            val isNotSameFun: AssertionPlant<DataClass>.(DataClass) -> AssertionPlant<DataClass> = funDataClass.isNotSameFun
+            val toBeFun: Assert<DataClass>.(DataClass) -> Assert<DataClass> = funDataClass.toBeFun
+            val notToBeFun: Assert<DataClass>.(DataClass) -> Assert<DataClass> = funDataClass.notToBeFun
+            val isSameFun: Assert<DataClass>.(DataClass) -> Assert<DataClass> = funDataClass.isSameFun
+            val isNotSameFun: Assert<DataClass>.(DataClass) -> Assert<DataClass> = funDataClass.isNotSameFun
             context("same") {
                 test("$toBe does not throw") {
                     fluent.toBeFun(test)
@@ -221,10 +221,10 @@ abstract class AnyAssertionsSpec(
 
 }) {
     interface AnyAssertionsSpecFunFactory<T : Any> {
-        val toBeFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
-        val notToBeFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
-        val isSameFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
-        val isNotSameFun: AssertionPlant<T>.(T) -> AssertionPlant<T>
+        val toBeFun: Assert<T>.(T) -> Assert<T>
+        val notToBeFun: Assert<T>.(T) -> Assert<T>
+        val isSameFun: Assert<T>.(T) -> Assert<T>
+        val isNotSameFun: Assert<T>.(T) -> Assert<T>
     }
 
     data class DataClass(val isWhatever: Boolean)
