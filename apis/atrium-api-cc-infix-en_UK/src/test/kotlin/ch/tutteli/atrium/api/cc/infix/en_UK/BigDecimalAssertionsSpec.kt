@@ -13,7 +13,8 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAss
     Companion::notToBeAny,
     isNumericallyEqualToPair(),
     isNotNumericallyEqualToPair(),
-    isEqualIncludingScalePair()
+    isEqualIncludingScalePair(),
+    isNotEqualIncludingScalePair()
 ) {
     companion object {
         @Suppress("DEPRECATION")
@@ -55,5 +56,11 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAss
 
         private fun isEqualIncludingScale(plant: Assert<BigDecimal>, expected: BigDecimal)
             = plant isEqualIncludingScale expected
+
+        fun isNotEqualIncludingScalePair()
+            = Assert<BigDecimal>::isNotEqualIncludingScale.name to Companion::isNotEqualIncludingScale
+
+        private fun isNotEqualIncludingScale(plant: Assert<BigDecimal>, expected: BigDecimal)
+            = plant isNotEqualIncludingScale expected
     }
 }

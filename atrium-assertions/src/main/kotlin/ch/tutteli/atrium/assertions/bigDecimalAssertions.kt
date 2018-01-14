@@ -7,6 +7,15 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import java.math.BigDecimal
 
+fun <T : BigDecimal> _isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
+    = BasicDescriptiveAssertion(IS_NUMERICALLY_EQUAL_TO, expected, { isNumericallyEqualTo(plant, expected) })
+
+private fun <T : BigDecimal> isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
+    = plant.subject.compareTo(expected) == 0
+
+fun <T : BigDecimal> _isNotNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
+    = BasicDescriptiveAssertion(IS_NOT_NUMERICALLY_EQUAL_TO, expected, { isNumericallyEqualTo(plant, expected).not() })
+
 fun <T : BigDecimal> _isEqualIncludingScale(plant: AssertionPlant<T>, expected: T, nameOfIsNumericallyEqualTo: String): Assertion {
     val isEqual = try {
         plant.subject == expected
@@ -28,11 +37,7 @@ fun <T : BigDecimal> failToBeWithHint(expected: T, nameOfIsNumericallyEqualTo: S
     return FixHoldsAssertionGroup(DefaultListAssertionGroupType, DescriptionAnyAssertion.TO_BE, expected, explanatoryAssertion, false)
 }
 
-fun <T : BigDecimal> _isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = BasicDescriptiveAssertion(IS_NUMERICALLY_EQUAL_TO, expected, { isNumericallyEqualTo(plant, expected) })
-
-private fun <T : BigDecimal> isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = plant.subject.compareTo(expected) == 0
-
-fun <T : BigDecimal> _isNotNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = BasicDescriptiveAssertion(IS_NOT_NUMERICALLY_EQUAL_TO, expected, { isNumericallyEqualTo(plant, expected).not() })
+fun <T : BigDecimal> _isNotEqualIncludingScale(plant: AssertionPlant<T>, expected: T)
+    // unfortunately we cannot give a hint about isNotNumericallyEqualTo, because <<10 is not 10.0>> holds
+    // so we do not get to the point where we can detect that it might not be the intention of the user
+    = _notToBe(plant, expected)

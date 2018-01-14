@@ -12,5 +12,6 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAss
     Assert<Any>::istNicht,
     Assert<BigDecimal>::istNumerischGleichWie.name to Assert<BigDecimal>::istNumerischGleichWie,
     Assert<BigDecimal>::istNichtNumerischGleichWie.name to Assert<BigDecimal>::istNichtNumerischGleichWie,
-    Assert<BigDecimal>::istGleichInklusivScale.name to Assert<BigDecimal>::istGleichInklusivScale
+    Assert<BigDecimal>::istGleichInklusiveScale.name to Assert<BigDecimal>::istGleichInklusiveScale,
+    Assert<BigDecimal>::istNichtGleichInklusiveScale.name to Assert<BigDecimal>::istNichtGleichInklusiveScale
 )
