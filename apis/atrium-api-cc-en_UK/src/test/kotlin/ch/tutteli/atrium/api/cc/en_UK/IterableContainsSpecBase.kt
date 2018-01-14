@@ -7,13 +7,13 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KProperty
 
 abstract class IterableContainsSpecBase {
-    private val containsProp: KProperty<*> = AssertionPlant<Iterable<Double>>::contains
+    private val containsProp: KProperty<*> = Assert<Iterable<Double>>::contains
     protected val contains = containsProp.name
-    private val containsNotProp: KProperty<*> = AssertionPlant<Iterable<Double>>::containsNot
+    private val containsNotProp: KProperty<*> = Assert<Iterable<Double>>::containsNot
     protected val containsNot = containsNotProp.name
     protected val atLeast = IterableContainsBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::atLeast.name
     protected val butAtMost = IterableContainsAtLeastCheckerBuilder<Double, Iterable<Double>>::butAtMost.name

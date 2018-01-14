@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AT_MOST
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -12,7 +12,7 @@ import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
     verbs: AssertionVerbFactory,
-    containsNotOrAtMostTriple: Triple<String, (String, String) -> String, AssertionPlant<Iterable<Double>>.(Int, Double, Array<out Double>) -> AssertionPlant<Iterable<Double>>>,
+    containsNotOrAtMostTriple: Triple<String, (String, String) -> String, Assert<Iterable<Double>>.(Int, Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
@@ -28,12 +28,12 @@ abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (Iterable<Double>) -> AssertionPlant<Iterable<Double>> = verbs::checkImmediately
+    val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(oneToSeven)
 
     val (containsNotOrAtMost, containsNotOrAtMostTest, containsNotOrAtMostFunArr) = containsNotOrAtMostTriple
-    fun AssertionPlant<Iterable<Double>>.containsNotOrAtMostFun(atLeast: Int, a: Double, vararg aX: Double)
+    fun Assert<Iterable<Double>>.containsNotOrAtMostFun(atLeast: Int, a: Double, vararg aX: Double)
         = containsNotOrAtMostFunArr(atLeast, a, aX.toTypedArray())
     val (containsNot, errorMsgContainsNot) = containsNotPair
 

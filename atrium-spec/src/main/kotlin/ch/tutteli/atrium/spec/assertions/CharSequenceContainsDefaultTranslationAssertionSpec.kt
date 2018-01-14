@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.AT_MOST
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -18,9 +18,9 @@ import org.jetbrains.spek.api.include
 abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
     verbs: AssertionVerbFactory,
     containsDefaultTranslationOf: String,
-    containsAtLeastTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Translatable, Array<out Translatable>) -> AssertionPlant<CharSequence>>,
-    containsAtMostTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Translatable, Array<out Translatable>) -> AssertionPlant<CharSequence>>,
-    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, AssertionPlant<CharSequence>.(Int, Translatable, Array<out Translatable>) -> AssertionPlant<CharSequence>>,
+    containsAtLeastTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Translatable, Array<out Translatable>) -> Assert<CharSequence>>,
+    containsAtMostTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Translatable, Array<out Translatable>) -> Assert<CharSequence>>,
+    containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Translatable, Array<out Translatable>) -> Assert<CharSequence>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -39,22 +39,22 @@ abstract class CharSequenceContainsDefaultTranslationAssertionSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (CharSequence) -> AssertionPlant<CharSequence> = verbs::checkImmediately
+    val assert: (CharSequence) -> Assert<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
 
     val text = "Assert - assert, assert, assert - ASSERT; expect the thrown exception"
     val fluent = assert(text)
 
     val (_, containsAtLeastTest, containsAtLeastFunArr) = containsAtLeastTriple
-    fun AssertionPlant<CharSequence>.containsAtLeastFun(atLeast: Int, a: Translatable, vararg aX: Translatable)
+    fun Assert<CharSequence>.containsAtLeastFun(atLeast: Int, a: Translatable, vararg aX: Translatable)
         = containsAtLeastFunArr(atLeast, a, aX)
 
     val (_, containsAtMostTest, containsAtMostFunArr) = containsAtMostTriple
-    fun AssertionPlant<CharSequence>.containsAtMostFun(atLeast: Int, a: Translatable, vararg aX: Translatable)
+    fun Assert<CharSequence>.containsAtMostFun(atLeast: Int, a: Translatable, vararg aX: Translatable)
         = containsAtMostFunArr(atLeast, a, aX)
 
     val (_, containsAtMostIgnoringCase, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCaseTriple
-    fun AssertionPlant<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Translatable, vararg aX: Translatable)
+    fun Assert<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: Translatable, vararg aX: Translatable)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
     describeFun(containsDefaultTranslationOf) {

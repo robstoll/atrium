@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 object BooleanAssertionsSpec : ch.tutteli.atrium.spec.assertions.BooleanAssertionsSpec(
     AssertionVerbFactory,
-    AssertionPlant<Boolean>::isTrue.name to AssertionPlant<Boolean>::isTrue,
-    AssertionPlant<Boolean>::isFalse.name to AssertionPlant<Boolean>::isFalse
+    Assert<Boolean>::isTrue.name to Assert<Boolean>::isTrue,
+    Assert<Boolean>::isFalse.name to Assert<Boolean>::isFalse
 )

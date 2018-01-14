@@ -4,19 +4,19 @@ import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.DescriptionNumberAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
-abstract class NumberAssertionsSpec(
+abstract class ComparableAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isLessThanPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
-    isLessOrEqualPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
-    isGreaterThanPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
-    isGreaterOrEqualPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
+    isLessThanPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
+    isLessOrEqualPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
+    isGreaterThanPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
+    isGreaterOrEqualPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -46,22 +46,22 @@ abstract class NumberAssertionsSpec(
             test("... 11 does not throw") {
                 fluent.isLessThanFun(11)
             }
-            test("... 10 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_THAN} and `: 10`") {
+            test("... 10 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_LESS_THAN} and `: 10`") {
                 expect {
                     fluent.isLessThanFun(10)
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                        containsDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
                         contains(": 10")
                     }
                 }
             }
-            test("... 9 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_THAN} and `: 10`") {
+            test("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_LESS_THAN} and `: 10`") {
                 expect {
                     fluent.isLessThanFun(9)
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_THAN)
+                        containsDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
                         contains(": 9")
                     }
                 }
@@ -75,12 +75,12 @@ abstract class NumberAssertionsSpec(
             test("... 10 does not throw") {
                 fluent.isLessOrEqualFun(10)
             }
-            test("... 9 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_LESS_OR_EQUALS} and `: 10`") {
+            test("... 9 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_LESS_OR_EQUALS} and `: 10`") {
                 expect {
                     fluent.isLessOrEqualFun(9)
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_LESS_OR_EQUALS)
+                        containsDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_OR_EQUALS)
                         contains(": 9")
                     }
                 }
@@ -88,22 +88,22 @@ abstract class NumberAssertionsSpec(
         }
 
         describe("$isGreaterThan ...") {
-            test("... 11 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_GREATER_THAN} and `: 11`") {
+            test("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_THAN} and `: 11`") {
                 expect {
                     fluent.isGreaterThanFun(11)
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
+                        containsDefaultTranslationOf(DescriptionComparableAssertion.IS_GREATER_THAN)
                         contains(": 11")
                     }
                 }
             }
-            test("... 10 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_GREATER_THAN} and `: 10`") {
+            test("... 10 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_THAN} and `: 10`") {
                 expect {
                     fluent.isGreaterThanFun(10)
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_THAN)
+                        containsDefaultTranslationOf(DescriptionComparableAssertion.IS_GREATER_THAN)
                         contains(": 10")
                     }
                 }
@@ -114,12 +114,12 @@ abstract class NumberAssertionsSpec(
         }
 
         describe("$isGreaterOrEqual ...") {
-            test("... 11 throws an AssertionError containing ${DescriptionNumberAssertion::class.simpleName}.${DescriptionNumberAssertion.IS_GREATER_OR_EQUALS} and `: 11`") {
+            test("... 11 throws an AssertionError containing ${DescriptionComparableAssertion::class.simpleName}.${DescriptionComparableAssertion.IS_GREATER_OR_EQUALS} and `: 11`") {
                 expect {
                     fluent.isGreaterOrEqualFun(11)
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNumberAssertion.IS_GREATER_OR_EQUALS)
+                        containsDefaultTranslationOf(DescriptionComparableAssertion.IS_GREATER_OR_EQUALS)
                         contains(": 11")
                     }
                 }

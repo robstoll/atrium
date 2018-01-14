@@ -1,3 +1,4 @@
+
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
@@ -5,7 +6,7 @@ import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertions
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -15,11 +16,11 @@ import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.math.absoluteValue
 
-abstract class FloatingPointAssertionsSpec(
+abstract class FloatingPointWithErrorToleranceAssertionsSpec(
     verbs: AssertionVerbFactory,
-    toBeWithErrorToleranceFloatPair: Pair<String, AssertionPlant<Float>.(Float, Float) -> AssertionPlant<Float>>,
-    toBeWithErrorToleranceDoublePair: Pair<String, AssertionPlant<Double>.(Double, Double) -> AssertionPlant<Double>>,
-    toBeWithErrorToleranceBigDecimalPair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal, BigDecimal) -> AssertionPlant<BigDecimal>>,
+    toBeWithErrorToleranceFloatPair: Pair<String, Assert<Float>.(Float, Float) -> Assert<Float>>,
+    toBeWithErrorToleranceDoublePair: Pair<String, Assert<Double>.(Double, Double) -> Assert<Double>>,
+    toBeWithErrorToleranceBigDecimalPair: Pair<String, Assert<BigDecimal>.(BigDecimal, BigDecimal) -> Assert<BigDecimal>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -46,7 +47,7 @@ abstract class FloatingPointAssertionsSpec(
     val df = DecimalFormat("###,##0.0")
     df.maximumFractionDigits = 340
 
-    fun <T : Any> SpecBody.describeFun(pair: Pair<String, AssertionPlant<T>.(T, T) -> AssertionPlant<T>>, withFailureNotice: Boolean, absDiff: (T, T) -> T, testData: List<TestData<T>>) {
+    fun <T : Any> SpecBody.describeFun(pair: Pair<String, Assert<T>.(T, T) -> Assert<T>>, withFailureNotice: Boolean, absDiff: (T, T) -> T, testData: List<TestData<T>>) {
         val (name, toBeWithErrorTolerance) = pair
         group("$describePrefix $name") {
             testData.forEach { (subject, tolerance, holding, failing) ->
@@ -104,7 +105,10 @@ abstract class FloatingPointAssertionsSpec(
     describeFun(toBeWithErrorToleranceBigDecimalPair, false, { a, b -> (a - b).abs() }, listOf(
         TestData(BigDecimal("9.99999999999999"), BigDecimal("0.00000000000001"),
             listOf(BigDecimal.TEN, BigDecimal("9.999999999999999999999999"), BigDecimal("9.99999999999998")),
-            listOf(BigDecimal("10.0000000000000000001"), BigDecimal("9.99999999999997"), BigDecimal("9.9999999999999799999999999999999999")))
+            listOf(BigDecimal("10.0000000000000000001"), BigDecimal("9.99999999999997"), BigDecimal("9.9999999999999799999999999999999999"))),
+        TestData(BigDecimal("10.0"), BigDecimal("0.001"),
+            listOf(BigDecimal.TEN, BigDecimal("10"), BigDecimal("10.000"), BigDecimal("10.001"), BigDecimal("10.0000000000000000001")),
+            listOf(BigDecimal("10.001000000001"), BigDecimal("9.99899999")))
     ))
 })
 

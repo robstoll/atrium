@@ -20,8 +20,8 @@ dependencies {
 dokka {
     sourceDirs = files(
         srcKotlin,
-        "../${rootProject.name}-core-api/$srcKotlin",
-        "../${rootProject.name}-core-impl-robstoll/$srcKotlin"
+        "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
+        "${rootProject.projectDir}/${rootProject.name}-core-impl-robstoll/$srcKotlin"
     )
 }
 

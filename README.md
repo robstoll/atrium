@@ -361,7 +361,7 @@ The assertion function `contains(2, 3)` is a shortcut for using a
 [Sophisticated Assertion Builder](#sophisticated-assertion-builders) -- it actually calls `contains.inAnyOrder.atLeast(1).values(2, 3)`. 
 This is reflected in the output, which tells us that we expected that the `number of occurrences` of `3` (which is actually `0`) `is at least: 1`.
 And what about the expected value `2`, why do we not see anything about it in the output?
-The output does not show anything about the expected value `2` because we defined an 
+The output does not show anything about the expected value `2` because we configured [`ReporterBuilder`](#reporterbuilder) to use an 
 [Only Failure Reporter](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium/-i-atrium-factory/new-only-failure-reporter.html) 
 which shows us only assertions (or sub assertions) which failed.
 
@@ -733,9 +733,10 @@ for more information and to see how the API styles differ.
 # Contribute
 You are very welcome to contribute:
 - [open an issue](https://github.com/robstoll/atrium/issues/new) or [create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
-- fork the repository and make a pull request
 - [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   so that I better understand where Atrium needs to improve.
+- have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
+  if you would like to code (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
 
 Please have a look at 
 [CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
@@ -750,15 +751,14 @@ According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_i
 library does not yet offer a lot of out of the box assertion functions. More functions will follow 
 but only if they are used somewhere by someone. So, let me know if you miss something by creating 
 a [feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
- 
 Some assertion functions which I miss myself will follow in the next version. 
 They are listed in the [Roadmap](#roadmap) below.
 
-Atrium does especially not support yet:
-- assertion functions for floating point numbers (where precision matters; 
-  please open a [Feature Requests](https://github.com/robstoll/atrium/issues/new?title=[Feature]) if you need them) 
+Atrium does not support (yet):
+- assertion functions for `Map`
 - infinite `Iterable`s
 - assertion functions for `Sequence` (you can use `asIterable` in the meantime)
+- assertion functions for `Array` (you can use `asIterable` in the meantime)
 
 # FAQ
 So far there have not been frequently asked questions but you are invited to ask your question
@@ -766,15 +766,16 @@ in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
 In case you do not have an account for kotlinlang.slack.com yet, then please [Invite yourself](http://slack.kotlinlang.org/). 
 
 # Roadmap
-I plan that Atrium will support in the future:
-- Assertion functions for `Iterable` with nullable elements
+I plan that Atrium is going to support in the future:
+- A sophisticated assertion builder for `toBeWithErrorTolerance` for floating point numbers (will allow to define)
 - Generating testing reports in html
   - generate multiple reports in the same test run
   - extension for Spek so that reporting includes the `describe`, `it` etc. 
 - Inclusion of mockito's verify (so that it appears in the report as well)
     
+Are you missing something else? 
 [Feature Requests](https://github.com/robstoll/atrium/issues/new?title=[Feature])
-and are very welcome.
+are very welcome.
 
 # License
 Atrium is published under [Apache 2.0](http://opensource.org/licenses/Apache2.0). 
