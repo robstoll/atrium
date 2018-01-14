@@ -4,15 +4,15 @@ import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KProperty
 
 abstract class CharSequenceContainsSpecBase {
-    private val containsProp: KProperty<*> = AssertionPlant<String>::enthaelt
+    private val containsProp: KProperty<*> = Assert<String>::enthaelt
     protected val contains = containsProp.name
-    private val containsNotProp: KProperty<*> = AssertionPlant<String>::enthaeltNicht
+    private val containsNotProp: KProperty<*> = Assert<String>::enthaeltNicht
     protected val containsNot = containsNotProp.name
-    protected val containsRegex = AssertionPlant<String>::enthaeltRegex.name
+    protected val containsRegex = Assert<String>::enthaeltRegex.name
     protected val atLeast = CharSequenceContainsBuilder<*, *>::zumindest.name
     protected val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<*, *>::aberHoechstens.name
     protected val exactly = CharSequenceContainsBuilder<*, *>::genau.name

@@ -1,16 +1,16 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 object CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceAssertionsSpec(
     AssertionVerbFactory,
-    AssertionPlant<CharSequence>::enthaeltStandardUebersetzungVon.name to AssertionPlant<CharSequence>::enthaeltStandardUebersetzungVon,
-    AssertionPlant<CharSequence>::enthaeltNichtDieStandardUebersetzungVon.name to AssertionPlant<CharSequence>::enthaeltNichtDieStandardUebersetzungVon,
-    AssertionPlant<CharSequence>::istLeer.name to AssertionPlant<CharSequence>::istLeer,
-    AssertionPlant<CharSequence>::istNichtLeer.name to AssertionPlant<CharSequence>::istNichtLeer,
-    AssertionPlant<CharSequence>::beginntMit.name to AssertionPlant<CharSequence>::beginntMit,
-    AssertionPlant<CharSequence>::beginntNichtMit.name to AssertionPlant<CharSequence>::beginntNichtMit,
-    AssertionPlant<CharSequence>::endetMit.name to AssertionPlant<CharSequence>::endetMit,
-    AssertionPlant<CharSequence>::endetNichtMit.name to AssertionPlant<CharSequence>::endetNichtMit
+    Assert<CharSequence>::enthaeltStandardUebersetzungVon.name to Assert<CharSequence>::enthaeltStandardUebersetzungVon,
+    Assert<CharSequence>::enthaeltNichtDieStandardUebersetzungVon.name to Assert<CharSequence>::enthaeltNichtDieStandardUebersetzungVon,
+    Assert<CharSequence>::istLeer.name to Assert<CharSequence>::istLeer,
+    Assert<CharSequence>::istNichtLeer.name to Assert<CharSequence>::istNichtLeer,
+    Assert<CharSequence>::beginntMit.name to Assert<CharSequence>::beginntMit,
+    Assert<CharSequence>::beginntNichtMit.name to Assert<CharSequence>::beginntNichtMit,
+    Assert<CharSequence>::endetMit.name to Assert<CharSequence>::endetMit,
+    Assert<CharSequence>::endetNichtMit.name to Assert<CharSequence>::endetNichtMit
 )

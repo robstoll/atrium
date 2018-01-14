@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsDefaultTranslationAssertionSpec(
@@ -22,7 +22,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: AssertionPlant<CharSequence>, atLeast: Int, a: Translatable, aX: Array<out Translatable>): AssertionPlant<CharSequence> {
+        private fun containsAtLeast(plant: Assert<CharSequence>, atLeast: Int, a: Translatable, aX: Array<out Translatable>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant to contain atLeast atLeast defaultTranslationOf a
             } else {
@@ -36,7 +36,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: AssertionPlant<CharSequence>, atMost: Int, a: Translatable, aX: Array<out Translatable>)
+        private fun containsAtMost(plant: Assert<CharSequence>, atMost: Int, a: Translatable, aX: Array<out Translatable>)
             = plant to contain atMost atMost the DefaultTranslationsOf(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
@@ -45,7 +45,7 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
             Companion::containsAtMostIgnoringCase
         )
 
-        private fun containsAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atMost: Int, a: Translatable, aX: Array<out Translatable>): AssertionPlant<CharSequence> {
+        private fun containsAtMostIgnoringCase(plant: Assert<CharSequence>, atMost: Int, a: Translatable, aX: Array<out Translatable>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atMost atMost defaultTranslationOf a
             } else {

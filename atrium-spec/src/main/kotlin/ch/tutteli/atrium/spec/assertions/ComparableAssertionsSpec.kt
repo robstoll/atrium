@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -13,10 +13,10 @@ import org.jetbrains.spek.api.include
 
 abstract class ComparableAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isLessThanPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
-    isLessOrEqualPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
-    isGreaterThanPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
-    isGreaterOrEqualPair: Pair<String, AssertionPlant<Int>.(Int) -> AssertionPlant<Int>>,
+    isLessThanPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
+    isLessOrEqualPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
+    isGreaterThanPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
+    isGreaterOrEqualPair: Pair<String, Assert<Int>.(Int) -> Assert<Int>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

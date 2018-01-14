@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction3
@@ -30,7 +30,7 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
         fun getContainsPair() =
             "$contains.$inOrder.$only.$inOrderOnlyValues" to Companion::containsInOrderOnly
 
-        private fun containsInOrderOnly(plant: AssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>): AssertionPlant<Iterable<Double>> {
+        private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant.contains.inOrder.only.`object`(a)
             } else {
@@ -39,14 +39,14 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
         }
 
         private fun getContainsShortcutName(): String {
-            val f: KFunction3<AssertionPlant<Iterable<Double>>, Double, Array<out Double>, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::containsStrictly
+            val f: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
             return f.name
         }
 
         fun getContainsShortcutPair()
             = getContainsShortcutName() to Companion::containsInOrderOnlyShortcut
 
-        private fun containsInOrderOnlyShortcut(plant: AssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>)
+        private fun containsInOrderOnlyShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
             = plant.containsStrictly(a, *aX)
     }
 }

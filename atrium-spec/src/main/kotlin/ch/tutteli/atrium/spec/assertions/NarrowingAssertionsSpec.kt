@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
 import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -15,15 +15,15 @@ import org.jetbrains.spek.api.include
 
 abstract class NarrowingAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isNotNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: AssertionPlant<Int>.() -> Unit) -> Unit>,
+    isNotNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit>,
     isNotNullLessFun: AssertionPlantNullable<Int?>.(Int) -> Unit,
     isNotNullGreaterAndLessFun: AssertionPlantNullable<Int?>.(Int, Int) -> Unit,
     nameIsA: String,
-    isAIntFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<Int>.() -> Unit) -> Unit,
-    isAStringFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<String>.() -> Unit) -> Unit,
-    isACharSequenceFun: AssertionPlant<String>.(assertionCreator: AssertionPlant<CharSequence>.() -> Unit) -> Unit,
-    isASubTypeFun: AssertionPlant<SuperType>.(assertionCreator: AssertionPlant<SubType>.() -> Unit) -> Unit,
-    isAIntLessFun: AssertionPlant<Number>.(Int) -> Unit,
+    isAIntFun: Assert<String>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit,
+    isAStringFun: Assert<String>.(assertionCreator: Assert<String>.() -> Unit) -> Unit,
+    isACharSequenceFun: Assert<String>.(assertionCreator: Assert<CharSequence>.() -> Unit) -> Unit,
+    isASubTypeFun: Assert<SuperType>.(assertionCreator: Assert<SubType>.() -> Unit) -> Unit,
+    isAIntLessFun: Assert<Number>.(Int) -> Unit,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -155,7 +155,7 @@ abstract class NarrowingAssertionsSpec(
 
     describeFun(nameIsA) {
 
-        val assert: (String) -> AssertionPlant<String> = verbs::checkImmediately
+        val assert: (String) -> Assert<String> = verbs::checkImmediately
 
         context("subject is not in type hierarchy") {
             it("throws an AssertionError") {

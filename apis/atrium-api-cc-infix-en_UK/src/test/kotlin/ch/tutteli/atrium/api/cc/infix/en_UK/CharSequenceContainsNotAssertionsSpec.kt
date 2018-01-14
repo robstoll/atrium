@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsNotAssertionSpec(
     AssertionVerbFactory,
@@ -17,7 +17,7 @@ class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.
             Companion::containsNotFun
         )
 
-        private fun containsNotFun(plant: AssertionPlant<CharSequence>, a: Any, aX: Array<out Any>): AssertionPlant<CharSequence> {
+        private fun containsNotFun(plant: Assert<CharSequence>, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant notTo contain value a
             } else {
@@ -31,7 +31,7 @@ class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.
             Companion::containsNotIgnoringCase
         )
 
-        private fun containsNotIgnoringCase(plant: AssertionPlant<CharSequence>, a: Any, aX: Array<out Any>): AssertionPlant<CharSequence> {
+        private fun containsNotIgnoringCase(plant: Assert<CharSequence>, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant notTo contain ignoring case value a
             } else {

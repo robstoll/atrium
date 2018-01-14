@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.CONTAINS_NOT
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -12,8 +12,8 @@ import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsContainsNotAssertionSpec(
     verbs: AssertionVerbFactory,
-    containsPair: Pair<String, AssertionPlant<CharSequence>.(String, Array<out String>) -> AssertionPlant<CharSequence>>,
-    containsNotPair: Pair<String, AssertionPlant<CharSequence>.(String, Array<out String>) -> AssertionPlant<CharSequence>>,
+    containsPair: Pair<String, Assert<CharSequence>.(String, Array<out String>) -> Assert<CharSequence>>,
+    containsNotPair: Pair<String, Assert<CharSequence>.(String, Array<out String>) -> Assert<CharSequence>>,
     featureArrow: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
@@ -31,16 +31,16 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val assert: (CharSequence) -> AssertionPlant<CharSequence> = verbs::checkImmediately
+    val assert: (CharSequence) -> Assert<CharSequence> = verbs::checkImmediately
     val expect = verbs::checkException
     val fluent = assert(text)
 
     val (containsFunName, containsFunArr) = containsPair
-    fun AssertionPlant<CharSequence>.containsFun(t: String, vararg tX: String)
+    fun Assert<CharSequence>.containsFun(t: String, vararg tX: String)
         = containsFunArr(t, tX)
 
     val (containsNot, containsNotFunArr) = containsNotPair
-    fun AssertionPlant<CharSequence>.containsNotFun(t: String, vararg tX: String)
+    fun Assert<CharSequence>.containsNotFun(t: String, vararg tX: String)
         = containsNotFunArr(t, tX)
 
     describeFun(containsFunName, containsNot) {

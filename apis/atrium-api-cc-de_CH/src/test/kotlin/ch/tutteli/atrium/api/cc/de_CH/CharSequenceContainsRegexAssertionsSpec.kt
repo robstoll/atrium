@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsRegexAssertionSpec(
     AssertionVerbFactory,
@@ -22,7 +22,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: AssertionPlant<CharSequence>, atLeast: Int, a: String, aX: Array<out String>)
+        private fun containsAtLeast(plant: Assert<CharSequence>, atLeast: Int, a: String, aX: Array<out String>)
             = plant.enthaelt.zumindest(atLeast).regex(a, *aX)
 
 
@@ -32,7 +32,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsShortcut
         )
 
-        private fun containsShortcut(plant: AssertionPlant<CharSequence>, a: String, aX: Array<out String>)
+        private fun containsShortcut(plant: Assert<CharSequence>, a: String, aX: Array<out String>)
             = plant.enthaeltRegex(a, *aX)
 
 
@@ -42,7 +42,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: AssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
+        private fun containsAtMost(plant: Assert<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
             = plant.enthaelt.hoechstens(atMost).regex(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
@@ -51,7 +51,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMostIgnoringCase
         )
 
-        private fun containsAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
+        private fun containsAtMostIgnoringCase(plant: Assert<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
             = plant.enthaelt.ignoriereGrossKleinschreibung.hoechstens(atMost).regex(a, *aX)
     }
 }

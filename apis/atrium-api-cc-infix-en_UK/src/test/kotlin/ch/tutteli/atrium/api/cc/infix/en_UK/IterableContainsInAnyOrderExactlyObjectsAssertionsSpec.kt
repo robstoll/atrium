@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 class IterableContainsInAnyOrderExactlyObjectsAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
     AssertionVerbFactory,
@@ -17,7 +17,7 @@ class IterableContainsInAnyOrderExactlyObjectsAssertionsSpec : ch.tutteli.atrium
             Companion::containsExactly
         )
 
-        private fun containsExactly(plant: AssertionPlant<Iterable<Double>>, exactly: Int, a: Double, aX: Array<out Double>): AssertionPlant<Iterable<Double>> {
+        private fun containsExactly(plant: Assert<Iterable<Double>>, exactly: Int, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant to contain inAny order exactly exactly `object` a
             } else {

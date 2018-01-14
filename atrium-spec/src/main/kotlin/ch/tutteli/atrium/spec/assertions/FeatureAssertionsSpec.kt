@@ -3,7 +3,7 @@ package ch.tutteli.atrium.spec.assertions
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.checkGenericNarrowingAssertion
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -26,7 +26,7 @@ data class TestData(val description: String, val nullableValue: Int?) {
     fun returnNullable4(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double) = nullableValue
     fun returnNullable5(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double, arg5: Char) = nullableValue
 }
-private typealias F = AssertionPlant<TestData>.() -> Unit
+private typealias F = Assert<TestData>.() -> Unit
 
 abstract class FeatureAssertionsSpec(
     verbs: AssertionVerbFactory,
@@ -70,7 +70,7 @@ abstract class FeatureAssertionsSpec(
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit)
         = prefixedDescribe(describePrefix, description, body)
 
-    val assert: (TestData) -> AssertionPlant<TestData> = verbs::checkImmediately
+    val assert: (TestData) -> Assert<TestData> = verbs::checkImmediately
     val expect = verbs::checkException
 
     val functions = arrayOf(

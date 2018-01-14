@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertions
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -18,9 +18,9 @@ import kotlin.math.absoluteValue
 
 abstract class FloatingPointWithErrorToleranceAssertionsSpec(
     verbs: AssertionVerbFactory,
-    toBeWithErrorToleranceFloatPair: Pair<String, AssertionPlant<Float>.(Float, Float) -> AssertionPlant<Float>>,
-    toBeWithErrorToleranceDoublePair: Pair<String, AssertionPlant<Double>.(Double, Double) -> AssertionPlant<Double>>,
-    toBeWithErrorToleranceBigDecimalPair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal, BigDecimal) -> AssertionPlant<BigDecimal>>,
+    toBeWithErrorToleranceFloatPair: Pair<String, Assert<Float>.(Float, Float) -> Assert<Float>>,
+    toBeWithErrorToleranceDoublePair: Pair<String, Assert<Double>.(Double, Double) -> Assert<Double>>,
+    toBeWithErrorToleranceBigDecimalPair: Pair<String, Assert<BigDecimal>.(BigDecimal, BigDecimal) -> Assert<BigDecimal>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -47,7 +47,7 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
     val df = DecimalFormat("###,##0.0")
     df.maximumFractionDigits = 340
 
-    fun <T : Any> SpecBody.describeFun(pair: Pair<String, AssertionPlant<T>.(T, T) -> AssertionPlant<T>>, withFailureNotice: Boolean, absDiff: (T, T) -> T, testData: List<TestData<T>>) {
+    fun <T : Any> SpecBody.describeFun(pair: Pair<String, Assert<T>.(T, T) -> Assert<T>>, withFailureNotice: Boolean, absDiff: (T, T) -> T, testData: List<TestData<T>>) {
         val (name, toBeWithErrorTolerance) = pair
         group("$describePrefix $name") {
             testData.forEach { (subject, tolerance, holding, failing) ->
