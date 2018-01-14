@@ -6,9 +6,11 @@ import java.math.BigDecimal
 
 class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
+    @Suppress("DEPRECATION") Assert<BigDecimal>::ist.name to @Suppress("DEPRECATION") Assert<BigDecimal>::ist,
+    Assert<Any>::ist,
+    @Suppress("DEPRECATION") Assert<BigDecimal>::istNicht.name to @Suppress("DEPRECATION") Assert<BigDecimal>::istNicht,
+    Assert<Any>::istNicht,
     Assert<BigDecimal>::istNumerischGleichWie.name to Assert<BigDecimal>::istNumerischGleichWie,
     Assert<BigDecimal>::istNichtNumerischGleichWie.name to Assert<BigDecimal>::istNichtNumerischGleichWie,
-    Assert<BigDecimal>::ist.name to Assert<BigDecimal>::ist,
-    @Suppress("DEPRECATION") Assert<BigDecimal>::istNicht.name to @Suppress("DEPRECATION") Assert<BigDecimal>::istNicht,
-    Assert<Any>::istNicht
+    Assert<BigDecimal>::istGleichInklusivScale.name to Assert<BigDecimal>::istGleichInklusivScale
 )

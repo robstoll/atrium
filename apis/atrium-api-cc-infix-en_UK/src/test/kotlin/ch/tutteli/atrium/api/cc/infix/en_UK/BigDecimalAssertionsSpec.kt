@@ -7,30 +7,24 @@ import java.math.BigDecimal
 
 class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
+    toBePair(),
+    Companion::toBeAny,
+    notToBePair(),
+    Companion::notToBeAny,
     isNumericallyEqualToPair(),
     isNotNumericallyEqualToPair(),
-    toBePair(),
-    notToBePair(),
-    Companion::notToBeAny
+    isEqualIncludingScalePair()
 ) {
     companion object {
-        fun isNumericallyEqualToPair()
-            = Assert<BigDecimal>::isNumericallyEqualTo.name to Companion::isNumericallyEqualTo
-
-        private fun isNumericallyEqualTo(plant: Assert<BigDecimal>, expected: BigDecimal)
-            = plant isNumericallyEqualTo expected
-
-        fun isNotNumericallyEqualToPair()
-            = Assert<BigDecimal>::isNotNumericallyEqualTo.name to Companion::isNotNumericallyEqualTo
-
-        private fun isNotNumericallyEqualTo(plant: Assert<BigDecimal>, expected: BigDecimal)
-            = plant isNotNumericallyEqualTo expected
-
-
+        @Suppress("DEPRECATION")
         fun toBePair()
             = Assert<BigDecimal>::toBe.name to Companion::toBe
 
-        private fun toBe(plant: Assert<BigDecimal>, expected: BigDecimal)
+        @Suppress("DEPRECATION")
+        private fun toBe(plant: Assert<BigDecimal>, a: BigDecimal): Nothing
+            = plant toBe a
+
+        private fun toBeAny(plant: Assert<Any>, expected: Any)
             = plant toBe expected
 
         @Suppress("DEPRECATION")
@@ -44,5 +38,22 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAss
         private fun notToBeAny(plant: Assert<Any>, expected: Any)
             = plant notToBe expected
 
+        fun isNumericallyEqualToPair()
+            = Assert<BigDecimal>::isNumericallyEqualTo.name to Companion::isNumericallyEqualTo
+
+        private fun isNumericallyEqualTo(plant: Assert<BigDecimal>, expected: BigDecimal)
+            = plant isNumericallyEqualTo expected
+
+        fun isNotNumericallyEqualToPair()
+            = Assert<BigDecimal>::isNotNumericallyEqualTo.name to Companion::isNotNumericallyEqualTo
+
+        private fun isNotNumericallyEqualTo(plant: Assert<BigDecimal>, expected: BigDecimal)
+            = plant isNotNumericallyEqualTo expected
+
+        fun isEqualIncludingScalePair()
+            = Assert<BigDecimal>::isEqualIncludingScale.name to Companion::isEqualIncludingScale
+
+        private fun isEqualIncludingScale(plant: Assert<BigDecimal>, expected: BigDecimal)
+            = plant isEqualIncludingScale expected
     }
 }
