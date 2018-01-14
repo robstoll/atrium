@@ -143,7 +143,7 @@ abstract class BigDecimalAssertionsSpec(
                     assertTen.isNotEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(subject, "${DescriptionAnyAssertion.NOT_TO_BE.getDefault()}: $expected")
+                        contains(subject, "${DescriptionBigDecimalAssertions.IS_NOT_EQUAL_INCLUDING_SCALE.getDefault()}: $expected")
                         containsNot(failureHintNotNumerically)
                     }
                 }
@@ -184,7 +184,7 @@ abstract class BigDecimalAssertionsSpec(
                         message {
                             contains(
                                 subject,
-                                "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected",
+                                "${DescriptionBigDecimalAssertions.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected",
                                 failureHintNumerically
                             )
                         }
@@ -228,7 +228,7 @@ abstract class BigDecimalAssertionsSpec(
                     assertTen.isEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(subject, "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
+                        contains(subject, "${DescriptionBigDecimalAssertions.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected")
                         containsNot(failureHintNumerically)
                     }
                 }
