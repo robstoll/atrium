@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsRegexAssertionSpec(
     AssertionVerbFactory,
@@ -22,7 +22,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: AssertionPlant<CharSequence>, atLeast: Int, a: String, aX: Array<out String>): AssertionPlant<CharSequence> {
+        private fun containsAtLeast(plant: Assert<CharSequence>, atLeast: Int, a: String, aX: Array<out String>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant to contain atLeast atLeast regex a
             } else {
@@ -36,7 +36,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsShortcut
         )
 
-        private fun containsShortcut(plant: AssertionPlant<CharSequence>, a: String, aX: Array<out String>): AssertionPlant<CharSequence> {
+        private fun containsShortcut(plant: Assert<CharSequence>, a: String, aX: Array<out String>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant containsRegex a
             } else {
@@ -50,7 +50,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMost
         )
 
-        private fun containsAtMost(plant: AssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
+        private fun containsAtMost(plant: Assert<CharSequence>, atMost: Int, a: String, aX: Array<out String>)
             = plant to contain atMost atMost the RegexPatterns(a, *aX)
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
@@ -59,7 +59,7 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.assertion
             Companion::containsAtMostIgnoringCase
         )
 
-        private fun containsAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atMost: Int, a: String, aX: Array<out String>): AssertionPlant<CharSequence> {
+        private fun containsAtMostIgnoringCase(plant: Assert<CharSequence>, atMost: Int, a: String, aX: Array<out String>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant to contain ignoring case atMost atMost regex a
             } else {

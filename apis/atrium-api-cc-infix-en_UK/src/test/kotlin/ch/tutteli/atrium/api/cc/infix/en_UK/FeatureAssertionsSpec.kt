@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.assertions.TestData
 
-private typealias F = AssertionPlant<TestData>.() -> Unit
+private typealias F = Assert<TestData>.() -> Unit
 
 class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertionsSpec(
     AssertionVerbFactory,

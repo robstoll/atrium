@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsAtLeastAssertionSpec(
     AssertionVerbFactory,
@@ -22,7 +22,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
             Companion::containsAtLeast
         )
 
-        private fun containsAtLeast(plant: AssertionPlant<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): AssertionPlant<CharSequence> {
+        private fun containsAtLeast(plant: Assert<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant.contains.atLeast(atLeast).value(a)
             } else {
@@ -36,7 +36,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
             Companion::containsAtLeastIgnoringCase
         )
 
-        private fun containsAtLeastIgnoringCase(plant: AssertionPlant<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): AssertionPlant<CharSequence> {
+        private fun containsAtLeastIgnoringCase(plant: Assert<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant.contains.ignoringCase.atLeast(atLeast).value(a)
             } else {
@@ -50,7 +50,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
             Companion::containsAtLeastButAtMost
         )
 
-        private fun containsAtLeastButAtMost(plant: AssertionPlant<CharSequence>, atLeast: Int, butAtMost: Int, a: Any, aX: Array<out Any>)
+        private fun containsAtLeastButAtMost(plant: Assert<CharSequence>, atLeast: Int, butAtMost: Int, a: Any, aX: Array<out Any>)
             = plant.contains.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
         private fun getAtLeastBustAtMostIgnoringCaseTriple() = Triple(
@@ -59,7 +59,7 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.asserti
             Companion::containsAtLeastButAtMostIgnoringCase
         )
 
-        private fun containsAtLeastButAtMostIgnoringCase(plant: AssertionPlant<CharSequence>, atLeast: Int, butAtMost: Int, a: Any, aX: Array<out Any>)
+        private fun containsAtLeastButAtMostIgnoringCase(plant: Assert<CharSequence>, atLeast: Int, butAtMost: Int, a: Any, aX: Array<out Any>)
             = plant.contains.ignoringCase.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

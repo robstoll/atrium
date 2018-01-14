@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
     AssertionVerbFactory,
@@ -17,7 +17,7 @@ class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec : ch.tutteli.at
             Companion::containsNotOrAtMost
         )
 
-        private fun containsNotOrAtMost(plant: AssertionPlant<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
+        private fun containsNotOrAtMost(plant: Assert<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
             = plant to contain inAny order notOrAtMost atMost the Values(a, *aX)
 
         private fun getContainsNotPair() = containsNotValues to Companion::getErrorMsgContainsNot

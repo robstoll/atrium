@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KFunction3
 
 class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsContainsNotAssertionSpec(
@@ -10,16 +10,16 @@ class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.asserti
     getContainsNotPair()
 ) {
     companion object : IterableContainsSpecBase() {
-        private val containsFun: KFunction3<AssertionPlant<Iterable<Double>>, Double, Array<out Double>, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::enthaelt
+        private val containsFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaelt
         fun getContainsPair() = containsFun.name to Companion::containsShortcut
 
-        private fun containsShortcut(plant: AssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>)
+        private fun containsShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
             = plant.enthaelt(a, *aX)
 
-        private val containsNotFun: KFunction3<AssertionPlant<Iterable<Double>>, Double, Array<out Double>, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::enthaeltNicht
+        private val containsNotFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaeltNicht
         private fun getContainsNotPair() = containsNotFun.name to Companion::containsNotShortcut
 
-        private fun containsNotShortcut(plant: AssertionPlant<Iterable<Double>>, a: Double, aX: Array<out Double>)
+        private fun containsNotShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
             = plant.enthaeltNicht(a, *aX)
     }
 }

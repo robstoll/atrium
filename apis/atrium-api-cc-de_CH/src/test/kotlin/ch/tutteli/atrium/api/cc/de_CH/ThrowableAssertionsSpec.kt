@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 
 class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.assertions.ThrowableAssertionsSpec(
     AssertionVerbFactory,
@@ -19,14 +19,14 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.assertions.ThrowableAsser
             builder.wirft<IllegalArgumentException>()
         }
 
-        private fun toThrowLazy(builder: ThrowableThrownBuilder, assertionCreator: AssertionPlant<Throwable>.() -> Unit) {
+        private fun toThrowLazy(builder: ThrowableThrownBuilder, assertionCreator: Assert<Throwable>.() -> Unit) {
             builder.wirft<IllegalArgumentException>(assertionCreator)
         }
 
         private fun getMessagePair() =
-            AssertionPlant<Throwable>::message.name to AssertionPlant<Throwable>::message
+            Assert<Throwable>::message.name to Assert<Throwable>::message
 
-        private fun messageContains(plant: AssertionPlant<Throwable>, expected: Any)
+        private fun messageContains(plant: Assert<Throwable>, expected: Any)
             = plant.message { enthaelt(expected) }
     }
 }

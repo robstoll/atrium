@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.containsNot
+import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
 import ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertions
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
@@ -16,11 +18,11 @@ import java.math.BigDecimal
 
 abstract class BigDecimalAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isNumericallyEqualToPair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal) -> AssertionPlant<BigDecimal>>,
-    isNotNumericallyEqualToPair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal) -> AssertionPlant<BigDecimal>>,
-    toBePair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal) -> AssertionPlant<BigDecimal>>,
-    notToBePair: Pair<String, AssertionPlant<BigDecimal>.(BigDecimal) -> AssertionPlant<BigDecimal>>,
-    notToBeAnyFun: AssertionPlant<Any>.(Any) -> AssertionPlant<Any>,
+    isNumericallyEqualToPair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
+    isNotNumericallyEqualToPair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
+    toBePair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
+    notToBePair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
+    notToBeAnyFun: Assert<Any>.(Any) -> Assert<Any>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

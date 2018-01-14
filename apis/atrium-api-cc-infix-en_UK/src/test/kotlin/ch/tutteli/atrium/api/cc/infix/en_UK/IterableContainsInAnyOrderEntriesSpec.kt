@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
@@ -28,7 +28,7 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
         fun getEntriesPair()
             = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::entries
 
-        private fun entries(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
+        private fun entries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant to contain inAny order atLeast 1 entry a
             } else {
@@ -37,14 +37,14 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
         }
 
         private fun getContainsShortcutName(): String {
-            val f: KFunction2<AssertionPlant<Iterable<Double>>, AssertionPlant<Double>.() -> Unit, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::contains
+            val f: KFunction2<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains
             return f.name
         }
 
         fun getEntriesShortcutPair()
             = getContainsShortcutName() to Companion::entriesShortcut
 
-        private fun entriesShortcut(plant: AssertionPlant<Iterable<Double>>, a: AssertionPlant<Double>.() -> Unit, aX: Array<out AssertionPlant<Double>.() -> Unit>): AssertionPlant<Iterable<Double>> {
+        private fun entriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant contains a
             } else {

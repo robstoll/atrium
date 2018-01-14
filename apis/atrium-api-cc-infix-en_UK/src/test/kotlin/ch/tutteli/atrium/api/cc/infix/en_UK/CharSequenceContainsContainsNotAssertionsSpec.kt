@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.nameContainsNotValuesFun
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KFunction2
 
 class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsContainsNotAssertionSpec(
@@ -12,10 +12,10 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.ass
     "▶ "
 ) {
     companion object {
-        private val containsFun: KFunction2<AssertionPlant<CharSequence>, Values<Any>, AssertionPlant<CharSequence>> = AssertionPlant<CharSequence>::contains
+        private val containsFun: KFunction2<Assert<CharSequence>, Values<Any>, Assert<CharSequence>> = Assert<CharSequence>::contains
         fun getContainsPair() = "${containsFun.name} ${Values::class.simpleName}" to Companion::contains
 
-        private fun contains(plant: AssertionPlant<CharSequence>, a: Any, aX: Array<out Any>): AssertionPlant<CharSequence> {
+        private fun contains(plant: Assert<CharSequence>, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant contains a
             } else {
@@ -23,7 +23,7 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.ass
             }
         }
 
-        private fun containsNot(plant: AssertionPlant<CharSequence>, a: Any, aX: Array<out Any>): AssertionPlant<CharSequence> {
+        private fun containsNot(plant: Assert<CharSequence>, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
                 plant containsNot a
             } else {
