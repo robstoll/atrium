@@ -12,17 +12,18 @@ import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
-import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 import java.math.BigDecimal
 
 abstract class BigDecimalAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isNumericallyEqualToPair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
-    isNotNumericallyEqualToPair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
     toBePair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
+    toBeAnyFun: Assert<Any>.(Any) -> Assert<Any>,
     notToBePair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
     notToBeAnyFun: Assert<Any>.(Any) -> Assert<Any>,
+    isNumericallyEqualToPair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
+    isNotNumericallyEqualToPair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
+    isEqualIncludingScalePair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -30,13 +31,13 @@ abstract class BigDecimalAssertionsSpec(
     include(object : ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec<BigDecimal>("$describePrefix[BigDecimal] ",
         isNumericallyEqualToPair.first to mapToCreateAssertion { isNumericallyEqualToPair.second(this, BigDecimal.TEN) },
         isNotNumericallyEqualToPair.first to mapToCreateAssertion { isNotNumericallyEqualToPair.second(this, BigDecimal.TEN) },
-        toBePair.first to mapToCreateAssertion { toBePair.second(this, BigDecimal.TEN) }
+        isEqualIncludingScalePair.first to mapToCreateAssertion { isEqualIncludingScalePair.second(this, BigDecimal.TEN) }
     ) {})
 
     include(object : ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec<BigDecimal>(verbs, "$describePrefix[BigDecimal] ",
         checkingTriple(isNumericallyEqualToPair.first, { isNumericallyEqualToPair.second(this, BigDecimal.TEN) }, BigDecimal("10.000"), BigDecimal("10.00001")),
         checkingTriple(isNotNumericallyEqualToPair.first, { isNotNumericallyEqualToPair.second(this, BigDecimal.TEN) }, BigDecimal("10.00001"), BigDecimal("10.000")),
-        checkingTriple(toBePair.first, { toBePair.second(this, BigDecimal.TEN) }, BigDecimal("10"), BigDecimal("10.0"))
+        checkingTriple(isEqualIncludingScalePair.first, { isEqualIncludingScalePair.second(this, BigDecimal.TEN) }, BigDecimal("10"), BigDecimal("10.0"))
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
@@ -46,6 +47,7 @@ abstract class BigDecimalAssertionsSpec(
     val assert: (BigDecimal) -> Assert<BigDecimal> = verbs::checkImmediately
     val (isNumericallyEqualTo, isNumericallyEqualToFun) = isNumericallyEqualToPair
     val (isNotNumericallyEqualTo, isNotNumericallyEqualToFun) = isNotNumericallyEqualToPair
+    val (isEqualIncludingScale, isEqualIncludingScaleFun) = isEqualIncludingScalePair
     val (toBe, toBeFun) = toBePair
     val (notToBe, notToBeFun) = notToBePair
 
@@ -98,14 +100,22 @@ abstract class BigDecimalAssertionsSpec(
         }
     }
 
-    describeFun(toBe) {
+    describeFun(toBe, isEqualIncludingScale) {
         listOf(
             BigDecimal.TEN,
             BigDecimal("10.")
         ).forEach { expected ->
             context("subject is 10 and expected is $expected") {
-                it("does not throw") {
-                    assert(BigDecimal.TEN).toBeFun(expected)
+                test("$toBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
+                    expect {
+                        assert(BigDecimal.TEN).toBeFun(expected)
+                    }.toThrow<UnsupportedOperationException>()
+                }
+                test("$toBe with Any overload does not throw") {
+                    assert(BigDecimal.TEN).toBeAnyFun(expected)
+                }
+                test("$isEqualIncludingScale does not throw") {
+                    assert(BigDecimal.TEN).isEqualIncludingScaleFun(expected)
                 }
             }
         }
@@ -116,9 +126,24 @@ abstract class BigDecimalAssertionsSpec(
             BigDecimal("10.00")
         ).forEach { expected ->
             context("subject is 10 and expected is $expected") {
-                it("throws an AssertionError mentioning that $isNumericallyEqualTo could have been used") {
+                test("$toBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
                     expect {
                         assert(BigDecimal.TEN).toBeFun(expected)
+                    }.toThrow<UnsupportedOperationException>()
+                }
+                test("$toBe with Any overload throws an AssertionError and does not contain the hint") {
+                    expect {
+                        assert(BigDecimal.TEN).toBeAnyFun(expected)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(subject, "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
+                            containsNot(failureHint)
+                        }
+                    }
+                }
+                test("$isEqualIncludingScale throws an AssertionError mentioning that $isNumericallyEqualTo could have been used") {
+                    expect {
+                        assert(BigDecimal.TEN).isEqualIncludingScaleFun(expected)
                     }.toThrow<AssertionError> {
                         message {
                             contains(
@@ -133,10 +158,25 @@ abstract class BigDecimalAssertionsSpec(
         }
 
         context("subject is 10 and expected is 9") {
-            it("throws an AssertionError and does not contain the hint") {
-                val expected = BigDecimal("9.999999999999")
+            val expected = BigDecimal("9.999999999999")
+            test("$toBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
                 expect {
                     assert(BigDecimal.TEN).toBeFun(expected)
+                }.toThrow<UnsupportedOperationException>()
+            }
+            test("$toBe with Any overload throws an AssertionError and does not contain the hint") {
+                expect {
+                    assert(BigDecimal.TEN).toBeAnyFun(expected)
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(subject, "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
+                        containsNot(failureHint)
+                    }
+                }
+            }
+            test("$isEqualIncludingScale throws an AssertionError and does not contain the hint") {
+                expect {
+                    assert(BigDecimal.TEN).isEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
                     message {
                         contains(subject, "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")

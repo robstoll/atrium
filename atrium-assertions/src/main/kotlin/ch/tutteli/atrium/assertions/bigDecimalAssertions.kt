@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import java.math.BigDecimal
 
-fun <T : BigDecimal> _toBe(plant: AssertionPlant<T>, expected: T, nameOfIsNumericallyEqualTo: String): Assertion {
+fun <T : BigDecimal> _isEqualIncludingScale(plant: AssertionPlant<T>, expected: T, nameOfIsNumericallyEqualTo: String): Assertion {
     val isEqual = try {
         plant.subject == expected
     } catch (e: PlantHasNoSubjectException) {
