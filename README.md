@@ -5,8 +5,8 @@
 
 # Atrium
 Atrium is an open-source assertion library for Kotlin with a fluent API.
-The project was inspired by AssertJ at first (and was therefore named AssertK) but it moved on and provides now more 
-flexibility and features to its users (so to you :wink:).
+The project was inspired by AssertJ at first (and was named AssertK) but it moved on and provides now more 
+flexibility, features and hints to its users (so to you :wink:).
 
 ----
 :warning: You are taking a *sneak peek* at the next version. 
@@ -36,6 +36,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
     - [Shortcut Functions](#shortcut-functions)
     - [Sophisticated Assertion Builders](#sophisticated-assertion-builders)
   - [Further Examples](#further-examples)  
+- [How is Atrium different from other Assertion Libraries](#how-is-atrium-different-from-other-assertion-libraries)
 - [Write own Assertion Functions](#write-own-assertion-functions)
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
   - [ReporterBuilder](#reporterbuilder)
@@ -502,6 +503,110 @@ for more examples above.
 
 Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md) for a few more examples.
 This site contains also a list of all APIs with links to their assertion function catalogs.
+
+
+
+# How is Atrium different from other Assertion Libraries
+
+The following subsections shall give you a quick overview how Atrium differ from other assertion libraries. 
+
+- [Ready to Help](#ready-to-help)
+  - [Fluent API with Code Documentation](#1--fluent-api-with-code-documentation)
+  - [Additional Information in Failure Reporting](#2--additional-information-in-failure-reporting)
+  - [Prevents you from Pitfalls](#3--prevents-you-from-pitfalls)
+- [Flexibility](#flexibility)
+
+## Ready to Help
+Atrium is designed to help you whenever possible.
+I think this is the biggest difference to other assertion libraries and a very handy one indeed.
+
+### 1. Fluent API with Code Documentation
+Atrium provides a fluent API where the design focus was put on the interoperability (of the API) with the code completion functionality of your IDE. 
+Or in other words, you can always use code completion to get direct help from your IDE.
+This experience is improved by providing up-to-date [code documentation](#kdoc) (in form of KDoc) for all assertion functions, 
+so that you get the extra help needed.
+
+### 2. Additional Information in Failure Reporting
+Atrium adds extra information to error messages so that you get quickly a better idea of what went wrong. 
+For instance, for the following assertion (which fails) 
+```kotlin
+assert(listOf(1, 2, 3)).contains.inOrder.only.values(1, 3)
+```
+Atrium points out which `values` were found, makes an implicit assertion about the size and also states which entries were additionally contained in the list:
+
+```text
+assert: [1, 2, 3]        (java.util.Arrays$ArrayList <1287934450>)
+◆ contains only, in order: 
+  ✔ ▶ entry 0: 1        (java.lang.Integer <6519275>)
+      ◾ to be: 1        (java.lang.Integer <6519275>)
+  ✘ ▶ entry 1: 2        (java.lang.Integer <692331943>)
+      ◾ to be: 3        (java.lang.Integer <692331943>)
+  ✘ ▶ size: 3
+      ◾ to be: 2
+        ❗❗ additional entries detected: 
+           ⚬ entry 2: 3        (java.lang.Integer <1741979653>)
+```    
+
+Let us have a look at another example.
+```kotlin
+assert(9.99f).toBeWithErrorTolerance(10.0f, 0.01f)
+```
+The above assertion looks good at first sight but actually fails (at least on my machine). 
+And without some extra information in the output we would believe that there is actually a bug in the assertion library itself.
+But Atrium shows where it goes wrong and even gives a possible hint:
+```text
+assert: 9.99        (java.lang.Float <1287934450>)
+◆ to be (error ± 0.01): 10.0        (java.lang.Float <6519275>)
+    » failure might be due to using java.lang.Float, see exact check on the next line
+    » exact check is |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
+```
+
+### 3. Prevents you from Pitfalls
+But not enough. There are certain pitfalls when it comes to using an assertion library and Atrium tries to prevent you from those.
+
+For instance, an overload of `toBe` and of `notToBe` for `BigDecimal` was introduced which are both deprecated and throw an `UnsupportedOperationException`. 
+The reason behind it?
+It is very likely that a user actually wants to compare that a certain `BigDecimal` is numerically (not) equal to another `BigDecimal` 
+rather than including `BigDecimal.scale` in the comparison.
+Accordingly, the deprecation message of `toBe` (`notToBe` alike) explains the problem and suggests to either use `isNumericallyEqualTo` or `isEqualIncludingScale`.
+And if the user should decide to use `isEqualIncludingScale` and at some point an assertion fails only due to the comparison of `BigDecimal.scale`
+then Atrium reminds us of the possible pitfall. For instance:
+```text
+assert: 10        (java.math.BigDecimal <1287934450>)
+◆ is equal (including scale): 10.0        (java.math.BigDecimal <6519275>)
+    » notice, if you used isNumericallyEqualTo then the assertion would have hold.
+```
+
+## Flexibility
+Another design goal of Atrium was to give you the flexibility needed but still adhere to a concise design. 
+First and most importantly, Atrium does not enforce a certain style on your code base. 
+Quite the contrary, it gives you the flexibility to [choose a desired name for the assertion verbs](#use-own-assertion-verbs), 
+it continues by providing the possibility to configure the [reporting style](#reporterbuilder), 
+goes on that you can chose from different [API styles](#apis) 
+and ends that you can replace almost all components by other implementations.
+
+So for instance, if you like to use an `infix` API, then use `atrium-cc-infix-en_UK-robstoll`. 
+You prefer pure fluent and do not even want to see infix style in your code, 
+then use `atrium-cc-en_UK-robstoll` which provides a pure fluent style API. 
+
+You are free to choose what fits best without introducing ambiguity etc.
+You could even mix up different APIs if needed (but not without losing conciseness I guess -- but hey, it is your decision :wink:). 
+
+## Internationalization
+The last difference is not yet fully-blown implemented but the design of Atrium has everything needed to go down the planed [Raodmap](#roadmap).
+Might well be that this topic is not really a concern of yours; unless...  
+
+- you are using domain-driven-design and would like to adopt the ubiquitous language also to your test code.
+- you want to document the results of your defined assertions (in different languages) 
+
+Atrium already supports APIs in two languages, and it is an easy task to translate an API to another language (hello DDD-people :wave: you are good to go).
+Moreover, it is already possible to generate the output in a different language than the used API (e.g. code in English but report in German).
+
+Together with the HTML-Report feature (currently missing but will follow) you will be able to generate reports in different languages.
+Already the HTML-Report feature as such might be of your interest. 
+You can use it to document your user stories etc (almost) for free.
+In case you have clients who speak different languages then the HTML-Report together with the i18n feature will be especially helpful. 
+I should not go on here, the HTML-Report feature is not yet implemented, but you can see what kind of road I plan to go down to.
 
 # Write own Assertion Functions
 
