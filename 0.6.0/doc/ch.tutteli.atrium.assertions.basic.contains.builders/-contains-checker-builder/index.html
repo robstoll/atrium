@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ContainsCheckerBuilder - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.basic.contains.builders</a>&nbsp;/&nbsp;<a href=".">ContainsCheckerBuilder</a><br/>
+<br/>
+<h1>ContainsCheckerBuilder</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ContainsCheckerBuilder</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-search-behaviour/index.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">C</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/index.html"><span class="identifier">Checker</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-contains-builder/index.html"><span class="identifier">ContainsBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>Represents the base class for builders representing a checking step in the process of building a sophisticated
+<code>contains</code> assertion.</p>
+<h3>Parameters</h3>
+<a name="T"></a>
+<code>T</code> - The type of the <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a>.<a name="S"></a>
+<code>S</code> - The type of the current <a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-search-behaviour/index.html">Contains.SearchBehaviour</a>.<a name="C"></a>
+<code>C</code> - The type of the checkers in use (typically a sub interface of <a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/index.html">Contains.Checker</a>).<a name="B"></a>
+<code>B</code> - The concrete type of the builder representing the entry point of the process of building a sophisticated
+<code>contains</code> assertion.
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ContainsCheckerBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.builders.ContainsCheckerBuilder$<init>(ch.tutteli.atrium.assertions.basic.contains.builders.ContainsCheckerBuilder.B)/containsBuilder">containsBuilder</span><span class="symbol">:</span>&nbsp;<span class="identifier">B</span><span class="symbol">)</span></code>
+<p>Represents the base class for builders representing a checking step in the process of creating a
+sophisticated <code>contains</code> assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="checkers.html">checkers</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">checkers</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">C</span><span class="symbol">&gt;</span></code>
+<p>Contains all <a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/index.html">Checker</a>s which should be applied to the search result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="contains-builder.html">containsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">containsBuilder</span><span class="symbol">: </span><span class="identifier">B</span></code>
+<p>The builder representing the entry point of the process of building a sophisticated
+<code>contains</code> assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-assertion.html">addAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.builders.ContainsCheckerBuilder$addAssertion(ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Helper method to simplify adding assertions to the plant which itself is stored in <a href="contains-builder.html">containsBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-checker-builder/index.html">CharSequenceContainsCheckerBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">CharSequenceContainsCheckerBuilder</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ContainsCheckerBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html"><span class="identifier">Checker</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-builder/index.html"><span class="identifier">CharSequenceContainsBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The base class for builders which create <a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html">Checker</a>s within the fluent API of a sophisticated
+<code>contains</code> assertion which was started with the given <a href="contains-builder.html">containsBuilder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-checker-builder/index.html">IterableContainsCheckerBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">IterableContainsCheckerBuilder</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">E</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ContainsCheckerBuilder</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html"><span class="identifier">Checker</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html"><span class="identifier">IterableContainsBuilder</span></a><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">,</span>&nbsp;<span class="identifier">T</span><span class="symbol">,</span>&nbsp;<span class="identifier">S</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The base class for builders which create <a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html">Checker</a>s within the fluent API of a sophisticated
+<code>contains</code> assertion which was started with the given <a href="contains-builder.html">containsBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

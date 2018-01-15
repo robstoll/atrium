@@ -1,0 +1,100 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ContainsChecker - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.basic.contains.checkers</a>&nbsp;/&nbsp;<a href=".">ContainsChecker</a><br/>
+<br/>
+<h1>ContainsChecker</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ContainsChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/index.html"><span class="identifier">Checker</span></a></code>
+<p>Represents a base class for <a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/index.html">Contains.Checker</a>s which compare how many occurrences of an expected object are found
+in the input of the search, against how many <a href="times.html">times</a> the check expect it to be contained.</p>
+<p>It further checks that <a href="times.html">times</a> is bigger than 0 (throws an <a href="#">IllegalArgumentException</a> otherwise) and additionally
+suggest to use a different function if <a href="times.html">times</a> equals to zero.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ContainsChecker</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/correctCall">correctCall</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/wrongCall">wrongCall</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Represents a base class for checkers which compare how many occurrences of an expected object are found
+in the input of the search, against how many <a href="-init-.html#ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker$<init>(kotlin.Int, kotlin.String, kotlin.Function1((kotlin.Int, kotlin.String)))/times">times</a> the check expect it to be contained.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="times.html">times</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">times</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The number which the check uses to compare against the actual number of times an expected object is
+found in the input of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-basic-assertion.html">createBasicAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createBasicAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker$createBasicAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Boolean)/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker$createBasicAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Boolean)/check">check</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html"><span class="identifier">DescriptiveAssertion</span></a></code>
+<p>Creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the given <a href="create-basic-assertion.html#ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker$createBasicAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Boolean)/description">description</a>, the property <a href="times.html">times</a> as <a href="../../ch.tutteli.atrium.reporting/-string-based-raw-string/index.html">StringBasedRawString</a>
+and the given <a href="create-basic-assertion.html#ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker$createBasicAssertion(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Boolean)/check">check</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/create-assertion.html">createAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.Contains.Checker$createAssertion(kotlin.Int)/foundNumberOfTimes">foundNumberOfTimes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a></code>
+<p>Creates an <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> representing this check based on the given <a href="../../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/create-assertion.html#ch.tutteli.atrium.assertions.basic.contains.Contains.Checker$createAssertion(kotlin.Int)/foundNumberOfTimes">foundNumberOfTimes</a> which is the result
+of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.charsequence.contains.checkers/-char-sequence-contains-checker/index.html">CharSequenceContainsChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">CharSequenceContainsChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ContainsChecker</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html"><span class="identifier">Checker</span></a></code>
+<p>Represents the base class for <a href="../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html">CharSequenceContains.Checker</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.checkers/-iterable-contains-checker/index.html">IterableContainsChecker</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">IterableContainsChecker</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ContainsChecker</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html"><span class="identifier">Checker</span></a></code>
+<p>Represents the base class for <a href="../../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html">IterableContains.Checker</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

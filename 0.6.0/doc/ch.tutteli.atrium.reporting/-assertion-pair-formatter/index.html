@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionPairFormatter - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href=".">AssertionPairFormatter</a><br/>
+<br/>
+<h1>AssertionPairFormatter</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionPairFormatter</span></code>
+<p>Represents a formatter of assertion pairs -- which consists of a <a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> and a representation.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="format.html">format</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionPairFormatter$format(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/methodObject">methodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionPairFormatter$format(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionPairFormatter$format(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the assertion pair consisting of the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionPairFormatter$format(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/translatable">translatable</a> and the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionPairFormatter$format(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/representation">representation</a>
+and appends the result to the <a href="../-assertion-formatter-method-object/sb.html">sb</a> of the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionPairFormatter$format(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any)/methodObject">methodObject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="format-group-header.html">formatGroupHeader</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">formatGroupHeader</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionPairFormatter$formatGroupHeader(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionPairFormatter$formatGroupHeader(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertionGroup">assertionGroup</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionPairFormatter$formatGroupHeader(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/newMethodObject">newMethodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the header (<a href="../../ch.tutteli.atrium.assertions/-assertion-group/name.html">name</a> and <a href="../../ch.tutteli.atrium.assertions/-assertion-group/subject.html">subject</a>) of the given
+<a href="format-group-header.html#ch.tutteli.atrium.reporting.AssertionPairFormatter$formatGroupHeader(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertionGroup">assertionGroup</a> and appends the result to the <a href="../-assertion-formatter-method-object/sb.html">sb</a>
+of the given <a href="format-group-header.html#ch.tutteli.atrium.reporting.AssertionPairFormatter$formatGroupHeader(ch.tutteli.atrium.reporting.AssertionFormatterMethodObject, ch.tutteli.atrium.assertions.AssertionGroup, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

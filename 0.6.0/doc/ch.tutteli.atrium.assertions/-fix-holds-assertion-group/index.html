@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FixHoldsAssertionGroup - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href=".">FixHoldsAssertionGroup</a><br/>
+<br/>
+<h1>FixHoldsAssertionGroup</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">FixHoldsAssertionGroup</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a></code>
+<p>Represents a group of <a href="../-assertion/index.html">Assertion</a>s -- it has a certain <a href="type.html">type</a>, a <a href="name.html">name</a>, a <a href="subject.html">subject</a>, <a href="assertions.html">assertions</a> and a fixed
+value for <a href="holds.html">holds</a> which does not depend on <a href="assertions.html">assertions</a> (usually indirectly).</p>
+<p>The intention behind this <a href="../-assertion-group/index.html">AssertionGroup</a> is to use it when all <a href="assertions.html">assertions</a> are <a href="../-assertion-group/index.html">AssertionGroup</a>s with an
+<a href="../-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">FixHoldsAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/type">type</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/name">name</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/holds">holds</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span></code>
+<p>Represents a group of <a href="../-assertion/index.html">Assertion</a>s -- it has a certain <a href="-init-.html#ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/type">type</a>, a <a href="-init-.html#ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/name">name</a>, a <a href="-init-.html#ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/subject">subject</a>, <a href="-init-.html#ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/assertions">assertions</a> and a fixed
+value for <a href="-init-.html#ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/holds">holds</a> which does not depend on <a href="-init-.html#ch.tutteli.atrium.assertions.FixHoldsAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)), kotlin.Boolean)/assertions">assertions</a> (usually indirectly).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertions.html">assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>The assertions of this group, which are defined for <a href="subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The name of the group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="subject.html">subject</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">subject</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The subject for which the <a href="assertions.html">assertions</a> are defined.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="type.html">type</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><a href="../-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>The type of the group, e.g. <a href="../-root-assertion-group-type.html">RootAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Holds if all its <a href="assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

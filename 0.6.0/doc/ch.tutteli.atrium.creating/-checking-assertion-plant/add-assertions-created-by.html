@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CheckingAssertionPlant.addAssertionsCreatedBy - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">CheckingAssertionPlant</a>&nbsp;/&nbsp;<a href=".">addAssertionsCreatedBy</a><br/>
+<br/>
+<h1>addAssertionsCreatedBy</h1>
+<a name="ch.tutteli.atrium.creating.CheckingAssertionPlant$addAssertionsCreatedBy(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.creating.CheckingAssertionPlant.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">addAssertionsCreatedBy</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.creating.CheckingAssertionPlant$addAssertionsCreatedBy(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.creating.CheckingAssertionPlant.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="index.html"><span class="identifier">CheckingAssertionPlant</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span></code>
+<p>Adds the assertions created by the <a href="add-assertions-created-by.html#ch.tutteli.atrium.creating.CheckingAssertionPlant$addAssertionsCreatedBy(kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.creating.CheckingAssertionPlant.T)), kotlin.Unit)))/assertionCreator">assertionCreator</a> lambda to this plant.</p>
+<h3>Parameters</h3>
+<a name="assertionCreator"></a>
+<code>assertionCreator</code> - The receiver function which might create and add assertions to this plant.
+<h3>Exceptions</h3>
+<a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="#">AssertionError</a> in case <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s are immediately
+evaluated (see <a href="../-reporting-assertion-plant.html">ReportingAssertionPlant</a>).
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

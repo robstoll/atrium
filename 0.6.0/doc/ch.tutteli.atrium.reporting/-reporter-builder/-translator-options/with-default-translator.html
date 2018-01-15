@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ReporterBuilder.TranslatorOptions.withDefaultTranslator - doc</title>
+<link rel="stylesheet" href="..\..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="../index.html">ReporterBuilder</a>&nbsp;/&nbsp;<a href="index.html">TranslatorOptions</a>&nbsp;/&nbsp;<a href=".">withDefaultTranslator</a><br/>
+<br/>
+<h1>withDefaultTranslator</h1>
+<a name="ch.tutteli.atrium.reporting.ReporterBuilder.TranslatorOptions$withDefaultTranslator(java.util.Locale, kotlin.Array((java.util.Locale)))"></a>
+<code><span class="keyword">fun </span><span class="identifier">withDefaultTranslator</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.TranslatorOptions$withDefaultTranslator(java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</span><span class="symbol">:</span>&nbsp;<span class="identifier">Locale</span><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.reporting.ReporterBuilder.TranslatorOptions$withDefaultTranslator(java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</span><span class="symbol">:</span>&nbsp;<span class="identifier">Locale</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-object-formatter-options/index.html"><span class="identifier">ObjectFormatterOptions</span></a></code>
+<p>Uses <a href="../../../ch.tutteli.atrium/-atrium-factory/new-translator.html">AtriumFactory.newTranslator</a> as <a href="../../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> where the specified <a href="#">translationSupplier</a> is used to
+retrieve translations, the specified <a href="#">localeOrderDecider</a> to determine candidate <a href="#">Locale</a>s and
+<a href="with-default-translator.html#ch.tutteli.atrium.reporting.ReporterBuilder.TranslatorOptions$withDefaultTranslator(java.util.Locale, kotlin.Array((java.util.Locale)))/primaryLocale">primaryLocale</a> is used as primary <a href="#">Locale</a> and the optional <a href="with-default-translator.html#ch.tutteli.atrium.reporting.ReporterBuilder.TranslatorOptions$withDefaultTranslator(java.util.Locale, kotlin.Array((java.util.Locale)))/fallbackLocales">fallbackLocales</a> as fallback <a href="#">Locale</a>s.</p>
+<h3>Parameters</h3>
+<a name="primaryLocale"></a>
+<code>primaryLocale</code> - The <a href="#">Locale</a> for which the <a href="../../../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> will first search translations --
+it will also be used to format arguments of <a href="../../../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a>.<a name="fallbackLocales"></a>
+<code>fallbackLocales</code> - One <a href="#">Locale</a> after another (in the given order) will be considered as primary Locale
+in case no translation was found the previous primary Locale.
+</BODY>
+</HTML>

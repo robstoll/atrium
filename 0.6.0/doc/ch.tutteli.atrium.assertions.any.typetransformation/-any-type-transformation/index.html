@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AnyTypeTransformation - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.any.typetransformation</a>&nbsp;/&nbsp;<a href=".">AnyTypeTransformation</a><br/>
+<br/>
+<h1>AnyTypeTransformation</h1>
+<code><span class="keyword">interface </span><span class="identifier">AnyTypeTransformation</span></code>
+<p>Defines the contract for sophisticated narrowing assertion builders.</p>
+<p>The assertion is typically created by the <a href="../-down-caster/index.html">DownCaster</a> or the more generic <a href="../-type-transformer/index.html">TypeTransformer</a>
+which itself requires a <a href="-type-transformation-failure-handler/index.html">TypeTransformationFailureHandler</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-type-transformation-failure-handler/index.html">TypeTransformationFailureHandler</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TypeTransformationFailureHandler</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code>
+<p>A handler which decides how the lambda -- which could have created subsequent assertions for the
+transformed <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> if the transformation of the <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> to type <a href="#">TSub</a>
+did not fail -- should be used in reporting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

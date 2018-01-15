@@ -1,0 +1,1874 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>alltypes - doc</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<h2>KDoc of Atrium</h2>
+<h3>All Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-any-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.any.typetransformation/-any-type-transformation/index.html">ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation</a></td>
+<td>
+<p>Defines the contract for sophisticated narrowing assertion builders.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/index.html">ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator</a></td>
+<td>
+<p>Represents a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> which supports <a href="../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-assert.html">ch.tutteli.atrium.creating.Assert</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">ch.tutteli.atrium.assertions.Assertion</a></td>
+<td>
+<p>The base interface of all assertions, providing the method <a href="../ch.tutteli.atrium.assertions/-assertion/holds.html">holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.checking/-assertion-checker/index.html">ch.tutteli.atrium.checking.AssertionChecker</a></td>
+<td>
+<p>Checks given <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and reports if one of them fails.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-assertion-collector/index.html">ch.tutteli.atrium.creating.AssertionCollector</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">ch.tutteli.atrium.reporting.AssertionFormatter</a></td>
+<td>
+<p>Represents a formatter for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">ch.tutteli.atrium.reporting.AssertionFormatterController</a></td>
+<td>
+<p>Responsible to control the flow of reporting using <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-controller/register.html">register</a>ed <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-assertion-formatter-controller-spec/index.html">ch.tutteli.atrium.spec.reporting.AssertionFormatterControllerSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">ch.tutteli.atrium.reporting.AssertionFormatterFacade</a></td>
+<td>
+<p>Responsible to call an appropriate <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> which supports <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-facade/format.html">format</a>ing a given <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-assertion-formatter-method-object/index.html">ch.tutteli.atrium.reporting.AssertionFormatterMethodObject</a></td>
+<td>
+<p>A method object used for interactions between <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a> and <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-assertion-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.AssertionFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-assertion-formatter-spec-base/index.html">ch.tutteli.atrium.spec.reporting.AssertionFormatterSpecBase</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">ch.tutteli.atrium.assertions.AssertionGroup</a></td>
+<td>
+<p>The base interface for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> groups, providing a default implementation for <a href="../ch.tutteli.atrium.assertions/-assertion/holds.html">Assertion.holds</a>
+which returns <code>true</code> if all its <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">ch.tutteli.atrium.assertions.AssertionGroupType</a></td>
+<td>
+<p>Represents a type of an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html">ch.tutteli.atrium.reporting.AssertionPairFormatter</a></td>
+<td>
+<p>Represents a formatter of assertion pairs -- which consists of a <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> and a representation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">ch.tutteli.atrium.creating.AssertionPlant</a></td>
+<td>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s based on a non nullable <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-assertion-plant-nullable.html">ch.tutteli.atrium.creating.AssertionPlantNullable</a></td>
+<td>
+<p>Represents an assertion plant for nullable types.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-assertion-plant-with-common-fields/index.html">ch.tutteli.atrium.creating.AssertionPlantWithCommonFields</a></td>
+<td>
+<p>An assertion plant which has <a href="../ch.tutteli.atrium.creating/-assertion-plant-with-common-fields/-common-fields/index.html">CommonFields</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.verbs/-assertion-verb/index.html">ch.tutteli.atrium.verbs.AssertionVerb</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s for the assertion functions <a href="../ch.tutteli.atrium.verbs.assert/assert.html">assert</a>, <a href="../ch.tutteli.atrium.verbs.assertthat/assert-that.html">assertThat</a> and <a href="../ch.tutteli.atrium.verbs.expect/expect.html">expect</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec/-assertion-verb-factory/index.html">ch.tutteli.atrium.spec.AssertionVerbFactory</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium/-atrium-factory/index.html">ch.tutteli.atrium.AtriumFactory</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-base-assertion-plant/index.html">ch.tutteli.atrium.creating.BaseAssertionPlant</a></td>
+<td>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers methods to <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/add-assertion.html">addAssertion</a>s to this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-base-reporting-assertion-plant/index.html">ch.tutteli.atrium.creating.BaseReportingAssertionPlant</a></td>
+<td>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers methods to <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/add-assertion.html">addAssertion</a>s to this plant.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-basic-assertion-group/index.html">ch.tutteli.atrium.assertions.BasicAssertionGroup</a></td>
+<td>
+<p>A default implementation for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> -- it has a certain <a href="../ch.tutteli.atrium.assertions/-basic-assertion-group/type.html">type</a>, a <a href="../ch.tutteli.atrium.assertions/-basic-assertion-group/name.html">name</a>, a <a href="../ch.tutteli.atrium.assertions/-basic-assertion-group/subject.html">subject</a>
+and of course <a href="../ch.tutteli.atrium.assertions/-basic-assertion-group/assertions.html">assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-basic-descriptive-assertion/index.html">ch.tutteli.atrium.assertions.BasicDescriptiveAssertion</a></td>
+<td>
+<p>A default implementation for <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> which lazily evaluates <a href="../ch.tutteli.atrium.assertions/-basic-descriptive-assertion/holds.html">holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-basic-explanatory-assertion/index.html">ch.tutteli.atrium.assertions.BasicExplanatoryAssertion</a></td>
+<td>
+<p>A default implementation for <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html">ExplanatoryAssertion</a> -- an assertion which only wants to give an <a href="../ch.tutteli.atrium.assertions/-basic-explanatory-assertion/explanation.html">explanation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-big-decimal-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-boolean-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.BooleanAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-bullet-point-identifier.html">ch.tutteli.atrium.assertions.BulletPointIdentifier</a></td>
+<td>
+<p>A marker interface for types which can be used to identify bullet points in
+<a href="../ch.tutteli.atrium/-i-atrium-factory/register-text-assertion-formatter-capabilities.html">IAtriumFactory.registerTextAssertionFormatterCapabilities</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/index.html">ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains</a></td>
+<td>
+<p>Defines the contract for sophisticated <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a> <code>contains</code> assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.creators/-char-sequence-contains-assertion-creator/index.html">ch.tutteli.atrium.assertions.charsequence.contains.creators.CharSequenceContainsAssertionCreator</a></td>
+<td>
+<p>Represents a creator of sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-at-least-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsAtLeastAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.checkers/-char-sequence-contains-at-least-checker/index.html">ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtLeastChecker</a></td>
+<td>
+<p>Represents a check that an expected object is contained at least <a href="#">times</a> in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-at-least-checker-builder-base/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-at-most-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsAtMostAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.checkers/-char-sequence-contains-at-most-checker/index.html">ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtMostChecker</a></td>
+<td>
+<p>Represents a check that an expected object is contained at most <a href="#">times</a> in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-at-most-checker-builder-base/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-builder/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder</a></td>
+<td>
+<p>Represents the entry point of the fluent API of sophisticated <code>contains</code> assertions.
+It contains the <a href="../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/plant.html">plant</a> for which the <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be build as well as the decoration behaviour which shall be
+applied to the <a href="../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/plant.html">plant</a>'s <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-but-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-but-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-but-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-but-at-most-checker-builder-base/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.checkers/-char-sequence-contains-checker/index.html">ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsChecker</a></td>
+<td>
+<p>Represents the base class for <a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html">CharSequenceContains.Checker</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-checker-builder/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder</a></td>
+<td>
+<p>The base class for builders which create <a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html">Checker</a>s within the fluent API of a sophisticated
+<code>contains</code> assertion which was started with the given <a href="../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder/contains-builder.html">containsBuilder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-contains-not-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsContainsNotAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-default-translation-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsDefaultTranslationAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-exactly-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsExactlyAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.checkers/-char-sequence-contains-exactly-checker/index.html">ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsExactlyChecker</a></td>
+<td>
+<p>Represents a check that an expected object is contained exactly <a href="#">times</a> in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-exactly-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-exactly-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-exactly-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-exactly-checker-builder-base/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchers/-char-sequence-contains-ignoring-case-index-searcher/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseIndexSearcher</a></td>
+<td>
+<p>Represents a <a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> which implements the <a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-ignoring-case-search-behaviour/index.html">CharSequenceContainsIgnoringCaseSearchBehaviour</a> behaviour and uses
+<a href="#">CharSequence.indexOf</a> to find expected objects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchers/-char-sequence-contains-ignoring-case-regex-searcher/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseRegexSearcher</a></td>
+<td>
+<p>Represents a <a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> which implements the <a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-ignoring-case-search-behaviour/index.html">CharSequenceContainsIgnoringCaseSearchBehaviour</a> behaviour and evaluates
+the matches of a given regular expression on the input of the search.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-ignoring-case-search-behaviour/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour</a></td>
+<td>
+<p>Represents the search behaviour that a <a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a> should ignore case
+when searching for an expected object.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchers/-char-sequence-contains-index-searcher/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsIndexSearcher</a></td>
+<td>
+<p>Represents a <a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> which uses <a href="#">CharSequence.indexOf</a> to find expected objects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-no-op-search-behaviour/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour</a></td>
+<td>
+<p>Represents the default search behaviour or rather does not define a search behaviour at all.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-not-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsNotAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.checkers/-char-sequence-contains-not-checker/index.html">ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsNotChecker</a></td>
+<td>
+<p>Represents a check that an expected object is not contained in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-not-checker-builder-base/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains not</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-not-or-at-most-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsNotOrAtMostAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/-char-sequence-contains-not-or-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-or-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/-char-sequence-contains-not-or-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-not-or-at-most-checker-builder-base/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/-char-sequence-contains-not-search-behaviour/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour</a></td>
+<td>
+<p>Represents the default search behaviour but uses <a href="../ch.tutteli.atrium.assertions/-description-char-sequence-assertion/-c-o-n-t-a-i-n-s_-n-o-t.html">DescriptionCharSequenceAssertion.CONTAINS_NOT</a> for the description.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-regex-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsRegexAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.charsequence.contains.searchers/-char-sequence-contains-regex-searcher/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsRegexSearcher</a></td>
+<td>
+<p>Represents a <a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher/index.html">Searcher</a> which evaluates the matches of a given regular expression on the input of the search.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-char-sequence-contains-spec-base/index.html">ch.tutteli.atrium.spec.assertions.CharSequenceContainsSpecBase</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-checking-assertion-plant/index.html">ch.tutteli.atrium.creating.CheckingAssertionPlant</a></td>
+<td>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers the possibility to check whether <a href="../ch.tutteli.atrium.creating/-checking-assertion-plant/all-assertions-hold.html">allAssertionsHold</a> which have been
+<a href="#">added</a> to this plant (since the last check).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.creating/-checking-assertion-plant-spec/index.html">ch.tutteli.atrium.spec.creating.CheckingAssertionPlantSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-checking-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.CheckingAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html">ch.tutteli.atrium.creating.CollectingAssertionPlant</a></td>
+<td>
+<p>Represents an <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> which is intended to serve as receiver object for lambdas which create
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s, in which this assertion plant collects the so created assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.creating/-collecting-assertion-plant-spec/index.html">ch.tutteli.atrium.spec.creating.CollectingAssertionPlantSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-collection-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.CollectionAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-comparable-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.ComparableAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.basic.contains/-contains/index.html">ch.tutteli.atrium.assertions.basic.contains.Contains</a></td>
+<td>
+<p>Defines the basic contract for sophisticated <code>contains</code> assertion builders.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.basic.contains.creators/-contains-assertion-creator/index.html">ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator</a></td>
+<td>
+<p>Represents the base class for <a href="../ch.tutteli.atrium.assertions.basic.contains/-contains/-creator/index.html">Contains.Creator</a>s, providing a template to fulfill its job.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/index.html">ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder</a></td>
+<td>
+<p>Represents the base class for builders representing the entry point of the process of building a sophisticated
+<code>contains</code> assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.basic.contains.checkers/-contains-checker/index.html">ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker</a></td>
+<td>
+<p>Represents a base class for <a href="../ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/index.html">Contains.Checker</a>s which compare how many occurrences of an expected object are found
+in the input of the search, against how many <a href="../ch.tutteli.atrium.assertions.basic.contains.checkers/-contains-checker/times.html">times</a> the check expect it to be contained.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder/index.html">ch.tutteli.atrium.assertions.basic.contains.builders.ContainsCheckerBuilder</a></td>
+<td>
+<p>Represents the base class for builders representing a checking step in the process of building a sophisticated
+<code>contains</code> assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.basic.contains.creators/-contains-objects-assertion-creator/index.html">ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator</a></td>
+<td>
+<p>Represents the base class for <a href="../ch.tutteli.atrium.assertions.basic.contains/-contains/-creator/index.html">Contains.Creator</a>s which use bare objects as search criteria (matching them
+with <code>==</code>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-default-explanatory-assertion-group-type.html">ch.tutteli.atrium.assertions.DefaultExplanatoryAssertionGroupType</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> are used to explain
+something rather than pointing something out -- accordingly the <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> should always return <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-default-feature-assertion-group-type.html">ch.tutteli.atrium.assertions.DefaultFeatureAssertionGroupType</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s which contain any kind of feature assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-default-indent-assertion-group-type.html">ch.tutteli.atrium.assertions.DefaultIndentAssertionGroupType</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose assertions should be displayed with an extra indent.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-default-invisible-assertion-group-type.html">ch.tutteli.atrium.assertions.DefaultInvisibleAssertionGroupType</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose grouping behaviour should be kind of invisible to the user.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-default-list-assertion-group-type.html">ch.tutteli.atrium.assertions.DefaultListAssertionGroupType</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> should be displayed
+in a list.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-default-summary-assertion-group-type.html">ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> should not be
+filtered (by a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) and for which an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a> should state whether they hold or not.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/-default-translations-of/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.DefaultTranslationsOf</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.checking/-delegating-assertion-checker-spec/index.html">ch.tutteli.atrium.spec.checking.DelegatingAssertionCheckerSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-any-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionAnyAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-basic/index.html">ch.tutteli.atrium.assertions.DescriptionBasic</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s which are so basic that one does not want to use a different wording in
+a two different assertion functions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-big-decimal-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which are applicable to <a href="#">BigDecimal</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-char-sequence-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-collection-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionCollectionAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-collection/index.html">Collection</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-comparable-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionComparableAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html">Comparable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-floating-point-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html">Float</a>, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html">Double</a>
+and <a href="#">BigDecimal</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-iterable-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionIterableAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-throwable-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionThrowableAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which are applicable to <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-description-type-transformation-assertion/index.html">ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion</a></td>
+<td>
+<p>Contains the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">DescriptiveAssertion.description</a>s of the assertion functions which postulate that a
+<a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> of type <code>T</code> can be transformed (usually down-casting or unboxing) to <code>TSub</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">ch.tutteli.atrium.assertions.DescriptiveAssertion</a></td>
+<td>
+<p>The base interface for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which only consists of the <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/expected.html">expected</a> result with a complementary <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/description.html">description</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-do-not-filter-assertion-group-type.html">ch.tutteli.atrium.assertions.DoNotFilterAssertionGroupType</a></td>
+<td>
+<p>An <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> which indicates that a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> should not filter its <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.any.typetransformation/-down-caster/index.html">ch.tutteli.atrium.assertions.any.typetransformation.DownCaster</a></td>
+<td>
+<p>Helps to make an assertion about the <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">BaseAssertionPlant.subject</a>, that it is of type <a href="#">T</a> and can be
+down-casted to type <a href="#">TSub</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/-empty.html">ch.tutteli.atrium.api.cc.infix.en_UK.Empty</a></td>
+<td>
+<p>Represents a helper construct which allows to express emptiness.
+It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-empty-name-and-subject-assertion-group/index.html">ch.tutteli.atrium.assertions.EmptyNameAndSubjectAssertionGroup</a></td>
+<td>
+<p>Represents a base class for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s which have an empty <a href="../ch.tutteli.atrium.assertions/-empty-name-and-subject-assertion-group/name.html">name</a> and <a href="../ch.tutteli.atrium.assertions/-empty-name-and-subject-assertion-group/subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-empty-name-and-subject-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/-entries/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.Entries</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html">ch.tutteli.atrium.assertions.ExplanatoryAssertion</a></td>
+<td>
+<p>Represents an <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> which is typically used in an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>
+and provides an <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion/explanation.html">explanation</a> which is typically formatted by an <a href="../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a> in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group/index.html">ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup</a></td>
+<td>
+<p>Represents an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a>, which means a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> should not
+show whether the <a href="../ch.tutteli.atrium.assertions/-empty-name-and-subject-assertion-group/assertions.html">assertions</a> hold or not -- moreover <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group/holds.html">holds</a> always returns <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType</a></td>
+<td>
+<p>Represents the <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> are mainly
+used to explain something -- it is not of importance whether they hold or not and thus such <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s should
+always return <code>true</code> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.any.typetransformation/-explanatory-type-transformation-failure-handler/index.html">ch.tutteli.atrium.assertions.any.typetransformation.ExplanatoryTypeTransformationFailureHandler</a></td>
+<td>
+<p>Represents an <a href="../ch.tutteli.atrium.assertions.any.typetransformation/-any-type-transformation/-type-transformation-failure-handler/index.html">AnyTypeTransformation.TypeTransformationFailureHandler</a> which wraps subsequent assertions into an
+<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group/index.html">ExplanatoryAssertionGroup</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.checking/-feature-assertion-checker-spec/index.html">ch.tutteli.atrium.spec.checking.FeatureAssertionCheckerSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-feature-assertion-group-type.html">ch.tutteli.atrium.assertions.FeatureAssertionGroupType</a></td>
+<td>
+<p>Represents the <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s which contain some kind of feature assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-feature-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.FeatureAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-fix-holds-assertion-group/index.html">ch.tutteli.atrium.assertions.FixHoldsAssertionGroup</a></td>
+<td>
+<p>Represents a group of <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s -- it has a certain <a href="../ch.tutteli.atrium.assertions/-fix-holds-assertion-group/type.html">type</a>, a <a href="../ch.tutteli.atrium.assertions/-fix-holds-assertion-group/name.html">name</a>, a <a href="../ch.tutteli.atrium.assertions/-fix-holds-assertion-group/subject.html">subject</a>, <a href="../ch.tutteli.atrium.assertions/-fix-holds-assertion-group/assertions.html">assertions</a> and a fixed
+value for <a href="../ch.tutteli.atrium.assertions/-fix-holds-assertion-group/holds.html">holds</a> which does not depend on <a href="../ch.tutteli.atrium.assertions/-fix-holds-assertion-group/assertions.html">assertions</a> (usually indirectly).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-floating-point-with-error-tolerance-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.FloatingPointWithErrorToleranceAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium/-i-atrium-factory/index.html">ch.tutteli.atrium.IAtriumFactory</a></td>
+<td>
+<p>The minimum contract of the 'abstract factory' of atrium.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-indent-assertion-group/index.html">ch.tutteli.atrium.assertions.IndentAssertionGroup</a></td>
+<td>
+<p>Represents an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../ch.tutteli.atrium.assertions/-default-indent-assertion-group-type.html">DefaultIndentAssertionGroupType</a>, which means the <a href="../ch.tutteli.atrium.assertions/-empty-name-and-subject-assertion-group/assertions.html">assertions</a> shall be
+indented one extra level and <a href="../ch.tutteli.atrium.assertions/-empty-name-and-subject-assertion-group/name.html">name</a> and <a href="../ch.tutteli.atrium.assertions/-empty-name-and-subject-assertion-group/subject.html">subject</a> shall be neglected (not reported to the output).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-indent-assertion-group-type.html">ch.tutteli.atrium.assertions.IndentAssertionGroupType</a></td>
+<td>
+<p>Represents the <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a>
+should be displayed with an extra indent. Such a group might have a <a href="../ch.tutteli.atrium.assertions/-assertion-group/name.html">AssertionGroup.name</a> and
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/subject.html">AssertionGroup.subject</a> (by accident) but should not be mentioned in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-invisible-assertion-group.html">ch.tutteli.atrium.assertions.InvisibleAssertionGroup</a></td>
+<td>
+<p>Represents an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with a <a href="../ch.tutteli.atrium.assertions/-default-invisible-assertion-group-type.html">DefaultInvisibleAssertionGroupType</a>, which means the grouping should be
+invisible in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-invisible-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.InvisibleAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">ch.tutteli.atrium.assertions.InvisibleAssertionGroupType</a></td>
+<td>
+<p>Represents the <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> should
+be displayed in a manner that the user does not even notice that the <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s have been grouped.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/index.html">ch.tutteli.atrium.assertions.iterable.contains.IterableContains</a></td>
+<td>
+<p>Defines the contract for sophisticated <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> <code>contains</code> assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.checkers/-iterable-contains-at-least-checker/index.html">ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsAtLeastChecker</a></td>
+<td>
+<p>Represents a check that an expected entry is contained at least <a href="#">times</a> in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.iterable.contains.builders/-iterable-contains-at-least-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-at-least-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-at-least-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-at-least-checker-builder-base/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.checkers/-iterable-contains-at-most-checker/index.html">ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsAtMostChecker</a></td>
+<td>
+<p>Represents a check that an expected entry is contained at most <a href="#">times</a> in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.iterable.contains.builders/-iterable-contains-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-at-most-checker-builder-base/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsAtMostCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder</a></td>
+<td>
+<p>Represents the entry point of the fluent API of sophisticated <code>contains</code> assertions.
+It contains the <a href="../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/plant.html">plant</a> for which the <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be build as well as the decoration behaviour which shall be
+applied to the <a href="../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-builder/plant.html">plant</a>'s <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.iterable.contains.builders/-iterable-contains-but-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsButAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-but-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsButAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-but-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsButAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-but-at-most-checker-builder-base/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsButAtMostCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.checkers/-iterable-contains-checker/index.html">ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsChecker</a></td>
+<td>
+<p>Represents the base class for <a href="../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html">IterableContains.Checker</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-checker-builder/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder</a></td>
+<td>
+<p>The base class for builders which create <a href="../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html">Checker</a>s within the fluent API of a sophisticated
+<code>contains</code> assertion which was started with the given <a href="../ch.tutteli.atrium.assertions.basic.contains.builders/-contains-checker-builder/contains-builder.html">containsBuilder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-contains-not-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsContainsNotAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-entries-spec-base/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsEntriesSpecBase</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.checkers/-iterable-contains-exactly-checker/index.html">ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsExactlyChecker</a></td>
+<td>
+<p>Represents a check that an expected object is contained exactly <a href="#">times</a> in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.iterable.contains.builders/-iterable-contains-exactly-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsExactlyCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-exactly-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsExactlyCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-exactly-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsExactlyCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-exactly-checker-builder-base/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsExactlyCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-any-order-at-least-objects-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderAtLeastObjectsAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-any-order-at-most-objects-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderAtMostObjectsAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-any-order-entries-assertion-creator/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderEntriesAssertionCreator</a></td>
+<td>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where an expected entry can appear
+in any order and is identified by holding a group of assertions, created by an assertion creator lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-any-order-entries-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderEntriesSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-any-order-exactly-objects-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderExactlyObjectsAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-any-order-not-or-at-most-objects-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-any-order-objects-assertion-creator/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderObjectsAssertionCreator</a></td>
+<td>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where an expected entry can appear
+in any order and is identified by expected objects (equality comparison).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-any-order-only-assertion-creator/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderOnlyAssertionCreator</a></td>
+<td>
+<p>Represents the base class for <code>in any order only</code> assertion creators and provides a corresponding template to fulfill
+its responsibility.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-any-order-only-entries-assertion-creator/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderOnlyEntriesAssertionCreator</a></td>
+<td>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where exactly the expected entries have
+to appear in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> but in any order -- an entry is identified by holding a group of assertions
+created by an assertion creator lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-any-order-only-entries-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderOnlyEntriesSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-any-order-only-objects-assertion-creator/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInAnyOrderOnlyObjectsAssertionCreator</a></td>
+<td>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where exactly the expected entries have
+to appear in the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> but in any order -- an entry is identified by an expected object (equality comparison).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-any-order-only-objects-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderOnlyObjectsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-in-any-order-only-search-behaviour/index.html">ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour</a></td>
+<td>
+<p>Represents the search behaviour that expected entries might appear in any order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> but that
+the resulting assertion should not hold if there are less entries than expected or more.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-in-any-order-search-behaviour/index.html">ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour</a></td>
+<td>
+<p>Represents the search behaviour that expected entries might appear in any order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-order-only-assertion-creator/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInOrderOnlyAssertionCreator</a></td>
+<td>
+<p>Represents the base class for <code>in order only</code> assertion creators and provides a corresponding template to fulfill
+its responsibility.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-order-only-entries-assertion-creator/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInOrderOnlyEntriesAssertionCreator</a></td>
+<td>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where exactly the expected entries
+have to appear in the specified order and where an entry is identified by holding a group of assertions,
+created by an assertion creator lambda.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-order-only-entries-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyEntriesSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.creators/-iterable-contains-in-order-only-objects-assertion-creator/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators.IterableContainsInOrderOnlyObjectsAssertionCreator</a></td>
+<td>
+<p>Represents a creator of a sophisticated <code>contains</code> assertions for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> where exactly the expected entries
+have to appear in the specified order and where an entry is identified by an expected object (equality comparison).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-in-order-only-objects-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsInOrderOnlyObjectsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-in-order-only-search-behaviour/index.html">ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour</a></td>
+<td>
+<p>Represents the search behaviour that expected entries have to appear in the given order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> and
+that the resulting assertion should not hold if there are less entries than expected or more.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-in-order-search-behaviour/index.html">ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderSearchBehaviour</a></td>
+<td>
+<p>Represents the search behaviour that expected entries have to appear in the given order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-no-op-checker-builder/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNoOpCheckerBuilder</a></td>
+<td>
+<p>Represents a "no <a href="../ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html">IterableContains.Checker</a>" option, meaning no checker shall be applied to a search result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-no-op-search-behaviour/index.html">ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour</a></td>
+<td>
+<p>Represents the default search behaviour or rather does not define a search behaviour at all.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-not-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsNotAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.checkers/-iterable-contains-not-checker/index.html">ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsNotChecker</a></td>
+<td>
+<p>Represents a check that an expected object is not contained in the search input.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.iterable.contains.builders/-iterable-contains-not-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-not-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-not-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not at all</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-not-checker-builder-base/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains not</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.de_-c-h.assertions.iterable.contains.builders/-iterable-contains-not-or-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-not-or-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.iterable.contains.builders/-iterable-contains-not-or-at-most-checker-builder/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilder</a></td>
+<td>
+<p>Represents the builder of a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-not-or-at-most-checker-builder-base/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilderBase</a></td>
+<td>
+<p>The base class for builders which create a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/-iterable-contains-not-search-behaviour/index.html">ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNotSearchBehaviour</a></td>
+<td>
+<p>Represents the search behaviour that expected entries might appear in any order within the <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-null-spec/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsNullSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-iterable-contains-spec-base/index.html">ch.tutteli.atrium.spec.assertions.IterableContainsSpecBase</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-lazy-thread-unsafe-assertion-group/index.html">ch.tutteli.atrium.assertions.LazyThreadUnsafeAssertionGroup</a></td>
+<td>
+<p>Represents an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which is evaluated lazily where the lazy loading is not thread safe.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-lazy-thread-unsafe-basic-assertion/index.html">ch.tutteli.atrium.assertions.LazyThreadUnsafeBasicAssertion</a></td>
+<td>
+<p>Represents a <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> which is evaluated lazily where the lazy loading is not thread safe.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-list-assertion-group-type.html">ch.tutteli.atrium.assertions.ListAssertionGroupType</a></td>
+<td>
+<p>Represents the <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> should
+be displayed in a list (up to the <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> if it is a list with bullets, squares etc.).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">ch.tutteli.atrium.reporting.translating.LocaleOrderDecider</a></td>
+<td>
+<p>Responsible to decide in which order <a href="#">Locale</a>s should be processed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting.translating/-locale-order-decider-spec/index.html">ch.tutteli.atrium.spec.reporting.translating.LocaleOrderDeciderSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-method-call-formatter/index.html">ch.tutteli.atrium.reporting.MethodCallFormatter</a></td>
+<td>
+<p>Responsible to format a method call in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-object-formatter/index.html">ch.tutteli.atrium.reporting.ObjectFormatter</a></td>
+<td>
+<p>Represents a formatter for objects.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-object-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.ObjectFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/-objects/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.Objects</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-only-failure-reporter-spec/index.html">ch.tutteli.atrium.spec.reporting.OnlyFailureReporterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-plant-has-no-subject-exception/index.html">ch.tutteli.atrium.creating.PlantHasNoSubjectException</a></td>
+<td>
+<p>Represents the <a href="#">Exception</a> that an <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> was not defined but one tried to access it.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-prefix-failing-summary-assertion.html">ch.tutteli.atrium.assertions.PrefixFailingSummaryAssertion</a></td>
+<td>
+<p>Represents the identifier for bullet points used to prefix <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which do not hold, in context of an
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with type <a href="../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html">SummaryAssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-prefix-feature-assertion-group-header.html">ch.tutteli.atrium.assertions.PrefixFeatureAssertionGroupHeader</a></td>
+<td>
+<p>This class is only used as identifier for <a href="../ch.tutteli.atrium/-i-atrium-factory/register-text-assertion-formatter-capabilities.html">IAtriumFactory.registerTextAssertionFormatterCapabilities</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-prefix-successful-summary-assertion.html">ch.tutteli.atrium.assertions.PrefixSuccessfulSummaryAssertion</a></td>
+<td>
+<p>Represents the identifier for bullet points used to prefix <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which hold, in context of an
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with type <a href="../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html">SummaryAssertionGroupType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-raw-string/index.html">ch.tutteli.atrium.reporting.RawString</a></td>
+<td>
+<p>Marker interface for types which provide a raw string functionality
+and should be treated accordingly in reporting (e.g., in <a href="../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/-regex-patterns/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.RegexPatterns</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-reporter/index.html">ch.tutteli.atrium.reporting.Reporter</a></td>
+<td>
+<p>Represents a reporter which reports about <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-reporter-builder/index.html">ch.tutteli.atrium.reporting.ReporterBuilder</a></td>
+<td>
+<p>A builder to create a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> consisting of several components.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-reporting-assertion-plant.html">ch.tutteli.atrium.creating.ReportingAssertionPlant</a></td>
+<td>
+<p>Represents a plant for <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and offers the possibility to <a href="#">addAssertion</a>s and to report them.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.creating/-reporting-assertion-plant-nullable/index.html">ch.tutteli.atrium.creating.ReportingAssertionPlantNullable</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.creating/-reporting-assertion-plant-spec/index.html">ch.tutteli.atrium.spec.creating.ReportingAssertionPlantSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-root-assertion-group-type.html">ch.tutteli.atrium.assertions.RootAssertionGroupType</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s which are the root of all assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-single-assertion-group-type-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting/-string-based-raw-string/index.html">ch.tutteli.atrium.reporting.StringBasedRawString</a></td>
+<td>
+<p>Use this class to represent a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> which should be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-string-based-translatable/index.html">ch.tutteli.atrium.reporting.translating.StringBasedTranslatable</a></td>
+<td>
+<p>Something which is <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> and provides a default representation by <a href="../ch.tutteli.atrium.reporting.translating/-string-based-translatable/value.html">value</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-subject-less-assertion-spec/index.html">ch.tutteli.atrium.spec.assertions.SubjectLessAssertionSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-summary-assertion-group-type.html">ch.tutteli.atrium.assertions.SummaryAssertionGroupType</a></td>
+<td>
+<p>Represents the <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> should
+all be reported in reporting (no filtering by a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) since it represents a summary which itself
+will point out which assertions hold and which do not.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-test-data/index.html">ch.tutteli.atrium.spec.assertions.TestData</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-explanatory-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextExplanatoryAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-explanatory-based-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextExplanatoryBasedAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-fallback-assertion-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextFallbackAssertionFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-feature-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextFeatureAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-indent-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextIndentAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-indent-based-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextIndentBasedAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-list-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextListAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-list-based-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextListBasedAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-method-call-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextMethodCallFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-summary-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextSummaryAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-text-warning-assertion-group-formatter-spec/index.html">ch.tutteli.atrium.spec.reporting.TextWarningAssertionGroupFormatterSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-throwable-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.ThrowableAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.throwable.thrown/-throwable-thrown/index.html">ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown</a></td>
+<td>
+<p>Defines the contract for sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> was thrown assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.throwable.thrown.creators/-throwable-thrown-assertion-creator/index.html">ch.tutteli.atrium.assertions.throwable.thrown.creators.ThrowableThrownAssertionCreator</a></td>
+<td>
+<p>Represents a creator of a sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> (of type <a href="#">TExpected</a>) was thrown assertion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.throwable.thrown.builders/-throwable-thrown-builder/index.html">ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder</a></td>
+<td>
+<p>Represents the entry point of the fluent API of sophisticated a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> <code>was thrown</code> assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.checking/-throwing-assertion-checker-spec/index.html">ch.tutteli.atrium.spec.checking.ThrowingAssertionCheckerSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting/-to-string-object-formatter/index.html">ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter</a></td>
+<td>
+<p>Represents an <a href="../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a> which merely formats a given object by calling its <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/to-string.html">toString</a>
+method.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">ch.tutteli.atrium.reporting.translating.Translatable</a></td>
+<td>
+<p>Something which is translatable, identified by <a href="../ch.tutteli.atrium.reporting.translating/-translatable/id.html">id</a> with a default representation given by <a href="../ch.tutteli.atrium.reporting.translating/-translatable/get-default.html">getDefault</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.throwable.thrown.providers/-translatable-as-absent-throwable-message-provider/index.html">ch.tutteli.atrium.assertions.throwable.thrown.providers.TranslatableAsAbsentThrowableMessageProvider</a></td>
+<td>
+<p>Represents a <a href="../ch.tutteli.atrium.assertions.throwable.thrown/-throwable-thrown/-absent-throwable-message-provider/index.html">ThrowableThrown.AbsentThrowableMessageProvider</a> which is using a given <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> which in $
+turn explains an absent <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-translatable-based-raw-string/index.html">ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString</a></td>
+<td>
+<p>Use this class to represent a <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> which shall be translated and
+then be treated as raw <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> in reporting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">ch.tutteli.atrium.reporting.translating.TranslatableWithArgs</a></td>
+<td>
+<p>A <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> which contains placeholders for arguments.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">ch.tutteli.atrium.reporting.translating.TranslationSupplier</a></td>
+<td>
+<p>A supplier of translations for <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s for particular <a href="#">Locale</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting.translating/-translation-supplier-based-translator-spec/index.html">ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierBasedTranslatorSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting.translating/-translation-supplier-spec/index.html">ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">ch.tutteli.atrium.reporting.translating.Translator</a></td>
+<td>
+<p>Represents a translator of <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting.translating/-translator-error-case-spec/index.html">ch.tutteli.atrium.spec.reporting.translating.TranslatorErrorCaseSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.reporting.translating/-translator-int-spec/index.html">ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec</a></td>
+<td>
+<p>If you use this Spec then your reporter needs to use a translator which uses the following translations
+which should be in</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.assertions/-type-transformation-assertions-spec/index.html">ch.tutteli.atrium.spec.assertions.TypeTransformationAssertionsSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions.any.typetransformation/-type-transformer/index.html">ch.tutteli.atrium.assertions.any.typetransformation.TypeTransformer</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-untranslatable/index.html">ch.tutteli.atrium.reporting.translating.Untranslatable</a></td>
+<td>
+<p>Represents a <a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> which is not translatable but has only a fixed <a href="../ch.tutteli.atrium.reporting.translating/-untranslatable/name.html">name</a> which serves as <a href="../ch.tutteli.atrium.reporting.translating/-untranslatable/get-default.html">getDefault</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.reporting.translating/-using-default-translator/index.html">ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator</a></td>
+<td>
+<p>This translator does not translate but uses <a href="../ch.tutteli.atrium.reporting.translating/-translatable/get-default.html">Translatable.getDefault</a> instead
+and uses <a href="#">Locale.getDefault</a> as <a href="../ch.tutteli.atrium.reporting.translating/-arguments-supporting-translator/primary-locale.html">primaryLocale</a> if not defined differently via constructor parameter.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/-values/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.Values</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.spec.verbs/-verb-spec/index.html">ch.tutteli.atrium.spec.verbs.VerbSpec</a></td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.assertions/-warning-assertion-group-type.html">ch.tutteli.atrium.assertions.WarningAssertionGroupType</a></td>
+<td>
+<p>The <a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html">AssertionGroupType</a> for <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">assertions</a> are used to state
+a warning rather than making an assumption.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/case.html">ch.tutteli.atrium.api.cc.infix.en_UK.case</a></td>
+<td>
+<p>Represents the pseudo keyword <code>case</code> as in <code>ignoring case</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/contain.html">ch.tutteli.atrium.api.cc.infix.en_UK.contain</a></td>
+<td>
+<p>Represents the pseudo keyword <code>contain</code> as in <code>to contain</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/only.html">ch.tutteli.atrium.api.cc.infix.en_UK.only</a></td>
+<td>
+<p>Represents the pseudo keyword <code>only</code> as in <code>but only</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../ch.tutteli.atrium.api.cc.infix.en_-u-k/order.html">ch.tutteli.atrium.api.cc.infix.en_UK.order</a></td>
+<td>
+<p>Represents the pseudo keyword <code>order</code> as in <code>inAny order</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

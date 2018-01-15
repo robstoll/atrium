@@ -1,0 +1,451 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>doc</title>
+<link rel="stylesheet" href="..\style.css">
+</HEAD>
+<BODY>
+<a href=".">doc</a><br/>
+<br/>
+<h2>KDoc of Atrium</h2>
+<p>Atrium is built up by different modules. The packages shown below contain classes etc. 
+of all modules excluding the one of <em>atrium-imp-robstoll</em> and <em>atrium-imp-robstoll-lib</em>.</p>
+<p>Bundle modules:</p>
+<ul><li><strong>atrium-cc-de&#95;CH-robstoll</strong> defines to have a dependency on 
+  atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-impl-robstoll</li>
+<li><strong>atrium-cc-en&#95;UK-robstoll</strong>  defines to have a dependency on
+  atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll</li>
+<li><strong>atrium-cc-infix-en&#95;UK-robstoll</strong>  defines to have a dependency on
+  atrium-api-cc-infix-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll</li>
+</ul>
+  
+<p>API modules:  </p>
+<ul><li><strong>atrium-api-cc-de&#95;CH</strong> provides an assertion function API in German where the main 
+  focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is a pure fluent API.</li>
+<li><strong>atrium-api-cc-en&#95;UK</strong> provides an assertion function API in English where the main 
+  focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is a pure fluent API.</li>
+<li><strong>atrium-api-cc-infix-en&#95;UK</strong> provides an assertion function API in English where the main 
+  focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
+  It is an infix API.  </li>
+</ul>
+  
+<p>Assertion modules:</p>
+<ul><li><strong>atrium-assertions</strong> contains all <a href="https://github.com/robstoll/atrium#api-in-a-different-language">impl-functions</a>
+  and builder templates which can be used to create an API. Moreover it contains the 
+  <a href="./ch.tutteli.atrium.reporting/-reporter-builder/index.html">ReporterBuilder</a>.</li>
+<li><strong>atrium-translations-de&#95;CH</strong> provides translations in German for 
+  <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s used in assertion functions. </li>
+<li><strong>atrium-translations-en&#95;UK</strong> provides translations in English for 
+  <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s used in assertion functions. </li>
+<li><strong>atrium-verbs</strong> contains out of the box assertion verbs (we suggest to <a href="https://github.com/robstoll/atrium#use-own-assertion-verbs">use your own assertion verbs</a>).</li>
+</ul>
+<p>Core modules:</p>
+<ul><li><strong>atrium-core-api</strong> defines the contracts of the core of Atrium.</li>
+<li><strong>atrium-core-api-late-binding</strong> defines the contract for 
+  <a href="./ch.tutteli.atrium/-atrium-factory/index.html">AtriumFactory</a>
+  by providing a dummy implementation which eventually needs to be replaced by a real implementation. </li>
+<li><strong>atrium-core-impl-robstoll</strong> provides an <a href="./ch.tutteli.atrium/-atrium-factory/index.html">AtriumFactory</a>
+  which uses the implementations of <em>atrium-impl-robstoll-lib</em></li>
+<li><strong>atrium-core-impl-robstoll-lib</strong> <a href="https://github.com/robstoll">robstoll</a>'s implementation of the core of Atrium.</li>
+</ul>
+<p>Misc modules:</p>
+<ul><li><strong>atrium-spec</strong> contains <a href="http://spekframework.org/">Spek</a> specifications for interfaces (defined in 
+  <em>atrium-core-api</em>) and assertion functions. The specifications can be reused by implementation of the core of Atrium 
+  as well as by API implementations to assure they fulfill the specifications.  </li>
+</ul>
+<h3>Packages</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium/index.html">ch.tutteli.atrium</a></p>
+</td>
+<td>
+<p>Contains the <a href="./ch.tutteli.atrium/-i-atrium-factory/index.html">IAtriumFactory</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.de_-c-h/index.html">ch.tutteli.atrium.api.cc.de_CH</a></p>
+</td>
+<td>
+<p>Contains API which provides a pure fluent API in German and which has its design focus on usability in conjunction with code completion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated <code>contains</code> 
+assertions for CharSequence.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.de_-c-h.assertions.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated <code>contains</code> 
+assertions for Iterable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-u-k/index.html">ch.tutteli.atrium.api.cc.en_UK</a></p>
+</td>
+<td>
+<p>Contains API which provides a pure fluent API in English and which has its design focus on usability in conjunction with code completion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-u-k.assertions.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated <code>contains</code> 
+assertions for CharSequence.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.en_-u-k.assertions.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated <code>contains</code> 
+assertions for Iterable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-u-k/index.html">ch.tutteli.atrium.api.cc.infix.en_UK</a></p>
+</td>
+<td>
+<p>Contains API which provides an infix API in English and which has its design focus on usability in conjunction with code completion.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.charsequence.contains.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated <code>contains</code> 
+assertions for CharSequence.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.api.cc.infix.en_-u-k.assertions.iterable.contains.builders/index.html">ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated <code>contains</code> 
+assertions for Iterable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions/index.html">ch.tutteli.atrium.assertions</a></p>
+</td>
+<td>
+<p>Contains different types of <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> --
+e.g. <a href="./ch.tutteli.atrium.assertions/-basic-descriptive-assertion/index.html">BasicDescriptiveAssertion</a> -- 
+as well as assertion function templates which can be used in API modules such as 
+<a href="ch.tutteli.atrium.api.cc.en_-u-k/index.html">ch.tutteli.atrium.api.cc.en_UK</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.any.typetransformation/index.html">ch.tutteli.atrium.assertions.any.typetransformation</a></p>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.basic.contains/index.html">ch.tutteli.atrium.assertions.basic.contains</a></p>
+</td>
+<td>
+<p>Contains the basic contract for contains assertion builders 
+-- <a href="./ch.tutteli.atrium.assertions.basic.contains/-contains/index.html">Contains</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.basic.contains.builders/index.html">ch.tutteli.atrium.assertions.basic.contains.builders</a></p>
+</td>
+<td>
+<p>Contains base classes for builders representing a step in the process of creating sophisticated <code>contains</code> assertions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.basic.contains.checkers/index.html">ch.tutteli.atrium.assertions.basic.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains base classes for <a href="./ch.tutteli.atrium.assertions.basic.contains/-contains/-checker/index.html">Contains.Checker</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.basic.contains.creators/index.html">ch.tutteli.atrium.assertions.basic.contains.creators</a></p>
+</td>
+<td>
+<p>Contains base classes for <a href="./ch.tutteli.atrium.assertions.basic.contains/-contains/-creator/index.html">Contains.Creators</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains/index.html">ch.tutteli.atrium.assertions.charsequence.contains</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated CharSequence <code>contains</code> assertions 
+-- <a href="./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/index.html">CharSequenceContains</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.builders/index.html">ch.tutteli.atrium.assertions.charsequence.contains.builders</a></p>
+</td>
+<td>
+<p>Contains base classes for fluent API builders used in assertion function APIs 
+(e.g. <a href="ch.tutteli.atrium.api.cc.infix.en_-u-k/index.html">ch.tutteli.atrium.api.cc.infix.en_UK</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.checkers/index.html">ch.tutteli.atrium.assertions.charsequence.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-checker.html">CharSequenceContains.Checker</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.creators/index.html">ch.tutteli.atrium.assertions.charsequence.contains.creators</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-creator.html">CharSequenceContains.Creator</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html">CharSequenceContains.SearchBehaviour</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.charsequence.contains.searchers/index.html">ch.tutteli.atrium.assertions.charsequence.contains.searchers</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains/index.html">ch.tutteli.atrium.assertions.iterable.contains</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated Iterable <code>contains</code> assertions 
+-- <a href="./ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/index.html">IterableContains</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains.builders/index.html">ch.tutteli.atrium.assertions.iterable.contains.builders</a></p>
+</td>
+<td>
+<p>Contains base classes for fluent API builders used in assertion function APIs 
+(e.g. <a href="ch.tutteli.atrium.api.cc.en_-u-k/index.html">ch.tutteli.atrium.api.cc.en_UK</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains.checkers/index.html">ch.tutteli.atrium.assertions.iterable.contains.checkers</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-checker.html">IterableContains.Checker</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains.creators/index.html">ch.tutteli.atrium.assertions.iterable.contains.creators</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-creator.html">IterableContains.Creator</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours/index.html">ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.iterable.contains/-iterable-contains/-search-behaviour.html">IterableContains.SearchBehaviour</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.throwable.thrown/index.html">ch.tutteli.atrium.assertions.throwable.thrown</a></p>
+</td>
+<td>
+<p>Contains the contract for sophisticated a Throwable was thrown assertions 
+-- <a href="./ch.tutteli.atrium.assertions.throwable.thrown/-throwable-thrown/index.html">ThrowableThrown</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.throwable.thrown.builders/index.html">ch.tutteli.atrium.assertions.throwable.thrown.builders</a></p>
+</td>
+<td>
+<p>Contains the <a href="./ch.tutteli.atrium.assertions.throwable.thrown.builders/-throwable-thrown-builder/index.html">ThrowableThrownBuilder</a>
+which typically is used to create an <a href="https://github.com/robstoll/atrium#use-own-assertion-verbs">assertion verb for expected exceptions</a> </p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.throwable.thrown.creators/index.html">ch.tutteli.atrium.assertions.throwable.thrown.creators</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.throwable.thrown/-throwable-thrown/-creator/index.html">ThrowableThrown.Creator</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.assertions.throwable.thrown.providers/index.html">ch.tutteli.atrium.assertions.throwable.thrown.providers</a></p>
+</td>
+<td>
+<p>Contains <a href="./ch.tutteli.atrium.assertions.throwable.thrown/-throwable-thrown/-absent-throwable-message-provider/index.html">IterableContains.AbsentThrowableMessageProvider</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.checking/index.html">ch.tutteli.atrium.checking</a></p>
+</td>
+<td>
+<p>Everything involved in checking <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.creating/index.html">ch.tutteli.atrium.creating</a></p>
+</td>
+<td>
+<p>Everything involved in creating <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting/index.html">ch.tutteli.atrium.reporting</a></p>
+</td>
+<td>
+<p>Everything involved in reporting <a href="./ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.reporting.translating/index.html">ch.tutteli.atrium.reporting.translating</a></p>
+</td>
+<td>
+<p>Everything involved in translating <a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.spec/index.html">ch.tutteli.atrium.spec</a></p>
+</td>
+<td>
+<p>Helper functions for specifications as well as the contract of <a href="./ch.tutteli.atrium.spec/-assertion-verb-factory/index.html">AssertionVerbFactory</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.spec.assertions/index.html">ch.tutteli.atrium.spec.assertions</a></p>
+</td>
+<td>
+<p>Specifications for assertion function APIs (usually placed in an API module -- e.g. <a href="ch.tutteli.atrium.api.cc.de_-c-h/index.html">ch.tutteli.atrium.api.cc.de_CH</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.spec.checking/index.html">ch.tutteli.atrium.spec.checking</a></p>
+</td>
+<td>
+<p>Specifications for the API of the package <a href="./ch.tutteli.atrium.checking/index.html">ch.tutteli.atrium.checking</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.spec.creating/index.html">ch.tutteli.atrium.spec.creating</a></p>
+</td>
+<td>
+<p>Specifications for the API of the package <a href="./ch.tutteli.atrium.creating/index.html">ch.tutteli.atrium.creating</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.spec.reporting/index.html">ch.tutteli.atrium.spec.reporting</a></p>
+</td>
+<td>
+<p>Specifications for the API of the package <a href="./ch.tutteli.atrium.reporting/index.html">ch.tutteli.atrium.reporting</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.spec.reporting.translating/index.html">ch.tutteli.atrium.spec.reporting.translating</a></p>
+</td>
+<td>
+<p>Specifications for the API of the package <a href="./ch.tutteli.atrium.reporting.translating/index.html">ch.tutteli.atrium.reporting.translating</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.spec.verbs/index.html">ch.tutteli.atrium.spec.verbs</a></p>
+</td>
+<td>
+<p>Specifications for <a href="https://github.com/robstoll/atrium#use-own-assertion-verbs">Assertion Verbs</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs/index.html">ch.tutteli.atrium.verbs</a></p>
+</td>
+<td>
+<p>Contains the <a href="https://github.com/robstoll/atrium#use-own-assertion-verbs">AssertionVerb</a> which is an enum defining the 
+<a href="./ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a>
+of the <a href="https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs">out-of-the-box Assertion Verbs</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs.assert/index.html">ch.tutteli.atrium.verbs.assert</a></p>
+</td>
+<td>
+<p>Contains the <a href="https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs">Assertion Verbs</a> functions named <code>assert</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs.assertthat/index.html">ch.tutteli.atrium.verbs.assertthat</a></p>
+</td>
+<td>
+<p>Contains the <a href="https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs">Assertion Verbs</a> functions named <code>assertThat</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="ch.tutteli.atrium.verbs.expect/index.html">ch.tutteli.atrium.verbs.expect</a></p>
+</td>
+<td>
+<p>Contains the <a href="https://github.com/robstoll/atrium#out-of-the-box-assertion-verbs">Assertion Verbs</a> functions named <code>expect</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Index</h3>
+<a href="alltypes/index.html">All Types</a>
+</BODY>
+</HTML>

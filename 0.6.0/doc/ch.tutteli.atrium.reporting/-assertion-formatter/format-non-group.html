@@ -1,0 +1,31 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatter.formatNonGroup - doc</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">AssertionFormatter</a>&nbsp;/&nbsp;<a href=".">formatNonGroup</a><br/>
+<br/>
+<h1>formatNonGroup</h1>
+<a name="ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">formatNonGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-method-object/index.html"><span class="identifier">AssertionFormatterMethodObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Formats the given <a href="format-non-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> and appends the result to the <a href="../-assertion-formatter-method-object/sb.html">sb</a>
+of the given <a href="format-non-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/methodObject">methodObject</a>.</p>
+<p>The callee is responsible that not an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> is passed to this function for which the outcome is
+unknown/unspecified. Call <a href="format-group.html">formatGroup</a> to format an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>. Call <a href="format.html">format</a> in case you do not know
+what type <a href="format-non-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> is.</p>
+<p>This function should be in sync with <a href="can-format.html">canFormat</a>. If <a href="can-format.html">canFormat</a> returns <code>true</code> then this method should be able
+to format the given <a href="format-non-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a> without problems. If <a href="can-format.html">canFormat</a> returns <code>false</code> then this method should throw
+an <a href="#">UnsupportedOperationException</a>.</p>
+<h3>Parameters</h3>
+<a name="assertion"></a>
+<code>assertion</code> - The assertion which should be formatted (not an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>).<a name="methodObject"></a>
+<code>methodObject</code> - The method object which contains inter alia the <a href="../-assertion-formatter-method-object/sb.html">sb</a>
+to which the result will be appended.
+<h3>Exceptions</h3>
+<a name="UnsupportedOperationException"></a>
+<code>UnsupportedOperationException</code> - in case this <a href="index.html">AssertionFormatter</a> cannot format the given <a href="format-non-group.html#ch.tutteli.atrium.reporting.AssertionFormatter$formatNonGroup(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterMethodObject)/assertion">assertion</a>
+(<a href="can-format.html">canFormat</a> returns <code>false</code>).
+</BODY>
+</HTML>
