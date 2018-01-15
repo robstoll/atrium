@@ -48,7 +48,6 @@ class ExplanatoryDownCastFailureHandler<T : Any, TSub : T> : AnyNarrow.DownCastF
         = AssertionCollector
         .doNotThrowIfNoAssertionIsCollected
         .collectAssertionsForExplanation(
-            "subject is not available because it could not be down-casted to ${subType.qualifiedName}",
             TranslatableWithArgs(DescriptionNarrowingAssertion.WARNING_DOWN_CAST_FAILED, subType.qualifiedName!!),
             assertionCreator,
             null)

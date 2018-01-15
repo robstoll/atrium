@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
@@ -50,7 +51,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyNarrow.DownCa
         assertionCreator: AssertionPlant<TSub>.() -> Unit
     ) {
         val subject = subjectPlant.subject
-        val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at https://github.com/robstoll/atrium/issues/new")
+        val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at " + BUG_REPORT_URL)
         if (subType.isInstance(subject)) {
             val assertionChecker = AtriumFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = AtriumFactory.newReportingPlant(assertionVerb, subType.cast(subject), assertionChecker)
