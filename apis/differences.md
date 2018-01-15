@@ -13,14 +13,14 @@ These modules bundle:
 Following a list of the available bundle-modules. 
 The links point to the KDoc of their included API where you find an overview of all available assertion functions of the API.
 
-- [atrium-cc-de_CH-robstoll](https://robstoll.github.io/atrium/0.6.0/doc/ch.tutteli.atrium.api.cc.de_-c-h/index.html)
-- [atrium-cc-en_UK-robstoll](https://robstoll.github.io/atrium/0.6.0/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html)
-- [atrium-cc-infix-en_UK-robstoll](https://robstoll.github.io/atrium/0.6.0/doc/ch.tutteli.atrium.api.cc.infix.en_-u-k/index.html)
+- [atrium-cc-de_CH-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h/index.html)
+- [atrium-cc-en_UK-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html)
+- [atrium-cc-infix-en_UK-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-u-k/index.html)
 
 ----
 
 Following an excerpt of a build.gradle file which uses two APIs (see 
-[README#Installation](https://github.com/robstoll/atrium/tree/v0.6.0/README.md#installation)
+[README#Installation](https://github.com/robstoll/atrium/tree/master/README.md#installation)
 for the rest):
 ```
 dependencies {

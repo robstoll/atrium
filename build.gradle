@@ -2,13 +2,13 @@ buildscript {
     def projectsWithoutSourcesBuildScript = subprojects.findAll { it.path.contains("bundles") }
     def translationProjects = subprojects.findAll { it.path.contains("translations") }
     ext {
-        atrium_version = '0.6.0'
+        atrium_version = '0.7.0-SNAPSHOT'
         ghPages_version = atrium_version
         kbox_version = '0.1.0'
         kotlin_version = '1.2.10'
         mockito_kotlin_version = '1.5.0'
         dokka_version = '0.9.14'
-        dokka_sourceMapping = 'tree/v0.6.0'
+        dokka_sourceMapping = 'tree/master'
 
         srcKotlin = 'src/main/kotlin'
 
@@ -152,7 +152,12 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 Release & deploy a commit
 --------------------------------
 1. change atrium_version in build.gradle to X.Y.Z
-2. update master:
+2. update github pages:
+    a) gr ghPages
+    b) change version number in atrium-gh-pages/latest/index.html
+    c) add new version to atrium-gh-pages/README.md
+    d) commit & push changes
+3. update master:
     a) point to the tag
         1) search for old version and replace with new (gradle and maven)
         2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
@@ -162,11 +167,6 @@ Release & deploy a commit
     b) commit (modified build.gradle, README.md and differences.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
-3. update github pages:
-    a) gr ghPages
-    b) change version number in atrium-gh-pages/latest/index.html
-    c) add new version to atrium-gh-pages/README.md
-    d) commit & push changes
 4. deploy to bintray:
     a) gr bintrayUpload
     b) Log in to bintray, check and publish new jars
