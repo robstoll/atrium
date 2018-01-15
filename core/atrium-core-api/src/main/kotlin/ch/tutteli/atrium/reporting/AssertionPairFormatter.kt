@@ -14,7 +14,7 @@ interface AssertionPairFormatter {
      * of the given [methodObject].
      *
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to which the result will be appended.
+     *   to which the result will be appended.
      * @param assertionGroup The [AssertionGroup] of which we want to format the header.
      * @param newMethodObject The [AssertionFormatterMethodObject] used for the [AssertionGroup.assertions].
      */
@@ -25,7 +25,7 @@ interface AssertionPairFormatter {
      * and appends the result to the [sb][AssertionFormatterMethodObject.sb] of the given [methodObject].
      *
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to which the result will be appended.
+     *   to which the result will be appended.
      * @param translatable The description of the assertion pair.
      * @param representation The representation of the assertion pair.
      */

@@ -26,7 +26,7 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
      * @return This plant to support a fluent API.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately
-     *         evaluated (see [ReportingAssertionPlant]).
+     *   evaluated (see [ReportingAssertionPlant]).
      */
     fun addAssertion(assertion: Assertion): A
 }

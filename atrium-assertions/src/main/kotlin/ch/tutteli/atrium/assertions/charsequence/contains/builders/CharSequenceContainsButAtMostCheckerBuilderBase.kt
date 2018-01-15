@@ -13,12 +13,12 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @param S The search behaviour which should be applied to the input of the search.
  *
  * @property times The number which the check will compare against the actual number of times an expected object
- *                 is found in the input of the search.
+ *   is found in the input of the search.
  *
  * @constructor The base class for builders which create the second step of a `contains at least but at most` check
- *              within the fluent API of a sophisticated `contains` assertion for [CharSequence].
+ *   within the fluent API of a sophisticated `contains` assertion for [CharSequence].
  * @param times The number which the check will compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param atMostCall The name of the function which represents a `CharSequence contains at most` assertion.

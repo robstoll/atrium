@@ -9,18 +9,18 @@ import java.util.*
  * an abstract method [translateWithoutArgs] which sub-classes have to implement.
  *
  * @property primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
- *           which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in
- *           the resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
+ *   which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in
+ *   the resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
  * @property fallbackLocales Used in case a translation for a given [Translatable] is not defined for
- *           [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
+ *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  *
  * @constructor
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
- *                      which will be used in [java.lang.String.format], which in turn is used to substitute the
- *                      placeholders in the resulting translation of [TranslatableWithArgs.translatable] with
- *                      the [TranslatableWithArgs.arguments].
+ *   which will be used in [java.lang.String.format], which in turn is used to substitute the
+ *   placeholders in the resulting translation of [TranslatableWithArgs.translatable] with
+ *   the [TranslatableWithArgs.arguments].
  * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
- *        [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
+ *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
 
  */
 abstract class ArgumentsSupportingTranslator(
@@ -71,7 +71,7 @@ abstract class ArgumentsSupportingTranslator(
      * @param translatable The [Translatable] which shall be translated.
      *
      * @return The translation for the given [translatable] or
-     *         [Translatable.getDefault] of the given [translatable] in case there is no translation defined
+     *   [Translatable.getDefault] of the given [translatable] in case there is no translation defined
      */
     protected abstract fun translateWithoutArgs(translatable: Translatable): String
 

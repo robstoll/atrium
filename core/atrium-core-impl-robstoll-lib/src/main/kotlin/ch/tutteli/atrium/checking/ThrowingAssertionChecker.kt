@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @property reporter Will be used for reporting.
  *
  * @constructor An [AssertionChecker] which throws [AssertionError]s in case an assertion fails
- *              and uses the given [reporter] for reporting.
+ *   and uses the given [reporter] for reporting.
  * @param reporter Will be used for reporting.
  */
 class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecker {

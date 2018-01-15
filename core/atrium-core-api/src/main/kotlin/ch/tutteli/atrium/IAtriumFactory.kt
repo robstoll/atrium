@@ -40,9 +40,9 @@ interface IAtriumFactory {
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
@@ -56,11 +56,11 @@ interface IAtriumFactory {
      * It uses the given [assertionChecker] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param assertionChecker The checker which will be used to check [Assertion]s.
-     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
      *
      * @return The newly created assertion plant.
      */
@@ -88,16 +88,16 @@ interface IAtriumFactory {
      * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      * @param assertionCreator The
      *
      * @return The newly created [AssertionPlant] which can be used to postulate further assertions.
      *
      * @throws AssertionError The newly created [AssertionPlant] might throw an [AssertionError] in case a
-     *         created [Assertion] does not hold.
+     *   created [Assertion] does not hold.
      */
     fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: Translatable, subject: T, reporter: Reporter, assertionCreator: AssertionPlant<T>.() -> Unit)
         = newReportingPlant(assertionVerb, subject, reporter)
@@ -110,9 +110,9 @@ interface IAtriumFactory {
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
@@ -126,11 +126,11 @@ interface IAtriumFactory {
      * It uses the given [assertionChecker] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *        (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
      * @param assertionChecker The checker which will be used to check [Assertion]s.
-     *        (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
+     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
      *
      * @return The newly created assertion plant.
      */
@@ -168,7 +168,7 @@ interface IAtriumFactory {
      * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
      *
      * @param subjectProvider The function which will either provide the subject for this plant or throw an
-     * [PlantHasNoSubjectException] in case it cannot be provided.
+     *   [PlantHasNoSubjectException] in case it cannot be provided.
      *
      * @return The newly created assertion plant.
      */
@@ -190,7 +190,7 @@ interface IAtriumFactory {
      * [subjectPlant] by adding (see [AssertionPlant.addAssertion]) the created assertion group to it.
      *
      * @param subjectPlant The assertion plant to which the created [AssertionGroup] of [type][AssertionGroup.type]
-     *        [FeatureAssertionGroupType] will be [added][AssertionPlant.addAssertion].
+     *   [FeatureAssertionGroupType] will be [added][AssertionPlant.addAssertion].
      *
      * @return The newly created assertion checker.
      */
@@ -237,15 +237,15 @@ interface IAtriumFactory {
      *
      * @param translationSupplier Provides the translations for a desired [Locale].
      * @param localeOrderDecider Decides in which order [Locale]s are processed to find a translation for a
-     *        given [Translatable].
+     *   given [Translatable].
      * @param primaryLocale The [Locale] to which the translator translates per default.
      * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for [primaryLocale]
-     *        or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
+     *   or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
      *
      * @return The newly created translator.
      *
      * @throws IllegalArgumentException in case [primaryLocale] or [fallbackLocales] have as language `no` or if they
-     *         have: as language `zh`, country is not set and script is either `Hant` or `Hans`.
+     *   have: as language `zh`, country is not set and script is either `Hant` or `Hans`.
      */
     fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
 
@@ -316,10 +316,9 @@ interface IAtriumFactory {
      * fallback if no other formatter is able to format a given [Assertion].
      *
      * Typically this includes the formatting of the [AssertionGroup] with a [RootAssertionGroupType].
-     * It uses [newAssertionPairFormatter] to create an [AssertionPairFormatter] if necessary.
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
-     * for [RootAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
+     *   for [RootAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
      * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
@@ -333,7 +332,7 @@ interface IAtriumFactory {
      * formats [AssertionGroup]s of type [FeatureAssertionGroupType].
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
-     * for [PrefixFeatureAssertionGroupHeader] as prefix of the group header and [FeatureAssertionGroupType] as prefix
+     *   for [PrefixFeatureAssertionGroupHeader] as prefix of the group header and [FeatureAssertionGroupType] as prefix
      * for each [Assertion] in [AssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
@@ -348,7 +347,7 @@ interface IAtriumFactory {
      * formats [AssertionGroup]s of type [ListAssertionGroupType].
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
-     * for [ListAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
+     *   for [ListAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
      * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
@@ -364,7 +363,7 @@ interface IAtriumFactory {
      * an explanatory assertion group.
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
-     * for [ExplanatoryAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
+     *   for [ExplanatoryAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      *
      * @return The newly created assertion formatter.
@@ -379,9 +378,9 @@ interface IAtriumFactory {
      * [SummaryAssertionGroupType] and [ExplanatoryAssertionGroupType] (see [AssertionGroup.Builder]).
      *
      * @param bulletPoints The bullet points used in reporting to prefix each [Assertion] in
-     * [AssertionGroup.assertions].
+     *   [AssertionGroup.assertions].
      * @param assertionFormatterFacade The [AssertionFormatterFacade] to which all [AssertionFormatter]s with text
-     *        reporting capabilities should be registered.
+     *   reporting capabilities should be registered.
      * @param textAssertionPairFormatter An [AssertionPairFormatter] which is intended for text format.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
      * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].

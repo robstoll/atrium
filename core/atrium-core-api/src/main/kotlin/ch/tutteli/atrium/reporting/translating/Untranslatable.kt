@@ -6,7 +6,7 @@ package ch.tutteli.atrium.reporting.translating
  * Use this class to represent identifiers (method/property names etc.) and the like.
  *
  * @constructor Use this overload if the creation of the representation is expensive.
- * If it is cheap, then you might want to use the other overload with [CharSequence] as parameter type.
+ *   If it is cheap, then you might want to use the other overload with [CharSequence] as parameter type.
  * @param representation A lambda which will create the representation of this [Translatable].
  */
 class Untranslatable(representation: () -> String) : Translatable {

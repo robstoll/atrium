@@ -28,12 +28,12 @@ interface AnyTypeTransformation {
          * Makes something with the given [assertionCreator] lambda; might add assertions to [subjectPlant].
          *
          * @param warningTransformationFailed Explains why the [subjectPlant]'s [subject][AssertionPlant.subject] could not be
-         *        should have been down-casted.
+         *   should have been down-casted.
          * @param subjectPlant The plant to which additional assertions would have been added.
          * @param failingAssertion The failing [Assertion] representing that [subjectPlant]'s
-         *        [subject][AssertionPlant.subject] can be transformed to [TSub].
+         *   [subject][AssertionPlant.subject] can be transformed to [TSub].
          * @param assertionCreator The lambda which could have created subsequent assertions for the transformed
-         *        [AssertionPlant.subject].
+         *   [AssertionPlant.subject].
          *
          * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
          */

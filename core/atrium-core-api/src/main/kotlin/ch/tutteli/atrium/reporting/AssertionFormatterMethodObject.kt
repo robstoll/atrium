@@ -48,7 +48,7 @@ class AssertionFormatterMethodObject private constructor(
      *
      * @param newPrefix The new prefix to be used.
      * @param additionalIndent The additional indent which should be added to the current [indentLevel] next to the
-     *        current [prefix].[length][String.length].
+     *   current [prefix].[length][String.length].
      *
      * @return The newly created [AssertionFormatterMethodObject].
      */

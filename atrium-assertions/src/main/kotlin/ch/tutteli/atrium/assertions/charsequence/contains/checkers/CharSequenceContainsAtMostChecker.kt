@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
  * Represents a check that an expected object is contained at most [times] in the search input.
  *
  * @param times The number which the check uses to compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  * @param nameContainsNotFun The function which should be used instead of `atMostCall` when [times] equals to zero.
  * @param atMostCall The function which was used and should not be used if [times] equals to zero.
  *

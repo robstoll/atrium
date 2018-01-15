@@ -24,7 +24,7 @@ interface LocaleOrderDecider {
      *
      * @param primaryLocale The primary [Locale] which should be the first element of the returned [Sequence].
      * @param fallbackLocales The fallback [Locale]'s which should be used in case no translation could be found for
-     *                        the [primaryLocale] and its secondary alternatives.
+     *   the [primaryLocale] and its secondary alternatives.
      *
      * @return A [Sequence] of [Locale]s which defines the order in which translations should be searched for.
      */

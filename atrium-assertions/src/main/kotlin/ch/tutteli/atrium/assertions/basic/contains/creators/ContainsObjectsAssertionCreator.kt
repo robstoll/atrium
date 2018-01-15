@@ -21,7 +21,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @property searchBehaviour The chosen search behaviour.
  *
  * @constructor Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
- * with `==`).
+ *   with `==`).
  * @param searchBehaviour The chosen search behaviour.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
@@ -55,7 +55,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBe
      * [subject][AssertionPlant.subject] and returns the number of occurrences.
      *
      * @param plant The plant or rather its [subject][AssertionPlant.subject] in which we shall look for something
-     *        matching the given [searchCriterion].
+     *   matching the given [searchCriterion].
      * @param searchCriterion The search criterion used to determine whether something matches or not.
      *
      * @return The number of times the [searchCriterion] matched in the [plant]'s [subject][AssertionPlant.subject].

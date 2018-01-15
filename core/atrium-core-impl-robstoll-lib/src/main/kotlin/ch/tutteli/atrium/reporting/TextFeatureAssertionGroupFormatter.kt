@@ -17,15 +17,15 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * Its usage is intended for text output (e.g. to the console).
  *
  * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an
- * [FeatureAssertionGroupType] by using the given [assertionPairFormatter] to format the group header, additionally
+ *   [FeatureAssertionGroupType] by using the given [assertionPairFormatter] to format the group header, additionally
  * prefixing it with the "bullet point" (typically an arrow) defined for [PrefixFeatureAssertionGroupHeader] and uses
  * the bullet point defined for [FeatureAssertionGroupType] as prefix for the [AssertionGroup.assertions].
  *
  * @param bulletPoints The formatter uses the bullet point defined for [PrefixFeatureAssertionGroupHeader]
- *        (`"▶ "` if absent) as prefix of the group header and [FeatureAssertionGroupType] (`"◾ "` if absent)
- *        as prefix of the child-[AssertionFormatterMethodObject].
+ *   (`"▶ "` if absent) as prefix of the group header and [FeatureAssertionGroupType] (`"◾ "` if absent)
+ *   as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The controller to which this formatter gives back the control
- *        when it comes to format children of an [AssertionGroup].
+ *   when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
 class TextFeatureAssertionGroupFormatter(

@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @property subjectPlant The plant which holds the assertions of the subject.
  *
  * @constructor An [AssertionChecker] useful for narrowing assertion functions which have to create an own [AssertionPlant]
- * but want to add the created assertions to the original plant of the narrowed [AssertionPlant.subject].
+ *   but want to add the created assertions to the original plant of the narrowed [AssertionPlant.subject].
  * @param subjectPlant The plant which holds the assertions of the subject.
  */
 class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAssertionPlant<T, *>) : AssertionChecker {

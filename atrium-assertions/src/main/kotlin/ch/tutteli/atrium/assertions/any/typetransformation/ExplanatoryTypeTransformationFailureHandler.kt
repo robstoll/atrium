@@ -21,10 +21,10 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> : AnyTy
      * to the given [subjectPlant].
      *
      * @param warningTransformationFailed The type to which the [subjectPlant]'s [subject][AssertionPlant.subject] should have been
-     *        down-casted.
+     *   down-casted.
      * @param subjectPlant The plant to which additional assertions would have been added.
      * @param assertionCreator The lambda which could have created subsequent assertions for the down-casted
-     *        [AssertionPlant.subject].
+     *   [AssertionPlant.subject].
      *
      * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
      */

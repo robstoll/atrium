@@ -39,11 +39,11 @@ object AssertionCollector {
          * @param subject The subject which will be used for the [AssertionPlant].
          *
          * @return A list with the collected assertion or an [ExplanatoryAssertionGroup] with a warning if [subject] is
-         * `null` and an assertion function tries to access it.
+         *   `null` and an assertion function tries to access it.
          *
          * @throws IllegalArgumentException Might throw an [IllegalArgumentException] in case the [assertionCreator]
-         * function does not even create one [Assertion] -- depending on the previously chosen option (see
-         * [throwIfNoAssertionIsCollected] and [doNotThrowIfNoAssertionIsCollected]).
+         *   function does not even create one [Assertion] -- depending on the previously chosen option (see
+         *   [throwIfNoAssertionIsCollected] and [doNotThrowIfNoAssertionIsCollected]).
          */
         fun <E : Any> collectAssertionsForExplanation(warning: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
             return try {

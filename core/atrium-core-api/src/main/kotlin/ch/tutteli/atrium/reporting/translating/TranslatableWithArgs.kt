@@ -4,12 +4,12 @@ package ch.tutteli.atrium.reporting.translating
  * A [Translatable] which contains placeholders for arguments.
  *
  * @property translatable The [Translatable] as such which contains placeholders and
- *                        for which translations can be been defined.
+ *   for which translations can be been defined.
  * @property arguments The arguments which should be used to substitute the placeholders of the [translatable].
  *
  * @constructor
  * @param translatable The [Translatable] as such which contains placeholders and
- *                     for which translations can be been defined.
+ *   for which translations can be been defined.
  * @param arguments The arguments which should be used to substitute the placeholders of the [translatable].
  *
  */

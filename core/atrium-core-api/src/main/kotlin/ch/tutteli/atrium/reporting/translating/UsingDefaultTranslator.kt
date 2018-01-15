@@ -8,9 +8,9 @@ import java.util.*
  *
  * @constructor This translator does not translate but uses [Translatable.getDefault] instead.
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
- *        which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in
- *        the resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
- *        If not defined at all, it will use [Locale.getDefault] as fallback.
+ *   which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in
+ *   the resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
+ *   If not defined at all, it will use [Locale.getDefault] as fallback.
  */
 class UsingDefaultTranslator(
     primaryLocale: Locale = Locale.getDefault()

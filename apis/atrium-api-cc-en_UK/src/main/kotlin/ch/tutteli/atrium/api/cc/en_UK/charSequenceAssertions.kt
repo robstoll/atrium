@@ -51,7 +51,7 @@ val <T : CharSequence> Assert<T>.containsNot: CharSequenceContainsNotCheckerBuil
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
- *         [CharSequence], [Number] or [Char].
+ *   [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
     = contains.atLeast(1).values(expected, *otherExpected)

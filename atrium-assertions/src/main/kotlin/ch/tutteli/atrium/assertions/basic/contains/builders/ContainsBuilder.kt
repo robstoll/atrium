@@ -14,7 +14,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @property searchBehaviour The search behaviour which shall be applied to the input of the search.
  *
  * @constructor Represents the base class for builders representing the entry point of the process of building a
- *              sophisticated `contains` assertion.
+ *   sophisticated `contains` assertion.
  * @param plant The [AssertionPlant] for which the sophisticated `contains` assertions shall be built.
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */

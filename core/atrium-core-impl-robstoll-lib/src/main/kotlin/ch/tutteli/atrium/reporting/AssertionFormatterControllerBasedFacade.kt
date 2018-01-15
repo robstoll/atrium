@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.Assertion
  * so by delegating this responsibility to the specified [assertionFormatterController].
  *
  * @constructor Responsible to call an appropriate [AssertionFormatter] which supports [format]ing a given [Assertion] -- it does
- *              so by delegating this responsibility to the given [assertionFormatterController].
+ *   so by delegating this responsibility to the given [assertionFormatterController].
  * @param assertionFormatterController The controller used to control the flow of formatting.
  */
 class AssertionFormatterControllerBasedFacade(private val assertionFormatterController: AssertionFormatterController) : AssertionFormatterFacade {

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * [ExplanatoryAssertionGroupType].
  *
  * @constructor Represents a group of [Assertion]s -- it has a certain [type], a [name], a [subject], [assertions] and a fixed
- * value for [holds] which does not depend on [assertions] (usually indirectly).
+ *   value for [holds] which does not depend on [assertions] (usually indirectly).
  * @param type The type of the group, e.g. [FeatureAssertionGroupType].
  * @param name The name of the group.
  * @param subject The subject for which the [assertions] are defined.

@@ -9,7 +9,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  * for, occurs `at least` number of [times] within the search input.
  *
  * @param times The number which the check will compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
@@ -25,13 +25,13 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.zu
  * The resulting restriction will be a `contains at least but at most` assertion.
  *
  * @param times The number which the check will compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
- *                                  `at least` restriction; use the [exactly] restriction instead.
+ *   `at least` restriction; use the [genau] restriction instead.
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastCheckerBuilder<T, S>.aberHoechstens(times: Int): CharSequenceContainsButAtMostCheckerBuilder<T, S>
     = CharSequenceContainsButAtMostCheckerBuilder(times, this, containsBuilder)
@@ -41,11 +41,11 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastCheckerBu
  * are looking for, occurs `exactly` number of [times] within the search input.
  *
  * @param times The number which the check will compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [enhaeltNicht] instead.
+ * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.genau(times: Int): CharSequenceContainsExactlyCheckerBuilder<T, S>
     = CharSequenceContainsExactlyCheckerBuilder(times, this)
@@ -59,7 +59,7 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.ge
  * number of times, then use `nichtOderHoechstens(2)` instead.
  *
  * @param times The number which the check will compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
@@ -74,11 +74,11 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.ho
  * are looking for, occurs `not at all or at most` number of [times] within the search input.
  *
  * @param times The number which the check will compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
- * @throws IllegalArgumentException In case [times] equals to zero; use [enhaeltNicht] instead.
+ * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.nichtOderHoechstens(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
     = CharSequenceContainsNotOrAtMostCheckerBuilder(times, this)

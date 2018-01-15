@@ -87,9 +87,9 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * [primaryLocale] is used as primary [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
          *
          * @param primaryLocale The [Locale] for which the [Translator] will first search translations --
-         *        it will also be used to format arguments of [TranslatableWithArgs].
+         *   it will also be used to format arguments of [TranslatableWithArgs].
          * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
-         *        in case no translation was found the previous primary Locale.
+         *   in case no translation was found the previous primary Locale.
          */
         fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale)
             = ObjectFormatterOptions(AtriumFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales))

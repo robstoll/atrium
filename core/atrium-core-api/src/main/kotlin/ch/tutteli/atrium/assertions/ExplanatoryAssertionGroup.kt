@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @constructor Use [AssertionGroup.Builder.explanatory] to create an [ExplanatoryAssertionGroup].
  * @param type The concrete [ExplanatoryAssertionGroupType]
  * @param explanatoryAssertions The [assertions] of this group which shall not be evaluated but are used in reporting
- *        to explain something (rather than making assumptions).
+ *   to explain something (rather than making assumptions).
  */
 class ExplanatoryAssertionGroup internal constructor(type: ExplanatoryAssertionGroupType, explanatoryAssertions: List<Assertion>)
     : EmptyNameAndSubjectAssertionGroup(type, explanatoryAssertions) {

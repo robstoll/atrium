@@ -45,7 +45,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
- *         [CharSequence], [Number] or [Char].
+ *   [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
     = addAssertion(_containsValues(this, expected, otherExpected))
@@ -90,7 +90,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
- *         [CharSequence], [Number] or [Char].
+ *   [CharSequence], [Number] or [Char].
  */
 @JvmName("valuesIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
@@ -106,7 +106,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
  * default translation of [expected] is defined as `'a'` and one default translation of the
  * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [zumindest], [hoestens] and [genau] to control
+ * same sequence in the input of the search. Use an option such as [zumindest], [hoechstens] and [genau] to control
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:
@@ -129,7 +129,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
  * default translation of [expected] is defined as `'a'` and one default translation of the
  * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [zumindest], [hoestens] and [genau] to control
+ * same sequence in the input of the search. Use an option such as [zumindest], [hoechstens] and [genau] to control
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:

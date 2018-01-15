@@ -60,7 +60,7 @@ interface Contains {
          * This resulting [AssertionGroup] represents the sophisticated `contains` assertion as a whole.
          *
          * @param plant The plant -- or rather its [subject][AssertionPlant.subject] -- for which the [AssertionGroup]
-         *        is created.
+         *   is created.
          * @param searchCriterion A search criterion.
          * @param otherSearchCriteria Other search criteria (might also be empty).
          *

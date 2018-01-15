@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear
@@ -14,9 +16,9 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param S The type of the elements of the iterable, used as search criterion.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries
- *              can appear in any order and are identified by expected objects (equality comparison).
+ *   can appear in any order and are identified by expected objects (equality comparison).
  * @param searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
- *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
 class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(

@@ -12,7 +12,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.S
  * @param S The search behaviour which should be applied for the input of the search.
  *
  * @constructor The base class for builders which create [Checker]s within the fluent API of a sophisticated
- *              `contains` assertion which was started with the given [containsBuilder].
+ *   `contains` assertion which was started with the given [containsBuilder].
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
 abstract class CharSequenceContainsCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
