@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
-import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
+import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
@@ -47,7 +47,7 @@ class DownCaster<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.TypeTr
     ) {
         typeTransformer.transform(
             description, subType, subjectPlant, assertionCreator,
-            TranslatableWithArgs(DescriptionNarrowingAssertion.WARNING_DOWN_CAST_FAILED, subType.qualifiedName!!),
+            TranslatableWithArgs(DescriptionTypeTransformationAssertion.WARNING_DOWN_CAST_FAILED, subType.qualifiedName!!),
             { subType.isInstance(it) },
             { subType.cast(it) }
         )

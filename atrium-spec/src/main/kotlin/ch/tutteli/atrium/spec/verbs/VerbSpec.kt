@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
+import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.assertions.DescriptionComparableAssertion.*
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
@@ -147,7 +147,7 @@ abstract class VerbSpec(
                     assertionVerb(null).isNotNull {}
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
                         contains(Integer::class.java.name)
                     }
                 }

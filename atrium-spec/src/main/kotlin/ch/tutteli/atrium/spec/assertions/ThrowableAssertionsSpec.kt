@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
+import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
@@ -86,7 +86,7 @@ abstract class ThrowableAssertionsSpec(
                 assert(throwable).message()
             }.toThrow<AssertionError> {
                 message {
-                    containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                    containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
                     contains(String::class.java.name)
                 }
             }

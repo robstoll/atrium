@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion.IS_A
+import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion.IS_A
 import ch.tutteli.atrium.assertions.any.typetransformation.DownCaster
 import ch.tutteli.atrium.assertions.any.typetransformation.ExplanatoryTypeTransformationFailureHandler
 import ch.tutteli.atrium.assertions.any.typetransformation.TypeTransformer
