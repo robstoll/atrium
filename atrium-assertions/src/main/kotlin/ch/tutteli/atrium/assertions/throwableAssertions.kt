@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion.IS_A
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED
-import ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler
+import ch.tutteli.atrium.assertions.any.typetransformation.ExplanatoryTypeTransformationFailureHandler
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.assertions.throwable.thrown.creators.ThrowableThrownAssertionCreator
 import ch.tutteli.atrium.assertions.throwable.thrown.providers.TranslatableAsAbsentThrowableMessageProvider
@@ -10,6 +10,6 @@ import ch.tutteli.atrium.creating.AssertionPlant
 
 inline fun <reified TExpected : Throwable> _toThrow(throwableThrownBuilder: ThrowableThrownBuilder, noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
     val provider = TranslatableAsAbsentThrowableMessageProvider(NO_EXCEPTION_OCCURRED)
-    ThrowableThrownAssertionCreator<TExpected>(provider, ExplanatoryDownCastFailureHandler())
+    ThrowableThrownAssertionCreator<TExpected>(provider, ExplanatoryTypeTransformationFailureHandler())
         .executeActAndCreateAssertion(throwableThrownBuilder, IS_A, TExpected::class, assertionCreator)
 }

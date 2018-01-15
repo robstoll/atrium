@@ -1,11 +1,12 @@
 package ch.tutteli.atrium.assertions.throwable.thrown.creators
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
-import ch.tutteli.atrium.assertions.any.narrow.DownCaster
+import ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation
+import ch.tutteli.atrium.assertions.any.typetransformation.DownCaster
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
@@ -25,21 +26,36 @@ import kotlin.reflect.KClass
  */
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider,
-    private val failureHandler: AnyNarrow.DownCastFailureHandler<Throwable, TExpected>
+    private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<Throwable, TExpected>
 ) : ThrowableThrown.Creator<TExpected> {
 
-    override fun executeActAndCreateAssertion(throwableThrownBuilder: ThrowableThrownBuilder, description: Translatable, expectedType: KClass<TExpected>, assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
-        var throwable: Throwable? = null
-        try {
+    override fun executeActAndCreateAssertion(
+        throwableThrownBuilder: ThrowableThrownBuilder,
+        description: Translatable,
+        expectedType: KClass<TExpected>,
+        assertionCreator: AssertionPlant<TExpected>.() -> Unit
+    ) {
+        val throwable: Throwable? = catchThrowable(throwableThrownBuilder)
+        val subjectPlant = createReportingPlantForThrowable(throwableThrownBuilder, throwable)
+
+        DownCaster<Throwable, TExpected>(failureHandler)
+            .downCast(description, expectedType, subjectPlant, assertionCreator)
+    }
+
+    private fun catchThrowable(throwableThrownBuilder: ThrowableThrownBuilder): Throwable? {
+        return try {
             throwableThrownBuilder.act()
+            null
         } catch (t: Throwable) {
-            throwable = t
+            t
         }
-        val subjectPlant = AtriumFactory.newReportingPlantNullable(
+    }
+
+    private fun createReportingPlantForThrowable(throwableThrownBuilder: ThrowableThrownBuilder, throwable: Throwable?): ReportingAssertionPlantNullable<Throwable?> {
+        return AtriumFactory.newReportingPlantNullable(
             throwableThrownBuilder.assertionVerb,
             throwable,
             throwableThrownBuilder.reporter,
             absentThrowableMessageProvider.message)
-        DownCaster(failureHandler).downCast(description, expectedType, subjectPlant, assertionCreator)
     }
 }
