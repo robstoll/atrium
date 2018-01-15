@@ -1,11 +1,8 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.startsWith
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
 import ch.tutteli.atrium.assertions._typeTransformation
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.expect
@@ -16,23 +13,23 @@ import org.jetbrains.spek.api.dsl.context
 
 object TypeTransformerSpec : Spek({
 
-    val assertLeft = assert(Left("hello"))
-    context("custom Either<String, Nothing> with left \"hello\"") {
-        test("${assertLeft::isLeft.name} does not throw") {
-            assertLeft.isLeft {
+    val either: Either<String, Int> = Left("hello")
+    context("custom Either<String, Int> with left \"hello\"") {
+        test("${assert(either)::isLeft.name} does not throw") {
+            assert(either).isLeft {
                 startsWith("h")
             }
         }
-        test("${assertLeft::isRight.name} throws AssertionError containing explanation") {
+        test("${assert(either)::isRight.name} throws AssertionError containing explanation") {
             expect {
-                assertLeft.isRight {
-                    startsWith("h")
+                assert(either).isRight {
+                    isLessThan(2)
                 }
             }.toThrow<AssertionError> {
                 message {
                     contains(
                         "is a: ${Right::class.java.simpleName}",
-                        "${DescriptionCharSequenceAssertion.STARTS_WITH.getDefault()}: \"h\""
+                        "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 2"
                     )
                 }
             }
