@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.en_UK
+package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
@@ -7,7 +7,7 @@ import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction2
 
 
-class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAssertionsSpec(
+class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.assertions.TypeTransformationAssertionsSpec(
     AssertionVerbFactory,
     getIsNotNullPair(),
     Companion::isNotNullLess,
@@ -22,15 +22,15 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
     companion object {
 
         private inline fun <reified T : Any> isNotNull(): KFunction2<AssertionPlantNullable<T?>, Assert<T>.() -> Unit, Unit>
-            = AssertionPlantNullable<T?>::isNotNull
+            = AssertionPlantNullable<T?>::notToBeNull
 
         private fun getIsNotNullPair() = isNotNull<Int>().name to isNotNull<Int>()
 
         private fun isNotNullLess(plant: AssertionPlantNullable<Int?>, number: Int)
-            = plant.isNotNull { isLessThan(number) }
+            = plant notToBeNull { isLessThan(number) }
 
-        private fun isNotNullGreaterAndLess(plant: AssertionPlantNullable<Int?>, lowerBound:Int, upperBound: Int)
-            = plant.isNotNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
+        private fun isNotNullGreaterAndLess(plant: AssertionPlantNullable<Int?>, lowerBound: Int, upperBound: Int)
+            = plant notToBeNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
 
 
         private fun getNameIsA(): String {
@@ -39,7 +39,7 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
         }
 
         private inline fun <reified TSub : Any> isA(plant: Assert<Any>, noinline assertionCreator: Assert<TSub>.() -> Unit) {
-            plant.isA(assertionCreator)
+            plant isA (assertionCreator)
         }
 
         //TODO get rid of different overloads as soon as https://youtrack.jetbrains.com/issue/KT-19884 is fixed
@@ -56,6 +56,7 @@ class NarrowingAssertionsSpec : ch.tutteli.atrium.spec.assertions.NarrowingAsser
             = isA(plant, assertionCreator)
 
         private fun isAIntLess(plant: Assert<Number>, number: Int)
+            //TODO change to infix as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
             = plant.isA<Int> { isLessThan(number) }
     }
 }
