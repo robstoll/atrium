@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions.throwable.thrown
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.assertions.any.narrow.AnyNarrow
+import ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.AbsentThrowableMessageProvider
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown.Creator
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
  * Defines the contract for sophisticated a [Throwable] was thrown assertions.
  *
  * An assertion starts with a [ThrowableThrownBuilder] and is typically built up by an [AbsentThrowableMessageProvider]
- * and an [AnyNarrow.DownCastFailureHandler] which are passed to a [Creator] which finally builds the assertion.
+ * and an [AnyTypeTransformation.TypeTransformationFailureHandler] which are passed to a [Creator] which finally builds the assertion.
  */
 interface ThrowableThrown {
     /**

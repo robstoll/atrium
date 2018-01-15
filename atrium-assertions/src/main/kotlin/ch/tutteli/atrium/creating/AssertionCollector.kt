@@ -2,6 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -33,6 +34,7 @@ object AssertionCollector {
          * subject is accessed (which does not need to be the case all the time). In such a case a single
          * [ExplanatoryAssertionGroup] is returned containing a warning.
          *
+         * @param warning The translatable used to explain why the assertions could not be evaluated.
          * @param assertionCreator The function which should at least create one assertion.
          * @param subject The subject which will be used for the [AssertionPlant].
          *
@@ -43,9 +45,9 @@ object AssertionCollector {
          * function does not even create one [Assertion] -- depending on the previously chosen option (see
          * [throwIfNoAssertionIsCollected] and [doNotThrowIfNoAssertionIsCollected]).
          */
-        fun <E : Any> collectAssertionsForExplanation(noSubjectMessage: String, warning: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
+        fun <E : Any> collectAssertionsForExplanation(warning: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
             return try {
-                val collectedAssertions = collect(noSubjectMessage, assertionCreator, subject)
+                val collectedAssertions = collect(assertionCreator, subject)
 
                 require(!(throwIfNoAssertionIsCollected && collectedAssertions.isEmpty())) {
                     "There was not any assertion created which could identify an entry. Specify at least one assertion"
@@ -59,8 +61,8 @@ object AssertionCollector {
             }
         }
 
-        private fun <E : Any> collect(noSubjectMessage: String, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
-            val collectingAssertionPlant = createPlant(subject, noSubjectMessage)
+        private fun <E : Any> collect(assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
+            val collectingAssertionPlant = createPlant(subject)
             if (assertionCreator != null) {
                 collectingAssertionPlant.addAssertionsCreatedBy(assertionCreator)
             } else {
@@ -69,9 +71,9 @@ object AssertionCollector {
             return collectingAssertionPlant.getAssertions()
         }
 
-        private fun <E : Any> createPlant(subject: E?, noSubjectMessage: String): CollectingAssertionPlant<E> {
+        private fun <E : Any> createPlant(subject: E?): CollectingAssertionPlant<E> {
             return AtriumFactory.newCollectingPlant {
-                subject ?: throw PlantHasNoSubjectException(noSubjectMessage)
+                subject ?: throw PlantHasNoSubjectException("subject is not available, you as user should not see this message, please fill in a bug including the stacktrace if you do: " + BUG_REPORT_URL)
             }
         }
     }
