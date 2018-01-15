@@ -594,7 +594,7 @@ You are free to choose what fits best without introducing ambiguity etc.
 You could even mix up different APIs if needed (but not without losing conciseness I guess -- but hey, it is your decision :wink:). 
 
 ## Internationalization
-The last difference is not yet fully-blown implemented but the design of Atrium has everything needed to go down the planed [Raodmap](#roadmap).
+The last difference is not yet fully-blown implemented but the design of Atrium has everything needed to go down the planed [Roadmap](#roadmap).
 Might well be that this topic is not really a concern of yours; unless...  
 
 - you are using domain-driven-design and would like to adopt the ubiquitous language also to your test code.

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
-import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion
+import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -13,7 +13,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-abstract class NarrowingAssertionsSpec(
+abstract class TypeTransformationAssertionsSpec(
     verbs: AssertionVerbFactory,
     isNotNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit>,
     isNotNullLessFun: AssertionPlantNullable<Int?>.(Int) -> Unit,
@@ -48,7 +48,7 @@ abstract class NarrowingAssertionsSpec(
                     assert(i).isNotNullFun {}
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
                         contains(Integer::class.java.name)
                     }
                 }
@@ -61,7 +61,7 @@ abstract class NarrowingAssertionsSpec(
                         assert(i).isNotNullLessFun(2)
                     }.toThrow<AssertionError> {
                         message {
-                            containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                            containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
                             contains(Integer::class.java.name)
                             containsDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
                         }
@@ -132,7 +132,7 @@ abstract class NarrowingAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
-                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
                         contains(Integer::class.java.name)
                     }
                 }
@@ -145,7 +145,7 @@ abstract class NarrowingAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
-                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A, DescriptionComparableAssertion.IS_LESS_THAN)
+                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A, DescriptionComparableAssertion.IS_LESS_THAN)
                         contains(Integer::class.java.name)
                     }
                 }
@@ -163,7 +163,7 @@ abstract class NarrowingAssertionsSpec(
                     assert("hello").isAIntFun {}
                 }.toThrow<AssertionError> {
                     message {
-                        containsDefaultTranslationOf(DescriptionNarrowingAssertion.IS_A)
+                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
                         contains(Integer::class.java.name)
                     }
                 }
@@ -220,7 +220,7 @@ abstract class NarrowingAssertionsSpec(
                 expect {
                     verbs.checkImmediately(SuperType()).isASubTypeFun {}
                 }.toThrow<AssertionError> {
-                    message { contains(SuperType::class.java.name, DescriptionNarrowingAssertion.IS_A.getDefault(), SubType::class.java.name) }
+                    message { contains(SuperType::class.java.name, DescriptionTypeTransformationAssertion.IS_A.getDefault(), SubType::class.java.name) }
                 }
             }
         }

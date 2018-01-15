@@ -21,7 +21,6 @@ internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(assertio
         collectIterableAssertionsForExplanation(assertionCreator, first)
     } else {
         collectIterableAssertionsForExplanation(
-            "subject was null, cannot down-cast it to the non-nullable type",
             DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_ONLY_NULL,
             assertionCreator,
             null)
@@ -30,15 +29,14 @@ internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(assertio
 
 internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
     = collectIterableAssertionsForExplanation(
-    "The iterator was empty and thus no subject available",
     DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE,
     assertionCreator,
     subject)
 
-internal fun <E : Any> collectIterableAssertionsForExplanation(exceptionMessage: String, description: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
+internal fun <E : Any> collectIterableAssertionsForExplanation(description: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
     = AssertionCollector
     .throwIfNoAssertionIsCollected
-    .collectAssertionsForExplanation(exceptionMessage, description, assertionCreator, subject)
+    .collectAssertionsForExplanation(description, assertionCreator, subject)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean) =
     FixHoldsAssertionGroup(DefaultListAssertionGroupType, DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString.EMPTY, explanatoryAssertions, found)

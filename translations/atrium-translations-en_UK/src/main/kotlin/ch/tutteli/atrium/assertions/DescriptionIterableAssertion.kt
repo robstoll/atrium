@@ -20,11 +20,12 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     IN_ORDER_ONLY("%s only, in order"),
     NUMBER_OF_OCCURRENCES("number of occurrences"),
     SIZE_EXCEEDED("❗❗ hasNext() returned false"),
-    CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("Could not evaluate the defined assertion(s) -- `Iterable` has no next entry.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    CANNOT_EVALUATE_SUBJECT_ONLY_NULL("Could not evaluate the defined assertion(s) -- `Iterable` returns only `null` for `next()`.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
+    CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` has no next entry.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
+    CANNOT_EVALUATE_SUBJECT_ONLY_NULL("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` returns only `null` for `next()`.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
     WARNING_ADDITIONAL_ENTRIES("additional entries detected"),
     WARNING_MISMATCHES("following entries were mismatched"),
     WARNING_MISMATCHES_ADDITIONAL_ENTRIES("mismatches and additional entries detected"),
 }
 
+internal const val COULD_NOT_EVALUATE_DEFINED_ASSERTIONS = "Could not evaluate the defined assertion(s)"
 internal const val VISIT_COULD_NOT_EVALUATE_ASSERTIONS = "Visit the following site for an explanation: https://robstoll.github.io/atrium/could-not-evaluate-assertions"
