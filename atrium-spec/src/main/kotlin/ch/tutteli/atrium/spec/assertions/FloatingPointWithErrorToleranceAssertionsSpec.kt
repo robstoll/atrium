@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertions
+import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
@@ -62,15 +62,15 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
                         }
                     }
 
-                    val toBeInclErrorTolerance = String.format(DescriptionFloatingPointAssertions.TO_BE_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
-                    val failureNotice = String.format(DescriptionFloatingPointAssertions.FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(), subject::class.java.name)
+                    val toBeInclErrorTolerance = String.format(DescriptionFloatingPointAssertion.TO_BE_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
+                    val failureNotice = String.format(DescriptionFloatingPointAssertion.FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(), subject::class.java.name)
                     failing.forEach { num ->
                         test("... compare to $num throws AssertionError") {
                             expect {
                                 verbs.checkImmediately(subject).toBeWithErrorTolerance(num, tolerance)
                             }.toThrow<AssertionError> {
                                 message {
-                                    val exactCheck = String.format(DescriptionFloatingPointAssertions.TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED.getDefault(), df.format(subject), df.format(num), df.format(absDiff(subject, num)), df.format(tolerance))
+                                    val exactCheck = String.format(DescriptionFloatingPointAssertion.TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED.getDefault(), df.format(subject), df.format(num), df.format(absDiff(subject, num)), df.format(tolerance))
                                     contains(subject,
                                         "$toBeInclErrorTolerance: $num",
                                         exactCheck)

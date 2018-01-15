@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertions.*
+import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertion.*
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.RawString
