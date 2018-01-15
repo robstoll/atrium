@@ -93,10 +93,10 @@ fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInA
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *        or not.
+ *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *   or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
- *        which we are looking for.
+ *   which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -136,10 +136,10 @@ fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsI
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *        or not.
+ *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *   or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
- *        which we are looking for.
+ *   which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

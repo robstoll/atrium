@@ -9,7 +9,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
  * for, occurs `at least` number of [times] within the [Iterable].
  *
  * @param times The number which the check will compare against the actual number of times an expected entry is
- *              found in the [Iterable].
+ *   found in the [Iterable].
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
@@ -25,13 +25,13 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * The resulting restriction will be a `contains at least but at most` assertion.
  *
  * @param times The number which the check will compare against the actual number of times an expected entry is
- *              found in the [Iterable].
+ *   found in the [Iterable].
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
- *                                  `at least` restriction; use the [genau] restriction instead.
+ *   `at least` restriction; use the [genau] restriction instead.
  */
 fun <E, T : Iterable<E>> IterableContainsAtLeastCheckerBuilder<E, T>.aberHoechstens(times: Int): IterableContainsButAtMostCheckerBuilder<E, T>
     = IterableContainsButAtMostCheckerBuilder(times, this, containsBuilder)
@@ -41,7 +41,7 @@ fun <E, T : Iterable<E>> IterableContainsAtLeastCheckerBuilder<E, T>.aberHoechst
  * are looking for, occurs `genau` number of [times] within the [Iterable].
  *
  * @param times The number which the check will compare against the actual number of times an expected entry is
- *              found in the [Iterable].
+ *   found in the [Iterable].
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
@@ -59,7 +59,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * then use `notOrAstMost(2)` instead.
  *
  * @param times The number which the check will compare against the actual number of times an expected entry is
- *              found in the [Iterable].
+ *   found in the [Iterable].
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
@@ -74,7 +74,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * are looking for, occurs `not at all or at most` number of [times] within the [Iterable].
  *
  * @param times The number which the check will compare against the actual number of times an expected entry is
- *              found in the [Iterable].
+ *   found in the [Iterable].
  *
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.

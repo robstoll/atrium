@@ -23,7 +23,7 @@ interface AssertionFormatterController {
      *
      * @param assertion The assertion which shall be formatted.
      * @param methodObject Used to share data between this [AssertionFormatterController] and the [register]ed
-     *        [AssertionFormatter]s.
+     *   [AssertionFormatter]s.
      *
      * @throws UnsupportedOperationException if no suitable [AssertionFormatter] is found.
      *
@@ -54,7 +54,7 @@ interface AssertionFormatterController {
          * given [assertion].
          *
          * @throws UnsupportedOperationException stating that no suitable [AssertionFormatter] was found for the
-         * given [assertion].
+         *   given [assertion].
          */
         fun noSuitableAssertionFormatterFound(assertion: Assertion): Nothing = throw UnsupportedOperationException(
             "no suitable ${AssertionFormatter::class.simpleName} found for the given assertion: $assertion")

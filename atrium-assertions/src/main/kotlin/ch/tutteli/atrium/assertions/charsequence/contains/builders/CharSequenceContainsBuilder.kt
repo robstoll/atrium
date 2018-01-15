@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * applied to the [plant]'s [subject][AssertionPlant.subject].
  *
  * @param T The input type of the search which is the same as the type of the [subject][AssertionPlant.subject] of the
- *          [plant].
+ *   [plant].
  * @param S The search behaviour which should be applied for the input of the search.
  *
  * @constructor Represents the entry point of the fluent API of sophisticated `contains` assertions.

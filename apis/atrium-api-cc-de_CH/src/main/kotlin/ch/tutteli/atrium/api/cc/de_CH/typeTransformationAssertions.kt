@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
  * which could create further assertions which are added as a group.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
- * assertion ([AssertionPlant.subject] is not null) holds or not.
+ *   assertion ([AssertionPlant.subject] is not null) holds or not.
  * Define subsequent assertions via the [assertionCreator] lambda.
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -25,7 +25,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNull(noinline as
  * uses [assertionCreator] which could create further assertions which are added as a group.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
- * assertion ([AssertionPlant.subject] *is a* [TSub]) holds or not.
+ *   assertion ([AssertionPlant.subject] *is a*   [TSub]) holds or not.
  * Define subsequent assertions via the [assertionCreator] lambda.
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

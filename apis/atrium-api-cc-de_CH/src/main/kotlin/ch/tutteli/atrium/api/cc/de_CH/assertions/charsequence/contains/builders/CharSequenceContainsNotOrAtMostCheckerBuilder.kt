@@ -13,9 +13,9 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  * @param S The search behaviour which should be applied for the input of the search.
  *
  * @constructor Represents the builder of a `contains not or at most` check within the fluent API of a
- *              sophisticated `contains` assertion for [CharSequence].
+ *   sophisticated `contains` assertion for [CharSequence].
  * @param times The number which the check will compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
 open class CharSequenceContainsNotOrAtMostCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(

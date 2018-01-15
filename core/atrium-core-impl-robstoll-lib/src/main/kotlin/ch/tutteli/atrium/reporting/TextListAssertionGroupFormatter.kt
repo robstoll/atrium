@@ -12,11 +12,11 @@ import ch.tutteli.atrium.assertions.ListAssertionGroupType
  * Its usage is intended for text output (e.g. to the console).
  *
  * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with a [ListAssertionGroupType]
- *              by putting each assertion on an own line prefixed with a bullet point.
+ *   by putting each assertion on an own line prefixed with a bullet point.
  * @param bulletPoints The formatter uses the bullet point defined for [ListAssertionGroupType]
- *        (`" ⚬ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
+ *   (`" ⚬ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The controller to which this formatter gives back the control
- *        when it comes to format children of an [AssertionGroup].
+ *   when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
 class TextListAssertionGroupFormatter(

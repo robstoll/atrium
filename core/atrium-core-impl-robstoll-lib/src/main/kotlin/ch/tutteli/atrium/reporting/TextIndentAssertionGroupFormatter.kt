@@ -15,12 +15,12 @@ import ch.tutteli.atrium.assertions.IndentAssertionGroupType
  * Its usage is intended for text output (e.g. to the console).
  *
  * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [IndentAssertionGroupType]
- *              or rather creates a child-[AssertionFormatterMethodObject] which proposes to use the bullet point
- *              defined for [IndentAssertionGroupType] for the [AssertionGroup.assertions].
+ *   or rather creates a child-[AssertionFormatterMethodObject] which proposes to use the bullet point
+ *   defined for [IndentAssertionGroupType] for the [AssertionGroup.assertions].
  * @param bulletPoints The formatter uses the bullet point defined for [IndentAssertionGroupType]
- *        (`" ⋄ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
+ *   (`" ⋄ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The controller to which this formatter gives back the control
- *        when it comes to format children of an [AssertionGroup].
+ *   when it comes to format children of an [AssertionGroup].
  */
 class TextIndentAssertionGroupFormatter(
     bulletPoints: Map<Class<out BulletPointIdentifier>, String>,

@@ -25,7 +25,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty
  * @return An [AssertionPlant] for the given [property]; using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
- *         (by calling [assertionCreator]) does not hold.
+ *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
     = _property(this, property, assertionCreator)
@@ -45,7 +45,7 @@ fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty0<TPropert
  * with a [FeatureAssertionGroupType], containing the assertions created for the return value, to the current plant.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  */
 fun <T : Any, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction0<TReturnValue>): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method)
@@ -57,10 +57,10 @@ fun <T : Any, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction0<
  * [assertionCreator] lambda.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
- *         (by calling [assertionCreator]) does not hold.
+ *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction0<TReturnValue>, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, assertionCreator)
@@ -81,7 +81,7 @@ fun <T : Any, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method: KFunction0
  * to the current plant.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1)
@@ -93,10 +93,10 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: 
  * [assertionCreator] lambda.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
- *         (by calling [assertionCreator]) does not hold.
+ *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, assertionCreator)
@@ -117,7 +117,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method:
  * to the current plant.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2)
@@ -129,10 +129,10 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertV
  * [assertionCreator] lambda.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
- *         (by calling [assertionCreator]) does not hold.
+ *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, assertionCreator)
@@ -153,7 +153,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewert
  * for the return value, to the current plant.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3)
@@ -165,10 +165,10 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.rue
  * [assertionCreator] lambda.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
- *         (by calling [assertionCreator]) does not hold.
+ *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, assertionCreator)
@@ -189,7 +189,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> Assert<T>.ru
  * for the return value, to the current plant.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
@@ -201,10 +201,10 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> As
  * [assertionCreator] lambda.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
- *         (by calling [assertionCreator]) does not hold.
+ *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, assertionCreator)
@@ -225,7 +225,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> A
  * created for the return value, to the current plant.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
@@ -237,10 +237,10 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  * by the [assertionCreator] lambda.
  *
  * @return An [AssertionPlant] for the return value of the given [method],
- * using an [AtriumFactory.newFeatureAssertionChecker].
+ *   using an [AtriumFactory.newFeatureAssertionChecker].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
- *         (by calling [assertionCreator]) does not hold.
+ *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)

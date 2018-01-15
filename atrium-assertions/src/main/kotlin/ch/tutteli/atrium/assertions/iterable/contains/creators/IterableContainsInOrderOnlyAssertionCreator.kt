@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -16,12 +17,12 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param S The type of the search criterion.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
- *           decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  *
  * @constructor Represents the base class for `in any order only` assertion creators and provides a corresponding
- *              template to fulfill its responsibility.
+ *   template to fulfill its responsibility.
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
- *        decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
 abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, S>(
     private val searchBehaviour: IterableContainsInOrderOnlySearchBehaviour

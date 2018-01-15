@@ -42,11 +42,11 @@ interface ThrowableThrown {
          * assertion and also checks whether it holds or not.
          *
          * @param throwableThrownBuilder The [ThrowableThrownBuilder] containing inter alia the
-         *        [act][ThrowableThrownBuilder.act] lambda.
+         *   [act][ThrowableThrownBuilder.act] lambda.
          * @param description The [description][DescriptiveAssertion.description] of the resulting [DescriptiveAssertion].
          * @param expectedType The expected type of the [Throwable] used for casting and probably in reporting.
          * @param assertionCreator The assertion creator which defines subsequent assertions for the [Throwable] in
-         *        case it was thrown as expected and is of the expected type [TExpected].
+         *   case it was thrown as expected and is of the expected type [TExpected].
          */
         fun executeActAndCreateAssertion(
             throwableThrownBuilder: ThrowableThrownBuilder,

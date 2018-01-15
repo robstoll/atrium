@@ -12,7 +12,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  * @param S The search behaviour which should be applied for the input of the search.
  *
  * @constructor Represents the builder of a `contains not at all` check within the fluent API of a sophisticated
- *              `contains` assertion for [CharSequence].
+ *   `contains` assertion for [CharSequence].
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
 open class CharSequenceContainsNotCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(

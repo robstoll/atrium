@@ -11,10 +11,10 @@ import ch.tutteli.atrium.assertions.AssertionGroupType
  * Its usage is intended for text output (e.g. to the console).
  *
  * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with type [T] by
- *              putting each assertion on an own line prefixed with a bullet point.
+ *   putting each assertion on an own line prefixed with a bullet point.
  * @param bulletPoint The bullet point (might also be more than one character) which shall be used.
  * @param assertionFormatterController The controller to which this formatter gives back the control
- *        when it comes to format children of an [AssertionGroup].
+ *   when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  * @param clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  */

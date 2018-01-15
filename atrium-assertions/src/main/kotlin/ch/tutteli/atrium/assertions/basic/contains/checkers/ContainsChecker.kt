@@ -15,12 +15,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * suggest to use a different function if [times] equals to zero.
  *
  * @property times The number which the check uses to compare against the actual number of times an expected object is
- *           found in the input of the search.
+ *   found in the input of the search.
  *
  * @constructor Represents a base class for checkers which compare how many occurrences of an expected object are found
- *              in the input of the search, against how many [times] the check expect it to be contained.
+ *   in the input of the search, against how many [times] the check expect it to be contained.
  * @param times The number which the check uses to compare against the actual number of times an expected object is
- *              found in the input of the search.
+ *   found in the input of the search.
  * @param correctCall The function which should be used instead of `wrongCall` when [times] equals to zero.
  * @param wrongCall The function call which was used and should not be used if [times] equals to zero.
  *

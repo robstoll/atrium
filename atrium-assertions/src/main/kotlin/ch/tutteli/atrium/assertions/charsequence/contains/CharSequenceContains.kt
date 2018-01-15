@@ -38,8 +38,8 @@ interface CharSequenceContains {
      * Represents a searcher which supports the search behaviour [S] for a given input [CharSequence] of the search.
      *
      * @param S The search behaviour which should be applied to the input [CharSequence] in which the [Searcher]
-     *          will look for something -- the actual implementation of the search behaviour happens in the
-     *          [Searcher]; [SearchBehaviour] only decorates the [Translatable] for reporting.
+     *   will look for something -- the actual implementation of the search behaviour happens in the
+     *   [Searcher]; [SearchBehaviour] only decorates the [Translatable] for reporting.
      */
     interface Searcher<S : SearchBehaviour> {
         /**

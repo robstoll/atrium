@@ -17,15 +17,15 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param T The type of the [subject][AssertionPlant.subject] of the given [subjectPlant].
  *
  * @property subjectPlant The plant which holds the assertions of the subject of the feature.
- *           For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
- *           the corresponding `Person`.
+ *   For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
+ *   the corresponding `Person`.
  *
  * @constructor  An [AssertionChecker] useful for feature assertions. It creates an [AssertionGroup] of
- * [type][AssertionGroup] [FeatureAssertionGroupType], adds the given assertions to it and finally adds the
+ *   [type][AssertionGroup] [FeatureAssertionGroupType], adds the given assertions to it and finally adds the
  * group to the given [subjectPlant].
  * @param subjectPlant The plant which holds the assertions of the subject of the feature.
- *           For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
- *           the corresponding `Person`.
+ *   For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
+ *   the corresponding `Person`.
  */
 class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPlant<T>) : AssertionChecker {
 
@@ -35,9 +35,9 @@ class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPl
      * assertion group to the [subjectPlant] instead of checking it itself.
      *
      * @param assertionVerb Is used as [AssertionGroup.name] -- as side notice,
-     *        the parameter was not renamed to `featureName` due to potential issues with named parameters.
+     *   the parameter was not renamed to `featureName` due to potential issues with named parameters.
      * @param subject Is used as [AssertionGroup.subject] -- as side notice,
-     *        the parameter was not renamed to `feature` due to potential issues with named parameters.
+     *   the parameter was not renamed to `feature` due to potential issues with named parameters.
      * @param assertions Is used as [AssertionGroup.assertions].
      *
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.

@@ -19,7 +19,7 @@ interface AssertionFormatter {
      * if an [AssertionGroup] is passed.
      *
      * @param assertion The [Assertion] which builds the basis to answer the question whether this
-     *                  [AssertionFormatter] can format such kinds or not.
+     *   [AssertionFormatter] can format such kinds or not.
      *
      * @returns `true` if this [AssertionFormatter] ca [format] the given [assertion]; `false` otherwise.
      */
@@ -42,10 +42,10 @@ interface AssertionFormatter {
      *
      * @param assertion The assertion which should be formatted (not an [AssertionGroup]).
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to which the result will be appended.
+     *   to which the result will be appended.
      *
      * @throws UnsupportedOperationException in case this [AssertionFormatter] cannot format the given [assertion]
-     *         ([canFormat] returns `false`) or if [assertion] is an [AssertionGroup].
+     *   ([canFormat] returns `false`) or if [assertion] is an [AssertionGroup].
      */
     fun format(assertion: Assertion, methodObject: AssertionFormatterMethodObject) = when (assertion) {
         is AssertionGroup -> AssertionFormatter.throwNotIntendedForAssertionGroups()
@@ -66,10 +66,10 @@ interface AssertionFormatter {
      *
      * @param assertion The assertion which should be formatted (not an [AssertionGroup]).
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to which the result will be appended.
+     *   to which the result will be appended.
      *
      * @throws UnsupportedOperationException in case this [AssertionFormatter] cannot format the given [assertion]
-     *         ([canFormat] returns `false`).
+     *   ([canFormat] returns `false`).
      */
     fun formatNonGroup(assertion: Assertion, methodObject: AssertionFormatterMethodObject)
 
@@ -91,11 +91,11 @@ interface AssertionFormatter {
      *
      * @param assertionGroup The assertion group which should be formatted.
      * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
-     *        to which the result will be appended.
+     *   to which the result will be appended.
      * @param formatAssertions The function which should be called to format the
-     *        [assertions][AssertionGroup.assertions] of the given [assertionGroup].
-     *        It itself expects a [AssertionFormatterMethodObject] which is used for the child assertions and a function
-     *        which formats the child [Assertion]s in the context of the given [assertionGroup].
+     *   [assertions][AssertionGroup.assertions] of the given [assertionGroup].
+     *   It itself expects a [AssertionFormatterMethodObject] which is used for the child assertions and a function
+     *   which formats the child [Assertion]s in the context of the given [assertionGroup].
      */
     fun formatGroup(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (Assertion) -> Unit) -> Unit)
 

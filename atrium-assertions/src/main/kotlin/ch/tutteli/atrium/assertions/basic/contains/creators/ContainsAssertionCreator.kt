@@ -54,7 +54,7 @@ abstract class ContainsAssertionCreator<T : Any, S, C : Contains.Checker>(
      * @param plant The plant for which the assertion is created.
      * @param searchCriterion A search criterion.
      * @param featureFactory The feature factory which should be called, passing the number of occurrences (matching
-     *        the given [searchCriterion]) including a translation for `number of occurrences`.
+     *   the given [searchCriterion]) including a translation for `number of occurrences`.
      *
      * @return The newly created [AssertionGroup].
      */

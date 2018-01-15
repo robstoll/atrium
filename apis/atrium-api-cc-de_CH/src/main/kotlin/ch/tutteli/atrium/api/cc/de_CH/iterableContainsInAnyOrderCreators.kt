@@ -81,8 +81,8 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * Delegates to `eintraege(assertionCreator)`.
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *        or not.
+ *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *   or not.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -96,10 +96,10 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * created by the [otherAssertionCreators].
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *        or not.
+ *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *   or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
- *        which we are looking for.
+ *   which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -117,8 +117,8 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * Delegates to `eintraege(expected)`.
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *        or not.
+ *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *   or not.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -133,10 +133,10 @@ fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableCo
  * likewise an entry (can be the same) is searched for each of the [otherAssertionCreators].
  *
  * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
- *        has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *        or not.
+ *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
+ *   or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
- *        which we are looking for.
+ *   which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

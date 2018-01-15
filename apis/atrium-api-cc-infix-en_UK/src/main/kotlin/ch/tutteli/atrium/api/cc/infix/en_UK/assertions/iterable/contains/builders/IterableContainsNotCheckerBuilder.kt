@@ -13,7 +13,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsN
  * @param S The search behaviour which should be applied for the input of the search.
  *
  * @constructor Represents the builder of a `contains not at all` check within the fluent API of a sophisticated
- *              `contains not` assertion for [Iterable].
+ *   `contains not` assertion for [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  */
 open class IterableContainsNotCheckerBuilder<out E, out T : Iterable<E>, out S : SearchBehaviour>(

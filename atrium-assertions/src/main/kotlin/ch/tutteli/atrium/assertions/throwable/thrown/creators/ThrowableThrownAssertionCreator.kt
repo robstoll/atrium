@@ -22,7 +22,7 @@ import kotlin.reflect.KClass
  * @constructor Represents a creator of a sophisticated a [Throwable] (of type [TExpected]) was thrown assertion.
  * @param absentThrowableMessageProvider Provides a description for the case no [Throwable] was thrown at all.
  * @param failureHandler A handler which decides how the assertion creator lambda (see [executeActAndCreateAssertion])
- *        is used in reporting.
+ *   is used in reporting.
  */
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider,

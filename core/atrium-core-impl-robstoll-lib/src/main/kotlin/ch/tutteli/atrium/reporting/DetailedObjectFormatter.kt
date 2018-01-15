@@ -2,7 +2,6 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
-import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.reflect.KClass
 
@@ -20,7 +19,7 @@ import kotlin.reflect.KClass
  * @property translator The [Translator] used to translate [TranslatableBasedRawString]s.
  *
  * @constructor Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
- * (in most cases).
+ *   (in most cases).
  * @param translator The [Translator] used to translate [TranslatableBasedRawString]s.
  */
 class DetailedObjectFormatter(private val translator: Translator) : ObjectFormatter {

@@ -15,9 +15,9 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
  * @param T The input type of the search.
  *
  * @constructor Represents the builder of the second step of a `contains at least but at most` check within the
- *              fluent API of a sophisticated `contains` assertion for [Iterable].
+ *   fluent API of a sophisticated `contains` assertion for [Iterable].
  * @param times The number which the check will compare against the actual number of times an expected entry is
- *              found in the [Iterable].
+ *   found in the [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  */
 open class IterableContainsButAtMostCheckerBuilder<out E, out T : Iterable<E>>(
