@@ -2,13 +2,13 @@ buildscript {
     def projectsWithoutSourcesBuildScript = subprojects.findAll { it.path.contains("bundles") }
     def translationProjects = subprojects.findAll { it.path.contains("translations") }
     ext {
-        atrium_version = '0.6.0-SNAPSHOT'
+        atrium_version = '0.6.0'
         ghPages_version = atrium_version
         kbox_version = '0.1.0'
         kotlin_version = '1.2.10'
         mockito_kotlin_version = '1.5.0'
         dokka_version = '0.9.14'
-        dokka_sourceMapping = 'tree/master'
+        dokka_sourceMapping = 'tree/v0.6.0'
 
         srcKotlin = 'src/main/kotlin'
 
