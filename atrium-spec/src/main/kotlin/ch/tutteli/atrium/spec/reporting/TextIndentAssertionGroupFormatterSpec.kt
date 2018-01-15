@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.BulletPointIdentifier
-import ch.tutteli.atrium.assertions.IndentAssertionGroup
-import ch.tutteli.atrium.assertions.IndentAssertionGroupType
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -16,6 +14,6 @@ abstract class TextIndentAssertionGroupFormatterSpec(
     testeeFactory,
     IndentAssertionGroupType::class.java,
     object : IndentAssertionGroupType {},
-    { IndentAssertionGroup(it) },
+    { EmptyNameAndSubjectAssertionGroup(DefaultIndentAssertionGroupType, it) },
     describePrefix
 )

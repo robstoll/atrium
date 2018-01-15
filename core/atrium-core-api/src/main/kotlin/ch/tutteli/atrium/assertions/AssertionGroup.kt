@@ -41,7 +41,7 @@ interface AssertionGroup : Assertion {
         val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)
         val summary = BasicAssertionGroupBuilder(DefaultSummaryAssertionGroupType)
         val explanatory = ExplanatoryAssertionGroupOption()
-        val invisible = InvisibleAssertionGroupBuilder()
+        val invisible = EmptyNameAndSubjectAssertionGroupBuilder(DefaultInvisibleAssertionGroupType)
 
         fun withType(groupType: AssertionGroupType) = BasicAssertionGroupBuilder(groupType)
 
@@ -67,12 +67,12 @@ interface AssertionGroup : Assertion {
                 = ExplanatoryAssertionGroup(groupType, assertions)
         }
 
-        class InvisibleAssertionGroupBuilder {
+        class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(assertion: Assertion)
                 = create(listOf(assertion))
 
-            fun create(assertions: List<Assertion>): InvisibleAssertionGroup
-                = InvisibleAssertionGroup(assertions)
+            fun create(assertions: List<Assertion>): EmptyNameAndSubjectAssertionGroup
+                = EmptyNameAndSubjectAssertionGroup(groupType, assertions)
         }
     }
 }

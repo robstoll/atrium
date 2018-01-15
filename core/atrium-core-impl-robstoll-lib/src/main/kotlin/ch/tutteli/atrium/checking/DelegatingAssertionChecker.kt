@@ -2,7 +2,7 @@ package ch.tutteli.atrium.checking
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.InvisibleAssertionGroup
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -22,8 +22,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAssertionPlant<T, *>) : AssertionChecker {
 
     /**
-     * [Adds][AssertionPlant.addAssertion] the given [assertions] (wrapped into an [InvisibleAssertionGroup]) to the
-     * original plant of the subject (the [subjectPlant]).
+     * [Adds][AssertionPlant.addAssertion] the given [assertions] (wrapped into an [AssertionGroup] of type
+     * [InvisibleAssertionGroupType]) to the original plant of the subject (the [subjectPlant]).
      *
      * @param assertionVerb Is ignored.
      * @param subject Is ignored.
