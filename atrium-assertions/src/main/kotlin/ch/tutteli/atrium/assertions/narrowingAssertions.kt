@@ -1,8 +1,9 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionNarrowingAssertion.IS_A
-import ch.tutteli.atrium.assertions.any.narrow.DownCaster
-import ch.tutteli.atrium.assertions.any.narrow.failurehandler.ExplanatoryDownCastFailureHandler
+import ch.tutteli.atrium.assertions.any.typetransformation.DownCaster
+import ch.tutteli.atrium.assertions.any.typetransformation.ExplanatoryTypeTransformationFailureHandler
+import ch.tutteli.atrium.assertions.any.typetransformation.TypeTransformer
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
@@ -23,6 +24,21 @@ fun <T : Any, TSub : T> _downCast(
     subjectPlant: BaseAssertionPlant<T?, *>,
     assertionCreator: AssertionPlant<TSub>.() -> Unit
 ) {
-    DownCaster<T, TSub>(ExplanatoryDownCastFailureHandler())
+    DownCaster<T, TSub>(ExplanatoryTypeTransformationFailureHandler())
         .downCast(description, subType, subjectPlant, assertionCreator)
+}
+
+fun <T : Any, TSub : Any> _typeTransformation(
+    description: Translatable,
+    representation: Any,
+    subjectPlant: BaseAssertionPlant<T?, *>,
+    assertionCreator: AssertionPlant<TSub>.() -> Unit,
+    warningTransformationFailed: Translatable,
+    canBeTransformed: (T) -> Boolean,
+    transform: (T) -> TSub
+) {
+    TypeTransformer<T, TSub>(ExplanatoryTypeTransformationFailureHandler()).transform(
+        description, representation, subjectPlant, assertionCreator,
+        warningTransformationFailed, canBeTransformed, transform
+    )
 }
