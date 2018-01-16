@@ -1,3 +1,5 @@
+@file:Suppress("EXPERIMENTAL_FEATURE_WARNING")
+
 package ch.tutteli.atrium.reporting.translating
 
 import java.util.*
