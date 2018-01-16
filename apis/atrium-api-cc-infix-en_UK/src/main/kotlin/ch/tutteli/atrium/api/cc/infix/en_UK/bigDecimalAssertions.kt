@@ -12,7 +12,7 @@ import java.math.BigDecimal
     "`assert(BigDecimal(\"10\").toBe(BigDecimal(\"10.0\"))`\n" +
     "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
     ReplaceWith("isNumericallyEqualTo expected or isEqualIncludingScale expected"))
-@Suppress("unused")
+@Suppress("UNUSED_PARAMETER", "unused")
 infix fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
     = throw UnsupportedOperationException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
     "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`.")
@@ -21,7 +21,7 @@ infix fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
     "`assert(BigDecimal(\"10\") notToBe BigDecimal(\"10.0\")`\n" +
     "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `isNotEqualIncludingScale`.",
     ReplaceWith("isNotNumericallyEqualTo expected or isNotEqualIncludingScale expected"))
-@Suppress("unused")
+@Suppress("UNUSED_PARAMETER", "unused")
 infix fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
     = throw UnsupportedOperationException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
     "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`.")
