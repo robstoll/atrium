@@ -23,7 +23,7 @@ task CodeCoverageReport(type: JacocoReport) {
 
     jacocoMulti.sourceProjects.each {
         sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
-        classDirectories += files(it.sourceSets.main.output.classesDir)
+        classDirectories += files(it.sourceSets.main.output.classesDirs)
     }
     doFirst {
         println "going to generate merged jacoco report based on:"
@@ -35,8 +35,8 @@ task CodeCoverageReport(type: JacocoReport) {
     reports {
         csv.enabled false
         html.enabled = true
-        html.destination "${buildDir}/jacoco/"
+        html.destination file("${buildDir}/jacoco/")
         xml.enabled true
-        xml.destination "${buildDir}/reports/jacoco/report.xml"
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
     }
 }
