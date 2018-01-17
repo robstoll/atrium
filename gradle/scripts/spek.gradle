@@ -46,13 +46,13 @@ afterEvaluate {
     project.task(type: JacocoReport, 'junitPlatformJacocoReport',
         {
             sourceDirectories = sourceSets.main.allJava.sourceDirectories
-            classDirectories = files(sourceSets.main.output.classesDir)
+            classDirectories = files(sourceSets.main.output.classesDirs)
             executionData junitPlatformTestTask
             reports {
                 xml.enabled = true
-                xml.destination "${buildDir}/reports/jacoco/report.xml"
+                xml.destination file("${buildDir}/reports/jacoco/report.xml")
                 html.enabled = true
-                html.destination "${buildDir}/jacoco/"
+                html.destination file("${buildDir}/jacoco/")
             }
         })
     check.dependsOn junitPlatformJacocoReport
