@@ -2,7 +2,6 @@ language: java
 jdk:
   # junit5 requires java 8
   - oraclejdk8
-  - oraclejdk9
 
 before_install:
  - chmod +x gr
