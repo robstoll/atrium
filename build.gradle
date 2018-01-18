@@ -20,7 +20,8 @@ buildscript {
         //publish.gradle
         bintray_version = '1.7.3'
         publish_pkg_name = project.name
-        publish_vcsUrl = "https://github.com/robstoll/${project.name}.git"
+        github_url = "https://github.com/robstoll/${project.name}"
+        publish_vcsUrl = "${github_url}.git"
 
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-core-impl") }
@@ -86,12 +87,12 @@ configure(projectsWithSources) {
         outputDirectory = "$buildDir/kdoc"
         linkMapping {
             dir = "$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/${dokka_sourceMapping}/${project.name}/$srcKotlin"
+            url = "$github_url/${dokka_sourceMapping}/${project.name}/$srcKotlin"
             suffix = '#L'
         }
         linkMapping {
             dir = "${rootProject.projectDir}/${project.name}-core-api/$srcKotlin"
-            url = "https://github.com/robstoll/${project.name}/${dokka_sourceMapping}/${project.name}-core-api/$srcKotlin"
+            url = "$github_url/${dokka_sourceMapping}/${project.name}-core-api/$srcKotlin"
             suffix = '#L'
         }
 
