@@ -872,7 +872,8 @@ In case you do not have an account for kotlinlang.slack.com yet, then please [In
 
 # Roadmap
 I plan that Atrium is going to support in the future:
-- A sophisticated assertion builder for `toBeWithErrorTolerance` for floating point numbers (will allow to define)
+- A sophisticated assertion builder for `toBeWithErrorTolerance` for floating point numbers 
+  (so that once could extend it with `relativeOf`, `positiveOf` etc.)
 - Generating testing reports in html
   - generate multiple reports in the same test run
   - extension for Spek so that reporting includes the `describe`, `it` etc. 
