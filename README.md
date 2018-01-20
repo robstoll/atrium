@@ -713,7 +713,7 @@ Please let me know it by [writing a feature request](https://github.com/robstoll
 If you still insist of using the provided assertion verbs, then add the following dependency 
 to your project in addition (see [Installation](#installation) for the rest of the gradle script).
 
-gradle:
+*gradle*:
 ```
 dependencies {
     //... see other dependency in the example above
@@ -721,7 +721,7 @@ dependencies {
 }
 ```
 
-maven:  
+*maven*:  
 Have a look at the [example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml).    
 
 # Internationalization
@@ -778,7 +778,7 @@ enum class DescriptionIntAssertions(override val value: String) : StringBasedTra
     EVEN("an even number")
 }
 ```
-Once again we have to wrap the text which we want to be able to exchange with another language into an `Translatable`. 
+Once again we have to wrap the text which we want to be able to exchange with another language into a `Translatable`. 
 Since we want that the translation as such is treated as a raw string in reporting, we wrap it into a `RawString` as we did before. 
 
 ## API in a different Language
@@ -824,7 +824,7 @@ All have their design focus on interoperability with code completion (thus `cc`)
 
 Atrium is 
 [built up by different modules](https://robstoll.github.io/atrium/latest#/doc/) 
-and it is your chose which implementation you want to use. 
+and it is your choice which implementation you want to use. 
 Atrium provides three modules which bundle API, translation and implementation, so that you just have to have a dependency on that one bundle:
 
 - [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
