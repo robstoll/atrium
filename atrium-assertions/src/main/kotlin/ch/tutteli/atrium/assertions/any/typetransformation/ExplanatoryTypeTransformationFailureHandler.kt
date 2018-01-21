@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroupBuilder
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -35,9 +35,9 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> : AnyTy
         assertionCreator: AssertionPlant<TSub>.() -> Unit
     ) {
         val explanatoryAssertions = collectAssertions(warningTransformationFailed, assertionCreator)
-        subjectPlant.addAssertion(AssertionGroup.Builder.invisible.create(listOf(
+        subjectPlant.addAssertion(AssertionGroupBuilder.invisible.create(listOf(
             failingAssertion,
-            AssertionGroup.Builder.explanatory.withDefault.create(explanatoryAssertions)
+            AssertionGroupBuilder.explanatory.withDefault.create(explanatoryAssertions)
         )))
     }
 

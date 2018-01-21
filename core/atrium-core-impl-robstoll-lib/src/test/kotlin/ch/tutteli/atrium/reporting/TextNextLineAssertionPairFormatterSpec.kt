@@ -2,7 +2,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroupBuilder
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.describeFun
@@ -27,13 +27,13 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
     describeFun(testee::formatGroupHeader.name) {
         it("puts the subject on the next line indented as the bullet point used for newMethodObject") {
             val newMethodObject = methodObject.createChildWithNewPrefix(bulletPoint)
-            val assertionGroup = AssertionGroup.Builder.root.create(Untranslatable(name), subject, listOf())
+            val assertionGroup = AssertionGroupBuilder.root.create(Untranslatable(name), subject, listOf())
             testee.formatGroupHeader(methodObject, assertionGroup, newMethodObject)
             assert(sb.toString()).toBe("$name:$separator$indentBulletPoint$subject")
         }
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
-            val assertionGroup = AssertionGroup.Builder.root.create(Untranslatable(name), RawString.EMPTY, listOf())
+            val assertionGroup = AssertionGroupBuilder.root.create(Untranslatable(name), RawString.EMPTY, listOf())
             val newMethodObject = methodObject.createChildWithNewPrefix(bulletPoint)
             testee.formatGroupHeader(methodObject, assertionGroup, newMethodObject)
             assert(sb.toString()).toBe("$name:")

@@ -27,13 +27,13 @@ abstract class InvisibleAssertionGroupFormatterSpec(
         BasicDescriptiveAssertion(AssertionVerb.ASSERT, 1, true),
         BasicDescriptiveAssertion(AssertionVerb.EXPECT_THROWN, 2, true)
     )
-    val invisibleAssertionGroup = AssertionGroup.Builder.invisible.create(assertions)
+    val invisibleAssertionGroup = AssertionGroupBuilder.invisible.create(assertions)
     val facade = createFacade { _, controller, _, _ -> testeeFactory(controller) }
 
     describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(AtriumFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${InvisibleAssertionGroupType::class.simpleName}") {
-            val result = testee.canFormat(AssertionGroup.Builder.withType(object : InvisibleAssertionGroupType {}).create(Untranslatable.EMPTY, 1, listOf()))
+            val result = testee.canFormat(AssertionGroupBuilder.withType(object : InvisibleAssertionGroupType {}).create(Untranslatable.EMPTY, 1, listOf()))
             verbs.checkImmediately(result).isTrue()
         }
     }
@@ -54,7 +54,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
             context("in an ${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
                 it("puts the assertions one under the other, indents them and uses the same prefix, which is $bulletPoint") {
                     val featureAssertions = listOf(invisibleAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.ASSERT, 20, false))
-                    val featureAssertionGroup = AssertionGroup.Builder.feature.create(AssertionVerb.ASSERT, 10, featureAssertions)
+                    val featureAssertionGroup = AssertionGroupBuilder.feature.create(AssertionVerb.ASSERT, 10, featureAssertions)
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
                         + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
@@ -66,7 +66,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
 
             context("in an ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
                 val listAssertions = listOf(invisibleAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.ASSERT, 20, false))
-                val listAssertionGroup = AssertionGroup.Builder.list.create(AssertionVerb.ASSERT, 10, listAssertions)
+                val listAssertionGroup = AssertionGroupBuilder.list.create(AssertionVerb.ASSERT, 10, listAssertions)
 
                 it("puts the assertions one under the other, indents them and uses the same prefix, which is $listBulletPoint") {
                     facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
@@ -80,7 +80,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
                 context("in another ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
                     it("puts the assertions one under the other and indents as the other assertions and puts a prefix as well") {
                         val listAssertions2 = listOf(listAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.EXPECT_THROWN, 30, false))
-                        val listAssertionGroup2 = AssertionGroup.Builder.list.create(AssertionVerb.ASSERT, 5, listAssertions2)
+                        val listAssertionGroup2 = AssertionGroupBuilder.list.create(AssertionVerb.ASSERT, 5, listAssertions2)
                         facade.format(listAssertionGroup2, sb, alwaysTrueAssertionFilter)
                         verbs.checkImmediately(sb.toString()).toBe(separator
                             + "${AssertionVerb.ASSERT.getDefault()}: 5$separator"
