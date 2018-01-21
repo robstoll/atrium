@@ -2,6 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroupBuilder
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator
@@ -35,15 +36,15 @@ open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterab
 
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup {
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        return AssertionGroup.Builder.list.create(description, RawString.EMPTY, assertions)
+        return AssertionGroupBuilder.list.create(description, RawString.EMPTY, assertions)
     }
 
     override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val itr = plant.subject.iterator()
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(itr, searchCriterion)
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        return AssertionGroup.Builder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
-            AssertionGroup.Builder.explanatory.withDefault.create(explanatoryAssertions),
+        return AssertionGroupBuilder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
+            AssertionGroupBuilder.explanatory.withDefault.create(explanatoryAssertions),
             featureAssertion
         ))
     }

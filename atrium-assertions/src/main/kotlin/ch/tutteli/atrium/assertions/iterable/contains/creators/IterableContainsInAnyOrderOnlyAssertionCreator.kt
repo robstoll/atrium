@@ -42,16 +42,16 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
                     createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ENTRIES)
                 })
             }
-            assertions.add(AssertionGroup.Builder.feature.create(Untranslatable(list::size.name), RawString.create(actualSize.toString()), featureAssertions))
+            assertions.add(AssertionGroupBuilder.feature.create(Untranslatable(list::size.name), RawString.create(actualSize.toString()), featureAssertions))
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
-            val summary = AssertionGroup.Builder.summary.create(description, RawString.EMPTY, assertions.toList())
+            val summary = AssertionGroupBuilder.summary.create(description, RawString.EMPTY, assertions.toList())
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {
                     mismatches -> WARNING_MISMATCHES
                     else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
                 }
-                AssertionGroup.Builder.invisible.create(listOf(
+                AssertionGroupBuilder.invisible.create(listOf(
                     summary,
                     createExplanatoryGroupForMismatchesEtc(list, warningDescription)
                 ))
@@ -78,7 +78,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): ExplanatoryAssertionGroup {
         val assertions = list.map { BasicExplanatoryAssertion(it) }
-        val additionalEntries = AssertionGroup.Builder.list.create(warning, RawString.EMPTY, assertions)
-        return AssertionGroup.Builder.explanatory.withWarning.create(additionalEntries)
+        val additionalEntries = AssertionGroupBuilder.list.create(warning, RawString.EMPTY, assertions)
+        return AssertionGroupBuilder.explanatory.withWarning.create(additionalEntries)
     }
 }
