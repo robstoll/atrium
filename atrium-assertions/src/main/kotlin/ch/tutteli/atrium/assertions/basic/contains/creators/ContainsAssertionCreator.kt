@@ -25,7 +25,7 @@ abstract class ContainsAssertionCreator<T : Any, S, C : Contains.Checker>(
     private val checkers: List<C>
 ) : Contains.Creator<T, S> {
 
-    override final fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
+    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
         val assertions = listOf(searchCriterion, *otherSearchCriteria).map { createForSearchCriterion(plant, it) }
         return createAssertionGroupForSearchCriteriaAssertions(assertions)
     }

@@ -18,7 +18,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
      */
     private val translations = ConcurrentHashMap<T, Map<String, String>>()
 
-    override final fun get(translatable: Translatable, locale: Locale): String? {
+    final override fun get(translatable: Translatable, locale: Locale): String? {
         require(locale != Locale.ROOT) {
             "Locale.ROOT is not supported -- most likely a bug in the chosen implementation of ${LocaleOrderDecider::class.simpleName}"
         }

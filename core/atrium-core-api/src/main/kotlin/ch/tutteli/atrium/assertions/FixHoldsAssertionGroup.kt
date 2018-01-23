@@ -24,7 +24,5 @@ data class FixHoldsAssertionGroup(
     override val assertions: List<Assertion>,
     private val holds: Boolean) : AssertionGroup {
 
-    override fun holds(): Boolean {
-        return holds
-    }
+    override fun holds() = holds
 }
