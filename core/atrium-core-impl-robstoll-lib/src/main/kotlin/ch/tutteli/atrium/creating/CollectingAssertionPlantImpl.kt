@@ -5,7 +5,7 @@ class CollectingAssertionPlantImpl<out T : Any>(
 ) : MutableListBasedAssertionPlant<T, AssertionPlant<T>>(), CollectingAssertionPlant<T> {
     override val self = this
 
-    override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T> {
+    override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): CollectingAssertionPlant<T> {
         this.assertionCreator()
         return this
     }

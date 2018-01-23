@@ -16,13 +16,14 @@ abstract class SubjectLessAssertionSpec<T : Any>(
     group("${groupPrefix}assertion function can be used in ${ExplanatoryAssertionGroup::class.simpleName} and reported without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             test("fun `$name`") {
-                val collectingPlant = AtriumFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException("subject was accessed outside of the Assertion::holds scope") })
-                collectingPlant.createAssertion()
+                val assertions = AtriumFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException("subject was accessed outside of the Assertion::holds scope") })
+                    .addAssertionsCreatedBy(createAssertion)
+                    .getAssertions()
                 val plant = AtriumFactory.newReportingPlant(AssertionVerb.ASSERT, 1.0,
                     AtriumFactory.newOnlyFailureReporter(
                         AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
                     ))
-                val explanatoryGroup = AssertionBuilder.explanatory.withDefault.create(collectingPlant.getAssertions())
+                val explanatoryGroup = AssertionBuilder.explanatory.withDefault.create(assertions)
                 plant.addAssertion(explanatoryGroup)
             }
         }
