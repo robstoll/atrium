@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Assert
 class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderOnlyEntriesSpec(
     AssertionVerbFactory,
     getContainsPair(),
-    "* ", "(/) ", "(x) ", "(!) ", "- "
+    "* ", "(/) ", "(x) ", "(!) ", "- ", "» "
 ) {
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
@@ -18,6 +18,7 @@ class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.asserti
             } else {
                 plant.enthaelt.inBeliebigerReihenfolge.nur.eintraege(a, *aX)
             }
+
         }
     }
 }

@@ -20,6 +20,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
     failingBulletPoint: String,
     warningBulletPoint: String,
     listBulletPoint: String,
+    explanatoryBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
@@ -46,9 +47,10 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
+    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
 
-    val anEntryAfterSuccess = "$anEntryWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$listBulletPoint"
-    val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$listBulletPoint"
+    val anEntryAfterSuccess = "$anEntryWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
     describeFun(containsEntries) {
         context("empty collection") {
