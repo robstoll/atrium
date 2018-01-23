@@ -51,7 +51,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
                     mismatches -> WARNING_MISMATCHES
                     else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
                 }
-                AssertionBuilder.invisible.create(listOf(
+                AssertionBuilder.invisibleGroup.create(listOf(
                     summary,
                     createExplanatoryGroupForMismatchesEtc(list, warningDescription)
                 ))

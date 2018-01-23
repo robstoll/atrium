@@ -27,7 +27,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
         BasicDescriptiveAssertion(AssertionVerb.ASSERT, 1, true),
         BasicDescriptiveAssertion(AssertionVerb.EXPECT_THROWN, 2, true)
     )
-    val invisibleAssertionGroup = AssertionBuilder.invisible.create(assertions)
+    val invisibleAssertionGroup = AssertionBuilder.invisibleGroup.create(assertions)
     val facade = createFacade { _, controller, _, _ -> testeeFactory(controller) }
 
     describeFun(AssertionFormatter::canFormat.name) {

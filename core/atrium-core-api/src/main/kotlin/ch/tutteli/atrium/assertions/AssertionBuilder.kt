@@ -11,7 +11,7 @@ object AssertionBuilder {
     val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)
     val summary = BasicAssertionGroupBuilder(DefaultSummaryAssertionGroupType)
     val explanatory = ExplanatoryAssertionGroupOption()
-    val invisible = EmptyNameAndSubjectAssertionGroupBuilder(DefaultInvisibleAssertionGroupType)
+    val invisibleGroup = EmptyNameAndSubjectAssertionGroupBuilder(DefaultInvisibleAssertionGroupType)
 
     fun withType(groupType: AssertionGroupType) = BasicAssertionGroupBuilder(groupType)
 

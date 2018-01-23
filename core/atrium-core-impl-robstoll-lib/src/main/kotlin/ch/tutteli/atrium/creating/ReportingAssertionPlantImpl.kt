@@ -20,9 +20,9 @@ class ReportingAssertionPlantImpl<out T : Any>(
     override val self = this
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T> {
-        val plant = AtriumFactory.newCollectingPlant { subject }
-        plant.assertionCreator()
-        addAssertion(AssertionBuilder.invisible.create(plant.getAssertions()))
-        return this
+        val assertions = AtriumFactory.newCollectingPlant({ subject })
+            .addAssertionsCreatedBy(assertionCreator)
+            .getAssertions()
+        return addAssertion(AssertionBuilder.invisibleGroup.create(assertions))
     }
 }
