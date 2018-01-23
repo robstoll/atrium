@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Assert
 class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderOnlyEntriesSpec(
     AssertionVerbFactory,
     getContainsPair(),
-    "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ "
+    "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» "
 ) {
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =

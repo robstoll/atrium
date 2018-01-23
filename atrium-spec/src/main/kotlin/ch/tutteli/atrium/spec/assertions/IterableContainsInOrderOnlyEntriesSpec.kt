@@ -19,6 +19,7 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
     failingBulletPoint: String,
     warningBulletPoint: String,
     listBulletPoint: String,
+    explanatoryBulletPoint: String,
     featureArrow: String,
     featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
@@ -47,16 +48,17 @@ abstract class IterableContainsInOrderOnlyEntriesSpec(
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
     val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
+    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
 
     val entryWithIndex = DescriptionIterableAssertion.ENTRY_WITH_INDEX.getDefault()
     val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
-    val listBulletPointWithIndent = "$indentFeatureArrow$indentFeatureBulletPoint$listBulletPoint"
+    val explanatoryPointWithIndent = "$indentFeatureArrow$indentFeatureBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
     val entryWhichWithFeature = "$indentFeatureArrow$featureBulletPoint$anEntryWhich"
-    val anEntryAfterSuccess = "$entryWhichWithFeature: $separator$indentBulletPoint$indentSuccessfulBulletPoint$listBulletPointWithIndent"
-    val anEntryAfterFailing = "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$listBulletPointWithIndent"
+    val anEntryAfterSuccess = "$entryWhichWithFeature: $separator$indentBulletPoint$indentSuccessfulBulletPoint$explanatoryPointWithIndent"
+    val anEntryAfterFailing = "$entryWhichWithFeature: $separator$indentBulletPoint$indentFailingBulletPoint$explanatoryPointWithIndent"
 
     fun entry(index: Int)
         = String.format(entryWithIndex, index)
