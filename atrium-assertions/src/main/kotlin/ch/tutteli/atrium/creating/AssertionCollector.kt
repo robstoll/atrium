@@ -55,7 +55,8 @@ object AssertionCollector {
 
                 collectedAssertions
             } catch (e: PlantHasNoSubjectException) {
-                listOf(AssertionGroupBuilder.explanatory.withWarning.create(
+                listOf(
+                    AssertionBuilder.explanatory.withWarning.create(
                     BasicExplanatoryAssertion(RawString.create(warning))
                 ))
             }

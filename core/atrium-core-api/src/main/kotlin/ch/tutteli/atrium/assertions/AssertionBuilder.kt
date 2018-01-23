@@ -3,9 +3,9 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Represents a builder for [AssertionGroup].
+ * Represents a builder for [Assertion].
  */
-object AssertionGroupBuilder {
+object AssertionBuilder {
     val root = BasicAssertionGroupBuilder(RootAssertionGroupType)
     val list = BasicAssertionGroupBuilder(DefaultListAssertionGroupType)
     val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)

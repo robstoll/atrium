@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionGroupBuilder
+import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
@@ -32,13 +32,13 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBe
 ) : ContainsAssertionCreator<T, S, C>(checkers) {
 
     final override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
-        = AssertionGroupBuilder.invisible.create(assertions)
+        = AssertionBuilder.invisible.create(assertions)
 
     final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: S, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val count = search(plant, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
         val description = searchBehaviour.decorateDescription(descriptionContains)
-        return AssertionGroupBuilder.list.create(description, searchCriterion ?: RawString.NULL, featureAssertion)
+        return AssertionBuilder.list.create(description, searchCriterion ?: RawString.NULL, featureAssertion)
     }
 
     /**
