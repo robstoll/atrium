@@ -28,7 +28,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
     private val searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {
 
-    override final fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
+    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val list = plant.subject.toMutableList()
             val actualSize = list.size

@@ -79,7 +79,7 @@ class TextFallbackAssertionFormatter(
     private fun formatGroupHeaderAndGetChildMethodObject(
         assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject
     ) = when (assertionGroup.type) {
-        is RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, methodObject)
+        RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, methodObject)
         else -> formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject)
     }
 

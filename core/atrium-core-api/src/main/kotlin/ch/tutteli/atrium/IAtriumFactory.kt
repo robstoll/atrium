@@ -375,7 +375,7 @@ interface IAtriumFactory {
      * -- to the given [assertionFormatterFacade] using the given [textAssertionPairFormatter].
      *
      * Should at least support [RootAssertionGroupType], [FeatureAssertionGroupType], [ListAssertionGroupType],
-     * [SummaryAssertionGroupType] and [ExplanatoryAssertionGroupType] (see [AssertionGroup.Builder]).
+     * [SummaryAssertionGroupType] and [ExplanatoryAssertionGroupType] (see [AssertionGroupBuilder]).
      *
      * @param bulletPoints The bullet points used in reporting to prefix each [Assertion] in
      *   [AssertionGroup.assertions].

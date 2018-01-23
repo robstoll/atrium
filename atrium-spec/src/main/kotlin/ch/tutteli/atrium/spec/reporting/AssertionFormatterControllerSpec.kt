@@ -101,7 +101,7 @@ abstract class AssertionFormatterControllerSpec(
         }
 
         context("assertionFilter which returns `false` except for the RootAssertionGroup") {
-            val onlyRootAssertionGroup: (Assertion) -> Boolean = { it is AssertionGroup && it.type is RootAssertionGroupType }
+            val onlyRootAssertionGroup: (Assertion) -> Boolean = { it is AssertionGroup && it.type == RootAssertionGroupType }
             var sb = StringBuilder()
             var methodObject = AssertionFormatterMethodObject.new(sb, onlyRootAssertionGroup)
             afterEachTest {

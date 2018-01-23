@@ -55,7 +55,7 @@ abstract class ArgumentsSupportingTranslator(
      *
      * @return The result of the translation for the given [translatable].
      */
-    override final fun translate(translatable: Translatable): String = when (translatable) {
+    final override fun translate(translatable: Translatable): String = when (translatable) {
         is TranslatableWithArgs -> translateWithArgs(translatable)
         else -> translateWithoutArgs(translatable)
     }

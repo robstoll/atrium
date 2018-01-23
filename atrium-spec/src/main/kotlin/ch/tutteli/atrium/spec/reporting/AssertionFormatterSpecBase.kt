@@ -21,13 +21,12 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
         val separator = System.getProperty("line.separator")!!
         var sb: StringBuilder = StringBuilder()
         var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
-        val bulletPoint = "*"
-        val indentBulletPoint = " ".repeat(bulletPoint.length + 1)
-        val listBulletPoint = "--"
+        const val bulletPoint = "*"
+        const val listBulletPoint = "--"
         val indentListBulletPoint = " ".repeat(listBulletPoint.length + 1)
-        val arrow = "->"
+        const val arrow = "->"
         val indentArrow = " ".repeat(arrow.length + 1)
-        val featureBulletPoint = "+++"
+        const val featureBulletPoint = "+++"
         val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length + 1)
         val bulletPoints
             get() = mapOf(

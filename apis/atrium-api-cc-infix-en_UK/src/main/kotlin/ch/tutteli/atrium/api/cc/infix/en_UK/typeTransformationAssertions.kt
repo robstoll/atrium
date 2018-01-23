@@ -16,7 +16,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
+inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     _isNotNull(this, assertionCreator)
 }
 
@@ -30,6 +30,6 @@ infix inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinli
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix inline fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
+inline infix fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
     _isA(this, assertionCreator)
 }

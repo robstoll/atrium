@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * A default implementation for [AssertionGroup] -- it has a certain [type], a [name], a [subject]
  * and of course [assertions].
  *
- * @constructor Use [AssertionGroup.Builder] to create a [BasicAssertionGroup], an [AssertionGroup] respectively.
+ * @constructor Use [AssertionGroupBuilder] to create a [BasicAssertionGroup], an [AssertionGroup] respectively.
  * @param type The type of the group, e.g. [FeatureAssertionGroupType].
  * @param name The name of the group.
  * @param subject The subject for which the [assertions] are defined.

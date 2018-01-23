@@ -38,7 +38,7 @@ class TextExplanatoryAssertionGroupFormatter(
 
     override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
         val bulletPoint = when (assertionGroup.type) {
-            is WarningAssertionGroupType -> warningBulletPoint
+            WarningAssertionGroupType -> warningBulletPoint
             else -> explanatoryBulletPoint
         }
         return methodObject.createForDoNotFilterAssertionGroup().createChildWithNewPrefix(bulletPoint)
