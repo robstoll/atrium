@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.AssertionGroupBuilder
+import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
@@ -16,6 +16,6 @@ abstract class TextExplanatoryAssertionGroupFormatterSpec(
     testeeFactory,
     ExplanatoryAssertionGroupType::class.java,
     object : ExplanatoryAssertionGroupType {},
-    { AssertionGroupBuilder.explanatory.withDefault.create(it) },
+    { AssertionBuilder.explanatory.withDefault.create(it) },
     describePrefix
 )

@@ -40,7 +40,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             assertions.add(createSizeFeatureAssertion(allSearchCriteria.size, list, itr))
 
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            AssertionGroupBuilder.summary.create(description, RawString.EMPTY, assertions.toList())
+            AssertionBuilder.summary.create(description, RawString.EMPTY, assertions.toList())
         }
     }
 
@@ -56,7 +56,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
         }
         val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, index)
-        AssertionGroupBuilder.feature.create(description, entryRepresentation, createEntryFeatureAssertion(found))
+        AssertionBuilder.feature.create(description, entryRepresentation, createEntryFeatureAssertion(found))
     }
 
     abstract fun matches(actual: E?, searchCriterion: S): Boolean
@@ -75,11 +75,11 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
                     val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, expectedSize + index)
                     BasicDescriptiveAssertion(description, it ?: RawString.NULL, true)
                 }
-                AssertionGroupBuilder.explanatory.withWarning.create(
-                    AssertionGroupBuilder.list.create(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
+                AssertionBuilder.explanatory.withWarning.create(
+                    AssertionBuilder.list.create(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
                 )
             })
         }
-        return AssertionGroupBuilder.feature.create(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
+        return AssertionBuilder.feature.create(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
     }
 }

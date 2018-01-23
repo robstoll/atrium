@@ -16,7 +16,7 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
         val assertion = BasicDescriptiveAssertion(Untranslatable("b"), 3, false)
         val testee = LazyThreadUnsafeAssertionGroup {
             ++count
-            AssertionGroupBuilder.feature.create(Untranslatable("a"), 2, assertion)
+            AssertionBuilder.feature.create(Untranslatable("a"), 2, assertion)
         }
         test("does not evaluate anything") {
             assert(count).toBe(0)
