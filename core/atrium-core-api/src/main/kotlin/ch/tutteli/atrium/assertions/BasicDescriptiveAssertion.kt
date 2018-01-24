@@ -10,7 +10,11 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param expected The [BasicDescriptiveAssertion.expected].
  * @param test Lazily determines whether [BasicDescriptiveAssertion.holds].
  */
-class BasicDescriptiveAssertion(
+class BasicDescriptiveAssertion
+@Deprecated("use `AssertionBuilder.descriptive` instead, will be removed with 1.0.0",
+    ReplaceWith("AssertionBuilder.descriptive.create(description, expected, test)", "ch.tutteli.atrium.assertions.AssertionBuilder")
+)
+constructor(
     override val description: Translatable,
     override val expected: Any,
     private val test: () -> Boolean
@@ -25,6 +29,9 @@ class BasicDescriptiveAssertion(
      * @param representation The [BasicDescriptiveAssertion.expected].
      * @param holds Determines whether [BasicDescriptiveAssertion.holds] or not
      */
+    @Deprecated("use `AssertionBuilder.descriptive` instead, will be removed with 1.0.0",
+        ReplaceWith("AssertionBuilder.descriptive.create(description, representation, holds)", "ch.tutteli.atrium.assertions.AssertionBuilder")
+    )
     constructor(description: Translatable, representation: Any, holds: Boolean)
         : this(description, representation, { holds })
 

@@ -45,8 +45,8 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
     describeFun(AssertionFormatter::formatGroup.name) {
         context("${AssertionGroup::class.simpleName} of type ${assertionGroupTypeClass.simpleName}") {
             val assertions = listOf(
-                BasicDescriptiveAssertion(AssertionVerb.ASSERT, 1, true),
-                BasicDescriptiveAssertion(AssertionVerb.EXPECT_THROWN, 2, true)
+                AssertionBuilder.descriptive.create(AssertionVerb.ASSERT, 1, true),
+                AssertionBuilder.descriptive.create(AssertionVerb.EXPECT_THROWN, 2, true)
             )
             val indentAssertionGroup = groupFactory(assertions)
 
@@ -61,7 +61,9 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
 
             context("in an ${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
                 it("puts the assertions one under the other and indents the second one including a prefix") {
-                    val featureAssertions = listOf(indentAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.ASSERT, 20, false))
+                    val featureAssertions = listOf(indentAssertionGroup,
+                        AssertionBuilder.descriptive.create(AssertionVerb.ASSERT, 20, false)
+                    )
                     val featureAssertionGroup = AssertionBuilder.feature.create(AssertionVerb.ASSERT, 10, featureAssertions)
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
@@ -73,7 +75,9 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
             }
 
             context("in an ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
-                val listAssertions = listOf(indentAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.ASSERT, 20, false))
+                val listAssertions = listOf(indentAssertionGroup,
+                    AssertionBuilder.descriptive.create(AssertionVerb.ASSERT, 20, false)
+                )
                 val listAssertionGroup = AssertionBuilder.list.create(AssertionVerb.ASSERT, 10, listAssertions)
 
                 it("puts the assertions one under the other and indents the second one including a prefix") {
@@ -87,7 +91,9 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
 
                 context("in another ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
                     it("puts the assertions one under the other and indents as the other assertions but adds an extra indent to the second assertion including a prefix") {
-                        val listAssertions2 = listOf(listAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.EXPECT_THROWN, 30, false))
+                        val listAssertions2 = listOf(listAssertionGroup,
+                            AssertionBuilder.descriptive.create(AssertionVerb.EXPECT_THROWN, 30, false)
+                        )
                         val listAssertionGroup2 = AssertionBuilder.list.create(AssertionVerb.ASSERT, 5, listAssertions2)
                         facade.format(listAssertionGroup2, sb, alwaysTrueAssertionFilter)
                         verbs.checkImmediately(sb.toString()).toBe(separator
@@ -102,7 +108,10 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
             }
 
             context("in another ${AssertionGroup::class.simpleName} of type object: ${assertionGroupTypeClass::class.simpleName}") {
-                val indentAssertions = listOf(BasicDescriptiveAssertion(AssertionVerb.ASSERT, 21, false), indentAssertionGroup, BasicDescriptiveAssertion(AssertionVerb.ASSERT, 20, false))
+                val indentAssertions = listOf(
+                    AssertionBuilder.descriptive.create(AssertionVerb.ASSERT, 21, false), indentAssertionGroup,
+                    AssertionBuilder.descriptive.create(AssertionVerb.ASSERT, 20, false)
+                )
                 val indentAssertionGroup2 = AssertionBuilder.withType(anonymousAssertionGroupType).create(AssertionVerb.ASSERT, 10, indentAssertions)
 
                 it("puts the assertions one under the other and adds an extra indent to the second one") {

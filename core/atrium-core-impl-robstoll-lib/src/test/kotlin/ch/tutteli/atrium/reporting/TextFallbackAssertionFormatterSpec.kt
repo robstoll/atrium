@@ -45,8 +45,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
             it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::subject.name} as well as the ${AssertionGroup::assertions.name}") {
                 facade.format(
                     AssertionBuilder.root.create(ASSERT, "subject",listOf(
-                    BasicDescriptiveAssertion(TO_BE, "bli", false),
-                    BasicDescriptiveAssertion(NOT_TO_BE, "bye", false)
+                        AssertionBuilder.descriptive.create(TO_BE, "bli", false),
+                        AssertionBuilder.descriptive.create(NOT_TO_BE, "bye", false)
                 )), sb, alwaysTrueAssertionFilter)
                 assert(sb.toString()).toBe("assert: subject$separator" +
                     "$squarePoint ${TO_BE.getDefault()}: bli$separator" +

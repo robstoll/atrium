@@ -13,7 +13,7 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
 
     describe("creating it") {
         var count = 0
-        val assertion = BasicDescriptiveAssertion(Untranslatable("b"), 3, false)
+        val assertion = AssertionBuilder.descriptive.create(Untranslatable("b"), 3, false)
         val testee = LazyThreadUnsafeAssertionGroup {
             ++count
             AssertionBuilder.feature.create(Untranslatable("a"), 2, assertion)
