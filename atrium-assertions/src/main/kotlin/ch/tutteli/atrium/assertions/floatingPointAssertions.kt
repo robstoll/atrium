@@ -53,7 +53,7 @@ private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T
         val df = DecimalFormat("###,##0.0")
         df.maximumFractionDigits = 340
         val explanatoryAssertion = listOf(
-            AssertionBuilder.explanatory.withDefault.create(
+            AssertionBuilder.explanatoryGroup.withDefault.create(
             explanatoryAssertionCreator(df)
         ))
         FixHoldsAssertionGroup(DefaultListAssertionGroupType, TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, explanatoryAssertion, false)

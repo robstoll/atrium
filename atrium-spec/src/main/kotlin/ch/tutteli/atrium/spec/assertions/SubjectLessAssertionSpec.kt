@@ -23,7 +23,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
                     AtriumFactory.newOnlyFailureReporter(
                         AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
                     ))
-                val explanatoryGroup = AssertionBuilder.explanatory.withDefault.create(assertions)
+                val explanatoryGroup = AssertionBuilder.explanatoryGroup.withDefault.create(assertions)
                 plant.addAssertion(explanatoryGroup)
             }
         }

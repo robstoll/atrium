@@ -11,7 +11,7 @@ object AssertionBuilder {
     val list = BasicAssertionGroupBuilder(DefaultListAssertionGroupType)
     val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)
     val summary = BasicAssertionGroupBuilder(DefaultSummaryAssertionGroupType)
-    val explanatory = ExplanatoryAssertionGroupOption()
+    val explanatoryGroup = ExplanatoryAssertionGroupOption()
     val invisibleGroup = EmptyNameAndSubjectAssertionGroupBuilder(DefaultInvisibleAssertionGroupType)
     val descriptive = DescriptiveAssertionBuilder()
 

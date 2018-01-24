@@ -37,7 +37,7 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> : AnyTy
         val explanatoryAssertions = collectAssertions(warningTransformationFailed, assertionCreator)
         subjectPlant.addAssertion(AssertionBuilder.invisibleGroup.create(listOf(
             failingAssertion,
-            AssertionBuilder.explanatory.withDefault.create(explanatoryAssertions)
+            AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions)
         )))
     }
 

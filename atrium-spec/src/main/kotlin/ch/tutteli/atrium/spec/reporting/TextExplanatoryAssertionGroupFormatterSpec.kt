@@ -16,6 +16,6 @@ abstract class TextExplanatoryAssertionGroupFormatterSpec(
     testeeFactory,
     ExplanatoryAssertionGroupType::class.java,
     object : ExplanatoryAssertionGroupType {},
-    { AssertionBuilder.explanatory.withDefault.create(it) },
+    { AssertionBuilder.explanatoryGroup.withDefault.create(it) },
     describePrefix
 )
