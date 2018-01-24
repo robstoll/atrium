@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
+import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
@@ -24,10 +24,11 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         if (subject != null && canBeTransformed(subject)) {
             val assertionChecker = AtriumFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = AtriumFactory.newReportingPlant(assertionVerb, transform(subject), assertionChecker)
-            plant.addAssertion(BasicDescriptiveAssertion(description, representation, true))
+            plant.addAssertion(AssertionBuilder.descriptive.create(description, representation, true))
             plant.addAssertionsCreatedBy(assertionCreator)
         } else {
-            failureHandler.createAndAddAssertionToPlant(warningTransformationFailed, subjectPlant, BasicDescriptiveAssertion(description, representation, false), assertionCreator)
+            failureHandler.createAndAddAssertionToPlant(warningTransformationFailed, subjectPlant,
+                AssertionBuilder.descriptive.create(description, representation, false), assertionCreator)
         }
     }
 }

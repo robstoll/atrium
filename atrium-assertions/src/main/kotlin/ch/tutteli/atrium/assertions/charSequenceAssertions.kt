@@ -15,19 +15,19 @@ fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>)
 
 
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = BasicDescriptiveAssertion(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
+    = AssertionBuilder.descriptive.create(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
 
 fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = BasicDescriptiveAssertion(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
+    = AssertionBuilder.descriptive.create(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
 
 fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = BasicDescriptiveAssertion(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
+    = AssertionBuilder.descriptive.create(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
 
 fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = BasicDescriptiveAssertion(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
+    = AssertionBuilder.descriptive.create(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
 
 fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = BasicDescriptiveAssertion(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+    = AssertionBuilder.descriptive.create(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
 
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = BasicDescriptiveAssertion(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+    = AssertionBuilder.descriptive.create(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })

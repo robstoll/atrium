@@ -43,8 +43,8 @@ abstract class AssertionFormatterControllerSpec(
     testee.register(AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
     testee.register(AtriumFactory.newTextFallbackAssertionFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
 
-    val assertion = BasicDescriptiveAssertion(IS_GREATER_OR_EQUALS, 1, true)
-    val failingAssertion = BasicDescriptiveAssertion(IS_LESS_OR_EQUALS, 2, false)
+    val assertion = AssertionBuilder.descriptive.create(IS_GREATER_OR_EQUALS, 1, true)
+    val failingAssertion = AssertionBuilder.descriptive.create(IS_LESS_OR_EQUALS, 2, false)
 
     val separator = System.getProperty("line.separator")!!
 
