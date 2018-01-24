@@ -43,7 +43,7 @@ open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterab
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(plant.subject.iterator(), searchCriterion)
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
         return AssertionBuilder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
-            AssertionBuilder.explanatory.withDefault.create(explanatoryAssertions),
+            AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions),
             featureAssertion
         ))
     }

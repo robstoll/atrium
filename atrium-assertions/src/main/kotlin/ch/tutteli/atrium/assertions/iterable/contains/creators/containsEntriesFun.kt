@@ -40,7 +40,7 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
     DefaultListAssertionGroupType,
     DescriptionIterableAssertion.AN_ENTRY_WHICH,
     RawString.EMPTY,
-    listOf(AssertionBuilder.explanatory.withDefault.create(explanatoryAssertions)),
+    listOf(AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions)),
     found)
 
 internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean = when (subject) {
