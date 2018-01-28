@@ -100,7 +100,7 @@ infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
  * default translation of [DefaultTranslationsOf.expected] is defined as `'a'` and one default translation of the
  * [DefaultTranslationsOf.otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [zumindest], [hoestens] and [genau] to control
+ * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
  * the number of occurrences you expect.
  *
  * Meaning you might want to use:

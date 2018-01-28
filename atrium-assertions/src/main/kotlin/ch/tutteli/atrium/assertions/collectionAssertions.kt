@@ -6,10 +6,10 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
 fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
-    = BasicDescriptiveAssertion(HAS_SIZE, size, { plant.subject.size == size })
+    = AssertionBuilder.descriptive.create(HAS_SIZE, size, { plant.subject.size == size })
 
 fun <T : Collection<*>> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = BasicDescriptiveAssertion(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+    = AssertionBuilder.descriptive.create(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
 
 fun <T : Collection<*>> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = BasicDescriptiveAssertion(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+    = AssertionBuilder.descriptive.create(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })

@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -12,7 +11,7 @@ import kotlin.reflect.*
  * Creates an [AssertionPlant] for the given [property] which eventually adds [AssertionGroup]s with a
  * [FeatureAssertionGroupType], containing the assertions created for the given [property], to the current plant.
  *
- * @return An [AssertionPlant] for the given [property]; using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the given [property].
  */
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlant<TProperty>
     = _property(this, property)
@@ -22,7 +21,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty
  * [FeatureAssertionGroupType], containing the assertions created for the given [property], to the current plant --
  * starting with a group consisting of the [Assertion]s created by the [assertionCreator] lambda.
  *
- * @return An [AssertionPlant] for the given [property]; using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the given [property].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
@@ -35,7 +34,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty
  * Creates an [AssertionPlantNullable] for the given [property] which eventually adds [AssertionGroup]s with a
  * [FeatureAssertionGroupType], containing the assertions created for the given [property], to the current plant.
  *
- * @return An [AssertionPlantNullable] for the given [property]; using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
     = _property(this, property)
@@ -44,8 +43,7 @@ fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty0<TPropert
  * Creates an [AssertionPlant], for the value returned by calling [method], which eventually adds [AssertionGroup]s
  * with a [FeatureAssertionGroupType], containing the assertions created for the return value, to the current plant.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction0<TReturnValue>): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method)
@@ -56,8 +54,7 @@ fun <T : Any, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction0<
  * to the current plant -- starting with a group consisting of the [Assertion]s created by the
  * [assertionCreator] lambda.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
@@ -70,7 +67,7 @@ fun <T : Any, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction0<
  * [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions created for the return value,
  * to the current plant.
  *
- * @return An [AssertionPlantNullable] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method: KFunction0<TReturnValue>): AssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method)
@@ -80,8 +77,7 @@ fun <T : Any, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method: KFunction0
  * [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions created for the return value,
  * to the current plant.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1)
@@ -92,8 +88,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: 
  * to the current plant -- starting with a group consisting of the [Assertion]s created by the
  * [assertionCreator] lambda.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
@@ -106,7 +101,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: 
  * [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions created for the return value,
  * to the current plant.
  *
- * @return An [AssertionPlantNullable] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method: KFunction1<T1, TReturnValue>, arg1: T1): AssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1)
@@ -116,8 +111,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method:
  * adds [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions created for the return value,
  * to the current plant.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2)
@@ -128,8 +122,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertV
  * to the current plant -- starting with a group consisting of the [Assertion]s created by the
  * [assertionCreator] lambda.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
@@ -142,7 +135,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertV
  * eventually adds [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions created for
  * the return value, to the current plant.
  *
- * @return An [AssertionPlantNullable] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2)
@@ -152,8 +145,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewert
  * which eventually adds [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions created
  * for the return value, to the current plant.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3)
@@ -164,8 +156,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.rue
  * for the return value, to the current plant -- starting with a group consisting of the [Assertion]s created by the
  * [assertionCreator] lambda.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
@@ -178,7 +169,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.rue
  * which eventually adds [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions created for
  * the return value, to the current plant.
  *
- * @return An [AssertionPlantNullable] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3)
@@ -188,8 +179,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> Assert<T>.ru
  * which eventually adds [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions created
  * for the return value, to the current plant.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
@@ -200,8 +190,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> As
  * for the return value, to the current plant -- starting with a group consisting of the [Assertion]s created by the
  * [assertionCreator] lambda.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
@@ -214,7 +203,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> As
  * and [arg4], which eventually adds [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions
  * created for the return value, to the current plant.
  *
- * @return An [AssertionPlantNullable] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
@@ -224,8 +213,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> A
  * and [arg5], which eventually adds [AssertionGroup]s with a [FeatureAssertionGroupType], containing the assertions
  * created for the return value, to the current plant.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> Assert<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
@@ -236,8 +224,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  * created for the return value, to the current plant -- starting with a group consisting of the [Assertion]s created
  * by the [assertionCreator] lambda.
  *
- * @return An [AssertionPlant] for the return value of the given [method],
- *   using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlant] for the return value of the given [method].
  *
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
@@ -250,7 +237,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  * [arg4] and [arg5], which eventually adds [AssertionGroup]s with a [FeatureAssertionGroupType], containing the
  * assertions created for the return value, to the current plant.
  *
- * @return An [AssertionPlantNullable] for the given [property], using an [AtriumFactory.newFeatureAssertionChecker].
+ * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any?> Assert<T>.rueckgabewertVon(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<TReturnValue>
     = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)

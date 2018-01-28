@@ -788,17 +788,22 @@ we want to write `isMultipleOf` such that one cannot only generate a report in a
 but also that one can use the function itself in a different language. 
 Or in other words, provide our API in a different language.
 
-We split up the function in two parts: API and implementation (well yes, its that simple). 
-Moreover we put the API function in one module (jar) and the implementation in another.
+We split up the function in two parts: API and implementation (well yes, its that simple) 
+-- whereas the implementation creates the assertion and the API provides a function for the user (the API as such) and
+merely adds the assertion created by the implementation to the `AssertionPlant`.
+ 
+Typically you put the API function in one module (jar) and the implementation in another (so that the API can be exchanged).
 In the implementation module we define, what we will call hereafter an impl-function 
 -- we follow the convention that impl-functions are prefixed with `_`):
 ```kotlin
-fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion =
-    BasicDescriptiveAssertion(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
+fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion 
+    = AssertionBuilder.descriptive.create(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
 ```
-Notice that it is not an extension function as before 
+Notice that the impl-function it is not an extension function as before 
 because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
-We typically use `AssertionPlant` for impl-functions and `Assert` for API functions.  
+We typically use `AssertionPlant` for impl-functions and `Assert` for API functions. 
+You can use the [`AssertionBuilder`](file:///D:/projects/atrium-gh-pages/0.7.0-SNAPSHOT/doc/ch.tutteli.atrium.assertions/-assertion-builder/index.html)
+to create different types of assertions.
 
 In the API module we define the extension function and call the impl-function:
 ```kotlin

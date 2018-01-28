@@ -7,8 +7,8 @@ import org.jetbrains.spek.api.dsl.Spec
 abstract class CharSequenceContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
 
     companion object {
-        val text = "Hello my name is Robert"
-        val helloWorld = "Hello World, I am Oskar"
+        const val text = "Hello my name is Robert"
+        const val helloWorld = "Hello World, I am Oskar"
 
         val containsDescr = DescriptionCharSequenceAssertion.CONTAINS.getDefault()
         val containsIgnoringCase = String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), DescriptionCharSequenceAssertion.CONTAINS.getDefault())

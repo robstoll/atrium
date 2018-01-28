@@ -32,47 +32,55 @@ interface AssertionGroup : Assertion {
      */
     override fun holds() = assertions.all(Assertion::holds)
 
-    /**
-     * Represents a builder for [AssertionGroup].
-     */
     object Builder {
+        @Deprecated("Use AssertionBuilder.root instead, will be removed in 1.0.0", ReplaceWith("AssertionBuilder.root", "ch.tutteli.atrium.assertions.AssertionBuilder"))
         val root = BasicAssertionGroupBuilder(RootAssertionGroupType)
+        @Deprecated("use AssertionBuilder.list instead, will be removed in 1.0.0", ReplaceWith("AssertionBuilder.list", "ch.tutteli.atrium.assertions.AssertionBuilder"))
         val list = BasicAssertionGroupBuilder(DefaultListAssertionGroupType)
+        @Deprecated("use AssertionBuilder.feature instead, will be removed in 1.0.0", ReplaceWith("AssertionBuilder.feature", "ch.tutteli.atrium.assertions.AssertionBuilder"))
         val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)
+        @Deprecated("use AssertionBuilder.summary instead, will be removed in 1.0.0", ReplaceWith("AssertionBuilder.summary", "ch.tutteli.atrium.assertions.AssertionBuilder"))
         val summary = BasicAssertionGroupBuilder(DefaultSummaryAssertionGroupType)
+        @Deprecated("use AssertionBuilder.explanatoryGroup instead, will be removed in 1.0.0", ReplaceWith("AssertionBuilder.explanatoryGroup", "ch.tutteli.atrium.assertions.AssertionBuilder"))
         val explanatory = ExplanatoryAssertionGroupOption()
-        val invisible = InvisibleAssertionGroupBuilder()
+        @Deprecated("use AssertionBuilder.invisible instead, will be removed in 1.0.0", ReplaceWith("AssertionBuilder.invisible", "ch.tutteli.atrium.assertions.AssertionBuilder"))
+        val invisible = EmptyNameAndSubjectAssertionGroupBuilder(DefaultInvisibleAssertionGroupType)
 
+        @Deprecated("use AssertionBuilder.withType instead", ReplaceWith("AssertionBuilder.withType(groupType)", "ch.tutteli.atrium.assertions.AssertionBuilder"))
         fun withType(groupType: AssertionGroupType) = BasicAssertionGroupBuilder(groupType)
 
+        @Deprecated("use AssertionBuilder instead, will be removed in 1.0.0")
         class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(name: Translatable, subject: Any, assertion: Assertion)
-                = create(name, subject, listOf(assertion))
+                = AssertionBuilder.BasicAssertionGroupBuilder(groupType).create(name, subject, assertion)
 
             fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
-                = BasicAssertionGroup(groupType, name, subject, assertions)
+                = AssertionBuilder.BasicAssertionGroupBuilder(groupType).create(name, subject, assertions)
         }
 
+        @Deprecated("use AssertionBuilder instead, will be removed in 1.0.0")
         class ExplanatoryAssertionGroupOption {
             val withDefault = ExplanatoryAssertionGroupBuilder(DefaultExplanatoryAssertionGroupType)
             val withWarning = ExplanatoryAssertionGroupBuilder(WarningAssertionGroupType)
             fun withType(groupType: ExplanatoryAssertionGroupType) = ExplanatoryAssertionGroupBuilder(groupType)
         }
 
+        @Deprecated("use AssertionBuilder instead, will be removed in 1.0.0")
         class ExplanatoryAssertionGroupBuilder(private val groupType: ExplanatoryAssertionGroupType) {
             fun create(assertion: Assertion)
-                = create(listOf(assertion))
+                = AssertionBuilder.ExplanatoryAssertionGroupBuilder(groupType).create(assertion)
 
             fun create(assertions: List<Assertion>): ExplanatoryAssertionGroup
-                = ExplanatoryAssertionGroup(groupType, assertions)
+                = AssertionBuilder.ExplanatoryAssertionGroupBuilder(groupType).create(assertions)
         }
 
-        class InvisibleAssertionGroupBuilder {
+        @Deprecated("use AssertionBuilder instead, will be removed in 1.0.0")
+        class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(assertion: Assertion)
-                = create(listOf(assertion))
+                = AssertionBuilder.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertion)
 
-            fun create(assertions: List<Assertion>): InvisibleAssertionGroup
-                = InvisibleAssertionGroup(assertions)
+            fun create(assertions: List<Assertion>): EmptyNameAndSubjectAssertionGroup
+                = AssertionBuilder.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertions)
         }
     }
 }

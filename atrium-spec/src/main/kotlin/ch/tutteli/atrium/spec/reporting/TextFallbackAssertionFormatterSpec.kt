@@ -63,7 +63,7 @@ abstract class TextFallbackAssertionFormatterSpec(
         }
         context("assertion of type ${DescriptiveAssertion::class.simpleName}") {
             it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::expected.name} on the same line separated by colon and space") {
-                val assertion = BasicDescriptiveAssertion(IS_SAME, "bli", false)
+                val assertion = AssertionBuilder.descriptive.create(IS_SAME, "bli", false)
                 testee.formatNonGroup(assertion, methodObject)
                 verbs.checkImmediately(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
             }
@@ -82,8 +82,8 @@ abstract class TextFallbackAssertionFormatterSpec(
                         override val name = Untranslatable("group")
                         override val subject = "subject of group"
                         override val assertions = listOf(
-                            BasicDescriptiveAssertion(IS_SAME, "b", false),
-                            BasicDescriptiveAssertion(TO_BE, "d", false)
+                            AssertionBuilder.descriptive.create(IS_SAME, "b", false),
+                            AssertionBuilder.descriptive.create(TO_BE, "d", false)
                         )
                     }, sb, alwaysTrueAssertionFilter)
 
@@ -108,8 +108,8 @@ abstract class TextFallbackAssertionFormatterSpec(
                                 override val name = Untranslatable("inner group")
                                 override val subject = "subject of inner group"
                                 override val assertions = listOf(
-                                    BasicDescriptiveAssertion(IS_SAME, "b", false),
-                                    BasicDescriptiveAssertion(TO_BE, "d", false)
+                                    AssertionBuilder.descriptive.create(IS_SAME, "b", false),
+                                    AssertionBuilder.descriptive.create(TO_BE, "d", false)
                                 )
                             },
                             unsupportedAssertion

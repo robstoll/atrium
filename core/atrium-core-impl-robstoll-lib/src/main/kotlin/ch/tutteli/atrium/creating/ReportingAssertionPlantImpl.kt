@@ -2,7 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.AssertionBuilder
 
 /**
  * An [AssertionPlant] which checks each added [Assertion] immediately.
@@ -20,9 +20,9 @@ class ReportingAssertionPlantImpl<out T : Any>(
     override val self = this
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T> {
-        val plant = AtriumFactory.newCollectingPlant { subject }
-        plant.assertionCreator()
-        addAssertion(AssertionGroup.Builder.invisible.create(plant.getAssertions()))
-        return this
+        val assertions = AtriumFactory.newCollectingPlant({ subject })
+            .addAssertionsCreatedBy(assertionCreator)
+            .getAssertions()
+        return addAssertion(AssertionBuilder.invisibleGroup.create(assertions))
     }
 }

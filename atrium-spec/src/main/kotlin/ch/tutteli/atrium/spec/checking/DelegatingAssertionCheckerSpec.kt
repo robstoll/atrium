@@ -2,7 +2,8 @@ package ch.tutteli.atrium.spec.checking
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.InvisibleAssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
@@ -64,7 +65,8 @@ abstract class DelegatingAssertionCheckerSpec(
                     //assert
                     val captor = argumentCaptor<Assertion>()
                     verify(subjectFactory).addAssertion(captor.capture())
-                    assert(captor.firstValue).isA<InvisibleAssertionGroup> {
+                    assert(captor.firstValue).isA<AssertionGroup> {
+                        property(subject::type).isA<InvisibleAssertionGroupType> {}
                         property(subject::assertions) {
                             contains.inAnyOrder.only.objects(assertions.first(), *assertions.drop(1).toTypedArray())
                         }
