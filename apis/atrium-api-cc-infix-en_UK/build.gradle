@@ -4,8 +4,6 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-core-api")
-    compileOnly project(":${rootProject.name}-core-api-late-binding")
     compile project(":${rootProject.name}-assertions")
 
     testCompile project(":${rootProject.name}-core-impl-robstoll")
