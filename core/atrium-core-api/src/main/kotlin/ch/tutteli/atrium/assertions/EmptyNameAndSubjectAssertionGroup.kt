@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param type The type of the group, e.g. [InvisibleAssertionGroupType].
  * @param assertions The assertions of this group.
  */
-abstract class EmptyNameAndSubjectAssertionGroup(override val type: AssertionGroupType, override val assertions: List<Assertion>) : AssertionGroup {
+open class EmptyNameAndSubjectAssertionGroup(override val type: AssertionGroupType, override val assertions: List<Assertion>) : AssertionGroup {
 
     /**
      * [Untranslatable.EMPTY] -- an empty string as [Untranslatable].
@@ -19,7 +19,7 @@ abstract class EmptyNameAndSubjectAssertionGroup(override val type: AssertionGro
     override val name: Translatable = Untranslatable.EMPTY
 
     /**
-     * The empty string.
+     * [RawString.EMPTY] -- an empty string as [RawString].
      */
     override val subject: Any = RawString.EMPTY
 

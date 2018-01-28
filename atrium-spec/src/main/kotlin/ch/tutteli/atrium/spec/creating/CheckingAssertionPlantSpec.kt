@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
-import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -74,7 +71,13 @@ abstract class CheckingAssertionPlantSpec(
         }
 
         inCaseOf("a custom ${DescriptiveAssertion::class.java.simpleName} which fails") {
-            testee.addAssertion(BasicDescriptiveAssertion(DescriptionAnyAssertion.TO_BE, "my expected result", false))
+            testee.addAssertion(
+                AssertionBuilder.descriptive.create(
+                    DescriptionAnyAssertion.TO_BE,
+                    "my expected result",
+                    false
+                )
+            )
             test("${testee::allAssertionsHold.name} returns `false` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()
                 verbs.checkImmediately(result).isFalse()

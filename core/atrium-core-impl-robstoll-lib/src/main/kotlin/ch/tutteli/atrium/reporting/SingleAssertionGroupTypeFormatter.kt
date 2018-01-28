@@ -24,7 +24,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * Returns true if the given [assertion] is an [AssertionGroup] and its [type][AssertionGroup.type]
      * is [T] or a sub type.
      */
-    override final fun canFormat(assertion: Assertion)
+    final override fun canFormat(assertion: Assertion)
         = assertion is AssertionGroup && clazz.isAssignableFrom(assertion.type::class.java)
 
     /**
@@ -33,7 +33,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      *
      * @throws UnsupportedOperationException always!
      */
-    override final fun formatNonGroup(assertion: Assertion, methodObject: AssertionFormatterMethodObject)
+    final override fun formatNonGroup(assertion: Assertion, methodObject: AssertionFormatterMethodObject)
         = throw UnsupportedOperationException("supports only ${clazz.name} for which one has to call ${AssertionFormatter::formatGroup.name}")
 
     /**
@@ -54,7 +54,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      *
      * @throws UnsupportedOperationException if the given [assertionGroup] is not [T] or a sub type of it.
      */
-    override final fun formatGroup(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (Assertion) -> Unit) -> Unit) = when {
+    final override fun formatGroup(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (Assertion) -> Unit) -> Unit) = when {
         clazz.isAssignableFrom(assertionGroup.type::class.java) -> formatSpecificGroup(assertionGroup, methodObject, formatAssertions)
         else -> throw UnsupportedOperationException("supports only ${clazz.name}")
     }

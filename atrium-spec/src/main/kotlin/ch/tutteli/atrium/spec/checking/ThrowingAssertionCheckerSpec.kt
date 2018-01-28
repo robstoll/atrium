@@ -27,7 +27,7 @@ abstract class ThrowingAssertionCheckerSpec(
     val assertionVerb = AssertionVerb.VERB
     val reporterResponse = "hello"
     val reporter = mock<Reporter> {
-        on { format(any(), any<StringBuilder>()) }.thenAnswer {
+        on { format(any(), @Suppress("RemoveExplicitTypeArguments") any<StringBuilder>()) }.thenAnswer {
             (it.arguments[1] as StringBuilder).append(reporterResponse)
         }
     }

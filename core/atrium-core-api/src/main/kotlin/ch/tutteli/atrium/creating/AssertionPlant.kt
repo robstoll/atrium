@@ -3,7 +3,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
+import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -43,6 +43,6 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
      *   evaluated (see [ReportingAssertionPlant]).
      */
     fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): AssertionPlant<T>
-        = addAssertion(BasicDescriptiveAssertion(description, expected, test))
+        = addAssertion(AssertionBuilder.descriptive.create(description, expected, test))
 }
 

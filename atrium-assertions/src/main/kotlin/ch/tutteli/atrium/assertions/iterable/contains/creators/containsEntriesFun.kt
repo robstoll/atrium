@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.assertions.FixHoldsAssertionGroup
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
@@ -38,8 +35,13 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(description: Tran
     .throwIfNoAssertionIsCollected
     .collectAssertionsForExplanation(description, assertionCreator, subject)
 
-internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean) =
-    FixHoldsAssertionGroup(DefaultListAssertionGroupType, DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString.EMPTY, explanatoryAssertions, found)
+internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
+    = FixHoldsAssertionGroup(
+    DefaultListAssertionGroupType,
+    DescriptionIterableAssertion.AN_ENTRY_WHICH,
+    RawString.EMPTY,
+    listOf(AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions)),
+    found)
 
 internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean = when (subject) {
     null -> assertionCreator == null

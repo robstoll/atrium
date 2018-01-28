@@ -6,12 +6,9 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.AtriumFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
-import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
-import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
@@ -46,9 +43,10 @@ class TextFallbackAssertionFormatterSpec : Spek({
     describe("fun ${TextFallbackAssertionFormatter::format.name}") {
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::subject.name} as well as the ${AssertionGroup::assertions.name}") {
-                facade.format(AssertionGroup.Builder.root.create(ASSERT, "subject",listOf(
-                    BasicDescriptiveAssertion(TO_BE, "bli", false),
-                    BasicDescriptiveAssertion(NOT_TO_BE, "bye", false)
+                facade.format(
+                    AssertionBuilder.root.create(ASSERT, "subject",listOf(
+                        AssertionBuilder.descriptive.create(TO_BE, "bli", false),
+                        AssertionBuilder.descriptive.create(NOT_TO_BE, "bye", false)
                 )), sb, alwaysTrueAssertionFilter)
                 assert(sb.toString()).toBe("assert: subject$separator" +
                     "$squarePoint ${TO_BE.getDefault()}: bli$separator" +

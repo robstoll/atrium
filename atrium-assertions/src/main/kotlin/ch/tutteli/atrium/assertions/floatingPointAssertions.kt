@@ -41,14 +41,19 @@ private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T
         true //TODO that's a hack, we need a better solution
     }
     return if (isWithinRange) {
-        BasicDescriptiveAssertion(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, isWithinRange)
+        AssertionBuilder.descriptive.create(
+            TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance),
+            expected,
+            isWithinRange
+        )
     } else {
         //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
         //we do not want to see the failure nor the exact check in the 'an entry which...' part
         //same problematic applies to feature assertions within an identification lambda
         val df = DecimalFormat("###,##0.0")
         df.maximumFractionDigits = 340
-        val explanatoryAssertion = listOf(AssertionGroup.Builder.explanatory.withDefault.create(
+        val explanatoryAssertion = listOf(
+            AssertionBuilder.explanatoryGroup.withDefault.create(
             explanatoryAssertionCreator(df)
         ))
         FixHoldsAssertionGroup(DefaultListAssertionGroupType, TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, explanatoryAssertion, false)

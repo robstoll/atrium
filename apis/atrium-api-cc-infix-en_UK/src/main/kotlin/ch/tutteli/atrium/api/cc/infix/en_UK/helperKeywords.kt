@@ -1,3 +1,5 @@
+@file:Suppress("ClassName")
+
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 /**

@@ -28,7 +28,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
     private val searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {
 
-    override final fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
+    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val assertions = mutableListOf<Assertion>()
             val allSearchCriteria = listOf(searchCriterion, *otherSearchCriteria)
@@ -39,9 +39,8 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             }
             assertions.add(createSizeFeatureAssertion(allSearchCriteria.size, list, itr))
 
-
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            AssertionGroup.Builder.summary.create(description, RawString.EMPTY, assertions.toList())
+            AssertionBuilder.summary.create(description, RawString.EMPTY, assertions.toList())
         }
     }
 
@@ -57,7 +56,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
         }
         val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, index)
-        AssertionGroup.Builder.feature.create(description, entryRepresentation, createEntryFeatureAssertion(found))
+        AssertionBuilder.feature.create(description, entryRepresentation, createEntryFeatureAssertion(found))
     }
 
     abstract fun matches(actual: E?, searchCriterion: S): Boolean
@@ -69,18 +68,22 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             additionalEntries.add(itr.next())
         }
         val featureAssertions = mutableListOf<Assertion>()
-        featureAssertions.add(BasicDescriptiveAssertion(DescriptionAnyAssertion.TO_BE, RawString.create(expectedSize.toString()), { actualSize == expectedSize }))
+        featureAssertions.add(AssertionBuilder.descriptive.create(
+                DescriptionAnyAssertion.TO_BE,
+                RawString.create(expectedSize.toString()),
+                { actualSize == expectedSize }
+        ))
         if (actualSize > expectedSize) {
             featureAssertions.add(LazyThreadUnsafeAssertionGroup {
                 val assertions = additionalEntries.mapIndexed { index, it ->
                     val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, expectedSize + index)
-                    BasicDescriptiveAssertion(description, it ?: RawString.NULL, true)
+                    AssertionBuilder.descriptive.create(description, it ?: RawString.NULL, true)
                 }
-                AssertionGroup.Builder.explanatory.withWarning.create(
-                    AssertionGroup.Builder.list.create(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
+                AssertionBuilder.explanatoryGroup.withWarning.create(
+                    AssertionBuilder.list.create(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
                 )
             })
         }
-        return AssertionGroup.Builder.feature.create(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
+        return AssertionBuilder.feature.create(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
     }
 }

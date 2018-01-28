@@ -6,7 +6,7 @@ abstract class MutableListBasedReportingAssertionPlant<out T : Any?, out A : Bas
     override val commonFields: AssertionPlantWithCommonFields.CommonFields<T>
 ) : MutableListBasedAssertionPlant<T, A>(), BaseReportingAssertionPlant<T, A> {
 
-    override final fun addAssertion(assertion: Assertion): A {
+    final override fun addAssertion(assertion: Assertion): A {
         super.addAssertion(assertion)
         checkAssertions()
         return self
