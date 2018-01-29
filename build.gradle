@@ -24,15 +24,15 @@ buildscript {
         publish_vcsUrl = "${github_url}.git"
 
         //gh-pages.gradle
-        docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-core-impl") }
+        docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-core") }
 
         //jacoco-multi-project.gradle
         projectsWithoutSources = projectsWithoutSourcesBuildScript
         jacocoMulti = [
             sourceProjects:
                 subprojects.findAll {
-                    // cannot be part of the sources since it would define AtriumFactory twice
-                    // (atrium-impl-robstoll already defines it)
+                    // cannot be part of the sources since it would define CoreFactory twice
+                    // (atrium-core-robstoll already defines it)
                     it.name != "${project.name}-core-api-late-binding" &&
                         // would have two classes with the same name if we add it as project as well,
                         // (clashes with "${project.name}-translations-en_UK"
@@ -44,7 +44,7 @@ buildscript {
                 subprojects.findAll {
                     it.name != "${project.name}-core-api" &&
                         it.name != "${project.name}-core-api-late-binding" &&
-                        it.name != "${project.name}-core-impl-robstoll" &&
+                        it.name != "${project.name}-core-robstoll" &&
                         it.name != "${project.name}-spec"
                 } - projectsWithoutSourcesBuildScript - translationProjects
         ]

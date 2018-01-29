@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.IAtriumFactory
+import ch.tutteli.atrium.ICoreFactory
 
 /**
  * A marker interface for types which can be used to identify bullet points in
- * [IAtriumFactory.registerTextAssertionFormatterCapabilities].
+ * [ICoreFactory.registerTextAssertionFormatterCapabilities].
  */
 interface BulletPointIdentifier

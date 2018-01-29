@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
@@ -22,8 +22,8 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         val subject = subjectPlant.subject
         val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at " + BUG_REPORT_URL)
         if (subject != null && canBeTransformed(subject)) {
-            val assertionChecker = AtriumFactory.newDelegatingAssertionChecker(subjectPlant)
-            val plant = AtriumFactory.newReportingPlant(assertionVerb, transform(subject), assertionChecker)
+            val assertionChecker = CoreFactory.newDelegatingAssertionChecker(subjectPlant)
+            val plant = CoreFactory.newReportingPlant(assertionVerb, transform(subject), assertionChecker)
             plant.addAssertion(AssertionBuilder.descriptive.create(description, representation, true))
             plant.addAssertionsCreatedBy(assertionCreator)
         } else {

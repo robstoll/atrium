@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.assertions.*
@@ -26,7 +26,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
 
     val squarePoint = "▪"
 
-    val facade = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
+    val facade = CoreFactory.newAssertionFormatterFacade(CoreFactory.newAssertionFormatterController())
     facade.register({
         TextFallbackAssertionFormatter(
             mapOf(RootAssertionGroupType::class.java to "$squarePoint "),

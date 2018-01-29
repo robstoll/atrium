@@ -1,5 +1,3 @@
-@file:JvmName("IAtriumFactoryExtensions")
-
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.*
@@ -32,7 +30,7 @@ import java.util.*
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
-interface IAtriumFactory {
+interface ICoreFactory {
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -85,7 +83,7 @@ interface IAtriumFactory {
      * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
      * the configured [Reporter]) reported as a whole.
      *
-     * It creates a [IAtriumFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     * It creates a [ICoreFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).

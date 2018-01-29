@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.IAtriumFactory
+import ch.tutteli.atrium.ICoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
@@ -16,7 +16,7 @@ interface AssertionFormatterController {
      *
      * The [methodObject] allows to define an [assertionFilter][AssertionFormatterMethodObject.assertionFilter]
      * to filter out [Assertion]s (for instance, filter out messages which hold
-     * &rarr; see [IAtriumFactory.newOnlyFailureReporter]).
+     * &rarr; see [ICoreFactory.newOnlyFailureReporter]).
      * Moreover the controller should take into account whether the control flow
      * [AssertionFormatterMethodObject.isNotInDoNotFilterGroup] or is in such group, in which case the filtering should
      * not apply.
