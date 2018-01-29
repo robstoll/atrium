@@ -8,6 +8,6 @@ buildscript {
 dependencies {
     compile project(":${rootProject.name}-assertions")
 
-    testCompile project(":${rootProject.name}-core-impl-robstoll")
+    testCompile project(":${rootProject.name}-core-robstoll")
     testCompile project(":${rootProject.name}-spec")
 }
