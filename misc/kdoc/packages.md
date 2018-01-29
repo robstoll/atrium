@@ -2,15 +2,15 @@
 
 ## KDoc of Atrium
 Atrium is built up by different modules. The packages shown below contain classes etc. 
-of all modules excluding the one of _atrium-imp-robstoll_ and _atrium-imp-robstoll-lib_.
+of all modules excluding the one of _atrium-core-robstoll_ and _atrium-core-robstoll-lib_.
 
 Bundle modules:
 - **atrium-cc-de&#95;CH-robstoll** defines to have a dependency on 
-  atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-impl-robstoll
+  atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-robstoll
 - **atrium-cc-en&#95;UK-robstoll**  defines to have a dependency on   
-  atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll
+  atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-robstoll
 - **atrium-cc-infix-en&#95;UK-robstoll**  defines to have a dependency on  
-  atrium-api-cc-infix-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-impl-robstoll
+  atrium-api-cc-infix-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-robstoll
   
 API modules:  
 - **atrium-api-cc-de&#95;CH** provides an assertion function API in German where the main 
@@ -38,9 +38,9 @@ Core modules:
 - **atrium-core-api-late-binding** defines the contract for 
   [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
   by providing a dummy implementation which eventually needs to be replaced by a real implementation. 
-- **atrium-core-impl-robstoll** provides an [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
-  which uses the implementations of *atrium-impl-robstoll-lib*
-- **atrium-core-impl-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the core of Atrium.
+- **atrium-core-robstoll** provides a [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
+  which uses the implementations of *atrium-core-robstoll-lib*
+- **atrium-core-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the core of Atrium.
 
 Misc modules:
 - **atrium-spec** contains [Spek](http://spekframework.org/) specifications for interfaces (defined in 

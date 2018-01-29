@@ -2,7 +2,7 @@ buildscript {
     ext.publish_description = 'contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation' +
         'of Atrium -- an assertion library for Kotlin. You should only depend on this module if you are ' +
         'providing an implementation as well and want to reuse certain artifacts. If you are a consumer of ' +
-        'Atrium, then you should depend on atrium-impl-robstoll.'
+        'Atrium, then you should depend on atrium-core-robstoll instead.'
 }
 
 dependencies {
@@ -12,7 +12,7 @@ dependencies {
     compile project(":${rootProject.name}-core-api")
     compileOnly project(":${rootProject.name}-core-api-late-binding")
 
-    testCompile project(":${rootProject.name}-core-impl-robstoll")
+    testCompile project(":${rootProject.name}-core-robstoll")
     testCompile project(":${rootProject.name}-api-cc-en_UK")
     testCompile project(":${rootProject.name}-spec")
 }
@@ -21,7 +21,7 @@ dokka {
     sourceDirs = files(
         srcKotlin,
         "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-core-impl-robstoll/$srcKotlin"
+        "${rootProject.projectDir}/${rootProject.name}-core-robstoll/$srcKotlin"
     )
 }
 
