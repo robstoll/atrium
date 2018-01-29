@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.verbs.expect
 
-import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.IAtriumFactory
+import ch.tutteli.atrium.CoreFactory
+import ch.tutteli.atrium.ICoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
@@ -17,10 +17,10 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newReportingPlant
+ * @see CoreFactory.newReportingPlant
  */
 fun <T : Any> expect(subject: T)
-    = AtriumFactory.newReportingPlant(EXPECT, subject, AtriumReporterSupplier.REPORTER)
+    = CoreFactory.newReportingPlant(EXPECT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
@@ -29,20 +29,20 @@ fun <T : Any> expect(subject: T)
  *
  * @return The newly created plant.
  *
- * @see IAtriumFactory.newReportingPlantAndAddAssertionsCreatedBy
+ * @see ICoreFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
 fun <T : Any> expect(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(EXPECT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = CoreFactory.newReportingPlantAndAddAssertionsCreatedBy(EXPECT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable] for the given [subject] which might be `null`.
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newReportingPlantNullable
+ * @see CoreFactory.newReportingPlantNullable
  */
 fun <T : Any?> expect(subject: T)
-    = AtriumFactory.newReportingPlantNullable(EXPECT, subject, AtriumReporterSupplier.REPORTER)
+    = CoreFactory.newReportingPlantNullable(EXPECT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates a [ThrowableThrownBuilder] for the given function [act] which is expected to throw a [Throwable].

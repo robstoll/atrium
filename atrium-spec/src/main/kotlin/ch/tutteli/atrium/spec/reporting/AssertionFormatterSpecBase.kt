@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -36,7 +36,7 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
                 FeatureAssertionGroupType::class.java to "$featureBulletPoint "
             )
 
-        fun createFacade() = AtriumFactory.newAssertionFormatterFacade(AtriumFactory.newAssertionFormatterController())
+        fun createFacade() = CoreFactory.newAssertionFormatterFacade(CoreFactory.newAssertionFormatterController())
 
         fun createFacade(testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade
             = createFacade(mapOf(), testeeFactory)
@@ -47,9 +47,9 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
         fun createFacade(extendedBulletPoints: Map<Class<out BulletPointIdentifier>, String>, testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter): AssertionFormatterFacade {
             val facade = createFacade()
             facade.register { testeeFactory(extendedBulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { AtriumFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-            facade.register { AtriumFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register { CoreFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register { CoreFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+            facade.register { CoreFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
             return facade
         }
     }

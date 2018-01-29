@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
@@ -11,10 +11,10 @@ import java.util.*
 class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFacade) {
 
     /**
-     * Uses [AtriumFactory.newOnlyFailureReporter] as [Reporter].
+     * Uses [CoreFactory.newOnlyFailureReporter] as [Reporter].
      */
     fun buildOnlyFailureReporter(): Reporter
-        = AtriumFactory.newOnlyFailureReporter(assertionFormatterFacade)
+        = CoreFactory.newOnlyFailureReporter(assertionFormatterFacade)
 
     /**
      * Uses the given [factory] to build a custom [Reporter].
@@ -52,10 +52,10 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
             = ObjectFormatterOptions(translator)
 
         /**
-         * Uses [AtriumFactory.newPropertiesBasedTranslationSupplier] as [TranslationSupplier].
+         * Uses [CoreFactory.newPropertiesBasedTranslationSupplier] as [TranslationSupplier].
          */
         fun withDefaultTranslationSupplier()
-            = LocaleOrderDeciderOptions(AtriumFactory.newPropertiesBasedTranslationSupplier())
+            = LocaleOrderDeciderOptions(CoreFactory.newPropertiesBasedTranslationSupplier())
 
         /**
          * Uses the given [translationSupplier] as [TranslationSupplier].
@@ -67,10 +67,10 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     class LocaleOrderDeciderOptions(private val translationSupplier: TranslationSupplier) {
 
         /**
-         * Uses [AtriumFactory.newLocaleOrderDecider] as [LocaleOrderDecider].
+         * Uses [CoreFactory.newLocaleOrderDecider] as [LocaleOrderDecider].
          */
         fun withDefaultLocaleOrderDecider()
-            = TranslatorOptions(translationSupplier, AtriumFactory.newLocaleOrderDecider())
+            = TranslatorOptions(translationSupplier, CoreFactory.newLocaleOrderDecider())
 
         /**
          * Uses [localeOrderDecider] as [LocaleOrderDecider].
@@ -82,7 +82,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     class TranslatorOptions(private val translationSupplier: TranslationSupplier, private val localeOrderDecider: LocaleOrderDecider) {
 
         /**
-         * Uses [AtriumFactory.newTranslator] as [Translator] where the specified [translationSupplier] is used to
+         * Uses [CoreFactory.newTranslator] as [Translator] where the specified [translationSupplier] is used to
          * retrieve translations, the specified [localeOrderDecider] to determine candidate [Locale]s and
          * [primaryLocale] is used as primary [Locale] and the optional [fallbackLocales] as fallback [Locale]s.
          *
@@ -92,7 +92,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          *   in case no translation was found the previous primary Locale.
          */
         fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale)
-            = ObjectFormatterOptions(AtriumFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales))
+            = ObjectFormatterOptions(CoreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales))
 
         /**
          * Uses the given [factory] to build a [Translator].
@@ -106,10 +106,10 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
      */
     class ObjectFormatterOptions(private val translator: Translator) {
         /**
-         * Uses [AtriumFactory.newDetailedObjectFormatter] as [ObjectFormatter].
+         * Uses [CoreFactory.newDetailedObjectFormatter] as [ObjectFormatter].
          */
         fun withDetailedObjectFormatter()
-            = AssertionFormatterControllerOptions(AtriumFactory.newDetailedObjectFormatter(translator), translator)
+            = AssertionFormatterControllerOptions(CoreFactory.newDetailedObjectFormatter(translator), translator)
 
         /**
          * Uses the given [factory] to build a custom [ObjectFormatter].
@@ -123,10 +123,10 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
      */
     class AssertionFormatterControllerOptions(private val objectFormatter: ObjectFormatter, private val translator: Translator) {
         /**
-         * Uses [AtriumFactory.newAssertionFormatterController] as [AssertionFormatterController].
+         * Uses [CoreFactory.newAssertionFormatterController] as [AssertionFormatterController].
          */
         fun withDefaultAssertionFormatterController()
-            = AssertionFormatterFacadeOptions(AtriumFactory.newAssertionFormatterController(), objectFormatter, translator)
+            = AssertionFormatterFacadeOptions(CoreFactory.newAssertionFormatterController(), objectFormatter, translator)
 
         /**
          * Uses the given [assertionFormatterController] a custom [AssertionFormatterController].
@@ -140,11 +140,11 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
      */
     class AssertionFormatterFacadeOptions(private val assertionFormatterController: AssertionFormatterController, private val objectFormatter: ObjectFormatter, private val translator: Translator) {
         /**
-         * Uses [AtriumFactory.newAssertionFormatterFacade] as [AssertionFormatterFacade].
+         * Uses [CoreFactory.newAssertionFormatterFacade] as [AssertionFormatterFacade].
          */
         fun withDefaultAssertionFormatterFacade()
             = AssertionPairFormatterOptions(AssertionFormatterChosenOptions(
-            AtriumFactory.newAssertionFormatterFacade(assertionFormatterController), objectFormatter, translator))
+            CoreFactory.newAssertionFormatterFacade(assertionFormatterController), objectFormatter, translator))
 
         /**
          * Uses the given [factory] to build a custom [AssertionFormatterFacade].
@@ -162,10 +162,10 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     class AssertionPairFormatterOptions(private val options: AssertionFormatterChosenOptions) {
 
         /**
-         * Uses [AtriumFactory.newTextSameLineAssertionPairFormatter] as [AssertionPairFormatter].
+         * Uses [CoreFactory.newTextSameLineAssertionPairFormatter] as [AssertionPairFormatter].
          */
         fun withTextSameLineAssertionPairFormatter()
-            = TextAssertionFormatterOptions(options, AtriumFactory.newTextSameLineAssertionPairFormatter(options.objectFormatter, options.translator))
+            = TextAssertionFormatterOptions(options, CoreFactory.newTextSameLineAssertionPairFormatter(options.objectFormatter, options.translator))
 
         /**
          * Uses the given [factory] to build a custom [AssertionPairFormatter].
@@ -188,7 +188,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     class TextAssertionFormatterOptions(private val options: AssertionFormatterChosenOptions, private val assertionPairFormatter: AssertionPairFormatter) {
 
         /**
-         * Uses [AtriumFactory.registerTextAssertionFormatterCapabilities] to register the default [AssertionFormatter]s
+         * Uses [CoreFactory.registerTextAssertionFormatterCapabilities] to register the default [AssertionFormatter]s
          * intended for text output -- using the defined [assertionPairFormatter],
          * [AssertionFormatterChosenOptions.objectFormatter] and [AssertionFormatterChosenOptions.translator]
          * -- to the specified [AssertionFormatterChosenOptions.assertionFormatterFacade] where the given [bulletPoints] can be used to customise
@@ -198,7 +198,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * bullet points.
          */
         fun withDefaultTextCapabilities(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterBuilder {
-            AtriumFactory.registerTextAssertionFormatterCapabilities(
+            CoreFactory.registerTextAssertionFormatterCapabilities(
                 bulletPoints.toMap(), options.assertionFormatterFacade, assertionPairFormatter, options.objectFormatter, options.translator)
             return ReporterBuilder(options.assertionFormatterFacade)
         }

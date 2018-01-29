@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -46,7 +46,7 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
 internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean = when (subject) {
     null -> assertionCreator == null
     else -> assertionCreator != null &&
-        AtriumFactory.newCheckingPlant(subject)
+        CoreFactory.newCheckingPlant(subject)
             .addAssertionsCreatedBy(assertionCreator)
             .allAssertionsHold()
 }

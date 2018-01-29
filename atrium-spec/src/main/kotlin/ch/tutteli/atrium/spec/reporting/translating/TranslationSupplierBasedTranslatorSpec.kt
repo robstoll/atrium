@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.reporting.translating.*
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -24,7 +24,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         = describeFun(describePrefix, funName, body = body)
 
     fun testeeFactory(translationSupplier: TranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)
-        = testeeFactory(translationSupplier, AtriumFactory.newLocaleOrderDecider(), locale, fallbackLocals)
+        = testeeFactory(translationSupplier, CoreFactory.newLocaleOrderDecider(), locale, fallbackLocals)
 
     fun mockTranslationProvider(locale: Locale, translatable: Translatable, translation: String): TranslationSupplier {
         return mock {

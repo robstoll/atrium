@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.IAtriumFactory
+import ch.tutteli.atrium.ICoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 
 /**
@@ -11,7 +11,7 @@ interface AssertionFormatterFacade {
      * Formats the given [assertion] and appends the result to the given [sb].
      *
      * One can define an [assertionFilter] to filter out [Assertion]s
-     * (for instance, filter out assertions which hold &rarr; see [IAtriumFactory.newOnlyFailureReporter]).
+     * (for instance, filter out assertions which hold &rarr; see [ICoreFactory.newOnlyFailureReporter]).
      *
      * @param sb The [StringBuilder] to which the formatted [assertion] will be appended.
      * @param assertion The assertion which should be formatted

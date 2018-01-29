@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
@@ -31,7 +31,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     val facade = createFacade { _, controller, _, _ -> testeeFactory(controller) }
 
     describeFun(AssertionFormatter::canFormat.name) {
-        val testee = testeeFactory(AtriumFactory.newAssertionFormatterController())
+        val testee = testeeFactory(CoreFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${InvisibleAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(AssertionBuilder.withType(object : InvisibleAssertionGroupType {}).create(Untranslatable.EMPTY, 1, listOf()))
             verbs.checkImmediately(result).isTrue()

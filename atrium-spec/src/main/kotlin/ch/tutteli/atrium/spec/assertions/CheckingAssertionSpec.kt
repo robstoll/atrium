@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.assertions
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.isFalse
 import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.creating.Assert
@@ -20,13 +20,13 @@ abstract class CheckingAssertionSpec<T : Any>(
             val (holdingSubject, failingSubject) = holdingAndFailingSubject
             group("fun `$name`") {
                 test("assertion which holds -- does not throw, returns `true`") {
-                    val checkingPlant = AtriumFactory.newCheckingPlant(holdingSubject)
+                    val checkingPlant = CoreFactory.newCheckingPlant(holdingSubject)
                     checkingPlant.createAssertion()
                     verbs.checkImmediately(checkingPlant.allAssertionsHold()).isTrue()
                 }
 
                 test("assertion which does not hold -- does not throw, returns `false`") {
-                    val checkingPlant = AtriumFactory.newCheckingPlant(failingSubject)
+                    val checkingPlant = CoreFactory.newCheckingPlant(failingSubject)
                     checkingPlant.createAssertion()
                     verbs.checkImmediately(checkingPlant.allAssertionsHold()).isFalse()
                 }
