@@ -31,7 +31,7 @@ buildscript {
         jacocoMulti = [
             sourceProjects:
                 subprojects.findAll {
-                    // cannot be part of the sources since it would define AtriumFactory twice
+                    // cannot be part of the sources since it would define CoreFactory twice
                     // (atrium-impl-robstoll already defines it)
                     it.name != "${project.name}-core-api-late-binding" &&
                         // would have two classes with the same name if we add it as project as well,

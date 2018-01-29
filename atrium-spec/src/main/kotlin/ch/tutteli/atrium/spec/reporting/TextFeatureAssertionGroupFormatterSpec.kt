@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
@@ -34,7 +34,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
     val featureAssertionGroup = AssertionBuilder.withType(object : FeatureAssertionGroupType {}).create(TranslatorIntSpec.TestTranslatable.PLACEHOLDER, 2, assertions)
 
     describeFun(AssertionFormatter::canFormat.name) {
-        val testee = testeeFactory(bulletPoints, AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
+        val testee = testeeFactory(bulletPoints, CoreFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${FeatureAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(AssertionBuilder.withType(object : FeatureAssertionGroupType {}).create(Untranslatable.EMPTY, 1, listOf()))
             verbs.checkImmediately(result).isTrue()
@@ -45,8 +45,8 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
 
         val facade = createFacade()
         facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-        facade.register { AtriumFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
-        facade.register { AtriumFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+        facade.register { CoreFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+        facade.register { CoreFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
 
         context("${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
             context("format directly the group") {

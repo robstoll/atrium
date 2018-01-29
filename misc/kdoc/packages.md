@@ -36,9 +36,9 @@ Assertion modules:
 Core modules:
 - **atrium-core-api** defines the contracts of the core of Atrium.
 - **atrium-core-api-late-binding** defines the contract for 
-  [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
+  [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
   by providing a dummy implementation which eventually needs to be replaced by a real implementation. 
-- **atrium-core-impl-robstoll** provides an [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
+- **atrium-core-impl-robstoll** provides an [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
   which uses the implementations of *atrium-impl-robstoll-lib*
 - **atrium-core-impl-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the core of Atrium.
 
@@ -48,7 +48,7 @@ Misc modules:
   as well as by API implementations to assure they fulfill the specifications.  
 
 # Package ch.tutteli.atrium
-Contains the [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html).
+Contains the [ICoreFactory](./ch.tutteli.atrium/-i-core-factory/index.html).
 
 
 # Package ch.tutteli.atrium.api.cc.de_CH

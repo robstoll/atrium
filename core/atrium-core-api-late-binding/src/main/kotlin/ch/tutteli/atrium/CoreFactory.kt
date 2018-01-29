@@ -11,7 +11,7 @@ import java.util.*
 
 @Suppress("UNUSED_PARAMETER")
 /**
- * A dummy implementation of [IAtriumFactory] which should be replaced by an actual implementation.
+ * A dummy implementation of [ICoreFactory] which should be replaced by an actual implementation.
  *
  * It provides factory methods which all throw an [UnsupportedOperationException] to create:
  * - [AssertionPlant]
@@ -30,7 +30,7 @@ import java.util.*
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
-object AtriumFactory : IAtriumFactory {
+object CoreFactory : ICoreFactory {
 
     private const val ERROR_MSG = "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
         "meaning as a substitute for a real implementation"

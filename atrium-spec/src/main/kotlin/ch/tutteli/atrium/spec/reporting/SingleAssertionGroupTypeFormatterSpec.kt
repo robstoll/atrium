@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.AtriumFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.AssertionFormatter
@@ -28,7 +28,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val testee = testeeFactory(mapOf(), AtriumFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
+    val testee = testeeFactory(mapOf(), CoreFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
 
     val unsupportedAssertion = object : Assertion {
         override fun holds() = false
