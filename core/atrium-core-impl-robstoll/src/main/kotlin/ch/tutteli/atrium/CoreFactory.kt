@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 
 /**
- * Robstoll's `abstract factory` of atrium.
+ * Robstoll's `abstract factory` for atrium-core.
  *
  * It provides factory methods to create:
  * - [AssertionPlant]
@@ -30,7 +30,7 @@ import java.util.*
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
-object AtriumFactory : IAtriumFactory {
+object CoreFactory : ICoreFactory {
 
     override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
         = ReportingAssertionPlantImpl(commonFields)

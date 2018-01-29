@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.verbs.assertthat
 
-import ch.tutteli.atrium.AtriumFactory
-import ch.tutteli.atrium.IAtriumFactory
+import ch.tutteli.atrium.CoreFactory
+import ch.tutteli.atrium.ICoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
@@ -17,10 +17,10 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newReportingPlant
+ * @see CoreFactory.newReportingPlant
  */
 fun <T : Any> assertThat(subject: T)
-    = AtriumFactory.newReportingPlant(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
+    = CoreFactory.newReportingPlant(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
@@ -29,20 +29,20 @@ fun <T : Any> assertThat(subject: T)
  *
  * @return The newly created plant.
  *
- * @see IAtriumFactory.newReportingPlantAndAddAssertionsCreatedBy
+ * @see ICoreFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
 fun <T : Any> assertThat(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AtriumFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = CoreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable] for the given [subject] which might be `null`.
  *
  * @return The newly created plant.
  *
- * @see AtriumFactory.newReportingPlantNullable
+ * @see CoreFactory.newReportingPlantNullable
  */
 fun <T : Any?> assertThat(subject: T)
-    = AtriumFactory.newReportingPlantNullable(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
+    = CoreFactory.newReportingPlantNullable(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates a [ThrowableThrownBuilder] for the given function [act] which is expected to throw a [Throwable].
