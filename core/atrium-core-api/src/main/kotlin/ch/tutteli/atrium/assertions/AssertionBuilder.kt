@@ -44,25 +44,26 @@ object AssertionBuilder {
     /**
      * Builder to create an [AssertionGroup] with the given [groupType].
      */
-    class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
+    class BasicAssertionGroupBuilder internal constructor(private val groupType: AssertionGroupType) {
         /**
          * Creates the [AssertionGroup] using the given [name] as [AssertionGroup.name], [subject] as
          * [AssertionGroup.subject] and [assertion] as single [AssertionGroup.assertions].
          */
-        fun create(name: Translatable, subject: Any, assertion: Assertion) = create(name, subject, listOf(assertion))
+        fun create(name: Translatable, subject: Any, assertion: Assertion)
+            = create(name, subject, listOf(assertion))
 
         /**
          * Creates the [AssertionGroup] using the given [name] as [AssertionGroup.name], [subject] as
          * [AssertionGroup.subject] and [assertions] as [AssertionGroup.assertions].
          */
-        fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup =
-            BasicAssertionGroup(groupType, name, subject, assertions)
+        fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
+            = BasicAssertionGroup(groupType, name, subject, assertions)
     }
 
     /**
      * Provides options to create an [AssertionGroup] with a certain [ExplanatoryAssertionGroupType].
      */
-    class ExplanatoryAssertionGroupOption {
+    class ExplanatoryAssertionGroupOption internal constructor() {
         /**
          * Builder to create an [AssertionGroup] with a [DefaultListAssertionGroupType].
          */
@@ -81,62 +82,64 @@ object AssertionBuilder {
     /**
      * Builder to create an [AssertionGroup] with the given [groupType] (an [ExplanatoryAssertionGroupType]).
      */
-    class ExplanatoryAssertionGroupBuilder(private val groupType: ExplanatoryAssertionGroupType) {
+    class ExplanatoryAssertionGroupBuilder internal constructor(private val groupType: ExplanatoryAssertionGroupType) {
         /**
          * Creates the [AssertionGroup] using the given [assertion] as single [AssertionGroup.assertions].
          */
-        fun create(assertion: Assertion) = create(listOf(assertion))
+        fun create(assertion: Assertion): AssertionGroup
+            = create(listOf(assertion))
 
         /**
          * Creates the [AssertionGroup] using the given [assertions] as [AssertionGroup.assertions].
          */
-        fun create(assertions: List<Assertion>): ExplanatoryAssertionGroup =
-            ExplanatoryAssertionGroup(groupType, assertions)
+        fun create(assertions: List<Assertion>): AssertionGroup
+            = ExplanatoryAssertionGroup(groupType, assertions)
     }
 
     /**
      * Builder to create an [AssertionGroup] with an empty [AssertionGroup.name], an empty [AssertionGroup.subject] and
      * with the given [groupType].
      */
-    class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
+    class EmptyNameAndSubjectAssertionGroupBuilder internal constructor(private val groupType: AssertionGroupType) {
         /**
          * Creates the [AssertionGroup] using the given [assertion] as single [AssertionGroup.assertions].
          */
-        fun create(assertion: Assertion) = create(listOf(assertion))
+        fun create(assertion: Assertion): AssertionGroup
+            = create(listOf(assertion))
 
         /**
          * Creates the [AssertionGroup] using the given [assertions] as [AssertionGroup.assertions].
          */
-        fun create(assertions: List<Assertion>): EmptyNameAndSubjectAssertionGroup =
-            EmptyNameAndSubjectAssertionGroup(groupType, assertions)
+        fun create(assertions: List<Assertion>): AssertionGroup
+            = EmptyNameAndSubjectAssertionGroup(groupType, assertions)
     }
 
     /**
      * Builder to create an [DescriptiveAssertion].
      */
-    class DescriptiveAssertionBuilder {
+    class DescriptiveAssertionBuilder internal constructor(){
         /**
          * Wraps the [test] into a lambda and delegates to the other `create` overload.
          */
-        fun create(description: String, representation: Any, test: Boolean): DescriptiveAssertion =
-            create(description, representation, { test })
+        fun create(description: String, representation: Any, test: Boolean): DescriptiveAssertion
+            = create(description, representation, { test })
 
         /**
          * Wraps the given [description] into an [Untranslatable] and delegates to the other `create` overload.
          */
-        fun create(description: String, representation: Any, test: () -> Boolean): DescriptiveAssertion =
-            create(Untranslatable(description), representation, test)
+        fun create(description: String, representation: Any, test: () -> Boolean): DescriptiveAssertion
+            = create(Untranslatable(description), representation, test)
 
         /**
          * Creates an [DescriptiveAssertion] based on the given [description], [representation] and [test].
          */
-        fun create(description: Translatable, representation: Any, test: Boolean): DescriptiveAssertion =
-            create(description, representation, { test })
+        fun create(description: Translatable, representation: Any, test: Boolean): DescriptiveAssertion
+            = create(description, representation, { test })
 
         /**
          * Creates an [DescriptiveAssertion] based on the given [description], [representation] and [test].
          */
-        fun create(description: Translatable, representation: Any, test: () -> Boolean): DescriptiveAssertion =
-            BasicDescriptiveAssertion(description, representation, test)
+        fun create(description: Translatable, representation: Any, test: () -> Boolean): DescriptiveAssertion
+            = BasicDescriptiveAssertion(description, representation, test)
     }
 }

@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param type The type of the group, e.g. [InvisibleAssertionGroupType].
  * @param assertions The assertions of this group.
  */
+@Deprecated("Use AssertionBuilder instead, will be made internal with 1.0.0")
 open class EmptyNameAndSubjectAssertionGroup(override val type: AssertionGroupType, override val assertions: List<Assertion>) : AssertionGroup {
 
     /**
@@ -24,7 +25,7 @@ open class EmptyNameAndSubjectAssertionGroup(override val type: AssertionGroupTy
     override val subject: Any = RawString.EMPTY
 
     /**
-     * @suppress
+     * @suppress No need to document this behaviour.
      */
     override fun toString(): String {
         return javaClass.simpleName + " " + assertions
