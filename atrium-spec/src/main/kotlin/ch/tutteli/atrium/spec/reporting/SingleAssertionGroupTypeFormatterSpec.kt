@@ -57,19 +57,19 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     }
 
     describeFun(testee::canFormat.name) {
-        it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
+        it("returns true for an anonymous ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroupWithAnonymousType)
             verbs.checkImmediately(result).isTrue()
         }
-        it("returns true for an ${BasicAssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
+        it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroupWithAnonymousType)
             verbs.checkImmediately(result).isTrue()
         }
-        it("returns true for an ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
+        it("returns true for an anonymous ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroup)
             verbs.checkImmediately(result).isTrue()
         }
-        it("returns true for an ${BasicAssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
+        it("returns true for an ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroup)
             verbs.checkImmediately(result).isTrue()
         }
@@ -104,19 +104,19 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
             verbs.checkImmediately(sb).isEmpty()
         }
 
-        it("does not throw if an ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
+        it("does not throw if an anonymous ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
             testee.formatGroup(supportedAnonymousAssertionGroupWithAnonymousType, methodObject, doNotFormatChildren)
         }
 
-        it("does not throw if an ${AssertionGroup::class.simpleName} of type ${supportedAssertionGroup::class.simpleName} is passed") {
+        it("does not throw if an anonymous ${AssertionGroup::class.simpleName} of type ${supportedAssertionGroup::class.simpleName} is passed") {
             testee.formatGroup(supportedAnonymousAssertionGroup, methodObject, doNotFormatChildren)
         }
 
-        it("does not throw if an ${BasicAssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
+        it("does not throw if an ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
             testee.formatGroup(supportedAssertionGroupWithAnonymousType, methodObject, doNotFormatChildren)
         }
 
-        it("does not throw if an ${BasicAssertionGroup::class.simpleName} of type  type ${supportedAssertionGroup::class.simpleName}  is passed") {
+        it("does not throw if an ${AssertionGroup::class.simpleName} of type  type ${supportedAssertionGroup::class.simpleName}  is passed") {
             testee.formatGroup(supportedAssertionGroup, methodObject, doNotFormatChildren)
         }
     }

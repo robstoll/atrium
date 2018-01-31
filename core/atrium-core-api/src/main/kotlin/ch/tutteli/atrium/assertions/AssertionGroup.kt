@@ -32,6 +32,7 @@ interface AssertionGroup : Assertion {
      */
     override fun holds() = assertions.all(Assertion::holds)
 
+    @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")
     object Builder {
         @Deprecated("Use AssertionBuilder.root instead, will be removed in 1.0.0", ReplaceWith("AssertionBuilder.root", "ch.tutteli.atrium.assertions.AssertionBuilder"))
         val root = BasicAssertionGroupBuilder(RootAssertionGroupType)
@@ -67,19 +68,19 @@ interface AssertionGroup : Assertion {
 
         @Deprecated("use AssertionBuilder instead, will be removed in 1.0.0")
         class ExplanatoryAssertionGroupBuilder(private val groupType: ExplanatoryAssertionGroupType) {
-            fun create(assertion: Assertion)
+            fun create(assertion: Assertion): AssertionGroup
                 = AssertionBuilder.ExplanatoryAssertionGroupBuilder(groupType).create(assertion)
 
-            fun create(assertions: List<Assertion>): ExplanatoryAssertionGroup
+            fun create(assertions: List<Assertion>): AssertionGroup
                 = AssertionBuilder.ExplanatoryAssertionGroupBuilder(groupType).create(assertions)
         }
 
         @Deprecated("use AssertionBuilder instead, will be removed in 1.0.0")
         class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
-            fun create(assertion: Assertion)
+            fun create(assertion: Assertion): AssertionGroup
                 = AssertionBuilder.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertion)
 
-            fun create(assertions: List<Assertion>): EmptyNameAndSubjectAssertionGroup
+            fun create(assertions: List<Assertion>): AssertionGroup
                 = AssertionBuilder.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertions)
         }
     }

@@ -2,7 +2,8 @@ package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionBuilder
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
@@ -10,15 +11,16 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents an [AnyTypeTransformation.TypeTransformationFailureHandler] which wraps subsequent assertions into an
- * [ExplanatoryAssertionGroup].
+ * [AssertionGroup] with an [ExplanatoryAssertionGroupType].
  *
  * @param T The type of the [AssertionPlant.subject].
  * @param T The type to which the [AssertionPlant.subject] should have been down-casted.
  */
-class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> : AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub> {
+class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
+    AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub> {
     /**
-     * Wraps the assertions which might be created by [assertionCreator] into an [ExplanatoryAssertionGroup] and adds it
-     * to the given [subjectPlant].
+     * Wraps the assertions which might be created by [assertionCreator] into an [AssertionGroup]
+     * with an [ExplanatoryAssertionGroupType] and adds it to the given [subjectPlant].
      *
      * @param warningTransformationFailed The type to which the [subjectPlant]'s [subject][AssertionPlant.subject] should have been
      *   down-casted.
@@ -44,7 +46,5 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> : AnyTy
     private fun collectAssertions(warningDownCastFailed: Translatable, assertionCreator: AssertionPlant<TSub>.() -> Unit)
         = AssertionCollector
         .doNotThrowIfNoAssertionIsCollected
-        .collectAssertionsForExplanation(warningDownCastFailed,
-            assertionCreator,
-            null)
+        .collectAssertionsForExplanation(warningDownCastFailed, assertionCreator, null)
 }
