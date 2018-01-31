@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
@@ -35,6 +38,12 @@ object AssertionBuilder {
      * Builder to create a [DescriptiveAssertion].
      */
     val descriptive = DescriptiveAssertionBuilder()
+
+    /**
+     * Builder to create an [ExplanatoryAssertion].
+     */
+    val explanatory = ExplanatoryAssertionBuilder()
+
 
     /**
      * Builder to create an [AssertionGroup] with a custom [AssertionGroupType].
@@ -83,8 +92,28 @@ object AssertionBuilder {
      * Builder to create an [AssertionGroup] with the given [groupType] (an [ExplanatoryAssertionGroupType]).
      */
     class ExplanatoryAssertionGroupBuilder internal constructor(private val groupType: ExplanatoryAssertionGroupType) {
+
         /**
-         * Creates the [AssertionGroup] using the given [assertion] as single [AssertionGroup.assertions].
+         * Creates the [AssertionGroup] using the given [translatable] -- which is used in an [TranslatableWithArgs]
+         * together with the given arguments ([arg] and optionally [otherArgs]) -- to create an [ExplanatoryAssertion]
+         * which is used as single [Assertion] in [AssertionGroup.assertions].
+         *
+         * See [ExplanatoryAssertionBuilder.create] for details.
+         */
+        fun createWithExplanatoryAssertion(translatable: Translatable, arg: Any, vararg otherArgs: Any)
+            = create(AssertionBuilder.explanatory.create(translatable, arg, *otherArgs))
+
+        /**
+         * Creates the [AssertionGroup] using the given [translatable] to create an [ExplanatoryAssertion] which is used
+         * as single [Assertion] in [AssertionGroup.assertions].
+         *
+         * See [ExplanatoryAssertionBuilder.create] for details.
+         */
+        fun createWithExplanatoryAssertion(translatable: Translatable)
+            = create(AssertionBuilder.explanatory.create(translatable))
+
+        /**
+         * Creates the [AssertionGroup] using the given [assertion] as single [Assertion] in [AssertionGroup.assertions].
          */
         fun create(assertion: Assertion): AssertionGroup
             = create(listOf(assertion))
@@ -141,5 +170,38 @@ object AssertionBuilder {
          */
         fun create(description: Translatable, representation: Any, test: () -> Boolean): DescriptiveAssertion
             = BasicDescriptiveAssertion(description, representation, test)
+    }
+
+    /**
+     * Builder to create an [ExplanatoryAssertion].
+     */
+    class ExplanatoryAssertionBuilder internal constructor() {
+
+        /**
+         * Creates an [ExplanatoryAssertion] using the given [translatable] (using the given [arg] and
+         * optionally [otherArgs] as arguments of the [TranslatableWithArgs]) as explanation.
+         *
+         * It then delegates to the overload which expects a single [Translatable].
+         */
+        fun create(translatable: Translatable, arg: Any, vararg otherArgs: Any)
+            = create(TranslatableWithArgs(translatable, arg, *otherArgs))
+
+        /**
+         * Creates an [ExplanatoryAssertion] using the given [translatable] as explanation.
+         *
+         * In detail, the given [translatable] is turned into a [RawString] so that an [ObjectFormatter] translates the
+         * given [translatable] and treats the result as raw string.
+         */
+        fun create(translatable: Translatable): ExplanatoryAssertion
+            = create(RawString.create(translatable))
+
+        /**
+         * Creates an [ExplanatoryAssertion] using the given [explanation].
+         *
+         * In case you want to pass a [String] which should be treated as [RawString] in reporting, then please wrap it
+         * into a [RawString] (`RawString.create("Your text..")`.
+         */
+        fun create(explanation: Any?) : ExplanatoryAssertion
+            = BasicExplanatoryAssertion(explanation)
     }
 }
