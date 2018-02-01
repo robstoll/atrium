@@ -12,9 +12,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param subject The subject for which the [assertions] are defined.
  * @param assertions The assertions of this group, which are defined for [subject].
  */
-@Deprecated("Use AssertionBuilder instead, will be made internal with 1.0.0")
-data class BasicAssertionGroup(
+@Deprecated("use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
+data class BasicAssertionGroup
+@Deprecated("Use AssertionBuilder instead, will be made internal with 1.0.0", ReplaceWith("AssertionBuilder.withType(type).create(name, subject, assertions)"))
+constructor(
     override val type: AssertionGroupType,
     override val name: Translatable,
     override val subject: Any,
-    override val assertions: List<Assertion>) : AssertionGroup
+    override val assertions: List<Assertion>
+) : AssertionGroup
