@@ -8,6 +8,7 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
+@Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 class TextIndentAssertionGroupFormatterSpec : Spek({
 
     include(AtriumsTextIndentAssertionGroupFormatterSpec)

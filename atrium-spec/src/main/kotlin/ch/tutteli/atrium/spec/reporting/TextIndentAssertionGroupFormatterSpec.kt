@@ -5,6 +5,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 
+@Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 abstract class TextIndentAssertionGroupFormatterSpec(
     verbs: AssertionVerbFactory,
     testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,

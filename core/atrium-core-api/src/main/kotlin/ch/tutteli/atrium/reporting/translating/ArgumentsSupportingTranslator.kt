@@ -21,7 +21,6 @@ import java.util.*
  *   the [TranslatableWithArgs.arguments].
  * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
  *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
-
  */
 abstract class ArgumentsSupportingTranslator(
     protected val primaryLocale: Locale,
