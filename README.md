@@ -3,6 +3,8 @@
 [![EUPL](https://img.shields.io/badge/license-EUPL%201.2-brightgreen.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12)
 [![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
 [![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
+[![security status](https://www.meterian.com/badge/gh/robstoll/atrium/security?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
+[![stability status](https://www.meterian.com/badge/gh/robstoll/atrium/stability?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
 
 # Atrium
 Atrium is an open-source assertion library for Kotlin with a fluent API.
