@@ -47,12 +47,12 @@ abstract class ReportingAssertionPlantSpec(
 
     val basicAssertionWhichHolds = object : DescriptiveAssertion {
         override val description = description
-        override val expected = expected
+        override val representation = expected
         override fun holds() = true
     }
     val basicAssertionWhichFails = object : DescriptiveAssertion {
         override val description = description
-        override val expected = expected
+        override val representation = expected
         override fun holds() = false
     }
 
@@ -122,7 +122,7 @@ abstract class ReportingAssertionPlantSpec(
                                 message { containsDefaultTranslationOf(description) }
                             }
                         }
-                        it("contains the '${DescriptiveAssertion::expected.name}' of the assertion-message") {
+                        it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
                             expectFun().toThrow<AssertionError> {
                                 message { contains(expected) }
                             }

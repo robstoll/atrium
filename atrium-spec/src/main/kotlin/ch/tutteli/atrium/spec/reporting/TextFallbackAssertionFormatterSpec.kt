@@ -62,7 +62,7 @@ abstract class TextFallbackAssertionFormatterSpec(
             }
         }
         context("assertion of type ${DescriptiveAssertion::class.simpleName}") {
-            it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::expected.name} on the same line separated by colon and space") {
+            it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::representation.name} on the same line separated by colon and space") {
                 val assertion = AssertionBuilder.descriptive.create(IS_SAME, "bli", false)
                 testee.formatNonGroup(assertion, methodObject)
                 verbs.checkImmediately(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")

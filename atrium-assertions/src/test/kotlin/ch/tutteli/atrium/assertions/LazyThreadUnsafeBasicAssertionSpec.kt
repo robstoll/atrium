@@ -11,43 +11,43 @@ import org.jetbrains.spek.api.dsl.on
 object LazyThreadUnsafeBasicAssertionSpec : Spek({
 
     describe("creating it") {
-        var count = 0
+        var callingCount = 0
         val testee = LazyThreadUnsafeBasicAssertion {
-            ++count
+            ++callingCount
             AssertionBuilder.descriptive.create(Untranslatable("a"), 2, false)
         }
         test("does not evaluate anything") {
-            assert(count).toBe(0)
+            assert(callingCount).toBe(0)
         }
         test("adding it to a list does not evaluate anything") {
             listOf(testee)
-            assert(count).toBe(0)
+            assert(callingCount).toBe(0)
         }
         on("invoking ${testee::holds.name}") {
             val resultHolds = testee.holds()
 
             it("evaluates it") {
-                assert(count).toBe(1)
+                assert(callingCount).toBe(1)
             }
 
-            it("returns holds() of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
+            it("returns holds() of the underlying ${DescriptiveAssertion::class.simpleName}") {
                 assert(resultHolds).toBe(false)
             }
         }
 
-        on("invoking ${testee::holds.name} and then ${testee::expected.name}") {
+        on("invoking ${testee::holds.name} and then ${testee::representation.name}") {
             val resultHolds = testee.holds()
-            val resultExpected = testee.expected
+            val resultExpected = testee.representation
 
             it("evaluates it only once") {
-                assert(count).toBe(1)
+                assert(callingCount).toBe(1)
             }
 
-            it("returns holds() of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
+            it("returns ${DescriptiveAssertion::holds.name}() of the underlying ${DescriptiveAssertion::class.simpleName}") {
                 assert(resultHolds).toBe(false)
             }
 
-            it("returns expected of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
+            it("returns ${DescriptiveAssertion::representation.name} of the underlying ${DescriptiveAssertion::class.simpleName}") {
                 assert(resultExpected).toBe(2)
             }
         }
