@@ -870,8 +870,8 @@ They are listed in the [Roadmap](#roadmap) below.
 Atrium does not support (yet):
 - assertion functions for `Map`
 - infinite `Iterable`s
-- assertion functions for `Sequence` (you can use `asIterable` in the meantime)
-- assertion functions for `Array` (you can use `asIterable` in the meantime)
+- assertion functions for `Sequence` (you can use `returnValueOf(subject::asIterable){}` in the meantime)
+- assertion functions for `Array` (you can use `returnValueOf(subject::asIterable){}` in the meantime)
 
 # FAQ
 So far there have not been frequently asked questions but you are invited to ask your question
