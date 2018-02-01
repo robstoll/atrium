@@ -1,10 +1,12 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
 fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)

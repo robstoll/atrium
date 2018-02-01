@@ -1,12 +1,10 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
-import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**

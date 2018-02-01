@@ -1,20 +1,28 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertion.*
-import ch.tutteli.atrium.assertions.assertionbuilder.fixHoldsGroup
 import ch.tutteli.atrium.assertions.assertionbuilder.withFailureHint
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import java.math.BigDecimal
 
 fun <T : BigDecimal> _isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = AssertionBuilder.descriptive.create(IS_NUMERICALLY_EQUAL_TO, expected, { isNumericallyEqualTo(plant, expected) })
+    = AssertionBuilder.descriptive.create(IS_NUMERICALLY_EQUAL_TO, expected, {
+    isNumericallyEqualTo(
+        plant,
+        expected
+    )
+})
 
 private fun <T : BigDecimal> isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
     = plant.subject.compareTo(expected) == 0
 
 fun <T : BigDecimal> _isNotNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = AssertionBuilder.descriptive.create(IS_NOT_NUMERICALLY_EQUAL_TO, expected, { !isNumericallyEqualTo(plant, expected) })
+    = AssertionBuilder.descriptive.create(IS_NOT_NUMERICALLY_EQUAL_TO, expected, { !isNumericallyEqualTo(
+    plant,
+    expected
+)
+})
 
 fun <T : BigDecimal> _isEqualIncludingScale(plant: AssertionPlant<T>, expected: T, nameOfIsNumericallyEqualTo: String): Assertion
     = AssertionBuilder.descriptive

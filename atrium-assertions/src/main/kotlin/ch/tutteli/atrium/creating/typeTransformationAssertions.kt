@@ -1,12 +1,9 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion.IS_A
 import ch.tutteli.atrium.assertions.any.typetransformation.DownCaster
 import ch.tutteli.atrium.assertions.any.typetransformation.ExplanatoryTypeTransformationFailureHandler
 import ch.tutteli.atrium.assertions.any.typetransformation.TypeTransformer
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 

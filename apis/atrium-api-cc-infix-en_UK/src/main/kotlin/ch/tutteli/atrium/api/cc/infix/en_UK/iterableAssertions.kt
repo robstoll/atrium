@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder
-import ch.tutteli.atrium.assertions._containsBuilder
-import ch.tutteli.atrium.assertions._containsNotBuilder
+import ch.tutteli.atrium.creating._containsBuilder
+import ch.tutteli.atrium.creating._containsNotBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant

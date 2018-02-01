@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions.any.typetransformation
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
-import ch.tutteli.atrium.assertions._typeTransformation
+import ch.tutteli.atrium.creating._typeTransformation
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.expect
 import ch.tutteli.atrium.reporting.RawString

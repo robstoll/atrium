@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.assertions._hasSize
-import ch.tutteli.atrium.assertions._isEmpty
-import ch.tutteli.atrium.assertions._isNotEmpty
+import ch.tutteli.atrium.creating._hasSize
+import ch.tutteli.atrium.creating._isEmpty
+import ch.tutteli.atrium.creating._isNotEmpty
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 

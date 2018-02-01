@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.assertions._isGreaterOrEquals
-import ch.tutteli.atrium.assertions._isGreaterThan
-import ch.tutteli.atrium.assertions._isLessOrEquals
-import ch.tutteli.atrium.assertions._isLessThan
+import ch.tutteli.atrium.creating._isGreaterOrEquals
+import ch.tutteli.atrium.creating._isGreaterThan
+import ch.tutteli.atrium.creating._isLessOrEquals
+import ch.tutteli.atrium.creating._isLessThan
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 

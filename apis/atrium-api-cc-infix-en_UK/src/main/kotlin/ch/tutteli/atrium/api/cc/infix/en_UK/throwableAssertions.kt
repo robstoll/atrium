@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions._toThrow
+import ch.tutteli.atrium.creating._toThrow
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant

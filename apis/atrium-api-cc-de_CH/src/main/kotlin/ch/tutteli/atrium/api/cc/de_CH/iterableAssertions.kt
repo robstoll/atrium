@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder
-import ch.tutteli.atrium.assertions._containsBuilder
-import ch.tutteli.atrium.assertions._containsNotBuilder
+import ch.tutteli.atrium.creating._containsBuilder
+import ch.tutteli.atrium.creating._containsNotBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsNotSearchBehaviour
