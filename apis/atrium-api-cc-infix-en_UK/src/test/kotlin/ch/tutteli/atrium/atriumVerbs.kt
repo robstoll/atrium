@@ -1,7 +1,7 @@
 package ch.tutteli.atrium
 
-import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.ReporterBuilder
@@ -18,7 +18,11 @@ internal fun <T : Any?> assert(subject: T)
     = CoreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal fun expect(act: () -> Unit)
-    = ThrowableThrownBuilder(AssertionVerb.EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = ThrowableThrownBuilder(
+    AssertionVerb.EXPECT_THROWN,
+    act,
+    AtriumReporterSupplier.REPORTER
+)
 
 internal enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("assert"),

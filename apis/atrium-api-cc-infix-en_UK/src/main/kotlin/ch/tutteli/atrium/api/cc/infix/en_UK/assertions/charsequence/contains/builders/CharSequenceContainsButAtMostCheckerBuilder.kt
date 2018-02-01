@@ -4,9 +4,9 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.atLeast
 import ch.tutteli.atrium.api.cc.infix.en_UK.atMost
 import ch.tutteli.atrium.api.cc.infix.en_UK.butAtMost
 import ch.tutteli.atrium.api.cc.infix.en_UK.exactly
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilderBase
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilderBase
 
 /**
  * Represents the builder of the second step of a `contains at least but at most` check within the
