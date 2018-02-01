@@ -1,8 +1,10 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion.EMPTY
 import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion.HAS_SIZE
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 
 fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion

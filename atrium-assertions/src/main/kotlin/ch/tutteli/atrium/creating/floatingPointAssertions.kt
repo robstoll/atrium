@@ -1,30 +1,50 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertion.*
 import ch.tutteli.atrium.assertions.assertionbuilder.withFailureHint
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import kotlin.math.absoluteValue
 
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float): Assertion
-    = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance, { (plant.subject - expected).absoluteValue })
+    = toBeWithErrorToleranceOfFloatOrDouble(
+    plant,
+    expected,
+    tolerance,
+    { (plant.subject - expected).absoluteValue })
 
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Double>, expected: Double, tolerance: Double): Assertion
-    = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance, { (plant.subject - expected).absoluteValue })
+    = toBeWithErrorToleranceOfFloatOrDouble(
+    plant,
+    expected,
+    tolerance,
+    { (plant.subject - expected).absoluteValue })
 
 fun <T : BigDecimal> _toBeWithErrorTolerance(plant: AssertionPlant<T>, expected: T, tolerance: T): Assertion {
     val absDiff = { (plant.subject - expected).abs() }
     return toBeWithErrorTolerance(expected, tolerance, absDiff) { df ->
-        listOf(createToBeWithErrorToleranceExplained(df, plant, expected, absDiff, tolerance))
+        listOf(
+            createToBeWithErrorToleranceExplained(
+                df,
+                plant,
+                expected,
+                absDiff,
+                tolerance
+            )
+        )
     }
 }
 
 private fun <T : Comparable<T>> toBeWithErrorToleranceOfFloatOrDouble(plant: AssertionPlant<T>, expected: T, tolerance: T, absDiff: () -> T): Assertion {
     return toBeWithErrorTolerance(expected, tolerance, absDiff) { df ->
         listOf(
-            AssertionBuilder.explanatory.create(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, plant.subject::class.java.name),
+            AssertionBuilder.explanatory.create(
+                FAILURE_DUE_TO_FLOATING_POINT_NUMBER,
+                plant.subject::class.java.name
+            ),
             createToBeWithErrorToleranceExplained(df, plant, expected, absDiff, tolerance)
         )
     }

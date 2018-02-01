@@ -1,8 +1,8 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
 
 fun <T : Any> _toBe(plant: AssertionPlant<T>, expected: T): Assertion

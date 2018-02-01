@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.assertions._isEqualIncludingScale
-import ch.tutteli.atrium.assertions._isNotEqualIncludingScale
-import ch.tutteli.atrium.assertions._isNotNumericallyEqualTo
-import ch.tutteli.atrium.assertions._isNumericallyEqualTo
+import ch.tutteli.atrium.creating._isEqualIncludingScale
+import ch.tutteli.atrium.creating._isNotEqualIncludingScale
+import ch.tutteli.atrium.creating._isNotNumericallyEqualTo
+import ch.tutteli.atrium.creating._isNumericallyEqualTo
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.math.BigDecimal

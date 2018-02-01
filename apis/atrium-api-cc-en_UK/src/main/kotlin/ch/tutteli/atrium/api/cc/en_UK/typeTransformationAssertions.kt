@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.assertions._isA
-import ch.tutteli.atrium.assertions._isNotNull
+import ch.tutteli.atrium.creating._isA
+import ch.tutteli.atrium.creating._isNotNull
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable

@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
-import ch.tutteli.atrium.assertions._method
+import ch.tutteli.atrium.creating._method
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -119,7 +119,12 @@ abstract class IterableContainsNullSpec(
             test("empty iterable, states that iterable was empty") {
                 expect {
                     //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                    assert(setOf()).testeeFun({ _method(this, "compareTo", subject::compareTo, 2.0).toBe(0) }, arrayOf())
+                    assert(setOf()).testeeFun({ _method(
+                        this,
+                        "compareTo",
+                        subject::compareTo,
+                        2.0
+                    ).toBe(0) }, arrayOf())
                 }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
             }
             test("only null, states that iterable only returned null") {
@@ -135,7 +140,12 @@ abstract class IterableContainsNullSpec(
             test("$list, it outputs explanation (since we have a non-null entry)") {
                 expect {
                     //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                    assert(list).testeeFun({ _method(this, "compareTo", subject::compareTo, 2.0).toBe(0) }, arrayOf())
+                    assert(list).testeeFun({ _method(
+                        this,
+                        "compareTo",
+                        subject::compareTo,
+                        2.0
+                    ).toBe(0) }, arrayOf())
                 }.toThrow<AssertionError> {
                     message {
                         contains(
