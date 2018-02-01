@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.creating._toBeWithErrorTolerance
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating._toBeWithErrorTolerance
 import java.math.BigDecimal
 
 /**

@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating._toThrow
-import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating._toThrow
+import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].

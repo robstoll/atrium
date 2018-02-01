@@ -3,10 +3,10 @@ package ch.tutteli.atrium.verbs.assert
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.ICoreFactory
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
@@ -50,6 +50,10 @@ fun <T : Any?> assert(subject: T)
  * @return The newly created [ThrowableThrownBuilder].
  */
 fun assert(act: () -> Unit)
-    = ThrowableThrownBuilder(ASSERT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = ThrowableThrownBuilder(
+    ASSERT_THROWN,
+    act,
+    AtriumReporterSupplier.REPORTER
+)
 
 

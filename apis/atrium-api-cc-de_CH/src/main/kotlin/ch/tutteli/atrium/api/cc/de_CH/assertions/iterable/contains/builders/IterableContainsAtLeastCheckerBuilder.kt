@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.api.cc.de_CH.zumindest
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilderBase
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsAtLeastCheckerBuilderBase
+import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
 /**
  *  Represents the builder of a `contains at least` check within the fluent API of a sophisticated
