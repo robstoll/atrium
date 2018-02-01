@@ -12,7 +12,7 @@ package ch.tutteli.atrium.reporting
 data class StringBasedRawString internal constructor(val string: String) : RawString {
 
     /**
-     * @suppress No need to document this behaviour
+     * @suppress No need to document this behaviour.
      */
     override fun toString(): String {
         return "$string (RawString)"

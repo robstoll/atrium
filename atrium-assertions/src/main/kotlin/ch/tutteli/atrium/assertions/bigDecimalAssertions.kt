@@ -3,8 +3,6 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertion.*
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import java.math.BigDecimal
 
 fun <T : BigDecimal> _isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
@@ -34,11 +32,10 @@ private fun <T : BigDecimal> isEqualIncludingScale(plant: AssertionPlant<T>, exp
     = AssertionBuilder.descriptive.create(IS_EQUAL_INCLUDING_SCALE, expected, { plant.subject == expected })
 
 fun <T : BigDecimal> failToBeWithHint(expected: T, nameOfIsNumericallyEqualTo: String): Assertion {
-    val explanatoryAssertion = listOf(
-        AssertionBuilder.explanatoryGroup.withDefault.create(
-        BasicExplanatoryAssertion(RawString.create(TranslatableWithArgs(FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL, nameOfIsNumericallyEqualTo)))
-    ))
-    return FixHoldsAssertionGroup(DefaultListAssertionGroupType, IS_EQUAL_INCLUDING_SCALE, expected, explanatoryAssertion, false)
+    val explanatoryAssertion = AssertionBuilder.explanatoryGroup.withDefault.createWithExplanatoryAssertion(
+        FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL, nameOfIsNumericallyEqualTo
+    )
+    return FixHoldsAssertionGroup(DefaultListAssertionGroupType, IS_EQUAL_INCLUDING_SCALE, expected, listOf(explanatoryAssertion), false)
 }
 
 fun <T : BigDecimal> _isNotEqualIncludingScale(plant: AssertionPlant<T>, expected: T)

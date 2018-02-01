@@ -22,6 +22,7 @@ import ch.tutteli.atrium.assertions.IndentAssertionGroupType
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *   when it comes to format children of an [AssertionGroup].
  */
+@Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 class TextIndentAssertionGroupFormatter(
     bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController

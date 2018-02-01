@@ -198,7 +198,7 @@ abstract class AnyAssertionsSpec(
                             message { containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE) }
                         }
                     }
-                    it("contains the '${DescriptiveAssertion::expected.name}' of the assertion-message") {
+                    it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
                         expectFun.toThrow<AssertionError> { message { contains(RawString.NULL.string) } }
                     }
                 }

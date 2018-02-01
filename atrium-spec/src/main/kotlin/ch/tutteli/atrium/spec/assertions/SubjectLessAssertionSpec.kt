@@ -2,7 +2,8 @@ package ch.tutteli.atrium.spec.assertions
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.AssertionBuilder
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -13,7 +14,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
     vararg assertionCreator: Pair<String, Assert<T>.() -> Unit>
 ) : Spek({
 
-    group("${groupPrefix}assertion function can be used in ${ExplanatoryAssertionGroup::class.simpleName} and reported without failure") {
+    group("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and reported without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             test("fun `$name`") {
                 val assertions = CoreFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException("subject was accessed outside of the Assertion::holds scope") })
