@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertion.*
+import ch.tutteli.atrium.assertions.assertionbuilder.withFailureHint
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -33,28 +33,17 @@ private fun <T : Comparable<T>> toBeWithErrorToleranceOfFloatOrDouble(plant: Ass
 private fun <T : Comparable<T>> createToBeWithErrorToleranceExplained(df: DecimalFormat, plant: AssertionPlant<T>, expected: T, absDiff: () -> T, tolerance: T)
     = AssertionBuilder.explanatory.create(TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED, df.format(plant.subject), df.format(expected), df.format(absDiff()), df.format(tolerance))
 
-private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T, absDiff: () -> T, explanatoryAssertionCreator: (DecimalFormat) -> List<Assertion>): Assertion {
-    val isWithinRange = try {
-        absDiff() <= tolerance
-    } catch (e: PlantHasNoSubjectException) {
-        true //TODO that's a hack, we need a better solution
-    }
-    return if (isWithinRange) {
-        AssertionBuilder.descriptive.create(
-            TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance),
-            expected,
-            isWithinRange
-        )
-    } else {
-        //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
-        //we do not want to see the failure nor the exact check in the 'an entry which...' part
-        //same problematic applies to feature assertions within an identification lambda
-        val df = DecimalFormat("###,##0.0")
-        df.maximumFractionDigits = 340
-        val explanatoryAssertion = AssertionBuilder.explanatoryGroup.withDefault.create(
-            explanatoryAssertionCreator(df)
-        )
-        AssertionBuilder.fixHoldsGroup.createFailingWithListType(
-            TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, explanatoryAssertion)
-    }
-}
+private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T, absDiff: () -> T, explanatoryAssertionCreator: (DecimalFormat) -> List<Assertion>): Assertion
+    = AssertionBuilder.descriptive
+        .withFailureHint {
+            //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
+            //we do not want to see the failure nor the exact check in the 'an entry which...' part
+            //same problematic applies to feature assertions within an identification lambda
+            val df = DecimalFormat("###,##0.0")
+            df.maximumFractionDigits = 340
+            AssertionBuilder.explanatoryGroup.withDefault.create(
+                explanatoryAssertionCreator(df)
+            )
+        }
+        .showForAnyFailure
+        .create(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, { absDiff() <= tolerance })

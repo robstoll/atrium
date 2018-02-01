@@ -1,5 +1,6 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.assertions.assertionbuilder
 
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -43,3 +44,4 @@ class FixHoldsAssertionGroupBuilder internal constructor() {
     fun create(name: Translatable, subject: Any, holds: Boolean, type: AssertionGroupType, assertions: List<Assertion>): AssertionGroup
         = FixHoldsAssertionGroup(type, name, subject, assertions, holds)
 }
+

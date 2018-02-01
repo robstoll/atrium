@@ -19,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 @Deprecated("use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 data class FixHoldsAssertionGroup
-@Deprecated("use AssertionBuilder.fixHoldsGroup instead, will be made internal with 1.0.0", ReplaceWith("AssertionBuilder.fixHoldsGroup.create(name, subject, holds, type, assertions)", "ch.tutteli.atrium.assertions.fixHoldsGroup"))
+@Deprecated("use AssertionBuilder.fixHoldsGroup instead, will be made internal with 1.0.0", ReplaceWith("AssertionBuilder.fixHoldsGroup.create(name, subject, holds, type, assertions)", "ch.tutteli.atrium.assertions.assertionbuilder.getFixHoldsGroup"))
 constructor(
     override val type: AssertionGroupType,
     override val name: Translatable,
