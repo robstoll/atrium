@@ -17,12 +17,20 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param assertions The assertions of this group, which are defined for [subject].
  * @param holds Indicates whether the assertions hold or not
  */
-data class FixHoldsAssertionGroup(
+@Deprecated("use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
+data class FixHoldsAssertionGroup
+@Deprecated("use AssertionBuilder.fixHoldsGroup instead, will be made internal with 1.0.0", ReplaceWith("AssertionBuilder.fixHoldsGroup.create(name, subject, holds, type, assertions)", "ch.tutteli.atrium.assertions.fixHoldsGroup"))
+constructor(
     override val type: AssertionGroupType,
     override val name: Translatable,
     override val subject: Any,
     override val assertions: List<Assertion>,
-    private val holds: Boolean) : AssertionGroup {
+    private val holds: Boolean
+) : AssertionGroup {
 
+    /**
+     * Returns what was passed into the constructor as `holds`.
+     * @return `true` if the [AssertionGroup] holds; `false` otherwise.
+     */
     override fun holds() = holds
 }

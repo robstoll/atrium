@@ -8,10 +8,11 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 
-internal fun <E : Any> createExplanatoryAssertions(assertionCreator: (AssertionPlant<E>.() -> Unit)?, list: List<E?>) = when {
-    list.isNotEmpty() -> collectIterableAssertionsForExplanationWithFirst(assertionCreator, list.firstOrNull { it != null })
-    else -> collectIterableAssertionsForExplanation(assertionCreator, null)
-}
+internal fun <E : Any> createExplanatoryAssertions(assertionCreator: (AssertionPlant<E>.() -> Unit)?, list: List<E?>)
+    = when {
+        list.isNotEmpty() -> collectIterableAssertionsForExplanationWithFirst(assertionCreator, list.firstOrNull { it != null })
+        else -> collectIterableAssertionsForExplanation(assertionCreator, null)
+    }
 
 internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(assertionCreator: (AssertionPlant<E>.() -> Unit)?, first: E?): List<Assertion> {
     return if (first != null) {
@@ -26,9 +27,10 @@ internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(assertio
 
 internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
     = collectIterableAssertionsForExplanation(
-    DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE,
-    assertionCreator,
-    subject)
+        DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE,
+        assertionCreator,
+        subject
+    )
 
 internal fun <E : Any> collectIterableAssertionsForExplanation(description: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
     = AssertionCollector
@@ -36,17 +38,19 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(description: Tran
     .collectAssertionsForExplanation(description, assertionCreator, subject)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
-    = FixHoldsAssertionGroup(
-    DefaultListAssertionGroupType,
-    DescriptionIterableAssertion.AN_ENTRY_WHICH,
-    RawString.EMPTY,
-    listOf(AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions)),
-    found)
+    = AssertionBuilder.fixHoldsGroup.create(
+        DescriptionIterableAssertion.AN_ENTRY_WHICH,
+        RawString.EMPTY,
+        found,
+        DefaultListAssertionGroupType,
+        AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions)
+    )
 
-internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean = when (subject) {
-    null -> assertionCreator == null
-    else -> assertionCreator != null &&
-        CoreFactory.newCheckingPlant(subject)
-            .addAssertionsCreatedBy(assertionCreator)
-            .allAssertionsHold()
-}
+internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean
+    = when (subject) {
+        null -> assertionCreator == null
+        else -> assertionCreator != null &&
+            CoreFactory.newCheckingPlant(subject)
+                .addAssertionsCreatedBy(assertionCreator)
+                .allAssertionsHold()
+    }

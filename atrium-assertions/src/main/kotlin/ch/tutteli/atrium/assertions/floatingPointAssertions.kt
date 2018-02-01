@@ -3,7 +3,6 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertion.*
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import java.math.BigDecimal
 import java.text.DecimalFormat
@@ -52,10 +51,10 @@ private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T
         //same problematic applies to feature assertions within an identification lambda
         val df = DecimalFormat("###,##0.0")
         df.maximumFractionDigits = 340
-        val explanatoryAssertion = listOf(
-            AssertionBuilder.explanatoryGroup.withDefault.create(
+        val explanatoryAssertion = AssertionBuilder.explanatoryGroup.withDefault.create(
             explanatoryAssertionCreator(df)
-        ))
-        FixHoldsAssertionGroup(DefaultListAssertionGroupType, TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, explanatoryAssertion, false)
+        )
+        AssertionBuilder.fixHoldsGroup.createFailingWithListType(
+            TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, explanatoryAssertion)
     }
 }
