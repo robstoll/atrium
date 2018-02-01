@@ -35,7 +35,8 @@ fun <T : BigDecimal> failToBeWithHint(expected: T, nameOfIsNumericallyEqualTo: S
     val explanatoryAssertion = AssertionBuilder.explanatoryGroup.withDefault.createWithExplanatoryAssertion(
         FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL, nameOfIsNumericallyEqualTo
     )
-    return FixHoldsAssertionGroup(DefaultListAssertionGroupType, IS_EQUAL_INCLUDING_SCALE, expected, listOf(explanatoryAssertion), false)
+    return AssertionBuilder.fixHoldsGroup.createFailingWithListType(
+        IS_EQUAL_INCLUDING_SCALE, expected, explanatoryAssertion)
 }
 
 fun <T : BigDecimal> _isNotEqualIncludingScale(plant: AssertionPlant<T>, expected: T)
