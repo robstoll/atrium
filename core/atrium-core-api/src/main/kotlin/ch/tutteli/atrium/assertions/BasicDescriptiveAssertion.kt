@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @constructor Constructor overload with a lazy [BasicDescriptiveAssertion.holds].
  * @param description The [BasicDescriptiveAssertion.description].
- * @param expected The [BasicDescriptiveAssertion.expected].
+ * @param representation The [BasicDescriptiveAssertion.representation].
  * @param test Lazily determines whether [BasicDescriptiveAssertion.holds].
  */
 @Deprecated("Use AssertionBuilder.descriptive instead, will be made internal with 1.0.0")
@@ -17,7 +17,7 @@ class BasicDescriptiveAssertion
 )
 constructor(
     override val description: Translatable,
-    override val expected: Any,
+    override val representation: Any,
     private val test: () -> Boolean
 ) : DescriptiveAssertion {
 
@@ -27,7 +27,7 @@ constructor(
      * If the calculation for [holds] is expensive, then you might want to use the other overload with a lazy test.
      *
      * @param description The [BasicDescriptiveAssertion.description].
-     * @param representation The [BasicDescriptiveAssertion.expected].
+     * @param representation The [BasicDescriptiveAssertion.representation].
      * @param holds Determines whether [BasicDescriptiveAssertion.holds] or not
      */
     @Deprecated("use `AssertionBuilder.descriptive` instead, will be removed with 1.0.0",
@@ -41,5 +41,5 @@ constructor(
     /**
      * @suppress
      */
-    override fun toString() = "$description: $expected (holds=${holds()})"
+    override fun toString() = "$description: $representation (holds=${holds()})"
 }

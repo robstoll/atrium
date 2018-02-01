@@ -12,13 +12,13 @@ import ch.tutteli.atrium.reporting.translating.Translator
  *
  * Its usage is intended for text output (e.g. to the console).
  *
- * @property objectFormatter Used to format objects such as [DescriptiveAssertion.expected].
+ * @property objectFormatter Used to format objects such as [DescriptiveAssertion.representation].
  * @property translator Used to translate [Translatable]s such as [DescriptiveAssertion.description].
  *
  * @constructor Represents an [AssertionPairFormatter] formatter of assertion pairs -- which consists of a
  *   [Translatable] and a representation -- where it puts them on the same line in the form:
  *   `translation: representation`.
- * @param objectFormatter Used to format objects such as [DescriptiveAssertion.expected].
+ * @param objectFormatter Used to format objects such as [DescriptiveAssertion.representation].
  * @param translator Used to translate [Translatable]s such as [DescriptiveAssertion.description].
  */
 class TextNextLineAssertionPairFormatter(

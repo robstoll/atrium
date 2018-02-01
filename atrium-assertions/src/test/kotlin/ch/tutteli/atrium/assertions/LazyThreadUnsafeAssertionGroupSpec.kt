@@ -12,27 +12,27 @@ import org.jetbrains.spek.api.dsl.on
 object LazyThreadUnsafeAssertionGroupSpec : Spek({
 
     describe("creating it") {
-        var count = 0
+        var callingCount = 0
         val assertion = AssertionBuilder.descriptive.create(Untranslatable("b"), 3, false)
         val testee = LazyThreadUnsafeAssertionGroup {
-            ++count
+            ++callingCount
             AssertionBuilder.feature.create(Untranslatable("a"), 2, assertion)
         }
         test("does not evaluate anything") {
-            assert(count).toBe(0)
+            assert(callingCount).toBe(0)
         }
         test("adding it to a list does not evaluate anything") {
             listOf(testee)
-            assert(count).toBe(0)
+            assert(callingCount).toBe(0)
         }
         on("invoking ${testee::holds.name}") {
             val resultHolds = testee.holds()
 
             it("evaluates it") {
-                assert(count).toBe(1)
+                assert(callingCount).toBe(1)
             }
 
-            it("returns holds() of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
+            it("returns ${AssertionGroup::holds.name}() of the underlying ${AssertionGroup::class.simpleName}") {
                 assert(resultHolds).toBe(false)
             }
         }
@@ -42,14 +42,14 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
             val resultAssertions = testee.assertions
 
             it("evaluates it only once") {
-                assert(count).toBe(1)
+                assert(callingCount).toBe(1)
             }
 
-            it("returns holds() of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
+            it("returns ${AssertionGroup::holds.name}() of the underlying ${AssertionGroup::class.simpleName}") {
                 assert(resultHolds).toBe(false)
             }
 
-            it("returns expected of the underlying ${BasicDescriptiveAssertion::class.simpleName}") {
+            it("returns the ${AssertionGroup::assertions.name} of the underlying ${AssertionGroup::class.simpleName}") {
                 assert(resultAssertions).containsStrictly(assertion)
             }
         }

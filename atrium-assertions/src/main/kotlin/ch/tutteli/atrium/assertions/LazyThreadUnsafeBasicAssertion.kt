@@ -11,7 +11,7 @@ class LazyThreadUnsafeBasicAssertion(assertionCreator: () -> DescriptiveAssertio
         assertionCreator()
     }
 
-    override val expected get() = basicAssertion.expected
+    override val representation get() = basicAssertion.representation
     override val description get() = basicAssertion.description
     override fun holds() = basicAssertion.holds()
 }

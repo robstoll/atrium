@@ -20,17 +20,17 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @property assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *   the reporting process.
  * @property assertionPairFormatter The formatter used to format assertion pairs (e.g. [DescriptiveAssertion.description]
- *   and [DescriptiveAssertion.expected])
+ *   and [DescriptiveAssertion.representation])
  *
  * @constructor Formats an [Assertion] for text output (e.g. for the console) where it uses a given
  *   [assertionPairFormatter] which defines how an assertion pair (e.g. [DescriptiveAssertion.description]
- *   and [DescriptiveAssertion.expected]) is formatted.
+ *   and [DescriptiveAssertion.representation]) is formatted.
  * @param bulletPoints The formatter uses the bullet point defined for [RootAssertionGroupType]
  *   (`"◆ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
  * @param assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *   the reporting process.
  * @param assertionPairFormatter The formatter which is used to format assertion pairs
- *   (e.g. [DescriptiveAssertion.description] and [DescriptiveAssertion.expected])
+ *   (e.g. [DescriptiveAssertion.description] and [DescriptiveAssertion.representation])
  */
 class TextFallbackAssertionFormatter(
     bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
@@ -57,7 +57,7 @@ class TextFallbackAssertionFormatter(
     }
 
     private fun appendDescriptiveAssertion(basicAssertion: DescriptiveAssertion, methodObject: AssertionFormatterMethodObject) {
-        assertionPairFormatter.format(methodObject, basicAssertion.description, basicAssertion.expected)
+        assertionPairFormatter.format(methodObject, basicAssertion.description, basicAssertion.representation)
     }
 
     private fun appendExplanatoryAssertion(assertion: ExplanatoryAssertion, methodObject: AssertionFormatterMethodObject) {
