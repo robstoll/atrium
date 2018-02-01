@@ -847,6 +847,7 @@ You are very welcome to contribute:
 - [open an issue](https://github.com/robstoll/atrium/issues/new) or [create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
 - [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   so that I better understand where Atrium needs to improve.
+- share your assertion functions with the rest of us by creating a pull request.
 - have a look at the [help wanted issues](https://github.com/robstoll/atrium/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22)
   if you would like to code (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
 
