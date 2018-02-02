@@ -25,8 +25,7 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrder(
 ): Assertion
     = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
-@JvmName("_containsNullableEntriesInAnyOrder")
-fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrder(
+fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInAnyOrder(
     checker: IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
@@ -51,8 +50,7 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrderOnly(
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
 }
 
-@JvmName("_containsNullableEntriesInAnyOrderOnly")
-fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrderOnly(
+fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInAnyOrderOnly(
     builder: IterableContainsBuilder<E?, T, IterableContainsInAnyOrderOnlySearchBehaviour>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
@@ -79,8 +77,7 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInOrderOnlyEntriesAssertionCreator)
 }
 
-@JvmName("_containsNullableEntriesInOrderOnly")
-fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnly(
+fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInOrderOnly(
     builder: IterableContainsBuilder<E?, T, IterableContainsInOrderOnlySearchBehaviour>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
@@ -100,9 +97,6 @@ private fun <E, T : Iterable<E>, S, B : IterableContains.SearchBehaviour> create
     return creator.createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)
 }
 
-/**
- * @param S The type of the search criteria
- */
 private fun <E, T : Iterable<E>, S, B : IterableContains.SearchBehaviour> createAssertionGroup(
     checker: IterableContainsCheckerBuilder<E, T, B>,
     expected: S,
