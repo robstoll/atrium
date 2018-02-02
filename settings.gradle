@@ -2,9 +2,11 @@ rootProject.name = 'atrium'
 
 def includeApi(String name) { includeInSubFolder(name, "${rootProject.projectDir}/apis") }
 
+def includeDomain(String name) { includeInSubFolder(name, "${rootProject.projectDir}/domain") }
+
 def includeCore(String name) { includeInSubFolder(name, "${rootProject.projectDir}/core") }
 
-def includeTranslation(String name) { includeInSubFolder(name, "${rootProject.projectDir}/translations") }
+def includeTranslations(String name) { includeInSubFolder(name, "${rootProject.projectDir}/translations") }
 
 def includeBundle(String name) { includeInSubFolder(name, "${rootProject.projectDir}/bundles") }
 
@@ -16,12 +18,16 @@ def includeInSubFolder(String name, String folder) {
 includeApi "${rootProject.name}-api-cc-de_CH"
 includeApi "${rootProject.name}-api-cc-en_UK"
 includeApi "${rootProject.name}-api-cc-infix-en_UK"
+includeDomain "${rootProject.name}-domain-api"
+includeDomain "${rootProject.name}-domain-api-late-binding"
+includeDomain "${rootProject.name}-domain-robstoll"
+includeDomain "${rootProject.name}-domain-robstoll-lib"
 includeCore "${rootProject.name}-core-api"
 includeCore "${rootProject.name}-core-api-late-binding"
 includeCore "${rootProject.name}-core-robstoll"
 includeCore "${rootProject.name}-core-robstoll-lib"
-includeTranslation "${rootProject.name}-translations-de_CH"
-includeTranslation "${rootProject.name}-translations-en_UK"
+includeTranslations "${rootProject.name}-translations-de_CH"
+includeTranslations "${rootProject.name}-translations-en_UK"
 include "${rootProject.name}-assertions"
 include "${rootProject.name}-spec"
 includeInSubFolder("${rootProject.name}-verbs", "${rootProject.projectDir}/misc")
