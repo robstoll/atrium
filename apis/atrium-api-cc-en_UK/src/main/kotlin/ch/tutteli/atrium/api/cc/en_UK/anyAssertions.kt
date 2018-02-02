@@ -1,7 +1,10 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.AnyAssertions
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
@@ -14,7 +17,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> Assert<T>.toBe(expected: T)
-    = addAssertion(_toBe(this, expected))
+    = addAssertion(AnyAssertions.toBe(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not (equal to) [expected].
@@ -26,7 +29,7 @@ fun <T : Any> Assert<T>.toBe(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> Assert<T>.notToBe(expected: T)
-    = addAssertion(_notToBe(this, expected))
+    = addAssertion(AnyAssertions.notToBe(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is the same instance as [expected].
@@ -38,7 +41,7 @@ fun <T : Any> Assert<T>.notToBe(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> Assert<T>.isSame(expected: T)
-    = addAssertion(_isSame(this, expected))
+    = addAssertion(AnyAssertions.isSame(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not the same instance as [expected].
@@ -50,7 +53,7 @@ fun <T : Any> Assert<T>.isSame(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any> Assert<T>.isNotSame(expected: T)
-    = addAssertion(_isNotSame(this, expected))
+    = addAssertion(AnyAssertions.isNotSame(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is `null`.
@@ -60,7 +63,7 @@ fun <T : Any> Assert<T>.isNotSame(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Any?> AssertionPlantNullable<T>.isNull() {
-    addAssertion(_isNull(this))
+    addAssertion(AnyAssertions.isNull(this))
 }
 
 /**
