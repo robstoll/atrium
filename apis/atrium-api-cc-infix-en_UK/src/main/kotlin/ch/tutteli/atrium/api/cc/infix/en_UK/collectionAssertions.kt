@@ -1,10 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.creating._hasSize
-import ch.tutteli.atrium.creating._isEmpty
-import ch.tutteli.atrium.creating._isNotEmpty
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.CollectionAssertions
 
 /**
  * Makes the assertion that [AssertionPlant.subject]'s [Collection.size] is [size].
@@ -13,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
-    = addAssertion(_hasSize(this, size))
+    = addAssertion(CollectionAssertions.hasSize(this, size))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is an empty [Collection].
@@ -22,7 +20,7 @@ infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
-    = addAssertion(_isEmpty(this))
+    = addAssertion(CollectionAssertions.isEmpty(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not an empty [Collection].
@@ -31,4 +29,4 @@ infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Collection<*>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
-    = addAssertion(_isNotEmpty(this))
+    = addAssertion(CollectionAssertions.isNotEmpty(this))
