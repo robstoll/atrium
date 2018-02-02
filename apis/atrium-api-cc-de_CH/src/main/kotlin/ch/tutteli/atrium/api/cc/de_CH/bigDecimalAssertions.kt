@@ -1,11 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.creating._isEqualIncludingScale
-import ch.tutteli.atrium.creating._isNotEqualIncludingScale
-import ch.tutteli.atrium.creating._isNotNumericallyEqualTo
-import ch.tutteli.atrium.creating._isNumericallyEqualTo
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BigDecimalAssertions
 import java.math.BigDecimal
 
 @Deprecated("Verwende `istNumerischGleichWie` wenn du erwartest, dass die folgende Behauptung stimmt:\n" +
@@ -42,7 +39,7 @@ fun <T : BigDecimal> Assert<T>.istNicht(expected: T): Nothing
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.istNumerischGleichWie(expected: T)
-    = addAssertion(_isNumericallyEqualTo(this, expected))
+    = addAssertion(BigDecimalAssertions.isNumericallyEqualTo(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not numerically equal to [expected].
@@ -60,7 +57,7 @@ fun <T : BigDecimal> Assert<T>.istNumerischGleichWie(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.istNichtNumerischGleichWie(expected: T)
-    = addAssertion(_isNotNumericallyEqualTo(this, expected))
+    = addAssertion(BigDecimalAssertions.isNotNumericallyEqualTo(this, expected))
 
 
 /**
@@ -76,7 +73,7 @@ fun <T : BigDecimal> Assert<T>.istNichtNumerischGleichWie(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.istGleichInklusiveScale(expected: T)
-    = addAssertion(_isEqualIncludingScale(this, expected, this::istNumerischGleichWie.name))
+    = addAssertion(BigDecimalAssertions.isEqualIncludingScale(this, expected, this::istNumerischGleichWie.name))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
@@ -91,4 +88,4 @@ fun <T : BigDecimal> Assert<T>.istGleichInklusiveScale(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.istNichtGleichInklusiveScale(expected: T)
-    = addAssertion(_isNotEqualIncludingScale(this, expected))
+    = addAssertion(BigDecimalAssertions.isNotEqualIncludingScale(this, expected))
