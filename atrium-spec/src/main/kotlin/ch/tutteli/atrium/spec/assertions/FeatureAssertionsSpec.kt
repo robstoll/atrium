@@ -76,36 +76,36 @@ abstract class FeatureAssertionsSpec(
     val functions = arrayOf(
         Triple("`property` immediate", propertyImmediate, TestData::description.name),
         Triple("`property` lazy", propertyLazy, TestData::description.name),
-        Triple("`returnValueOf` without arguments and immediate", return0ValueImmediate, "${TestData::return0.name}()"),
-        Triple("`returnValueOf` with 1 argument and immediate", return1ValueImmediate, "${TestData::return1.name}(\"a\")"),
-        Triple("`returnValueOf` with 2 arguments and immediate", return2ValueImmediate, "${TestData::return2.name}(\"a\", 1)"),
-        Triple("`returnValueOf` with 3 arguments and immediate", return3ValueImmediate, "${TestData::return3.name}(\"a\", 1, true)"),
-        Triple("`returnValueOf` with 4 arguments and immediate", return4ValueImmediate, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
-        Triple("`returnValueOf` with 5 arguments and immediate", return5ValueImmediate, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')"),
-        Triple("`returnValueOf` without arguments and lazy", return0ValueLazy, "${TestData::return0.name}()"),
-        Triple("`returnValueOf` with 1 argument and lazy", return1ValueLazy, "${TestData::return1.name}(\"a\")"),
-        Triple("`returnValueOf` with 2 arguments and lazy", return2ValueLazy, "${TestData::return2.name}(\"a\", 1)"),
-        Triple("`returnValueOf` with 3 arguments and lazy", return3ValueLazy, "${TestData::return3.name}(\"a\", 1, true)"),
-        Triple("`returnValueOf` with 4 arguments and lazy", return4ValueLazy, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
-        Triple("`returnValueOf` with 5 arguments and lazy", return5ValueLazy, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')")
+        Triple("`returnValueOf5` without arguments and immediate", return0ValueImmediate, "${TestData::return0.name}()"),
+        Triple("`returnValueOf5` with 1 argument and immediate", return1ValueImmediate, "${TestData::return1.name}(\"a\")"),
+        Triple("`returnValueOf5` with 2 arguments and immediate", return2ValueImmediate, "${TestData::return2.name}(\"a\", 1)"),
+        Triple("`returnValueOf5` with 3 arguments and immediate", return3ValueImmediate, "${TestData::return3.name}(\"a\", 1, true)"),
+        Triple("`returnValueOf5` with 4 arguments and immediate", return4ValueImmediate, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
+        Triple("`returnValueOf5` with 5 arguments and immediate", return5ValueImmediate, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')"),
+        Triple("`returnValueOf5` without arguments and lazy", return0ValueLazy, "${TestData::return0.name}()"),
+        Triple("`returnValueOf5` with 1 argument and lazy", return1ValueLazy, "${TestData::return1.name}(\"a\")"),
+        Triple("`returnValueOf5` with 2 arguments and lazy", return2ValueLazy, "${TestData::return2.name}(\"a\", 1)"),
+        Triple("`returnValueOf5` with 3 arguments and lazy", return3ValueLazy, "${TestData::return3.name}(\"a\", 1, true)"),
+        Triple("`returnValueOf5` with 4 arguments and lazy", return4ValueLazy, "${TestData::return4.name}(\"a\", 1, true, 1.2)"),
+        Triple("`returnValueOf5` with 5 arguments and lazy", return5ValueLazy, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')")
     )
     val nullableFailingFunctions = arrayOf(
         Triple("`property` isNull", propertyNullableDoesNotHold, TestData::nullableValue.name),
-        Triple("`returnValueOf` without argument and isNull", return0ValueNullableDoesNotHold, "${TestData::returnNullable0.name}()"),
-        Triple("`returnValueOf` with 1 argument and isNull", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
-        Triple("`returnValueOf` with 2 arguments and isNull", return2ValueNullableDoesNotHold, "${TestData::returnNullable2.name}(\"a\", 1)"),
-        Triple("`returnValueOf` with 3 arguments and isNull", return3ValueNullableDoesNotHold, "${TestData::returnNullable3.name}(\"a\", 1, true)"),
-        Triple("`returnValueOf` with 4 arguments and isNull", return4ValueNullableDoesNotHold, "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)"),
-        Triple("`returnValueOf` with 5 arguments and isNull", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
+        Triple("`returnValueOf5` without argument and isNull", return0ValueNullableDoesNotHold, "${TestData::returnNullable0.name}()"),
+        Triple("`returnValueOf5` with 1 argument and isNull", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
+        Triple("`returnValueOf5` with 2 arguments and isNull", return2ValueNullableDoesNotHold, "${TestData::returnNullable2.name}(\"a\", 1)"),
+        Triple("`returnValueOf5` with 3 arguments and isNull", return3ValueNullableDoesNotHold, "${TestData::returnNullable3.name}(\"a\", 1, true)"),
+        Triple("`returnValueOf5` with 4 arguments and isNull", return4ValueNullableDoesNotHold, "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)"),
+        Triple("`returnValueOf5` with 5 arguments and isNull", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
     )
     val nullableHoldsFunctions = arrayOf(
         "`property` isNotNull" to propertyNullableHolds,
-        "`returnValueOf` with 1 argument and isNotNull" to return1ValueNullableHolds,
-        "`returnValueOf` without argument and isNotNull" to return0ValueNullableHolds,
-        "`returnValueOf` with 2 arguments and isNotNull" to return2ValueNullableHolds,
-        "`returnValueOf` with 3 arguments and isNotNull" to return3ValueNullableHolds,
-        "`returnValueOf` with 4 arguments and isNotNull" to return4ValueNullableHolds,
-        "`returnValueOf` with 5 arguments and isNotNull" to return5ValueNullableHolds
+        "`returnValueOf5` with 1 argument and isNotNull" to return1ValueNullableHolds,
+        "`returnValueOf5` without argument and isNotNull" to return0ValueNullableHolds,
+        "`returnValueOf5` with 2 arguments and isNotNull" to return2ValueNullableHolds,
+        "`returnValueOf5` with 3 arguments and isNotNull" to return3ValueNullableHolds,
+        "`returnValueOf5` with 4 arguments and isNotNull" to return4ValueNullableHolds,
+        "`returnValueOf5` with 5 arguments and isNotNull" to return5ValueNullableHolds
     )
 
     val holdingTestData = TestData("hello robert", 1)

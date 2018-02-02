@@ -323,14 +323,13 @@ Have a look at the [KDoc of the CharSequence contains Builders](https://robstoll
 to see more options.
 
 :poop: Unfortunately, due to a [bug in Kotlin](https://youtrack.jetbrains.com/issue/KT-17340)
-(please upvote it) you wont be able to use `returnValueOf` for a method which has overloads. 
-As workaround you can use the following [impl-function](#api-in-a-different-language)
-`ch.tutteli.atrium.assertions._methods` (which is not part of an API and might change in the 
-future) as follows:
+(please upvote it) you wont be able to use `returnValueOf` for a method which has overloads in certain situations. 
+As workaround you can use the domain function `returnValueOfX` where `X` needs to be replaced by the number of arguments expected.
+Following an example:
 ```kotlin
-import ch.tutteli.atrium.assertions._methods
+import ch.tutteli.atrium.creating.FeatureAssertions
 assert(person) {
-    _method(this, "nickname", subject::nickname, false).toBe("Robert aka. Stoll")
+    FeatureAssertions.returnValueOf1(this, "nickname", subject::nickname, false).toBe("Robert aka. Stoll")
 }
 ```
 The output is the same as above.
