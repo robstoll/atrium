@@ -50,10 +50,6 @@ fun <T : Any?> assert(subject: T)
  * @return The newly created [ThrowableThrownBuilder].
  */
 fun assert(act: () -> Unit)
-    = ThrowableThrownBuilder(
-    ASSERT_THROWN,
-    act,
-    AtriumReporterSupplier.REPORTER
-)
+    = ThrowableThrownBuilder(ASSERT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 

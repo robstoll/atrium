@@ -4,12 +4,10 @@ import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-
-//TODO remove once it is in atrium-domain-robstoll as well
-private const val BUG_REPORT_URL = "https://github.com/robstoll/atrium/issues/new"
 
 class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub>) {
 
