@@ -7,12 +7,12 @@ import ch.tutteli.atrium.creating.any.typetransformation.TypeTransformer
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-inline fun <reified T : Any> _isNotNull(plant: AssertionPlantNullable<T?>, noinline assertionCreator: AssertionPlant<T>.() -> Unit) {
-    _downCast(IS_A, T::class, plant, assertionCreator)
+fun <T : Any> _isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, assertionCreator: AssertionPlant<T>.() -> Unit) {
+    _downCast(IS_A, type, plant, assertionCreator)
 }
 
-inline fun <reified TSub : Any> _isA(plant: AssertionPlant<Any>, noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
-    _downCast(IS_A, TSub::class, plant, assertionCreator)
+fun <TSub : Any> _isA(plant: AssertionPlant<Any>, subType: KClass<TSub>, assertionCreator: AssertionPlant<TSub>.() -> Unit) {
+    _downCast(IS_A, subType, plant, assertionCreator)
 }
 
 fun <T : Any, TSub : T> _downCast(
