@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSeq
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to [CharSequence] type,
+ * Defines the minimum set of assertion functions and builders applicable to [CharSequence],
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ICharSequenceAssertions {

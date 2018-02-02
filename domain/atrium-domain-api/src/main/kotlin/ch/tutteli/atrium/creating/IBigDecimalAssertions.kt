@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import java.math.BigDecimal
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to [BigDecimal] type,
+ * Defines the minimum set of assertion functions and builders applicable to [BigDecimal],
  * which an implementation of the domain of Atrium has to provide.
  */
 interface IBigDecimalAssertions {
