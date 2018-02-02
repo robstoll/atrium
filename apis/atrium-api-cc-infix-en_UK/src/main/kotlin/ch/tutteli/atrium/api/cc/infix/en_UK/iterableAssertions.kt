@@ -3,8 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating._containsBuilder
-import ch.tutteli.atrium.creating._containsNotBuilder
+import ch.tutteli.atrium.creating.IterableAssertions
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
 
 /**
@@ -14,7 +13,7 @@ import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBui
  * @return The newly created builder.
  */
 infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain)
-    = _containsBuilder(this)
+    = IterableAssertions.containsBuilder(this)
 
 /**
  * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
@@ -23,7 +22,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contai
  * @return The newly created builder.
  */
 infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain)
-    = IterableContainsNotCheckerBuilder(_containsNotBuilder(this))
+    = IterableContainsNotCheckerBuilder(IterableAssertions.containsNotBuilder(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the [expected] value.

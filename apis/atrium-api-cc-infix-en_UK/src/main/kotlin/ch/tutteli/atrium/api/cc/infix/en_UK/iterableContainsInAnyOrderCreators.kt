@@ -3,8 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.creators._containsEntriesInAnyOrder
-import ch.tutteli.atrium.creating.iterable.contains.creators._containsObjectsInAnyOrder
+import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
 /**
@@ -69,7 +68,7 @@ infix fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
-    = addAssertion(_containsObjectsInAnyOrder(this, objects.expected, objects.otherExpected))
+    = addAssertion(IterableContainsAssertions.containsObjectsInAnyOrder(this, objects.expected, objects.otherExpected))
 
 
 /**
@@ -99,7 +98,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, Iterab
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
-    = addAssertion(_containsEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = addAssertion(IterableContainsAssertions.containsEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -130,4 +129,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, Iter
  */
 @JvmName("nullableEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = addAssertion(_containsEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = addAssertion(IterableContainsAssertions.containsNullableEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))

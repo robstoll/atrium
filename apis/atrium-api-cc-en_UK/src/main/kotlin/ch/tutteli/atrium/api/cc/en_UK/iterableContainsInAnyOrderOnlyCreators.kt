@@ -3,8 +3,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.creating.iterable.contains.creators._containsEntriesInAnyOrderOnly
-import ch.tutteli.atrium.creating.iterable.contains.creators._containsObjectsInAnyOrderOnly
+import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 
 /**
@@ -62,7 +61,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.objects(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = plant.addAssertion(_containsObjectsInAnyOrderOnly(this, expected, otherExpected))
+    = plant.addAssertion(IterableContainsAssertions.containsObjectsInAnyOrderOnly(this, expected, otherExpected))
 
 
 /**
@@ -105,7 +104,7 @@ fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInA
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
-    = plant.addAssertion(_containsEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
+    = plant.addAssertion(IterableContainsAssertions.containsEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
@@ -149,4 +148,4 @@ fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsI
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = plant.addAssertion(_containsEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
+    = plant.addAssertion(IterableContainsAssertions.containsNullableEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
