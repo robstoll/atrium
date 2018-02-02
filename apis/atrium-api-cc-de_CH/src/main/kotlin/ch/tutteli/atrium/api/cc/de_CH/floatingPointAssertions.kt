@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating._toBeWithErrorTolerance
+import ch.tutteli.atrium.creating.FloatingPointAssertions
 import java.math.BigDecimal
 
 /**
@@ -19,7 +19,7 @@ import java.math.BigDecimal
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun Assert<Float>.istMitFehlerToleranz(expected: Float, tolerance: Float)
-    = addAssertion(_toBeWithErrorTolerance(this, expected, tolerance))
+    = addAssertion(FloatingPointAssertions.toBeWithErrorTolerance(this, expected, tolerance))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is equal to [expected] with an error [tolerance]
@@ -35,7 +35,7 @@ fun Assert<Float>.istMitFehlerToleranz(expected: Float, tolerance: Float)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun Assert<Double>.istMitFehlerToleranz(expected: Double, tolerance: Double)
-    = addAssertion(_toBeWithErrorTolerance(this, expected, tolerance))
+    = addAssertion(FloatingPointAssertions.toBeWithErrorTolerance(this, expected, tolerance))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is equal to [expected] with an error [tolerance]
@@ -51,4 +51,4 @@ fun Assert<Double>.istMitFehlerToleranz(expected: Double, tolerance: Double)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.istMitFehlerToleranz(expected: T, tolerance: T)
-    = addAssertion(_toBeWithErrorTolerance(this, expected, tolerance))
+    = addAssertion(FloatingPointAssertions.toBeWithErrorTolerance(this, expected, tolerance))
