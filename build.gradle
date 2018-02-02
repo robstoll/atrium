@@ -34,9 +34,9 @@ buildscript {
                     // cannot be part of the sources since it would define AnyAssertions and the like twice
                     // (atrium-domain-robstoll already defines it)
                     it.name != "${project.name}-domain-api-late-binding" &&
-                    // cannot be part of the sources since it would define CoreFactory twice
-                    // (atrium-core-robstoll already defines it)
-                    it.name != "${project.name}-core-api-late-binding" &&
+                        // cannot be part of the sources since it would define CoreFactory twice
+                        // (atrium-core-robstoll already defines it)
+                        it.name != "${project.name}-core-api-late-binding" &&
                         // would have two classes with the same name if we add it as project as well,
                         // (clashes with "${project.name}-translations-en_UK"
                         it.name != "${project.name}-translations-de_CH" &&
@@ -51,7 +51,9 @@ buildscript {
                         it.name != "${project.name}-core-api" &&
                         it.name != "${project.name}-core-api-late-binding" &&
                         it.name != "${project.name}-core-robstoll" &&
-                        it.name != "${project.name}-spec"
+                        it.name != "${project.name}-spec" &&
+                        //TODO remove with 1.0.0
+                        it.name != "${project.name}-assertions"
                 } - projectsWithoutSourcesBuildScript - translationProjects
         ]
     }

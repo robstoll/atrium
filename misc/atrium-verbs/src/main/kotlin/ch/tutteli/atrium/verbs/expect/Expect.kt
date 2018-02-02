@@ -50,8 +50,4 @@ fun <T : Any?> expect(subject: T)
  * @return The newly created [ThrowableThrownBuilder].
  */
 fun expect(act: () -> Unit)
-    = ThrowableThrownBuilder(
-    EXPECT_THROWN,
-    act,
-    AtriumReporterSupplier.REPORTER
-)
+    = ThrowableThrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
