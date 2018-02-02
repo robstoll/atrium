@@ -1,0 +1,12 @@
+buildscript {
+    ext.publish_description = 'API of the domain of Atrium.'
+}
+
+dependencies {
+    compile project(":${rootProject.name}-core-api")
+    compile project(":${rootProject.name}-core-api-late-binding")
+}
+
+dokka {
+    sourceDirs = files(srcKotlin)
+}
