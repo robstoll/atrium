@@ -1,17 +1,13 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
-
 /**
  * Robstoll's implementation of [ICharSequenceAssertions].
  */
 object CharSequenceAssertions: ICharSequenceAssertions {
-    override fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
+    override fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>)
         = _containsBuilder(plant)
 
-    override fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContainsBuilder<T, CharSequenceContainsNotSearchBehaviour>
+    override fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>)
         = _containsNotBuilder(plant)
 
 
