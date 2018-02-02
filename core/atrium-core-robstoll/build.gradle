@@ -3,7 +3,6 @@ buildscript {
 }
 
 dependencies {
-    compile "ch.tutteli:kbox:$kbox_version"
     compile project(":${rootProject.name}-core-api")
     compile project(":${rootProject.name}-core-robstoll-lib")
 }

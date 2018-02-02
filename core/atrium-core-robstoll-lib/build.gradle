@@ -12,6 +12,7 @@ dependencies {
     compile project(":${rootProject.name}-core-api")
     compileOnly project(":${rootProject.name}-core-api-late-binding")
 
+    testCompile project(":${rootProject.name}-domain-robstoll")
     testCompile project(":${rootProject.name}-core-robstoll")
     testCompile project(":${rootProject.name}-api-cc-en_UK")
     testCompile project(":${rootProject.name}-spec")

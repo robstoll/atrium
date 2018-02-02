@@ -8,5 +8,6 @@ dependencies {
     compile project(":${rootProject.name}-assertions")
 
     testCompile project(":${rootProject.name}-spec")
+    testCompile project(":${rootProject.name}-domain-robstoll")
     testCompile project(":${rootProject.name}-core-robstoll")
 }

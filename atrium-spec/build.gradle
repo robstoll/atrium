@@ -7,6 +7,8 @@ dependencies {
     compile("ch.tutteli:kbox:$kbox_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
+    compile project(":${rootProject.name}-domain-api")
+    compileOnly project(":${rootProject.name}-domain-api-late-binding")
     compile project(":${rootProject.name}-core-api")
     compileOnly project(":${rootProject.name}-core-api-late-binding")
     compileOnly project(":${rootProject.name}-api-cc-en_UK") // for us
