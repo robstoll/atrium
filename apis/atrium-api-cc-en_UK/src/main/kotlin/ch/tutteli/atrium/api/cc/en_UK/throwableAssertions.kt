@@ -4,8 +4,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating._toThrow
 import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].
@@ -32,7 +32,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow() {
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
-    _toThrow(this, assertionCreator)
+    ThrowableThrownAssertions.toThrow(this, TExpected::class, assertionCreator)
 }
 
 /**
