@@ -6,8 +6,8 @@ import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
-import ch.tutteli.atrium.creating._method
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.FeatureAssertions
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -119,7 +119,7 @@ abstract class IterableContainsNullSpec(
             test("empty iterable, states that iterable was empty") {
                 expect {
                     //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                    assert(setOf()).testeeFun({ _method(
+                    assert(setOf()).testeeFun({ FeatureAssertions.returnValueOf1(
                         this,
                         "compareTo",
                         subject::compareTo,
@@ -140,7 +140,7 @@ abstract class IterableContainsNullSpec(
             test("$list, it outputs explanation (since we have a non-null entry)") {
                 expect {
                     //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                    assert(list).testeeFun({ _method(
+                    assert(list).testeeFun({ FeatureAssertions.returnValueOf1(
                         this,
                         "compareTo",
                         subject::compareTo,
