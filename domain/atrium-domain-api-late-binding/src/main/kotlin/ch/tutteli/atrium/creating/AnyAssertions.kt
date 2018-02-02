@@ -10,13 +10,10 @@ object AnyAssertions : IAnyAssertions {
         = throwUnsupportedOperationException()
     override fun <T : Any> notToBe(plant: AssertionPlant<T>, expected: T): Assertion
         = throwUnsupportedOperationException()
-
     override fun <T : Any> isSame(plant: AssertionPlant<T>, expected: T): Assertion
         = throwUnsupportedOperationException()
-
     override fun <T : Any> isNotSame(plant: AssertionPlant<T>, expected: T): Assertion
         = throwUnsupportedOperationException()
-
     override fun <T : Any?> isNull(plant: AssertionPlantNullable<T>): Assertion
         = throwUnsupportedOperationException()
 }
