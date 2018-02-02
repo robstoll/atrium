@@ -14,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @return The newly created builder.
  */
 val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    get() = _containsBuilder(this)
+    get() = CharSequenceAssertions.containsBuilder(this)
 
 /**
  * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
@@ -23,7 +23,7 @@ val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContainsBuilder<T, CharSe
  * @return The newly created builder.
  */
 val <T : CharSequence> Assert<T>.enthaeltNicht: CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
-    get() = CharSequenceContainsNotCheckerBuilder(_containsNotBuilder(this))
+    get() = CharSequenceContainsNotCheckerBuilder(CharSequenceAssertions.containsNotBuilder(this))
 
 
 /**
@@ -138,7 +138,7 @@ fun <T : CharSequence> Assert<T>.enthaeltRegex(pattern: String, vararg otherPatt
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
-    = addAssertion(_startsWith(this, expected))
+    = addAssertion(CharSequenceAssertions.startsWith(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not start with [expected].
@@ -147,7 +147,7 @@ fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
-    = addAssertion(_startsNotWith(this, expected))
+    = addAssertion(CharSequenceAssertions.startsNotWith(this, expected))
 
 
 /**
@@ -157,7 +157,7 @@ fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
-    = addAssertion(_endsWith(this, expected))
+    = addAssertion(CharSequenceAssertions.endsWith(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not end with [expected].
@@ -166,7 +166,7 @@ fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
-    = addAssertion(_endsNotWith(this, expected))
+    = addAssertion(CharSequenceAssertions.endsNotWith(this, expected))
 
 
 /**
@@ -176,7 +176,7 @@ fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.istLeer()
-    = addAssertion(_isEmpty(this))
+    = addAssertion(CharSequenceAssertions.isEmpty(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
@@ -185,4 +185,4 @@ fun <T : CharSequence> Assert<T>.istLeer()
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> Assert<T>.istNichtLeer()
-    = addAssertion(_isNotEmpty(this))
+    = addAssertion(CharSequenceAssertions.isNotEmpty(this))

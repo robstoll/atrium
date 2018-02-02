@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.creating.charsequence.contains.searchers
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.exactly
