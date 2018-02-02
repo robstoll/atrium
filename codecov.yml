@@ -1,4 +1,5 @@
 ignore:
     - "core/atrium-core-api/**/IAtriumFactory.kt"
-    - "core/atrium-core-api-late-binding/**/*"
+    - "**/*-api-late-binding/**/*"
+    - "atrium-assertions/**/*"
     - "core/atrium-core-robstoll/**/AtriumFactory.kt"
