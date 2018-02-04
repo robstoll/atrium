@@ -1,5 +1,7 @@
 buildscript {
-    def projectsWithoutSourcesBuildScript = subprojects.findAll { it.path.contains("bundles") }
+    def projectsWithoutSourcesBuildScript = subprojects.findAll {
+        it.projectDir.path.contains("bundles")
+    }
     def translationProjects = subprojects.findAll { it.path.contains("translations") }
     ext {
         atrium_version = '0.7.0-SNAPSHOT'
@@ -87,6 +89,7 @@ subprojects {
 }
 
 def projectsWithSources = subprojects - projectsWithoutSources
+println "test: $projectsWithoutSources"
 configure(projectsWithSources) {
     apply plugin: 'org.jetbrains.dokka'
 
