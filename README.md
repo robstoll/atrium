@@ -632,7 +632,7 @@ assert(12).isMultipleOf(5)
 ```
 
 Let's see how we actually defined `isMultipleOf`. 
-First of all, you need to know that `Assert` is a typealias for `AssertionPlant<T>` which in turn is the entry point for assertion functions.
+First of all, you need to know that `Assert` is a `typealias` for `AssertionPlant<T>` which in turn is the entry point for assertion functions.
 We get an `AssertionPlant<Int>` when calling `assert(12)` and an `AssertionPlant<String>` for `assert("hello")`.
 In our case we want to define the assertion function only for `subject`s of type `Int` 
 hence we define `isMultipleOf` as 
@@ -675,7 +675,7 @@ assert(13).isEven()
 
 Do you want to write an own sophisticated assertion builder instead of an assertion function? 
 Have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
-[ch.tutteli.atrium.assertions.iterable.contains](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/main/kotlin/ch/tutteli/atrium/assertions/iterable/contains).
+[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-api/src/main/kotlin/ch/tutteli/atrium/creating/iterable/contains).
 Notice that the implementation supports [Internationalization](#internationalization).
 If you have a question, then please post it in the 
 [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
@@ -692,7 +692,7 @@ For instance, you could change from same-line to multi-line reporting or
 report not only failing but also successful assertions, change the output language etc.
 
 In order to create an own assertion verb it is sufficient to copy the file content of 
-[atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/atrium-assertions/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+[atriumVerbs.kt](https://github.com/robstoll/atrium/blob/master/domain/atrium-domain-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
 paste it in your own atriumVerbs.kt, rename `assert` and `expect` as desired and rename the package to reflect yours.
 
 As you can see, it is up to you if you use the same name for all assertion functions or not 
@@ -803,7 +803,7 @@ fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion
 Notice that the impl-function it is not an extension function as before 
 because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
 We typically use `AssertionPlant` for impl-functions and `Assert` for API functions. 
-You can use the [`AssertionBuilder`](file:///D:/projects/atrium-gh-pages/0.7.0-SNAPSHOT/doc/ch.tutteli.atrium.assertions/-assertion-builder/index.html)
+You can use the [`AssertionBuilder`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions/-assertion-builder/index.html)
 to create different types of assertions.
 
 In the API module we define the extension function and call the impl-function:
