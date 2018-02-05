@@ -42,6 +42,7 @@ internal object AtriumReporterSupplier {
                 RootAssertionGroupType::class.java to "* ",
                 ListAssertionGroupType::class.java to "- ",
                 FeatureAssertionGroupType::class.java to "=> ",
+                //TODO remove with 1.0.0
                 IndentAssertionGroupType::class.java to "| ",
                 PrefixFeatureAssertionGroupHeader::class.java to ">> ",
                 PrefixSuccessfulSummaryAssertion::class.java to "(/) ",
