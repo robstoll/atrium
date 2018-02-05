@@ -1,5 +1,7 @@
-@file:JvmName("DeprecatedIterableAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
+
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.IterableAssertions
 
 @Deprecated("use IterableAssertions.containsBuilder instead, will be removed with 1.0.0", ReplaceWith("IterableAssertions.containsBuilder(plant)"))
 fun <E, T : Iterable<E>> _containsBuilder(plant: AssertionPlant<T>)

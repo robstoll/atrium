@@ -1,6 +1,8 @@
-@file:JvmName("DeprecatedFeatureAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.FeatureAssertions
 import kotlin.reflect.*
 
 @Deprecated("use FeatureAssertions.property instead, will be removed with 1.0.0", ReplaceWith("FeatureAssertions.property(plant, property)"))

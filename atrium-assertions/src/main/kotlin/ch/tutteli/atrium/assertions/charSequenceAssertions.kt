@@ -1,7 +1,7 @@
-@file:JvmName("DeprecatedCharSequenceAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.CharSequenceAssertions
 
 @Deprecated("use CharSequenceAssertions.containsBuilder instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.containsBuilder(plant)"))
 fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)

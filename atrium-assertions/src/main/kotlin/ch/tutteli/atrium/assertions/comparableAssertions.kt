@@ -1,5 +1,7 @@
-@file:JvmName("DeprecatedComparableAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
+
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.ComparableAssertions
 
 @Deprecated("use ComparableAssertions.isLessThan instead, will be removed with 1.0.0", ReplaceWith("ComparableAssertions.isLessThan(plant, expected)"))
 fun <T : Comparable<T>> _isLessThan(plant: AssertionPlant<T>, expected: T)

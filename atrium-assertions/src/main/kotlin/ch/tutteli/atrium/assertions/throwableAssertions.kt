@@ -1,6 +1,6 @@
-@file:JvmName("DeprecatedThrowableThrownAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import kotlin.reflect.KClass

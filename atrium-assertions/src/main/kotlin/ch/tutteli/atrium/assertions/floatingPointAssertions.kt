@@ -1,7 +1,7 @@
-@file:JvmName("DeprecatedFloatingPointAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.FloatingPointAssertions
 import java.math.BigDecimal
 
 @Deprecated("use FloatingPointAssertions.toBeWithErrorTolerance instead, will be removed with 1.0.0", ReplaceWith("FloatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)"))
