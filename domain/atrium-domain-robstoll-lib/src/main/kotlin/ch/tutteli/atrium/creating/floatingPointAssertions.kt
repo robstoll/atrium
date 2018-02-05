@@ -10,30 +10,16 @@ import java.text.DecimalFormat
 import kotlin.math.absoluteValue
 
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float): Assertion
-    = toBeWithErrorToleranceOfFloatOrDouble(
-    plant,
-    expected,
-    tolerance,
-    { (plant.subject - expected).absoluteValue })
+    = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance, { (plant.subject - expected).absoluteValue })
 
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Double>, expected: Double, tolerance: Double): Assertion
-    = toBeWithErrorToleranceOfFloatOrDouble(
-    plant,
-    expected,
-    tolerance,
-    { (plant.subject - expected).absoluteValue })
+    = toBeWithErrorToleranceOfFloatOrDouble(plant, expected, tolerance, { (plant.subject - expected).absoluteValue })
 
 fun <T : BigDecimal> _toBeWithErrorTolerance(plant: AssertionPlant<T>, expected: T, tolerance: T): Assertion {
     val absDiff = { (plant.subject - expected).abs() }
     return toBeWithErrorTolerance(expected, tolerance, absDiff) { df ->
         listOf(
-            createToBeWithErrorToleranceExplained(
-                df,
-                plant,
-                expected,
-                absDiff,
-                tolerance
-            )
+            createToBeWithErrorToleranceExplained(df, plant, expected, absDiff, tolerance)
         )
     }
 }
