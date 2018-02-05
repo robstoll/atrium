@@ -1,7 +1,8 @@
-@file:JvmName("DeprecatedAnyAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AnyAssertions
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 
 @Deprecated("use AnyAssertions.toBe instead, will be removed with 1.0.0", ReplaceWith("AnyAssertions.toBe(plant, expected)"))
 fun <T : Any> _toBe(plant: AssertionPlant<T>, expected: T): Assertion

@@ -1,7 +1,7 @@
-@file:JvmName("DeprecatedCollectionAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.CollectionAssertions
 
 @Deprecated("use CollectionAssertions.hasSize instead, will be removed with 1.0.0", ReplaceWith("CollectionAssertions.hasSize(plant, size)"))
 fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion

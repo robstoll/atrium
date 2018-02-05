@@ -1,7 +1,7 @@
-@file:JvmName("DeprecatedBigDecimalAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BigDecimalAssertions
 import java.math.BigDecimal
 
 @Deprecated("use BigDecimalAssertions.isNumericallyEqualTo instead, will be removed with 1.0.0", ReplaceWith("BigDecimalAssertions.isNumericallyEqualTo(plant, expected)"))

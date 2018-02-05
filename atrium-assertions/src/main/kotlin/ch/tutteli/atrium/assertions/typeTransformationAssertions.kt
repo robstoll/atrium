@@ -1,6 +1,9 @@
-@file:JvmName("DeprecatedTypeTransformationAssertions")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.TypeTransformationAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
