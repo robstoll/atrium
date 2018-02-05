@@ -1,4 +1,4 @@
-@file:JvmName("CollectionAnyAssertions")
+@file:JvmName("DeprecatedCollectionAssertions")
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion

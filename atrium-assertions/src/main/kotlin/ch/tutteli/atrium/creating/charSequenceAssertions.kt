@@ -1,4 +1,4 @@
-@file:JvmName("CharSequenceAnyAssertions")
+@file:JvmName("DeprecatedCharSequenceAssertions")
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
