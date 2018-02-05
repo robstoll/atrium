@@ -6,11 +6,11 @@ of all modules excluding the one of _atrium-core-robstoll_ and _atrium-core-robs
 
 Bundle modules:
 - **atrium-cc-de&#95;CH-robstoll** defines to have a dependency on 
-  atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH and atrium-core-robstoll
+  atrium-api-cc-de&#95;CH, atrium-translations-de&#95;CH, atrium-domain-robstoll and atrium-core-robstoll
 - **atrium-cc-en&#95;UK-robstoll**  defines to have a dependency on   
-  atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-robstoll
+  atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK, atrium-domain-robstoll and and atrium-core-robstoll
 - **atrium-cc-infix-en&#95;UK-robstoll**  defines to have a dependency on  
-  atrium-api-cc-infix-en&#95;UK, atrium-translations-en&#95;UK and atrium-core-robstoll
+  atrium-api-cc-infix-en&#95;UK, atrium-translations-en&#95;UK, atrium-domain-robstoll and and atrium-core-robstoll
   
 API modules:  
 - **atrium-api-cc-de&#95;CH** provides an assertion function API in German where the main 

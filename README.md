@@ -831,7 +831,7 @@ All have their design focus on interoperability with code completion (thus `cc`)
 Atrium is 
 [built up by different modules](https://robstoll.github.io/atrium/latest#/doc/) 
 and it is your choice which implementation you want to use. 
-Atrium provides three modules which bundle API, translation and implementation, so that you just have to have a dependency on that one bundle:
+Atrium provides three modules which bundle API, translation, domain and core, so that you just have to have a dependency on that one bundle:
 
 - [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
 - [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
