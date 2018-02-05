@@ -28,7 +28,6 @@ includeCore "${rootProject.name}-core-robstoll"
 includeCore "${rootProject.name}-core-robstoll-lib"
 includeTranslations "${rootProject.name}-translations-de_CH"
 includeTranslations "${rootProject.name}-translations-en_UK"
-include "${rootProject.name}-assertions"
 include "${rootProject.name}-spec"
 includeInSubFolder("${rootProject.name}-verbs", "${rootProject.projectDir}/misc")
 
@@ -36,3 +35,6 @@ includeInSubFolder("${rootProject.name}-verbs", "${rootProject.projectDir}/misc"
 includeBundle "${rootProject.name}-cc-en_UK-robstoll"
 includeBundle "${rootProject.name}-cc-de_CH-robstoll"
 includeBundle "${rootProject.name}-cc-infix-en_UK-robstoll"
+
+//TODO remove with 1.0.0
+include "${rootProject.name}-assertions"
