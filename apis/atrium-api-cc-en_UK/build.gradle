@@ -6,7 +6,6 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-assertions")
     compile project(":${rootProject.name}-domain-api")
     compileOnly project(":${rootProject.name}-domain-api-late-binding")
 
