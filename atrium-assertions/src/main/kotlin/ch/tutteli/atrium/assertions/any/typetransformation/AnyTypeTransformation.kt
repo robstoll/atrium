@@ -23,7 +23,7 @@ interface AnyTypeTransformation {
      * @param T The type of [AssertionPlant.subject].
      * @param TSub The type to which [AssertionPlant.subject] should have been transformed to.
      */
-    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.any.typetransformation.TypeTransformationFailureHandler"))
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation.TypeTransformationFailureHandler"))
     interface TypeTransformationFailureHandler<in T : Any, out TSub : Any> {
 
         /**
