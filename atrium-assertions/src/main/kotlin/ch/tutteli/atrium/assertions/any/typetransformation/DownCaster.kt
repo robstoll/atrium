@@ -1,11 +1,13 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
+import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
-import ch.tutteli.atrium.creating.TypeTransformationAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import kotlin.reflect.KClass
+import kotlin.reflect.full.cast
 
 /**
  * Helps to make an assertion about the [BaseAssertionPlant.subject], that it is of type [T] and can be
@@ -45,6 +47,11 @@ class DownCaster<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.TypeTr
         subjectPlant: BaseAssertionPlant<T?, *>,
         assertionCreator: AssertionPlant<TSub>.() -> Unit
     ) {
-        TypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator)
+        typeTransformer.transform(
+            description, subType, subjectPlant, assertionCreator,
+            TranslatableWithArgs(DescriptionTypeTransformationAssertion.WARNING_DOWN_CAST_FAILED, subType.qualifiedName!!),
+            { subType.isInstance(it) },
+            { subType.cast(it) }
+        )
     }
 }
