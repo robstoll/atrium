@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
  * A dummy implementation of [IThrowableThrownAssertions] which should be replaced by an actual implementation.
  */
 object ThrowableThrownAssertions : IThrowableThrownAssertions {
-    override fun <TExpected : Throwable> toThrow(
+    override fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrownBuilder,
         expectedType: KClass<TExpected>,
         assertionCreator: AssertionPlant<TExpected>.() -> Unit

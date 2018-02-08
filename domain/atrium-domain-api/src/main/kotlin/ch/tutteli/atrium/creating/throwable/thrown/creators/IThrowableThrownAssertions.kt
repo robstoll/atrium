@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
  * which an implementation of the domain of Atrium has to provide.
  */
 interface IThrowableThrownAssertions {
-    fun <TExpected : Throwable> toThrow(
+    fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrownBuilder,
         expectedType: KClass<TExpected>,
         assertionCreator: AssertionPlant<TExpected>.() -> Unit
