@@ -1,15 +1,9 @@
 package ch.tutteli.atrium.creating.iterable.contains.searchbehaviours
 
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 /**
  * Represents the search behaviour that expected entries might appear in any order within the [Iterable] but that
  * the resulting assertion should not hold if there are less entries than expected or more.
  */
-open class IterableContainsInAnyOrderOnlySearchBehaviour : IterableContains.SearchBehaviour {
-    override fun decorateDescription(description: Translatable): Translatable
-        = TranslatableWithArgs(DescriptionIterableAssertion.IN_ANY_ORDER_ONLY, description)
-}
+interface IterableContainsInAnyOrderOnlySearchBehaviour : IterableContains.SearchBehaviour
