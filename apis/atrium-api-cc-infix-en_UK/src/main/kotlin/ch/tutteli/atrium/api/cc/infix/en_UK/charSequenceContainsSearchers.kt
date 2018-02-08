@@ -52,7 +52,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.containsValues(this, values.expected, values.otherExpected))
+    = addAssertion(CharSequenceContainsAssertions.values(this, values.expected, values.otherExpected))
 
 
 /**
@@ -102,7 +102,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  */
 @JvmName("valuesIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.containsValuesIgnoringCase(this, values.expected, values.otherExpected))
+    = addAssertion(CharSequenceContainsAssertions.valuesIgnoringCase(this, values.expected, values.otherExpected))
 
 
 /**
@@ -139,7 +139,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.containsDefaultTranslationOf(this, translatables.expected, translatables.otherExpected))
+    = addAssertion(CharSequenceContainsAssertions.defaultTranslationOf(this, translatables.expected, translatables.otherExpected))
 
 
 /**
@@ -179,7 +179,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  */
 @JvmName("valuesIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.containsDefaultTranslationOfIgnoringCase(this, translatables.expected, translatables.otherExpected))
+    = addAssertion(CharSequenceContainsAssertions.defaultTranslationOfIgnoringCase(this, translatables.expected, translatables.otherExpected))
 
 
 /**
@@ -217,7 +217,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.containsRegex(this, patterns.pattern, patterns.otherPatterns))
+    = addAssertion(CharSequenceContainsAssertions.regex(this, patterns.pattern, patterns.otherPatterns))
 
 
 /**
@@ -257,4 +257,4 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  */
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.containsRegexIgnoringCase(this, patterns.pattern, patterns.otherPatterns))
+    = addAssertion(CharSequenceContainsAssertions.regexIgnoringCase(this, patterns.pattern, patterns.otherPatterns))

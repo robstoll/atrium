@@ -70,7 +70,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.objects(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.containsObjectsInAnyOrder(this, expected, otherExpected))
+    = addAssertion(IterableContainsAssertions.objectsInAnyOrder(this, expected, otherExpected))
 
 
 /**
@@ -107,7 +107,7 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.containsEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
+    = addAssertion(IterableContainsAssertions.entriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -145,4 +145,4 @@ fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableCo
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.containsNullableEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
+    = addAssertion(IterableContainsAssertions.nullableEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))

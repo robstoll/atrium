@@ -61,7 +61,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.objects(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.containsObjectsInAnyOrderOnly(this, expected, otherExpected))
+    = plant.addAssertion(IterableContainsAssertions.objectsInAnyOrderOnly(this, expected, otherExpected))
 
 
 /**
@@ -104,7 +104,7 @@ fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInA
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.containsEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
+    = plant.addAssertion(IterableContainsAssertions.entriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
@@ -148,4 +148,4 @@ fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsI
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.containsNullableEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
+    = plant.addAssertion(IterableContainsAssertions.nullableEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
