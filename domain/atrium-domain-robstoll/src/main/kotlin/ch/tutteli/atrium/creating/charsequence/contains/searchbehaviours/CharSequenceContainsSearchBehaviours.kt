@@ -8,6 +8,6 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
 object CharSequenceContainsSearchBehaviours : ICharSequenceContainsSearchBehaviours {
     override fun <T : CharSequence> containsIgnoringCase(
         containsBuilder: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    ): CharSequenceContainsBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour> =
-        _containsIgnoringCase(containsBuilder)
+    ): CharSequenceContainsBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
+        = _containsIgnoringCase(containsBuilder)
 }
