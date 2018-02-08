@@ -2,10 +2,10 @@ package ch.tutteli.atrium.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Checker
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsExactlyChecker
+import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsCheckers
 
 /**
- * The base class for builders which create a `contains exactly` check within the fluent API of a sophisticated
+ * The base class for builders which create a `contains at least` check within the fluent API of a sophisticated
  * `contains` assertion for [CharSequence].
  *
  * @param T The input type of the search.
@@ -14,21 +14,22 @@ import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceCon
  * @property times The number which the check will compare against the actual number of times an expected object
  *   is found in the input of the search.
  *
- * @constructor The base class for builders which create a `contains exactly` check within the fluent API of a sophisticated
- *   `contains` assertion for [CharSequence].
+ * @constructor The base class for builders which create a `contains at least` check within the fluent API of a
+ *   sophisticated `contains` assertion for [CharSequence].
  * @param times The number which the check will compare against the actual number of times an expected object is
  *   found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
- * @param exactlyCall The function call which should not be used if [times] equals to zero.
+ * @param atLeastCall The name of the function which was called and created this builder.
  */
-abstract class CharSequenceContainsExactlyCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
+abstract class CharSequenceContainsAtLeastCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
     val times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, S>,
     nameContainsNotFun: String,
-    exactlyCall: (Int) -> String
+    atLeastCall: (Int) -> String
 ) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
 
-    override val checkers: List<Checker> =
-        listOf(CharSequenceContainsExactlyChecker(times, nameContainsNotFun, exactlyCall))
+    override val checkers: List<Checker> = listOf(
+        CharSequenceContainsCheckers.newContainsAtLeastChecker(times, nameContainsNotFun, atLeastCall)
+    )
 }
