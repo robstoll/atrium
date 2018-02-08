@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
+package ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.notOrAtMost
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
