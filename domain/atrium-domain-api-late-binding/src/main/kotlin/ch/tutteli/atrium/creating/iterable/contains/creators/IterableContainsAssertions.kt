@@ -52,7 +52,8 @@ object IterableContainsAssertions : IIterableContainsAssertions {
         builder: IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
-    ): Assertion = throwUnsupportedOperationException()
+    ): Assertion
+        = throwUnsupportedOperationException()
 
     override fun <E : Any, T : Iterable<E>> containsEntriesInOrderOnly(
         builder: IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>,

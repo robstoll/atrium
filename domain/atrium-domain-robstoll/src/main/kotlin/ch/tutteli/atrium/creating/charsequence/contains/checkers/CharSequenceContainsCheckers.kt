@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.charsequence.contains.checkers
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
- * A dummy implementation of [ICharSequenceContainsCheckers] which should be replaced by an actual implementation.
+ * Robstoll's implementation of [ICharSequenceContainsCheckers].
  */
 object CharSequenceContainsCheckers : ICharSequenceContainsCheckers {
     override fun newContainsAtLeastChecker(

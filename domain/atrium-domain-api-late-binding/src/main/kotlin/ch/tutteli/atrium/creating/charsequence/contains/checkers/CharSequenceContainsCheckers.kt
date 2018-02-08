@@ -11,22 +11,19 @@ object CharSequenceContainsCheckers : ICharSequenceContainsCheckers {
         times: Int,
         nameContainsNotFun: String,
         atLeastCall: (Int) -> String
-    ): CharSequenceContains.Checker
-        = throwUnsupportedOperationException()
+    ): CharSequenceContains.Checker = throwUnsupportedOperationException()
 
     override fun newContainsAtMostChecker(
         times: Int,
         nameContainsNotFun: String,
         atMostCall: (Int) -> String
-    ): CharSequenceContains.Checker
-        = throwUnsupportedOperationException()
+    ): CharSequenceContains.Checker = throwUnsupportedOperationException()
 
     override fun newContainsExactlyChecker(
         times: Int,
         nameContainsNotFun: String,
         exactlyCall: (Int) -> String
-    ): CharSequenceContains.Checker
-        = throwUnsupportedOperationException()
+    ): CharSequenceContains.Checker = throwUnsupportedOperationException()
 
     override fun newContainsNotChecker(): CharSequenceContains.Checker
         = throwUnsupportedOperationException()

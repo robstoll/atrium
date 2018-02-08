@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsExactlyChecker
+import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers
 
 /**
  * The base class for builders which create a `contains exactly` check within the fluent API of a sophisticated
@@ -30,6 +30,7 @@ abstract class IterableContainsExactlyCheckerBuilderBase<out E, out T : Iterable
     exactlyCall: (Int) -> String
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
-    override val checkers: List<Checker> =
-        listOf(IterableContainsExactlyChecker(times, nameContainsNotFun, exactlyCall))
+    override val checkers: List<Checker> = listOf(
+        IterableContainsCheckers.newContainsExactlyChecker(times, nameContainsNotFun, exactlyCall)
+    )
 }

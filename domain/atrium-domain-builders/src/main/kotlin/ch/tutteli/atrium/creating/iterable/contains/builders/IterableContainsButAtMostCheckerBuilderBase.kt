@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.iterable.contains.builders
 import ch.tutteli.atrium.creating.basic.contains.builders.validateButAtMost
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsAtMostChecker
+import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers
 
 /**
  * The base class for builders which create the second step of a `contains at least but at most` check within the
@@ -51,6 +51,6 @@ abstract class IterableContainsButAtMostCheckerBuilderBase<out E, out T : Iterab
 
     override val checkers: List<Checker> = listOf(
         *atLeastBuilder.checkers.toTypedArray(),
-        IterableContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
+        IterableContainsCheckers.newContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
     )
 }
