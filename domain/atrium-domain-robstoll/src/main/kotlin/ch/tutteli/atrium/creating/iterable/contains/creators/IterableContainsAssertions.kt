@@ -13,22 +13,22 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  */
 object IterableContainsAssertions : IIterableContainsAssertions {
     override fun <E, T : Iterable<E>> containsObjectsInAnyOrder(
-        checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
+        checkerBuilder: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
-    ): Assertion = _containsObjectsInAnyOrder(checker, expected, otherExpected)
+    ): Assertion = _containsObjectsInAnyOrder(checkerBuilder, expected, otherExpected)
 
     override fun <E : Any, T : Iterable<E>> containsEntriesInAnyOrder(
-        checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
+        checkerBuilder: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
         assertionCreator: AssertionPlant<E>.() -> Unit,
         otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
-    ): Assertion = _containsEntriesInAnyOrder(checker, assertionCreator, otherAssertionCreators)
+    ): Assertion = _containsEntriesInAnyOrder(checkerBuilder, assertionCreator, otherAssertionCreators)
 
     override fun <E : Any, T : Iterable<E?>> containsNullableEntriesInAnyOrder(
-        checker: IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>,
+        checkerBuilder: IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>,
         assertionCreator: (AssertionPlant<E>.() -> Unit)?,
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
-    ): Assertion = _containsNullableEntriesInAnyOrder(checker, assertionCreator, otherAssertionCreators)
+    ): Assertion = _containsNullableEntriesInAnyOrder(checkerBuilder, assertionCreator, otherAssertionCreators)
 
     override fun <E, T : Iterable<E>> containsObjectsInAnyOrderOnly(
         builder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>,

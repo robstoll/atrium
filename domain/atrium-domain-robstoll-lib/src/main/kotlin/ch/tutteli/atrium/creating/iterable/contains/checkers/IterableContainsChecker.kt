@@ -13,7 +13,6 @@ import ch.tutteli.atrium.creating.iterable.contains.IterableContains
  * @param wrongCall The function call which was used and should not be used if [times] equals to zero.
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
-
  */
 abstract class IterableContainsChecker(
     times: Int,
