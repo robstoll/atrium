@@ -1,10 +1,11 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.assertions.composers
 
-import ch.tutteli.atrium.creating.throwUnsupportedOperationException
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * A dummy implementation of [IAssertionComposer] which should be replaced by an actual implementation.
+ * Robstoll's implementation of [IAssertionComposer].
  */
 object AssertionComposer : IAssertionComposer {
 
@@ -14,5 +15,6 @@ object AssertionComposer : IAssertionComposer {
         test: () -> Boolean,
         showHint: () -> Boolean,
         failureHintFactory: () -> AssertionGroup
-    ): Assertion = throwUnsupportedOperationException()
+    ): Assertion
+        = _createDescriptiveWithFailureHint(description, representation, test, showHint, failureHintFactory)
 }
