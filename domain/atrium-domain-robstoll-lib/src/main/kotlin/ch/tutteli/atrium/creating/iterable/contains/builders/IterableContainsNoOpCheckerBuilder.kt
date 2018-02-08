@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 /**
  * Represents a "no [IterableContains.Checker]" option, meaning no checker shall be applied to a search result.
  *
- * The checking as such is then usually carried out be the [IterableContains.Creator].
+ * The checking as such is then usually carried out by the [IterableContains.Creator].
  */
 class IterableContainsNoOpCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
     containsBuilder: IterableContainsBuilder<E, T, S>

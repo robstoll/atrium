@@ -1,8 +1,7 @@
 package ch.tutteli.atrium.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsNotChecker
-
+import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers
 
 /**
  * The base class for builders which create a `contains not` check within the fluent API of a sophisticated
@@ -18,6 +17,8 @@ abstract class IterableContainsNotCheckerBuilderBase<out E, out T : Iterable<E>,
     containsBuilder: IterableContainsBuilder<E, T, S>
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
-    override val checkers = listOf(IterableContainsNotChecker())
+    override val checkers = listOf(
+        IterableContainsCheckers.newContainsNotChecker()
+    )
 }
 

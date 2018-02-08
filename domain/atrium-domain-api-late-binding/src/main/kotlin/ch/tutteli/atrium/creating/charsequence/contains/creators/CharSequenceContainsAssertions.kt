@@ -10,47 +10,41 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * A dummy implementation of [ICharSequenceContainsAssertions] which should be replaced by an actual implementation.
  */
-object CharSequenceContainsAssertions: ICharSequenceContainsAssertions {
+object CharSequenceContainsAssertions : ICharSequenceContainsAssertions {
 
     override fun <T : CharSequence> containsValues(
         checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: Any,
         otherExpected: Array<out Any>
-    ): AssertionGroup
-        = throwUnsupportedOperationException()
+    ): AssertionGroup = throwUnsupportedOperationException()
 
     override fun <T : CharSequence> containsValuesIgnoringCase(
         checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: Any,
         otherExpected: Array<out Any>
-    ): AssertionGroup
-        = throwUnsupportedOperationException()
+    ): AssertionGroup = throwUnsupportedOperationException()
 
     override fun <T : CharSequence> containsDefaultTranslationOf(
         checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: Translatable,
         otherExpected: Array<out Translatable>
-    ): AssertionGroup
-        = throwUnsupportedOperationException()
+    ): AssertionGroup = throwUnsupportedOperationException()
 
     override fun <T : CharSequence> containsDefaultTranslationOfIgnoringCase(
         checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: Translatable,
         otherExpected: Array<out Translatable>
-    ): AssertionGroup
-        = throwUnsupportedOperationException()
+    ): AssertionGroup = throwUnsupportedOperationException()
 
     override fun <T : CharSequence> containsRegex(
         checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: String,
         otherExpected: Array<out String>
-    ): AssertionGroup
-        = throwUnsupportedOperationException()
+    ): AssertionGroup = throwUnsupportedOperationException()
 
     override fun <T : CharSequence> containsRegexIgnoringCase(
         checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: String,
         otherExpected: Array<out String>
-    ): AssertionGroup
-        = throwUnsupportedOperationException()
+    ): AssertionGroup = throwUnsupportedOperationException()
 }
