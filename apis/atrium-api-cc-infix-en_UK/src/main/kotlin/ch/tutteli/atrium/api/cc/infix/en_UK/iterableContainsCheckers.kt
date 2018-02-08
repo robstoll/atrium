@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.*
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.*
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
