@@ -14,19 +14,19 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  */
 interface IIterableContainsAssertions {
     fun <E, T : Iterable<E>> containsObjectsInAnyOrder(
-        checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
+        checkerBuilder: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
     ): Assertion
 
     fun <E : Any, T : Iterable<E>> containsEntriesInAnyOrder(
-        checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
+        checkerBuilder: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
         assertionCreator: AssertionPlant<E>.() -> Unit,
         otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
     ): Assertion
 
     fun <E : Any, T : Iterable<E?>> containsNullableEntriesInAnyOrder(
-        checker: IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>,
+        checkerBuilder: IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>,
         assertionCreator: (AssertionPlant<E>.() -> Unit)?,
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
     ): Assertion
