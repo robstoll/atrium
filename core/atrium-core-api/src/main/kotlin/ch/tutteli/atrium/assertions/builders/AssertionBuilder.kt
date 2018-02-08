@@ -1,5 +1,6 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.assertions.builders
 
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -101,7 +102,7 @@ object AssertionBuilder {
          * See [ExplanatoryAssertionBuilder.create] for details.
          */
         fun createWithExplanatoryAssertion(translatable: Translatable, arg: Any, vararg otherArgs: Any)
-            = create(AssertionBuilder.explanatory.create(translatable, arg, *otherArgs))
+            = create(explanatory.create(translatable, arg, *otherArgs))
 
         /**
          * Creates the [AssertionGroup] using the given [translatable] to create an [ExplanatoryAssertion] which is used
@@ -110,7 +111,7 @@ object AssertionBuilder {
          * See [ExplanatoryAssertionBuilder.create] for details.
          */
         fun createWithExplanatoryAssertion(translatable: Translatable)
-            = create(AssertionBuilder.explanatory.create(translatable))
+            = create(explanatory.create(translatable))
 
         /**
          * Creates the [AssertionGroup] using the given [assertion] as single [Assertion] in [AssertionGroup.assertions].

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -34,20 +35,20 @@ interface AssertionGroup : Assertion {
 
     @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")
     object Builder {
-        @Deprecated("Use AssertionBuilder.root instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.root", "ch.tutteli.atrium.assertions.AssertionBuilder"))
+        @Deprecated("Use AssertionBuilder.root instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.root", "ch.tutteli.atrium.assertions.builders.AssertionBuilder"))
         val root = BasicAssertionGroupBuilder(RootAssertionGroupType)
-        @Deprecated("use AssertionBuilder.list instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.list", "ch.tutteli.atrium.assertions.AssertionBuilder"))
+        @Deprecated("use AssertionBuilder.list instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.list", "ch.tutteli.atrium.assertions.builders.AssertionBuilder"))
         val list = BasicAssertionGroupBuilder(DefaultListAssertionGroupType)
-        @Deprecated("use AssertionBuilder.feature instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.feature", "ch.tutteli.atrium.assertions.AssertionBuilder"))
+        @Deprecated("use AssertionBuilder.feature instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.feature", "ch.tutteli.atrium.assertions.builders.AssertionBuilder"))
         val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)
-        @Deprecated("use AssertionBuilder.summary instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.summary", "ch.tutteli.atrium.assertions.AssertionBuilder"))
+        @Deprecated("use AssertionBuilder.summary instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.summary", "ch.tutteli.atrium.assertions.builders.AssertionBuilder"))
         val summary = BasicAssertionGroupBuilder(DefaultSummaryAssertionGroupType)
-        @Deprecated("use AssertionBuilder.explanatoryGroup instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.explanatoryGroup", "ch.tutteli.atrium.assertions.AssertionBuilder"))
+        @Deprecated("use AssertionBuilder.explanatoryGroup instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.explanatoryGroup", "ch.tutteli.atrium.assertions.builders.AssertionBuilder"))
         val explanatory = ExplanatoryAssertionGroupOption()
-        @Deprecated("use AssertionBuilder.invisible instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.invisible", "ch.tutteli.atrium.assertions.AssertionBuilder"))
+        @Deprecated("use AssertionBuilder.invisible instead, will be removed with 1.0.0", ReplaceWith("AssertionBuilder.invisible", "ch.tutteli.atrium.assertions.builders.AssertionBuilder"))
         val invisible = EmptyNameAndSubjectAssertionGroupBuilder(DefaultInvisibleAssertionGroupType)
 
-        @Deprecated("use AssertionBuilder.withType instead", ReplaceWith("AssertionBuilder.withType(groupType)", "ch.tutteli.atrium.assertions.AssertionBuilder"))
+        @Deprecated("use AssertionBuilder.withType instead", ReplaceWith("AssertionBuilder.withType(groupType)", "ch.tutteli.atrium.assertions.builders.AssertionBuilder"))
         fun withType(groupType: AssertionGroupType) = BasicAssertionGroupBuilder(groupType)
 
         @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.reporting.RawString
 
