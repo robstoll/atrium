@@ -1,17 +1,17 @@
-package ch.tutteli.atrium.assertions.assertionbuilder
+package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.AssertionComposer
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Builder to create a descriptive [Assertion] with an additional hint which is only shown if the `test()` fails.
  */
 @Suppress("unused")
-fun AssertionBuilder.DescriptiveAssertionBuilder.withFailureHint(failureHintFactory: () -> AssertionGroup)
-    = DescriptiveAssertionWithFailureHintOption(failureHintFactory)
+fun AssertionBuilder.DescriptiveAssertionBuilder.withFailureHint(failureHintFactory: () -> AssertionGroup) =
+    DescriptiveAssertionWithFailureHintOption(failureHintFactory)
 
 /**
  * Provides options to create a descriptive [Assertion] with an additional failure hint.
@@ -36,18 +36,11 @@ class DescriptiveAssertionWithFailureHintBuilder internal constructor(
         description: Translatable,
         representation: Any,
         test: () -> Boolean
-    ): Assertion {
-        val holds = try {
-            test()
-        } catch (e: PlantHasNoSubjectException) {
-            true //TODO that's a hack, do we have a better solution?
-        }
-        return if (holds || !showHint()) {
-            AssertionBuilder.descriptive.create(description, representation, holds)
-        } else {
-            AssertionBuilder.fixHoldsGroup.createFailingWithListType(
-                description, representation, failureHintFactory()
-            )
-        }
-    }
+    ): Assertion = AssertionComposer.createDescriptiveWithFailureHint(
+        description,
+        representation,
+        test,
+        showHint,
+        failureHintFactory
+    )
 }

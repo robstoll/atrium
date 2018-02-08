@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.assertions.assertionbuilder.fixHoldsGroup
+import ch.tutteli.atrium.assertions.builders.fixHoldsGroup
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString

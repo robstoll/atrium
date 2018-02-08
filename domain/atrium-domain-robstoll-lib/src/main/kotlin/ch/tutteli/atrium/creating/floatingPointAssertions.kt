@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertion.*
-import ch.tutteli.atrium.assertions.assertionbuilder.withFailureHint
+import ch.tutteli.atrium.assertions.builders.withFailureHint
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import java.math.BigDecimal
 import java.text.DecimalFormat
