@@ -12,37 +12,37 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 object CharSequenceContainsAssertions : ICharSequenceContainsAssertions {
 
-    override fun <T : CharSequence> containsValues(
+    override fun <T : CharSequence> values(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: Any,
         otherExpected: Array<out Any>
     ): AssertionGroup = throwUnsupportedOperationException()
 
-    override fun <T : CharSequence> containsValuesIgnoringCase(
+    override fun <T : CharSequence> valuesIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: Any,
         otherExpected: Array<out Any>
     ): AssertionGroup = throwUnsupportedOperationException()
 
-    override fun <T : CharSequence> containsDefaultTranslationOf(
+    override fun <T : CharSequence> defaultTranslationOf(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: Translatable,
         otherExpected: Array<out Translatable>
     ): AssertionGroup = throwUnsupportedOperationException()
 
-    override fun <T : CharSequence> containsDefaultTranslationOfIgnoringCase(
+    override fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: Translatable,
         otherExpected: Array<out Translatable>
     ): AssertionGroup = throwUnsupportedOperationException()
 
-    override fun <T : CharSequence> containsRegex(
+    override fun <T : CharSequence> regex(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: String,
         otherExpected: Array<out String>
     ): AssertionGroup = throwUnsupportedOperationException()
 
-    override fun <T : CharSequence> containsRegexIgnoringCase(
+    override fun <T : CharSequence> regexIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: String,
         otherExpected: Array<out String>

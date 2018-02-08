@@ -11,37 +11,37 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ICharSequenceContainsAssertions {
-    fun <T : CharSequence> containsValues(
+    fun <T : CharSequence> values(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: Any,
         otherExpected: Array<out Any>
     ): AssertionGroup
 
-    fun <T : CharSequence> containsValuesIgnoringCase(
+    fun <T : CharSequence> valuesIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: Any,
         otherExpected: Array<out Any>
     ): AssertionGroup
 
-    fun <T : CharSequence> containsDefaultTranslationOf(
+    fun <T : CharSequence> defaultTranslationOf(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: Translatable,
         otherExpected: Array<out Translatable>
     ): AssertionGroup
 
-    fun <T : CharSequence> containsDefaultTranslationOfIgnoringCase(
+    fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: Translatable,
         otherExpected: Array<out Translatable>
     ): AssertionGroup
 
-    fun <T : CharSequence> containsRegex(
+    fun <T : CharSequence> regex(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
         expected: String,
         otherExpected: Array<out String>
     ): AssertionGroup
 
-    fun <T : CharSequence> containsRegexIgnoringCase(
+    fun <T : CharSequence> regexIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
         expected: String,
         otherExpected: Array<out String>

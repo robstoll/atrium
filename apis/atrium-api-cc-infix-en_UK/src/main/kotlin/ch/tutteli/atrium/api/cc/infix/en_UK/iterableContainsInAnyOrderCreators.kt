@@ -68,7 +68,7 @@ infix fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.containsObjectsInAnyOrder(this, objects.expected, objects.otherExpected))
+    = addAssertion(IterableContainsAssertions.objectsInAnyOrder(this, objects.expected, objects.otherExpected))
 
 
 /**
@@ -98,7 +98,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, Iterab
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.containsEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = addAssertion(IterableContainsAssertions.entriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -129,4 +129,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, Iter
  */
 @JvmName("nullableEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.containsNullableEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = addAssertion(IterableContainsAssertions.nullableEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
