@@ -10,5 +10,9 @@ dependencies {
 }
 
 dokka {
-    sourceDirs = files(srcKotlin)
+    sourceDirs = files(
+        srcKotlin,
+        "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
+        "${rootProject.projectDir}/${rootProject.name}-core-api-late-binding/$srcKotlin",
+    )
 }

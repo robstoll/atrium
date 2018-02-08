@@ -4,7 +4,7 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-domain-api")
+    compile project(":${rootProject.name}-domain-builders")
     compileOnly project(":${rootProject.name}-domain-api-late-binding")
 
     testCompile project(":${rootProject.name}-domain-robstoll")

@@ -22,7 +22,7 @@ dokka {
     sourceDirs = files(
         srcKotlin,
         "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-core-robstoll/$srcKotlin"
+        "${rootProject.projectDir}/${rootProject.name}-core-robstoll/$srcKotlin",
     )
 }
 

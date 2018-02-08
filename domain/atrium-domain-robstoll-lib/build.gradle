@@ -16,3 +16,13 @@ dependencies {
     testCompile project(":${rootProject.name}-api-cc-en_UK")
     testCompile project(":${rootProject.name}-spec")
 }
+
+dokka {
+    sourceDirs = files(
+        srcKotlin,
+        "${rootProject.projectDir}/${rootProject.name}-domain-api/$srcKotlin",
+        "${rootProject.projectDir}/${rootProject.name}-domain-robstoll/$srcKotlin",
+        "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
+        "${rootProject.projectDir}/${rootProject.name}-core-api-late-binding/$srcKotlin",
+    )
+}

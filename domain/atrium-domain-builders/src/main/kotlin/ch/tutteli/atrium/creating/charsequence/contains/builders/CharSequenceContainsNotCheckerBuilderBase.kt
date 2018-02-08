@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsNotChecker
+import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsCheckers
 
 /**
  * The base class for builders which create a `contains not` check within the fluent API of a sophisticated
@@ -18,6 +18,8 @@ abstract class CharSequenceContainsNotCheckerBuilderBase<out T : CharSequence, o
     containsBuilder: CharSequenceContainsBuilder<T, S>
 ) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
 
-    override val checkers = listOf(CharSequenceContainsNotChecker())
+    override val checkers = listOf(
+        CharSequenceContainsCheckers.newContainsNotChecker()
+    )
 }
 
