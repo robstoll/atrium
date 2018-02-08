@@ -2,7 +2,7 @@ package ch.tutteli.atrium.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.builders.fixHoldsGroup

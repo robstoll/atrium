@@ -2,6 +2,7 @@ package ch.tutteli.atrium.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.*
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
@@ -74,7 +75,8 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
     protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: S, list: MutableList<E?>): Pair<Boolean, Assertion>
 
     private fun createSizeFeatureAssertion(allSearchCriteria: List<S>, actualSize: Int): MutableList<Assertion>
-        = mutableListOf(AssertionBuilder.descriptive.create(
+        = mutableListOf(
+        AssertionBuilder.descriptive.create(
             DescriptionAnyAssertion.TO_BE,
             RawString.create(allSearchCriteria.size.toString()),
             { actualSize == allSearchCriteria.size }

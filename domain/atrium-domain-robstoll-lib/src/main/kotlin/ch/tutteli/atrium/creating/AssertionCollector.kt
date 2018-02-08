@@ -2,6 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable

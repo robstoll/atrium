@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.basic.contains.checkers
 
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.reporting.RawString

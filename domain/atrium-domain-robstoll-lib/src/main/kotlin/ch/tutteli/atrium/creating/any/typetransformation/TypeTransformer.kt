@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating.any.typetransformation
 
 import ch.tutteli.atrium.CoreFactory
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
