@@ -14,7 +14,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSeq
  */
 val <T : CharSequence> CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.ignoriereGrossKleinschreibung
     get() : CharSequenceContainsBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
-    = CharSequenceContainsSearchBehaviours.containsIgnoringCase(this)
+    = CharSequenceContainsSearchBehaviours.ignoringCase(this)
 
 /**
  * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.

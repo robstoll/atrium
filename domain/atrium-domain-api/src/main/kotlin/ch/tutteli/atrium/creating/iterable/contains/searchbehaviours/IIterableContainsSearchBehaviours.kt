@@ -8,19 +8,19 @@ import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBui
  * has to provide.
  */
 interface IIterableContainsSearchBehaviours {
-    fun <E, T : Iterable<E>> containsInAnyOrder(
+    fun <E, T : Iterable<E>> inAnyOrder(
         containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
     ): IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
 
-    fun <E, T : Iterable<E>> containsInAnyOrderOnly(
+    fun <E, T : Iterable<E>> inAnyOrderOnly(
         containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
     ): IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>
 
-    fun <E, T : Iterable<E>> containsInOrder(
+    fun <E, T : Iterable<E>> inOrder(
         containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
     ): IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
 
-    fun <E, T : Iterable<E>> containsInOrderOnly(
+    fun <E, T : Iterable<E>> inOrderOnly(
         containsBuilder: IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
     ): IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>
 }
