@@ -7,13 +7,14 @@ import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviourImpl
 import ch.tutteli.atrium.reporting.RawString
 
-fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)
+fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
     = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour())
 
-fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>)
-    = CharSequenceContainsBuilder(plant, CharSequenceContainsNotSearchBehaviour())
+fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContainsBuilder<T, CharSequenceContainsNotSearchBehaviour>
+    = CharSequenceContainsBuilder(plant, CharSequenceContainsNotSearchBehaviourImpl())
 
 
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion

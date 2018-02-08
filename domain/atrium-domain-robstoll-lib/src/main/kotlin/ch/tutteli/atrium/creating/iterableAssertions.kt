@@ -4,8 +4,8 @@ import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBui
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNotSearchBehaviour
 
-fun <E, T : Iterable<E>> _containsBuilder(plant: AssertionPlant<T>)
+fun <E, T : Iterable<E>> _containsBuilder(plant: AssertionPlant<T>): IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
     = IterableContainsBuilder(plant, IterableContainsNoOpSearchBehaviour())
 
-fun <E, T : Iterable<E>> _containsNotBuilder(plant: AssertionPlant<T>)
+fun <E, T : Iterable<E>> _containsNotBuilder(plant: AssertionPlant<T>): IterableContainsBuilder<E, T, IterableContainsNotSearchBehaviour>
     = IterableContainsBuilder(plant, IterableContainsNotSearchBehaviour())

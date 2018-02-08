@@ -3,7 +3,8 @@ package ch.tutteli.atrium.creating.iterable.contains.checkers
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 
 /**
- * Defines the minimum set of [IterableContains.Checker]s an implementation of the domain of Atrium has to provide.
+ * Defines the minimum set of [IterableContains.Checker]s an implementation of the domain of Atrium
+ * has to provide.
  */
 interface IIterableContainsCheckers {
     fun newContainsAtLeastChecker(
