@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
  * has to provide.
  */
 interface ICharSequenceContainsSearchBehaviours {
-    fun <T : CharSequence> containsIgnoringCase(
+    fun <T : CharSequence> ignoringCase(
         containsBuilder: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
     ): CharSequenceContainsBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
 }
