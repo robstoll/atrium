@@ -51,6 +51,6 @@ abstract class IterableContainsButAtMostCheckerBuilderBase<out E, out T : Iterab
 
     override val checkers: List<Checker> = listOf(
         *atLeastBuilder.checkers.toTypedArray(),
-        IterableContainsCheckers.newContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
+        IterableContainsCheckers.newAtMostChecker(times, nameContainsNotFun, atMostCall)
     )
 }

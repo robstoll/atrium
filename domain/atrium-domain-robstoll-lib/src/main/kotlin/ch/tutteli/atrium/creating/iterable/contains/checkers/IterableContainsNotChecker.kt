@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 
 /**
- * Represents a check that an expected object is not contained in the search input.
+ * Represents a check that an expected entry is not contained in the [Iterable].
  */
 class IterableContainsNotChecker : IterableContains.Checker {
 

@@ -27,6 +27,6 @@ abstract class IterableContainsNotOrAtMostCheckerBuilderBase<out E, out T : Iter
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
     override val checkers: List<Checker> = listOf(
-        IterableContainsCheckers.newContainsAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)
+        IterableContainsCheckers.newAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)
     )
 }

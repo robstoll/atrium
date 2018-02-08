@@ -30,6 +30,6 @@ abstract class CharSequenceContainsAtLeastCheckerBuilderBase<out T : CharSequenc
 ) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
 
     override val checkers: List<Checker> = listOf(
-        CharSequenceContainsCheckers.newContainsAtLeastChecker(times, nameContainsNotFun, atLeastCall)
+        CharSequenceContainsCheckers.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)
     )
 }
