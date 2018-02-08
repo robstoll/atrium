@@ -30,6 +30,6 @@ abstract class IterableContainsAtLeastCheckerBuilderBase<out E, out T : Iterable
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
     override val checkers: List<Checker> = listOf(
-        IterableContainsCheckers.newContainsAtLeastChecker(times, nameContainsNotFun, atLeastCall)
+        IterableContainsCheckers.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)
     )
 }

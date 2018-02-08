@@ -31,6 +31,6 @@ abstract class IterableContainsExactlyCheckerBuilderBase<out E, out T : Iterable
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
     override val checkers: List<Checker> = listOf(
-        IterableContainsCheckers.newContainsExactlyChecker(times, nameContainsNotFun, exactlyCall)
+        IterableContainsCheckers.newExactlyChecker(times, nameContainsNotFun, exactlyCall)
     )
 }

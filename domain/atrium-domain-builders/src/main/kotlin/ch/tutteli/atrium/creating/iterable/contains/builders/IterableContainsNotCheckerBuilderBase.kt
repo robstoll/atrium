@@ -18,7 +18,7 @@ abstract class IterableContainsNotCheckerBuilderBase<out E, out T : Iterable<E>,
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
 
     override val checkers = listOf(
-        IterableContainsCheckers.newContainsNotChecker()
+        IterableContainsCheckers.newNotChecker()
     )
 }
 

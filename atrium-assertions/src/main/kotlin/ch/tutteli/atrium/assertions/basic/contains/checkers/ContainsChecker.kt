@@ -26,7 +26,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.basic.contains.checkers.ContainsChecker"))
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 abstract class ContainsChecker(
     val times: Int,
     correctCall: String,

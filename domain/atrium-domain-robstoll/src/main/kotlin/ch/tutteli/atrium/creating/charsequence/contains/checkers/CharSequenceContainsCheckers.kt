@@ -6,27 +6,27 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
  * Robstoll's implementation of [ICharSequenceContainsCheckers].
  */
 object CharSequenceContainsCheckers : ICharSequenceContainsCheckers {
-    override fun newContainsAtLeastChecker(
+    override fun newAtLeastChecker(
         times: Int,
         nameContainsNotFun: String,
         atLeastCall: (Int) -> String
     ): CharSequenceContains.Checker
         = CharSequenceContainsAtLeastChecker(times, nameContainsNotFun, atLeastCall)
 
-    override fun newContainsAtMostChecker(
+    override fun newAtMostChecker(
         times: Int,
         nameContainsNotFun: String,
         atMostCall: (Int) -> String
     ): CharSequenceContains.Checker
         = CharSequenceContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
 
-    override fun newContainsExactlyChecker(
+    override fun newExactlyChecker(
         times: Int,
         nameContainsNotFun: String,
         exactlyCall: (Int) -> String
     ): CharSequenceContains.Checker
         = CharSequenceContainsExactlyChecker(times, nameContainsNotFun, exactlyCall)
 
-    override fun newContainsNotChecker(): CharSequenceContains.Checker
+    override fun newNotChecker(): CharSequenceContains.Checker
         = CharSequenceContainsNotChecker()
 }

@@ -7,24 +7,24 @@ import ch.tutteli.atrium.creating.throwUnsupportedOperationException
  * A dummy implementation of [IIterableContainsCheckers] which should be replaced by an actual implementation.
  */
 object IterableContainsCheckers : IIterableContainsCheckers {
-    override fun newContainsAtLeastChecker(
+    override fun newAtLeastChecker(
         times: Int,
         nameContainsNotFun: String,
         atLeastCall: (Int) -> String
     ): IterableContains.Checker = throwUnsupportedOperationException()
 
-    override fun newContainsAtMostChecker(
+    override fun newAtMostChecker(
         times: Int,
         nameContainsNotFun: String,
         atMostCall: (Int) -> String
     ): IterableContains.Checker = throwUnsupportedOperationException()
 
-    override fun newContainsExactlyChecker(
+    override fun newExactlyChecker(
         times: Int,
         nameContainsNotFun: String,
         exactlyCall: (Int) -> String
     ): IterableContains.Checker = throwUnsupportedOperationException()
 
-    override fun newContainsNotChecker(): IterableContains.Checker
+    override fun newNotChecker(): IterableContains.Checker
         = throwUnsupportedOperationException()
 }
