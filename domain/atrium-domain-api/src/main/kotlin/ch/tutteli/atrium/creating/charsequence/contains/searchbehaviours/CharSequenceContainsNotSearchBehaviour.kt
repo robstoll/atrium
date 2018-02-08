@@ -1,16 +1,9 @@
 package ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours
 
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
-import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
- * Represents the default search behaviour but uses [DescriptionCharSequenceAssertion.CONTAINS_NOT] for the description.
+ * Represents still the default search behaviour but a [CharSequenceContains.Checker] should be used which verifies
+ * that the [CharSequenceContains.Searcher] could not find the expected object.
  */
-open class CharSequenceContainsNotSearchBehaviour : CharSequenceContainsNoOpSearchBehaviour() {
-    /**
-     * Returns [DescriptionCharSequenceAssertion.CONTAINS_NOT].
-     * @return [DescriptionCharSequenceAssertion.CONTAINS_NOT]
-     */
-    override fun decorateDescription(description: Translatable)
-        = DescriptionCharSequenceAssertion.CONTAINS_NOT
-}
+abstract class CharSequenceContainsNotSearchBehaviour : CharSequenceContainsNoOpSearchBehaviour()
