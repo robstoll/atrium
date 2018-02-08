@@ -9,14 +9,14 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Defines the contract for sophisticated [CharSequence] `contains` assertions.
  */
-@Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains"))
+@Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains"))
 interface CharSequenceContains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Searcher] how this behaviour is implemented -- yet, it
      * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
      */
-    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour"))
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour"))
     interface SearchBehaviour : Contains.SearchBehaviour
 
     /**
@@ -26,7 +26,7 @@ interface CharSequenceContains {
      * @param T The type of the [AssertionPlant.subject].
      * @param S The type of the search criteria.
      */
-    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Creator"))
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Creator"))
     interface Creator<in T : CharSequence, in S> : Contains.Creator<T, S>
 
     /**
@@ -35,7 +35,7 @@ interface CharSequenceContains {
      *
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
-    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Checker"))
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Checker"))
     interface Checker : Contains.Checker
 
     /**
@@ -45,7 +45,7 @@ interface CharSequenceContains {
      *   will look for something -- the actual implementation of the search behaviour happens in the
      *   [Searcher]; [SearchBehaviour] only decorates the [Translatable] for reporting.
      */
-    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Searcher"))
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Searcher"))
     interface Searcher<S : SearchBehaviour> {
         /**
          * Searches in the given [searchIn] for the given [searchFor], using its [toString][Any.toString]
