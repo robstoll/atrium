@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
+package ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.atLeast
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsAtLeastCheckerBuilderBase
