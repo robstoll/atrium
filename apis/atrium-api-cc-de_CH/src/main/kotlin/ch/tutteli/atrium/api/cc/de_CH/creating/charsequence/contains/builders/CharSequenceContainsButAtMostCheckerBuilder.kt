@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
+package ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.api.cc.de_CH.aberHoechstens
 import ch.tutteli.atrium.api.cc.de_CH.genau

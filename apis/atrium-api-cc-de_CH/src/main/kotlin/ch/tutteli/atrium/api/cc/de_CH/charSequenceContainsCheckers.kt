@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.*
+import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.*
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 
