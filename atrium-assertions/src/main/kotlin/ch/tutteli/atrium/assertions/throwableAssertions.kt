@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuild
 import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import kotlin.reflect.KClass
 
-@Deprecated("use ThrowableThrownAssertions.toThrow instead, will be removed with 1.0.0", ReplaceWith("ThrowableThrownAssertions.toThrow(throwableThrownBuilder, expectedType, assertionCreator)"))
+@Deprecated("use ThrowableThrownAssertions.toBe instead, will be removed with 1.0.0", ReplaceWith("ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)"))
 fun <TExpected : Throwable> _toThrow(throwableThrownBuilder: ThrowableThrownBuilder, expectedType: KClass<TExpected>, assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
-    ThrowableThrownAssertions.toThrow(throwableThrownBuilder, expectedType, assertionCreator)
+    ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 }

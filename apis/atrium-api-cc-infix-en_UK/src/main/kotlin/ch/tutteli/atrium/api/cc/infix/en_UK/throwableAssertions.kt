@@ -32,7 +32,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow() {
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
-    ThrowableThrownAssertions.toThrow(this, TExpected::class, assertionCreator)
+    ThrowableThrownAssertions.toBe(this, TExpected::class, assertionCreator)
 }
 
 /**
