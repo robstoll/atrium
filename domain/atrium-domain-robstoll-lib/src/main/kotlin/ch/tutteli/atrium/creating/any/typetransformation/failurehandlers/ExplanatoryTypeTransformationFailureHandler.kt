@@ -14,11 +14,11 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Represents an [AnyTypeTransformation.FailureHandler] which wraps subsequent assertions into an
  * [AssertionGroup] with an [ExplanatoryAssertionGroupType].
  *
- * @param T The type of the [AssertionPlant.subject].
- * @param T The type to which the [AssertionPlant.subject] should have been down-casted.
+ * @param S The type of the [AssertionPlant.subject].
+ * @param T The target type to which the [AssertionPlant.subject] should have been down-casted.
  */
-class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
-    AnyTypeTransformation.FailureHandler<T, TSub> {
+class ExplanatoryTypeTransformationFailureHandler<in S : Any, out T : Any> :
+    AnyTypeTransformation.FailureHandler<S, T> {
 
     /**
      * Creates a failing assertion and wraps the assertion which might be created by [ParameterObject.assertionCreator]
@@ -30,7 +30,7 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
      *
      * @throws AssertionError Might throw an [AssertionError] depending on the [ParameterObject.subjectPlant].
      */
-    override fun createAndAddAssertionToPlant(parameterObject: ParameterObject<T, TSub>) {
+    override fun createAndAddAssertionToPlant(parameterObject: ParameterObject<S, T>) {
         val explanatoryAssertions = collectAssertions(parameterObject.warningTransformationFailed, parameterObject.assertionCreator)
         val assertion = AssertionBuilder.invisibleGroup.create(listOf(
             AssertionBuilder.descriptive.create(parameterObject.description, parameterObject.representation, false),
@@ -41,7 +41,7 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
 
     private fun collectAssertions(
         warningDownCastFailed: Translatable,
-        assertionCreator: AssertionPlant<TSub>.() -> Unit
+        assertionCreator: AssertionPlant<T>.() -> Unit
     ) = AssertionCollector
         .doNotThrowIfNoAssertionIsCollected
         .collectAssertionsForExplanation(warningDownCastFailed, assertionCreator, null)

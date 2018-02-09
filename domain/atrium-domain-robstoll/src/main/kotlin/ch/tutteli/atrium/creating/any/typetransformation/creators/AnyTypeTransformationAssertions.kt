@@ -33,13 +33,15 @@ object AnyTypeTransformationAssertions : IAnyTypeTransformationAssertions {
         description: Translatable,
         subType: KClass<TSub>,
         subjectPlant: BaseAssertionPlant<T?, *>,
-        assertionCreator: AssertionPlant<TSub>.() -> Unit
+        assertionCreator: AssertionPlant<TSub>.() -> Unit,
+        failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>
     ) {
         _downCast(
             description,
             subType,
             subjectPlant,
-            assertionCreator
+            assertionCreator,
+            failureHandler
         )
     }
 
@@ -47,12 +49,14 @@ object AnyTypeTransformationAssertions : IAnyTypeTransformationAssertions {
     override fun <S : Any, T : Any> typeTransformation(
         parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
         canBeTransformed: (S) -> Boolean,
-        transform: (S) -> T
+        transform: (S) -> T,
+        failureHandler: AnyTypeTransformation.FailureHandler<S, T>
     ) {
         _typeTransformation(
             parameterObject,
             canBeTransformed,
-            transform
+            transform,
+            failureHandler
         )
     }
 }

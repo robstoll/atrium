@@ -16,14 +16,9 @@ import kotlin.reflect.full.cast
  *
  * @param T The type of [BaseAssertionPlant.subject].
  * @param TSub The type to which [BaseAssertionPlant.subject] can be down-casted, hence needs to be a subtype of [T].
- *
- * @constructor Helps to make an assertion about the [BaseAssertionPlant.subject], that it is of type [T] and can be
- *   down-casted to type [TSub].
- * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions
- *   for a down-casted subject.
  */
-class DownCastAssertionCreator<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>) {
-    private val creator = TypeTransformationAssertionCreator(failureHandler)
+class DownCastAssertionCreator<T : Any, TSub : T> {
+    private val creator = TypeTransformationAssertionCreator<T, TSub>()
 
     /**
      * Performs the down-cast and applies the given [assertionCreator] to the down-casted
@@ -37,6 +32,8 @@ class DownCastAssertionCreator<T : Any, TSub : T>(failureHandler: AnyTypeTransfo
      * @param subType The type to which the [subjectPlant]'s [subject][AssertionPlant.subject] should be down-casted.
      * @param subjectPlant The plant to which additional assertions will be added.
      * @param assertionCreator The lambda function which can create subsequent assertions for the down-casted subject.
+     * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions
+     *   for a down-casted subject.
      *
      * @throws AssertionError Might throw an [AssertionError] in case the down-cast cannot be performed, depending on
      *   the [subjectPlant] and the defined [AnyTypeTransformation.FailureHandler].
@@ -45,7 +42,8 @@ class DownCastAssertionCreator<T : Any, TSub : T>(failureHandler: AnyTypeTransfo
         description: Translatable,
         subType: KClass<TSub>,
         subjectPlant: BaseAssertionPlant<T?, *>,
-        assertionCreator: AssertionPlant<TSub>.() -> Unit
+        assertionCreator: AssertionPlant<TSub>.() -> Unit,
+        failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>
     ) {
         val warningTransformationFailed = TranslatableWithArgs(
             DescriptionTypeTransformationAssertion.WARNING_DOWN_CAST_FAILED,
@@ -57,7 +55,8 @@ class DownCastAssertionCreator<T : Any, TSub : T>(failureHandler: AnyTypeTransfo
         creator.create(
             parameterObject,
             { subType.isInstance(it) },
-            { subType.cast(it) }
+            { subType.cast(it) },
+            failureHandler
         )
     }
 }

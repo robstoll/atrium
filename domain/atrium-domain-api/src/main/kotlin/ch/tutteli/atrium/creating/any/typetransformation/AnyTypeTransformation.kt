@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Defines the contract for sophisticated `type transformation` assertion builders.
  *
- * The assertion is created by a [AnyTypeTransformation.Creator] which itself typically uses a [FailureHandler] to
+ * The assertion is created by a [AnyTypeTransformation.Creator] which itself uses a [FailureHandler] to
  * report a failing transformation.
  */
 interface AnyTypeTransformation {
@@ -24,18 +24,20 @@ interface AnyTypeTransformation {
     interface Creator<S : Any, T : Any> {
         /**
          * Creates the type transformation [Assertion] and ads it to the given [ParameterObject.subjectPlant] and
-         * typically delegates to a [FailureHandler] if the transformation fails.
+         * delegates to the given [failureHandler] if the transformation fails.
          *
          * @param parameterObject The [ParameterObject] containing inter alia [ParameterObject.assertionCreator] to
          *   create subsequent assertions.
          * @param canBeTransformed Defines whether the subject of the given [ParameterObject.subjectPlant]
          *   (with type [S]) can be transformed to the target type [T].
          * @param transform The transformation function as such.
+         * @param failureHandler The failure handler which is called if the transformation cannot be executed
          */
         fun create(
             parameterObject: ParameterObject<S, T>,
             canBeTransformed: (S) -> Boolean,
-            transform: (S) -> T
+            transform: (S) -> T,
+            failureHandler: FailureHandler<S, T>
         )
     }
 

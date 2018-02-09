@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
+import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.AnyTypeTransformationFailureHandlers
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
@@ -49,7 +50,7 @@ fun <T : Any, TSub : T> _downCast(
     subjectPlant: BaseAssertionPlant<T?, *>,
     assertionCreator: AssertionPlant<TSub>.() -> Unit
 ) {
-    AnyTypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator)
+    AnyTypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator, AnyTypeTransformationFailureHandlers.newExplanatory())
 }
 
 @Deprecated(
@@ -71,5 +72,5 @@ fun <T : Any, TSub : Any> _typeTransformation(
     val parameterObject = AnyTypeTransformation.ParameterObject(
         description, representation, subjectPlant, assertionCreator, warningTransformationFailed
     )
-    AnyTypeTransformationAssertions.typeTransformation(parameterObject, canBeTransformed, transform)
+    AnyTypeTransformationAssertions.typeTransformation(parameterObject, canBeTransformed, transform, AnyTypeTransformationFailureHandlers.newExplanatory())
 }
