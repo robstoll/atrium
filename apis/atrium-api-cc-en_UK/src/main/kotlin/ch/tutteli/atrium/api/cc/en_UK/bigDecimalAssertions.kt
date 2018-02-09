@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.BigDecimalAssertions
 import java.math.BigDecimal
 
 @Deprecated("Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
@@ -40,7 +40,7 @@ fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
-    = addAssertion(BigDecimalAssertions.isNumericallyEqualTo(this, expected))
+    = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not numerically equal to [expected].
@@ -58,7 +58,7 @@ fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
-    = addAssertion(BigDecimalAssertions.isNotNumericallyEqualTo(this, expected))
+    = addAssertion(AssertImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
 
 
 /**
@@ -74,7 +74,7 @@ fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
-    = addAssertion(BigDecimalAssertions.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
+    = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
@@ -89,4 +89,4 @@ fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : BigDecimal> Assert<T>.isNotEqualIncludingScale(expected: T)
-    = addAssertion(BigDecimalAssertions.isNotEqualIncludingScale(this, expected))
+    = addAssertion(AssertImpl.bigDecimal.isNotEqualIncludingScale(this, expected))
