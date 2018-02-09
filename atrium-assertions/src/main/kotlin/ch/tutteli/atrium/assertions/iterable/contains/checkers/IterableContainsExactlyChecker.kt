@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents a check that an expected object is contained exactly [times] in the search input.

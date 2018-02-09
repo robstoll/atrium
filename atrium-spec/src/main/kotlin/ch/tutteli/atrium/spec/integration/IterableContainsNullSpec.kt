@@ -1,15 +1,15 @@
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
-import ch.tutteli.atrium.assertions.DescriptionBasic
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.FeatureAssertions
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.CONTAINS
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.CONTAINS_NOT
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe

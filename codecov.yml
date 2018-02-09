@@ -1,6 +1,9 @@
 ignore:
-    - "apis/**/assertions/**/*"
-    - "core/atrium-core-api/**/IAtriumFactory.kt"
     - "**/*-api-late-binding/**/*"
+
+    # TODO remove with 1.0.0
     - "atrium-assertions/**/*"
-    - "core/atrium-core-robstoll/**/AtriumFactory.kt"
+    - "apis/**/assertions/**/*"
+    - "translations/**/assertions/**/*"
+    - "**/IAtriumFactory.kt"
+    - "**/AtriumFactory.kt"

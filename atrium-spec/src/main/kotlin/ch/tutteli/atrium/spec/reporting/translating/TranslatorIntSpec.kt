@@ -2,14 +2,14 @@ package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
-import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -23,16 +23,16 @@ import java.util.*
  * which should be in
  *
  * the primary local: de_CH
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = ist
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = ist
  *
  * the primary Locale's natural first fallback: de
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = ist (de)
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = ist nicht
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = ist (de)
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE = ist nicht
  *
  * the fallback Locale: fr
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = est
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = n'est pas
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME = n'est pas la même instance que
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = est
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE = n'est pas
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME = n'est pas la même instance que
  * ch.tutteli.atrium.spec.AssertionVerb-ASSERT = il applique que
  * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_KNOWN = %tD était %<tA
  * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-PLACEHOLDER = Caractère de remplacement %s
@@ -42,58 +42,58 @@ import java.util.*
  * ch.tutteli.atrium.spec.reporting.translating.TranslationSupplierSpec$TestTranslatable-DATE_UNKNOWN = solo %tA!!
  *
  * the Locale zh_Hant_TW:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_TW
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_TW
  *
  * the Locale zh_TW:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_TW
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_TW
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_TW
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_TW
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_TW
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_TW
  *
  * the Locale zh_Hant_HK:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_HK
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_HK
  *
  * the Locale zh_HK:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_HK
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_HK
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_HK
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_HK
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_HK
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_HK
  *
  * the Locale zh_Hant_MO:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_MO
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hant_MO
  *
  * the Locale zh_MO:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_MO
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_MO
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_MO
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_MO
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_MO
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_MO
  *
  * the natural first fallback of zh_TW, zh_TK, zh_MO: zh_Hant
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = zh_Hant
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = NOT_TO_BE zh_Hant
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = zh_Hant
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE = NOT_TO_BE zh_Hant
  *
  * the Locale zh_Hans_CN:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans_CN
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans_CN
  *
  * the Locale zh_CN:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_CN
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_CN
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_CN
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_CN
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_CN
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_CN
  *
  * the Locale zh_Hans_SG:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans_SG
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans_SG
  *
  * the Locale zh_SG:
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE=TO_BE zh_SG
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_SG
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_SG
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE=TO_BE zh_SG
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh_SG
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh_SG
  *
  * the natural first fallback of zh_CN and zh_SG: zh_Hans
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE = NOT_TO_BE zh_Hans
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE = TO_BE zh_Hans
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE = NOT_TO_BE zh_Hans
  *
  * the natural second fallback for zh_... => zh
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-TO_BE =TO_BE zh
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
- * ch.tutteli.atrium.assertions.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-TO_BE =TO_BE zh
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-NOT_TO_BE=NOT_TO_BE zh
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_NOT_SAME=IS_NOT_SAME zh
+ * ch.tutteli.atrium.translations.DescriptionAnyAssertion-IS_SAME=IS_SAME zh
  */
 abstract class TranslatorIntSpec(
     verbs: AssertionVerbFactory,

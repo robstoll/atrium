@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
-import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
 import kotlin.reflect.KClass
 import kotlin.reflect.full.cast
 

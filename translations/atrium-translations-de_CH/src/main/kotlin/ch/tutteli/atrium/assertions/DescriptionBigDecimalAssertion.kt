@@ -6,10 +6,14 @@ import java.math.BigDecimal
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [BigDecimal].
  */
+@Deprecated(
+    "use the description from package translations, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion")
+)
 enum class DescriptionBigDecimalAssertion(override val value: String) : StringBasedTranslatable {
-    FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL("beachte, wäre %s verwendet worden, würde die Behauptung stimmen."),
-    IS_EQUAL_INCLUDING_SCALE("ist (inklusive Scale)"),
-    IS_NOT_EQUAL_INCLUDING_SCALE("ist nicht (inklusive Scale)"),
-    IS_NUMERICALLY_EQUAL_TO("ist numerisch gleich wie"),
-    IS_NOT_NUMERICALLY_EQUAL_TO("is nicht numerisch gleich wie"),
+    FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL(ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL.value),
+    IS_EQUAL_INCLUDING_SCALE(ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.IS_EQUAL_INCLUDING_SCALE.value),
+    IS_NOT_EQUAL_INCLUDING_SCALE(ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.IS_NOT_EQUAL_INCLUDING_SCALE.value),
+    IS_NUMERICALLY_EQUAL_TO(ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.IS_NUMERICALLY_EQUAL_TO.value),
+    IS_NOT_NUMERICALLY_EQUAL_TO(ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.IS_NOT_NUMERICALLY_EQUAL_TO.value),
 }

@@ -5,9 +5,9 @@ import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.DescriptionFloatingPointAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context

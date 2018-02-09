@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
 
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 
 /**
  * Represents the search behaviour that a [CharSequenceContains.Searcher] should ignore case

@@ -2,8 +2,8 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.DescriptionBigDecimalAssertion.*
 import ch.tutteli.atrium.assertions.builders.withFailureHint
+import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion.*
 import java.math.BigDecimal
 
 fun <T : BigDecimal> _isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)

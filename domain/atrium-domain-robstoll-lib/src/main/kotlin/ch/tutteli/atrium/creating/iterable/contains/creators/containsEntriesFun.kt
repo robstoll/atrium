@@ -2,14 +2,14 @@ package ch.tutteli.atrium.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixHoldsGroup
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 
 internal fun <E : Any> createExplanatoryAssertions(assertionCreator: (AssertionPlant<E>.() -> Unit)?, list: List<E?>)
