@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
-@Suppress("UNUSED_PARAMETER")
+
 /**
  * A dummy implementation of [ICoreFactory] which should be replaced by an actual implementation.
  *
@@ -30,6 +30,7 @@ import java.util.*
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
+@Suppress("UNUSED_PARAMETER")
 object CoreFactory : ICoreFactory {
 
     override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>

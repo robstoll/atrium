@@ -31,8 +31,9 @@ class ExplanatoryAssertionGroupOption internal constructor() {
 class ExplanatoryAssertionGroupBuilder internal constructor(private val groupType: ExplanatoryAssertionGroupType) {
 
     /**
-     * Creates the [AssertionGroup] using the given [translatable] -- which is used in an [TranslatableWithArgs]
-     * together with the given arguments ([arg] and optionally [otherArgs]) -- to create an [ExplanatoryAssertion]
+     * Creates the [AssertionGroup] with the previously specified [groupType] using the given [translatable]
+     * -- which is used in an [TranslatableWithArgs] together with the given arguments
+     * ([arg] and optionally [otherArgs]) -- to create an [ExplanatoryAssertion]
      * which is used as single [Assertion] in [AssertionGroup.assertions].
      *
      * See [ExplanatoryAssertionBuilder.create] for details.
@@ -41,8 +42,8 @@ class ExplanatoryAssertionGroupBuilder internal constructor(private val groupTyp
         = create(AssertionBuilder.explanatory.create(translatable, arg, *otherArgs))
 
     /**
-     * Creates the [AssertionGroup] using the given [translatable] to create an [ExplanatoryAssertion] which is used
-     * as single [Assertion] in [AssertionGroup.assertions].
+     * Creates the [AssertionGroup] with the previously specified [groupType] using the given [translatable]
+     * to create an [ExplanatoryAssertion] which is used as single [Assertion] in [AssertionGroup.assertions].
      *
      * See [ExplanatoryAssertionBuilder.create] for details.
      */
@@ -50,13 +51,15 @@ class ExplanatoryAssertionGroupBuilder internal constructor(private val groupTyp
         = create(AssertionBuilder.explanatory.create(translatable))
 
     /**
-     * Creates the [AssertionGroup] using the given [assertion] as single [Assertion] in [AssertionGroup.assertions].
+     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
+     * [assertion] as single [Assertion] in [AssertionGroup.assertions].
      */
     fun create(assertion: Assertion): AssertionGroup
         = create(listOf(assertion))
 
     /**
-     * Creates the [AssertionGroup] using the given [assertions] as [AssertionGroup.assertions].
+     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
+     * [assertions] as [AssertionGroup.assertions].
      */
     fun create(assertions: List<Assertion>): AssertionGroup
         = ExplanatoryAssertionGroup(groupType, assertions)

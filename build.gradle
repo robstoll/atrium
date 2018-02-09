@@ -27,7 +27,7 @@ buildscript {
         publish_vcsUrl = "${github_url}.git"
 
         //gh-pages.gradle
-        docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-core") }
+        docProjects = subprojects.findAll { !it.name.contains("robstoll") }
 
         //jacoco-multi-project.gradle
         projectsWithoutSources = projectsWithoutSourcesBuildScript
