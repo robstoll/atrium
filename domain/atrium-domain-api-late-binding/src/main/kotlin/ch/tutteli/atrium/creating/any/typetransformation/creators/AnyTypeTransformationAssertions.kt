@@ -11,8 +11,8 @@ import kotlin.reflect.KClass
 /**
  * A dummy implementation of [IAnyTypeTransformationAssertions] which should be replaced by an actual implementation.
  */
-object AnyTypeTransformationAssertions :
-    IAnyTypeTransformationAssertions {
+object AnyTypeTransformationAssertions : IAnyTypeTransformationAssertions {
+
     override fun <T : Any> isNotNull(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
@@ -31,13 +31,15 @@ object AnyTypeTransformationAssertions :
         description: Translatable,
         subType: KClass<TSub>,
         subjectPlant: BaseAssertionPlant<T?, *>,
-        assertionCreator: AssertionPlant<TSub>.() -> Unit
+        assertionCreator: AssertionPlant<TSub>.() -> Unit,
+        failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>
     ): Unit = throwUnsupportedOperationException()
 
 
     override fun <S : Any, T : Any> typeTransformation(
         parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
         canBeTransformed: (S) -> Boolean,
-        transform: (S) -> T
+        transform: (S) -> T,
+        failureHandler: AnyTypeTransformation.FailureHandler<S, T>
     ): Unit = throwUnsupportedOperationException()
 }

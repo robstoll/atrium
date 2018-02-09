@@ -6,14 +6,13 @@ import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
-class TypeTransformationAssertionCreator<S : Any, T : Any>(
-    private val failureHandler: AnyTypeTransformation.FailureHandler<S, T>
-) : AnyTypeTransformation.Creator<S, T> {
+class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformation.Creator<S, T> {
 
     override fun create(
         parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
         canBeTransformed: (S) -> Boolean,
-        transform: (S) -> T
+        transform: (S) -> T,
+        failureHandler: AnyTypeTransformation.FailureHandler<S, T>
     ) {
         val (description, representation, subjectPlant, assertionCreator) = parameterObject
         val subject = subjectPlant.subject

@@ -38,8 +38,8 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
         val throwable: Throwable? = catchThrowable(throwableThrownBuilder)
         val subjectPlant = createReportingPlantForThrowable(throwableThrownBuilder, throwable)
 
-        DownCastAssertionCreator<Throwable, TExpected>(failureHandler)
-            .downCast(description, expectedType, subjectPlant, assertionCreator)
+        DownCastAssertionCreator<Throwable, TExpected>()
+            .downCast(description, expectedType, subjectPlant, assertionCreator, failureHandler)
     }
 
     private fun catchThrowable(throwableThrownBuilder: ThrowableThrownBuilder): Throwable? {

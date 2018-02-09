@@ -28,12 +28,14 @@ interface IAnyTypeTransformationAssertions {
         description: Translatable,
         subType: KClass<TSub>,
         subjectPlant: BaseAssertionPlant<T?, *>,
-        assertionCreator: AssertionPlant<TSub>.() -> Unit
+        assertionCreator: AssertionPlant<TSub>.() -> Unit,
+        failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>
     )
 
     fun <S : Any, T : Any> typeTransformation(
         parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
         canBeTransformed: (S) -> Boolean,
-        transform: (S) -> T
+        transform: (S) -> T,
+        failureHandler: AnyTypeTransformation.FailureHandler<S, T>
     )
 }
