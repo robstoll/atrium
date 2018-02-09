@@ -155,7 +155,7 @@ Release & deploy a commit
     d) commit & push changes
 3. update master:
     a) point to the tag
-        1) search for old version and replace with new (gradle and maven)
+        1) search for old version and replace with new (gradle, maven and section own assertion verb in README.md)
         2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
         3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
         4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)

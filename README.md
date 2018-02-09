@@ -691,9 +691,11 @@ reporting style in the future without modifying existing test code.
 For instance, you could change from same-line to multi-line reporting or 
 report not only failing but also successful assertions, change the output language etc.
 
-In order to create an own assertion verb it is sufficient to copy the file content of 
-[atriumVerbs.kt](https://github.com/robstoll/atrium/blob/master/domain/atrium-domain-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
-paste it in your own atriumVerbs.kt, rename `assert` and `expect` as desired and rename the package to reflect yours.
+In order to create an own assertion verb it is sufficient to:
+ 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/blob/v0.6.0/domain/atrium-domain-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)<br/>
+    :warning: the link points to version 0.6.0, adjust it if you use an older version.
+ 2. Create an own atriumVerbs.kt located in the package `ch.tutteli.atrium` and paste the previously copied content
+ 3. Rename `assert` and `expect` as desired (you can also leave it that way of course).
 
 As you can see, it is up to you if you use the same name for all assertion functions or not 
 (Atrium itself uses `expect` to postulate assertions about thrown `Throwable`s and `assert` for other assertions).
