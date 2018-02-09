@@ -1,4 +1,5 @@
 ignore:
+    - "apis/**/assertions/**/*"
     - "core/atrium-core-api/**/IAtriumFactory.kt"
     - "**/*-api-late-binding/**/*"
     - "atrium-assertions/**/*"
