@@ -8,5 +8,5 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionCollectionAssertion(override val value: String) : StringBasedTranslatable {
     HAS_SIZE("hat die Grösse"),
-    EMPTY("leer")
+    EMPTY("leer"),
 }

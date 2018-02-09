@@ -9,5 +9,5 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionBasic(override val value: String) : StringBasedTranslatable {
     IS("is"),
-    IS_NOT("is not")
+    IS_NOT("is not"),
 }
