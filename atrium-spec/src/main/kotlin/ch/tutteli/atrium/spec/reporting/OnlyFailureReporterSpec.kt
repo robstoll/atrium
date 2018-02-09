@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.isEmpty
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator

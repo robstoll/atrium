@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -54,10 +53,10 @@ interface AssertionGroup : Assertion {
         @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")
         class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(name: Translatable, subject: Any, assertion: Assertion)
-                = AssertionBuilder.BasicAssertionGroupBuilder(groupType).create(name, subject, assertion)
+                = ch.tutteli.atrium.assertions.builders.BasicAssertionGroupBuilder(groupType).create(name, subject, assertion)
 
             fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
-                = AssertionBuilder.BasicAssertionGroupBuilder(groupType).create(name, subject, assertions)
+                = ch.tutteli.atrium.assertions.builders.BasicAssertionGroupBuilder(groupType).create(name, subject, assertions)
         }
 
         @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")
@@ -70,19 +69,19 @@ interface AssertionGroup : Assertion {
         @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")
         class ExplanatoryAssertionGroupBuilder(private val groupType: ExplanatoryAssertionGroupType) {
             fun create(assertion: Assertion): AssertionGroup
-                = AssertionBuilder.ExplanatoryAssertionGroupBuilder(groupType).create(assertion)
+                = ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupBuilder(groupType).create(assertion)
 
             fun create(assertions: List<Assertion>): AssertionGroup
-                = AssertionBuilder.ExplanatoryAssertionGroupBuilder(groupType).create(assertions)
+                = ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupBuilder(groupType).create(assertions)
         }
 
         @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")
         class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(assertion: Assertion): AssertionGroup
-                = AssertionBuilder.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertion)
+                = ch.tutteli.atrium.assertions.builders.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertion)
 
             fun create(assertions: List<Assertion>): AssertionGroup
-                = AssertionBuilder.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertions)
+                = ch.tutteli.atrium.assertions.builders.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertions)
         }
     }
 }
