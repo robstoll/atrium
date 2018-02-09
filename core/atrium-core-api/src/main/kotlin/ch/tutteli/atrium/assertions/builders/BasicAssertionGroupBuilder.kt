@@ -11,15 +11,17 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 class BasicAssertionGroupBuilder internal constructor(private val groupType: AssertionGroupType) {
     /**
-     * Creates the [AssertionGroup] using the given [name] as [AssertionGroup.name], [subject] as
-     * [AssertionGroup.subject] and [assertion] as single [AssertionGroup.assertions].
+     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
+     * [name] as [AssertionGroup.name], [subject] as [AssertionGroup.subject]
+     * and [assertion] as single [AssertionGroup.assertions].
      */
     fun create(name: Translatable, subject: Any, assertion: Assertion)
         = create(name, subject, listOf(assertion))
 
     /**
-     * Creates the [AssertionGroup] using the given [name] as [AssertionGroup.name], [subject] as
-     * [AssertionGroup.subject] and [assertions] as [AssertionGroup.assertions].
+     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
+     * [name] as [AssertionGroup.name], [subject] as [AssertionGroup.subject]
+     * and [assertions] as [AssertionGroup.assertions].
      */
     fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
         = BasicAssertionGroup(groupType, name, subject, assertions)

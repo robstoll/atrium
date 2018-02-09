@@ -8,6 +8,9 @@ import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
+/**
+ * Deprecated, use TypeTransformerAssertions.transformType, will be removed with 1.0.0
+ */
 @Deprecated("use TypeTransformerAssertions.transformType, will be removed with 1.0.0")
 class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub>) {
 
