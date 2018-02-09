@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KFunction3
 
-class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsContainsNotAssertionSpec(
+class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsContainsNotAssertionSpec(
     AssertionVerbFactory,
     getContainsPair(),
     getContainsNotPair()

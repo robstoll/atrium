@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.build
 import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KFunction2
 
-class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsContainsNotAssertionSpec(
+class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsContainsNotAssertionSpec(
     AssertionVerbFactory,
     getContainsPair(),
     nameContainsNotValuesFun() to Companion::containsNot,

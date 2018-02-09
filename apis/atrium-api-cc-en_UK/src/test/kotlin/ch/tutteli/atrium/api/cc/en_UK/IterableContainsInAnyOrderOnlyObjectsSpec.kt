@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class IterableContainsInAnyOrderOnlyObjectsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderOnlyObjectsSpec(
+class IterableContainsInAnyOrderOnlyObjectsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderOnlyObjectsSpec(
     AssertionVerbFactory,
     getContainsPair(),
     "✔ ", "✘ ", "❗❗ ", "⚬ "
