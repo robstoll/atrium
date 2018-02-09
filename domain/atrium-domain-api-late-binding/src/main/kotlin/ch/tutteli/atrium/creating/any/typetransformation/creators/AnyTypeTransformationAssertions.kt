@@ -1,12 +1,18 @@
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.creating.any.typetransformation.creators
 
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
+import ch.tutteli.atrium.creating.throwUnsupportedOperationException
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
 /**
- * A dummy implementation of [ITypeTransformationAssertions] which should be replaced by an actual implementation.
+ * A dummy implementation of [IAnyTypeTransformationAssertions] which should be replaced by an actual implementation.
  */
-object TypeTransformationAssertions : ITypeTransformationAssertions {
+object AnyTypeTransformationAssertions :
+    IAnyTypeTransformationAssertions {
     override fun <T : Any> isNotNull(
         plant: AssertionPlantNullable<T?>,
         type: KClass<T>,
@@ -29,13 +35,9 @@ object TypeTransformationAssertions : ITypeTransformationAssertions {
     ): Unit = throwUnsupportedOperationException()
 
 
-    override fun <T : Any, TSub : Any> typeTransformation(
-        description: Translatable,
-        representation: Any,
-        subjectPlant: BaseAssertionPlant<T?, *>,
-        assertionCreator: AssertionPlant<TSub>.() -> Unit,
-        warningTransformationFailed: Translatable,
-        canBeTransformed: (T) -> Boolean,
-        transform: (T) -> TSub
+    override fun <S : Any, T : Any> typeTransformation(
+        parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
+        canBeTransformed: (S) -> Boolean,
+        transform: (S) -> T
     ): Unit = throwUnsupportedOperationException()
 }

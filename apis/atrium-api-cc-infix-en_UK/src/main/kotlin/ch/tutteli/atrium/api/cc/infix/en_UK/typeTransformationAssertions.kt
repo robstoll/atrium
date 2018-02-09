@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.TypeTransformationAssertions
+import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
 
 /**
  * Makes the assertion that [AssertionPlantNullable.subject] is not null and if so, uses [assertionCreator]
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.creating.TypeTransformationAssertions
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
-    TypeTransformationAssertions.isNotNull(this, T::class, assertionCreator)
+    AnyTypeTransformationAssertions.isNotNull(this, T::class, assertionCreator)
 }
 
 /**
@@ -30,5 +30,5 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinli
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
-    TypeTransformationAssertions.isA(this, TSub::class, assertionCreator)
+    AnyTypeTransformationAssertions.isA(this, TSub::class, assertionCreator)
 }

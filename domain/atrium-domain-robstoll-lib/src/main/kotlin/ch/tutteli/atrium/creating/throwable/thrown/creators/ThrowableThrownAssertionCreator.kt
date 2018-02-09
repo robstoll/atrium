@@ -4,7 +4,7 @@ import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.creating.any.typetransformation.DownCaster
+import ch.tutteli.atrium.creating.any.typetransformation.creators.DownCastAssertionCreator
 import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -13,9 +13,9 @@ import kotlin.reflect.KClass
 /**
  * Represents a creator of a sophisticated a [Throwable] (of type [TExpected]) was thrown assertion.
  *
- * It uses the given [absentThrowableMessageProvider] in case no [Throwable] was thrown at all and uses a [DownCaster]
+ * It uses the given [absentThrowableMessageProvider] in case no [Throwable] was thrown at all and uses a [DownCastAssertionCreator]
  * to perform the down-cast to the desired type [TExpected] (for this it passes on the given [failureHandler] to the
- * [DownCaster])
+ * [DownCastAssertionCreator])
  *
  * @param TExpected The type of the [Throwable] which we expect was thrown.
  *
@@ -26,7 +26,7 @@ import kotlin.reflect.KClass
  */
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider,
-    private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<Throwable, TExpected>
+    private val failureHandler: AnyTypeTransformation.FailureHandler<Throwable, TExpected>
 ) : ThrowableThrown.Creator<TExpected> {
 
     override fun executeActAndCreateAssertion(
@@ -38,7 +38,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
         val throwable: Throwable? = catchThrowable(throwableThrownBuilder)
         val subjectPlant = createReportingPlantForThrowable(throwableThrownBuilder, throwable)
 
-        DownCaster<Throwable, TExpected>(failureHandler)
+        DownCastAssertionCreator<Throwable, TExpected>(failureHandler)
             .downCast(description, expectedType, subjectPlant, assertionCreator)
     }
 
