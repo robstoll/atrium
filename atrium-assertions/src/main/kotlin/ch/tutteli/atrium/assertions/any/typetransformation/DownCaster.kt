@@ -40,7 +40,7 @@ class DownCaster<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.TypeTr
      * @throws AssertionError Might throw an [AssertionError] in case the down-cast cannot be performed, depending on
      *   the [subjectPlant] and the defined [AnyTypeTransformation.TypeTransformationFailureHandler].
      */
-    @Deprecated("use TypeTransformationAssertions.downcast, will be removed with 1.0.0", ReplaceWith("TypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator)", "ch.tutteli.atrium.creating.TypeTransformationAssertions"))
+    @Deprecated("use TypeTransformationAssertions.downcast, will be removed with 1.0.0", ReplaceWith("TypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator)", "ch.tutteli.atrium.creating.any.typetransformation.creators.TypeTransformationAssertions"))
     fun downCast(
         description: Translatable,
         subType: KClass<TSub>,
