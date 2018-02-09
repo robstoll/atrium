@@ -1,8 +1,9 @@
-package ch.tutteli.atrium.creating.any.typetransformation
+package ch.tutteli.atrium.creating.any.typetransformation.creators
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
@@ -21,12 +22,13 @@ import kotlin.reflect.full.cast
  * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions
  *   for a down-casted subject.
  */
-class DownCaster<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub>) {
-    private val typeTransformer = TypeTransformer(failureHandler)
+class DownCastAssertionCreator<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>) {
+    private val creator = TypeTransformationAssertionCreator(failureHandler)
+
     /**
      * Performs the down-cast and applies the given [assertionCreator] to the down-casted
      * [subject][BaseAssertionPlant.subject] of [subjectPlant] if successful or passes it
-     * to a [AnyTypeTransformation.TypeTransformationFailureHandler] otherwise.
+     * to a [AnyTypeTransformation.FailureHandler] otherwise.
      *
      * It also adds a [DescriptiveAssertion], representing the down-cast as such (succeeding or failing), to the given
      * [subjectPlant] using the given [description].
@@ -37,7 +39,7 @@ class DownCaster<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.TypeTr
      * @param assertionCreator The lambda function which can create subsequent assertions for the down-casted subject.
      *
      * @throws AssertionError Might throw an [AssertionError] in case the down-cast cannot be performed, depending on
-     *   the [subjectPlant] and the defined [AnyTypeTransformation.TypeTransformationFailureHandler].
+     *   the [subjectPlant] and the defined [AnyTypeTransformation.FailureHandler].
      */
     fun downCast(
         description: Translatable,
@@ -45,9 +47,15 @@ class DownCaster<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.TypeTr
         subjectPlant: BaseAssertionPlant<T?, *>,
         assertionCreator: AssertionPlant<TSub>.() -> Unit
     ) {
-        typeTransformer.transform(
-            description, subType, subjectPlant, assertionCreator,
-            TranslatableWithArgs(DescriptionTypeTransformationAssertion.WARNING_DOWN_CAST_FAILED, subType.qualifiedName!!),
+        val warningTransformationFailed = TranslatableWithArgs(
+            DescriptionTypeTransformationAssertion.WARNING_DOWN_CAST_FAILED,
+            subType.java.name
+        )
+        val parameterObject = AnyTypeTransformation.ParameterObject(
+            description, subType, subjectPlant, assertionCreator, warningTransformationFailed
+        )
+        creator.create(
+            parameterObject,
             { subType.isInstance(it) },
             { subType.cast(it) }
         )

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.any.typetransformation
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating._typeTransformation
+import ch.tutteli.atrium.creating.any.typetransformation.creators._typeTransformation
 import ch.tutteli.atrium.expect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -39,19 +39,19 @@ object TypeTransformerSpec : Spek({
 
 
 fun <A : Any, B : Any> Assert<Either<A, B>>.isLeft(assertionCreator: Assert<A>.() -> Unit) {
-    _typeTransformation(
+    _typeTransformation(AnyTypeTransformation.ParameterObject(
         Untranslatable("is a"), RawString.create(Left::class.java.simpleName),
         this, assertionCreator,
-        Untranslatable("Could not evaluate the defined assertion(s) -- Either.isLeft was false"),
+        Untranslatable("Could not evaluate the defined assertion(s) -- Either.isLeft was false")),
         { it.isLeft() }, { (it as Left).a }
     )
 }
 
 fun <A : Any, B : Any> Assert<Either<A, B>>.isRight(assertionCreator: Assert<B>.() -> Unit) {
-    _typeTransformation(
+    _typeTransformation(AnyTypeTransformation.ParameterObject(
         Untranslatable("is a"), RawString.create(Right::class.java.simpleName),
         this, assertionCreator,
-        Untranslatable("Could not evaluate the defined assertion(s) -- Either.isRight was false"),
+        Untranslatable("Could not evaluate the defined assertion(s) -- Either.isRight was false")),
         { it.isRight() }, { (it as Right).b }
     )
 }

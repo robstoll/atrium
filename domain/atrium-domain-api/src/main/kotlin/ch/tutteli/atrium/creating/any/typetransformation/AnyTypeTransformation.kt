@@ -3,44 +3,83 @@ package ch.tutteli.atrium.creating.any.typetransformation
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
-import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation.TypeTransformationFailureHandler
+import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation.FailureHandler
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Defines the contract for sophisticated narrowing assertion builders.
+ * Defines the contract for sophisticated `type transformation` assertion builders.
  *
- * The assertion is typically created by the [DownCaster] or the more generic [TypeTransformer]
- * which itself requires a [TypeTransformationFailureHandler].
+ * The assertion is created by a [AnyTypeTransformation.Creator] which itself typically uses a [FailureHandler] to
+ * report a failing transformation.
  */
 interface AnyTypeTransformation {
 
     /**
-     * A handler which decides how the lambda -- which could have created subsequent assertions for the
-     * transformed [AssertionPlant.subject] if the transformation of the [AssertionPlant.subject] to type [TSub]
+     * Represents the final step of a sophisticated `type transformation` assertion builder which creates the
+     * [Assertion] as such.
+     *
+     * @param S The type of [AssertionPlant.subject].
+     * @param T The target type to which [AssertionPlant.subject] should have been transformed to.
+     */
+    interface Creator<S : Any, T : Any> {
+        /**
+         * Creates the type transformation [Assertion] and ads it to the given [ParameterObject.subjectPlant] and
+         * typically delegates to a [FailureHandler] if the transformation fails.
+         *
+         * @param parameterObject The [ParameterObject] containing inter alia [ParameterObject.assertionCreator] to
+         *   create subsequent assertions.
+         * @param canBeTransformed Defines whether the subject of the given [ParameterObject.subjectPlant]
+         *   (with type [S]) can be transformed to the target type [T].
+         * @param transform The transformation function as such.
+         */
+        fun create(
+            parameterObject: ParameterObject<S, T>,
+            canBeTransformed: (S) -> Boolean,
+            transform: (S) -> T
+        )
+    }
+
+    /**
+     * A handler which is responsible to create the [Assertion] of a failed type transformation.
+     *
+     * It is also responsible to decide how the lambda -- which could have created subsequent assertions for the
+     * transformed [AssertionPlant.subject] if the transformation of the [AssertionPlant.subject] to type [T]
      * did not fail -- should be used in reporting.
      *
-     * @param T The type of [AssertionPlant.subject].
-     * @param TSub The type to which [AssertionPlant.subject] should have been transformed to.
+     * @param S The type of [AssertionPlant.subject].
+     * @param T The target type to which [AssertionPlant.subject] should have been transformed to.
      */
-    interface TypeTransformationFailureHandler<in T : Any, out TSub : Any> {
+    interface FailureHandler<in S : Any, out T : Any> {
 
         /**
-         * Makes something with the given [assertionCreator] lambda; might add assertions to [subjectPlant].
+         * Creates the failing assertion.
          *
-         * @param warningTransformationFailed Explains why the [subjectPlant]'s [subject][AssertionPlant.subject] could not be
-         *   should have been down-casted.
-         * @param subjectPlant The plant to which additional assertions would have been added.
-         * @param failingAssertion The failing [Assertion] representing that [subjectPlant]'s
-         *   [subject][AssertionPlant.subject] can be transformed to [TSub].
-         * @param assertionCreator The lambda which could have created subsequent assertions for the transformed
-         *   [AssertionPlant.subject].
+         * @param parameterObject The [ParameterObject] containing inter alia [ParameterObject.assertionCreator], the
+         *   lambda which could have created subsequent assertions for the transformed [AssertionPlant.subject].
          *
-         * @throws AssertionError Might throw an [AssertionError] depending on the [subjectPlant].
+         * @throws AssertionError Might throw an [AssertionError] depending on the [ParameterObject.subjectPlant].
          */
-        fun createAndAddAssertionToPlant(
-            warningTransformationFailed: Translatable,
-            subjectPlant: BaseAssertionPlant<T?, *>,
-            failingAssertion: Assertion,
-            assertionCreator: AssertionPlant<TSub>.() -> Unit)
+        fun createAndAddAssertionToPlant(parameterObject: ParameterObject<S, T>)
     }
+
+    /**
+     * A parameter object which contains all necessary information to report a failure
+     *
+     * @param description Describes what assertion the type transformation represents, e.g. `is a` in case of a down cast.
+     * @param representation The representation of the expected result, e.g. `Int::class` in case of a down cast
+     *   from [Number] to [Int].
+     * @param subjectPlant The plant to which the assertion (including additional assertions created by
+     *   [assertionCreator]) should be added.
+     * @param assertionCreator The lambda which can create subsequent assertions for the transformed
+     *   [AssertionPlant.subject] in case the type transformation succeeds
+     * @param warningTransformationFailed Explains why the [subjectPlant]'s [subject][AssertionPlant.subject]
+     *   could not be transformed to the desired type.
+     */
+    data class ParameterObject<out S : Any, in T : Any>(
+        val description: Translatable,
+        val representation: Any,
+        val subjectPlant: BaseAssertionPlant<S?, *>,
+        val assertionCreator: AssertionPlant<T>.() -> Unit,
+        val warningTransformationFailed: Translatable
+    )
 }

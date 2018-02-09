@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
  * Defines the contract for sophisticated a [Throwable] was thrown assertions.
  *
  * An assertion starts with a [ThrowableThrownBuilder] and is typically built up by an [AbsentThrowableMessageProvider]
- * and an [AnyTypeTransformation.TypeTransformationFailureHandler] which are passed to a [Creator] which finally builds the assertion.
+ * and an [AnyTypeTransformation.FailureHandler] which are passed to a [Creator] which finally builds the assertion.
  */
 interface ThrowableThrown {
     /**
