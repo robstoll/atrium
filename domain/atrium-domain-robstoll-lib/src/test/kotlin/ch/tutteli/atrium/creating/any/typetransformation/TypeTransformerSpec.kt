@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.any.typetransformation
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.any.typetransformation.creators._typeTransformation
+import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
 import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.AnyTypeTransformationFailureHandlers
 import ch.tutteli.atrium.expect
 import ch.tutteli.atrium.reporting.RawString
@@ -46,7 +46,7 @@ fun <A : Any, B : Any> Assert<Either<A, B>>.isLeft(assertionCreator: Assert<A>.(
         assertionCreator,
         Untranslatable("Could not evaluate the defined assertion(s) -- Either.isLeft was false")
     )
-    _typeTransformation(
+    AnyTypeTransformationAssertions.typeTransformation(
         parameterObject, { it.isLeft() }, { (it as Left).a },
         AnyTypeTransformationFailureHandlers.newExplanatory()
     )
@@ -59,9 +59,8 @@ fun <A : Any, B : Any> Assert<Either<A, B>>.isRight(assertionCreator: Assert<B>.
         assertionCreator,
         Untranslatable("Could not evaluate the defined assertion(s) -- Either.isRight was false")
     )
-    _typeTransformation(
-        parameterObject,
-        { it.isRight() }, { (it as Right).b },
+    AnyTypeTransformationAssertions.typeTransformation(
+        parameterObject, { it.isRight() }, { (it as Right).b },
         AnyTypeTransformationFailureHandlers.newExplanatory()
     )
 }
