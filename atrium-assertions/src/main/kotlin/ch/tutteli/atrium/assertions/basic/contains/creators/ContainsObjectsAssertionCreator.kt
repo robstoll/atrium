@@ -2,8 +2,9 @@ package ch.tutteli.atrium.assertions.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.basic.contains.Contains
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -26,6 +27,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The chosen search behaviour.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBehaviour, C : Contains.Checker>(
     private val searchBehaviour: B,
     checkers: List<C>

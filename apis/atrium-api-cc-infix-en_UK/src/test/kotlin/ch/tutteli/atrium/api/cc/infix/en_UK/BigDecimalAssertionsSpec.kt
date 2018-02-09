@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 import java.math.BigDecimal
 
 
-class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec(
+class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.integration.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
     toBePair(),
     Companion::toBeAny,

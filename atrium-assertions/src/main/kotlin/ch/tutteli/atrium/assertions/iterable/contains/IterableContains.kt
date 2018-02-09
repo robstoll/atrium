@@ -9,12 +9,14 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Defines the contract for sophisticated [Iterable] `contains` assertions.
  */
+@Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContains"))
 interface IterableContains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
      * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
      */
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour"))
     interface SearchBehaviour : Contains.SearchBehaviour
 
     /**
@@ -24,6 +26,7 @@ interface IterableContains {
      * @param T The type of the [AssertionPlant.subject].
      * @param S The type of the search criteria.
      */
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContains.Creator"))
     interface Creator<in T : Iterable<*>, in S> : Contains.Creator<T, S>
 
     /**
@@ -31,5 +34,6 @@ interface IterableContains {
      *
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker"))
     interface Checker : Contains.Checker
 }

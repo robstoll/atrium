@@ -24,6 +24,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param searcher The search method which is used to search for given objects.
  * @param checkers The checkers which create assertions based on the search result.
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 class CharSequenceContainsAssertionCreator<T : CharSequence, S : SearchBehaviour>(
     searchBehaviour: S,
     private val searcher: Searcher<S>,

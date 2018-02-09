@@ -3,11 +3,11 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec
+import ch.tutteli.atrium.spec.integration.AnyAssertionsSpec
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
 
-class AnyAssertionsSpec : ch.tutteli.atrium.spec.assertions.AnyAssertionsSpec(
+class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
     AnyAssertionsSpecFunFactory(),
     AnyAssertionsSpecFunFactory(),

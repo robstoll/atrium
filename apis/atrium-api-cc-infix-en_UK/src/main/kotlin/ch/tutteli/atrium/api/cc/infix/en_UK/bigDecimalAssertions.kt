@@ -1,11 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.assertions._isEqualIncludingScale
-import ch.tutteli.atrium.assertions._isNotEqualIncludingScale
-import ch.tutteli.atrium.assertions._isNotNumericallyEqualTo
-import ch.tutteli.atrium.assertions._isNumericallyEqualTo
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BigDecimalAssertions
 import java.math.BigDecimal
 
 @Deprecated("Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
@@ -42,14 +39,15 @@ infix fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
-    = addAssertion(_isNumericallyEqualTo(this, expected))
+    = addAssertion(BigDecimalAssertions.isNumericallyEqualTo(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) != 0`)
- * Most of the time you want to use this function instead of [notToBe] because [notToBe] compares [BigDecimal.scale].
+ * Most of the time you want to use this function instead of [isNotEqualIncludingScale] because
+ * [isNotEqualIncludingScale] compares [BigDecimal.scale].
  * Following the two functions compared:
  * - `assert(BigDecimal("10")) notToBe BigDecimal("10.0")` holds.
  * - `assert(BigDecimal("10")) isNotNumericallyEqualTo BigDecimal("10.0")`  does not hold.
@@ -58,7 +56,7 @@ infix fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
-    = addAssertion(_isNotNumericallyEqualTo(this, expected))
+    = addAssertion(BigDecimalAssertions.isNotNumericallyEqualTo(this, expected))
 
 
 /**
@@ -74,7 +72,7 @@ infix fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
-    = addAssertion(_isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
+    = addAssertion(BigDecimalAssertions.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
@@ -89,4 +87,4 @@ infix fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : BigDecimal> Assert<T>.isNotEqualIncludingScale(expected: T)
-    = addAssertion(_isNotEqualIncludingScale(this, expected))
+    = addAssertion(BigDecimalAssertions.isNotEqualIncludingScale(this, expected))

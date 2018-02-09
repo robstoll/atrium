@@ -1,11 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.assertions._isGreaterOrEquals
-import ch.tutteli.atrium.assertions._isGreaterThan
-import ch.tutteli.atrium.assertions._isLessOrEquals
-import ch.tutteli.atrium.assertions._isLessThan
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.ComparableAssertions
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is less than [expected].
@@ -14,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Assert<T>.istKleinerAls(expected: T)
-    = addAssertion(_isLessThan(this, expected))
+    = addAssertion(ComparableAssertions.isLessThan(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is less than or equals [expected].
@@ -23,7 +20,7 @@ fun <T : Comparable<T>> Assert<T>.istKleinerAls(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Assert<T>.istKleinerOderGleich(expected: T)
-    = addAssertion(_isLessOrEquals(this, expected))
+    = addAssertion(ComparableAssertions.isLessOrEquals(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is greater than [expected].
@@ -32,7 +29,7 @@ fun <T : Comparable<T>> Assert<T>.istKleinerOderGleich(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Assert<T>.istGroesserAls(expected: T)
-    = addAssertion(_isGreaterThan(this, expected))
+    = addAssertion(ComparableAssertions.isGreaterThan(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is greater than or equals [expected].
@@ -41,5 +38,5 @@ fun <T : Comparable<T>> Assert<T>.istGroesserAls(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Assert<T>.istGroesserOderGleich(expected: T)
-    = addAssertion(_isGreaterOrEquals(this, expected))
+    = addAssertion(ComparableAssertions.isGreaterOrEquals(this, expected))
 

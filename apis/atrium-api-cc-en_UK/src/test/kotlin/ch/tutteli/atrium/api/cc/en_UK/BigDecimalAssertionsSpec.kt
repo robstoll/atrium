@@ -4,7 +4,7 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import java.math.BigDecimal
 
-class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.assertions.BigDecimalAssertionsSpec(
+class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.integration.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
     @Suppress("DEPRECATION") Assert<BigDecimal>::toBe.name to @Suppress("DEPRECATION") Assert<BigDecimal>::toBe,
     Assert<Any>::toBe,

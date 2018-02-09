@@ -24,6 +24,7 @@ import kotlin.reflect.KClass
  * @param failureHandler A handler which decides how the assertion creator lambda (see [executeActAndCreateAssertion])
  *   is used in reporting.
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider,
     private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<Throwable, TExpected>

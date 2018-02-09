@@ -12,12 +12,14 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * A builder typically allows a user to choose a desired [SearchBehaviour], one or more [Checker]s and uses an
  * [Creator] to finish the building process.
  */
+@Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.basic.contains.Contains"))
 interface Contains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
      * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
      */
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.basic.contains.Contains.SearchBehaviour"))
     interface SearchBehaviour {
         /**
          * Decorates the given [description] so that it represents the search behaviour and returns the result.
@@ -32,6 +34,7 @@ interface Contains {
      *
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.basic.contains.Contains.Checker"))
     interface Checker {
         /**
          * Creates an [Assertion] representing this check based on the given [foundNumberOfTimes] which is the result
@@ -49,6 +52,7 @@ interface Contains {
      * @param T The type of the [AssertionPlant.subject].
      * @param S The type of the search criteria.
      */
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.basic.contains.Contains.Creator"))
     interface Creator<in T : Any, in S> {
         /**
          * Creates an [AssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based

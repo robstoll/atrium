@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.basic.contains.checkers
 
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.reporting.RawString
@@ -26,6 +26,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 abstract class ContainsChecker(
     val times: Int,
     correctCall: String,

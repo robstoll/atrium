@@ -2,13 +2,13 @@ package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.assertions.DescriptionComparableAssertion.*
 import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
-import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
@@ -30,7 +30,11 @@ private fun <T : Any?> assert(subject: T)
     = CoreFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 private fun expect(act: () -> Unit)
-    = ThrowableThrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = ThrowableThrownBuilder(
+    EXPECT_THROWN,
+    act,
+    AtriumReporterSupplier.REPORTER
+)
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {

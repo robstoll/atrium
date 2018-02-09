@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders
 
-
-import ch.tutteli.atrium.assertions.iterable.contains.IterableContains.SearchBehaviour
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilderBase
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsNotCheckerBuilderBase
 
 /**
  *  Represents the builder of a `contains not at all` check within the fluent API of a sophisticated
@@ -16,7 +15,8 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsN
  *   `contains not` assertion for [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  */
+@Deprecated("use the builder from the package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.IterableContainsNotCheckerBuilder"))
 open class IterableContainsNotCheckerBuilder<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     containsBuilder: IterableContainsBuilder<E, T, S>
-) : IterableContainsNotCheckerBuilderBase<E, T, S>(containsBuilder)
+) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.IterableContainsNotCheckerBuilder<E, T, S>(containsBuilder)
 

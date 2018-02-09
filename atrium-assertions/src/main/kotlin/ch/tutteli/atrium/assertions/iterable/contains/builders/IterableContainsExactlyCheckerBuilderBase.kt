@@ -23,6 +23,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsE
  * @param nameContainsNotFun The name of the function which represents a `Iterable contains not` assertion.
  * @param exactlyCall The name of the function which was called and created this builder.
  */
+@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsExactlyCheckerBuilderBase"))
 abstract class IterableContainsExactlyCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     val times: Int,
     containsBuilder: IterableContainsBuilder<E, T, S>,

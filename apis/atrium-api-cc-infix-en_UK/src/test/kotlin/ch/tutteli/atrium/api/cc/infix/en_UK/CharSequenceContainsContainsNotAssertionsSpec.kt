@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.nameContainsNotValuesFun
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.nameContainsNotValuesFun
 import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KFunction2
 
-class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceContainsContainsNotAssertionSpec(
+class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsContainsNotAssertionSpec(
     AssertionVerbFactory,
     getContainsPair(),
     nameContainsNotValuesFun() to Companion::containsNot,

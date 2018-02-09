@@ -15,6 +15,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
  *   `contains` assertion which was started with the given [containsBuilder].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  */
+@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsCheckerBuilder"))
 abstract class IterableContainsCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
     containsBuilder: IterableContainsBuilder<E, T, S>
 ) : ContainsCheckerBuilder<T, S, IterableContains.Checker, IterableContainsBuilder<E, T, S>>(containsBuilder)

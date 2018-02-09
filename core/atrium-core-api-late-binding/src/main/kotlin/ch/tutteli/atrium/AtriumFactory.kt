@@ -9,6 +9,9 @@ import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
+/**
+ * Deprecated, use CoreFactory instead, will be removed with 1.0.0
+ */
 @Deprecated("Use CoreFactory instead, will be removed with 1.0.0")
 object AtriumFactory : IAtriumFactory {
 

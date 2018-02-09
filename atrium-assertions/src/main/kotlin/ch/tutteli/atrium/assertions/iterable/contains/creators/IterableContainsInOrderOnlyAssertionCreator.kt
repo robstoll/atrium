@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -24,6 +25,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, S>(
     private val searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {

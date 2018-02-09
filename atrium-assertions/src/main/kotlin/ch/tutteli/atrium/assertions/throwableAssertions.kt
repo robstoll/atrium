@@ -1,15 +1,11 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion.IS_A
-import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED
-import ch.tutteli.atrium.assertions.any.typetransformation.ExplanatoryTypeTransformationFailureHandler
-import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.assertions.throwable.thrown.creators.ThrowableThrownAssertionCreator
-import ch.tutteli.atrium.assertions.throwable.thrown.providers.TranslatableAsAbsentThrowableMessageProvider
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
+import kotlin.reflect.KClass
 
-inline fun <reified TExpected : Throwable> _toThrow(throwableThrownBuilder: ThrowableThrownBuilder, noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
-    val provider = TranslatableAsAbsentThrowableMessageProvider(NO_EXCEPTION_OCCURRED)
-    ThrowableThrownAssertionCreator<TExpected>(provider, ExplanatoryTypeTransformationFailureHandler())
-        .executeActAndCreateAssertion(throwableThrownBuilder, IS_A, TExpected::class, assertionCreator)
+@Deprecated("use ThrowableThrownAssertions.toBe instead, will be removed with 1.0.0", ReplaceWith("ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)"))
+fun <TExpected : Throwable> _toThrow(throwableThrownBuilder: ThrowableThrownBuilder, expectedType: KClass<TExpected>, assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
+    ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 }

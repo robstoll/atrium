@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
@@ -16,6 +17,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param T The type of the [AssertionPlant.subject].
  * @param T The type to which the [AssertionPlant.subject] should have been down-casted.
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
     AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub> {
     /**

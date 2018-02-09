@@ -23,6 +23,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param containsBuilder The builder representing the entry point of the process of building a sophisticated
  *   `contains` assertion.
  */
+@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.basic.contains.builders.ContainsCheckerBuilder"))
 abstract class ContainsCheckerBuilder<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : ContainsBuilder<T, S>>(
     val containsBuilder: B
 ) {
