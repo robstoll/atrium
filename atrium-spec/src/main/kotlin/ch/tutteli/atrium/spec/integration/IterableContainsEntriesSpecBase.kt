@@ -4,11 +4,11 @@ import ch.tutteli.atrium.api.cc.en_UK.isGreaterThan
 import ch.tutteli.atrium.api.cc.en_UK.isLessThan
 import ch.tutteli.atrium.api.cc.en_UK.returnValueOf
 import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion
-import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.dsl.Spec
 import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction0

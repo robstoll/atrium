@@ -4,11 +4,11 @@ import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.CONTAINS_NOT
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.CONTAINS
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.CONTAINS_NOT
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include

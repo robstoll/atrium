@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.creating.iterable.contains.creators
 
-import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.*
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -10,6 +11,9 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 
 /**
  * Represents the base class for `in any order only` assertion creators and provides a corresponding template to fulfill

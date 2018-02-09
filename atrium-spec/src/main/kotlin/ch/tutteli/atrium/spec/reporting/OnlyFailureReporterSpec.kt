@@ -2,8 +2,10 @@ package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.isEmpty
-import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
@@ -12,6 +14,7 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import com.nhaarman.mockito_kotlin.any
 import com.nhaarman.mockito_kotlin.eq
 import com.nhaarman.mockito_kotlin.mock

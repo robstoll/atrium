@@ -2,8 +2,8 @@ package ch.tutteli.atrium.creating.iterable.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.translations.DescriptionBasic
 
 /**
  * Represents a check that an expected entry is not contained in the [Iterable].

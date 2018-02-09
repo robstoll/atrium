@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating.iterable.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents a check that an expected entry is contained at least [times] in the [Iterable].

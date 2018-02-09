@@ -3,7 +3,6 @@ package ch.tutteli.atrium.spec.reporting
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.DescriptionComparableAssertion.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.reporting.AssertionFormatterController
@@ -12,6 +11,7 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context

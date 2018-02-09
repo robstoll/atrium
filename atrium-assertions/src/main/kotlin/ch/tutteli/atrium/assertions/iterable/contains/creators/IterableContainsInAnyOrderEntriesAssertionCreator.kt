@@ -2,15 +2,15 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHICH
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear

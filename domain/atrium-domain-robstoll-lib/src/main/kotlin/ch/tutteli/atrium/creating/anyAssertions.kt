@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.*
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.*
 
 fun <T : Any> _toBe(plant: AssertionPlant<T>, expected: T)
     = AssertionBuilder.descriptive.create(TO_BE, expected, { plant.subject == expected })

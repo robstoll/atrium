@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents a creator of a sophisticated `contains` assertions for [Iterable] where an expected entry can appear

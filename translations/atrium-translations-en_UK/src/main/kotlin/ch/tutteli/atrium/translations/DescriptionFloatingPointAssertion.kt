@@ -1,5 +1,6 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.translations
 
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import java.math.BigDecimal
 
@@ -8,7 +9,7 @@ import java.math.BigDecimal
  * and [BigDecimal].
  */
 enum class DescriptionFloatingPointAssertion(override val value: String) : StringBasedTranslatable {
-    TO_BE_WITH_ERROR_TOLERANCE("ist (mit Fehler ± %s)"),
-    FAILURE_DUE_TO_FLOATING_POINT_NUMBER("Fehler ist womöglich der Nutzung von %s geschuldet, siehe exakter Vergleich auf der nächsten Linie"),
-    TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED("exakter Vergleich ist |%s - %s| = %s ≤ %s"),
+    TO_BE_WITH_ERROR_TOLERANCE("to be (error ± %s)"),
+    FAILURE_DUE_TO_FLOATING_POINT_NUMBER("failure might be due to using %s, see exact check on the next line"),
+    TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED("exact check is |%s - %s| = %s ≤ %s"),
 }
