@@ -5,17 +5,21 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [CharSequence].
  */
+@Deprecated(
+    "use the description from package translations, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion")
+)
 enum class DescriptionCharSequenceAssertion(override val value: String) : StringBasedTranslatable {
-    AT_LEAST("ist zumindest"),
-    AT_MOST("ist höchstens"),
-    CONTAINS("enthält"),
-    CONTAINS_NOT("enthält nicht"),
-    EMPTY("empty"),
-    ENDS_WITH("endet mit"),
-    ENDS_NOT_WITH("endet nicht mit"),
-    EXACTLY("ist genau"),
-    IGNORING_CASE("%s, Gross-/Kleinschreibung ignoriert,"),
-    NUMBER_OF_OCCURRENCES("Anzahl Treffer"),
-    STARTS_WITH("beginnt mit"),
-    STARTS_NOT_WITH("beginnt nicht mit"),
+    AT_LEAST(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_LEAST.value),
+    AT_MOST(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_MOST.value),
+    CONTAINS(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS.value),
+    CONTAINS_NOT(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.CONTAINS_NOT.value),
+    EMPTY(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EMPTY.value),
+    ENDS_WITH(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_WITH.value),
+    ENDS_NOT_WITH(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH.value),
+    EXACTLY(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EXACTLY.value),
+    IGNORING_CASE(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.IGNORING_CASE.value),
+    NUMBER_OF_OCCURRENCES(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES.value),
+    STARTS_WITH(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.STARTS_WITH.value),
+    STARTS_NOT_WITH(ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.STARTS_NOT_WITH.value),
 }

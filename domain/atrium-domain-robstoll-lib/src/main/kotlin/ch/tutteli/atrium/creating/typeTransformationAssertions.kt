@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion.IS_A
 import ch.tutteli.atrium.creating.any.typetransformation.DownCaster
 import ch.tutteli.atrium.creating.any.typetransformation.ExplanatoryTypeTransformationFailureHandler
 import ch.tutteli.atrium.creating.any.typetransformation.TypeTransformer
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion.IS_A
 import kotlin.reflect.KClass
 
 fun <T : Any> _isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, assertionCreator: AssertionPlant<T>.() -> Unit) {

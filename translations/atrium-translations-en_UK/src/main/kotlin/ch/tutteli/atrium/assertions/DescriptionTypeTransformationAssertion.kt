@@ -7,7 +7,11 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which postulate that a
  * [AssertionPlant.subject] of type `T` can be transformed (usually down-casting or unboxing) to `TSub`.
  */
+@Deprecated(
+    "use the description from package translations, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion")
+)
 enum class DescriptionTypeTransformationAssertion(override val value: String) : StringBasedTranslatable {
-    IS_A("is type or sub-type of"),
-    WARNING_DOWN_CAST_FAILED("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- the down-cast to %s failed.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
+    IS_A(ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion.IS_A.value),
+    WARNING_DOWN_CAST_FAILED(ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion.WARNING_DOWN_CAST_FAILED.value),
 }

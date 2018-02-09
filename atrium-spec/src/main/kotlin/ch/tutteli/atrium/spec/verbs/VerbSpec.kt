@@ -2,9 +2,6 @@ package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionComparableAssertion.*
-import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
-import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -14,6 +11,9 @@ import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.spec.inCaseOf
 import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
+import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
+import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context

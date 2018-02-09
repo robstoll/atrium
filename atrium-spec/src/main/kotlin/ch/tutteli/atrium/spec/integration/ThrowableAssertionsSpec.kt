@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.assertions.DescriptionThrowableAssertion
-import ch.tutteli.atrium.assertions.DescriptionTypeTransformationAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.spec.*
+import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
+import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context

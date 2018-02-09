@@ -7,8 +7,6 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.NOT_TO_BE
-import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
@@ -16,6 +14,8 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
 import ch.tutteli.atrium.spec.reporting.alwaysTrueAssertionFilter
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.NOT_TO_BE
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
 
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 
 /**
  * Represents the default search behaviour but uses [DescriptionCharSequenceAssertion.CONTAINS_NOT] for the description.
