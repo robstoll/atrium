@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating.any.typetransformation.failurehandlers
 
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 
 /**
@@ -7,5 +8,12 @@ import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
  */
 object AnyTypeTransformationFailureHandlers : IAnyTypeTransformationFailureHandlers {
     override fun <S : Any, T : Any> newExplanatory(): AnyTypeTransformation.FailureHandler<S, T>
-        = ExplanatoryTypeTransformationFailureHandler()
+        = ExplanatoryFailureHandler()
+
+    override fun <S : Any, T : Any> newExplanatoryWithHint(
+        showHint: () -> Boolean,
+        failureHintFactory: () -> AssertionGroup
+    ): AnyTypeTransformation.FailureHandler<S, T>
+        = ExplanatoryFailureHandlerWithHint(showHint, failureHintFactory)
+
 }
