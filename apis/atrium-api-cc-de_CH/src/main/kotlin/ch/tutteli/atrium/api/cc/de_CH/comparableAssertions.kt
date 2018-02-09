@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.ComparableAssertions
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is less than [expected].
@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.ComparableAssertions
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Assert<T>.istKleinerAls(expected: T)
-    = addAssertion(ComparableAssertions.isLessThan(this, expected))
+    = addAssertion(AssertImpl.comparable.isLessThan(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is less than or equals [expected].
@@ -20,7 +20,7 @@ fun <T : Comparable<T>> Assert<T>.istKleinerAls(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Assert<T>.istKleinerOderGleich(expected: T)
-    = addAssertion(ComparableAssertions.isLessOrEquals(this, expected))
+    = addAssertion(AssertImpl.comparable.isLessOrEquals(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is greater than [expected].
@@ -29,7 +29,7 @@ fun <T : Comparable<T>> Assert<T>.istKleinerOderGleich(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Assert<T>.istGroesserAls(expected: T)
-    = addAssertion(ComparableAssertions.isGreaterThan(this, expected))
+    = addAssertion(AssertImpl.comparable.isGreaterThan(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is greater than or equals [expected].
@@ -38,5 +38,5 @@ fun <T : Comparable<T>> Assert<T>.istGroesserAls(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Comparable<T>> Assert<T>.istGroesserOderGleich(expected: T)
-    = addAssertion(ComparableAssertions.isGreaterOrEquals(this, expected))
+    = addAssertion(AssertImpl.comparable.isGreaterOrEquals(this, expected))
 

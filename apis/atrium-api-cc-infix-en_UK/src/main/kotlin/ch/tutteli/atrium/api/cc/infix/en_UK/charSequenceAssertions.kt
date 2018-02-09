@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
@@ -16,7 +18,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @return The newly created builder.
  */
 infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    = CharSequenceAssertions.containsBuilder(this)
+    = AssertImpl.charSequence.containsBuilder(this)
 
 /**
  * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
@@ -25,7 +27,7 @@ infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain:
  * @return The newly created builder.
  */
 infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
-    = CharSequenceContainsNotCheckerBuilder(CharSequenceAssertions.containsNotBuilder(this))
+    = CharSequenceContainsNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(this))
 
 
 /**
@@ -193,7 +195,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: Defaul
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
-    = addAssertion(CharSequenceAssertions.startsWith(this, expected))
+    = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not start with [expected].
@@ -202,7 +204,7 @@ infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
-    = addAssertion(CharSequenceAssertions.startsNotWith(this, expected))
+    = addAssertion(AssertImpl.charSequence.startsNotWith(this, expected))
 
 
 /**
@@ -212,7 +214,7 @@ infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
-    = addAssertion(CharSequenceAssertions.endsWith(this, expected))
+    = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not end with [expected].
@@ -221,7 +223,7 @@ infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
-    = addAssertion(CharSequenceAssertions.endsNotWith(this, expected))
+    = addAssertion(AssertImpl.charSequence.endsNotWith(this, expected))
 
 
 /**
@@ -233,7 +235,7 @@ infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
-    = addAssertion(CharSequenceAssertions.isEmpty(this))
+    = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
@@ -244,4 +246,4 @@ infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty:
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty)
-    = addAssertion(CharSequenceAssertions.isNotEmpty(this))
+    = addAssertion(AssertImpl.charSequence.isNotEmpty(this))

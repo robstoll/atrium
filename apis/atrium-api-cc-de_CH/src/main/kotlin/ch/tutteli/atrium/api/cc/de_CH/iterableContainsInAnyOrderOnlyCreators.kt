@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 
 /**
@@ -61,7 +61,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.objekte(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.objectsInAnyOrderOnly(this, expected, otherExpected))
+    = plant.addAssertion(AssertImpl.iterable.contains.objectsInAnyOrderOnly(this, expected, otherExpected))
 
 
 /**
@@ -104,7 +104,7 @@ fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInA
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.entriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
@@ -148,4 +148,4 @@ fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsI
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.nullableEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
+    = plant.addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(this, assertionCreator, otherAssertionCreators))
