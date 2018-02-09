@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KFunction2
 
-class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceAssertionsSpec(
+class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceAssertionsSpec(
     AssertionVerbFactory,
     getContainsDefaultTranslationOfPair(),
     getContainsNotDefaultTranslationOfPair(),

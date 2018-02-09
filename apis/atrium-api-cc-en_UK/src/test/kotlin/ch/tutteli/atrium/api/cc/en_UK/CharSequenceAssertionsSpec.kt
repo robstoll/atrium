@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-object CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.assertions.CharSequenceAssertionsSpec(
+object CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceAssertionsSpec(
     AssertionVerbFactory,
     Assert<CharSequence>::containsDefaultTranslationOf.name to Assert<CharSequence>::containsDefaultTranslationOf,
     Assert<CharSequence>::containsNotDefaultTranslationOf.name to Assert<CharSequence>::containsNotDefaultTranslationOf,

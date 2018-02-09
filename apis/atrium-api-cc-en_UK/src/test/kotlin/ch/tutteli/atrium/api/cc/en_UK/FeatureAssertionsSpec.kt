@@ -2,11 +2,11 @@ package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.spec.assertions.TestData
+import ch.tutteli.atrium.spec.integration.TestData
 
 private typealias F = Assert<TestData>.() -> Unit
 
-class FeatureAssertionsSpec : ch.tutteli.atrium.spec.assertions.FeatureAssertionsSpec(
+class FeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
     AssertionVerbFactory,
     propertyImmediate,
     propertyLazy,

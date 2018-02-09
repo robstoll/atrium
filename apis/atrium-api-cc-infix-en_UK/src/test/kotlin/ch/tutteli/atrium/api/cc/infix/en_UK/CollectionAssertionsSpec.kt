@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class CollectionAssertionsSpec : ch.tutteli.atrium.spec.assertions.CollectionAssertionsSpec(
+class CollectionAssertionsSpec : ch.tutteli.atrium.spec.integration.CollectionAssertionsSpec(
     AssertionVerbFactory,
     Assert<List<Int>>::hasSize.name to Assert<List<Int>>::hasSize,
     "${Assert<List<Int>>::toBe.name} ${Empty::class.simpleName}" to Companion::isEmpty,
