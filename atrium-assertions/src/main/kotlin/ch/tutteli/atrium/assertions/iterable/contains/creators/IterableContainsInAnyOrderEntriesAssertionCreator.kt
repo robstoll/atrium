@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator
@@ -28,6 +28,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E?>>(
     private val searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>

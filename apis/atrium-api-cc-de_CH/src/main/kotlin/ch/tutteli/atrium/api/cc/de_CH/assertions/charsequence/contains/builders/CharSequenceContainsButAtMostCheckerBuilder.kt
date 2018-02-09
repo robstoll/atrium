@@ -1,12 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.api.cc.de_CH.aberHoechstens
-import ch.tutteli.atrium.api.cc.de_CH.genau
-import ch.tutteli.atrium.api.cc.de_CH.hoechstens
-import ch.tutteli.atrium.api.cc.de_CH.zumindest
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilderBase
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 
 /**
  * Represents the builder of the second step of a `contains at least but at most` check within the
@@ -21,18 +16,13 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *   found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
+@Deprecated("use the builder from the package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder"))
 open class CharSequenceContainsButAtMostCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
     atLeastBuilder: CharSequenceContainsAtLeastCheckerBuilder<T, S>,
     containsBuilder: CharSequenceContainsBuilder<T, S>
-) : CharSequenceContainsButAtMostCheckerBuilderBase<T, S>(
+) :ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder<T, S>(
     times,
     atLeastBuilder,
-    containsBuilder,
-    nameContainsNotValuesFun(),
-    { l, u -> "${containsBuilder::zumindest.name}($l).${atLeastBuilder::aberHoechstens.name}($u)" },
-    { "${containsBuilder::hoechstens.name}($it)" },
-    { "${containsBuilder::zumindest.name}($it)" },
-    { "${atLeastBuilder::aberHoechstens.name}($it)" },
-    { "${containsBuilder::genau.name}($it)" }
+    containsBuilder
 )

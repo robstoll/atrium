@@ -1,15 +1,16 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion.EMPTY
-import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion.HAS_SIZE
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.creating.CollectionAssertions
 
+@Deprecated("use CollectionAssertions.hasSize instead, will be removed with 1.0.0", ReplaceWith("CollectionAssertions.hasSize(plant, size)"))
 fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
-    = AssertionBuilder.descriptive.create(HAS_SIZE, size, { plant.subject.size == size })
+    = CollectionAssertions.hasSize(plant, size)
 
+@Deprecated("use CollectionAssertions.isEmpty instead, will be removed with 1.0.0", ReplaceWith("CollectionAssertions.isEmpty(plant)"))
 fun <T : Collection<*>> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertionBuilder.descriptive.create(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+    = CollectionAssertions.isEmpty(plant)
 
+@Deprecated("use CollectionAssertions.isNotEmpty instead, will be removed with 1.0.0", ReplaceWith("CollectionAssertions.isNotEmpty(plant)"))
 fun <T : Collection<*>> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertionBuilder.descriptive.create(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+    = CollectionAssertions.isNotEmpty(plant)

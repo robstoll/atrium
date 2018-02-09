@@ -1,9 +1,8 @@
 buildscript {
-    ext.publish_description = 'robstoll\'s <rstoll@tutteli.ch> implementation of Atrium -- an assertion library for Kotlin.'
+    ext.publish_description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the core of Atrium.'
 }
 
 dependencies {
-    compile "ch.tutteli:kbox:$kbox_version"
     compile project(":${rootProject.name}-core-api")
     compile project(":${rootProject.name}-core-robstoll-lib")
 }

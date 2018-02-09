@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec : ch.tutteli.atrium.spec.assertions.IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
+class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
     AssertionVerbFactory,
     getNotOrAtMostTriple(),
     getContainsNotPair()

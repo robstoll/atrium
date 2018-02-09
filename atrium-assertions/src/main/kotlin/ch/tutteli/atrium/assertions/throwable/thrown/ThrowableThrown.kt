@@ -18,10 +18,12 @@ import kotlin.reflect.KClass
  * An assertion starts with a [ThrowableThrownBuilder] and is typically built up by an [AbsentThrowableMessageProvider]
  * and an [AnyTypeTransformation.TypeTransformationFailureHandler] which are passed to a [Creator] which finally builds the assertion.
  */
+@Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown"))
 interface ThrowableThrown {
     /**
      * Provides a message which can be used in reporting to represent the case that no [Throwable] at all was thrown.
      */
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown.AbsentThrowableMessageProvider"))
     interface AbsentThrowableMessageProvider {
         /**
          * The message can be used in reporting to represent the case that no [Throwable] was thrown at all.
@@ -35,6 +37,7 @@ interface ThrowableThrown {
      *
      * @param TExpected The type of the [Throwable] which is expected to be thrown.
      */
+    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown.Creator"))
     interface Creator<TExpected : Throwable> {
         /**
          * Executes the [act][ThrowableThrownBuilder.act] lambda of the given [throwableThrownBuilder], catches any

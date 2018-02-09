@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours._containsIgnoringCase
+import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsSearchBehaviours
 
 /**
  * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours._cont
  */
 val <T : CharSequence> CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.ignoriereGrossKleinschreibung
     get() : CharSequenceContainsBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
-    = _containsIgnoringCase(this)
+    = CharSequenceContainsSearchBehaviours.ignoringCase(this)
 
 /**
  * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.

@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.*
 import kotlin.reflect.*
 
 /**
@@ -13,7 +11,7 @@ import kotlin.reflect.*
  * @return An [AssertionPlant] for the given [property].
  */
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlant<TProperty>
-    = _property(this, property)
+    = FeatureAssertions.property(this, property)
 
 /**
  * Creates an [AssertionPlant] for the given [property] which eventually adds [AssertionGroup]s with a
@@ -26,7 +24,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty
  *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
-    = _property(this, property, assertionCreator)
+    = FeatureAssertions.property(this, property, assertionCreator)
 
 
 /**
@@ -36,7 +34,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty
  * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
-    = _property(this, property)
+    = FeatureAssertions.property(this, property)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method], which eventually adds [AssertionGroup]s
@@ -45,7 +43,7 @@ fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty0<TPropert
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction0<TReturnValue>): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method)
+    = FeatureAssertions.returnValueOf0(this, method)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method], which eventually adds
@@ -59,7 +57,7 @@ fun <T : Any, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction0<TRe
  *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction0<TReturnValue>, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, assertionCreator)
+    = FeatureAssertions.returnValueOf0(this, method, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method], which eventually adds
@@ -69,7 +67,7 @@ fun <T : Any, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction0<TRe
  * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, TReturnValue : Any?> Assert<T>.returnValueOf(method: KFunction0<TReturnValue>): AssertionPlantNullable<TReturnValue>
-    = _returnValueOf(this, method)
+    = FeatureAssertions.returnValueOf0(this, method)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], which eventually adds
@@ -79,7 +77,7 @@ fun <T : Any, TReturnValue : Any?> Assert<T>.returnValueOf(method: KFunction0<TR
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1)
+    = FeatureAssertions.returnValueOf1(this, method, arg1)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], which eventually adds
@@ -93,7 +91,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFu
  *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, assertionCreator)
+    = FeatureAssertions.returnValueOf1(this, method, arg1, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1], which eventually adds
@@ -103,7 +101,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFu
  * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, TReturnValue : Any?> Assert<T>.returnValueOf(method: KFunction1<T1, TReturnValue>, arg1: T1): AssertionPlantNullable<TReturnValue>
-    = _returnValueOf(this, method, arg1)
+    = FeatureAssertions.returnValueOf1(this, method, arg1)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1] and [arg2], which eventually
@@ -113,7 +111,7 @@ fun <T : Any, T1 : Any?, TReturnValue : Any?> Assert<T>.returnValueOf(method: KF
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2)
+    = FeatureAssertions.returnValueOf2(this, method, arg1, arg2)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1] and [arg2], which eventually
@@ -127,7 +125,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(
  *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, assertionCreator)
+    = FeatureAssertions.returnValueOf2(this, method, arg1, arg2, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1] and [arg2], which
@@ -137,7 +135,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(
  * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> Assert<T>.returnValueOf(method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlantNullable<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2)
+    = FeatureAssertions.returnValueOf2(this, method, arg1, arg2)
 
 
 /**
@@ -148,7 +146,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> Assert<T>.returnValueOf
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3)
+    = FeatureAssertions.returnValueOf3(this, method, arg1, arg2, arg3)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2] and [arg3],
@@ -162,7 +160,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.ret
  *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, assertionCreator)
+    = FeatureAssertions.returnValueOf3(this, method, arg1, arg2, arg3, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2] and [arg3],
@@ -172,7 +170,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> Assert<T>.ret
  * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3)
+    = FeatureAssertions.returnValueOf3(this, method, arg1, arg2, arg3)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3] and [arg4],
@@ -182,7 +180,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> Assert<T>.re
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
+    = FeatureAssertions.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3] and [arg4],
@@ -196,7 +194,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> As
  *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, assertionCreator)
+    = FeatureAssertions.returnValueOf4(this, method, arg1, arg2, arg3, arg4, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2], [arg3]
@@ -206,7 +204,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> As
  * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, arg4)
+    = FeatureAssertions.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3], [arg4]
@@ -216,7 +214,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> A
  * @return An [AssertionPlant] for the return value of the given [method].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
+    = FeatureAssertions.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3], [arg4]
@@ -230,7 +228,7 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  *   (by calling [assertionCreator]) does not hold.
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
+    = FeatureAssertions.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2], [arg3],
@@ -240,6 +238,6 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
  * @return An [AssertionPlantNullable] for the given [property].
  */
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any?> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<TReturnValue>
-    = _returnValueOf(this, method, arg1, arg2, arg3, arg4, arg5)
+    = FeatureAssertions.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
 
 

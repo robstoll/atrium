@@ -3,10 +3,10 @@ package ch.tutteli.atrium.verbs.assertthat
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.ICoreFactory
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN

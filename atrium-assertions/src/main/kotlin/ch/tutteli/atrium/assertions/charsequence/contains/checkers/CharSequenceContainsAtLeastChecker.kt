@@ -13,6 +13,7 @@ import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
+@Deprecated("use CharSequenceContainsCheckers.newAtLeastChecker, will be removed with 1.0.0", ReplaceWith("CharSequenceContainsCheckers.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)", "ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsCheckers"))
 class CharSequenceContainsAtLeastChecker(
     times: Int,
     nameContainsNotFun: String,

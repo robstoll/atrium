@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 import java.math.BigDecimal
 import kotlin.reflect.KFunction3
 
-class FloatingPointWithErrorToleranceAssertionsSpec : ch.tutteli.atrium.spec.assertions.FloatingPointWithErrorToleranceAssertionsSpec(
+class FloatingPointWithErrorToleranceAssertionsSpec : ch.tutteli.atrium.spec.integration.FloatingPointWithErrorToleranceAssertionsSpec(
     AssertionVerbFactory,
     toBeWithErrorToleranceFloatPair(),
     toBeWithErrorToleranceDoublePair(),

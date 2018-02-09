@@ -8,6 +8,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
  *
  * The checking as such is then usually carried out be the [IterableContains.Creator].
  */
+@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsNoOpCheckerBuilder"))
 class IterableContainsNoOpCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
     containsBuilder: IterableContainsBuilder<E, T, S>
 ) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {

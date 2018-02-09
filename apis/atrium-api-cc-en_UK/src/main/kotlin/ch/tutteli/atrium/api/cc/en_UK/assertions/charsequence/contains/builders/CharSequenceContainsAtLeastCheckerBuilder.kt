@@ -1,12 +1,10 @@
 package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.api.cc.en_UK.atLeast
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilderBase
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 
 /**
- *  Represents the builder of a `contains at least` check within the fluent API of a sophisticated
+ * Represents the builder of a `contains at least` check within the fluent API of a sophisticated
  * `contains` assertion for [CharSequence].
  *
  * @param T The input type of the search.
@@ -18,13 +16,11 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *   found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
-open class CharSequenceContainsAtLeastCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
+@Deprecated("use the builder from the package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder"))
+open class CharSequenceContainsAtLeastCheckerBuilder<out T : CharSequence,out  S : SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContainsBuilder<T, S>
-) : CharSequenceContainsAtLeastCheckerBuilderBase<T, S>(
-    times,
-    containsBuilder,
-    nameContainsNotValuesFun(),
-    { "${containsBuilder::atLeast.name}($it)" }
+) : ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder<T, S>(
+    times, containsBuilder
 )
 

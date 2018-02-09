@@ -1,33 +1,37 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion.*
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.creating.CharSequenceAssertions
 
+@Deprecated("use CharSequenceAssertions.containsBuilder instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.containsBuilder(plant)"))
 fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)
-    = CharSequenceContainsBuilder(plant, CharSequenceContainsNoOpSearchBehaviour())
+    = CharSequenceAssertions.containsBuilder(plant)
 
+@Deprecated("use CharSequenceAssertions.containsNotBuilder instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.containsNotBuilder(plant)"))
 fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>)
-    = CharSequenceContainsBuilder(plant, CharSequenceContainsNotSearchBehaviour())
+    = CharSequenceAssertions.containsNotBuilder(plant)
 
 
+@Deprecated("use CharSequenceAssertions.startsWith instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.startsWith(plant, expected)"))
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertionBuilder.descriptive.create(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
+    = CharSequenceAssertions.startsWith(plant, expected)
 
+@Deprecated("use CharSequenceAssertions.startsNotWith instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.startsNotWith(plant, expected)"))
 fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertionBuilder.descriptive.create(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
+    = CharSequenceAssertions.startsNotWith(plant, expected)
 
+@Deprecated("use CharSequenceAssertions.endsWith instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.endsWith(plant, expected)"))
 fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertionBuilder.descriptive.create(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
+    = CharSequenceAssertions.endsWith(plant, expected)
 
+@Deprecated("use CharSequenceAssertions.endsNotWith instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.endsNotWith(plant, expected)"))
 fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertionBuilder.descriptive.create(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
+    = CharSequenceAssertions.endsNotWith(plant, expected)
 
+@Deprecated("use CharSequenceAssertions.isEmpty instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.isEmpty(plant)"))
 fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertionBuilder.descriptive.create(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+    = CharSequenceAssertions.isEmpty(plant)
 
+@Deprecated("use CharSequenceAssertions.isNotEmpty instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.isNotEmpty(plant)"))
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertionBuilder.descriptive.create(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+    = CharSequenceAssertions.isNotEmpty(plant)

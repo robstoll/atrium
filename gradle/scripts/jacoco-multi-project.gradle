@@ -33,10 +33,10 @@ task CodeCoverageReport(type: JacocoReport) {
     }
 
     reports {
-        csv.enabled false
+        csv.enabled = false
         html.enabled = true
         html.destination file("${buildDir}/jacoco/")
-        xml.enabled true
+        xml.enabled = true
         xml.destination file("${buildDir}/reports/jacoco/report.xml")
     }
 }

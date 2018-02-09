@@ -1,11 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
 
-import ch.tutteli.atrium.api.cc.en_UK.atLeast
-import ch.tutteli.atrium.api.cc.en_UK.atMost
-import ch.tutteli.atrium.api.cc.en_UK.exactly
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsAtMostCheckerBuilderBase
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
 /**
  * Represents the builder of a `contains at least once but at most` check within the fluent API of a
@@ -19,14 +15,11 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
  *   found in the [Iterable].
  * @param containsBuilder The previously used [IterableContainsBuilder].
  */
+@Deprecated("use the builder from the package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.IterableContainsAtMostCheckerBuilder"))
 open class IterableContainsAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
     containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-) : IterableContainsAtMostCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(
+) : ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.IterableContainsAtMostCheckerBuilder<E, T>(
     times,
-    containsBuilder,
-    nameContainsNotValuesFun(),
-    { "${containsBuilder::atMost.name}($it)" },
-    { "${containsBuilder::atLeast.name}($it)" },
-    { "${containsBuilder::exactly.name}($it)" }
+    containsBuilder
 )

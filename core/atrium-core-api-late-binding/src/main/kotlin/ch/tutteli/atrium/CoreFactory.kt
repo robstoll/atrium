@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
-@Suppress("UNUSED_PARAMETER")
+
 /**
  * A dummy implementation of [ICoreFactory] which should be replaced by an actual implementation.
  *
@@ -30,10 +30,8 @@ import java.util.*
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
+@Suppress("UNUSED_PARAMETER")
 object CoreFactory : ICoreFactory {
-
-    private const val ERROR_MSG = "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
-        "meaning as a substitute for a real implementation"
 
     override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
         = throwUnsupportedOperationException()
@@ -104,5 +102,7 @@ object CoreFactory : ICoreFactory {
         = throwUnsupportedOperationException()
 
     private fun throwUnsupportedOperationException(): Nothing
-        = throw UnsupportedOperationException(ERROR_MSG)
+        = throw UnsupportedOperationException(
+            "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
+            "meaning as a substitute for a real implementation.")
 }

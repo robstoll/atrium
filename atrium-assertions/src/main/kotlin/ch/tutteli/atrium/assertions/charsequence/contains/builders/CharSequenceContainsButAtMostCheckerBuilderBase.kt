@@ -26,6 +26,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @param butAtMostCall The name of the function which was called and created this builder.
  * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
+@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilderBase"))
 abstract class CharSequenceContainsButAtMostCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
     val times: Int,
     atLeastBuilder: CharSequenceContainsAtLeastCheckerBuilderBase<T, S>,

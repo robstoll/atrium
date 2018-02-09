@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction2
 
-class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.assertions.TypeTransformationAssertionsSpec(
+class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.TypeTransformationAssertionsSpec(
     AssertionVerbFactory,
     getIsNotNullPair(),
     Companion::isNotNullLess,

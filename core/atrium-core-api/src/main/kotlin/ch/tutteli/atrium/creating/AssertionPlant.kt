@@ -3,7 +3,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 

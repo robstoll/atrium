@@ -1,6 +1,9 @@
 buildscript {
-    def projectsWithoutSourcesBuildScript = subprojects.findAll { it.path.contains("bundles") }
-    def translationProjects = subprojects.findAll { it.path.contains("translations") }
+    def findProjectsWithPath = { String pathPart ->
+        subprojects.findAll { it.projectDir.path.contains(pathPart) }
+    }
+    def projectsWithoutSourcesBuildScript = findProjectsWithPath("bundles")
+    def translationProjects = findProjectsWithPath("translations")
     ext {
         atrium_version = '0.7.0-SNAPSHOT'
         ghPages_version = atrium_version
@@ -24,16 +27,19 @@ buildscript {
         publish_vcsUrl = "${github_url}.git"
 
         //gh-pages.gradle
-        docProjects = subprojects.findAll { !it.name.startsWith("${project.name}-core") }
+        docProjects = subprojects.findAll { !it.name.contains("robstoll") }
 
         //jacoco-multi-project.gradle
         projectsWithoutSources = projectsWithoutSourcesBuildScript
         jacocoMulti = [
             sourceProjects:
                 subprojects.findAll {
-                    // cannot be part of the sources since it would define CoreFactory twice
-                    // (atrium-core-robstoll already defines it)
-                    it.name != "${project.name}-core-api-late-binding" &&
+                    // cannot be part of the sources since it would define AnyAssertions and the like twice
+                    // (atrium-domain-robstoll already defines it)
+                    it.name != "${project.name}-domain-api-late-binding" &&
+                        // cannot be part of the sources since it would define CoreFactory twice
+                        // (atrium-core-robstoll already defines it)
+                        it.name != "${project.name}-core-api-late-binding" &&
                         // would have two classes with the same name if we add it as project as well,
                         // (clashes with "${project.name}-translations-en_UK"
                         it.name != "${project.name}-translations-de_CH" &&
@@ -42,10 +48,15 @@ buildscript {
                 } - projectsWithoutSourcesBuildScript,
             jacocoProjects:
                 subprojects.findAll {
-                    it.name != "${project.name}-core-api" &&
+                    it.name != "${project.name}-domain-api" &&
+                        it.name != "${project.name}-domain-api-late-binding" &&
+                        it.name != "${project.name}-domain-robstoll" &&
+                        it.name != "${project.name}-core-api" &&
                         it.name != "${project.name}-core-api-late-binding" &&
                         it.name != "${project.name}-core-robstoll" &&
-                        it.name != "${project.name}-spec"
+                        it.name != "${project.name}-spec" &&
+                        //TODO remove with 1.0.0
+                        it.name != "${project.name}-assertions"
                 } - projectsWithoutSourcesBuildScript - translationProjects
         ]
     }
@@ -98,6 +109,8 @@ configure(projectsWithSources) {
 
         sourceDirs = files(
             srcKotlin,
+            "${rootProject.projectDir}/${rootProject.name}-domain-api/$srcKotlin",
+            "${rootProject.projectDir}/${rootProject.name}-domain-api-late-binding/$srcKotlin",
             "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
             "${rootProject.projectDir}/${rootProject.name}-core-api-late-binding/$srcKotlin")
     }

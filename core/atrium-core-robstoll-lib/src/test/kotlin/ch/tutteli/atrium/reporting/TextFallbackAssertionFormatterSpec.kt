@@ -1,14 +1,17 @@
 package ch.tutteli.atrium.reporting
 
-
 import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.NOT_TO_BE
 import ch.tutteli.atrium.assertions.DescriptionAnyAssertion.TO_BE
+import ch.tutteli.atrium.assertions.RootAssertionGroupType
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter

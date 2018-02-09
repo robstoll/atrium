@@ -26,6 +26,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * @param atMostCall The name of the function which was called and created this builder.
  * @param exactlyCall The name of the function which represents a `Iterable contains exactly` assertion.
  */
+@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsButAtMostCheckerBuilderBase"))
 abstract class IterableContainsButAtMostCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     val times: Int,
     atLeastBuilder: IterableContainsAtLeastCheckerBuilderBase<E, T, S>,

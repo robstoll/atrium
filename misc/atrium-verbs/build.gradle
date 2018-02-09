@@ -3,10 +3,12 @@ buildscript {
 }
 
 dependencies {
+    compile project(":${rootProject.name}-domain-builders")
+    compileOnly project(":${rootProject.name}-domain-api-late-binding")
     compile project(":${rootProject.name}-core-api")
     compileOnly project(":${rootProject.name}-core-api-late-binding")
-    compile project(":${rootProject.name}-assertions")
 
     testCompile project(":${rootProject.name}-spec")
+    testCompile project(":${rootProject.name}-domain-robstoll")
     testCompile project(":${rootProject.name}-core-robstoll")
 }

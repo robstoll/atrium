@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptionIterableAssertion.AN_ENTRY_WHICH_IS
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
@@ -21,6 +21,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>(
     searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
 ) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {

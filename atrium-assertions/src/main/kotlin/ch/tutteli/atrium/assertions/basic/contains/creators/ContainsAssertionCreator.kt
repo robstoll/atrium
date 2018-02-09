@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -21,6 +21,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @constructor Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 abstract class ContainsAssertionCreator<T : Any, S, C : Contains.Checker>(
     private val checkers: List<C>
 ) : Contains.Creator<T, S> {

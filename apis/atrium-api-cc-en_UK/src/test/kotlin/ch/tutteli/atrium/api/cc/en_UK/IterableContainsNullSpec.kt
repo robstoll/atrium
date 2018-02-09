@@ -10,7 +10,7 @@ class IterableContainsNullSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.spec.assertions.IterableContainsNullSpec(
+    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNullSpec(
         AssertionVerbFactory,
         getContainsInAnyOrderNullableValuesPair(),
         getContainsNotNullableValuesPair(),
@@ -21,7 +21,7 @@ class IterableContainsNullSpec : Spek({
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.spec.assertions.IterableContainsNullSpec(
+    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNullSpec(
         AssertionVerbFactory,
         getContainsValuesPair(),
         getContainsNotValuesPair(),

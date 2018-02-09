@@ -19,6 +19,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
+@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, T : Iterable<E?>>(
     searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
 ) : IterableContainsInOrderOnlyAssertionCreator<E, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour) {

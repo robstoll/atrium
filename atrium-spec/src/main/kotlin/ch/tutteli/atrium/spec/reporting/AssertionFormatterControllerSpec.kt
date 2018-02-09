@@ -4,6 +4,8 @@ import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.DescriptionComparableAssertion.*
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator

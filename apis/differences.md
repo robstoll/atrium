@@ -7,6 +7,7 @@ Atrium provides so called bundle-modules which merely bundle dependencies (they 
 These modules bundle:
 - an API module
 - a translation module (the language used in reporting)
+- an implementation of the domain of Atrium
 - an implementation of the core of Atrium
 
 
