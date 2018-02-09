@@ -2,8 +2,8 @@ package ch.tutteli.atrium.creating.charsequence.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.DescriptionBasic
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.translations.DescriptionBasic
 
 /**
  * Represents a check that an expected object is not contained in the search input.

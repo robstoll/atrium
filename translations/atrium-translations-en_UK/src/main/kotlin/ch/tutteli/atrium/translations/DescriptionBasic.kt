@@ -1,5 +1,6 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.translations
 
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
@@ -7,6 +8,6 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * a two different assertion functions.
  */
 enum class DescriptionBasic(override val value: String) : StringBasedTranslatable {
-    IS("ist"),
-    IS_NOT("ist nicht")
+    IS("is"),
+    IS_NOT("is not")
 }

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating.charsequence.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 
 /**
  * Represents a check that an expected object is contained exactly [times] in the search input.

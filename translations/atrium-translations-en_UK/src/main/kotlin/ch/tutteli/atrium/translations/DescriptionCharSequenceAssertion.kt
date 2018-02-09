@@ -1,5 +1,6 @@
-package ch.tutteli.atrium.assertions
+package ch.tutteli.atrium.translations
 
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**

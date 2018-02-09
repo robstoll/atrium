@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.DescriptionComparableAssertion.*
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
 
 fun <T : Comparable<T>> _isLessThan(plant: AssertionPlant<T>, expected: T)
     = AssertionBuilder.descriptive.create(IS_LESS_THAN, expected, { plant.subject < expected })

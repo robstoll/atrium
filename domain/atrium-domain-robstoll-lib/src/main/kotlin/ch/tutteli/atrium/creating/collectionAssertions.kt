@@ -2,10 +2,10 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.DescriptionBasic
-import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion.EMPTY
-import ch.tutteli.atrium.assertions.DescriptionCollectionAssertion.HAS_SIZE
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.HAS_SIZE
 
 fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
     = AssertionBuilder.descriptive.create(HAS_SIZE, size, { plant.subject.size == size })

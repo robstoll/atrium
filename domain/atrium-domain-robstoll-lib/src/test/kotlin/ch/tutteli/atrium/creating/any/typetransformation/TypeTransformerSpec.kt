@@ -2,12 +2,12 @@ package ch.tutteli.atrium.creating.any.typetransformation
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.DescriptionComparableAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating._typeTransformation
 import ch.tutteli.atrium.expect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
+import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 

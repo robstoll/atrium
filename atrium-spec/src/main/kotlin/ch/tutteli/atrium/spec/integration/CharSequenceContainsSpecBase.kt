@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.assertions.DescriptionCharSequenceAssertion
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.Spec
 
