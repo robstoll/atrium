@@ -7,4 +7,6 @@ dependencies {
     compile project(":${rootProject.name}-translations-de_CH")
     compile project(":${rootProject.name}-domain-robstoll")
     compile project(":${rootProject.name}-core-robstoll")
+
+    testCompile project(":${rootProject.name}-verbs")
 }
