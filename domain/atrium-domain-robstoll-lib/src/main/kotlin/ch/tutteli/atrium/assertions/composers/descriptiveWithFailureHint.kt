@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.assertions.composers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixHoldsGroup
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
@@ -12,7 +11,7 @@ fun _createDescriptiveWithFailureHint(
     representation: Any,
     test: () -> Boolean,
     showHint: () -> Boolean,
-    failureHintFactory: () -> AssertionGroup
+    failureHintFactory: () -> Assertion
 ): Assertion {
     val holds = try {
         test()

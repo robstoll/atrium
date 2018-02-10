@@ -28,6 +28,6 @@ interface IAssertionComposer {
         representation: Any,
         test: () -> Boolean,
         showHint: () -> Boolean,
-        failureHintFactory: () -> AssertionGroup
+        failureHintFactory: () -> Assertion
     ): Assertion
 }

@@ -1,7 +1,7 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
 import ch.tutteli.atrium.creating.any.typetransformation.creators.IAnyTypeTransformationAssertions
@@ -58,7 +58,7 @@ object AnyTypeTransformationFailureHandlersBuilder : IAnyTypeTransformationFailu
     override fun <S : Any, T : Any> newExplanatory()
         = AnyTypeTransformationFailureHandlers.newExplanatory<S, T>()
 
-    override fun <S : Any, T : Any> newExplanatoryWithHint(showHint: () -> Boolean, failureHintFactory: () -> AssertionGroup)
+    override fun <S : Any, T : Any> newExplanatoryWithHint(showHint: () -> Boolean, failureHintFactory: () -> Assertion)
         = AnyTypeTransformationFailureHandlers.newExplanatoryWithHint<S, T>(showHint, failureHintFactory)
 
 }
