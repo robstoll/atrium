@@ -19,7 +19,7 @@ fun <T : BigDecimal> _isEqualIncludingScale(plant: AssertionPlant<T>, expected: 
     = AssertionBuilder.descriptive
         .withFailureHint {
             AssertionBuilder.explanatoryGroup.withDefault.createWithExplanatoryAssertion(
-                FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL, nameOfIsNumericallyEqualTo)
+                FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL, nameOfIsNumericallyEqualTo)
         }
         .showOnlyIf { isNumericallyEqualTo(plant, expected) }
         .create(IS_EQUAL_INCLUDING_SCALE, expected, { plant.subject == expected })

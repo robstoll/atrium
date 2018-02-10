@@ -107,7 +107,7 @@ abstract class BigDecimalAssertionsSpec(
     val assertTen = assert(BigDecimal.TEN)
     describeFun(toBe, isEqualIncludingScale, notToBe, isNotEqualIncludingScale) {
 
-        val failureHintNotNumerically = String.format(DescriptionBigDecimalAssertion.FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL.getDefault(), isNotNumericallyEqualTo)
+        val failureHintNotNumerically = String.format(DescriptionBigDecimalAssertion.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.getDefault(), isNotNumericallyEqualTo)
         context("subject is 10 and expected is 10") {
             val expected = BigDecimal("10")
             test("$toBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
@@ -150,7 +150,7 @@ abstract class BigDecimalAssertionsSpec(
             }
         }
 
-        val failureHintNumerically = String.format(DescriptionBigDecimalAssertion.FAILURE_TO_BE_BUT_NUMERICALLY_EQUAL.getDefault(), isNumericallyEqualTo)
+        val failureHintNumerically = String.format(DescriptionBigDecimalAssertion.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.getDefault(), isNumericallyEqualTo)
         listOf(
             BigDecimal("10.0"),
             BigDecimal("10.00")
