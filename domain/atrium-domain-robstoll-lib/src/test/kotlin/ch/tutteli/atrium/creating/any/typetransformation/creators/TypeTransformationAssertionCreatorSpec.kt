@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.AnyTypeTransformationFailureHandlers
 import ch.tutteli.atrium.expect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -51,7 +50,7 @@ fun <A : Any, B : Any> Assert<Either<A, B>>.isLeft(assertionCreator: Assert<A>.(
     )
     AssertImpl.any.typeTransformation.transform(
         parameterObject, { it.isLeft() }, { (it as Left).a },
-        AnyTypeTransformationFailureHandlers.newExplanatory()
+        AssertImpl.any.typeTransformation.failureHandlers.newExplanatory()
     )
 }
 
@@ -65,7 +64,7 @@ fun <A : Any, B : Any> Assert<Either<A, B>>.isRight(assertionCreator: Assert<B>.
     )
     AssertImpl.any.typeTransformation.transform(
         parameterObject, { it.isRight() }, { (it as Right).b },
-        AnyTypeTransformationFailureHandlers.newExplanatory()
+        AssertImpl.any.typeTransformation.failureHandlers.newExplanatory()
     )
 }
 
