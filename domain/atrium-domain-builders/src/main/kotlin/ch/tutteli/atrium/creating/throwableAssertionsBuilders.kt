@@ -7,11 +7,18 @@ import ch.tutteli.atrium.creating.throwable.thrown.creators.IThrowableThrownAsse
 import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import kotlin.reflect.KClass
 
-object ThrowableAssertionsBuilder{
+object ThrowableAssertionsBuilder {
+
+    /**
+     * Delegates to [ThrowableThrownAssertions].
+     */
     inline val thrown get() = ThrowableThrownAssertionsBuilder
 }
 
-object ThrowableThrownAssertionsBuilder: IThrowableThrownAssertions{
+
+object ThrowableThrownAssertionsBuilder: IThrowableThrownAssertions {
+
     override inline fun <TExpected : Throwable> toBe(throwableThrownBuilder: ThrowableThrownBuilder, expectedType: KClass<TExpected>, noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit)
         = ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
+
 }

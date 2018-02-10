@@ -23,10 +23,15 @@ object AnyAssertionsBuilder : IAnyAssertions {
     override inline fun <T> isNull(plant: AssertionPlantNullable<T>)
         = AnyAssertions.isNull(plant)
 
+    /**
+     * Delegates to [AnyTypeTransformationAssertions].
+     */
     inline val typeTransformation get() = AnyTypeTransformationAssertionsBuilder
 }
 
-object AnyTypeTransformationAssertionsBuilder: IAnyTypeTransformationAssertions{
+
+object AnyTypeTransformationAssertionsBuilder: IAnyTypeTransformationAssertions {
+
     override fun <T : Any> isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, assertionCreator: AssertionPlant<T>.() -> Unit)
         = AnyTypeTransformationAssertions.isNotNull(plant, type, assertionCreator)
 
@@ -38,4 +43,5 @@ object AnyTypeTransformationAssertionsBuilder: IAnyTypeTransformationAssertions{
 
     override fun <S : Any, T : Any> transform(parameterObject: AnyTypeTransformation.ParameterObject<S, T>, canBeTransformed: (S) -> Boolean, transform: (S) -> T, failureHandler: AnyTypeTransformation.FailureHandler<S, T>)
         = AnyTypeTransformationAssertions.transform(parameterObject, canBeTransformed, transform, failureHandler)
+
 }

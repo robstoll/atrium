@@ -8,16 +8,22 @@ import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAss
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
 
 object IterableAssertionsBuilder : IIterableAssertions{
+
     override inline fun <E, T : Iterable<E>> containsBuilder(plant: AssertionPlant<T>)
         = IterableAssertions.containsBuilder(plant)
 
     override inline fun <E, T : Iterable<E>> containsNotBuilder(plant: AssertionPlant<T>)
         = IterableAssertions.containsNotBuilder(plant)
 
+    /**
+     * Delegates to [IterableContainsAssertions].
+     */
     inline val contains get() = IterableContainsAssertionsBuilder
 }
 
+
 object IterableContainsAssertionsBuilder: IIterableContainsAssertions {
+
     override fun <E, T : Iterable<E>> objectsInAnyOrder(checkerBuilder: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, expected: E, otherExpected: Array<out E>)
         = IterableContainsAssertions.objectsInAnyOrder(checkerBuilder, expected, otherExpected)
 
@@ -45,8 +51,12 @@ object IterableContainsAssertionsBuilder: IIterableContainsAssertions {
     override fun <E : Any, T : Iterable<E?>> nullableEntriesInOrderOnly(builder: IterableContainsBuilder<E?, T, IterableContainsInOrderOnlySearchBehaviour>, assertionCreator: (AssertionPlant<E>.() -> Unit)?, otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>)
         = IterableContainsAssertions.nullableEntriesInOrderOnly(builder, assertionCreator, otherAssertionCreators)
 
+    /**
+     * Delegates to [IterableContainsSearchBehaviours].
+     */
     inline val searchBehaviours get() = IterableContainsSearchBehavioursBuilder
 }
+
 
 object IterableContainsSearchBehavioursBuilder: IIterableContainsSearchBehaviours {
 
