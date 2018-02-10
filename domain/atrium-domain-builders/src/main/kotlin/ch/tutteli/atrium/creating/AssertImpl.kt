@@ -2,15 +2,57 @@
 
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
+
+/**
+ * Bundles different domain objects which are defined by the module atrium-domain-api
+ * to give users of Atrium a fluent API as well.
+ */
 object AssertImpl {
+    /**
+     * Delegates to [AnyAssertions].
+     */
     inline val any get() = AnyAssertionsBuilder
+
+    /**
+     * Delegates to [BigDecimalAssertions].
+     */
     inline val bigDecimal get() = BigDecimalAssertionsBuilder
+
+    /**
+     * Delegates to [CharSequenceAssertions].
+     */
     inline val charSequence get() = CharSequenceAssertionsBuilder
+
+    /**
+     * Delegates to [CollectionAssertions].
+     */
     inline val collection get() = CollectionAssertionsBuilder
+
+    /**
+     * Delegates to [ComparableAssertions].
+     */
     inline val comparable get() = ComparableAssertionsBuilder
+
+    /**
+     * Delegates to [FeatureAssertions].
+     */
     inline val feature get() = FeatureAssertionsBuilder
+
+    /**
+     * Delegates to [FloatingPointAssertions].
+     */
     inline val floatingPoint get() = FloatingPointAssertionsBuilder
+
+    /**
+     * Delegates to [IterableAssertions].
+     */
     inline val iterable get() = IterableAssertionsBuilder
+
+    /**
+     * Does not delegate to a specific domain object but contains [ThrowableAssertionsBuilder.thrown] which
+     * delegates to [ThrowableThrownAssertions].
+     */
     inline val throwable get() = ThrowableAssertionsBuilder
 }
 

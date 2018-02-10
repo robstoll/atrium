@@ -37,6 +37,9 @@ object CharSequenceAssertionsBuilder : ICharSequenceAssertions {
     override inline fun <T : CharSequence> isNotEmpty(plant: AssertionPlant<T>)
         = CharSequenceAssertions.isNotEmpty(plant)
 
+    /**
+     * Delegates to [CharSequenceContainsAssertions].
+     */
     inline val contains get() = CharSequenceContainsAssertionsBuilder
 }
 
@@ -61,8 +64,12 @@ object CharSequenceContainsAssertionsBuilder: ICharSequenceContainsAssertions {
     override inline fun <T : CharSequence> regexIgnoringCase(checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>, expected: String, otherExpected: Array<out String>)
         = CharSequenceContainsAssertions.regexIgnoringCase(checkerBuilder, expected, otherExpected)
 
+    /**
+     * Delegates to [CharSequenceContainsSearchBehaviours].
+     */
     inline val searchBehaviours get() = CharSequenceContainsSearchBehavioursBuilder
 }
+
 
 object CharSequenceContainsSearchBehavioursBuilder: ICharSequenceContainsSearchBehaviours{
 
