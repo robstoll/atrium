@@ -55,7 +55,7 @@ abstract class CollectingAssertionPlantSpec(
         }
 
         context("provider throws an ${PlantHasNoSubjectException::class.simpleName}") {
-            val plantHasNoSubjectException = PlantHasNoSubjectException("oho")
+            val plantHasNoSubjectException = PlantHasNoSubjectException()
             val testeeThrowing = testeeFactory { throw plantHasNoSubjectException }
 
             it("throws the exception when accessing subject") {
