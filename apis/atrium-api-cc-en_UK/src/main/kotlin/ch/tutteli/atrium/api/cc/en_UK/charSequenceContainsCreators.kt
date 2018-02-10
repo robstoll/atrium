@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -54,7 +54,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  *   [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.values(this, expected, otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.values(this, expected, otherExpected))
 
 
 /**
@@ -106,7 +106,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  */
 @JvmName("valuesIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.valuesIgnoringCase(this, expected, otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, expected, otherExpected))
 
 
 /**
@@ -130,7 +130,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.defaultTranslationOf(this, expected, otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, expected, otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
@@ -154,7 +154,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  */
 @JvmName("defaultTranslationOfIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.defaultTranslationOfIgnoringCase(this, expected, otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, expected, otherExpected))
 
 
 /**
@@ -179,7 +179,7 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.regex(this, pattern, otherPatterns))
+    = addAssertion(AssertImpl.charSequence.contains.regex(this, pattern, otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -204,4 +204,4 @@ fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContain
  */
 @JvmName("regexIgnoringCase")
 fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.regexIgnoringCase(this, pattern, otherPatterns))
+    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, pattern, otherPatterns))

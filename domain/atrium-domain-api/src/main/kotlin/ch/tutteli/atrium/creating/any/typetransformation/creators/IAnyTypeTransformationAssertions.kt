@@ -32,7 +32,7 @@ interface IAnyTypeTransformationAssertions {
         failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>
     )
 
-    fun <S : Any, T : Any> typeTransformation(
+    fun <S : Any, T : Any> transform(
         parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
         canBeTransformed: (S) -> Boolean,
         transform: (S) -> T,

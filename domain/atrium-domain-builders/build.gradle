@@ -5,6 +5,7 @@ buildscript {
 dependencies {
     compile project(":${rootProject.name}-domain-api")
     compileOnly project(":${rootProject.name}-domain-api-late-binding")
+    compileOnly project(":${rootProject.name}-core-api-late-binding")
 }
 
 dokka {

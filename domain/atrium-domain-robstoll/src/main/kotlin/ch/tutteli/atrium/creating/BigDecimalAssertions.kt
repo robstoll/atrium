@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import java.math.BigDecimal
+
 /**
  * Robstoll's implementation of [IBigDecimalAssertions].
  */

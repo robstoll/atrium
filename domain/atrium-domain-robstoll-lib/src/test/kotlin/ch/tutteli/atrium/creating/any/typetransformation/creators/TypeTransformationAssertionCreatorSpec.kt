@@ -1,9 +1,10 @@
-package ch.tutteli.atrium.creating.any.typetransformation
+package ch.tutteli.atrium.creating.any.typetransformation.creators
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
+import ch.tutteli.atrium.creating.AssertImpl
+import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.AnyTypeTransformationFailureHandlers
 import ch.tutteli.atrium.expect
 import ch.tutteli.atrium.reporting.RawString
@@ -12,9 +13,10 @@ import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 
-object TypeTransformerSpec : Spek({
+object TypeTransformationAssertionCreatorSpec : Spek({
 
-    val either: Either<String, Int> = Left("hello")
+    val either: Either<String, Int> =
+        Left("hello")
     context("custom Either<String, Int> with left \"hello\"") {
         test("${assert(either)::isLeft.name} does not throw") {
             assert(either).isLeft {
@@ -41,12 +43,13 @@ object TypeTransformerSpec : Spek({
 
 fun <A : Any, B : Any> Assert<Either<A, B>>.isLeft(assertionCreator: Assert<A>.() -> Unit) {
     val parameterObject = AnyTypeTransformation.ParameterObject(
-        Untranslatable("is a"), RawString.create(Left::class.java.simpleName),
+        Untranslatable("is a"),
+        RawString.create(Left::class.java.simpleName),
         this,
         assertionCreator,
         Untranslatable("Could not evaluate the defined assertion(s) -- Either.isLeft was false")
     )
-    AnyTypeTransformationAssertions.typeTransformation(
+    AssertImpl.any.typeTransformation.transform(
         parameterObject, { it.isLeft() }, { (it as Left).a },
         AnyTypeTransformationFailureHandlers.newExplanatory()
     )
@@ -54,12 +57,13 @@ fun <A : Any, B : Any> Assert<Either<A, B>>.isLeft(assertionCreator: Assert<A>.(
 
 fun <A : Any, B : Any> Assert<Either<A, B>>.isRight(assertionCreator: Assert<B>.() -> Unit) {
     val parameterObject = AnyTypeTransformation.ParameterObject(
-        Untranslatable("is a"), RawString.create(Right::class.java.simpleName),
+        Untranslatable("is a"),
+        RawString.create(Right::class.java.simpleName),
         this,
         assertionCreator,
         Untranslatable("Could not evaluate the defined assertion(s) -- Either.isRight was false")
     )
-    AnyTypeTransformationAssertions.typeTransformation(
+    AssertImpl.any.typeTransformation.transform(
         parameterObject, { it.isRight() }, { (it as Right).b },
         AnyTypeTransformationFailureHandlers.newExplanatory()
     )
@@ -84,7 +88,8 @@ data class Left<out A, out B> private constructor(val a: A) : Either<A, B>() {
     override fun isRight() = false
 
     companion object {
-        operator fun <A> invoke(a: A): Either<A, Nothing> = Left(a)
+        operator fun <A> invoke(a: A): Either<A, Nothing> =
+            Left(a)
     }
 }
 
@@ -94,6 +99,7 @@ data class Right<out A, out B> private constructor(val b: B) : Either<A, B>() {
     override fun isRight() = true
 
     companion object {
-        operator fun <B> invoke(b: B): Either<Nothing, B> = Right(b)
+        operator fun <B> invoke(b: B): Either<Nothing, B> =
+            Right(b)
     }
 }

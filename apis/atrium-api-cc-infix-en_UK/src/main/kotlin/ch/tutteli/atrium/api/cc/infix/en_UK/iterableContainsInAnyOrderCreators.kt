@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
 /**
@@ -68,7 +68,7 @@ infix fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.objectsInAnyOrder(this, objects.expected, objects.otherExpected))
+    = addAssertion(AssertImpl.iterable.contains.objectsInAnyOrder(this, objects.expected, objects.otherExpected))
 
 
 /**
@@ -98,7 +98,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, Iterab
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.entriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -129,4 +129,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, Iter
  */
 @JvmName("nullableEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.nullableEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrder(this, entries.assertionCreator, entries.otherAssertionCreators))

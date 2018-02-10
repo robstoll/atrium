@@ -4,13 +4,11 @@ buildscript {
 
 dependencies {
     compile project(":${rootProject.name}-core-api")
-    compile project(":${rootProject.name}-core-api-late-binding")
 }
 
 dokka {
     sourceDirs = files(
         srcKotlin,
         "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-core-api-late-binding/$srcKotlin",
     )
 }
