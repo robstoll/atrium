@@ -33,7 +33,9 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
 ): AssertionGroup {
     listOf(expected, *otherExpected).forEach {
         require(it is CharSequence || it is Number || it is Char) {
-            "Only CharSequence, Number and Char are allowed, `$it` given.\nWe provide an API with Any for convenience (so that you can mix String and Int for instance)."
+            "Only CharSequence, Number and Char are allowed, `$it` given.\n" +
+                "We provide an API with Any for convenience (so that you can mix String and Int for instance).\n" +
+                "Use toString() if you really want to search for its toString()-representation."
         }
     }
     return createAssertionGroup(checkerBuilder, searcher, expected, otherExpected)
