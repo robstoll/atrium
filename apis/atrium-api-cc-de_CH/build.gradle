@@ -6,13 +6,13 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-domain-builders")
-    compileOnly project(":${rootProject.name}-domain-api-late-binding")
+    compile ownModule('domain-builders')
+    compileOnly ownModule('domain-api-late-binding')
 
-    testCompile project(":${rootProject.name}-domain-robstoll")
-    testCompile project(":${rootProject.name}-core-robstoll")
-    testCompile(project(":${rootProject.name}-spec")) {
+    testCompile ownModule('domain-robstoll')
+    testCompile ownModule('core-robstoll')
+    testCompile(ownModule('spec')) {
         exclude module: "${rootProject.name}-translations-en_UK"
     }
-    testCompile project(":${rootProject.name}-translations-de_CH")
+    testCompile ownModule('translations-de_CH')
 }

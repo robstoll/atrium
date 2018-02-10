@@ -1,9 +1,7 @@
 rootProject.name = 'atrium'
 
 def includeApi(String name) { includeInSubFolder(name, "${rootProject.projectDir}/apis") }
-
 def includeDomain(String name) { includeInSubFolder(name, "${rootProject.projectDir}/domain") }
-
 def includeCore(String name) { includeInSubFolder(name, "${rootProject.projectDir}/core") }
 
 def includeTranslations(String name) { includeInSubFolder(name, "${rootProject.projectDir}/translations") }
@@ -12,32 +10,33 @@ def includeBundle(String name) { includeInSubFolder(name, "${rootProject.project
 
 def includeMisc(String name) { includeInSubFolder(name, "${rootProject.projectDir}/misc") }
 
-def includeInSubFolder(String name, String folder) {
+def includeInSubFolder(String nameWithoutPrefix, String folder) {
+    def name = "${rootProject.name}-$nameWithoutPrefix"
     include ":$name"
     project(":$name").projectDir = new File("$folder/$name")
 }
 
-includeApi "${rootProject.name}-api-cc-de_CH"
-includeApi "${rootProject.name}-api-cc-en_UK"
-includeApi "${rootProject.name}-api-cc-infix-en_UK"
-includeDomain "${rootProject.name}-domain-api"
-includeDomain "${rootProject.name}-domain-api-late-binding"
-includeDomain "${rootProject.name}-domain-builders"
-includeDomain "${rootProject.name}-domain-robstoll"
-includeDomain "${rootProject.name}-domain-robstoll-lib"
-includeCore "${rootProject.name}-core-api"
-includeCore "${rootProject.name}-core-api-late-binding"
-includeCore "${rootProject.name}-core-robstoll"
-includeCore "${rootProject.name}-core-robstoll-lib"
-includeTranslations "${rootProject.name}-translations-de_CH"
-includeTranslations "${rootProject.name}-translations-en_UK"
-includeMisc "${rootProject.name}-spec"
-includeMisc "${rootProject.name}-verbs"
+includeApi "api-cc-de_CH"
+includeApi "api-cc-en_UK"
+includeApi "api-cc-infix-en_UK"
+includeDomain "domain-api"
+includeDomain "domain-api-late-binding"
+includeDomain "domain-builders"
+includeDomain "domain-robstoll"
+includeDomain "domain-robstoll-lib"
+includeCore "core-api"
+includeCore "core-api-late-binding"
+includeCore "core-robstoll"
+includeCore "core-robstoll-lib"
+includeTranslations "translations-de_CH"
+includeTranslations "translations-en_UK"
+includeMisc "spec"
+includeMisc "verbs"
 
 //convenience modules
-includeBundle "${rootProject.name}-cc-en_UK-robstoll"
-includeBundle "${rootProject.name}-cc-de_CH-robstoll"
-includeBundle "${rootProject.name}-cc-infix-en_UK-robstoll"
+includeBundle "cc-en_UK-robstoll"
+includeBundle "cc-de_CH-robstoll"
+includeBundle "cc-infix-en_UK-robstoll"
 
 //TODO remove with 1.0.0
-includeMisc "${rootProject.name}-assertions"
+includeMisc "assertions"

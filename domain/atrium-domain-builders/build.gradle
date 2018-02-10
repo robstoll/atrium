@@ -3,17 +3,17 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-domain-api")
-    compileOnly project(":${rootProject.name}-domain-api-late-binding")
-    compileOnly project(":${rootProject.name}-core-api-late-binding")
+    compile ownModule('domain-api')
+    compileOnly ownModule('domain-api-late-binding')
+    compileOnly ownModule('core-api-late-binding')
 }
 
 dokka {
     sourceDirs = files(
         srcKotlin,
-        "${rootProject.projectDir}/${rootProject.name}-domain-api/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-domain-api-late-binding/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-core-api-late-binding/$srcKotlin",
+        srcOwnModule('domain-api'),
+        srcOwnModule('domain-api-late-binding'),
+        srcOwnModule('core-api'),
+        srcOwnModule('core-api-late-binding'),
     )
 }

@@ -3,10 +3,10 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-domain-api")
-    compileOnly project(":${rootProject.name}-domain-robstoll")
-    compile project(":${rootProject.name}-core-api")
-    compileOnly project(":${rootProject.name}-core-api-late-binding")
+    compile ownModule('domain-api')
+    compileOnly ownModule('domain-robstoll')
+    compile ownModule('core-api')
+    compileOnly ownModule('core-api-late-binding')
     // it is up to the consumer of atrium-assertions which atrium-translations module is used at runtime
-    compileOnly project(":${rootProject.name}-translations-en_UK")
+    compileOnly ownModule('translations-en_UK')
 }

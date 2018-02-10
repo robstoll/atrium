@@ -9,8 +9,6 @@ buildscript {
         dokka_version = '0.9.14'
         dokka_sourceMapping = 'tree/master'
 
-        srcKotlin = 'src/main/kotlin'
-
         //spek.gradle
         jacoco_tool_version = '0.7.9'
         spek_version = '1.1.5'
@@ -54,6 +52,10 @@ buildscript {
                         it.name != "${project.name}-assertions"
                 } - translationProjects
         ]
+
+        ownModule = { String name -> project(":${rootProject.name}-$name") }
+        srcKotlin = 'src/main/kotlin'
+        srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
     }
 
     repositories {
@@ -103,10 +105,10 @@ configure(subprojects) {
 
         sourceDirs = files(
             srcKotlin,
-            "${rootProject.projectDir}/${rootProject.name}-domain-api/$srcKotlin",
-            "${rootProject.projectDir}/${rootProject.name}-domain-api-late-binding/$srcKotlin",
-            "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
-            "${rootProject.projectDir}/${rootProject.name}-core-api-late-binding/$srcKotlin")
+            srcOwnModule('domain-api'),
+            srcOwnModule('domain-api-late-binding'),
+            srcOwnModule('core-api'),
+            srcOwnModule('core-api-late-binding'))
     }
 
     task sourceJar(type: Jar) {

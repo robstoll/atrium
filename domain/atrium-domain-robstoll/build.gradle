@@ -3,14 +3,14 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-domain-api")
-    compile project(":${rootProject.name}-domain-robstoll-lib")
+    compile ownModule('domain-api')
+    compile ownModule('domain-robstoll-lib')
 }
 
 dokka {
     sourceDirs = files(
         srcKotlin,
-        "${rootProject.projectDir}/${rootProject.name}-domain-api/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
+        srcOwnModule('domain-api'),
+        srcOwnModule('core-api'),
     )
 }

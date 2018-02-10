@@ -9,20 +9,20 @@ dependencies {
     compile("ch.tutteli:kbox:$kbox_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
-    compile project(":${rootProject.name}-core-api")
-    compileOnly project(":${rootProject.name}-core-api-late-binding")
+    compile ownModule('core-api')
+    compileOnly ownModule('core-api-late-binding')
 
-    testCompile project(":${rootProject.name}-domain-robstoll")
-    testCompile project(":${rootProject.name}-core-robstoll")
-    testCompile project(":${rootProject.name}-api-cc-en_UK")
-    testCompile project(":${rootProject.name}-spec")
+    testCompile ownModule('domain-robstoll')
+    testCompile ownModule('core-robstoll')
+    testCompile ownModule('api-cc-en_UK')
+    testCompile ownModule('spec')
 }
 
 dokka {
     sourceDirs = files(
         srcKotlin,
-        "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-core-robstoll/$srcKotlin",
+        srcOwnModule('core-api'),
+        srcOwnModule('core-robstoll'),
     )
 }
 
