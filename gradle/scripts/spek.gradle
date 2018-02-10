@@ -38,6 +38,10 @@ junitPlatform {
 // adopted from http://stackoverflow.com/questions/39362955/gradle-jacoco-and-junit5
 afterEvaluate {
     def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
+    def reportIndex = junitPlatformTestTask.args.findIndexOf { it=='--reports-dir' }
+    def keep = (0..(junitPlatformTestTask.args.size()-1)) - [reportIndex, reportIndex + 1]
+    junitPlatformTestTask.args = junitPlatformTestTask.args[keep]
+
     jacoco {
         toolVersion = "$jacoco_tool_version"
         applyTo junitPlatformTestTask
@@ -49,10 +53,11 @@ afterEvaluate {
             classDirectories = files(sourceSets.main.output.classesDirs)
             executionData junitPlatformTestTask
             reports {
-                xml.enabled = true
+                csv.enabled = false
+                xml.enabled = false
                 xml.destination file("${buildDir}/reports/jacoco/report.xml")
-                html.enabled = true
-                html.destination file("${buildDir}/jacoco/")
+                html.enabled = false
+                html.destination file("${buildDir}/reports/jacoco/html/")
             }
         })
     check.dependsOn junitPlatformJacocoReport
