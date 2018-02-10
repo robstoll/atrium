@@ -5,7 +5,7 @@ ignore:
     - "domain/atrium-domain-builders/**/creating/*Builders.kt"
 
     # TODO remove with 1.0.0
-    - "atrium-assertions/**/*"
+    - "misc/atrium-assertions/**/*"
     - "apis/**/assertions/**/*"
     - "translations/**/assertions/**/*"
     - "**/IAtriumFactory.kt"
