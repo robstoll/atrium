@@ -10,6 +10,8 @@ def includeTranslations(String name) { includeInSubFolder(name, "${rootProject.p
 
 def includeBundle(String name) { includeInSubFolder(name, "${rootProject.projectDir}/bundles") }
 
+def includeMisc(String name) { includeInSubFolder(name, "${rootProject.projectDir}/misc") }
+
 def includeInSubFolder(String name, String folder) {
     include ":$name"
     project(":$name").projectDir = new File("$folder/$name")
@@ -29,8 +31,8 @@ includeCore "${rootProject.name}-core-robstoll"
 includeCore "${rootProject.name}-core-robstoll-lib"
 includeTranslations "${rootProject.name}-translations-de_CH"
 includeTranslations "${rootProject.name}-translations-en_UK"
-include "${rootProject.name}-spec"
-includeInSubFolder("${rootProject.name}-verbs", "${rootProject.projectDir}/misc")
+includeMisc "${rootProject.name}-spec"
+includeMisc "${rootProject.name}-verbs"
 
 //convenience modules
 includeBundle "${rootProject.name}-cc-en_UK-robstoll"
@@ -38,4 +40,4 @@ includeBundle "${rootProject.name}-cc-de_CH-robstoll"
 includeBundle "${rootProject.name}-cc-infix-en_UK-robstoll"
 
 //TODO remove with 1.0.0
-include "${rootProject.name}-assertions"
+includeMisc "${rootProject.name}-assertions"
