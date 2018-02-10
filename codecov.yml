@@ -1,5 +1,8 @@
 ignore:
     - "**/*-api-late-binding/**/*"
+    - "domain/atrium-domain-builers/**/creating/AssertImpl.kt"
+    - "domain/atrium-domain-builers/**/creating/*Builder.kt"
+    - "domain/atrium-domain-builers/**/creating/*Builders.kt"
 
     # TODO remove with 1.0.0
     - "atrium-assertions/**/*"
