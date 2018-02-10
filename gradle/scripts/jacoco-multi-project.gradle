@@ -11,7 +11,7 @@ task jacocoMerge(type: JacocoMerge) {
     }
 }
 
-task CodeCoverageReport(type: JacocoReport) {
+task codeCoverageReport(type: JacocoReport) {
     dependsOn jacocoMulti.sourceProjects.build
     dependsOn jacocoMerge
     jacocoMerge.mustRunAfter jacocoMulti.sourceProjects.build
@@ -34,9 +34,9 @@ task CodeCoverageReport(type: JacocoReport) {
 
     reports {
         csv.enabled = false
-        html.enabled = true
-        html.destination file("${buildDir}/jacoco/")
-        xml.enabled = true
+        html.enabled = false
+        html.destination file("${buildDir}/reports/jacoco/html/")
+        xml.enabled = false
         xml.destination file("${buildDir}/reports/jacoco/report.xml")
     }
 }
