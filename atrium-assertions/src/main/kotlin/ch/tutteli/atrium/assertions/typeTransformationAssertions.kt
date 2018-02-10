@@ -54,9 +54,9 @@ fun <T : Any, TSub : T> _downCast(
 }
 
 @Deprecated(
-    "use AnyTypeTransformationAssertions.typeTransformation instead, will be removed with 1.0.0",
+    "use AnyTypeTransformationAssertions.transform instead, will be removed with 1.0.0",
     ReplaceWith(
-        "AnyTypeTransformationAssertions.typeTransformation(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform)",
+        "AnyTypeTransformationAssertions.transform(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform)",
         "ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions"
     )
 )
@@ -72,5 +72,5 @@ fun <T : Any, TSub : Any> _typeTransformation(
     val parameterObject = AnyTypeTransformation.ParameterObject(
         description, representation, subjectPlant, assertionCreator, warningTransformationFailed
     )
-    AnyTypeTransformationAssertions.typeTransformation(parameterObject, canBeTransformed, transform, AnyTypeTransformationFailureHandlers.newExplanatory())
+    AnyTypeTransformationAssertions.transform(parameterObject, canBeTransformed, transform, AnyTypeTransformationFailureHandlers.newExplanatory())
 }

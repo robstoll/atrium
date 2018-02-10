@@ -46,7 +46,7 @@ fun <A : Any, B : Any> Assert<Either<A, B>>.isLeft(assertionCreator: Assert<A>.(
         assertionCreator,
         Untranslatable("Could not evaluate the defined assertion(s) -- Either.isLeft was false")
     )
-    AssertImpl.any.typeTransformation.typeTransformation(
+    AssertImpl.any.typeTransformation.transform(
         parameterObject, { it.isLeft() }, { (it as Left).a },
         AnyTypeTransformationFailureHandlers.newExplanatory()
     )
@@ -59,7 +59,7 @@ fun <A : Any, B : Any> Assert<Either<A, B>>.isRight(assertionCreator: Assert<B>.
         assertionCreator,
         Untranslatable("Could not evaluate the defined assertion(s) -- Either.isRight was false")
     )
-    AssertImpl.any.typeTransformation.typeTransformation(
+    AssertImpl.any.typeTransformation.transform(
         parameterObject, { it.isRight() }, { (it as Right).b },
         AnyTypeTransformationFailureHandlers.newExplanatory()
     )

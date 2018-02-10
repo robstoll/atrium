@@ -36,7 +36,6 @@ object AnyTypeTransformationAssertionsBuilder: IAnyTypeTransformationAssertions{
     override fun <T : Any, TSub : T> downCast(description: Translatable, subType: KClass<TSub>, subjectPlant: BaseAssertionPlant<T?, *>, assertionCreator: AssertionPlant<TSub>.() -> Unit, failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>)
         = AnyTypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator, failureHandler)
 
-    override fun <S : Any, T : Any> typeTransformation(parameterObject: AnyTypeTransformation.ParameterObject<S, T>, canBeTransformed: (S) -> Boolean, transform: (S) -> T, failureHandler: AnyTypeTransformation.FailureHandler<S, T>)
-        = AnyTypeTransformationAssertions.typeTransformation(parameterObject, canBeTransformed, transform, failureHandler)
-
+    override fun <S : Any, T : Any> transform(parameterObject: AnyTypeTransformation.ParameterObject<S, T>, canBeTransformed: (S) -> Boolean, transform: (S) -> T, failureHandler: AnyTypeTransformation.FailureHandler<S, T>)
+        = AnyTypeTransformationAssertions.transform(parameterObject, canBeTransformed, transform, failureHandler)
 }

@@ -36,7 +36,7 @@ object AnyTypeTransformationAssertions : IAnyTypeTransformationAssertions {
     ): Unit = throwUnsupportedOperationException()
 
 
-    override fun <S : Any, T : Any> typeTransformation(
+    override fun <S : Any, T : Any> transform(
         parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
         canBeTransformed: (S) -> Boolean,
         transform: (S) -> T,
