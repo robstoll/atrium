@@ -1,16 +1,17 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion.*
 
-fun <T : Comparable<T>> _isLessThan(plant: AssertionPlant<T>, expected: T)
-    = AssertionBuilder.descriptive.create(IS_LESS_THAN, expected, { plant.subject < expected })
+fun <T1 : Comparable<T2>, T2: Any?> _isLessThan(plant: AssertionPlant<T1>, expected: T2)
+    = AssertionBuilder.descriptive.create(IS_LESS_THAN, expected ?: RawString.NULL, { plant.subject < expected })
 
-fun <T : Comparable<T>> _isLessOrEquals(plant: AssertionPlant<T>, expected: T)
-    = AssertionBuilder.descriptive.create(IS_LESS_OR_EQUALS, expected, { plant.subject <= expected })
+fun <T1 : Comparable<T2>, T2: Any?> _isLessOrEquals(plant: AssertionPlant<T1>, expected: T2)
+    = AssertionBuilder.descriptive.create(IS_LESS_OR_EQUALS, expected ?: RawString.NULL, { plant.subject <= expected })
 
-fun <T : Comparable<T>> _isGreaterThan(plant: AssertionPlant<T>, expected: T)
-    = AssertionBuilder.descriptive.create(IS_GREATER_THAN, expected, { plant.subject > expected })
+fun <T1 : Comparable<T2>, T2: Any?> _isGreaterThan(plant: AssertionPlant<T1>, expected: T2)
+    = AssertionBuilder.descriptive.create(IS_GREATER_THAN, expected ?: RawString.NULL, { plant.subject > expected })
 
-fun <T : Comparable<T>> _isGreaterOrEquals(plant: AssertionPlant<T>, expected: T)
-    = AssertionBuilder.descriptive.create(IS_GREATER_OR_EQUALS, expected, { plant.subject >= expected })
+fun <T1 : Comparable<T2>, T2: Any?> _isGreaterOrEquals(plant: AssertionPlant<T1>, expected: T2)
+    = AssertionBuilder.descriptive.create(IS_GREATER_OR_EQUALS, expected ?: RawString.NULL, { plant.subject >= expected })
