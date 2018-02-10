@@ -3,5 +3,5 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-core-api")
+    compile ownModule('core-api')
 }

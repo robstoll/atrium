@@ -3,10 +3,10 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-api-cc-infix-en_UK")
-    compile project(":${rootProject.name}-translations-en_UK")
-    compile project(":${rootProject.name}-domain-robstoll")
-    compile project(":${rootProject.name}-core-robstoll")
+    compile ownModule('api-cc-infix-en_UK')
+    compile ownModule('translations-en_UK')
+    compile ownModule('domain-robstoll')
+    compile ownModule('core-robstoll')
 
-    testCompile project(":${rootProject.name}-verbs")
+    testCompile ownModule('verbs')
 }

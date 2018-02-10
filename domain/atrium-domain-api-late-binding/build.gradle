@@ -5,13 +5,13 @@ buildscript {
 }
 
 dependencies {
-    compile project(":${rootProject.name}-domain-api")
+    compile ownModule('domain-api')
 }
 
 dokka {
     sourceDirs = files(
         srcKotlin,
-        "${rootProject.projectDir}/${rootProject.name}-domain-api/$srcKotlin",
-        "${rootProject.projectDir}/${rootProject.name}-core-api/$srcKotlin",
+        srcOwnModule('domain-api'),
+        srcOwnModule('core-api'),
     )
 }

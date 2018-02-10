@@ -7,13 +7,13 @@ dependencies {
     compile("ch.tutteli:kbox:$kbox_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
-    compile project(":${rootProject.name}-domain-api")
-    compileOnly project(":${rootProject.name}-domain-api-late-binding")
-    compile project(":${rootProject.name}-core-api")
-    compileOnly project(":${rootProject.name}-core-api-late-binding")
-    compileOnly project(":${rootProject.name}-api-cc-en_UK") // for us
-    runtimeOnly project(":${rootProject.name}-api-cc-en_UK") // for depending modules
-    compile project(":${rootProject.name}-translations-en_UK")
+    compile ownModule('domain-api')
+    compileOnly ownModule('domain-api-late-binding')
+    compile ownModule('core-api')
+    compileOnly ownModule('core-api-late-binding')
+    compileOnly ownModule('api-cc-en_UK') // for us
+    runtimeOnly ownModule('api-cc-en_UK') // for depending modules
+    compile ownModule('translations-en_UK')
 }
 
 repositories {
