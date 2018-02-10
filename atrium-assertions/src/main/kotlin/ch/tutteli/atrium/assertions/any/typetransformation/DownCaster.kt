@@ -21,8 +21,8 @@ import kotlin.reflect.full.cast
  * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions
  *   for a down-casted subject.
  */
-@Deprecated("use TypeTransformationAssertions.downcast, will be removed with 1.0.0")
-class DownCaster<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub>) {
+@Deprecated("use AssertImpl.any.typeTransformation.downcast, will be removed with 1.0.0")
+class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub>) {
     private val typeTransformer = TypeTransformer(failureHandler)
     /**
      * Performs the down-cast and applies the given [assertionCreator] to the down-casted
@@ -40,7 +40,12 @@ class DownCaster<T : Any, TSub : T>(failureHandler: AnyTypeTransformation.TypeTr
      * @throws AssertionError Might throw an [AssertionError] in case the down-cast cannot be performed, depending on
      *   the [subjectPlant] and the defined [AnyTypeTransformation.TypeTransformationFailureHandler].
      */
-    @Deprecated("use TypeTransformationAssertions.downcast, will be removed with 1.0.0", ReplaceWith("TypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator)", "ch.tutteli.atrium.creating.any.typetransformation.creators.TypeTransformationAssertions"))
+    @Deprecated("use AssertImpl.any.typeTransformation.downcast, will be removed with 1.0.0",
+        ReplaceWith(
+            "AssertImpl.any.typeTransformation.downcast(description, subType, subjectPlant, assertionCreator)",
+            "ch.tutteli.atrium.creating.AssertImpl"
+        )
+    )
     fun downCast(
         description: Translatable,
         subType: KClass<TSub>,

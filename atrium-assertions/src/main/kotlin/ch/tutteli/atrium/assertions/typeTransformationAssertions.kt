@@ -1,47 +1,44 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
 import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.AnyTypeTransformationFailureHandlers
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-@Deprecated(
-    "use AnyTypeTransformationAssertions.isNotNull instead, will be removed with 1.0.0",
+@Deprecated("use AssertImpl.any.typeTransformation.isNotNull, will be removed with 1.0.0",
     ReplaceWith(
-        "AnyTypeTransformationAssertions.isNotNull(plant, T::class, assertionCreator)",
-        "ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions"
+        "AssertImpl.any.typeTransformation.isNotNull(plant, T::class, assertionCreator)",
+        "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 inline fun <reified T : Any> _isNotNull(
     plant: AssertionPlantNullable<T?>,
     noinline assertionCreator: AssertionPlant<T>.() -> Unit
 ) {
-    AnyTypeTransformationAssertions.isNotNull(plant, T::class, assertionCreator)
+    AssertImpl.any.typeTransformation.isNotNull(plant, T::class, assertionCreator)
 }
 
-@Deprecated(
-    "use AnyTypeTransformationAssertions.isA instead, will be removed with 1.0.0",
+@Deprecated("use AssertImpl.any.typeTransformation.isA, will be removed with 1.0.0",
     ReplaceWith(
-        "AnyTypeTransformationAssertions.isA(plant, TSub::class, assertionCreator)",
-        "ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions"
+        "AssertImpl.any.typeTransformation.isA(plant, TSub::class, assertionCreator)",
+        "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 inline fun <reified TSub : Any> _isA(
     plant: AssertionPlant<Any>,
     noinline assertionCreator: AssertionPlant<TSub>.() -> Unit
 ) {
-    AnyTypeTransformationAssertions.isA(plant, TSub::class, assertionCreator)
+    AssertImpl.any.typeTransformation.isA(plant, TSub::class, assertionCreator)
 }
 
-@Deprecated(
-    "use AnyTypeTransformationAssertions.downCast instead, will be removed with 1.0.0",
+@Deprecated("use AssertImpl.any.typeTransformation.downCast, will be removed with 1.0.0",
     ReplaceWith(
-        "AnyTypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator)",
-        "ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions"
+        "AssertImpl.any.typeTransformation.downCast(description, subType, subjectPlant, assertionCreator, AnyTypeTransformationFailureHandlers.newExplanatory())",
+        "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, TSub : T> _downCast(
@@ -50,14 +47,13 @@ fun <T : Any, TSub : T> _downCast(
     subjectPlant: BaseAssertionPlant<T?, *>,
     assertionCreator: AssertionPlant<TSub>.() -> Unit
 ) {
-    AnyTypeTransformationAssertions.downCast(description, subType, subjectPlant, assertionCreator, AnyTypeTransformationFailureHandlers.newExplanatory())
+    AssertImpl.any.typeTransformation.downCast(description, subType, subjectPlant, assertionCreator, AnyTypeTransformationFailureHandlers.newExplanatory())
 }
 
-@Deprecated(
-    "use AnyTypeTransformationAssertions.transform instead, will be removed with 1.0.0",
+@Deprecated("use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0",
     ReplaceWith(
-        "AnyTypeTransformationAssertions.transform(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform)",
-        "ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions"
+        "AssertImpl.any.typeTransformation.transform(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform, AnyTypeTransformationFailureHandlers.newExplanatory())",
+        "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, TSub : Any> _typeTransformation(
@@ -72,5 +68,5 @@ fun <T : Any, TSub : Any> _typeTransformation(
     val parameterObject = AnyTypeTransformation.ParameterObject(
         description, representation, subjectPlant, assertionCreator, warningTransformationFailed
     )
-    AnyTypeTransformationAssertions.transform(parameterObject, canBeTransformed, transform, AnyTypeTransformationFailureHandlers.newExplanatory())
+    AssertImpl.any.typeTransformation.transform(parameterObject, canBeTransformed, transform, AnyTypeTransformationFailureHandlers.newExplanatory())
 }
