@@ -10,13 +10,13 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Builder to create a descriptive [Assertion] with an additional hint which is only shown if the `test()` fails.
  */
 @Suppress("unused")
-fun DescriptiveAssertionBuilder.withFailureHint(failureHintFactory: () -> AssertionGroup) =
-    DescriptiveAssertionWithFailureHintOption(failureHintFactory)
+fun DescriptiveAssertionBuilder.withFailureHint(failureHintFactory: () -> Assertion)
+    = DescriptiveAssertionWithFailureHintOption(failureHintFactory)
 
 /**
  * Provides options to create a descriptive [Assertion] with an additional failure hint.
  */
-class DescriptiveAssertionWithFailureHintOption(private val failureHintFactory: () -> AssertionGroup) {
+class DescriptiveAssertionWithFailureHintOption(private val failureHintFactory: () -> Assertion) {
     /**
      * Specifies that the failure hint shall be shown in any case.
      */
@@ -34,7 +34,7 @@ class DescriptiveAssertionWithFailureHintOption(private val failureHintFactory: 
  */
 class DescriptiveAssertionWithFailureHintBuilder internal constructor(
     private val showHint: () -> Boolean,
-    private val failureHintFactory: () -> AssertionGroup
+    private val failureHintFactory: () -> Assertion
 ) {
     /**
      * Creates kind of a [DescriptiveAssertion] if [test] holds or an [AssertionGroup] which includes additionally
