@@ -1,16 +1,31 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.CollectionAssertions
 
-@Deprecated("use CollectionAssertions.hasSize instead, will be removed with 1.0.0", ReplaceWith("CollectionAssertions.hasSize(plant, size)"))
+@Deprecated("use AssertImpl.collection.hasSize, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.collection.hasSize(plant, size)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
-    = CollectionAssertions.hasSize(plant, size)
+    = AssertImpl.collection.hasSize(plant, size)
 
-@Deprecated("use CollectionAssertions.isEmpty instead, will be removed with 1.0.0", ReplaceWith("CollectionAssertions.isEmpty(plant)"))
+@Deprecated("use AssertImpl.collection.isEmpty, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.collection.isEmpty(plant)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : Collection<*>> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = CollectionAssertions.isEmpty(plant)
+    = AssertImpl.collection.isEmpty(plant)
 
-@Deprecated("use CollectionAssertions.isNotEmpty instead, will be removed with 1.0.0", ReplaceWith("CollectionAssertions.isNotEmpty(plant)"))
+@Deprecated("use AssertImpl.collection.isNotEmpty, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.collection.isNotEmpty(plant)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : Collection<*>> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = CollectionAssertions.isNotEmpty(plant)
+    = AssertImpl.collection.isNotEmpty(plant)

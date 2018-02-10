@@ -11,7 +11,12 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequence
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-@Deprecated("use CharSequenceContainsAssertions.values, will be removed with 1.0.0", ReplaceWith("CharSequenceContainsAssertions.values(checker, expected, *otherExpected)", "ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions"))
+@Deprecated("use AssertImpl.charSequence.contains.values, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.contains.values(checker, expected, *otherExpected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _containsValues(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
     expected: Any,
@@ -19,7 +24,13 @@ fun <T : CharSequence> _containsValues(
 ): AssertionGroup
     = checkOnlyAllowedTypeAndCreateAssertionGroup(checker, CharSequenceContainsIndexSearcher(), expected, otherExpected)
 
-@Deprecated("use CharSequenceContainsAssertions.valuesIgnoringCase, will be removed with 1.0.0", ReplaceWith("CharSequenceContainsAssertions.valuesIgnoringCase(checker, expected, *otherExpected)", "ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions"))
+
+@Deprecated("use AssertImpl.charSequence.contains.valuesIgnoringCase, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.contains.valuesIgnoringCase(checker, expected, *otherExpected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _containsValuesIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
     expected: Any,
@@ -41,7 +52,12 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
     return createAssertionGroup(checker, searcher, expected, otherExpected)
 }
 
-@Deprecated("use CharSequenceContainsAssertions.defaultTranslationOf, will be removed with 1.0.0", ReplaceWith("CharSequenceContainsAssertions.defaultTranslationOf(checker, expected, *otherExpected)", "ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions"))
+@Deprecated("use AssertImpl.charSequence.contains.defaultTranslationOf, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.contains.defaultTranslationOf(checker, expected, *otherExpected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _containsDefaultTranslationOf(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
     expected: Translatable,
@@ -49,7 +65,12 @@ fun <T : CharSequence> _containsDefaultTranslationOf(
 ): AssertionGroup
     = _containsValues(checker, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
-@Deprecated("use CharSequenceContainsAssertions.defaultTranslationOfIgnoringCase, will be removed with 1.0.0", ReplaceWith("CharSequenceContainsAssertions.defaultTranslationOfIgnoringCase(checker, expected, *otherExpected)", "ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions"))
+@Deprecated("use AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(checker, expected, *otherExpected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
     expected: Translatable,
@@ -60,7 +81,12 @@ fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
 private fun mapDefaultTranslations(otherExpected: Array<out Translatable>) =
     otherExpected.map { it.getDefault() }.toTypedArray()
 
-@Deprecated("use CharSequenceContainsAssertions.regex, will be removed with 1.0.0", ReplaceWith("CharSequenceContainsAssertions.regex(checker, expected, *otherExpected)", "ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions"))
+@Deprecated("use AssertImpl.charSequence.contains.regex, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.contains.regex(checker, expected, *otherExpected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _containsRegex(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
     expected: String,
@@ -68,7 +94,12 @@ fun <T : CharSequence> _containsRegex(
 ): AssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsRegexSearcher(), expected, otherExpected)
 
-@Deprecated("use CharSequenceContainsAssertions.regexIgnoringCase, will be removed with 1.0.0", ReplaceWith("CharSequenceContainsAssertions.regexIgnoringCase(checker, expected, *otherExpected)", "ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions"))
+@Deprecated("use AssertImpl.charSequence.contains.regexIgnoringCase, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.contains.regexIgnoringCase(checker, expected, *otherExpected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _containsRegexIgnoringCase(
     checker: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
     expected: String,
