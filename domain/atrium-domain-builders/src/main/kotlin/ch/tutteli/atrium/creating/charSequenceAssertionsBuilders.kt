@@ -1,14 +1,18 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions
 import ch.tutteli.atrium.creating.charsequence.contains.creators.ICharSequenceContainsAssertions
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsSearchBehaviours
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.ICharSequenceContainsSearchBehaviours
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 object CharSequenceAssertionsBuilder : ICharSequenceAssertions {
+
     override inline fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>)
         = CharSequenceAssertions.containsBuilder(plant)
 
@@ -36,8 +40,9 @@ object CharSequenceAssertionsBuilder : ICharSequenceAssertions {
     inline val contains get() = CharSequenceContainsAssertionsBuilder
 }
 
-object CharSequenceContainsAssertionsBuilder:
-    ICharSequenceContainsAssertions {
+
+object CharSequenceContainsAssertionsBuilder: ICharSequenceContainsAssertions {
+
     override inline fun <T : CharSequence> values(checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
         = CharSequenceContainsAssertions.values(checkerBuilder, expected, otherExpected)
 
@@ -55,4 +60,12 @@ object CharSequenceContainsAssertionsBuilder:
 
     override inline fun <T : CharSequence> regexIgnoringCase(checkerBuilder: CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>, expected: String, otherExpected: Array<out String>)
         = CharSequenceContainsAssertions.regexIgnoringCase(checkerBuilder, expected, otherExpected)
+
+    inline val searchBehaviours get() = CharSequenceContainsSearchBehavioursBuilder
+}
+
+object CharSequenceContainsSearchBehavioursBuilder: ICharSequenceContainsSearchBehaviours{
+
+    override inline fun <T : CharSequence> ignoringCase(containsBuilder: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>): CharSequenceContainsBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
+        = CharSequenceContainsSearchBehaviours.ignoringCase(containsBuilder)
 }
