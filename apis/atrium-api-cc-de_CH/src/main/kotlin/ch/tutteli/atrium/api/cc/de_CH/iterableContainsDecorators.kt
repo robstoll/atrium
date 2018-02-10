@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInOrderSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsSearchBehaviours
 
 /**
  * Defines that the search behaviour "find entries `in any order` in the [Iterable]" shall be applied to this
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inBeliebigerReihenfolge
-    get() = IterableContainsSearchBehaviours.inAnyOrder(this)
+    get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -23,7 +23,7 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearc
  */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.nur
     @JvmName("inAnyOrderOnly")
-    get() = IterableContainsSearchBehaviours.inAnyOrderOnly(this)
+    get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
 /**
  * Defines that the search behaviour "find entries `in order` in the [Iterable]" shall be applied to this
@@ -32,7 +32,7 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inGegebenerReihenfolge
-    get() = IterableContainsSearchBehaviours.inOrder(this)
+    get() = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
@@ -42,4 +42,4 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearc
  */
 val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>.nur
     @JvmName("inOrderOnly")
-    get() = IterableContainsSearchBehaviours.inOrderOnly(this)
+    get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
