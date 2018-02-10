@@ -4,7 +4,6 @@ import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -74,7 +73,7 @@ object AssertionCollector {
 
         private fun <E : Any> createPlant(subject: E?): CollectingAssertionPlant<E> {
             return CoreFactory.newCollectingPlant {
-                subject ?: throw PlantHasNoSubjectException("subject is not available, you as user should not see this message, please fill in a bug including the stacktrace if you do: " + BUG_REPORT_URL)
+                subject ?: throw PlantHasNoSubjectException()
             }
         }
     }
