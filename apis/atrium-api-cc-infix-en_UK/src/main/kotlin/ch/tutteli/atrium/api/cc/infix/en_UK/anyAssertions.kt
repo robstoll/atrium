@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.creating.AnyAssertions
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.Reporter
@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Any> Assert<T>.toBe(expected: T)
-    = addAssertion(AnyAssertions.toBe(this, expected))
+    = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not (equal to) [expected].
@@ -28,7 +28,7 @@ infix fun <T : Any> Assert<T>.toBe(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Any> Assert<T>.notToBe(expected: T)
-    = addAssertion(AnyAssertions.notToBe(this, expected))
+    = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is the same instance as [expected].
@@ -40,7 +40,7 @@ infix fun <T : Any> Assert<T>.notToBe(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Any> Assert<T>.isSame(expected: T)
-    = addAssertion(AnyAssertions.isSame(this, expected))
+    = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not the same instance as [expected].
@@ -52,7 +52,7 @@ infix fun <T : Any> Assert<T>.isSame(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Any> Assert<T>.isNotSame(expected: T)
-    = addAssertion(AnyAssertions.isNotSame(this, expected))
+    = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is `null`.
@@ -63,7 +63,7 @@ infix fun <T : Any> Assert<T>.isNotSame(expected: T)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") onlyNullAllowed: Nothing?) {
-    addAssertion(AnyAssertions.isNull(this))
+    addAssertion(AssertImpl.any.isNull(this))
 }
 
 /**

@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
 /**
@@ -70,7 +70,7 @@ fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsIn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.objekte(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.objectsInAnyOrder(this, expected, otherExpected))
+    = addAssertion(AssertImpl.iterable.contains.objectsInAnyOrder(this, expected, otherExpected))
 
 
 /**
@@ -107,7 +107,7 @@ fun <E : Any, T : Iterable<E>> IterableContainsCheckerBuilder<E, T, IterableCont
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.entriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -145,4 +145,4 @@ fun <E : Any, T : Iterable<E?>> IterableContainsCheckerBuilder<E?, T, IterableCo
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = addAssertion(IterableContainsAssertions.nullableEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))

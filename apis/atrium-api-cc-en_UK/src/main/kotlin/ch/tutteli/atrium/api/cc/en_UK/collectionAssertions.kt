@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.CollectionAssertions
 
 /**
  * Makes the assertion that [AssertionPlant.subject]'s [Collection.size] is [size].
@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.CollectionAssertions
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
-    = addAssertion(CollectionAssertions.hasSize(this, size))
+    = addAssertion(AssertImpl.collection.hasSize(this, size))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is an empty [Collection].
@@ -20,7 +20,7 @@ fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> Assert<T>.isEmpty()
-    = addAssertion(CollectionAssertions.isEmpty(this))
+    = addAssertion(AssertImpl.collection.isEmpty(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not an empty [Collection].
@@ -29,4 +29,4 @@ fun <T : Collection<*>> Assert<T>.isEmpty()
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : Collection<*>> Assert<T>.isNotEmpty()
-    = addAssertion(CollectionAssertions.isNotEmpty(this))
+    = addAssertion(AssertImpl.collection.isNotEmpty(this))

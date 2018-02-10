@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsSearchBehaviours
 
 /**
  * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSeq
  */
 val <T : CharSequence> CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.ignoringCase
     get() : CharSequenceContainsBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
-    = CharSequenceContainsSearchBehaviours.ignoringCase(this)
+    = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
 /**
  * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.

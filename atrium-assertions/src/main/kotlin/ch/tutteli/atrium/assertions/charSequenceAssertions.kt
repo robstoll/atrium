@@ -1,37 +1,77 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.CharSequenceAssertions
 
-@Deprecated("use CharSequenceAssertions.containsBuilder instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.containsBuilder(plant)"))
+@Deprecated("use AssertImpl.charSequence.containsBuilder, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.containsBuilder(plant)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>)
-    = CharSequenceAssertions.containsBuilder(plant)
+    = AssertImpl.charSequence.containsBuilder(plant)
 
-@Deprecated("use CharSequenceAssertions.containsNotBuilder instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.containsNotBuilder(plant)"))
+@Deprecated("use AssertImpl.charSequence.containsNotBuilder, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.containsNotBuilder(plant)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>)
-    = CharSequenceAssertions.containsNotBuilder(plant)
+    = AssertImpl.charSequence.containsNotBuilder(plant)
 
 
-@Deprecated("use CharSequenceAssertions.startsWith instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.startsWith(plant, expected)"))
+@Deprecated("use AssertImpl.charSequence.startsWith, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.startsWith(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = CharSequenceAssertions.startsWith(plant, expected)
+    = AssertImpl.charSequence.startsWith(plant, expected)
 
-@Deprecated("use CharSequenceAssertions.startsNotWith instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.startsNotWith(plant, expected)"))
+@Deprecated("use AssertImpl.charSequence.startsNotWith, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.startsNotWith(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = CharSequenceAssertions.startsNotWith(plant, expected)
+    = AssertImpl.charSequence.startsNotWith(plant, expected)
 
-@Deprecated("use CharSequenceAssertions.endsWith instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.endsWith(plant, expected)"))
+@Deprecated("use AssertImpl.charSequence.endsWith, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.endsWith(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = CharSequenceAssertions.endsWith(plant, expected)
+    = AssertImpl.charSequence.endsWith(plant, expected)
 
-@Deprecated("use CharSequenceAssertions.endsNotWith instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.endsNotWith(plant, expected)"))
+@Deprecated("use AssertImpl.charSequence.endsNotWith, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.endsNotWith(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = CharSequenceAssertions.endsNotWith(plant, expected)
+    = AssertImpl.charSequence.endsNotWith(plant, expected)
 
-@Deprecated("use CharSequenceAssertions.isEmpty instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.isEmpty(plant)"))
+@Deprecated("use AssertImpl.charSequence.isEmpty, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.isEmpty(plant)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = CharSequenceAssertions.isEmpty(plant)
+    = AssertImpl.charSequence.isEmpty(plant)
 
-@Deprecated("use CharSequenceAssertions.isNotEmpty instead, will be removed with 1.0.0", ReplaceWith("CharSequenceAssertions.isNotEmpty(plant)"))
+@Deprecated("use AssertImpl.charSequence.isNotEmpty, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.charSequence.isNotEmpty(plant)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = CharSequenceAssertions.isNotEmpty(plant)
+    = AssertImpl.charSequence.isNotEmpty(plant)

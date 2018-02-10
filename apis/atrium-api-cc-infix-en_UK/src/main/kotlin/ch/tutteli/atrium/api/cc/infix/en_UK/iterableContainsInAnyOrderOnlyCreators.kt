@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 
 /**
@@ -59,7 +59,7 @@ infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInA
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.objectsInAnyOrderOnly(this, objects.expected, objects.otherExpected))
+    = plant.addAssertion(AssertImpl.iterable.contains.objectsInAnyOrderOnly(this, objects.expected, objects.otherExpected))
 
 
 /**
@@ -96,7 +96,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableConta
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.entriesInAnyOrderOnly(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, entries.assertionCreator, entries.otherAssertionCreators))
 
 
 /**
@@ -134,4 +134,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableCon
  */
 @JvmName("nullableEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContainsBuilder<E?, T, IterableContainsInAnyOrderOnlySearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = plant.addAssertion(IterableContainsAssertions.nullableEntriesInAnyOrderOnly(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = plant.addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(this, entries.assertionCreator, entries.otherAssertionCreators))

@@ -1,21 +1,41 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.BigDecimalAssertions
 import java.math.BigDecimal
 
-@Deprecated("use BigDecimalAssertions.isNumericallyEqualTo instead, will be removed with 1.0.0", ReplaceWith("BigDecimalAssertions.isNumericallyEqualTo(plant, expected)"))
+@Deprecated("use AssertImpl.bigDecimal.isNumericallyEqualTo, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.bigDecimal.isNumericallyEqualTo(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : BigDecimal> _isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-   = BigDecimalAssertions.isNumericallyEqualTo(plant, expected)
+    = AssertImpl.bigDecimal.isNumericallyEqualTo(plant, expected)
 
-@Deprecated("use BigDecimalAssertions.isNotNumericallyEqualTo instead, will be removed with 1.0.0", ReplaceWith("BigDecimalAssertions.isNotNumericallyEqualTo(plant, expected)"))
+@Deprecated("use AssertImpl.bigDecimal.isNotNumericallyEqualTo, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.bigDecimal.isNotNumericallyEqualTo(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : BigDecimal> _isNotNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
-    = BigDecimalAssertions.isNotNumericallyEqualTo(plant, expected)
+    = AssertImpl.bigDecimal.isNotNumericallyEqualTo(plant, expected)
 
-@Deprecated("use BigDecimalAssertions.isEqualIncludingScale instead, will be removed with 1.0.0", ReplaceWith("BigDecimalAssertions.isEqualIncludingScale(plant, expected, nameOfIsNumericallyEqualTo)"))
+@Deprecated("use AssertImpl.bigDecimal.isEqualIncludingScale, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.bigDecimal.isEqualIncludingScale(plant, expected, nameOfIsNumericallyEqualTo)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : BigDecimal> _isEqualIncludingScale(plant: AssertionPlant<T>, expected: T, nameOfIsNumericallyEqualTo: String): Assertion
-    = BigDecimalAssertions.isEqualIncludingScale(plant, expected, nameOfIsNumericallyEqualTo)
+    = AssertImpl.bigDecimal.isEqualIncludingScale(plant, expected, nameOfIsNumericallyEqualTo)
 
-@Deprecated("use BigDecimalAssertions.isNotEqualIncludingScale instead, will be removed with 1.0.0", ReplaceWith("BigDecimalAssertions.isNotEqualIncludingScale(plant, expected)"))
+@Deprecated("use AssertImpl.bigDecimal.isNotEqualIncludingScale, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.bigDecimal.isNotEqualIncludingScale(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : BigDecimal> _isNotEqualIncludingScale(plant: AssertionPlant<T>, expected: T)
-    = BigDecimalAssertions.isNotEqualIncludingScale(plant, expected)
+    = AssertImpl.bigDecimal.isNotEqualIncludingScale(plant, expected)

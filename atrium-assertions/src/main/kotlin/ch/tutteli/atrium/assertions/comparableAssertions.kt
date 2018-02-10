@@ -1,20 +1,40 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.ComparableAssertions
 
-@Deprecated("use ComparableAssertions.isLessThan instead, will be removed with 1.0.0", ReplaceWith("ComparableAssertions.isLessThan(plant, expected)"))
+@Deprecated("use AssertImpl.comparable.isLessThan, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.comparable.isLessThan(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : Comparable<T>> _isLessThan(plant: AssertionPlant<T>, expected: T)
-    = ComparableAssertions.isLessThan(plant, expected)
+    = AssertImpl.comparable.isLessThan(plant, expected)
 
-@Deprecated("use ComparableAssertions.isLessOrEquals instead, will be removed with 1.0.0", ReplaceWith("ComparableAssertions.isLessOrEquals(plant, expected)"))
+@Deprecated("use AssertImpl.comparable.isLessOrEquals, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.comparable.isLessOrEquals(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : Comparable<T>> _isLessOrEquals(plant: AssertionPlant<T>, expected: T)
-    = ComparableAssertions.isLessOrEquals(plant, expected)
+    = AssertImpl.comparable.isLessOrEquals(plant, expected)
 
-@Deprecated("use ComparableAssertions.isGreaterThan instead, will be removed with 1.0.0", ReplaceWith("ComparableAssertions.isGreaterThan(plant, expected)"))
+@Deprecated("use AssertImpl.comparable.isGreaterThan, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.comparable.isGreaterThan(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : Comparable<T>> _isGreaterThan(plant: AssertionPlant<T>, expected: T)
-    = ComparableAssertions.isGreaterThan(plant, expected)
+    = AssertImpl.comparable.isGreaterThan(plant, expected)
 
-@Deprecated("use ComparableAssertions.isGreaterOrEquals instead, will be removed with 1.0.0", ReplaceWith("ComparableAssertions.isGreaterOrEquals(plant, expected)"))
+@Deprecated("use AssertImpl.comparable.isGreaterOrEquals, will be removed with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.comparable.isGreaterOrEquals(plant, expected)",
+        "ch.tutteli.atrium.creating.AssertImpl"
+    )
+)
 fun <T : Comparable<T>> _isGreaterOrEquals(plant: AssertionPlant<T>, expected: T)
-    = ComparableAssertions.isGreaterOrEquals(plant, expected)
+    = AssertImpl.comparable.isGreaterOrEquals(plant, expected)

@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -52,7 +52,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.values(this, values.expected, values.otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.values(this, values.expected, values.otherExpected))
 
 
 /**
@@ -102,7 +102,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  */
 @JvmName("valuesIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.valuesIgnoringCase(this, values.expected, values.otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, values.expected, values.otherExpected))
 
 
 /**
@@ -139,7 +139,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.defaultTranslationOf(this, translatables.expected, translatables.otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, translatables.expected, translatables.otherExpected))
 
 
 /**
@@ -179,7 +179,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  */
 @JvmName("valuesIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.defaultTranslationOfIgnoringCase(this, translatables.expected, translatables.otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, translatables.expected, translatables.otherExpected))
 
 
 /**
@@ -217,7 +217,7 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.regex(this, patterns.pattern, patterns.otherPatterns))
+    = addAssertion(AssertImpl.charSequence.contains.regex(this, patterns.pattern, patterns.otherPatterns))
 
 
 /**
@@ -257,4 +257,4 @@ infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceC
  */
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContainsCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
-    = addAssertion(CharSequenceContainsAssertions.regexIgnoringCase(this, patterns.pattern, patterns.otherPatterns))
+    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, patterns.pattern, patterns.otherPatterns))
