@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.BulletPointIdentifier
+import ch.tutteli.atrium.assertions.DefaultIndentAssertionGroupType
+import ch.tutteli.atrium.assertions.EmptyNameAndSubjectAssertionGroup
+import ch.tutteli.atrium.assertions.IndentAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.spec.AssertionVerbFactory

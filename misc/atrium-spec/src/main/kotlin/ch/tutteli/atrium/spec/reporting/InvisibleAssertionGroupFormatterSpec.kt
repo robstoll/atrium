@@ -3,7 +3,10 @@ package ch.tutteli.atrium.spec.reporting
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
+import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.reporting.AssertionFormatter
