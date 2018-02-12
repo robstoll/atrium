@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 
 @Deprecated("use CoreFactory instead, will be removed with 1.0.0")
-object AtriumFactory : ICoreFactory {
+object AtriumFactory : IAtriumFactory {
 
     @Deprecated("use CoreFactory, will be removed with 1.0.0", ReplaceWith("CoreFactory.newReportingPlant(commonFields)"))
     override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
