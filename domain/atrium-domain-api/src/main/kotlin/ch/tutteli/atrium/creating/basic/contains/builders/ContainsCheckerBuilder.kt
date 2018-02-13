@@ -23,17 +23,10 @@ import ch.tutteli.atrium.creating.basic.contains.Contains.Checker
  * @param containsBuilder The builder representing the entry point of the process of building a sophisticated
  *   `contains` assertion.
  */
-abstract class ContainsCheckerBuilder<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : ContainsBuilder<T, S>>(
-    val containsBuilder: B
-) {
-    /**
-     * Contains all [Checker]s which should be applied to the search result.
-     *
-     * It typically contains the [Checker] this builder created and might contain other [Checker]s which builders,
-     * precedent to this builder within the fluent API, created already.
-     */
-    abstract val checkers: List<C>
-
+@Deprecated("do not rely on this class, will be made internal with 1.0.0")
+abstract class ContainsCheckerBuilder<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : Contains.Builder<T, S>>(
+    override val containsBuilder: B
+): Contains.CheckerBuilder<T, S, C, B> {
     /**
      * Helper method to simplify adding assertions to the plant which itself is stored in [containsBuilder].
      *
