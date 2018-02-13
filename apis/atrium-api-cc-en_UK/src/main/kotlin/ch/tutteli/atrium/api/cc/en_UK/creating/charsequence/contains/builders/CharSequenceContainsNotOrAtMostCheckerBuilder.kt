@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.api.cc.en_UK.notOrAtMost
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilderBase
 
 /**
@@ -16,11 +16,11 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
  *   sophisticated `contains` assertion for [CharSequence].
  * @param times The number which the check will compare against the actual number of times an expected object is
  *   found in the input of the search.
- * @param containsBuilder The previously used [CharSequenceContainsBuilder].
+ * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 open class CharSequenceContainsNotOrAtMostCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
-    containsBuilder: CharSequenceContainsBuilder<T, S>
+    containsBuilder: CharSequenceContains.Builder<T, S>
 ) : CharSequenceContainsNotOrAtMostCheckerBuilderBase<T, S>(
     times,
     containsBuilder,

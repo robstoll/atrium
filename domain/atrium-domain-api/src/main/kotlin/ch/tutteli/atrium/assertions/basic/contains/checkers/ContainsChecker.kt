@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Represents a base class for [Contains.Checker]s which compare how many occurrences of an expected object are found
+ * Represents the *deprecated* base class for [Contains.Checker]s which compare how many occurrences of an expected object are found
  * in the input of the search, against how many [times] the check expect it to be contained.
  *
  * It further checks that [times] is bigger than 0 (throws an [IllegalArgumentException] otherwise) and additionally

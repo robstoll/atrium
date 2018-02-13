@@ -4,12 +4,32 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
+import ch.tutteli.atrium.creating.basic.contains.Contains.Builder
+import ch.tutteli.atrium.creating.basic.contains.Contains.Checker
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.CheckerBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the contract for sophisticated [CharSequence] `contains` assertions.
  */
 interface CharSequenceContains {
+
+    /**
+     * The entry point of the contract, containing the [plant] to which the sophisticated `contain` assertion
+     * should be added as well as the chosen [searchBehaviour].
+     *
+     * The [searchBehaviour] might me modified in which case it is recommended that a new [Builder] is created (retain
+     * immutability).
+     */
+    interface Builder<out T : CharSequence, out S : SearchBehaviour> : Contains.Builder<T, S>
+
+    /**
+     * The step of creating [Checker]s, containing the previously chosen [containsBuilder] and a list of so-far chosen
+     * [checkers].
+     */
+    interface CheckerBuilder<out T : CharSequence, out S : SearchBehaviour>
+        : Contains.CheckerBuilder<T, S, Checker, Builder<T, S>>
 
     /**
      * Represents a search behaviour but leaves it up to the [Searcher] how this behaviour is implemented -- yet, it
@@ -56,3 +76,12 @@ interface CharSequenceContains {
         fun search(searchIn: CharSequence, searchFor: Any): Int
     }
 }
+
+/**
+ * Helper method to simplify adding assertions to the plant which itself is stored in
+ * [CharSequenceContains.CheckerBuilder.containsBuilder].
+ *
+ * @return The plant to support a fluent API.
+ */
+fun <T : CharSequence, S : SearchBehaviour> CheckerBuilder<T, S>.addAssertion(assertion: Assertion): AssertionPlant<T>
+    = containsBuilder.plant.addAssertion(assertion)
