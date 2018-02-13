@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 
 /**
  * Represents the builder of a `contains not or at most` check within the fluent API of a
