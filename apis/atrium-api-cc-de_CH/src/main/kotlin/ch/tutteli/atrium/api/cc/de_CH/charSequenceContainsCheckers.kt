@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.*
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we are looking
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.zumindest(times: Int): CharSequenceContainsAtLeastCheckerBuilder<T, S>
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.zumindest(times: Int): CharSequenceContainsAtLeastCheckerBuilder<T, S>
     = CharSequenceContainsAtLeastCheckerBuilder(times, this)
 
 /**
@@ -47,7 +47,7 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastCheckerBu
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.genau(times: Int): CharSequenceContainsExactlyCheckerBuilder<T, S>
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.genau(times: Int): CharSequenceContainsExactlyCheckerBuilder<T, S>
     = CharSequenceContainsExactlyCheckerBuilder(times, this)
 
 /**
@@ -66,7 +66,7 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.ge
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [genau] instead.
  */
-fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.hoechstens(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, S>
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.hoechstens(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, S>
     = CharSequenceContainsAtMostCheckerBuilder(times, this)
 
 /**
@@ -80,5 +80,5 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.ho
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.nichtOderHoechstens(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.nichtOderHoechstens(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
     = CharSequenceContainsNotOrAtMostCheckerBuilder(times, this)

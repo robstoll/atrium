@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.charsequence.contains.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.builders.ContainsBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
  * Represents the entry point of the fluent API of sophisticated `contains` assertions.
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Sea
  * @param plant The [AssertionPlant] for which the sophisticated `contains` assertions shall be built.
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
-class CharSequenceContainsBuilder<out T : CharSequence, out S : SearchBehaviour>(
+class CharSequenceContainsBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     plant: AssertionPlant<T>, searchBehaviour: S
-) : ContainsBuilder<T, S>(plant, searchBehaviour)
+) : ContainsBuilder<T, S>(plant, searchBehaviour), CharSequenceContains.Builder<T, S>
 
