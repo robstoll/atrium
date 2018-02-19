@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.creating.iterable.contains.searchbehaviours
 
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.throwUnsupportedOperationException
 
 /**
@@ -8,19 +8,19 @@ import ch.tutteli.atrium.creating.throwUnsupportedOperationException
  */
 object IterableContainsSearchBehaviours : IIterableContainsSearchBehaviours {
     override fun <E, T : Iterable<E>> inAnyOrder(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour> = throwUnsupportedOperationException()
+        builder: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour> = throwUnsupportedOperationException()
 
     override fun <E, T : Iterable<E>> inAnyOrderOnly(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour> =
+        builder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour> =
         throwUnsupportedOperationException()
 
     override fun <E, T : Iterable<E>> inOrder(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour> = throwUnsupportedOperationException()
+        containsBuilder: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour> = throwUnsupportedOperationException()
 
     override fun <E, T : Iterable<E>> inOrderOnly(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour> = throwUnsupportedOperationException()
+        builder: IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInOrderOnlySearchBehaviour> = throwUnsupportedOperationException()
 }

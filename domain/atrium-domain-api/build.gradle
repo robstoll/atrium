@@ -4,6 +4,10 @@ buildscript {
 
 dependencies {
     compile ownModule('core-api')
+
+    //TODO remove with 1.0.0
+    // it is up to the consumer of atrium-assertions which atrium-translations module is used at runtime
+    compileOnly ownModule('translations-en_UK')
 }
 
 dokka {

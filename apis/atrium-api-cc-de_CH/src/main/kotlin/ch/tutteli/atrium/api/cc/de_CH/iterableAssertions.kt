@@ -4,21 +4,21 @@ import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.Iterab
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNotSearchBehaviour
 
 /**
- * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
+val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
     get() = AssertImpl.iterable.containsBuilder(this)
 
 /**
- * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.

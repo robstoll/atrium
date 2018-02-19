@@ -18,7 +18,11 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param plant The [AssertionPlant] for which the sophisticated `contains` assertions shall be built.
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
-@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsBuilder"))
-class IterableContainsBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
+@Deprecated(
+    "use the abstract class from package creating, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsBuilder")
+)
+open class IterableContainsBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
     plant: AssertionPlant<T>, searchBehaviour: S
-) : ContainsBuilder<T, S>(plant, searchBehaviour)
+) : ContainsBuilder<T, S>(plant, searchBehaviour),
+    ch.tutteli.atrium.creating.iterable.contains.IterableContains.Builder<E, T, S>

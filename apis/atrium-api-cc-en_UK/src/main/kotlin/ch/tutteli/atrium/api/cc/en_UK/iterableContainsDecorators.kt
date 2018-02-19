@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.creating.AssertImpl
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInOrderSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
@@ -12,7 +12,7 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inAnyOrder
+val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>.inAnyOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
 /**
@@ -21,7 +21,7 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearc
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.only
+val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.only
     @JvmName("inAnyOrderOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
@@ -31,7 +31,7 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inOrder
+val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>.inOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
 /**
@@ -40,6 +40,6 @@ val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearc
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>.only
+val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>.only
     @JvmName("inOrderOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)

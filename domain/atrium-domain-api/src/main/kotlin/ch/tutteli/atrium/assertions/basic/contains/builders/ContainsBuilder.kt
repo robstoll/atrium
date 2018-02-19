@@ -23,6 +23,6 @@ import ch.tutteli.atrium.creating.AssertionPlant
     ReplaceWith("ch.tutteli.atrium.creating.basic.contains.builders.ContainsBuilder")
 )
 abstract class ContainsBuilder<out T : Any, out S : Contains.SearchBehaviour>(
-    plant: AssertionPlant<T>,
-    searchBehaviour: S
-) : ch.tutteli.atrium.creating.basic.contains.builders.ContainsBuilder<T, S>(plant, searchBehaviour)
+    override val plant: AssertionPlant<T>,
+    override val searchBehaviour: S
+) : ch.tutteli.atrium.creating.basic.contains.Contains.Builder<T, S>

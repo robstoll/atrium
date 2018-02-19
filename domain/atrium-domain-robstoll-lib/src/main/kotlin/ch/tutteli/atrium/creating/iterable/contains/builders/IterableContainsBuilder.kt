@@ -20,4 +20,4 @@ import ch.tutteli.atrium.creating.iterable.contains.IterableContains
  */
 class IterableContainsBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
     plant: AssertionPlant<T>, searchBehaviour: S
-) : ContainsBuilder<T, S>(plant, searchBehaviour)
+) : ContainsBuilder<T, S>(plant, searchBehaviour), IterableContains.Builder<E, T, S>
