@@ -17,7 +17,7 @@ interface IterableContains {
      * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
      */
     @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour"))
-    interface SearchBehaviour : Contains.SearchBehaviour
+    interface SearchBehaviour : Contains.SearchBehaviour, ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
 
     /**
      * Represents the final step of a sophisticated `contains` assertion builder which creates the [AssertionGroup]
@@ -27,7 +27,7 @@ interface IterableContains {
      * @param S The type of the search criteria.
      */
     @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContains.Creator"))
-    interface Creator<in T : Iterable<*>, in S> : Contains.Creator<T, S>
+    interface Creator<in T : Iterable<*>, in S> : Contains.Creator<T, S>, ch.tutteli.atrium.creating.iterable.contains.IterableContains.Creator<T, S>
 
     /**
      * Represents a check for the search result such as: the object is contained exactly once in the input of the search.
@@ -35,5 +35,5 @@ interface IterableContains {
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
     @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker"))
-    interface Checker : Contains.Checker
+    interface Checker : Contains.Checker, ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker
 }

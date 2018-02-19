@@ -9,8 +9,8 @@ import ch.tutteli.atrium.creating.iterable.contains.IterableContains
  * The checking as such is then usually carried out by the [IterableContains.Creator].
  */
 class IterableContainsNoOpCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
-    containsBuilder: IterableContainsBuilder<E, T, S>
-) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
+    override val containsBuilder: IterableContains.Builder<E, T, S>
+) : IterableContains.CheckerBuilder<E, T, S> {
 
     override val checkers: List<IterableContains.Checker> = listOf(NotIntendedForUseChecker)
 

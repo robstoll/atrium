@@ -4,8 +4,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
-import ch.tutteli.atrium.creating.basic.contains.Contains.Builder
-import ch.tutteli.atrium.creating.basic.contains.Contains.Checker
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.CheckerBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -16,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface CharSequenceContains {
 
     /**
-     * The entry point of the contract, containing the [plant] to which the sophisticated `contain` assertion
+     * The entry point of the [CharSequence] `contains` contract, containing the [plant] to which the sophisticated `contain` assertion
      * should be added as well as the chosen [searchBehaviour].
      *
      * The [searchBehaviour] might me modified in which case it is recommended that a new [Builder] is created (retain

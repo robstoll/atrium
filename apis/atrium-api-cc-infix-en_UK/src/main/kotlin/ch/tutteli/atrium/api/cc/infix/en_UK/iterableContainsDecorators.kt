@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.creating.AssertImpl
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInOrderSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
@@ -14,7 +14,7 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  *
  * @return The newly created builder.
  */
-infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inAny(@Suppress("UNUSED_PARAMETER") order: order)
+infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>.inAny(@Suppress("UNUSED_PARAMETER") order: order)
     = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
 /**
@@ -24,7 +24,7 @@ infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoO
  * @return The newly created builder.
  */
 @JvmName("inAnyOrderOnly")
-infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
+infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
     = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
 /**
@@ -35,7 +35,7 @@ infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInA
  *
  * @return The newly created builder.
  */
-infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.inGiven(@Suppress("UNUSED_PARAMETER") order: order)
+infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>.inGiven(@Suppress("UNUSED_PARAMETER") order: order)
     = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
 /**
@@ -45,5 +45,5 @@ infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoO
  * @return The newly created builder.
  */
 @JvmName("inOrderOnly")
-infix fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
+infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
     = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)

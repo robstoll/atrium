@@ -18,7 +18,6 @@ import ch.tutteli.atrium.creating.basic.contains.Contains
  * @param plant The [AssertionPlant] for which the sophisticated `contains` assertions shall be built.
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
-@Deprecated("do not rely on this class, will be made internal with 1.0.0")
 abstract class ContainsBuilder<out T : Any, out S: Contains.SearchBehaviour>(
     override val plant: AssertionPlant<T>,
     override val searchBehaviour: S
