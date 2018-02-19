@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating.iterable.contains.builders
 
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers
 
@@ -14,8 +15,8 @@ import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsChe
  *   sophisticated `contains` assertion for [Iterable].
  */
 abstract class IterableContainsNotCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
-    containsBuilder: IterableContainsBuilder<E, T, S>
-) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
+    override val  containsBuilder: IterableContains.Builder<E, T, S>
+) : IterableContains.CheckerBuilder<E, T, S> {
 
     override val checkers = listOf(
         IterableContainsCheckers.newNotChecker()

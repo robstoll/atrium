@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.atLeast
 import ch.tutteli.atrium.api.cc.en_UK.atMost
 import ch.tutteli.atrium.api.cc.en_UK.butAtMost
 import ch.tutteli.atrium.api.cc.en_UK.exactly
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsButAtMostCheckerBuilderBase
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
@@ -18,12 +18,12 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  *   fluent API of a sophisticated `contains` assertion for [Iterable].
  * @param times The number which the check will compare against the actual number of times an expected entry is
  *   found in the [Iterable].
- * @param containsBuilder The previously used [IterableContainsBuilder].
+ * @param containsBuilder The previously used [IterableContains.Builder].
  */
 open class IterableContainsButAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
     atLeastBuilder: IterableContainsAtLeastCheckerBuilder<E, T>,
-    containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+    containsBuilder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
 ) : IterableContainsButAtMostCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     times,
     atLeastBuilder,

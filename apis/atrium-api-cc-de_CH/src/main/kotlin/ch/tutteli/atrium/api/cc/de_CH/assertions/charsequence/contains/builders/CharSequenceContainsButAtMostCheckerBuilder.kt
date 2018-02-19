@@ -16,13 +16,14 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *   found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContainsBuilder].
  */
-@Deprecated("use the builder from the package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder"))
+@Deprecated(
+    "use the builder from the package creating, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder")
+)
 open class CharSequenceContainsButAtMostCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
     atLeastBuilder: CharSequenceContainsAtLeastCheckerBuilder<T, S>,
     containsBuilder: CharSequenceContainsBuilder<T, S>
-) :ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder<T, S>(
-    times,
-    atLeastBuilder,
-    containsBuilder
+) : ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder<T, S>(
+    times, atLeastBuilder, containsBuilder
 )

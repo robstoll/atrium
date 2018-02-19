@@ -3,9 +3,9 @@ package ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.buil
 import ch.tutteli.atrium.api.cc.infix.en_UK.atLeast
 import ch.tutteli.atrium.api.cc.infix.en_UK.atMost
 import ch.tutteli.atrium.api.cc.infix.en_UK.exactly
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilderBase
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 
 /**
  * Represents the builder of a `contains at least once but at most` check within the fluent API of a
@@ -18,11 +18,11 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
  *   sophisticated `contains` assertion for [CharSequence].
  * @param times The number which the check will compare against the actual number of times an expected object is
  *   found in the input of the search.
- * @param containsBuilder The previously used [CharSequenceContainsBuilder].
+ * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 open class CharSequenceContainsAtMostCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
-    containsBuilder: CharSequenceContainsBuilder<T, S>
+    containsBuilder: CharSequenceContains.Builder<T, S>
 ) : CharSequenceContainsAtMostCheckerBuilderBase<T, S>(
     times,
     containsBuilder,

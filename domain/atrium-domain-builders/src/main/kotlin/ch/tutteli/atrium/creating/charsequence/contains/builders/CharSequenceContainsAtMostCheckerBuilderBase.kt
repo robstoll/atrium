@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.creating.basic.contains.builders.validateAtMost
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Checker
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsCheckers
@@ -19,7 +20,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceCon
  *   sophisticated `contains` assertion for [CharSequence].
  * @param times The number which the check will compare against the actual number of times an expected object is
  *   found in the input of the search.
- * @param containsBuilder The previously used [CharSequenceContainsBuilder].
+ * @param containsBuilder The previously used [CharSequenceContains.Builder].
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param atMostCall The name of the function which was called and created this builder.
  * @param atLeastCall The name of the function which represents a `CharSequence contains at least` assertion.
@@ -27,12 +28,12 @@ import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceCon
  */
 abstract class CharSequenceContainsAtMostCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
     val times: Int,
-    containsBuilder: CharSequenceContainsBuilder<T, S>,
+    override val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String,
     atLeastCall: (Int) -> String,
     exactlyCall: (Int) -> String
-) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
+) : CharSequenceContains.CheckerBuilder<T, S> {
 
     init {
         validateAtMost(times, atMostCall, atLeastCall, exactlyCall)

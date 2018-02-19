@@ -4,22 +4,22 @@ import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.Ch
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
+val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContains.Builder<T, CharSequenceContainsNoOpSearchBehaviour>
     get() = AssertImpl.charSequence.containsBuilder(this)
 
 /**
- * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.

@@ -4,28 +4,27 @@ import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.Iterab
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
 
 /**
- * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Assert<T>.contains: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
+val <E, T : Iterable<E>> Assert<T>.contains: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
     get() = AssertImpl.iterable.containsBuilder(this)
 
 /**
- * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> Assert<T>.containsNot: IterableContainsNotCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
     get() = IterableContainsNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(this))
-
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]
