@@ -4,10 +4,10 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 
 /**
- * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
@@ -16,7 +16,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contai
     = AssertImpl.iterable.containsBuilder(this)
 
 /**
- * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.

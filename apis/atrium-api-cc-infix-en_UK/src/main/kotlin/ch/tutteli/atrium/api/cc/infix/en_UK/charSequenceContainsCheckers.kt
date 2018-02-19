@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.*
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we are looking
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.atLeast(times: Int): CharSequenceContainsAtLeastCheckerBuilder<T, S>
+infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): CharSequenceContainsAtLeastCheckerBuilder<T, S>
     = CharSequenceContainsAtLeastCheckerBuilder(times, this)
 
 /**
@@ -47,12 +47,8 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastChe
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.exactly(times: Int): CharSequenceContainsExactlyCheckerBuilder<T, S>
-    =
-    CharSequenceContainsExactlyCheckerBuilder(
-        times,
-        this
-    )
+infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): CharSequenceContainsExactlyCheckerBuilder<T, S>
+    = CharSequenceContainsExactlyCheckerBuilder(times, this)
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
@@ -70,12 +66,8 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T,
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.atMost(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, S>
-    =
-    CharSequenceContainsAtMostCheckerBuilder(
-        times,
-        this
-    )
+infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, S>
+    = CharSequenceContainsAtMostCheckerBuilder(times, this)
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
@@ -88,9 +80,5 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T,
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsBuilder<T, S>.notOrAtMost(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
-    =
-    CharSequenceContainsNotOrAtMostCheckerBuilder(
-        times,
-        this
-    )
+infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
+    = CharSequenceContainsNotOrAtMostCheckerBuilder(times, this)

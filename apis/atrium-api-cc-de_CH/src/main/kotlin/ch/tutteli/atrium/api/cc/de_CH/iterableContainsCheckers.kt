@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.*
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
 /**
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.zumindest(times: Int): IterableContainsAtLeastCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.zumindest(times: Int): IterableContainsAtLeastCheckerBuilder<E, T>
     = IterableContainsAtLeastCheckerBuilder(times, this)
 
 /**
@@ -47,7 +47,7 @@ fun <E, T : Iterable<E>> IterableContainsAtLeastCheckerBuilder<E, T>.aberHoechst
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.genau(times: Int): IterableContainsExactlyCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.genau(times: Int): IterableContainsExactlyCheckerBuilder<E, T>
     = IterableContainsExactlyCheckerBuilder(times, this)
 
 /**
@@ -66,7 +66,7 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [genau] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.hoechstens(times: Int): IterableContainsAtMostCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.hoechstens(times: Int): IterableContainsAtMostCheckerBuilder<E, T>
     = IterableContainsAtMostCheckerBuilder(times, this)
 
 /**
@@ -80,5 +80,5 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.nichtOderHoechstens(times: Int): IterableContainsNotOrAtMostCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.nichtOderHoechstens(times: Int): IterableContainsNotOrAtMostCheckerBuilder<E, T>
     = IterableContainsNotOrAtMostCheckerBuilder(times, this)

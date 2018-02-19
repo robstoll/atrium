@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders
 
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilderBase
 
 /**
@@ -13,9 +13,9 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
  *
  * @constructor Represents the builder of a `contains not at all` check within the fluent API of a sophisticated
  *   `contains` assertion for [CharSequence].
- * @param containsBuilder The previously used [CharSequenceContainsBuilder].
+ * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 open class CharSequenceContainsNotCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
-    containsBuilder: CharSequenceContainsBuilder<T, S>
+    containsBuilder: CharSequenceContains.Builder<T, S>
 ) : CharSequenceContainsNotCheckerBuilderBase<T, S>(containsBuilder)
 

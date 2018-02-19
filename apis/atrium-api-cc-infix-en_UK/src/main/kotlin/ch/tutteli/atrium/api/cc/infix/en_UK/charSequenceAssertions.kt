@@ -4,24 +4,24 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.build
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
  * a sophisticated `contains` assertions.
  *
  * @param contain Has to be `contain`.
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
+infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContains.Builder<T, CharSequenceContainsNoOpSearchBehaviour>
     = AssertImpl.charSequence.containsBuilder(this)
 
 /**
- * Creates a [CharSequenceContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.
