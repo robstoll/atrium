@@ -5,7 +5,7 @@ buildscript {
 }
 
 dependencies {
-    compile ownModule('core-api')
+    compile projectPrefixed('core-api')
 }
 
 dokka {

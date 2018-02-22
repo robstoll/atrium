@@ -3,8 +3,8 @@ buildscript {
 }
 
 dependencies {
-    compile ownModule('domain-api')
-    compile ownModule('domain-robstoll-lib')
+    compile projectPrefixed('domain-api')
+    compile projectPrefixed('domain-robstoll-lib')
 }
 
 dokka {
