@@ -53,7 +53,7 @@ buildscript {
                 } - translationProjects
         ]
 
-        ownModule = { String name -> project(":${rootProject.name}-$name") }
+        projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
         srcKotlin = 'src/main/kotlin'
         srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
     }

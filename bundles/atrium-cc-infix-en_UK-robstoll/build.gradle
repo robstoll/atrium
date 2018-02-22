@@ -3,10 +3,10 @@ buildscript {
 }
 
 dependencies {
-    compile ownModule('api-cc-infix-en_UK')
-    compile ownModule('translations-en_UK')
-    compile ownModule('domain-robstoll')
-    compile ownModule('core-robstoll')
+    compile projectPrefixed('api-cc-infix-en_UK')
+    compile projectPrefixed('translations-en_UK')
+    compile projectPrefixed('domain-robstoll')
+    compile projectPrefixed('core-robstoll')
 
-    testCompile ownModule('verbs')
+    testCompile projectPrefixed('verbs')
 }
