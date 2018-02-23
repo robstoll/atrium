@@ -23,7 +23,7 @@ val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContains.Builder<E, T, Iter
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: IterableContainsNotCheckerBuilder<E, T, IterableContainsNotSearchBehaviour>
+val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: IterableContainsNotCheckerBuilder<E, T>
     get() = IterableContainsNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(this))
 
 /**
