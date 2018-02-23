@@ -24,7 +24,7 @@ val <T : CharSequence> CharSequenceContains.Builder<T, CharSequenceContainsNoOpS
 @Deprecated("use `ignoringCase` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("ignoringCase"))
 fun <T : CharSequence> DeprecatedBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.getIgnoringCase()
     : DeprecatedBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
-    = DeprecatedBuilder(this.plant, AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this).searchBehaviour)
+    = DeprecatedBuilder(this.plant, ignoringCase.searchBehaviour)
 
 
 /**
