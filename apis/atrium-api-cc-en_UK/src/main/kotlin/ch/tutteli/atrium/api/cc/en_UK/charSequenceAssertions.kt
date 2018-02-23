@@ -24,7 +24,7 @@ val <T : CharSequence> Assert<T>.contains: CharSequenceContains.Builder<T, CharS
 
 @Deprecated("use `contains` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("contains"))
 fun <T : CharSequence> Assert<T>.getContains(): DeprecatedBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    = DeprecatedBuilder(this, AssertImpl.charSequence.containsBuilder(this).searchBehaviour)
+    = DeprecatedBuilder(this, contains.searchBehaviour)
 
 
 /**
@@ -37,8 +37,8 @@ val <T : CharSequence> Assert<T>.containsNot: CharSequenceContainsNotCheckerBuil
     get() = CharSequenceContainsNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(this))
 
 @Deprecated("use `containsNot` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("containsNot"))
-fun <T : CharSequence> Assert<T>.getContainsNot(): DeprecatedNotCheckerBuilder<T, DeprecatedNotSearchBehaviour>
-    = DeprecatedNotCheckerBuilder(DeprecatedBuilder(this, DeprecatedNotSearchBehaviour()))
+fun <T : CharSequence> Assert<T>.getContainsNot(): DeprecatedNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
+    = DeprecatedNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(this))
 
 
 /**
