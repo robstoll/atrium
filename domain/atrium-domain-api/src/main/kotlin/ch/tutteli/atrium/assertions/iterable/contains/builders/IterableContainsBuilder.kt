@@ -2,7 +2,6 @@ package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder
-import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
@@ -22,7 +21,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
     "use the abstract class from package creating, will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsBuilder")
 )
-open class IterableContainsBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
+open class IterableContainsBuilder<out E, out T : Iterable<E>, out S : ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour>(
     plant: AssertionPlant<T>, searchBehaviour: S
 ) : ContainsBuilder<T, S>(plant, searchBehaviour),
     ch.tutteli.atrium.creating.iterable.contains.IterableContains.Builder<E, T, S>
