@@ -13,8 +13,8 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
     ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsNoOpCheckerBuilder")
 )
 class IterableContainsNoOpCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
-    containsBuilder: IterableContainsBuilder<E, T, S>
-) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
+    override val containsBuilder: IterableContainsBuilder<E, T, S>
+) : IterableContainsCheckerBuilder<E, T, S> {
 
     override val checkers: List<IterableContains.Checker> = listOf(NotIntendedForUseChecker)
 

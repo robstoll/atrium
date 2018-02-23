@@ -8,6 +8,10 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder as DeprecatedNotCheckerBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder as DeprecatedBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour as DeprecatedNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour as DeprecatedNotSearchBehaviour
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
@@ -18,6 +22,11 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 val <T : CharSequence> Assert<T>.contains: CharSequenceContains.Builder<T, CharSequenceContainsNoOpSearchBehaviour>
     get() = AssertImpl.charSequence.containsBuilder(this)
 
+@Deprecated("use `contains` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("contains"))
+fun <T : CharSequence> Assert<T>.getContains(): DeprecatedBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
+    = DeprecatedBuilder(this, AssertImpl.charSequence.containsBuilder(this).searchBehaviour)
+
+
 /**
  * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains not` assertions.
@@ -26,6 +35,11 @@ val <T : CharSequence> Assert<T>.contains: CharSequenceContains.Builder<T, CharS
  */
 val <T : CharSequence> Assert<T>.containsNot: CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
     get() = CharSequenceContainsNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(this))
+
+@Deprecated("use `containsNot` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("containsNot"))
+fun <T : CharSequence> Assert<T>.getContainsNot(): DeprecatedNotCheckerBuilder<T, DeprecatedNotSearchBehaviour>
+    = DeprecatedNotCheckerBuilder(DeprecatedBuilder(this, DeprecatedNotSearchBehaviour()))
+
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation

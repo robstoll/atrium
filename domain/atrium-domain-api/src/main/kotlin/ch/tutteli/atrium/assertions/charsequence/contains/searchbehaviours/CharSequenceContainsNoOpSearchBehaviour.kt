@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents the default search behaviour or rather does not define a search behaviour at all.
@@ -10,10 +9,5 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * is passed in (identity function).
  */
 @Deprecated("use the search behaviour from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour"))
-open class CharSequenceContainsNoOpSearchBehaviour : CharSequenceContains.SearchBehaviour {
-    /**
-     * Returns the given [description].
-     * @return the given [description].
-     */
-    override fun decorateDescription(description: Translatable) = description
-}
+open class CharSequenceContainsNoOpSearchBehaviour : CharSequenceContains.SearchBehaviour,
+    ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour

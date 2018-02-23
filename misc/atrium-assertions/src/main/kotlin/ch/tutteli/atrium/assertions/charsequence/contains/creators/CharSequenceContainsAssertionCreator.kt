@@ -2,8 +2,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsObjectsAssertionCreator
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.*
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 
@@ -25,11 +24,11 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * @param checkers The checkers which create assertions based on the search result.
  */
 @Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
-class CharSequenceContainsAssertionCreator<T : CharSequence, S : SearchBehaviour>(
+class CharSequenceContainsAssertionCreator<T : CharSequence, S : CharSequenceContains.SearchBehaviour>(
     searchBehaviour: S,
-    private val searcher: Searcher<S>,
-    checkers: List<Checker>
-) : ContainsObjectsAssertionCreator<T, Any, S, Checker>(searchBehaviour, checkers),
+    private val searcher: CharSequenceContains.Searcher<S>,
+    checkers: List<CharSequenceContains.Checker>
+) : ContainsObjectsAssertionCreator<T, Any, S, CharSequenceContains.Checker>(searchBehaviour, checkers),
     CharSequenceContains.Creator<T, Any> {
 
     override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS

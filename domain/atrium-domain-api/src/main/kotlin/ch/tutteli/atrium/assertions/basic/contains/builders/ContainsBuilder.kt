@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.basic.contains.builders
 
-import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.basic.contains.Contains
 
 /**
  * Represents the *deprecated* base class for builders representing the entry point of the process of building a sophisticated
@@ -25,4 +25,4 @@ import ch.tutteli.atrium.creating.AssertionPlant
 abstract class ContainsBuilder<out T : Any, out S : Contains.SearchBehaviour>(
     override val plant: AssertionPlant<T>,
     override val searchBehaviour: S
-) : ch.tutteli.atrium.creating.basic.contains.Contains.Builder<T, S>
+) : Contains.Builder<T, S>

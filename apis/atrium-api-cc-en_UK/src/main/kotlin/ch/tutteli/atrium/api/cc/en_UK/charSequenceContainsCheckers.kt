@@ -3,6 +3,16 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.*
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilder as DeprecatedAtMostCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder as DeprecatedButAtMostCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilder as DeprecatedExactlyCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder as DeprecatedNotCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilder as DeprecatedNotOrAtMostCheckerBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour as DeprecatedSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder as DeprecatedBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour as DeprecatedNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour as DeprecatedNotSearchBehaviour
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we are looking
@@ -17,6 +27,11 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Sea
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): CharSequenceContainsAtLeastCheckerBuilder<T, S>
     = CharSequenceContainsAtLeastCheckerBuilder(times, this)
+
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("contains"))
+fun <T : CharSequence, S : SearchBehaviour> DeprecatedBuilder<T, S>.atLeast(times: Int): DeprecatedAtLeastCheckerBuilder<T, S>
+    = DeprecatedAtLeastCheckerBuilder(times, this)
+
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the object which we
@@ -36,6 +51,11 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.a
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastCheckerBuilder<T, S>.butAtMost(times: Int): CharSequenceContainsButAtMostCheckerBuilder<T, S>
     = CharSequenceContainsButAtMostCheckerBuilder(times, this, containsBuilder)
 
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("contains"))
+fun <T : CharSequence, S : DeprecatedSearchBehaviour> DeprecatedAtLeastCheckerBuilder<T, S>.butAtMost(times: Int): DeprecatedButAtMostCheckerBuilder<T, S>
+    = DeprecatedButAtMostCheckerBuilder(times, this, containsBuilder as DeprecatedBuilder)
+
+
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
  * are looking for, occurs `exactly` number of [times] within the search input.
@@ -49,6 +69,10 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastCheckerBu
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): CharSequenceContainsExactlyCheckerBuilder<T, S>
     = CharSequenceContainsExactlyCheckerBuilder(times, this)
+
+fun <T : CharSequence, S : DeprecatedSearchBehaviour> DeprecatedBuilder<T, S>.exactly(times: Int): DeprecatedExactlyCheckerBuilder<T, S>
+    = DeprecatedExactlyCheckerBuilder(times, this)
+
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
@@ -69,6 +93,10 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.e
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, S>
     = CharSequenceContainsAtMostCheckerBuilder(times, this)
 
+fun <T : CharSequence, S : DeprecatedSearchBehaviour> DeprecatedBuilder<T, S>.atMost(times: Int): DeprecatedAtMostCheckerBuilder<T, S>
+    = DeprecatedAtMostCheckerBuilder(times, this)
+
+
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
  * are looking for, occurs `not at all or at most` number of [times] within the search input.
@@ -82,3 +110,6 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.a
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
     = CharSequenceContainsNotOrAtMostCheckerBuilder(times, this)
+
+fun <T : CharSequence, S : DeprecatedSearchBehaviour> DeprecatedBuilder<T, S>.notOrAtMost(times: Int): DeprecatedNotOrAtMostCheckerBuilder<T, S>
+    = DeprecatedNotOrAtMostCheckerBuilder(times, this)
