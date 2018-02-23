@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
- *  Represents the builder of a `contains not at all` check within the fluent API of a sophisticated
+ *  Represents the *deprecated* builder of a `contains not at all` check within the fluent API of a sophisticated
  * `contains` assertion for [CharSequence].
  *
  * @param T The input type of the search.
@@ -13,7 +12,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
  *
  * @constructor Represents the builder of a `contains not at all` check within the fluent API of a sophisticated
  *   `contains` assertion for [CharSequence].
- * @param containsBuilder The previously used [CharSequenceContainsBuilder].
+ * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 @Deprecated(
     "use the builder from the package creating, will be removed with 1.0.0",
