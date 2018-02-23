@@ -11,8 +11,9 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  */
 @Deprecated("use the search behaviour from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour"))
 open class CharSequenceContainsIgnoringCaseSearchBehaviour(
-    private val previousBehaviour: CharSequenceContainsNoOpSearchBehaviour
-) : CharSequenceContains.SearchBehaviour {
+    private val previousBehaviour: ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+) : CharSequenceContains.SearchBehaviour,
+    ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour{
 
     override fun decorateDescription(description: Translatable): Translatable {
         val previousDecorated = previousBehaviour.decorateDescription(description)

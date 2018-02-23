@@ -1,7 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders
 
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
  * Represents the builder of the second step of a `contains at least but at most` check within the
@@ -20,10 +21,10 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
     "use the builder from the package creating, will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder")
 )
-open class CharSequenceContainsButAtMostCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
+open class CharSequenceContainsButAtMostCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,
     atLeastBuilder: CharSequenceContainsAtLeastCheckerBuilder<T, S>,
-    containsBuilder: CharSequenceContainsBuilder<T, S>
+    containsBuilder: CharSequenceContains.Builder<T, S>
 ) : ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder<T, S>(
     times, atLeastBuilder, containsBuilder
-)
+), CharSequenceContainsCheckerBuilder<T, S>
