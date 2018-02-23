@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
- * Represents the entry point of the fluent API of sophisticated `contains` assertions.
+ * Represents the *deprecated* entry point of the fluent API of sophisticated `contains` assertions.
  * It contains the [plant] for which the [Assertion] shall be build as well as the decoration behaviour which shall be
  * applied to the [plant]'s [subject][AssertionPlant.subject].
  *

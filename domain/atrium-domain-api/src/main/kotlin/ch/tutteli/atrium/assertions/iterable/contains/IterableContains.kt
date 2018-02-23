@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Defines the contract for sophisticated [Iterable] `contains` assertions.
+ * Defines the *deprecated* contract for sophisticated [Iterable] `contains` assertions.
  */
 @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContains"))
 interface IterableContains {
