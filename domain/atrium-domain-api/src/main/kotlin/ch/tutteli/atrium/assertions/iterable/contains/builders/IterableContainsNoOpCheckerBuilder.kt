@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 
 /**
- * Represents a "no [IterableContains.Checker]" option, meaning no checker shall be applied to a search result.
+ * Represents the *deprecated* "no [IterableContains.Checker]" option, meaning no checker shall be applied to a search result.
  *
  * The checking as such is then usually carried out be the [IterableContains.Creator].
  */

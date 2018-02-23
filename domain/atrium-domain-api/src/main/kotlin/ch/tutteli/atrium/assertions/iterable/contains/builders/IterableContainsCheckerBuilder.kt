@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains.Checker
 
 /**
- * The base class for builders which create [Checker]s within the fluent API of a sophisticated
+ * The *deprecated* base class for builders which create [Checker]s within the fluent API of a sophisticated
  * `contains` assertion which was started with the given [containsBuilder].
  *
  * @param T The input type of the search.

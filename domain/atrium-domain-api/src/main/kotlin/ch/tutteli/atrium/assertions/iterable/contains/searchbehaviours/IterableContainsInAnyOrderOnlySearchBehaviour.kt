@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
- * Represents the search behaviour that expected entries might appear in any order within the [Iterable] but that
+ * Represents the *deprecated* search behaviour that expected entries might appear in any order within the [Iterable] but that
  * the resulting assertion should not hold if there are less entries than expected or more.
  */
 @Deprecated(
