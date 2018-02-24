@@ -1,0 +1,66 @@
+buildscript {
+    ext.publish_description = 'Checks that specs from an older version of Atrium can still be run with the components of the current version.'
+}
+
+repositories {
+    maven { url "https://dl.bintray.com/jetbrains/spek" }
+    maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
+}
+
+sourceSets {
+    bc_enUK0_6_0
+}
+
+configurations {
+    common
+    bundle
+    enUK0_6_0
+}
+
+dependencies {
+    common "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
+    common("org.jetbrains.spek:spek-api:$spek_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    common("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
+        exclude group: 'org.junit.platform'
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    common("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    compile configurations.common.dependencies
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile gradleApi()
+
+    bundle projectPrefixed('cc-en_UK-robstoll')
+
+    enUK0_6_0("ch.tutteli:atrium-api-cc-en_UK-tests:0.6.0") {
+        exclude group: '*'
+    }
+
+    bc_enUK0_6_0RuntimeOnly("ch.tutteli:atrium-spec:0.6.0") {
+        exclude group: '*'
+    }
+    bc_enUK0_6_0RuntimeOnly configurations.enUK0_6_0.dependencies
+    bc_enUK0_6_0RuntimeOnly configurations.common.dependencies
+    bc_enUK0_6_0RuntimeOnly configurations.bundle.dependencies
+
+    bc_enUK0_6_0RuntimeOnly sourceSets.main.runtimeClasspath
+}
+
+
+task('bcEnUK_0_6_0', type: JavaExec, group: 'Verification') {
+    dependsOn jar
+    description = 'Checks if specs from 0.6.0 can be run against the current version).'
+    classpath sourceSets.bc_enUK0_6_0.runtimeClasspath
+
+    main = 'org.junit.platform.console.ConsoleLauncher'
+    args = [
+        '--scan-class-path', configurations.enUK0_6_0.asPath,
+        '--include-engine', 'spek-deprecation',
+        '--config', 'forgive=.*spec:ch.tutteli.atrium.api.cc.en_UK.Iterable.*(error cases|failing cases|context empty collection).*',
+        '--details', 'none'
+    ]
+}
