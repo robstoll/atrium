@@ -32,6 +32,7 @@ includeTranslations "translations-de_CH"
 includeTranslations "translations-en_UK"
 includeMisc "spec"
 includeMisc "verbs"
+includeMisc "bc-test"
 
 //convenience modules
 includeBundle "cc-en_UK-robstoll"
