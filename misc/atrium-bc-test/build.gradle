@@ -51,7 +51,7 @@ dependencies {
 }
 
 
-task('bcEnUK_0_6_0', type: JavaExec, group: 'Verification') {
+def bcEnUk_0_6_0 = task('bcEnUK_0_6_0', type: JavaExec, group: 'Verification') {
     dependsOn jar
     description = 'Checks if specs from 0.6.0 can be run against the current version).'
     classpath sourceSets.bc_enUK0_6_0.runtimeClasspath
@@ -64,3 +64,5 @@ task('bcEnUK_0_6_0', type: JavaExec, group: 'Verification') {
         '--details', 'none'
     ]
 }
+
+check.dependsOn bcEnUk_0_6_0
