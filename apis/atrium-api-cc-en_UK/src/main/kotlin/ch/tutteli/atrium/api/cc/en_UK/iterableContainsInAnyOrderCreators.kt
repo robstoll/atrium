@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
+import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -21,6 +22,10 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
 fun <E, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.value(expected: E): AssertionPlant<T>
     = objects(expected)
 
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> value(checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, expected: E): AssertionPlant<T>
+    = objects(checker, expected)
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
  * [otherExpected] values shall be searched within the [Iterable].
@@ -36,6 +41,10 @@ fun <E, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsI
 fun <E, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.values(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = objects(expected, *otherExpected)
 
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> values(checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = checker.values(expected, *otherExpected)
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
@@ -50,6 +59,10 @@ fun <E, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsI
  */
 fun <E, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.`object`(expected: E): AssertionPlant<T>
     = objects(expected)
+
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> `object`(checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, expected: E): AssertionPlant<T>
+    = objects(checker, expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as the
@@ -73,6 +86,10 @@ fun <E, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsI
 fun <E, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.objects(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.objectsInAnyOrder(this, expected, otherExpected))
 
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> objects(checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = checker.objects(expected, *otherExpected)
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
@@ -89,6 +106,11 @@ fun <E, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsI
  */
 fun <E : Any, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = entries(assertionCreator)
+
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E : Any, T : Iterable<E>> entry(checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+    = entries(checker, assertionCreator)
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
@@ -110,6 +132,15 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableCon
 ): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
 
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E : Any, T : Iterable<E>> entries(
+    checker: IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
+    assertionCreator: Assert<E>.() -> Unit,
+    vararg otherAssertionCreators: Assert<E>.() -> Unit
+): AssertionPlant<T>
+    = checker.entries(assertionCreator, *otherAssertionCreators)
+
+
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
  * holds all assertions [assertionCreator] might create or is `null` in case [assertionCreator] is null as well.
@@ -126,6 +157,11 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerBuilder<E, T, IterableCon
 @JvmName("nullableEntry")
 fun <E : Any, T : Iterable<E?>> IterableContains.CheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>.entry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = entries(assertionCreator)
+
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E : Any, T : Iterable<E?>> nullableEntry(checker: IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = nullableEntries(checker, assertionCreator)
+
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
@@ -147,3 +183,11 @@ fun <E : Any, T : Iterable<E?>> IterableContains.CheckerBuilder<E?, T, IterableC
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrder(this, assertionCreator, otherAssertionCreators))
+
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E : Any, T : Iterable<E?>> nullableEntries(
+    checker: IterableContainsCheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>,
+    assertionCreator: (Assert<E>.() -> Unit)?,
+    vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
+): AssertionPlant<T>
+    = checker.entries(assertionCreator, *otherAssertionCreators)
