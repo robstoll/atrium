@@ -4,6 +4,14 @@ import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.*
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 
+import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsAtMostCheckerBuilder as DeprecatedAtMostCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsButAtMostCheckerBuilder as DeprecatedButAtMostCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsExactlyCheckerBuilder as DeprecatedExactlyCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilder as DeprecatedNotOrAtMostCheckerBuilder
+import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder as DeprecatedBuilder
+
+
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we are looking
  * for, occurs `at least` number of [times] within the [Iterable].
@@ -17,6 +25,11 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  */
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.atLeast(times: Int): IterableContainsAtLeastCheckerBuilder<E, T>
     = IterableContainsAtLeastCheckerBuilder(times, this)
+
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> DeprecatedBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.atLeast(times: Int): DeprecatedAtLeastCheckerBuilder<E, T>
+    = DeprecatedAtLeastCheckerBuilder(times, this)
+
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the entry which we
@@ -36,6 +49,11 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrd
 fun <E, T : Iterable<E>> IterableContainsAtLeastCheckerBuilder<E, T>.butAtMost(times: Int): IterableContainsButAtMostCheckerBuilder<E, T>
     = IterableContainsButAtMostCheckerBuilder(times, this, containsBuilder)
 
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> DeprecatedAtLeastCheckerBuilder<E, T>.butAtMost(times: Int): DeprecatedButAtMostCheckerBuilder<E, T>
+    = DeprecatedButAtMostCheckerBuilder(times, this, containsBuilder)
+
+
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
  * are looking for, occurs `exactly` number of [times] within the [Iterable].
@@ -49,6 +67,11 @@ fun <E, T : Iterable<E>> IterableContainsAtLeastCheckerBuilder<E, T>.butAtMost(t
  */
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.exactly(times: Int): IterableContainsExactlyCheckerBuilder<E, T>
     = IterableContainsExactlyCheckerBuilder(times, this)
+
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> DeprecatedBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.exactly(times: Int): DeprecatedExactlyCheckerBuilder<E, T>
+    = DeprecatedExactlyCheckerBuilder(times, this)
+
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
@@ -69,6 +92,11 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrd
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.atMost(times: Int): IterableContainsAtMostCheckerBuilder<E, T>
     = IterableContainsAtMostCheckerBuilder(times, this)
 
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> DeprecatedBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.atMost(times: Int): DeprecatedAtMostCheckerBuilder<E, T>
+    = DeprecatedAtMostCheckerBuilder(times, this)
+
+
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
  * are looking for, occurs `not at all or at most` number of [times] within the [Iterable].
@@ -82,3 +110,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrd
  */
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.notOrAtMost(times: Int): IterableContainsNotOrAtMostCheckerBuilder<E, T>
     = IterableContainsNotOrAtMostCheckerBuilder(times, this)
+
+@Deprecated("It is only here to retain binary compatibility, will be removed with 1.0.0")
+fun <E, T : Iterable<E>> DeprecatedBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.notOrAtMost(times: Int): DeprecatedNotOrAtMostCheckerBuilder<E, T>
+    = DeprecatedNotOrAtMostCheckerBuilder(times, this)
