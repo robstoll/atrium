@@ -46,16 +46,18 @@ def createBcTask(String apiName, String origVersion, String forgive) {
         add(confName, "ch.tutteli:atrium-api-$apiName-tests:$origVersion") {
             exclude group: '*'
         }
-        add("${srcName}RuntimeOnly", "ch.tutteli:atrium-spec:$origVersion") {
+        owner."${srcName}RuntimeOnly"("ch.tutteli:atrium-spec:$origVersion") {
             exclude group: '*'
         }
+        owner."${srcName}RuntimeOnly" projectPrefixed("api-cc-en_UK") //required for atrium-spec
+
         owner."${srcName}RuntimeOnly" configurations.common.dependencies
         owner."${srcName}RuntimeOnly" sourceSets.main.runtimeClasspath
         owner."${srcName}RuntimeOnly" configurations[confName].dependencies
         owner."${srcName}RuntimeOnly" projectPrefixed("$apiName-robstoll")
     }
 
-    return task("bc_$name", type: JavaExec, group: 'Verification') {
+    def bcTask = task("bc_$name", type: JavaExec, group: 'Verification') {
         dependsOn jar
         description = "Checks if specs from $origVersion can be run against the current version)."
         classpath sourceSets[srcName].runtimeClasspath
@@ -68,10 +70,12 @@ def createBcTask(String apiName, String origVersion, String forgive) {
             '--details', 'none'
         ]
     }
+    check.dependsOn bcTask
 }
 
-def bcenUk0_6_0 = createBcTask('cc-en_UK', '0.6.0',
+createBcTask('cc-en_UK', '0.6.0',
     'forgive=.*spec:ch.tutteli.atrium.api.cc.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
 )
-
-check.dependsOn bcenUk0_6_0
+createBcTask('cc-infix-en_UK', '0.6.0',
+    'forgive=.*spec:ch.tutteli.atrium.api.cc.infix.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
+)
