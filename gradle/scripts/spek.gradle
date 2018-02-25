@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
     }
 }
 apply plugin: 'jacoco'
@@ -27,7 +27,7 @@ dependencies {
 
 
 junitPlatform {
-    platformVersion "$junit_version"
+    platformVersion "$junit_platform_version"
     filters {
         engines {
             include 'spek'
