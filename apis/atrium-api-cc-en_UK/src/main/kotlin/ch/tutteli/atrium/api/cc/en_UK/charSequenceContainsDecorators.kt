@@ -21,10 +21,10 @@ val <T : CharSequence> CharSequenceContains.Builder<T, CharSequenceContainsNoOpS
     get() : CharSequenceContains.Builder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
     = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
-@Deprecated("use `ignoringCase` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("ignoringCase"))
-fun <T : CharSequence> DeprecatedBuilder<T, CharSequenceContainsNoOpSearchBehaviour>.getIgnoringCase()
+@Deprecated("use the extension fun `ignoringCase` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoringCase"))
+fun <T : CharSequence> getIgnoringCase(builder: DeprecatedBuilder<T, CharSequenceContainsNoOpSearchBehaviour>)
     : DeprecatedBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
-    = DeprecatedBuilder(this.plant, ignoringCase.searchBehaviour)
+    = DeprecatedBuilder(builder.plant, builder.ignoringCase.searchBehaviour)
 
 
 /**
@@ -36,7 +36,7 @@ val <T : CharSequence> CharSequenceContainsNotCheckerBuilder<T, CharSequenceCont
     get() : CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
     = CharSequenceContainsNotCheckerBuilder(containsBuilder.ignoringCase)
 
-@Deprecated("use `ignoringCase` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("ignoringCase"))
-fun <T : CharSequence> DeprecatedNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>.getIgnoringCase()
+@Deprecated("use the extension fun `ignoringCase` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoringCase"))
+fun <T : CharSequence> getIgnoringCase(builder: DeprecatedNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>)
     : DeprecatedNotCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
-    = DeprecatedNotCheckerBuilder(containsBuilder.ignoringCase)
+    = DeprecatedNotCheckerBuilder(builder.containsBuilder.ignoringCase)

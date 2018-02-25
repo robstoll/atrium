@@ -14,9 +14,9 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>.inAnyOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
-@Deprecated("use `inAnyOrder` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("inAnyOrder"))
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.getInAnyOrder(): IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-    = IterableContainsBuilder(this.plant, inAnyOrder.searchBehaviour)
+@Deprecated("use the extension fun `inAnyOrder` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.inAnyOrder"))
+fun <E, T : Iterable<E>> getInAnyOrder(builder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>): IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+    = IterableContainsBuilder(builder.plant, builder.inAnyOrder.searchBehaviour)
 
 
 /**
@@ -29,9 +29,9 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrd
     @JvmName("inAnyOrderOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
-@Deprecated("use `only` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("only"))
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.inAnyOrderOnly(): IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>
-    = IterableContainsBuilder(this.plant, only.searchBehaviour)
+@Deprecated("use the extension fun `only` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.only"))
+fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>): IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>
+    = IterableContainsBuilder(builder.plant, builder.only.searchBehaviour)
 
 
 /**
@@ -43,9 +43,9 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>.inOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
-@Deprecated("use `inOrder` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("inOrder"))
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>.getInOrder(): IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
-    = IterableContainsBuilder(this.plant, inOrder.searchBehaviour)
+@Deprecated("use the extension fun `inOrder` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.inOrder"))
+fun <E, T : Iterable<E>> getInOrder(builder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>): IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
+    = IterableContainsBuilder(builder.plant, builder.inOrder.searchBehaviour)
 
 
 /**
@@ -58,6 +58,6 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInOrderS
     @JvmName("inOrderOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
 
-@Deprecated("use `only` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("only"))
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>.inOrderOnly(): IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>
-    = IterableContainsBuilder(this.plant, only.searchBehaviour)
+@Deprecated("use the extension fun `only` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.only"))
+fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>): IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>
+    = IterableContainsBuilder(builder.plant, builder.only.searchBehaviour)
