@@ -11,7 +11,6 @@ import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.Iter
 import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilder as DeprecatedNotOrAtMostCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder as DeprecatedBuilder
 
-
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we are looking
  * for, occurs `at least` number of [times] within the [Iterable].
