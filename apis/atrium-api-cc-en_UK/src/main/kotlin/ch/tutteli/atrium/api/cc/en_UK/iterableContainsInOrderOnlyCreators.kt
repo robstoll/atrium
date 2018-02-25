@@ -83,7 +83,6 @@ fun <E, T : Iterable<E>> objects(checkerBuilder: IterableContainsBuilder<E, T, I
     = checkerBuilder.objects(expected, *otherExpected)
 
 
-
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
  * entry which holds all assertions created by the given [assertionCreator].

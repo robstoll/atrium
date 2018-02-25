@@ -3,6 +3,17 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.*
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilder as DeprecatedAtMostCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder as DeprecatedButAtMostCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilder as DeprecatedExactlyCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder as DeprecatedNotCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilder as DeprecatedNotOrAtMostCheckerBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour as DeprecatedSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder as DeprecatedBuilder
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour as DeprecatedNoOpSearchBehaviour
+import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour as DeprecatedNotSearchBehaviour
+
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we are looking
@@ -17,6 +28,11 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Sea
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.zumindest(times: Int): CharSequenceContainsAtLeastCheckerBuilder<T, S>
     = CharSequenceContainsAtLeastCheckerBuilder(times, this)
+
+@Deprecated("Use the extension fun `zumindest`. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.zumindest(times)"))
+fun <T : CharSequence, S : SearchBehaviour> zumindest(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedAtLeastCheckerBuilder<T, S>
+    = DeprecatedAtLeastCheckerBuilder(times, builder)
+
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the object which we
@@ -36,6 +52,11 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.z
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastCheckerBuilder<T, S>.aberHoechstens(times: Int): CharSequenceContainsButAtMostCheckerBuilder<T, S>
     = CharSequenceContainsButAtMostCheckerBuilder(times, this, containsBuilder)
 
+@Deprecated("Use the extension fun `aberHoechstens`. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.aberHoechstens(times)"))
+fun <T : CharSequence, S : DeprecatedSearchBehaviour> aberHoechstens(checkerBuilder: DeprecatedAtLeastCheckerBuilder<T, S>, times: Int): DeprecatedButAtMostCheckerBuilder<T, S>
+    = DeprecatedButAtMostCheckerBuilder(times, checkerBuilder, checkerBuilder.containsBuilder)
+
+
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
  * are looking for, occurs `exactly` number of [times] within the search input.
@@ -49,6 +70,11 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastCheckerBu
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.genau(times: Int): CharSequenceContainsExactlyCheckerBuilder<T, S>
     = CharSequenceContainsExactlyCheckerBuilder(times, this)
+
+@Deprecated("Use the extension fun `genau`. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.genau(times)"))
+fun <T : CharSequence, S : DeprecatedSearchBehaviour> genau(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedExactlyCheckerBuilder<T, S>
+    = DeprecatedExactlyCheckerBuilder(times, builder)
+
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
@@ -69,6 +95,11 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.g
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.hoechstens(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, S>
     = CharSequenceContainsAtMostCheckerBuilder(times, this)
 
+@Deprecated("Use the extension fun `hoechstens`. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.hoechstens(times)"))
+fun <T : CharSequence, S : DeprecatedSearchBehaviour> hoechstens(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedAtMostCheckerBuilder<T, S>
+    = DeprecatedAtMostCheckerBuilder(times, builder)
+
+
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the object which we
  * are looking for, occurs `not at all or at most` number of [times] within the search input.
@@ -82,3 +113,7 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.h
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.nichtOderHoechstens(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
     = CharSequenceContainsNotOrAtMostCheckerBuilder(times, this)
+
+@Deprecated("Use the extension fun `nichtOderHoechstens`. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.nichtOderHoechstens(times)"))
+fun <T : CharSequence, S : DeprecatedSearchBehaviour> nichtOderHoechstens(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedNotOrAtMostCheckerBuilder<T, S>
+    = DeprecatedNotOrAtMostCheckerBuilder(times, builder)

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 
+import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
@@ -24,4 +25,4 @@ open class CharSequenceContainsAtMostCheckerBuilder<out T : CharSequence, out S 
     containsBuilder: CharSequenceContains.Builder<T, S>
 ) : ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilder<T, S>(
     times, containsBuilder
-)
+), CharSequenceContainsCheckerBuilder<T, S>

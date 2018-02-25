@@ -73,6 +73,9 @@ def createBcTask(String apiName, String origVersion, String forgive) {
     check.dependsOn bcTask
 }
 
+createBcTask('cc-de_CH', '0.6.0',
+    'forgive=.*spec:ch.tutteli.atrium.api.cc.de_CH.Iterable.*(error cases|failing cases|context empty collection).*'
+)
 createBcTask('cc-en_UK', '0.6.0',
     'forgive=.*spec:ch.tutteli.atrium.api.cc.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
 )
