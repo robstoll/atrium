@@ -57,7 +57,7 @@ fun <E, T : Iterable<E>> inGiven(builder: IterableContainsBuilder<E, T, Iterable
  *
  * @return The newly created builder.
  */
-@JvmName("inOrderOnly")
+@JvmName("yet")
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
     = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
 

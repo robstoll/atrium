@@ -81,9 +81,13 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsNullable")
+@JvmName("contains?")
 fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
+
+@Deprecated("use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant.contains(assertionCreator, *otherAssertionCreators)"))
+fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = plant.contains(assertionCreator, *otherAssertionCreators)
 
 
 /**
@@ -121,9 +125,13 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsStrictlyNulllable")
+@JvmName("containsStrictly?")
 fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
+
+@Deprecated("use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant.containsStrictly(assertionCreator, *otherAssertionCreators)"))
+fun <E : Any, T : Iterable<E?>> containsStrictlyNulllable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = plant.containsStrictly(assertionCreator, *otherAssertionCreators)
 
 
 /**

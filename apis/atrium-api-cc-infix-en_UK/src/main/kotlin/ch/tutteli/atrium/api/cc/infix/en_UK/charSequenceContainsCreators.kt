@@ -178,7 +178,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerBuilder<T, CharSequence
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("valuesIgnoringCase")
+@JvmName("defaultTranslationsOfIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContains.CheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
     = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, translatables.expected, translatables.otherExpected))
 
