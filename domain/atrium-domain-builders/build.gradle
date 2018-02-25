@@ -3,9 +3,9 @@ buildscript {
 }
 
 dependencies {
-    compile ownModule('domain-api')
-    compileOnly ownModule('domain-api-late-binding')
-    compileOnly ownModule('core-api-late-binding')
+    compile projectPrefixed('domain-api')
+    compileOnly projectPrefixed('domain-api-late-binding')
+    compileOnly projectPrefixed('core-api-late-binding')
 }
 
 dokka {

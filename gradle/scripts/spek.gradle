@@ -54,7 +54,7 @@ afterEvaluate {
             executionData junitPlatformTestTask
             reports {
                 csv.enabled = false
-                xml.enabled = false
+                xml.enabled = true
                 xml.destination file("${buildDir}/reports/jacoco/report.xml")
                 html.enabled = false
                 html.destination file("${buildDir}/reports/jacoco/html/")

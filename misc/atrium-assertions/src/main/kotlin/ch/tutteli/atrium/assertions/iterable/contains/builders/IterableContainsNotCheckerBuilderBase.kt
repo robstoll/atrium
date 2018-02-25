@@ -14,10 +14,13 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsN
  * @constructor The base class for builders which create a `contains at least` check within the fluent API of a
  *   sophisticated `contains` assertion for [Iterable].
  */
-@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsNotCheckerBuilderBase"))
+@Deprecated(
+    "use the abstract class from package creating, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsNotCheckerBuilderBase")
+)
 abstract class IterableContainsNotCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
-    containsBuilder: IterableContainsBuilder<E, T, S>
-) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
+    override val containsBuilder: IterableContainsBuilder<E, T, S>
+) : IterableContainsCheckerBuilder<E, T, S> {
 
     override val checkers = listOf(IterableContainsNotChecker())
 }

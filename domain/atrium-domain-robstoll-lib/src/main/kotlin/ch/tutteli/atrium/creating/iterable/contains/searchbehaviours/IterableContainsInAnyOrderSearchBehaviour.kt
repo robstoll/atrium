@@ -7,7 +7,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 /**
  * Represents the search behaviour that expected entries might appear in any order within the [Iterable].
  */
-open class IterableContainsInAnyOrderSearchBehaviourImpl : IterableContainsInAnyOrderSearchBehaviour {
+class IterableContainsInAnyOrderSearchBehaviourImpl : IterableContainsInAnyOrderSearchBehaviour {
     override fun decorateDescription(description: Translatable): Translatable
         = TranslatableWithArgs(DescriptionIterableAssertion.IN_ANY_ORDER, description)
 }

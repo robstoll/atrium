@@ -68,11 +68,11 @@ interface AssertionGroup : Assertion {
 
         @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")
         class ExplanatoryAssertionGroupBuilder(private val groupType: ExplanatoryAssertionGroupType) {
-            fun create(assertion: Assertion): AssertionGroup
-                = ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupBuilder(groupType).create(assertion)
+            fun create(assertion: Assertion): ExplanatoryAssertionGroup
+                = create(assertion)
 
-            fun create(assertions: List<Assertion>): AssertionGroup
-                = ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupBuilder(groupType).create(assertions)
+            fun create(assertions: List<Assertion>): ExplanatoryAssertionGroup
+                = ExplanatoryAssertionGroup(groupType, assertions)
         }
 
         @Deprecated("use AssertionBuilder instead, will be removed with 1.0.0")

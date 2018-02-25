@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.creating.iterable.contains.searchbehaviours
 
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
 
 /**
  * Defines the minimum set of [IterableContains.SearchBehaviour]s an implementation of the domain of Atrium
@@ -9,18 +8,18 @@ import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBui
  */
 interface IIterableContainsSearchBehaviours {
     fun <E, T : Iterable<E>> inAnyOrder(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+        builder: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
 
     fun <E, T : Iterable<E>> inAnyOrderOnly(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>
+        builder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>
 
     fun <E, T : Iterable<E>> inOrder(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
+        containsBuilder: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>
 
     fun <E, T : Iterable<E>> inOrderOnly(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>
+        builder: IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInOrderOnlySearchBehaviour>
 }

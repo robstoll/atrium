@@ -3,10 +3,12 @@ buildscript {
 }
 
 dependencies {
-    compile ownModule('api-cc-en_UK')
-    compile ownModule('translations-en_UK')
-    compile ownModule('domain-robstoll')
-    compile ownModule('core-robstoll')
+    compile projectPrefixed('api-cc-en_UK')
+    compile projectPrefixed('translations-en_UK')
+    compile projectPrefixed('domain-robstoll')
+    compile projectPrefixed('core-robstoll')
+    //TODO remove with 1.0.0
+    compile projectPrefixed('assertions')
 
-    testCompile ownModule('verbs')
+    testCompile projectPrefixed('verbs')
 }

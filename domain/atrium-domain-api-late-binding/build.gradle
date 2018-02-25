@@ -5,7 +5,7 @@ buildscript {
 }
 
 dependencies {
-    compile ownModule('domain-api')
+    compile projectPrefixed('domain-api')
 }
 
 dokka {

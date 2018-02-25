@@ -19,13 +19,16 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param notOrAtMostCall The name of the function which was called and created this builder.
  */
-@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsNotOrAtMostCheckerBuilderBase"))
+@Deprecated(
+    "use the abstract class from package creating, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsNotOrAtMostCheckerBuilderBase")
+)
 abstract class IterableContainsNotOrAtMostCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     val times: Int,
-    containsBuilder: IterableContainsBuilder<E, T, S>,
+    override val containsBuilder: IterableContainsBuilder<E, T, S>,
     nameContainsNotFun: String,
     notOrAtMostCall: (Int) -> String
-) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
+) : IterableContainsCheckerBuilder<E, T, S> {
 
     override val checkers: List<Checker> = listOf(
         IterableContainsAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)

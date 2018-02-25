@@ -1,0 +1,84 @@
+buildscript {
+    ext.publish_description = 'Checks that specs from an older version of Atrium can still be run with the components of the current version.'
+}
+
+repositories {
+    maven { url "https://dl.bintray.com/jetbrains/spek" }
+    maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
+}
+
+configurations {
+    common
+}
+
+dependencies {
+    common "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
+    common("org.jetbrains.spek:spek-api:$spek_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    common("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
+        exclude group: 'org.junit.platform'
+        exclude group: 'org.jetbrains.kotlin'
+    }
+    common("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    compile configurations.common.dependencies
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+
+def createBcTask(String apiName, String origVersion, String forgive) {
+    def version = origVersion.replaceAll("\\.", "_")
+    def name = "${apiName.replaceAll("-", "_")}_$version"
+    def srcName = "src_$name"
+    def confName = "conf_$name"
+
+    sourceSets {
+        create(srcName)
+    }
+
+    configurations {
+        create(confName)
+    }
+
+    dependencies {
+        add(confName, "ch.tutteli:atrium-api-$apiName-tests:$origVersion") {
+            exclude group: '*'
+        }
+        owner."${srcName}RuntimeOnly"("ch.tutteli:atrium-spec:$origVersion") {
+            exclude group: '*'
+        }
+        owner."${srcName}RuntimeOnly" projectPrefixed("api-cc-en_UK") //required for atrium-spec
+
+        owner."${srcName}RuntimeOnly" configurations.common.dependencies
+        owner."${srcName}RuntimeOnly" sourceSets.main.runtimeClasspath
+        owner."${srcName}RuntimeOnly" configurations[confName].dependencies
+        owner."${srcName}RuntimeOnly" projectPrefixed("$apiName-robstoll")
+    }
+
+    def bcTask = task("bc_$name", type: JavaExec, group: 'Verification') {
+        dependsOn jar
+        description = "Checks if specs from $origVersion can be run against the current version)."
+        classpath sourceSets[srcName].runtimeClasspath
+
+        main = 'org.junit.platform.console.ConsoleLauncher'
+        args = [
+            '--scan-class-path', configurations[confName].asPath,
+            '--include-engine', 'spek-deprecation',
+            '--config', forgive,
+            '--details', 'none'
+        ]
+    }
+    check.dependsOn bcTask
+}
+
+createBcTask('cc-de_CH', '0.6.0',
+    'forgive=.*spec:ch.tutteli.atrium.api.cc.de_CH.Iterable.*(error cases|failing cases|context empty collection).*'
+)
+createBcTask('cc-en_UK', '0.6.0',
+    'forgive=.*spec:ch.tutteli.atrium.api.cc.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
+)
+createBcTask('cc-infix-en_UK', '0.6.0',
+    'forgive=.*spec:ch.tutteli.atrium.api.cc.infix.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
+)

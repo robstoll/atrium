@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * It furthermore implements a no operation for [decorateDescription], meaning it passes back the description which
  * is passed in (identity function).
  */
-open class IterableContainsNoOpSearchBehaviour : IterableContains.SearchBehaviour {
+interface IterableContainsNoOpSearchBehaviour : IterableContains.SearchBehaviour {
     /**
      * Returns the given [description].
      * @return the given [description].

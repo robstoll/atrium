@@ -6,10 +6,10 @@ buildscript {
 }
 
 dependencies {
-    compile ownModule('domain-builders')
-    compileOnly ownModule('domain-api-late-binding')
+    compile projectPrefixed('domain-builders')
+    compileOnly projectPrefixed('domain-api-late-binding')
 
-    testCompile ownModule('domain-robstoll')
-    testCompile ownModule('core-robstoll')
-    testCompile ownModule('spec')
+    testCompile projectPrefixed('domain-robstoll')
+    testCompile projectPrefixed('core-robstoll')
+    testCompile projectPrefixed('spec')
 }

@@ -9,10 +9,51 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Defines the basic contract for sophisticated `contains` assertion builders.
  *
+ * The entry point for the contract constitutes a [Contains.Builder].
  * A builder typically allows a user to choose a desired [SearchBehaviour], one or more [Checker]s and uses an
  * [Creator] to finish the building process.
  */
 interface Contains {
+
+    /**
+     * The entry point of the contract, containing the [plant] to which the sophisticated `contain` assertion
+     * should be added as well as the chosen [searchBehaviour].
+     *
+     * The [searchBehaviour] might me modified in which case it is recommended that a new [Builder] is created (retain
+     * immutability).
+     */
+    interface Builder<out T : Any, out S : Contains.SearchBehaviour> {
+        /**
+         * The [AssertionPlant] from which this building process started and to which the resulting [Assertion]
+         * should be added.
+         */
+        val plant: AssertionPlant<T>
+
+        /**
+         * The chosen [SearchBehaviour].
+         */
+        val searchBehaviour: S
+    }
+
+    /**
+     * The step of creating [Checker]s, containing the previously chosen [containsBuilder] and a list of so-far chosen
+     * [checkers].
+     */
+    interface CheckerBuilder<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : Contains.Builder<T, S>> {
+        /**
+         * The previously chosen [Builder], containing inter alia the [AssertionPlant] to which the resulting
+         * [Assertion] shall be added.
+         */
+        val containsBuilder: B
+
+        /**
+         * Contains all [Checker]s which should be applied to the search result.
+         *
+         * It typically contains the [Checker] this builder created and might contain other [Checker]s which builders,
+         * precedent to this builder within the fluent API, created already.
+         */
+        val checkers: List<C>
+    }
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
@@ -66,6 +107,10 @@ interface Contains {
          *
          * @return The newly created [AssertionGroup].
          */
-        fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup
+        fun createAssertionGroup(
+            plant: AssertionPlant<T>,
+            searchCriterion: S,
+            otherSearchCriteria: Array<out S>
+        ): AssertionGroup
     }
 }

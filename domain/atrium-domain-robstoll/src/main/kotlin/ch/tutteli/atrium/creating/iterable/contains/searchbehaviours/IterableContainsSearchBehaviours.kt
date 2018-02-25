@@ -1,29 +1,29 @@
 package ch.tutteli.atrium.creating.iterable.contains.searchbehaviours
 
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 
 /**
  * A dummy implementation of [IIterableContainsSearchBehaviours] which should be replaced by an actual implementation.
  */
 object IterableContainsSearchBehaviours : IIterableContainsSearchBehaviours {
     override fun <E, T : Iterable<E>> inAnyOrder(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-        = _containsInAnyOrder(containsBuilder)
+        builder: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+        = _containsInAnyOrder(builder)
 
     override fun <E, T : Iterable<E>> inAnyOrderOnly(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>
-        = _containsInAnyOrderOnly(containsBuilder)
+        builder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>
+        = _containsInAnyOrderOnly(builder)
 
     override fun <E, T : Iterable<E>> inOrder(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
+        containsBuilder: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>
         = _containsInOrder(containsBuilder)
 
     override fun <E, T : Iterable<E>> inOrderOnly(
-        containsBuilder: IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
-    ): IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>
-        = _containsInOrderOnly(containsBuilder)
+        builder: IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>
+    ): IterableContains.Builder<E, T, IterableContainsInOrderOnlySearchBehaviour>
+        = _containsInOrderOnly(builder)
 
 }

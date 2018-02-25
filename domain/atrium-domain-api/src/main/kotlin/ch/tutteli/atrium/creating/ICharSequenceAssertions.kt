@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
 
@@ -10,8 +10,8 @@ import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSeq
  * which an implementation of the domain of Atrium has to provide.
  */
 interface ICharSequenceAssertions {
-    fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>): CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContainsBuilder<T, CharSequenceContainsNotSearchBehaviour>
+    fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, CharSequenceContainsNoOpSearchBehaviour>
+    fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, CharSequenceContainsNotSearchBehaviour>
 
     fun <T : CharSequence> startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
     fun <T : CharSequence> startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
