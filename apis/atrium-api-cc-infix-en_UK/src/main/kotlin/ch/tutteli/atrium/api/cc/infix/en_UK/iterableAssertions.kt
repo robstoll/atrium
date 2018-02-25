@@ -122,9 +122,13 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsNullable")
+@JvmName("contains?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
+
+@Deprecated("use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant contains assertionCreator"))
+fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = plant contains assertionCreator
 
 
 /**
@@ -137,9 +141,14 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsNullable")
+@JvmName("contains?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
+
+@Deprecated("use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant contains entries"))
+fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
+    = plant contains entries
+
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the [expected] value.
@@ -208,9 +217,14 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsStrictlyNullable")
+@JvmName("containsStrictly?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inGiven order but only entry assertionCreator
+
+@Deprecated("use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant containsStrictly assertionCreator"))
+fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = plant containsStrictly assertionCreator
+
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -222,10 +236,13 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreato
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsStrictlyNullable")
+@JvmName("containsStrictly?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inGiven order but only the entries
 
+@Deprecated("use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant containsStrictly entries"))
+fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
+    = plant containsStrictly entries
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value.

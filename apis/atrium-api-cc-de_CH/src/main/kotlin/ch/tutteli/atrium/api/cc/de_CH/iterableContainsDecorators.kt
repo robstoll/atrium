@@ -26,7 +26,7 @@ fun <E, T : Iterable<E>> getInBeliebigerReihenfolge(builder: IterableContainsBui
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.nur
-    @JvmName("inAnyOrderOnly")
+    @JvmName("aberNur")
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
 @Deprecated("use the extension fun `nur` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.nur"))
@@ -55,7 +55,7 @@ fun <E, T : Iterable<E>> getInGegebenerReihenfolge(builder: IterableContainsBuil
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>.nur
-    @JvmName("inOrderOnly")
+    @JvmName("undNur")
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
 
 @Deprecated("use the extension fun `only` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.nur"))

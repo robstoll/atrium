@@ -69,7 +69,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerBuilder<T, CharSequenceContai
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-@JvmName("valueIgnoringCase")
+@JvmName("wertGrossKleinschreibungIgnorierend")
 fun <T : CharSequence> CharSequenceContains.CheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
     = werte(expected)
 
@@ -93,7 +93,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerBuilder<T, CharSequenceContai
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-@JvmName("valuesIgnoringCase")
+@JvmName("werteGrossKleinschreibungIgnorierend")
 fun <T : CharSequence> CharSequenceContains.CheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
     = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, expected, otherExpected))
 
@@ -141,7 +141,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerBuilder<T, CharSequenceContai
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("defaultTranslationOfIgnoringCase")
+@JvmName("standardUebersetzungVonGrossKleinschreibungIgnorierend")
 fun <T : CharSequence> CharSequenceContains.CheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>.standardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
     = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, expected, otherExpected))
 
