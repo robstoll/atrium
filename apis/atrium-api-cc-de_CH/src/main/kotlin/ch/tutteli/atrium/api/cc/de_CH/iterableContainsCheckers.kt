@@ -1,8 +1,16 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.*
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+
+import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsAtMostCheckerBuilder as DeprecatedAtMostCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsButAtMostCheckerBuilder as DeprecatedButAtMostCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsExactlyCheckerBuilder as DeprecatedExactlyCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilder as DeprecatedNotOrAtMostCheckerBuilder
+import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder as DeprecatedBuilder
+
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we are looking
@@ -15,8 +23,13 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.zumindest(times: Int): IterableContainsAtLeastCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.zumindest(times: Int): IterableContainsAtLeastCheckerBuilder<E, T>
     = IterableContainsAtLeastCheckerBuilder(times, this)
+
+@Deprecated("use the extension fun `zumindest` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.zumindest(times)"))
+fun <E, T : Iterable<E>> zumindest(builder:  DeprecatedBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, times: Int): DeprecatedAtLeastCheckerBuilder<E, T>
+    = DeprecatedAtLeastCheckerBuilder(times, builder)
+
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the entry which we
@@ -36,6 +49,11 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
 fun <E, T : Iterable<E>> IterableContainsAtLeastCheckerBuilder<E, T>.aberHoechstens(times: Int): IterableContainsButAtMostCheckerBuilder<E, T>
     = IterableContainsButAtMostCheckerBuilder(times, this, containsBuilder)
 
+@Deprecated("use the extension fun `aberHoechstens` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.aberHoechstens(times)"))
+fun <E, T : Iterable<E>> aberHoechstens(checkerBuilder: DeprecatedAtLeastCheckerBuilder<E, T>, times: Int): DeprecatedButAtMostCheckerBuilder<E, T>
+    = DeprecatedButAtMostCheckerBuilder(times, checkerBuilder, checkerBuilder.containsBuilder)
+
+
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
  * are looking for, occurs `genau` number of [times] within the [Iterable].
@@ -47,8 +65,13 @@ fun <E, T : Iterable<E>> IterableContainsAtLeastCheckerBuilder<E, T>.aberHoechst
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.genau(times: Int): IterableContainsExactlyCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.genau(times: Int): IterableContainsExactlyCheckerBuilder<E, T>
     = IterableContainsExactlyCheckerBuilder(times, this)
+
+@Deprecated("use the extension fun `genau` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.genau(times)"))
+fun <E, T : Iterable<E>> genau(builder: DeprecatedBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, times: Int): DeprecatedExactlyCheckerBuilder<E, T>
+    = DeprecatedExactlyCheckerBuilder(times, builder)
+
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
@@ -66,8 +89,13 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [genau] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.hoechstens(times: Int): IterableContainsAtMostCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.hoechstens(times: Int): IterableContainsAtMostCheckerBuilder<E, T>
     = IterableContainsAtMostCheckerBuilder(times, this)
+
+@Deprecated("use the extension fun `hoechstens` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.hoechstens(times)"))
+fun <E, T : Iterable<E>> hoechstens(builder: DeprecatedBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, times: Int): DeprecatedAtMostCheckerBuilder<E, T>
+    = DeprecatedAtMostCheckerBuilder(times, builder)
+
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
@@ -80,5 +108,9 @@ fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrde
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
-fun <E, T : Iterable<E>> IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>.nichtOderHoechstens(times: Int): IterableContainsNotOrAtMostCheckerBuilder<E, T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.nichtOderHoechstens(times: Int): IterableContainsNotOrAtMostCheckerBuilder<E, T>
     = IterableContainsNotOrAtMostCheckerBuilder(times, this)
+
+@Deprecated("use the extension fun `nichtOderHoechstens` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.nichtOderHoechstens(times)"))
+fun <E, T : Iterable<E>> nichtOderHoechstens(builder: DeprecatedBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, times: Int): DeprecatedNotOrAtMostCheckerBuilder<E, T>
+    = DeprecatedNotOrAtMostCheckerBuilder(times, builder)

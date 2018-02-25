@@ -2,8 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
 import kotlin.reflect.KFunction2
 
@@ -13,12 +12,12 @@ abstract class CharSequenceContainsSpecBase {
     protected val notToContain = "${Assert<String>::notTo.name} ${contain::class.simpleName}"
     protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
     protected val containsRegex = "${Assert<String>::to.name} ${contain::class.simpleName} ${RegexPatterns::class.simpleName}"
-    protected val atLeast = CharSequenceContainsBuilder<*, *>::atLeast.name
+    protected val atLeast = CharSequenceContains.Builder<*, *>::atLeast.name
     protected val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<*, *>::butAtMost.name
-    protected val exactly = CharSequenceContainsBuilder<*, *>::exactly.name
-    protected val atMost = CharSequenceContainsBuilder<*, *>::atMost.name
-    protected val notOrAtMost = CharSequenceContainsBuilder<*, *>::notOrAtMost.name
-    protected val regex = CharSequenceContainsCheckerBuilder<*, CharSequenceContainsNoOpSearchBehaviour>::regex.name
-    protected val defaultTranslationOf = CharSequenceContainsCheckerBuilder<*, CharSequenceContainsNoOpSearchBehaviour>::defaultTranslationOf.name
-    protected val ignoringCase = "${CharSequenceContainsBuilder<*, CharSequenceContainsNoOpSearchBehaviour>::ignoring.name} ${case::class.simpleName}"
+    protected val exactly = CharSequenceContains.Builder<*, *>::exactly.name
+    protected val atMost = CharSequenceContains.Builder<*, *>::atMost.name
+    protected val notOrAtMost = CharSequenceContains.Builder<*, *>::notOrAtMost.name
+    protected val regex = CharSequenceContains.CheckerBuilder<*, CharSequenceContainsNoOpSearchBehaviour>::regex.name
+    protected val defaultTranslationOf = CharSequenceContains.CheckerBuilder<*, CharSequenceContainsNoOpSearchBehaviour>::defaultTranslationOf.name
+    protected val ignoringCase = "${CharSequenceContains.Builder<*, CharSequenceContainsNoOpSearchBehaviour>::ignoring.name} ${case::class.simpleName}"
 }

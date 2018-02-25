@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 
 /**
  * Defines the minimum set of [CharSequenceContains.SearchBehaviour]s an implementation of the domain of Atrium
@@ -9,6 +8,6 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
  */
 interface ICharSequenceContainsSearchBehaviours {
     fun <T : CharSequence> ignoringCase(
-        containsBuilder: CharSequenceContainsBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
-    ): CharSequenceContainsBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
+        containsBuilder: CharSequenceContains.Builder<T, CharSequenceContainsNoOpSearchBehaviour>
+    ): CharSequenceContains.Builder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
 }

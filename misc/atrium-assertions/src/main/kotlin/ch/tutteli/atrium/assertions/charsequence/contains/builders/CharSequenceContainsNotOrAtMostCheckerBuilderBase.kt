@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Checker
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtMostChecker
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
  * The base class for builders which create a `contains not or at most` check within the fluent API of a
@@ -22,14 +22,18 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param notOrAtMostCall The name of the function which was called and created this builder.
  */
-@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilderBase"))
-abstract class CharSequenceContainsNotOrAtMostCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
+@Deprecated(
+    "use the abstract class from package creating, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilderBase")
+)
+abstract class CharSequenceContainsNotOrAtMostCheckerBuilderBase<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     val times: Int,
-    containsBuilder: CharSequenceContainsBuilder<T, S>,
+    override val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     notOrAtMostCall: (Int) -> String
-) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
+) : CharSequenceContainsCheckerBuilder<T, S> {
 
-    override val checkers: List<Checker> =
-        listOf(CharSequenceContainsAtMostChecker(times, nameContainsNotFun, notOrAtMostCall))
+    override val checkers: List<Checker> = listOf(
+        CharSequenceContainsAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)
+    )
 }

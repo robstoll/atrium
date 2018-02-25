@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Checker
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsExactlyChecker
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
  * The base class for builders which create a `contains exactly` check within the fluent API of a sophisticated
@@ -22,13 +22,16 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param exactlyCall The function call which should not be used if [times] equals to zero.
  */
-@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilderBase"))
-abstract class CharSequenceContainsExactlyCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
+@Deprecated(
+    "use the abstract class from package creating, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilderBase")
+)
+abstract class CharSequenceContainsExactlyCheckerBuilderBase<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     val times: Int,
-    containsBuilder: CharSequenceContainsBuilder<T, S>,
+    override val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     exactlyCall: (Int) -> String
-) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
+) : CharSequenceContainsCheckerBuilder<T, S> {
 
     override val checkers: List<Checker> =
         listOf(CharSequenceContainsExactlyChecker(times, nameContainsNotFun, exactlyCall))

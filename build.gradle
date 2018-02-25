@@ -1,5 +1,6 @@
 buildscript {
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
+    def projectsWithoutSourcesBuildScript = project(":${rootProject.name}-bc-test")
     ext {
         atrium_version = '0.7.0-SNAPSHOT'
         ghPages_version = atrium_version
@@ -24,6 +25,7 @@ buildscript {
         docProjects = subprojects.findAll { !it.name.contains("robstoll") }
 
         //jacoco-multi-project.gradle
+        projectsWithoutSources = projectsWithoutSourcesBuildScript
         jacocoMulti = [
             sourceProjects:
                 subprojects.findAll {
@@ -38,7 +40,7 @@ buildscript {
                         it.name != "${project.name}-translations-de_CH" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${project.name}-spec"
-                },
+                } - projectsWithoutSourcesBuildScript,
             jacocoProjects:
                 subprojects.findAll {
                     it.name != "${project.name}-domain-api" &&
@@ -48,12 +50,13 @@ buildscript {
                         it.name != "${project.name}-core-api-late-binding" &&
                         it.name != "${project.name}-core-robstoll" &&
                         it.name != "${project.name}-spec" &&
+                        it.name != "${project.name}-bc-test" &&
                         //TODO remove with 1.0.0
                         it.name != "${project.name}-assertions"
-                } - translationProjects
+                } - projectsWithoutSourcesBuildScript - translationProjects
         ]
 
-        ownModule = { String name -> project(":${rootProject.name}-$name") }
+        projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
         srcKotlin = 'src/main/kotlin'
         srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
     }
@@ -79,15 +82,16 @@ subprojects {
     }
 
     apply plugin: 'kotlin'
+}
+
+def projectsWithSources = subprojects - projectsWithoutSources
+configure(projectsWithSources) {
+    apply plugin: 'org.jetbrains.dokka'
 
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
         compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     }
-}
-
-configure(subprojects) {
-    apply plugin: 'org.jetbrains.dokka'
 
     dokka {
         outputFormat = 'html'
@@ -113,7 +117,7 @@ configure(subprojects) {
 
     task sourceJar(type: Jar) {
         from project.sourceSets.main.allSource
-        classifier 'sources'
+        classifier = 'sources'
     }
 
     task javadocJar(type: Jar, dependsOn: dokka) {
@@ -121,9 +125,33 @@ configure(subprojects) {
         classifier = 'javadoc'
     }
 
+    afterEvaluate {
+        it.ext.publish_artifacts = [sourceJar, javadocJar]
+    }
+}
+
+configure(projectsWithoutSources) {
+    afterEvaluate {
+        it.ext.publish_artifacts = []
+    }
+}
+
+def testProjects = subprojects.findAll { it.projectDir.path.contains("api") }
+configure(testProjects){
+    task testJar(type: Jar, dependsOn: testClasses) {
+        from sourceSets.test.output
+        archiveName = "${it.name}-tests-${it.version}.jar"
+    }
+
+    afterEvaluate {
+        it.ext.publish_artifacts = [sourceJar, javadocJar, testJar]
+    }
+}
+
+// has to be after the above tree blocks which define `it.ext.publish_artifacts`
+subprojects {
     afterEvaluate { subproject ->
         subproject.ext {
-            publish_artifacts = [sourceJar, javadocJar]
             publish_artifactId = subproject.name
             publish_version = atrium_version
         }

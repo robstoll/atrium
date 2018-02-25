@@ -4,27 +4,37 @@ import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.Iterab
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder as DeprecatedNotCheckerBuilder
+import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder as DeprecatedBuilder
 
 /**
- * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Assert<T>.contains: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>
+val <E, T : Iterable<E>> Assert<T>.contains: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
     get() = AssertImpl.iterable.containsBuilder(this)
 
+@Deprecated("use the extension fun `contains` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.contains"))
+fun <E, T : Iterable<E>> getContains(plant: Assert<T>): DeprecatedBuilder<E, T, IterableContainsNoOpSearchBehaviour>
+    = DeprecatedBuilder(plant, plant.contains.searchBehaviour)
+
+
 /**
- * Creates an [IterableContainsBuilder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Assert<T>.containsNot: IterableContainsNotCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+val <E, T : Iterable<E>> Assert<T>.containsNot: IterableContainsNotCheckerBuilder<E, T>
     get() = IterableContainsNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(this))
+
+@Deprecated("use the extension fun `containsNot` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.containsNot"))
+fun <E, T : Iterable<E>> getContainsNot(plant: Assert<T>): DeprecatedNotCheckerBuilder<E, T>
+    = DeprecatedNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(plant))
 
 
 /**

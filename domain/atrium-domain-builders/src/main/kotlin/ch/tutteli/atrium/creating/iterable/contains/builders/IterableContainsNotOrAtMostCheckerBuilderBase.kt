@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating.iterable.contains.builders
 
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers
@@ -15,16 +16,16 @@ import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsChe
  *   sophisticated `contains` assertion for [Iterable].
  * @param times The number which the check will compare against the actual number of times an expected entry is
  *   found in the [Iterable].
- * @param containsBuilder The previously used [IterableContainsBuilder].
+ * @param containsBuilder The previously used [IterableContains.Builder].
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param notOrAtMostCall The name of the function which was called and created this builder.
  */
 abstract class IterableContainsNotOrAtMostCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     val times: Int,
-    containsBuilder: IterableContainsBuilder<E, T, S>,
+    override val containsBuilder: IterableContains.Builder<E, T, S>,
     nameContainsNotFun: String,
     notOrAtMostCall: (Int) -> String
-) : IterableContainsCheckerBuilder<E, T, S>(containsBuilder) {
+) : IterableContains.CheckerBuilder<E, T, S> {
 
     override val checkers: List<Checker> = listOf(
         IterableContainsCheckers.newAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)

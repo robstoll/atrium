@@ -2,9 +2,9 @@ package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.validateAtMost
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Checker
-import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtLeastChecker
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtMostChecker
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 
 /**
  * The base class for builders which create a `contains at least once but at most` check within the fluent API of a
@@ -26,15 +26,18 @@ import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceC
  * @param atLeastCall The name of the function which represents a `CharSequence contains at least` assertion.
  * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
-@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilderBase"))
-abstract class CharSequenceContainsAtMostCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
+@Deprecated(
+    "use the abstract class from package creating, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilderBase")
+)
+abstract class CharSequenceContainsAtMostCheckerBuilderBase<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     val times: Int,
-    containsBuilder: CharSequenceContainsBuilder<T, S>,
+    override val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String,
     atLeastCall: (Int) -> String,
     exactlyCall: (Int) -> String
-) : CharSequenceContainsCheckerBuilder<T, S>(containsBuilder) {
+) : CharSequenceContainsCheckerBuilder<T, S> {
 
     init {
         validateAtMost(times, atMostCall, atLeastCall, exactlyCall)
