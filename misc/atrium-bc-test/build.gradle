@@ -12,7 +12,7 @@ configurations {
 }
 
 dependencies {
-    common "org.junit.platform:junit-platform-gradle-plugin:$junit_version"
+    common "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
     common("org.jetbrains.spek:spek-api:$spek_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
