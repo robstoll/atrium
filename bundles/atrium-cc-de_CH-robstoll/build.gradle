@@ -7,6 +7,8 @@ dependencies {
     compile projectPrefixed('translations-de_CH')
     compile projectPrefixed('domain-robstoll')
     compile projectPrefixed('core-robstoll')
+    //TODO remove with 1.0.0
+    compile projectPrefixed('assertions')
 
     testCompile projectPrefixed('verbs')
 }
