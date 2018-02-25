@@ -18,9 +18,9 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
 val <E, T : Iterable<E>> Assert<T>.contains: IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
     get() = AssertImpl.iterable.containsBuilder(this)
 
-@Deprecated("use `contains` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("contains"))
-fun <E, T : Iterable<E>> Assert<T>.getContains(): DeprecatedBuilder<E, T, IterableContainsNoOpSearchBehaviour>
-    = DeprecatedBuilder(this, contains.searchBehaviour)
+@Deprecated("use the extension fun `contains` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.contains"))
+fun <E, T : Iterable<E>> getContains(plant: Assert<T>): DeprecatedBuilder<E, T, IterableContainsNoOpSearchBehaviour>
+    = DeprecatedBuilder(plant, plant.contains.searchBehaviour)
 
 
 /**
@@ -32,9 +32,9 @@ fun <E, T : Iterable<E>> Assert<T>.getContains(): DeprecatedBuilder<E, T, Iterab
 val <E, T : Iterable<E>> Assert<T>.containsNot: IterableContainsNotCheckerBuilder<E, T>
     get() = IterableContainsNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(this))
 
-@Deprecated("use `containsNot` instead, it is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("containsNot"))
-fun <E, T : Iterable<E>> Assert<T>.getContainsNot(): DeprecatedNotCheckerBuilder<E, T>
-    = DeprecatedNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(this))
+@Deprecated("use the extension fun `containsNot` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.containsNot"))
+fun <E, T : Iterable<E>> getContainsNot(plant: Assert<T>): DeprecatedNotCheckerBuilder<E, T>
+    = DeprecatedNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(plant))
 
 
 /**
