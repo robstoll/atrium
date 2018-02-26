@@ -1,43 +1,61 @@
 rootProject.name = 'atrium'
 
-def includeApi(String name) { includeInSubFolder(name, "${rootProject.projectDir}/apis") }
-def includeDomain(String name) { includeInSubFolder(name, "${rootProject.projectDir}/domain") }
-def includeCore(String name) { includeInSubFolder(name, "${rootProject.projectDir}/core") }
-
-def includeTranslations(String name) { includeInSubFolder(name, "${rootProject.projectDir}/translations") }
-
-def includeBundle(String name) { includeInSubFolder(name, "${rootProject.projectDir}/bundles") }
-
-def includeMisc(String name) { includeInSubFolder(name, "${rootProject.projectDir}/misc") }
-
-def includeInSubFolder(String nameWithoutPrefix, String folder) {
-    def name = "${rootProject.name}-$nameWithoutPrefix"
-    include ":$name"
-    project(":$name").projectDir = new File("$folder/$name")
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "ch.tutteli:tutteli-gradle-settings:0.3.1"
+    }
 }
 
-includeApi "api-cc-de_CH"
-includeApi "api-cc-en_UK"
-includeApi "api-cc-infix-en_UK"
-includeDomain "domain-api"
-includeDomain "domain-api-late-binding"
-includeDomain "domain-builders"
-includeDomain "domain-robstoll"
-includeDomain "domain-robstoll-lib"
-includeCore "core-api"
-includeCore "core-api-late-binding"
-includeCore "core-robstoll"
-includeCore "core-robstoll-lib"
-includeTranslations "translations-de_CH"
-includeTranslations "translations-en_UK"
-includeMisc "spec"
-includeMisc "verbs"
-includeMisc "bc-test"
+apply plugin: 'ch.tutteli.settings'
 
-//convenience modules
-includeBundle "cc-en_UK-robstoll"
-includeBundle "cc-de_CH-robstoll"
-includeBundle "cc-infix-en_UK-robstoll"
+//noinspection GroovyAssignabilityCheck
+include {
 
-//TODO remove with 1.0.0
-includeMisc "assertions"
+    apis {
+        _ 'api-cc-de_CH'
+        _ 'api-cc-en_UK'
+        _ 'api-cc-infix-en_UK'
+    }
+
+    domain {
+        _ 'domain-api'
+        _ 'domain-api-late-binding'
+        _ 'domain-builders'
+        _ 'domain-robstoll'
+        _ 'domain-robstoll-lib'
+    }
+
+    core {
+        _ 'core-api'
+        _ 'core-api-late-binding'
+        _ 'core-robstoll'
+        _ 'core-robstoll-lib'
+    }
+
+    translations {
+        _ 'translations-de_CH'
+        _ 'translations-en_UK'
+    }
+
+    misc {
+        _ 'spec'
+        _ 'verbs'
+        _ 'bc-test'
+    }
+
+    bundles {
+        _ 'cc-en_UK-robstoll'
+        _ 'cc-de_CH-robstoll'
+        _ 'cc-infix-en_UK-robstoll'
+    }
+
+    misc {
+        //TODO remove with 1.0.0
+        _ 'assertions'
+    }
+}
