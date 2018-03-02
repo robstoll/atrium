@@ -21,14 +21,17 @@ class DeprecationTestEngine : TestEngine {
             if (forgive != null) {
                 exchangeWithForgivingTests(descriptor, Regex(forgive))
             }
+            require(descriptor.children.isNotEmpty()){
+                "Could not find any specification, check your runtime classpath"
+            }
             descriptor
         } catch (t: Throwable) {
             //since the junit gradle platform does not treat an error during discovery as failure, we have return a
             // fake descriptor which fails
             // TODO check if this changes with https://github.com/junit-team/junit5/issues/1298
-            val descriptor = SpekEngineDescriptor(uniqueId)
-            descriptor.addChild(FailingTest(uniqueId.append("discovery", "discovering tests"), t))
-            descriptor
+            SpekEngineDescriptor(uniqueId).apply {
+                addChild(DiscoveryFailed(uniqueId, t))
+            }
         }
     }
 
@@ -49,15 +52,14 @@ class DeprecationTestEngine : TestEngine {
         }
     }
 
-    private class FailingTest(uniqueId: UniqueId, private val throwable: Throwable) :
-        AbstractTestDescriptor(uniqueId, "discovering tests"),
+    private class DiscoveryFailed(
+        uniqueId: UniqueId,
+        private val throwable: Throwable
+    ) : AbstractTestDescriptor(uniqueId.append("discovery", "fail"), "discovering specifications"),
         Node<SpekExecutionContext> {
+
         override fun getType() = TestDescriptor.Type.TEST
-        override fun execute(
-            context: SpekExecutionContext?,
-            dynamicTestExecutor: Node.DynamicTestExecutor?
-        ): SpekExecutionContext {
-            throw AssertionError(throwable)
-        }
+        override fun execute(context: SpekExecutionContext?, dynamicTestExecutor: Node.DynamicTestExecutor?)
+            = throw throwable
     }
 }
