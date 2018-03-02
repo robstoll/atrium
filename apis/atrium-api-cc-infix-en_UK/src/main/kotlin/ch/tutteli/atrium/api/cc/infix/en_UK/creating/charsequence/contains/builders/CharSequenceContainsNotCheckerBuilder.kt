@@ -5,6 +5,16 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Sea
 import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilderBase
 
 /**
+ * Represents the extension point for another option after a `contains not at all`-check within
+ * a sophisticated `contains` assertion building process for [CharSequence].
+ *
+ * @param T The input type of the search.
+ * @param S The search behaviour which should be applied for the input of the search.
+ */
+interface NotCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
+    : CharSequenceContains.CheckerBuilder<T, S>
+
+/**
  *  Represents the builder of a `contains not at all` check within the fluent API of a sophisticated
  * `contains` assertion for [CharSequence].
  *
@@ -15,7 +25,8 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceCon
  *   `contains` assertion for [CharSequence].
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
+@Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("NotCheckerBuilder"))
 open class CharSequenceContainsNotCheckerBuilder<out T : CharSequence, out S : SearchBehaviour>(
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : CharSequenceContainsNotCheckerBuilderBase<T, S>(containsBuilder)
+) : CharSequenceContainsNotCheckerBuilderBase<T, S>(containsBuilder), NotCheckerBuilder<T, S>
 

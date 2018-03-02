@@ -23,7 +23,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): CharSequenceContainsAtLeastCheckerBuilder<T, S>
+infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): AtLeastCheckerBuilder<T, S>
     = CharSequenceContainsAtLeastCheckerBuilder(times, this)
 
 @Deprecated("use the extension fun `atLeast` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder atLeast times"))
@@ -46,7 +46,7 @@ fun <T : CharSequence, S : SearchBehaviour> atLeast(builder:  DeprecatedBuilder<
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContainsAtLeastCheckerBuilder<T, S>.butAtMost(times: Int): CharSequenceContainsButAtMostCheckerBuilder<T, S>
+infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerBuilder<T, S>.butAtMost(times: Int): ButAtMostCheckerBuilder<T, S>
     = CharSequenceContainsButAtMostCheckerBuilder(times, this, containsBuilder)
 
 @Deprecated("use the extension fun `butAtMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder butAtMost times"))
@@ -65,7 +65,7 @@ fun <T : CharSequence, S : SearchBehaviour> butAtMost(checkerBuilder: Deprecated
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): CharSequenceContainsExactlyCheckerBuilder<T, S>
+infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): ExactlyCheckerBuilder<T, S>
     = CharSequenceContainsExactlyCheckerBuilder(times, this)
 
 @Deprecated("use the extension fun `exactly` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder exactly times"))
@@ -89,7 +89,7 @@ fun <T : CharSequence, S : SearchBehaviour> exactly(builder: DeprecatedBuilder<T
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): CharSequenceContainsAtMostCheckerBuilder<T, S>
+infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): AtMostCheckerBuilder<T, S>
     = CharSequenceContainsAtMostCheckerBuilder(times, this)
 
 @Deprecated("use the extension fun `atMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder atMost times"))
@@ -108,7 +108,7 @@ fun <T : CharSequence, S : SearchBehaviour> atMost(builder: DeprecatedBuilder<T,
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>
+infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerBuilder<T, S>
     = CharSequenceContainsNotOrAtMostCheckerBuilder(times, this)
 
 @Deprecated("use the extension fun `notOrAtMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder notOrAtMost times"))

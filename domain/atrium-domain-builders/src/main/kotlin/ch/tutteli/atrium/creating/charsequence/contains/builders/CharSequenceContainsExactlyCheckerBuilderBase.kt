@@ -24,11 +24,11 @@ import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceCon
  * @param exactlyCall The function call which should not be used if [times] equals to zero.
  */
 abstract class CharSequenceContainsExactlyCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
-    val times: Int,
-    override val containsBuilder: CharSequenceContains.Builder<T, S>,
+    final override val times: Int,
+    final override val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     exactlyCall: (Int) -> String
-) : CharSequenceContains.CheckerBuilder<T, S> {
+) : CharSequenceContainsWithTimesCheckerBuilder<T, S> {
 
     override val checkers: List<Checker> = listOf(
         CharSequenceContainsCheckers.newExactlyChecker(times, nameContainsNotFun, exactlyCall)
