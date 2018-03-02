@@ -26,12 +26,6 @@ include {
         _ 'api-cc-de_CH'
         _ 'api-cc-en_UK'
         _ 'api-cc-infix-en_UK'
-
-        testjars {
-            _ 'api-cc-de_CH-tests'
-            _ 'api-cc-en_UK-tests'
-            _ 'api-cc-infix-en_UK-tests'
-        }
     }
 
     domain {
