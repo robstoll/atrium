@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.AtLeastCheckerBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
@@ -15,7 +15,7 @@ abstract class IterableContainsSpecBase {
     private val containsNotProp: KProperty<*> = Assert<Iterable<Double>>::containsNot
     protected val containsNot = containsNotProp.name
     protected val atLeast = IterableContains.Builder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::atLeast.name
-    protected val butAtMost = IterableContainsAtLeastCheckerBuilder<Double, Iterable<Double>>::butAtMost.name
+    protected val butAtMost = AtLeastCheckerBuilder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::butAtMost.name
     protected val exactly = IterableContains.Builder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::exactly.name
     protected val atMost = IterableContains.Builder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::atMost.name
     protected val notOrAtMost = IterableContains.Builder<Double, Iterable<Double>, IterableContainsInAnyOrderSearchBehaviour>::notOrAtMost.name

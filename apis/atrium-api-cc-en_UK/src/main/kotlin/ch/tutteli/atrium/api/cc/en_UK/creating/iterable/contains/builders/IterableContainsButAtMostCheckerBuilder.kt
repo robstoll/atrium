@@ -6,7 +6,18 @@ import ch.tutteli.atrium.api.cc.en_UK.butAtMost
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsButAtMostCheckerBuilderBase
+import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsWithTimesCheckerBuilder
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+
+/**
+ * Represents the extension point for another option after a `contains at least but at most`-check within a
+ * sophisticated `contains` assertion building process for [Iterable].
+ *
+ * @param T The input type of the search.
+ * @param S The search behaviour which should be applied for the input of the search.
+ */
+interface ButAtMostCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>
+    : IterableContainsWithTimesCheckerBuilder<E, T, S>
 
 /**
  * Represents the builder of the second step of a `contains at least but at most` check within the
@@ -20,11 +31,12 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  *   found in the [Iterable].
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
-open class IterableContainsButAtMostCheckerBuilder<out E, out T : Iterable<E>>(
+@Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("ButAtMostCheckerBuilder"))
+open class IterableContainsButAtMostCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContainsInAnyOrderSearchBehaviour>(
     times: Int,
-    atLeastBuilder: IterableContainsAtLeastCheckerBuilder<E, T>,
-    containsBuilder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-) : IterableContainsButAtMostCheckerBuilderBase<E, T, IterableContainsInAnyOrderSearchBehaviour>(
+    atLeastBuilder: AtLeastCheckerBuilder<E, T, S>,
+    containsBuilder: IterableContains.Builder<E, T, S>
+) : IterableContainsButAtMostCheckerBuilderBase<E, T, S>(
     times,
     atLeastBuilder,
     containsBuilder,
@@ -34,4 +46,4 @@ open class IterableContainsButAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     { "${containsBuilder::atLeast.name}($it)" },
     { "${atLeastBuilder::butAtMost.name}($it)" },
     { "${containsBuilder::exactly.name}($it)" }
-)
+), ButAtMostCheckerBuilder<E, T, S>
