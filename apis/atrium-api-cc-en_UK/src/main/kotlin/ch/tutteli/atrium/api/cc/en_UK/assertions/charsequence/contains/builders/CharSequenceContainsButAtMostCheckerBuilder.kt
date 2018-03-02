@@ -24,6 +24,6 @@ open class CharSequenceContainsButAtMostCheckerBuilder<out T : CharSequence, out
     times: Int,
     atLeastBuilder: CharSequenceContainsAtLeastCheckerBuilder<T, S>,
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder<T, S>(
+) : ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.ButAtMostCheckerBuilderImpl<T, S>(
     times, atLeastBuilder, containsBuilder
 ), CharSequenceContainsCheckerBuilder<T, S>

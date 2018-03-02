@@ -24,6 +24,6 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
 open class IterableContainsAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
     containsBuilder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.IterableContainsAtMostCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>(
+) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.AtMostCheckerBuilderImpl<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     times, containsBuilder
 ), IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>

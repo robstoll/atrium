@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.ContainsNotCheckerBuilderImpl
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
@@ -31,8 +31,8 @@ fun <T : CharSequence> ignoring(builder: CharSequenceContainsBuilder<T, CharSequ
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case)
-    = CharSequenceContainsNotCheckerBuilder(containsBuilder ignoring case)
+infix fun <T : CharSequence> ContainsNotCheckerBuilderImpl<T, CharSequenceContainsNotSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case)
+    = ContainsNotCheckerBuilderImpl(containsBuilder ignoring case)
 
 @Deprecated("use the extension fun `ignoring` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder ignoring case"))
 fun <T : CharSequence> DeprecatedNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case): DeprecatedNotCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
