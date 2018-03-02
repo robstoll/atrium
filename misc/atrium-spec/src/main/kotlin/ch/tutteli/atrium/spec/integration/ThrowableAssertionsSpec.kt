@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.spec.*
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
@@ -13,8 +13,8 @@ import org.jetbrains.spek.api.dsl.context
 abstract class ThrowableAssertionsSpec(
     verbs: AssertionVerbFactory,
     toThrowTriple: Triple<String,
-        ThrowableThrownBuilder.() -> Unit,
-        ThrowableThrownBuilder.(assertionCreator: Assert<Throwable>.() -> Unit) -> Unit
+        ThrowableThrown.Builder.() -> Unit,
+        ThrowableThrown.Builder.(assertionCreator: Assert<Throwable>.() -> Unit) -> Unit
         >,
     messagePair: Pair<String, Assert<Throwable>.(assertionCreator: Assert<String>.() -> Unit) -> Unit>,
     messageContainsFun: Assert<Throwable>.(String) -> Unit,
@@ -35,9 +35,9 @@ abstract class ThrowableAssertionsSpec(
 
     fun SpecBody.checkToThrow(
         description: String,
-        act: (ThrowableThrownBuilder.() -> Unit) -> Unit,
-        lazy: (ThrowableThrownBuilder.() -> Unit),
-        immediate: (ThrowableThrownBuilder.() -> Unit)
+        act: (ThrowableThrown.Builder.() -> Unit) -> Unit,
+        lazy: (ThrowableThrown.Builder.() -> Unit),
+        immediate: (ThrowableThrown.Builder.() -> Unit)
     ) {
         checkGenericNarrowingAssertion(description, act, lazy, "immediate" to immediate)
     }

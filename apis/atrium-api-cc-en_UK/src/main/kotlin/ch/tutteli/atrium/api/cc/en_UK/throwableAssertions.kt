@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].
@@ -17,7 +17,7 @@ import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuild
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow() {
+inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow() {
     toThrow<TExpected> {}
 }
 
@@ -31,7 +31,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit) {
+inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
     AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
 }
 
@@ -47,7 +47,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrownBuilder.toThrow(noinli
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
-fun <T : Throwable> Assert<T>.message(assertionCreator: AssertionPlant<String>.() -> Unit) {
+fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
     property(subject::message).isNotNull(assertionCreator)
 }
 
