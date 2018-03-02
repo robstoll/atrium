@@ -1,3 +1,0 @@
-buildscript {
-    ext.publish_description = 'Used to publish tests and test sources of atrium-api-cc-infix-en-UK'
-}

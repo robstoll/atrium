@@ -27,12 +27,8 @@ buildscript {
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") }
 
-        testPublishingProjects = [] + ext.projectPrefixed('api-cc-de_CH-tests') +
-            ext.projectPrefixed('api-cc-en_UK-tests') +
-            ext.projectPrefixed('api-cc-infix-en_UK-tests')
-
         //jacoco-multi-project.gradle
-        projectsWithoutSources = [] + ext.projectPrefixed('bc-test') + ext.testPublishingProjects
+        projectsWithoutSources = ext.projectPrefixed('bc-test')
         jacocoMulti = [
             sourceProjects:
                 subprojects.findAll {
@@ -139,19 +135,20 @@ configure(projectsWithoutSources) {
     }
 }
 
-configure(testPublishingProjects) {
-    def nameWithoutSuffix = project.name.substring(0, project.name.indexOf("-tests"))
+def apiProjects = subprojects.findAll { it.name.startsWith('atrium-api') }
+configure(apiProjects) {
     task testJar(type: Jar) {
-        from project.project(":$nameWithoutSuffix").sourceSets.test.output
+        from sourceSets.test.output
+        classifier = 'tests'
     }
 
     task testSourceJar(type: Jar) {
-        from project.project(":$nameWithoutSuffix").sourceSets.test.allSource
-        classifier 'sources'
+        from sourceSets.test.allSource
+        classifier 'testsources'
     }
 
     afterEvaluate {
-        it.ext.publish_artifacts = [jar, testSourceJar]
+        it.ext.publish_artifacts += [testJar, testSourceJar]
     }
 }
 
