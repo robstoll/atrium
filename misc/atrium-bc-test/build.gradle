@@ -126,12 +126,13 @@ def createBcTasks(String apiName, String origVersion, String forgive) {
     project."compileSrc_${name}Kotlin".dependsOn "unzip_$name"
 }
 
-createBcTasks('cc-de_CH', '0.6.0',
-    'forgive=.*spec:ch.tutteli.atrium.api.cc.de_CH.Iterable.*(error cases|failing cases|context empty collection).*'
-)
-createBcTasks('cc-en_UK', '0.6.0',
-    'forgive=.*spec:ch.tutteli.atrium.api.cc.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
-)
-createBcTasks('cc-infix-en_UK', '0.6.0',
-    'forgive=.*spec:ch.tutteli.atrium.api.cc.infix.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
+def createBcTasksForApis(String version, String forgive, String... apis){
+    apis.each {
+        createBcTasks(it, version, forgive)
+    }
+}
+
+createBcTasksForApis('0.6.0',
+    'forgive=.*spec:ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.Iterable.*(error cases|failing cases|context empty collection).*',
+    'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
 )
