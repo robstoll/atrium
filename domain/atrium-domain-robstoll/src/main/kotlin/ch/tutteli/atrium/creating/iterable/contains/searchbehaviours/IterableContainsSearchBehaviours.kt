@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.iterable.contains.searchbehaviours
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 
 /**
- * A dummy implementation of [IIterableContainsSearchBehaviours] which should be replaced by an actual implementation.
+ * Robstoll's implementation of [IIterableContainsSearchBehaviours].
  */
 object IterableContainsSearchBehaviours : IIterableContainsSearchBehaviours {
     override fun <E, T : Iterable<E>> inAnyOrder(

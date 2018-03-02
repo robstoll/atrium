@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNotSearchBehaviour
 
 /**
- * A dummy implementation of [IIterableAssertions] which should be replaced by an actual implementation.
+ * Robstoll's implementation of [IIterableAssertions].
  */
 object IterableAssertions : IIterableAssertions {
     override fun <E, T : Iterable<E>> containsBuilder(plant: AssertionPlant<T>): IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>

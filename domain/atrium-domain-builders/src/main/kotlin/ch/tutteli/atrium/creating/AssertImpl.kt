@@ -2,8 +2,6 @@
 
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
-
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api
  * to give users of Atrium a fluent API as well.
