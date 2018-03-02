@@ -1,6 +1,5 @@
 buildscript {
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
-    def projectsWithoutSourcesBuildScript = project(":${rootProject.name}-bc-test")
     ext {
         atrium_version = '0.7.0-SNAPSHOT'
         ghPages_version = atrium_version
@@ -21,11 +20,19 @@ buildscript {
         github_url = "https://github.com/robstoll/${project.name}"
         publish_vcsUrl = "${github_url}.git"
 
+        projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
+        srcKotlin = 'src/main/kotlin'
+        srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
+
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") }
 
+        testPublishingProjects = [] + ext.projectPrefixed('api-cc-de_CH-tests') +
+            ext.projectPrefixed('api-cc-en_UK-tests') +
+            ext.projectPrefixed('api-cc-infix-en_UK-tests')
+
         //jacoco-multi-project.gradle
-        projectsWithoutSources = projectsWithoutSourcesBuildScript
+        projectsWithoutSources = [] + ext.projectPrefixed('bc-test') + ext.testPublishingProjects
         jacocoMulti = [
             sourceProjects:
                 subprojects.findAll {
@@ -40,7 +47,7 @@ buildscript {
                         it.name != "${project.name}-translations-de_CH" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${project.name}-spec"
-                } - projectsWithoutSourcesBuildScript,
+                } - ext.projectsWithoutSources,
             jacocoProjects:
                 subprojects.findAll {
                     it.name != "${project.name}-domain-api" &&
@@ -53,12 +60,8 @@ buildscript {
                         it.name != "${project.name}-bc-test" &&
                         //TODO remove with 1.0.0
                         it.name != "${project.name}-assertions"
-                } - projectsWithoutSourcesBuildScript - translationProjects
+                } - ext.projectsWithoutSources - translationProjects
         ]
-
-        projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
-        srcKotlin = 'src/main/kotlin'
-        srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
     }
 
     repositories {
@@ -95,7 +98,7 @@ configure(projectsWithSources) {
 
     dokka {
         outputFormat = 'html'
-        outputDirectory = "$buildDir/kdoc"
+        outputDirectory = "${project.buildDir}/kdoc"
         linkMapping {
             dir = "$srcKotlin"
             url = "$github_url/${dokka_sourceMapping}/${project.name}/$srcKotlin"
@@ -136,15 +139,19 @@ configure(projectsWithoutSources) {
     }
 }
 
-def testProjects = subprojects.findAll { it.projectDir.path.contains("api") }
-configure(testProjects){
-    task testJar(type: Jar, dependsOn: testClasses) {
-        from sourceSets.test.output
-        archiveName = "${it.name}-tests-${it.version}.jar"
+configure(testPublishingProjects) {
+    def nameWithoutSuffix = project.name.substring(0, project.name.indexOf("-tests"))
+    task testJar(type: Jar) {
+        from project.project(":$nameWithoutSuffix").sourceSets.test.output
+    }
+
+    task testSourceJar(type: Jar) {
+        from project.project(":$nameWithoutSuffix").sourceSets.test.allSource
+        classifier 'sources'
     }
 
     afterEvaluate {
-        it.ext.publish_artifacts = [sourceJar, javadocJar, testJar]
+        it.ext.publish_artifacts = [jar, testSourceJar]
     }
 }
 
@@ -190,6 +197,7 @@ Release & deploy a commit
         3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
         4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
         5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
+    b) Update REAMDE -> Use own Assertion Verbs -> link to atriumVerbs if it changed
     b) commit (modified build.gradle, README.md and differences.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z
