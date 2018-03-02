@@ -24,11 +24,11 @@ import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsChe
  * @param atLeastCall The name of the function which was called and created this builder.
  */
 abstract class IterableContainsAtLeastCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
-    val times: Int,
-    override val containsBuilder: IterableContains.Builder<E, T, S>,
+    final override val times: Int,
+    final override  val containsBuilder: IterableContains.Builder<E, T, S>,
     nameContainsNotFun: String,
     atLeastCall: (Int) -> String
-) : IterableContains.CheckerBuilder<E, T, S> {
+) : IterableContainsWithTimesCheckerBuilder<E, T, S> {
 
     override val checkers: List<Checker> = listOf(
         IterableContainsCheckers.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)

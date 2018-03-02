@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.AtLeastCheckerBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
@@ -13,7 +13,7 @@ abstract class CharSequenceContainsSpecBase {
     protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
     protected val containsRegex = "${Assert<String>::to.name} ${contain::class.simpleName} ${RegexPatterns::class.simpleName}"
     protected val atLeast = CharSequenceContains.Builder<*, *>::atLeast.name
-    protected val butAtMost = CharSequenceContainsAtLeastCheckerBuilder<*, *>::butAtMost.name
+    protected val butAtMost = AtLeastCheckerBuilder<*, *>::butAtMost.name
     protected val exactly = CharSequenceContains.Builder<*, *>::exactly.name
     protected val atMost = CharSequenceContains.Builder<*, *>::atMost.name
     protected val notOrAtMost = CharSequenceContains.Builder<*, *>::notOrAtMost.name

@@ -23,6 +23,6 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
 open class IterableContainsAtLeastCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
     containsBuilder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-) : ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder<E, T>(
+) : ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     times, containsBuilder
 ), IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>

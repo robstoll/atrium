@@ -21,7 +21,7 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
 )
 open class IterableContainsNotCheckerBuilder<out E, out T : Iterable<E>>(
     containsBuilder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.IterableContainsNotCheckerBuilder<E, T>(
+) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.IterableContainsNotCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>(
     containsBuilder
 ), IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
 
