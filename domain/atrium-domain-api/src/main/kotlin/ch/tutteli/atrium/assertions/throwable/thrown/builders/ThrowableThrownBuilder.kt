@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Represents the entry point of the fluent API of sophisticated a [Throwable] `was thrown` assertions.
+ * Represents the *deprecated* entry point of the fluent API of sophisticated a [Throwable] `was thrown` assertions.
  *
  * It contains the [assertionVerb] and [reporter] which will be used to create an [AssertionPlantNullable] as well as
  * the [act] function which is expected to throw a [Throwable].
