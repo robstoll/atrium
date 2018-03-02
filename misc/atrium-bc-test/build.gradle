@@ -32,14 +32,14 @@ dependencies {
     compile configurations.common.dependencies
 }
 
-def createBcTasks(String apiName, String origVersion, String forgive) {
-    def version = origVersion.replaceAll("\\.", "_")
-    def name = "${apiName.replaceAll("-", "_")}_$version"
-    def srcName = "src_$name"
-    def confCommon = "conf_$name"
-    def testJar = "testJar_$name"
-    def testJarSources = "testJarSources_$name"
-    def srcDirectory = file("${project.projectDir}/src/old/$origVersion/atrium-api-$apiName")
+def createBcTasks(String apiName, String version, String forgive) {
+    def nameUnderline = "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
+    def name = "${apiName}-$version"
+    def srcName = "src_$nameUnderline"
+    def confCommon = "conf_$nameUnderline"
+    def testJar = "testJar_$nameUnderline"
+    def testJarSources = "testJarSources_$nameUnderline"
+    def srcDirectory = file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
 
     sourceSets {
         create(srcName) {
@@ -56,14 +56,14 @@ def createBcTasks(String apiName, String origVersion, String forgive) {
     }
 
     dependencies {
-        add(testJar, "ch.tutteli:atrium-api-$apiName:$origVersion:tests") {
+        add(testJar, "ch.tutteli:atrium-api-$apiName:$version:tests") {
             exclude group: '*'
         }
-        add(testJarSources, "ch.tutteli:atrium-api-$apiName:$origVersion:testsources") {
+        add(testJarSources, "ch.tutteli:atrium-api-$apiName:$version:testsources") {
             exclude group: '*'
         }
 
-        add(confCommon, "ch.tutteli:atrium-spec:$origVersion") {
+        add(confCommon, "ch.tutteli:atrium-spec:$version") {
             exclude group: '*'
         }
         add(confCommon, projectPrefixed("api-cc-en_UK")) //required for atrium-spec
@@ -82,8 +82,8 @@ def createBcTasks(String apiName, String origVersion, String forgive) {
         ]
     }
 
-    def bbcTask = task("bbc_$name", type: JavaExec, group: 'Verification') {
-        description = "Checks if specs from $apiName $origVersion can be run against the current version."
+    def bbcTask = task("bbc-$name", type: JavaExec, group: 'Verification') {
+        description = "Checks if specs from $apiName $version can be run against the current version."
 
         inputs.files configurations[testJar]
         inputs.files configurations[confCommon]
@@ -97,7 +97,7 @@ def createBcTasks(String apiName, String origVersion, String forgive) {
     check.dependsOn bbcTask
 
 
-    task("unzip_$name") {
+    def unzip = task("unzip_$name") {
         inputs.files configurations[testJarSources]
 
         outputs.dir srcDirectory
@@ -112,8 +112,8 @@ def createBcTasks(String apiName, String origVersion, String forgive) {
         }
     }
 
-    def bcTask = task("bc_$name", type: JavaExec, group: 'Verification') {
-        description = "Checks if specs from $apiName $origVersion can be compiled and run against the current version."
+    def bcTask = task("bc-$name", type: JavaExec, group: 'Verification') {
+        description = "Checks if specs from $apiName $version can be compiled and run against the current version."
 
         inputs.files sourceSets[srcName].runtimeClasspath
 
@@ -123,12 +123,18 @@ def createBcTasks(String apiName, String origVersion, String forgive) {
         args = getArgs(sourceSets[srcName].output.classesDirs.asPath)
     }
     check.dependsOn bcTask
-    project."compileSrc_${name}Kotlin".dependsOn "unzip_$name"
+    project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
 
-def createBcTasksForApis(String version, String forgive, String... apis){
-    apis.each {
-        createBcTasks(it, version, forgive)
+def createBcTasksForApis(String version, String forgive, String... apis) {
+
+    def bc_version = task("bc-$version", group: 'Verification')
+    def bbc_version = task("bbc-$version", group: 'Verification')
+
+    apis.each { apiName ->
+        createBcTasks(apiName, version, forgive)
+        bc_version.dependsOn "bc-${apiName}-$version"
+        bbc_version.dependsOn "bbc-${apiName}-$version"
     }
 }
 
