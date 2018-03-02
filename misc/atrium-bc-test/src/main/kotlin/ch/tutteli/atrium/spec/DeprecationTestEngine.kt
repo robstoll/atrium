@@ -8,6 +8,19 @@ import org.junit.platform.engine.*
 import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor
 import org.junit.platform.engine.support.hierarchical.Node
 
+/**
+ * Represents a [TestEngine] (id 'spek-deprecation') which uses the [SpekTestEngine] but allows to define tests
+ * which shall be converted to [ForgivingTest]s.
+ *
+ * Which tests shall be forgivable can be defined with the custom config property `forgive` and a regular expression
+ * matches desired [UniqueId]s. For instance:
+ *
+ * `forgive=.*\.Iterable\..*`
+ *
+ * Turns all tests containing `.Iterable.` in their [UniqueId] into a [ForgivingTest].
+ *
+ * Moreover, the engine fails if no tests were discovered or if an error occurs during discovery.
+ */
 class DeprecationTestEngine : TestEngine {
     private val spek = SpekTestEngine()
 

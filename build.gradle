@@ -28,7 +28,6 @@ buildscript {
         docProjects = subprojects.findAll { !it.name.contains("robstoll") }
 
         //jacoco-multi-project.gradle
-        projectsWithoutSources = ext.projectPrefixed('bc-test')
         jacocoMulti = [
             sourceProjects:
                 subprojects.findAll {
@@ -43,7 +42,7 @@ buildscript {
                         it.name != "${project.name}-translations-de_CH" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${project.name}-spec"
-                } - ext.projectsWithoutSources,
+                },
             jacocoProjects:
                 subprojects.findAll {
                     it.name != "${project.name}-domain-api" &&
@@ -56,7 +55,7 @@ buildscript {
                         it.name != "${project.name}-bc-test" &&
                         //TODO remove with 1.0.0
                         it.name != "${project.name}-assertions"
-                } - ext.projectsWithoutSources - translationProjects
+                } - translationProjects
         ]
     }
 
@@ -77,20 +76,17 @@ repositories {
 subprojects {
     repositories {
         mavenCentral()
-        maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+        maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
     }
 
     apply plugin: 'kotlin'
-}
-
-def projectsWithSources = subprojects - projectsWithoutSources
-configure(projectsWithSources) {
-    apply plugin: 'org.jetbrains.dokka'
 
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
         compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     }
+
+    apply plugin: 'org.jetbrains.dokka'
 
     dokka {
         outputFormat = 'html'
@@ -114,45 +110,38 @@ configure(projectsWithSources) {
             srcOwnModule('core-api-late-binding'))
     }
 
-    task sourceJar(type: Jar) {
+    def sourceJar = task('sourceJar', type: Jar) {
         from project.sourceSets.main.allSource
         classifier = 'sources'
     }
 
-    task javadocJar(type: Jar, dependsOn: dokka) {
+    def javadocjar = task('javadocJar', type: Jar, dependsOn: dokka) {
         from dokka.outputDirectory
         classifier = 'javadoc'
     }
 
-    afterEvaluate {
-        it.ext.publish_artifacts = [sourceJar, javadocJar]
-    }
-}
+    it.ext.publish_artifacts = [sourceJar, javadocJar]
 
-configure(projectsWithoutSources) {
-    afterEvaluate {
-        it.ext.publish_artifacts = []
+    if (it.name.startsWith('atrium-api')) {
+        def testJar = task('testJar', type: Jar) {
+            from sourceSets.test.output
+            classifier = 'tests'
+        }
+
+        def testSourceJar = task('testSourceJar', type: Jar) {
+            from sourceSets.test.allSource
+            classifier 'testsources'
+        }
+        it.ext.publish_artifacts += [testJar, testSourceJar]
     }
 }
 
 def apiProjects = subprojects.findAll { it.name.startsWith('atrium-api') }
 configure(apiProjects) {
-    task testJar(type: Jar) {
-        from sourceSets.test.output
-        classifier = 'tests'
-    }
 
-    task testSourceJar(type: Jar) {
-        from sourceSets.test.allSource
-        classifier 'testsources'
-    }
-
-    afterEvaluate {
-        it.ext.publish_artifacts += [testJar, testSourceJar]
-    }
 }
 
-// has to be after the above tree blocks which define `it.ext.publish_artifacts`
+// has to be after the above two blocks which define `it.ext.publish_artifacts`
 subprojects {
     afterEvaluate { subproject ->
         subproject.ext {
