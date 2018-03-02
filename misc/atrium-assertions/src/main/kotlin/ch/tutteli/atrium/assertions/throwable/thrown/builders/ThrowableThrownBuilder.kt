@@ -2,6 +2,7 @@ package ch.tutteli.atrium.assertions.throwable.thrown.builders
 
 import ch.tutteli.atrium.ICoreFactory
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -22,7 +23,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 @Deprecated("use the builder from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder"))
 class ThrowableThrownBuilder(
-    val assertionVerb: Translatable,
-    val act: () -> Unit,
-    val reporter: Reporter
-)
+    override val assertionVerb: Translatable,
+    override val act: () -> Unit,
+    override val reporter: Reporter
+): ThrowableThrown.Builder

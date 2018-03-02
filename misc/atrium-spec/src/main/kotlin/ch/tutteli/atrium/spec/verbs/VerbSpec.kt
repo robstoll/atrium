@@ -3,9 +3,10 @@ package ch.tutteli.atrium.spec.verbs
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
@@ -30,11 +31,7 @@ private fun <T : Any?> assert(subject: T)
     = CoreFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 private fun expect(act: () -> Unit)
-    = ThrowableThrownBuilder(
-    EXPECT_THROWN,
-    act,
-    AtriumReporterSupplier.REPORTER
-)
+    = AssertImpl.throwable.thrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {
@@ -53,7 +50,7 @@ abstract class VerbSpec(
     plantCheckImmediately: Pair<String, (subject: Int) -> AssertionPlant<Int>>,
     plantCheckLazily: Pair<String, (subject: Int, assertionCreator: AssertionPlant<Int>.() -> Unit) -> AssertionPlant<Int>>,
     plantNullable: Pair<String, (subject: Int?) -> AssertionPlantNullable<Int?>>,
-    plantExpect: Pair<String, (act: () -> Unit) -> ThrowableThrownBuilder>,
+    plantExpect: Pair<String, (act: () -> Unit) -> ThrowableThrown.Builder>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 

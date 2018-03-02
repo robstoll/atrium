@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.ReportingAssertionPlant
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -98,7 +98,7 @@ abstract class ReportingAssertionPlantSpec(
 
             setUp("in case of assertion which fails") {
                 setUp("throws an AssertionError") {
-                    fun expectFun(): ThrowableThrownBuilder {
+                    fun expectFun(): ThrowableThrown.Builder {
                         val testee = createTestee()
                         return expect {
                             testee.failingFun()

@@ -2,12 +2,19 @@
 
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.creating.throwable.thrown.creators.IThrowableThrownAssertions
 import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
+import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-object ThrowableAssertionsBuilder {
+object ThrowableAssertionsBuilder : IThrowableAssertions {
+    override inline fun thrownBuilder(
+        assertionVerb: Translatable,
+        noinline act: () -> Unit,
+        reporter: Reporter
+    ): ThrowableThrown.Builder = ThrowableAssertions.thrownBuilder(assertionVerb, act, reporter)
 
     /**
      * Delegates to [ThrowableThrownAssertions].
@@ -16,9 +23,12 @@ object ThrowableAssertionsBuilder {
 }
 
 
-object ThrowableThrownAssertionsBuilder: IThrowableThrownAssertions {
+object ThrowableThrownAssertionsBuilder : IThrowableThrownAssertions {
 
-    override inline fun <TExpected : Throwable> toBe(throwableThrownBuilder: ThrowableThrownBuilder, expectedType: KClass<TExpected>, noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit)
-        = ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
+    override inline fun <TExpected : Throwable> toBe(
+        throwableThrownBuilder: ThrowableThrown.Builder,
+        expectedType: KClass<TExpected>,
+        noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit
+    ) = ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 
 }

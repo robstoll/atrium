@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.creating.any.typetransformation.creators.DownCastAssertionCreator
 import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
@@ -15,7 +14,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
 ) : ThrowableThrown.Creator<TExpected> {
 
     override fun executeActAndCreateAssertion(
-        throwableThrownBuilder: ThrowableThrownBuilder,
+        throwableThrownBuilder: ThrowableThrown.Builder,
         description: Translatable,
         expectedType: KClass<TExpected>,
         assertionCreator: AssertionPlant<TExpected>.() -> Unit
@@ -28,7 +27,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
             .downCast(description, expectedType, subjectPlant, assertionCreator, failureHandler)
     }
 
-    private fun catchThrowable(throwableThrownBuilder: ThrowableThrownBuilder): Throwable? {
+    private fun catchThrowable(throwableThrownBuilder: ThrowableThrown.Builder): Throwable? {
         return try {
             throwableThrownBuilder.act()
             null
@@ -37,7 +36,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
         }
     }
 
-    private fun createReportingPlantForThrowable(throwableThrownBuilder: ThrowableThrownBuilder, throwable: Throwable?): ReportingAssertionPlantNullable<Throwable?> {
+    private fun createReportingPlantForThrowable(throwableThrownBuilder: ThrowableThrown.Builder, throwable: Throwable?): ReportingAssertionPlantNullable<Throwable?> {
         return CoreFactory.newReportingPlantNullable(
             throwableThrownBuilder.assertionVerb,
             throwable,

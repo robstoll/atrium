@@ -4,9 +4,10 @@ import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.ICoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN
@@ -45,9 +46,9 @@ fun <T : Any?> assertThat(subject: T)
     = CoreFactory.newReportingPlantNullable(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
- * Creates a [ThrowableThrownBuilder] for the given function [act] which is expected to throw a [Throwable].
+ * Creates a [ThrowableThrown.Builder] for the given function [act] which is expected to throw a [Throwable].
  *
- * @return The newly created [ThrowableThrownBuilder].
+ * @return The newly created [ThrowableThrown.Builder].
  */
 fun assertThat(act: () -> Unit)
-    = ThrowableThrownBuilder(ASSERT_THAT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.throwable.thrownBuilder(ASSERT_THAT_THROWN, act, AtriumReporterSupplier.REPORTER)

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 
 class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAssertionsSpec(
     AssertionVerbFactory,
@@ -15,11 +15,11 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
 
         private fun getToThrowTriple() = Triple("wirft", Companion::toThrowImmediate, Companion::toThrowLazy)
 
-        private fun toThrowImmediate(builder: ThrowableThrownBuilder) {
+        private fun toThrowImmediate(builder: ThrowableThrown.Builder) {
             builder.wirft<IllegalArgumentException>()
         }
 
-        private fun toThrowLazy(builder: ThrowableThrownBuilder, assertionCreator: Assert<Throwable>.() -> Unit) {
+        private fun toThrowLazy(builder: ThrowableThrown.Builder, assertionCreator: Assert<Throwable>.() -> Unit) {
             builder.wirft<IllegalArgumentException>(assertionCreator)
         }
 

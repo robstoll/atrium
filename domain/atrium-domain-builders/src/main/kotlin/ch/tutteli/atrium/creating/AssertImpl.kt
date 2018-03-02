@@ -50,8 +50,7 @@ object AssertImpl {
     inline val iterable get() = IterableAssertionsBuilder
 
     /**
-     * Does not delegate to a specific domain object but contains [ThrowableAssertionsBuilder.thrown] which
-     * delegates to [ThrowableThrownAssertions].
+     * Delegates to [ThrowableAssertions].
      */
     inline val throwable get() = ThrowableAssertionsBuilder
 }
