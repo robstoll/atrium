@@ -27,7 +27,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The chosen search behaviour.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsObjectsAssertionCreator<T : Any, S, B : Contains.SearchBehaviour, C : Contains.Checker>(
+abstract class ContainsObjectsAssertionCreator<in T : Any, in S, B : Contains.SearchBehaviour, C : Contains.Checker>(
     private val searchBehaviour: B,
     checkers: List<C>
 ) : ContainsAssertionCreator<T, S, C>(checkers) {

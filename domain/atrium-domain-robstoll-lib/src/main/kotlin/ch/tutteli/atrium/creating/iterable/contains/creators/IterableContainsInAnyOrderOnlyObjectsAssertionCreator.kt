@@ -21,7 +21,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>(
+class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, in T : Iterable<E?>>(
     searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
 ) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
 

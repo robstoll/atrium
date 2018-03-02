@@ -2,7 +2,8 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -34,14 +35,14 @@ object AssertionCollector {
          *
          * In case [subject] is null then a [PlantHasNoSubjectException] is thrown in case the
          * subject is accessed (which does not need to be the case all the time). In such a case a single
-         * [ExplanatoryAssertionGroup] is returned containing a warning.
+         * [AssertionGroup] with an [ExplanatoryAssertionGroupType] is returned containing a warning.
          *
          * @param warning The translatable used to explain why the assertions could not be evaluated.
          * @param assertionCreator The function which should at least create one assertion.
          * @param subject The subject which will be used for the [AssertionPlant].
          *
-         * @return A list with the collected assertion or an [ExplanatoryAssertionGroup] with a warning if [subject] is
-         *   `null` and an assertion function tries to access it.
+         * @return A list with the collected assertion or an [AssertionGroup] with an [ExplanatoryAssertionGroupType]
+         *   containing a warning if [subject] is `null` and an assertion function tries to access it.
          *
          * @throws IllegalArgumentException Might throw an [IllegalArgumentException] in case the [assertionCreator]
          *   function does not even create one [Assertion] -- depending on the previously chosen option (see
