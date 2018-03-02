@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
+import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.NotCheckerBuilderImpl
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
@@ -32,9 +32,9 @@ fun <T : CharSequence> getIgnoriereGrossKleinschreibung(builder: DeprecatedBuild
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>.ignoriereGrossKleinschreibung
-    get() : CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
-    = CharSequenceContainsNotCheckerBuilder(containsBuilder.ignoriereGrossKleinschreibung)
+val <T : CharSequence> NotCheckerBuilderImpl<T, CharSequenceContainsNotSearchBehaviour>.ignoriereGrossKleinschreibung
+    get() : NotCheckerBuilderImpl<T, CharSequenceContainsIgnoringCaseSearchBehaviour>
+    = NotCheckerBuilderImpl(containsBuilder.ignoriereGrossKleinschreibung)
 
 @Deprecated("use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
 fun <T : CharSequence> getIgnoriereGrossKleinschreibung(builder: DeprecatedNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>)

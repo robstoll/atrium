@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder
+import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.NotCheckerBuilderImpl
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -33,8 +33,8 @@ fun <T : CharSequence> getContains(plant: Assert<T>): DeprecatedBuilder<T, CharS
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> Assert<T>.containsNot: CharSequenceContainsNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
-    get() = CharSequenceContainsNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(this))
+val <T : CharSequence> Assert<T>.containsNot: NotCheckerBuilderImpl<T, CharSequenceContainsNotSearchBehaviour>
+    get() = NotCheckerBuilderImpl(AssertImpl.charSequence.containsNotBuilder(this))
 
 @Deprecated("use the extension fun `containsNot` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.containsNot"))
 fun <T : CharSequence> getContainsNot(plant:  Assert<T>): DeprecatedNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
