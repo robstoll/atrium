@@ -7,6 +7,9 @@ import org.jetbrains.spek.engine.SpekExecutionContext
 import org.junit.platform.engine.TestDescriptor
 import org.junit.platform.engine.support.hierarchical.Node
 
+/**
+ * Represents a [TestScope] which accepts [AssertionError] but fails for any other exception.
+ */
 class ForgivingTest(private val test: Test) :
     Scope.Group(test.uniqueId, test.pending, test.source, test.lifecycleManager)
     , Node<SpekExecutionContext> by test
