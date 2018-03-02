@@ -24,11 +24,11 @@ import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceCon
  * @param atLeastCall The name of the function which was called and created this builder.
  */
 abstract class CharSequenceContainsAtLeastCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
-    val times: Int,
-    override val containsBuilder: CharSequenceContains.Builder<T, S>,
+    final override val times: Int,
+    final override  val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     atLeastCall: (Int) -> String
-) : CharSequenceContains.CheckerBuilder<T, S> {
+) : CharSequenceContainsWithTimesCheckerBuilder<T, S> {
 
     override val checkers: List<Checker> = listOf(
         CharSequenceContainsCheckers.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)

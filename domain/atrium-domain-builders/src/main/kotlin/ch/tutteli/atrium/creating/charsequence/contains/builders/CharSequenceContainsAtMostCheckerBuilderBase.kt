@@ -27,13 +27,13 @@ import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceCon
  * @param exactlyCall The name of the function which represents a `CharSequence contains exactly` assertion.
  */
 abstract class CharSequenceContainsAtMostCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
-    val times: Int,
-    override val containsBuilder: CharSequenceContains.Builder<T, S>,
+    final override val times: Int,
+    final override val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String,
     atLeastCall: (Int) -> String,
     exactlyCall: (Int) -> String
-) : CharSequenceContains.CheckerBuilder<T, S> {
+) : CharSequenceContainsWithTimesCheckerBuilder<T, S> {
 
     init {
         validateAtMost(times, atMostCall, atLeastCall, exactlyCall)
