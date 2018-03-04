@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.creating.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
  * with `==`).
  *
- * It provides a template to fulfill the job of creating the sophisticated `contains` assertion.
+ * It provides a template to fulfill the job of creating the sophisticated `contains` [Assertion].
  *
  * @param T The type of the [AssertionPlant.subject].
  * @param S The type of the search criteria.

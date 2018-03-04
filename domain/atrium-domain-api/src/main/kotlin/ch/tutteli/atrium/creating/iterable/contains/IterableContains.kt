@@ -5,10 +5,17 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains.*
+import ch.tutteli.atrium.creating.iterable.contains.creators.IIterableContainsAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Defines the contract for sophisticated [Iterable] `contains` assertions.
+ * Defines the contract for sophisticated [Iterable] `contains` [Assertion] builders.
+ *
+ * The building process is typically started by the creation of a [Builder],
+ * goes on by specifying a desired [SearchBehaviour],
+ * defines which [Checker]s should be applied and
+ * is finalized by one of the [IIterableContainsAssertions] which usually use a [Creator].
  */
 interface IterableContains {
 

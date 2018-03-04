@@ -24,16 +24,16 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * @param searcher The search method which is used to search for given objects.
  * @param checkers The checkers which create assertions based on the search result.
  */
-class CharSequenceContainsAssertionCreator<in T : CharSequence, S : SearchBehaviour>(
+class SearcherBasedCreator<in T : CharSequence, in SC: Any, S : SearchBehaviour>(
     searchBehaviour: S,
     private val searcher: Searcher<S>,
     checkers: List<Checker>
-) : ContainsObjectsAssertionCreator<T, Any, S, Checker>(searchBehaviour, checkers),
-    CharSequenceContains.Creator<T, Any> {
+) : ContainsObjectsAssertionCreator<T, SC, S, Checker>(searchBehaviour, checkers),
+    CharSequenceContains.Creator<T, SC> {
 
     override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
 
-    override fun search(plant: AssertionPlant<T>, searchCriterion: Any): Int
+    override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
         = searcher.search(plant.subject, searchCriterion)
 }

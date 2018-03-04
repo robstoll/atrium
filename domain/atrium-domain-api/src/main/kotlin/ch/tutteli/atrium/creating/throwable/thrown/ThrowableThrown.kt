@@ -6,16 +6,20 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown.*
+import ch.tutteli.atrium.creating.throwable.thrown.creators.IThrowableThrownAssertions
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
 /**
- * Defines the contract for sophisticated a [Throwable] was thrown assertions.
+ * Defines the contract for sophisticated a [Throwable] was thrown [Assertion] builders.
+ * as well as the minimum set of assertions an implementation of the domain of Atrium has to provide.
  *
- * An assertion starts with a [Builder] and is typically built up by an [AbsentThrowableMessageProvider]
- * and an [AnyTypeTransformation.FailureHandler] which are passed to a [Creator] which finally builds the assertion.
+ * The building process is typically started by the creation of a [Builder],
+ * would allow to define an [AbsentThrowableMessageProvider] as well as an [AnyTypeTransformation.FailureHandler]
+ * (currently all [IThrowableThrownAssertions] specify it implicitly) and
+ * is finalized by one of the [IThrowableThrownAssertions] which usually use a [Creator].
  */
 interface ThrowableThrown {
     /**
