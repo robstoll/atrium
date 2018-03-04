@@ -8,6 +8,6 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Represents a [ThrowableThrown.AbsentThrowableMessageProvider] which is using a given [Translatable] which in $
  * turn explains an absent [Throwable].
  */
-class TranslatableBasedAbsentThrowableMessageProvider(translatable: Translatable) : ThrowableThrown.AbsentThrowableMessageProvider {
+class AbsentThrowableMessageProvider(translatable: Translatable) : ThrowableThrown.AbsentThrowableMessageProvider {
     override val message = RawString.create(translatable)
 }

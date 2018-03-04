@@ -13,11 +13,11 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-class IterableContainsAtMostChecker(
+class AtMostChecker(
     times: Int,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String
-) : IterableContainsChecker(times, nameContainsNotFun, atMostCall) {
+) : Checker(times, nameContainsNotFun, atMostCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
         = createBasicAssertion(DescriptionIterableAssertion.AT_MOST, foundNumberOfTimes <= times)

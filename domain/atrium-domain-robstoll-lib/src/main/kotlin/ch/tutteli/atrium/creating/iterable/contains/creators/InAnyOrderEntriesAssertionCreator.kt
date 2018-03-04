@@ -28,7 +28,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
-class IterableContainsInAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
+class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
     private val searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
 ) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(checkers),

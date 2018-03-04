@@ -29,7 +29,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-abstract class IterableContainsInOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
+abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
     private val searchBehaviour: InOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {
 
