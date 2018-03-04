@@ -7,7 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "ch.tutteli:tutteli-gradle-settings:0.3.1"
+        classpath "ch.tutteli:tutteli-gradle-settings:0.3.2"
     }
 }
 
@@ -15,6 +15,12 @@ apply plugin: 'ch.tutteli.settings'
 
 //noinspection GroovyAssignabilityCheck
 include {
+
+    bundles {
+        _ 'cc-en_UK-robstoll'
+        _ 'cc-de_CH-robstoll'
+        _ 'cc-infix-en_UK-robstoll'
+    }
 
     apis {
         _ 'api-cc-de_CH'
@@ -48,14 +54,8 @@ include {
         _ 'bc-test'
     }
 
-    bundles {
-        _ 'cc-en_UK-robstoll'
-        _ 'cc-de_CH-robstoll'
-        _ 'cc-infix-en_UK-robstoll'
-    }
-
+    //TODO remove with 1.0.0
     misc {
-        //TODO remove with 1.0.0
         _ 'assertions'
     }
 }

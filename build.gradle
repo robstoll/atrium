@@ -1,6 +1,5 @@
 buildscript {
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
-    def projectsWithoutSourcesBuildScript = project(":${rootProject.name}-bc-test")
     ext {
         atrium_version = '0.7.0-SNAPSHOT'
         ghPages_version = atrium_version
@@ -21,11 +20,14 @@ buildscript {
         github_url = "https://github.com/robstoll/${project.name}"
         publish_vcsUrl = "${github_url}.git"
 
+        projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
+        srcKotlin = 'src/main/kotlin'
+        srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
+
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") }
 
         //jacoco-multi-project.gradle
-        projectsWithoutSources = projectsWithoutSourcesBuildScript
         jacocoMulti = [
             sourceProjects:
                 subprojects.findAll {
@@ -40,7 +42,7 @@ buildscript {
                         it.name != "${project.name}-translations-de_CH" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${project.name}-spec"
-                } - projectsWithoutSourcesBuildScript,
+                },
             jacocoProjects:
                 subprojects.findAll {
                     it.name != "${project.name}-domain-api" &&
@@ -53,12 +55,8 @@ buildscript {
                         it.name != "${project.name}-bc-test" &&
                         //TODO remove with 1.0.0
                         it.name != "${project.name}-assertions"
-                } - projectsWithoutSourcesBuildScript - translationProjects
+                } - translationProjects
         ]
-
-        projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
-        srcKotlin = 'src/main/kotlin'
-        srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
     }
 
     repositories {
@@ -78,24 +76,21 @@ repositories {
 subprojects {
     repositories {
         mavenCentral()
-        maven { url "http://dl.bintray.com/robstoll/tutteli-jars" }
+        maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
     }
 
     apply plugin: 'kotlin'
-}
-
-def projectsWithSources = subprojects - projectsWithoutSources
-configure(projectsWithSources) {
-    apply plugin: 'org.jetbrains.dokka'
 
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
         compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     }
 
+    apply plugin: 'org.jetbrains.dokka'
+
     dokka {
         outputFormat = 'html'
-        outputDirectory = "$buildDir/kdoc"
+        outputDirectory = "${project.buildDir}/kdoc"
         linkMapping {
             dir = "$srcKotlin"
             url = "$github_url/${dokka_sourceMapping}/${project.name}/$srcKotlin"
@@ -115,40 +110,38 @@ configure(projectsWithSources) {
             srcOwnModule('core-api-late-binding'))
     }
 
-    task sourceJar(type: Jar) {
+    def sourceJar = task('sourceJar', type: Jar) {
         from project.sourceSets.main.allSource
         classifier = 'sources'
     }
 
-    task javadocJar(type: Jar, dependsOn: dokka) {
+    def javadocjar = task('javadocJar', type: Jar, dependsOn: dokka) {
         from dokka.outputDirectory
         classifier = 'javadoc'
     }
 
-    afterEvaluate {
-        it.ext.publish_artifacts = [sourceJar, javadocJar]
+    it.ext.publish_artifacts = [sourceJar, javadocJar]
+
+    if (it.name.startsWith('atrium-api')) {
+        def testJar = task('testJar', type: Jar) {
+            from sourceSets.test.output
+            classifier = 'tests'
+        }
+
+        def testSourceJar = task('testSourceJar', type: Jar) {
+            from sourceSets.test.allSource
+            classifier 'testsources'
+        }
+        it.ext.publish_artifacts += [testJar, testSourceJar]
     }
 }
 
-configure(projectsWithoutSources) {
-    afterEvaluate {
-        it.ext.publish_artifacts = []
-    }
+def apiProjects = subprojects.findAll { it.name.startsWith('atrium-api') }
+configure(apiProjects) {
+
 }
 
-def testProjects = subprojects.findAll { it.projectDir.path.contains("api") }
-configure(testProjects){
-    task testJar(type: Jar, dependsOn: testClasses) {
-        from sourceSets.test.output
-        archiveName = "${it.name}-tests-${it.version}.jar"
-    }
-
-    afterEvaluate {
-        it.ext.publish_artifacts = [sourceJar, javadocJar, testJar]
-    }
-}
-
-// has to be after the above tree blocks which define `it.ext.publish_artifacts`
+// has to be after the above two blocks which define `it.ext.publish_artifacts`
 subprojects {
     afterEvaluate { subproject ->
         subproject.ext {
@@ -190,6 +183,7 @@ Release & deploy a commit
         3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
         4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
         5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
+    b) Update REAMDE -> Use own Assertion Verbs -> link to atriumVerbs if it changed
     b) commit (modified build.gradle, README.md and differences.md)
     c) git tag vX.Y.Z
     d) git push origin vX.Y.Z

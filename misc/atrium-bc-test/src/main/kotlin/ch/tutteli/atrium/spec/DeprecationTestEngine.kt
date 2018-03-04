@@ -2,9 +2,25 @@ package ch.tutteli.atrium.spec
 
 import org.jetbrains.spek.engine.Scope
 import org.jetbrains.spek.engine.SpekEngineDescriptor
+import org.jetbrains.spek.engine.SpekExecutionContext
 import org.jetbrains.spek.engine.SpekTestEngine
 import org.junit.platform.engine.*
+import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor
+import org.junit.platform.engine.support.hierarchical.Node
 
+/**
+ * Represents a [TestEngine] (id 'spek-deprecation') which uses the [SpekTestEngine] but allows to define tests
+ * which shall be converted to [ForgivingTest]s.
+ *
+ * Which tests shall be forgivable can be defined with the custom config property `forgive` and a regular expression
+ * matches desired [UniqueId]s. For instance:
+ *
+ * `forgive=.*\.Iterable\..*`
+ *
+ * Turns all tests containing `.Iterable.` in their [UniqueId] into a [ForgivingTest].
+ *
+ * Moreover, the engine fails if no tests were discovered or if an error occurs during discovery.
+ */
 class DeprecationTestEngine : TestEngine {
     private val spek = SpekTestEngine()
 
@@ -12,13 +28,24 @@ class DeprecationTestEngine : TestEngine {
     override fun execute(request: ExecutionRequest) = spek.execute(request)
 
     override fun discover(discoveryRequest: EngineDiscoveryRequest, uniqueId: UniqueId): TestDescriptor {
-        val descriptor = spek.discover(discoveryRequest, uniqueId) as SpekEngineDescriptor
-
-        val forgive = discoveryRequest.configurationParameters.get("forgive").orElse(null)
-        if (forgive != null) {
-            exchangeWithForgivingTests(descriptor, Regex(forgive))
+        return try {
+            val descriptor = spek.discover(discoveryRequest, uniqueId) as SpekEngineDescriptor
+            val forgive = discoveryRequest.configurationParameters.get("forgive").orElse(null)
+            if (forgive != null) {
+                exchangeWithForgivingTests(descriptor, Regex(forgive))
+            }
+            require(descriptor.children.isNotEmpty()){
+                "Could not find any specification, check your runtime classpath"
+            }
+            descriptor
+        } catch (t: Throwable) {
+            //since the junit gradle platform does not treat an error during discovery as failure, we have return a
+            // fake descriptor which fails
+            // TODO check if this changes with https://github.com/junit-team/junit5/issues/1298
+            SpekEngineDescriptor(uniqueId).apply {
+                addChild(DiscoveryFailed(uniqueId, t))
+            }
         }
-        return descriptor
     }
 
     private fun exchangeWithForgivingTests(descriptor: TestDescriptor, testToForgive: Regex) {
@@ -36,5 +63,16 @@ class DeprecationTestEngine : TestEngine {
             }
             exchangeWithForgivingTests(child, testToForgive)
         }
+    }
+
+    private class DiscoveryFailed(
+        uniqueId: UniqueId,
+        private val throwable: Throwable
+    ) : AbstractTestDescriptor(uniqueId.append("discovery", "fail"), "discovering specifications"),
+        Node<SpekExecutionContext> {
+
+        override fun getType() = TestDescriptor.Type.TEST
+        override fun execute(context: SpekExecutionContext?, dynamicTestExecutor: Node.DynamicTestExecutor?)
+            = throw throwable
     }
 }
