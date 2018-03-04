@@ -12,22 +12,22 @@ object CheckerFactory : ICheckerFactory {
         nameContainsNotFun: String,
         atLeastCall: (Int) -> String
     ): CharSequenceContains.Checker
-        = CharSequenceContainsAtLeastChecker(times, nameContainsNotFun, atLeastCall)
+        = AtLeastChecker(times, nameContainsNotFun, atLeastCall)
 
     override fun newAtMostChecker(
         times: Int,
         nameContainsNotFun: String,
         atMostCall: (Int) -> String
     ): CharSequenceContains.Checker
-        = CharSequenceContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
+        = AtMostChecker(times, nameContainsNotFun, atMostCall)
 
     override fun newExactlyChecker(
         times: Int,
         nameContainsNotFun: String,
         exactlyCall: (Int) -> String
     ): CharSequenceContains.Checker
-        = CharSequenceContainsExactlyChecker(times, nameContainsNotFun, exactlyCall)
+        = ExactlyChecker(times, nameContainsNotFun, exactlyCall)
 
     override fun newNotChecker(): CharSequenceContains.Checker
-        = CharSequenceContainsNotChecker()
+        = NotChecker()
 }

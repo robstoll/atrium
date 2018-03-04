@@ -13,11 +13,11 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-class IterableContainsExactlyChecker(
+class ExactlyChecker(
     times: Int,
     nameContainsNotFun: String,
     exactlyCall: (Int) -> String
-) : IterableContainsChecker(times, nameContainsNotFun, exactlyCall) {
+) : Checker(times, nameContainsNotFun, exactlyCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
         = createBasicAssertion(DescriptionIterableAssertion.EXACTLY, foundNumberOfTimes == times)

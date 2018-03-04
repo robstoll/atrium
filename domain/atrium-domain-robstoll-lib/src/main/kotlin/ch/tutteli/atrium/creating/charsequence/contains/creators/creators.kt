@@ -4,10 +4,10 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseIndexSearcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseRegexSearcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchers.CharSequenceContainsIndexSearcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
+import ch.tutteli.atrium.creating.charsequence.contains.searchers.IgnoringCaseIndexSearcher
+import ch.tutteli.atrium.creating.charsequence.contains.searchers.IgnoringCaseRegexSearcher
+import ch.tutteli.atrium.creating.charsequence.contains.searchers.IndexSearcher
+import ch.tutteli.atrium.creating.charsequence.contains.searchers.RegexSearcher
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 fun <T : CharSequence> _containsValues(
@@ -15,14 +15,14 @@ fun <T : CharSequence> _containsValues(
     expected: Any,
     otherExpected: Array<out Any>
 ): AssertionGroup
-    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerBuilder, CharSequenceContainsIndexSearcher(), expected, otherExpected)
+    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerBuilder, IndexSearcher(), expected, otherExpected)
 
 fun <T : CharSequence> _containsValuesIgnoringCase(
     checkerBuilder: CharSequenceContains.CheckerBuilder<T, IgnoringCaseSearchBehaviour>,
     expected: Any,
     otherExpected: Array<out Any>
 ): AssertionGroup
-    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerBuilder, CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
+    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerBuilder, IgnoringCaseIndexSearcher(), expected, otherExpected)
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeAndCreateAssertionGroup(
     checkerBuilder: CharSequenceContains.CheckerBuilder<T, S>,
@@ -62,14 +62,14 @@ fun <T : CharSequence> _containsRegex(
     expected: String,
     otherExpected: Array<out String>
 ): AssertionGroup
-    = createAssertionGroup(checkerBuilder, CharSequenceContainsRegexSearcher(), expected, otherExpected)
+    = createAssertionGroup(checkerBuilder, RegexSearcher(), expected, otherExpected)
 
 fun <T : CharSequence> _containsRegexIgnoringCase(
     checkerBuilder: CharSequenceContains.CheckerBuilder<T, IgnoringCaseSearchBehaviour>,
     expected: String,
     otherExpected: Array<out String>
 ): AssertionGroup
-    = createAssertionGroup(checkerBuilder, CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
+    = createAssertionGroup(checkerBuilder, IgnoringCaseRegexSearcher(), expected, otherExpected)
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
     checkerBuilder: CharSequenceContains.CheckerBuilder<T, S>,

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.iterable.contains.IterableContains
  *
  * The checking as such is then usually carried out by the [IterableContains.Creator].
  */
-class IterableContainsNoOpCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
+class NoOpCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
     override val containsBuilder: IterableContains.Builder<E, T, S>
 ) : IterableContains.CheckerBuilder<E, T, S> {
 
@@ -16,8 +16,8 @@ class IterableContainsNoOpCheckerBuilder<out E, out T : Iterable<E>, out S : Ite
 
     private object NotIntendedForUseChecker : IterableContains.Checker {
         override fun createAssertion(foundNumberOfTimes: Int): Assertion = throw UnsupportedOperationException(
-            "You used ${IterableContainsNoOpCheckerBuilder::class.java} but are still using its" +
-                " ${IterableContainsNoOpCheckerBuilder<Int, Iterable<Int>, *>::checkers.name} which is a no go."
+            "You used ${NoOpCheckerBuilder::class.java} but are still using its" +
+                " ${NoOpCheckerBuilder<Int, Iterable<Int>, *>::checkers.name} which is a no go."
         )
     }
 }

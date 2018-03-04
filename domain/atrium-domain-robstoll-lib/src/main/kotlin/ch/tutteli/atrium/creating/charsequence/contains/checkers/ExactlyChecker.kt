@@ -13,11 +13,11 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-class CharSequenceContainsExactlyChecker(
+class ExactlyChecker(
     times: Int,
     nameContainsNotFun: String,
     exactlyCall: (Int) -> String
-) : CharSequenceContainsChecker(times, nameContainsNotFun, exactlyCall) {
+) : Checker(times, nameContainsNotFun, exactlyCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
         = createBasicAssertion(DescriptionCharSequenceAssertion.EXACTLY, foundNumberOfTimes == times)

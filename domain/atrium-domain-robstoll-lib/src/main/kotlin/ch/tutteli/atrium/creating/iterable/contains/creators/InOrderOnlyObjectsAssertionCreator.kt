@@ -21,9 +21,9 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-class IterableContainsInOrderOnlyObjectsAssertionCreator<E, in T : Iterable<E?>>(
+class InOrderOnlyObjectsAssertionCreator<E, in T : Iterable<E?>>(
     searchBehaviour: InOrderOnlySearchBehaviour
-) : IterableContainsInOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
+) : InOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
 
     override fun createEntryAssertion(iterableAsList: List<E?>, searchCriterion: E, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup
         = template(createEntryFeatureAssertion(searchCriterion))

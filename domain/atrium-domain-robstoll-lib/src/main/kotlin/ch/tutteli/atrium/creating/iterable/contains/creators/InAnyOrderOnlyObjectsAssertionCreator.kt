@@ -21,9 +21,9 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, in T : Iterable<E?>>(
+class InAnyOrderOnlyObjectsAssertionCreator<E, in T : Iterable<E?>>(
     searchBehaviour: InAnyOrderOnlySearchBehaviour
-) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
+) : InAnyOrderOnlyAssertionCreator<E, T, E>(searchBehaviour) {
 
     override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: E, list: MutableList<E?>): Pair<Boolean, Assertion> {
         val found: Boolean = list.remove(searchCriterion)

@@ -13,11 +13,11 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-class CharSequenceContainsAtMostChecker(
+class AtMostChecker(
     times: Int,
     nameContainsNotFun: String,
     atMostCall: (Int) -> String
-) : CharSequenceContainsChecker(times, nameContainsNotFun, atMostCall) {
+) : Checker(times, nameContainsNotFun, atMostCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
         = createBasicAssertion(DescriptionCharSequenceAssertion.AT_MOST, foundNumberOfTimes <= times)
