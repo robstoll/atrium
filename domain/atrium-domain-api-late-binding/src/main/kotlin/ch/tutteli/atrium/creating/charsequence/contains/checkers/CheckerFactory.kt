@@ -1,32 +1,30 @@
 package ch.tutteli.atrium.creating.charsequence.contains.checkers
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.creating.throwUnsupportedOperationException
 
 /**
- * Robstoll's implementation of [ICharSequenceContainsCheckers].
+ * A dummy implementation of [ICheckerFactory] which should be replaced by an actual implementation.
  */
-object CharSequenceContainsCheckers : ICharSequenceContainsCheckers {
+object CheckerFactory : ICheckerFactory {
     override fun newAtLeastChecker(
         times: Int,
         nameContainsNotFun: String,
         atLeastCall: (Int) -> String
-    ): CharSequenceContains.Checker
-        = CharSequenceContainsAtLeastChecker(times, nameContainsNotFun, atLeastCall)
+    ): CharSequenceContains.Checker = throwUnsupportedOperationException()
 
     override fun newAtMostChecker(
         times: Int,
         nameContainsNotFun: String,
         atMostCall: (Int) -> String
-    ): CharSequenceContains.Checker
-        = CharSequenceContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
+    ): CharSequenceContains.Checker = throwUnsupportedOperationException()
 
     override fun newExactlyChecker(
         times: Int,
         nameContainsNotFun: String,
         exactlyCall: (Int) -> String
-    ): CharSequenceContains.Checker
-        = CharSequenceContainsExactlyChecker(times, nameContainsNotFun, exactlyCall)
+    ): CharSequenceContains.Checker = throwUnsupportedOperationException()
 
     override fun newNotChecker(): CharSequenceContains.Checker
-        = CharSequenceContainsNotChecker()
+        = throwUnsupportedOperationException()
 }

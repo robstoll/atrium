@@ -5,8 +5,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
 import ch.tutteli.atrium.creating.any.typetransformation.creators.IAnyTypeTransformationAssertions
-import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.AnyTypeTransformationFailureHandlers
-import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.IAnyTypeTransformationFailureHandlers
+import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.FailureHandlerFactory
+import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.IFailureHandlerFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
@@ -48,17 +48,17 @@ object AnyTypeTransformationAssertionsBuilder: IAnyTypeTransformationAssertions 
         = AnyTypeTransformationAssertions.transform(parameterObject, canBeTransformed, transform, failureHandler)
 
     /**
-     * Delegates to [AnyTypeTransformationFailureHandlers].
+     * Delegates to [FailureHandlerFactory].
      */
-    inline val failureHandlers get () = AnyTypeTransformationFailureHandlersBuilder
+    inline val failureHandlers get () = FailureHandlerFactoryBuilder
 }
 
-object AnyTypeTransformationFailureHandlersBuilder : IAnyTypeTransformationFailureHandlers {
+object FailureHandlerFactoryBuilder : IFailureHandlerFactory {
 
     override fun <S : Any, T : Any> newExplanatory()
-        = AnyTypeTransformationFailureHandlers.newExplanatory<S, T>()
+        = FailureHandlerFactory.newExplanatory<S, T>()
 
     override fun <S : Any, T : Any> newExplanatoryWithHint(showHint: () -> Boolean, failureHintFactory: () -> Assertion)
-        = AnyTypeTransformationFailureHandlers.newExplanatoryWithHint<S, T>(showHint, failureHintFactory)
+        = FailureHandlerFactory.newExplanatoryWithHint<S, T>(showHint, failureHintFactory)
 
 }

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.builders.ExactlyCheckerBuilderBase
 import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the extension point for another option after a `contains exactly`-check within
@@ -29,7 +29,7 @@ interface ExactlyCheckerBuilder<out E, out T : Iterable<E>, out S : IterableCont
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("ExactlyCheckerBuilder"))
-open class ExactlyCheckerBuilderImpl<out E, out T : Iterable<E>, out S : IterableContainsInAnyOrderSearchBehaviour>(
+open class ExactlyCheckerBuilderImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     times: Int,
     containsBuilder: IterableContains.Builder<E, T, S>
 ) : ExactlyCheckerBuilderBase<E, T, S>(

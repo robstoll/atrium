@@ -4,6 +4,7 @@ package ch.tutteli.atrium.creating
  * Robstoll's implementation of [ICollectionAssertions].
  */
 object CollectionAssertions : ICollectionAssertions {
+
     override fun <T : Collection<*>> hasSize(plant: AssertionPlant<T>, size: Int)
         = _hasSize(plant, size)
 

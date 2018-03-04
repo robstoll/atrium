@@ -14,7 +14,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
     ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour")
 )
 open class IterableContainsInAnyOrderOnlySearchBehaviour : IterableContains.SearchBehaviour,
-    ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour {
+    ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour {
 
     override fun decorateDescription(description: Translatable): Translatable
         = TranslatableWithArgs(DescriptionIterableAssertion.IN_ANY_ORDER_ONLY, description)

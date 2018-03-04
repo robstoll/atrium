@@ -5,8 +5,8 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder as DeprecatedNotCheckerBuilder
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder as DeprecatedBuilder
@@ -19,11 +19,11 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContains.Builder<T, CharSequenceContainsNoOpSearchBehaviour>
+infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     = AssertImpl.charSequence.containsBuilder(this)
 
 @Deprecated("use the extension function `to`, will be removed with 1.0.0", ReplaceWith("plant to contain"))
-fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedBuilder<T, CharSequenceContainsNoOpSearchBehaviour>
+fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedBuilder<T, NoOpSearchBehaviour>
     = DeprecatedBuilder(plant, (plant to contain).searchBehaviour)
 
 
@@ -33,11 +33,11 @@ fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contai
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): ContainsNotCheckerBuilderImpl<T, CharSequenceContainsNotSearchBehaviour>
+infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): ContainsNotCheckerBuilderImpl<T, NotSearchBehaviour>
     = ContainsNotCheckerBuilderImpl(AssertImpl.charSequence.containsNotBuilder(this))
 
 @Deprecated("use the extension function `notTo`, will be removed with 1.0.0", ReplaceWith("plant notTo contain"))
-fun <T : CharSequence> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedNotCheckerBuilder<T, CharSequenceContainsNotSearchBehaviour>
+fun <T : CharSequence> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>
     = DeprecatedNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(plant))
 
 

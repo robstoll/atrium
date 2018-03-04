@@ -9,9 +9,9 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * Represents the search behaviour that a [CharSequenceContains.Searcher] should ignore case
  * when searching for an expected object.
  */
-class CharSequenceContainsIgnoringCaseSearchBehaviourImpl(
-    private val previousBehaviour: CharSequenceContainsNoOpSearchBehaviour
-) : CharSequenceContainsIgnoringCaseSearchBehaviour {
+class IgnoringCaseSearchBehaviourImpl(
+    private val previousBehaviour: NoOpSearchBehaviour
+) : IgnoringCaseSearchBehaviour {
 
     override fun decorateDescription(description: Translatable): Translatable {
         val previousDecorated = previousBehaviour.decorateDescription(description)

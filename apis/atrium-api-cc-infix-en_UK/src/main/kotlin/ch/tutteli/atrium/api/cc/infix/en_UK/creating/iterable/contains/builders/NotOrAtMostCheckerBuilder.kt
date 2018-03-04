@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.notOrAtMost
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.builders.NotOrAtMostCheckerBuilderBase
 import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the extension point for another option after a `contains not or at most`-check within
@@ -29,7 +29,7 @@ interface NotOrAtMostCheckerBuilder<out E, out T : Iterable<E>, out S : Iterable
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("NotOrAtMostCheckerBuilder"))
-open class NotOrAtMostCheckerBuilderImpl<out E, out T : Iterable<E>, out S : IterableContainsInAnyOrderSearchBehaviour>(
+open class NotOrAtMostCheckerBuilderImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     times: Int,
     containsBuilder: IterableContains.Builder<E, T, S>
 ) : NotOrAtMostCheckerBuilderBase<E, T, S>(

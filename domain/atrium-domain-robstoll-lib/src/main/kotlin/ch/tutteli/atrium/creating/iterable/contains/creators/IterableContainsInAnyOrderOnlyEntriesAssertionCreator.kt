@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.iterable.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
 class IterableContainsInAnyOrderOnlyEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
-    searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
+    searchBehaviour: InAnyOrderOnlySearchBehaviour
 ) : IterableContainsInAnyOrderOnlyAssertionCreator<E, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour) {
 
     override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: (AssertionPlant<E>.() -> Unit)?, list: MutableList<E?>): Pair<Boolean, Assertion> {

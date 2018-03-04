@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_UK.atLeast
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.builders.AtLeastCheckerBuilderBase
 import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the extension point for another option after a `contains at least`-check within a sophisticated
@@ -29,7 +29,7 @@ interface AtLeastCheckerBuilder<out E, out T : Iterable<E>, out S : IterableCont
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("AtLeastCheckerBuilder"))
-open class AtLeastCheckerBuilderImpl<out E, out T : Iterable<E>, out S : IterableContainsInAnyOrderSearchBehaviour>(
+open class AtLeastCheckerBuilderImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     times: Int,
     containsBuilder: IterableContains.Builder<E, T, S>
 ) : AtLeastCheckerBuilderBase<E, T, S>(

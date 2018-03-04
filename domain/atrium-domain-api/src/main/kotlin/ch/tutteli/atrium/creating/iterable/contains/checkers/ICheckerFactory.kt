@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.iterable.contains.IterableContains
  * Defines the minimum set of [IterableContains.Checker]s an implementation of the domain of Atrium
  * has to provide.
  */
-interface IIterableContainsCheckers {
+interface ICheckerFactory {
     /**
      * Creates an [IterableContains.Checker] which verifies that an expected entry is contained at least [times]
      * in the [Iterable].

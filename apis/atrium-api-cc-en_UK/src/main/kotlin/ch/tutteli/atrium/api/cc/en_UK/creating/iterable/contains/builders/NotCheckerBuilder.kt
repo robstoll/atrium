@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.builders.NotCheckerBuilderBase
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the extension point for another option after a `contains not at all`-check within
@@ -26,7 +26,7 @@ interface NotCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("NotCheckerBuilder"))
-open class NotCheckerBuilderImpl<out E, out T : Iterable<E>, out S : IterableContainsInAnyOrderSearchBehaviour>(
+open class NotCheckerBuilderImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     containsBuilder: IterableContains.Builder<E, T, S>
 ) : NotCheckerBuilderBase<E, T, S>(containsBuilder), NotCheckerBuilder<E, T, S>
 

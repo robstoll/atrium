@@ -7,6 +7,7 @@ import java.math.BigDecimal
  * Robstoll's implementation of [IFloatingPointAssertions].
  */
 object FloatingPointAssertions: IFloatingPointAssertions {
+
     override fun toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float): Assertion
         = _toBeWithErrorTolerance(plant, expected, tolerance)
 

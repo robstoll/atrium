@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.iterable.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
 class IterableContainsInOrderOnlyEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
-    searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
+    searchBehaviour: InOrderOnlySearchBehaviour
 ) : IterableContainsInOrderOnlyAssertionCreator<E, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour) {
 
     override fun createEntryAssertion(iterableAsList: List<E?>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup {

@@ -4,9 +4,10 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 
 /**
- * Robstoll's implementation of [IAnyTypeTransformationFailureHandlers].
+ * Robstoll's implementation of [IFailureHandlerFactory].
  */
-object AnyTypeTransformationFailureHandlers : IAnyTypeTransformationFailureHandlers {
+object FailureHandlerFactory : IFailureHandlerFactory {
+
     override fun <S : Any, T : Any> newExplanatory(): AnyTypeTransformation.FailureHandler<S, T>
         = ExplanatoryFailureHandler()
 

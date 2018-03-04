@@ -8,7 +8,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * Represents still the default search behaviour but a [CharSequenceContains.Checker] should be used which verifies
  * that the [CharSequenceContains.Searcher] could not find the expected object.
  */
-class CharSequenceContainsNotSearchBehaviourImpl : CharSequenceContainsNotSearchBehaviour {
+class NotSearchBehaviourImpl : NotSearchBehaviour {
     /**
      * Returns [DescriptionCharSequenceAssertion.CONTAINS_NOT].
      * @return [DescriptionCharSequenceAssertion.CONTAINS_NOT]
