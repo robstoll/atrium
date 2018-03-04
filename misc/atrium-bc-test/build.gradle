@@ -2,9 +2,13 @@ buildscript {
     ext.publish_description = 'Checks that specs from an older version of Atrium can still be run with the components of the current version.'
 }
 
+//Enable if you need to check the task tree
+//plugins {
+//    id "com.dorongold.task-tree" version "1.3"
+//}
+
 repositories {
     maven { url "https://dl.bintray.com/jetbrains/spek" }
-    maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
 }
 
 configurations {
@@ -23,62 +27,118 @@ dependencies {
     common("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
+    common "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     compile configurations.common.dependencies
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
-def createBcTask(String apiName, String origVersion, String forgive) {
-    def version = origVersion.replaceAll("\\.", "_")
-    def name = "${apiName.replaceAll("-", "_")}_$version"
-    def srcName = "src_$name"
-    def confName = "conf_$name"
+def createBcTasks(String apiName, String version, String forgive) {
+    def nameUnderline = "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
+    def name = "${apiName}-$version"
+    def srcName = "src_$nameUnderline"
+    def confCommon = "conf_$nameUnderline"
+    def testJar = "testJar_$nameUnderline"
+    def testJarSources = "testJarSources_$nameUnderline"
+    def srcDirectory = file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
 
     sourceSets {
-        create(srcName)
+        create(srcName) {
+            java.srcDirs = []
+            kotlin.srcDirs = [srcDirectory]
+            resources.srcDirs = []
+        }
     }
 
     configurations {
-        create(confName)
+        create(confCommon)
+        create(testJar)
+        create(testJarSources)
     }
 
     dependencies {
-        add(confName, "ch.tutteli:atrium-api-$apiName-tests:$origVersion") {
+        add(testJar, "ch.tutteli:atrium-api-$apiName:$version:tests") {
             exclude group: '*'
         }
-        owner."${srcName}RuntimeOnly"("ch.tutteli:atrium-spec:$origVersion") {
+        add(testJarSources, "ch.tutteli:atrium-api-$apiName:$version:testsources") {
             exclude group: '*'
         }
-        owner."${srcName}RuntimeOnly" projectPrefixed("api-cc-en_UK") //required for atrium-spec
 
-        owner."${srcName}RuntimeOnly" configurations.common.dependencies
-        owner."${srcName}RuntimeOnly" sourceSets.main.runtimeClasspath
-        owner."${srcName}RuntimeOnly" configurations[confName].dependencies
-        owner."${srcName}RuntimeOnly" projectPrefixed("$apiName-robstoll")
+        add(confCommon, "ch.tutteli:atrium-spec:$version") {
+            exclude group: '*'
+        }
+        add(confCommon, projectPrefixed("api-cc-en_UK")) //required for atrium-spec
+        add(confCommon, projectPrefixed("$apiName-robstoll"))
+        add(confCommon, sourceSets.main.runtimeClasspath)
+
+        owner."${srcName}Compile" configurations[confCommon].dependencies
     }
 
-    def bcTask = task("bc_$name", type: JavaExec, group: 'Verification') {
-        dependsOn jar
-        description = "Checks if specs from $origVersion can be run against the current version)."
+    def getArgs = { String scanClassPath ->
+        return [
+            '--scan-class-path', scanClassPath,
+            '--include-engine', 'spek-deprecation',
+            '--config', forgive,
+            '--details', 'summary'
+        ]
+    }
+
+    def bbcTask = task("bbc-$name", type: JavaExec, group: 'Verification') {
+        description = "Checks if specs from $apiName $version can be run against the current version."
+
+        inputs.files configurations[testJar]
+        inputs.files configurations[confCommon]
+
+        classpath configurations[confCommon].asPath
+        classpath configurations[testJar].asPath
+
+        main = 'org.junit.platform.console.ConsoleLauncher'
+        args = getArgs(configurations[testJar].asPath)
+    }
+    check.dependsOn bbcTask
+
+
+    def unzip = task("unzip_$name") {
+        inputs.files configurations[testJarSources]
+
+        outputs.dir srcDirectory
+        doLast {
+            configurations[testJarSources].asPath.split(",").each {
+                def jar = it
+                copy {
+                    from zipTree(jar)
+                    into srcDirectory
+                }
+            }
+        }
+    }
+
+    def bcTask = task("bc-$name", type: JavaExec, group: 'Verification') {
+        description = "Checks if specs from $apiName $version can be compiled and run against the current version."
+
+        inputs.files sourceSets[srcName].runtimeClasspath
+
         classpath sourceSets[srcName].runtimeClasspath
 
         main = 'org.junit.platform.console.ConsoleLauncher'
-        args = [
-            '--scan-class-path', configurations[confName].asPath,
-            '--include-engine', 'spek-deprecation',
-            '--config', forgive,
-            '--details', 'none'
-        ]
+        args = getArgs(sourceSets[srcName].output.classesDirs.asPath)
     }
     check.dependsOn bcTask
+    project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
 
-createBcTask('cc-de_CH', '0.6.0',
-    'forgive=.*spec:ch.tutteli.atrium.api.cc.de_CH.Iterable.*(error cases|failing cases|context empty collection).*'
-)
-createBcTask('cc-en_UK', '0.6.0',
-    'forgive=.*spec:ch.tutteli.atrium.api.cc.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
-)
-createBcTask('cc-infix-en_UK', '0.6.0',
-    'forgive=.*spec:ch.tutteli.atrium.api.cc.infix.en_UK.Iterable.*(error cases|failing cases|context empty collection).*'
+def createBcTasksForApis(String version, String forgive, String... apis) {
+
+    def bc_version = task("bc-$version", group: 'Verification')
+    def bbc_version = task("bbc-$version", group: 'Verification')
+
+    apis.each { apiName ->
+        createBcTasks(apiName, version, forgive)
+        bc_version.dependsOn "bc-${apiName}-$version"
+        bbc_version.dependsOn "bbc-${apiName}-$version"
+    }
+}
+
+createBcTasksForApis('0.6.0',
+    'forgive=.*spec:ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.Iterable.*(error cases|failing cases|context empty collection).*',
+    'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
 )
