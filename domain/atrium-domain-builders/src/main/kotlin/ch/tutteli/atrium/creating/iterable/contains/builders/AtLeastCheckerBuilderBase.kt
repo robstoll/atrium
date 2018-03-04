@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.iterable.contains.builders
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers
+import ch.tutteli.atrium.creating.iterable.contains.checkers.CheckerFactory
 
 /**
  * The base class for builders which create a `contains at least` check within the fluent API of a sophisticated
@@ -31,6 +31,6 @@ abstract class AtLeastCheckerBuilderBase<out E, out T : Iterable<E>, out S : Sea
 ) : WithTimesCheckerBuilder<E, T, S> {
 
     override val checkers: List<Checker> = listOf(
-        IterableContainsCheckers.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)
+        CheckerFactory.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)
     )
 }

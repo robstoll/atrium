@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.creating.charsequence.contains.searchers
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Searcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import java.util.regex.Pattern
 
 /**
  * Represents a [Searcher] which evaluates the matches of a given regular expression on the input of the search.
  */
-class CharSequenceContainsRegexSearcher : Searcher<CharSequenceContainsNoOpSearchBehaviour> {
+class CharSequenceContainsRegexSearcher : Searcher<NoOpSearchBehaviour> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int
         = search(searchIn, Pattern.compile(searchFor.toString()))
 

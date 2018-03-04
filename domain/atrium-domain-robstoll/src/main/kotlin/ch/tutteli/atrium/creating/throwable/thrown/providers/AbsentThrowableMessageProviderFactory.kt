@@ -4,9 +4,10 @@ import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Robstoll's implementation of [IThrowableThrownAbsentMessageProvider].
+ * Robstoll's implementation of [IAbsentThrowableMessageProviderFactory].
  */
-object ThrowableThrownAbsentMessageProvider : IThrowableThrownAbsentMessageProvider {
+object AbsentThrowableMessageProviderFactory : IAbsentThrowableMessageProviderFactory {
+
     override fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider
         = _translatableBased(translatable)
 }

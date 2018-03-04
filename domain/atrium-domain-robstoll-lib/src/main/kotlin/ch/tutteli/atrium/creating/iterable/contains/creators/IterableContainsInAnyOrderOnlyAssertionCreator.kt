@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -31,7 +31,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
 abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, S>(
-    private val searchBehaviour: IterableContainsInAnyOrderOnlySearchBehaviour
+    private val searchBehaviour: InAnyOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, S> {
 
     final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {

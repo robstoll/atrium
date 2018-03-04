@@ -6,8 +6,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
  * Defines the minimum set of [CharSequenceContains.Checker]s an implementation of the domain of Atrium
  * has to provide.
  */
-interface ICharSequenceContainsCheckers {
-
+interface ICheckerFactory {
     /**
      * Creates an [CharSequenceContains.Checker] which verifies that an expected object is contained at least [times]
      * in the search input.
@@ -24,7 +23,6 @@ interface ICharSequenceContainsCheckers {
         nameContainsNotFun: String,
         atLeastCall: (Int) -> String
     ): CharSequenceContains.Checker
-
 
     /**
      * Creates an [CharSequenceContains.Checker] which verifies that an expected object is contained at most [times]

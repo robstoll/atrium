@@ -13,4 +13,4 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
     ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour")
 )
 open class IterableContainsNoOpSearchBehaviour : IterableContains.SearchBehaviour,
-    ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
+    ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour

@@ -7,7 +7,7 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.exactly
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.builders.ButAtMostCheckerBuilderBase
 import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the extension point for another option after a `contains at least but at most`-check within a
@@ -32,7 +32,7 @@ interface ButAtMostCheckerBuilder<out E, out T : Iterable<E>, out S : IterableCo
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("ButAtMostCheckerBuilder"))
-open class ButAtMostCheckerBuilderImpl<out E, out T : Iterable<E>, out S : IterableContainsInAnyOrderSearchBehaviour>(
+open class ButAtMostCheckerBuilderImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     times: Int,
     atLeastBuilder: AtLeastCheckerBuilder<E, T, S>,
     containsBuilder: IterableContains.Builder<E, T, S>

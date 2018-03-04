@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
@@ -22,9 +22,9 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * @param checkers The checkers which create assertions based on the search result.
  */
 class IterableContainsInAnyOrderObjectsAssertionCreator<S, in T : Iterable<S>>(
-    searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
+    searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
-) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderSearchBehaviour, IterableContains.Checker>(searchBehaviour, checkers),
+) : ContainsObjectsAssertionCreator<T, S, InAnyOrderSearchBehaviour, IterableContains.Checker>(searchBehaviour, checkers),
     IterableContains.Creator<T, S> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS

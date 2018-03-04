@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.creators.ContainsAssertionCreator
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -29,7 +29,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  * @param checkers The checkers which create assertions based on the search result.
  */
 class IterableContainsInAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
-    private val searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
+    private val searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
 ) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(checkers),
     IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {

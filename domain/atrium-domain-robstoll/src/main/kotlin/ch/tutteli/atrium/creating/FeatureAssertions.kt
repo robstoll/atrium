@@ -1,17 +1,12 @@
 package ch.tutteli.atrium.creating
 
-import kotlin.reflect.KFunction0
-import kotlin.reflect.KFunction1
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
-import kotlin.reflect.KFunction4
-import kotlin.reflect.KFunction5
-import kotlin.reflect.KProperty0
+import kotlin.reflect.*
 
 /**
  * Robstoll's implementation of [IFeatureAssertions].
  */
 object FeatureAssertions : IFeatureAssertions {
+
     override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlant<TProperty>
         = _property(plant, property)
 

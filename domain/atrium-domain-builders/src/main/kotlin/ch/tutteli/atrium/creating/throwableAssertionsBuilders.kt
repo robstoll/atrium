@@ -5,8 +5,8 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.creating.throwable.thrown.creators.IThrowableThrownAssertions
 import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
-import ch.tutteli.atrium.creating.throwable.thrown.providers.IThrowableThrownAbsentMessageProvider
-import ch.tutteli.atrium.creating.throwable.thrown.providers.ThrowableThrownAbsentMessageProvider
+import ch.tutteli.atrium.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory
+import ch.tutteli.atrium.creating.throwable.thrown.providers.IAbsentThrowableMessageProviderFactory
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
@@ -34,13 +34,13 @@ object ThrowableThrownAssertionsBuilder : IThrowableThrownAssertions {
     ) = ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 
     /**
-     * Delegates to [ThrowableThrownAbsentMessageProvider].
+     * Delegates to [AbsentThrowableMessageProviderFactory].
      */
-    inline val providers get() = ThrowableThrownAbsentMessageProviderBuilder
+    inline val providers get() = AbsentThrowableMessageProviderFactoryBuilder
 }
 
-object ThrowableThrownAbsentMessageProviderBuilder : IThrowableThrownAbsentMessageProvider {
+object AbsentThrowableMessageProviderFactoryBuilder : IAbsentThrowableMessageProviderFactory {
 
     override inline fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider
-        = ThrowableThrownAbsentMessageProvider.translatableBased(translatable)
+        = AbsentThrowableMessageProviderFactory.translatableBased(translatable)
 }

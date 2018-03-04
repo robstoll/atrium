@@ -1,6 +1,6 @@
-package ch.tutteli.atrium.creating.iterable.contains.searchbehaviours
+package ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours
 
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * It furthermore implements a no operation for [decorateDescription], meaning it passes back the description which
  * is passed in (identity function).
  */
-interface IterableContainsNoOpSearchBehaviour : IterableContains.SearchBehaviour {
+interface NoOpSearchBehaviour : CharSequenceContains.SearchBehaviour {
     /**
      * Returns the given [description].
      * @return the given [description].

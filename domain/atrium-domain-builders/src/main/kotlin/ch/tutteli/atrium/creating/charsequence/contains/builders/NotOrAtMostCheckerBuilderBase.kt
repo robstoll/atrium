@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.charsequence.contains.builders
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Checker
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsCheckers
+import ch.tutteli.atrium.creating.charsequence.contains.checkers.CheckerFactory
 
 /**
  * The base class for builders which create a `contains not or at most` check within the fluent API of a
@@ -31,6 +31,6 @@ abstract class NotOrAtMostCheckerBuilderBase<out T : CharSequence, out S : Searc
 ) : WithTimesCheckerBuilder<T, S> {
 
     override val checkers: List<Checker> = listOf(
-        CharSequenceContainsCheckers.newAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)
+        CheckerFactory.newAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)
     )
 }

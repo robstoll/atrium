@@ -5,33 +5,33 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.builders.IterableContainsNoOpCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 
 fun <E, T : Iterable<E>> _containsObjectsInAnyOrder(
-    checkerBuilder: IterableContains.CheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
+    checkerBuilder: IterableContains.CheckerBuilder<E, T, InAnyOrderSearchBehaviour>,
     expected: E,
     otherExpected: Array<out E>
 ): Assertion
     = createAssertionGroup(checkerBuilder, expected, otherExpected, ::IterableContainsInAnyOrderObjectsAssertionCreator)
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrder(
-    checkerBuilder: IterableContains.CheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>,
+    checkerBuilder: IterableContains.CheckerBuilder<E, T, InAnyOrderSearchBehaviour>,
     assertionCreator: AssertionPlant<E>.() -> Unit,
     otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
 ): Assertion
     = createAssertionGroup(checkerBuilder, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
 fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInAnyOrder(
-    checkerBuilder: IterableContains.CheckerBuilder<E?, T, IterableContainsInAnyOrderSearchBehaviour>,
+    checkerBuilder: IterableContains.CheckerBuilder<E?, T, InAnyOrderSearchBehaviour>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
 ): Assertion
     = createAssertionGroup(checkerBuilder, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
 fun <E, T : Iterable<E>> _containsObjectsInAnyOrderOnly(
-    builder: IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>,
+    builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
     expected: E,
     otherExpected: Array<out E>
 ): Assertion {
@@ -40,7 +40,7 @@ fun <E, T : Iterable<E>> _containsObjectsInAnyOrderOnly(
 }
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrderOnly(
-    builder: IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>,
+    builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
     assertionCreator: AssertionPlant<E>.() -> Unit,
     otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
 ): Assertion {
@@ -49,7 +49,7 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrderOnly(
 }
 
 fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInAnyOrderOnly(
-    builder: IterableContains.Builder<E?, T, IterableContainsInAnyOrderOnlySearchBehaviour>,
+    builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
 ): Assertion {
@@ -58,7 +58,7 @@ fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInAnyOrderOnly(
 }
 
 fun <E, T : Iterable<E>> _containsObjectsInOrderOnly(
-    builder: IterableContains.Builder<E, T, IterableContainsInOrderOnlySearchBehaviour>,
+    builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
     expected: E,
     otherExpected: Array<out E>
 ): Assertion {
@@ -67,7 +67,7 @@ fun <E, T : Iterable<E>> _containsObjectsInOrderOnly(
 }
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
-    builder: IterableContains.Builder<E, T, IterableContainsInOrderOnlySearchBehaviour>,
+    builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
     assertionCreator: AssertionPlant<E>.() -> Unit,
     otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
 ): Assertion {
@@ -76,7 +76,7 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
 }
 
 fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInOrderOnly(
-    builder: IterableContains.Builder<E?, T, IterableContainsInOrderOnlySearchBehaviour>,
+    builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
 ): Assertion {

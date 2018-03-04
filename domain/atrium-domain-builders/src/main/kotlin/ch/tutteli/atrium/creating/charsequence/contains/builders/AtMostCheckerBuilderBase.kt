@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.basic.contains.builders.validateAtMost
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Checker
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsCheckers
+import ch.tutteli.atrium.creating.charsequence.contains.checkers.CheckerFactory
 
 /**
  * The base class for builders which create a `contains at least once but at most` check within the fluent API of a
@@ -40,7 +40,7 @@ abstract class AtMostCheckerBuilderBase<out T : CharSequence, out S : SearchBeha
     }
 
     override val checkers: List<Checker> = listOf(
-        CharSequenceContainsCheckers.newAtLeastChecker(1, nameContainsNotFun, atLeastCall),
-        CharSequenceContainsCheckers.newAtMostChecker(times, nameContainsNotFun, atMostCall)
+        CheckerFactory.newAtLeastChecker(1, nameContainsNotFun, atLeastCall),
+        CheckerFactory.newAtMostChecker(times, nameContainsNotFun, atMostCall)
     )
 }

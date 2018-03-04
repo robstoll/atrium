@@ -7,6 +7,6 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Defines the minimum set of [ThrowableThrown.AbsentThrowableMessageProvider]s,
  * which an implementation of the domain of Atrium has to provide.
  */
-interface IThrowableThrownAbsentMessageProvider {
+interface IAbsentThrowableMessageProviderFactory {
     fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider
 }

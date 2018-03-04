@@ -1,30 +1,33 @@
 package ch.tutteli.atrium.creating.iterable.contains.checkers
 
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.throwUnsupportedOperationException
 
 /**
- * A dummy implementation of [IIterableContainsCheckers] which should be replaced by an actual implementation.
+ * Robstoll's implementation of [ICheckerFactory].
  */
-object IterableContainsCheckers : IIterableContainsCheckers {
+object CheckerFactory : ICheckerFactory {
+
     override fun newAtLeastChecker(
         times: Int,
         nameContainsNotFun: String,
         atLeastCall: (Int) -> String
-    ): IterableContains.Checker = throwUnsupportedOperationException()
+    ): IterableContains.Checker
+        = IterableContainsAtLeastChecker(times, nameContainsNotFun, atLeastCall)
 
     override fun newAtMostChecker(
         times: Int,
         nameContainsNotFun: String,
         atMostCall: (Int) -> String
-    ): IterableContains.Checker = throwUnsupportedOperationException()
+    ): IterableContains.Checker
+        = IterableContainsAtMostChecker(times, nameContainsNotFun, atMostCall)
 
     override fun newExactlyChecker(
         times: Int,
         nameContainsNotFun: String,
         exactlyCall: (Int) -> String
-    ): IterableContains.Checker = throwUnsupportedOperationException()
+    ): IterableContains.Checker
+        = IterableContainsExactlyChecker(times, nameContainsNotFun, exactlyCall)
 
     override fun newNotChecker(): IterableContains.Checker
-        = throwUnsupportedOperationException()
+        = IterableContainsNotChecker()
 }

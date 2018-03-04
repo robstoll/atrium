@@ -8,6 +8,7 @@ import kotlin.reflect.KClass
  * Robstoll's implementation of [IThrowableThrownAssertions].
  */
 object ThrowableThrownAssertions : IThrowableThrownAssertions {
+
     override fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrown.Builder,
         expectedType: KClass<TExpected>,
