@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.NotCheckerBuilderBase
+import ch.tutteli.atrium.creating.charsequence.contains.builders.NotCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains not at all`-check within
@@ -11,8 +11,8 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.NotCheckerBuild
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
-interface NotCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
-    : CharSequenceContains.CheckerBuilder<T, S>
+interface NotCheckerOption<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
+    : CharSequenceContains.CheckerOption<T, S>
 
 /**
  *  Represents the builder of a `contains not at all` check within the fluent API of a sophisticated
@@ -26,7 +26,7 @@ interface NotCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.S
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("NotCheckerBuilder"))
-open class NotCheckerBuilderImpl<out T : CharSequence, out S : SearchBehaviour>(
+open class NotCheckerOptionImpl<out T : CharSequence, out S : SearchBehaviour>(
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : NotCheckerBuilderBase<T, S>(containsBuilder), NotCheckerBuilder<T, S>
+) : NotCheckerOptionBase<T, S>(containsBuilder), NotCheckerOption<T, S>
 

@@ -29,10 +29,9 @@ interface CharSequenceContains {
     interface Builder<out T : CharSequence, out S : SearchBehaviour> : Contains.Builder<T, S>
 
     /**
-     * The step of creating [Checker]s, containing the previously chosen [containsBuilder] and a list of so-far chosen
-     * [checkers].
+     * The step of choosing/defining [Checker]s.
      */
-    interface CheckerBuilder<out T : CharSequence, out S : SearchBehaviour>
+    interface CheckerOption<out T : CharSequence, out S : SearchBehaviour>
         : Contains.CheckerBuilder<T, S, Checker, Builder<T, S>>
 
     /**
@@ -83,9 +82,9 @@ interface CharSequenceContains {
 
 /**
  * Helper method to simplify adding assertions to the plant which itself is stored in
- * [CharSequenceContains.CheckerBuilder.containsBuilder].
+ * [CharSequenceContains.CheckerOption.containsBuilder].
  *
  * @return The plant to support a fluent API.
  */
-fun <T : CharSequence, S : SearchBehaviour> CheckerBuilder<T, S>.addAssertion(assertion: Assertion): AssertionPlant<T>
+fun <T : CharSequence, S : SearchBehaviour> CheckerOption<T, S>.addAssertion(assertion: Assertion): AssertionPlant<T>
     = containsBuilder.plant.addAssertion(assertion)

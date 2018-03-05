@@ -23,12 +23,12 @@ import ch.tutteli.atrium.creating.charsequence.contains.checkers.CheckerFactory
  * @param nameContainsNotFun The name of the function which represents a `CharSequence contains not` assertion.
  * @param notOrAtMostCall The name of the function which was called and created this builder.
  */
-abstract class NotOrAtMostCheckerBuilderBase<out T : CharSequence, out S : SearchBehaviour>(
+abstract class NotOrAtMostCheckerOptionBase<out T : CharSequence, out S : SearchBehaviour>(
     final override val times: Int,
     final override val containsBuilder: CharSequenceContains.Builder<T, S>,
     nameContainsNotFun: String,
     notOrAtMostCall: (Int) -> String
-) : WithTimesCheckerBuilder<T, S> {
+) : WithTimesCheckerOption<T, S> {
 
     override val checkers: List<Checker> = listOf(
         CheckerFactory.newAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)

@@ -23,7 +23,7 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 open class CharSequenceContainsAtLeastCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.AtLeastCheckerBuilderImpl<T, S>(
+) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.AtLeastCheckerOptionImpl<T, S>(
     times, containsBuilder
 ), CharSequenceContainsCheckerBuilder<T, S>
 

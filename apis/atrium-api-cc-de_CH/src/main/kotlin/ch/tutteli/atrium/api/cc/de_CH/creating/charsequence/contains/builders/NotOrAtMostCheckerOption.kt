@@ -1,9 +1,9 @@
-package ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders
+package ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.notOrAtMost
+import ch.tutteli.atrium.api.cc.de_CH.nichtOderHoechstens
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.NotOrAtMostCheckerBuilderBase
+import ch.tutteli.atrium.creating.charsequence.contains.builders.NotOrAtMostCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains not or at most`-check within
@@ -12,8 +12,8 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.NotOrAtMostChec
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
-interface NotOrAtMostCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
-    : CharSequenceContains.CheckerBuilder<T, S>
+interface NotOrAtMostCheckerOption<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
+    : CharSequenceContains.CheckerOption<T, S>
 
 /**
  * Represents the builder of a `contains not or at most` check within the fluent API of a
@@ -29,12 +29,12 @@ interface NotOrAtMostCheckerBuilder<out T : CharSequence, out S : CharSequenceCo
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("NotOrAtMostCheckerBuilder"))
-open class NotOrAtMostCheckerBuilderImpl<out T : CharSequence, out S : SearchBehaviour>(
+open class NotOrAtMostCheckerOptionImpl<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : NotOrAtMostCheckerBuilderBase<T, S>(
+) : NotOrAtMostCheckerOptionBase<T, S>(
     times,
     containsBuilder,
     nameContainsNotValuesFun(),
-    { "`${containsBuilder::notOrAtMost.name} $it`" }
-), NotOrAtMostCheckerBuilder<T, S>
+    { "${containsBuilder::nichtOderHoechstens.name}($it)" }
+), NotOrAtMostCheckerOption<T, S>

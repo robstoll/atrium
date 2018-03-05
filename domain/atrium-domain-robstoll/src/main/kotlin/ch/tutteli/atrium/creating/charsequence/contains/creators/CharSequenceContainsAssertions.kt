@@ -12,44 +12,44 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 object CharSequenceContainsAssertions: ICharSequenceContainsAssertions {
 
     override fun <T : CharSequence> values(
-        checkerBuilder: CharSequenceContains.CheckerBuilder<T, NoOpSearchBehaviour>,
+        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: Any,
         otherExpected: Array<out Any>
     ): AssertionGroup
-        = _containsValues(checkerBuilder, expected, otherExpected)
+        = _containsValues(checkerOption, expected, otherExpected)
 
     override fun <T : CharSequence> valuesIgnoringCase(
-        checkerBuilder: CharSequenceContains.CheckerBuilder<T, IgnoringCaseSearchBehaviour>,
+        checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: Any,
         otherExpected: Array<out Any>
     ): AssertionGroup
-        = _containsValuesIgnoringCase(checkerBuilder, expected, otherExpected)
+        = _containsValuesIgnoringCase(checkerOption, expected, otherExpected)
 
     override fun <T : CharSequence> defaultTranslationOf(
-        checkerBuilder: CharSequenceContains.CheckerBuilder<T, NoOpSearchBehaviour>,
+        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: Translatable,
         otherExpected: Array<out Translatable>
     ): AssertionGroup
-        = _containsDefaultTranslationOf(checkerBuilder, expected, otherExpected)
+        = _containsDefaultTranslationOf(checkerOption, expected, otherExpected)
 
     override fun <T : CharSequence> defaultTranslationOfIgnoringCase(
-        checkerBuilder: CharSequenceContains.CheckerBuilder<T, IgnoringCaseSearchBehaviour>,
+        checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: Translatable,
         otherExpected: Array<out Translatable>
     ): AssertionGroup
-        = _containsDefaultTranslationOfIgnoringCase(checkerBuilder, expected, otherExpected)
+        = _containsDefaultTranslationOfIgnoringCase(checkerOption, expected, otherExpected)
 
     override fun <T : CharSequence> regex(
-        checkerBuilder: CharSequenceContains.CheckerBuilder<T, NoOpSearchBehaviour>,
+        checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: String,
         otherExpected: Array<out String>
     ): AssertionGroup
-        = _containsRegex(checkerBuilder, expected, otherExpected)
+        = _containsRegex(checkerOption, expected, otherExpected)
 
     override fun <T : CharSequence> regexIgnoringCase(
-        checkerBuilder: CharSequenceContains.CheckerBuilder<T, IgnoringCaseSearchBehaviour>,
+        checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: String,
         otherExpected: Array<out String>
     ): AssertionGroup
-        = _containsRegexIgnoringCase(checkerBuilder, expected, otherExpected)
+        = _containsRegexIgnoringCase(checkerOption, expected, otherExpected)
 }
