@@ -1,11 +1,13 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.IterableContainsNotCheckerBuilder
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builders.IterableContainsNotCheckerBuilder as DeprecatedNotCheckerBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder as DeprecatedBuilder
 
@@ -15,11 +17,11 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
  *
  * @return The newly created builder.
  */
-infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>
+infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): IterableContains.Builder<E, T, NoOpSearchBehaviour>
     = AssertImpl.iterable.containsBuilder(this)
 
 @Deprecated("use the extension function `to`, will be removed with 1.0.0", ReplaceWith("plant to contain"))
-fun <E, T : Iterable<E>> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedBuilder<E, T, IterableContainsNoOpSearchBehaviour>
+fun <E, T : Iterable<E>> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedBuilder<E, T, NoOpSearchBehaviour>
     = DeprecatedBuilder(plant, (plant to contain).searchBehaviour)
 
 
@@ -29,8 +31,8 @@ fun <E, T : Iterable<E>> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") cont
  *
  * @return The newly created builder.
  */
-infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): IterableContainsNotCheckerBuilder<E, T>
-    = IterableContainsNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(this))
+infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): NotCheckerOption<E, T, InAnyOrderSearchBehaviour>
+    = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
 @Deprecated("use the extension function `notTo`, will be removed with 1.0.0", ReplaceWith("plant notTo contain"))
 fun <E, T : Iterable<E>> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedNotCheckerBuilder<E, T>

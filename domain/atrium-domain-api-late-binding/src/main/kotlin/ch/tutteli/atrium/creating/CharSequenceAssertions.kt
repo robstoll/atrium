@@ -2,16 +2,16 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 
 /**
  * A dummy implementation of [ICharSequenceAssertions] which should be replaced by an actual implementation.
  */
 object CharSequenceAssertions: ICharSequenceAssertions {
-    override fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, CharSequenceContainsNoOpSearchBehaviour>
+    override fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
         = throwUnsupportedOperationException()
-    override fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, CharSequenceContainsNotSearchBehaviour>
+    override fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NotSearchBehaviour>
         = throwUnsupportedOperationException()
 
     override fun <T : CharSequence> startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion

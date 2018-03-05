@@ -4,6 +4,7 @@ package ch.tutteli.atrium.creating
  * Robstoll's implementation of [ICharSequenceAssertions].
  */
 object CharSequenceAssertions: ICharSequenceAssertions {
+
     override fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>)
         = _containsBuilder(plant)
 

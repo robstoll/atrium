@@ -36,10 +36,9 @@ interface Contains {
     }
 
     /**
-     * The step of creating [Checker]s, containing the previously chosen [containsBuilder] and a list of so-far chosen
-     * [checkers].
+     * The step of choosing/defining [Checker]s.
      */
-    interface CheckerBuilder<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : Contains.Builder<T, S>> {
+    interface CheckerOption<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : Contains.Builder<T, S>> {
         /**
          * The previously chosen [Builder], containing inter alia the [AssertionPlant] to which the resulting
          * [Assertion] shall be added.
@@ -88,9 +87,9 @@ interface Contains {
      * as such.
      *
      * @param T The type of the [AssertionPlant.subject].
-     * @param S The type of the search criteria.
+     * @param SC The type of the search criteria.
      */
-    interface Creator<in T : Any, in S> {
+    interface Creator<in T : Any, in SC> {
         /**
          * Creates an [AssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
          * on the given [searchCriterion] and possibly [otherSearchCriteria] (might be empty).
@@ -109,8 +108,8 @@ interface Contains {
          */
         fun createAssertionGroup(
             plant: AssertionPlant<T>,
-            searchCriterion: S,
-            otherSearchCriteria: Array<out S>
+            searchCriterion: SC,
+            otherSearchCriteria: Array<out SC>
         ): AssertionGroup
     }
 }

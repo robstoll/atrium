@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
@@ -18,11 +18,11 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.value(expected: E): AssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): AssertionPlant<T>
     = objects(expected)
 
 @Deprecated("use the extension fun `value` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.value(expected)"))
-fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
+fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
     = objects(checkerBuilder, expected)
 
 
@@ -38,11 +38,11 @@ fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsBuilder<E, T, Ite
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.values(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.values(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = objects(expected, *otherExpected)
 
 @Deprecated("use the extension fun `values` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.values(expected, *otherExpected)"))
-fun <E, T : Iterable<E>> values(checkerBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E, T : Iterable<E>> values(checkerBuilder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
     = checkerBuilder.values(expected, *otherExpected)
 
 
@@ -57,11 +57,11 @@ fun <E, T : Iterable<E>> values(checkerBuilder: IterableContainsBuilder<E, T, It
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.`object`(expected: E): AssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.`object`(expected: E): AssertionPlant<T>
     = objects(expected)
 
 @Deprecated("use the extension fun `object` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.`object`(expected)"))
-fun <E, T : Iterable<E>> `object`(checkerBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
+fun <E, T : Iterable<E>> `object`(checkerBuilder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
     = objects(checkerBuilder, expected)
 
 
@@ -75,11 +75,11 @@ fun <E, T : Iterable<E>> `object`(checkerBuilder: IterableContainsBuilder<E, T, 
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.objects(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.objects(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.objectsInAnyOrderOnly(this, expected, otherExpected))
 
 @Deprecated("use the extension fun `objects` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.objects(expected, *otherExpected)"))
-fun <E, T : Iterable<E>> objects(checkerBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E, T : Iterable<E>> objects(checkerBuilder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
     = checkerBuilder.objects(expected, *otherExpected)
 
 
@@ -94,11 +94,11 @@ fun <E, T : Iterable<E>> objects(checkerBuilder: IterableContainsBuilder<E, T, I
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = entries(assertionCreator)
 
 @Deprecated("use the extension fun `entry` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.entry(assertionCreator)"))
-fun <E : Any, T : Iterable<E>> entry(checkerBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>, assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> entry(checkerBuilder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = entries(checkerBuilder, assertionCreator)
 
 
@@ -124,7 +124,7 @@ fun <E : Any, T : Iterable<E>> entry(checkerBuilder: IterableContainsBuilder<E, 
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.entries(
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
@@ -132,7 +132,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsIn
 
 @Deprecated("use the extension fun `entries` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.entries(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E>> entries(
-    checkerBuilder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>,
+    checkerBuilder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>,
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
@@ -151,11 +151,11 @@ fun <E : Any, T : Iterable<E>> entries(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("entry?")
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, IterableContainsInAnyOrderOnlySearchBehaviour>.entry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = entries(assertionCreator)
 
 @Deprecated("use the extension fun `entry` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.entry(assertionCreator)"))
-fun <E : Any, T : Iterable<E?>> nullableEntry(checkerBuilder: IterableContainsBuilder<E?, T, IterableContainsInAnyOrderOnlySearchBehaviour>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> nullableEntry(checkerBuilder: IterableContainsBuilder<E?, T, InAnyOrderOnlySearchBehaviour>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = nullableEntries(checkerBuilder, assertionCreator)
 
 
@@ -182,7 +182,7 @@ fun <E : Any, T : Iterable<E?>> nullableEntry(checkerBuilder: IterableContainsBu
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("entries?")
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, IterableContainsInAnyOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entries(
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
@@ -190,7 +190,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, IterableContains
 
 @Deprecated("use the extension fun `entries` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.entries(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> nullableEntries(
-    checkerBuilder: IterableContainsBuilder<E?, T, IterableContainsInAnyOrderOnlySearchBehaviour>,
+    checkerBuilder: IterableContainsBuilder<E?, T, InAnyOrderOnlySearchBehaviour>,
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>

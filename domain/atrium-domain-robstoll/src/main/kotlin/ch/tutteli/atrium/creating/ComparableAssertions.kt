@@ -4,6 +4,7 @@ package ch.tutteli.atrium.creating
  * Robstoll's implementation of [IComparableAssertions].
  */
 object ComparableAssertions: IComparableAssertions {
+
     override fun <T1 : Comparable<T2>, T2: Any?> isLessThan(plant: AssertionPlant<T1>, expected: T2)
         = _isLessThan(plant, expected)
 

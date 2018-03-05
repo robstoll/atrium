@@ -13,11 +13,11 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
  *
  * @return The newly created builder.
  */
-infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>.inAny(@Suppress("UNUSED_PARAMETER") order: order)
+infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inAny(@Suppress("UNUSED_PARAMETER") order: order)
     = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
 @Deprecated("use the extension fun `inAny` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder inAny order"))
-fun <E, T : Iterable<E>> inAny(builder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>, @Suppress("UNUSED_PARAMETER") order: order): IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+fun <E, T : Iterable<E>> inAny(builder: IterableContainsBuilder<E, T, NoOpSearchBehaviour>, @Suppress("UNUSED_PARAMETER") order: order): IterableContainsBuilder<E, T, InAnyOrderSearchBehaviour>
     = IterableContainsBuilder(builder.plant, (builder inAny order).searchBehaviour)
 
 
@@ -27,11 +27,11 @@ fun <E, T : Iterable<E>> inAny(builder: IterableContainsBuilder<E, T, IterableCo
  *
  * @return The newly created builder.
  */
-infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
+infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
     = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
 @Deprecated("use the extension fun `but` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder but only"))
-fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>, @Suppress("UNUSED_PARAMETER") only: only): IterableContainsBuilder<E, T, IterableContainsInAnyOrderOnlySearchBehaviour>
+fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, InAnyOrderSearchBehaviour>, @Suppress("UNUSED_PARAMETER") only: only): IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.plant, (builder but only).searchBehaviour)
 
 
@@ -43,11 +43,11 @@ fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, I
  *
  * @return The newly created builder.
  */
-infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsNoOpSearchBehaviour>.inGiven(@Suppress("UNUSED_PARAMETER") order: order)
+infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inGiven(@Suppress("UNUSED_PARAMETER") order: order)
     = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
 @Deprecated("use the extension fun `inGiven` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder inGiven order"))
-fun <E, T : Iterable<E>> inGiven(builder: IterableContainsBuilder<E, T, IterableContainsNoOpSearchBehaviour>, @Suppress("UNUSED_PARAMETER") order: order): IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>
+fun <E, T : Iterable<E>> inGiven(builder: IterableContainsBuilder<E, T, NoOpSearchBehaviour>, @Suppress("UNUSED_PARAMETER") order: order): IterableContainsBuilder<E, T, InOrderSearchBehaviour>
     = IterableContainsBuilder(builder.plant, (builder inGiven order).searchBehaviour)
 
 
@@ -58,9 +58,9 @@ fun <E, T : Iterable<E>> inGiven(builder: IterableContainsBuilder<E, T, Iterable
  * @return The newly created builder.
  */
 @JvmName("yet")
-infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, IterableContainsInOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
+infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
     = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
 
 @Deprecated("use the extension fun `but` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder but only"))
-fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContainsBuilder<E, T, IterableContainsInOrderSearchBehaviour>, @Suppress("UNUSED_PARAMETER") only: only): IterableContainsBuilder<E, T, IterableContainsInOrderOnlySearchBehaviour>
+fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContainsBuilder<E, T, InOrderSearchBehaviour>, @Suppress("UNUSED_PARAMETER") only: only): IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.plant, (builder but only).searchBehaviour)

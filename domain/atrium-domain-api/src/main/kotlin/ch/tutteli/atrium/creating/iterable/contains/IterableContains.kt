@@ -5,10 +5,17 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.creating.iterable.contains.IterableContains.*
+import ch.tutteli.atrium.creating.iterable.contains.creators.IIterableContainsAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Defines the contract for sophisticated [Iterable] `contains` assertions.
+ * Defines the contract for sophisticated [Iterable] `contains` [Assertion] builders.
+ *
+ * The building process is typically started by the creation of a [Builder],
+ * goes on by specifying a desired [SearchBehaviour],
+ * defines which [Checker]s should be applied and
+ * is finalized by one of the [IIterableContainsAssertions] which usually use a [Creator].
  */
 interface IterableContains {
 
@@ -22,11 +29,10 @@ interface IterableContains {
     interface Builder<out E, out T : Iterable<E>, out S : SearchBehaviour> : Contains.Builder<T, S>
 
     /**
-     * The step of creating [Checker]s, containing the previously chosen [containsBuilder] and a list of so-far chosen
-     * [checkers].
+     * The step of choosing/defining [Checker]s.
      */
-    interface CheckerBuilder<out E, out T : Iterable<E>, out S : SearchBehaviour>
-        : Contains.CheckerBuilder<T, S, Checker, Builder<E, T, S>>
+    interface CheckerOption<out E, out T : Iterable<E>, out S : SearchBehaviour>
+        : Contains.CheckerOption<T, S, Checker, Builder<E, T, S>>
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
@@ -53,10 +59,10 @@ interface IterableContains {
 
 /**
  * Helper method to simplify adding assertions to the plant which itself is stored in
- * [CharSequenceContains.CheckerBuilder.containsBuilder].
+ * [CharSequenceContains.CheckerOption.containsBuilder].
  *
  * @return The plant to support a fluent API.
  */
-fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerBuilder<E, T, S>.addAssertion(
+fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerOption<E, T, S>.addAssertion(
     assertion: Assertion
 ): AssertionPlant<T> = containsBuilder.plant.addAssertion(assertion)
