@@ -88,9 +88,9 @@ interface Contains {
      * as such.
      *
      * @param T The type of the [AssertionPlant.subject].
-     * @param S The type of the search criteria.
+     * @param SC The type of the search criteria.
      */
-    interface Creator<in T : Any, in S> {
+    interface Creator<in T : Any, in SC> {
         /**
          * Creates an [AssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
          * on the given [searchCriterion] and possibly [otherSearchCriteria] (might be empty).
@@ -109,8 +109,8 @@ interface Contains {
          */
         fun createAssertionGroup(
             plant: AssertionPlant<T>,
-            searchCriterion: S,
-            otherSearchCriteria: Array<out S>
+            searchCriterion: SC,
+            otherSearchCriteria: Array<out SC>
         ): AssertionGroup
     }
 }

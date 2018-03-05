@@ -24,10 +24,10 @@ interface CharSequenceContains {
      * as such.
      *
      * @param T The type of the [AssertionPlant.subject].
-     * @param S The type of the search criteria.
+     * @param SC The type of the search criteria.
      */
     @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Creator"))
-    interface Creator<in T : CharSequence, in S> : Contains.Creator<T, S>, ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Creator<T, S>
+    interface Creator<in T : CharSequence, in SC> : Contains.Creator<T, SC>, ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Creator<T, SC>
 
     /**
      * Represents a *deprecated* check for the search result such as: the object is contained exactly once in the input of the

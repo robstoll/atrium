@@ -4,12 +4,18 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.CheckerBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.*
+import ch.tutteli.atrium.creating.charsequence.contains.creators.ICharSequenceContainsAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Defines the contract for sophisticated [CharSequence] `contains` assertions.
+ * Defines the contract for sophisticated [CharSequence] `contains` [Assertion] builders.
+ *
+ * The building process is typically started by the creation of a [Builder],
+ * goes on by specifying a desired [SearchBehaviour],
+ * defines which [Checker]s should be applied and
+ * is finalized by one of the [ICharSequenceContainsAssertions]
+ * which usually use a [Creator] which in turn use a [Searcher].
  */
 interface CharSequenceContains {
 
@@ -40,9 +46,9 @@ interface CharSequenceContains {
      * as such.
      *
      * @param T The type of the [AssertionPlant.subject].
-     * @param S The type of the search criteria.
+     * @param SC The type of the search criteria.
      */
-    interface Creator<in T : CharSequence, in S> : Contains.Creator<T, S>
+    interface Creator<in T : CharSequence, in SC> : Contains.Creator<T, SC>
 
     /**
      * Represents a check for the search result such as: the object is contained exactly once in the input of the

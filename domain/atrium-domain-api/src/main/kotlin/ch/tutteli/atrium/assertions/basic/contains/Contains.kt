@@ -18,5 +18,5 @@ interface Contains {
     interface Checker:  ch.tutteli.atrium.creating.basic.contains.Contains.Checker
 
     @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.basic.contains.Contains.Creator"))
-    interface Creator<in T : Any, in S> :  ch.tutteli.atrium.creating.basic.contains.Contains.Creator<T, S>
+    interface Creator<in T : Any, in SC> :  ch.tutteli.atrium.creating.basic.contains.Contains.Creator<T, SC>
 }
