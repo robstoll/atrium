@@ -15,7 +15,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::notToBe.name,
     Assert<Int>::isSame.name,
     Assert<Int>::isNotSame.name,
-    AssertionPlantNullable<Int?>::isNull.name to AssertionPlantNullable<Int?>::isNull,
+    AssertionPlantNullable<Int?>::isNull.name to {it: AssertionPlantNullable<Int?> -> it.toBe(null) },
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
