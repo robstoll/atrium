@@ -32,7 +32,7 @@ interface CharSequenceContains {
      * The step of choosing/defining [Checker]s.
      */
     interface CheckerOption<out T : CharSequence, out S : SearchBehaviour>
-        : Contains.CheckerBuilder<T, S, Checker, Builder<T, S>>
+        : Contains.CheckerOption<T, S, Checker, Builder<T, S>>
 
     /**
      * Represents a search behaviour but leaves it up to the [Searcher] how this behaviour is implemented -- yet, it

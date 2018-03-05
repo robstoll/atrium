@@ -32,7 +32,7 @@ interface IterableContains {
      * The step of choosing/defining [Checker]s.
      */
     interface CheckerOption<out E, out T : Iterable<E>, out S : SearchBehaviour>
-        : Contains.CheckerBuilder<T, S, Checker, Builder<E, T, S>>
+        : Contains.CheckerOption<T, S, Checker, Builder<E, T, S>>
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it

@@ -24,4 +24,4 @@ import ch.tutteli.atrium.creating.basic.contains.Contains
     ReplaceWith("ch.tutteli.atrium.creating.basic.contains.builders.ContainsCheckerBuilder")
 )
 interface ContainsCheckerBuilder<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : Contains.Builder<T, S>>
-    : Contains.CheckerBuilder<T, S, C, B>
+    : Contains.CheckerOption<T, S, C, B>
