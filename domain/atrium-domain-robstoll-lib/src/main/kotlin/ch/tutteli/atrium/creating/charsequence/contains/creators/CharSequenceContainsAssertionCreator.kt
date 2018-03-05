@@ -17,6 +17,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * sophisticated assertion as a whole.
  *
  * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
+ * @param SC The type of the search criteria.
  * @param S The search behaviour which should be applied to the input of the search.
  *
  * @constructor Represents a creator for sophisticated `contains` assertions for [CharSequence].
@@ -24,16 +25,16 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * @param searcher The search method which is used to search for given objects.
  * @param checkers The checkers which create assertions based on the search result.
  */
-class CharSequenceContainsAssertionCreator<in T : CharSequence, S : SearchBehaviour>(
+class CharSequenceContainsAssertionCreator<in T : CharSequence, in SC: Any, S : SearchBehaviour>(
     searchBehaviour: S,
     private val searcher: Searcher<S>,
     checkers: List<Checker>
-) : ContainsObjectsAssertionCreator<T, Any, S, Checker>(searchBehaviour, checkers),
-    CharSequenceContains.Creator<T, Any> {
+) : ContainsObjectsAssertionCreator<T, SC, S, Checker>(searchBehaviour, checkers),
+    CharSequenceContains.Creator<T, SC> {
 
     override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
 
-    override fun search(plant: AssertionPlant<T>, searchCriterion: Any): Int
+    override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
         = searcher.search(plant.subject, searchCriterion)
 }

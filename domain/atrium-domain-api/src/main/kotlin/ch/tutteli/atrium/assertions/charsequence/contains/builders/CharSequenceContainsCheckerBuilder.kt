@@ -19,4 +19,4 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 )
 interface CharSequenceContainsCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
     : ContainsCheckerBuilder<T, S, CharSequenceContains.Checker, CharSequenceContains.Builder<T, S>>,
-    CharSequenceContains.CheckerBuilder<T, S>
+    CharSequenceContains.CheckerOption<T, S>

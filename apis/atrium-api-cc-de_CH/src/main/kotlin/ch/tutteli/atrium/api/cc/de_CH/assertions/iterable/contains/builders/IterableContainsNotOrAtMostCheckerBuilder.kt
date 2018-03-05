@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the *deprecated* builder of a `contains not or at most` check within the fluent API of a
@@ -22,7 +22,7 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
 )
 open class IterableContainsNotOrAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
-    containsBuilder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-) : ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.IterableContainsNotOrAtMostCheckerBuilder<E, T>(
+    containsBuilder: IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>
+) : ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.NotOrAtMostCheckerOptionImpl<E, T, InAnyOrderSearchBehaviour>(
     times, containsBuilder
-), IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+), IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>

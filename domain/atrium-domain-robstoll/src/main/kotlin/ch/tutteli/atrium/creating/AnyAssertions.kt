@@ -4,6 +4,7 @@ package ch.tutteli.atrium.creating
  * Robstoll's implementation of [IAnyAssertions].
  */
 object AnyAssertions : IAnyAssertions {
+
     override fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T)
         = _toBe(plant, expected)
 

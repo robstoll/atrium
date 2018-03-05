@@ -19,4 +19,4 @@ import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 )
 interface IterableContainsCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>
     : ContainsCheckerBuilder<T, S, IterableContains.Checker, IterableContains.Builder<E, T, S>>,
-    IterableContains.CheckerBuilder<E, T, S>
+    IterableContains.CheckerOption<E, T, S>

@@ -2,30 +2,30 @@ package ch.tutteli.atrium.creating.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNoOpSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseIndexSearcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchers.CharSequenceContainsIgnoringCaseRegexSearcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchers.CharSequenceContainsIndexSearcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.searchers.IgnoringCaseIndexSearcher
+import ch.tutteli.atrium.creating.charsequence.contains.searchers.IgnoringCaseRegexSearcher
+import ch.tutteli.atrium.creating.charsequence.contains.searchers.IndexSearcher
+import ch.tutteli.atrium.creating.charsequence.contains.searchers.RegexSearcher
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 fun <T : CharSequence> _containsValues(
-    checkerBuilder: CharSequenceContains.CheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
+    checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: Any,
     otherExpected: Array<out Any>
 ): AssertionGroup
-    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerBuilder, CharSequenceContainsIndexSearcher(), expected, otherExpected)
+    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerOption, IndexSearcher(), expected, otherExpected)
 
 fun <T : CharSequence> _containsValuesIgnoringCase(
-    checkerBuilder: CharSequenceContains.CheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
+    checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: Any,
     otherExpected: Array<out Any>
 ): AssertionGroup
-    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerBuilder, CharSequenceContainsIgnoringCaseIndexSearcher(), expected, otherExpected)
+    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerOption, IgnoringCaseIndexSearcher(), expected, otherExpected)
 
 private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeAndCreateAssertionGroup(
-    checkerBuilder: CharSequenceContains.CheckerBuilder<T, S>,
+    checkerOption: CharSequenceContains.CheckerOption<T, S>,
     searcher: CharSequenceContains.Searcher<S>,
     expected: Any,
     otherExpected: Array<out Any>
@@ -37,46 +37,46 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
                 "Use toString() if you really want to search for its toString()-representation."
         }
     }
-    return createAssertionGroup(checkerBuilder, searcher, expected, otherExpected)
+    return createAssertionGroup(checkerOption, searcher, expected, otherExpected)
 }
 
 fun <T : CharSequence> _containsDefaultTranslationOf(
-    checkerBuilder: CharSequenceContains.CheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
+    checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: Translatable,
     otherExpected: Array<out Translatable>
 ): AssertionGroup
-    = _containsValues(checkerBuilder, expected.getDefault(), mapDefaultTranslations(otherExpected))
+    = _containsValues(checkerOption, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
 fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
-    checkerBuilder: CharSequenceContains.CheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
+    checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: Translatable,
     otherExpected: Array<out Translatable>
 ): AssertionGroup
-    = _containsValuesIgnoringCase(checkerBuilder, expected.getDefault(), mapDefaultTranslations(otherExpected))
+    = _containsValuesIgnoringCase(checkerOption, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
 private fun mapDefaultTranslations(otherExpected: Array<out Translatable>) =
     otherExpected.map { it.getDefault() }.toTypedArray()
 
 fun <T : CharSequence> _containsRegex(
-    checkerBuilder: CharSequenceContains.CheckerBuilder<T, CharSequenceContainsNoOpSearchBehaviour>,
+    checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: String,
     otherExpected: Array<out String>
 ): AssertionGroup
-    = createAssertionGroup(checkerBuilder, CharSequenceContainsRegexSearcher(), expected, otherExpected)
+    = createAssertionGroup(checkerOption, RegexSearcher(), expected, otherExpected)
 
 fun <T : CharSequence> _containsRegexIgnoringCase(
-    checkerBuilder: CharSequenceContains.CheckerBuilder<T, CharSequenceContainsIgnoringCaseSearchBehaviour>,
+    checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: String,
     otherExpected: Array<out String>
 ): AssertionGroup
-    = createAssertionGroup(checkerBuilder, CharSequenceContainsIgnoringCaseRegexSearcher(), expected, otherExpected)
+    = createAssertionGroup(checkerOption, IgnoringCaseRegexSearcher(), expected, otherExpected)
 
-private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
-    checkerBuilder: CharSequenceContains.CheckerBuilder<T, S>,
+private fun <T : CharSequence, SC: Any, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
+    checkerOption: CharSequenceContains.CheckerOption<T, S>,
     searcher: CharSequenceContains.Searcher<S>,
-    expected: Any,
-    otherExpected: Array<out Any>
+    expected: SC,
+    otherExpected: Array<out SC>
 ): AssertionGroup {
-    return CharSequenceContainsAssertionCreator<T, S>(checkerBuilder.containsBuilder.searchBehaviour, searcher, checkerBuilder.checkers)
-        .createAssertionGroup(checkerBuilder.containsBuilder.plant, expected, otherExpected)
+    return CharSequenceContainsAssertionCreator<T, SC, S>(checkerOption.containsBuilder.searchBehaviour, searcher, checkerOption.checkers)
+        .createAssertionGroup(checkerOption.containsBuilder.plant, expected, otherExpected)
 }

@@ -23,6 +23,6 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 open class CharSequenceContainsNotOrAtMostCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilder<T, S>(
+) : ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.NotOrAtMostCheckerOptionImpl<T, S>(
     times, containsBuilder
 ), CharSequenceContainsCheckerBuilder<T, S>

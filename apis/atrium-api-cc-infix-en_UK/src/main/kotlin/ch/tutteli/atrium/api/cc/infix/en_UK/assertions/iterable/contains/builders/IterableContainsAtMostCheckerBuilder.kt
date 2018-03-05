@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builde
 
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
+import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the *deprecated* builder of a `contains at least once but at most` check within the fluent API of a
@@ -23,7 +23,7 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableCon
 )
 open class IterableContainsAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
-    containsBuilder: IterableContains.Builder<E, T, IterableContainsInAnyOrderSearchBehaviour>
-) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.IterableContainsAtMostCheckerBuilder<E, T>(
+    containsBuilder: IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>
+) : ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.AtMostCheckerOptionImpl<E, T, InAnyOrderSearchBehaviour>(
     times, containsBuilder
-), IterableContainsCheckerBuilder<E, T, IterableContainsInAnyOrderSearchBehaviour>
+), IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>

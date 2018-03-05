@@ -6,6 +6,7 @@ import java.math.BigDecimal
  * Robstoll's implementation of [IBigDecimalAssertions].
  */
 object BigDecimalAssertions: IBigDecimalAssertions {
+
     override fun <T : BigDecimal> isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
         = _isNumericallyEqualTo(plant, expected)
 

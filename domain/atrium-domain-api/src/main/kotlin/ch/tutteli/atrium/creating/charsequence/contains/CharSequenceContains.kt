@@ -4,12 +4,18 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.CheckerBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.*
+import ch.tutteli.atrium.creating.charsequence.contains.creators.ICharSequenceContainsAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Defines the contract for sophisticated [CharSequence] `contains` assertions.
+ * Defines the contract for sophisticated [CharSequence] `contains` [Assertion] builders.
+ *
+ * The building process is typically started by the creation of a [Builder],
+ * goes on by specifying a desired [SearchBehaviour],
+ * defines which [Checker]s should be applied and
+ * is finalized by one of the [ICharSequenceContainsAssertions]
+ * which usually use a [Creator] which in turn use a [Searcher].
  */
 interface CharSequenceContains {
 
@@ -23,11 +29,10 @@ interface CharSequenceContains {
     interface Builder<out T : CharSequence, out S : SearchBehaviour> : Contains.Builder<T, S>
 
     /**
-     * The step of creating [Checker]s, containing the previously chosen [containsBuilder] and a list of so-far chosen
-     * [checkers].
+     * The step of choosing/defining [Checker]s.
      */
-    interface CheckerBuilder<out T : CharSequence, out S : SearchBehaviour>
-        : Contains.CheckerBuilder<T, S, Checker, Builder<T, S>>
+    interface CheckerOption<out T : CharSequence, out S : SearchBehaviour>
+        : Contains.CheckerOption<T, S, Checker, Builder<T, S>>
 
     /**
      * Represents a search behaviour but leaves it up to the [Searcher] how this behaviour is implemented -- yet, it
@@ -40,9 +45,9 @@ interface CharSequenceContains {
      * as such.
      *
      * @param T The type of the [AssertionPlant.subject].
-     * @param S The type of the search criteria.
+     * @param SC The type of the search criteria.
      */
-    interface Creator<in T : CharSequence, in S> : Contains.Creator<T, S>
+    interface Creator<in T : CharSequence, in SC> : Contains.Creator<T, SC>
 
     /**
      * Represents a check for the search result such as: the object is contained exactly once in the input of the
@@ -77,9 +82,9 @@ interface CharSequenceContains {
 
 /**
  * Helper method to simplify adding assertions to the plant which itself is stored in
- * [CharSequenceContains.CheckerBuilder.containsBuilder].
+ * [CharSequenceContains.CheckerOption.containsBuilder].
  *
  * @return The plant to support a fluent API.
  */
-fun <T : CharSequence, S : SearchBehaviour> CheckerBuilder<T, S>.addAssertion(assertion: Assertion): AssertionPlant<T>
+fun <T : CharSequence, S : SearchBehaviour> CheckerOption<T, S>.addAssertion(assertion: Assertion): AssertionPlant<T>
     = containsBuilder.plant.addAssertion(assertion)
