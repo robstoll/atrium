@@ -48,6 +48,11 @@ object AssertImpl {
     inline val iterable get() = IterableAssertionsBuilder
 
     /**
+     * Delegates to [MapAssertions].
+     */
+    inline val map get() = MapAssertionsBuilder
+
+    /**
      * Delegates to [ThrowableAssertions].
      */
     inline val throwable get() = ThrowableAssertionsBuilder
