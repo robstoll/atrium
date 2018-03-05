@@ -122,6 +122,15 @@ def createBcTasks(String apiName, String version, String forgive) {
         main = 'org.junit.platform.console.ConsoleLauncher'
         args = getArgs(sourceSets[srcName].output.classesDirs.asPath)
     }
+
+    apply plugin: 'jacoco'
+
+    jacoco {
+        toolVersion = "$jacoco_tool_version"
+        applyTo bcTask
+        applyTo bbcTask
+    }
+
     check.dependsOn bcTask
     project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
