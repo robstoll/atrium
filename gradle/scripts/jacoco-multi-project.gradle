@@ -5,14 +5,20 @@ jacoco {
     toolVersion = "$jacoco_tool_version"
 }
 
+def bcTest = projectPrefixed('bc-test')
+def jacocoProjects = (jacocoMulti.jacocoProjects + bcTest)
+def jacocoSourceProjects = (jacocoMulti.sourceProjects + bcTest)
+
 task jacocoMerge(type: JacocoMerge) {
-    jacocoMulti.jacocoProjects.each {
-        executionData "${it.buildDir}/jacoco/junitPlatformTest.exec"
+    jacocoProjects.each {
+        executionData file("${it.buildDir}/jacoco").listFiles().findAll { it.name.endsWith(".exec") }
     }
 }
 
 task codeCoverageReport(type: JacocoReport) {
+
     dependsOn jacocoMulti.sourceProjects.build
+    dependsOn bcTest.build
     dependsOn jacocoMerge
     jacocoMerge.mustRunAfter jacocoMulti.sourceProjects.build
 
@@ -21,20 +27,20 @@ task codeCoverageReport(type: JacocoReport) {
     sourceDirectories = files()
     classDirectories = files()
 
-    jacocoMulti.sourceProjects.each {
+    jacocoSourceProjects.each {
         sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
-        classDirectories += files(it.sourceSets.main.output.classesDirs)
+        classDirectories += it.sourceSets.main.output.classesDirs
     }
     doFirst {
         println "going to generate merged jacoco report based on:"
-        println "  - source projects: ${jacocoMulti.sourceProjects*.name}"
-        println "  - jacoco projects: ${jacocoMulti.jacocoProjects*.name}"
+        println "  - source projects: ${jacocoSourceProjects*.name}"
+        println "  - jacoco projects: ${jacocoProjects*.name}"
         println "========================================="
     }
 
     reports {
         csv.enabled = false
-        html.enabled = false
+        html.enabled = true
         html.destination file("${buildDir}/reports/jacoco/html/")
         xml.enabled = true
         xml.destination file("${buildDir}/reports/jacoco/report.xml")
