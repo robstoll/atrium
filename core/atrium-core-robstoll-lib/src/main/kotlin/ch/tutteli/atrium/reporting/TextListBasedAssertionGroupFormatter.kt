@@ -26,7 +26,7 @@ abstract class TextListBasedAssertionGroupFormatter<in T : AssertionGroupType>(
 ) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<T>(clazz, assertionFormatterController) {
     private val formatter = TextPrefixBasedAssertionGroupFormatter(bulletPoint)
 
-    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject)
-        = formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject)
+    override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject)
+        = formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, parameterObject)
 
 }

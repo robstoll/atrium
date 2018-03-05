@@ -13,32 +13,32 @@ import java.util.*
 class AssertionFormatterControllerImpl : AssertionFormatterController {
     private val assertionFormatters = ArrayDeque<AssertionFormatter>()
 
-    override fun format(assertion: Assertion, methodObject: AssertionFormatterMethodObject) {
-        if (noNeedToFormat(assertion, methodObject)) return
+    override fun format(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) {
+        if (noNeedToFormat(assertion, parameterObject)) return
 
         val assertionFormatter = assertionFormatters
             .firstOrNull { it.canFormat(assertion) }
             ?: AssertionFormatterController.noSuitableAssertionFormatterFound(assertion)
 
         when (assertion) {
-            is AssertionGroup -> formatGroup(assertion, assertionFormatter, methodObject)
-            else -> assertionFormatter.format(assertion, methodObject)
+            is AssertionGroup -> formatGroup(assertion, assertionFormatter, parameterObject)
+            else -> assertionFormatter.format(assertion, parameterObject)
         }
     }
 
-    private fun noNeedToFormat(assertion: Assertion, methodObject: AssertionFormatterMethodObject): Boolean {
+    private fun noNeedToFormat(assertion: Assertion, parameterObject: AssertionFormatterParameterObject): Boolean {
         //assertionFilter only applies if:
         // - we are not in an assertion group which should not be filtered (e.g. explanatory or summary group) and
         // - if the given assertion is not an explanatory assertion group either.
-        return methodObject.isNotInDoNotFilterGroup()
+        return parameterObject.isNotInDoNotFilterGroup()
             && !isExplanatoryAssertionGroup(assertion)
-            && !methodObject.assertionFilter(assertion)
+            && !parameterObject.assertionFilter(assertion)
     }
 
-    private fun formatGroup(assertionGroup: AssertionGroup, assertionFormatter: AssertionFormatter, methodObject: AssertionFormatterMethodObject) {
-        assertionFormatter.formatGroup(assertionGroup, methodObject) { childMethodObject, formatAssertionInGroup ->
+    private fun formatGroup(assertionGroup: AssertionGroup, assertionFormatter: AssertionFormatter, parameterObject: AssertionFormatterParameterObject) {
+        assertionFormatter.formatGroup(assertionGroup, parameterObject) { childParameterObject, formatAssertionInGroup ->
             assertionGroup.assertions
-                .filter { !noNeedToFormat(it, childMethodObject) }
+                .filter { !noNeedToFormat(it, childParameterObject) }
                 .forEach(formatAssertionInGroup)
         }
     }

@@ -55,7 +55,7 @@ abstract class TextFallbackAssertionFormatterSpec(
 
         context("unsupported ${Assertion::class.simpleName}") {
             it("writes whether the assertion holds including a message telling the type is unsupported") {
-                testee.formatNonGroup(unsupportedAssertion, methodObject)
+                testee.formatNonGroup(unsupportedAssertion, parameterObject)
                 verbs.checkLazily(sb) {
                     contains("false")
                     contains("Unsupported type ${unsupportedAssertion::class.java.name}")
@@ -65,7 +65,7 @@ abstract class TextFallbackAssertionFormatterSpec(
         context("assertion of type ${DescriptiveAssertion::class.simpleName}") {
             it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::representation.name} on the same line separated by colon and space") {
                 val assertion = AssertionBuilder.descriptive.create(IS_SAME, "bli", false)
-                testee.formatNonGroup(assertion, methodObject)
+                testee.formatNonGroup(assertion, parameterObject)
                 verbs.checkImmediately(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
             }
         }

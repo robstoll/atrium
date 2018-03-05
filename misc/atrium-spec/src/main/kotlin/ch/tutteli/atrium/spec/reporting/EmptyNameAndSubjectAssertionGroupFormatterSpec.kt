@@ -9,7 +9,7 @@ import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
-import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
+import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -49,8 +49,8 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
                 context("formatting an ${AssertionGroup::class.simpleName} of type $typeRepresentation") {
                     it("does not include ${AssertionGroup::name.name} nor ${AssertionGroup::subject.name}") {
                         val assertionGroup = AssertionBuilder.withType(type).create(TestDescription.TEST_NAME, testSubject, listOf())
-                        val methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
-                        testee.formatGroup(assertionGroup, methodObject, { _, _ -> sb.append(testString) })
+                        val parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
+                        testee.formatGroup(assertionGroup, parameterObject, { _, _ -> sb.append(testString) })
                         verbs.checkImmediately(sb.toString())
                             .containsNotDefaultTranslationOf(TestDescription.TEST_NAME)
                             .containsNot(testSubject)

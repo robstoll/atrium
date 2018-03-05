@@ -23,7 +23,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *
  * @param bulletPoints The formatter uses the bullet point defined for [PrefixFeatureAssertionGroupHeader]
  *   (`"▶ "` if absent) as prefix of the group header and [FeatureAssertionGroupType] (`"◾ "` if absent)
- *   as prefix of the child-[AssertionFormatterMethodObject].
+ *   as prefix of the child-[AssertionFormatterParameterObject].
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *   when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
@@ -37,13 +37,13 @@ class TextFeatureAssertionGroupFormatter(
     private val prefix = (bulletPoints[FeatureAssertionGroupType::class.java] ?: "◾ ")
     private val arrow = (bulletPoints[PrefixFeatureAssertionGroupHeader::class.java] ?: "▶ ")
 
-    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
-        methodObject.appendLnIndentAndPrefix()
+    override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
+        parameterObject.appendLnIndentAndPrefix()
         val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), assertionGroup.name)
         val group = NameDecoratingAssertionGroup(translatable, assertionGroup)
-        val newMethodObject = methodObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length)
-        assertionPairFormatter.formatGroupHeader(methodObject, group, newMethodObject)
-        return newMethodObject
+        val newParameterObject = parameterObject.createChildWithNewPrefixAndAdditionalIndent(prefix, arrow.length)
+        assertionPairFormatter.formatGroupHeader(parameterObject, group, newParameterObject)
+        return newParameterObject
     }
 
     private class NameDecoratingAssertionGroup(

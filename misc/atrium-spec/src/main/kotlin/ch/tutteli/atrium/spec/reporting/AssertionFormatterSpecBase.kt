@@ -14,13 +14,13 @@ abstract class AssertionFormatterSpecBase(spec: Spec.() -> Unit) : Spek({
 
     afterEachTest {
         sb = StringBuilder()
-        methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
+        parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
     }
 }) {
     companion object {
         val separator = System.getProperty("line.separator")!!
         var sb: StringBuilder = StringBuilder()
-        var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
+        var parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
         const val bulletPoint = "*"
         const val listBulletPoint = "--"
         val indentListBulletPoint = " ".repeat(listBulletPoint.length + 1)

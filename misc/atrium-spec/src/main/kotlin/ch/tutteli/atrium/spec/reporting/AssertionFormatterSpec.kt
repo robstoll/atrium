@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
-import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
+import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -35,10 +35,10 @@ abstract class AssertionFormatterSpec(
     val testee = testeeFactory(mapOf(), controller, ToStringObjectFormatter, UsingDefaultTranslator())
 
     var sb = StringBuilder()
-    var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
+    var parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
     afterEachTest {
         sb = StringBuilder()
-        methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
+        parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
     }
 
     describeFun(testee::format.name) {
@@ -49,7 +49,7 @@ abstract class AssertionFormatterSpec(
                     override val type = RootAssertionGroupType
                     override val subject = 1
                     override val assertions: List<Assertion> = emptyList()
-                }, methodObject)
+                }, parameterObject)
             }.toThrow<UnsupportedOperationException> { message { toBe(AssertionFormatter.CALL_FORMAT_GROUP) } }
             verbs.checkImmediately(sb).isEmpty()
         }
