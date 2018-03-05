@@ -131,6 +131,31 @@ def createBcTasks(String apiName, String version, String forgive) {
         applyTo bbcTask
     }
 
+    def jacocoReport = project.task("jacoco-bc-$name", type: JacocoReport) {
+        sourceDirectories = sourceSets.main.allJava.sourceDirectories
+        classDirectories = files(sourceSets.main.output.classesDirs)
+        executionData bcTask
+        executionData bbcTask
+
+        sourceDirectories = project.sourceSets.main.allJava.sourceDirectories
+        classDirectories = project.sourceSets.main.output.classesDirs
+
+        jacocoMulti.sourceProjects.each {
+            sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
+            classDirectories += it.sourceSets.main.output.classesDirs
+        }
+
+        reports {
+            csv.enabled = false
+            xml.enabled = true
+            xml.destination file("${buildDir}/reports/jacoco/bc-$name/report.xml")
+            html.enabled = true
+            html.destination file("${buildDir}/reports/jacoco/bc-$name/html/")
+        }
+    }
+
+    check.dependsOn jacocoReport
+
     check.dependsOn bcTask
     project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
