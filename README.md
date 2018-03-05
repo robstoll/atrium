@@ -252,7 +252,7 @@ val myPerson = Person("Robert", false)
 
 assert(myPerson) {
     property(subject::name).toBe("Peter")
-    property(subject::isStudent).isTrue()
+    property(subject::isStudent).toBe(true)
 }
     // assert: Person(name=Robert, isStudent=false)        (Person <1841396611>)
     // ◆ ▶ name: "Robert"        <1577592551>
