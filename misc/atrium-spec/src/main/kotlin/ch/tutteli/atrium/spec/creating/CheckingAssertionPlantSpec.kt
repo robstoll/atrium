@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.spec.creating
 
-import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.api.cc.en_UK.contains
+import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.toBe
+import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
@@ -42,7 +45,7 @@ abstract class CheckingAssertionPlantSpec(
             testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, a, { a == subject })
             test("${testee::allAssertionsHold.name} returns `true` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()
-                verbs.checkImmediately(result).isTrue()
+                verbs.checkImmediately(result).toBe(true)
             }
         }
 
@@ -50,7 +53,7 @@ abstract class CheckingAssertionPlantSpec(
             testee.createAndAddAssertion(DescriptionAnyAssertion.TO_BE, -12, { a == 0 })
             test("${testee::allAssertionsHold.name} returns `false` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()
-                verbs.checkImmediately(result).isFalse()
+                verbs.checkImmediately(result).toBe(false)
             }
 
             test("re-checking the assertions (calling ${testee::allAssertionsHold.name} twice) throws an  ${IllegalStateException::class.simpleName}") {
@@ -69,7 +72,7 @@ abstract class CheckingAssertionPlantSpec(
             })
             test("${testee::allAssertionsHold.name} returns `true` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()
-                verbs.checkImmediately(result).isTrue()
+                verbs.checkImmediately(result).toBe(true)
             }
         }
 
@@ -83,7 +86,7 @@ abstract class CheckingAssertionPlantSpec(
             )
             test("${testee::allAssertionsHold.name} returns `false` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()
-                verbs.checkImmediately(result).isFalse()
+                verbs.checkImmediately(result).toBe(false)
             }
 
             test("re-checking the assertions (calling ${testee::allAssertionsHold.name} twice) throws an ${IllegalStateException::class.simpleName}") {

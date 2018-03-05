@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.CoreFactory
-import ch.tutteli.atrium.api.cc.en_UK.isTrue
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
@@ -39,7 +38,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
         val testee = testeeFactory(bulletPoints, CoreFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${assertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(AssertionBuilder.withType(anonymousAssertionGroupType).create(Untranslatable.EMPTY, 1, listOf()))
-            verbs.checkImmediately(result).isTrue()
+            verbs.checkImmediately(result).toBe(true)
         }
     }
 
