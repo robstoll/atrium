@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.NotCheckerBuilderImpl
+import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -30,8 +31,8 @@ fun <E, T : Iterable<E>> getContains(plant: Assert<T>): DeprecatedBuilder<E, T, 
  *
  * @return The newly created builder.
  */
-val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerBuilderImpl<E, T, InAnyOrderSearchBehaviour>
-    get() = NotCheckerBuilderImpl(AssertImpl.iterable.containsNotBuilder(this))
+val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerOption<E, T, InAnyOrderSearchBehaviour>
+    get() = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
 @Deprecated("use the extension fun `containsNot` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.containsNot"))
 fun <E, T : Iterable<E>> getContainsNot(plant: Assert<T>): DeprecatedNotCheckerBuilder<E, T>

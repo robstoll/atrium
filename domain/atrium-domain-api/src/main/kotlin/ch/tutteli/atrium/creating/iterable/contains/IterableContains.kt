@@ -29,10 +29,9 @@ interface IterableContains {
     interface Builder<out E, out T : Iterable<E>, out S : SearchBehaviour> : Contains.Builder<T, S>
 
     /**
-     * The step of creating [Checker]s, containing the previously chosen [containsBuilder] and a list of so-far chosen
-     * [checkers].
+     * The step of choosing/defining [Checker]s.
      */
-    interface CheckerBuilder<out E, out T : Iterable<E>, out S : SearchBehaviour>
+    interface CheckerOption<out E, out T : Iterable<E>, out S : SearchBehaviour>
         : Contains.CheckerBuilder<T, S, Checker, Builder<E, T, S>>
 
     /**
@@ -64,6 +63,6 @@ interface IterableContains {
  *
  * @return The plant to support a fluent API.
  */
-fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerBuilder<E, T, S>.addAssertion(
+fun <E, T : Iterable<E>, S : IterableContains.SearchBehaviour> IterableContains.CheckerOption<E, T, S>.addAssertion(
     assertion: Assertion
 ): AssertionPlant<T> = containsBuilder.plant.addAssertion(assertion)

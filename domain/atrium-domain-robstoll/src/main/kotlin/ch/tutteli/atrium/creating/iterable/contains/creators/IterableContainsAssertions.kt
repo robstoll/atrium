@@ -13,22 +13,22 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InOrderOnly
 object IterableContainsAssertions : IIterableContainsAssertions {
 
     override fun <E, T : Iterable<E>> objectsInAnyOrder(
-        checkerBuilder: IterableContains.CheckerBuilder<E, T, InAnyOrderSearchBehaviour>,
+        checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
-    ): Assertion = _containsObjectsInAnyOrder(checkerBuilder, expected, otherExpected)
+    ): Assertion = _containsObjectsInAnyOrder(checkerOption, expected, otherExpected)
 
     override fun <E : Any, T : Iterable<E>> entriesInAnyOrder(
-        checkerBuilder: IterableContains.CheckerBuilder<E, T, InAnyOrderSearchBehaviour>,
+        checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
         assertionCreator: AssertionPlant<E>.() -> Unit,
         otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
-    ): Assertion = _containsEntriesInAnyOrder(checkerBuilder, assertionCreator, otherAssertionCreators)
+    ): Assertion = _containsEntriesInAnyOrder(checkerOption, assertionCreator, otherAssertionCreators)
 
     override fun <E : Any, T : Iterable<E?>> nullableEntriesInAnyOrder(
-        checkerBuilder: IterableContains.CheckerBuilder<E?, T, InAnyOrderSearchBehaviour>,
+        checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
         assertionCreator: (AssertionPlant<E>.() -> Unit)?,
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
-    ): Assertion = _containsNullableEntriesInAnyOrder(checkerBuilder, assertionCreator, otherAssertionCreators)
+    ): Assertion = _containsNullableEntriesInAnyOrder(checkerOption, assertionCreator, otherAssertionCreators)
 
     override fun <E, T : Iterable<E>> objectsInAnyOrderOnly(
         builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,

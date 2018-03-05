@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.AtLeastCheckerBuilder
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
@@ -18,13 +18,13 @@ abstract class IterableContainsSpecBase {
     protected val containsNot = "${Assert<Iterable<Double>>::notTo.name} ${contain::class.simpleName}"
     protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
     protected val atLeast = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::atLeast.name
-    protected val butAtMost = AtLeastCheckerBuilder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::butAtMost.name
+    protected val butAtMost = AtLeastCheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::butAtMost.name
     protected val exactly = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::exactly.name
     protected val atMost = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::atMost.name
     protected val notOrAtMost = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::notOrAtMost.name
     protected val inAnyOrder = "${IterableContains.Builder<Double, Iterable<Double>, NoOpSearchBehaviour>::inAny.name} ${order::class.simpleName}"
-    private val theInAnyOrderFun: KFunction2<IterableContains.CheckerBuilder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>, Values<Double>, Assert<Iterable<Double>>>
-        = IterableContains.CheckerBuilder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::the
+    private val theInAnyOrderFun: KFunction2<IterableContains.CheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>, Values<Double>, Assert<Iterable<Double>>>
+        = IterableContains.CheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::the
     private val theInAnyOrder = theInAnyOrderFun.name
     protected val inAnyOrderEntries = "$theInAnyOrder $entries"
 
