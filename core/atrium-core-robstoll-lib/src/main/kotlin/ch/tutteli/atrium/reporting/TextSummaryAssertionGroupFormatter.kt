@@ -31,21 +31,21 @@ class TextSummaryAssertionGroupFormatter(
     private val successful = (bulletPoints[PrefixSuccessfulSummaryAssertion::class.java] ?: "✔ ")
     private val failing = (bulletPoints[PrefixFailingSummaryAssertion::class.java] ?: "✘ ")
 
-    override fun formatGroupHeaderAndGetChildMethodObject(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject): AssertionFormatterMethodObject {
-        methodObject.appendLnIndentAndPrefix()
-        assertionPairFormatter.format(methodObject, assertionGroup.name, assertionGroup.subject)
+    override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
+        parameterObject.appendLnIndentAndPrefix()
+        assertionPairFormatter.format(parameterObject, assertionGroup.name, assertionGroup.subject)
         //the prefix which should be used for assertions is defined in the formatGroupAssertions is defined in formatGroupAssertions
-        return methodObject.createForDoNotFilterAssertionGroup()
+        return parameterObject.createForDoNotFilterAssertionGroup()
     }
 
-    override fun formatGroupAssertions(formatAssertions: (AssertionFormatterMethodObject, (Assertion) -> Unit) -> Unit, childMethodObject: AssertionFormatterMethodObject) {
-        val successfulMethodObject = childMethodObject.createChildWithNewPrefix(successful)
-        val failingMethodObject = childMethodObject.createChildWithNewPrefix(failing)
-        formatAssertions(childMethodObject) {
+    override fun formatGroupAssertions(formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit, childParameterObject: AssertionFormatterParameterObject) {
+        val successfulParameterObject = childParameterObject.createChildWithNewPrefix(successful)
+        val failingParameterObject = childParameterObject.createChildWithNewPrefix(failing)
+        formatAssertions(childParameterObject) {
             if (it.holds()) {
-                assertionFormatterController.format(it, successfulMethodObject)
+                assertionFormatterController.format(it, successfulParameterObject)
             } else {
-                assertionFormatterController.format(it, failingMethodObject)
+                assertionFormatterController.format(it, failingParameterObject)
             }
         }
     }

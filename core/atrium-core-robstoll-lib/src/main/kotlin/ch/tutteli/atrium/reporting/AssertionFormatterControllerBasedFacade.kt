@@ -13,7 +13,7 @@ import ch.tutteli.atrium.assertions.Assertion
 class AssertionFormatterControllerBasedFacade(private val assertionFormatterController: AssertionFormatterController) : AssertionFormatterFacade {
 
     override fun format(assertion: Assertion, sb: StringBuilder, assertionFilter: (Assertion) -> Boolean)
-        = assertionFormatterController.format(assertion, AssertionFormatterMethodObject.new(sb, assertionFilter))
+        = assertionFormatterController.format(assertion, AssertionFormatterParameterObject.new(sb, assertionFilter))
 
     override fun register(assertionFormatterFactory: (AssertionFormatterController) -> AssertionFormatter)
         = assertionFormatterController.register(assertionFormatterFactory(assertionFormatterController))

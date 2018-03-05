@@ -10,24 +10,24 @@ interface AssertionPairFormatter {
 
     /**
      * Formats the header ([name][AssertionGroup.name] and [subject][AssertionGroup.subject]) of the given
-     * [assertionGroup] and appends the result to the [sb][AssertionFormatterMethodObject.sb]
-     * of the given [methodObject].
+     * [assertionGroup] and appends the result to the [sb][AssertionFormatterParameterObject.sb]
+     * of the given [parameterObject].
      *
-     * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
+     * @param parameterObject The parameter object which contains inter alia the [sb][AssertionFormatterParameterObject.sb]
      *   to which the result will be appended.
      * @param assertionGroup The [AssertionGroup] of which we want to format the header.
-     * @param newMethodObject The [AssertionFormatterMethodObject] used for the [AssertionGroup.assertions].
+     * @param newParameterObject The [AssertionFormatterParameterObject] used for the [AssertionGroup.assertions].
      */
-    fun formatGroupHeader(methodObject: AssertionFormatterMethodObject, assertionGroup: AssertionGroup, newMethodObject: AssertionFormatterMethodObject)
+    fun formatGroupHeader(parameterObject: AssertionFormatterParameterObject, assertionGroup: AssertionGroup, newParameterObject: AssertionFormatterParameterObject)
 
     /**
      * Formats the assertion pair consisting of the given [translatable] and the given [representation]
-     * and appends the result to the [sb][AssertionFormatterMethodObject.sb] of the given [methodObject].
+     * and appends the result to the [sb][AssertionFormatterParameterObject.sb] of the given [parameterObject].
      *
-     * @param methodObject The method object which contains inter alia the [sb][AssertionFormatterMethodObject.sb]
+     * @param parameterObject The parameter object which contains inter alia the [sb][AssertionFormatterParameterObject.sb]
      *   to which the result will be appended.
      * @param translatable The description of the assertion pair.
      * @param representation The representation of the assertion pair.
      */
-    fun format(methodObject: AssertionFormatterMethodObject, translatable: Translatable, representation: Any)
+    fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any)
 }

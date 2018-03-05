@@ -26,17 +26,17 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
     val subject = 123
 
     describeFun(testee::formatGroupHeader.name) {
-        it("puts the subject on the next line indented as the bullet point used for newMethodObject") {
-            val newMethodObject = methodObject.createChildWithNewPrefix(bulletPoint)
+        it("puts the subject on the next line indented as the bullet point used for newParameterObject") {
+            val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
             val assertionGroup = AssertionBuilder.root.create(Untranslatable(name), subject, listOf())
-            testee.formatGroupHeader(methodObject, assertionGroup, newMethodObject)
+            testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
             assert(sb.toString()).toBe("$name:$separator$indentBulletPoint$subject")
         }
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
             val assertionGroup = AssertionBuilder.root.create(Untranslatable(name), RawString.EMPTY, listOf())
-            val newMethodObject = methodObject.createChildWithNewPrefix(bulletPoint)
-            testee.formatGroupHeader(methodObject, assertionGroup, newMethodObject)
+            val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
+            testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
             assert(sb.toString()).toBe("$name:")
         }
     }
@@ -44,22 +44,22 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
     describeFun(testee::format.name) {
         context("current indent 0, no prefix") {
             it("puts the subject on the next line without indent") {
-                testee.format(methodObject, Untranslatable(name), subject)
+                testee.format(parameterObject, Untranslatable(name), subject)
                 assert(sb.toString()).toBe("$name:$separator$subject")
             }
         }
 
         context("current indent 2, new prefix length 2") {
             it("puts the subject on the next line with 2 indent") {
-                val newMethodObject = methodObject.createChildWithNewPrefix("==")
-                testee.format(newMethodObject, Untranslatable(name), subject)
+                val newParameterObject = parameterObject.createChildWithNewPrefix("==")
+                testee.format(newParameterObject, Untranslatable(name), subject)
                 assert(sb.toString()).toBe("$name:$separator  $subject")
             }
         }
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
-            val newMethodObject = methodObject.createChildWithNewPrefix(bulletPoint)
-            testee.format(newMethodObject, Untranslatable(name), RawString.EMPTY)
+            val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
+            testee.format(newParameterObject, Untranslatable(name), RawString.EMPTY)
             assert(sb.toString()).toBe("$name:")
         }
     }

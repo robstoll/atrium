@@ -25,9 +25,9 @@ abstract class NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<in T : 
 ) : SingleAssertionGroupTypeFormatter<T>(clazz) {
 
 
-    override fun formatGroupAssertions(formatAssertions: (AssertionFormatterMethodObject, (Assertion) -> Unit) -> Unit, childMethodObject: AssertionFormatterMethodObject) {
-        formatAssertions(childMethodObject) {
-            assertionFormatterController.format(it, childMethodObject)
+    override fun formatGroupAssertions(formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit, childParameterObject: AssertionFormatterParameterObject) {
+        formatAssertions(childParameterObject) {
+            assertionFormatterController.format(it, childParameterObject)
         }
     }
 }

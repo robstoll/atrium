@@ -9,7 +9,7 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
-import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
+import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -54,74 +54,74 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     }
 
     var sb = StringBuilder()
-    var methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
+    var parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
     afterEachTest {
         sb = StringBuilder()
-        methodObject = AssertionFormatterMethodObject.new(sb, alwaysTrueAssertionFilter)
+        parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
     }
 
     describeFun(testee::canFormat.name) {
         it("returns true for an anonymous ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroupWithAnonymousType)
-            verbs.checkImmediately(result).isTrue()
+            verbs.checkImmediately(result).toBe(true)
         }
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${supportedAssertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroupWithAnonymousType)
-            verbs.checkImmediately(result).isTrue()
+            verbs.checkImmediately(result).toBe(true)
         }
         it("returns true for an anonymous ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAnonymousAssertionGroup)
-            verbs.checkImmediately(result).isTrue()
+            verbs.checkImmediately(result).toBe(true)
         }
         it("returns true for an ${AssertionGroup::class.simpleName} with type ${supportedAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(supportedAssertionGroup)
-            verbs.checkImmediately(result).isTrue()
+            verbs.checkImmediately(result).toBe(true)
         }
 
         it("returns false for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(unsupportedAssertionGroup)
-            verbs.checkImmediately(result).isFalse()
+            verbs.checkImmediately(result).toBe(false)
         }
 
         it("returns false for an object : ${Assertion::class.simpleName}") {
             val result = testee.canFormat(unsupportedAssertion)
-            verbs.checkImmediately(result).isFalse()
+            verbs.checkImmediately(result).toBe(false)
         }
     }
 
     describeFun(testee::formatNonGroup.name) {
         it("throws an UnsupportedOperationException") {
             verbs.checkException {
-                testee.formatNonGroup(unsupportedAssertion, methodObject)
+                testee.formatNonGroup(unsupportedAssertion, parameterObject)
             }.toThrow<UnsupportedOperationException> { message { contains(supportedAssertionGroupTypeClass.name) } }
             verbs.checkImmediately(sb).isEmpty()
         }
     }
 
     describeFun(testee::formatGroup.name) {
-        val doNotFormatChildren: (AssertionFormatterMethodObject, (Assertion) -> Unit) -> Unit = { _, _ -> }
+        val doNotFormatChildren: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit = { _, _ -> }
 
         it("throws an UnsupportedOperationException for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
             verbs.checkException {
-                testee.formatGroup(unsupportedAssertionGroup, methodObject, doNotFormatChildren)
+                testee.formatGroup(unsupportedAssertionGroup, parameterObject, doNotFormatChildren)
             }.toThrow<UnsupportedOperationException> { message { contains(supportedAssertionGroupTypeClass.name) } }
             verbs.checkImmediately(sb).isEmpty()
         }
 
         it("does not throw if an anonymous ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
-            testee.formatGroup(supportedAnonymousAssertionGroupWithAnonymousType, methodObject, doNotFormatChildren)
+            testee.formatGroup(supportedAnonymousAssertionGroupWithAnonymousType, parameterObject, doNotFormatChildren)
         }
 
         it("does not throw if an anonymous ${AssertionGroup::class.simpleName} of type ${supportedAssertionGroup::class.simpleName} is passed") {
-            testee.formatGroup(supportedAnonymousAssertionGroup, methodObject, doNotFormatChildren)
+            testee.formatGroup(supportedAnonymousAssertionGroup, parameterObject, doNotFormatChildren)
         }
 
         it("does not throw if an ${AssertionGroup::class.simpleName} of type object: ${supportedAssertionGroupTypeClass.simpleName} is passed") {
-            testee.formatGroup(supportedAssertionGroupWithAnonymousType, methodObject, doNotFormatChildren)
+            testee.formatGroup(supportedAssertionGroupWithAnonymousType, parameterObject, doNotFormatChildren)
         }
 
         it("does not throw if an ${AssertionGroup::class.simpleName} of type  type ${supportedAssertionGroup::class.simpleName}  is passed") {
-            testee.formatGroup(supportedAssertionGroup, methodObject, doNotFormatChildren)
+            testee.formatGroup(supportedAssertionGroup, parameterObject, doNotFormatChildren)
         }
     }
 })

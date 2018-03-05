@@ -25,10 +25,10 @@ class TextSameLineAssertionPairFormatter(
     private val translator: Translator
 ) : AssertionPairFormatter {
 
-    override fun formatGroupHeader(methodObject: AssertionFormatterMethodObject, assertionGroup: AssertionGroup, newMethodObject: AssertionFormatterMethodObject)
-        = format(methodObject, assertionGroup.name, assertionGroup.subject)
+    override fun formatGroupHeader(parameterObject: AssertionFormatterParameterObject, assertionGroup: AssertionGroup, newParameterObject: AssertionFormatterParameterObject)
+        = format(parameterObject, assertionGroup.name, assertionGroup.subject)
 
-    override fun format(methodObject: AssertionFormatterMethodObject, translatable: Translatable, representation: Any) {
-        methodObject.sb.append(translator.translate(translatable)).append(": ").append(objectFormatter.format(representation))
+    override fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any) {
+        parameterObject.sb.append(translator.translate(translatable)).append(": ").append(objectFormatter.format(representation))
     }
 }

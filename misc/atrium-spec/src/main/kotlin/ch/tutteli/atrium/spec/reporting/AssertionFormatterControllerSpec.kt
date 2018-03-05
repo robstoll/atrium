@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.reporting.AssertionFormatterController
-import ch.tutteli.atrium.reporting.AssertionFormatterMethodObject
+import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -54,10 +54,10 @@ abstract class AssertionFormatterControllerSpec(
 
         context("assertionFilter which always returns `false`") {
             var sb = StringBuilder()
-            var methodObject = AssertionFormatterMethodObject.new(sb, alwaysFalseAssertionFilter)
+            var parameterObject = AssertionFormatterParameterObject.new(sb, alwaysFalseAssertionFilter)
             afterEachTest {
                 sb = StringBuilder()
-                methodObject = AssertionFormatterMethodObject.new(sb, alwaysFalseAssertionFilter)
+                parameterObject = AssertionFormatterParameterObject.new(sb, alwaysFalseAssertionFilter)
             }
 
             val anonymousType = object : ExplanatoryAssertionGroupType {}
@@ -87,13 +87,13 @@ abstract class AssertionFormatterControllerSpec(
                     val (holdingGroup, failingGroup) = factories
                     context(description) {
                         it("appends the assertions without group header, if the assertion group holds") {
-                            testee.format(holdingGroup, methodObject)
+                            testee.format(holdingGroup, parameterObject)
                             verbs.checkImmediately(sb.toString()).toBe(separator +
                                 "$prefix ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
                         }
 
                         it("appends the assertions without group header, if the assertion group does not hold") {
-                            testee.format(failingGroup, methodObject)
+                            testee.format(failingGroup, parameterObject)
                             verbs.checkImmediately(sb.toString()).toBe(separator +
                                 "$prefix ${IS_LESS_OR_EQUALS.getDefault()}: 2")
                         }
@@ -105,10 +105,10 @@ abstract class AssertionFormatterControllerSpec(
         context("assertionFilter which returns `false` except for the RootAssertionGroup") {
             val onlyRootAssertionGroup: (Assertion) -> Boolean = { it is AssertionGroup && it.type == RootAssertionGroupType }
             var sb = StringBuilder()
-            var methodObject = AssertionFormatterMethodObject.new(sb, onlyRootAssertionGroup)
+            var parameterObject = AssertionFormatterParameterObject.new(sb, onlyRootAssertionGroup)
             afterEachTest {
                 sb = StringBuilder()
-                methodObject = AssertionFormatterMethodObject.new(sb, onlyRootAssertionGroup)
+                parameterObject = AssertionFormatterParameterObject.new(sb, onlyRootAssertionGroup)
             }
 
             context("first an ${ExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
@@ -118,7 +118,7 @@ abstract class AssertionFormatterControllerSpec(
                 ))
 
                 it("appends only the explanatory assertion group") {
-                    testee.format(rootGroup, methodObject)
+                    testee.format(rootGroup, parameterObject)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
                         "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
                 }
@@ -132,7 +132,7 @@ abstract class AssertionFormatterControllerSpec(
                 ))
 
                 it("appends only the explanatory assertion group") {
-                    testee.format(rootGroup, methodObject)
+                    testee.format(rootGroup, parameterObject)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
                         "$indentBulletPoint$warning ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
                 }
@@ -144,7 +144,7 @@ abstract class AssertionFormatterControllerSpec(
                 val rootGroup = AssertionBuilder.root.create(AssertionVerb.ASSERT, 5, listOf(explanatoryAssertionGroup))
 
                 it("appends the explanatory assertion group including all its assertions") {
-                    testee.format(rootGroup, methodObject)
+                    testee.format(rootGroup, parameterObject)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
                         "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
                         "$indentBulletPoint$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +
@@ -157,7 +157,7 @@ abstract class AssertionFormatterControllerSpec(
                     val rootGroup2 = AssertionBuilder.root.create(IS_LESS_THAN, 10, listOf(failingAssertion, explanatoryAssertionGroup2, assertion))
 
                     it("appends the explanatory assertion group including all its assertions") {
-                        testee.format(rootGroup2, methodObject)
+                        testee.format(rootGroup2, parameterObject)
                         verbs.checkImmediately(sb.toString()).toBe("${IS_LESS_THAN.getDefault()}: 10$separator" +
                             "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
                             "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${IS_GREATER_OR_EQUALS.getDefault()}: 1$separator" +

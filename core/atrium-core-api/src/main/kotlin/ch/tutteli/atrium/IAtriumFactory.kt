@@ -341,7 +341,7 @@ interface IAtriumFactory {
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
      * formats [AssertionGroup]s of type [ExplanatoryAssertionGroupType] by creating an
-     * [AssertionFormatterMethodObject] which indicates that formatting its [AssertionGroup.assertions] happens within
+     * [AssertionFormatterParameterObject] which indicates that formatting its [AssertionGroup.assertions] happens within
      * an explanatory assertion group.
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered

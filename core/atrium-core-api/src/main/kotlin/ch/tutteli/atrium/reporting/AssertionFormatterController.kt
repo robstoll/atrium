@@ -14,22 +14,22 @@ interface AssertionFormatterController {
      * Finds a suitable [AssertionFormatter] -- which was previously [register]ed -- for the given [assertion] and
      * formats it.
      *
-     * The [methodObject] allows to define an [assertionFilter][AssertionFormatterMethodObject.assertionFilter]
+     * The [parameterObject] allows to define an [assertionFilter][AssertionFormatterParameterObject.assertionFilter]
      * to filter out [Assertion]s (for instance, filter out messages which hold
      * &rarr; see [ICoreFactory.newOnlyFailureReporter]).
      * Moreover the controller should take into account whether the control flow
-     * [AssertionFormatterMethodObject.isNotInDoNotFilterGroup] or is in such group, in which case the filtering should
+     * [AssertionFormatterParameterObject.isNotInDoNotFilterGroup] or is in such group, in which case the filtering should
      * not apply.
      *
      * @param assertion The assertion which shall be formatted.
-     * @param methodObject Used to share data between this [AssertionFormatterController] and the [register]ed
+     * @param parameterObject Used to share data between this [AssertionFormatterController] and the [register]ed
      *   [AssertionFormatter]s.
      *
      * @throws UnsupportedOperationException if no suitable [AssertionFormatter] is found.
      *
-     * @see AssertionFormatterMethodObject
+     * @see AssertionFormatterParameterObject
      */
-    fun format(assertion: Assertion, methodObject: AssertionFormatterMethodObject)
+    fun format(assertion: Assertion, parameterObject: AssertionFormatterParameterObject)
 
     /**
      * Registers the given [assertionFormatter], which means it will be considered when an [Assertion]

@@ -112,7 +112,7 @@ fun <E : Any, T : Iterable<E>> entry(builder: IterableContainsBuilder<E, T, InAn
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
- * @param entries The method object containing the identification lambdas.
+ * @param entries The parameter object containing the identification lambdas.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -158,7 +158,7 @@ fun <E : Any, T : Iterable<E?>> nullableEntry(builder: IterableContainsBuilder<E
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
- * @param entries The method object containing the identification lambdas.
+ * @param entries The parameter object containing the identification lambdas.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

@@ -26,18 +26,18 @@ class TextNextLineAssertionPairFormatter(
     private val translator: Translator
 ) : AssertionPairFormatter {
 
-    override fun formatGroupHeader(methodObject: AssertionFormatterMethodObject, assertionGroup: AssertionGroup, newMethodObject: AssertionFormatterMethodObject)
-        = format(methodObject, assertionGroup.name, assertionGroup.subject, newMethodObject)
+    override fun formatGroupHeader(parameterObject: AssertionFormatterParameterObject, assertionGroup: AssertionGroup, newParameterObject: AssertionFormatterParameterObject)
+        = format(parameterObject, assertionGroup.name, assertionGroup.subject, newParameterObject)
 
-    override fun format(methodObject: AssertionFormatterMethodObject, translatable: Translatable, representation: Any)
-        = format(methodObject, translatable, representation, methodObject)
+    override fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any)
+        = format(parameterObject, translatable, representation, parameterObject)
 
-    private fun format(methodObject: AssertionFormatterMethodObject, translatable: Translatable, representation: Any, newMethodObject: AssertionFormatterMethodObject) {
-        methodObject.sb.append(translator.translate(translatable)).append(":")
+    private fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any, newParameterObject: AssertionFormatterParameterObject) {
+        parameterObject.sb.append(translator.translate(translatable)).append(":")
         if (representation !is RawString || representation != RawString.EMPTY) {
-            newMethodObject.appendLnAndIndent()
-            newMethodObject.indent(newMethodObject.prefix.length)
-            methodObject.sb.append(objectFormatter.format(representation))
+            newParameterObject.appendLnAndIndent()
+            newParameterObject.indent(newParameterObject.prefix.length)
+            parameterObject.sb.append(objectFormatter.format(representation))
         }
     }
 }

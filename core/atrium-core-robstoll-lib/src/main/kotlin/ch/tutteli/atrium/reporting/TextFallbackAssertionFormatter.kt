@@ -26,7 +26,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *   [assertionPairFormatter] which defines how an assertion pair (e.g. [DescriptiveAssertion.description]
  *   and [DescriptiveAssertion.representation]) is formatted.
  * @param bulletPoints The formatter uses the bullet point defined for [RootAssertionGroupType]
- *   (`"◆ "` if absent) as prefix of the child-[AssertionFormatterMethodObject].
+ *   (`"◆ "` if absent) as prefix of the child-[AssertionFormatterParameterObject].
  * @param assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *   the reporting process.
  * @param assertionPairFormatter The formatter which is used to format assertion pairs
@@ -47,40 +47,40 @@ class TextFallbackAssertionFormatter(
         return true
     }
 
-    override fun formatNonGroup(assertion: Assertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.appendLnIndentAndPrefix()
+    override fun formatNonGroup(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) {
+        parameterObject.appendLnIndentAndPrefix()
         when (assertion) {
-            is DescriptiveAssertion -> appendDescriptiveAssertion(assertion, methodObject)
-            is ExplanatoryAssertion -> appendExplanatoryAssertion(assertion, methodObject)
-            else -> formatFallback(assertion, methodObject)
+            is DescriptiveAssertion -> appendDescriptiveAssertion(assertion, parameterObject)
+            is ExplanatoryAssertion -> appendExplanatoryAssertion(assertion, parameterObject)
+            else -> formatFallback(assertion, parameterObject)
         }
     }
 
-    private fun appendDescriptiveAssertion(basicAssertion: DescriptiveAssertion, methodObject: AssertionFormatterMethodObject) {
-        assertionPairFormatter.format(methodObject, basicAssertion.description, basicAssertion.representation)
+    private fun appendDescriptiveAssertion(basicAssertion: DescriptiveAssertion, parameterObject: AssertionFormatterParameterObject) {
+        assertionPairFormatter.format(parameterObject, basicAssertion.description, basicAssertion.representation)
     }
 
-    private fun appendExplanatoryAssertion(assertion: ExplanatoryAssertion, methodObject: AssertionFormatterMethodObject) {
-        methodObject.sb.append(objectFormatter.format(assertion.explanation))
+    private fun appendExplanatoryAssertion(assertion: ExplanatoryAssertion, parameterObject: AssertionFormatterParameterObject) {
+        parameterObject.sb.append(objectFormatter.format(assertion.explanation))
     }
 
-    private fun formatFallback(assertion: Assertion, methodObject: AssertionFormatterMethodObject) {
+    private fun formatFallback(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) {
         val translatable = Untranslatable("Unsupported type ${assertion::class.java.name}, can only report whether it holds")
-        assertionPairFormatter.format(methodObject, translatable, assertion.holds())
+        assertionPairFormatter.format(parameterObject, translatable, assertion.holds())
     }
 
-    override fun formatGroup(assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject, formatAssertions: (AssertionFormatterMethodObject, (Assertion) -> Unit) -> Unit) {
-        val childMethodObject = formatGroupHeaderAndGetChildMethodObject(assertionGroup, methodObject)
-        formatAssertions(childMethodObject) {
-            assertionFormatterController.format(it, childMethodObject)
+    override fun formatGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit) {
+        val childParameterObject = formatGroupHeaderAndGetChildParameterObject(assertionGroup, parameterObject)
+        formatAssertions(childParameterObject) {
+            assertionFormatterController.format(it, childParameterObject)
         }
     }
 
-    private fun formatGroupHeaderAndGetChildMethodObject(
-        assertionGroup: AssertionGroup, methodObject: AssertionFormatterMethodObject
+    private fun formatGroupHeaderAndGetChildParameterObject(
+        assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject
     ) = when (assertionGroup.type) {
-        RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, methodObject)
-        else -> formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, methodObject)
+        RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(assertionPairFormatter, assertionGroup, parameterObject)
+        else -> formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, parameterObject)
     }
 
 }
