@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders
 import ch.tutteli.atrium.api.cc.de_CH.genau
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.ExactlyCheckerBuilderBase
+import ch.tutteli.atrium.creating.charsequence.contains.builders.ExactlyCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains exactly`-check within
@@ -12,8 +12,8 @@ import ch.tutteli.atrium.creating.charsequence.contains.builders.ExactlyCheckerB
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
-interface ExactlyCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
-    : CharSequenceContains.CheckerBuilder<T, S>
+interface ExactlyCheckerOption<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
+    : CharSequenceContains.CheckerOption<T, S>
 
 /**
  * Represents the builder of a `contains exactly` check within the fluent API of a sophisticated
@@ -29,12 +29,12 @@ interface ExactlyCheckerBuilder<out T : CharSequence, out S : CharSequenceContai
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("ExactlyCheckerBuilder"))
-open class ExactlyCheckerBuilderImpl<out T : CharSequence, out S : SearchBehaviour>(
+open class ExactlyCheckerOptionImpl<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : ExactlyCheckerBuilderBase<T, S>(
+) : ExactlyCheckerOptionBase<T, S>(
     times,
     containsBuilder,
     nameContainsNotValuesFun(),
     { "${containsBuilder::genau.name}($it)" }
-), ExactlyCheckerBuilder<T, S>
+), ExactlyCheckerOption<T, S>

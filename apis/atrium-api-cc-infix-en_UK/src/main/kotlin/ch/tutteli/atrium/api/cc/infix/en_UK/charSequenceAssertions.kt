@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.ContainsNotCheckerBuilderImpl
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -33,8 +34,8 @@ fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contai
  *
  * @return The newly created builder.
  */
-infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): ContainsNotCheckerBuilderImpl<T, NotSearchBehaviour>
-    = ContainsNotCheckerBuilderImpl(AssertImpl.charSequence.containsNotBuilder(this))
+infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): NotCheckerOption<T, NotSearchBehaviour>
+    = NotCheckerOptionImpl(AssertImpl.charSequence.containsNotBuilder(this))
 
 @Deprecated("use the extension function `notTo`, will be removed with 1.0.0", ReplaceWith("plant notTo contain"))
 fun <T : CharSequence> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>

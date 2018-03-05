@@ -60,7 +60,7 @@ interface IterableContains {
 
 /**
  * Helper method to simplify adding assertions to the plant which itself is stored in
- * [CharSequenceContains.CheckerBuilder.containsBuilder].
+ * [CharSequenceContains.CheckerOption.containsBuilder].
  *
  * @return The plant to support a fluent API.
  */

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.NotCheckerBuilderImpl
+import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
@@ -32,9 +33,9 @@ fun <T : CharSequence> getIgnoringCase(builder: DeprecatedBuilder<T, NoOpSearchB
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> NotCheckerBuilderImpl<T, NotSearchBehaviour>.ignoringCase
-    get() : NotCheckerBuilderImpl<T, IgnoringCaseSearchBehaviour>
-    = NotCheckerBuilderImpl(containsBuilder.ignoringCase)
+val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoringCase
+    get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour>
+    = NotCheckerOptionImpl(containsBuilder.ignoringCase)
 
 @Deprecated("use the extension fun `ignoringCase` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoringCase"))
 fun <T : CharSequence> getIgnoringCase(builder: DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>)

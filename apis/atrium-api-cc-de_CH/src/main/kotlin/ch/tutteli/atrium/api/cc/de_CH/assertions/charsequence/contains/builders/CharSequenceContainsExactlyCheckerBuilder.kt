@@ -23,6 +23,6 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 open class CharSequenceContainsExactlyCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.ExactlyCheckerBuilderImpl<T, S>(
+) : ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.ExactlyCheckerOptionImpl<T, S>(
     times, containsBuilder
 ), CharSequenceContainsCheckerBuilder<T, S>

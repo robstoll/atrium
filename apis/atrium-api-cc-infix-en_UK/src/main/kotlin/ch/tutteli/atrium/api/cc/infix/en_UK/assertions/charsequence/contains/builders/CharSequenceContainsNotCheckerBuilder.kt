@@ -20,6 +20,6 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 )
 open class CharSequenceContainsNotCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     containsBuilder: CharSequenceContains.Builder<T, S>
-) : ch.tutteli.atrium.creating.charsequence.contains.builders.NotCheckerBuilderBase<T, S>(
+) : ch.tutteli.atrium.creating.charsequence.contains.builders.NotCheckerOptionBase<T, S>(
     containsBuilder
 ), CharSequenceContainsCheckerBuilder<T, S>
