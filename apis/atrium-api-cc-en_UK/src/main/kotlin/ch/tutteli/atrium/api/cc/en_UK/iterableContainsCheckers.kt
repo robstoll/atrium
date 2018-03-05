@@ -22,8 +22,8 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atLeast(times: Int): AtLeastCheckerBuilder<E, T, S>
-    = AtLeastCheckerBuilderImpl(times, this)
+fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atLeast(times: Int): AtLeastCheckerOption<E, T, S>
+    = AtLeastCheckerOptionImpl(times, this)
 
 @Deprecated("use the extension fun `atLeast` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.atLeast(times)"))
 fun <E, T : Iterable<E>> atLeast(builder:  DeprecatedBuilder<E, T, InAnyOrderSearchBehaviour>, times: Int): DeprecatedAtLeastCheckerBuilder<E, T>
@@ -45,8 +45,8 @@ fun <E, T : Iterable<E>> atLeast(builder:  DeprecatedBuilder<E, T, InAnyOrderSea
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
-fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerBuilder<E, T, S>.butAtMost(times: Int): ButAtMostCheckerBuilder<E, T, S>
-    = ButAtMostCheckerBuilderImpl(times, this, containsBuilder)
+fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T, S>.butAtMost(times: Int): ButAtMostCheckerOption<E, T, S>
+    = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
 @Deprecated("use the extension fun `butAtMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.butAtMost(times)"))
 fun <E, T : Iterable<E>> butAtMost(checkerBuilder: DeprecatedAtLeastCheckerBuilder<E, T>, times: Int): DeprecatedButAtMostCheckerBuilder<E, T>
@@ -64,8 +64,8 @@ fun <E, T : Iterable<E>> butAtMost(checkerBuilder: DeprecatedAtLeastCheckerBuild
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.exactly(times: Int): ExactlyCheckerBuilder<E, T, S>
-    = ExactlyCheckerBuilderImpl(times, this)
+fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.exactly(times: Int): ExactlyCheckerOption<E, T, S>
+    = ExactlyCheckerOptionImpl(times, this)
 
 @Deprecated("use the extension fun `exactly` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.exactly(times)"))
 fun <E, T : Iterable<E>> exactly(builder: DeprecatedBuilder<E, T, InAnyOrderSearchBehaviour>, times: Int): DeprecatedExactlyCheckerBuilder<E, T>
@@ -88,8 +88,8 @@ fun <E, T : Iterable<E>> exactly(builder: DeprecatedBuilder<E, T, InAnyOrderSear
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
-fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atMost(times: Int): AtMostCheckerBuilder<E, T, S>
-    = AtMostCheckerBuilderImpl(times, this)
+fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atMost(times: Int): AtMostCheckerOption<E, T, S>
+    = AtMostCheckerOptionImpl(times, this)
 
 @Deprecated("use the extension fun `atMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.atMost(times)"))
 fun <E, T : Iterable<E>> atMost(builder: DeprecatedBuilder<E, T, InAnyOrderSearchBehaviour>, times: Int): DeprecatedAtMostCheckerBuilder<E, T>
@@ -107,8 +107,8 @@ fun <E, T : Iterable<E>> atMost(builder: DeprecatedBuilder<E, T, InAnyOrderSearc
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
-fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerBuilder<E, T, S>
-    = NotOrAtMostCheckerBuilderImpl(times, this)
+fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerOption<E, T, S>
+    = NotOrAtMostCheckerOptionImpl(times, this)
 
 @Deprecated("use the extension fun `notOrAtMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.notOrAtMost(times)"))
 fun <E, T : Iterable<E>> notOrAtMost(builder: DeprecatedBuilder<E, T, InAnyOrderSearchBehaviour>, times: Int): DeprecatedNotOrAtMostCheckerBuilder<E, T>

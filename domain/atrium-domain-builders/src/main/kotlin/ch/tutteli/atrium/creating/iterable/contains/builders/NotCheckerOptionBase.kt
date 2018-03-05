@@ -14,9 +14,9 @@ import ch.tutteli.atrium.creating.iterable.contains.checkers.CheckerFactory
  * @constructor The base class for builders which create a `contains at least` check within the fluent API of a
  *   sophisticated `contains` assertion for [Iterable].
  */
-abstract class NotCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
+abstract class NotCheckerOptionBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(
     override val  containsBuilder: IterableContains.Builder<E, T, S>
-) : IterableContains.CheckerBuilder<E, T, S> {
+) : IterableContains.CheckerOption<E, T, S> {
 
     override val checkers = listOf(
         CheckerFactory.newNotChecker()

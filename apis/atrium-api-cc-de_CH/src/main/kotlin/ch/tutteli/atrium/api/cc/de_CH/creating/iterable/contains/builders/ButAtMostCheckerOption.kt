@@ -5,8 +5,8 @@ import ch.tutteli.atrium.api.cc.de_CH.genau
 import ch.tutteli.atrium.api.cc.de_CH.hoechstens
 import ch.tutteli.atrium.api.cc.de_CH.zumindest
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.builders.ButAtMostCheckerBuilderBase
-import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerBuilder
+import ch.tutteli.atrium.creating.iterable.contains.builders.ButAtMostCheckerOptionBase
+import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerOption
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
@@ -16,8 +16,8 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderS
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
-interface ButAtMostCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>
-    : WithTimesCheckerBuilder<E, T, S>
+interface ButAtMostCheckerOption<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>
+    : WithTimesCheckerOption<E, T, S>
 
 /**
  * Represents the builder of the second step of a `contains at least but at most` check within the
@@ -32,11 +32,11 @@ interface ButAtMostCheckerBuilder<out E, out T : Iterable<E>, out S : IterableCo
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
 @Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("ButAtMostCheckerBuilder"))
-open class ButAtMostCheckerBuilderImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
+open class ButAtMostCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     times: Int,
-    atLeastBuilder: AtLeastCheckerBuilder<E, T, S>,
+    atLeastBuilder: AtLeastCheckerOption<E, T, S>,
     containsBuilder: IterableContains.Builder<E, T, S>
-) : ButAtMostCheckerBuilderBase<E, T, S>(
+) : ButAtMostCheckerOptionBase<E, T, S>(
     times,
     atLeastBuilder,
     containsBuilder,
@@ -46,4 +46,4 @@ open class ButAtMostCheckerBuilderImpl<out E, out T : Iterable<E>, out S : InAny
     { "${containsBuilder::zumindest.name}($it)" },
     { "${atLeastBuilder::aberHoechstens.name}($it)" },
     { "${containsBuilder::genau.name}($it)" }
-), ButAtMostCheckerBuilder<E, T, S>
+), ButAtMostCheckerOption<E, T, S>

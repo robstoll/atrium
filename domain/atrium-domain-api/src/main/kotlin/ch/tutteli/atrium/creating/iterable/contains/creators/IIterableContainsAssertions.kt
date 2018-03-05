@@ -14,19 +14,19 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InOrderOnly
 interface IIterableContainsAssertions {
 
     fun <E, T : Iterable<E>> objectsInAnyOrder(
-        checkerBuilder: IterableContains.CheckerBuilder<E, T, InAnyOrderSearchBehaviour>,
+        checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
     ): Assertion
 
     fun <E : Any, T : Iterable<E>> entriesInAnyOrder(
-        checkerBuilder: IterableContains.CheckerBuilder<E, T, InAnyOrderSearchBehaviour>,
+        checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
         assertionCreator: AssertionPlant<E>.() -> Unit,
         otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
     ): Assertion
 
     fun <E : Any, T : Iterable<E?>> nullableEntriesInAnyOrder(
-        checkerBuilder: IterableContains.CheckerBuilder<E?, T, InAnyOrderSearchBehaviour>,
+        checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
         assertionCreator: (AssertionPlant<E>.() -> Unit)?,
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
     ): Assertion
