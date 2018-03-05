@@ -71,12 +71,12 @@ fun <T : CharSequence> _containsRegexIgnoringCase(
 ): AssertionGroup
     = createAssertionGroup(checkerBuilder, IgnoringCaseRegexSearcher(), expected, otherExpected)
 
-private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
+private fun <T : CharSequence, SC: Any, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
     checkerBuilder: CharSequenceContains.CheckerBuilder<T, S>,
     searcher: CharSequenceContains.Searcher<S>,
-    expected: Any,
-    otherExpected: Array<out Any>
+    expected: SC,
+    otherExpected: Array<out SC>
 ): AssertionGroup {
-    return CharSequenceContainsAssertionCreator<T, S>(checkerBuilder.containsBuilder.searchBehaviour, searcher, checkerBuilder.checkers)
+    return CharSequenceContainsAssertionCreator<T, SC, S>(checkerBuilder.containsBuilder.searchBehaviour, searcher, checkerBuilder.checkers)
         .createAssertionGroup(checkerBuilder.containsBuilder.plant, expected, otherExpected)
 }

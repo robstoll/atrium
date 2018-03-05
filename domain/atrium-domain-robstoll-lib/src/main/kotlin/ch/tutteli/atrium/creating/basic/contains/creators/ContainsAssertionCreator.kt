@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.creating.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
 import ch.tutteli.atrium.reporting.RawString
@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  *
  * @param T The type of the [AssertionPlant.subject].
- * @param S The type of the search criteria.
+ * @param SC The type of the search criteria.
  * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
  *
  * @property checkers The [Contains.Checker]s which shall be applied to the search result.
@@ -21,11 +21,11 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @constructor Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsAssertionCreator<in T : Any, in S, C : Contains.Checker>(
+abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>(
     private val checkers: List<C>
-) : Contains.Creator<T, S> {
+) : Contains.Creator<T, SC> {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
+    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: SC, otherSearchCriteria: Array<out SC>): AssertionGroup {
         val assertions = listOf(searchCriterion, *otherSearchCriteria).map { createForSearchCriterion(plant, it) }
         return createAssertionGroupForSearchCriteriaAssertions(assertions)
     }
@@ -40,7 +40,7 @@ abstract class ContainsAssertionCreator<in T : Any, in S, C : Contains.Checker>(
      */
     protected abstract fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
 
-    private fun createForSearchCriterion(plant: AssertionPlant<T>, searchCriterion: S): AssertionGroup {
+    private fun createForSearchCriterion(plant: AssertionPlant<T>, searchCriterion: SC): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             searchAndCreateAssertion(plant, searchCriterion, this::featureFactory)
         }
@@ -61,7 +61,7 @@ abstract class ContainsAssertionCreator<in T : Any, in S, C : Contains.Checker>(
      */
     protected abstract fun searchAndCreateAssertion(
         plant: AssertionPlant<T>,
-        searchCriterion: S,
+        searchCriterion: SC,
         featureFactory: (numberOfOccurrences: Int, description: Translatable) -> AssertionGroup
     ): AssertionGroup
 

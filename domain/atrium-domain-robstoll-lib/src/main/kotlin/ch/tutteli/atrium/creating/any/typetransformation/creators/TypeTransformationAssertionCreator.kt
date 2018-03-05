@@ -17,7 +17,7 @@ class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformati
         val (description, representation, subjectPlant, assertionCreator) = parameterObject
         val subject = subjectPlant.subject
         val assertionVerb =
-            Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at " + BUG_REPORT_URL)
+            Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at $BUG_REPORT_URL")
         if (subject != null && canBeTransformed(subject)) {
             val assertionChecker = CoreFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = CoreFactory.newReportingPlant(assertionVerb, transform(subject), assertionChecker)

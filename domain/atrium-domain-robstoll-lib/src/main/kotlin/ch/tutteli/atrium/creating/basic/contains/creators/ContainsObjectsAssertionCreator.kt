@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.creating.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.basic.contains.Contains
@@ -13,11 +13,11 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
  * with `==`).
  *
- * It provides a template to fulfill the job of creating the sophisticated `contains` assertion.
+ * It provides a template to fulfill the job of creating the sophisticated `contains` [Assertion].
  *
  * @param T The type of the [AssertionPlant.subject].
- * @param S The type of the search criteria.
- * @param B The type of the current [Contains.SearchBehaviour].
+ * @param SC The type of the search criteria.
+ * @param S The type of the current [Contains.SearchBehaviour].
  * @param C The type of the checkers in use (typically a sub interface of [Contains.Checker]).
  *
  * @property searchBehaviour The chosen search behaviour.
@@ -27,15 +27,15 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The chosen search behaviour.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-abstract class ContainsObjectsAssertionCreator<in T : Any, in S, B : Contains.SearchBehaviour, C : Contains.Checker>(
-    private val searchBehaviour: B,
+abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.SearchBehaviour, C : Contains.Checker>(
+    private val searchBehaviour: S,
     checkers: List<C>
-) : ContainsAssertionCreator<T, S, C>(checkers) {
+) : ContainsAssertionCreator<T, SC, C>(checkers) {
 
     final override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
         = AssertionBuilder.invisibleGroup.create(assertions)
 
-    final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: S, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
+    final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: SC, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val count = search(plant, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
         val description = searchBehaviour.decorateDescription(descriptionContains)
@@ -62,5 +62,5 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in S, B : Contains.Se
      *
      * @return The number of times the [searchCriterion] matched in the [plant]'s [subject][AssertionPlant.subject].
      */
-    protected abstract fun search(plant: AssertionPlant<T>, searchCriterion: S): Int
+    protected abstract fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
 }

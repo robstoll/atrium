@@ -13,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * in any order and is identified by expected objects (equality comparison).
  *
  * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
- * @param S The type of the elements of the iterable, used as search criterion.
+ * @param SC The type of the elements of the iterable, used as search criteria.
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries
  *   can appear in any order and are identified by expected objects (equality comparison).
@@ -21,15 +21,15 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
-class InAnyOrderObjectsAssertionCreator<S, in T : Iterable<S>>(
+class InAnyOrderObjectsAssertionCreator<SC, in T : Iterable<SC>>(
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
-) : ContainsObjectsAssertionCreator<T, S, InAnyOrderSearchBehaviour, IterableContains.Checker>(searchBehaviour, checkers),
-    IterableContains.Creator<T, S> {
+) : ContainsObjectsAssertionCreator<T, SC, InAnyOrderSearchBehaviour, IterableContains.Checker>(searchBehaviour, checkers),
+    IterableContains.Creator<T, SC> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
 
-    override fun search(plant: AssertionPlant<T>, searchCriterion: S): Int
+    override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
         = plant.subject.filter({ it == searchCriterion }).size
 }
