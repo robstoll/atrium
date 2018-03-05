@@ -38,8 +38,8 @@ junitPlatform {
 // adopted from http://stackoverflow.com/questions/39362955/gradle-jacoco-and-junit5
 afterEvaluate {
     def junitPlatformTestTask = project.tasks.getByName('junitPlatformTest')
-    def reportIndex = junitPlatformTestTask.args.findIndexOf { it=='--reports-dir' }
-    def keep = (0..(junitPlatformTestTask.args.size()-1)) - [reportIndex, reportIndex + 1]
+    def reportIndex = junitPlatformTestTask.args.findIndexOf { it == '--reports-dir' }
+    def keep = (0..(junitPlatformTestTask.args.size() - 1)) - [reportIndex, reportIndex + 1]
     junitPlatformTestTask.args = junitPlatformTestTask.args[keep]
 
     jacoco {
@@ -47,18 +47,25 @@ afterEvaluate {
         applyTo junitPlatformTestTask
     }
 
-    project.task(type: JacocoReport, 'junitPlatformJacocoReport',
-        {
-            sourceDirectories = sourceSets.main.allJava.sourceDirectories
-            classDirectories = files(sourceSets.main.output.classesDirs)
-            executionData junitPlatformTestTask
-            reports {
-                csv.enabled = false
-                xml.enabled = true
-                xml.destination file("${buildDir}/reports/jacoco/report.xml")
-                html.enabled = false
-                html.destination file("${buildDir}/reports/jacoco/html/")
+    def report = project.task('junitPlatformJacocoReport', type: JacocoReport) {
+        sourceDirectories = sourceSets.main.allJava.sourceDirectories
+        classDirectories = files(sourceSets.main.output.classesDirs)
+
+        if (project.hasProperty('jacoco_additional')) {
+            project.jacoco_additional.each {
+                sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
+                classDirectories += it.sourceSets.main.output.classesDirs
             }
-        })
-    check.dependsOn junitPlatformJacocoReport
+        }
+
+        executionData junitPlatformTestTask
+        reports {
+            xml.enabled = true
+            xml.destination file("${buildDir}/reports/jacoco/report.xml")
+            html.enabled = true
+            html.destination file("${buildDir}/reports/jacoco/html/")
+            csv.enabled = false
+        }
+    }
+    check.dependsOn report
 }

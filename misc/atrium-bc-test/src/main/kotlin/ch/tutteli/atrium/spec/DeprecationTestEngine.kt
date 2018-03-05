@@ -29,7 +29,7 @@ class DeprecationTestEngine : TestEngine {
 
     override fun discover(discoveryRequest: EngineDiscoveryRequest, uniqueId: UniqueId): TestDescriptor {
         return try {
-            val descriptor = spek.discover(discoveryRequest, uniqueId) as SpekEngineDescriptor
+            val descriptor = spek.discover(discoveryRequest, uniqueId)
             val forgive = discoveryRequest.configurationParameters.get("forgive").orElse(null)
             if (forgive != null) {
                 exchangeWithForgivingTests(descriptor, Regex(forgive))
@@ -39,8 +39,8 @@ class DeprecationTestEngine : TestEngine {
             }
             descriptor
         } catch (t: Throwable) {
-            //since the junit gradle platform does not treat an error during discovery as failure, we have return a
-            // fake descriptor which fails
+            //since the junit gradle platform does not treat an error during discovery as failure,
+            // we have to return a fake descriptor which fails
             // TODO check if this changes with https://github.com/junit-team/junit5/issues/1298
             SpekEngineDescriptor(uniqueId).apply {
                 addChild(DiscoveryFailed(uniqueId, t))

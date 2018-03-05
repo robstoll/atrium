@@ -1,6 +1,8 @@
 buildscript {
     ext.publish_description = 'An API in en_UK with a focus on code completion and infix functions, ' +
         'meaning it provides a fluent API in en_UK which is designed to ease the usage of code completion'
+
+    ext.jacoco_additional = projectPrefixed('translations-en_UK')
 }
 
 dependencies {
