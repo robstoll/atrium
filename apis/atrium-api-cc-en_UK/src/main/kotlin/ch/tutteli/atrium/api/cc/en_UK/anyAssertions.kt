@@ -67,6 +67,18 @@ fun <T : Any?> AssertionPlantNullable<T>.isNull() {
 }
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] is `null`.
+ *
+ * @param null has to be `null`.
+ *
+ * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?)
+    = isNull()
+
+/**
  * Can be used to separate assertions when using the fluent API.
  *
  * For instance `assert(1).isLessThan(2).and.isGreaterThan(0)` creates
