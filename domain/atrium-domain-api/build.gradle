@@ -3,11 +3,11 @@ buildscript {
 }
 
 dependencies {
-    compile projectPrefixed('core-api')
+    compile prefixedProject('core-api')
 
     //TODO remove with 1.0.0
     // it is up to the consumer of atrium-assertions which atrium-translations module is used at runtime
-    compileOnly projectPrefixed('translations-en_UK')
+    compileOnly prefixedProject('translations-en_UK')
 }
 
 dokka {

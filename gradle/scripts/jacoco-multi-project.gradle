@@ -5,7 +5,7 @@ jacoco {
     toolVersion = "$jacoco_tool_version"
 }
 
-def bcTest = projectPrefixed('bc-test')
+def bcTest = prefixedProject('bc-test')
 def jacocoProjects = (jacocoMulti.jacocoProjects + bcTest)
 def jacocoSourceProjects = (jacocoMulti.sourceProjects + bcTest)
 

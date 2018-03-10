@@ -6,16 +6,16 @@ buildscript {
 }
 
 dependencies {
-    compile projectPrefixed('domain-builders')
-    compileOnly projectPrefixed('domain-api-late-binding')
-    compileOnly projectPrefixed('core-api-late-binding')
+    compile prefixedProject('domain-builders')
+    compileOnly prefixedProject('domain-api-late-binding')
+    compileOnly prefixedProject('core-api-late-binding')
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
-    compileOnly projectPrefixed('translations-en_UK')
+    compileOnly prefixedProject('translations-en_UK')
 
-    testCompile projectPrefixed('domain-robstoll')
-    testCompile projectPrefixed('core-robstoll')
-    testCompile projectPrefixed('api-cc-en_UK')
-    testCompile projectPrefixed('spec')
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
+    testCompile prefixedProject('api-cc-en_UK')
+    testCompile prefixedProject('spec')
 }
 
 dokka {

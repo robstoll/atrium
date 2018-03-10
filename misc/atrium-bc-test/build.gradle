@@ -66,8 +66,8 @@ def createBcTasks(String apiName, String version, String forgive) {
         add(confCommon, "ch.tutteli:atrium-spec:$version") {
             exclude group: '*'
         }
-        add(confCommon, projectPrefixed("api-cc-en_UK")) //required for atrium-spec
-        add(confCommon, projectPrefixed("$apiName-robstoll"))
+        add(confCommon, prefixedProject("api-cc-en_UK")) //required for atrium-spec
+        add(confCommon, prefixedProject("$apiName-robstoll"))
         add(confCommon, sourceSets.main.runtimeClasspath)
 
         owner."${srcName}Compile" configurations[confCommon].dependencies

@@ -3,12 +3,12 @@ buildscript {
 }
 
 dependencies {
-    compile projectPrefixed('domain-builders')
-    compileOnly projectPrefixed('domain-api-late-binding')
-    compile projectPrefixed('core-api')
-    compileOnly projectPrefixed('core-api-late-binding')
+    compile prefixedProject('domain-builders')
+    compileOnly prefixedProject('domain-api-late-binding')
+    compile prefixedProject('core-api')
+    compileOnly prefixedProject('core-api-late-binding')
 
-    testCompile projectPrefixed('spec')
-    testCompile projectPrefixed('domain-robstoll')
-    testCompile projectPrefixed('core-robstoll')
+    testCompile prefixedProject('spec')
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
 }

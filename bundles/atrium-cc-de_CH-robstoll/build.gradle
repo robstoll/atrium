@@ -3,12 +3,12 @@ buildscript {
 }
 
 dependencies {
-    compile projectPrefixed('api-cc-de_CH')
-    compile projectPrefixed('translations-de_CH')
-    compile projectPrefixed('domain-robstoll')
-    compile projectPrefixed('core-robstoll')
+    compile prefixedProject('api-cc-de_CH')
+    compile prefixedProject('translations-de_CH')
+    compile prefixedProject('domain-robstoll')
+    compile prefixedProject('core-robstoll')
     //TODO remove with 1.0.0
-    compile projectPrefixed('assertions')
+    compile prefixedProject('assertions')
 
-    testCompile projectPrefixed('verbs')
+    testCompile prefixedProject('verbs')
 }

@@ -19,7 +19,7 @@ dependencies {
     testCompile("org.jetbrains.spek:spek-api:$spek_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
-    testRuntime("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
+    testRuntimeOnly("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
         exclude group: 'org.junit.platform'
         exclude group: 'org.jetbrains.kotlin'
     }

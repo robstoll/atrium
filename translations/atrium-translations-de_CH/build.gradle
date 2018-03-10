@@ -3,5 +3,5 @@ buildscript {
 }
 
 dependencies {
-    compile projectPrefixed('core-api')
+    compile prefixedProject('core-api')
 }
