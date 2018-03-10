@@ -3,8 +3,8 @@ buildscript {
 }
 
 dependencies {
-    compile projectPrefixed('domain-api')
-    compile projectPrefixed('domain-robstoll-lib')
+    compile prefixedProject('domain-api')
+    compile prefixedProject('domain-robstoll-lib')
 }
 
 dokka {

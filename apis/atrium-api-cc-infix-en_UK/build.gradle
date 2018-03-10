@@ -2,14 +2,14 @@ buildscript {
     ext.publish_description = 'An API in en_UK with a focus on code completion and infix functions, ' +
         'meaning it provides a fluent API in en_UK which is designed to ease the usage of code completion'
 
-    ext.jacoco_additional = projectPrefixed('translations-en_UK')
+    ext.jacoco_additional = prefixedProject('translations-en_UK')
 }
 
 dependencies {
-    compile projectPrefixed('domain-builders')
-    compileOnly projectPrefixed('domain-api-late-binding')
+    compile prefixedProject('domain-builders')
+    compileOnly prefixedProject('domain-api-late-binding')
 
-    testCompile projectPrefixed('domain-robstoll')
-    testCompile projectPrefixed('core-robstoll')
-    testCompile projectPrefixed('spec')
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
+    testCompile prefixedProject('spec')
 }

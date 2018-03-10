@@ -3,9 +3,9 @@ buildscript {
 }
 
 dependencies {
-    compile projectPrefixed('domain-api')
-    compileOnly projectPrefixed('domain-api-late-binding')
-    compileOnly projectPrefixed('core-api-late-binding')
+    compile prefixedProject('domain-api')
+    compileOnly prefixedProject('domain-api-late-binding')
+    compileOnly prefixedProject('core-api-late-binding')
 }
 
 dokka {

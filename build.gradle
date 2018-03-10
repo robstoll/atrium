@@ -20,9 +20,7 @@ buildscript {
         github_url = "https://github.com/robstoll/${project.name}"
         publish_vcsUrl = "${github_url}.git"
 
-        projectPrefixed = { String name -> project(":${rootProject.name}-$name") }
         srcKotlin = 'src/main/kotlin'
-        srcOwnModule = { String name -> "${rootProject.projectDir}/${rootProject.name}-$name/${ext.srcKotlin}" }
 
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") }
@@ -62,12 +60,18 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
+        classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
     }
 }
+
+apply plugin: "ch.tutteli.project.utils"
+
+project.ext.srcOwnModule = { String name -> "${project.prefixedProject(name).projectDir}/${ext.srcKotlin}" }
 
 repositories {
     mavenCentral()
@@ -153,6 +157,8 @@ subprojects {
 }
 
 configure(jacocoMulti.jacocoProjects) {
+
+
     apply from: "${rootProject.projectDir}/gradle/scripts/spek.gradle"
 
     dependencies {

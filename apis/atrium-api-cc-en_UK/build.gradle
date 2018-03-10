@@ -4,14 +4,14 @@ buildscript {
         'in other words, the developer should be able to: ' +
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
-    ext.jacoco_additional = projectPrefixed('translations-en_UK')
+    ext.jacoco_additional = prefixedProject('translations-en_UK')
 }
 
 dependencies {
-    compile projectPrefixed('domain-builders')
-    compileOnly projectPrefixed('domain-api-late-binding')
+    compile prefixedProject('domain-builders')
+    compileOnly prefixedProject('domain-api-late-binding')
 
-    testCompile projectPrefixed('domain-robstoll')
-    testCompile projectPrefixed('core-robstoll')
-    testCompile projectPrefixed('spec')
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
+    testCompile prefixedProject('spec')
 }

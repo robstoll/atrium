@@ -3,8 +3,8 @@ buildscript {
 }
 
 dependencies {
-    compile projectPrefixed('core-api')
-    compile projectPrefixed('core-robstoll-lib')
+    compile prefixedProject('core-api')
+    compile prefixedProject('core-robstoll-lib')
 }
 
 dokka {

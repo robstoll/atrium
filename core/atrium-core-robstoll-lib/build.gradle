@@ -9,13 +9,13 @@ dependencies {
     compile("ch.tutteli:kbox:$kbox_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
-    compile projectPrefixed('core-api')
-    compileOnly projectPrefixed('core-api-late-binding')
+    compile prefixedProject('core-api')
+    compileOnly prefixedProject('core-api-late-binding')
 
-    testCompile projectPrefixed('domain-robstoll')
-    testCompile projectPrefixed('core-robstoll')
-    testCompile projectPrefixed('api-cc-en_UK')
-    testCompile projectPrefixed('spec')
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
+    testCompile prefixedProject('api-cc-en_UK')
+    testCompile prefixedProject('spec')
 }
 
 dokka {
