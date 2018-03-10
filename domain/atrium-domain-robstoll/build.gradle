@@ -6,11 +6,3 @@ dependencies {
     compile prefixedProject('domain-api')
     compile prefixedProject('domain-robstoll-lib')
 }
-
-dokka {
-    sourceDirs = files(
-        srcKotlin,
-        srcOwnModule('domain-api'),
-        srcOwnModule('core-api'),
-    )
-}

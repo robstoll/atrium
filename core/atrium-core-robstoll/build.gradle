@@ -6,7 +6,3 @@ dependencies {
     compile prefixedProject('core-api')
     compile prefixedProject('core-robstoll-lib')
 }
-
-dokka {
-    sourceDirs = files(srcKotlin, srcOwnModule('core-api'))
-}

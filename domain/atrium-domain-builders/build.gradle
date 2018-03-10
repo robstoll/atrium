@@ -7,13 +7,3 @@ dependencies {
     compileOnly prefixedProject('domain-api-late-binding')
     compileOnly prefixedProject('core-api-late-binding')
 }
-
-dokka {
-    sourceDirs = files(
-        srcKotlin,
-        srcOwnModule('domain-api'),
-        srcOwnModule('domain-api-late-binding'),
-        srcOwnModule('core-api'),
-        srcOwnModule('core-api-late-binding'),
-    )
-}

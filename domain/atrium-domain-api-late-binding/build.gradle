@@ -7,11 +7,3 @@ buildscript {
 dependencies {
     compile prefixedProject('domain-api')
 }
-
-dokka {
-    sourceDirs = files(
-        srcKotlin,
-        srcOwnModule('domain-api'),
-        srcOwnModule('core-api'),
-    )
-}

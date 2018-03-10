@@ -1,11 +1,17 @@
 import com.jfrog.bintray.gradle.BintrayPlugin
 
+buildscript {
+    ext {
+        publish_version = project.version
+        publish_groupId = project.group
+        publish_artifactId = project.name
+    }
+}
+
 logger.info("setting up publish for $project, $publish_groupId:$publish_artifactId:$publish_version")
 logger.info("publish_description: $publish_description")
 logger.info("publish_artifacts: $publish_artifacts\n")
 
-group = publish_groupId
-version = publish_version
 description = publish_description
 
 buildscript {
@@ -20,7 +26,6 @@ buildscript {
 
         publish_repo = findProperty('publish_repo') ?: 'tutteli-jars'
         publish_pkg_name = findProperty('publish_pkg_name') ?: publish_artifactId
-        publish_groupId = findProperty('publish_groupId') ?: 'ch.tutteli'
         publish_manifest_includeTime = findProperty('publish_manifest_includeTime')
     }
 
