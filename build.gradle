@@ -63,9 +63,9 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version"
     }
 }
 
@@ -158,8 +158,7 @@ subprojects {
 
 configure(jacocoMulti.jacocoProjects) {
 
-
-    apply from: "${rootProject.projectDir}/gradle/scripts/spek.gradle"
+    apply plugin: 'ch.tutteli.spek'
 
     dependencies {
         testCompile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
