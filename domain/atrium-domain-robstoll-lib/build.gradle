@@ -17,13 +17,3 @@ dependencies {
     testCompile prefixedProject('api-cc-en_UK')
     testCompile prefixedProject('spec')
 }
-
-dokka {
-    sourceDirs = files(
-        srcKotlin,
-        srcOwnModule('domain-api'),
-        srcOwnModule('domain-robstoll'),
-        srcOwnModule('core-api'),
-        srcOwnModule('core-api-late-binding'),
-    )
-}
