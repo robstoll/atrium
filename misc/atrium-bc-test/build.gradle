@@ -43,9 +43,9 @@ def createBcTasks(String apiName, String version, String forgive) {
 
     sourceSets {
         create(srcName) {
-            java.srcDirs = []
+            java.srcDirs = [] // we don't have java sources
             kotlin.srcDirs = [srcDirectory]
-            resources.srcDirs = []
+            resources.srcDirs = [] //we don't have resources
         }
     }
 
@@ -102,7 +102,7 @@ def createBcTasks(String apiName, String version, String forgive) {
 
         outputs.dir srcDirectory
         doLast {
-            configurations[testJarSources].asPath.split(",").each {
+            configurations[testJarSources].each {
                 def jar = it
                 copy {
                     from zipTree(jar)
