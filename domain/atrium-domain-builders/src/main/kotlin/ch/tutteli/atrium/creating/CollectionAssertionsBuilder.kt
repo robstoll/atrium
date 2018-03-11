@@ -1,13 +1,13 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.creating
 
-object CollectionAssertionsBuilder : ICollectionAssertions {
+object CollectionAssertionsBuilder : CollectionAssertions {
     override inline fun <T : Collection<*>> hasSize(plant: AssertionPlant<T>, size: Int)
-        = CollectionAssertions.hasSize(plant, size)
+        = collectionAssertions.hasSize(plant, size)
 
     override inline fun <T : Collection<*>> isEmpty(plant: AssertionPlant<T>)
-        = CollectionAssertions.isEmpty(plant)
+        = collectionAssertions.isEmpty(plant)
 
     override inline fun <T : Collection<*>> isNotEmpty(plant: AssertionPlant<T>)
-        = CollectionAssertions.isNotEmpty(plant)
+        = collectionAssertions.isNotEmpty(plant)
 }

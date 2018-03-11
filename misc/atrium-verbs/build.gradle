@@ -2,7 +2,6 @@ description = 'Assertion verbs for Atrium -- an assertion framework for Kotlin.'
 
 dependencies {
     compile prefixedProject('domain-builders')
-    compileOnly prefixedProject('domain-api-late-binding')
     compile prefixedProject('core-api')
 
     testCompile prefixedProject('spec')
