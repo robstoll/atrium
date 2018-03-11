@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'Checks that specs from an older version of Atrium can still be run with the components of the current version.'
-}
+description = 'Checks that specs from older versions of Atrium can still be run with the components of the current version.'
 
 //Enable if you need to check the task tree
 //plugins {

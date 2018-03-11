@@ -1,7 +1,5 @@
-buildscript {
-    ext.publish_description = 'Provides specifications of Atrium -- an assertion framework for Kotlin -- which can' +
+description = 'Provides specifications of Atrium -- an assertion framework for Kotlin -- which can' +
         ' be reused by implementations of Atrium, to verify that they fulfill the specification.'
-}
 
 dependencies {
     compile("ch.tutteli:kbox:$kbox_version") {

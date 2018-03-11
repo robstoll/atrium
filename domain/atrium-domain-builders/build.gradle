@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs.'
-}
+description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs.'
 
 dependencies {
     compile prefixedProject('domain-api')

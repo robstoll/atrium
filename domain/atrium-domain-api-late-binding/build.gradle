@@ -1,8 +1,6 @@
-buildscript {
-    ext.publish_description = 'The part of the API of the domain of Atrium for which late binding will apply. ' +
+description = 'The part of the API of the domain of Atrium for which late binding will apply. ' +
         'This module contains API which actually needs to be replaced by an implementation. ' +
         'Hence, this API should be a compileOnly dependency in your project.'
-}
 
 dependencies {
     compile prefixedProject('domain-api')

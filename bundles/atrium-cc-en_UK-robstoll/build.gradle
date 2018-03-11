@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'Represents a convenience module which merely bundles dependencies'
-}
+description = 'Represents a convenience module which merely bundles dependencies'
 
 dependencies {
     compile prefixedProject('api-cc-en_UK')

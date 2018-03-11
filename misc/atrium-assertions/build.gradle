@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'A deprecated module, you should not longer rely on it, will be removed with 1.0.0\nLook at the suggested replacements'
-}
+description = 'A deprecated module, you should not longer rely on it, will be removed with 1.0.0\nLook at the suggested replacements'
 
 dependencies {
     compile prefixedProject('domain-api')
