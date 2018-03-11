@@ -169,13 +169,8 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 
 Release & deploy a commit
 --------------------------------
-1. change atrium_version in build.gradle to X.Y.Z
-2. update github pages:
-    a) gr ghPages
-    b) change version number in atrium-gh-pages/latest/index.html
-    c) add new version to atrium-gh-pages/README.md
-    d) commit & push changes
-3. update master:
+1. change rootProject.version in build.gradle to X.Y.Z
+2. update master:
     a) point to the tag
         1) search for old version and replace with new (gradle, maven and section own assertion verb in README.md)
         2) search for `branch=master` and replace it with `tag=vX.Y.Z` (build status and coverage in README.md)
@@ -183,17 +178,23 @@ Release & deploy a commit
         4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
         5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
     b) Update REAMDE -> Use own Assertion Verbs -> link to atriumVerbs if it changed
-    b) commit (modified build.gradle, README.md and differences.md)
-    c) git tag vX.Y.Z
-    d) git push origin vX.Y.Z
+    c) commit & push (modified build.gradle, README.md and differences.md)
+3. update github pages:
+    a) gr ghPages
+    b) change version number in atrium-gh-pages/latest/index.html
+    c) add new version to atrium-gh-pages/README.md
+    d) commit & push changes
 4. deploy to bintray:
     a) gr bintrayUpload
     b) Log in to bintray, check and publish new jars
 5. create release on github
+    a) git tag vX.Y.Z
+    b) git push origin vX.Y.Z
+    c) Log in to github and create release
 
 Prepare next dev cycle
 -----------------------
-1. change atrium_version in build.gradle to X.Y.Z-SNAPSHOT
+1. change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
 2. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
    b) search for `tree/vX.Y.Z` and replace it with `tree/master`
