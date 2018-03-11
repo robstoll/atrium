@@ -5,19 +5,21 @@ buildscript {
         publish_version = project.version
         publish_groupId = project.group
         publish_artifactId = project.name
+        if (project.description == null || project.description.empty) {
+            throw new IllegalStateException("no description defined for project $project.name")
+        }
+        publish_description = project.description
     }
 }
 
-logger.info("setting up publish for $project, $publish_groupId:$publish_artifactId:$publish_version")
+logger.info("setting up bintray publishing for $project, $publish_groupId:$publish_artifactId:$publish_version")
 logger.info("publish_description: $publish_description")
 logger.info("publish_artifacts: $publish_artifacts\n")
 
-description = publish_description
-
 buildscript {
-    ext{
+    ext {
         publish_license_name = findProperty('publish_license_name') ?: 'Apache-2.0'
-        publish_license_description =  findProperty('publish_license_description') ?: 'The Apache Software License, Version 2.0'
+        publish_license_description = findProperty('publish_license_description') ?: 'The Apache Software License, Version 2.0'
         publish_license_url = findProperty('publish_license_url') ?: 'http://www.apache.org/licenses/LICENSE-2.0.txt'
         publish_license_distribution = findProperty('publish_license_distribution') ?: 'repo'
 
@@ -67,7 +69,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-            publish_artifacts.each{
+            publish_artifacts.each {
                 artifact it
             }
             groupId publish_groupId
@@ -95,7 +97,7 @@ bintray {
         version {
             name = publish_version
             desc = "$publish_pkg_name $publish_version"
-            released  = new Date()
+            released = new Date()
             vcsTag = "v$publish_version"
             gpg {
                 sign = true

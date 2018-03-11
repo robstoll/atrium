@@ -1,9 +1,7 @@
-buildscript {
-    ext.publish_description = 'contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation' +
+description = 'contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation' +
         'of Atrium -- an assertion library for Kotlin. You should only depend on this module if you are ' +
         'providing an implementation as well and want to reuse certain artifacts. If you are a consumer of ' +
         'Atrium, then you should depend on atrium-core-robstoll instead.'
-}
 
 dependencies {
     compile("ch.tutteli:kbox:$kbox_version") {

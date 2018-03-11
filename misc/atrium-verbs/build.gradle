@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'Assertion verbs for Atrium -- an assertion framework for Kotlin.'
-}
+description = 'Assertion verbs for Atrium -- an assertion framework for Kotlin.'
 
 dependencies {
     compile prefixedProject('domain-builders')

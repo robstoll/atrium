@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'API of the domain of Atrium.'
-}
+description = 'API of the domain of Atrium.'
 
 dependencies {
     compile prefixedProject('core-api')

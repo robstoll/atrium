@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'Contains translations for Atrium in en_UK.'
-}
+description = 'Contains translations for Atrium in en_UK.'
 
 dependencies {
     compile prefixedProject('core-api')

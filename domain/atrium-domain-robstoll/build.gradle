@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain (assertion functions and builders) of Atrium'
-}
+description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain (assertion functions and builders) of Atrium'
 
 dependencies {
     compile prefixedProject('domain-api')

@@ -1,7 +1,1 @@
-buildscript {
-    ext.publish_description = 'API of the core of Atrium.'
-}
-
-dokka {
-    sourceDirs = files(srcKotlin)
-}
+description = 'API of the core of Atrium.'

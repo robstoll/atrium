@@ -1,6 +1,4 @@
-buildscript {
-    ext.publish_description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the core of Atrium.'
-}
+description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the core of Atrium.'
 
 dependencies {
     compile prefixedProject('core-api')
