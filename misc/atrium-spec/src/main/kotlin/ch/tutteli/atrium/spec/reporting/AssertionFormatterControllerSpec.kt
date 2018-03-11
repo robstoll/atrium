@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
@@ -41,9 +41,9 @@ abstract class AssertionFormatterControllerSpec(
     val indentArrow = " ".repeat(arrow.length + 1)
     val indentBulletPoint = " ".repeat(bulletPoint.length + 1)
 
-    testee.register(CoreFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints, testee))
-    testee.register(CoreFactory.newTextListAssertionGroupFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
-    testee.register(CoreFactory.newTextFallbackAssertionFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
+    testee.register(coreFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints, testee))
+    testee.register(coreFactory.newTextListAssertionGroupFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
+    testee.register(coreFactory.newTextFallbackAssertionFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
 
     val assertion = AssertionBuilder.descriptive.create(IS_GREATER_OR_EQUALS, 1, true)
     val failingAssertion = AssertionBuilder.descriptive.create(IS_LESS_OR_EQUALS, 2, false)

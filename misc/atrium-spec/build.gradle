@@ -8,7 +8,6 @@ dependencies {
     compile prefixedProject('domain-api')
     compileOnly prefixedProject('domain-api-late-binding')
     compile prefixedProject('core-api')
-    compileOnly prefixedProject('core-api-late-binding')
     compileOnly prefixedProject('api-cc-en_UK') // for us
     runtimeOnly prefixedProject('api-cc-en_UK') // for depending modules
     compile prefixedProject('translations-en_UK')
