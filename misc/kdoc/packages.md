@@ -38,9 +38,9 @@ Domain modules:
 
 Core modules:
 - **atrium-core-api** defines the contracts of the core of Atrium.
-- **atrium-core-api-late-binding** defines the contract for 
-  [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
-  by providing a dummy implementation which eventually needs to be replaced by a real implementation. 
+- **atrium-core-api-late-binding** is a deprecated module providing the deprecated
+  [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
+  -- use [coreFactory](./ch.tutteli.atrium/coreFactory.html) instead.
 - **atrium-core-robstoll** provides a [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
   which uses the implementations of *atrium-core-robstoll-lib*
 - **atrium-core-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the core of Atrium.

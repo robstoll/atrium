@@ -3,5 +3,4 @@ description = 'Contains base classes for sophisticated assertion builders which 
 dependencies {
     compile prefixedProject('domain-api')
     compileOnly prefixedProject('domain-api-late-binding')
-    compileOnly prefixedProject('core-api-late-binding')
 }

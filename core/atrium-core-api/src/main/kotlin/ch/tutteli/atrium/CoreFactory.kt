@@ -11,6 +11,28 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
 /**
+ * The access point to an implementation of [CoreFactory].
+ *
+ * It loads the implementation lazily via [ServiceLoader].
+ */
+val coreFactory: CoreFactory by lazy {
+    val itr = ServiceLoader.load(CoreFactory::class.java).iterator()
+    check(itr.hasNext()) {
+        "Could not find an implementation for ${CoreFactory::class.java.name}"
+    }
+    val factory = itr.next()
+    check(!itr.hasNext()) {
+        val sb = StringBuilder()
+        itr.forEachRemaining {
+            sb.appendln()
+            sb.append(it::class.java.name)
+        }
+        "Currently we do not support multiple implementations of ${CoreFactory::class.java.name}, but found:\n${factory::class.java.name}$sb"
+    }
+    factory
+}
+
+/**
  * The minimum contract of the 'abstract factory' of atrium.
  *
  * It provides factory methods to create:
@@ -30,7 +52,7 @@ import java.util.*
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
-interface ICoreFactory {
+interface CoreFactory {
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -83,7 +105,7 @@ interface ICoreFactory {
      * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
      * the configured [Reporter]) reported as a whole.
      *
-     * It creates a [ICoreFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     * It creates a [CoreFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
@@ -400,3 +422,4 @@ interface ICoreFactory {
      */
     fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
 }
+

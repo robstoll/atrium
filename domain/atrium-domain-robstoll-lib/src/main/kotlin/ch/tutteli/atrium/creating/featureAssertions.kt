@@ -1,21 +1,21 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.CoreFactory
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.*
 
 fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlant<TProperty>
-    = CoreFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(property))
+    = coreFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(property))
 
 fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, property: KProperty0<TProperty>, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
     = _property(plant, property).addAssertionsCreatedBy(assertionCreator)
 
 fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
-    = CoreFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(property))
+    = coreFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(property))
 
 private fun <T : Any, TFeature : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(feature: KProperty0<TFeature>)
-    = AssertionPlantWithCommonFields.CommonFields(Untranslatable(feature.name), feature.get(), CoreFactory.newFeatureAssertionChecker(this), RawString.NULL)
+    = AssertionPlantWithCommonFields.CommonFields(Untranslatable(feature.name), feature.get(), coreFactory.newFeatureAssertionChecker(this), RawString.NULL)
 
 
 //Arg0
@@ -139,14 +139,14 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
 
 
 private fun <T : Any, TReturnValue : Any> AssertionPlant<T>.createPlantForMethod(name: String, value: TReturnValue, vararg arguments: Any?)
-    = CoreFactory.newReportingPlant(createCommonFieldsForFeatureFactory(name, value, arguments))
+    = coreFactory.newReportingPlant(createCommonFieldsForFeatureFactory(name, value, arguments))
 
 private fun <T : Any, TReturnValue : Any?> AssertionPlant<T>.createPlantForMethod(name: String, value: TReturnValue, vararg arguments: Any?)
-    = CoreFactory.newReportingPlantNullable(createCommonFieldsForFeatureFactory(name, value, arguments))
+    = coreFactory.newReportingPlantNullable(createCommonFieldsForFeatureFactory(name, value, arguments))
 
 private fun <T : Any, TReturnValue : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(name: String, value: TReturnValue, arguments: Array<out Any?>) =
     AssertionPlantWithCommonFields.CommonFields(
-        Untranslatable(CoreFactory.newMethodCallFormatter().format(name, arguments)),
+        Untranslatable(coreFactory.newMethodCallFormatter().format(name, arguments)),
         value,
-        CoreFactory.newFeatureAssertionChecker(this),
+        coreFactory.newFeatureAssertionChecker(this),
         RawString.NULL)

@@ -8,7 +8,6 @@ dependencies {
         exclude group: 'org.jetbrains.kotlin'
     }
     compile prefixedProject('core-api')
-    compileOnly prefixedProject('core-api-late-binding')
 
     testCompile prefixedProject('domain-robstoll')
     testCompile prefixedProject('core-robstoll')

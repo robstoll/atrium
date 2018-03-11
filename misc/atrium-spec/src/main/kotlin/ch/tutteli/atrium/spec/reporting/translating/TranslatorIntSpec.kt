@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -109,7 +109,7 @@ abstract class TranslatorIntSpec(
 
     val reporterDeCh = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
     fun <T : Any> assertWithDeCh(subject: T)
-        = CoreFactory.newReportingPlant(AssertionVerb.ASSERT, subject, reporterDeCh)
+        = coreFactory.newReportingPlant(AssertionVerb.ASSERT, subject, reporterDeCh)
 
     val descriptionAnyAssertion = DescriptionAnyAssertion::class.simpleName
     val testTranslatable = TestTranslatable::class.simpleName
@@ -212,7 +212,7 @@ abstract class TranslatorIntSpec(
         countries.forEach { country ->
             val locale = Locale.Builder().setLanguage("zh").setRegion(country).build()
             val reporter = reporterFactory(locale, arrayOf())
-            val assert = CoreFactory.newReportingPlant(AssertionVerb.ASSERT, 1, reporter)
+            val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, 1, reporter)
 
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {
                 if (withSpecialCases) {

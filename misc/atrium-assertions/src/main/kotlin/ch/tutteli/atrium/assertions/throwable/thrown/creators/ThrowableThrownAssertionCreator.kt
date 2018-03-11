@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.assertions.throwable.thrown.creators
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.assertions.any.typetransformation.DownCaster
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -53,7 +53,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     }
 
     private fun createReportingPlantForThrowable(throwableThrownBuilder: ThrowableThrownBuilder, throwable: Throwable?): ReportingAssertionPlantNullable<Throwable?> {
-        return CoreFactory.newReportingPlantNullable(
+        return coreFactory.newReportingPlantNullable(
             throwableThrownBuilder.assertionVerb,
             throwable,
             throwableThrownBuilder.reporter,

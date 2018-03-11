@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.ICoreFactory
+import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.Reporter
 
@@ -21,7 +21,7 @@ interface SummaryAssertionGroupType : DoNotFilterAssertionGroupType
  * Represents the identifier for bullet points used to prefix [Assertion]s which hold, in context of an
  * [AssertionGroup] with type [SummaryAssertionGroupType].
  *
- * See also [ICoreFactory.registerTextAssertionFormatterCapabilities].
+ * See also [CoreFactory.registerTextAssertionFormatterCapabilities].
  */
 class PrefixSuccessfulSummaryAssertion private constructor() : BulletPointIdentifier
 
@@ -29,7 +29,7 @@ class PrefixSuccessfulSummaryAssertion private constructor() : BulletPointIdenti
  * Represents the identifier for bullet points used to prefix [Assertion]s which do not hold, in context of an
  * [AssertionGroup] with type [SummaryAssertionGroupType].
  *
- * See also [ICoreFactory.registerTextAssertionFormatterCapabilities].
+ * See also [CoreFactory.registerTextAssertionFormatterCapabilities].
  */
 class PrefixFailingSummaryAssertion private constructor() : BulletPointIdentifier
 

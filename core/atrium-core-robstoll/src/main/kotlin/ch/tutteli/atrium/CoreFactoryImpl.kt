@@ -2,18 +2,18 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.checking.DelegatingAssertionChecker
+import ch.tutteli.atrium.checking.FeatureAssertionChecker
+import ch.tutteli.atrium.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
-import ch.tutteli.atrium.reporting.translating.TranslationSupplier
-import ch.tutteli.atrium.reporting.translating.Translator
+import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 
-
 /**
- * A dummy implementation of [ICoreFactory] which should be replaced by an actual implementation.
+ * Robstoll's `abstract factory` for atrium-core.
  *
- * It provides factory methods which all throw an [UnsupportedOperationException] to create:
+ * It provides factory methods to create:
  * - [AssertionPlant]
  * - [AssertionPlantNullable]
  * - [CheckingAssertionPlant]
@@ -22,7 +22,7 @@ import java.util.*
  * - [MethodCallFormatter]
  * - [Translator]
  * - [TranslationSupplier]
- * - [LocaleOrderDecider]
+ * - [CoroutineBasedLocaleOrderDecider]
  * - [ObjectFormatter]
  * - [AssertionFormatterFacade]
  * - [AssertionFormatterController]
@@ -30,65 +30,64 @@ import java.util.*
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
-@Suppress("UNUSED_PARAMETER")
-object CoreFactory : ICoreFactory {
+class CoreFactoryImpl : CoreFactory {
 
     override fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
-        = throwUnsupportedOperationException()
+        = ReportingAssertionPlantImpl(commonFields)
 
     override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
-        = throwUnsupportedOperationException()
+        = ReportingAssertionPlantNullableImpl(commonFields)
 
     override fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
-        = throwUnsupportedOperationException()
+        = CheckingAssertionPlantImpl(subject)
 
     override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
-        = throwUnsupportedOperationException()
+        = CollectingAssertionPlantImpl(subjectProvider)
 
     override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
-        = throwUnsupportedOperationException()
+        = ThrowingAssertionChecker(reporter)
 
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
-        = throwUnsupportedOperationException()
+        = FeatureAssertionChecker(subjectPlant)
 
     override fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
-        = throwUnsupportedOperationException()
+        = DelegatingAssertionChecker(subjectPlant)
 
     override fun newMethodCallFormatter(): MethodCallFormatter
-        = throwUnsupportedOperationException()
+        = TextMethodCallFormatter
 
     override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
-        = throwUnsupportedOperationException()
+        = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
 
     override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
-        = throwUnsupportedOperationException()
+        = PropertiesPerEntityAndLocaleTranslationSupplier()
 
     override fun newLocaleOrderDecider(): LocaleOrderDecider
-        = throwUnsupportedOperationException()
+        = CoroutineBasedLocaleOrderDecider()
 
     override fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter
-        = throwUnsupportedOperationException()
+        = DetailedObjectFormatter(translator)
 
     override fun newAssertionFormatterController(): AssertionFormatterController
-        = throwUnsupportedOperationException()
+        = AssertionFormatterControllerImpl()
 
     override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
-        = throwUnsupportedOperationException()
+        = AssertionFormatterControllerBasedFacade(assertionFormatterController)
 
-    override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
-        = throwUnsupportedOperationException()
+    override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
+        = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
     override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
-        = throwUnsupportedOperationException()
+        = TextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator), objectFormatter)
 
     override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
-        = throwUnsupportedOperationException()
+        = TextFeatureAssertionGroupFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
     override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
-        = throwUnsupportedOperationException()
+        = TextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, newTextSameLineAssertionPairFormatter(objectFormatter, translator))
 
     override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
-        = throwUnsupportedOperationException()
+        = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
 
     override fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
@@ -96,13 +95,17 @@ object CoreFactory : ICoreFactory {
         textAssertionPairFormatter: AssertionPairFormatter,
         objectFormatter: ObjectFormatter,
         translator: Translator
-    ): Unit = throwUnsupportedOperationException()
+    ) {
+        assertionFormatterFacade.register { TextListAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter) }
+        assertionFormatterFacade.register { TextFeatureAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter) }
+        assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
+        assertionFormatterFacade.register { TextExplanatoryAssertionGroupFormatter(bulletPoints, it) }
+        assertionFormatterFacade.register { TextIndentAssertionGroupFormatter(bulletPoints, it) }
+        assertionFormatterFacade.register { TextSummaryAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter) }
+        assertionFormatterFacade.register { TextFallbackAssertionFormatter(bulletPoints, it, textAssertionPairFormatter, objectFormatter) }
+    }
+
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
-        = throwUnsupportedOperationException()
-
-    private fun throwUnsupportedOperationException(): Nothing
-        = throw UnsupportedOperationException(
-            "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +
-            "meaning as a substitute for a real implementation.")
+        = OnlyFailureReporter(assertionFormatterFacade)
 }
