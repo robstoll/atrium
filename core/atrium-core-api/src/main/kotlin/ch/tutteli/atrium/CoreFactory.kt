@@ -15,22 +15,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val coreFactory: CoreFactory by lazy {
-    val itr = ServiceLoader.load(CoreFactory::class.java).iterator()
-    check(itr.hasNext()) {
-        "Could not find an implementation for ${CoreFactory::class.java.name}"
-    }
-    val factory = itr.next()
-    check(!itr.hasNext()) {
-        val sb = StringBuilder()
-        itr.forEachRemaining {
-            sb.appendln()
-            sb.append(it::class.java.name)
-        }
-        "Currently we do not support multiple implementations of ${CoreFactory::class.java.name}, but found:\n${factory::class.java.name}$sb"
-    }
-    factory
-}
+val coreFactory by lazy { SingleServiceLoader.load(CoreFactory::class.java) }
 
 /**
  * The minimum contract of the 'abstract factory' of atrium.
@@ -67,8 +52,11 @@ interface CoreFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, reporter: Reporter): ReportingAssertionPlant<T>
-        = newReportingPlant(assertionVerb, subject, newThrowingAssertionChecker(reporter))
+    fun <T : Any> newReportingPlant(
+        assertionVerb: Translatable,
+        subject: T,
+        reporter: Reporter
+    ): ReportingAssertionPlant<T> = newReportingPlant(assertionVerb, subject, newThrowingAssertionChecker(reporter))
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -84,8 +72,18 @@ interface CoreFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, assertionChecker: AssertionChecker): ReportingAssertionPlant<T>
-        = newReportingPlant(AssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, RawString.NULL))
+    fun <T : Any> newReportingPlant(
+        assertionVerb: Translatable,
+        subject: T,
+        assertionChecker: AssertionChecker
+    ): ReportingAssertionPlant<T> = newReportingPlant(
+        AssertionPlantWithCommonFields.CommonFields(
+            assertionVerb,
+            subject,
+            assertionChecker,
+            RawString.NULL
+        )
+    )
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -119,8 +117,12 @@ interface CoreFactory {
      * @throws AssertionError The newly created [AssertionPlant] might throw an [AssertionError] in case a
      *   created [Assertion] does not hold.
      */
-    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: Translatable, subject: T, reporter: Reporter, assertionCreator: AssertionPlant<T>.() -> Unit)
-        = newReportingPlant(assertionVerb, subject, reporter)
+    fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(
+        assertionVerb: Translatable,
+        subject: T,
+        reporter: Reporter,
+        assertionCreator: AssertionPlant<T>.() -> Unit
+    ) = newReportingPlant(assertionVerb, subject, reporter)
         .addAssertionsCreatedBy(assertionCreator)
 
 
@@ -137,8 +139,13 @@ interface CoreFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, reporter: Reporter, nullRepresentation: Any = RawString.NULL): ReportingAssertionPlantNullable<T>
-        = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
+    fun <T : Any?> newReportingPlantNullable(
+        assertionVerb: Translatable,
+        subject: T,
+        reporter: Reporter,
+        nullRepresentation: Any = RawString.NULL
+    ): ReportingAssertionPlantNullable<T> =
+        newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
@@ -154,8 +161,19 @@ interface CoreFactory {
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, assertionChecker: AssertionChecker, nullRepresentation: Any): ReportingAssertionPlantNullable<T>
-        = newReportingPlantNullable(AssertionPlantWithCommonFields.CommonFields(assertionVerb, subject, assertionChecker, nullRepresentation))
+    fun <T : Any?> newReportingPlantNullable(
+        assertionVerb: Translatable,
+        subject: T,
+        assertionChecker: AssertionChecker,
+        nullRepresentation: Any
+    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
+        AssertionPlantWithCommonFields.CommonFields(
+            assertionVerb,
+            subject,
+            assertionChecker,
+            nullRepresentation
+        )
+    )
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
@@ -267,7 +285,12 @@ interface CoreFactory {
      * @throws IllegalArgumentException in case [primaryLocale] or [fallbackLocales] have as language `no` or if they
      *   have: as language `zh`, country is not set and script is either `Hant` or `Hans`.
      */
-    fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
+    fun newTranslator(
+        translationSupplier: TranslationSupplier,
+        localeOrderDecider: LocaleOrderDecider,
+        primaryLocale: Locale,
+        vararg fallbackLocales: Locale
+    ): Translator
 
     /**
      * Creates a [TranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
@@ -329,7 +352,10 @@ interface CoreFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
+    fun newTextSameLineAssertionPairFormatter(
+        objectFormatter: ObjectFormatter,
+        translator: Translator
+    ): AssertionPairFormatter
 
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and serves as
@@ -345,7 +371,12 @@ interface CoreFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
+    fun newTextFallbackAssertionFormatter(
+        bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController,
+        objectFormatter: ObjectFormatter,
+        translator: Translator
+    ): AssertionFormatter
 
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
@@ -360,7 +391,12 @@ interface CoreFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
+    fun newTextFeatureAssertionGroupFormatter(
+        bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController,
+        objectFormatter: ObjectFormatter,
+        translator: Translator
+    ): AssertionFormatter
 
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
@@ -374,7 +410,12 @@ interface CoreFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
+    fun newTextListAssertionGroupFormatter(
+        bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController,
+        objectFormatter: ObjectFormatter,
+        translator: Translator
+    ): AssertionFormatter
 
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
@@ -388,7 +429,10 @@ interface CoreFactory {
      *
      * @return The newly created assertion formatter.
      */
-    fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
+    fun newTextExplanatoryAssertionGroupFormatter(
+        bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController
+    ): AssertionFormatter
 
     /**
      * Registers all available [AssertionFormatter]s  -- which are intended for text format (e.g. for the console)
@@ -410,7 +454,8 @@ interface CoreFactory {
         assertionFormatterFacade: AssertionFormatterFacade,
         textAssertionPairFormatter: AssertionPairFormatter,
         objectFormatter: ObjectFormatter,
-        translator: Translator)
+        translator: Translator
+    )
 
     /**
      * Creates a [Reporter] which reports only failing assertions

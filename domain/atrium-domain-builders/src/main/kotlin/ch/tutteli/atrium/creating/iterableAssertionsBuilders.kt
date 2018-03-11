@@ -2,73 +2,73 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.creators.IIterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
+import ch.tutteli.atrium.creating.iterable.contains.creators.iterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
 
-object IterableAssertionsBuilder : IIterableAssertions{
+object IterableAssertionsBuilder : IterableAssertions{
 
     override inline fun <E, T : Iterable<E>> containsBuilder(plant: AssertionPlant<T>)
-        = IterableAssertions.containsBuilder(plant)
+        = iterableAssertions.containsBuilder(plant)
 
     override inline fun <E, T : Iterable<E>> containsNotBuilder(plant: AssertionPlant<T>)
-        = IterableAssertions.containsNotBuilder(plant)
+        = iterableAssertions.containsNotBuilder(plant)
 
     /**
-     * Delegates to [IterableContainsAssertions].
+     * Delegates to [iterableContainsAssertions].
      */
     inline val contains get() = IterableContainsAssertionsBuilder
 }
 
 
-object IterableContainsAssertionsBuilder: IIterableContainsAssertions {
+object IterableContainsAssertionsBuilder: IterableContainsAssertions {
 
     override inline fun <E, T : Iterable<E>> objectsInAnyOrder(checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>, expected: E, otherExpected: Array<out E>)
-        = IterableContainsAssertions.objectsInAnyOrder(checkerOption, expected, otherExpected)
+        = iterableContainsAssertions.objectsInAnyOrder(checkerOption, expected, otherExpected)
 
     override inline fun <E : Any, T : Iterable<E>> entriesInAnyOrder(checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>, noinline assertionCreator: AssertionPlant<E>.() -> Unit, otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>)
-        = IterableContainsAssertions.entriesInAnyOrder(checkerOption, assertionCreator, otherAssertionCreators)
+        = iterableContainsAssertions.entriesInAnyOrder(checkerOption, assertionCreator, otherAssertionCreators)
 
     override inline fun <E : Any, T : Iterable<E?>> nullableEntriesInAnyOrder(checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>, noinline assertionCreator: (AssertionPlant<E>.() -> Unit)?, otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>)
-        = IterableContainsAssertions.nullableEntriesInAnyOrder(checkerOption, assertionCreator, otherAssertionCreators)
+        = iterableContainsAssertions.nullableEntriesInAnyOrder(checkerOption, assertionCreator, otherAssertionCreators)
 
     override inline fun <E, T : Iterable<E>> objectsInAnyOrderOnly(builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>, expected: E, otherExpected: Array<out E>)
-        = IterableContainsAssertions.objectsInAnyOrderOnly(builder, expected, otherExpected)
+        = iterableContainsAssertions.objectsInAnyOrderOnly(builder, expected, otherExpected)
 
     override inline fun <E : Any, T : Iterable<E>> entriesInAnyOrderOnly(builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>, noinline assertionCreator: AssertionPlant<E>.() -> Unit, otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>)
-        = IterableContainsAssertions.entriesInAnyOrderOnly(builder, assertionCreator, otherAssertionCreators)
+        = iterableContainsAssertions.entriesInAnyOrderOnly(builder, assertionCreator, otherAssertionCreators)
 
     override inline fun <E : Any, T : Iterable<E?>> nullableEntriesInAnyOrderOnly(builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>, noinline assertionCreator: (AssertionPlant<E>.() -> Unit)?, otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>)
-        = IterableContainsAssertions.nullableEntriesInAnyOrderOnly(builder, assertionCreator, otherAssertionCreators)
+        = iterableContainsAssertions.nullableEntriesInAnyOrderOnly(builder, assertionCreator, otherAssertionCreators)
 
     override inline fun <E, T : Iterable<E>> objectsInOrderOnly(builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>, expected: E, otherExpected: Array<out E>)
-        = IterableContainsAssertions.objectsInOrderOnly(builder, expected, otherExpected)
+        = iterableContainsAssertions.objectsInOrderOnly(builder, expected, otherExpected)
 
     override inline fun <E : Any, T : Iterable<E>> entriesInOrderOnly(builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>, noinline assertionCreator: AssertionPlant<E>.() -> Unit, otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>)
-        = IterableContainsAssertions.entriesInOrderOnly(builder, assertionCreator, otherAssertionCreators)
+        = iterableContainsAssertions.entriesInOrderOnly(builder, assertionCreator, otherAssertionCreators)
 
     override inline fun <E : Any, T : Iterable<E?>> nullableEntriesInOrderOnly(builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>, noinline assertionCreator: (AssertionPlant<E>.() -> Unit)?, otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>)
-        = IterableContainsAssertions.nullableEntriesInOrderOnly(builder, assertionCreator, otherAssertionCreators)
+        = iterableContainsAssertions.nullableEntriesInOrderOnly(builder, assertionCreator, otherAssertionCreators)
 
     /**
-     * Delegates to [SearchBehaviourFactory].
+     * Delegates to [searchBehaviourFactory].
      */
     inline val searchBehaviours get() = IterableContainsSearchBehaviourFactoryBuilder
 }
 
 
-object IterableContainsSearchBehaviourFactoryBuilder : ISearchBehaviourFactory {
+object IterableContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 
     override inline fun <E, T : Iterable<E>> inAnyOrder(builder: IterableContains.Builder<E, T, NoOpSearchBehaviour>)
-        = SearchBehaviourFactory.inAnyOrder(builder)
+        = searchBehaviourFactory.inAnyOrder(builder)
 
     override inline fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>)
-        = SearchBehaviourFactory.inAnyOrderOnly(builder)
+        = searchBehaviourFactory.inAnyOrderOnly(builder)
 
     override inline fun <E, T : Iterable<E>> inOrder(containsBuilder: IterableContains.Builder<E, T, NoOpSearchBehaviour>)
-        = SearchBehaviourFactory.inOrder(containsBuilder)
+        = searchBehaviourFactory.inOrder(containsBuilder)
 
     override inline fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContains.Builder<E, T, InOrderSearchBehaviour>)
-        = SearchBehaviourFactory.inOrderOnly(builder)
+        = searchBehaviourFactory.inOrderOnly(builder)
 
 }

@@ -1,18 +1,22 @@
 package ch.tutteli.atrium.creating
 
-import kotlin.reflect.KFunction0
-import kotlin.reflect.KFunction1
-import kotlin.reflect.KFunction2
-import kotlin.reflect.KFunction3
-import kotlin.reflect.KFunction4
-import kotlin.reflect.KFunction5
-import kotlin.reflect.KProperty0
+import ch.tutteli.atrium.SingleServiceLoader
+import java.util.*
+import kotlin.reflect.*
+
+/**
+ * The access point to an implementation of [FeatureAssertions].
+ *
+ * It loads the implementation lazily via [ServiceLoader].
+ */
+val featureAssertions by lazy { SingleServiceLoader.load(FeatureAssertions::class.java) }
+
 
 /**
  * Defines the minimum set of assertion functions -- used to create feature assertions --
  * which an implementation of the domain of Atrium has to provide.
  */
-interface IFeatureAssertions {
+interface FeatureAssertions {
     fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlant<TProperty>
     fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
     fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
