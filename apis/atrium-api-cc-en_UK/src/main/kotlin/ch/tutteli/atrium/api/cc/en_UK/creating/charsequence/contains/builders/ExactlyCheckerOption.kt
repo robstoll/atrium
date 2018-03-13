@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.ExactlyCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.ExactlyCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains exactly`-check within

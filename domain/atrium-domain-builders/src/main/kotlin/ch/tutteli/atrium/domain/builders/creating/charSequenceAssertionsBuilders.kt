@@ -1,6 +1,9 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.CharSequenceAssertions
+import ch.tutteli.atrium.creating.charSequenceAssertions
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions
 import ch.tutteli.atrium.creating.charsequence.contains.creators.charSequenceContainsAssertions

@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.api.cc.de_CH.zumindest
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.builders.AtLeastCheckerOptionBase
-import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerOption
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.AtLeastCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.WithTimesCheckerOption
 
 /**
  * Represents the extension point for another option after a `contains at least`-check within a sophisticated

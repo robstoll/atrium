@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.cc.de_CH.hoechstens
 import ch.tutteli.atrium.api.cc.de_CH.zumindest
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.ButAtMostCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.ButAtMostCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains at least but at most`-check within

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders
 import ch.tutteli.atrium.api.cc.de_CH.nichtOderHoechstens
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.NotOrAtMostCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.NotOrAtMostCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains not or at most`-check within
