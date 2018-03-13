@@ -2,10 +2,10 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.atrium.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 

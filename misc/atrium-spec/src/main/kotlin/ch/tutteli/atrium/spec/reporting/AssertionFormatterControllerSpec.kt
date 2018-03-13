@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.domain.builders.assertions.FixHoldsAssertionGroup
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator

@@ -2,10 +2,10 @@ package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.BasicExplanatoryAssertion
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
+import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.reporting.ObjectFormatter
 
 /**
  * Builder to create an [ExplanatoryAssertion].

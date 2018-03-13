@@ -1,7 +1,5 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
-package ch.tutteli.atrium.creating
-
-import ch.tutteli.atrium.domain.builders.creating.*
+package ch.tutteli.atrium.domain.builders.creating
 
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api

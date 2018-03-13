@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.robstoll.lib.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import kotlin.reflect.KClass
 

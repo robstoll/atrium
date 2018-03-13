@@ -21,7 +21,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param act The function which is expected to throw a [Throwable].
  * @param reporter The reporter which will be use for a [CoreFactory.newThrowingAssertionChecker].
  */
-@Deprecated("use the builder from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder"))
+@Deprecated("use AssertImpl, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.domain.builders.creating.AssertImpl.throwable.thrownBuilder(assertionVerb, act, reporter)"))
 class ThrowableThrownBuilder(
     override val assertionVerb: Translatable,
     override val act: () -> Unit,

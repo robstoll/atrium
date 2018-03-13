@@ -2,8 +2,8 @@ package ch.tutteli.atrium.robstoll.lib.assertions.composers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.builders.fixHoldsGroup
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 fun _createDescriptiveWithFailureHint(

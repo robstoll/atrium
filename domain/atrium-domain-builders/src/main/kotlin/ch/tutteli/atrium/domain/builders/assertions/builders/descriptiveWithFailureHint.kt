@@ -1,8 +1,9 @@
-package ch.tutteli.atrium.assertions.builders
+package ch.tutteli.atrium.domain.builders.assertions.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionBuilder
 import ch.tutteli.atrium.assertions.composers.assertionComposer
 import ch.tutteli.atrium.reporting.translating.Translatable
 
