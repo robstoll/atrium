@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown.*
-import ch.tutteli.atrium.creating.throwable.thrown.creators.IThrowableThrownAssertions
+import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -18,8 +18,8 @@ import kotlin.reflect.KClass
  *
  * The building process is typically started by the creation of a [Builder],
  * would allow to define an [AbsentThrowableMessageProvider] as well as an [AnyTypeTransformation.FailureHandler]
- * (currently all [IThrowableThrownAssertions] specify it implicitly) and
- * is finalized by one of the [IThrowableThrownAssertions] which usually use a [Creator].
+ * (currently all [ThrowableThrownAssertions] specify it implicitly) and
+ * is finalized by one of the [ThrowableThrownAssertions] which usually use a [Creator].
  */
 interface ThrowableThrown {
     /**

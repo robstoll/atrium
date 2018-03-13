@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -73,7 +73,7 @@ object AssertionCollector {
         }
 
         private fun <E : Any> createPlant(subject: E?): CollectingAssertionPlant<E> {
-            return CoreFactory.newCollectingPlant {
+            return coreFactory.newCollectingPlant {
                 subject ?: throw PlantHasNoSubjectException()
             }
         }

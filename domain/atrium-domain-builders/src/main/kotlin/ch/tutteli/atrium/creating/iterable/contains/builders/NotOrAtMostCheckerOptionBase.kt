@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.iterable.contains.builders
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.checkers.CheckerFactory
+import ch.tutteli.atrium.creating.iterable.contains.checkers.checkerFactory
 
 /**
  * The base class for builders which create a `contains not or at most` check within the fluent API of a
@@ -28,6 +28,6 @@ abstract class NotOrAtMostCheckerOptionBase<out E, out T : Iterable<E>, out S : 
 ) : WithTimesCheckerOption<E, T, S> {
 
     override val checkers: List<Checker> = listOf(
-        CheckerFactory.newAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)
+        checkerFactory.newAtMostChecker(times, nameContainsNotFun, notOrAtMostCall)
     )
 }

@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.isEmpty
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -8,6 +7,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
@@ -34,12 +34,12 @@ abstract class OnlyFailureReporterSpec(
         = describeFun(describePrefix, funName, body = body)
 
     val translator = UsingDefaultTranslator()
-    val facade = CoreFactory.newAssertionFormatterFacade(CoreFactory.newAssertionFormatterController())
+    val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
     facade.register {
-        CoreFactory.newTextFallbackAssertionFormatter(
+        coreFactory.newTextFallbackAssertionFormatter(
             mapOf(RootAssertionGroupType::class.java to "[]"),
             it,
-            CoreFactory.newDetailedObjectFormatter(translator), translator)
+            coreFactory.newDetailedObjectFormatter(translator), translator)
     }
     val testee = testeeFactory(facade)
 

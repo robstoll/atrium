@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
@@ -8,6 +7,7 @@ import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -35,7 +35,7 @@ abstract class InvisibleAssertionGroupFormatterSpec(
     val facade = createFacade { _, controller, _, _ -> testeeFactory(controller) }
 
     describeFun(AssertionFormatter::canFormat.name) {
-        val testee = testeeFactory(CoreFactory.newAssertionFormatterController())
+        val testee = testeeFactory(coreFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${InvisibleAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(AssertionBuilder.withType(object : InvisibleAssertionGroupType {}).create(Untranslatable.EMPTY, 1, listOf()))
             verbs.checkImmediately(result).toBe(true)

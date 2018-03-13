@@ -3,75 +3,75 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions
-import ch.tutteli.atrium.creating.charsequence.contains.creators.ICharSequenceContainsAssertions
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.ISearchBehaviourFactory
+import ch.tutteli.atrium.creating.charsequence.contains.creators.charSequenceContainsAssertions
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
+import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-object CharSequenceAssertionsBuilder : ICharSequenceAssertions {
+object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 
     override inline fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>)
-        = CharSequenceAssertions.containsBuilder(plant)
+        = charSequenceAssertions.containsBuilder(plant)
 
     override inline fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>)
-        = CharSequenceAssertions.containsNotBuilder(plant)
+        = charSequenceAssertions.containsNotBuilder(plant)
 
     override inline fun <T : CharSequence> startsWith(plant: AssertionPlant<T>, expected: CharSequence)
-        = CharSequenceAssertions.startsWith(plant, expected)
+        = charSequenceAssertions.startsWith(plant, expected)
 
     override inline fun <T : CharSequence> startsNotWith(plant: AssertionPlant<T>, expected: CharSequence)
-        = CharSequenceAssertions.startsNotWith(plant, expected)
+        = charSequenceAssertions.startsNotWith(plant, expected)
 
     override inline fun <T : CharSequence> endsWith(plant: AssertionPlant<T>, expected: CharSequence)
-        = CharSequenceAssertions.endsWith(plant, expected)
+        = charSequenceAssertions.endsWith(plant, expected)
 
     override inline fun <T : CharSequence> endsNotWith(plant: AssertionPlant<T>, expected: CharSequence)
-        = CharSequenceAssertions.endsNotWith(plant, expected)
+        = charSequenceAssertions.endsNotWith(plant, expected)
 
     override inline fun <T : CharSequence> isEmpty(plant: AssertionPlant<T>)
-        = CharSequenceAssertions.isEmpty(plant)
+        = charSequenceAssertions.isEmpty(plant)
 
     override inline fun <T : CharSequence> isNotEmpty(plant: AssertionPlant<T>)
-        = CharSequenceAssertions.isNotEmpty(plant)
+        = charSequenceAssertions.isNotEmpty(plant)
 
     /**
-     * Delegates to [CharSequenceContainsAssertions].
+     * Delegates to [charSequenceContainsAssertions].
      */
     inline val contains get() = CharSequenceContainsAssertionsBuilder
 }
 
 
-object CharSequenceContainsAssertionsBuilder: ICharSequenceContainsAssertions {
+object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
 
     override inline fun <T : CharSequence> values(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
-        = CharSequenceContainsAssertions.values(checkerOption, expected, otherExpected)
+        = charSequenceContainsAssertions.values(checkerOption, expected, otherExpected)
 
     override inline fun <T : CharSequence> valuesIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
-        = CharSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected, otherExpected)
+        = charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected, otherExpected)
 
     override inline fun <T : CharSequence> defaultTranslationOf(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: Translatable, otherExpected: Array<out Translatable>)
-        = CharSequenceContainsAssertions.defaultTranslationOf(checkerOption, expected, otherExpected)
+        = charSequenceContainsAssertions.defaultTranslationOf(checkerOption, expected, otherExpected)
 
     override inline fun <T : CharSequence> defaultTranslationOfIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: Translatable, otherExpected: Array<out Translatable>)
-        = CharSequenceContainsAssertions.defaultTranslationOfIgnoringCase(checkerOption, expected, otherExpected)
+        = charSequenceContainsAssertions.defaultTranslationOfIgnoringCase(checkerOption, expected, otherExpected)
 
     override inline fun <T : CharSequence> regex(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: String, otherExpected: Array<out String>)
-        = CharSequenceContainsAssertions.regex(checkerOption, expected, otherExpected)
+        = charSequenceContainsAssertions.regex(checkerOption, expected, otherExpected)
 
     override inline fun <T : CharSequence> regexIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: String, otherExpected: Array<out String>)
-        = CharSequenceContainsAssertions.regexIgnoringCase(checkerOption, expected, otherExpected)
+        = charSequenceContainsAssertions.regexIgnoringCase(checkerOption, expected, otherExpected)
 
     /**
-     * Delegates to [SearchBehaviourFactory].
+     * Delegates to [searchBehaviourFactory].
      */
     inline val searchBehaviours get() = SearchBehaviourFactoryBuilder
 }
 
 
-object SearchBehaviourFactoryBuilder : ISearchBehaviourFactory {
+object SearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 
     override inline fun <T : CharSequence> ignoringCase(containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
-        = SearchBehaviourFactory.ignoringCase(containsBuilder)
+        = searchBehaviourFactory.ignoringCase(containsBuilder)
 }

@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.containsNotDefaultTranslationOf
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
@@ -30,7 +30,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
-    val testee = testeeFactory(CoreFactory.newAssertionFormatterController())
+    val testee = testeeFactory(coreFactory.newAssertionFormatterController())
 
     var sb = StringBuilder()
     afterEachTest {
