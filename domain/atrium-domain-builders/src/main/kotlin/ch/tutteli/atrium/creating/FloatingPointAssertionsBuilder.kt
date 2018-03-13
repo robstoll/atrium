@@ -3,13 +3,13 @@ package ch.tutteli.atrium.creating
 
 import java.math.BigDecimal
 
-object FloatingPointAssertionsBuilder : IFloatingPointAssertions{
+object FloatingPointAssertionsBuilder : FloatingPointAssertions{
     override inline fun toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float)
-        = FloatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)
+        = floatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)
 
     override inline fun toBeWithErrorTolerance(plant: AssertionPlant<Double>, expected: Double, tolerance: Double)
-        = FloatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)
+        = floatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)
 
     override inline fun <T : BigDecimal> toBeWithErrorTolerance(plant: AssertionPlant<T>, expected: T, tolerance: T)
-        = FloatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)
+        = floatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)
 }

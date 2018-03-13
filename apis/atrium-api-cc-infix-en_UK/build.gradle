@@ -5,7 +5,6 @@ ext.jacoco_additional = prefixedProject('translations-en_UK')
 
 dependencies {
     compile prefixedProject('domain-builders')
-    compileOnly prefixedProject('domain-api-late-binding')
 
     testCompile prefixedProject('domain-robstoll')
     testCompile prefixedProject('core-robstoll')

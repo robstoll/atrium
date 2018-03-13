@@ -1,15 +1,25 @@
 package ch.tutteli.atrium.creating
 
+import ch.tutteli.atrium.SingleServiceLoader
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import java.util.*
+
+/**
+ * The access point to an implementation of [CharSequenceAssertions].
+ *
+ * It loads the implementation lazily via [ServiceLoader].
+ */
+val charSequenceAssertions by lazy { SingleServiceLoader.load(CharSequenceAssertions::class.java) }
+
 
 /**
  * Defines the minimum set of assertion functions and builders applicable to [CharSequence],
  * which an implementation of the domain of Atrium has to provide.
  */
-interface ICharSequenceAssertions {
+interface CharSequenceAssertions {
     fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NotSearchBehaviour>
 

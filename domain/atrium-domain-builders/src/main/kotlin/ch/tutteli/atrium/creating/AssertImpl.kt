@@ -8,52 +8,52 @@ package ch.tutteli.atrium.creating
  */
 object AssertImpl {
     /**
-     * Delegates to [AnyAssertions].
+     * Delegates to [anyAssertions].
      */
     inline val any get() = AnyAssertionsBuilder
 
     /**
-     * Delegates to [BigDecimalAssertions].
+     * Delegates to [bigDecimalAssertions].
      */
     inline val bigDecimal get() = BigDecimalAssertionsBuilder
 
     /**
-     * Delegates to [CharSequenceAssertions].
+     * Delegates to [charSequenceAssertions].
      */
     inline val charSequence get() = CharSequenceAssertionsBuilder
 
     /**
-     * Delegates to [CollectionAssertions].
+     * Delegates to [collectionAssertions].
      */
     inline val collection get() = CollectionAssertionsBuilder
 
     /**
-     * Delegates to [ComparableAssertions].
+     * Delegates to [comparableAssertions].
      */
     inline val comparable get() = ComparableAssertionsBuilder
 
     /**
-     * Delegates to [FeatureAssertions].
+     * Delegates to [featureAssertions].
      */
     inline val feature get() = FeatureAssertionsBuilder
 
     /**
-     * Delegates to [FloatingPointAssertions].
+     * Delegates to [floatingPointAssertions].
      */
     inline val floatingPoint get() = FloatingPointAssertionsBuilder
 
     /**
-     * Delegates to [IterableAssertions].
+     * Delegates to [iterableAssertions].
      */
     inline val iterable get() = IterableAssertionsBuilder
 
     /**
-     * Delegates to [MapAssertions].
+     * Delegates to [mapAssertions].
      */
     inline val map get() = MapAssertionsBuilder
 
     /**
-     * Delegates to [ThrowableAssertions].
+     * Delegates to [throwableAssertions].
      */
     inline val throwable get() = ThrowableAssertionsBuilder
 }

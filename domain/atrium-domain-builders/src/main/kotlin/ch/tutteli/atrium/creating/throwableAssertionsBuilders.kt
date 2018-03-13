@@ -3,44 +3,44 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.creating.throwable.thrown.creators.IThrowableThrownAssertions
 import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
+import ch.tutteli.atrium.creating.throwable.thrown.creators.throwableThrownAssertions
 import ch.tutteli.atrium.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory
-import ch.tutteli.atrium.creating.throwable.thrown.providers.IAbsentThrowableMessageProviderFactory
+import ch.tutteli.atrium.creating.throwable.thrown.providers.absentThrowableMessageProviderFactory
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-object ThrowableAssertionsBuilder : IThrowableAssertions {
+object ThrowableAssertionsBuilder : ThrowableAssertions {
     override inline fun thrownBuilder(
         assertionVerb: Translatable,
         noinline act: () -> Unit,
         reporter: Reporter
-    ): ThrowableThrown.Builder = ThrowableAssertions.thrownBuilder(assertionVerb, act, reporter)
+    ): ThrowableThrown.Builder = throwableAssertions.thrownBuilder(assertionVerb, act, reporter)
 
     /**
-     * Delegates to [ThrowableThrownAssertions].
+     * Delegates to [throwableThrownAssertions].
      */
     inline val thrown get() = ThrowableThrownAssertionsBuilder
 }
 
 
-object ThrowableThrownAssertionsBuilder : IThrowableThrownAssertions {
+object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 
     override inline fun <TExpected : Throwable> toBe(
         throwableThrownBuilder: ThrowableThrown.Builder,
         expectedType: KClass<TExpected>,
         noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit
-    ) = ThrowableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
+    ) = throwableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 
     /**
-     * Delegates to [AbsentThrowableMessageProviderFactory].
+     * Delegates to [absentThrowableMessageProviderFactory].
      */
     inline val providers get() = AbsentThrowableMessageProviderFactoryBuilder
 }
 
-object AbsentThrowableMessageProviderFactoryBuilder : IAbsentThrowableMessageProviderFactory {
+object AbsentThrowableMessageProviderFactoryBuilder : AbsentThrowableMessageProviderFactory {
 
     override inline fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider
-        = AbsentThrowableMessageProviderFactory.translatableBased(translatable)
+        = absentThrowableMessageProviderFactory.translatableBased(translatable)
 }

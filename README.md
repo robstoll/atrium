@@ -327,9 +327,9 @@ to see more options.
 As workaround you can use the domain function `returnValueOfX` where `X` needs to be replaced by the number of arguments expected.
 Following an example:
 ```kotlin
-import ch.tutteli.atrium.creating.FeatureAssertions
+import ch.tutteli.atrium.creating.AssertImpl
 assert(person) {
-    FeatureAssertions.returnValueOf1(this, "nickname", subject::nickname, false).toBe("Robert aka. Stoll")
+    AssertImpl.feature.returnValueOf1(this, "nickname", subject::nickname, false).toBe("Robert aka. Stoll")
 }
 ```
 The output is the same as above.

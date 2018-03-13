@@ -2,7 +2,7 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.FeatureAssertions
+import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -119,7 +119,7 @@ abstract class IterableContainsNullSpec(
             test("empty iterable, states that iterable was empty") {
                 expect {
                     //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                    assert(setOf()).testeeFun({ FeatureAssertions.returnValueOf1(
+                    assert(setOf()).testeeFun({ AssertImpl.feature.returnValueOf1(
                         this,
                         "compareTo",
                         subject::compareTo,
@@ -140,7 +140,7 @@ abstract class IterableContainsNullSpec(
             test("$list, it outputs explanation (since we have a non-null entry)") {
                 expect {
                     //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                    assert(list).testeeFun({ FeatureAssertions.returnValueOf1(
+                    assert(list).testeeFun({ AssertImpl.feature.returnValueOf1(
                         this,
                         "compareTo",
                         subject::compareTo,

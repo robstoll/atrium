@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.creating.iterable.contains.creators
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixHoldsGroup
+import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.creating.AssertionCollector
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString
@@ -54,7 +54,7 @@ internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (
     = when (subject) {
         null -> assertionCreator == null
         else -> assertionCreator != null &&
-            CoreFactory.newCheckingPlant(subject)
+            coreFactory.newCheckingPlant(subject)
                 .addAssertionsCreatedBy(assertionCreator)
                 .allAssertionsHold()
     }

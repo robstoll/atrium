@@ -25,9 +25,8 @@ API modules:
   
 Domain modules:
 - **atrium-domain-api** defines the contracts of the domain of Atrium 
-  (contracts for impl-functions and sophisticated assertion builders).
-- **atrium-domain-api-late-binding** provides dummy implementations for the contracts of the domain which eventually needs to be replaced by a real implementation. 
-- **atrium-domain-robstoll** provides the different domain objects like 
+  (contracts for impl-functions and sophisticated assertion builders). 
+- **atrium-domain-robstoll** provides the different domain services like 
   [CharSequenceAssertions](./ch.tutteli.atrium.creating/-char-sequence-assertions/index.html)  
   which use the implementations of *atrium-domain-robstoll-lib*
 - **atrium-domain-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the domain of Atrium.
@@ -35,13 +34,12 @@ Domain modules:
   provides extension functions for [AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html)
   and last but not least provides base classes of sophisticated assertion builders for the API modules.
 
-
 Core modules:
 - **atrium-core-api** defines the contracts of the core of Atrium.
-- **atrium-core-api-late-binding** defines the contract for 
-  [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
-  by providing a dummy implementation which eventually needs to be replaced by a real implementation. 
-- **atrium-core-robstoll** provides a [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
+- **atrium-core-api-late-binding** is a deprecated module providing the deprecated
+  [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
+  -- use [coreFactory](./ch.tutteli.atrium/coreFactory.html) instead.
+- **atrium-core-robstoll** provides an implementation for [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
   which uses the implementations of *atrium-core-robstoll-lib*
 - **atrium-core-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the core of Atrium.
 
@@ -59,6 +57,7 @@ Misc modules:
 - **atrium-assertions** is `deprecated` and you should not longer rely on it. 
   It will be removed with 1.0.0. 
   Use the replacements suggested in the `@Deprecated` annotations.
+
 
 # Package ch.tutteli.atrium
 Contains the [ICoreFactory](./ch.tutteli.atrium/-i-core-factory/index.html).
