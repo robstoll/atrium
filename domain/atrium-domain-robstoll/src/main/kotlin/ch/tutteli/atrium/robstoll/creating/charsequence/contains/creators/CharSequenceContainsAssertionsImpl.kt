@@ -2,10 +2,11 @@ package ch.tutteli.atrium.robstoll.creating.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.creators.*
+import ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.creators.*
 
 /**
  * Robstoll's implementation of [CharSequenceContainsAssertions].

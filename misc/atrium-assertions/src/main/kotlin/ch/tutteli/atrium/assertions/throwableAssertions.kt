@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.throwable.thrown.builders.ThrowableThrownBuilder
+import ch.tutteli.atrium.robstoll.lib.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import kotlin.reflect.KClass
 
 @Deprecated("use AssertImpl.throwable.thrown.toBe, will be removed with 1.0.0",

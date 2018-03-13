@@ -1,6 +1,11 @@
 package ch.tutteli.atrium.robstoll.creating
 
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.ComparableAssertions
+import ch.tutteli.atrium.robstoll.lib.creating._isGreaterOrEquals
+import ch.tutteli.atrium.robstoll.lib.creating._isGreaterThan
+import ch.tutteli.atrium.robstoll.lib.creating._isLessOrEquals
+import ch.tutteli.atrium.robstoll.lib.creating._isLessThan
 
 /**
  * Robstoll's implementation of [ComparableAssertions].

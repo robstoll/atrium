@@ -2,11 +2,11 @@ package ch.tutteli.atrium.robstoll.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.IterableAssertions
-import ch.tutteli.atrium.creating._containsBuilder
-import ch.tutteli.atrium.creating._containsNotBuilder
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.robstoll.lib.creating._containsBuilder
+import ch.tutteli.atrium.robstoll.lib.creating._containsNotBuilder
 
 /**
  * Robstoll's implementation of [IterableAssertions].

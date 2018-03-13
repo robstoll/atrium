@@ -1,7 +1,11 @@
 package ch.tutteli.atrium.robstoll.creating.charsequence.contains.checkers
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.checkers.*
+import ch.tutteli.atrium.creating.charsequence.contains.checkers.CheckerFactory
+import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers.AtLeastChecker
+import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers.AtMostChecker
+import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers.ExactlyChecker
+import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers.NotChecker
 
 /**
  * Robstoll's implementation of [CheckerFactory].
