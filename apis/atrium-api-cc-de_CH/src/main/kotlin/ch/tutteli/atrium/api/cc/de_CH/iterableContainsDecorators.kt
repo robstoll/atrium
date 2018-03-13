@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 
 /**
  * Defines that the search behaviour "find entries `in any order` in the [Iterable]" shall be applied to this
