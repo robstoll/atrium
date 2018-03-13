@@ -1,9 +1,12 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.FloatingPointAssertions
+import ch.tutteli.atrium.creating.floatingPointAssertions
 import java.math.BigDecimal
 
-object FloatingPointAssertionsBuilder : FloatingPointAssertions{
+object FloatingPointAssertionsBuilder : FloatingPointAssertions {
     override inline fun toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float)
         = floatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)
 

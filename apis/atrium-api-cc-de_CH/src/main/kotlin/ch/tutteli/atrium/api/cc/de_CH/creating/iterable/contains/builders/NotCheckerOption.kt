@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.builders.NotCheckerOptionBase
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.NotCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains not at all`-check within

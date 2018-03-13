@@ -1,12 +1,15 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.IterableAssertions
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.creators.iterableContainsAssertions
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.creating.iterableAssertions
 
-object IterableAssertionsBuilder : IterableAssertions{
+object IterableAssertionsBuilder : IterableAssertions {
 
     override inline fun <E, T : Iterable<E>> containsBuilder(plant: AssertionPlant<T>)
         = iterableAssertions.containsBuilder(plant)

@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.creating.iterable.contains.builders
+package ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.creating.basic.contains.builders.validateAtMost
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains

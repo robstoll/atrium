@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.en_UK.atMost
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.AtMostCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.AtMostCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains at least once but at most`-check within

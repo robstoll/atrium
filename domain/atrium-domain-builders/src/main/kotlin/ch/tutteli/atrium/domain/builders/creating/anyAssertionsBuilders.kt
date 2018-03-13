@@ -1,7 +1,8 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
 import ch.tutteli.atrium.creating.any.typetransformation.creators.anyTypeTransformationAssertions

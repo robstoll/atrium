@@ -3,8 +3,8 @@ package ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.buil
 import ch.tutteli.atrium.api.cc.infix.en_UK.atLeast
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.AtLeastCheckerOptionBase
-import ch.tutteli.atrium.creating.charsequence.contains.builders.WithTimesCheckerOption
+import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.AtLeastCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.WithTimesCheckerOption
 
 /**
  * Represents the extension point for another option after a `contains at least`-check within a sophisticated

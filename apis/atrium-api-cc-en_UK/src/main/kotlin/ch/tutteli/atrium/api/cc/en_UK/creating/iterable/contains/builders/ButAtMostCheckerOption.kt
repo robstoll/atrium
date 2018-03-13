@@ -5,9 +5,9 @@ import ch.tutteli.atrium.api.cc.en_UK.atMost
 import ch.tutteli.atrium.api.cc.en_UK.butAtMost
 import ch.tutteli.atrium.api.cc.en_UK.exactly
 import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.builders.ButAtMostCheckerOptionBase
-import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerOption
 import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.ButAtMostCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.WithTimesCheckerOption
 
 /**
  * Represents the extension point for another option after a `contains at least but at most`-check within a

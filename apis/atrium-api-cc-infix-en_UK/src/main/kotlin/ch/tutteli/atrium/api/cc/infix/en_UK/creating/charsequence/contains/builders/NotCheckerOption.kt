@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.buil
 
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.builders.NotCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders.NotCheckerOptionBase
 
 /**
  * Represents the extension point for another option after a `contains not at all`-check within

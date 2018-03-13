@@ -1,5 +1,9 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
-package ch.tutteli.atrium.creating
+package ch.tutteli.atrium.domain.builders.creating
+
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.ComparableAssertions
+import ch.tutteli.atrium.creating.comparableAssertions
 
 object ComparableAssertionsBuilder : ComparableAssertions {
     override inline fun <T1 : Comparable<T2>, T2: Any?> isLessThan(plant: AssertionPlant<T1>, expected: T2)
@@ -13,5 +17,4 @@ object ComparableAssertionsBuilder : ComparableAssertions {
 
     override inline fun <T1 : Comparable<T2>, T2: Any?> isGreaterOrEquals(plant: AssertionPlant<T1>, expected: T2)
         = comparableAssertions.isGreaterOrEquals(plant, expected)
-
 }
