@@ -1,0 +1,115 @@
+package ch.tutteli.atrium.domain.creating.basic.contains
+
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.creating.basic.contains.Contains.*
+import ch.tutteli.atrium.reporting.translating.Translatable
+
+/**
+ * Defines the basic contract for sophisticated `contains` assertion builders.
+ *
+ * The entry point for the contract constitutes a [Contains.Builder].
+ * A builder typically allows a user to choose a desired [SearchBehaviour], one or more [Checker]s and uses an
+ * [Creator] to finish the building process.
+ */
+interface Contains {
+
+    /**
+     * The entry point of the contract, containing the [plant] to which the sophisticated `contain` assertion
+     * should be added as well as the chosen [searchBehaviour].
+     *
+     * The [searchBehaviour] might me modified in which case it is recommended that a new [Builder] is created (retain
+     * immutability).
+     */
+    interface Builder<out T : Any, out S : Contains.SearchBehaviour> {
+        /**
+         * The [AssertionPlant] from which this building process started and to which the resulting [Assertion]
+         * should be added.
+         */
+        val plant: AssertionPlant<T>
+
+        /**
+         * The chosen [SearchBehaviour].
+         */
+        val searchBehaviour: S
+    }
+
+    /**
+     * The step of choosing/defining [Checker]s.
+     */
+    interface CheckerOption<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : Contains.Builder<T, S>> {
+        /**
+         * The previously chosen [Builder], containing inter alia the [AssertionPlant] to which the resulting
+         * [Assertion] shall be added.
+         */
+        val containsBuilder: B
+
+        /**
+         * Contains all [Checker]s which should be applied to the search result.
+         *
+         * It typically contains the [Checker] this builder created and might contain other [Checker]s which builders,
+         * precedent to this builder within the fluent API, created already.
+         */
+        val checkers: List<C>
+    }
+
+    /**
+     * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
+     * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
+     */
+    interface SearchBehaviour {
+        /**
+         * Decorates the given [description] so that it represents the search behaviour and returns the result.
+         *
+         * @return The decorated [description].
+         */
+        fun decorateDescription(description: Translatable): Translatable
+    }
+
+    /**
+     * Represents a check for the search result such as: the object is contained exactly once in the input of the search.
+     *
+     * It provides the method [createAssertion] which creates an [Assertion] representing this check.
+     */
+    interface Checker {
+        /**
+         * Creates an [Assertion] representing this check based on the given [foundNumberOfTimes] which is the result
+         * of the search.
+         *
+         * @return The newly created [Assertion].
+         */
+        fun createAssertion(foundNumberOfTimes: Int): Assertion
+    }
+
+    /**
+     * Represents the final step of a sophisticated `contains` assertion builder which creates the [AssertionGroup]
+     * as such.
+     *
+     * @param T The type of the [AssertionPlant.subject].
+     * @param SC The type of the search criteria.
+     */
+    interface Creator<in T : Any, in SC> {
+        /**
+         * Creates an [AssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
+         * on the given [searchCriterion] and possibly [otherSearchCriteria] (might be empty).
+         *
+         * The search process as such is usually influenced by a [SearchBehaviour] which defines the search behaviour
+         * and [Checker]s are used to create [Assertion]s based on a determined search result which are grouped
+         * together into an [AssertionGroup].
+         * This resulting [AssertionGroup] represents the sophisticated `contains` assertion as a whole.
+         *
+         * @param plant The plant -- or rather its [subject][AssertionPlant.subject] -- for which the [AssertionGroup]
+         *   is created.
+         * @param searchCriterion A search criterion.
+         * @param otherSearchCriteria Other search criteria (might also be empty).
+         *
+         * @return The newly created [AssertionGroup].
+         */
+        fun createAssertionGroup(
+            plant: AssertionPlant<T>,
+            searchCriterion: SC,
+            otherSearchCriteria: Array<out SC>
+        ): AssertionGroup
+    }
+}

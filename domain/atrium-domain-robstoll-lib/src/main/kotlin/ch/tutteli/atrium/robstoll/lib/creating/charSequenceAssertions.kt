@@ -3,9 +3,9 @@ package ch.tutteli.atrium.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.builders.CharSequenceContainsBuilder
 import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviourImpl

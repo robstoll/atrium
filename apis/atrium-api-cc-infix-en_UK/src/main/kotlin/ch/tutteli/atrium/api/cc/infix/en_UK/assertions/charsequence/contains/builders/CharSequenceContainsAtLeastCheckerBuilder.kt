@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
 /**
  * Represents the *deprecated* builder of a `contains at least` check within the fluent API of a sophisticated
@@ -18,7 +18,10 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
  */
 @Deprecated(
     "use the builder from the package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder")
+    ReplaceWith(
+        "AtLeastCheckerOption",
+        "ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.AtLeastCheckerOption"
+    )
 )
 open class CharSequenceContainsAtLeastCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,

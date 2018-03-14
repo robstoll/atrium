@@ -2,7 +2,7 @@ package ch.tutteli.atrium.robstoll.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.FloatingPointAssertions
+import ch.tutteli.atrium.domain.creating.FloatingPointAssertions
 import ch.tutteli.atrium.robstoll.lib.creating._toBeWithErrorTolerance
 import java.math.BigDecimal
 

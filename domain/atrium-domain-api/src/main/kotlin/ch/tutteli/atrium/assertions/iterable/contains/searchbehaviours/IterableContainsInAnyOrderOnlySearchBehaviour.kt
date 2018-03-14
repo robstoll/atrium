@@ -10,11 +10,14 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * the resulting assertion should not hold if there are less entries than expected or more.
  */
 @Deprecated(
-    "use the search behaviour from package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour")
+    "use the interface InAnyOrderOnlySearchBehaviour instead, will be removed with 1.0.0",
+    ReplaceWith(
+        "InAnyOrderOnlySearchBehaviour",
+        "ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour"
+    )
 )
 open class IterableContainsInAnyOrderOnlySearchBehaviour : IterableContains.SearchBehaviour,
-    ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour {
+    ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour {
 
     override fun decorateDescription(description: Translatable): Translatable
         = TranslatableWithArgs(DescriptionIterableAssertion.IN_ANY_ORDER_ONLY, description)

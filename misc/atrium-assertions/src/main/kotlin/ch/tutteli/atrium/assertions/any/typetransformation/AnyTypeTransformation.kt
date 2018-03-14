@@ -12,7 +12,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * The assertion is typically created by the [DownCaster] or the more generic [TypeTransformer]
  * which itself requires a [TypeTransformationFailureHandler].
  */
-@Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation"))
+@Deprecated(
+    "use the interface from package domain.creating, will be removed with 1.0.0",
+    ReplaceWith("ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation")
+)
 interface AnyTypeTransformation {
 
     /**
@@ -23,7 +26,10 @@ interface AnyTypeTransformation {
      * @param T The type of [AssertionPlant.subject].
      * @param TSub The type to which [AssertionPlant.subject] should have been transformed to.
      */
-    @Deprecated("use the interface from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation.TypeTransformationFailureHandler"))
+    @Deprecated(
+        "use the interface from package domain.creating, will be removed with 1.0.0",
+        ReplaceWith("ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.TypeTransformationFailureHandler")
+    )
     interface TypeTransformationFailureHandler<in T : Any, out TSub : Any> {
 
         /**
@@ -43,6 +49,7 @@ interface AnyTypeTransformation {
             warningTransformationFailed: Translatable,
             subjectPlant: BaseAssertionPlant<T?, *>,
             failingAssertion: Assertion,
-            assertionCreator: AssertionPlant<TSub>.() -> Unit)
+            assertionCreator: AssertionPlant<TSub>.() -> Unit
+        )
     }
 }

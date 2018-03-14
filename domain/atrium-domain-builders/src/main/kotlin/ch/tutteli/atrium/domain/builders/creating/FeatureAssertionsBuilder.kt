@@ -2,8 +2,8 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.FeatureAssertions
-import ch.tutteli.atrium.creating.featureAssertions
+import ch.tutteli.atrium.domain.creating.FeatureAssertions
+import ch.tutteli.atrium.domain.creating.featureAssertions
 import kotlin.reflect.*
 
 object FeatureAssertionsBuilder : FeatureAssertions {

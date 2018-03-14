@@ -6,8 +6,16 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 /**
  * Represents the *deprecated* default search behaviour but uses [DescriptionCharSequenceAssertion.CONTAINS_NOT] for the description.
  */
-@Deprecated("use the search behaviour from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour"))
-open class CharSequenceContainsNotSearchBehaviour : CharSequenceContainsNoOpSearchBehaviour() {
+@Deprecated(
+    "use the interface NotSearchBehaviour instead, will be removed with 1.0.0",
+    ReplaceWith(
+        "NotSearchBehaviour",
+        "ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour"
+    )
+)
+open class CharSequenceContainsNotSearchBehaviour : CharSequenceContainsNoOpSearchBehaviour(),
+    ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+{
     /**
      * Returns [DescriptionCharSequenceAssertion.CONTAINS_NOT].
      * @return [DescriptionCharSequenceAssertion.CONTAINS_NOT]

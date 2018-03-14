@@ -24,8 +24,8 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 @Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 class IterableContainsInAnyOrderObjectsAssertionCreator<S, T : Iterable<S>>(
     searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
-    checkers: List<ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker>
-) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderSearchBehaviour, ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker>(searchBehaviour, checkers),
+    checkers: List<ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker>
+) : ContainsObjectsAssertionCreator<T, S, IterableContainsInAnyOrderSearchBehaviour, ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker>(searchBehaviour, checkers),
     IterableContains.Creator<T, S> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS

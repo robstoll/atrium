@@ -158,7 +158,7 @@ private fun <E, T : Iterable<E>, S, B : IterableContains.SearchBehaviour> create
     checker: IterableContainsCheckerBuilder<E, T, B>,
     expected: S,
     otherExpected: Array<out S>,
-    factory: (B, List<ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker>) -> IterableContains.Creator<T, S>
+    factory: (B, List<ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker>) -> IterableContains.Creator<T, S>
 ): AssertionGroup {
     val creator = factory(checker.containsBuilder.searchBehaviour, checker.checkers)
     return creator.createAssertionGroup(checker.containsBuilder.plant, expected, otherExpected)

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.searchers
 
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Searcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 
 /**
  * Represents a [Searcher] which implements the [IgnoringCaseSearchBehaviour] behaviour and uses

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers
 
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.robstoll.lib.creating.basic.contains.checkers.ContainsChecker
 
 /**

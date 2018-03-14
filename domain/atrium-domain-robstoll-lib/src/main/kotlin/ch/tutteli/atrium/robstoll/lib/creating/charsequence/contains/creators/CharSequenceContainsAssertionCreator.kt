@@ -2,8 +2,8 @@ package ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.*
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.robstoll.lib.creating.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 

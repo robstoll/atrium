@@ -2,15 +2,15 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.CharSequenceAssertions
-import ch.tutteli.atrium.creating.charSequenceAssertions
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.creators.CharSequenceContainsAssertions
-import ch.tutteli.atrium.creating.charsequence.contains.creators.charSequenceContainsAssertions
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
+import ch.tutteli.atrium.domain.creating.CharSequenceAssertions
+import ch.tutteli.atrium.domain.creating.charSequenceAssertions
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.creators.CharSequenceContainsAssertions
+import ch.tutteli.atrium.domain.creating.charsequence.contains.creators.charSequenceContainsAssertions
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 object CharSequenceAssertionsBuilder : CharSequenceAssertions {
@@ -46,7 +46,8 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 }
 
 
-object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
+object CharSequenceContainsAssertionsBuilder:
+    CharSequenceContainsAssertions {
 
     override inline fun <T : CharSequence> values(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
         = charSequenceContainsAssertions.values(checkerOption, expected, otherExpected)
@@ -73,7 +74,8 @@ object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
 }
 
 
-object SearchBehaviourFactoryBuilder : SearchBehaviourFactory {
+object SearchBehaviourFactoryBuilder :
+    SearchBehaviourFactory {
 
     override inline fun <T : CharSequence> ignoringCase(containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
         = searchBehaviourFactory.ignoringCase(containsBuilder)

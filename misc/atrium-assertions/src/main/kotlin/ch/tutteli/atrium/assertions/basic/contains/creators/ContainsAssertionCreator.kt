@@ -22,7 +22,7 @@ import ch.tutteli.atrium.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
 @Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
-abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.creating.basic.contains.Contains.Checker>(
+abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.domain.creating.basic.contains.Contains.Checker>(
     private val checkers: List<C>
 ) : Contains.Creator<T, S> {
 

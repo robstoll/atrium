@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.robstoll.creating.iterable.contains.checkers
 
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.checkers.CheckerFactory
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.CheckerFactory
 import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.checkers.AtLeastChecker
 import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.checkers.AtMostChecker
 import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.checkers.ExactlyChecker

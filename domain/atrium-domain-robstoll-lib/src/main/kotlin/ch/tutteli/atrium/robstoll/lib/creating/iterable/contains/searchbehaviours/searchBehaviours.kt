@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours
 
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.builders.IterableContainsBuilder
 
 fun <E, T : Iterable<E>> _containsInAnyOrder(

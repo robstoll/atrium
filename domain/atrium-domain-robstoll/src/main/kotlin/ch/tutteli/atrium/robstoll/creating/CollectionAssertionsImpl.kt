@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.robstoll.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.CollectionAssertions
+import ch.tutteli.atrium.domain.creating.CollectionAssertions
 import ch.tutteli.atrium.robstoll.lib.creating._hasSize
 import ch.tutteli.atrium.robstoll.lib.creating._isEmpty
 import ch.tutteli.atrium.robstoll.lib.creating._isNotEmpty

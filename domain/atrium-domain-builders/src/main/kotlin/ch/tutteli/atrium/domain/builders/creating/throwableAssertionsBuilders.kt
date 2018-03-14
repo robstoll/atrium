@@ -1,15 +1,14 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
-
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.ThrowableAssertions
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.creating.throwable.thrown.creators.ThrowableThrownAssertions
-import ch.tutteli.atrium.creating.throwable.thrown.creators.throwableThrownAssertions
-import ch.tutteli.atrium.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory
-import ch.tutteli.atrium.creating.throwable.thrown.providers.absentThrowableMessageProviderFactory
-import ch.tutteli.atrium.creating.throwableAssertions
+import ch.tutteli.atrium.domain.creating.ThrowableAssertions
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
+import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.throwableThrownAssertions
+import ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory
+import ch.tutteli.atrium.domain.creating.throwable.thrown.providers.absentThrowableMessageProviderFactory
+import ch.tutteli.atrium.domain.creating.throwableAssertions
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass

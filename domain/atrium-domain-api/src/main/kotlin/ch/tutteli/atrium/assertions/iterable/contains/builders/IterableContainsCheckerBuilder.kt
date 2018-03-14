@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 
 /**
  * The *deprecated* base class for builders which create [IterableContains.Checker]s within the fluent API of a sophisticated
@@ -14,8 +14,11 @@ import ch.tutteli.atrium.creating.iterable.contains.IterableContains
  *   `contains` assertion which was started with the given [containsBuilder].
  */
 @Deprecated(
-    "use the abstract class from package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsCheckerBuilder")
+    "use the interface IterableContains.CheckerOption instead, will be removed with 1.0.0",
+    ReplaceWith(
+        "IterableContains.CheckerOption",
+        "ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains"
+    )
 )
 interface IterableContainsCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>
     : ContainsCheckerBuilder<T, S, IterableContains.Checker, IterableContains.Builder<E, T, S>>,

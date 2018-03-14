@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.searchers
 
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Searcher
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import java.util.regex.Pattern
 
 /**

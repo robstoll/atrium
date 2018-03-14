@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
 
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.checkers.checkerFactory
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.SearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFactory
 
 /**
  * The base class for builders which create a `contains at least` check within the fluent API of a sophisticated

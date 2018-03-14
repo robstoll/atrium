@@ -2,7 +2,7 @@ package ch.tutteli.atrium.robstoll.lib.creating.throwable.thrown.builders
 
 import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 

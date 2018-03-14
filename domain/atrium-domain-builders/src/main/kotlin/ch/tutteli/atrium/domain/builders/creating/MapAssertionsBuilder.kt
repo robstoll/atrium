@@ -2,8 +2,8 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.MapAssertions
-import ch.tutteli.atrium.creating.mapAssertions
+import ch.tutteli.atrium.domain.creating.MapAssertions
+import ch.tutteli.atrium.domain.creating.mapAssertions
 
 object MapAssertionsBuilder : MapAssertions {
     override inline fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int)

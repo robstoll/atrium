@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
 
-import ch.tutteli.atrium.creating.basic.contains.builders.validateButAtMost
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains.SearchBehaviour
-import ch.tutteli.atrium.creating.iterable.contains.checkers.checkerFactory
+import ch.tutteli.atrium.domain.creating.basic.contains.builders.validateButAtMost
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.SearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.checkers.checkerFactory
 
 /**
  * The base class for builders which create the second step of a `contains at least but at most` check within the

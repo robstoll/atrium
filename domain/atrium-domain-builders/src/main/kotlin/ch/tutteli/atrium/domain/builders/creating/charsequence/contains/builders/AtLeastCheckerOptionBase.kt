@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders
 
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Checker
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.checkers.checkerFactory
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Checker
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.checkerFactory
 
 /**
  * The base class for builders which create a `contains at least` check within the fluent API of a sophisticated

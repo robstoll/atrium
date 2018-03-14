@@ -2,7 +2,7 @@ package ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.robstoll.lib.creating.basic.contains.builders.ContainsBuilder
 
 /**

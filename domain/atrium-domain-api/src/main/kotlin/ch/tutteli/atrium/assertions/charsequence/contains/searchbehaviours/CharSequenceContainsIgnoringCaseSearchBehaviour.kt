@@ -9,11 +9,17 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * Represents the *deprecated* search behaviour that a [CharSequenceContains.Searcher] should ignore case
  * when searching for an expected object.
  */
-@Deprecated("use the search behaviour from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.CharSequenceContainsIgnoringCaseSearchBehaviour"))
+@Deprecated(
+    "use the interface IgnoringCaseSearchBehaviour instead, will be removed with 1.0.0",
+    ReplaceWith(
+        "IgnoringCaseSearchBehaviour",
+        "ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour"
+    )
+)
 open class CharSequenceContainsIgnoringCaseSearchBehaviour(
-    private val previousBehaviour: ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+    private val previousBehaviour: ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 ) : CharSequenceContains.SearchBehaviour,
-    ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour{
+    ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour {
 
     override fun decorateDescription(description: Translatable): Translatable {
         val previousDecorated = previousBehaviour.decorateDescription(description)

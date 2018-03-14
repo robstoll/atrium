@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsCheckerBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
 /**
  * The *deprecated* base class for builders which create [CharSequenceContains.Checker]s within the fluent API of a sophisticated
@@ -14,8 +14,11 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
  *   `contains` assertion which was started with the given [containsBuilder].
  */
 @Deprecated(
-    "use the abstract class from package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsCheckerBuilder")
+    "use the interface CharSequenceContains.CheckerOption instead, will be removed with 1.0.0",
+    ReplaceWith(
+        "CharSequenceContains.CheckerOption",
+        "ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains"
+    )
 )
 interface CharSequenceContainsCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
     : ContainsCheckerBuilder<T, S, CharSequenceContains.Checker, CharSequenceContains.Builder<T, S>>,

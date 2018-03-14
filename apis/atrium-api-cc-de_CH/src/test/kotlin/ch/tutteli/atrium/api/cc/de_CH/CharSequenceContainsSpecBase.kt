@@ -2,8 +2,8 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import kotlin.reflect.KProperty
 
 abstract class CharSequenceContainsSpecBase {

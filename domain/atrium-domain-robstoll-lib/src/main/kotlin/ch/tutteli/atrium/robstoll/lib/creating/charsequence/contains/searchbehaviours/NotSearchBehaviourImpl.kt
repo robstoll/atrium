@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.searchbehaviours
 
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
 

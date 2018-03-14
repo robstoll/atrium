@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.basic.contains.builders
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.basic.contains.Contains
+import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 
 /**
  * Represents the *deprecated* base class for builders representing a checking step in the process of building a sophisticated
@@ -20,8 +20,11 @@ import ch.tutteli.atrium.creating.basic.contains.Contains
  *   sophisticated `contains` assertion.
  */
 @Deprecated(
-    "use the abstract class from package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.creating.basic.contains.builders.ContainsCheckerBuilder")
+    "use the interface Contains.CheckerOption instead, will be removed with 1.0.0",
+    ReplaceWith(
+        "Contains.CheckerOption",
+        "ch.tutteli.atrium.domain.creating.basic.contains.Contains"
+    )
 )
 interface ContainsCheckerBuilder<out T : Any, out S : Contains.SearchBehaviour, out C : Contains.Checker, out B : Contains.Builder<T, S>>
     : Contains.CheckerOption<T, S, C, B>

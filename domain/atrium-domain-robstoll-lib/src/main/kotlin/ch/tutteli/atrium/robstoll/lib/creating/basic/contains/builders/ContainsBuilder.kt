@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.robstoll.lib.creating.basic.contains.builders
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.basic.contains.Contains
+import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 
 /**
  * Represents the base class for builders representing the entry point of the process of building a sophisticated

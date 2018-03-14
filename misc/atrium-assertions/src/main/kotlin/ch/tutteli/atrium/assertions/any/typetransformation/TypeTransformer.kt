@@ -18,7 +18,7 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         ReplaceWith(
             "AssertImpl.any.typeTransformation.transform(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform, AssertImpl.any.typeTransformation.failureHandlers.chooseAFailureHandler)",
             "ch.tutteli.atrium.creating.AssertImpl",
-            "ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation"
+            "ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation"
         )
     )
     fun transform(

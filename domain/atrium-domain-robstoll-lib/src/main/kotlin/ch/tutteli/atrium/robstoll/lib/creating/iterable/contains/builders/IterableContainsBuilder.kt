@@ -2,7 +2,7 @@ package ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.robstoll.lib.creating.basic.contains.builders.ContainsBuilder
 
 /**

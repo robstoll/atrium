@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders
 
-import ch.tutteli.atrium.creating.basic.contains.builders.validateAtMost
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Checker
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.creating.charsequence.contains.checkers.checkerFactory
+import ch.tutteli.atrium.domain.creating.basic.contains.builders.validateAtMost
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Checker
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.checkerFactory
 
 /**
  * The base class for builders which create a `contains at least once but at most` check within the fluent API of a
@@ -36,7 +36,12 @@ abstract class AtMostCheckerOptionBase<out T : CharSequence, out S : SearchBehav
 ) : WithTimesCheckerOption<T, S> {
 
     init {
-        validateAtMost(times, atMostCall, atLeastCall, exactlyCall)
+        validateAtMost(
+            times,
+            atMostCall,
+            atLeastCall,
+            exactlyCall
+        )
     }
 
     override val checkers: List<Checker> = listOf(

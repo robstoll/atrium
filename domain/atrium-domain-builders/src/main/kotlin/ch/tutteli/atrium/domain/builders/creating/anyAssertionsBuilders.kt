@@ -2,12 +2,16 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
-import ch.tutteli.atrium.creating.any.typetransformation.creators.anyTypeTransformationAssertions
-import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.FailureHandlerFactory
-import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.failureHandlerFactory
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.domain.creating.AnyAssertions
+import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
+import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
+import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.anyTypeTransformationAssertions
+import ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers.FailureHandlerFactory
+import ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers.failureHandlerFactory
+import ch.tutteli.atrium.domain.creating.anyAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
@@ -34,7 +38,8 @@ object AnyAssertionsBuilder : AnyAssertions {
 }
 
 
-object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
+object AnyTypeTransformationAssertionsBuilder:
+    AnyTypeTransformationAssertions {
 
     override inline fun <T : Any> isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreator: AssertionPlant<T>.() -> Unit)
         = anyTypeTransformationAssertions.isNotNull(plant, type, assertionCreator)
@@ -54,7 +59,8 @@ object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
     inline val failureHandlers get () = FailureHandlerFactoryBuilder
 }
 
-object FailureHandlerFactoryBuilder : FailureHandlerFactory {
+object FailureHandlerFactoryBuilder :
+    FailureHandlerFactory {
 
     override inline fun <S : Any, T : Any> newExplanatory()
         = failureHandlerFactory.newExplanatory<S, T>()
