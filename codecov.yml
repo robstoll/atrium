@@ -8,6 +8,6 @@ ignore:
     - "misc/atrium-assertions/**/*"
     - "apis/**/assertions/**/*"
     - "domain/atrium-domain-api/**/assertions/**/*"
-    - "translations/**/assertions/**/*"
+    - "translations/*-deprecated/**/*"
     - "**/IAtriumFactory.kt"
     - "**/AtriumFactory.kt"

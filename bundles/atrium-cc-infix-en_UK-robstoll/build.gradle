@@ -7,6 +7,7 @@ dependencies {
     compile prefixedProject('core-robstoll')
     //TODO remove with 1.0.0
     compile prefixedProject('assertions')
+    compile prefixedProject('translations-en_UK-deprecated')
 
     testCompile prefixedProject('verbs')
 }

@@ -40,6 +40,7 @@ buildscript {
                         // would have two classes with the same name if we add it as project as well,
                         // (clashes with "${project.name}-translations-en_UK"
                         it.name != "${project.name}-translations-de_CH" &&
+                        it.name != "${project.name}-translations-de_CH-deprecated" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${project.name}-spec"
                 },
