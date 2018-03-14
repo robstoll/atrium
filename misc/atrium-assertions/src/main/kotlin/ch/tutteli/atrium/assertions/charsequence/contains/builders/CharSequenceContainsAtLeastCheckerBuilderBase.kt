@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Checker
 import ch.tutteli.atrium.assertions.charsequence.contains.checkers.CharSequenceContainsAtLeastChecker
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
 /**
  * The base class for builders which create a `contains at least` check within the fluent API of a sophisticated

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionBuilder
-import ch.tutteli.atrium.assertions.composers.assertionComposer
+import ch.tutteli.atrium.domain.assertions.composers.assertionComposer
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**

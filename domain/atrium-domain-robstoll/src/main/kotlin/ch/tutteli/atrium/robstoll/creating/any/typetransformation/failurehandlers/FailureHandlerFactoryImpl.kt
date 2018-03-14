@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.robstoll.creating.any.typetransformation.failurehandlers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.creating.any.typetransformation.failurehandlers.FailureHandlerFactory
+import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
+import ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers.FailureHandlerFactory
 import ch.tutteli.atrium.robstoll.lib.creating.any.typetransformation.failurehandlers.ExplanatoryFailureHandler
 import ch.tutteli.atrium.robstoll.lib.creating.any.typetransformation.failurehandlers.ExplanatoryFailureHandlerWithHint
 

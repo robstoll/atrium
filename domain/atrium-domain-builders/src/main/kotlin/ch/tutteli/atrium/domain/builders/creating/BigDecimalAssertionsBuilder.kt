@@ -2,8 +2,8 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.BigDecimalAssertions
-import ch.tutteli.atrium.creating.bigDecimalAssertions
+import ch.tutteli.atrium.domain.creating.BigDecimalAssertions
+import ch.tutteli.atrium.domain.creating.bigDecimalAssertions
 import java.math.BigDecimal
 
 object BigDecimalAssertionsBuilder : BigDecimalAssertions {

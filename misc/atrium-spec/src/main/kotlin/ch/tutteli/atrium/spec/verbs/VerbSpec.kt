@@ -5,8 +5,8 @@ import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.spec.inCaseOf

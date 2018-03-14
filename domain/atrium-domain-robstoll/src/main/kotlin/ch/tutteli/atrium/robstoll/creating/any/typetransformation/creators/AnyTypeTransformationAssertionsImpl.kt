@@ -3,8 +3,8 @@ package ch.tutteli.atrium.robstoll.creating.any.typetransformation.creators
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
-import ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
+import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
+import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.robstoll.lib.creating.any.typetransformation.creators._downCast
 import ch.tutteli.atrium.robstoll.lib.creating.any.typetransformation.creators._isA

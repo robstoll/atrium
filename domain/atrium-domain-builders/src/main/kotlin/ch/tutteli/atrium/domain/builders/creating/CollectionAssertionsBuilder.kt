@@ -2,8 +2,8 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.CollectionAssertions
-import ch.tutteli.atrium.creating.collectionAssertions
+import ch.tutteli.atrium.domain.creating.CollectionAssertions
+import ch.tutteli.atrium.domain.creating.collectionAssertions
 
 object CollectionAssertionsBuilder : CollectionAssertions {
     override inline fun <T : Collection<*>> hasSize(plant: AssertionPlant<T>, size: Int)

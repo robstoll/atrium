@@ -2,7 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 
 class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAssertionsSpec(
     AssertionVerbFactory,

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.robstoll.lib.creating.throwable.thrown.creators
 import ch.tutteli.atrium.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.robstoll.lib.creating.any.typetransformation.creators.DownCastAssertionCreator
 import ch.tutteli.atrium.robstoll.lib.creating.any.typetransformation.failurehandlers.ThrowableThrownFailureHandler

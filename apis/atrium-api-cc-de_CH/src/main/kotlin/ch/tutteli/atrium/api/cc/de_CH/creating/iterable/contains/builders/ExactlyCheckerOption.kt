@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.api.cc.de_CH.genau
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.ExactlyCheckerOptionBase
 import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.WithTimesCheckerOption
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the extension point for another option after a `contains exactly`-check within

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.ReportingAssertionPlant
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.robstoll.creating.iterable.contains.searchbehaviours
 
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInAnyOrder
 import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInAnyOrderOnly
 import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInOrder

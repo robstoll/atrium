@@ -2,8 +2,8 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.ComparableAssertions
-import ch.tutteli.atrium.creating.comparableAssertions
+import ch.tutteli.atrium.domain.creating.ComparableAssertions
+import ch.tutteli.atrium.domain.creating.comparableAssertions
 
 object ComparableAssertionsBuilder : ComparableAssertions {
     override inline fun <T1 : Comparable<T2>, T2: Any?> isLessThan(plant: AssertionPlant<T1>, expected: T2)

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours
 
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 

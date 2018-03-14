@@ -2,12 +2,12 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.IterableAssertions
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.creators.IterableContainsAssertions
-import ch.tutteli.atrium.creating.iterable.contains.creators.iterableContainsAssertions
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.*
-import ch.tutteli.atrium.creating.iterableAssertions
+import ch.tutteli.atrium.domain.creating.IterableAssertions
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.creators.IterableContainsAssertions
+import ch.tutteli.atrium.domain.creating.iterable.contains.creators.iterableContainsAssertions
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
+import ch.tutteli.atrium.domain.creating.iterableAssertions
 
 object IterableAssertionsBuilder : IterableAssertions {
 

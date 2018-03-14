@@ -3,6 +3,7 @@ package ch.tutteli.atrium.assertions.charsequence.contains.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
 /**
  * Represents the *deprecated* entry point of the fluent API of sophisticated `contains` assertions.
@@ -18,11 +19,14 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
 @Deprecated(
-    "use the abstract class from package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsBuilder")
+    "use the interface CharSequenceContains.Builder instead, will be removed with 1.0.0",
+    ReplaceWith(
+        "CharSequenceContains.Builder",
+        "ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains"
+    )
 )
-class CharSequenceContainsBuilder<out T : CharSequence, out S : ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour>(
+class CharSequenceContainsBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     plant: AssertionPlant<T>, searchBehaviour: S
 ) : ContainsBuilder<T, S>(plant, searchBehaviour),
-    ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.Builder<T, S>
+    CharSequenceContains.Builder<T, S>
 

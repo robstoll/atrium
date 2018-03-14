@@ -9,8 +9,11 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
  * is passed in (identity function).
  */
 @Deprecated(
-    "use the search behaviour from package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.IterableContainsNoOpSearchBehaviour")
+    "use the interface NoOpSearchBehaviour instead, will be removed with 1.0.0",
+    ReplaceWith(
+        "NoOpSearchBehaviour",
+        "ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour"
+    )
 )
 open class IterableContainsNoOpSearchBehaviour : IterableContains.SearchBehaviour,
-    ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
+    ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour

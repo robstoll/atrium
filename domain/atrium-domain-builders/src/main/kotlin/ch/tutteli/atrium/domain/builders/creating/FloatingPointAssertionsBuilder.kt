@@ -2,8 +2,8 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.FloatingPointAssertions
-import ch.tutteli.atrium.creating.floatingPointAssertions
+import ch.tutteli.atrium.domain.creating.FloatingPointAssertions
+import ch.tutteli.atrium.domain.creating.floatingPointAssertions
 import java.math.BigDecimal
 
 object FloatingPointAssertionsBuilder : FloatingPointAssertions {
