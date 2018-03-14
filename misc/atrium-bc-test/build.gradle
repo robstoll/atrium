@@ -141,8 +141,10 @@ def createBcTasks(String apiName, String version, String forgive) {
         def projects = apiName.contains('en_UK') ?
             jacocoMulti.sourceProjects :
             jacocoMulti.sourceProjects -
-                prefixedProject('translations-en_UK') +
-                prefixedProject('translations-de_CH')
+                prefixedProject('translations-en_UK') -
+                prefixedProject('translations-en_UK-deprecated') +
+                prefixedProject('translations-de_CH') +
+                prefixedProject('translations-de_CH-deprecated')
 
         projects.each {
             sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
