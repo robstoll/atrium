@@ -2,8 +2,8 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -30,12 +30,12 @@ class InOrderOnlyObjectsAssertionCreator<E, in T : Iterable<E?>>(
 
     private fun createEntryFeatureAssertion(searchCriterion: E): (Boolean) -> Assertion
         = { found ->
-        AssertionBuilder.descriptive.create(
-            DescriptionAnyAssertion.TO_BE,
-            searchCriterion ?: RawString.NULL,
-            found
-        )
-    }
+            AssertImpl.builder.descriptive.create(
+                DescriptionAnyAssertion.TO_BE,
+                searchCriterion ?: RawString.NULL,
+                found
+            )
+        }
 
     override fun matches(actual: E?, searchCriterion: E): Boolean
         = actual == searchCriterion

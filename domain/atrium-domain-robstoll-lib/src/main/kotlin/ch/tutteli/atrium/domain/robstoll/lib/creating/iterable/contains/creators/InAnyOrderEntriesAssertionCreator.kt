@@ -2,8 +2,8 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators.ContainsAssertionCreator
@@ -36,14 +36,14 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
 
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup {
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        return AssertionBuilder.list.create(description, RawString.EMPTY, assertions)
+        return AssertImpl.builder.list.create(description, RawString.EMPTY, assertions)
     }
 
     override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(plant.subject.iterator(), searchCriterion)
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        return AssertionBuilder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
-            AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions),
+        return AssertImpl.builder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
+            AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions),
             featureAssertion
         ))
     }

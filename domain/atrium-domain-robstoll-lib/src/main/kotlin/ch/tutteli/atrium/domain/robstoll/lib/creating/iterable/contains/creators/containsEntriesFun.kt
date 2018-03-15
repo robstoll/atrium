@@ -2,10 +2,10 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.AssertionCollector
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -41,19 +41,19 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(description: Tran
     .collectAssertionsForExplanation(description, assertionCreator, subject)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
-    = AssertionBuilder.fixHoldsGroup.create(
+    = AssertImpl.builder.fixHoldsGroup.create(
         DescriptionIterableAssertion.AN_ENTRY_WHICH,
         RawString.EMPTY,
         found,
         DefaultListAssertionGroupType,
-        AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions)
+        AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions)
     )
 
 internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean
     = when (subject) {
-        null -> assertionCreator == null
-        else -> assertionCreator != null &&
-            coreFactory.newCheckingPlant(subject)
-                .addAssertionsCreatedBy(assertionCreator)
-                .allAssertionsHold()
-    }
+    null -> assertionCreator == null
+    else -> assertionCreator != null &&
+        coreFactory.newCheckingPlant(subject)
+            .addAssertionsCreatedBy(assertionCreator)
+            .allAssertionsHold()
+}

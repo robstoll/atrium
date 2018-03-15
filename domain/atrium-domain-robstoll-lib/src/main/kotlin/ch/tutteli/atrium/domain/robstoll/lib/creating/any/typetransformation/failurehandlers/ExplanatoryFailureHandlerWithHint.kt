@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class ExplanatoryFailureHandlerWithHint<in S : Any, out T : Any>(
@@ -11,9 +11,9 @@ class ExplanatoryFailureHandlerWithHint<in S : Any, out T : Any>(
 ) : ExplanatoryFailureHandlerBase<S, T>() {
 
     override fun createFailingAssertion(description: Translatable, representation: Any): Assertion {
-        val failingAssertion = AssertionBuilder.descriptive.create(description, representation, false)
+        val failingAssertion = AssertImpl.builder.descriptive.create(description, representation, false)
         return if (showHint()) {
-            AssertionBuilder.invisibleGroup.create(listOf(failureHintFactory(), failingAssertion))
+            AssertImpl.builder.invisibleGroup.create(listOf(failureHintFactory(), failingAssertion))
         } else {
             failingAssertion
         }
