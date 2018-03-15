@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeBasicAssertion
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import org.jetbrains.spek.api.Spek
@@ -16,7 +16,7 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
         var callingCount = 0
         val testee = LazyThreadUnsafeBasicAssertion {
             ++callingCount
-            AssertionBuilder.descriptive.create(Untranslatable("a"), 2, false)
+            AssertImpl.builder.descriptive.create(Untranslatable("a"), 2, false)
         }
         test("does not evaluate anything") {
             assert(callingCount).toBe(0)

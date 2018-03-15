@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import org.jetbrains.spek.api.Spek
@@ -15,10 +15,10 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
 
     describe("creating it") {
         var callingCount = 0
-        val assertion = AssertionBuilder.descriptive.create(Untranslatable("b"), 3, false)
+        val assertion = AssertImpl.builder.descriptive.create(Untranslatable("b"), 3, false)
         val testee = LazyThreadUnsafeAssertionGroup {
             ++callingCount
-            AssertionBuilder.feature.create(Untranslatable("a"), 2, assertion)
+            AssertImpl.builder.feature.create(Untranslatable("a"), 2, assertion)
         }
         test("does not evaluate anything") {
             assert(callingCount).toBe(0)

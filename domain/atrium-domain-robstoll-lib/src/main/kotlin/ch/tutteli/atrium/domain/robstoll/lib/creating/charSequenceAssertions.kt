@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
@@ -21,19 +21,19 @@ fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>): CharSequen
 
 
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertionBuilder.descriptive.create(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
+    = AssertImpl.builder.descriptive.create(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
 
 fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertionBuilder.descriptive.create(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
+    = AssertImpl.builder.descriptive.create(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
 
 fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertionBuilder.descriptive.create(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
+    = AssertImpl.builder.descriptive.create(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
 
 fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertionBuilder.descriptive.create(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
+    = AssertImpl.builder.descriptive.create(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
 
 fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertionBuilder.descriptive.create(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+    = AssertImpl.builder.descriptive.create(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
 
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertionBuilder.descriptive.create(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+    = AssertImpl.builder.descriptive.create(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
@@ -14,8 +14,8 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
 
     override fun createFailingAssertion(description: Translatable, representation: Any): Assertion {
         val messageOfOtherException = {
-            AssertionBuilder.explanatoryGroup.withDefault.create(
-                AssertionBuilder.descriptive.create(
+            AssertImpl.builder.explanatoryGroup.withDefault.create(
+                AssertImpl.builder.descriptive.create(
                     DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
                     throwable?.localizedMessage ?: RawString.NULL,
                     true
