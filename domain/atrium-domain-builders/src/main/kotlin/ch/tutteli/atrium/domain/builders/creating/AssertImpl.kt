@@ -1,6 +1,7 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.domain.creating.*
 import java.util.*
@@ -12,11 +13,17 @@ import java.util.*
 object AssertImpl {
 
     /**
-     * Delegates inter alia to the implementation of [CoreFactory].
-     * In detail, it implements [CoreFactory] by delegating to [ch.tutteli.atrium.core.coreFactory]
+     * Returns the implementation of [CoreFactory].
+     * In detail, its an `inline` property which returns [ch.tutteli.atrium.core.coreFactory]
      * which in turn delegates to the implementation via [ServiceLoader].
      */
     inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
+
+    /**
+     * Returns [AssertionBuilder].
+     * In detail, its an `inline` property which returns [AssertionBuilder].
+     */
+    inline val builder get() = AssertionBuilder
 
     /**
      * Returns [AnyAssertionsBuilder]

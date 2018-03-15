@@ -4,12 +4,12 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.robstoll.lib.AssertionVerb.ASSERT
 import ch.tutteli.atrium.core.robstoll.lib.AssertionVerbFactory
 import ch.tutteli.atrium.core.robstoll.lib.assert
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -52,11 +52,14 @@ class TextFallbackAssertionFormatterSpec : Spek({
     describe("fun ${TextFallbackAssertionFormatter::format.name}") {
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::subject.name} as well as the ${AssertionGroup::assertions.name}") {
-                facade.format(
-                    AssertionBuilder.root.create(ASSERT, "subject",listOf(
-                        AssertionBuilder.descriptive.create(TO_BE, "bli", false),
-                        AssertionBuilder.descriptive.create(NOT_TO_BE, "bye", false)
-                )), sb, alwaysTrueAssertionFilter)
+                val assertionGroup = with(AssertImpl.builder) {
+                    root.create(ASSERT, "subject",listOf(
+                        descriptive.create(TO_BE, "bli", false),
+                        descriptive.create(NOT_TO_BE, "bye", false)
+                    ))
+                }
+                assert(mapOf("1" to 2).entries)
+                facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
                 assert(sb.toString()).toBe("assert: subject$separator" +
                     "$squarePoint ${TO_BE.getDefault()}: bli$separator" +
                     "$squarePoint ${NOT_TO_BE.getDefault()}: bye")

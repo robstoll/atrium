@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.robstoll.lib.assert
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
@@ -32,13 +32,13 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
     describeFun(testee::formatGroupHeader.name) {
         it("puts the subject on the next line indented as the bullet point used for newParameterObject") {
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
-            val assertionGroup = AssertionBuilder.root.create(Untranslatable(name), subject, listOf())
+            val assertionGroup = AssertImpl.builder.root.create(Untranslatable(name), subject, listOf())
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
             assert(sb.toString()).toBe("$name:$separator$indentBulletPoint$subject")
         }
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
-            val assertionGroup = AssertionBuilder.root.create(Untranslatable(name),
+            val assertionGroup = AssertImpl.builder.root.create(Untranslatable(name),
                 RawString.EMPTY, listOf())
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
