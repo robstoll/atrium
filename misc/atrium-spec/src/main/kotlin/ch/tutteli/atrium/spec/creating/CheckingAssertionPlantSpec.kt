@@ -6,8 +6,8 @@ import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.spec.inCaseOf
@@ -78,7 +78,7 @@ abstract class CheckingAssertionPlantSpec(
 
         inCaseOf("a custom ${DescriptiveAssertion::class.java.simpleName} which fails") {
             testee.addAssertion(
-                AssertionBuilder.descriptive.create(
+                AssertImpl.builder.descriptive.create(
                     DescriptionAnyAssertion.TO_BE,
                     "my expected result",
                     false
