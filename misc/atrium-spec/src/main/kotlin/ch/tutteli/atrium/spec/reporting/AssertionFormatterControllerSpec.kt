@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.domain.builders.assertions.FixHoldsAssertionGroup
+import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
@@ -67,7 +67,7 @@ abstract class AssertionFormatterControllerSpec(
             listOf<Pair<String, (ExplanatoryAssertionGroupType, List<Assertion>) -> AssertionGroup>>(
                 "${AssertionBuilder::class.simpleName}.${AssertionBuilder::explanatoryGroup.name}.${AssertImpl.builder.explanatoryGroup::withType.name}(t)" to { t, a -> AssertImpl.builder.explanatoryGroup.withType(t).create(a) },
                 "${AssertionBuilder::class.simpleName}.${AssertionBuilder::withType.name}(t)" to { t, a -> AssertImpl.builder.withType(t).create(AssertionVerb.VERB, 1, a) },
-                FixHoldsAssertionGroup::class.simpleName!! to { t, a -> FixHoldsAssertionGroup(t, AssertionVerb.VERB, 1, a, false) }
+                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::fixHoldsGroup.name}" to { t, a -> AssertImpl.builder.fixHoldsGroup.create(AssertionVerb.VERB, 1, false, t, a) }
             ).forEach { (groupName, factory) ->
                 listOf(
                     Triple(
