@@ -5,6 +5,7 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.*
@@ -13,7 +14,7 @@ import java.util.*
 /**
  * Deprecated, use [coreFactory] instead (uses [ServiceLoader]), will be removed with 1.0.0
  */
-@Deprecated("use coreFactory instead, will be removed with 1.0.0")
+@Deprecated("use coreFactory instead, will be removed with 1.0.0", ReplaceWith("coreFactory", "ch.tutteli.atrium.core.coreFactory"))
 object AtriumFactory : IAtriumFactory {
 
     @Deprecated("use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newReportingPlant(commonFields)"))

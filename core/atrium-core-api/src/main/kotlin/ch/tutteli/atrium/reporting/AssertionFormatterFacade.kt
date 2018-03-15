@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.CoreFactory
 
 /**
  * Responsible to call an appropriate [AssertionFormatter] which supports [format]ing a given [Assertion].

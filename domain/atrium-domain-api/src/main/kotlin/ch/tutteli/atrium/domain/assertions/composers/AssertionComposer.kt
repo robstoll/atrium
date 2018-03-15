@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.domain.assertions.composers
 
-import ch.tutteli.atrium.SingleServiceLoader
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.reporting.translating.Translatable
 import java.util.*
 

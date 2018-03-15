@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs

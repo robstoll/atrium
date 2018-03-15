@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating.throwable.thrown.creators
 
-import ch.tutteli.atrium.SingleServiceLoader
+import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import java.util.*

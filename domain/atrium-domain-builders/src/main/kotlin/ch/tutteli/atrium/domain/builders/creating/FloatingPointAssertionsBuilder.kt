@@ -5,8 +5,15 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.FloatingPointAssertions
 import ch.tutteli.atrium.domain.creating.floatingPointAssertions
 import java.math.BigDecimal
+import java.util.*
 
+/**
+ * Delegates inter alia to the implementation of [FloatingPointAssertions].
+ * In detail, it implements [FloatingPointAssertions] by delegating to [floatingPointAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object FloatingPointAssertionsBuilder : FloatingPointAssertions {
+
     override inline fun toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float)
         = floatingPointAssertions.toBeWithErrorTolerance(plant, expected, tolerance)
 

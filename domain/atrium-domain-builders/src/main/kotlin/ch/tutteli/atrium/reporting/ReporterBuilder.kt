@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.translating.*
 import java.util.*
 

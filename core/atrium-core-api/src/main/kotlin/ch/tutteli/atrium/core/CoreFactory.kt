@@ -1,4 +1,4 @@
-package ch.tutteli.atrium
+package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.AssertionChecker

@@ -11,9 +11,16 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.providers.absentThrowa
 import ch.tutteli.atrium.domain.creating.throwableAssertions
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
+import java.util.*
 import kotlin.reflect.KClass
 
+/**
+ * Delegates inter alia to the implementation of [ThrowableAssertions].
+ * In detail, it implements [ThrowableAssertions] by delegating to [throwableAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object ThrowableAssertionsBuilder : ThrowableAssertions {
+
     override inline fun thrownBuilder(
         assertionVerb: Translatable,
         noinline act: () -> Unit,
@@ -21,12 +28,17 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
     ): ThrowableThrown.Builder = throwableAssertions.thrownBuilder(assertionVerb, act, reporter)
 
     /**
-     * Delegates to [throwableThrownAssertions].
+     * Returns [ThrowableThrownAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ThrowableThrownAssertions].
      */
     inline val thrown get() = ThrowableThrownAssertionsBuilder
 }
 
-
+/**
+ * Delegates inter alia to the implementation of [ThrowableThrownAssertions].
+ * In detail, it implements [ThrowableThrownAssertions] by delegating to [throwableThrownAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 
     override inline fun <TExpected : Throwable> toBe(
@@ -36,11 +48,17 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
     ) = throwableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 
     /**
-     * Delegates to [absentThrowableMessageProviderFactory].
+     * Returns [AbsentThrowableMessageProviderFactoryBuilder]
+     * which inter alia delegates to the implementation of [AbsentThrowableMessageProviderFactory].
      */
     inline val providers get() = AbsentThrowableMessageProviderFactoryBuilder
 }
 
+/**
+ * Delegates inter alia to the implementation of [AbsentThrowableMessageProviderFactory].
+ * In detail, it implements [AbsentThrowableMessageProviderFactory] by delegating to [absentThrowableMessageProviderFactory]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object AbsentThrowableMessageProviderFactoryBuilder : AbsentThrowableMessageProviderFactory {
 
     override inline fun translatableBased(translatable: Translatable): ThrowableThrown.AbsentThrowableMessageProvider

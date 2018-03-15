@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.CoreFactory
+import ch.tutteli.atrium.core.CoreFactory
 
 /**
  * Represents the [AssertionGroupType] for [AssertionGroup]s which contain some kind of feature assertions.

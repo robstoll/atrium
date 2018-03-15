@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting.translating
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 

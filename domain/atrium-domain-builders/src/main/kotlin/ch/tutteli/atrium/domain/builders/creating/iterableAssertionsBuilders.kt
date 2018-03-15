@@ -8,7 +8,13 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.creators.IterableCont
 import ch.tutteli.atrium.domain.creating.iterable.contains.creators.iterableContainsAssertions
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.domain.creating.iterableAssertions
+import java.util.*
 
+/**
+ * Delegates inter alia to the implementation of [IterableAssertions].
+ * In detail, it implements [IterableAssertions] by delegating to [iterableAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object IterableAssertionsBuilder : IterableAssertions {
 
     override inline fun <E, T : Iterable<E>> containsBuilder(plant: AssertionPlant<T>)
@@ -18,12 +24,17 @@ object IterableAssertionsBuilder : IterableAssertions {
         = iterableAssertions.containsNotBuilder(plant)
 
     /**
-     * Delegates to [iterableContainsAssertions].
+     * Returns [IterableContainsAssertionsBuilder]
+     * which inter alia delegates to the implementation of [IterableContainsAssertions].
      */
     inline val contains get() = IterableContainsAssertionsBuilder
 }
 
-
+/**
+ * Delegates inter alia to the implementation of [IterableContainsAssertions].
+ * In detail, it implements [IterableContainsAssertions] by delegating to [iterableContainsAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object IterableContainsAssertionsBuilder: IterableContainsAssertions {
 
     override inline fun <E, T : Iterable<E>> objectsInAnyOrder(checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>, expected: E, otherExpected: Array<out E>)
@@ -54,12 +65,17 @@ object IterableContainsAssertionsBuilder: IterableContainsAssertions {
         = iterableContainsAssertions.nullableEntriesInOrderOnly(builder, assertionCreator, otherAssertionCreators)
 
     /**
-     * Delegates to [searchBehaviourFactory].
+     * Returns [IterableContainsSearchBehaviourFactoryBuilder]
+     * which inter alia delegates to the implementation of [SearchBehaviourFactory].
      */
     inline val searchBehaviours get() = IterableContainsSearchBehaviourFactoryBuilder
 }
 
-
+/**
+ * Delegates inter alia to the implementation of [SearchBehaviourFactory].
+ * In detail, it implements [SearchBehaviourFactory] by delegating to [searchBehaviourFactory]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object IterableContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 
     override inline fun <E, T : Iterable<E>> inAnyOrder(builder: IterableContains.Builder<E, T, NoOpSearchBehaviour>)

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.creating.charsequence.contains.creators
 
-import ch.tutteli.atrium.SingleServiceLoader
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour

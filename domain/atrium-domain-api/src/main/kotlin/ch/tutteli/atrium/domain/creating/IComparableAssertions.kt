@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.creating
 
-import ch.tutteli.atrium.SingleServiceLoader
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.util.*
 

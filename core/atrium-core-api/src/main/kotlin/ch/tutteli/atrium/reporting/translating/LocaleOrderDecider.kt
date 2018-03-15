@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting.translating
 
-import ch.tutteli.atrium.CoreFactory
+import ch.tutteli.atrium.core.CoreFactory
 import java.util.*
 
 /**

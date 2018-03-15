@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable

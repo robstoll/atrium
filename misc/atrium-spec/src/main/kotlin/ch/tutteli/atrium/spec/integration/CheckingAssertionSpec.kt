@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
 import ch.tutteli.atrium.spec.AssertionVerbFactory

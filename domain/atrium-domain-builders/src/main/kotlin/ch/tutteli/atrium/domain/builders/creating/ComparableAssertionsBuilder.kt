@@ -4,8 +4,15 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.ComparableAssertions
 import ch.tutteli.atrium.domain.creating.comparableAssertions
+import java.util.*
 
+/**
+ * Delegates inter alia to the implementation of [ComparableAssertions].
+ * In detail, it implements [ComparableAssertions] by delegating to [comparableAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object ComparableAssertionsBuilder : ComparableAssertions {
+
     override inline fun <T1 : Comparable<T2>, T2: Any?> isLessThan(plant: AssertionPlant<T1>, expected: T2)
         = comparableAssertions.isLessThan(plant, expected)
 

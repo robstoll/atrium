@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.robstoll.lib.creating.throwable.thrown.creators
 
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown

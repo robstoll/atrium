@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours
 
-import ch.tutteli.atrium.SingleServiceLoader
+import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import java.util.*
 

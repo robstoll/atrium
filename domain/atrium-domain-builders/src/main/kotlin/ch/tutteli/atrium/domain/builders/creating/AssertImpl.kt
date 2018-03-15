@@ -1,58 +1,80 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.domain.creating.*
+import java.util.*
+
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api
  * to give users of Atrium a fluent API as well.
  */
 object AssertImpl {
+
     /**
-     * Delegates to [anyAssertions].
+     * Delegates inter alia to the implementation of [CoreFactory].
+     * In detail, it implements [CoreFactory] by delegating to [ch.tutteli.atrium.core.coreFactory]
+     * which in turn delegates to the implementation via [ServiceLoader].
+     */
+    inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
+
+    /**
+     * Returns [AnyAssertionsBuilder]
+     * which inter alia delegates to the implementation of [AnyAssertions].
      */
     inline val any get() = AnyAssertionsBuilder
 
     /**
-     * Delegates to [bigDecimalAssertions].
+     * Returns [BigDecimalAssertionsBuilder]
+     * which inter alia delegates to the implementation of [BigDecimalAssertions].
      */
     inline val bigDecimal get() = BigDecimalAssertionsBuilder
 
     /**
-     * Delegates to [charSequenceAssertions].
+     * Returns [CharSequenceAssertionsBuilder]
+     * which inter alia delegates to the implementation of [CharSequenceAssertions].
      */
     inline val charSequence get() = CharSequenceAssertionsBuilder
 
     /**
-     * Delegates to [collectionAssertions].
+     * Returns [CollectionAssertionsBuilder]
+     * which inter alia delegates to the implementation of [CollectionAssertions].
      */
     inline val collection get() = CollectionAssertionsBuilder
 
     /**
-     * Delegates to [comparableAssertions].
+     * Returns [ComparableAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ComparableAssertions].
      */
     inline val comparable get() = ComparableAssertionsBuilder
 
     /**
-     * Delegates to [featureAssertions].
+     * Returns [FeatureAssertionsBuilder]
+     * which inter alia delegates to the implementation of [FeatureAssertions].
      */
     inline val feature get() = FeatureAssertionsBuilder
 
     /**
-     * Delegates to [floatingPointAssertions].
+     * Returns [FloatingPointAssertionsBuilder]
+     * which inter alia delegates to the implementation of [FloatingPointAssertions].
      */
     inline val floatingPoint get() = FloatingPointAssertionsBuilder
 
     /**
-     * Delegates to [iterableAssertions].
+     * Returns [IterableAssertionsBuilder].
+     * which inter alia delegates to the implementation of [IterableAssertions].
      */
     inline val iterable get() = IterableAssertionsBuilder
 
     /**
-     * Delegates to [mapAssertions].
+     * Returns [MapAssertionsBuilder]
+     * which inter alia delegates to the implementation of [MapAssertions].
      */
     inline val map get() = MapAssertionsBuilder
 
     /**
-     * Delegates to [throwableAssertions].
+     * Returns [ThrowableAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ThrowableAssertions].
      */
     inline val throwable get() = ThrowableAssertionsBuilder
 }
