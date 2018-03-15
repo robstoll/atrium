@@ -5,8 +5,8 @@ import ch.tutteli.atrium.api.cc.en_UK.containsNot
 import ch.tutteli.atrium.api.cc.en_UK.containsNotDefaultTranslationOf
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
@@ -48,7 +48,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
             ).forEach { typeRepresentation, type ->
                 context("formatting an ${AssertionGroup::class.simpleName} of type $typeRepresentation") {
                     it("does not include ${AssertionGroup::name.name} nor ${AssertionGroup::subject.name}") {
-                        val assertionGroup = AssertionBuilder.withType(type).create(TestDescription.TEST_NAME, testSubject, listOf())
+                        val assertionGroup = AssertImpl.builder.withType(type).create(TestDescription.TEST_NAME, testSubject, listOf())
                         val parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
                         testee.formatGroup(assertionGroup, parameterObject, { _, _ -> sb.append(testString) })
                         verbs.checkImmediately(sb.toString())

@@ -5,8 +5,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
@@ -37,15 +37,15 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     val unsupportedAssertion = object : Assertion {
         override fun holds() = false
     }
-    val unsupportedAssertionGroup = AssertionBuilder.withType(object : AssertionGroupType {}).create( Untranslatable.EMPTY, 1, listOf())
-    val supportedAssertionGroupWithAnonymousType = AssertionBuilder.withType(supportedAnonymousAssertionGroupType).create( Untranslatable.EMPTY, 1, listOf())
+    val unsupportedAssertionGroup = AssertImpl.builder.withType(object : AssertionGroupType {}).create( Untranslatable.EMPTY, 1, listOf())
+    val supportedAssertionGroupWithAnonymousType = AssertImpl.builder.withType(supportedAnonymousAssertionGroupType).create( Untranslatable.EMPTY, 1, listOf())
     val supportedAnonymousAssertionGroupWithAnonymousType = object : AssertionGroup {
         override val name = Untranslatable("test")
         override val type = supportedAnonymousAssertionGroupType
         override val subject = 1
         override val assertions: List<Assertion> = emptyList()
     }
-    val supportedAssertionGroup = AssertionBuilder.withType(supportedAssertionGroupType).create(Untranslatable.EMPTY, 1, listOf())
+    val supportedAssertionGroup = AssertImpl.builder.withType(supportedAssertionGroupType).create(Untranslatable.EMPTY, 1, listOf())
     val supportedAnonymousAssertionGroup = object : AssertionGroup {
         override val name = Untranslatable("test")
         override val type = supportedAssertionGroupType
