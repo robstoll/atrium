@@ -3,10 +3,10 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.creators.ContainsAssertionCreator
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderSearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -37,14 +37,14 @@ open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterab
 
     final override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup {
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        return AssertionBuilder.list.create(description, RawString.EMPTY, assertions)
+        return AssertImpl.builder.list.create(description, RawString.EMPTY, assertions)
     }
 
     final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(plant.subject.iterator(), searchCriterion)
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        return AssertionBuilder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
-            AssertionBuilder.explanatoryGroup.withDefault.create(explanatoryAssertions),
+        return AssertImpl.builder.list.create(AN_ENTRY_WHICH, RawString.EMPTY, listOf(
+            AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions),
             featureAssertion
         ))
     }

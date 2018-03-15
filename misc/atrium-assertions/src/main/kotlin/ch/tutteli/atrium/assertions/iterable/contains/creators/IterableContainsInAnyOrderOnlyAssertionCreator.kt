@@ -2,11 +2,11 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -49,16 +49,16 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
                     createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ENTRIES)
                 })
             }
-            assertions.add(AssertionBuilder.feature.create(Untranslatable(list::size.name), RawString.create(actualSize.toString()), featureAssertions))
+            assertions.add(AssertImpl.builder.feature.create(Untranslatable(list::size.name), RawString.create(actualSize.toString()), featureAssertions))
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
-            val summary = AssertionBuilder.summary.create(description, RawString.EMPTY, assertions.toList())
+            val summary = AssertImpl.builder.summary.create(description, RawString.EMPTY, assertions.toList())
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {
                     mismatches -> WARNING_MISMATCHES
                     else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
                 }
-                AssertionBuilder.invisibleGroup.create(listOf(
+                AssertImpl.builder.invisibleGroup.create(listOf(
                     summary,
                     createExplanatoryGroupForMismatchesEtc(list, warningDescription)
                 ))
@@ -81,15 +81,15 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
     protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: S, list: MutableList<E?>): Pair<Boolean, Assertion>
 
     private fun createSizeFeatureAssertion(allSearchCriteria: List<S>, actualSize: Int): MutableList<Assertion>
-        = mutableListOf(AssertionBuilder.descriptive.create(
+        = mutableListOf(AssertImpl.builder.descriptive.create(
             DescriptionAnyAssertion.TO_BE,
             RawString.create(allSearchCriteria.size.toString()),
             { actualSize == allSearchCriteria.size }
         ))
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {
-        val assertions = list.map { AssertionBuilder.explanatory.create(it) }
-        val additionalEntries = AssertionBuilder.list.create(warning, RawString.EMPTY, assertions)
-        return AssertionBuilder.explanatoryGroup.withWarning.create(additionalEntries)
+        val assertions = list.map { AssertImpl.builder.explanatory.create(it) }
+        val additionalEntries = AssertImpl.builder.list.create(warning, RawString.EMPTY, assertions)
+        return AssertImpl.builder.explanatoryGroup.withWarning.create(additionalEntries)
     }
 }
