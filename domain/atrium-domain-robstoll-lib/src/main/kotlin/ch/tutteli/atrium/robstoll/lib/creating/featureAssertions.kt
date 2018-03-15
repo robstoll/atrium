@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.robstoll.lib.creating
 
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields

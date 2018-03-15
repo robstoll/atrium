@@ -95,7 +95,7 @@ def createBcTasks(String apiName, String version, String forgive) {
     check.dependsOn bbcTask
 
 
-    def unzip = task("unzip_$name") {
+    def unzip = task("unzip-$name") {
         inputs.files configurations[testJarSources]
 
         outputs.dir srcDirectory

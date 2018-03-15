@@ -5,8 +5,15 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.BigDecimalAssertions
 import ch.tutteli.atrium.domain.creating.bigDecimalAssertions
 import java.math.BigDecimal
+import java.util.*
 
+/**
+ * Delegates inter alia to the implementation of [BigDecimalAssertions].
+ * In detail, it implements [BigDecimalAssertions] by delegating to [bigDecimalAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object BigDecimalAssertionsBuilder : BigDecimalAssertions {
+
     override inline fun <T : BigDecimal> isNumericallyEqualTo(plant: AssertionPlant<T>, expected: T)
         = bigDecimalAssertions.isNumericallyEqualTo(plant, expected)
 

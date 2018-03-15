@@ -13,8 +13,14 @@ import ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers.F
 import ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers.failureHandlerFactory
 import ch.tutteli.atrium.domain.creating.anyAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
+import java.util.*
 import kotlin.reflect.KClass
 
+/**
+ * Delegates inter alia to the implementation of [AnyAssertions].
+ * In detail, it implements [AnyAssertions] by delegating to [anyAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object AnyAssertionsBuilder : AnyAssertions {
     override inline fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T)
         = anyAssertions.toBe(plant, expected)
@@ -32,14 +38,18 @@ object AnyAssertionsBuilder : AnyAssertions {
         = anyAssertions.isNull(plant)
 
     /**
-     * Delegates to [anyTypeTransformationAssertions].
+     * Returns [AnyTypeTransformationAssertionsBuilder]
+     * which inter alia delegates to the implementation of [AnyTypeTransformationAssertions].
      */
     inline val typeTransformation get() = AnyTypeTransformationAssertionsBuilder
 }
 
-
-object AnyTypeTransformationAssertionsBuilder:
-    AnyTypeTransformationAssertions {
+/**
+ * Delegates inter alia to the implementation of [AnyTypeTransformationAssertions].
+ * In detail, it implements [AnyTypeTransformationAssertions] by delegating to [anyTypeTransformationAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
+object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
 
     override inline fun <T : Any> isNotNull(plant: AssertionPlantNullable<T?>, type: KClass<T>, noinline assertionCreator: AssertionPlant<T>.() -> Unit)
         = anyTypeTransformationAssertions.isNotNull(plant, type, assertionCreator)
@@ -54,13 +64,18 @@ object AnyTypeTransformationAssertionsBuilder:
         = anyTypeTransformationAssertions.transform(parameterObject, canBeTransformed, transform, failureHandler)
 
     /**
-     * Delegates to [failureHandlerFactory].
+     * Returns [AnyTypeTransformationFailureHandlerFactoryBuilder]
+     * which inter alia delegates to the implementation of [FailureHandlerFactory].
      */
-    inline val failureHandlers get () = FailureHandlerFactoryBuilder
+    inline val failureHandlers get () = AnyTypeTransformationFailureHandlerFactoryBuilder
 }
 
-object FailureHandlerFactoryBuilder :
-    FailureHandlerFactory {
+/**
+ * Delegates inter alia to the implementation of [FailureHandlerFactory].
+ * In detail, it implements [FailureHandlerFactory] by delegating to [failureHandlerFactory]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
+object AnyTypeTransformationFailureHandlerFactoryBuilder : FailureHandlerFactory {
 
     override inline fun <S : Any, T : Any> newExplanatory()
         = failureHandlerFactory.newExplanatory<S, T>()

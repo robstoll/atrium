@@ -4,8 +4,15 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.creating.mapAssertions
+import java.util.*
 
+/**
+ * Delegates inter alia to the implementation of [MapAssertions].
+ * In detail, it implements [MapAssertions] by delegating to [mapAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object MapAssertionsBuilder : MapAssertions {
+
     override inline fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int)
         = mapAssertions.hasSize(plant, size)
 

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions.throwable.thrown.builders
 
-import ch.tutteli.atrium.CoreFactory
+import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter

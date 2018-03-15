@@ -5,6 +5,7 @@ import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.checking.ThrowingAssertionChecker
+import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.*

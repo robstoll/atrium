@@ -4,9 +4,16 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.FeatureAssertions
 import ch.tutteli.atrium.domain.creating.featureAssertions
+import java.util.*
 import kotlin.reflect.*
 
+/**
+ * Delegates inter alia to the implementation of [FeatureAssertions].
+ * In detail, it implements [FeatureAssertions] by delegating to [featureAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object FeatureAssertionsBuilder : FeatureAssertions {
+
     override inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>)
         = featureAssertions.property(plant, property)
 

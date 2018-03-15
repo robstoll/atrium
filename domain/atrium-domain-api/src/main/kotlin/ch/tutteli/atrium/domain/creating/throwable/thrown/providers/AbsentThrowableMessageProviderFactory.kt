@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating.throwable.thrown.providers
 
-import ch.tutteli.atrium.SingleServiceLoader
+import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.translating.Translatable
 import java.util.*

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 
 /**
  * An [AssertionPlant] which checks each added [Assertion] immediately.

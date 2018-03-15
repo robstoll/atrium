@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers
 
-import ch.tutteli.atrium.SingleServiceLoader
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import java.util.*
 

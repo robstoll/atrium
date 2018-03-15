@@ -2,6 +2,7 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -12,7 +13,7 @@ import java.util.*
 /**
  * Deprecated, use [coreFactory] instead (uses [ServiceLoader]), will be removed with 1.0.0
  */
-@Deprecated("Use coreFactory instead, will be removed with 1.0.0")
+@Deprecated("use coreFactory instead, will be removed with 1.0.0", ReplaceWith("coreFactory", "ch.tutteli.atrium.core.coreFactory"))
 object AtriumFactory : IAtriumFactory {
 
     private const val ERROR_MSG = "The atrium-core-api-late-binding should only be used as a compileOnly dependency, " +

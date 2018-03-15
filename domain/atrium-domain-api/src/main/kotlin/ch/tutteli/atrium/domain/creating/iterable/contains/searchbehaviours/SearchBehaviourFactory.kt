@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours
 
-import ch.tutteli.atrium.SingleServiceLoader
+import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import java.util.*
 

@@ -12,7 +12,13 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
+import java.util.*
 
+/**
+ * Delegates inter alia to the implementation of [CharSequenceAssertions].
+ * In detail, it implements [CharSequenceAssertions] by delegating to [charSequenceAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
 object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 
     override inline fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>)
@@ -40,14 +46,18 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
         = charSequenceAssertions.isNotEmpty(plant)
 
     /**
-     * Delegates to [charSequenceContainsAssertions].
+     * Returns [CharSequenceContainsAssertionsBuilder]
+     * which inter alia delegates to the implementation of [CharSequenceContainsAssertions].
      */
     inline val contains get() = CharSequenceContainsAssertionsBuilder
 }
 
-
-object CharSequenceContainsAssertionsBuilder:
-    CharSequenceContainsAssertions {
+/**
+ * Delegates inter alia to the implementation of [CharSequenceContainsAssertions].
+ * In detail, it implements [CharSequenceContainsAssertions] by delegating to [charSequenceContainsAssertions]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
+object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
 
     override inline fun <T : CharSequence> values(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
         = charSequenceContainsAssertions.values(checkerOption, expected, otherExpected)
@@ -68,14 +78,18 @@ object CharSequenceContainsAssertionsBuilder:
         = charSequenceContainsAssertions.regexIgnoringCase(checkerOption, expected, otherExpected)
 
     /**
-     * Delegates to [searchBehaviourFactory].
+     * Returns [CharSequenceContainsSearchBehaviourFactoryBuilder]
+     * which inter alia delegates to the implementation of [SearchBehaviourFactory].
      */
-    inline val searchBehaviours get() = SearchBehaviourFactoryBuilder
+    inline val searchBehaviours get() = CharSequenceContainsSearchBehaviourFactoryBuilder
 }
 
-
-object SearchBehaviourFactoryBuilder :
-    SearchBehaviourFactory {
+/**
+ * Delegates inter alia to the implementation of [SearchBehaviourFactory].
+ * In detail, it implements [SearchBehaviourFactory] by delegating to [searchBehaviourFactory]
+ * which in turn delegates to the implementation via [ServiceLoader].
+ */
+object CharSequenceContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 
     override inline fun <T : CharSequence> ignoringCase(containsBuilder: CharSequenceContains.Builder<T, NoOpSearchBehaviour>): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
         = searchBehaviourFactory.ignoringCase(containsBuilder)

@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
+import ch.tutteli.atrium.core.CoreFactory
 
 /**
  * Responsible to control the flow of reporting using [register]ed [AssertionFormatter]s.
