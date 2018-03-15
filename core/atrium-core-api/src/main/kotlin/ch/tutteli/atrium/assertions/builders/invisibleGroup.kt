@@ -10,9 +10,9 @@ import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
  * independent [Assertion]s which should be evaluated together.
  *
  * Or in other words, it should still evaluate the remaining assertions if the first fails.
- * Use [AssertionBuilder.list] or another builder which creates an [AssertionGroup] if the assertions are not
- * independent but belong together and can be grouped under a [AssertionGroup.name] (making the assertions kind of
- * sub-assertions of the [AssertionGroup.name]).
+ * Use `AssertImpl.builder.list` ([AssertionBuilder.list]) or another builder which creates an [AssertionGroup] if
+ * the assertions are not independent but belong together and can be grouped under a
+ * [AssertionGroup.name] (making the assertions kind of sub-assertions of the [AssertionGroup.name]).
  * It is very likely that you do not need this kind of [AssertionGroup] and another type does a better job.
  */
 @Suppress("unused")

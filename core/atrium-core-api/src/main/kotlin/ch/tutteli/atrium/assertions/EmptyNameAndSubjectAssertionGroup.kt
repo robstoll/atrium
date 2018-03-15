@@ -13,7 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  */
 @Deprecated("use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 open class EmptyNameAndSubjectAssertionGroup
-@Deprecated("Use AssertionBuilder instead, will be made internal with 1.0.0")
+@Deprecated("Use AssertImpl.builder instead, will be made internal with 1.0.0")
 constructor(
     override val type: AssertionGroupType,
     override val assertions: List<Assertion>
