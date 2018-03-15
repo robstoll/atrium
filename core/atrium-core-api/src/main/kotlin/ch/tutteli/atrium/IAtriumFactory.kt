@@ -2,6 +2,7 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -11,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
 /**
- * Deprecated, use ICoreFactory instead, will be removed with 1.0.0
+ * Deprecated, use `AssertImpl.coreFactory` instead which delegates to an implementation of [CoreFactory], will be removed with 1.0.0
  */
 @Deprecated(
     "use AssertImpl.coreFactory instead, will be removed with 1.0.0",

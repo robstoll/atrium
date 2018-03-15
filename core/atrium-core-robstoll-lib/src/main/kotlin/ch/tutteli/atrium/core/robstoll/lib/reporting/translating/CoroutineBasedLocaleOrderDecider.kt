@@ -7,7 +7,6 @@ import java.util.*
 import kotlin.coroutines.experimental.SequenceBuilder
 import kotlin.coroutines.experimental.buildSequence
 
-
 /**
  * Responsible to determine in which order [Locale]s should be processed.
  *

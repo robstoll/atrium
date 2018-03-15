@@ -55,7 +55,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
      */
     protected fun getOrLoadProperties(key: T, fileName: String, keyCreator: (String) -> String): Map<String, String> {
         require(!fileName.contains("../")) {
-            "only absolute paths without any '../' are allowed"
+            "only paths without any '../' are allowed"
         }
         return this.translations.getOrPut(key, {
             val absoluteFileName = if (fileName.startsWith('/')) fileName else "/$fileName"

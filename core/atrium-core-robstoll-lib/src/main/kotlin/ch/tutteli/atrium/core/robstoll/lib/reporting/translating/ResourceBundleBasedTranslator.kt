@@ -2,6 +2,8 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
 /**

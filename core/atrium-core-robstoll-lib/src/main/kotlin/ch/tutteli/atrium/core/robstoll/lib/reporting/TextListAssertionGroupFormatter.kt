@@ -3,7 +3,9 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.ListAssertionGroupType
+import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
+import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.AssertionPairFormatter
 
 /**
@@ -29,4 +31,5 @@ class TextListAssertionGroupFormatter(
     bulletPoints[ListAssertionGroupType::class.java] ?: "⚬ ",
     assertionFormatterController,
     assertionPairFormatter,
-    ListAssertionGroupType::class.java)
+    ListAssertionGroupType::class.java
+)

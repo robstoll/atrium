@@ -3,6 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.IndentAssertionGroupType
+import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 
@@ -33,5 +34,4 @@ class TextIndentAssertionGroupFormatter(
 
     override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject)
         = parameterObject.createChildWithNewPrefix(bulletPoint)
-
 }
