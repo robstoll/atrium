@@ -3,8 +3,8 @@ package ch.tutteli.atrium.assertions.basic.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -68,7 +68,7 @@ abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.domain
 
     private fun featureFactory(count: Int, numberOfOccurrences: Translatable): AssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
-        return AssertionBuilder.feature.create(numberOfOccurrences, RawString.create(count.toString()), assertions)
+        return AssertImpl.builder.feature.create(numberOfOccurrences, RawString.create(count.toString()), assertions)
     }
 
 }
