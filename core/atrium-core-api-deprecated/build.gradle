@@ -1,0 +1,5 @@
+description = 'Contains the deprecated IAtriumFactory'
+
+dependencies {
+    compile prefixedProject('core-api')
+}
