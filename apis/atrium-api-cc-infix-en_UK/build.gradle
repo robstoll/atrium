@@ -4,6 +4,7 @@ description = 'An API in en_UK with a focus on code completion and infix functio
 ext.jacoco_additional = prefixedProject('translations-en_UK')
 
 dependencies {
+    compile prefixedProject('domain-api-deprecated')
     compile prefixedProject('domain-builders')
 
     testCompile prefixedProject('domain-robstoll')

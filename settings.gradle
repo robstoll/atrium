@@ -29,6 +29,7 @@ include {
 
     domain {
         _ 'domain-api'
+        _ 'domain-api-deprecated'
         _ 'domain-builders'
         _ 'domain-robstoll'
         _ 'domain-robstoll-lib'
