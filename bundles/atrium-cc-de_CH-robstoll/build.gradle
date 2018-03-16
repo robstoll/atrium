@@ -5,6 +5,7 @@ dependencies {
     compile prefixedProject('translations-de_CH')
     compile prefixedProject('domain-robstoll')
     compile prefixedProject('core-robstoll')
+
     //TODO remove with 1.0.0
     compile prefixedProject('assertions')
     compile prefixedProject('translations-de_CH-deprecated')
