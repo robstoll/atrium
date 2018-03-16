@@ -9,8 +9,8 @@ import ch.tutteli.atrium.domain.creating.AnyAssertions
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.AnyTypeTransformationAssertions
 import ch.tutteli.atrium.domain.creating.any.typetransformation.creators.anyTypeTransformationAssertions
-import ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers.FailureHandlerFactory
-import ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers.failureHandlerFactory
+import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.FailureHandlerFactory
+import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.failureHandlerFactory
 import ch.tutteli.atrium.domain.creating.anyAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import java.util.*

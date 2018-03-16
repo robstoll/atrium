@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers
+package ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
