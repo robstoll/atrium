@@ -2,10 +2,10 @@ package ch.tutteli.atrium.domain.robstoll.creating.iterable.contains.searchbehav
 
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
-import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInAnyOrder
-import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInAnyOrderOnly
-import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInOrder
-import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInOrderOnly
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInAnyOrder
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInAnyOrderOnly
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInOrder
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours._containsInOrderOnly
 
 /**
  * Robstoll's implementation of [SearchBehaviourFactory].

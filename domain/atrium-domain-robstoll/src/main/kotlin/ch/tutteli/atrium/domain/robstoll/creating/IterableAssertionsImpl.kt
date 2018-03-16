@@ -5,8 +5,8 @@ import ch.tutteli.atrium.domain.creating.IterableAssertions
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.robstoll.lib.creating._containsBuilder
-import ch.tutteli.atrium.robstoll.lib.creating._containsNotBuilder
+import ch.tutteli.atrium.domain.robstoll.lib.creating._containsBuilder
+import ch.tutteli.atrium.domain.robstoll.lib.creating._containsNotBuilder
 
 /**
  * Robstoll's implementation of [IterableAssertions].

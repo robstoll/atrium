@@ -2,10 +2,10 @@ package ch.tutteli.atrium.domain.robstoll.creating.charsequence.contains.checker
 
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.checkers.CheckerFactory
-import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers.AtLeastChecker
-import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers.AtMostChecker
-import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers.ExactlyChecker
-import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.checkers.NotChecker
+import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers.AtLeastChecker
+import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers.AtMostChecker
+import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers.ExactlyChecker
+import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.checkers.NotChecker
 
 /**
  * Robstoll's implementation of [CheckerFactory].

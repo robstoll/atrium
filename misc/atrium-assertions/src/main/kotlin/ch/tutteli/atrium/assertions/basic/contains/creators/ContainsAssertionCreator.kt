@@ -5,9 +5,9 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.basic.contains.Contains
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.

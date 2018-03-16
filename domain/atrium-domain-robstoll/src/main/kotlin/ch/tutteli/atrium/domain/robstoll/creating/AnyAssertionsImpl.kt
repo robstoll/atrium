@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.creating
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.AnyAssertions
-import ch.tutteli.atrium.robstoll.lib.creating.*
+import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 
 /**
  * Robstoll's implementation of [AnyAssertions].

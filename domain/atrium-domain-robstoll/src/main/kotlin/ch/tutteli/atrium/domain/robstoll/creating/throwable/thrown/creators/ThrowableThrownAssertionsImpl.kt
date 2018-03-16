@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.creating.throwable.thrown.creators
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
-import ch.tutteli.atrium.robstoll.lib.creating.throwable.thrown.creators._toBe
+import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators._toBe
 import kotlin.reflect.KClass
 
 /**
