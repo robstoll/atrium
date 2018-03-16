@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.domain.creating.any.typetransformation.failrehandlers.failureHandlerFactory
+import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.failureHandlerFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
