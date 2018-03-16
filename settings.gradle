@@ -37,8 +37,9 @@ include {
 
     core {
         _ 'core-api'
-        _ 'core-api-late-binding'
+        _ 'core-api-deprecated'
         _ 'core-robstoll'
+        _ 'core-robstoll-deprecated'
         _ 'core-robstoll-lib'
     }
 
