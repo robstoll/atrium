@@ -2,10 +2,10 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].

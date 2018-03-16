@@ -28,25 +28,23 @@ buildscript {
         docProjects = subprojects.findAll { !it.name.contains("robstoll") }
 
         //jacoco-multi-project.gradle
+        def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
             sourceProjects:
-                subprojects.findAll {
-                    // cannot be part of the sources since it would define AnyAssertions and the like twice
-                    // (atrium-domain-robstoll already defines it)
-                    it.name != "${project.name}-domain-api-late-binding" &&
-                        // cannot be part of the sources since it would define CoreFactory twice
-                        // (atrium-core-robstoll already defines it)
-                        it.name != "${project.name}-core-api-late-binding" &&
+                (subprojects - deprecatedProjects).findAll {
+                    // cannot be part of the sources since it would define CoreFactory twice
+                    // (atrium-core-robstoll already defines it)
+                    it.name != "${project.name}-core-api-late-binding" &&
                         // would have two classes with the same name if we add it as project as well,
                         // (clashes with "${project.name}-translations-en_UK"
                         it.name != "${project.name}-translations-de_CH" &&
+                        it.name != "${project.name}-translations-de_CH-deprecated" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${project.name}-spec"
                 },
             jacocoProjects:
-                subprojects.findAll {
+                (subprojects - deprecatedProjects - translationProjects).findAll {
                     it.name != "${project.name}-domain-api" &&
-                        it.name != "${project.name}-domain-api-late-binding" &&
                         it.name != "${project.name}-domain-robstoll" &&
                         it.name != "${project.name}-core-api" &&
                         it.name != "${project.name}-core-api-late-binding" &&
@@ -55,7 +53,7 @@ buildscript {
                         it.name != "${project.name}-bc-test" &&
                         //TODO remove with 1.0.0
                         it.name != "${project.name}-assertions"
-                } - translationProjects
+                }
         ]
     }
 
@@ -163,9 +161,41 @@ configure(jacocoMulti.jacocoProjects) {
     }
 }
 
-
 apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 apply from: 'gradle/scripts/gh-pages.gradle'
+
+if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+    subprojects {
+        def srcModule = "src/module"
+        def moduleInfo = file("${project.projectDir}/$srcModule/module-info.java")
+        if (moduleInfo.exists()) {
+
+            sourceSets {
+                module {
+                    java {
+                        srcDirs = [srcModule]
+                        compileClasspath = main.compileClasspath
+                        sourceCompatibility = '9'
+                        targetCompatibility = '9'
+                    }
+                }
+                main {
+                    kotlin { srcDirs += [srcModule] }
+                }
+            }
+
+            compileModuleJava.configure {
+                dependsOn compileKotlin
+                destinationDir = compileKotlin.destinationDir
+                doFirst {
+                    options.compilerArgs = ['--module-path', classpath.asPath,]
+                    classpath = files()
+                }
+            }
+            jar.dependsOn compileModuleJava
+        }
+    }
+}
 
 /*
 

@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.*
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder
 import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsAtMostCheckerBuilder as DeprecatedAtMostCheckerBuilder
 import ch.tutteli.atrium.api.cc.en_UK.assertions.charsequence.contains.builders.CharSequenceContainsButAtMostCheckerBuilder as DeprecatedButAtMostCheckerBuilder

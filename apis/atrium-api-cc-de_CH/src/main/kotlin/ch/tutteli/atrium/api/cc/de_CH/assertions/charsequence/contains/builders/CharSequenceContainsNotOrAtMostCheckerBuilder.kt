@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
-import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
+import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 
 /**
  * Represents the *deprecated* builder of a `contains not or at most` check within the fluent API of a
@@ -18,7 +18,10 @@ import ch.tutteli.atrium.creating.charsequence.contains.CharSequenceContains
  */
 @Deprecated(
     "use the builder from the package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.CharSequenceContainsNotOrAtMostCheckerBuilder")
+    ReplaceWith(
+        "NotOrAtMostCheckerOption",
+        "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.NotOrAtMostCheckerOption"
+    )
 )
 open class CharSequenceContainsNotOrAtMostCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
     times: Int,

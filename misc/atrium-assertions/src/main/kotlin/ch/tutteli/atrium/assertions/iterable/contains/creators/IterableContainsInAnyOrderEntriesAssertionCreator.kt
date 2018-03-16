@@ -31,8 +31,8 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
 @Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
 open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E?>>(
     private val searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
-    checkers: List<ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker>
-) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, ch.tutteli.atrium.creating.iterable.contains.IterableContains.Checker>(checkers),
+    checkers: List<ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker>
+) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker>(checkers),
     IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {
 
     final override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup {

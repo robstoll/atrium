@@ -327,7 +327,7 @@ to see more options.
 As workaround you can use the domain function `returnValueOfX` where `X` needs to be replaced by the number of arguments expected.
 Following an example:
 ```kotlin
-import ch.tutteli.atrium.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 assert(person) {
     AssertImpl.feature.returnValueOf1(this, "nickname", subject::nickname, false).toBe("Robert aka. Stoll")
 }
@@ -673,6 +673,13 @@ assert(13).isEven()
     // ◆ is: an even number
 ```
 
+Do you want to provide extra hints in case the assertion fails? 
+Have a look at [`AssertImpl.builder.descriptive.withFailureHint`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.assertions.builders/with-failure-hint.html).
+You might want to have a look at [`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.creating/-assert-impl/index.html)
+in general, it is kind of the entry point for assertion-function-writers.
+It guides you to existing assertion function implementations 
+as well as to the `AssertionBuilder` which itself helps you with creating assertions. 
+
 Do you want to write an own sophisticated assertion builder instead of an assertion function? 
 Have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
 [ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-api/src/main/kotlin/ch/tutteli/atrium/creating/iterable/contains).
@@ -791,22 +798,28 @@ we want to write `isMultipleOf` such that one cannot only generate a report in a
 but also that one can use the function itself in a different language. 
 Or in other words, provide our API in a different language.
 
-We split up the function in two parts: API and implementation (well yes, its that simple) 
+We split up the function in two parts: API and implementation 
 -- whereas the implementation creates the assertion and the API provides a function for the user (the API as such) and
 merely adds the assertion created by the implementation to the `AssertionPlant`.
  
 Typically you put the API function in one module (jar) and the implementation in another (so that the API can be exchanged).
-In the implementation module we define, what we will call hereafter an impl-function 
--- we follow the convention that impl-functions are prefixed with `_`):
+In the implementation module we define, what we will call hereafter an impl-function.
+We follow the convention that impl-functions are prefixed with `_` 
+-- this way the chance that it shows up in code completion, e.g. when a developer starts to type `is`, is very low):
 ```kotlin
 fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion 
-    = AssertionBuilder.descriptive.create(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
+    = AssertImpl.builder.descriptive.create(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
 ```
-Notice that the impl-function it is not an extension function as before 
+Notice that the impl-function is not an extension function as before 
 because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
 We typically use `AssertionPlant` for impl-functions and `Assert` for API functions. 
-You can use the [`AssertionBuilder`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions/-assertion-builder/index.html)
-to create different types of assertions.
+
+[`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/doc/ch.tutteli.atrium.domain.builders.creating/-assert-impl/index.html)
+helps you in writing own assertion functions. 
+I suggest you use it as entry point (rather than memorizing different class names), 
+it guides you to existing assertion function implementations for different types 
+as well as to other builders such as the [`AssertionBuilder`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html)
+which in turn helps you with creating assertions.
 
 In the API module we define the extension function and call the impl-function:
 ```kotlin
@@ -823,6 +836,14 @@ fun Assert<Int>.istVielfachesVon(base: Int)
     = addAssertion(_isMultipleOf(this, base))
 ```
 
+:information_source: If you have a look at existing assertion functions then you will see that they use `AssertImpl`
+and that a few more indirections were introduced into Atrium. 
+An API call looks more or less as follows: <br/>
+`API -> AssertImpl -> ServiceLoader -> Service -> Implementation`
+
+The reasons behind this are simple, you could exchange a `Service` with another service if you want.
+A service could also reuse parts of the `Implementation` 
+(that is why the `Service` delegates to the `Implementation` rather than implementing it itself).
 
 # APIs
 Atrium supports currently two API styles: pure fluent (`cc`) and infix (`cc-infix`) 
@@ -869,7 +890,7 @@ Some assertion functions which I miss myself will follow in the next version.
 They are listed in the [Roadmap](#roadmap) below.
 
 Atrium does not support (yet):
-- assertion functions for `Map`
+- contains assertion functions for `Map` (you can use `assert(map.entries)` in the meantime -- or `keys`/`values` if your assertion is only about keys or values)
 - infinite `Iterable`s
 - assertion functions for `Sequence` (you can use `returnValueOf(subject::asIterable){}` in the meantime)
 - assertion functions for `Array` (you can use `returnValueOf(subject::asIterable){}` in the meantime)

@@ -1,13 +1,12 @@
 package ch.tutteli.atrium.spec.verbs
 
 import ch.tutteli.atrium.api.cc.en_UK.*
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.spec.inCaseOf
@@ -35,8 +34,7 @@ private fun expect(act: () -> Unit)
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {
-        ReporterBuilder
-            .withoutTranslations()
+        ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder.withoutTranslations()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()

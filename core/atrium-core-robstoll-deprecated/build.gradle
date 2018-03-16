@@ -1,0 +1,6 @@
+description = 'Contains the deprecated AtriumFactory'
+
+dependencies {
+    compile prefixedProject('core-api-deprecated')
+    compile prefixedProject('core-robstoll-lib')
+}

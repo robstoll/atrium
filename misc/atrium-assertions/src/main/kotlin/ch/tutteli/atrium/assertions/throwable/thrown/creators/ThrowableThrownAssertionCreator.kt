@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.assertions.any.typetransformation.DownCaster
 import ch.tutteli.atrium.assertions.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.assertions.throwable.thrown.builders.ThrowableThrownBuilder
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.translating.Translatable

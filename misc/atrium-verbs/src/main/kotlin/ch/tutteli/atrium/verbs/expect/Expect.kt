@@ -1,13 +1,12 @@
 package ch.tutteli.atrium.verbs.expect
 
-import ch.tutteli.atrium.CoreFactory
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.throwable.thrown.ThrowableThrown
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT
 import ch.tutteli.atrium.verbs.AssertionVerb.EXPECT_THROWN
@@ -21,7 +20,7 @@ import ch.tutteli.atrium.verbs.AtriumReporterSupplier
  * @see CoreFactory.newReportingPlant
  */
 fun <T : Any> expect(subject: T)
-    = coreFactory.newReportingPlant(EXPECT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlant(EXPECT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
@@ -33,7 +32,7 @@ fun <T : Any> expect(subject: T)
  * @see CoreFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
 fun <T : Any> expect(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = coreFactory.newReportingPlantAndAddAssertionsCreatedBy(EXPECT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(EXPECT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable] for the given [subject] which might be `null`.
@@ -43,7 +42,7 @@ fun <T : Any> expect(subject: T, assertionCreator: Assert<T>.() -> Unit)
  * @see CoreFactory.newReportingPlantNullable
  */
 fun <T : Any?> expect(subject: T)
-    = coreFactory.newReportingPlantNullable(EXPECT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlantNullable(EXPECT, subject, AtriumReporterSupplier.REPORTER)
 
 /**
  * Creates a [ThrowableThrown.Builder] for the given function [act] which is expected to throw a [Throwable].

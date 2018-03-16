@@ -3,18 +3,18 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.AssertionVerb.ASSERT
 import ch.tutteli.atrium.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertImpl
-import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 internal fun <T : Any> assert(subject: T)
-    = coreFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 internal fun <T : Any?> assert(subject: T)
-    = coreFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
 
 internal fun expect(act: () -> Unit)
     = AssertImpl.throwable.thrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)

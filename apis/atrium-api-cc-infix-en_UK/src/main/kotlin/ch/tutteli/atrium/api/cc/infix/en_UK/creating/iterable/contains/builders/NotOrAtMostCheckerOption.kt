@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.notOrAtMost
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.builders.NotOrAtMostCheckerOptionBase
-import ch.tutteli.atrium.creating.iterable.contains.builders.WithTimesCheckerOption
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.NotOrAtMostCheckerOptionBase
+import ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders.WithTimesCheckerOption
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the extension point for another option after a `contains not or at most`-check within

@@ -36,9 +36,6 @@ Domain modules:
 
 Core modules:
 - **atrium-core-api** defines the contracts of the core of Atrium.
-- **atrium-core-api-late-binding** is a deprecated module providing the deprecated
-  [AtriumFactory](./ch.tutteli.atrium/-atrium-factory/index.html)
-  -- use [coreFactory](./ch.tutteli.atrium/coreFactory.html) instead.
 - **atrium-core-robstoll** provides an implementation for [CoreFactory](./ch.tutteli.atrium/-core-factory/index.html)
   which uses the implementations of *atrium-core-robstoll-lib*
 - **atrium-core-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the core of Atrium.
@@ -58,6 +55,14 @@ Misc modules:
   It will be removed with 1.0.0. 
   Use the replacements suggested in the `@Deprecated` annotations.
 
+Deprecated modules:
+- **atrium-domain-api-deprecated** contains deprecated domain-api code
+- **atrium-core-robstoll-deprecated** contains the deprecated AtriumFactory => use [coreFactory](./ch.tutteli.atrium/coreFactory.html) instead
+- **atrium-core
+
+Atrium has currently several modules to retain backward compatibility. 
+You should not rely on them on and move to the suggested predecessor:
+- 
 
 # Package ch.tutteli.atrium
 Contains the [ICoreFactory](./ch.tutteli.atrium/-i-core-factory/index.html).

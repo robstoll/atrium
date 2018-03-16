@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 
 @Deprecated("use AssertImpl.any.toBe, will be removed with 1.0.0",
     ReplaceWith(
