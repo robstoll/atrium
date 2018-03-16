@@ -2,10 +2,10 @@ package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.BigDecimalAssertions
-import ch.tutteli.atrium.robstoll.lib.creating._isEqualIncludingScale
-import ch.tutteli.atrium.robstoll.lib.creating._isNotEqualIncludingScale
-import ch.tutteli.atrium.robstoll.lib.creating._isNotNumericallyEqualTo
-import ch.tutteli.atrium.robstoll.lib.creating._isNumericallyEqualTo
+import ch.tutteli.atrium.domain.robstoll.lib.creating._isEqualIncludingScale
+import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotEqualIncludingScale
+import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotNumericallyEqualTo
+import ch.tutteli.atrium.domain.robstoll.lib.creating._isNumericallyEqualTo
 import java.math.BigDecimal
 
 /**

@@ -5,8 +5,8 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.creators.CharSequenceContainsAssertions
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.creators.*
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.robstoll.lib.creating.charsequence.contains.creators.*
 
 /**
  * Robstoll's implementation of [CharSequenceContainsAssertions].

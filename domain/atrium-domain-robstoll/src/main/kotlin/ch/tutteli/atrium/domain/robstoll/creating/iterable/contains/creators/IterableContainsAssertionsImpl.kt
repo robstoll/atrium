@@ -7,7 +7,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.creators.IterableCont
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
-import ch.tutteli.atrium.robstoll.lib.creating.iterable.contains.creators.*
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators.*
 
 /**
  * Robstoll's implementation of [IterableContainsAssertions].

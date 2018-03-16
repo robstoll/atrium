@@ -6,9 +6,9 @@ import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
+import ch.tutteli.atrium.domain.robstoll.lib.creating.AssertionCollector
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.robstoll.lib.creating.AssertionCollector
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 @Deprecated("will be removed with 1.0.0", ReplaceWith(""))
