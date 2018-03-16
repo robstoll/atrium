@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertImpl
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import java.math.BigDecimal
 
 @Deprecated("Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +

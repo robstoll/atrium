@@ -3,6 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeBasicAssertion
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe

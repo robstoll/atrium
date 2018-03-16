@@ -5,5 +5,11 @@ package ch.tutteli.atrium.assertions
  */
 @Deprecated("use ExplanatoryAssertion, do not rely on this specific type, will be made internal with 1.0.0")
 class BasicExplanatoryAssertion
-@Deprecated("Use AssertionBuilder.explanatory instead, will be made internal with 1.0.0")
+@Deprecated(
+    "use `AssertImpl.builder.explanatory` instead, will be made `internal` with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.builder.explanatory.create(explanation)",
+        "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+    )
+)
 constructor(override val explanation: Any?) : ExplanatoryAssertion

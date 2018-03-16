@@ -12,8 +12,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 @Deprecated("use DescriptiveAssertion, do not rely on this specific type, will be made internal with 1.0.0")
 class BasicDescriptiveAssertion
-@Deprecated("use `AssertionBuilder.descriptive` instead, will be made `internal` with 1.0.0",
-    ReplaceWith("AssertionBuilder.descriptive.create(description, expected, test)", "ch.tutteli.atrium.assertions.builders.AssertionBuilder")
+@Deprecated(
+    "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
+    ReplaceWith(
+        "AssertImpl.builder.descriptive.create(description, representation, test)",
+        "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+    )
 )
 constructor(
     override val description: Translatable,
@@ -30,8 +34,12 @@ constructor(
      * @param representation The [BasicDescriptiveAssertion.representation].
      * @param holds Determines whether [BasicDescriptiveAssertion.holds] or not
      */
-    @Deprecated("use `AssertionBuilder.descriptive` instead, will be removed with 1.0.0",
-        ReplaceWith("AssertionBuilder.descriptive.create(description, representation, holds)", "ch.tutteli.atrium.assertions.builders.AssertionBuilder")
+    @Deprecated(
+        "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
+        ReplaceWith(
+            "AssertImpl.builder.descriptive.create(description, representation, holds)",
+            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+        )
     )
     constructor(description: Translatable, representation: Any, holds: Boolean)
         : this(description, representation, { holds })

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.coreFactory
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
@@ -18,7 +18,7 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         ReplaceWith(
             "AssertImpl.any.typeTransformation.transform(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform, AssertImpl.any.typeTransformation.failureHandlers.chooseAFailureHandler)",
             "ch.tutteli.atrium.creating.AssertImpl",
-            "ch.tutteli.atrium.creating.any.typetransformation.AnyTypeTransformation"
+            "ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation"
         )
     )
     fun transform(

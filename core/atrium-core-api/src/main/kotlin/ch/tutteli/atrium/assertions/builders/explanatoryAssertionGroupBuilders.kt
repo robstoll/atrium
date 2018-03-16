@@ -21,8 +21,7 @@ class ExplanatoryAssertionGroupOption internal constructor() {
     /**
      * Builder to create an [AssertionGroup] with a custom [ExplanatoryAssertionGroupType].
      */
-    fun withType(groupType: ExplanatoryAssertionGroupType) =
-        ExplanatoryAssertionGroupBuilder(groupType)
+    fun withType(groupType: ExplanatoryAssertionGroupType) = ExplanatoryAssertionGroupBuilder(groupType)
 }
 
 /**

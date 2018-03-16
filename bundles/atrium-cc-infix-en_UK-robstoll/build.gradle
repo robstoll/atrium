@@ -5,8 +5,12 @@ dependencies {
     compile prefixedProject('translations-en_UK')
     compile prefixedProject('domain-robstoll')
     compile prefixedProject('core-robstoll')
+
     //TODO remove with 1.0.0
     compile prefixedProject('assertions')
+    compile prefixedProject('core-api-deprecated')
+    compile prefixedProject('core-robstoll-deprecated')
+    compile prefixedProject('translations-en_UK-deprecated')
 
     testCompile prefixedProject('verbs')
 }

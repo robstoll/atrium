@@ -5,7 +5,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
- * Represents a builder for [Assertion].
+ * Represents a builder which creates [Assertion]s and [AssertionGroup]s.
  */
 object AssertionBuilder {
 

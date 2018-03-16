@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders
 
-
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
-import ch.tutteli.atrium.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
 /**
  * Represents the *deprecated* builder of a `contains at least once but at most` check within the fluent API of a
@@ -19,7 +18,10 @@ import ch.tutteli.atrium.creating.iterable.contains.searchbehaviours.InAnyOrderS
  */
 @Deprecated(
     "use the builder from the package creating, will be removed with 1.0.0",
-    ReplaceWith("ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.IterableContainsAtMostCheckerBuilder")
+    ReplaceWith(
+        "AtMostCheckerOption",
+        "ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.AtMostCheckerOption"
+    )
 )
 open class IterableContainsAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
