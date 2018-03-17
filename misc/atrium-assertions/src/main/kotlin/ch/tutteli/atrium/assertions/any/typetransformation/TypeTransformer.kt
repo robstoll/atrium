@@ -11,10 +11,10 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 /**
  * Deprecated, use AnyTypeTransformerAssertions.transformType, will be removed with 1.0.0
  */
-@Deprecated("use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0")
+@Deprecated("Use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0")
 class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub>) {
 
-    @Deprecated("use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0",
+    @Deprecated("Use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.any.typeTransformation.transform(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform, AssertImpl.any.typeTransformation.failureHandlers.chooseAFailureHandler)",
             "ch.tutteli.atrium.creating.AssertImpl",

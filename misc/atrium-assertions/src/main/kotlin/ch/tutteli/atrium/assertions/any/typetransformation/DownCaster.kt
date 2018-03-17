@@ -21,7 +21,7 @@ import kotlin.reflect.full.cast
  * @param failureHandler The handler which deals with a lambda function which could have created subsequent assertions
  *   for a down-casted subject.
  */
-@Deprecated("use AssertImpl.any.typeTransformation.downcast, will be removed with 1.0.0")
+@Deprecated("Use AssertImpl.any.typeTransformation.downcast, will be removed with 1.0.0")
 class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub>) {
     private val typeTransformer = TypeTransformer(failureHandler)
     /**
@@ -40,7 +40,7 @@ class DownCaster<T : Any, TSub : T>(private val failureHandler: AnyTypeTransform
      * @throws AssertionError Might throw an [AssertionError] in case the down-cast cannot be performed, depending on
      *   the [subjectPlant] and the defined [AnyTypeTransformation.TypeTransformationFailureHandler].
      */
-    @Deprecated("use AssertImpl.any.typeTransformation.downcast, will be removed with 1.0.0",
+    @Deprecated("Use AssertImpl.any.typeTransformation.downcast, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.any.typeTransformation.downcast(description, subType, subjectPlant, assertionCreator)",
             "ch.tutteli.atrium.creating.AssertImpl"

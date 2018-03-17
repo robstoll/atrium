@@ -11,7 +11,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequence
 import ch.tutteli.atrium.assertions.charsequence.contains.searchers.CharSequenceContainsRegexSearcher
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-@Deprecated("use AssertImpl.charSequence.contains.values, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.charSequence.contains.values, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.charSequence.contains.values(checker, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -25,7 +25,7 @@ fun <T : CharSequence> _containsValues(
     = checkOnlyAllowedTypeAndCreateAssertionGroup(checker, CharSequenceContainsIndexSearcher(), expected, otherExpected)
 
 
-@Deprecated("use AssertImpl.charSequence.contains.valuesIgnoringCase, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.charSequence.contains.valuesIgnoringCase, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.charSequence.contains.valuesIgnoringCase(checker, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -52,7 +52,7 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
     return createAssertionGroup(checker, searcher, expected, otherExpected)
 }
 
-@Deprecated("use AssertImpl.charSequence.contains.defaultTranslationOf, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.charSequence.contains.defaultTranslationOf, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.charSequence.contains.defaultTranslationOf(checker, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -65,7 +65,7 @@ fun <T : CharSequence> _containsDefaultTranslationOf(
 ): AssertionGroup
     = _containsValues(checker, expected.getDefault(), mapDefaultTranslations(otherExpected))
 
-@Deprecated("use AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(checker, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -81,7 +81,7 @@ fun <T : CharSequence> _containsDefaultTranslationOfIgnoringCase(
 private fun mapDefaultTranslations(otherExpected: Array<out Translatable>) =
     otherExpected.map { it.getDefault() }.toTypedArray()
 
-@Deprecated("use AssertImpl.charSequence.contains.regex, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.charSequence.contains.regex, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.charSequence.contains.regex(checker, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -94,7 +94,7 @@ fun <T : CharSequence> _containsRegex(
 ): AssertionGroup
     = createAssertionGroup(checker, CharSequenceContainsRegexSearcher(), expected, otherExpected)
 
-@Deprecated("use AssertImpl.charSequence.contains.regexIgnoringCase, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.charSequence.contains.regexIgnoringCase, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.charSequence.contains.regexIgnoringCase(checker, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"

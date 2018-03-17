@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 
-@Deprecated("use AssertImpl.comparable.isLessThan, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.comparable.isLessThan, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.comparable.isLessThan(plant, expected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -12,7 +12,7 @@ import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 fun <T : Comparable<T>> _isLessThan(plant: AssertionPlant<T>, expected: T)
     = AssertImpl.comparable.isLessThan(plant, expected)
 
-@Deprecated("use AssertImpl.comparable.isLessOrEquals, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.comparable.isLessOrEquals, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.comparable.isLessOrEquals(plant, expected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -21,7 +21,7 @@ fun <T : Comparable<T>> _isLessThan(plant: AssertionPlant<T>, expected: T)
 fun <T : Comparable<T>> _isLessOrEquals(plant: AssertionPlant<T>, expected: T)
     = AssertImpl.comparable.isLessOrEquals(plant, expected)
 
-@Deprecated("use AssertImpl.comparable.isGreaterThan, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.comparable.isGreaterThan, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.comparable.isGreaterThan(plant, expected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -30,7 +30,7 @@ fun <T : Comparable<T>> _isLessOrEquals(plant: AssertionPlant<T>, expected: T)
 fun <T : Comparable<T>> _isGreaterThan(plant: AssertionPlant<T>, expected: T)
     = AssertImpl.comparable.isGreaterThan(plant, expected)
 
-@Deprecated("use AssertImpl.comparable.isGreaterOrEquals, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.comparable.isGreaterOrEquals, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.comparable.isGreaterOrEquals(plant, expected)",
         "ch.tutteli.atrium.creating.AssertImpl"

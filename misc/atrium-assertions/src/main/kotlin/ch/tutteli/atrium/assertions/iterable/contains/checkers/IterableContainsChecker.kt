@@ -14,7 +14,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-@Deprecated("use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsChecker"))
+@Deprecated("Use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsChecker"))
 abstract class IterableContainsChecker(
     times: Int,
     correctCall: String,

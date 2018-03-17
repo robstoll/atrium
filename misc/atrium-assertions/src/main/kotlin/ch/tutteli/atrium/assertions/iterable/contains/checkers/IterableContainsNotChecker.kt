@@ -8,7 +8,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 /**
  * Represents a check that an expected object is not contained in the search input.
  */
-@Deprecated("use IterableContainsCheckers.newNotChecker, will be removed with 1.0.0", ReplaceWith("IterableContainsCheckers.newNotChecker()", "ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers"))
+@Deprecated("Use IterableContainsCheckers.newNotChecker, will be removed with 1.0.0", ReplaceWith("IterableContainsCheckers.newNotChecker()", "ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers"))
 class IterableContainsNotChecker : IterableContains.Checker {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion

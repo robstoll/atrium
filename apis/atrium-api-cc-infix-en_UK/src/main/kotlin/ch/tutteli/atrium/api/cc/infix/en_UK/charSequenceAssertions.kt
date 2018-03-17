@@ -23,7 +23,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
 infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     = AssertImpl.charSequence.containsBuilder(this)
 
-@Deprecated("use the extension function `to`, will be removed with 1.0.0", ReplaceWith("plant to contain"))
+@Deprecated("Use the extension function `to`, will be removed with 1.0.0", ReplaceWith("plant to contain"))
 fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedBuilder<T, NoOpSearchBehaviour>
     = DeprecatedBuilder(plant, (plant to contain).searchBehaviour)
 
@@ -37,7 +37,7 @@ fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contai
 infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): NotCheckerOption<T, NotSearchBehaviour>
     = NotCheckerOptionImpl(AssertImpl.charSequence.containsNotBuilder(this))
 
-@Deprecated("use the extension function `notTo`, will be removed with 1.0.0", ReplaceWith("plant notTo contain"))
+@Deprecated("Use the extension function `notTo`, will be removed with 1.0.0", ReplaceWith("plant notTo contain"))
 fun <T : CharSequence> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>
     = DeprecatedNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(plant))
 
