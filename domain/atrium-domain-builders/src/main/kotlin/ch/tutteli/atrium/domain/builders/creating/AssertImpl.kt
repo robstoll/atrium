@@ -1,7 +1,7 @@
-@file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.domain.creating.*
 import java.util.*
@@ -21,9 +21,10 @@ object AssertImpl {
 
     /**
      * Returns [AssertionBuilder].
-     * In detail, its an `inline` property which returns [AssertionBuilder].
+     * In detail, its an `inline` property which returns [ch.tutteli.atrium.assertions.builders.assertionBuilder]
+     * which in turn returns an implementation of [AssertionBuilder].
      */
-    inline val builder get() = AssertionBuilder
+    inline val builder get() = assertionBuilder
 
     /**
      * Returns [AnyAssertionsBuilder]
@@ -86,3 +87,19 @@ object AssertImpl {
     inline val throwable get() = ThrowableAssertionsBuilder
 }
 
+interface I{fun foo() }
+class A: I{
+     override fun foo() {
+        B().bar()
+    }
+}
+@Suppress("NOTHING_TO_INLINE")
+class B{
+    fun bar(){
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}
+
+fun main(args: Array<String>) {
+    A().foo()
+}

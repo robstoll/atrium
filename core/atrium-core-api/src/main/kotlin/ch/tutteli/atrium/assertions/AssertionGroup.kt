@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -90,10 +91,10 @@ interface AssertionGroup : Assertion {
         @Deprecated("use AssertImpl.builder instead, will be removed with 1.0.0")
         class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(name: Translatable, subject: Any, assertion: Assertion)
-                = ch.tutteli.atrium.assertions.builders.BasicAssertionGroupBuilder(groupType).create(name, subject, assertion)
+                = assertionBuilder.withType(groupType).create(name, subject, assertion)
 
             fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
-                = ch.tutteli.atrium.assertions.builders.BasicAssertionGroupBuilder(groupType).create(name, subject, assertions)
+                = assertionBuilder.withType(groupType).create(name, subject, assertions)
         }
 
         @Deprecated("use AssertImpl.builder instead, will be removed with 1.0.0")
@@ -115,10 +116,10 @@ interface AssertionGroup : Assertion {
         @Deprecated("use AssertImpl.builder instead, will be removed with 1.0.0")
         class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(assertion: Assertion): AssertionGroup
-                = ch.tutteli.atrium.assertions.builders.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertion)
+                = ch.tutteli.atrium.assertions.builders.EmptyNameAndSubjectAssertionGroupBuilderImpl(groupType).create(assertion)
 
             fun create(assertions: List<Assertion>): AssertionGroup
-                = ch.tutteli.atrium.assertions.builders.EmptyNameAndSubjectAssertionGroupBuilder(groupType).create(assertions)
+                = ch.tutteli.atrium.assertions.builders.EmptyNameAndSubjectAssertionGroupBuilderImpl(groupType).create(assertions)
         }
     }
 }
