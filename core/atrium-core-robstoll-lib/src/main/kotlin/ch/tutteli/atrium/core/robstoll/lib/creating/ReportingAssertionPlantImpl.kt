@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -28,6 +28,6 @@ class ReportingAssertionPlantImpl<out T : Any>(
         val assertions = coreFactory.newCollectingPlant({ subject })
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()
-        return addAssertion(AssertionBuilder.invisibleGroup.create(assertions))
+        return addAssertion(assertionBuilder.invisibleGroup.create(assertions))
     }
 }

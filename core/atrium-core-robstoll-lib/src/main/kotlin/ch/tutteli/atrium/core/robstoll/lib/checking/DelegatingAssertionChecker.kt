@@ -3,7 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib.checking
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -36,6 +36,6 @@ class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAss
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
     override fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>) {
-        subjectPlant.addAssertion(AssertionBuilder.invisibleGroup.create(assertions))
+        subjectPlant.addAssertion(assertionBuilder.invisibleGroup.create(assertions))
     }
 }

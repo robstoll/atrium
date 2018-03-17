@@ -4,30 +4,32 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
+
 /**
  * Provides options to create an [AssertionGroup] with a certain [ExplanatoryAssertionGroupType].
  */
-class ExplanatoryAssertionGroupOption internal constructor() {
+interface ExplanatoryAssertionGroupOption {
+
     /**
-     * Builder to create an [AssertionGroup] with a [DefaultListAssertionGroupType].
+     * Builder to create an [AssertionGroup] with a [DefaultExplanatoryAssertionGroupType].
      */
-    val withDefault =
-        ExplanatoryAssertionGroupBuilder(DefaultExplanatoryAssertionGroupType)
+    val withDefault: ExplanatoryAssertionGroupBuilder<DefaultExplanatoryAssertionGroupType>
+
     /**
      * Builder to create an [AssertionGroup] with a [WarningAssertionGroupType].
      */
-    val withWarning = ExplanatoryAssertionGroupBuilder(WarningAssertionGroupType)
+    val withWarning: ExplanatoryAssertionGroupBuilder<WarningAssertionGroupType>
 
     /**
      * Builder to create an [AssertionGroup] with a custom [ExplanatoryAssertionGroupType].
      */
-    fun withType(groupType: ExplanatoryAssertionGroupType) = ExplanatoryAssertionGroupBuilder(groupType)
+    fun <T: ExplanatoryAssertionGroupType> withType(groupType: T): ExplanatoryAssertionGroupBuilder<T>
 }
 
 /**
  * Builder to create an [AssertionGroup] with the given [groupType] (an [ExplanatoryAssertionGroupType]).
  */
-class ExplanatoryAssertionGroupBuilder internal constructor(private val groupType: ExplanatoryAssertionGroupType) {
+interface ExplanatoryAssertionGroupBuilder<out T: ExplanatoryAssertionGroupType>: AssertionGroupBuilder<T> {
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given [translatable]
@@ -35,31 +37,44 @@ class ExplanatoryAssertionGroupBuilder internal constructor(private val groupTyp
      * ([arg] and optionally [otherArgs]) -- to create an [ExplanatoryAssertion]
      * which is used as single [Assertion] in [AssertionGroup.assertions].
      *
-     * See [ExplanatoryAssertionBuilder.create] for details.
+     * See [ExplanatoryAssertionBuilderImpl.create] for details.
      */
-    fun createWithExplanatoryAssertion(translatable: Translatable, arg: Any, vararg otherArgs: Any)
-        = create(AssertionBuilder.explanatory.create(translatable, arg, *otherArgs))
+    fun createWithExplanatoryAssertion(translatable: Translatable, arg: Any, vararg otherArgs: Any): AssertionGroup
+        = create(assertionBuilder.explanatory.create(translatable, arg, *otherArgs))
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given [translatable]
      * to create an [ExplanatoryAssertion] which is used as single [Assertion] in [AssertionGroup.assertions].
      *
-     * See [ExplanatoryAssertionBuilder.create] for details.
+     * See [ExplanatoryAssertionBuilderImpl.create] for details.
      */
-    fun createWithExplanatoryAssertion(translatable: Translatable)
-        = create(AssertionBuilder.explanatory.create(translatable))
+    fun createWithExplanatoryAssertion(translatable: Translatable): AssertionGroup
+        = create(assertionBuilder.explanatory.create(translatable))
+}
 
-    /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [assertion] as single [Assertion] in [AssertionGroup.assertions].
-     */
-    fun create(assertion: Assertion): AssertionGroup
-        = create(listOf(assertion))
 
-    /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [assertions] as [AssertionGroup.assertions].
-     */
-    fun create(assertions: List<Assertion>): AssertionGroup
+/**
+ * Provides options to create an [AssertionGroup] with a certain [ExplanatoryAssertionGroupType].
+ */
+internal object ExplanatoryAssertionGroupOptionImpl : ExplanatoryAssertionGroupOption {
+
+    override val withDefault get()
+        = ExplanatoryAssertionGroupBuilderImpl(DefaultExplanatoryAssertionGroupType)
+
+    override val withWarning get()
+        = ExplanatoryAssertionGroupBuilderImpl(WarningAssertionGroupType)
+
+    override fun <T: ExplanatoryAssertionGroupType> withType(groupType: T)
+        = ExplanatoryAssertionGroupBuilderImpl(groupType)
+}
+
+/**
+ * Builder to create an [AssertionGroup] with the given [groupType] (an [ExplanatoryAssertionGroupType]).
+ */
+internal class ExplanatoryAssertionGroupBuilderImpl<out T: ExplanatoryAssertionGroupType>(
+    override val groupType: T
+) : ExplanatoryAssertionGroupBuilder<T> {
+
+    override fun create(assertions: List<Assertion>): AssertionGroup
         = ExplanatoryAssertionGroup(groupType, assertions)
 }

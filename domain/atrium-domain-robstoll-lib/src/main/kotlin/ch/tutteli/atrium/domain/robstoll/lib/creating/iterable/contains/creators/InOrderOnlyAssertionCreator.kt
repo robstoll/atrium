@@ -2,8 +2,8 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
@@ -45,7 +45,7 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
             assertions.add(createSizeFeatureAssertion(allSearchCriteria.size, list, itr))
 
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            AssertionBuilder.summary.create(description, RawString.EMPTY, assertions.toList())
+            AssertImpl.builder.summary(description).create(assertions)
         }
     }
 
@@ -61,7 +61,9 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
             Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
         }
         val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, index)
-        AssertionBuilder.feature.create(description, entryRepresentation, createEntryFeatureAssertion(found))
+        AssertImpl.builder
+            .feature(description, entryRepresentation)
+            .create(createEntryFeatureAssertion(found))
     }
 
     abstract fun matches(actual: E?, searchCriterion: S): Boolean
@@ -73,7 +75,7 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
             additionalEntries.add(itr.next())
         }
         val featureAssertions = mutableListOf<Assertion>()
-        featureAssertions.add(AssertionBuilder.descriptive.create(
+        featureAssertions.add(AssertImpl.builder.descriptive.create(
                 DescriptionAnyAssertion.TO_BE,
                 RawString.create(expectedSize.toString()),
                 { actualSize == expectedSize }
@@ -82,13 +84,17 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
             featureAssertions.add(LazyThreadUnsafeAssertionGroup {
                 val assertions = additionalEntries.mapIndexed { index, it ->
                     val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, expectedSize + index)
-                    AssertionBuilder.descriptive.create(description, it ?: RawString.NULL, true)
+                    AssertImpl.builder.descriptive.create(description, it ?: RawString.NULL, true)
                 }
-                AssertionBuilder.explanatoryGroup.withWarning.create(
-                    AssertionBuilder.list.create(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
+                AssertImpl.builder.explanatoryGroup.withWarning.create(
+                    AssertImpl.builder
+                        .list(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
+                        .create(assertions)
                 )
             })
         }
-        return AssertionBuilder.feature.create(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
+        return AssertImpl.builder
+            .feature(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()))
+            .create(featureAssertions)
     }
 }
