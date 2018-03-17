@@ -22,6 +22,7 @@ interface BasicAssertionGroupBuilder {
      * and [assertion] as single [AssertionGroup.assertions].
      */
     fun create(name: Translatable, subject: Any, assertion: Assertion): AssertionGroup
+        = create(name, subject, listOf(assertion))
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given
@@ -38,9 +39,6 @@ interface BasicAssertionGroupBuilder {
 internal class BasicAssertionGroupBuilderImpl internal constructor(
     override val groupType: AssertionGroupType
 ) : BasicAssertionGroupBuilder {
-
-    override fun create(name: Translatable, subject: Any, assertion: Assertion)
-        = create(name, subject, listOf(assertion))
 
     override fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
         = BasicAssertionGroup(groupType, name, subject, assertions)
