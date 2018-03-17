@@ -7,22 +7,27 @@ import ch.tutteli.atrium.assertions.BasicAssertionGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Builder to create an [AssertionGroup] with the given [groupType].
+ * Builder to create an [AssertionGroup] with the given [groupType], [name] and [subject].
  */
-class BasicAssertionGroupBuilder internal constructor(private val groupType: AssertionGroupType) {
-    /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [name] as [AssertionGroup.name], [subject] as [AssertionGroup.subject]
-     * and [assertion] as single [AssertionGroup.assertions].
-     */
-    fun create(name: Translatable, subject: Any, assertion: Assertion)
-        = create(name, subject, listOf(assertion))
+interface BasicAssertionGroupBuilder<out T : AssertionGroupType> : AssertionGroupBuilder<T> {
 
     /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [name] as [AssertionGroup.name], [subject] as [AssertionGroup.subject]
-     * and [assertions] as [AssertionGroup.assertions].
+     * The [AssertionGroup.name].
      */
-    fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
+    val name: Translatable
+
+    /**
+     * The [AssertionGroup.subject].
+     */
+    val subject: Any
+}
+
+internal class BasicAssertionGroupBuilderImpl<out T : AssertionGroupType>(
+    override val groupType: T,
+    override val name: Translatable,
+    override val subject: Any
+) : BasicAssertionGroupBuilder<T> {
+
+    override fun create(assertions: List<Assertion>): AssertionGroup
         = BasicAssertionGroup(groupType, name, subject, assertions)
 }

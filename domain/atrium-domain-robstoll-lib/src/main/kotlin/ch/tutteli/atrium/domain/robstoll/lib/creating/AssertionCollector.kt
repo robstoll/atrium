@@ -3,11 +3,11 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -61,7 +61,7 @@ object AssertionCollector {
 
                 collectedAssertions
             } catch (e: PlantHasNoSubjectException) {
-                listOf(AssertionBuilder.explanatoryGroup.withWarning.createWithExplanatoryAssertion(warning))
+                listOf(AssertImpl.builder.explanatoryGroup.withWarning.createWithExplanatoryAssertion(warning))
             }
         }
 

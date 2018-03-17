@@ -9,18 +9,12 @@ import ch.tutteli.atrium.assertions.EmptyNameAndSubjectAssertionGroup
  * Builder to create an [AssertionGroup] with an empty [AssertionGroup.name], an empty [AssertionGroup.subject] and
  * with the given [groupType].
  */
-class EmptyNameAndSubjectAssertionGroupBuilder internal constructor(private val groupType: AssertionGroupType) {
-    /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [assertion] as single [AssertionGroup.assertions].
-     */
-    fun create(assertion: Assertion): AssertionGroup
-        = create(listOf(assertion))
+interface EmptyNameAndSubjectAssertionGroupBuilder<out T: AssertionGroupType> : AssertionGroupBuilder<T>
 
-    /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [assertions] as [AssertionGroup.assertions].
-     */
-    fun create(assertions: List<Assertion>): AssertionGroup
+internal class EmptyNameAndSubjectAssertionGroupBuilderImpl<out T: AssertionGroupType>(
+    override val groupType: T
+) : EmptyNameAndSubjectAssertionGroupBuilder<T> {
+
+    override fun create(assertions: List<Assertion>): AssertionGroup
         = EmptyNameAndSubjectAssertionGroup(groupType, assertions)
 }

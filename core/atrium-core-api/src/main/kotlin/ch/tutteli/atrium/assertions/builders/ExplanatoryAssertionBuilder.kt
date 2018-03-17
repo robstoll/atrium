@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 /**
  * Builder to create an [ExplanatoryAssertion].
  */
-class ExplanatoryAssertionBuilder internal constructor() {
+interface ExplanatoryAssertionBuilder {
 
     /**
      * Creates an [ExplanatoryAssertion] using the given [translatable] (using the given [arg] and
@@ -18,7 +18,7 @@ class ExplanatoryAssertionBuilder internal constructor() {
      *
      * It then delegates to the overload which expects a single [Translatable].
      */
-    fun create(translatable: Translatable, arg: Any, vararg otherArgs: Any)
+    fun create(translatable: Translatable, arg: Any, vararg otherArgs: Any): ExplanatoryAssertion
         = create(TranslatableWithArgs(translatable, arg, *otherArgs))
 
     /**
@@ -37,5 +37,13 @@ class ExplanatoryAssertionBuilder internal constructor() {
      * into a [RawString] (`RawString.create("Your text..")`.
      */
     fun create(explanation: Any?) : ExplanatoryAssertion
+}
+
+/**
+ * Builder to create an [ExplanatoryAssertion].
+ */
+internal object ExplanatoryAssertionBuilderImpl : ExplanatoryAssertionBuilder {
+
+    override fun create(explanation: Any?) : ExplanatoryAssertion
         = BasicExplanatoryAssertion(explanation)
 }

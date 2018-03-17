@@ -2,10 +2,10 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerb
 import org.jetbrains.spek.api.Spek
 
@@ -24,7 +24,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
                     coreFactory.newOnlyFailureReporter(
                         coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
                     ))
-                val explanatoryGroup = AssertionBuilder.explanatoryGroup.withDefault.create(assertions)
+                val explanatoryGroup = AssertImpl.builder.explanatoryGroup.withDefault.create(assertions)
                 plant.addAssertion(explanatoryGroup)
             }
         }
