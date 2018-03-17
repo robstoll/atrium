@@ -9,18 +9,20 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Builder to create an [AssertionGroup] with the given [groupType], [name] and [subject].
  */
-interface BasicAssertionGroupBuilder<out T: AssertionGroupType> : AssertionGroupBuilder<T>{
+interface BasicAssertionGroupBuilder<out T : AssertionGroupType> : AssertionGroupBuilder<T> {
+
     /**
      * The [AssertionGroup.name].
      */
     val name: Translatable
+
     /**
      * The [AssertionGroup.subject].
      */
     val subject: Any
 }
 
-internal class BasicAssertionGroupBuilderImpl<out T: AssertionGroupType> internal constructor(
+internal class BasicAssertionGroupBuilderImpl<out T : AssertionGroupType>(
     override val groupType: T,
     override val name: Translatable,
     override val subject: Any
