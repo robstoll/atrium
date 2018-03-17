@@ -9,7 +9,7 @@ import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
-@Deprecated("use AssertImpl.any.typeTransformation.isNotNull, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.any.typeTransformation.isNotNull, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.any.typeTransformation.isNotNull(plant, T::class, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -22,7 +22,7 @@ inline fun <reified T : Any> _isNotNull(
     AssertImpl.any.typeTransformation.isNotNull(plant, T::class, assertionCreator)
 }
 
-@Deprecated("use AssertImpl.any.typeTransformation.isA, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.any.typeTransformation.isA, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.any.typeTransformation.isA(plant, TSub::class, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -35,7 +35,7 @@ inline fun <reified TSub : Any> _isA(
     AssertImpl.any.typeTransformation.isA(plant, TSub::class, assertionCreator)
 }
 
-@Deprecated("use AssertImpl.any.typeTransformation.downCast, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.any.typeTransformation.downCast, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.any.typeTransformation.downCast(description, subType, subjectPlant, assertionCreator, AssertImpl.any.typeTransformation.failureHandlers.newExplanatory())",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -50,7 +50,7 @@ fun <T : Any, TSub : T> _downCast(
     AssertImpl.any.typeTransformation.downCast(description, subType, subjectPlant, assertionCreator, failureHandlerFactory.newExplanatory())
 }
 
-@Deprecated("use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.any.typeTransformation.transform(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform, AssertImpl.any.typeTransformation.failureHandlers.newExplanatory())",
         "ch.tutteli.atrium.creating.AssertImpl"

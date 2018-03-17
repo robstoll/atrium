@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param type The type of the group, e.g. [InvisibleAssertionGroupType].
  * @param assertions The assertions of this group.
  */
-@Deprecated("use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
+@Deprecated("Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 open class EmptyNameAndSubjectAssertionGroup
 @Deprecated("Use AssertImpl.builder instead, will be made internal with 1.0.0")
 constructor(

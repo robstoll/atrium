@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param T The type of the [AssertionPlant.subject].
  * @param T The type to which the [AssertionPlant.subject] should have been down-casted.
  */
-@Deprecated("use AssertImpl.any.typeTransformation.failureHandlers.newExplanatory, will be removed with 1.0.0")
+@Deprecated("Use AssertImpl.any.typeTransformation.failureHandlers.newExplanatory, will be removed with 1.0.0")
 class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
     AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub> {
     /**
