@@ -20,13 +20,13 @@ interface AssertionBuilder {
      * Builder to create an [AssertionGroup] with a [ListAssertionGroupType] -- kind of the default type
      * for [AssertionGroup]s, if you do not know what to choose, this is probably the best fit for you.
      */
-    val list: BasicAssertionGroupBuilder
+    val list: BasicAssertionGroupBuilder<ListAssertionGroupType>
 
     /**
      * Builder to create an [AssertionGroup] with a [FeatureAssertionGroupType] -- use it if you want to make an
      * [Assertion] about a feature of the subject.
      */
-    val feature: BasicAssertionGroupBuilder
+    val feature: BasicAssertionGroupBuilder<FeatureAssertionGroupType>
 
     /**
      * Builder to create an [AssertionGroup] with a [SummaryAssertionGroupType] -- use it if it is essential that also
@@ -40,7 +40,7 @@ interface AssertionBuilder {
      * It will complain that you expected `1` but it did not match `1`. If you could see that it actually matched the
      * first `1` and only did not match the second `1`, then it would be clear from the beginning.
      */
-    val summary: BasicAssertionGroupBuilder
+    val summary: BasicAssertionGroupBuilder<SummaryAssertionGroupType>
 
     /**
      * Builder to create an [AssertionGroup] with a [ExplanatoryAssertionGroupType] -- such a group is always shown in
@@ -68,7 +68,7 @@ interface AssertionBuilder {
     /**
      * Builder to create an [AssertionGroup] with a custom [AssertionGroupType].
      */
-    fun withType(groupType: AssertionGroupType): BasicAssertionGroupBuilder
+    fun <T: AssertionGroupType> withType(groupType: T): BasicAssertionGroupBuilder<T>
 }
 
 /**
@@ -94,6 +94,6 @@ internal object AssertionBuilderImpl : AssertionBuilder {
     override val explanatory get()
         = ExplanatoryAssertionBuilderImpl
 
-    override fun withType(groupType: AssertionGroupType) : BasicAssertionGroupBuilder
+    override fun <T: AssertionGroupType> withType(groupType: T) : BasicAssertionGroupBuilder<T>
         = BasicAssertionGroupBuilderImpl(groupType)
 }

@@ -9,12 +9,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Builder to create an [AssertionGroup] with the given [groupType].
  */
-interface BasicAssertionGroupBuilder {
+interface BasicAssertionGroupBuilder<out T: AssertionGroupType> {
 
     /**
      * The [AssertionGroupType] which shall be used for the [AssertionGroup].
      */
-    val groupType: AssertionGroupType
+    val groupType: T
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given
@@ -32,13 +32,12 @@ interface BasicAssertionGroupBuilder {
     fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
 }
 
-
 /**
  * Builder to create an [AssertionGroup] with the given [groupType].
  */
-internal class BasicAssertionGroupBuilderImpl internal constructor(
-    override val groupType: AssertionGroupType
-) : BasicAssertionGroupBuilder {
+internal class BasicAssertionGroupBuilderImpl<out T: AssertionGroupType> internal constructor(
+    override val groupType: T
+) : BasicAssertionGroupBuilder<T> {
 
     override fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
         = BasicAssertionGroup(groupType, name, subject, assertions)
