@@ -91,10 +91,10 @@ interface AssertionGroup : Assertion {
         @Deprecated("use AssertImpl.builder instead, will be removed with 1.0.0")
         class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(name: Translatable, subject: Any, assertion: Assertion)
-                = assertionBuilder.withType(groupType).create(name, subject, assertion)
+                = assertionBuilder.withType(groupType, name, subject).create(assertion)
 
             fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
-                = assertionBuilder.withType(groupType).create(name, subject, assertions)
+                = assertionBuilder.withType(groupType, name, subject).create(assertions)
         }
 
         @Deprecated("use AssertImpl.builder instead, will be removed with 1.0.0")

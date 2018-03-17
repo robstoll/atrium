@@ -45,7 +45,7 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
             assertions.add(createSizeFeatureAssertion(allSearchCriteria.size, list, itr))
 
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            AssertImpl.builder.summary.create(description, RawString.EMPTY, assertions.toList())
+            AssertImpl.builder.summary(description).create(assertions)
         }
     }
 
@@ -61,7 +61,9 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
             Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
         }
         val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, index)
-        AssertImpl.builder.feature.create(description, entryRepresentation, createEntryFeatureAssertion(found))
+        AssertImpl.builder
+            .feature(description, entryRepresentation)
+            .create(createEntryFeatureAssertion(found))
     }
 
     abstract fun matches(actual: E?, searchCriterion: S): Boolean
@@ -85,10 +87,14 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in S>(
                     AssertImpl.builder.descriptive.create(description, it ?: RawString.NULL, true)
                 }
                 AssertImpl.builder.explanatoryGroup.withWarning.create(
-                    AssertImpl.builder.list.create(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY, assertions)
+                    AssertImpl.builder
+                        .list(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
+                        .create(assertions)
                 )
             })
         }
-        return AssertImpl.builder.feature.create(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()), featureAssertions.toList())
+        return AssertImpl.builder
+            .feature(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()))
+            .create(featureAssertions)
     }
 }

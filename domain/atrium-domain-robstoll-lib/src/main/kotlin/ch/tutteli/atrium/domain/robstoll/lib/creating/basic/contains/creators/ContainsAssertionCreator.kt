@@ -67,7 +67,9 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
 
     private fun featureFactory(count: Int, numberOfOccurrences: Translatable): AssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
-        return AssertImpl.builder.feature.create(numberOfOccurrences, RawString.create(count.toString()), assertions)
+        return AssertImpl.builder
+            .feature(numberOfOccurrences, RawString.create(count.toString()))
+            .create(assertions)
     }
 
 }

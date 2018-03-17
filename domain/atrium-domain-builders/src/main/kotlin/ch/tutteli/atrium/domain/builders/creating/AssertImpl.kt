@@ -86,20 +86,3 @@ object AssertImpl {
      */
     inline val throwable get() = ThrowableAssertionsBuilder
 }
-
-interface I{fun foo() }
-class A: I{
-     override fun foo() {
-        B().bar()
-    }
-}
-@Suppress("NOTHING_TO_INLINE")
-class B{
-    fun bar(){
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-}
-
-fun main(args: Array<String>) {
-    A().foo()
-}

@@ -31,7 +31,7 @@ class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecke
      * @throws AssertionError In case the created [AssertionGroup] does not hold.
      */
     override fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>) {
-        val assertionGroup = assertionBuilder.root.create(assertionVerb, subject, assertions)
+        val assertionGroup = assertionBuilder.root(assertionVerb, subject).create(assertions)
         val sb = StringBuilder()
         reporter.format(assertionGroup, sb)
         if (!assertionGroup.holds()) {
