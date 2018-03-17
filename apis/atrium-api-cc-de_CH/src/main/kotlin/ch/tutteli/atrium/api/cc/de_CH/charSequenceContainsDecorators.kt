@@ -22,7 +22,7 @@ val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.igno
     get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
     = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
-@Deprecated("use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
+@Deprecated("Use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
 fun <T : CharSequence> getIgnoriereGrossKleinschreibung(builder: DeprecatedBuilder<T, NoOpSearchBehaviour>)
     : DeprecatedBuilder<T, IgnoringCaseSearchBehaviour>
     = DeprecatedBuilder(builder.plant, builder.ignoriereGrossKleinschreibung.searchBehaviour)
@@ -37,7 +37,7 @@ val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoriereGrossKle
     get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour>
     = NotCheckerOptionImpl(containsBuilder.ignoriereGrossKleinschreibung)
 
-@Deprecated("use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
+@Deprecated("Use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
 fun <T : CharSequence> getIgnoriereGrossKleinschreibung(builder: DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>)
     : DeprecatedNotCheckerBuilder<T, IgnoringCaseSearchBehaviour>
     = DeprecatedNotCheckerBuilder(builder.containsBuilder.ignoriereGrossKleinschreibung)

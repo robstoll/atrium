@@ -5,7 +5,7 @@ import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.builders.ThrowableThrownBuilder
 import kotlin.reflect.KClass
 
-@Deprecated("use AssertImpl.throwable.thrown.toBe, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.throwable.thrown.toBe, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.throwable.thrown.toBe(throwableThrownBuilder, expectedType, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"

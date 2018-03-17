@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import java.math.BigDecimal
 
-@Deprecated("use AssertImpl.floatingPoint.toBeWithErrorTolerance, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.floatingPoint.toBeWithErrorTolerance, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.floatingPoint.toBeWithErrorTolerance(plant, expected, tolerance)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -13,7 +13,7 @@ import java.math.BigDecimal
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, tolerance: Float): Assertion
     = AssertImpl.floatingPoint.toBeWithErrorTolerance(plant, expected, tolerance)
 
-@Deprecated("use AssertImpl.floatingPoint.toBeWithErrorTolerance, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.floatingPoint.toBeWithErrorTolerance, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.floatingPoint.toBeWithErrorTolerance(plant, expected, tolerance)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -22,7 +22,7 @@ fun _toBeWithErrorTolerance(plant: AssertionPlant<Float>, expected: Float, toler
 fun _toBeWithErrorTolerance(plant: AssertionPlant<Double>, expected: Double, tolerance: Double): Assertion
     = AssertImpl.floatingPoint.toBeWithErrorTolerance(plant, expected, tolerance)
 
-@Deprecated("use AssertImpl.floatingPoint.toBeWithErrorTolerance, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.floatingPoint.toBeWithErrorTolerance, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.floatingPoint.toBeWithErrorTolerance(plant, expected, tolerance)",
         "ch.tutteli.atrium.creating.AssertImpl"

@@ -2,7 +2,7 @@ package ch.tutteli.atrium
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
-import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
+import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
@@ -27,7 +27,7 @@ internal enum class AssertionVerb(override val value: String) : StringBasedTrans
 
 internal object AtriumReporterSupplier {
     val REPORTER by lazy {
-        ReporterBuilder
+        reporterBuilder
             .withoutTranslations()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()

@@ -14,7 +14,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inAnyOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
-@Deprecated("use the extension fun `inAnyOrder` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.inAnyOrder"))
+@Deprecated("Use the extension fun `inAnyOrder` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.inAnyOrder"))
 fun <E, T : Iterable<E>> getInAnyOrder(builder: IterableContainsBuilder<E, T, NoOpSearchBehaviour>): IterableContainsBuilder<E, T, InAnyOrderSearchBehaviour>
     = IterableContainsBuilder(builder.plant, builder.inAnyOrder.searchBehaviour)
 
@@ -29,7 +29,7 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviou
     @JvmName("butOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
-@Deprecated("use the extension fun `only` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.only"))
+@Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.only"))
 fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, InAnyOrderSearchBehaviour>): IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.plant, builder.only.searchBehaviour)
 
@@ -43,7 +43,7 @@ fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, I
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
-@Deprecated("use the extension fun `inOrder` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.inOrder"))
+@Deprecated("Use the extension fun `inOrder` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.inOrder"))
 fun <E, T : Iterable<E>> getInOrder(builder: IterableContainsBuilder<E, T, NoOpSearchBehaviour>): IterableContainsBuilder<E, T, InOrderSearchBehaviour>
     = IterableContainsBuilder(builder.plant, builder.inOrder.searchBehaviour)
 
@@ -58,6 +58,6 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.
     @JvmName("andOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
 
-@Deprecated("use the extension fun `only` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.only"))
+@Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.only"))
 fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContainsBuilder<E, T, InOrderSearchBehaviour>): IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.plant, builder.only.searchBehaviour)

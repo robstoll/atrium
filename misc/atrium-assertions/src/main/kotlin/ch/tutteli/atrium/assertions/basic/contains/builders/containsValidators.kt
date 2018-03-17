@@ -4,7 +4,7 @@ package ch.tutteli.atrium.assertions.basic.contains.builders
  * Validates that times is not `1`; throws an IllegalArgumentException otherwise, pointing the user to use the given
  * [exactlyCall] instead of the given [atMostCall].
  */
-@Deprecated("use the fun from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.domain.creating.basic.contains.builders.validateAtMost"))
+@Deprecated("Use the fun from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.domain.creating.basic.contains.builders.validateAtMost"))
 fun validateAtMost(
     times: Int,
     atMostCall: (Int) -> String,
@@ -20,7 +20,7 @@ fun validateAtMost(
  * Validates that [atLeastTimes] is not equal to or greater than [butAtMostTimes]; throws IllegalArgumentException
  * otherwise, pointing the user to use the given [exactlyCall] in case [atLeastTimes] equals [butAtMostTimes].
  */
-@Deprecated("use the fun from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.domain.creating.basic.contains.builders.validateButAtMost"))
+@Deprecated("Use the fun from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.domain.creating.basic.contains.builders.validateButAtMost"))
 fun validateButAtMost(
     atLeastTimes: Int,
     butAtMostTimes: Int,
