@@ -15,6 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param T The type of the [subject] of this [AssertionPlant].
  */
+@AssertMarker
 interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>> {
 
     /**
