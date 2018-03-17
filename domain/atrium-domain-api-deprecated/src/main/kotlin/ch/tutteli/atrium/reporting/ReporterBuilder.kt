@@ -27,7 +27,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     /**
      * Provides options to create a [Translator] or [TranslationSupplier].
      */
-    @Deprecated("use the builder from package domain.builders.reporting")
+    @Deprecated("use reporterBuilder from package domain.builders.reporting")
     companion object {
 
         /**
@@ -42,8 +42,9 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          *
          * @param primaryLocale The [Locale] used to format arguments of [TranslatableWithArgs].
          */
-        @Deprecated("use the builder from package domain.builders.reporting", ReplaceWith(
-            "ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder.withoutTranslations(primaryLocale)"
+        @Deprecated("use reporterBuilder from package domain.builders.reporting", ReplaceWith(
+            "reporterBuilder.withoutTranslations(primaryLocale)",
+            "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder"
         ))
         fun withoutTranslations(primaryLocale: Locale = Locale.getDefault())
             = ObjectFormatterOptions(UsingDefaultTranslator(primaryLocale))
@@ -54,8 +55,9 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * [withDefaultTranslationSupplier] or [withTranslationSupplier] in case the given [translator] requires
          * a [TranslationSupplier] or a [LocaleOrderDecider].
          */
-        @Deprecated("use the builder from package domain.builders.reporting", ReplaceWith(
-            "ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder.withTranslator(translator)"
+        @Deprecated("use reporterBuilder from package domain.builders.reporting", ReplaceWith(
+            "reporterBuilder.withTranslator(translator)",
+            "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder"
         ))
         fun withTranslator(translator: Translator)
             = ObjectFormatterOptions(translator)
@@ -63,8 +65,9 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
         /**
          * Uses [CoreFactory.newPropertiesBasedTranslationSupplier] as [TranslationSupplier].
          */
-        @Deprecated("use the builder from package domain.builders.reporting", ReplaceWith(
-            "ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder.withDefaultTranslationSupplier()"
+        @Deprecated("use reporterBuilder from package domain.builders.reporting", ReplaceWith(
+            "reporterBuilder.withDefaultTranslationSupplier()",
+            "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder"
         ))
         fun withDefaultTranslationSupplier()
             = LocaleOrderDeciderOptions(coreFactory.newPropertiesBasedTranslationSupplier())
@@ -72,6 +75,10 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
         /**
          * Uses the given [translationSupplier] as [TranslationSupplier].
          */
+        @Deprecated("use reporterBuilder from package domain.builders.reporting", ReplaceWith(
+            "reporterBuilder.withTranslationSupplier(translationSupplier)",
+            "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder"
+        ))
         fun withTranslationSupplier(translationSupplier: TranslationSupplier)
             = LocaleOrderDeciderOptions(translationSupplier)
     }
