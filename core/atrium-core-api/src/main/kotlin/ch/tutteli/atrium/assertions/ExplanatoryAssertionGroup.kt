@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @param explanatoryAssertions The [assertions] of this group which shall not be evaluated but are used in reporting
  *   to explain something (rather than making assumptions).
  */
-@Deprecated("use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
+@Deprecated("Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 class ExplanatoryAssertionGroup internal constructor(
     type: ExplanatoryAssertionGroupType,
     explanatoryAssertions: List<Assertion>

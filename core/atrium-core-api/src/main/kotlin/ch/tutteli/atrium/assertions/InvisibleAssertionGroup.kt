@@ -7,6 +7,6 @@ package ch.tutteli.atrium.assertions
  * @constructor Use [AssertionGroup.Builder.invisible] to create an [InvisibleAssertionGroup].
  * @param assertions The assertions of this group.
  */
-@Deprecated("use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
+@Deprecated("Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 class InvisibleAssertionGroup internal constructor(assertions: List<Assertion>)
     : EmptyNameAndSubjectAssertionGroup(DefaultInvisibleAssertionGroupType, assertions)

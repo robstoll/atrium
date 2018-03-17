@@ -20,7 +20,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
 val <E, T : Iterable<E>> Assert<T>.contains: IterableContains.Builder<E, T, NoOpSearchBehaviour>
     get() = AssertImpl.iterable.containsBuilder(this)
 
-@Deprecated("use the extension fun `contains` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.contains"))
+@Deprecated("Use the extension fun `contains` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.contains"))
 fun <E, T : Iterable<E>> getContains(plant: Assert<T>): DeprecatedBuilder<E, T, NoOpSearchBehaviour>
     = DeprecatedBuilder(plant, plant.contains.searchBehaviour)
 
@@ -34,7 +34,7 @@ fun <E, T : Iterable<E>> getContains(plant: Assert<T>): DeprecatedBuilder<E, T, 
 val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerOption<E, T, InAnyOrderSearchBehaviour>
     get() = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
-@Deprecated("use the extension fun `containsNot` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.containsNot"))
+@Deprecated("Use the extension fun `containsNot` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.containsNot"))
 fun <E, T : Iterable<E>> getContainsNot(plant: Assert<T>): DeprecatedNotCheckerBuilder<E, T>
     = DeprecatedNotCheckerBuilder(AssertImpl.iterable.containsNotBuilder(plant))
 
@@ -87,7 +87,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
 fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
-@Deprecated("use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant.contains(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant.contains(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = plant.contains(assertionCreator, *otherAssertionCreators)
 
@@ -131,7 +131,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Asse
 fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
 
-@Deprecated("use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant.containsStrictly(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant.containsStrictly(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> containsStrictlyNulllable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = plant.containsStrictly(assertionCreator, *otherAssertionCreators)
 

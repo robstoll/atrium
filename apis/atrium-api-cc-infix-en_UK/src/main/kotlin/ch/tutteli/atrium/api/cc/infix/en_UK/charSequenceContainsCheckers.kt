@@ -26,7 +26,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): AtLeastCheckerOption<T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
-@Deprecated("use the extension fun `atLeast` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder atLeast times"))
+@Deprecated("Use the extension fun `atLeast` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder atLeast times"))
 fun <T : CharSequence, S : SearchBehaviour> atLeast(builder:  DeprecatedBuilder<T, S>, times: Int): DeprecatedAtLeastCheckerBuilder<T, S>
     = DeprecatedAtLeastCheckerBuilder(times, builder)
 
@@ -49,7 +49,7 @@ fun <T : CharSequence, S : SearchBehaviour> atLeast(builder:  DeprecatedBuilder<
 infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost(times: Int): ButAtMostCheckerOption<T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
-@Deprecated("use the extension fun `butAtMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder butAtMost times"))
+@Deprecated("Use the extension fun `butAtMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder butAtMost times"))
 fun <T : CharSequence, S : SearchBehaviour> butAtMost(checkerBuilder: DeprecatedAtLeastCheckerBuilder<T, S>, times: Int): DeprecatedButAtMostCheckerBuilder<T, S>
     = DeprecatedButAtMostCheckerBuilder(times, checkerBuilder, checkerBuilder.containsBuilder)
 
@@ -68,7 +68,7 @@ fun <T : CharSequence, S : SearchBehaviour> butAtMost(checkerBuilder: Deprecated
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): ExactlyCheckerOption<T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
-@Deprecated("use the extension fun `exactly` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder exactly times"))
+@Deprecated("Use the extension fun `exactly` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder exactly times"))
 fun <T : CharSequence, S : SearchBehaviour> exactly(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedExactlyCheckerBuilder<T, S>
     = DeprecatedExactlyCheckerBuilder(times, builder)
 
@@ -92,7 +92,7 @@ fun <T : CharSequence, S : SearchBehaviour> exactly(builder: DeprecatedBuilder<T
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): AtMostCheckerOption<T, S>
     = AtMostCheckerOptionImpl(times, this)
 
-@Deprecated("use the extension fun `atMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder atMost times"))
+@Deprecated("Use the extension fun `atMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder atMost times"))
 fun <T : CharSequence, S : SearchBehaviour> atMost(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedAtMostCheckerBuilder<T, S>
     = DeprecatedAtMostCheckerBuilder(times, builder)
 
@@ -111,6 +111,6 @@ fun <T : CharSequence, S : SearchBehaviour> atMost(builder: DeprecatedBuilder<T,
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerOption<T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)
 
-@Deprecated("use the extension fun `notOrAtMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder notOrAtMost times"))
+@Deprecated("Use the extension fun `notOrAtMost` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder notOrAtMost times"))
 fun <T : CharSequence, S : SearchBehaviour> notOrAtMost(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedNotOrAtMostCheckerBuilder<T, S>
     = DeprecatedNotOrAtMostCheckerBuilder(times, builder)

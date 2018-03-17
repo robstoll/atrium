@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param subject The subject for which the [assertions] are defined.
  * @param assertions The assertions of this group, which are defined for [subject].
  */
-@Deprecated("use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
+@Deprecated("Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 data class BasicAssertionGroup
 @Deprecated(
     "use `AssertImpl.builder.explanatoryGroup` instead, will be made `internal` with 1.0.0",
