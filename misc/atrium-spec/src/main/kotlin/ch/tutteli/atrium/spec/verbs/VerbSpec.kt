@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.spec.AssertionVerb.ASSERT
 import ch.tutteli.atrium.spec.AssertionVerb.EXPECT_THROWN
@@ -34,7 +35,8 @@ private fun expect(act: () -> Unit)
 
 private object AtriumReporterSupplier {
     val REPORTER by lazy {
-        ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder.withoutTranslations()
+        reporterBuilder
+            .withoutTranslations()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
