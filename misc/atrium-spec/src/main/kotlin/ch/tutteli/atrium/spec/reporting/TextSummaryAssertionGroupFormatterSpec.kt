@@ -41,7 +41,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
     describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(bulletPoints, coreFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${SummaryAssertionGroupType::class.simpleName}") {
-            val result = testee.canFormat(AssertImpl.builder.withType(object : SummaryAssertionGroupType {}).create( Untranslatable.EMPTY, 1, listOf()))
+            val result = testee.canFormat(AssertImpl.builder.withType(object : SummaryAssertionGroupType {},  Untranslatable.EMPTY, 1).create(listOf()))
             verbs.checkImmediately(result).toBe(true)
         }
     }
@@ -52,7 +52,9 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                 AssertImpl.builder.descriptive.create(AssertionVerb.ASSERT, 1, true),
                 AssertImpl.builder.descriptive.create(AssertionVerb.EXPECT_THROWN, 2, false)
             )
-            val summaryAssertionGroup = AssertImpl.builder.summary.create(AssertionVerb.ASSERT, 22, assertions)
+            val summaryAssertionGroup = AssertImpl.builder
+                .withType(DefaultSummaryAssertionGroupType, AssertionVerb.ASSERT, 22)
+                .create(assertions)
 
             context("format directly the group (no prefix given)") {
                 it("puts the assertions one under the other, does not filter out successful ones and indicates whether they hold or not") {
@@ -69,7 +71,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     val featureAssertions = listOf(summaryAssertionGroup,
                         AssertImpl.builder.descriptive.create(AssertionVerb.ASSERT, 20, false)
                     )
-                    val featureAssertionGroup = AssertImpl.builder.feature.create(AssertionVerb.ASSERT, 10, featureAssertions)
+                    val featureAssertionGroup = AssertImpl.builder.feature(AssertionVerb.ASSERT, 10).create(featureAssertions)
                     facade.format(featureAssertionGroup, sb, onlyFailingAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
                         + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
@@ -84,7 +86,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                 val listAssertions = listOf(summaryAssertionGroup,
                     AssertImpl.builder.descriptive.create(AssertionVerb.ASSERT, 20, false)
                 )
-                val listAssertionGroup = AssertImpl.builder.list.create(AssertionVerb.ASSERT, 10, listAssertions)
+                val listAssertionGroup = AssertImpl.builder.list(AssertionVerb.ASSERT, 10).create(listAssertions)
 
                 it("puts the assertions one under the other and indents the second one including a prefix") {
                     facade.format(listAssertionGroup, sb, onlyFailingAssertionFilter)
@@ -101,7 +103,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                         val listAssertions2 = listOf(listAssertionGroup,
                             AssertImpl.builder.descriptive.create(AssertionVerb.EXPECT_THROWN, 30, false)
                         )
-                        val listAssertionGroup2 = AssertImpl.builder.list.create(AssertionVerb.ASSERT, 5, listAssertions2)
+                        val listAssertionGroup2 = AssertImpl.builder.list(AssertionVerb.ASSERT, 5).create(listAssertions2)
                         facade.format(listAssertionGroup2, sb, onlyFailingAssertionFilter)
                         verbs.checkImmediately(sb.toString()).toBe(separator
                             + "${AssertionVerb.ASSERT.getDefault()}: 5$separator"
@@ -119,12 +121,14 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                 val summaryAssertions = listOf(
                     AssertImpl.builder.descriptive.create(AssertionVerb.ASSERT, 21, false),
                     summaryAssertionGroup,
-                    AssertImpl.builder.summary.create(AssertionVerb.EXPECT_THROWN, 14, listOf(
+                    AssertImpl.builder.summary(AssertionVerb.EXPECT_THROWN).create(
                         AssertImpl.builder.descriptive.create(AssertionVerb.ASSERT, 30, true),
                         AssertImpl.builder.descriptive.create(AssertionVerb.ASSERT, 31, true)
-                    ))
+                    )
                 )
-                val summaryAssertionGroup2 = AssertImpl.builder.withType(object : SummaryAssertionGroupType {}).create(AssertionVerb.ASSERT, 10, summaryAssertions)
+                val summaryAssertionGroup2 = AssertImpl.builder
+                    .withType(object : SummaryAssertionGroupType {}, AssertionVerb.ASSERT, 10)
+                    .create(summaryAssertions)
 
                 it("puts the assertions one under the other and adds an extra indent to the second one") {
                     facade.format(summaryAssertionGroup2, sb, onlyFailingAssertionFilter)
@@ -134,7 +138,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                         + "$failingBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 22$separator"
                         + "$indentFailingBulletPoint$successBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 1$separator"
                         + "$indentFailingBulletPoint$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator"
-                        + "$successBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 14$separator"
+                        + "$successBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}:  (RawString)$separator"
                         + "$indentSuccessBulletPoint$successBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 30$separator"
                         + "$indentSuccessBulletPoint$successBulletPoint ${AssertionVerb.ASSERT.getDefault()}: 31"
                     )
@@ -146,7 +150,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                 val assertions = listOf(
                     AssertImpl.builder.descriptive.create(AssertionVerb.ASSERT, 1, true)
                 )
-                val summaryAssertionGroup = AssertImpl.builder.summary.create(AssertionVerb.ASSERT, 22, assertions)
+                val summaryAssertionGroup = AssertImpl.builder.summary(AssertionVerb.ASSERT).create(assertions)
                 facade.format(summaryAssertionGroup, sb, onlyFailingAssertionFilter)
                 verbs.checkImmediately(sb.toString()).isEmpty()
             }

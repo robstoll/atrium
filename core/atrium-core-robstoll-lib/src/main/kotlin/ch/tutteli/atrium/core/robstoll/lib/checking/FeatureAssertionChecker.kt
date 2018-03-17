@@ -29,8 +29,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   For instance, if the feature is `Person::name` then [subjectPlant] holds the assertions for
  *   the corresponding `Person`.
  */
-class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPlant<T>) :
-    AssertionChecker {
+class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPlant<T>) : AssertionChecker {
 
     /**
      * Creates an [AssertionGroup]s of [type][AssertionGroup] [FeatureAssertionGroupType] based on the
@@ -46,7 +45,9 @@ class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPl
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
     override fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>) {
-        val featureAssertionGroup = assertionBuilder.feature.create(assertionVerb, subject, ArrayList(assertions))
+        val featureAssertionGroup = assertionBuilder
+            .feature(assertionVerb, subject)
+            .create(ArrayList(assertions))
         subjectPlant.addAssertion(featureAssertionGroup)
     }
 }

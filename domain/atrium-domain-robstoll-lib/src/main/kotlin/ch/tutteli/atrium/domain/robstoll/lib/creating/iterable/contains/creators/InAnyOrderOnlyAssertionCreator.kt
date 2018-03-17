@@ -48,19 +48,22 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, S>(
                     createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ENTRIES)
                 })
             }
-            assertions.add(AssertImpl.builder.feature.create(Untranslatable(list::size.name), RawString.create(actualSize.toString()), featureAssertions))
+            assertions.add(AssertImpl.builder
+                .feature(Untranslatable(list::size.name), RawString.create(actualSize.toString()))
+                .create(featureAssertions)
+            )
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
-            val summary = AssertImpl.builder.summary.create(description, RawString.EMPTY, assertions.toList())
+            val summary = AssertImpl.builder.summary(description).create(assertions)
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {
                     mismatches -> WARNING_MISMATCHES
                     else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
                 }
-                AssertImpl.builder.invisibleGroup.create(listOf(
+                AssertImpl.builder.invisibleGroup.create(
                     summary,
                     createExplanatoryGroupForMismatchesEtc(list, warningDescription)
-                ))
+                )
             } else {
                 summary
             }
@@ -89,7 +92,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, S>(
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {
         val assertions = list.map { AssertImpl.builder.explanatory.create(it) }
-        val additionalEntries = AssertImpl.builder.list.create(warning, RawString.EMPTY, assertions)
+        val additionalEntries = AssertImpl.builder.list(warning, RawString.EMPTY).create(assertions)
         return AssertImpl.builder.explanatoryGroup.withWarning.create(additionalEntries)
     }
 }

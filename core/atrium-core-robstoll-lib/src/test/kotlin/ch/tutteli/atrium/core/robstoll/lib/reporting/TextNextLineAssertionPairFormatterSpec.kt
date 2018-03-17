@@ -32,14 +32,13 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
     describeFun(testee::formatGroupHeader.name) {
         it("puts the subject on the next line indented as the bullet point used for newParameterObject") {
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
-            val assertionGroup = AssertImpl.builder.root.create(Untranslatable(name), subject, listOf())
+            val assertionGroup = AssertImpl.builder.root(Untranslatable(name), subject).create(listOf())
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
             assert(sb.toString()).toBe("$name:$separator$indentBulletPoint$subject")
         }
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
-            val assertionGroup = AssertImpl.builder.root.create(Untranslatable(name),
-                RawString.EMPTY, listOf())
+            val assertionGroup = AssertImpl.builder.root(Untranslatable(name), RawString.EMPTY).create(listOf())
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
             assert(sb.toString()).toBe("$name:")
