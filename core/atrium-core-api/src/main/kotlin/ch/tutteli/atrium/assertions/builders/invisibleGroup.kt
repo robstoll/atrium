@@ -16,4 +16,5 @@ import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
  * It is very likely that you do not need this kind of [AssertionGroup] and another type does a better job.
  */
 @Suppress("unused")
-val AssertionBuilder.invisibleGroup get() = EmptyNameAndSubjectAssertionGroupBuilder(DefaultInvisibleAssertionGroupType)
+val AssertionBuilder.invisibleGroup get(): EmptyNameAndSubjectAssertionGroupBuilder
+    = EmptyNameAndSubjectAssertionGroupBuilderImpl(DefaultInvisibleAssertionGroupType)

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib.checking
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -46,7 +46,7 @@ class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPl
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
     override fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>) {
-        val featureAssertionGroup = AssertionBuilder.feature.create(assertionVerb, subject, ArrayList(assertions))
+        val featureAssertionGroup = assertionBuilder.feature.create(assertionVerb, subject, ArrayList(assertions))
         subjectPlant.addAssertion(featureAssertionGroup)
     }
 }

@@ -9,4 +9,5 @@ import ch.tutteli.atrium.checking.AssertionChecker
  * created by [AssertionChecker]s.
  */
 @Suppress("unused")
-val AssertionBuilder.root get() = BasicAssertionGroupBuilder(RootAssertionGroupType)
+val AssertionBuilder.root get(): BasicAssertionGroupBuilder
+    = BasicAssertionGroupBuilderImpl(RootAssertionGroupType)
