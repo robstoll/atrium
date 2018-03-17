@@ -1,1 +1,5 @@
 description = 'API of the core of Atrium.'
+
+dependencies {
+    testCompile prefixedProject('cc-infix-en_UK-robstoll')
+}
