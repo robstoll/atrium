@@ -45,6 +45,7 @@ interface ExplanatoryAssertionGroupBuilder {
      * See [ExplanatoryAssertionBuilderImpl.create] for details.
      */
     fun createWithExplanatoryAssertion(translatable: Translatable, arg: Any, vararg otherArgs: Any): AssertionGroup
+        = create(assertionBuilder.explanatory.create(translatable, arg, *otherArgs))
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given [translatable]
@@ -53,12 +54,14 @@ interface ExplanatoryAssertionGroupBuilder {
      * See [ExplanatoryAssertionBuilderImpl.create] for details.
      */
     fun createWithExplanatoryAssertion(translatable: Translatable): AssertionGroup
+        = create(assertionBuilder.explanatory.create(translatable))
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given
      * [assertion] as single [Assertion] in [AssertionGroup.assertions].
      */
     fun create(assertion: Assertion): AssertionGroup
+        = create(listOf(assertion))
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given
@@ -89,16 +92,7 @@ internal object ExplanatoryAssertionGroupOptionImpl : ExplanatoryAssertionGroupO
 internal class ExplanatoryAssertionGroupBuilderImpl internal constructor(
     override val groupType: ExplanatoryAssertionGroupType
 ) : ExplanatoryAssertionGroupBuilder {
-
-    override fun createWithExplanatoryAssertion(translatable: Translatable, arg: Any, vararg otherArgs: Any)
-        = create(assertionBuilder.explanatory.create(translatable, arg, *otherArgs))
-
-    override fun createWithExplanatoryAssertion(translatable: Translatable)
-        = create(assertionBuilder.explanatory.create(translatable))
-
-    override fun create(assertion: Assertion): AssertionGroup
-        = create(listOf(assertion))
-
+    
     override fun create(assertions: List<Assertion>): AssertionGroup
         = ExplanatoryAssertionGroup(groupType, assertions)
 }

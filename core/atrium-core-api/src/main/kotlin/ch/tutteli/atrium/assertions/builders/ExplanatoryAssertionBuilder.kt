@@ -19,6 +19,7 @@ interface ExplanatoryAssertionBuilder {
      * It then delegates to the overload which expects a single [Translatable].
      */
     fun create(translatable: Translatable, arg: Any, vararg otherArgs: Any): ExplanatoryAssertion
+        = create(TranslatableWithArgs(translatable, arg, *otherArgs))
 
     /**
      * Creates an [ExplanatoryAssertion] using the given [translatable] as explanation.
@@ -27,6 +28,7 @@ interface ExplanatoryAssertionBuilder {
      * given [translatable] and treats the result as raw string.
      */
     fun create(translatable: Translatable): ExplanatoryAssertion
+        = create(RawString.create(translatable))
 
     /**
      * Creates an [ExplanatoryAssertion] using the given [explanation].
@@ -41,12 +43,6 @@ interface ExplanatoryAssertionBuilder {
  * Builder to create an [ExplanatoryAssertion].
  */
 internal object ExplanatoryAssertionBuilderImpl : ExplanatoryAssertionBuilder {
-
-    override fun create(translatable: Translatable, arg: Any, vararg otherArgs: Any)
-        = create(TranslatableWithArgs(translatable, arg, *otherArgs))
-
-    override fun create(translatable: Translatable): ExplanatoryAssertion
-        = create(RawString.create(translatable))
 
     override fun create(explanation: Any?) : ExplanatoryAssertion
         = BasicExplanatoryAssertion(explanation)

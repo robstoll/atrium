@@ -21,6 +21,7 @@ interface EmptyNameAndSubjectAssertionGroupBuilder {
      * [assertion] as single [AssertionGroup.assertions].
      */
     fun create(assertion: Assertion): AssertionGroup
+        = create(listOf(assertion))
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given
@@ -37,9 +38,6 @@ interface EmptyNameAndSubjectAssertionGroupBuilder {
 internal class EmptyNameAndSubjectAssertionGroupBuilderImpl internal constructor(
     override val groupType: AssertionGroupType
 ) : EmptyNameAndSubjectAssertionGroupBuilder {
-
-    override fun create(assertion: Assertion): AssertionGroup
-        = create(listOf(assertion))
 
     override fun create(assertions: List<Assertion>): AssertionGroup
         = EmptyNameAndSubjectAssertionGroup(groupType, assertions)
