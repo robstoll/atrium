@@ -6,7 +6,7 @@ buildscript {
     ext {
         ghPages_version = rootProject.version
         kbox_version = '0.1.0'
-        kotlin_version = '1.2.30'
+        kotlin_version = '1.2.31'
         mockito_kotlin_version = '1.5.0'
         dokka_version = '0.9.16'
         dokka_sourceMapping = 'tree/master'
