@@ -8,13 +8,14 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
     AssertionVerbFactory,
     getToThrowTriple(),
     getMessagePair(),
-    Companion::messageContains
+    Companion::messageWithContainsFun,
+    getMessageContainsPair()
 ) {
 
     companion object {
 
-        private fun getToThrowTriple(): Triple<String, ThrowableThrown.Builder.() -> Unit, ThrowableThrown.Builder.(assertionCreator: Assert<Throwable>.() -> Unit) -> Unit>
-            = Triple("toThrow", Companion::toThrowImmediate, Companion::toThrowLazy)
+        private fun getToThrowTriple(): Triple<String, ThrowableThrown.Builder.() -> Unit, ThrowableThrown.Builder.(assertionCreator: Assert<Throwable>.() -> Unit) -> Unit> =
+            Triple("toThrow", Companion::toThrowImmediate, Companion::toThrowLazy)
 
         private fun toThrowImmediate(builder: ThrowableThrown.Builder) {
             //TODO change to infix as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
@@ -26,10 +27,22 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
             builder.toThrow<IllegalArgumentException>(assertionCreator)
         }
 
-        private fun getMessagePair() =
-            Assert<Throwable>::message.name to Assert<Throwable>::message
+        private fun getMessagePair()
+            = Assert<Throwable>::message.name to Assert<Throwable>::message
 
-        private fun messageContains(plant: Assert<Throwable>, expected: Any)
+        private fun messageWithContainsFun(plant: Assert<Throwable>, expected: Any)
             = plant message { contains(expected) }
+
+        private fun getMessageContainsPair()
+            = Assert<Throwable>::messageContains.name to Companion::messageContains
+
+
+        private fun messageContains(plant: Assert<Throwable>, expected: Any, otherExpected: Array<out Any>) {
+            return if (otherExpected.isEmpty()) {
+                plant messageContains expected
+            } else {
+                plant messageContains Values(expected, *otherExpected)
+            }
+        }
     }
 }
