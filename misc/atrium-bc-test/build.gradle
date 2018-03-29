@@ -28,6 +28,7 @@ dependencies {
     common "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     compile configurations.common.dependencies
+    compile prefixedProject('core-api')
 }
 
 def createBcTasks(String apiName, String version, String forgive) {
@@ -179,6 +180,9 @@ def createBcTasksForApis(String version, String forgive, String... apis) {
 }
 
 createBcTasksForApis('0.6.0',
-    'forgive=.*spec:ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.Iterable.*(error cases|failing cases|context empty collection).*',
+    'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
+        '(Iterable.*(error cases|failing cases|context empty collection).*)|' +
+        '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)' +
+    ')',
     'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
 )

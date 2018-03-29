@@ -11,5 +11,5 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 )
 enum class DescriptionCollectionAssertion(override val value: String) : StringBasedTranslatable {
     EMPTY(ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY.value),
-    HAS_SIZE(ch.tutteli.atrium.translations.DescriptionCollectionAssertion.HAS_SIZE.value),
+    HAS_SIZE("has size"),
 }

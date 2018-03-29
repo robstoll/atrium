@@ -2,10 +2,12 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.messageContains
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import org.jetbrains.spek.api.Spek
@@ -23,7 +25,6 @@ abstract class CollectionAssertionsSpec(
 ) : Spek({
 
     include(object : SubjectLessAssertionSpec<List<Int>>(describePrefix,
-        hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 1) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})
@@ -53,12 +54,16 @@ abstract class CollectionAssertionsSpec(
             test("expect 1 throws an AssertionError") {
                 expect {
                     fluent.hasSizeFun(1)
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionCollectionAssertion.HAS_SIZE) } }
+                }.toThrow<AssertionError> {
+                    messageContains("size: 2", DescriptionAnyAssertion.TO_BE.getDefault() + ": 1")
+                }
             }
             test("expect 3 throws an AssertionError") {
                 expect {
                     fluent.hasSizeFun(3)
-                }.toThrow<AssertionError>()
+                }.toThrow<AssertionError> {
+                    messageContains("size: 2", DescriptionAnyAssertion.TO_BE.getDefault() + ": 3")
+                }
             }
         }
     }
@@ -71,7 +76,11 @@ abstract class CollectionAssertionsSpec(
         it("throws an AssertionError if a collection is not empty") {
             expect {
                 assert(listOf(1, 2)).isEmptyFun()
-            }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionBasic.IS) } }
+            }.toThrow<AssertionError> {
+                message {
+                    containsDefaultTranslationOf(DescriptionBasic.IS, DescriptionCollectionAssertion.EMPTY)
+                }
+            }
         }
     }
 
@@ -83,7 +92,11 @@ abstract class CollectionAssertionsSpec(
         it("throws an AssertionError if a collection is empty") {
             expect {
                 assert(listOf()).isNotEmptyFun()
-            }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionBasic.IS_NOT) } }
+            }.toThrow<AssertionError> {
+                message {
+                    containsDefaultTranslationOf(DescriptionBasic.IS_NOT, DescriptionCollectionAssertion.EMPTY)
+                }
+            }
         }
     }
 })
