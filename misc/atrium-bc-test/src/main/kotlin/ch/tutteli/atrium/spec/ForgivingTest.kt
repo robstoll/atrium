@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.spec
 
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import org.jetbrains.spek.api.dsl.TestBody
 import org.jetbrains.spek.api.lifecycle.TestScope
 import org.jetbrains.spek.engine.Scope
@@ -25,6 +26,8 @@ class ForgivingTest(private val test: Test) :
         try {
             test.body.invoke(object : TestBody {})
         } catch (e: AssertionError) {
+            println("forgiving $test")
+        } catch (e: PlantHasNoSubjectException){
             println("forgiving $test")
         }
         return context
