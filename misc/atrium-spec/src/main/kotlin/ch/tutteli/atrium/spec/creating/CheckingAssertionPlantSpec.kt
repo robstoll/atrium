@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.creating
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
@@ -59,7 +56,7 @@ abstract class CheckingAssertionPlantSpec(
             test("re-checking the assertions (calling ${testee::allAssertionsHold.name} twice) throws an  ${IllegalStateException::class.simpleName}") {
                 verbs.checkException {
                     testee.allAssertionsHold()
-                }.toThrow<IllegalStateException> { message { contains("create assertions first") } }
+                }.toThrow<IllegalStateException> { messageContains("create assertions first") }
             }
         }
 

@@ -59,6 +59,11 @@ object AssertionCollector {
                     "There was not any assertion created which could identify an entry. Specify at least one assertion"
                 }
 
+                // since assertions can be lazily computed we have to provoke their creation here,
+                // so that a potential PlantHasNoSubjectException is thrown. It's fine to provoke the computation
+                // because we require the assertions for the explanation anyway.
+                expandAssertionGroups(collectedAssertions)
+
                 collectedAssertions
             } catch (e: PlantHasNoSubjectException) {
                 listOf(AssertImpl.builder.explanatoryGroup.withWarning.createWithExplanatoryAssertion(warning))
@@ -79,6 +84,20 @@ object AssertionCollector {
             return coreFactory.newCollectingPlant {
                 subject ?: throw PlantHasNoSubjectException()
             }
+        }
+
+        /**
+         * Calls recursively [AssertionGroup.assertions] on every assertion group contained in [assertions].
+         */
+        private tailrec fun expandAssertionGroups(assertions: List<Assertion>) {
+            if(assertions.isEmpty()) return
+
+            expandAssertionGroups(assertions
+                .asSequence()
+                .filterIsInstance<AssertionGroup>()
+                .flatMap { it.assertions.asSequence() }
+                .toList()
+            )
         }
     }
 }

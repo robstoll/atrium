@@ -52,7 +52,7 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
             test("for exactly -1 -- only positive numbers") {
                 expect {
                     fluent.containsExactlyFun(-1, "")
-                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
+                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             test("for exactly 0 -- points to $containsNot") {
                 expect {
@@ -62,12 +62,12 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
             test("if an object is passed as first expected") {
                 expect {
                     fluent.containsExactlyFun(1, fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             test("if an object is passed as second expected") {
                 expect {
                     fluent.containsExactlyFun(1, "that's fine", fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
         }
 
@@ -98,7 +98,7 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                 test("${containsExactlyTest("'H', 'E'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'H', 'E')
-                    }.toThrow<AssertionError> { message { contains(exactly, 'E') } }
+                    }.toThrow<AssertionError> { messageContains(exactly, 'E') }
                 }
                 test("${containsExactlyIgnoringCase("'H', 'E'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'H', 'E')
@@ -107,7 +107,7 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                 test("${containsExactlyTest("'E', 'H'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'E', 'H')
-                    }.toThrow<AssertionError> { message { contains(exactly, 'E') } }
+                    }.toThrow<AssertionError> { messageContains(exactly, 'E') }
                 }
                 test("${containsExactlyIgnoringCase("'E', 'H'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'E', 'H')
@@ -116,7 +116,7 @@ abstract class CharSequenceContainsExactlyAssertionSpec(
                 test("${containsExactlyTest("'H' and 'E' and 'w'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'H', 'E', 'w')
-                    }.toThrow<AssertionError> { message { contains(exactly, 'E', 'w') } }
+                    }.toThrow<AssertionError> { messageContains(exactly, 'E', 'w') }
                 }
                 test("${containsExactlyIgnoringCase("'H' and 'E' and 'w'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'H', 'E', 'w')

@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -53,13 +50,11 @@ abstract class IterableContainsContainsNotAssertionSpec(
                 expect {
                     fluentEmptyString.containsFun(1.0)
                 }.toThrow<AssertionError> {
-                    message {
-                        contains(
-                            "$containsInAnyOrder: 1.0",
-                            "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
-                        )
-                    }
+                    messageContains(
+                        "$containsInAnyOrder: 1.0",
+                        "$numberOfOccurrences: 0",
+                        "$atLeast: 1"
+                    )
                 }
             }
             test("$containsNot 1.0 does not throw") {
@@ -113,12 +108,12 @@ abstract class IterableContainsContainsNotAssertionSpec(
                 test("$contains 1.0 and 9.5 throws AssertionError") {
                     expect {
                         fluent.containsFun(1.0, 9.5)
-                    }.toThrow<AssertionError> { message { contains(CONTAINS.getDefault(), 9.5) } }
+                    }.toThrow<AssertionError> { messageContains(CONTAINS.getDefault(), 9.5) }
                 }
                 test("$containsNot 1.0 and 9.5 throws AssertionError") {
                     expect {
                         fluent.containsNotFun(1.0, 9.5)
-                    }.toThrow<AssertionError> { message { contains(CONTAINS_NOT.getDefault(), 1.0) } }
+                    }.toThrow<AssertionError> { messageContains(CONTAINS_NOT.getDefault(), 1.0) }
                 }
             }
 

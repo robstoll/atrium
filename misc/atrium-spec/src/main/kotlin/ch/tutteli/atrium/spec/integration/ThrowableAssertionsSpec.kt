@@ -17,7 +17,8 @@ abstract class ThrowableAssertionsSpec(
         ThrowableThrown.Builder.(assertionCreator: Assert<Throwable>.() -> Unit) -> Unit
         >,
     messagePair: Pair<String, Assert<Throwable>.(assertionCreator: Assert<String>.() -> Unit) -> Unit>,
-    messageContainsFun: Assert<Throwable>.(String) -> Unit,
+    messageWithContainsFun: Assert<Throwable>.(String) -> Unit,
+    messageContainsPair: Pair<String, Assert<Throwable>.(Any, Array<out Any>) -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -30,8 +31,9 @@ abstract class ThrowableAssertionsSpec(
     val expect = verbs::checkException
     val assert: (IllegalArgumentException) -> Assert<IllegalArgumentException> = verbs::checkImmediately
 
-    val (message, messageFun) = messagePair
     val (toThrow, toThrowFun, toThrowFunLazy) = toThrowTriple
+    val (message, messageFun) = messagePair
+    val (messageContains, messageContainsFun) = messageContainsPair
 
     fun SpecBody.checkToThrow(
         description: String,
@@ -62,13 +64,11 @@ abstract class ThrowableAssertionsSpec(
                     throw UnsupportedOperationException()
                 }.doToThrow()
             }.toThrow<AssertionError> {
-                message {
-                    contains(
-                        UnsupportedOperationException::class.java.name,
-                        DescriptionThrowableAssertion.IS_A.getDefault(),
-                        IllegalArgumentException::class.java.name
-                    )
-                }
+                messageContains(
+                    UnsupportedOperationException::class.java.name,
+                    DescriptionThrowableAssertion.IS_A.getDefault(),
+                    IllegalArgumentException::class.java.name
+                )
             }
         }, { toThrowFunLazy {} }, { toThrowFun() })
 
@@ -98,11 +98,46 @@ abstract class ThrowableAssertionsSpec(
                 expect {
                     assert(throwable).messageWithCheck()
                 }.toThrow<AssertionError>()
-            }, { messageContainsFun("hello") })
+            }, { messageWithContainsFun("hello") })
 
             checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
                 assert(throwable).messageWithCheck()
-            }, { messageContainsFun("oh") })
+            }, { messageWithContainsFun("oh") })
         }
+    }
+
+    describeFun(messageContains) {
+        checkNarrowingAssertion<Throwable>("it throws an AssertionError if the ${Throwable::message.name} is null", { messageContains ->
+            val throwable = IllegalArgumentException()
+            expect {
+                assert(throwable).messageContains()
+            }.toThrow<AssertionError> {
+                message {
+                    containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
+                    contains(String::class.java.name)
+                }
+            }
+        }, { messageContainsFun(1, arrayOf(2.3, 'z', "hello")) })
+
+        context("it allows to define an assertion for the ${Throwable::message.name} if it is not null") {
+            val throwable = IllegalArgumentException("1 2.3 z hello")
+            checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageContains ->
+                expect {
+                    assert(throwable).messageContains()
+                }.toThrow<AssertionError>()
+            }, { messageContainsFun("nada", arrayOf()) })
+
+            checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
+                assert(throwable).messageWithCheck()
+            }, { messageContainsFun(1, arrayOf(2.3, 'z', "hello")) })
+
+
+            checkNarrowingAssertion<Throwable>("it throws an IllegalArgumentException if an object is passed", { messageContains ->
+                expect {
+                    assert(throwable).messageContains()
+                }.toThrow<IllegalArgumentException>()
+            }, { messageContainsFun(Object(), arrayOf()) })
+        }
+
     }
 })

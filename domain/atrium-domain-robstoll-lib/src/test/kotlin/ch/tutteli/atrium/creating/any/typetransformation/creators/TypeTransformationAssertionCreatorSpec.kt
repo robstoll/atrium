@@ -28,12 +28,10 @@ object TypeTransformationAssertionCreatorSpec : Spek({
                     isLessThan(2)
                 }
             }.toThrow<AssertionError> {
-                message {
-                    contains(
-                        "is a: ${Right::class.java.simpleName}",
-                        "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 2"
-                    )
-                }
+                messageContains(
+                    "is a: ${Right::class.java.simpleName}",
+                    "${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 2"
+                )
             }
         }
     }

@@ -191,7 +191,7 @@ abstract class AnyAssertionsSpec(
             setUp("throws an AssertionError") {
                 context("exception message") {
                     it("contains the '${testee::subject.name}'") {
-                        expectFun.toThrow<AssertionError> { message { contains(subject.toString()) } }
+                        expectFun.toThrow<AssertionError> { messageContains(subject.toString()) }
                     }
                     it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message - which should be '${DescriptionAnyAssertion.TO_BE.getDefault()}'") {
                         expectFun.toThrow<AssertionError> {
@@ -199,7 +199,7 @@ abstract class AnyAssertionsSpec(
                         }
                     }
                     it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
-                        expectFun.toThrow<AssertionError> { message { contains(RawString.NULL.string) } }
+                        expectFun.toThrow<AssertionError> { messageContains(RawString.NULL.string) }
                     }
                 }
             }

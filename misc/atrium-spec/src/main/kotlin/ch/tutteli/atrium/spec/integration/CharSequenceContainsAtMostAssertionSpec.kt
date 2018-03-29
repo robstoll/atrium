@@ -53,7 +53,7 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
             test("for at most -1 -- only positive numbers") {
                 expect {
                     fluent.containsAtMostFun(-1, "")
-                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
+                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             test("for at most 0 -- points to $containsNot") {
                 expect {
@@ -68,12 +68,12 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
             test("if an object is passed as first expected") {
                 expect {
                     fluent.containsAtMostFun(2, fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             test("if an object is passed as second expected") {
                 expect {
                     fluent.containsAtMostFun(2, "that's fine", fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
         }
 
@@ -99,22 +99,22 @@ abstract class CharSequenceContainsAtMostAssertionSpec(
                 test("${containsAtMostTest("'H', 'l'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'H', 'l')
-                    }.toThrow<AssertionError> { message { contains(atMost, 'l') } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
                 }
                 test("${containsAtMostTest("'l', 'H'", "twice")} once throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'l', 'H')
-                    }.toThrow<AssertionError> { message { contains(atMost, 'l') } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
                 }
                 test("${containsAtMostTest("'o', 'E', 'W', 'l'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'o', 'E', 'W', 'l')
-                    }.toThrow<AssertionError> { message { contains(atMost, 'o', 'l') } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 'o', 'l') }
                 }
                 test("${containsAtMostTest("'x' and 'y' and 'z'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'x', 'y', 'z')
-                    }.toThrow<AssertionError> { message { contains(atLeast, 'x', 'y', 'z') } }
+                    }.toThrow<AssertionError> { messageContains(atLeast, 'x', 'y', 'z') }
                 }
             }
 
