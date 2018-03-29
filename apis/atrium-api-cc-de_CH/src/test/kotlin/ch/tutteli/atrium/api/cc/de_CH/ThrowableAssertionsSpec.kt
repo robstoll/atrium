@@ -8,7 +8,8 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
     AssertionVerbFactory,
     getToThrowTriple(),
     getMessagePair(),
-    Companion::messageContains
+    Companion::messageWithContainsFun,
+    getMessageContainsPair()
 ) {
 
     companion object {
@@ -26,7 +27,13 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
         private fun getMessagePair() =
             Assert<Throwable>::message.name to Assert<Throwable>::message
 
-        private fun messageContains(plant: Assert<Throwable>, expected: Any)
+        private fun messageWithContainsFun(plant: Assert<Throwable>, expected: Any)
             = plant.message { enthaelt(expected) }
+
+        private fun getMessageContainsPair()
+            = Assert<Throwable>::messageEnthaelt.name to Companion::messageContains
+
+        private fun messageContains(plant: Assert<Throwable>, expected: Any, otherExpected: Array<out Any>)
+            = plant.messageEnthaelt(expected, *otherExpected)
     }
 }

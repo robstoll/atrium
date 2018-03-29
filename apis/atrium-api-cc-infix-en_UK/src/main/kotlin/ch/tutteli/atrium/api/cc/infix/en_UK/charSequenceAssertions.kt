@@ -58,7 +58,7 @@ fun <T : CharSequence> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") con
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T>
-    = this to contain atLeast 1 value expected
+    = this contains Values(expected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the given [values] [toString] representation
@@ -99,7 +99,7 @@ infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionP
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable: Translatable): AssertionPlant<T>
-    = this to contain atLeast 1 defaultTranslationOf translatable
+    = this contains DefaultTranslationsOf(translatable)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [DefaultTranslationsOf.expected]'s
@@ -135,7 +135,7 @@ infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTra
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): AssertionPlant<T>
-    = this to contain atLeast 1 regex pattern
+    = this contains RegexPatterns(pattern)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given [patterns]
