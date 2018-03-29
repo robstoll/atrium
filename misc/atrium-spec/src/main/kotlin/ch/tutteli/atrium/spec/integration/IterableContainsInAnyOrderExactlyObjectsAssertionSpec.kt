@@ -44,7 +44,7 @@ abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
             test("for exactly -1 -- only positive numbers") {
                 expect {
                     fluent.containsExactlyFun(-1, 0.0)
-                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
+                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             test("for exactly 0 -- points to $containsNot") {
                 expect {
@@ -77,19 +77,19 @@ abstract class IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
                 test("${containsExactlyTest("1.0, 2.3", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 1.0, 2.3)
-                    }.toThrow<AssertionError> { message { contains(exactly, 2.3) } }
+                    }.toThrow<AssertionError> { messageContains(exactly, 2.3) }
                 }
 
                 test("${containsExactlyTest("2.3, 1.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 2.3, 1.0)
-                    }.toThrow<AssertionError> { message { contains(exactly, 2.3) } }
+                    }.toThrow<AssertionError> { messageContains(exactly, 2.3) }
                 }
 
                 test("${containsExactlyTest("1.0 and 2.3 and 3.1", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 1.0, 2.3, 3.1)
-                    }.toThrow<AssertionError> { message { contains(exactly, 2.3, 3.1) } }
+                    }.toThrow<AssertionError> { messageContains(exactly, 2.3, 3.1) }
                 }
             }
 

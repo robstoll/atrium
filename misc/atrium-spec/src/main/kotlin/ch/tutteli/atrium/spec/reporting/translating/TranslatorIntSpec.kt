@@ -128,7 +128,7 @@ abstract class TranslatorIntSpec(
                 test("a failing assertion contains 'ist' instead of 'to be' in the error message") {
                     verbs.checkException {
                         assertWithDeCh(1).toBe(2)
-                    }.toThrow<AssertionError> { message { contains("ist: 2") } }
+                    }.toThrow<AssertionError> { messageContains("ist: 2") }
                 }
             }
 
@@ -137,7 +137,7 @@ abstract class TranslatorIntSpec(
                 test("a failing assertion contains '$text' instead of 'not to be' in the error message") {
                     verbs.checkException {
                         assertWithDeCh(1).notToBe(1)
-                    }.toThrow<AssertionError> { message { contains("$text: 1") } }
+                    }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
             }
 
@@ -146,7 +146,7 @@ abstract class TranslatorIntSpec(
                 test("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     verbs.checkException {
                         assertWithDeCh(1).isNotSame(1)
-                    }.toThrow<AssertionError> { message { contains("$text: 1") } }
+                    }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
             }
         }
@@ -157,7 +157,7 @@ abstract class TranslatorIntSpec(
                 test("a failing assertion contains '$text' instead of 'assert' in the error message") {
                     verbs.checkException {
                         assertWithDeCh(1).toBe(2)
-                    }.toThrow<AssertionError> { message { contains("$text: 1") } }
+                    }.toThrow<AssertionError> { messageContains("$text: 1") }
                 }
             }
         }
@@ -168,7 +168,7 @@ abstract class TranslatorIntSpec(
                 it("throws an AssertionError which message contains the default of $descriptionNumberAssertion.${DescriptionComparableAssertion.IS_LESS_THAN}") {
                     verbs.checkException {
                         assertWithDeCh(1).isLessThan(1)
-                    }.toThrow<AssertionError> { message { contains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") } }
+                    }.toThrow<AssertionError> { messageContains("${DescriptionComparableAssertion.IS_LESS_THAN.getDefault()}: 1") }
                 }
             }
         }
@@ -180,7 +180,7 @@ abstract class TranslatorIntSpec(
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
                     verbs.checkException {
                         assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1, { false })
-                    }.toThrow<AssertionError> { message { contains("02/01/17 était Mittwoch!!") } }
+                    }.toThrow<AssertionError> { messageContains("02/01/17 était Mittwoch!!") }
                 }
             }
 
@@ -188,7 +188,7 @@ abstract class TranslatorIntSpec(
                 it("uses default translation but the primary Locale to format the date") {
                     verbs.checkException {
                         assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_UNKNOWN, firstOfFeb2017), 1, { false })
-                    }.toThrow<AssertionError> { message { contains("only Mittwoch") } }
+                    }.toThrow<AssertionError> { messageContains("only Mittwoch") }
                 }
             }
 
@@ -198,7 +198,7 @@ abstract class TranslatorIntSpec(
                     + "and the translation from 'ch' for $descriptionAnyAssertion.$toBe") {
                     verbs.checkException {
                         assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.PLACEHOLDER, toBe), 1, { false })
-                    }.toThrow<AssertionError> { message { contains("Caractère de remplacement ist") } }
+                    }.toThrow<AssertionError> { messageContains("Caractère de remplacement ist") }
                 }
             }
         }
@@ -220,14 +220,14 @@ abstract class TranslatorIntSpec(
                         test("a failing assertion contains '$toBe ${zhWithScript}_$country' instead of 'to be' in the error message") {
                             verbs.checkException {
                                 assert.toBe(2)
-                            }.toThrow<AssertionError> { message { contains("$toBe ${zhWithScript}_$country: 2") } }
+                            }.toThrow<AssertionError> { messageContains("$toBe ${zhWithScript}_$country: 2") }
                         }
                     }
                     describe("translation for $descriptionAnyAssertion.$notToBe is provided for 'zh_$country' and for $zhWithScript") {
                         test("a failing assertion contains '$notToBe $zhWithScript' instead of 'to be' in the error message") {
                             verbs.checkException {
                                 assert.notToBe(1)
-                            }.toThrow<AssertionError> { message { contains("$notToBe $zhWithScript: 1") } }
+                            }.toThrow<AssertionError> { messageContains("$notToBe $zhWithScript: 1") }
                         }
                     }
                 }
@@ -235,14 +235,14 @@ abstract class TranslatorIntSpec(
                     test("a failing assertion contains '$isNotSame zh_$country' instead of 'to be' in the error message") {
                         verbs.checkException {
                             assert.isNotSame(1)
-                        }.toThrow<AssertionError> { message { contains("$isNotSame zh_$country: 1") } }
+                        }.toThrow<AssertionError> { messageContains("$isNotSame zh_$country: 1") }
                     }
                 }
                 describe("translation for $descriptionAnyAssertion.$isSame is not provided for 'zh_$country' but for zh") {
                     test("a failing assertion contains '$isSame zh' instead of 'to be' in the error message") {
                         verbs.checkException {
                             assert.isSame(2)
-                        }.toThrow<AssertionError> { message { contains("$isSame zh: 2") } }
+                        }.toThrow<AssertionError> { messageContains("$isSame zh: 2") }
                     }
                 }
             }

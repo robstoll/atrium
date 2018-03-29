@@ -43,15 +43,13 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
                 expect {
                     fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
-                    message {
-                        contains(
-                            "$containsInAnyOrder: $separator",
-                            "$anEntryWhich: $separator",
-                            "$isLessThanDescr: 1.0",
-                            "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
-                        )
-                    }
+                    messageContains(
+                        "$containsInAnyOrder: $separator",
+                        "$anEntryWhich: $separator",
+                        "$isLessThanDescr: 1.0",
+                        "$numberOfOccurrences: 0",
+                        "$atLeast: 1"
+                    )
                 }
             }
             test("$isLessThanFun(1.0) and $isGreaterThanFun(2.0) throws AssertionError") {
@@ -118,7 +116,7 @@ abstract class IterableContainsInAnyOrderEntriesSpec(
             it("throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsEntriesFun({})
-                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
+                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
             }
         }
     }

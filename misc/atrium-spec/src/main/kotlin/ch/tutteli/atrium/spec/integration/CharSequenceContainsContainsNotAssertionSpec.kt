@@ -50,12 +50,10 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                 expect {
                     fluentEmptyString.containsFun("Hello")
                 }.toThrow<AssertionError> {
-                    message {
-                        contains(
-                            "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
-                        )
-                    }
+                    messageContains(
+                        "$numberOfOccurrences: 0",
+                        "$atLeast: 1"
+                    )
                 }
             }
             test("$containsNot 'Hello' does not throw") {
@@ -128,12 +126,12 @@ abstract class CharSequenceContainsContainsNotAssertionSpec(
                 test("$containsFunName 'Hello' and 'notInThere' throws AssertionError") {
                     expect {
                         fluent.containsFun("Hello", "notInThere")
-                    }.toThrow<AssertionError> { message { contains(containsDescr, "notInThere") } }
+                    }.toThrow<AssertionError> { messageContains(containsDescr, "notInThere") }
                 }
                 test("$containsNot 'Hello' and 'notInThere' throws AssertionError") {
                     expect {
                         fluent.containsNotFun("Hello", "notInThere")
-                    }.toThrow<AssertionError> { message { contains(CONTAINS_NOT.getDefault(), "Hello") } }
+                    }.toThrow<AssertionError> { messageContains(CONTAINS_NOT.getDefault(), "Hello") }
                 }
             }
 
