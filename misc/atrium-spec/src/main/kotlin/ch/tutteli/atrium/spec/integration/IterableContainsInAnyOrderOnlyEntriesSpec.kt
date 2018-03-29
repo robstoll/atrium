@@ -233,7 +233,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
             it("throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsEntriesFun({})
-                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
+                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
             }
         }
     }

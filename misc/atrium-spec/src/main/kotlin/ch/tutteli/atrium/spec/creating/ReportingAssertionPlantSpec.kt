@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.creating
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
@@ -114,7 +111,7 @@ abstract class ReportingAssertionPlantSpec(
                         }
                         it("contains the '${plant::subject.name}'") {
                             expectFun().toThrow<AssertionError> {
-                                message { contains(subject) }
+                                messageContains(subject)
                             }
                         }
                         it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message") {
@@ -124,7 +121,7 @@ abstract class ReportingAssertionPlantSpec(
                         }
                         it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
                             expectFun().toThrow<AssertionError> {
-                                message { contains(expected) }
+                                messageContains(expected)
                             }
                         }
                     }

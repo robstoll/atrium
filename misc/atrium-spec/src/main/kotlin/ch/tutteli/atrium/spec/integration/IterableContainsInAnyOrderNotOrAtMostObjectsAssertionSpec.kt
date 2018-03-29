@@ -43,7 +43,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
             test("for not at all or at most -1 -- only positive numbers") {
                 expect {
                     fluent.containsNotOrAtMostFun(-1, 0.0)
-                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
+                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             test("for not at all or at most 0 -- points to $containsNot") {
                 expect {
@@ -77,17 +77,17 @@ abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
                 test("${containsNotOrAtMostTest("1.0, 4.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsNotOrAtMostFun(1, 1.0, 4.0)
-                    }.toThrow<AssertionError> { message { contains(atMost, 4.0) } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 4.0) }
                 }
                 test("${containsNotOrAtMostTest("4.0, 1.0", "once")} once throws AssertionError") {
                     expect {
                         fluent.containsNotOrAtMostFun(1, 4.0, 1.0)
-                    }.toThrow<AssertionError> { message { contains(atMost, 4.0) } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 4.0) }
                 }
                 test("${containsNotOrAtMostTest("5.0, 3.1, 3.0, 4.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsNotOrAtMostFun(1, 5.0, 3.1, 3.0, 4.0)
-                    }.toThrow<AssertionError> { message { contains(atMost, 5.0, 4.0) } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 5.0, 4.0) }
                 }
             }
 

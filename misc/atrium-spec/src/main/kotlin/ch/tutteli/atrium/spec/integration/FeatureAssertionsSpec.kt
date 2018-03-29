@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.messageContains
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -125,7 +126,7 @@ abstract class FeatureAssertionsSpec(
                 test("in case of $checkMethod evaluation") {
                     expect {
                         act(assertion)
-                    }.toThrow<AssertionError> { message { contains(stringInExceptionMessage) } }
+                    }.toThrow<AssertionError> { messageContains(stringInExceptionMessage) }
                 }
             }
         }

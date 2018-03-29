@@ -54,7 +54,7 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
             test("for at least -1 -- only positive numbers") {
                 expect {
                     fluent.containsAtLeastFun(-1, 9.0)
-                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
+                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             test("for at least 0 -- points to $containsNot") {
                 expect {
@@ -108,17 +108,17 @@ abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
                 test("${containsAtLeastTest("1.0, 2.3", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.0, 2.3)
-                    }.toThrow<AssertionError> { message { contains(atLeast, 2.3) } }
+                    }.toThrow<AssertionError> { messageContains(atLeast, 2.3) }
                 }
                 test("${containsAtLeastTest("2.3, 1.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 2.3, 1.0)
-                    }.toThrow<AssertionError> { message { contains(atLeast, 2.3) } }
+                    }.toThrow<AssertionError> { messageContains(atLeast, 2.3) }
                 }
                 test("${containsAtLeastTest("1.0, 2.3, 3.1 and 6.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.0, 2.3, 3.1, 6.0)
-                    }.toThrow<AssertionError> { message { contains(atLeast, 2.3, 3.1) } }
+                    }.toThrow<AssertionError> { messageContains(atLeast, 2.3, 3.1) }
                 }
             }
 

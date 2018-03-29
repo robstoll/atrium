@@ -45,7 +45,7 @@ abstract class IterableContainsInAnyOrderAtMostObjectsAssertionSpec(
             test("for at most -1 -- only positive numbers") {
                 expect {
                     fluent.containsAtMostFun(-1, 0.0)
-                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
+                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             test("for at most 0 -- points to $containsNot") {
                 expect {
@@ -81,22 +81,22 @@ abstract class IterableContainsInAnyOrderAtMostObjectsAssertionSpec(
                 test("${containsAtMostTest("1.0, 4.0", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 1.0, 4.0)
-                    }.toThrow<AssertionError> { message { contains(atMost, 4.0) } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 4.0) }
                 }
                 test("${containsAtMostTest("4.0, 1.0", "twice")} once throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 4.0, 1.0)
-                    }.toThrow<AssertionError> { message { contains(atMost, 4.0) } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 4.0) }
                 }
                 test("${containsAtMostTest("5.0, 3.1, 3.0, 4.0", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 5.0, 3.1, 3.0, 4.0)
-                    }.toThrow<AssertionError> { message { contains(atMost, 5.0, 4.0) } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 5.0, 4.0) }
                 }
                 test("${containsAtMostTest("21.1 and 34.0 and 11.23", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 21.1, 34.0, 11.23)
-                    }.toThrow<AssertionError> { message { contains(atLeast, 21.1, 34.0, 11.23) } }
+                    }.toThrow<AssertionError> { messageContains(atLeast, 21.1, 34.0, 11.23) }
                 }
             }
 

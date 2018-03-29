@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.messageContains
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -55,22 +56,22 @@ abstract class CharSequenceContainsNotAssertionSpec(
             test("if an object is passed to $containsNotTest as first expected") {
                 expect {
                     fluent.containsNotFun(fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             test("if an object is passed to $containsNotTest as second expected") {
                 expect {
                     fluent.containsNotFun("that's fine", fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             test("if an object is passed to $containsNotIgnoringCaseTest as first expected") {
                 expect {
                     fluent.containsNotIgnoringCaseFun(fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             test("if an object is passed to $containsNotIgnoringCaseTest as second expected") {
                 expect {
                     fluent.containsNotIgnoringCaseFun("that's fine", fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
         }
 
@@ -95,50 +96,47 @@ abstract class CharSequenceContainsNotAssertionSpec(
                     expect {
                         fluentHelloWorld.containsNotFun('l')
                     }.toThrow<AssertionError> {
-                        message {
-                            contains(
-                                "$containsNotDescr: 'l'",
-                                "$numberOfOccurrences: 3",
-                                "${DescriptionBasic.IS.getDefault()}: 0"
-                            )
-                        }
+                        messageContains(
+                            "$containsNotDescr: 'l'",
+                            "$numberOfOccurrences: 3",
+                            "${DescriptionBasic.IS.getDefault()}: 0"
+                        )
                     }
                 }
                 test("${containsNotTest("'H', 'l'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotFun('H', 'l')
-                    }.toThrow<AssertionError> { message { contains("$containsNotDescr: 'l'") } }
+                    }.toThrow<AssertionError> { messageContains("$containsNotDescr: 'l'") }
                 }
                 test("${containsNotTest("'l', 'H'")} once throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotFun('l', 'H')
-                    }.toThrow<AssertionError> { message { contains("$containsNotDescr: 'l'") } }
+                    }.toThrow<AssertionError> { messageContains("$containsNotDescr: 'l'") }
                 }
                 test("${containsNotIgnoringCaseTest("'H', 'l'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotIgnoringCaseFun('H', 'l')
                     }.toThrow<AssertionError> {
-                        message {
-                            contains(
-                                "$containsNotIgnoringCaseDescr: 'H'",
-                                "$containsNotIgnoringCaseDescr: 'l'")
-                        }
+                        messageContains(
+                            "$containsNotIgnoringCaseDescr: 'H'",
+                            "$containsNotIgnoringCaseDescr: 'l'"
+                        )
                     }
                 }
                 test("${containsNotIgnoringCaseTest("'L', 'H'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotIgnoringCaseFun('L', 'H')
-                    }.toThrow<AssertionError> { message { contains('H', 'L') } }
+                    }.toThrow<AssertionError> { messageContains('H', 'L') }
                 }
                 test("${containsNotTest("'o', 'E', 'w', 'l'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotFun('o', 'E', 'w', 'l')
-                    }.toThrow<AssertionError> { message { contains('o', 'l') } }
+                    }.toThrow<AssertionError> { messageContains('o', 'l') }
                 }
                 test("${containsNotIgnoringCaseTest("'o', 'E', 'w', 'l'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotIgnoringCaseFun('o', 'E', 'w', 'l')
-                    }.toThrow<AssertionError> { message { contains('o', 'E', "w", 'l') } }
+                    }.toThrow<AssertionError> { messageContains('o', 'E', "w", 'l') }
                 }
             }
         }

@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.messageContains
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -38,7 +39,7 @@ abstract class TranslatorErrorCaseSpec(
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale.toString()) } }
+                    }.toThrow<IllegalArgumentException> { messageContains("The macrolanguage `no` is not supported", locale.toString()) }
                 }
             }
 
@@ -46,7 +47,7 @@ abstract class TranslatorErrorCaseSpec(
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(Locale.UK, locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale.toString()) } }
+                    }.toThrow<IllegalArgumentException> { messageContains("The macrolanguage `no` is not supported", locale.toString()) }
                 }
             }
 
@@ -54,7 +55,7 @@ abstract class TranslatorErrorCaseSpec(
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(Locale.UK, Locale.FRENCH, locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("The macrolanguage `no` is not supported", locale.toString()) } }
+                    }.toThrow<IllegalArgumentException> { messageContains("The macrolanguage `no` is not supported", locale.toString()) }
                 }
             }
         }
@@ -66,14 +67,14 @@ abstract class TranslatorErrorCaseSpec(
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("Script `$script` for Locale with language `zh` is not supported.") } }
+                    }.toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
                 }
             }
             context("first fallback Locale is $locale") {
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(Locale.UK, locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("Script `$script` for Locale with language `zh` is not supported.") } }
+                    }.toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
                 }
             }
 
@@ -81,7 +82,7 @@ abstract class TranslatorErrorCaseSpec(
                 it("throws an ${IllegalArgumentException::class.simpleName}") {
                     verbs.checkException {
                         testeeFactory(Locale.UK, Locale.FRENCH, locale)
-                    }.toThrow<IllegalArgumentException> { message { contains("Script `$script` for Locale with language `zh` is not supported.") } }
+                    }.toThrow<IllegalArgumentException> { messageContains("Script `$script` for Locale with language `zh` is not supported.") }
                 }
             }
         }

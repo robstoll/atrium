@@ -99,7 +99,7 @@ abstract class VerbSpec(
                     expect {
                         assertionVerb(1) { toBe(1) }.isLessThan(1)
                     }.toThrow<AssertionError> {
-                        message { contains("${IS_LESS_THAN.getDefault()}: 1") }
+                        messageContains("${IS_LESS_THAN.getDefault()}: 1")
                     }
                 }
             }
@@ -109,11 +109,11 @@ abstract class VerbSpec(
                     expect {
                         assertionVerb(1) { toBe(1) }.and { isLessThan(0); isGreaterThan(2) }
                     }.toThrow<AssertionError> {
-                        message {
-                            contains(": 1")
-                            contains("${IS_LESS_THAN.getDefault()}: 0")
-                            contains("${IS_GREATER_THAN.getDefault()}: 2")
-                        }
+                        messageContains(
+                            ": 1",
+                            "${IS_LESS_THAN.getDefault()}: 0",
+                            "${IS_GREATER_THAN.getDefault()}: 2"
+                        )
                     }
                 }
             }
