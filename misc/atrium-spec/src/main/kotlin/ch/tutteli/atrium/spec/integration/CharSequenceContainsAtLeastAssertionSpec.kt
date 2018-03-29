@@ -68,7 +68,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
             test("for at least -1 -- only positive numbers") {
                 expect {
                     fluent.containsAtLeastFun(-1, "")
-                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
+                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             test("for at least 0 -- points to $containsNot") {
                 expect {
@@ -78,12 +78,12 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
             test("if an object is passed as first expected") {
                 expect {
                     fluent.containsAtLeastFun(1, fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             test("if an object is passed as second expected") {
                 expect {
                     fluent.containsAtLeastFun(1, "that's fine", fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
 
             group("using $containsAtLeastButAtMost") {
@@ -110,12 +110,12 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("if an object is passed as first expected") {
                     expect {
                         fluent.containsAtLeastButAtMostFun(1, 2, fluent)
-                    }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                    }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
                 }
                 test("if an object is passed as second expected") {
                     expect {
                         fluent.containsAtLeastButAtMostFun(1, 2, "that's fine", fluent)
-                    }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                    }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
                 }
             }
         }
@@ -147,7 +147,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'H', 'E'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'H', 'E')
-                    }.toThrow<AssertionError> { message { contains(atLeast, 'E') } }
+                    }.toThrow<AssertionError> { messageContains(atLeast, 'E') }
                 }
                 test("${containsAtLeastIgnoringCase("'H', 'E'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'H', 'E')
@@ -156,7 +156,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'E', 'H'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'E', 'H')
-                    }.toThrow<AssertionError> { message { contains(atLeast, 'E') } }
+                    }.toThrow<AssertionError> { messageContains(atLeast, 'E') }
                 }
                 test("${containsAtLeastIgnoringCase("'E', 'H'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'E', 'H')
@@ -165,7 +165,7 @@ abstract class CharSequenceContainsAtLeastAssertionSpec(
                 test("${containsAtLeastTest("'H', 'E', 'w' and 'r'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'H', 'E', 'w', 'r')
-                    }.toThrow<AssertionError> { message { contains(atLeast, 'E', 'w') } }
+                    }.toThrow<AssertionError> { messageContains(atLeast, 'E', 'w') }
                 }
                 test("${containsAtLeastIgnoringCase("'H', 'E', 'w' and 'r'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'H', 'E', 'w', 'r')

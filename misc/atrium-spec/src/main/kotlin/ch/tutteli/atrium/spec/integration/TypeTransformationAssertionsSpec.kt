@@ -186,7 +186,7 @@ abstract class TypeTransformationAssertionsSpec(
                     expect {
                         verbs.checkImmediately(actualValue).isAIntLessFun(expectedLessThan)
                     }.toThrow<AssertionError> {
-                        message { contains(actualValue, DescriptionComparableAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
+                        messageContains(actualValue, DescriptionComparableAssertion.IS_LESS_THAN.getDefault(), expectedLessThan)
                     }
                 }
             }
@@ -209,7 +209,7 @@ abstract class TypeTransformationAssertionsSpec(
                     expect {
                         verbs.checkImmediately(actualValue).isAIntLessFun(expectedLessThan)
                     }.toThrow<AssertionError> {
-                        message { contains(actualValue, DescriptionComparableAssertion.IS_LESS_THAN.getDefault(), expectedLessThan) }
+                        messageContains(actualValue, DescriptionComparableAssertion.IS_LESS_THAN.getDefault(), expectedLessThan)
                     }
                 }
             }
@@ -220,7 +220,7 @@ abstract class TypeTransformationAssertionsSpec(
                 expect {
                     verbs.checkImmediately(SuperType()).isASubTypeFun {}
                 }.toThrow<AssertionError> {
-                    message { contains(SuperType::class.java.name, DescriptionTypeTransformationAssertion.IS_A.getDefault(), SubType::class.java.name) }
+                    messageContains(SuperType::class.java.name, DescriptionTypeTransformationAssertion.IS_A.getDefault(), SubType::class.java.name)
                 }
             }
         }

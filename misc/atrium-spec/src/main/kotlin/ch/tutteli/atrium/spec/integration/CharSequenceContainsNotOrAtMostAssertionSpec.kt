@@ -51,7 +51,7 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
             test("for not at all or at most -1 -- only positive numbers") {
                 expect {
                     fluent.containsNotOrAtMostFun(-1, "")
-                }.toThrow<IllegalArgumentException> { message { contains("positive number", -1) } }
+                }.toThrow<IllegalArgumentException> { messageContains("positive number", -1) }
             }
             test("for not at all or at most 0 -- points to $containsNot") {
                 expect {
@@ -61,12 +61,12 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
             test("if an object is passed as first expected") {
                 expect {
                     fluent.containsNotOrAtMostFun(1, fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
             test("if an object is passed as second expected") {
                 expect {
                     fluent.containsNotOrAtMostFun(1, "that's fine", fluent)
-                }.toThrow<IllegalArgumentException> { message { contains("CharSequence", "Number", "Char") } }
+                }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
             }
         }
 
@@ -98,17 +98,17 @@ abstract class CharSequenceContainsNotOrAtMostAssertionSpec(
                 test("${containsNotOrAtMostTest("'H', 'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'H', 'l')
-                    }.toThrow<AssertionError> { message { contains(atMost, 'l') } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
                 }
                 test("${containsNotOrAtMostTest("'l', 'H'", "once")} once throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l', 'H')
-                    }.toThrow<AssertionError> { message { contains(atMost, 'l') } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
                 }
                 test("${containsNotOrAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'o', 'E', 'W', 'l')
-                    }.toThrow<AssertionError> { message { contains(atMost, 'o', 'l') } }
+                    }.toThrow<AssertionError> { messageContains(atMost, 'o', 'l') }
                 }
             }
 

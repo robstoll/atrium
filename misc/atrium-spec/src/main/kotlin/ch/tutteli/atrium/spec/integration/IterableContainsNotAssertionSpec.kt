@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.message
+import ch.tutteli.atrium.api.cc.en_UK.messageContains
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -59,24 +60,22 @@ abstract class IterableContainsNotAssertionSpec(
                     expect {
                         fluent.containsNotFun(4.0)
                     }.toThrow<AssertionError> {
-                        message {
-                            contains(
-                                "$containsNotDescr: 4.0",
-                                "${CharSequenceContainsSpecBase.numberOfOccurrences}: 3",
-                                "${DescriptionBasic.IS.getDefault()}: 0"
-                            )
-                        }
+                        messageContains(
+                            "$containsNotDescr: 4.0",
+                            "${CharSequenceContainsSpecBase.numberOfOccurrences}: 3",
+                            "${DescriptionBasic.IS.getDefault()}: 0"
+                        )
                     }
                 }
                 test("${containsNotTest("1.0, 4.0")} throws AssertionError") {
                     expect {
                         fluent.containsNotFun(1.0, 4.0)
-                    }.toThrow<AssertionError> { message { contains(4.0) } }
+                    }.toThrow<AssertionError> { messageContains(4.0) }
                 }
                 test("${containsNotTest("4.0, 1.0")} once throws AssertionError") {
                     expect {
                         fluent.containsNotFun(4.0, 1.0)
-                    }.toThrow<AssertionError> { message { contains(4.0) } }
+                    }.toThrow<AssertionError> { messageContains(4.0) }
                 }
             }
         }

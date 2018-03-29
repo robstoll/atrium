@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsNot
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_UK.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
@@ -27,7 +24,6 @@ abstract class BigDecimalAssertionsSpec(
     isNotEqualIncludingScalePair: Pair<String, Assert<BigDecimal>.(BigDecimal) -> Assert<BigDecimal>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
-
 
     include(object : SubjectLessAssertionSpec<BigDecimal>("$describePrefix[BigDecimal] ",
         isNumericallyEqualToPair.first to mapToCreateAssertion { isNumericallyEqualToPair.second(this, BigDecimal.TEN) },
@@ -71,11 +67,10 @@ abstract class BigDecimalAssertionsSpec(
                     expect {
                         assert(subject).isNotNumericallyEqualToFun(expected)
                     }.toThrow<AssertionError> {
-                        message {
-                            contains(subject,
-                                "${DescriptionBigDecimalAssertion.IS_NOT_NUMERICALLY_EQUAL_TO.getDefault()}: $expected"
-                            )
-                        }
+                        messageContains(
+                            subject,
+                            "${DescriptionBigDecimalAssertion.IS_NOT_NUMERICALLY_EQUAL_TO.getDefault()}: $expected"
+                        )
                     }
                 }
             }
@@ -90,11 +85,10 @@ abstract class BigDecimalAssertionsSpec(
                     expect {
                         assert(subject).isNumericallyEqualToFun(expected)
                     }.toThrow<AssertionError> {
-                        message {
-                            contains(subject,
-                                "${DescriptionBigDecimalAssertion.IS_NUMERICALLY_EQUAL_TO.getDefault()}: $expected"
-                            )
-                        }
+                        messageContains(
+                            subject,
+                            "${DescriptionBigDecimalAssertion.IS_NUMERICALLY_EQUAL_TO.getDefault()}: $expected"
+                        )
                     }
                 }
                 test("`$isNotNumericallyEqualTo` does not throw") {
@@ -133,7 +127,7 @@ abstract class BigDecimalAssertionsSpec(
                     assertTen.notToBeAnyFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(subject, "${DescriptionAnyAssertion.NOT_TO_BE.getDefault()}: $expected")
+                        contains(BigDecimal.TEN, "${DescriptionAnyAssertion.NOT_TO_BE.getDefault()}: $expected")
                         containsNot(failureHintNotNumerically)
                     }
                 }
@@ -143,7 +137,7 @@ abstract class BigDecimalAssertionsSpec(
                     assertTen.isNotEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(subject, "${DescriptionBigDecimalAssertion.IS_NOT_EQUAL_INCLUDING_SCALE.getDefault()}: $expected")
+                        contains(BigDecimal.TEN, "${DescriptionBigDecimalAssertion.IS_NOT_EQUAL_INCLUDING_SCALE.getDefault()}: $expected")
                         containsNot(failureHintNotNumerically)
                     }
                 }
@@ -172,7 +166,7 @@ abstract class BigDecimalAssertionsSpec(
                         assertTen.toBeAnyFun(expected)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(subject, "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
+                            contains(BigDecimal.TEN, "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
                             containsNot(failureHintNumerically)
                         }
                     }
@@ -181,13 +175,11 @@ abstract class BigDecimalAssertionsSpec(
                     expect {
                         assertTen.isEqualIncludingScaleFun(expected)
                     }.toThrow<AssertionError> {
-                        message {
-                            contains(
-                                subject,
-                                "${DescriptionBigDecimalAssertion.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected",
-                                failureHintNumerically
-                            )
-                        }
+                        messageContains(
+                            BigDecimal.TEN,
+                            "${DescriptionBigDecimalAssertion.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected",
+                            failureHintNumerically
+                        )
                     }
                 }
 
@@ -218,7 +210,7 @@ abstract class BigDecimalAssertionsSpec(
                     assertTen.toBeAnyFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(subject, "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
+                        contains(BigDecimal.TEN, "${DescriptionAnyAssertion.TO_BE.getDefault()}: $expected")
                         containsNot(failureHintNumerically)
                     }
                 }
@@ -228,7 +220,7 @@ abstract class BigDecimalAssertionsSpec(
                     assertTen.isEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(subject, "${DescriptionBigDecimalAssertion.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected")
+                        contains(BigDecimal.TEN, "${DescriptionBigDecimalAssertion.IS_EQUAL_INCLUDING_SCALE.getDefault()}: $expected")
                         containsNot(failureHintNumerically)
                     }
                 }

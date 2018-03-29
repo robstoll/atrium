@@ -56,7 +56,7 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
  * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if defined),
  * using a non disjoint search.
  *
- * It is a shortcut for `message { contains.atLeast(1).values(expected, otherExpected) }`
+ * It is a shortcut for `message { enthaelt.zumindest(1).werte(expected, otherExpected) }`
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
  * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).

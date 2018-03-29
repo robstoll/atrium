@@ -64,13 +64,11 @@ abstract class ThrowableAssertionsSpec(
                     throw UnsupportedOperationException()
                 }.doToThrow()
             }.toThrow<AssertionError> {
-                message {
-                    contains(
-                        UnsupportedOperationException::class.java.name,
-                        DescriptionThrowableAssertion.IS_A.getDefault(),
-                        IllegalArgumentException::class.java.name
-                    )
-                }
+                messageContains(
+                    UnsupportedOperationException::class.java.name,
+                    DescriptionThrowableAssertion.IS_A.getDefault(),
+                    IllegalArgumentException::class.java.name
+                )
             }
         }, { toThrowFunLazy {} }, { toThrowFun() })
 

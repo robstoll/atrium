@@ -35,9 +35,11 @@ object SingleServiceLoaderSpec : Spek({
             expect {
                 SingleServiceLoader.load(InterfaceWithTwoImplementation::class.java)
             }.toThrow<IllegalStateException> {
-                message {
-                    this contains Values("Found more than one implementation ", A1::class.java.name, A2::class.java.name)
-                }
+                this messageContains Values(
+                    "Found more than one implementation ",
+                    A1::class.java.name,
+                    A2::class.java.name
+                )
             }
         }
     }

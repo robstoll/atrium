@@ -147,13 +147,11 @@ abstract class IterableContainsNullSpec(
                         2.0
                     ).toBe(0) }, arrayOf())
                 }.toThrow<AssertionError> {
-                    message {
-                        contains(
-                            "$anEntryWhich: $separator",
-                            "compareTo(2.0):",
-                            "${DescriptionAnyAssertion.TO_BE.getDefault()}: 0"
-                        )
-                    }
+                    messageContains(
+                        "$anEntryWhich: $separator",
+                        "compareTo(2.0):",
+                        "${DescriptionAnyAssertion.TO_BE.getDefault()}: 0"
+                    )
                 }
             }
         }
@@ -229,15 +227,13 @@ abstract class IterableContainsNullSpec(
                     expect {
                         fluent.containsInAnyOrderNullableEntriesFun({ toBe(2.0) })
                     }.toThrow<AssertionError> {
-                        message {
-                            contains(
-                                "$containsInAnyOrder: $separator",
-                                "$anEntryWhich: $separator",
-                                "$toBeDescr: 2.0",
-                                "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
-                            )
-                        }
+                        messageContains(
+                            "$containsInAnyOrder: $separator",
+                            "$anEntryWhich: $separator",
+                            "$toBeDescr: 2.0",
+                            "$numberOfOccurrences: 0",
+                            "$atLeast: 1"
+                        )
                     }
                 }
 
@@ -267,15 +263,13 @@ abstract class IterableContainsNullSpec(
                 expect {
                     assert(oneToSeven).containsInAnyOrderNullableEntriesFun(null)
                 }.toThrow<AssertionError> {
-                    message {
-                        contains(
-                            "$containsInAnyOrder: $separator",
-                            "$anEntryWhich: $separator",
-                            "$isDescr: null",
-                            "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
-                        )
-                    }
+                    messageContains(
+                        "$containsInAnyOrder: $separator",
+                        "$anEntryWhich: $separator",
+                        "$isDescr: null",
+                        "$numberOfOccurrences: 0",
+                        "$atLeast: 1"
+                    )
                 }
             }
         }
@@ -284,7 +278,7 @@ abstract class IterableContainsNullSpec(
             it("throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsInAnyOrderNullableEntriesFun({})
-                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
+                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
             }
         }
     }
@@ -352,7 +346,7 @@ abstract class IterableContainsNullSpec(
             it("throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsInAnyOrderOnlyNullableEntriesFun({})
-                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
+                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
             }
         }
     }
@@ -410,7 +404,7 @@ abstract class IterableContainsNullSpec(
             it("throws an ${IllegalArgumentException::class.simpleName}") {
                 expect {
                     fluent.containsInOrderOnlyNullableEntriesFun({})
-                }.toThrow<IllegalArgumentException> { message { contains("not any assertion created") } }
+                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
             }
         }
     }
