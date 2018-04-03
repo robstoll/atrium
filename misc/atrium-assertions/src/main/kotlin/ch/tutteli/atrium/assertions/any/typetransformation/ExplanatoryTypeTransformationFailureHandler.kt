@@ -7,7 +7,6 @@ import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
-import ch.tutteli.atrium.domain.robstoll.lib.creating.AssertionCollector
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -46,7 +45,8 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
     }
 
     private fun collectAssertions(warningDownCastFailed: Translatable, assertionCreator: AssertionPlant<TSub>.() -> Unit)
-        = AssertionCollector
+        = AssertImpl.collector
+        .forExplanation
         .doNotThrowIfNoAssertionIsCollected
-        .collectAssertionsForExplanation(warningDownCastFailed, assertionCreator, null)
+        .collect(warningDownCastFailed, assertionCreator, null)
 }

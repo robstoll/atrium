@@ -3,7 +3,9 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
+import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import java.util.*
 
 /**
@@ -13,18 +15,27 @@ import java.util.*
 object AssertImpl {
 
     /**
+     * Returns [AssertionBuilder].
+     * In detail, its an `inline` property which returns [ch.tutteli.atrium.assertions.builders.assertionBuilder]
+     * which in turn returns an implementation of [AssertionBuilder].
+     */
+    inline val builder get() = assertionBuilder
+
+    /**
+     * Returns [AssertionCollectorBuilder]
+     * which inter alia delegates to the implementation of [AssertionCollector].
+     */
+    inline val collector get() = AssertionCollectorBuilder
+
+    /**
      * Returns the implementation of [CoreFactory].
      * In detail, its an `inline` property which returns [ch.tutteli.atrium.core.coreFactory]
      * which in turn delegates to the implementation via [ServiceLoader].
      */
     inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
 
-    /**
-     * Returns [AssertionBuilder].
-     * In detail, its an `inline` property which returns [ch.tutteli.atrium.assertions.builders.assertionBuilder]
-     * which in turn returns an implementation of [AssertionBuilder].
-     */
-    inline val builder get() = assertionBuilder
+
+//--- assertions ---------------------------------------------------------------------------
 
     /**
      * Returns [AnyAssertionsBuilder]

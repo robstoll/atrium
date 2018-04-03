@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject
-import ch.tutteli.atrium.domain.robstoll.lib.creating.AssertionCollector
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 abstract class ExplanatoryFailureHandlerBase<in S : Any, out T : Any> : AnyTypeTransformation.FailureHandler<S, T> {
@@ -23,9 +22,10 @@ abstract class ExplanatoryFailureHandlerBase<in S : Any, out T : Any> : AnyTypeT
     private fun collectAssertions(
         warningDownCastFailed: Translatable,
         assertionCreator: AssertionPlant<T>.() -> Unit
-    ) = AssertionCollector
+    ) = AssertImpl.collector
+        .forExplanation
         .doNotThrowIfNoAssertionIsCollected
-        .collectAssertionsForExplanation(warningDownCastFailed, assertionCreator, null)
+        .collect(warningDownCastFailed, assertionCreator, null)
 
     abstract fun createFailingAssertion(description: Translatable, representation: Any): Assertion
 

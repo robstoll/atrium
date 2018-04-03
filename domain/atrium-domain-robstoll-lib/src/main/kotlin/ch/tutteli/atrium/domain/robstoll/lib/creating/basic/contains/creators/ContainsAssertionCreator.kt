@@ -26,7 +26,7 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
 ) : Contains.Creator<T, SC> {
 
     final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: SC, otherSearchCriteria: Array<out SC>): AssertionGroup {
-        val assertions = listOf(searchCriterion, *otherSearchCriteria).map { createForSearchCriterion(plant, it) }
+        val assertions = listOf(searchCriterion, *otherSearchCriteria).map { createAssertionGroupForSearchCriterion(plant, it) }
         return createAssertionGroupForSearchCriteriaAssertions(assertions)
     }
 
@@ -40,7 +40,7 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
      */
     protected abstract fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
 
-    private fun createForSearchCriterion(plant: AssertionPlant<T>, searchCriterion: SC): AssertionGroup {
+    private fun createAssertionGroupForSearchCriterion(plant: AssertionPlant<T>, searchCriterion: SC): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             searchAndCreateAssertion(plant, searchCriterion, this::featureFactory)
         }
