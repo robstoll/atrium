@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.assertions.builders
 
-import ch.tutteli.atrium.assertions.BasicExplanatoryAssertion
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
@@ -37,13 +36,4 @@ interface ExplanatoryAssertionBuilder {
      * into a [RawString] (`RawString.create("Your text..")`.
      */
     fun create(explanation: Any?) : ExplanatoryAssertion
-}
-
-/**
- * Builder to create an [ExplanatoryAssertion].
- */
-internal object ExplanatoryAssertionBuilderImpl : ExplanatoryAssertionBuilder {
-
-    override fun create(explanation: Any?) : ExplanatoryAssertion
-        = BasicExplanatoryAssertion(explanation)
 }

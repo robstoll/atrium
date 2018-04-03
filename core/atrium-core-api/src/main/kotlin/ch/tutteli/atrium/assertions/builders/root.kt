@@ -2,6 +2,7 @@ package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
+import ch.tutteli.atrium.assertions.builders.impl.BasicAssertionGroupBuilderImpl
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.reporting.translating.Translatable
 

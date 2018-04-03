@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param T The type of [CommonFields.subject] of this [AssertionPlant].
  */
 interface AssertionPlantWithCommonFields<out T> {
+
     /**
      * [CommonFields] of this plant.
      */

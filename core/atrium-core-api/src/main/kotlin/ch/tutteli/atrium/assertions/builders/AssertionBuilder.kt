@@ -3,8 +3,8 @@
 package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.impl.AssertionBuilderImpl
 import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -82,31 +82,4 @@ interface AssertionBuilder {
      * Builder to create an [AssertionGroup] with a custom [AssertionGroupType], the given [name] and [subject].
      */
     fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, subject: Any): BasicAssertionGroupBuilder<T>
-}
-
-/**
- * Represents a builder which creates [Assertion]s and [AssertionGroup]s.
- */
-internal object AssertionBuilderImpl : AssertionBuilder {
-
-    override fun list(name: Translatable, subject: Any)
-        = BasicAssertionGroupBuilderImpl(DefaultListAssertionGroupType, name, subject)
-
-    override fun feature(featureName: Translatable, feature: Any)
-        = BasicAssertionGroupBuilderImpl(DefaultFeatureAssertionGroupType, featureName, feature)
-
-    override fun summary(name: Translatable)
-        = BasicAssertionGroupBuilderImpl(DefaultSummaryAssertionGroupType, name, RawString.EMPTY)
-
-    override val explanatoryGroup get()
-        = ExplanatoryAssertionGroupOptionImpl
-
-    override val descriptive get()
-        = DescriptiveAssertionBuilderImpl
-
-    override val explanatory get()
-        = ExplanatoryAssertionBuilderImpl
-
-    override fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, subject: Any) : BasicAssertionGroupBuilder<T>
-        = BasicAssertionGroupBuilderImpl(groupType, name, subject)
 }

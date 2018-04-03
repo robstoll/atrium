@@ -44,6 +44,7 @@ import java.util.*
  * explicit and avoid confusion (e.g., zh-Hans_HK for Chinese in simplified script in Hong Kong).
  */
 interface Translator {
+
     /**
      * Returns the translation of the given [translatable] or its [getDefault][Translatable.getDefault]
      * in case there is not a translation defined for it.

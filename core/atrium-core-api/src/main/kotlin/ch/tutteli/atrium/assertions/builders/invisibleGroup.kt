@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DefaultInvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
+import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndSubjectAssertionGroupBuilderImpl
 
 /**
  * Builder to create an [AssertionGroup] with an [InvisibleAssertionGroupType] -- use it only if you have several

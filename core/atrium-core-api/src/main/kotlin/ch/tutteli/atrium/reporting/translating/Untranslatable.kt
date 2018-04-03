@@ -10,6 +10,7 @@ package ch.tutteli.atrium.reporting.translating
  * @param representation A lambda which will create the representation of this [Translatable].
  */
 class Untranslatable(representation: () -> String) : Translatable {
+
     /**
      * Use this overload if the creation of the representation is cheap -- use the other overload with the
      * lambda instead, if the creation of the representation is expensive.
