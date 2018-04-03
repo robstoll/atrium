@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerb
 import org.jetbrains.spek.api.Spek
 

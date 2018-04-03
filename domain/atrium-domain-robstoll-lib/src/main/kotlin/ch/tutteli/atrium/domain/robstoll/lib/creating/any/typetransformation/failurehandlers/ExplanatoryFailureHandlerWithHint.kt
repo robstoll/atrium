@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.fa
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class ExplanatoryFailureHandlerWithHint<in S : Any, out T : Any>(

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import java.math.BigDecimal
 
 @Deprecated("Use AssertImpl.floatingPoint.toBeWithErrorTolerance, will be removed with 1.0.0",

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.basic.contains.checkers
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.basic.contains.Contains
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translatable
