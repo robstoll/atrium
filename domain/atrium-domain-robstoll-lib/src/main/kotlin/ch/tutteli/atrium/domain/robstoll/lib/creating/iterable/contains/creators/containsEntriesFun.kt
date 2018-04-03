@@ -6,7 +6,6 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
 import ch.tutteli.atrium.domain.builders.creating.AssertImpl
-import ch.tutteli.atrium.domain.robstoll.lib.creating.AssertionCollector
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -36,9 +35,10 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator:
     )
 
 internal fun <E : Any> collectIterableAssertionsForExplanation(description: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
-    = AssertionCollector
+    = AssertImpl.collector
+    .forExplanation
     .throwIfNoAssertionIsCollected
-    .collectAssertionsForExplanation(description, assertionCreator, subject)
+    .collect(description, assertionCreator, subject)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
     = AssertImpl.builder.fixHoldsGroup.create(
