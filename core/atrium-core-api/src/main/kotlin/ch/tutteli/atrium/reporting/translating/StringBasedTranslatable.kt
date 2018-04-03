@@ -4,6 +4,7 @@ package ch.tutteli.atrium.reporting.translating
  * Something which is [Translatable] and provides a default representation by [value].
  */
 interface StringBasedTranslatable : Translatable {
+
     /**
      * The default representation of this [Translatable].
      */

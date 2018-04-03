@@ -23,7 +23,8 @@ class AssertionFormatterParameterObject private constructor(
     val prefix: String,
     private val indentLevel: Int,
     val assertionFilter: (Assertion) -> Boolean,
-    private val numberOfDoNotFilterGroups: Int) {
+    private val numberOfDoNotFilterGroups: Int
+) {
 
     /**
      * Creates an [AssertionFormatterParameterObject] for kind of a child of the current parameter object using the given

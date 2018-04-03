@@ -5,5 +5,8 @@ package ch.tutteli.atrium.creating
  */
 typealias Assert<T> = AssertionPlant<T>
 
+/**
+ * DSL Marker for [AssertionPlant] (and its type alias [Assert]).
+ */
 @DslMarker
 annotation class AssertMarker

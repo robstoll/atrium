@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.RawString
  *
  */
 data class TranslatableBasedRawString internal constructor(val translatable: Translatable) : RawString {
+
     /**
      * @suppress No need to document this behaviour.
      */

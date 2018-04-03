@@ -13,6 +13,7 @@ import ch.tutteli.atrium.assertions.Assertion
  * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API.
  */
 interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
+
     /**
      * The subject for which this plant will create [Assertion]s.
      */

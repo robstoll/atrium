@@ -15,6 +15,7 @@ import java.util.*
  * - [Locale.ROOT] which should not be a candidate at all.
  */
 interface LocaleOrderDecider {
+
     /**
      * Defines the [Sequence] of [Locale]s which should be used in [Translator.translate].
      *

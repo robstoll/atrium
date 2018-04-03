@@ -4,6 +4,7 @@ package ch.tutteli.atrium.reporting.translating
  * Something which is translatable, identified by [id] with a default representation given by [getDefault].
  */
 interface Translatable {
+
     /**
      * Returns the default representation of this [Translatable].
      *

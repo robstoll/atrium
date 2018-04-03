@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndSubjectAssertionGroupBuilderImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -116,10 +117,10 @@ interface AssertionGroup : Assertion {
         @Deprecated("Use AssertImpl.builder instead, will be removed with 1.0.0")
         class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(assertion: Assertion): AssertionGroup
-                = ch.tutteli.atrium.assertions.builders.EmptyNameAndSubjectAssertionGroupBuilderImpl(groupType).create(assertion)
+                = EmptyNameAndSubjectAssertionGroupBuilderImpl(groupType).create(assertion)
 
             fun create(assertions: List<Assertion>): AssertionGroup
-                = ch.tutteli.atrium.assertions.builders.EmptyNameAndSubjectAssertionGroupBuilderImpl(groupType).create(assertions)
+                = EmptyNameAndSubjectAssertionGroupBuilderImpl(groupType).create(assertions)
         }
     }
 }

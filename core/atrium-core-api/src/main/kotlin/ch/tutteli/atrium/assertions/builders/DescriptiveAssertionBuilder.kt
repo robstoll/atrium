@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.assertions.builders
 
-import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
+/**
+ * Builder to create a [DescriptiveAssertion].
+ */
 interface DescriptiveAssertionBuilder {
 
     /**
@@ -31,11 +33,3 @@ interface DescriptiveAssertionBuilder {
     fun create(description: Translatable, representation: Any, test: () -> Boolean): DescriptiveAssertion
 }
 
-/**
- * Builder to create an [DescriptiveAssertion].
- */
-internal object DescriptiveAssertionBuilderImpl : DescriptiveAssertionBuilder {
-
-    override fun create(description: Translatable, representation: Any, test: () -> Boolean)
-        = BasicDescriptiveAssertion(description, representation, test)
-}
