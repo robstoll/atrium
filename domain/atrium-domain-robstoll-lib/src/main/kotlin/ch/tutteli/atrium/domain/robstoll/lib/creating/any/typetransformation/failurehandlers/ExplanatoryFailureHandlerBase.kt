@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.fa
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject
 import ch.tutteli.atrium.reporting.translating.Translatable

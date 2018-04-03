@@ -6,7 +6,7 @@ import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import kotlin.reflect.*
 
 

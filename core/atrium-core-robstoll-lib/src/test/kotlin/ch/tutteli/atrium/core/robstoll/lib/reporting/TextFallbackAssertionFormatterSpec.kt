@@ -9,7 +9,7 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.robstoll.lib.AssertionVerb.ASSERT
 import ch.tutteli.atrium.core.robstoll.lib.AssertionVerbFactory
 import ch.tutteli.atrium.core.robstoll.lib.assert
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator

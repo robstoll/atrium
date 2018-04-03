@@ -3,7 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib
 import ch.tutteli.atrium.core.robstoll.lib.AssertionVerb.ASSERT
 import ch.tutteli.atrium.core.robstoll.lib.AssertionVerb.EXPECT_THROWN
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter

@@ -2,7 +2,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.builders.creating.AssertImpl
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.translations.DescriptionBasic
 
 /**

@@ -1,8 +1,9 @@
-package ch.tutteli.atrium.domain.builders.creating
+package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
