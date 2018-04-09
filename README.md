@@ -429,8 +429,9 @@ Since we have chosen the `only` option, Atrium shows us a summary where we see t
 - Whether the expected size was correct or not (`✘ ▶ size:` was `4`, we expected it, `to be: 2` -- see also [Property Assertions](#property-assertions))
 - and last but not least, mismatches or additional entries as further clue (`❗❗ additional entries detected`).
 
-:heart_eyes: I am pretty sure you are going to love this feature as well
--- in case you are dealing with large `Iterable` and do not want such a verbose output, 
+:heart_eyes: I am pretty sure you are going to love this feature as well. 
+Please star Atrium if you like using it.
+As side notice, in case you are dealing with large `Iterable` and do not want such a verbose output, 
 then let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]). 
 Also notice, that Atrium cannot yet deal with infinite `Iterable`s.
 
@@ -866,6 +867,7 @@ for more information and to see how the API styles differ.
  
 # Contribute
 You are very welcome to contribute:
+- star Atrium if you like it
 - [open an issue](https://github.com/robstoll/atrium/issues/new) or [create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
 - [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   so that I better understand where Atrium needs to improve.
