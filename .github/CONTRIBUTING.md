@@ -16,6 +16,8 @@ This project and everyone participating in it is governed by Atrium's
 By participating, you are expected to uphold this code. Please report unacceptable behavior to info@tutteli.ch
 
 ## How to Contribute
+- Star Atrium if you like it.
+
 - Need help in using Atrium?  
   Write your question on 
   [slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) 
