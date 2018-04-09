@@ -20,8 +20,11 @@ val featureAssertions by lazy { SingleServiceLoader.load(FeatureAssertions::clas
  */
 interface FeatureAssertions {
     fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlant<TProperty>
+    fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty): AssertionPlant<TProperty>
     fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
+    fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
     fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
+    fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty): AssertionPlantNullable<TProperty>
 
     //Arg0
     fun <T : Any, TReturnValue : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction0<TReturnValue>): AssertionPlant<TReturnValue>
