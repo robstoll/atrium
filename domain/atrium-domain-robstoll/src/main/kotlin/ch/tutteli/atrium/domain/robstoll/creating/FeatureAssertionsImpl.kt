@@ -14,11 +14,20 @@ class FeatureAssertionsImpl : FeatureAssertions {
     override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlant<TProperty>
         = _property(plant, property)
 
+    override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty): AssertionPlant<TProperty>
+        = _property(plant, name, property)
+
     override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
         = _property(plant, property, assertionCreator)
 
+    override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
+        = _property(plant, name, property, assertionCreator)
+
     override fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
         = _property(plant, property)
+
+    override fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty): AssertionPlantNullable<TProperty>
+        = _property(plant, name, property)
 
     //Arg0
     override fun <T : Any, TReturnValue : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction0<TReturnValue>): AssertionPlant<TReturnValue>

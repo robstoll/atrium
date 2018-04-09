@@ -2,6 +2,7 @@
 package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.FeatureAssertions
 import ch.tutteli.atrium.domain.creating.featureAssertions
 import java.util.*
@@ -17,11 +18,20 @@ object FeatureAssertionsBuilder : FeatureAssertions {
     override inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>)
         = featureAssertions.property(plant, property)
 
+    override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty): AssertionPlant<TProperty>
+        = featureAssertions.property(plant, name, property)
+
     override inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit)
         = featureAssertions.property(plant, property, assertionCreator)
 
+    override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty, assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
+        = featureAssertions.property(plant,  name, property, assertionCreator)
+
     override inline fun <T : Any, TProperty> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>)
         = featureAssertions.property(plant, property)
+
+    override fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, name: String, property: () -> TProperty): AssertionPlantNullable<TProperty>
+        = featureAssertions.property(plant, name, property)
 
     //Arg0
     override inline fun <T : Any, TReturnValue : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction0<TReturnValue>)
