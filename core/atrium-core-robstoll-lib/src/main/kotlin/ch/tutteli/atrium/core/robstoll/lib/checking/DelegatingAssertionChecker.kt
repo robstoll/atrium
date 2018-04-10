@@ -22,20 +22,19 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   but want to add the created assertions to the original plant of the narrowed [AssertionPlant.subject].
  * @param subjectPlant The plant which holds the assertions of the subject.
  */
-class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAssertionPlant<T, *>) :
-    AssertionChecker {
+class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAssertionPlant<T, *>) : AssertionChecker {
 
     /**
      * [Adds][AssertionPlant.addAssertion] the given [assertions] (wrapped into an [AssertionGroup] of type
      * [InvisibleAssertionGroupType]) to the original plant of the subject (the [subjectPlant]).
      *
      * @param assertionVerb Is ignored.
-     * @param subject Is ignored.
+     * @param subjectProvider Is ignored.
      * @param assertions The assertions which shall be added to the original plant of the subject (the [subjectPlant]).
      *
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
-    override fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>) {
+    override fun check(assertionVerb: Translatable, subjectProvider: () -> Any, assertions: List<Assertion>) {
         subjectPlant.addAssertion(assertionBuilder.invisibleGroup.create(assertions))
     }
 }

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString
+import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
 import java.text.DecimalFormat
@@ -37,6 +38,7 @@ class DetailedObjectFormatter(private val translator: Translator) : ObjectFormat
      *
      * The following rules apply for the representation of an object:
      * - `null` is represented as [RawString.NULL].[StringBasedRawString.string]
+     * - [LazyRepresentation] is [evaluated][LazyRepresentation.eval] and then again [format]ted
      * - [Char] is put in apostrophes
      * - [Boolean] is represented with its [toString] representation
      * - [String] is put in quotes and its [Class.getName] is omitted
@@ -55,6 +57,7 @@ class DetailedObjectFormatter(private val translator: Translator) : ObjectFormat
      */
     override fun format(value: Any?): String = when (value) {
         null -> RawString.NULL.string
+        is LazyRepresentation -> format(value.eval())
         is Char -> "'$value'"
         is Boolean -> value.toString()
         is String -> format(value)

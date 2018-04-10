@@ -9,7 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 
 fun <T : Map<*, *>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
     = AssertImpl.collector.collect(plant) {
-        AssertImpl.feature.property(it, it.subject::size) {
+        AssertImpl.feature.property(it, "size", { it.subject.size }) {
             addAssertion(AssertImpl.any.toBe(this, size))
         }
     }

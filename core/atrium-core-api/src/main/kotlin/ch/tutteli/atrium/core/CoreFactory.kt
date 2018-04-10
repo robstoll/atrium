@@ -77,12 +77,7 @@ interface CoreFactory {
         subject: T,
         assertionChecker: AssertionChecker
     ): ReportingAssertionPlant<T> = newReportingPlant(
-        AssertionPlantWithCommonFields.CommonFields(
-            assertionVerb,
-            subject,
-            assertionChecker,
-            RawString.NULL
-        )
+        AssertionPlantWithCommonFields.CommonFields(assertionVerb, { subject }, assertionChecker, RawString.NULL)
     )
 
     /**
@@ -144,8 +139,8 @@ interface CoreFactory {
         subject: T,
         reporter: Reporter,
         nullRepresentation: Any = RawString.NULL
-    ): ReportingAssertionPlantNullable<T> =
-        newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
+    ): ReportingAssertionPlantNullable<T>
+        = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
@@ -167,12 +162,7 @@ interface CoreFactory {
         assertionChecker: AssertionChecker,
         nullRepresentation: Any
     ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
-        AssertionPlantWithCommonFields.CommonFields(
-            assertionVerb,
-            subject,
-            assertionChecker,
-            nullRepresentation
-        )
+        AssertionPlantWithCommonFields.CommonFields(assertionVerb, { subject }, assertionChecker, nullRepresentation)
     )
 
     /**

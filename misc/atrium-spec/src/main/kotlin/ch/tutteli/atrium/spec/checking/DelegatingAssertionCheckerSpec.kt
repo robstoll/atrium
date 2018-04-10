@@ -45,7 +45,7 @@ abstract class DelegatingAssertionCheckerSpec(
         context("empty assertion list") {
             it("does not throw an exception") {
                 val testee = testeeFactory(mock())
-                testee.check(assertionVerb, 1, listOf())
+                testee.check(assertionVerb, { 1 }, listOf())
             }
         }
 
@@ -61,7 +61,7 @@ abstract class DelegatingAssertionCheckerSpec(
                     val subjectFactory = mock<AssertionPlant<Int>>()
                     val testee = testeeFactory(subjectFactory)
                     //act
-                    testee.check(assertionVerb, 1, assertions)
+                    testee.check(assertionVerb, { 1 }, assertions)
                     //assert
                     val captor = argumentCaptor<Assertion>()
                     verify(subjectFactory).addAssertion(captor.capture())
