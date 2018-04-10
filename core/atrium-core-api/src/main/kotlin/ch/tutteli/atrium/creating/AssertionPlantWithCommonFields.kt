@@ -29,12 +29,29 @@ interface AssertionPlantWithCommonFields<out T> {
      *
      * @constructor
      * @param assertionVerb The assertion verb which will be used inter alia in error reporting.
-     * @param subject The subject for which this plant will create/check [Assertion]s.
+     * @param subjectProvider Provides the [subject] for which this plant will create/check [Assertion]s.
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      * @param nullRepresentation The representation used in reporting in case [subject] is `null`.
      *
      */
-    data class CommonFields<out T>(val assertionVerb: Translatable, val subject: T, val assertionChecker: AssertionChecker, private val nullRepresentation: Any) {
+    class CommonFields<out T>(
+        val assertionVerb: Translatable,
+        private val subjectProvider: () -> T,
+        val assertionChecker: AssertionChecker,
+        private val nullRepresentation: Any
+    ) {
+        val subject: T by lazy { subjectProvider() }
+
+        @Deprecated(
+            "Use the overload with a lazy subject instead. This constructor will be removed with 1.0.0",
+            ReplaceWith("this.CommonFields(assertionVerb, { subject }, assertionChecker, nullRepresentation)")
+        )
+        constructor(
+            assertionVerb: Translatable,
+            subject: T,
+            assertionChecker: AssertionChecker,
+            nullRepresentation: Any
+        ) : this(assertionVerb, { subject }, assertionChecker, nullRepresentation)
 
         /**
          * Uses [assertionChecker] to check the given [assertions] (see [AssertionChecker.check]).
@@ -43,7 +60,9 @@ interface AssertionPlantWithCommonFields<out T> {
          *
          * @throws AssertionError Might throw an [AssertionError] if any of the [assertions] does not hold.
          */
-        fun check(assertions: List<Assertion>)
-            = assertionChecker.check(assertionVerb, subject ?: nullRepresentation, assertions)
+        fun check(assertions: List<Assertion>) {
+            val nonNullSubjectProvider = { subjectProvider() ?: nullRepresentation }
+            assertionChecker.check(assertionVerb, nonNullSubjectProvider, assertions)
+        }
     }
 }

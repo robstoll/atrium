@@ -33,20 +33,20 @@ class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPl
 
     /**
      * Creates an [AssertionGroup]s of [type][AssertionGroup] [FeatureAssertionGroupType] based on the
-     * given [assertionVerb], [subject] and [assertions] and [adds][AssertionPlant.addAssertion] the
+     * given [assertionVerb], [subjectProvider] and [assertions] and [adds][AssertionPlant.addAssertion] the
      * assertion group to the [subjectPlant] instead of checking it itself.
      *
      * @param assertionVerb Is used as [AssertionGroup.name] -- as side notice,
      *   the parameter was not renamed to `featureName` due to potential issues with named parameters.
-     * @param subject Is used as [AssertionGroup.subject] -- as side notice,
-     *   the parameter was not renamed to `feature` due to potential issues with named parameters.
+     * @param subjectProvider Provides the [AssertionGroup.subject] -- as side notice,
+     *   the parameter was not renamed to `featureProvider` due to potential issues with named parameters.
      * @param assertions Is used as [AssertionGroup.assertions].
      *
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
-    override fun check(assertionVerb: Translatable, subject: Any, assertions: List<Assertion>) {
+    override fun check(assertionVerb: Translatable, subjectProvider: () -> Any, assertions: List<Assertion>) {
         val featureAssertionGroup = assertionBuilder
-            .feature(assertionVerb, subject)
+            .feature(assertionVerb, subjectProvider)
             .create(ArrayList(assertions))
         subjectPlant.addAssertion(featureAssertionGroup)
     }

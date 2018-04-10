@@ -3,6 +3,8 @@ package ch.tutteli.atrium.assertions
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndSubjectAssertionGroupBuilderImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.LazyRepresentation
 
 /**
  * The base interface for [Assertion] groups, providing a default implementation for [Assertion.holds]
@@ -19,9 +21,11 @@ interface AssertionGroup : Assertion {
     val type: AssertionGroupType
 
     /**
-     * The subject for which the [assertions] are defined.
+     * The representation of the subject for which the [assertions] are defined.
+     * Typically it is the subject itself. Other examples are [RawString] or [LazyRepresentation].
      */
     val subject: Any
+
     /**
      * The assertions of this group, which are defined for [subject].
      */

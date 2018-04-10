@@ -4,6 +4,7 @@ package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.impl.AssertionBuilderImpl
+import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -32,9 +33,20 @@ interface AssertionBuilder {
      * [Assertion] about a feature of the subject.
      *
      * @param featureName The [AssertionGroup.name] which is typically the name of the feature.
+     * @param featureProvider Provides the [AssertionGroup.subject] which is used to represent the group.
+     */
+    fun feature(featureName: Translatable, featureProvider: () -> Any): BasicAssertionGroupBuilder<FeatureAssertionGroupType>
+        = feature(featureName, LazyRepresentation(featureProvider))
+
+    /**
+     * Builder to create an [AssertionGroup] with a [FeatureAssertionGroupType] -- use it if you want to make an
+     * [Assertion] about a feature of the subject.
+     *
+     * @param featureName The [AssertionGroup.name] which is typically the name of the feature.
      * @param feature The [AssertionGroup.subject] which is used to represent the group.
      */
     fun feature(featureName: Translatable, feature: Any): BasicAssertionGroupBuilder<FeatureAssertionGroupType>
+
 
     /**
      * Builder to create an [AssertionGroup] with a [SummaryAssertionGroupType] -- use it if it is essential that also
