@@ -24,28 +24,29 @@ interface AssertionBuilder {
      * for [AssertionGroup]s, if you do not know what to choose, this is probably the best fit for you.
      *
      * @param name The [AssertionGroup.name].
-     * @param subject The [AssertionGroup.subject] which is used to represent the group.
+     * @param representation The [AssertionGroup.representation] which is used in reporting.
      */
-    fun list(name: Translatable, subject: Any): BasicAssertionGroupBuilder<ListAssertionGroupType>
+    fun list(name: Translatable, representation: Any): BasicAssertionGroupBuilder<ListAssertionGroupType>
 
     /**
      * Builder to create an [AssertionGroup] with a [FeatureAssertionGroupType] -- use it if you want to make an
      * [Assertion] about a feature of the subject.
      *
      * @param featureName The [AssertionGroup.name] which is typically the name of the feature.
-     * @param featureProvider Provides the [AssertionGroup.subject] which is used to represent the group.
+     * @param representationProvider Provides the [AssertionGroup.representation] of this feature
+     *   which is used in reporting.
      */
-    fun feature(featureName: Translatable, featureProvider: () -> Any): BasicAssertionGroupBuilder<FeatureAssertionGroupType>
-        = feature(featureName, LazyRepresentation(featureProvider))
+    fun feature(featureName: Translatable, representationProvider: () -> Any): BasicAssertionGroupBuilder<FeatureAssertionGroupType>
+        = feature(featureName, LazyRepresentation(representationProvider))
 
     /**
      * Builder to create an [AssertionGroup] with a [FeatureAssertionGroupType] -- use it if you want to make an
      * [Assertion] about a feature of the subject.
      *
      * @param featureName The [AssertionGroup.name] which is typically the name of the feature.
-     * @param feature The [AssertionGroup.subject] which is used to represent the group.
+     * @param featureRepresentation The [AssertionGroup.representation] of this feature which is used in reporting.
      */
-    fun feature(featureName: Translatable, feature: Any): BasicAssertionGroupBuilder<FeatureAssertionGroupType>
+    fun feature(featureName: Translatable, featureRepresentation: Any): BasicAssertionGroupBuilder<FeatureAssertionGroupType>
 
 
     /**
@@ -91,7 +92,11 @@ interface AssertionBuilder {
     val explanatory: ExplanatoryAssertionBuilder
 
     /**
-     * Builder to create an [AssertionGroup] with a custom [AssertionGroupType], the given [name] and [subject].
+     * Builder to create an [AssertionGroup] with a custom [AssertionGroupType], the given [name] and [representation].
+     *
+     * @param groupType the [AssertionGroup.type].
+     * @param name The [AssertionGroup.name].
+     * @param representation The [AssertionGroup.representation].
      */
-    fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, subject: Any): BasicAssertionGroupBuilder<T>
+    fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, representation: Any): BasicAssertionGroupBuilder<T>
 }

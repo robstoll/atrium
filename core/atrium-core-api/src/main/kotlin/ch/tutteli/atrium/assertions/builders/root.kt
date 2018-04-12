@@ -11,8 +11,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * created by [AssertionChecker]s.
  *
  * @param name The [AssertionGroup.name].
- * @param subject The [AssertionGroup.subject] which is used to represent the group.
+ * @param representation The [AssertionGroup.representation] which is used to represent the group in reporting.
  */
 @Suppress("unused")
-fun AssertionBuilder.root(name: Translatable, subject: Any): BasicAssertionGroupBuilder<RootAssertionGroupType>
-    = BasicAssertionGroupBuilderImpl(RootAssertionGroupType, name, subject)
+fun AssertionBuilder.root(name: Translatable, representation: Any): BasicAssertionGroupBuilder<RootAssertionGroupType>
+    = BasicAssertionGroupBuilderImpl(RootAssertionGroupType, name, representation)

@@ -37,7 +37,7 @@ class TextSummaryAssertionGroupFormatter(
 
     override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
         parameterObject.appendLnIndentAndPrefix()
-        assertionPairFormatter.format(parameterObject, assertionGroup.name, assertionGroup.subject)
+        assertionPairFormatter.format(parameterObject, assertionGroup.name, assertionGroup.representation)
         //the prefix which should be used for assertions is defined in the formatGroupAssertions is defined in formatGroupAssertions
         return parameterObject.createForDoNotFilterAssertionGroup()
     }

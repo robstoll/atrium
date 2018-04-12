@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  * [AssertionGroup] as defined in [AssertionFormatter.formatGroup].
  *
  * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an
- *   [InvisibleAssertionGroupType] by neglecting [AssertionGroup.name] and [AssertionGroup.subject] and
+ *   [InvisibleAssertionGroupType] by neglecting [AssertionGroup.name] and [AssertionGroup.representation] and
  *   passes on the given [AssertionFormatterParameterObject] which is used to format
  *   [AssertionGroup.assertions].
  * @param assertionFormatterController The controller to which this formatter gives back the control

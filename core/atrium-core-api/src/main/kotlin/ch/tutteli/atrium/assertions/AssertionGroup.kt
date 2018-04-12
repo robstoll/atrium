@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndSubjectAssertionGroupBuilderImpl
+import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndRepresentationAssertionGroupBuilderImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.LazyRepresentation
@@ -11,23 +11,28 @@ import ch.tutteli.atrium.reporting.LazyRepresentation
  * which returns `true` if all its [assertions] hold.
  */
 interface AssertionGroup : Assertion {
+
     /**
      * The name of the group.
      */
     val name: Translatable
+
     /**
      * The type of the group, e.g. [RootAssertionGroupType].
      */
     val type: AssertionGroupType
 
+    @Deprecated("Use representation, will be removed with 1.0.0", ReplaceWith("representation"))
+    val subject get() = representation
+
     /**
      * The representation of the subject for which the [assertions] are defined.
      * Typically it is the subject itself. Other examples are [RawString] or [LazyRepresentation].
      */
-    val subject: Any
+    val representation: Any
 
     /**
-     * The assertions of this group, which are defined for [subject].
+     * The assertions of this group, which are defined for the subject represented by [representation].
      */
     val assertions: List<Assertion>
 
@@ -121,10 +126,10 @@ interface AssertionGroup : Assertion {
         @Deprecated("Use AssertImpl.builder instead, will be removed with 1.0.0")
         class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(assertion: Assertion): AssertionGroup
-                = EmptyNameAndSubjectAssertionGroupBuilderImpl(groupType).create(assertion)
+                = EmptyNameAndRepresentationAssertionGroupBuilderImpl(groupType).create(assertion)
 
             fun create(assertions: List<Assertion>): AssertionGroup
-                = EmptyNameAndSubjectAssertionGroupBuilderImpl(groupType).create(assertions)
+                = EmptyNameAndRepresentationAssertionGroupBuilderImpl(groupType).create(assertions)
         }
     }
 }

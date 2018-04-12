@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Builder to create an [AssertionGroup] with the given [groupType], [name] and [subject].
+ * Builder to create an [AssertionGroup] with the given [groupType], [name] and [representation].
  */
 interface BasicAssertionGroupBuilder<out T : AssertionGroupType> : AssertionGroupBuilder<T> {
 
@@ -15,7 +15,7 @@ interface BasicAssertionGroupBuilder<out T : AssertionGroupType> : AssertionGrou
     val name: Translatable
 
     /**
-     * The [AssertionGroup.subject].
+     * The [AssertionGroup.representation].
      */
-    val subject: Any
+    val representation: Any
 }

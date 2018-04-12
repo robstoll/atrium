@@ -29,12 +29,12 @@ class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAss
      * [InvisibleAssertionGroupType]) to the original plant of the subject (the [subjectPlant]).
      *
      * @param assertionVerb Is ignored.
-     * @param subjectProvider Is ignored.
+     * @param representationProvider Is ignored.
      * @param assertions The assertions which shall be added to the original plant of the subject (the [subjectPlant]).
      *
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
-    override fun check(assertionVerb: Translatable, subjectProvider: () -> Any, assertions: List<Assertion>) {
+    override fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) {
         subjectPlant.addAssertion(assertionBuilder.invisibleGroup.create(assertions))
     }
 }
