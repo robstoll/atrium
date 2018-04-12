@@ -21,17 +21,17 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecker {
 
     /**
-     * Creates an [AssertionGroup] -- based on the given [assertionVerb], [subjectProvider] and [assertions] --
+     * Creates an [AssertionGroup] -- based on the given [assertionVerb], [representationProvider] and [assertions] --
      * formats it for reporting using the [reporter] and checks whether it holds.
      *
      * @param assertionVerb I used as [AssertionGroup.name].
-     * @param subjectProvider Provides the [AssertionGroup.subject].
+     * @param representationProvider Provides the [AssertionGroup.representation].
      * @param assertions Is used as [AssertionGroup.assertions].
      *
      * @throws AssertionError In case the created [AssertionGroup] does not hold.
      */
-    override fun check(assertionVerb: Translatable, subjectProvider: () -> Any, assertions: List<Assertion>) {
-        val assertionGroup = assertionBuilder.root(assertionVerb, subjectProvider()).create(assertions)
+    override fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) {
+        val assertionGroup = assertionBuilder.root(assertionVerb, representationProvider()).create(assertions)
         val sb = StringBuilder()
         reporter.format(assertionGroup, sb)
         if (!assertionGroup.holds()) {

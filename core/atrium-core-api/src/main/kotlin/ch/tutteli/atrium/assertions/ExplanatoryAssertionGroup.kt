@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.Reporter
 class ExplanatoryAssertionGroup internal constructor(
     type: ExplanatoryAssertionGroupType,
     explanatoryAssertions: List<Assertion>
-) : EmptyNameAndSubjectAssertionGroup(type, explanatoryAssertions) {
+) : EmptyNameAndRepresentationAssertionGroup(type, explanatoryAssertions) {
 
     override fun holds() = true
 

@@ -59,7 +59,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
         context("${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
             context("format directly the group") {
 
-                it("starts feature ${AssertionGroup::name.name} with '$arrow' followed by the feature ${AssertionGroup::subject.name} and prepends the ${AssertionGroup::assertions.name} all prefixed with a `$featureBulletPoint`") {
+                it("starts feature ${AssertionGroup::name.name} with '$arrow' followed by the feature ${AssertionGroup::representation.name} and prepends the ${AssertionGroup::assertions.name} all prefixed with a `$featureBulletPoint`") {
                     facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator
                         + "$arrow placeholder %s: 2$separator"

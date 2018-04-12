@@ -30,7 +30,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
     val subject = 123
 
     describeFun(testee::formatGroupHeader.name) {
-        it("puts the subject on the next line indented as the bullet point used for newParameterObject") {
+        it("puts the representation on the next line indented as the bullet point used for newParameterObject") {
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
             val assertionGroup = AssertImpl.builder.root(Untranslatable(name), subject).create(listOf())
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
@@ -47,14 +47,14 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
 
     describeFun(testee::format.name) {
         context("current indent 0, no prefix") {
-            it("puts the subject on the next line without indent") {
+            it("puts the representation on the next line without indent") {
                 testee.format(parameterObject, Untranslatable(name), subject)
                 assert(sb.toString()).toBe("$name:$separator$subject")
             }
         }
 
         context("current indent 2, new prefix length 2") {
-            it("puts the subject on the next line with 2 indent") {
+            it("puts the representation on the next line with 2 indent") {
                 val newParameterObject = parameterObject.createChildWithNewPrefix("==")
                 testee.format(newParameterObject, Untranslatable(name), subject)
                 assert(sb.toString()).toBe("$name:$separator  $subject")

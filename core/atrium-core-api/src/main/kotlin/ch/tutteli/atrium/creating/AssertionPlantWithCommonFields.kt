@@ -43,7 +43,7 @@ interface AssertionPlantWithCommonFields<out T> {
         val subject: T by lazy { subjectProvider() }
 
         @Deprecated(
-            "Use the overload with a lazy subject instead. This constructor will be removed with 1.0.0",
+            "Use the overload with a subject provider instead. This constructor will be removed with 1.0.0",
             ReplaceWith("this.CommonFields(assertionVerb, { subject }, assertionChecker, nullRepresentation)")
         )
         constructor(
