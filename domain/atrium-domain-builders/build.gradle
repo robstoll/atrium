@@ -2,4 +2,9 @@ description = 'Contains base classes for sophisticated assertion builders which 
 
 dependencies {
     compile prefixedProject('domain-api')
+
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
+    testCompile prefixedProject('api-cc-en_UK')
+    testCompile prefixedProject('spec')
 }
