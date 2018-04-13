@@ -9,4 +9,4 @@ package ch.tutteli.atrium.assertions
  */
 @Deprecated("Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 class InvisibleAssertionGroup internal constructor(assertions: List<Assertion>)
-    : EmptyNameAndSubjectAssertionGroup(DefaultInvisibleAssertionGroupType, assertions)
+    : EmptyNameAndRepresentationAssertionGroup(DefaultInvisibleAssertionGroupType, assertions)

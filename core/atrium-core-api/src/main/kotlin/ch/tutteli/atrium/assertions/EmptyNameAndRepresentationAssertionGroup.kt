@@ -5,14 +5,14 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Represents a base class for [AssertionGroup]s which have an empty [name] and [subject].
+ * Represents a base class for [AssertionGroup]s which have an empty [name] and [representation].
  *
- * @constructor Represents a base class for [AssertionGroup]s which have an empty [name] and [subject].
+ * @constructor Represents a base class for [AssertionGroup]s which have an empty [name] and [representation].
  * @param type The type of the group, e.g. [InvisibleAssertionGroupType].
  * @param assertions The assertions of this group.
  */
 @Deprecated("Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
-open class EmptyNameAndSubjectAssertionGroup
+open class EmptyNameAndRepresentationAssertionGroup
 @Deprecated("Use AssertImpl.builder instead, will be made internal with 1.0.0")
 constructor(
     override val type: AssertionGroupType,
@@ -27,7 +27,7 @@ constructor(
     /**
      * [RawString.EMPTY] -- an empty string as [RawString].
      */
-    override val subject: Any = RawString.EMPTY
+    override val representation: Any = RawString.EMPTY
 
     /**
      * @suppress No need to document this behaviour.

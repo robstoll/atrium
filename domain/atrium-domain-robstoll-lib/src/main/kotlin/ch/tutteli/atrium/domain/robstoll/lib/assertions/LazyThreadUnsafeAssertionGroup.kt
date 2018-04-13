@@ -15,7 +15,7 @@ class LazyThreadUnsafeAssertionGroup(assertionCreator: () -> AssertionGroup) : A
 
     override val name get() = basicAssertion.name
     override val type get() = basicAssertion.type
-    override val subject get() = basicAssertion.subject
+    override val representation get() = basicAssertion.representation
     override val assertions get() = basicAssertion.assertions
     override fun holds() = basicAssertion.holds()
 }

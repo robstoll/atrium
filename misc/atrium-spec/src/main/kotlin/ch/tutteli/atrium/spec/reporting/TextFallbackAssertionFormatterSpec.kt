@@ -43,7 +43,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                 testee.canFormat(object : AssertionGroup {
                     override val type = object : AssertionGroupType {}
                     override val name = Untranslatable("outer group")
-                    override val subject = "subject of outer group"
+                    override val representation = "subject of outer group"
                     override val assertions = listOf<Assertion>()
                 }
                 )
@@ -81,7 +81,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                     facade.format(object : AssertionGroup {
                         override val type = RootAssertionGroupType
                         override val name = Untranslatable("group")
-                        override val subject = "subject of group"
+                        override val representation = "subject of group"
                         override val assertions = listOf(
                             AssertImpl.builder.descriptive.create(IS_SAME, "b", false),
                             AssertImpl.builder.descriptive.create(TO_BE, "d", false)
@@ -102,12 +102,12 @@ abstract class TextFallbackAssertionFormatterSpec(
                     facade.format(object : AssertionGroup {
                         override val type = RootAssertionGroupType
                         override val name = Untranslatable("outer group")
-                        override val subject = "subject of outer group"
+                        override val representation = "subject of outer group"
                         override val assertions = listOf(
                             object : AssertionGroup {
                                 override val type = object : AssertionGroupType {}
                                 override val name = Untranslatable("inner group")
-                                override val subject = "subject of inner group"
+                                override val representation = "subject of inner group"
                                 override val assertions = listOf(
                                     AssertImpl.builder.descriptive.create(IS_SAME, "b", false),
                                     AssertImpl.builder.descriptive.create(TO_BE, "d", false)
