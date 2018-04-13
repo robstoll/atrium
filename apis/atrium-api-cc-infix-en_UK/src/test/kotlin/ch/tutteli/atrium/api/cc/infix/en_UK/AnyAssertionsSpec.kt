@@ -14,7 +14,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::notToBe.name,
     Assert<Int>::isSame.name,
     Assert<Int>::isNotSame.name,
-    "${AssertionPlantNullable<Int?>::toBe.name} null" to Companion::isNull,
+    "${AssertionPlantNullable<Int?>::toBe.name} null" to Companion::toBeNull,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
@@ -27,7 +27,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
 
     companion object {
 
-        private fun isNull(plant: AssertionPlantNullable<Int?>){
+        private fun toBeNull(plant: AssertionPlantNullable<Int?>){
             plant toBe null
         }
 

@@ -62,7 +62,21 @@ fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T)
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `ist(null)` without adding enough to be a legit alternative.", ReplaceWith("ist(null)"))
 fun <T : Any?> AssertionPlantNullable<T>.istNull() {
+    ist(null)
+}
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] is `null`.
+ *
+ * @param null has to be `null`.
+ *
+ * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T: Any?> AssertionPlantNullable<T>.ist(@Suppress("UNUSED_PARAMETER") `null`: Nothing?){
     addAssertion(AssertImpl.any.isNull(this))
 }
 
