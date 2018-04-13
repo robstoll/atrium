@@ -35,7 +35,7 @@ abstract class ReportingAssertionPlantSpec(
 
     val assertionChecker = (verbs.checkLazily(1, {}) as ReportingAssertionPlant<Int>).commonFields.assertionChecker
     fun createTestee()
-        = testeeFactory(AssertionPlantWithCommonFields.CommonFields(assertionVerb, 10, assertionChecker, RawString.NULL))
+        = testeeFactory(AssertionPlantWithCommonFields.CommonFields(assertionVerb, { 10 }, assertionChecker, RawString.NULL))
 
     val plant = createTestee()
 

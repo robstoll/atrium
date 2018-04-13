@@ -11,11 +11,11 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal object AssertionBuilderImpl : AssertionBuilder {
 
-    override fun list(name: Translatable, subject: Any)
-        = BasicAssertionGroupBuilderImpl(DefaultListAssertionGroupType, name, subject)
+    override fun list(name: Translatable, representation: Any)
+        = BasicAssertionGroupBuilderImpl(DefaultListAssertionGroupType, name, representation)
 
-    override fun feature(featureName: Translatable, feature: Any)
-        = BasicAssertionGroupBuilderImpl(DefaultFeatureAssertionGroupType, featureName, feature)
+    override fun feature(featureName: Translatable, featureRepresentation: Any)
+        = BasicAssertionGroupBuilderImpl(DefaultFeatureAssertionGroupType, featureName, featureRepresentation)
 
     override fun summary(name: Translatable)
         = BasicAssertionGroupBuilderImpl(DefaultSummaryAssertionGroupType, name, RawString.EMPTY)
@@ -29,6 +29,6 @@ internal object AssertionBuilderImpl : AssertionBuilder {
     override val explanatory get()
         = ExplanatoryAssertionBuilderImpl
 
-    override fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, subject: Any) : BasicAssertionGroupBuilder<T>
-        = BasicAssertionGroupBuilderImpl(groupType, name, subject)
+    override fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, representation: Any) : BasicAssertionGroupBuilder<T>
+        = BasicAssertionGroupBuilderImpl(groupType, name, representation)
 }

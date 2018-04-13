@@ -58,7 +58,7 @@ abstract class OnlyFailureReporterSpec(
         val assertionGroupAnonymous = object : AssertionGroup {
             override val type = RootAssertionGroupType
             override val name = AssertionVerb.VERB
-            override val subject = 0
+            override val representation = 0
             override val assertions = listOf(assertion, basicAssertion, basicAssertionAnonymous)
         }
         val assertionGroup = AssertImpl.builder.root(AssertionVerb.VERB, 1).create(listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))

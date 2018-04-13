@@ -25,6 +25,7 @@ abstract class CollectionAssertionsSpec(
 ) : Spek({
 
     include(object : SubjectLessAssertionSpec<List<Int>>(describePrefix,
+        hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 2) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})

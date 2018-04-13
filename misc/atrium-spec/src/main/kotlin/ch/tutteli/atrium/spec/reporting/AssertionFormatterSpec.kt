@@ -47,7 +47,7 @@ abstract class AssertionFormatterSpec(
                 testee.format(object : AssertionGroup {
                     override val name = Untranslatable("test")
                     override val type = RootAssertionGroupType
-                    override val subject = 1
+                    override val representation = 1
                     override val assertions: List<Assertion> = emptyList()
                 }, parameterObject)
             }.toThrow<UnsupportedOperationException> { message { toBe(AssertionFormatter.CALL_FORMAT_GROUP) } }

@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.message
 import ch.tutteli.atrium.api.cc.en_UK.messageContains
 import ch.tutteli.atrium.api.cc.en_UK.toThrow
 import ch.tutteli.atrium.creating.Assert
@@ -27,7 +25,7 @@ data class TestData(val description: String, val nullableValue: Int?) {
     fun returnNullable4(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double) = nullableValue
     fun returnNullable5(arg1: String, arg2: Int?, arg3: Boolean, arg4: Double, arg5: Char) = nullableValue
 }
-private typealias F = Assert<TestData>.() -> Unit
+typealias F = Assert<TestData>.() -> Unit
 
 abstract class FeatureAssertionsSpec(
     verbs: AssertionVerbFactory,

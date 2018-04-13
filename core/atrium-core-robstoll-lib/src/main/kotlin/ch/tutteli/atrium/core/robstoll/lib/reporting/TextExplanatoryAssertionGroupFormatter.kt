@@ -23,7 +23,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  * @constructor Represents an [AssertionFormatter] which formats [AssertionGroup]s with an
  *   [ExplanatoryAssertionGroupType] by defining only an [AssertionFormatterParameterObject] -- which indicates
  *   that we are in an explanatory assertion group and uses the `bulletPoints` (passed as argument) as prefix --
- *   and completely ignoring [AssertionGroup.name] and [AssertionGroup.subject].
+ *   and completely ignoring [AssertionGroup.name] and [AssertionGroup.representation].
  *
  * @param bulletPoints The formatter uses the bullet point defined for [WarningAssertionGroupType]
  *   (`"❗❗ "` if absent) or the bullet point defined for [ExplanatoryAssertionGroupType]

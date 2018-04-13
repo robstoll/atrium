@@ -70,7 +70,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
 
                 context("${AssertionGroup::class.simpleName} of type object: ${assertionGroupClass.simpleName}") {
                     context("format directly the group") {
-                        it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::subject.name} as well as the ${AssertionGroup::assertions.name} which are prepended with a `$listBulletPoint` as bullet point") {
+                        it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name} which are prepended with a `$listBulletPoint` as bullet point") {
                             facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
                             verbs.checkImmediately(sb.toString()).toBe(separator
                                 + "placeholder %s: 2$separator"
@@ -146,5 +146,4 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
             }
         }
     }
-
 })

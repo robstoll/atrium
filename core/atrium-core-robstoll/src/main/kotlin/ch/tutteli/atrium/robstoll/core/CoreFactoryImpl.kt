@@ -68,12 +68,7 @@ class CoreFactoryImpl : CoreFactory {
         = TextMethodCallFormatter
 
     override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
-        = TranslationSupplierBasedTranslator(
-        translationSupplier,
-        localeOrderDecider,
-        primaryLocale,
-        fallbackLocales
-    )
+        = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
 
     override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
         = PropertiesPerEntityAndLocaleTranslationSupplier()
@@ -88,40 +83,35 @@ class CoreFactoryImpl : CoreFactory {
         = AssertionFormatterControllerImpl()
 
     override fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
-        = AssertionFormatterControllerBasedFacade(
-        assertionFormatterController
-    )
+        = AssertionFormatterControllerBasedFacade(assertionFormatterController)
 
     override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
         = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
     override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFallbackAssertionFormatter(
-        bulletPoints,
-        assertionFormatterController,
-        newTextSameLineAssertionPairFormatter(objectFormatter, translator),
-        objectFormatter
-    )
+            bulletPoints,
+            assertionFormatterController,
+            newTextSameLineAssertionPairFormatter(objectFormatter, translator),
+            objectFormatter
+        )
 
     override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFeatureAssertionGroupFormatter(
-        bulletPoints,
-        assertionFormatterController,
-        newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-    )
+            bulletPoints,
+            assertionFormatterController,
+            newTextSameLineAssertionPairFormatter(objectFormatter, translator)
+        )
 
     override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextListAssertionGroupFormatter(
-        bulletPoints,
-        assertionFormatterController,
-        newTextSameLineAssertionPairFormatter(objectFormatter, translator)
-    )
+            bulletPoints,
+            assertionFormatterController,
+            newTextSameLineAssertionPairFormatter(objectFormatter, translator)
+        )
 
     override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
-        = TextExplanatoryAssertionGroupFormatter(
-        bulletPoints,
-        assertionFormatterController
-    )
+        = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
 
     override fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
@@ -131,49 +121,25 @@ class CoreFactoryImpl : CoreFactory {
         translator: Translator
     ) {
         assertionFormatterFacade.register {
-            TextListAssertionGroupFormatter(
-                bulletPoints,
-                it,
-                textAssertionPairFormatter
-            )
+            TextListAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter)
         }
         assertionFormatterFacade.register {
-            TextFeatureAssertionGroupFormatter(
-                bulletPoints,
-                it,
-                textAssertionPairFormatter
-            )
+            TextFeatureAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter)
         }
         assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register {
-            TextExplanatoryAssertionGroupFormatter(
-                bulletPoints,
-                it
-            )
+            TextExplanatoryAssertionGroupFormatter(bulletPoints, it)
         }
         assertionFormatterFacade.register {
-            TextIndentAssertionGroupFormatter(
-                bulletPoints,
-                it
-            )
+            TextIndentAssertionGroupFormatter(bulletPoints, it)
         }
         assertionFormatterFacade.register {
-            TextSummaryAssertionGroupFormatter(
-                bulletPoints,
-                it,
-                textAssertionPairFormatter
-            )
+            TextSummaryAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter)
         }
         assertionFormatterFacade.register {
-            TextFallbackAssertionFormatter(
-                bulletPoints,
-                it,
-                textAssertionPairFormatter,
-                objectFormatter
-            )
+            TextFallbackAssertionFormatter(bulletPoints, it, textAssertionPairFormatter, objectFormatter)
         }
     }
-
 
     override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
         = OnlyFailureReporter(assertionFormatterFacade)
