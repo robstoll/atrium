@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.isNotNull
-import ch.tutteli.atrium.api.cc.en_UK.isNull
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.domain.builders.AssertionVerbFactory
 import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.property
@@ -67,13 +66,13 @@ class FeatureAssertionsBuilderClassSpec : ch.tutteli.atrium.spec.integration.Fea
         val return4ValueLazy: F = { returnValueOf4(this, TestData::return4, "a", 1, true, 1.2) { contains("hello") } }
         val return5ValueLazy: F = { returnValueOf5(this, TestData::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
 
-        val propertyNullableDoesNotHold: F = { property(this, TestData::nullableValue).isNull() }
-        val return0ValueNullableDoesNotHold: F = { returnValueOf0(this, TestData::returnNullable0).isNull() }
-        val return1ValueNullableDoesNotHold: F = { returnValueOf1(this, TestData::returnNullable1, "a").isNull() }
-        val return2ValueNullableDoesNotHold: F = { returnValueOf2(this, TestData::returnNullable2, "a", 1).isNull() }
-        val return3ValueNullableDoesNotHold: F = { returnValueOf3(this, TestData::returnNullable3, "a", 1, true).isNull() }
-        val return4ValueNullableDoesNotHold: F = { returnValueOf4(this, TestData::returnNullable4, "a", 1, true, 1.2).isNull() }
-        val return5ValueNullableDoesNotHold: F = { returnValueOf5(this, TestData::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
+        val propertyNullableDoesNotHold: F = { property(this, TestData::nullableValue).toBe(null) }
+        val return0ValueNullableDoesNotHold: F = { returnValueOf0(this, TestData::returnNullable0).toBe(null) }
+        val return1ValueNullableDoesNotHold: F = { returnValueOf1(this, TestData::returnNullable1, "a").toBe(null) }
+        val return2ValueNullableDoesNotHold: F = { returnValueOf2(this, TestData::returnNullable2, "a", 1).toBe(null) }
+        val return3ValueNullableDoesNotHold: F = { returnValueOf3(this, TestData::returnNullable3, "a", 1, true).toBe(null) }
+        val return4ValueNullableDoesNotHold: F = { returnValueOf4(this, TestData::returnNullable4, "a", 1, true, 1.2).toBe(null) }
+        val return5ValueNullableDoesNotHold: F = { returnValueOf5(this, TestData::returnNullable5, "a", 1, true, 1.2, 'b').toBe(null) }
 
         val propertyNullableHolds: F = { property(this, TestData::nullableValue).isNotNull {} }
         val return0ValueNullableHolds: F = { returnValueOf0(this, TestData::returnNullable0).isNotNull {} }

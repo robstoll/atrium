@@ -57,12 +57,12 @@ infix fun <T : Any> Assert<T>.isNotSame(expected: T)
 /**
  * Makes the assertion that [AssertionPlant.subject] is `null`.
  *
- * @param onlyNullAllowed Has to be `null`.
+ * @param null Has to be `null`.
  *
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") onlyNullAllowed: Nothing?) {
+infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?) {
     addAssertion(AssertImpl.any.isNull(this))
 }
 

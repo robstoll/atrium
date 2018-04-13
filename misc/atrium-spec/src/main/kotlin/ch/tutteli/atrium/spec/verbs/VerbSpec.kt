@@ -140,8 +140,8 @@ abstract class VerbSpec(
     prefixedDescribe("assertion verb '${plantNullable.first}' which supports nullable subjects") {
         inCaseOf("a nullable subject") {
             val (_, assertionVerb) = plantNullable
-            it("does not throw an exception when calling isNull") {
-                assertionVerb(null).isNull()
+            it("does not throw an exception when calling toBe(`null`)") {
+                assertionVerb(null).toBe(null)
             }
             it("throws an AssertionError when calling isNotNull") {
                 expect {

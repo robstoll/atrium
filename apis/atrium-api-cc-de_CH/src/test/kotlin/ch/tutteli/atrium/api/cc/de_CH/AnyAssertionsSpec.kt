@@ -15,7 +15,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::istNicht.name,
     Assert<Int>::istSelbeInstanzWie.name,
     Assert<Int>::istNichtSelbeInstanzWie.name,
-    AssertionPlantNullable<Int?>::istNull.name to AssertionPlantNullable<Int?>::istNull,
+    "${AssertionPlantNullable<Int?>::ist.name}(null)" to Companion::toBeNull,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
@@ -28,20 +28,23 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
 
     companion object {
 
+        fun toBeNull(plant: AssertionPlantNullable<Int?>) {
+            plant.ist(null)
+        }
+
         private fun andImmediateName(): String {
             val f: KProperty1<Assert<Int>, Assert<Int>> = Assert<Int>::und
             return f.name
         }
 
-        fun getAndImmediatePair(): Pair<String, Assert<Int>.() -> Assert<Int>>
-            = andImmediateName() to Assert<Int>::und
+        fun getAndImmediatePair(): Pair<String, Assert<Int>.() -> Assert<Int>> = andImmediateName() to Assert<Int>::und
 
         private fun andLazyName(): String {
             val f: KFunction2<Assert<Int>, Assert<Int>.() -> Unit, Assert<Int>> = Assert<Int>::und
             return f.name
         }
 
-        fun getAndLazyPair(): Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>>
-            = andLazyName() to Assert<Int>::und
+        fun getAndLazyPair(): Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>> =
+            andLazyName() to Assert<Int>::und
     }
 }

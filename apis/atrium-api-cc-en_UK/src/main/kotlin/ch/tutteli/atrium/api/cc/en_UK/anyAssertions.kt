@@ -62,8 +62,9 @@ fun <T : Any> Assert<T>.isNotSame(expected: T)
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `toBe(null)` without adding enough to be a legit alternative.", ReplaceWith("toBe(null)"))
 fun <T : Any?> AssertionPlantNullable<T>.isNull() {
-    addAssertion(AssertImpl.any.isNull(this))
+    toBe(null)
 }
 
 /**
@@ -75,8 +76,10 @@ fun <T : Any?> AssertionPlantNullable<T>.isNull() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?)
-    = isNull()
+fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?){
+    addAssertion(AssertImpl.any.isNull(this))
+}
+
 
 /**
  * Can be used to separate assertions when using the fluent API.

@@ -22,5 +22,5 @@ fun Assert<Boolean>.istTrue() = ist(true)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Will be removed with 1.0.0 because it is redundant with `ist(false)` without without adding enough to be a legit alternative.", ReplaceWith("ist(false)"))
+@Deprecated("Will be removed with 1.0.0 because it is redundant with `ist(false)` without adding enough to be a legit alternative.", ReplaceWith("ist(false)"))
 fun Assert<Boolean>.istFalse() = ist(false)

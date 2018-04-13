@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.api.cc.en_UK.contains
 import ch.tutteli.atrium.api.cc.en_UK.isNotNull
-import ch.tutteli.atrium.api.cc.en_UK.isNull
 import ch.tutteli.atrium.api.cc.en_UK.toBe
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertionVerbFactory
@@ -71,13 +70,13 @@ class FeatureAssertionsBuilderNameSpec : ch.tutteli.atrium.spec.integration.Feat
         val return5ValueLazy: F = { returnValueOf5(this, "return5", {a1, a2, a3, a4, a5 -> subject.return5(a1, a2, a3, a4, a5) }, "a", 1, true, 1.2, 'b') { contains("hello") } }
 
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val propertyNullableDoesNotHold: F = { val l = { subject.nullableValue }; property(this, "nullableValue", l).isNull() }
-        val return0ValueNullableDoesNotHold: F = { val l = { subject.returnNullable0() }; returnValueOf0(this, "returnNullable0", l).isNull() }
-        val return1ValueNullableDoesNotHold: F = { val l: (String) -> Int? = {a1 -> subject.returnNullable1(a1) }; returnValueOf1(this, "returnNullable1", l, "a").isNull() }
-        val return2ValueNullableDoesNotHold: F = { val l: (String, Int) -> Int? = {a1, a2 -> subject.returnNullable2(a1, a2) }; returnValueOf2(this, "returnNullable2", l, "a", 1).isNull() }
-        val return3ValueNullableDoesNotHold: F = { val l: (String, Int, Boolean) -> Int? = {a1, a2, a3 -> subject.returnNullable3(a1, a2, a3) }; returnValueOf3(this, "returnNullable3", l, "a", 1, true).isNull() }
-        val return4ValueNullableDoesNotHold: F = { val l: (String, Int, Boolean, Double) -> Int? = {a1, a2, a3, a4 -> subject.returnNullable4(a1, a2, a3, a4) }; returnValueOf4(this, "returnNullable4", l, "a", 1, true, 1.2).isNull() }
-        val return5ValueNullableDoesNotHold: F = { val l: (String, Int, Boolean, Double, Char) -> Int? = {a1, a2, a3, a4, a5 -> subject.returnNullable5(a1, a2, a3, a4, a5) }; returnValueOf5(this, "returnNullable5", l, "a", 1, true, 1.2, 'b').isNull() }
+        val propertyNullableDoesNotHold: F = { val l = { subject.nullableValue }; property(this, "nullableValue", l).toBe(null) }
+        val return0ValueNullableDoesNotHold: F = { val l = { subject.returnNullable0() }; returnValueOf0(this, "returnNullable0", l).toBe(null) }
+        val return1ValueNullableDoesNotHold: F = { val l: (String) -> Int? = {a1 -> subject.returnNullable1(a1) }; returnValueOf1(this, "returnNullable1", l, "a").toBe(null) }
+        val return2ValueNullableDoesNotHold: F = { val l: (String, Int) -> Int? = {a1, a2 -> subject.returnNullable2(a1, a2) }; returnValueOf2(this, "returnNullable2", l, "a", 1).toBe(null) }
+        val return3ValueNullableDoesNotHold: F = { val l: (String, Int, Boolean) -> Int? = {a1, a2, a3 -> subject.returnNullable3(a1, a2, a3) }; returnValueOf3(this, "returnNullable3", l, "a", 1, true).toBe(null) }
+        val return4ValueNullableDoesNotHold: F = { val l: (String, Int, Boolean, Double) -> Int? = {a1, a2, a3, a4 -> subject.returnNullable4(a1, a2, a3, a4) }; returnValueOf4(this, "returnNullable4", l, "a", 1, true, 1.2).toBe(null) }
+        val return5ValueNullableDoesNotHold: F = { val l: (String, Int, Boolean, Double, Char) -> Int? = {a1, a2, a3, a4, a5 -> subject.returnNullable5(a1, a2, a3, a4, a5) }; returnValueOf5(this, "returnNullable5", l, "a", 1, true, 1.2, 'b').toBe(null) }
 
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
         val propertyNullableHolds: F = { val l = { subject.nullableValue }; property(this, "nullableValue", l).isNotNull {} }
