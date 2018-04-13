@@ -48,7 +48,7 @@ inline infix fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
 infix fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
-    property(subject::message).notToBeNull(assertionCreator)
+    property({ subject::message }).notToBeNull(assertionCreator)
 }
 
 /**
