@@ -5,7 +5,7 @@ buildscript {
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     ext {
         ghPages_version = rootProject.version
-        kbox_version = '0.1.0'
+        kbox_version = '0.4.0'
         kotlin_version = '1.2.31'
         mockito_kotlin_version = '1.5.0'
         dokka_version = '0.9.16'
@@ -126,7 +126,7 @@ subprojects { subproject ->
 
         def testSourceJar = task('testSourceJar', type: Jar) {
             from sourceSets.test.allSource
-            classifier 'testsources'
+            classifier = 'testsources'
         }
         subproject.ext.publish_artifacts += [testJar, testSourceJar]
     }
