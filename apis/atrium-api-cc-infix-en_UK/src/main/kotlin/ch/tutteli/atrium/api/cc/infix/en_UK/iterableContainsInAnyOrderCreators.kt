@@ -47,7 +47,7 @@ fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsCheckerBuilder<E,
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.objectsInAnyOrder(this, values.expected, values.otherExpected))
+    = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, values.expected, values.otherExpected))
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder the values"))
 fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, values: Values<E>): AssertionPlant<T>
