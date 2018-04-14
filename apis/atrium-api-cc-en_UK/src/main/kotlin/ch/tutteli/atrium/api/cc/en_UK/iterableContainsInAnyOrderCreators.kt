@@ -46,7 +46,7 @@ fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsCheckerBuilder<E,
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.values(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.objectsInAnyOrder(this, expected, otherExpected))
+    = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, expected, otherExpected))
 
 @Deprecated("Use the extension fun `values` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.values(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> values(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>

@@ -38,7 +38,7 @@ fun <E, T : Iterable<E>> value(builder: IterableContainsBuilder<E, T, InOrderOnl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.objectsInOrderOnly(this, values.expected, values.otherExpected))
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, values.expected, values.otherExpected))
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder the values"))
 fun <E, T : Iterable<E>> the(builder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, values: Values<E>): AssertionPlant<T>
