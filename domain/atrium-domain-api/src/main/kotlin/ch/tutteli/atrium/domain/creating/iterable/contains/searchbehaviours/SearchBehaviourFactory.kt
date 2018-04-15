@@ -27,7 +27,7 @@ interface SearchBehaviourFactory {
     ): IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>
 
     fun <E, T : Iterable<E>> inOrder(
-        containsBuilder: IterableContains.Builder<E, T, NoOpSearchBehaviour>
+        builder: IterableContains.Builder<E, T, NoOpSearchBehaviour>
     ): IterableContains.Builder<E, T, InOrderSearchBehaviour>
 
     fun <E, T : Iterable<E>> inOrderOnly(
