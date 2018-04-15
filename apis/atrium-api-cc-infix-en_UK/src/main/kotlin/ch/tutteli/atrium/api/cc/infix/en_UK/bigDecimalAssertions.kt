@@ -8,7 +8,7 @@ import java.math.BigDecimal
 @Deprecated("Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
     "`assert(BigDecimal(\"10\").toBe(BigDecimal(\"10.0\"))`\n" +
     "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `isEqualIncludingScale`.",
-    ReplaceWith("isNumericallyEqualTo expected or isEqualIncludingScale expected"))
+    ReplaceWith("this isNumericallyEqualTo expected or isEqualIncludingScale expected"))
 @Suppress("UNUSED_PARAMETER", "unused")
 infix fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
     = throw UnsupportedOperationException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
@@ -17,7 +17,7 @@ infix fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
 @Deprecated("Use `isNotNumericallyEqualTo` if you expect that the following assertion is wrong:\n" +
     "`assert(BigDecimal(\"10\") notToBe BigDecimal(\"10.0\")`\n" +
     "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `isNotEqualIncludingScale`.",
-    ReplaceWith("isNotNumericallyEqualTo expected or isNotEqualIncludingScale expected"))
+    ReplaceWith("this isNotNumericallyEqualTo expected or isNotEqualIncludingScale expected"))
 @Suppress("UNUSED_PARAMETER", "unused")
 infix fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
     = throw UnsupportedOperationException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +

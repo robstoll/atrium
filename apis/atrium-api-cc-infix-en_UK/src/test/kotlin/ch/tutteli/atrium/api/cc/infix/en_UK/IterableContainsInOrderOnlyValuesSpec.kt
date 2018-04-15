@@ -6,20 +6,20 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
 
-class IterableContainsInOrderOnlyObjectsSpec : Spek({
+class IterableContainsInOrderOnlyValuesSpec : Spek({
 
     include(BuilderSpec)
     include(ShortcutSpec)
 
 }) {
-    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyObjectsSpec(
+    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesSpec(
         AssertionVerbFactory,
         getContainsPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyObjectsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesSpec(
         AssertionVerbFactory,
         getContainsShortcutPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",

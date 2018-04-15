@@ -11,9 +11,9 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 
-@Deprecated("Use AssertImpl.iterable.contains.objectsInAnyOrder, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.valuesInAnyOrder, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.iterable.contains.objectsInAnyOrder(checker, expected, *otherExpected)",
+        "AssertImpl.iterable.contains.valuesInAnyOrder(checker, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
@@ -51,9 +51,9 @@ fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrder(
 ): Assertion
     = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
-@Deprecated("Use AssertImpl.iterable.contains.objectsInAnyOrderOnly, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.valuesInAnyOrderOnly, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.iterable.contains.objectsInAnyOrderOnly(builder, expected, *otherExpected)",
+        "AssertImpl.iterable.contains.valuesInAnyOrderOnly(builder, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
@@ -97,9 +97,9 @@ fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrderOnly(
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
 }
 
-@Deprecated("Use AssertImpl.iterable.contains.objectsInOrderOnly, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.valuesInOrderOnly, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.iterable.contains.objectsInOrderOnly(builder, expected, *otherExpected)",
+        "AssertImpl.iterable.contains.valuesInOrderOnly(builder, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )

@@ -21,7 +21,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
-class InAnyOrderObjectsAssertionCreator<SC, in T : Iterable<SC>>(
+class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
 ) : ContainsObjectsAssertionCreator<T, SC, InAnyOrderSearchBehaviour, IterableContains.Checker>(searchBehaviour, checkers),

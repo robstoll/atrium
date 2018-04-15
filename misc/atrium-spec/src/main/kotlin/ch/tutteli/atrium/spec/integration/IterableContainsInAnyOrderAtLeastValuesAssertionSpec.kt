@@ -10,7 +10,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
-abstract class IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
+abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     verbs: AssertionVerbFactory,
     containsAtLeastTriple: Triple<String, (String, String) -> String, Assert<Iterable<Double>>.(Int, Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsAtLeastButAtMostTriple: Triple<String, (String, String, String) -> String, Assert<Iterable<Double>>.(Int, Int, Double, Array<out Double>) -> Assert<Iterable<Double>>>,

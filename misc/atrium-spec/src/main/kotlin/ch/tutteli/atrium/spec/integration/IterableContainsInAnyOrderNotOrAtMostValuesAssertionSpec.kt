@@ -10,7 +10,7 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
-abstract class IterableContainsInAnyOrderNotOrAtMostObjectsAssertionSpec(
+abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionSpec(
     verbs: AssertionVerbFactory,
     containsNotOrAtMostTriple: Triple<String, (String, String) -> String, Assert<Iterable<Double>>.(Int, Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,

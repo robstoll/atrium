@@ -23,7 +23,7 @@ val iterableContainsAssertions by lazy { SingleServiceLoader.load(IterableContai
  */
 interface IterableContainsAssertions {
 
-    fun <E, T : Iterable<E>> objectsInAnyOrder(
+    fun <E, T : Iterable<E>> valuesInAnyOrder(
         checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
@@ -41,7 +41,8 @@ interface IterableContainsAssertions {
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 
-    fun <E, T : Iterable<E>> objectsInAnyOrderOnly(
+
+    fun <E, T : Iterable<E>> valuesInAnyOrderOnly(
         builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
@@ -59,7 +60,8 @@ interface IterableContainsAssertions {
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 
-    fun <E, T : Iterable<E>> objectsInOrderOnly(
+
+    fun <E, T : Iterable<E>> valuesInOrderOnly(
         builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>

@@ -16,6 +16,7 @@ class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: 
 /**
  * Method object to express `vararg T` in the infix-api.
  */
+@Deprecated("Use Values instead, will be removed with 1.0.0", ReplaceWith("Values(expected, *otherExpected)"))
 class Objects<out T>(val expected: T, vararg val otherExpected: T) {
     constructor(values: Values<T>) : this(values.expected, *values.otherExpected)
 }
@@ -28,4 +29,7 @@ class RegexPatterns(val pattern: String, vararg val otherPatterns: String)
 /**
  * Method object to express `vararg T` in the infix-api.
  */
-class Values<out T>(val expected: T, vararg val otherExpected: T)
+class Values<out T>(val expected: T, vararg val otherExpected: T) {
+    @Deprecated("Use Values directly instead of wrapping it into Objects in addition, will be removed with 1.0.0")
+    constructor(objects: Objects<T>) : this(objects.expected, *objects.otherExpected)
+}
