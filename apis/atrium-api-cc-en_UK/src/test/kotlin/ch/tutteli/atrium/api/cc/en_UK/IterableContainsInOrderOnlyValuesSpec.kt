@@ -6,20 +6,20 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction3
 
-class IterableContainsInOrderOnlyObjectsSpec : Spek({
+class IterableContainsInOrderOnlyValuesSpec : Spek({
 
     include(BuilderSpec)
     include(ShortcutSpec)
 
 }) {
-    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyObjectsSpec(
+    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesSpec(
         AssertionVerbFactory,
         getContainsPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyObjectsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesSpec(
         AssertionVerbFactory,
         getContainsShortcutPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
@@ -32,9 +32,9 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
 
         private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant.contains.inOrder.only.`object`(a)
+                plant.contains.inOrder.only.value(a)
             } else {
-                plant.contains.inOrder.only.objects(a, *aX)
+                plant.contains.inOrder.only.values(a, *aX)
             }
         }
 
