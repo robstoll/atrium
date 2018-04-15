@@ -19,18 +19,16 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): AssertionPlant<T>
-    = objects(expected)
+    = values(expected)
 
 @Deprecated("Use the extension fun `value` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.value(expected)"))
 fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
-    = objects(checkerBuilder, expected)
+    = values(checkerBuilder, expected)
 
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
  * [otherExpected] values need to be contained in [Iterable] in the specified order.
- *
- * Delegates to `objects(expected, *otherExpected)`.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
@@ -39,48 +37,28 @@ fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsBuilder<E, T, InO
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = objects(expected, *otherExpected)
+    = plant.addAssertion(AssertImpl.iterable.contains.objectsInOrderOnly(this, expected, otherExpected))
 
 @Deprecated("Use the extension fun `values` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.values(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> values(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
     = checkerBuilder.values(expected, *otherExpected)
 
 
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
- * [expected] object.
- *
- * Delegate to `objects(expected)`.
- *
- * @param expected The object which is expected to be contained within the [Iterable].
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `value(expected)` without adding enough to be a legit alternative.", ReplaceWith("value(expected)"))
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.`object`(expected: E): AssertionPlant<T>
-    = objects(expected)
+    = values(expected)
 
-@Deprecated("Use the extension fun `object` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.`object`(expected)"))
+@Deprecated("Use the extension fun `value` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.value(expected)"))
 fun <E, T : Iterable<E>> `object`(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
-    = objects(checkerBuilder, expected)
+    = values(checkerBuilder, expected)
 
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as the
- * [otherExpected] objects need to be contained in [Iterable] in the specified order.
- *
- * @param expected The value which is expected to be contained within the [Iterable].
- * @param otherExpected Additional values which are expected to be contained within [Iterable].
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `values(expected, otherExpected)` without adding enough to be a legit alternative.", ReplaceWith("values(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.objects(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.objectsInOrderOnly(this, expected, otherExpected))
+    = values(expected, *otherExpected)
 
-@Deprecated("Use the extension fun `objects` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.objects(expected, *otherExpected)"))
+@Deprecated("Use the extension fun `values` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.values(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> objects(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = checkerBuilder.objects(expected, *otherExpected)
+    = checkerBuilder.values(expected, *otherExpected)
 
 
 /**

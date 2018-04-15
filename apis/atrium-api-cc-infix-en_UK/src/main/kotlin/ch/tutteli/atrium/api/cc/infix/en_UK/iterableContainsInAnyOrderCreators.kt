@@ -12,7 +12,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
  * within the [Iterable].
  *
- * Delegates to `the Objects(expected)`.
+ * Delegates to `the Values(expected)`.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): AssertionPlant<T>
-    = this the Objects(expected)
+    = this the Values(expected)
 
 @Deprecated("Use the extension fun `value` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder value expected"))
 fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, expected: E): AssertionPlant<T>
@@ -31,7 +31,15 @@ fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsCheckerBuilder<E,
  * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
  * shall be searched within the [Iterable].
  *
- * Delegates to `the Objects(values)`.
+ * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
+ * [Values.expected] is defined as `'a'` and one [Values.otherExpected] is defined as `'a'` as well, then both match,
+ * even though they match the same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the
+ * number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `to contain inAny order exactly 2 value 'a'`
+ * instead of:
+ *   `to contain inAny order exactly 1 the Values('a', 'a')`
  *
  * @param values The values which are expected to be contained within the [Iterable].
  *
@@ -39,56 +47,28 @@ fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsCheckerBuilder<E,
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
-    = this the Objects(values)
+    = addAssertion(AssertImpl.iterable.contains.objectsInAnyOrder(this, values.expected, values.otherExpected))
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder the values"))
 fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, values: Values<E>): AssertionPlant<T>
-    = checkerBuilder the Objects(values)
+    = checkerBuilder the values
 
 
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
- * within the [Iterable].
- *
- * Delegates to `the Objects(expected)`.
- *
- * @param expected The object which is expected to be contained within the [Iterable].
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `value expected` without adding enough to be a legit alternative.", ReplaceWith("value expected"))
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.`object`(expected: E): AssertionPlant<T>
-    = this the Objects(expected)
+    = this the Values(expected)
 
-@Deprecated("Use the extension fun `object` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder `object` expected"))
+@Deprecated("Use the extension fun `value` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder value expected"))
 fun <E, T : Iterable<E>> `object`(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, expected: E): AssertionPlant<T>
-    = the(checkerBuilder, Objects(expected))
+    = the(checkerBuilder, Values(expected))
 
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [objects]
- * shall be searched within the iterable.
- *
- * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [Objects.expected] is
- * defined as `'a'` and one [Objects.otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `to contain inAny order exactly 2 `&#96;`object`&#96;` 'a'`
- * instead of:
- *   `to contain inAny order exactly 1 the Objects('a', 'a')`
- *
- * @param objects The objects which are expected to be contained within the [Iterable].
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `the Values(expected, otherExpected)` without adding enough to be a legit alternative.", ReplaceWith("the Values(expected, *otherExpected)"))
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.objectsInAnyOrder(this, objects.expected, objects.otherExpected))
+    = this the Values(objects)
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder the objects"))
 fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, objects: Objects<E>): AssertionPlant<T>
-    = checkerBuilder the objects
+    = checkerBuilder the Values(objects)
 
 
 /**
