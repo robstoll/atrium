@@ -1,9 +1,9 @@
-package ch.tutteli.atrium.api.cc.en_UK
+package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class IterableContainsInAnyOrderExactlyObjectsAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderExactlyObjectsAssertionSpec(
+class IterableContainsInAnyOrderExactlyValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderExactlyValuesAssertionSpec(
     AssertionVerbFactory,
     getExactlyTriple(),
     getContainsNotPair()
@@ -19,9 +19,9 @@ class IterableContainsInAnyOrderExactlyObjectsAssertionsSpec : ch.tutteli.atrium
 
         private fun containsExactly(plant: Assert<Iterable<Double>>, exactly: Int, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant.contains.inAnyOrder.exactly(exactly).`object`(a)
+                plant.enthaelt.inBeliebigerReihenfolge.genau(exactly).wert(a)
             } else {
-                plant.contains.inAnyOrder.exactly(exactly).objects(a, *aX)
+                plant.enthaelt.inBeliebigerReihenfolge.genau(exactly).werte(a, *aX)
             }
         }
 

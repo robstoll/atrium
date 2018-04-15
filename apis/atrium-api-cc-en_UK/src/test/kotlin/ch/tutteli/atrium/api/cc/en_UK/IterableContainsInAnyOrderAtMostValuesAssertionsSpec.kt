@@ -1,9 +1,9 @@
-package ch.tutteli.atrium.api.cc.de_CH
+package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class IterableContainsInAnyOrderAtMostObjectsAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtMostObjectsAssertionSpec(
+class IterableContainsInAnyOrderAtMostValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtMostValuesAssertionSpec(
     AssertionVerbFactory,
     getAtMostTriple(),
     getContainsNotPair(),
@@ -19,7 +19,7 @@ class IterableContainsInAnyOrderAtMostObjectsAssertionsSpec : ch.tutteli.atrium.
         )
 
         private fun containsAtMost(plant: Assert<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>)
-            = plant.enthaelt.inBeliebigerReihenfolge.hoechstens(atMost).werte(a, *aX)
+            = plant.contains.inAnyOrder.atMost(atMost).values(a, *aX)
 
 
         private fun getContainsNotPair() = containsNot to Companion::getErrorMsgContainsNot

@@ -38,47 +38,28 @@ fun <E, T : Iterable<E>> value(builder: IterableContainsBuilder<E, T, InOrderOnl
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
-    = this the Objects(values)
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, values.expected, values.otherExpected))
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder the values"))
 fun <E, T : Iterable<E>> the(builder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, values: Values<E>): AssertionPlant<T>
     = builder the values
 
 
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
- * [expected] object.
- *
- * Delegate to `the Objects(expected)`.
- *
- * @param expected The object which is expected to be contained within the [Iterable].
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `value expected` without adding enough to be a legit alternative.", ReplaceWith("this value expected"))
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.`object`(expected: E): AssertionPlant<T>
-    = this the Objects(expected)
+    = this the Values(expected)
 
-@Deprecated("Use the extension fun `object` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.`object`(expected)"))
+@Deprecated("Use the extension fun value instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder value expected"))
 fun <E, T : Iterable<E>> `object`(builder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
-    = the(builder, Objects(expected))
+    = the(builder, Values(expected))
 
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [objects]
- * need to be contained in [Iterable] in the specified order.
- *
- * @param objects The value which are expected to be contained within the [Iterable].
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `the Values(expected, otherExpected)` without adding enough to be a legit alternative.", ReplaceWith("this the Values(objects)"))
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.objectsInOrderOnly(this, objects.expected, objects.otherExpected))
+    = this the Values(objects)
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder the objects"))
 fun <E, T : Iterable<E>> the(builder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, objects: Objects<E>): AssertionPlant<T>
-    = builder the objects
+    = builder the Values(objects)
 
 
 /**

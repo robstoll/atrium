@@ -14,11 +14,11 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
  */
 class IterableContainsAssertionsImpl : IterableContainsAssertions {
 
-    override fun <E, T : Iterable<E>> objectsInAnyOrder(
+    override fun <E, T : Iterable<E>> valuesInAnyOrder(
         checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
-    ): Assertion = _containsObjectsInAnyOrder(checkerOption, expected, otherExpected)
+    ): Assertion = _containsValuesInAnyOrder(checkerOption, expected, otherExpected)
 
     override fun <E : Any, T : Iterable<E>> entriesInAnyOrder(
         checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
@@ -32,11 +32,11 @@ class IterableContainsAssertionsImpl : IterableContainsAssertions {
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
     ): Assertion = _containsNullableEntriesInAnyOrder(checkerOption, assertionCreator, otherAssertionCreators)
 
-    override fun <E, T : Iterable<E>> objectsInAnyOrderOnly(
+    override fun <E, T : Iterable<E>> valuesInAnyOrderOnly(
         builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
-    ): Assertion = _containsObjectsInAnyOrderOnly(builder, expected, otherExpected)
+    ): Assertion = _containsValuesInAnyOrderOnly(builder, expected, otherExpected)
 
     override fun <E : Any, T : Iterable<E>> entriesInAnyOrderOnly(
         builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
@@ -50,11 +50,11 @@ class IterableContainsAssertionsImpl : IterableContainsAssertions {
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
     ): Assertion = _containsNullableEntriesInAnyOrderOnly(builder, assertionCreator, otherAssertionCreators)
 
-    override fun <E, T : Iterable<E>> objectsInOrderOnly(
+    override fun <E, T : Iterable<E>> valuesInOrderOnly(
         builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
         expected: E,
         otherExpected: Array<out E>
-    ): Assertion = _containsObjectsInOrderOnly(builder, expected, otherExpected)
+    ): Assertion = _containsValuesInOrderOnly(builder, expected, otherExpected)
 
     override fun <E : Any, T : Iterable<E>> entriesInOrderOnly(
         builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
