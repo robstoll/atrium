@@ -84,10 +84,9 @@ object IterableContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
     override inline fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>)
         = searchBehaviourFactory.inAnyOrderOnly(builder)
 
-    override inline fun <E, T : Iterable<E>> inOrder(containsBuilder: IterableContains.Builder<E, T, NoOpSearchBehaviour>)
-        = searchBehaviourFactory.inOrder(containsBuilder)
+    override inline fun <E, T : Iterable<E>> inOrder(builder: IterableContains.Builder<E, T, NoOpSearchBehaviour>)
+        = searchBehaviourFactory.inOrder(builder)
 
     override inline fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContains.Builder<E, T, InOrderSearchBehaviour>)
         = searchBehaviourFactory.inOrderOnly(builder)
-
 }

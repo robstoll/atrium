@@ -41,6 +41,7 @@ interface IterableContainsAssertions {
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 
+
     fun <E, T : Iterable<E>> valuesInAnyOrderOnly(
         builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
         expected: E,
@@ -58,6 +59,7 @@ interface IterableContainsAssertions {
         assertionCreator: (AssertionPlant<E>.() -> Unit)?,
         otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
     ): Assertion
+
 
     fun <E, T : Iterable<E>> valuesInOrderOnly(
         builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,

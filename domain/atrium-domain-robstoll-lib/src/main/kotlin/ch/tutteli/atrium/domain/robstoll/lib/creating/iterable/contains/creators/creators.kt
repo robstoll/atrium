@@ -9,12 +9,12 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders.NoOpCheckerOption
 
-fun <E, T : Iterable<E>> _containsObjectsInAnyOrder(
+fun <E, T : Iterable<E>> _containsValuesInAnyOrder(
     checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
     expected: E,
     otherExpected: Array<out E>
 ): Assertion
-    = createAssertionGroup(checkerOption, expected, otherExpected, ::InAnyOrderObjectsAssertionCreator)
+    = createAssertionGroup(checkerOption, expected, otherExpected, ::InAnyOrderValuesAssertionCreator)
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrder(
     checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
@@ -30,13 +30,14 @@ fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInAnyOrder(
 ): Assertion
     = createAssertionGroup(checkerOption, assertionCreator, otherAssertionCreators, ::InAnyOrderEntriesAssertionCreator)
 
-fun <E, T : Iterable<E>> _containsObjectsInAnyOrderOnly(
+
+fun <E, T : Iterable<E>> _containsValuesInAnyOrderOnly(
     builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
     expected: E,
     otherExpected: Array<out E>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
-    return createAssertionGroupWithoutChecker(checkerBuilder, expected, otherExpected, ::InAnyOrderOnlyObjectsAssertionCreator)
+    return createAssertionGroupWithoutChecker(checkerBuilder, expected, otherExpected, ::InAnyOrderOnlyValuesAssertionCreator)
 }
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrderOnly(
@@ -57,13 +58,14 @@ fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInAnyOrderOnly(
     return createAssertionGroupWithoutChecker(checkerBuilder, assertionCreator, otherAssertionCreators, ::InAnyOrderOnlyEntriesAssertionCreator)
 }
 
-fun <E, T : Iterable<E>> _containsObjectsInOrderOnly(
+
+fun <E, T : Iterable<E>> _containsValuesInOrderOnly(
     builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
     expected: E,
     otherExpected: Array<out E>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
-    return createAssertionGroupWithoutChecker(checkerBuilder, expected, otherExpected, ::InOrderOnlyObjectsAssertionCreator)
+    return createAssertionGroupWithoutChecker(checkerBuilder, expected, otherExpected, ::InOrderOnlyValuesAssertionCreator)
 }
 
 fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
