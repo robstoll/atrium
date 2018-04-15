@@ -6,20 +6,20 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction3
 
-class IterableContainsInOrderOnlyObjectsSpec : Spek({
+class IterableContainsInOrderOnlyValuesSpec : Spek({
 
     include(BuilderSpec)
     include(ShortcutSpec)
 
 }) {
-    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyObjectsSpec(
+    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesSpec(
         AssertionVerbFactory,
         getContainsPair(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyObjectsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesSpec(
         AssertionVerbFactory,
         getContainsShortcutPair(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", ">> ", "=> ",
@@ -32,9 +32,9 @@ class IterableContainsInOrderOnlyObjectsSpec : Spek({
 
         private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant.enthaelt.inGegebenerReihenfolge.nur.objekt(a)
+                plant.enthaelt.inGegebenerReihenfolge.nur.wert(a)
             } else {
-                plant.enthaelt.inGegebenerReihenfolge.nur.objekte(a, *aX)
+                plant.enthaelt.inGegebenerReihenfolge.nur.werte(a, *aX)
             }
         }
 

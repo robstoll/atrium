@@ -54,7 +54,7 @@ fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T
     = checkerBuilder the values
 
 
-@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `value expected` without adding enough to be a legit alternative.", ReplaceWith("value expected"))
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `value expected` without adding enough to be a legit alternative.", ReplaceWith("this value expected"))
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.`object`(expected: E): AssertionPlant<T>
     = this the Values(expected)
 
@@ -62,7 +62,7 @@ infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
 fun <E, T : Iterable<E>> `object`(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, expected: E): AssertionPlant<T>
     = the(checkerBuilder, Values(expected))
 
-@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `the Values(expected, otherExpected)` without adding enough to be a legit alternative.", ReplaceWith("the Values(expected, *otherExpected)"))
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `the Values(expected, otherExpected)` without adding enough to be a legit alternative.", ReplaceWith("this the Values(objects)"))
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
     = this the Values(objects)
 

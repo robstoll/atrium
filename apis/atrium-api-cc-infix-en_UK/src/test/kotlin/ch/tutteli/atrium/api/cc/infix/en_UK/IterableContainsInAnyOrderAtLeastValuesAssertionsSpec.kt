@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeastObjectsAssertionSpec(
+class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     AssertionVerbFactory,
     getAtLeastTriple(),
     getAtLeastButAtMostTriple(),
@@ -36,7 +36,7 @@ class IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec : ch.tutteli.atrium
 
         private fun containsAtLeastButAtMost(plant: Assert<Iterable<Double>>, atLeast: Int, butAtMost: Int, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inAny order atLeast atLeast butAtMost butAtMost `object` a
+                plant to contain inAny order atLeast atLeast butAtMost butAtMost value a
             } else {
                 plant to contain inAny order atLeast atLeast butAtMost butAtMost the Values(a, *aX)
             }

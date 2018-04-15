@@ -10,7 +10,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
-abstract class IterableContainsInAnyOrderOnlyObjectsSpec(
+abstract class IterableContainsInAnyOrderOnlyValuesSpec(
     verbs: AssertionVerbFactory,
     containsPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     successfulBulletPoint: String,
