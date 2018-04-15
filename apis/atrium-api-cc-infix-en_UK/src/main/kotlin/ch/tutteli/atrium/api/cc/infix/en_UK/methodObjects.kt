@@ -28,4 +28,6 @@ class RegexPatterns(val pattern: String, vararg val otherPatterns: String)
 /**
  * Method object to express `vararg T` in the infix-api.
  */
-class Values<out T>(val expected: T, vararg val otherExpected: T)
+class Values<out T>(val expected: T, vararg val otherExpected: T) {
+    constructor(objects: Objects<T>) : this(objects.expected, *objects.otherExpected)
+}
