@@ -26,10 +26,12 @@ abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.domain
     private val checkers: List<C>
 ) : Contains.Creator<T, S> {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
-        val assertions = listOf(searchCriterion, *otherSearchCriteria).map { createForSearchCriterion(plant, it) }
+    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<S>): AssertionGroup {
+        val assertions = searchCriteria.map { createForSearchCriterion(plant, it) }
         return createAssertionGroupForSearchCriteriaAssertions(assertions)
     }
+    fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>)
+        = createAssertionGroup(plant, listOf(searchCriterion, *otherSearchCriteria))
 
     /**
      * Creates an [AssertionGroup] representing the sophisticated `contains` assertion as a whole based on the given

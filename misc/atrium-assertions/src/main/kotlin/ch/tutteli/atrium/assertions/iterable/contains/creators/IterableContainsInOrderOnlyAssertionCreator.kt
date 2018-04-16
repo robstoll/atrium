@@ -19,7 +19,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * its responsibility.
  *
  * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
- * @param S The type of the search criterion.
+ * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
@@ -30,29 +30,32 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
 @Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
-abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, S>(
+abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, SC>(
     private val searchBehaviour: IterableContainsInOrderOnlySearchBehaviour
-) : IterableContains.Creator<T, S> {
+) : IterableContains.Creator<T, SC> {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
+    fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: SC, otherSearchCriteria: Array<out SC>)
+        = createAssertionGroup(plant, listOf(searchCriterion, *otherSearchCriteria))
+
+    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
+
         return LazyThreadUnsafeAssertionGroup {
             val assertions = mutableListOf<Assertion>()
-            val allSearchCriteria = listOf(searchCriterion, *otherSearchCriteria)
             val list = plant.subject.toList()
             val itr = list.iterator()
-            allSearchCriteria.forEachIndexed { index, it ->
+            searchCriteria.forEachIndexed { index, it ->
                 assertions.add(createEntryAssertion(list, it, createEntryAssertionTemplate(itr, index, it)))
             }
-            assertions.add(createSizeFeatureAssertion(allSearchCriteria.size, list, itr))
+            assertions.add(createSizeFeatureAssertion(searchCriteria.size, list, itr))
 
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
             AssertImpl.builder.summary(description).create(assertions)
         }
     }
 
-    abstract fun createEntryAssertion(iterableAsList: List<E?>, searchCriterion: S, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup
+    abstract fun createEntryAssertion(iterableAsList: List<E?>, searchCriterion: SC, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup
 
-    private fun createEntryAssertionTemplate(itr: Iterator<E?>, index: Int, searchCriterion: S): ((Boolean) -> Assertion) -> AssertionGroup
+    private fun createEntryAssertionTemplate(itr: Iterator<E?>, index: Int, searchCriterion: SC): ((Boolean) -> Assertion) -> AssertionGroup
         = { createEntryFeatureAssertion ->
 
         val (found, entryRepresentation) = if (itr.hasNext()) {
@@ -67,7 +70,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             .create(createEntryFeatureAssertion(found))
     }
 
-    abstract fun matches(actual: E?, searchCriterion: S): Boolean
+    abstract fun matches(actual: E?, searchCriterion: SC): Boolean
 
     private fun createSizeFeatureAssertion(expectedSize: Int, iterableAsList: List<E?>, itr: Iterator<E?>): AssertionGroup {
         val additionalEntries = mutableListOf<E?>()

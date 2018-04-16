@@ -19,7 +19,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * its responsibility.
  *
  * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
- * @param SC The type of the search criterion.
+ * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
@@ -33,16 +33,15 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     private val searchBehaviour: InOrderOnlySearchBehaviour
 ) : IterableContains.Creator<T, SC> {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: SC, otherSearchCriteria: Array<out SC>): AssertionGroup {
+    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val assertions = mutableListOf<Assertion>()
-            val allSearchCriteria = listOf(searchCriterion, *otherSearchCriteria)
             val list = plant.subject.toList()
             val itr = list.iterator()
-            allSearchCriteria.forEachIndexed { index, it ->
+            searchCriteria.forEachIndexed { index, it ->
                 assertions.add(createEntryAssertion(list, it, createEntryAssertionTemplate(itr, index, it)))
             }
-            assertions.add(createSizeFeatureAssertion(allSearchCriteria.size, list, itr))
+            assertions.add(createSizeFeatureAssertion(searchCriteria.size, list, itr))
 
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
             AssertImpl.builder.summary(description).create(assertions)

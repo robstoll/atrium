@@ -94,7 +94,7 @@ private fun <E, T : Iterable<E>, SC, S : IterableContains.SearchBehaviour> creat
     factory: (S) -> IterableContains.Creator<T, SC>
 ): AssertionGroup {
     val creator = factory(checkerOption.containsBuilder.searchBehaviour)
-    return creator.createAssertionGroup(checkerOption.containsBuilder.plant, expected, otherExpected)
+    return creator.createAssertionGroup(checkerOption.containsBuilder.plant, listOf(expected, *otherExpected))
 }
 
 private fun <E, T : Iterable<E>, SC, S : IterableContains.SearchBehaviour> createAssertionGroup(
@@ -104,5 +104,5 @@ private fun <E, T : Iterable<E>, SC, S : IterableContains.SearchBehaviour> creat
     factory: (S, List<IterableContains.Checker>) -> IterableContains.Creator<T, SC>
 ): AssertionGroup {
     val creator = factory(checkerOption.containsBuilder.searchBehaviour, checkerOption.checkers)
-    return creator.createAssertionGroup(checkerOption.containsBuilder.plant, expected, otherExpected)
+    return creator.createAssertionGroup(checkerOption.containsBuilder.plant, listOf(expected, *otherExpected))
 }
