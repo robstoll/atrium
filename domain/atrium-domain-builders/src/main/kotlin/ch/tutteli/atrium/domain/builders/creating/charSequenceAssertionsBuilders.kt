@@ -59,8 +59,8 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
  */
 object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
 
-    override inline fun <T : CharSequence> values(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
-        = charSequenceContainsAssertions.values(checkerOption, expected, otherExpected)
+    override inline fun <T : CharSequence> values(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: List<Any>)
+        = charSequenceContainsAssertions.values(checkerOption, expected)
 
     override inline fun <T : CharSequence> valuesIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
         = charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected, otherExpected)

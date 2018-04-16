@@ -30,6 +30,8 @@ class RegexPatterns(val pattern: String, vararg val otherPatterns: String)
  * Method object to express `vararg T` in the infix-api.
  */
 class Values<out T>(val expected: T, vararg val otherExpected: T) {
+    fun toList(): List<T> = listOf(expected, *otherExpected)
+
     @Deprecated("Use Values directly instead of wrapping it into Objects in addition, will be removed with 1.0.0")
     constructor(objects: Objects<T>) : this(objects.expected, *objects.otherExpected)
 }

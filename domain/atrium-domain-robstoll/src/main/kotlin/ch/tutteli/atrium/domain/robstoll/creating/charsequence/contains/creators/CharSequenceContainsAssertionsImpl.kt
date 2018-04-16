@@ -15,10 +15,9 @@ class CharSequenceContainsAssertionsImpl: CharSequenceContainsAssertions {
 
     override fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: Any,
-        otherExpected: Array<out Any>
+        expected: List<Any>
     ): AssertionGroup
-        = _containsValues(checkerOption, expected, otherExpected)
+        = _containsValues(checkerOption, expected)
 
     override fun <T : CharSequence> valuesIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,

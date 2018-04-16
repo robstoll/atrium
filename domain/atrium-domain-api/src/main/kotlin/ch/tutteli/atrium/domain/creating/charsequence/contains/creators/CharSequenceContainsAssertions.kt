@@ -24,8 +24,7 @@ interface CharSequenceContainsAssertions {
 
     fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: Any,
-        otherExpected: Array<out Any>
+        expected: List<Any>
     ): AssertionGroup
 
     fun <T : CharSequence> valuesIgnoringCase(

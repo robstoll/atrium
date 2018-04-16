@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.utils.varargToList
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
@@ -55,7 +56,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  *   [CharSequence], [Number] or [Char].
  */
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.values(this, expected, otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.values(this, varargToList(expected, otherExpected)))
 
 
 /**
