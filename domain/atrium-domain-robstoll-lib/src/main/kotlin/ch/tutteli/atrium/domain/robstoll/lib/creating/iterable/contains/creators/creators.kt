@@ -87,21 +87,21 @@ fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInOrderOnly(
 }
 
 
-private fun <E, T : Iterable<E>, S, B : IterableContains.SearchBehaviour> createAssertionGroupWithoutChecker(
-    checkerOption: IterableContains.CheckerOption<E, T, B>,
-    expected: S,
-    otherExpected: Array<out S>,
-    factory: (B) -> IterableContains.Creator<T, S>
+private fun <E, T : Iterable<E>, SC, S : IterableContains.SearchBehaviour> createAssertionGroupWithoutChecker(
+    checkerOption: IterableContains.CheckerOption<E, T, S>,
+    expected: SC,
+    otherExpected: Array<out SC>,
+    factory: (S) -> IterableContains.Creator<T, SC>
 ): AssertionGroup {
     val creator = factory(checkerOption.containsBuilder.searchBehaviour)
     return creator.createAssertionGroup(checkerOption.containsBuilder.plant, expected, otherExpected)
 }
 
-private fun <E, T : Iterable<E>, S, B : IterableContains.SearchBehaviour> createAssertionGroup(
-    checkerOption: IterableContains.CheckerOption<E, T, B>,
-    expected: S,
-    otherExpected: Array<out S>,
-    factory: (B, List<IterableContains.Checker>) -> IterableContains.Creator<T, S>
+private fun <E, T : Iterable<E>, SC, S : IterableContains.SearchBehaviour> createAssertionGroup(
+    checkerOption: IterableContains.CheckerOption<E, T, S>,
+    expected: SC,
+    otherExpected: Array<out SC>,
+    factory: (S, List<IterableContains.Checker>) -> IterableContains.Creator<T, SC>
 ): AssertionGroup {
     val creator = factory(checkerOption.containsBuilder.searchBehaviour, checkerOption.checkers)
     return creator.createAssertionGroup(checkerOption.containsBuilder.plant, expected, otherExpected)
