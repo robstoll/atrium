@@ -20,7 +20,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
  * its responsibility.
  *
  * @param T The type of the [AssertionPlant.subject] for which the `contains` assertion is be build.
- * @param S The type of the search criterion.
+ * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
@@ -30,19 +30,18 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, S>(
+abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     private val searchBehaviour: InAnyOrderOnlySearchBehaviour
-) : IterableContains.Creator<T, S> {
+) : IterableContains.Creator<T, SC> {
 
-    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriterion: S, otherSearchCriteria: Array<out S>): AssertionGroup {
+    final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val list = plant.subject.toMutableList()
             val actualSize = list.size
             val assertions = mutableListOf<Assertion>()
-            val allSearchCriteria = listOf(searchCriterion, *otherSearchCriteria)
 
-            val mismatches = createAssertionsForAllSearchCriteria(allSearchCriteria, list, assertions)
-            val featureAssertions = createSizeFeatureAssertion(allSearchCriteria, actualSize)
+            val mismatches = createAssertionsForAllSearchCriteria(searchCriteria, list, assertions)
+            val featureAssertions = createSizeFeatureAssertion(searchCriteria, actualSize)
             if (mismatches == 0 && list.isNotEmpty()) {
                 featureAssertions.add(LazyThreadUnsafeAssertionGroup {
                     createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ENTRIES)
@@ -70,7 +69,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, S>(
         }
     }
 
-    private fun createAssertionsForAllSearchCriteria(allSearchCriteria: List<S>, list: MutableList<E?>, assertions: MutableList<Assertion>): Int {
+    private fun createAssertionsForAllSearchCriteria(allSearchCriteria: List<SC>, list: MutableList<E?>, assertions: MutableList<Assertion>): Int {
         var mismatches = 0
         allSearchCriteria.forEach {
             val (found, assertion) = createAssertionForSearchCriterionAndRemoveMatchFromList(it, list)
@@ -80,9 +79,9 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, S>(
         return mismatches
     }
 
-    protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: S, list: MutableList<E?>): Pair<Boolean, Assertion>
+    protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: SC, list: MutableList<E?>): Pair<Boolean, Assertion>
 
-    private fun createSizeFeatureAssertion(allSearchCriteria: List<S>, actualSize: Int): MutableList<Assertion>
+    private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion>
         = mutableListOf(
         AssertImpl.builder.descriptive.create(
             DescriptionAnyAssertion.TO_BE,

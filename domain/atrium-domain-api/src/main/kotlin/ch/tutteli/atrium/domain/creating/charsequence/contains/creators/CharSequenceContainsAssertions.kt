@@ -24,37 +24,31 @@ interface CharSequenceContainsAssertions {
 
     fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: Any,
-        otherExpected: Array<out Any>
+        expected: List<Any>
     ): AssertionGroup
 
     fun <T : CharSequence> valuesIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: Any,
-        otherExpected: Array<out Any>
+        expected: List<Any>
     ): AssertionGroup
 
     fun <T : CharSequence> defaultTranslationOf(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: Translatable,
-        otherExpected: Array<out Translatable>
+        expected: List<Translatable>
     ): AssertionGroup
 
     fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: Translatable,
-        otherExpected: Array<out Translatable>
+        expected: List<Translatable>
     ): AssertionGroup
 
     fun <T : CharSequence> regex(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: String,
-        otherExpected: Array<out String>
+        expected: List<String>
     ): AssertionGroup
 
     fun <T : CharSequence> regexIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: String,
-        otherExpected: Array<out String>
+        expected: List<String>
     ): AssertionGroup
 }

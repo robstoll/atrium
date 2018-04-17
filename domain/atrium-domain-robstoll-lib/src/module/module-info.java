@@ -1,7 +1,7 @@
 module ch.tutteli.atrium.domain.robstoll.lib {
 
-    requires ch.tutteli.atrium.translations.en_UK;
     requires ch.tutteli.atrium.domain.builders;
+    requires static ch.tutteli.atrium.translations.en_UK;
 
     exports ch.tutteli.atrium.domain.robstoll.lib.assertions;
     exports ch.tutteli.atrium.domain.robstoll.lib.assertions.composers;

@@ -18,7 +18,7 @@ For instance, the [REAMDE of v0.6.0](https://github.com/robstoll/atrium/tree/v0.
 
 ----
 
-Atrium is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization) (i18n).
+Atrium is designed to support different [APIs](#apis), different reporting styles and [Internationalization](#internationalization-1) (i18n).
 The core of Atrium as well as the builders to create sophisticated assertions are designed to be extensible and 
 thus allow you to extend or replace components easily.
 
@@ -43,7 +43,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
 - [Write own Assertion Functions](#write-own-assertion-functions)
 - [Use own Assertion Verbs](#use-own-assertion-verbs)
   - [ReporterBuilder](#reporterbuilder)
-- [Internationalization](#internationalization)
+- [Internationalization](#internationalization-1)
 - [APIs](#apis)
 - [Contribute](#contribute)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
@@ -501,7 +501,7 @@ assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 
 Atrium supports further assertion builders (e.g, for `CharSequence`) as well as assertion functions which have not been shown in the examples.
 Have a look at the 
-[specifications](https://github.com/robstoll/atrium/tree/master/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
+[specifications](https://github.com/robstoll/atrium/tree/master/misc/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
 for more examples above.
 
 Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md) for a few more examples.
@@ -518,6 +518,7 @@ The following subsections shall give you a quick overview how Atrium differ from
   - [Additional Information in Failure Reporting](#2--additional-information-in-failure-reporting)
   - [Prevents you from Pitfalls](#3--prevents-you-from-pitfalls)
 - [Flexibility](#flexibility)
+- [Internationalization](#internationalization)
 
 ## Ready to Help
 Atrium is designed to help you whenever possible.
@@ -652,7 +653,7 @@ The method [createAndAddAssertion](https://robstoll.github.io/atrium/latest#/doc
 - and the actual check as lambda where you typically use the `subject` of the assertion.
  
 We use an `Untranslatable` as first argument here because we are not bothered with internationalization.
-In case you want to report in a different language, then have a look at [Internationalization](#internationalization).
+In case you want to report in a different language, then have a look at [Internationalization](#internationalization-1).
 Typically you use the expected value itself as its representation -- so you pass it as second argument.
 
 But not all assertion functions require a value which is somehow compared against the subject 
@@ -684,7 +685,7 @@ as well as to the `AssertionBuilder` which itself helps you with creating assert
 Do you want to write an own sophisticated assertion builder instead of an assertion function? 
 Have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
 [ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-api/src/main/kotlin/ch/tutteli/atrium/creating/iterable/contains).
-Notice that the implementation supports [Internationalization](#internationalization).
+Notice that the implementation supports [Internationalization](#internationalization-1).
 If you have a question, then please post it in the 
 [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 ([Invite yourself](http://slack.kotlinlang.org/) in case you do not have an account yet)

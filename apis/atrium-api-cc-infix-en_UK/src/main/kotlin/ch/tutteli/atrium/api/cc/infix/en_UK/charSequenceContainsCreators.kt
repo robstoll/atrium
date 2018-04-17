@@ -53,7 +53,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.values(this, values.expected, values.otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.values(this, values.toList()))
 
 
 /**
@@ -103,7 +103,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  */
 @JvmName("valuesIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, values.expected, values.otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, values.toList()))
 
 
 /**
@@ -140,7 +140,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, translatables.expected, translatables.otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, translatables.toList()))
 
 
 /**
@@ -180,7 +180,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  */
 @JvmName("defaultTranslationsOfIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, translatables.expected, translatables.otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, translatables.toList()))
 
 
 /**
@@ -218,7 +218,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.regex(this, patterns.pattern, patterns.otherPatterns))
+    = addAssertion(AssertImpl.charSequence.contains.regex(this, patterns.toList()))
 
 
 /**
@@ -258,4 +258,4 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  */
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, patterns.pattern, patterns.otherPatterns))
+    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, patterns.toList()))

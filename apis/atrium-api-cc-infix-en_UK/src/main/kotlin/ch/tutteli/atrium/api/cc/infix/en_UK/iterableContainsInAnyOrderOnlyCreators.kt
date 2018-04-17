@@ -38,7 +38,7 @@ fun <E, T : Iterable<E>> value(builder: IterableContainsBuilder<E, T, InAnyOrder
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, values.expected, values.otherExpected))
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, values.toList()))
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder the values"))
 fun <E, T : Iterable<E>> the(builder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, values: Values<E>): AssertionPlant<T>
@@ -100,7 +100,7 @@ fun <E : Any, T : Iterable<E>> entry(builder: IterableContainsBuilder<E, T, InAn
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, entries.toList()))
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder the entries"))
 fun <E : Any, T : Iterable<E>> the(builder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
@@ -147,7 +147,7 @@ fun <E : Any, T : Iterable<E?>> nullableEntry(builder: IterableContainsBuilder<E
  */
 @JvmName("entries?")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(this, entries.assertionCreator, entries.otherAssertionCreators))
+    = plant.addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(this, entries.toList()))
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder the entries"))
 fun <E : Any, T : Iterable<E?>> nullableEntries(builder: IterableContainsBuilder<E?, T, InAnyOrderOnlySearchBehaviour>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>

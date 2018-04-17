@@ -92,7 +92,7 @@ interface Contains {
     interface Creator<in T : Any, in SC> {
         /**
          * Creates an [AssertionGroup] representing the sophisticated `contains` assertion for the given [plant] based
-         * on the given [searchCriterion] and possibly [otherSearchCriteria] (might be empty).
+         * on the given [searchCriteria].
          *
          * The search process as such is usually influenced by a [SearchBehaviour] which defines the search behaviour
          * and [Checker]s are used to create [Assertion]s based on a determined search result which are grouped
@@ -101,15 +101,16 @@ interface Contains {
          *
          * @param plant The plant -- or rather its [subject][AssertionPlant.subject] -- for which the [AssertionGroup]
          *   is created.
-         * @param searchCriterion A search criterion.
-         * @param otherSearchCriteria Other search criteria (might also be empty).
+         * @param searchCriteria The search criteria - typically not empty.
          *
          * @return The newly created [AssertionGroup].
+         *
+         * @throws IllegalArgumentException Might throw an [IllegalArgumentException] in case [searchCriteria] is empty
+         *   and an empty value is not allowed.
          */
         fun createAssertionGroup(
             plant: AssertionPlant<T>,
-            searchCriterion: SC,
-            otherSearchCriteria: Array<out SC>
+            searchCriteria: List<SC>
         ): AssertionGroup
     }
 }

@@ -40,10 +40,10 @@ abstract class LocaleOrderDeciderSpec(
     val localeDeScriptLatnCh = localeDeChVariantAScriptLatnBuilder.setVariant("").build()
     val localeDeScriptLatn = localeDeChVariantAScriptLatnBuilder.setRegion("").build()
     listOf(
-        Triple("without fallbackLocales", emptyArray(), emptyArray()),
-        Triple("with fallback fr", arrayOf(Locale.FRENCH), arrayOf(Locale.FRENCH)),
-        Triple("with fallback fr_FR", arrayOf(Locale.FRANCE), arrayOf(Locale.FRANCE, Locale.FRENCH)),
-        Triple("with fallback fr_CH and fr_FR", arrayOf(Locale("fr", "CH"), Locale.FRANCE), arrayOf(Locale("fr", "CH"), Locale.FRENCH, Locale.FRANCE, Locale.FRENCH))
+        Triple("without fallbackLocales", emptyList(), emptyArray()),
+        Triple("with fallback fr", listOf(Locale.FRENCH), arrayOf(Locale.FRENCH)),
+        Triple("with fallback fr_FR", listOf(Locale.FRANCE), arrayOf(Locale.FRANCE, Locale.FRENCH)),
+        Triple("with fallback fr_CH and fr_FR", listOf(Locale("fr", "CH"), Locale.FRANCE), arrayOf(Locale("fr", "CH"), Locale.FRENCH, Locale.FRANCE, Locale.FRENCH))
 
     ).forEach { (description, fallbackLocales, additionalLocaleCandidates) ->
         val andAdditional = if (additionalLocaleCandidates.isNotEmpty()) {
@@ -58,7 +58,8 @@ abstract class LocaleOrderDeciderSpec(
                     val result = testee.determineOrder(localeDe, fallbackLocales).asIterable()
                     assert(result).containsStrictly(
                         localeDe
-                        , *additionalLocaleCandidates)
+                        , *additionalLocaleCandidates
+                    )
                 }
             }
 

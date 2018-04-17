@@ -279,7 +279,7 @@ interface CoreFactory {
         translationSupplier: TranslationSupplier,
         localeOrderDecider: LocaleOrderDecider,
         primaryLocale: Locale,
-        vararg fallbackLocales: Locale
+        fallbackLocales: List<Locale>
     ): Translator
 
     /**
