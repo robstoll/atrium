@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.utils.varargToList
+import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 
@@ -37,7 +37,7 @@ fun <E, T : Iterable<E>> wert(checkerBuilder: IterableContainsBuilder<E, T, InOr
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, varargToList(expected, otherExpected)))
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
 
 @Deprecated("Use the extension fun `werte` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.werte(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> werte(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
@@ -98,7 +98,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, varargToList(assertionCreator, otherAssertionCreators)))
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, assertionCreator glue otherAssertionCreators))
 
 @Deprecated("Use the extension fun `eintraege` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E>> eintraege(
@@ -156,7 +156,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.nullableEntriesInOrderOnly(this, varargToList(assertionCreator, otherAssertionCreators)))
+    = plant.addAssertion(AssertImpl.iterable.contains.nullableEntriesInOrderOnly(this, assertionCreator glue otherAssertionCreators))
 
 @Deprecated("Use the extension fun `eintraege` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> nullableEintraege(
