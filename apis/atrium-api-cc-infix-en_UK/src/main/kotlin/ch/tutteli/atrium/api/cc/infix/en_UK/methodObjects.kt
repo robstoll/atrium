@@ -4,19 +4,21 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Method object to express `vararg Translatable` in the infix-api.
+ * Parameter object to express `vararg Translatable` in the infix-api.
  */
 class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected: Translatable) {
     fun toList(): List<Translatable> = listOf(expected, *otherExpected)
 }
 
 /**
- * Method object to express `vararg ((Assert<T>) -> Unit)?` in the infix-api.
+ * Parameter object to express `vararg ((Assert<T>) -> Unit)?` in the infix-api.
  */
-class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: A, vararg val otherAssertionCreators: A)
+class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: A, vararg val otherAssertionCreators: A){
+    fun toList(): List<A> = listOf(assertionCreator, *otherAssertionCreators)
+}
 
 /**
- * Method object to express `vararg T` in the infix-api.
+ * Parameter object to express `vararg T` in the infix-api.
  */
 @Deprecated("Use Values instead, will be removed with 1.0.0", ReplaceWith("Values(expected, *otherExpected)"))
 class Objects<out T>(val expected: T, vararg val otherExpected: T) {
@@ -24,14 +26,14 @@ class Objects<out T>(val expected: T, vararg val otherExpected: T) {
 }
 
 /**
- * Method object to express `vararg String` in the infix-api.
+ * Parameter object to express `vararg String` in the infix-api.
  */
 class RegexPatterns(val pattern: String, vararg val otherPatterns: String) {
     fun toList(): List<String> = listOf(pattern, *otherPatterns)
 }
 
 /**
- * Method object to express `vararg T` in the infix-api.
+ * Parameter object to express `vararg T` in the infix-api.
  */
 class Values<out T>(val expected: T, vararg val otherExpected: T) {
     fun toList(): List<T> = listOf(expected, *otherExpected)
