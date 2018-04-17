@@ -2,19 +2,20 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.kbox.glue
 
 /**
  * Parameter object to express `vararg Translatable` in the infix-api.
  */
 class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected: Translatable) {
-    fun toList(): List<Translatable> = listOf(expected, *otherExpected)
+    fun toList(): List<Translatable> = expected glue otherExpected
 }
 
 /**
  * Parameter object to express `vararg ((Assert<T>) -> Unit)?` in the infix-api.
  */
 class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: A, vararg val otherAssertionCreators: A){
-    fun toList(): List<A> = listOf(assertionCreator, *otherAssertionCreators)
+    fun toList(): List<A> = assertionCreator glue otherAssertionCreators
 }
 
 /**
@@ -29,15 +30,16 @@ class Objects<out T>(val expected: T, vararg val otherExpected: T) {
  * Parameter object to express `vararg String` in the infix-api.
  */
 class RegexPatterns(val pattern: String, vararg val otherPatterns: String) {
-    fun toList(): List<String> = listOf(pattern, *otherPatterns)
+    fun toList(): List<String> = pattern glue otherPatterns
 }
 
 /**
  * Parameter object to express `vararg T` in the infix-api.
  */
 class Values<out T>(val expected: T, vararg val otherExpected: T) {
-    fun toList(): List<T> = listOf(expected, *otherExpected)
 
     @Deprecated("Use Values directly instead of wrapping it into Objects in addition, will be removed with 1.0.0")
     constructor(objects: Objects<T>) : this(objects.expected, *objects.otherExpected)
+
+    fun toList(): List<T> = expected glue otherExpected
 }
