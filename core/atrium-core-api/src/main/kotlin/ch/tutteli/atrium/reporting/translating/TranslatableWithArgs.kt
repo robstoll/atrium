@@ -13,7 +13,7 @@ package ch.tutteli.atrium.reporting.translating
  * @param arguments The arguments which should be used to substitute the placeholders of the [translatable].
  *
  */
-class TranslatableWithArgs private constructor(val translatable: Translatable, val arguments: Array<Any>) : Translatable {
+class TranslatableWithArgs constructor(val translatable: Translatable, val arguments: Array<Any>) : Translatable {
 
     /**
      * Creates a [TranslatableWithArgs] with the given [translatable] and its one and only [argument].

@@ -59,23 +59,23 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
  */
 object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
 
-    override inline fun <T : CharSequence> values(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
-        = charSequenceContainsAssertions.values(checkerOption, expected, otherExpected)
+    override inline fun <T : CharSequence> values(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: List<Any>)
+        = charSequenceContainsAssertions.values(checkerOption, expected)
 
-    override inline fun <T : CharSequence> valuesIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: Any, otherExpected: Array<out Any>)
-        = charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected, otherExpected)
+    override inline fun <T : CharSequence> valuesIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: List<Any>)
+        = charSequenceContainsAssertions.valuesIgnoringCase(checkerOption, expected)
 
-    override inline fun <T : CharSequence> defaultTranslationOf(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: Translatable, otherExpected: Array<out Translatable>)
-        = charSequenceContainsAssertions.defaultTranslationOf(checkerOption, expected, otherExpected)
+    override inline fun <T : CharSequence> defaultTranslationOf(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: List<Translatable>)
+        = charSequenceContainsAssertions.defaultTranslationOf(checkerOption, expected)
 
-    override inline fun <T : CharSequence> defaultTranslationOfIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: Translatable, otherExpected: Array<out Translatable>)
-        = charSequenceContainsAssertions.defaultTranslationOfIgnoringCase(checkerOption, expected, otherExpected)
+    override inline fun <T : CharSequence> defaultTranslationOfIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: List<Translatable>)
+        = charSequenceContainsAssertions.defaultTranslationOfIgnoringCase(checkerOption, expected)
 
-    override inline fun <T : CharSequence> regex(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: String, otherExpected: Array<out String>)
-        = charSequenceContainsAssertions.regex(checkerOption, expected, otherExpected)
+    override inline fun <T : CharSequence> regex(checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>, expected: List<String>)
+        = charSequenceContainsAssertions.regex(checkerOption, expected)
 
-    override inline fun <T : CharSequence> regexIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: String, otherExpected: Array<out String>)
-        = charSequenceContainsAssertions.regexIgnoringCase(checkerOption, expected, otherExpected)
+    override inline fun <T : CharSequence> regexIgnoringCase(checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>, expected: List<String>)
+        = charSequenceContainsAssertions.regexIgnoringCase(checkerOption, expected)
 
     /**
      * Returns [CharSequenceContainsSearchBehaviourFactoryBuilder]

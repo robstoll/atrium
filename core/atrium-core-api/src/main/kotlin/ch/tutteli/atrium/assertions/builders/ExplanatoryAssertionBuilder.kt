@@ -18,7 +18,7 @@ interface ExplanatoryAssertionBuilder {
      * It then delegates to the overload which expects a single [Translatable].
      */
     fun create(translatable: Translatable, arg: Any, vararg otherArgs: Any): ExplanatoryAssertion
-        = create(TranslatableWithArgs(translatable, arg, *otherArgs))
+        = create(TranslatableWithArgs(translatable, arrayOf(arg, *otherArgs)))
 
     /**
      * Creates an [ExplanatoryAssertion] using the given [translatable] as explanation.

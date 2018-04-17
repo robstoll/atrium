@@ -15,43 +15,37 @@ class CharSequenceContainsAssertionsImpl: CharSequenceContainsAssertions {
 
     override fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: Any,
-        otherExpected: Array<out Any>
+        expected: List<Any>
     ): AssertionGroup
-        = _containsValues(checkerOption, expected, otherExpected)
+        = _containsValues(checkerOption, expected)
 
     override fun <T : CharSequence> valuesIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: Any,
-        otherExpected: Array<out Any>
+        expected: List<Any>
     ): AssertionGroup
-        = _containsValuesIgnoringCase(checkerOption, expected, otherExpected)
+        = _containsValuesIgnoringCase(checkerOption, expected)
 
     override fun <T : CharSequence> defaultTranslationOf(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: Translatable,
-        otherExpected: Array<out Translatable>
+        expected: List<Translatable>
     ): AssertionGroup
-        = _containsDefaultTranslationOf(checkerOption, expected, otherExpected)
+        = _containsDefaultTranslationOf(checkerOption, expected)
 
     override fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: Translatable,
-        otherExpected: Array<out Translatable>
+        expected: List<Translatable>
     ): AssertionGroup
-        = _containsDefaultTranslationOfIgnoringCase(checkerOption, expected, otherExpected)
+        = _containsDefaultTranslationOfIgnoringCase(checkerOption, expected)
 
     override fun <T : CharSequence> regex(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
-        expected: String,
-        otherExpected: Array<out String>
+        expected: List<String>
     ): AssertionGroup
-        = _containsRegex(checkerOption, expected, otherExpected)
+        = _containsRegex(checkerOption, expected)
 
     override fun <T : CharSequence> regexIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
-        expected: String,
-        otherExpected: Array<out String>
+        expected: List<String>
     ): AssertionGroup
-        = _containsRegexIgnoringCase(checkerOption, expected, otherExpected)
+        = _containsRegexIgnoringCase(checkerOption, expected)
 }

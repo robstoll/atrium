@@ -48,7 +48,7 @@ internal class TranslatorOptionImpl(
             translationSupplier,
             localeOrderDecider,
             primaryLocale,
-            *fallbackLocales
+            fallbackLocales.toList()
         ))
 
     override fun withTranslator(factory: (TranslationSupplier, LocaleOrderDecider) -> Translator)

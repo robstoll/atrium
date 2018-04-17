@@ -4,6 +4,7 @@ import ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Translator
+import ch.tutteli.kbox.forThisAndForEachIn
 import java.util.*
 
 /**
@@ -31,12 +32,12 @@ import java.util.*
  */
 internal class ResourceBundleBasedTranslator(
     primaryLocale: Locale,
-    fallbackLocales: Array<out Locale>
+    fallbackLocales: List<Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
     override fun translateWithoutArgs(translatable: Translatable): String {
         val control = ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
-        listOf(primaryLocale, *fallbackLocales).forEach { locale ->
+        primaryLocale.forThisAndForEachIn(fallbackLocales) { locale ->
             try {
                 val bundle = ResourceBundle.getBundle(translatable::class.java.name, locale, control)
                 return bundle.getString(translatable.name)
@@ -60,9 +61,6 @@ internal class ResourceBundleBasedTranslator(
          *   given order.
          */
         fun create(primaryLocale: Locale, vararg fallbackLocales: Locale)
-            = ResourceBundleBasedTranslator(
-            primaryLocale,
-            fallbackLocales
-        )
+            = ResourceBundleBasedTranslator(primaryLocale, fallbackLocales.toList())
     }
 }
