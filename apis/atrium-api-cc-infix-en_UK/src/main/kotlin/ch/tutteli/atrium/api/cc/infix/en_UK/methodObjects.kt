@@ -6,7 +6,9 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * Method object to express `vararg Translatable` in the infix-api.
  */
-class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected: Translatable)
+class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected: Translatable) {
+    fun toList(): List<Translatable> = listOf(expected, *otherExpected)
+}
 
 /**
  * Method object to express `vararg ((Assert<T>) -> Unit)?` in the infix-api.
@@ -24,7 +26,9 @@ class Objects<out T>(val expected: T, vararg val otherExpected: T) {
 /**
  * Method object to express `vararg String` in the infix-api.
  */
-class RegexPatterns(val pattern: String, vararg val otherPatterns: String)
+class RegexPatterns(val pattern: String, vararg val otherPatterns: String) {
+    fun toList(): List<String> = listOf(pattern, *otherPatterns)
+}
 
 /**
  * Method object to express `vararg T` in the infix-api.

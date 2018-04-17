@@ -95,7 +95,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  */
 @JvmName("werteGrossKleinschreibungIgnorierend")
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, expected, otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, varargToList(expected, otherExpected)))
 
 
 /**
@@ -119,7 +119,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.standardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, expected, otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, varargToList(expected, otherExpected)))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
@@ -143,7 +143,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  */
 @JvmName("standardUebersetzungVonGrossKleinschreibungIgnorierend")
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.standardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, expected, otherExpected))
+    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, varargToList(expected, otherExpected)))
 
 
 /**
@@ -168,7 +168,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.regex(this, pattern, otherPatterns))
+    = addAssertion(AssertImpl.charSequence.contains.regex(this, varargToList(pattern, otherPatterns)))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -193,4 +193,4 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  */
 @JvmName("regexIgnoringCase")
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, pattern, otherPatterns))
+    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, varargToList(pattern, otherPatterns)))
