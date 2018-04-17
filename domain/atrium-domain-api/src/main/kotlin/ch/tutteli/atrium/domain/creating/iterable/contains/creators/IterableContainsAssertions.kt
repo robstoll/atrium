@@ -25,57 +25,48 @@ interface IterableContainsAssertions {
 
     fun <E, T : Iterable<E>> valuesInAnyOrder(
         checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
-        expected: E,
-        otherExpected: Array<out E>
+        expected: List<E>
     ): Assertion
 
     fun <E : Any, T : Iterable<E>> entriesInAnyOrder(
         checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
-        assertionCreator: AssertionPlant<E>.() -> Unit,
-        otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
+        assertionCreators: List<AssertionPlant<E>.() -> Unit>
     ): Assertion
 
     fun <E : Any, T : Iterable<E?>> nullableEntriesInAnyOrder(
         checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
-        assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-        otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 
 
     fun <E, T : Iterable<E>> valuesInAnyOrderOnly(
         builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
-        expected: E,
-        otherExpected: Array<out E>
+        expected: List<E>
     ): Assertion
 
     fun <E : Any, T : Iterable<E>> entriesInAnyOrderOnly(
         builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
-        assertionCreator: AssertionPlant<E>.() -> Unit,
-        otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
+        assertionCreators: List<AssertionPlant<E>.() -> Unit>
     ): Assertion
 
     fun <E : Any, T : Iterable<E?>> nullableEntriesInAnyOrderOnly(
         builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
-        assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-        otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 
 
     fun <E, T : Iterable<E>> valuesInOrderOnly(
         builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
-        expected: E,
-        otherExpected: Array<out E>
+        expected: List<E>
     ): Assertion
 
     fun <E : Any, T : Iterable<E>> entriesInOrderOnly(
         builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
-        assertionCreator: AssertionPlant<E>.() -> Unit,
-        otherAssertionCreators: Array<out AssertionPlant<E>.() -> Unit>
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)>
     ): Assertion
 
     fun <E : Any, T : Iterable<E?>> nullableEntriesInOrderOnly(
         builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
-        assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-        otherAssertionCreators: Array<out (AssertionPlant<E>.() -> Unit)?>
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ): Assertion
 }
