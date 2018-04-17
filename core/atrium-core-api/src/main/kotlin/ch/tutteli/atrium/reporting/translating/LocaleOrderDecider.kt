@@ -29,6 +29,6 @@ interface LocaleOrderDecider {
      *
      * @return A [Sequence] of [Locale]s which defines the order in which translations should be searched for.
      */
-    fun determineOrder(primaryLocale: Locale, fallbackLocales: Array<out Locale>): Sequence<Locale>
+    fun determineOrder(primaryLocale: Locale, fallbackLocales: List<Locale>): Sequence<Locale>
 }
 
