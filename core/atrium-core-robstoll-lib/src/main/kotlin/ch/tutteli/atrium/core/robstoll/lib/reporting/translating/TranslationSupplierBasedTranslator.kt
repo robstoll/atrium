@@ -27,7 +27,7 @@ class TranslationSupplierBasedTranslator(
     private val translationSupplier: TranslationSupplier,
     private val localeOrderDecider: LocaleOrderDecider,
     primaryLocale: Locale,
-    fallbackLocales: Array<out Locale>
+    fallbackLocales: List<Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
     override fun translateWithoutArgs(translatable: Translatable)

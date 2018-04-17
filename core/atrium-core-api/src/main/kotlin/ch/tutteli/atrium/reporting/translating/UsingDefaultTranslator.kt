@@ -14,7 +14,7 @@ import java.util.*
  */
 class UsingDefaultTranslator(
     primaryLocale: Locale = Locale.getDefault()
-) : ArgumentsSupportingTranslator(primaryLocale, arrayOf()) {
+) : ArgumentsSupportingTranslator(primaryLocale, listOf()) {
 
     override fun translateWithoutArgs(translatable: Translatable) = translatable.getDefault()
 }

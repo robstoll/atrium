@@ -122,7 +122,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          *   in case no translation was found the previous primary Locale.
          */
         fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale)
-            = ObjectFormatterOptions(coreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales))
+            = ObjectFormatterOptions(coreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales.toList()))
 
         /**
          * Uses the given [factory] to build a [Translator].

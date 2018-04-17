@@ -67,7 +67,7 @@ class CoreFactoryImpl : CoreFactory {
     override fun newMethodCallFormatter(): MethodCallFormatter
         = TextMethodCallFormatter
 
-    override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
+    override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, fallbackLocales: List<Locale>): Translator
         = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales)
 
     override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier

@@ -1,5 +1,8 @@
 description = 'API of the core of Atrium.'
 
 dependencies {
+    compile("ch.tutteli:kbox:$kbox_version") {
+        exclude group: 'org.jetbrains.kotlin'
+    }
     testCompile prefixedProject('cc-infix-en_UK-robstoll')
 }

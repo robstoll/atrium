@@ -16,7 +16,7 @@ import java.util.*
 
 abstract class TranslationSupplierBasedTranslatorSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: Locale, fallbackLocals: Array<out Locale>) -> Translator,
+    testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: Locale, fallbackLocals: List<Locale>) -> Translator,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -24,7 +24,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         = describeFun(describePrefix, funName, body = body)
 
     fun testeeFactory(translationSupplier: TranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)
-        = testeeFactory(translationSupplier, coreFactory.newLocaleOrderDecider(), locale, fallbackLocals)
+        = testeeFactory(translationSupplier, coreFactory.newLocaleOrderDecider(), locale, fallbackLocals.toList())
 
     fun mockTranslationProvider(locale: Locale, translatable: Translatable, translation: String): TranslationSupplier {
         return mock {
