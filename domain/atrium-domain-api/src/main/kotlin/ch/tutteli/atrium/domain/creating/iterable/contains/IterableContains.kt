@@ -45,9 +45,9 @@ interface IterableContains {
      * as such.
      *
      * @param T The type of the [AssertionPlant.subject].
-     * @param S The type of the search criteria.
+     * @param SC The type of the search criteria.
      */
-    interface Creator<in T : Iterable<*>, in S> : Contains.Creator<T, S>
+    interface Creator<in T : Iterable<*>, in SC> : Contains.Creator<T, SC>
 
     /**
      * Represents a check for the search result such as: the object is contained exactly once in the input of the search.

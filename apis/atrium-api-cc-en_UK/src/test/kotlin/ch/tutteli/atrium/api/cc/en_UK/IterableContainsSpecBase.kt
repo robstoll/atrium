@@ -3,10 +3,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import kotlin.reflect.KProperty
 
 abstract class IterableContainsSpecBase {
@@ -27,4 +24,7 @@ abstract class IterableContainsSpecBase {
     protected val only = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::only.name
     protected val inOrderOnlyValues = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::values.name
     protected val inOrderOnlyEntries = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::entries.name
+    protected val grouped = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::grouped.name
+    protected val within = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedSearchBehaviour>::within.name
+    protected val withinInAnyOrder = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder.name
 }

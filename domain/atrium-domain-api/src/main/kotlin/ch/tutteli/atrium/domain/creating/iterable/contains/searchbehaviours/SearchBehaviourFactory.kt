@@ -33,4 +33,12 @@ interface SearchBehaviourFactory {
     fun <E, T : Iterable<E>> inOrderOnly(
         builder: IterableContains.Builder<E, T, InOrderSearchBehaviour>
     ): IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>
+
+    fun <E, T : Iterable<E>> inOrderOnlyGrouped(
+        builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>
+    ): IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
+
+    fun <E, T : Iterable<E>> inOrderOnlyGroupedWithin(
+        builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
+    ): IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>
 }

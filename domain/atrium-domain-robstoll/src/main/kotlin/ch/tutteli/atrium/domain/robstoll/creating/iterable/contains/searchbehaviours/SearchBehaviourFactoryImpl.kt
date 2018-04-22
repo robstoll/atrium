@@ -29,4 +29,13 @@ class SearchBehaviourFactoryImpl : SearchBehaviourFactory {
     ): IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>
         = _containsInOrderOnly(builder)
 
+    override fun <E, T : Iterable<E>> inOrderOnlyGrouped(
+        builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>
+    ): IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
+        = _containsInOrderOnlyGrouped(builder)
+
+    override fun <E, T : Iterable<E>> inOrderOnlyGroupedWithin(
+        builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
+    ): IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>
+        = _containsInOrderOnlyGroupedWithing(builder)
 }
