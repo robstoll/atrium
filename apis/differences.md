@@ -167,7 +167,7 @@ assert(x) to contain inAny order but only entry { this isLessThan 2 }
 assert(x) to contain inAny order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
 ```
 
-## Iterable contains in any order
+## Iterable contains in order
 
 *atrium-api-cc-en_UK*
 ```kotlin
@@ -177,10 +177,9 @@ assert(x).containsStrictly({ isLessThan(2) })
 assert(x).containsStrictly({ isLessThan(2) }, { isGreaterThan 5 })
 assert(x).contains.inOrder.only.value("hello")
 assert(x).contains.inOrder.only.values("hello", "world")
-assert(x).contains.inOrder.only.`object`(personA)
-assert(x).contains.inOrder.only.objects(personA, personB)
 assert(x).contains.inOrder.only.entry { isLessThan(2) }
 assert(x).contains.inOrder.only.entries({ toBe(3) }, { isLessThan(2) })
+assert(x).contains.inOrder.only.grouped.within.inAnyOrder(Values(1), Values(1, 2), Values(3, 4))
 ```
 
 *atrium-api-cc-infix-en_UK*
@@ -191,10 +190,9 @@ assert(x) containsStrictly { this isLessThan 2 }
 assert(x) containsStrictly Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
 assert(x) contains inGiven order but only value "hello"
 assert(x) contains inGiven order but only the Values("hello", "world")
-assert(x) contains inGiven order but only `object` personA
-assert(x) contains inGiven order but only the Objects(personA, personB)
 assert(x) contains inGiven order but only entry { this isLessThan 2 }
 assert(x) contains inGiven order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
+assert(x) contains inGiven order but only grouped entries within group inAny Order(Value(1), Values(1, 2), Values(3, 4))
 ```
 
 ## Iterable contains not
@@ -228,4 +226,5 @@ assert(listOf(null, 1)).contains.inAnyOrder.only.entries(null, { isLessThan(2) }
 ```kotlin
 assert(listOf(null, 1)) to contain inAny order entry null
 assert(listOf(null, 1)) to contain inAny order but only the Entries(null, { this isLessThan 2 })
+//see above for other inAnyOrder and inOrder examples
 ```

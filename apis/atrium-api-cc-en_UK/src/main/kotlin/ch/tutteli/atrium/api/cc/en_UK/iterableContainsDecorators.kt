@@ -50,7 +50,7 @@ fun <E, T : Iterable<E>> getInOrder(builder: IterableContainsBuilder<E, T, NoOpS
 
 /**
  * Defines that the constraint "`only` the specified entries exist in the [Iterable]" shall be applied to this
- * sophisticated `contains` [Iterable] assertion.
+ * sophisticated `contains in order` [Iterable] assertion.
  *
  * @return The newly created builder.
  */
@@ -61,3 +61,20 @@ val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.
 @Deprecated("Use the extension fun `only` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.only"))
 fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContainsBuilder<E, T, InOrderSearchBehaviour>): IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.plant, builder.only.searchBehaviour)
+
+/**
+ * Defines that the [Iterable] contains `in order only` groups of entries
+ * whereas the order within the group is specified as next step.
+ *
+ * @return The newly created builder.
+ */
+val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.grouped
+    get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnlyGrouped(this)
+
+/**
+ * A filler word to emphasis that the next step defines the order within expected groups of values.
+ *
+ * @return The newly created builder.
+ */
+val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.within
+    get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnlyGroupedWithin(this)

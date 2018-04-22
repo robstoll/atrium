@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import java.util.*
 
@@ -68,5 +69,11 @@ interface IterableContainsAssertions {
     fun <E : Any, T : Iterable<E?>> nullableEntriesInOrderOnly(
         builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
+    ): Assertion
+
+
+    fun <E: Any, T : Iterable<E>> valuesInOrderOnlyGrouped(
+        builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>,
+        groups: List<List<E>>
     ): Assertion
 }
