@@ -25,6 +25,7 @@ include {
         _ 'api-cc-de_CH'
         _ 'api-cc-en_UK'
         _ 'api-cc-infix-en_UK'
+        _ 'api-cc-infix-en_GB'
     }
 
     domain {
