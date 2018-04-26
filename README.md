@@ -72,6 +72,8 @@ dependencies {
     testCompile "ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version"
 }
 ```
+We have defined a dependency to the bundle `atrium-cc-en_UK-robstoll` in the above example. 
+Adjust it if you use [another bundle](#apis) (e.g. `atrium-cc-infix-en_UK-robstoll` if you use the infix api).
 
 *maven*:  
 Because maven is a bit more verbose than gradle, the example is not listed here but 
@@ -90,10 +92,14 @@ That is all, you are all set. The next section shows you how to use Atrium.
 # Examples
 We are using the API provided by the bundle module 
 [atrium-cc-en_UK-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_UK-robstoll/build.gradle)
-in the following examples. It provides a pure fluent API. 
+in the following examples. 
+It provides a pure fluent API.
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
 to see how the infix API looks like.
+
+Moreover, we have defined our [own assertion verbs](#use-own-assertion-verbs) (`assert` and `expect`). 
+More on that in the following subsection. 
 
 ## Your First Assertion
 We start off with a simple example:
@@ -110,13 +116,27 @@ assert: 10        (java.lang.Integer <934275857>)
 where `◆ ...` represents a single assertion for the subject (`10` in the above example) of the assertion.
 The examples in the following sections include the error message (the output) in the code example itself as comments.
 
+As mentioned in the introductory paragraph of the [Examples](#examples) section we have defined our [own assertion verbs](#use-own-assertion-verbs) 
+where one verb is named `assert`. 
+That means the `assert` you have seen above is not Kotlin's [assert](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/assert.html) 
+but actually the specified assertion verb (which is assumed to be defined in the same package, hence we do not need an additional `import`). 
+
+*You want to run the example yourself?* 
+Have a look at the [Installation](#installation) section which explains how to set up a dependency to Atrium
+and how you specify an assertion verb. 
+
+In case you are using a [predefined assertion verb](#out-of-the-box-assertion-verbs), 
+then you need to add a corresponding `import` statement, so for the above it would be `import ch.tutteli.atrium.verbs.assert.assert` 
+(and for later examples you require `import ch.tutteli.atrium.verbs.expect.expect`).
+
+:information_source: Before we continue with the next example, a quick introduction about assertion verbs (the icon :information_source: signify additional information, worth reading IMO but if you only after code examples, then you can skip to the next section).  
 Atrium lets you choose the assertion verb (`assert` in the above example). 
 Regardless whether you prefer `expect`, `assertThat` or yet another assertion verb/phrase
 you can [define your own assertion verbs](#use-own-assertion-verbs) which suit your coding style.
 In the following examples we will use `assert` for regular assertions 
 and `expect` to postulate that we [Expect an Exception](#expect-an-exception).
 
-:information_source: An [own assertion verb](#use-own-assertion-verbs) lets you configure inter alia the reporting style by using the [`ReporterBuilder`](#reporterbuilder). 
+An [own assertion verb](#use-own-assertion-verbs) lets you configure inter alia the reporting style by using the [`ReporterBuilder`](#reporterbuilder). 
 For instance, in case you prefer multi-line reporting over single-line reporting,
 then you can configure `ReporterBuilder` as follows.
 Instead of using `.withTextSameLineAssertionPairFormatter()` you use the following:
@@ -693,7 +713,7 @@ and I will try to help you.
 
 # Use own Assertion Verbs
 
-Atrium offers three assertion verbs for the impatient: `assert`, `assertThat` and `expect`. 
+Atrium offers three assertion verbs for the impatient: `assert`, `assertThat` and `expect` (see [Out of the Box Assertion Verbs](#out-of-the-box-assertion-verbs). 
 However , I suggest that you **use your own assertion verbs** even in the case you name them
 `assert`, `assertThat` or `expect`. The benefit will be that you are able to change the
 reporting style in the future without modifying existing test code. 
