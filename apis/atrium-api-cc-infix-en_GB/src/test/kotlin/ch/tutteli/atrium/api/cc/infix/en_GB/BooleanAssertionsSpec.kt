@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.en_GB
+package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
@@ -10,10 +10,10 @@ class BooleanAssertionsSpec : ch.tutteli.atrium.spec.integration.BooleanAssertio
 ) {
     companion object {
         private fun toBeTrue(plant: Assert<Boolean>): Assert<Boolean>
-            = plant.toBe(true)
+            = plant toBe true
 
         private fun toBeFalse(plant: Assert<Boolean>): Assert<Boolean>
-            = plant.toBe(false)
+            = plant toBe false
     }
 
 }

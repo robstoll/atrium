@@ -12,7 +12,6 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.include
 
-//TODO remove with 1.0.0
 abstract class BooleanAssertionsSpec(
     verbs: AssertionVerbFactory,
     isTruePair: Pair<String, Assert<Boolean>.() -> Assert<Boolean>>,
