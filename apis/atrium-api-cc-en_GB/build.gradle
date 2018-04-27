@@ -6,7 +6,6 @@ description = 'An assertion function API in en_GB with a focus on code completio
 ext.jacoco_additional = prefixedProject('translations-en_GB')
 
 dependencies {
-    compile prefixedProject('domain-api-deprecated')
     compile prefixedProject('domain-builders')
 
     testCompile prefixedProject('domain-robstoll')

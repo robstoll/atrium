@@ -1,5 +1,8 @@
 description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs.'
 
+sourceCompatibility = '9'
+targetCompatibility = '9'
+
 dependencies {
     compile prefixedProject('domain-api')
 
