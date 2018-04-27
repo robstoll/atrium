@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import kotlin.math.exp
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].
