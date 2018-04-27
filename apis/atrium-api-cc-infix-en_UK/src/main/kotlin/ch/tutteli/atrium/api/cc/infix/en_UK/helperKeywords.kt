@@ -2,28 +2,17 @@
 
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-/**
- * Represents a helper construct which allows to express emptiness.
- * It can be used for a parameter less function so that it has one parameter and thus can be used as infix function.
- */
+@Deprecated("Use `Empty` from module en_GB, package keywords, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty"))
 object Empty
 
-/**
- * Represents the pseudo keyword `contain` as in [to] `contain`.
- */
+@Deprecated("Use `contain` from module en_GB, package keywords, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain"))
 object contain
 
-/**
- * Represents the pseudo keyword `case` as in [ignoring] `case`.
- */
+@Deprecated("Use `case` from module en_GB, package keywords, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.keywords.case"))
 object case
 
-/**
- * Represents the pseudo keyword `only` as in [but] `only`.
- */
+@Deprecated("Use `only` from module en_GB, package keywords, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only"))
 object only
 
-/**
- * Represents the pseudo keyword `order` as in [inAny] `order`.
- */
+@Deprecated("Use `order` from module en_GB, package keywords, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order"))
 object order

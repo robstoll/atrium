@@ -1,6 +1,9 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include

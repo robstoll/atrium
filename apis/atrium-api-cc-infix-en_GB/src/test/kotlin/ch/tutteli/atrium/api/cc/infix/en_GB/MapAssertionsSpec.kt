@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.creating.Assert
 
 class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
