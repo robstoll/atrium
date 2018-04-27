@@ -2,7 +2,7 @@ description = 'Represents a convenience module which merely bundles dependencies
 
 dependencies {
     compile prefixedProject('api-cc-en_UK')
-    compile prefixedProject('translations-en_UK')
+    compile prefixedProject('translations-en_GB')
     compile prefixedProject('domain-robstoll')
     compile prefixedProject('core-robstoll')
 
