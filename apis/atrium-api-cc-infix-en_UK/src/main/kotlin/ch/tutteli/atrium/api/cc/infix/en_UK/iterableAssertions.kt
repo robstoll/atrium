@@ -55,14 +55,15 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(expected: E)
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Values(...)`
  *
- * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [Objects.expected] is
- * defined as `'a'` and one [Objects.otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
+ * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
+ * [Values.expected] is defined as `'a'` and one [Values.otherExpected] is defined as `'a'` as well, then both match,
+ * even though they match the same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the
+ * number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `to contain inAny order exactly 2 value('a')`
  * instead of:
- *   `contains Objects('a', 'a')`
+ *   `contains Values('a', 'a')`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -249,24 +250,24 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, entri
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value.
  *
- * Delegates to `containsNot Objects(expected)`.
+ * Delegates to `containsNot Values(expected)`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlant<T>
-    = this containsNot Objects(expected)
+    = this containsNot Values(expected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the expected [values].
  *
- * Delegates to `containsNot Objects(values)`.
+ * It is a shortcut for `notTo contain the Values(...)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): AssertionPlant<T>
-    = this containsNot Objects(values)
+    = this notTo contain the values
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the expected [objects].
@@ -277,4 +278,4 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): Asserti
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Assert<T>.containsNot(objects: Objects<E>)
-    = this notTo contain the objects
+    = this containsNot Values(objects)

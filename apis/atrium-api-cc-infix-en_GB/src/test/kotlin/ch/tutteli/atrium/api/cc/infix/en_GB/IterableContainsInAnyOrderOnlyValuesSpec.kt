@@ -14,9 +14,9 @@ class IterableContainsInAnyOrderOnlyValuesSpec : ch.tutteli.atrium.spec.integrat
 
         private fun containsInAnyOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inAny order but only `object` a
+                plant to contain inAny order but only value a
             } else {
-                plant to contain inAny order but only the Objects(a, *aX)
+                plant to contain inAny order but only the Values(a, *aX)
             }
         }
 

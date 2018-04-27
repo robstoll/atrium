@@ -20,14 +20,6 @@ class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: 
 }
 
 /**
- * Parameter object to express `T, vararg T` in the infix-api.
- */
-@Deprecated("Use Values instead, will be removed with 1.0.0", ReplaceWith("Values(expected, *otherExpected)"))
-class Objects<out T>(val expected: T, vararg val otherExpected: T) {
-    constructor(values: Values<T>) : this(values.expected, *values.otherExpected)
-}
-
-/**
  * Parameter object to express `String, vararg String` in the infix-api.
  */
 class RegexPatterns(val pattern: String, vararg val otherPatterns: String) {
@@ -45,9 +37,5 @@ class Value<out T>(val expected: T): Group<T>{
  * Parameter object to express `T, vararg T` in the infix-api.
  */
 class Values<out T>(val expected: T, vararg val otherExpected: T): Group<T> {
-
-    @Deprecated("Use Values directly instead of wrapping it into Objects in addition, will be removed with 1.0.0")
-    constructor(objects: Objects<T>) : this(objects.expected, *objects.otherExpected)
-
     override fun toList(): List<T> = expected glue otherExpected
 }

@@ -17,7 +17,7 @@ class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integra
             return if (aX.isEmpty()) {
                 plant contains a
             } else {
-                plant contains Objects(a, *aX)
+                plant contains Values(a, *aX)
             }
         }
 
@@ -28,7 +28,7 @@ class IterableContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integra
             return if (aX.isEmpty()) {
                 plant containsNot a
             } else {
-                plant containsNot Objects(a, *aX)
+                plant containsNot Values(a, *aX)
             }
         }
     }

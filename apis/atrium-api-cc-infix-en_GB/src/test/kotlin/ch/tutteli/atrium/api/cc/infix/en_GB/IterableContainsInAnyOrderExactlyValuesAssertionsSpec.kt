@@ -19,9 +19,9 @@ class IterableContainsInAnyOrderExactlyValuesAssertionsSpec : ch.tutteli.atrium.
 
         private fun containsExactly(plant: Assert<Iterable<Double>>, exactly: Int, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inAny order exactly exactly `object` a
+                plant to contain inAny order exactly exactly value a
             } else {
-                plant to contain inAny order exactly exactly the Objects(a, *aX)
+                plant to contain inAny order exactly exactly the Values(a, *aX)
             }
         }
 

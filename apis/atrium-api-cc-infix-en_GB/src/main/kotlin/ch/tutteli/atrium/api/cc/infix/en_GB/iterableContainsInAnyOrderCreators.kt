@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
-import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -21,11 +20,6 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  */
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): AssertionPlant<T>
     = this the Values(expected)
-
-@Deprecated("Use the extension fun `value` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder value expected"))
-fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, expected: E): AssertionPlant<T>
-    = the(checkerBuilder, Values(expected))
-
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
@@ -49,27 +43,6 @@ fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsCheckerBuilder<E,
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, values.toList()))
 
-@Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder the values"))
-fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, values: Values<E>): AssertionPlant<T>
-    = checkerBuilder the values
-
-
-@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `value expected` without adding enough to be a legit alternative.", ReplaceWith("this value expected"))
-infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.`object`(expected: E): AssertionPlant<T>
-    = this the Values(expected)
-
-@Deprecated("Use the extension fun `value` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder value expected"))
-fun <E, T : Iterable<E>> `object`(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, expected: E): AssertionPlant<T>
-    = the(checkerBuilder, Values(expected))
-
-@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `the Values(expected, otherExpected)` without adding enough to be a legit alternative.", ReplaceWith("this the Values(objects)"))
-infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(objects: Objects<E>): AssertionPlant<T>
-    = this the Values(objects)
-
-@Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder the objects"))
-fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, objects: Objects<E>): AssertionPlant<T>
-    = checkerBuilder the Values(objects)
-
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
@@ -87,11 +60,6 @@ fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T
 infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = this the Entries(assertionCreator)
 
-@Deprecated("Use the extension fun `entry` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder entry assertionCreator"))
-fun <E : Any, T : Iterable<E>> entry(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
-    = the(checkerBuilder, Entries(assertionCreator))
-
-
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
  * all assertions [Entries.assertionCreator] might create and search for entries which hold (one by one) the assertions
@@ -104,10 +72,6 @@ fun <E : Any, T : Iterable<E>> entry(checkerBuilder: IterableContainsCheckerBuil
  */
 infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, entries.toList()))
-
-@Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder the entries"))
-fun <E : Any, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
-    = checkerBuilder the entries
 
 
 /**
@@ -127,11 +91,6 @@ fun <E : Any, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilde
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this the Entries(assertionCreator)
 
-@Deprecated("Use the extension fun `entry` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder entry assertionCreator"))
-fun <E : Any, T : Iterable<E?>> nullableEntry(checkerBuilder: IterableContainsCheckerBuilder<E?, T, InAnyOrderSearchBehaviour>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = nullableEntries(checkerBuilder, Entries(assertionCreator))
-
-
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
  * holds all assertions [Entries.assertionCreator] might create or is `null` in case [Entries.assertionCreator] is null as well --
@@ -145,7 +104,3 @@ fun <E : Any, T : Iterable<E?>> nullableEntry(checkerBuilder: IterableContainsCh
 @JvmName("entries?")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrder(this, entries.toList()))
-
-@Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder the entries"))
-fun <E : Any, T : Iterable<E?>> nullableEntries(checkerBuilder: IterableContainsCheckerBuilder<E?, T, InAnyOrderSearchBehaviour>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = checkerBuilder the entries
