@@ -9,8 +9,6 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.api.cc.infix.en_GB.assertions.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilder as DeprecatedNotCheckerBuilder
-import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder as DeprecatedBuilder
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
@@ -23,11 +21,6 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
 infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     = AssertImpl.charSequence.containsBuilder(this)
 
-@Deprecated("Use the extension function `to`, will be removed with 1.0.0", ReplaceWith("plant to contain"))
-fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedBuilder<T, NoOpSearchBehaviour>
-    = DeprecatedBuilder(plant, (plant to contain).searchBehaviour)
-
-
 /**
  * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
  * more sophisticated `contains not` assertions.
@@ -36,11 +29,6 @@ fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contai
  */
 infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): NotCheckerOption<T, NotSearchBehaviour>
     = NotCheckerOptionImpl(AssertImpl.charSequence.containsNotBuilder(this))
-
-@Deprecated("Use the extension function `notTo`, will be removed with 1.0.0", ReplaceWith("plant notTo contain"))
-fun <T : CharSequence> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contain: contain): DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>
-    = DeprecatedNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(plant))
-
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the [toString] representation of the given [expected]

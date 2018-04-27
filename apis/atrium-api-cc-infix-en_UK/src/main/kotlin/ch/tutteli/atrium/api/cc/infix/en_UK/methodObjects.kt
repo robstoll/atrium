@@ -22,8 +22,9 @@ class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: 
 /**
  * Parameter object to express `T, vararg T` in the infix-api.
  */
-@Deprecated("Use Values instead, will be removed with 1.0.0", ReplaceWith("Values(expected, *otherExpected)"))
+@Deprecated("Use Values instead, will be removed with 1.0.0 - there is no ReplaceWith defined due to bug KT-10094, please use search & replace instead, watch out for `Values(Values(` afterwards")
 class Objects<out T>(val expected: T, vararg val otherExpected: T) {
+    @Deprecated("Use Values instead, will be removed with 1.0.0 - there is no ReplaceWith defined due to bug KT-10094, please use search & replace, watch out for `Values(Values(` afterwards")
     constructor(values: Values<T>) : this(values.expected, *values.otherExpected)
 }
 

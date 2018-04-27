@@ -19,12 +19,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): AssertionPlant<T>
-    = this the Objects(expected)
-
-@Deprecated("Use the extension fun `value` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder value expected"))
-fun <E, T : Iterable<E>> value(builder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
-    = the(builder, Values(expected))
-
+    = this the Values(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
