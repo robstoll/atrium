@@ -20,6 +20,15 @@ class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: 
 }
 
 /**
+ * Parameter object to express `Group<T>, Group<T>, vararg Group<T>` in the infix-api.
+ */
+class Order<T>(
+    val firstGroup: Group<T>,
+    val secondGroup: Group<T>,
+    vararg val otherExpectedGroups: Group<T>
+)
+
+/**
  * Parameter object to express `String, vararg String` in the infix-api.
  */
 class RegexPatterns(val pattern: String, vararg val otherPatterns: String) {

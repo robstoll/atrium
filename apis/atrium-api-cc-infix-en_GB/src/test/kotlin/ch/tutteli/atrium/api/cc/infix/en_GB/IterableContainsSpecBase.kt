@@ -1,8 +1,11 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
-import ch.tutteli.atrium.api.cc.infix.en_GB.creating.entries
-import ch.tutteli.atrium.api.cc.infix.en_GB.creating.group
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.entries
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.group
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders.AtLeastCheckerOption
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*

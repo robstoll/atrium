@@ -1,6 +1,7 @@
 @file:Suppress("ClassName")
+package ch.tutteli.atrium.api.cc.infix.en_GB.keywords
 
-package ch.tutteli.atrium.api.cc.infix.en_GB
+import ch.tutteli.atrium.api.cc.infix.en_GB.*
 
 /**
  * Represents a helper construct which allows to express emptiness.
@@ -19,6 +20,16 @@ object contain
 object case
 
 /**
+ * Represents the pseudo keyword `entries` as in [grouped] `entries`.
+ */
+object entries
+
+/**
+ * Represents the pseudo keyword `group` as in [within] `group`.
+ */
+object group
+
+/**
  * Represents the pseudo keyword `only` as in [but] `only`.
  */
 object only
@@ -27,3 +38,4 @@ object only
  * Represents the pseudo keyword `order` as in [inAny] `order`.
  */
 object order
+
