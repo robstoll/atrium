@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders.*
+import ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders.impl.*
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 

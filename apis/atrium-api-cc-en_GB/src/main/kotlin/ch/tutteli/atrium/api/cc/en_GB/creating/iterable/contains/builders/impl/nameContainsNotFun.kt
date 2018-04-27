@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders
+package ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.impl
 
 import ch.tutteli.atrium.api.cc.en_GB.containsNot
 import ch.tutteli.atrium.creating.AssertionPlant
