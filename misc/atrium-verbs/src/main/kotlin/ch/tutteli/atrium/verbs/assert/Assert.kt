@@ -1,55 +1,19 @@
 package ch.tutteli.atrium.verbs.assert
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
-import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
-import ch.tutteli.atrium.verbs.AtriumReporterSupplier
 
-/**
- * Creates an [AssertionPlant] for the given [subject].
- *
- * @return The newly created plant.
- *
- * @see CoreFactory.newReportingPlant
- */
+@Deprecated("use assert from package verbs, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.verbs.assert(subject)"))
 fun <T : Any> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = ch.tutteli.atrium.verbs.assert(subject)
 
-/**
- * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
- * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
- * the configured [Reporter]) reported as a whole.
- *
- * @return The newly created plant.
- *
- * @see CoreFactory.newReportingPlantAndAddAssertionsCreatedBy
- */
+@Deprecated("use assert from package verbs, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.verbs.assert(subject, assertionCreator)"))
 fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = ch.tutteli.atrium.verbs.assert(subject, assertionCreator)
 
-/**
- * Creates an [AssertionPlantNullable] for the given [subject] which might be `null`.
- *
- * @return The newly created plant.
- *
- * @see CoreFactory.newReportingPlantNullable
- */
+@Deprecated("use assert from package verbs, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.verbs.assert(subject)"))
 fun <T : Any?> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = ch.tutteli.atrium.verbs.assert(subject)
 
-/**
- * Creates a [ThrowableThrown.Builder] for the given function [act] which is expected to throw a [Throwable].
- *
- * @return The newly created [ThrowableThrown.Builder].
- */
+@Deprecated("use assert from package verbs, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.verbs.assert(act)"))
 fun assert(act: () -> Unit)
-    = AssertImpl.throwable.thrownBuilder(ASSERT_THROWN, act, AtriumReporterSupplier.REPORTER)
-
-
+    = ch.tutteli.atrium.verbs.assert(act)
