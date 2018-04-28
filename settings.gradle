@@ -17,6 +17,8 @@ include {
 
     bundles {
         _ 'cc-de_CH-robstoll'
+        _ 'cc-en_GB-robstoll'
+        _ 'cc-infix-en_GB-robstoll'
         _ 'cc-en_UK-robstoll'
         _ 'cc-infix-en_UK-robstoll'
     }

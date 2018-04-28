@@ -1,5 +1,4 @@
-module ch.tutteli.atrium.translations.en_UK {
-    requires kotlin.stdlib;
+module ch.tutteli.atrium.translations.en_GB {
     requires ch.tutteli.atrium.core.api;
 
     exports ch.tutteli.atrium.translations;
