@@ -21,6 +21,13 @@ include {
         _ 'cc-infix-en_GB-robstoll'
         _ 'cc-en_UK-robstoll'
         _ 'cc-infix-en_UK-robstoll'
+
+        if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+            folder('smoke-tests') {
+                _ 'cc-en_GB-robstoll-smoke-test'
+                _ 'cc-infix-en_GB-robstoll-smoke-test'
+            }
+        }
     }
 
     apis {
@@ -33,7 +40,6 @@ include {
 
     domain {
         _ 'domain-api'
-        _ 'domain-api-deprecated'
         _ 'domain-builders'
         _ 'domain-robstoll'
         _ 'domain-robstoll-lib'
@@ -41,17 +47,13 @@ include {
 
     core {
         _ 'core-api'
-        _ 'core-api-deprecated'
         _ 'core-robstoll'
-        _ 'core-robstoll-deprecated'
         _ 'core-robstoll-lib'
     }
 
     translations {
         _ 'translations-de_CH'
         _ 'translations-en_GB'
-        _ 'translations-de_CH-deprecated'
-        _ 'translations-en_UK-deprecated'
     }
 
     misc {
@@ -60,7 +62,18 @@ include {
         _ 'bc-test'
     }
 
-    //TODO remove with 1.0.0
+    //TODO remove all below with 1.0.0
+    domain {
+        _ 'domain-api-deprecated'
+    }
+    core {
+        _ 'core-api-deprecated'
+        _ 'core-robstoll-deprecated'
+    }
+    translations {
+        _ 'translations-de_CH-deprecated'
+        _ 'translations-en_UK-deprecated'
+    }
     misc {
         _ 'assertions'
     }
