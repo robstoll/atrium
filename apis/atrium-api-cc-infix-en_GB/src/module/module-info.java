@@ -1,4 +1,4 @@
-module ch.tutteli.atrium.api.cc.en_GB {
+module ch.tutteli.atrium.api.cc.infix.en_GB {
 
     requires ch.tutteli.atrium.domain.builders;
     requires ch.tutteli.kbox;

@@ -1,4 +1,5 @@
-description = 'Represents a convenience module which merely bundles dependencies'
+description = 'Represents a deprecated convenience module which merely bundles dependencies. ' +
+    'Use atrium-cc-en_GB-robstoll once you have migrated all deprecated entities, this module will be removed with 1.0.0'
 
 dependencies {
     compile prefixedProject('api-cc-en_UK')
