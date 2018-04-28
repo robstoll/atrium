@@ -1,4 +1,3 @@
-
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
@@ -7,7 +6,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.verbs.assertthat.assertThat
+import ch.tutteli.atrium.verbs.assertThat
 import org.jetbrains.spek.api.Spek
 
 object SmokeSpec : Spek({
@@ -24,8 +23,8 @@ object SmokeSpec : Spek({
     }
 })
 
-fun Assert<Int>.isEven() = createAndAddAssertion(
-    DescriptionBasic.IS, RawString.create("an even number"), { subject % 2 == 0 })
+fun Assert<Int>.isEven()
+    = createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number"), { subject % 2 == 0 })
 
 fun Assert<Int>.isMultipleOf(base: Int)
     = addAssertion(_isMultipleOf(this, base))
