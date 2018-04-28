@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.api.cc.en_UK.isSame
-import ch.tutteli.atrium.api.cc.en_UK.toBe
+import ch.tutteli.atrium.api.cc.en_GB.isSame
+import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.StringBasedRawString

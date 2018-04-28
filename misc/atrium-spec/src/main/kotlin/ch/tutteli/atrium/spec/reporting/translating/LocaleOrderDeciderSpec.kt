@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.api.cc.en_UK.containsStrictly
+import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.spec.AssertionVerbFactory

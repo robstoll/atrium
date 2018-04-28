@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_UK.*
+import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable

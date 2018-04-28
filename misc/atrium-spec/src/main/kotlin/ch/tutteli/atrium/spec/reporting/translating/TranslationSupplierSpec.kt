@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.AssertionVerbFactory

@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.api.cc.en_UK.isEmpty
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toBe
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_GB.isEmpty
+import ch.tutteli.atrium.api.cc.en_GB.message
+import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
