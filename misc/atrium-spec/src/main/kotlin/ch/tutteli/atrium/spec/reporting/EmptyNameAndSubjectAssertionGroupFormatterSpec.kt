@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsNot
-import ch.tutteli.atrium.api.cc.en_UK.containsNotDefaultTranslationOf
+import ch.tutteli.atrium.api.cc.en_GB.contains
+import ch.tutteli.atrium.api.cc.en_GB.containsNot
+import ch.tutteli.atrium.api.cc.en_GB.containsNotDefaultTranslationOf
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.core.coreFactory

@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.exactly
-import ch.tutteli.atrium.api.cc.en_UK.regex
+import ch.tutteli.atrium.api.cc.en_GB.contains
+import ch.tutteli.atrium.api.cc.en_GB.exactly
+import ch.tutteli.atrium.api.cc.en_GB.regex
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.Spek

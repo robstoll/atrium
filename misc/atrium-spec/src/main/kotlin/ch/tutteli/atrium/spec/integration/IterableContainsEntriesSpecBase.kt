@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_UK.isGreaterThan
-import ch.tutteli.atrium.api.cc.en_UK.isLessThan
-import ch.tutteli.atrium.api.cc.en_UK.returnValueOf
-import ch.tutteli.atrium.api.cc.en_UK.toBe
+import ch.tutteli.atrium.api.cc.en_GB.isGreaterThan
+import ch.tutteli.atrium.api.cc.en_GB.isLessThan
+import ch.tutteli.atrium.api.cc.en_GB.returnValueOf
+import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
