@@ -26,7 +26,7 @@ val anyAssertions by lazy { SingleServiceLoader.load(AnyAssertions::class.java) 
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to [Comparable],
+ * Defines the minimum set of assertion functions representing a type transformation,
  * which an implementation of the domain of Atrium has to provide.
  */
 interface AnyTypeTransformationAssertions {
