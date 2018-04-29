@@ -15,8 +15,8 @@ Following a list of the available bundle-modules.
 The links point to the KDoc of their included API where you find an overview of all available assertion functions of the API.
 
 - [atrium-cc-de_CH-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h/index.html)
-- [atrium-cc-en_UK-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.en_-u-k/index.html)
-- [atrium-cc-infix-en_UK-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-u-k/index.html)
+- [atrium-cc-en_GB-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
+- [atrium-cc-infix-en_GB-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
 
 ----
 
@@ -25,8 +25,8 @@ Following an excerpt of a build.gradle file which uses two APIs (see
 for the rest):
 ```
 dependencies {
-    testCompile "ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version"
-    testCompile "ch.tutteli:atrium-api-cc-infix-en_UK:$atrium_version"
+    testCompile "ch.tutteli:atrium-cc-en_GB-robstoll:$atrium_version"
+    testCompile "ch.tutteli:atrium-api-cc-infix-en_GB:$atrium_version"
 }
 ```
 
@@ -39,15 +39,15 @@ If you forget to do it, then the compiler will complain that you have the same e
 # Different API styles
 
 Atrium provides different APIs where the API differ in its style and the language in which it is written.
-This site focuses on the different styles of APIs and compares their en_UK versions. 
+This site focuses on the different styles of APIs and compares their en_GB versions. 
 We do not show every single difference but merely where the APIs differ in naming.
 For instance, the assertion function `AssertionPlant<Any>.toBe`:
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(x).toBe(2)
 ``` 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) toBe 2
 ``` 
@@ -60,18 +60,19 @@ is too similar, we will not list it here (ok, we did now but I guess you get the
 - [`and` property](#and-property)
 - [CharSequence contains](#charsequence-contains)
 - [Iterable contains in any order](#iterable-contains-in-any-order)
-- [Iterable contains in any order](#iterable-contains-in-any-order-1)
+- [Iterable contains in order](#iterable-contains-in-order)
 - [Iterable contains not](#iterable-contains-not)
+- [Iterable contains with nullable elements](#iterable-contains-with-nullable-elements)
 
 ## Nullable Types
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(x).isNull()
 assert(x).isNotNull { isLessThan(1) }
 ```
 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 
 ```kotlin
 assert(x) toBe null
@@ -80,13 +81,13 @@ assert(x) notToBeNull { isLessThan(1) }
 
 ## Empty CharSequence / Collection
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(x).isEmpty()
 assert(x).isNotEmpty()
 ```
 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 
 ```kotlin
 assert(x) toBe Empty
@@ -95,13 +96,13 @@ assert(x) notToBe Empty
 
 ## `and` property
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(x).isGreaterThan(1).and.isLessThan(10)
 assert(x) { /*...*/ } and { /*...*/ }
 ```
 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 ```kotlin
 // does only support the group syntax
 assert(x) { /*...*/ } and { /*...*/ }
@@ -109,7 +110,7 @@ assert(x) { /*...*/ } and { /*...*/ }
 
 ## CharSequence contains
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(x).contains("hello", "world")
 assert(x).contains.atLeast(1).butAtMost(2).value("hello")
@@ -119,7 +120,7 @@ assert(x).contains.ignoringCase.notOrAtMost(1).regex("h(e|a)llo", "[Rr]obert")
 assert(x).containsNot.defaultTranslationOf(DescriptionBasic.IS_NOT)
 ```
 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) contains Values("hello", "world")
 assert(x) to contain atLeast 1 butAtMost 2 value "hello"
@@ -131,7 +132,7 @@ assert(x) notTo contain defaultTranslationOf DescriptionBasic.IS_NOT
 
 ## Iterable contains in any order
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(x).contains(1.2)
 assert(x).contains(1.2, 5.7)
@@ -149,7 +150,7 @@ assert(x).contains.inAnyOrder.only.entry { isLessThan(2) }
 assert(x).contains.inAnyOrder.only.entries({ toBe(3) }, { isLessThan(2) })
 ```
 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) contains 1.2
 assert(x) contains Values(1.2, 5.7) // or Objects as alternative
@@ -169,7 +170,7 @@ assert(x) to contain inAny order but only the Entries({ this toBe 3 }, { this is
 
 ## Iterable contains in order
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(x).containsStrictly(1.2)
 assert(x).containsStrictly(1.2, 5.7)
@@ -182,7 +183,7 @@ assert(x).contains.inOrder.only.entries({ toBe(3) }, { isLessThan(2) })
 assert(x).contains.inOrder.only.grouped.within.inAnyOrder(Values(1), Values(1, 2), Values(3, 4))
 ```
 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) containsStrictly 1.2
 assert(x) containsStrictly Values(1.2, 5.7) // or Objects as alternative
@@ -197,7 +198,7 @@ assert(x) contains inGiven order but only grouped entries within group inAny Ord
 
 ## Iterable contains not
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(x).containsNot(1.2)
 assert(x).containsNot(1.2, 5.7)
@@ -205,7 +206,7 @@ assert(x).containsNot.entry { isLessThan(2) }
 assert(x).containsNot.entries({ isLessThan(2) }, { isGreaterThan 5 })
 ```
 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) containsNot 1.2
 assert(x) containsNot Values(1.2, 5.7) // or Objects as alternative
@@ -215,14 +216,14 @@ assert(x) notTo contain the Entries({ this isLessThan 2 }, { this isGreaterThan 
 
 ## Iterable contains with nullable elements
 
-*atrium-api-cc-en_UK*
+*atrium-api-cc-en_GB*
 ```kotlin
 assert(listOf(null, 1)).contains.inAnyOrder.entry(null)
 assert(listOf(null, 1)).contains.inAnyOrder.only.entries(null, { isLessThan(2) })
 //see above for other inAnyOrder and inOrder examples
 ```
 
-*atrium-api-cc-infix-en_UK*
+*atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(listOf(null, 1)) to contain inAny order entry null
 assert(listOf(null, 1)) to contain inAny order but only the Entries(null, { this isLessThan 2 })
