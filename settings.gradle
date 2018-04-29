@@ -19,8 +19,6 @@ include {
         _ 'cc-de_CH-robstoll'
         _ 'cc-en_GB-robstoll'
         _ 'cc-infix-en_GB-robstoll'
-        _ 'cc-en_UK-robstoll'
-        _ 'cc-infix-en_UK-robstoll'
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
             folder('smoke-tests') {
@@ -32,9 +30,7 @@ include {
 
     apis {
         _ 'api-cc-de_CH'
-        _ 'api-cc-en_UK'
         _ 'api-cc-en_GB'
-        _ 'api-cc-infix-en_UK'
         _ 'api-cc-infix-en_GB'
     }
 
@@ -63,6 +59,14 @@ include {
     }
 
     //TODO remove all below with 1.0.0
+    bundles {
+        _ 'cc-en_UK-robstoll'
+        _ 'cc-infix-en_UK-robstoll'
+    }
+    apis {
+        _ 'api-cc-en_UK'
+        _ 'api-cc-infix-en_UK'
+    }
     domain {
         _ 'domain-api-deprecated'
     }
