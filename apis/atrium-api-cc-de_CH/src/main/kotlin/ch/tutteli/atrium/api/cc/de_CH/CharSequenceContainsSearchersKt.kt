@@ -6,6 +6,9 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
 
+/**
+ * `Deprecated`, do not use this class, it is only here to retain binary compatibility.
+ */
 @Deprecated("Do not use this class, it is only here to retain binary compatibility (file was renamed to charSequenceContainsCreators), will be removed with 1.0.0")
 object CharSequenceContainsSearchersKt {
 

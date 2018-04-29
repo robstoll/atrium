@@ -20,7 +20,8 @@ val nonThrowingAssertionCollectorForExplanation: NonThrowingAssertionCollectorFo
 }
 
 /**
- * Represents an assertion collector meant for explanation
+ * Represents an assertion collector meant for explanation which does *not* throw in case not a single [Assertion]
+ * was collected.
  */
 interface NonThrowingAssertionCollectorForExplanation {
 
@@ -56,6 +57,9 @@ val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExpla
     SingleServiceLoader.load(ThrowingAssertionCollectorForExplanation::class.java)
 }
 
+/**
+ * Represents an assertion collector meant for explanation which throws in case not a single [Assertion] was collected.
+ */
 interface ThrowingAssertionCollectorForExplanation {
     /**
      * Collects the [Assertion] created by [assertionCreator] and uses the given [subject] as
