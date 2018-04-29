@@ -1,4 +1,4 @@
-description = 'Contains translations for Atrium in en_UK.'
+description = 'Contains translations for Atrium in en_GB.'
 
 dependencies {
     compile prefixedProject('core-api')

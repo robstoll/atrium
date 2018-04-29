@@ -4,5 +4,5 @@ dependencies {
     compile("ch.tutteli:kbox:$kbox_version") {
         exclude group: 'org.jetbrains.kotlin'
     }
-    testCompile prefixedProject('cc-infix-en_UK-robstoll')
+    testCompile prefixedProject('cc-infix-en_GB-robstoll')
 }
