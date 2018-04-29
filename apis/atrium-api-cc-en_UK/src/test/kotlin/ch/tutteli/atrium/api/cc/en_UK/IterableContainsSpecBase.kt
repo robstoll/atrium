@@ -24,7 +24,4 @@ abstract class IterableContainsSpecBase {
     protected val only = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::only.name
     protected val inOrderOnlyValues = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::values.name
     protected val inOrderOnlyEntries = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::entries.name
-    protected val grouped = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::grouped.name
-    protected val within = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedSearchBehaviour>::within.name
-    protected val withinInAnyOrder = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder.name
 }
