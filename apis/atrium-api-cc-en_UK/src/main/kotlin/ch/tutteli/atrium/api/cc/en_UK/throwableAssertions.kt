@@ -50,23 +50,3 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
 fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
     property(subject::message).isNotNull(assertionCreator)
 }
-
-/**
- * Creates the assertion that the [Throwable]'s [message][Throwable.message] is not null (see [message]) contains
- * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if defined),
- * using a non disjoint search.
- *
- * It is a shortcut for `message { contains.atLeast(1).values(expected, otherExpected) }`
- *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
- * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
- *
- * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
- *   assertion [message][Throwable.message] is not null) holds or not.
- *
- * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
- *   or does not contain [expected] or [otherExpected].
- */
-fun <T : Throwable> Assert<T>.messageContains(expected: Any, vararg otherExpected: Any) {
-    message { contains(expected, *otherExpected) }
-}

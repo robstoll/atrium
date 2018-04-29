@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.creating.entries
-import ch.tutteli.atrium.api.cc.infix.en_UK.creating.group
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -66,21 +64,3 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehav
 @Deprecated("Use the extension fun `but` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder but only"))
 fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContainsBuilder<E, T, InOrderSearchBehaviour>, @Suppress("UNUSED_PARAMETER") only: only): IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.plant, (builder but only).searchBehaviour)
-
-/**
- * Defines that the [Iterable] contains groups of entries `in order only` where the entries within the group can be in
- * any order.
- *
- * @return The newly created builder.
- */
-infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.grouped(@Suppress("UNUSED_PARAMETER") entries: entries)
-    = AssertImpl.iterable.contains.searchBehaviours.inOrderOnlyGrouped(this)
-
-/**
- * Defines that the [Iterable] contains groups of entries `in order only` where the entries within the group can be in
- * any order.
- *
- * @return The newly created builder.
- */
-infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>.within(@Suppress("UNUSED_PARAMETER") group: group)
-    = AssertImpl.iterable.contains.searchBehaviours.inOrderOnlyGroupedWithin(this)

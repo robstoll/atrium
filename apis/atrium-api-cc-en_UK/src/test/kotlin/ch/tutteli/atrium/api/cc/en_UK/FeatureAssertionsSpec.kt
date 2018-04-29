@@ -59,13 +59,13 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.FeatureAssertio
         val return4ValueLazy: F = { returnValueOf(subject::return4, "a", 1, true, 1.2) { contains("hello") } }
         val return5ValueLazy: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { contains("hello") } }
 
-        val propertyNullableDoesNotHold: F = { property(subject::nullableValue).toBe(null) }
-        val return0ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable0).toBe(null) }
-        val return1ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable1, "a").toBe(null) }
-        val return2ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable2, "a", 1).toBe(null) }
-        val return3ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable3, "a", 1, true).toBe(null) }
-        val return4ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).toBe(null) }
-        val return5ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').toBe(null) }
+        val propertyNullableDoesNotHold: F = { property(subject::nullableValue).isNull() }
+        val return0ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable0).isNull() }
+        val return1ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable1, "a").isNull() }
+        val return2ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable2, "a", 1).isNull() }
+        val return3ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable3, "a", 1, true).isNull() }
+        val return4ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNull() }
+        val return5ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNull() }
 
         val propertyNullableHolds: F = { property(subject::nullableValue).isNotNull {} }
         val return0ValueNullableHolds: F = { returnValueOf(subject::returnNullable0).isNotNull {} }
