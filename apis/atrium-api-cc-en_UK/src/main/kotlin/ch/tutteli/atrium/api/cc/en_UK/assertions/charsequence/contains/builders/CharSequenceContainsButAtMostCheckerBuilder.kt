@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
     "use the builder from the package creating, will be removed with 1.0.0",
     ReplaceWith(
         "ButAtMostCheckerOption",
-        "ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.ButAtMostCheckerOption"
+        "ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders.ButAtMostCheckerOption"
     )
 )
 open class CharSequenceContainsButAtMostCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(

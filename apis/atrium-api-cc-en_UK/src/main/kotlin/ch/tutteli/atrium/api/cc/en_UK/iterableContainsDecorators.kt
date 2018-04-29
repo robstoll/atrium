@@ -11,6 +11,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
  *
  * @return The newly created builder.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.inAnyOrder"))
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inAnyOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrder(this)
 
@@ -26,6 +27,7 @@ fun <E, T : Iterable<E>> getInAnyOrder(builder: IterableContainsBuilder<E, T, No
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>.only
+    @Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.only"))
     @JvmName("butOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inAnyOrderOnly(this)
 
@@ -40,6 +42,7 @@ fun <E, T : Iterable<E>> inAnyOrderOnly(builder: IterableContainsBuilder<E, T, I
  *
  * @return The newly created builder.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.inOrder"))
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, NoOpSearchBehaviour>.inOrder
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrder(this)
 
@@ -55,6 +58,7 @@ fun <E, T : Iterable<E>> getInOrder(builder: IterableContainsBuilder<E, T, NoOpS
  * @return The newly created builder.
  */
 val <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.only
+    @Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.only"))
     @JvmName("andOnly")
     get() = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)
 
