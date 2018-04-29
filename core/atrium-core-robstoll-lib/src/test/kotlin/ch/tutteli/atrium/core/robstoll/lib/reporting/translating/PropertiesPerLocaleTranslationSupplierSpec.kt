@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.core.robstoll.lib.AssertionVerbFactory
-import ch.tutteli.atrium.reporting.ReporterBuilder
+import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
@@ -16,7 +16,7 @@ class PropertiesPerLocaleTranslationSupplierSpec : Spek({
     object AtriumsTranslationIntSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec(
         AssertionVerbFactory,
         { primaryLocale, fallbackLocales ->
-            ReporterBuilder
+            reporterBuilder
                 .withTranslationSupplier(PropertiesPerLocaleTranslationSupplier())
                 .withDefaultLocaleOrderDecider()
                 .withDefaultTranslator(primaryLocale, *fallbackLocales)
