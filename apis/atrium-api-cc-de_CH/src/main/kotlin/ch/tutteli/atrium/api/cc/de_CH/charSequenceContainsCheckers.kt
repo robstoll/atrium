@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.*
+import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl.*
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder
@@ -50,7 +51,11 @@ fun <T : CharSequence, S : SearchBehaviour> zumindest(builder: DeprecatedBuilder
  *   `at least` restriction; use the [genau] restriction instead.
  */
 fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.aberHoechstens(times: Int): ButAtMostCheckerOption<T, S>
-    = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
+    = ButAtMostCheckerOptionImpl(
+    times,
+    this,
+    containsBuilder
+)
 
 @Deprecated("Use the extension fun `aberHoechstens`. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.aberHoechstens(times)"))
 fun <T : CharSequence, S : DeprecatedSearchBehaviour> aberHoechstens(checkerBuilder: DeprecatedAtLeastCheckerBuilder<T, S>, times: Int): DeprecatedButAtMostCheckerBuilder<T, S>
@@ -112,7 +117,10 @@ fun <T : CharSequence, S : DeprecatedSearchBehaviour> hoechstens(builder: Deprec
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.nichtOderHoechstens(times: Int): NotOrAtMostCheckerOption<T, S>
-    = NotOrAtMostCheckerOptionImpl(times, this)
+    = NotOrAtMostCheckerOptionImpl(
+    times,
+    this
+)
 
 @Deprecated("Use the extension fun `nichtOderHoechstens`. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.nichtOderHoechstens(times)"))
 fun <T : CharSequence, S : DeprecatedSearchBehaviour> nichtOderHoechstens(builder: DeprecatedBuilder<T, S>, times: Int): DeprecatedNotOrAtMostCheckerBuilder<T, S>

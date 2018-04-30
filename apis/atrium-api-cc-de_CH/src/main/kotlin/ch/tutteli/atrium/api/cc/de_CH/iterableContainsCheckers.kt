@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.*
+import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl.*
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder

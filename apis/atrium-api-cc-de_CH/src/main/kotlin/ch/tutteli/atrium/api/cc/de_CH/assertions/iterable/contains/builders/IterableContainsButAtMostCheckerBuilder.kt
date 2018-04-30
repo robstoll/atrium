@@ -27,6 +27,6 @@ open class IterableContainsButAtMostCheckerBuilder<out E, out T : Iterable<E>>(
     times: Int,
     atLeastBuilder: IterableContainsAtLeastCheckerBuilder<E, T>,
     containsBuilder: IterableContains.Builder<E, T, InAnyOrderSearchBehaviour>
-) : ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.ButAtMostCheckerOptionImpl<E, T, InAnyOrderSearchBehaviour>(
+) : ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl.ButAtMostCheckerOptionImpl<E, T, InAnyOrderSearchBehaviour>(
     times, atLeastBuilder, containsBuilder
 ), IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>
