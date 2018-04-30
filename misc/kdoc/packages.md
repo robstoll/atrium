@@ -260,9 +260,6 @@ an implementation has to provide.
 Contains the basic contract for contains assertion builders 
 -- [Contains](./ch.tutteli.atrium.domain.creating.basic.contains/-contains/index.html).
 
-# Package ch.tutteli.atrium.domain.creating.basic.contains.builders
-Contains base classes for builders representing a step in the process of creating sophisticated `contains` creating.
-
 
 # Package ch.tutteli.atrium.domain.creating.charsequence.contains
 Contains the contract for sophisticated CharSequence `contains` assertions 

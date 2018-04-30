@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders
 
-import ch.tutteli.atrium.domain.creating.basic.contains.builders.validateAtMost
+import ch.tutteli.atrium.domain.builders.utils.validateAtMost
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Checker
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
