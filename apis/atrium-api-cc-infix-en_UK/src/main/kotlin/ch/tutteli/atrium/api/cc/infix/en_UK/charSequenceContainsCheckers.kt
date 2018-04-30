@@ -23,6 +23,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceC
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.atLeast(times)"))
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): AtLeastCheckerOption<T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -46,6 +47,7 @@ fun <T : CharSequence, S : SearchBehaviour> atLeast(builder:  DeprecatedBuilder<
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.butAtMost(times)"))
 infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost(times: Int): ButAtMostCheckerOption<T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
@@ -65,6 +67,7 @@ fun <T : CharSequence, S : SearchBehaviour> butAtMost(checkerBuilder: Deprecated
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.exactly(times)"))
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): ExactlyCheckerOption<T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -89,6 +92,7 @@ fun <T : CharSequence, S : SearchBehaviour> exactly(builder: DeprecatedBuilder<T
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.atMost(times)"))
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): AtMostCheckerOption<T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -108,6 +112,7 @@ fun <T : CharSequence, S : SearchBehaviour> atMost(builder: DeprecatedBuilder<T,
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.notOrAtMost(times)"))
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerOption<T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)
 

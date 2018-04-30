@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
     "use the builder from the package creating, will be removed with 1.0.0",
     ReplaceWith(
         "AtLeastCheckerOption",
-        "ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.AtLeastCheckerOption"
+        "ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption"
     )
 )
 open class CharSequenceContainsAtLeastCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(
