@@ -35,9 +35,9 @@ class IterableContainsInOrderOnlyValuesSpec : Spek({
 
         private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inGiven order but only value a
+                plant to contain inGiven order and only value a
             } else {
-                plant to contain inGiven order but only the Values(a, *aX)
+                plant to contain inGiven order and only the Values(a, *aX)
             }
         }
 

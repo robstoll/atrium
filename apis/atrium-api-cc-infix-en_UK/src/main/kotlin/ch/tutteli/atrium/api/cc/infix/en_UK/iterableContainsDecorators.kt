@@ -60,7 +60,7 @@ fun <E, T : Iterable<E>> inGiven(builder: IterableContainsBuilder<E, T, NoOpSear
  *
  * @return The newly created builder.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.but(only)"))
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.and(only)"))
 @JvmName("yet")
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderSearchBehaviour>.but(@Suppress("UNUSED_PARAMETER") only: only)
     = AssertImpl.iterable.contains.searchBehaviours.inOrderOnly(this)

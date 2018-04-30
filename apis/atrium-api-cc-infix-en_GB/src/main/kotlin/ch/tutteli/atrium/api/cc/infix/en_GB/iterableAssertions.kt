@@ -117,24 +117,24 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (As
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the [expected] value.
  *
- * It is a shortcut for `to contain inGiven order but only value expected`
+ * It is a shortcut for `to contain inGiven order and only value expected`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): AssertionPlant<T>
-    = this to contain inGiven order but only value expected
+    = this to contain inGiven order and only value expected
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the expected [values] in the defined order.
  *
- * It is a shortcut for `to contain inGiven order but only the Values(...)`
+ * It is a shortcut for `to contain inGiven order and only the Values(...)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): AssertionPlant<T>
-    = this to contain inGiven order but only the values
+    = this to contain inGiven order and only the values
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
@@ -146,20 +146,20 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): As
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
-    = this to contain inGiven order but only entry assertionCreator
+    = this to contain inGiven order and only entry assertionCreator
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) in the defined order
  * holding the assertions created by them.
  *
- * It is a shortcut for `to contain inGiven order but only the Entries(...)`
+ * It is a shortcut for `to contain inGiven order and only the Entries(...)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
-    = this to contain inGiven order but only the entries
+    = this to contain inGiven order and only the entries
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
@@ -172,21 +172,21 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  */
 @JvmName("containsStrictly?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = this to contain inGiven order but only entry assertionCreator
+    = this to contain inGiven order and only entry assertionCreator
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) in the defined order
  * holding the assertions created by them.
  *
- * It is a shortcut for `to contain inGiven order but only the Entries(...)`
+ * It is a shortcut for `to contain inGiven order and only the Entries(...)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("containsStrictly?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = this to contain inGiven order but only the entries
+    = this to contain inGiven order and only the entries
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value.
