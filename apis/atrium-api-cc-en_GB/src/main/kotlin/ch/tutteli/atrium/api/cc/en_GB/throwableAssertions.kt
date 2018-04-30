@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import kotlin.math.exp
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].
@@ -38,7 +37,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
 
 /**
  * Creates an [AssertionPlantNullable] for the [message][Throwable.message] of the plant's
- * [subject][AssertionPlant.subject] (which is a [Throwable]) and makes the assertion that message [isNotNull]
+ * [subject][AssertionPlant.subject] (which is a [Throwable]) and makes the assertion that message [notToBeNull]
  * and uses [assertionCreator] which might create further [Assertion]s which are lazily evaluated at the end.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
@@ -49,7 +48,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
 fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
-    property(subject::message).isNotNull(assertionCreator)
+    property(subject::message).notToBeNull(assertionCreator)
 }
 
 /**

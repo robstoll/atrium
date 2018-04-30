@@ -15,9 +15,9 @@ import org.jetbrains.spek.api.include
 
 abstract class TypeTransformationAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isNotNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit>,
-    isNotNullLessFun: AssertionPlantNullable<Int?>.(Int) -> Unit,
-    isNotNullGreaterAndLessFun: AssertionPlantNullable<Int?>.(Int, Int) -> Unit,
+    notToBeNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit>,
+    notToBeNullLessFun: AssertionPlantNullable<Int?>.(Int) -> Unit,
+    notToBeNullGreaterAndLessFun: AssertionPlantNullable<Int?>.(Int, Int) -> Unit,
     nameIsA: String,
     isAIntFun: Assert<String>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit,
     isAStringFun: Assert<String>.(assertionCreator: Assert<String>.() -> Unit) -> Unit,
@@ -35,9 +35,9 @@ abstract class TypeTransformationAssertionsSpec(
         = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-    val (nameIsNotNull, isNotNullFun) = isNotNullPair
+    val (nameNotToBeNull, notToBeNullFun) = notToBeNullPair
 
-    describeFun(nameIsNotNull) {
+    describeFun(nameNotToBeNull) {
 
         val assert: (Int?) -> AssertionPlantNullable<Int?> = verbs::checkNullable
 
@@ -45,7 +45,7 @@ abstract class TypeTransformationAssertionsSpec(
             it("throws an AssertionError") {
                 expect {
                     val i: Int? = null
-                    assert(i).isNotNullFun {}
+                    assert(i).notToBeNullFun {}
                 }.toThrow<AssertionError> {
                     message {
                         containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
@@ -58,7 +58,7 @@ abstract class TypeTransformationAssertionsSpec(
                 it("throws an AssertionError and contains the additional assertion as explanation") {
                     expect {
                         val i: Int? = null
-                        assert(i).isNotNullLessFun(2)
+                        assert(i).notToBeNullLessFun(2)
                     }.toThrow<AssertionError> {
                         message {
                             containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
@@ -74,32 +74,32 @@ abstract class TypeTransformationAssertionsSpec(
 
             it("does not throw") {
                 val i: Int? = 1
-                assert(i).isNotNullFun {}
+                assert(i).notToBeNullFun {}
             }
 
             context("it allows to define an assertion for the subject") {
                 it("does not throw if the assertion holds") {
                     val i: Int? = 1
-                    assert(i).isNotNullLessFun(2)
+                    assert(i).notToBeNullLessFun(2)
                 }
 
                 it("throws an AssertionError if the assertion does not hold") {
                     expect {
                         val i: Int? = 1
-                        assert(i).isNotNullLessFun(0)
+                        assert(i).notToBeNullLessFun(0)
                     }.toThrow<AssertionError>()
                 }
             }
             context("it allows to define multiple assertions for the subject") {
                 it("does not throw if the assertions hold") {
                     val i: Int? = 1
-                    assert(i).isNotNullGreaterAndLessFun(0, 2)
+                    assert(i).notToBeNullGreaterAndLessFun(0, 2)
                 }
 
                 it("throws an AssertionError if one assertion does not hold") {
                     expect {
                         val i: Int? = 1
-                        assert(i).isNotNullGreaterAndLessFun(2, 5)
+                        assert(i).notToBeNullGreaterAndLessFun(2, 5)
                     }.toThrow<AssertionError> {
                         message {
                             containsDefaultTranslationOf(DescriptionComparableAssertion.IS_GREATER_THAN)
@@ -111,7 +111,7 @@ abstract class TypeTransformationAssertionsSpec(
                 it("throws an AssertionError if both assertions do not hold and contains both messages") {
                     expect {
                         val i: Int? = 1
-                        assert(i).isNotNullGreaterAndLessFun(2, 0)
+                        assert(i).notToBeNullGreaterAndLessFun(2, 0)
                     }.toThrow<AssertionError> {
                         message {
                             containsDefaultTranslationOf(
@@ -128,7 +128,7 @@ abstract class TypeTransformationAssertionsSpec(
             it("throws an AssertionError") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { property(subject::i).isNotNull {} }
+                    verbs.checkLazily(A()) { property(subject::i).notToBeNull {} }
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)
@@ -141,7 +141,7 @@ abstract class TypeTransformationAssertionsSpec(
             it("throws an AssertionError which contains subsequent assertions") {
                 class A(val i: Int? = null)
                 expect {
-                    verbs.checkLazily(A()) { property(subject::i).isNotNullLessFun(1) }
+                    verbs.checkLazily(A()) { property(subject::i).notToBeNullLessFun(1) }
                 }.toThrow<AssertionError> {
                     message {
                         contains(A::class.simpleName!!)

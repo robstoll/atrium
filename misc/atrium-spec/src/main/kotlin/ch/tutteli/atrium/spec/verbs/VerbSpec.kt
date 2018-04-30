@@ -68,7 +68,7 @@ abstract class VerbSpec(
             expect {
                 assertionVerb(1).isLessOrEquals(10).and.isLessOrEquals(0).and.isGreaterOrEquals(2)
             }.toThrow<AssertionError> {
-                assert(subject.message).isNotNull {
+                assert(subject.message).notToBeNull {
                     contains(": 1")
                     contains("${IS_LESS_OR_EQUALS.getDefault()}: 0")
                     containsNot("${IS_GREATER_OR_EQUALS.getDefault()}: 2")
@@ -143,9 +143,9 @@ abstract class VerbSpec(
             it("does not throw an exception when calling toBe(`null`)") {
                 assertionVerb(null).toBe(null)
             }
-            it("throws an AssertionError when calling isNotNull") {
+            it("throws an AssertionError when calling notToBeNull") {
                 expect {
-                    assertionVerb(null).isNotNull {}
+                    assertionVerb(null).notToBeNull {}
                 }.toThrow<AssertionError> {
                     message {
                         containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)

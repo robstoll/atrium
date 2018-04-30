@@ -9,9 +9,9 @@ import kotlin.reflect.KFunction2
 
 class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.TypeTransformationAssertionsSpec(
     AssertionVerbFactory,
-    getIsNotNullPair(),
-    Companion::isNotNullLess,
-    Companion::isNotNullGreaterAndLess,
+    getNotToBeNullPair(),
+    Companion::notToBeNullLess,
+    Companion::notToBeNullGreaterAndLess,
     getNameIsA(),
     Companion::isAInt,
     Companion::isAString,
@@ -21,16 +21,16 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
 ) {
     companion object {
 
-        private inline fun <reified T : Any> isNotNull(): KFunction2<AssertionPlantNullable<T?>, Assert<T>.() -> Unit, Unit>
-            = AssertionPlantNullable<T?>::isNotNull
+        private inline fun <reified T : Any> notToBeNull(): KFunction2<AssertionPlantNullable<T?>, Assert<T>.() -> Unit, Unit>
+            = AssertionPlantNullable<T?>::notToBeNull
 
-        private fun getIsNotNullPair() = isNotNull<Int>().name to isNotNull<Int>()
+        private fun getNotToBeNullPair() = notToBeNull<Int>().name to notToBeNull<Int>()
 
-        private fun isNotNullLess(plant: AssertionPlantNullable<Int?>, number: Int)
-            = plant.isNotNull { isLessThan(number) }
+        private fun notToBeNullLess(plant: AssertionPlantNullable<Int?>, number: Int)
+            = plant.notToBeNull { isLessThan(number) }
 
-        private fun isNotNullGreaterAndLess(plant: AssertionPlantNullable<Int?>, lowerBound: Int, upperBound: Int)
-            = plant.isNotNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
+        private fun notToBeNullGreaterAndLess(plant: AssertionPlantNullable<Int?>, lowerBound: Int, upperBound: Int)
+            = plant.notToBeNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
 
 
         private fun getNameIsA(): String {

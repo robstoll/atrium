@@ -98,13 +98,13 @@ abstract class FeatureAssertionsSpec(
         Triple("`returnValueOf5` with 5 arguments and isNull", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
     )
     val nullableHoldsFunctions = arrayOf(
-        "`property` isNotNull" to propertyNullableHolds,
-        "`returnValueOf5` with 1 argument and isNotNull" to return1ValueNullableHolds,
-        "`returnValueOf5` without argument and isNotNull" to return0ValueNullableHolds,
-        "`returnValueOf5` with 2 arguments and isNotNull" to return2ValueNullableHolds,
-        "`returnValueOf5` with 3 arguments and isNotNull" to return3ValueNullableHolds,
-        "`returnValueOf5` with 4 arguments and isNotNull" to return4ValueNullableHolds,
-        "`returnValueOf5` with 5 arguments and isNotNull" to return5ValueNullableHolds
+        "`property` notToBeNull" to propertyNullableHolds,
+        "`returnValueOf5` with 1 argument and notToBeNull" to return1ValueNullableHolds,
+        "`returnValueOf5` without argument and notToBeNull" to return0ValueNullableHolds,
+        "`returnValueOf5` with 2 arguments and notToBeNull" to return2ValueNullableHolds,
+        "`returnValueOf5` with 3 arguments and notToBeNull" to return3ValueNullableHolds,
+        "`returnValueOf5` with 4 arguments and notToBeNull" to return4ValueNullableHolds,
+        "`returnValueOf5` with 5 arguments and notToBeNull" to return5ValueNullableHolds
     )
 
     val holdingTestData = TestData("hello robert", 1)
