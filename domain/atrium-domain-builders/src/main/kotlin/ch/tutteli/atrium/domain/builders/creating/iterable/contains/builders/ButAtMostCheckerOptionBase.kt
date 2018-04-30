@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.builders.creating.iterable.contains.builders
 
-import ch.tutteli.atrium.domain.creating.basic.contains.builders.validateButAtMost
+import ch.tutteli.atrium.domain.builders.utils.validateButAtMost
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.SearchBehaviour

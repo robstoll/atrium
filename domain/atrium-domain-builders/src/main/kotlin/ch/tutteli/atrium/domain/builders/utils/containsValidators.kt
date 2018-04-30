@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.creating.basic.contains.builders
+package ch.tutteli.atrium.domain.builders.utils
 
 /**
  * Validates that times is not `1`; throws an IllegalArgumentException otherwise, pointing the user to use the given
