@@ -67,13 +67,13 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.FeatureAssertio
         val return4ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).toBe(null) }
         val return5ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').toBe(null) }
 
-        val propertyNullableHolds: F = { property(subject::nullableValue).isNotNull {} }
-        val return0ValueNullableHolds: F = { returnValueOf(subject::returnNullable0).isNotNull {} }
-        val return1ValueNullableHolds: F = { returnValueOf(subject::returnNullable1, "a").isNotNull {} }
-        val return2ValueNullableHolds: F = { returnValueOf(subject::returnNullable2, "a", 1).isNotNull {} }
-        val return3ValueNullableHolds: F = { returnValueOf(subject::returnNullable3, "a", 1, true).isNotNull {} }
-        val return4ValueNullableHolds: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).isNotNull {} }
-        val return5ValueNullableHolds: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').isNotNull {} }
+        val propertyNullableHolds: F = { property(subject::nullableValue).notToBeNull {} }
+        val return0ValueNullableHolds: F = { returnValueOf(subject::returnNullable0).notToBeNull {} }
+        val return1ValueNullableHolds: F = { returnValueOf(subject::returnNullable1, "a").notToBeNull {} }
+        val return2ValueNullableHolds: F = { returnValueOf(subject::returnNullable2, "a", 1).notToBeNull {} }
+        val return3ValueNullableHolds: F = { returnValueOf(subject::returnNullable3, "a", 1, true).notToBeNull {} }
+        val return4ValueNullableHolds: F = { returnValueOf(subject::returnNullable4, "a", 1, true, 1.2).notToBeNull {} }
+        val return5ValueNullableHolds: F = { returnValueOf(subject::returnNullable5, "a", 1, true, 1.2, 'b').notToBeNull {} }
 
 
         val propertyLazyWithNestedImmediate: F = {

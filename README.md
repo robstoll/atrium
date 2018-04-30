@@ -218,11 +218,11 @@ assert(4 + 6) {
 ## Nullable Types
 ```kotlin
 val subtitle : String? = "postulating assertions made easy"
-assert(subtitle).isNull()
+assert(subtitle).toBe(null)
     // assert: "postulating assertions made easy"        <22600334>
     // ◆ to be: null
 
-assert(subtitle).isNotNull{ startsWith("atrium") }
+assert(subtitle).notToBeNull{ startsWith("atrium") }
     //assert: "postulating assertions made easy"        <651100072>
     //◆ starts with: "atrium"        <222427158>
 ```
