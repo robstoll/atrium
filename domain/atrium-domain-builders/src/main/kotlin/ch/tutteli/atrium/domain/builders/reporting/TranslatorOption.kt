@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
@@ -39,24 +38,4 @@ interface TranslatorOption {
      * Uses the given [factory] to build a [Translator].
      */
     fun withTranslator(factory: (TranslationSupplier, LocaleOrderDecider) -> Translator): ObjectFormatterOption
-}
-
-internal class TranslatorOptionImpl(
-    override val translationSupplier: TranslationSupplier,
-    override val localeOrderDecider: LocaleOrderDecider
-) : TranslatorOption {
-
-    override fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale)
-        = ObjectFormatterOptionImpl(coreFactory.newTranslator(
-            translationSupplier,
-            localeOrderDecider,
-            primaryLocale,
-            fallbackLocales.toList()
-        ))
-
-    override fun withTranslator(factory: (TranslationSupplier, LocaleOrderDecider) -> Translator)
-        = ObjectFormatterOptionImpl(factory(
-            translationSupplier,
-            localeOrderDecider
-        ))
 }
