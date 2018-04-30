@@ -55,7 +55,6 @@ assert(x) toBe 2
 is too similar, we will not list it here (ok, we did now but I guess you get the point).
 
 ## Table of Content
-- [Nullable Types](#nullable-types)
 - [Empty CharSequence / Collection](#empty-charsequence--collection)
 - [`and` property](#and-property)
 - [CharSequence contains](#charsequence-contains)
@@ -63,21 +62,6 @@ is too similar, we will not list it here (ok, we did now but I guess you get the
 - [Iterable contains in order](#iterable-contains-in-order)
 - [Iterable contains not](#iterable-contains-not)
 - [Iterable contains with nullable elements](#iterable-contains-with-nullable-elements)
-
-## Nullable Types
-
-*atrium-api-cc-en_GB*
-```kotlin
-assert(x).isNull()
-assert(x).isNotNull { isLessThan(1) }
-```
-
-*atrium-api-cc-infix-en_GB*
-
-```kotlin
-assert(x) toBe null
-assert(x) notToBeNull { isLessThan(1) }
-```
 
 ## Empty CharSequence / Collection
 

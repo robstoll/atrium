@@ -26,7 +26,7 @@ abstract class AnyAssertionsSpec(
     notToBe: String,
     isSame: String,
     isNotSame: String,
-    isNullPair: Pair<String, AssertionPlantNullable<Int?>.() -> Unit>,
+    toBeNullPair: Pair<String, AssertionPlantNullable<Int?>.() -> Unit>,
     andPair: Pair<String, Assert<Int>.() -> Assert<Int>>,
     andLazyPair: Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>>,
     describePrefix: String = "[Atrium] "
@@ -58,7 +58,7 @@ abstract class AnyAssertionsSpec(
 
     val expect = verbs::checkException
     val assert: (Int) -> Assert<Int> = verbs::checkImmediately
-    val (isNull, isNullFun) = isNullPair
+    val (toBeNull, toBeNullFun) = toBeNullPair
     val (and, andProperty) = andPair
     val (andLazy, andLazyGroup) = andLazyPair
 
@@ -173,12 +173,12 @@ abstract class AnyAssertionsSpec(
         }
     }
 
-    describeFun(isNull) {
+    describeFun(toBeNull) {
 
         context("subject is null") {
             val subject: Int? = null
             it("does not throw an Exception") {
-                verbs.checkNullable(subject).isNullFun()
+                verbs.checkNullable(subject).toBeNullFun()
             }
         }
 
@@ -186,7 +186,7 @@ abstract class AnyAssertionsSpec(
             val subject: Int? = 1
             val testee = verbs.checkNullable(1) as ReportingAssertionPlantNullable<Int?>
             val expectFun = verbs.checkException {
-                testee.isNullFun()
+                testee.toBeNullFun()
             }
             setUp("throws an AssertionError") {
                 context("exception message") {
