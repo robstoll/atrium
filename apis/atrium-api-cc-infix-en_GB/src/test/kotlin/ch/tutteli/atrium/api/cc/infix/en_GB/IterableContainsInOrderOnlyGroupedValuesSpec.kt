@@ -21,11 +21,7 @@ class IterableContainsInOrderOnlyGroupedValuesSpec : ch.tutteli.atrium.spec.inte
             "$toContain $inOrder $butOnly $groupedEntries $withinGroup $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrder
 
         private fun containsInOrderOnlyGroupedInAnyOrder(plant: Assert<Iterable<Double>>, a1: Group<Double>, a2: Group<Double>, aX: Array<out Group<Double>>): Assert<Iterable<Double>> {
-            return plant to contain inGiven order but only grouped entries within group inAny Order(
-                a1,
-                a2,
-                *aX
-            )
+            return plant to contain inGiven order and only grouped entries within group inAny Order(a1, a2, *aX)
         }
 
         private fun groupFactory(groups: Array<out Double>): Group<Double> {

@@ -30,7 +30,7 @@ object entries
 object group
 
 /**
- * Represents the pseudo keyword `only` as in [but] `only`.
+ * Represents the pseudo keyword `only` as in [and] `only`.
  */
 object only
 
