@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -30,24 +29,4 @@ interface AssertionFormatterControllerOption {
      * Uses the given [assertionFormatterController] a custom [AssertionFormatterController].
      */
     fun withAssertionFormatterController(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacadeOption
-}
-
-internal class AssertionFormatterControllerOptionImpl(
-    override val objectFormatter: ObjectFormatter,
-    override val translator: Translator
-) : AssertionFormatterControllerOption {
-
-    override fun withDefaultAssertionFormatterController()
-        = AssertionFormatterFacadeOptionImpl(
-            coreFactory.newAssertionFormatterController(),
-            objectFormatter,
-            translator
-        )
-
-    override fun withAssertionFormatterController(assertionFormatterController: AssertionFormatterController)
-        = AssertionFormatterFacadeOptionImpl(
-            assertionFormatterController,
-            objectFormatter,
-            translator
-        )
 }

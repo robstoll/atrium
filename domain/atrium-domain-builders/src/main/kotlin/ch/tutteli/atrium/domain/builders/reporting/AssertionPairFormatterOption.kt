@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.AssertionFormatter
+import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.AssertionPairFormatter
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -26,22 +26,17 @@ interface AssertionPairFormatterOption {
      * Uses the given [factory] to build a custom [AssertionPairFormatter].
      */
     fun withTextAssertionPairFormatter(factory: (ObjectFormatter, Translator) -> AssertionPairFormatter): TextAssertionFormatterOption
-
 }
 
-internal class AssertionPairFormatterOptionImpl(
-    override val options: AssertionFormatterChosenOptions
-) : AssertionPairFormatterOption {
-
-    override fun withTextSameLineAssertionPairFormatter()
-        = TextAssertionFormatterOptionImpl(
-            options,
-            coreFactory.newTextSameLineAssertionPairFormatter(options.objectFormatter, options.translator)
-        )
-
-    override fun withTextAssertionPairFormatter(factory: (ObjectFormatter, Translator) -> AssertionPairFormatter)
-        = TextAssertionFormatterOptionImpl(
-            options,
-            factory(options.objectFormatter, options.translator)
-        )
-}
+/**
+ * Represents the so far chosen options which are relevant to create [AssertionFormatter]s.
+ *
+ * @param assertionFormatterFacade The previously chosen [AssertionFormatterFacade]
+ * @param objectFormatter The previously chosen [ObjectFormatter]
+ * @param translator The previously chosen [Translator]
+ */
+data class AssertionFormatterChosenOptions(
+    val assertionFormatterFacade: AssertionFormatterFacade,
+    val objectFormatter: ObjectFormatter,
+    val translator: Translator
+)
