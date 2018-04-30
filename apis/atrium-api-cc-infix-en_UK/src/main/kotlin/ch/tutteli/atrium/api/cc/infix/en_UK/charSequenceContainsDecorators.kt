@@ -17,6 +17,7 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.bui
  *
  * @return The newly created builder.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.ignoring(case)"))
 infix fun <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case): CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
     = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
@@ -32,6 +33,7 @@ fun <T : CharSequence> ignoring(builder: CharSequenceContainsBuilder<T, NoOpSear
  *
  * @return The newly created builder.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith(" ch.tutteli.atrium.api.cc.en_GB.ignoring(case)"))
 infix fun <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoring(@Suppress("UNUSED_PARAMETER") case: case): NotCheckerOption<T, IgnoringCaseSearchBehaviour>
     = NotCheckerOptionImpl(containsBuilder ignoring case)
 

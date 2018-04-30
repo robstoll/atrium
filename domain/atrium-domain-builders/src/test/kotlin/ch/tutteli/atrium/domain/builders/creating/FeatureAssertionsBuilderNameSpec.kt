@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.domain.builders.creating
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.isNotNull
-import ch.tutteli.atrium.api.cc.en_UK.toBe
+import ch.tutteli.atrium.api.cc.en_GB.contains
+import ch.tutteli.atrium.api.cc.en_GB.isNotNull
+import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertionVerbFactory
 import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.property

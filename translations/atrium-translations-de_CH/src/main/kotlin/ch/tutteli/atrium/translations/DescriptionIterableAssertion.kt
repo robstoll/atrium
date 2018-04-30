@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionIterableAssertion(override val value: String) : StringBasedTranslatable {
     AN_ENTRY_WHICH("ein Eintrag, welcher"),
-    AN_ENTRY_WHICH_IS(" Eintrag"),
+    AN_ENTRY_WHICH_IS("Eintrag"),
     AT_LEAST("ist zumindest"),
     AT_MOST("ist höchstens"),
     CONTAINS("enthält"),
@@ -19,6 +19,9 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     IN_ANY_ORDER_ONLY("%s ausschliesslich, in beliebiger Reihenfolge"),
     IN_ORDER("%, in gegebener Reihenfolge"),
     IN_ORDER_ONLY("%s ausschliesslich, in gegebener Reihenfolge"),
+    IN_ORDER_ONLY_GROUPED("%s ausschliesslich, in gegebener Reihenfolge, in Gruppen"),
+    INDEX("index %s"),
+    INDEX_FROM_TO("index %s..%s"),
     NUMBER_OF_OCCURRENCES("Anzahl Treffer"),
     SIZE_EXCEEDED("❗❗ hasNext() hat `false` zurückgegeben"),
     CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- `Iterable` gibt keinen nächsten Eintrag zurück.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),

@@ -34,14 +34,14 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
             = plant message { contains(expected) }
 
         private fun getMessageContainsPair()
-            = Assert<Throwable>::messageContains.name to Companion::messageContains
+            = "does not yet exist in in this API, using message { this contains ... }" to Companion::messageContains
 
 
         private fun messageContains(plant: Assert<Throwable>, expected: Any, otherExpected: Array<out Any>) {
             return if (otherExpected.isEmpty()) {
-                plant messageContains expected
+                plant message { this contains expected }
             } else {
-                plant messageContains Values(expected, *otherExpected)
+                plant message { this contains Values(expected, *otherExpected) }
             }
         }
     }

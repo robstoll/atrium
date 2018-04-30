@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
     "use the builder from the package creating, will be removed with 1.0.0",
     ReplaceWith(
         "NotOrAtMostCheckerOption",
-        "ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.NotOrAtMostCheckerOption"
+        "ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.NotOrAtMostCheckerOption"
     )
 )
 open class IterableContainsNotOrAtMostCheckerBuilder<out E, out T : Iterable<E>>(

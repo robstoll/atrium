@@ -1,0 +1,12 @@
+description = 'An API in en_GB with a focus on code completion and infix functions, ' +
+        'meaning it provides a fluent API in en_GB which is designed to ease the usage of code completion'
+
+ext.jacoco_additional = prefixedProject('translations-en_GB')
+
+dependencies {
+    compile prefixedProject('domain-builders')
+
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
+    testCompile prefixedProject('spec')
+}

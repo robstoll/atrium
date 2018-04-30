@@ -1,10 +1,13 @@
 description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs.'
 
+sourceCompatibility = '9'
+targetCompatibility = '9'
+
 dependencies {
     compile prefixedProject('domain-api')
 
     testCompile prefixedProject('domain-robstoll')
     testCompile prefixedProject('core-robstoll')
-    testCompile prefixedProject('api-cc-en_UK')
+    testCompile prefixedProject('api-cc-en_GB')
     testCompile prefixedProject('spec')
 }

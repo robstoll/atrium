@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
     "use the builder from the package creating, will be removed with 1.0.0",
     ReplaceWith(
         "AtLeastCheckerOption",
-        "ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.AtLeastCheckerOption"
+        "ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders.AtLeastCheckerOption"
     )
 )
 open class IterableContainsAtLeastCheckerBuilder<out E, out T : Iterable<E>>(

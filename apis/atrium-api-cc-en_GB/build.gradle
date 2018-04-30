@@ -1,0 +1,14 @@
+description = 'An assertion function API in en_GB with a focus on code completion, ' +
+        'meaning it provides a fluent API in en_GB which is designed to ease the usage of code completion or ' +
+        'in other words, the developer should be able to: ' +
+        'start creating an assertion + code completion + . + code completion + . + and so on.'
+
+ext.jacoco_additional = prefixedProject('translations-en_GB')
+
+dependencies {
+    compile prefixedProject('domain-builders')
+
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
+    testCompile prefixedProject('spec')
+}

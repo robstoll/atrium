@@ -28,9 +28,7 @@ class AssertionCollectorForExplanation(private val throwIfNoAssertionIsCollected
             // since assertions can be lazily computed we have to provoke their creation here,
             // so that a potential PlantHasNoSubjectException is thrown. It's fine to provoke the computation
             // because we require the assertions for the explanation anyway.
-            expandAssertionGroups(
-                collectedAssertions
-            )
+            expandAssertionGroups(collectedAssertions)
 
             collectedAssertions
         } catch (e: PlantHasNoSubjectException) {

@@ -32,15 +32,15 @@ class IterableContainsInOrderOnlyValuesSpec : Spek({
 
         private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant to contain inGiven order but only `object` a
+                plant to contain inGiven order but only value a
             } else {
-                plant to contain inGiven order but only the Objects(a, *aX)
+                plant to contain inGiven order but only the Values(a, *aX)
             }
         }
 
 
         private fun getContainsShortcutName(): String {
-            val f: KFunction2<Assert<Iterable<Double>>, Objects<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
+            val f: KFunction2<Assert<Iterable<Double>>, Values<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
             return f.name
         }
 
@@ -50,7 +50,7 @@ class IterableContainsInOrderOnlyValuesSpec : Spek({
         private fun containsInOrderOnlyShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return when {
                 aX.isEmpty() -> plant containsStrictly a
-                aX.size == 1 -> plant containsStrictly Objects(a, *aX)
+                aX.size == 1 -> plant containsStrictly Values(a, *aX)
                 else -> plant containsStrictly Values(a, *aX)
             }
         }

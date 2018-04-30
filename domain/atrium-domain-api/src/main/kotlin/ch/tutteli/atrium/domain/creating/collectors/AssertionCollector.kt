@@ -16,6 +16,9 @@ import java.util.*
  */
 val assertionCollector: AssertionCollector by lazy { SingleServiceLoader.load(AssertionCollector::class.java) }
 
+/**
+ * Responsible to collect assertions made in a sub-[AssertionPlant].
+ */
 interface AssertionCollector {
 
     /**

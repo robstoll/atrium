@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.toBe(expected)"))
 fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
@@ -28,6 +29,7 @@ fun <T : Any> Assert<T>.toBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.notToBe(expected)"))
 fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
@@ -40,6 +42,7 @@ fun <T : Any> Assert<T>.notToBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isSame(expected)"))
 fun <T : Any> Assert<T>.isSame(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
@@ -52,6 +55,7 @@ fun <T : Any> Assert<T>.isSame(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotSame(expected)"))
 fun <T : Any> Assert<T>.isNotSame(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
@@ -62,24 +66,10 @@ fun <T : Any> Assert<T>.isNotSame(expected: T)
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `toBe(null)` without adding enough to be a legit alternative.", ReplaceWith("toBe(null)"))
+@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `toBe(null)` without adding enough to be a legit alternative.", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.toBe(null)"))
 fun <T : Any?> AssertionPlantNullable<T>.isNull() {
-    toBe(null)
-}
-
-/**
- * Makes the assertion that [AssertionPlant.subject] is `null`.
- *
- * @param null has to be `null`.
- *
- * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
- *
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?){
     addAssertion(AssertImpl.any.isNull(this))
 }
-
 
 /**
  * Can be used to separate assertions when using the fluent API.
@@ -91,6 +81,7 @@ fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null
  *
  * @return This plant to support a fluent API.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.and"))
 val <T : Any> AssertionPlant<T>.and: AssertionPlant<T> get() = this
 
 /**
@@ -103,5 +94,6 @@ val <T : Any> AssertionPlant<T>.and: AssertionPlant<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.and(assertionCreator)"))
 infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)

@@ -1,6 +1,7 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.IterableAssertions
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -64,6 +65,9 @@ object IterableContainsAssertionsBuilder: IterableContainsAssertions {
     override inline fun <E : Any, T : Iterable<E?>> nullableEntriesInOrderOnly(builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>, assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>)
         = iterableContainsAssertions.nullableEntriesInOrderOnly(builder, assertionCreators)
 
+    override inline fun <E: Any, T : Iterable<E>> valuesInOrderOnlyGrouped(builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>, groups: List<List<E>>): Assertion
+        = iterableContainsAssertions.valuesInOrderOnlyGrouped(builder, groups)
+
     /**
      * Returns [IterableContainsSearchBehaviourFactoryBuilder]
      * which inter alia delegates to the implementation of [SearchBehaviourFactory].
@@ -89,4 +93,11 @@ object IterableContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 
     override inline fun <E, T : Iterable<E>> inOrderOnly(builder: IterableContains.Builder<E, T, InOrderSearchBehaviour>)
         = searchBehaviourFactory.inOrderOnly(builder)
+
+    override inline fun <E, T : Iterable<E>> inOrderOnlyGrouped(builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>)
+        = searchBehaviourFactory.inOrderOnlyGrouped(builder)
+
+    override inline fun <E, T : Iterable<E>> inOrderOnlyGroupedWithin(builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>)
+        = searchBehaviourFactory.inOrderOnlyGroupedWithin(builder)
+
 }

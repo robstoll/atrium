@@ -1,8 +1,6 @@
 package ch.tutteli.atrium.core
 
-import ch.tutteli.atrium.api.cc.infix.en_UK.*
-import ch.tutteli.atrium.api.cc.infix.en_UK.message
-import ch.tutteli.atrium.api.cc.infix.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.infix.en_GB.*
 import ch.tutteli.atrium.assert
 import ch.tutteli.atrium.expect
 import org.jetbrains.spek.api.Spek

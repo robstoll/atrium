@@ -10,8 +10,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertio
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
@@ -41,7 +39,7 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
             searchCriteria.forEachIndexed { index, it ->
                 assertions.add(createEntryAssertion(list, it, createEntryAssertionTemplate(itr, index, it)))
             }
-            assertions.add(createSizeFeatureAssertion(searchCriteria.size, list, itr))
+            assertions.add(createSizeFeatureAssertionForInOrderOnly(searchCriteria.size, list, itr))
 
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
             AssertImpl.builder.summary(description).create(assertions)
@@ -66,34 +64,4 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     }
 
     abstract fun matches(actual: E?, searchCriterion: SC): Boolean
-
-    private fun createSizeFeatureAssertion(expectedSize: Int, iterableAsList: List<E?>, itr: Iterator<E?>): AssertionGroup {
-        val additionalEntries = mutableListOf<E?>()
-        val actualSize = iterableAsList.size
-        while (itr.hasNext()) {
-            additionalEntries.add(itr.next())
-        }
-        val featureAssertions = mutableListOf<Assertion>()
-        featureAssertions.add(AssertImpl.builder.descriptive.create(
-                DescriptionAnyAssertion.TO_BE,
-                RawString.create(expectedSize.toString()),
-                { actualSize == expectedSize }
-        ))
-        if (actualSize > expectedSize) {
-            featureAssertions.add(LazyThreadUnsafeAssertionGroup {
-                val assertions = additionalEntries.mapIndexed { index, it ->
-                    val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, expectedSize + index)
-                    AssertImpl.builder.descriptive.create(description, it ?: RawString.NULL, true)
-                }
-                AssertImpl.builder.explanatoryGroup.withWarning.create(
-                    AssertImpl.builder
-                        .list(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
-                        .create(assertions)
-                )
-            })
-        }
-        return AssertImpl.builder
-            .feature(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()))
-            .create(featureAssertions)
-    }
 }

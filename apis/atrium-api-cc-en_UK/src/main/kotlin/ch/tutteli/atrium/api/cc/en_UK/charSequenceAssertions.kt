@@ -20,6 +20,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
  *
  * @return The newly created builder.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.contains"))
 val <T : CharSequence> Assert<T>.contains: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     get() = AssertImpl.charSequence.containsBuilder(this)
 
@@ -34,6 +35,7 @@ fun <T : CharSequence> getContains(plant: Assert<T>): DeprecatedBuilder<T, NoOpS
  *
  * @return The newly created builder.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsNot"))
 val <T : CharSequence> Assert<T>.containsNot: NotCheckerOption<T, NotSearchBehaviour>
     get() = NotCheckerOptionImpl(AssertImpl.charSequence.containsNotBuilder(this))
 
@@ -68,6 +70,7 @@ fun <T : CharSequence> getContainsNot(plant:  Assert<T>): DeprecatedNotCheckerBu
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.contains(expected, *otherExpected)"))
 fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
     = contains.atLeast(1).values(expected, *otherExpected)
 
@@ -80,6 +83,7 @@ fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: A
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsNot(expected, *otherExpected)"))
 fun <T : CharSequence> Assert<T>.containsNot(expected: Any, vararg otherExpected: Any)
     = containsNot.values(expected, *otherExpected)
 
@@ -106,6 +110,7 @@ fun <T : CharSequence> Assert<T>.containsNot(expected: Any, vararg otherExpected
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsDefaultTranslationOf(expected, *otherExpected)"))
 fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
     = contains.atLeast(1).defaultTranslationOf(expected, *otherExpected)
 
@@ -119,6 +124,7 @@ fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(expected: Translat
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsNotDefaultTranslationOf(expected, *otherExpected)"))
 fun <T : CharSequence> Assert<T>.containsNotDefaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable)
     = containsNot.defaultTranslationOf(expected, * otherExpected)
 
@@ -146,6 +152,7 @@ fun <T : CharSequence> Assert<T>.containsNotDefaultTranslationOf(expected: Trans
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsRegex(expected, *otherExpected)"))
 fun <T : CharSequence> Assert<T>.containsRegex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
     = contains.atLeast(1).regex(pattern, *otherPatterns)
 
@@ -155,6 +162,7 @@ fun <T : CharSequence> Assert<T>.containsRegex(pattern: String, vararg otherPatt
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.startsWith(expected)"))
 fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
@@ -164,6 +172,7 @@ fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.startsNotWith(expected)"))
 fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsNotWith(this, expected))
 
@@ -174,6 +183,7 @@ fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.endsWith(expected)"))
 fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
@@ -183,6 +193,7 @@ fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.endsNotWith(expected)"))
 fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsNotWith(this, expected))
 
@@ -193,6 +204,7 @@ fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isEmpty()"))
 fun <T : CharSequence> Assert<T>.isEmpty()
     = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
@@ -202,5 +214,6 @@ fun <T : CharSequence> Assert<T>.isEmpty()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotEmpty()"))
 fun <T : CharSequence> Assert<T>.isNotEmpty()
     = addAssertion(AssertImpl.charSequence.isNotEmpty(this))

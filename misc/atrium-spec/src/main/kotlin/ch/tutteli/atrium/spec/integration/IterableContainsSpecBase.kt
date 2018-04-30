@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.exactly
-import ch.tutteli.atrium.api.cc.en_UK.regex
+import ch.tutteli.atrium.api.cc.en_GB.contains
+import ch.tutteli.atrium.api.cc.en_GB.exactly
+import ch.tutteli.atrium.api.cc.en_GB.regex
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.Spek
@@ -16,6 +16,7 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
         val containsInAnyOrder = String.format(DescriptionIterableAssertion.IN_ANY_ORDER.getDefault(), DescriptionIterableAssertion.CONTAINS.getDefault())
         val containsInAnyOrderOnly = String.format(DescriptionIterableAssertion.IN_ANY_ORDER_ONLY.getDefault(), DescriptionIterableAssertion.CONTAINS.getDefault())
         val containsInOrderOnly = String.format(DescriptionIterableAssertion.IN_ORDER_ONLY.getDefault(), DescriptionIterableAssertion.CONTAINS.getDefault())
+        val containsInOrderOnlyGrouped = String.format(DescriptionIterableAssertion.IN_ORDER_ONLY_GROUPED.getDefault(), DescriptionIterableAssertion.CONTAINS.getDefault())
         val numberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES.getDefault()
         val additionalEntries = DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
         val mismatches = DescriptionIterableAssertion.WARNING_MISMATCHES.getDefault()

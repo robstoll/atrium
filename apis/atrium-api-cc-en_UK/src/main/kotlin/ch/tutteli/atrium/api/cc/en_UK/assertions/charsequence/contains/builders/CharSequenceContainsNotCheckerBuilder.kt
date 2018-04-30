@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
     "use the builder from the package creating, will be removed with 1.0.0",
     ReplaceWith(
         "NotCheckerOption",
-        "ch.tutteli.atrium.api.cc.en_UK.creating.charsequence.contains.builders.NotCheckerOption"
+        "ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders.NotCheckerOption"
     )
 )
 open class CharSequenceContainsNotCheckerBuilder<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(

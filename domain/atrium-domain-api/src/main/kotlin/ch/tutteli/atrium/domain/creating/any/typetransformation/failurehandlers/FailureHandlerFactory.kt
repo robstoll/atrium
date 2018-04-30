@@ -14,8 +14,12 @@ import java.util.*
  */
 val failureHandlerFactory by lazy { SingleServiceLoader.load(FailureHandlerFactory::class.java) }
 
-
+/**
+ * Defines the minimum set of [AnyTypeTransformation.FailureHandler]s an implementation of the domain of Atrium
+ * has to provide.
+ */
 interface FailureHandlerFactory {
+
     /**
      * Creates a [AnyTypeTransformation.FailureHandler] which wraps subsequent assertions into an
      * [AssertionGroup] with an [ExplanatoryAssertionGroupType] so that the user of Atrium can see in error reporting

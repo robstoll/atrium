@@ -1,12 +1,14 @@
-description = 'Represents a convenience module which merely bundles dependencies'
+description = 'Represents a deprecated convenience module which merely bundles dependencies. ' +
+    'Use atrium-cc-en_GB-robstoll once you have migrated all deprecated entities, this module will be removed with 1.0.0'
 
 dependencies {
-    compile prefixedProject('api-cc-en_UK')
-    compile prefixedProject('translations-en_UK')
+    compile prefixedProject('api-cc-en_GB')
+    compile prefixedProject('translations-en_GB')
     compile prefixedProject('domain-robstoll')
     compile prefixedProject('core-robstoll')
 
     //TODO remove with 1.0.0
+    compile prefixedProject('api-cc-en_UK')
     compile prefixedProject('assertions')
     compile prefixedProject('core-api-deprecated')
     compile prefixedProject('core-robstoll-deprecated')
