@@ -19,6 +19,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.value(expected)"))
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): AssertionPlant<T>
     = this the Values(expected)
 
@@ -46,6 +47,7 @@ fun <E, T : Iterable<E>> value(checkerBuilder: IterableContainsCheckerBuilder<E,
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(values)"))
 infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, values.toList()))
 
@@ -84,6 +86,7 @@ fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.entry(assertionCreator)"))
 infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = this the Entries(assertionCreator)
 
@@ -102,6 +105,7 @@ fun <E : Any, T : Iterable<E>> entry(checkerBuilder: IterableContainsCheckerBuil
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(entries)"))
 infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, entries.toList()))
 
@@ -123,6 +127,7 @@ fun <E : Any, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilde
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.entry(assertionCreator)"))
 @JvmName("entry?")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.entry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this the Entries(assertionCreator)
@@ -142,6 +147,7 @@ fun <E : Any, T : Iterable<E?>> nullableEntry(checkerBuilder: IterableContainsCh
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(entries)"))
 @JvmName("entries?")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrder(this, entries.toList()))

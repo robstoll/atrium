@@ -8,6 +8,7 @@ import ch.tutteli.kbox.glue
 /**
  * Parameter object to express `Translatable, vararg Translatable` in the infix-api.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.DefaultTranslationsOf(expected, *otherExpected)"))
 class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected: Translatable) {
     fun toList(): List<Translatable> = expected glue otherExpected
 }
@@ -15,6 +16,7 @@ class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected
 /**
  * Parameter object to express `((Assert<T>) -> Unit)?, vararg ((Assert<T>) -> Unit)?` in the infix-api.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.Entries(assertionCreator, *otherAssertionCreators)"))
 class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: A, vararg val otherAssertionCreators: A){
     fun toList(): List<A> = assertionCreator glue otherAssertionCreators
 }
@@ -31,20 +33,15 @@ class Objects<out T>(val expected: T, vararg val otherExpected: T) {
 /**
  * Parameter object to express `String, vararg String` in the infix-api.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.RegexPatterns(pattern, *otherPatterns)"))
 class RegexPatterns(val pattern: String, vararg val otherPatterns: String) {
     fun toList(): List<String> = pattern glue otherPatterns
 }
 
 /**
- * Parameter object to express a [Group] with a single element
- */
-class Value<out T>(val expected: T): Group<T>{
-    override fun toList(): List<T> = listOf(expected)
-}
-
-/**
  * Parameter object to express `T, vararg T` in the infix-api.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.Values(expected, *otherExpected)"))
 class Values<out T>(val expected: T, vararg val otherExpected: T): Group<T> {
 
     @Deprecated("Use Values directly instead of wrapping it into Objects in addition, will be removed with 1.0.0")
