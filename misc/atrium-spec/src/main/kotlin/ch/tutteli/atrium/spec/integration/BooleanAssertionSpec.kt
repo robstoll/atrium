@@ -14,19 +14,19 @@ import org.jetbrains.spek.api.include
 
 abstract class BooleanAssertionsSpec(
     verbs: AssertionVerbFactory,
-    isTruePair: Pair<String, Assert<Boolean>.() -> Assert<Boolean>>,
-    isFalsePair: Pair<String, Assert<Boolean>.() -> Assert<Boolean>>,
+    toBeTruePair: Pair<String, Assert<Boolean>.() -> Assert<Boolean>>,
+    toBeFalsePair: Pair<String, Assert<Boolean>.() -> Assert<Boolean>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     include(object : SubjectLessAssertionSpec<Boolean>(describePrefix,
-        isTruePair.first to mapToCreateAssertion { isTruePair.second(this) },
-        isFalsePair.first to mapToCreateAssertion { isFalsePair.second(this) }
+        toBeTruePair.first to mapToCreateAssertion { toBeTruePair.second(this) },
+        toBeFalsePair.first to mapToCreateAssertion { toBeFalsePair.second(this) }
     ) {})
 
     include(object : CheckingAssertionSpec<Boolean>(verbs, describePrefix,
-        checkingTriple(isTruePair.first, { isTruePair.second(this) }, true, false),
-        checkingTriple(isFalsePair.first, { isFalsePair.second(this) }, false, true)
+        checkingTriple(toBeTruePair.first, { toBeTruePair.second(this) }, true, false),
+        checkingTriple(toBeFalsePair.first, { toBeFalsePair.second(this) }, false, true)
     ) {})
 
     fun prefixedDescribe(description: String, body: SpecBody.() -> Unit) {
@@ -35,17 +35,17 @@ abstract class BooleanAssertionsSpec(
 
     val assert: (Boolean) -> Assert<Boolean> = verbs::checkImmediately
     val expect = verbs::checkException
-    val (isTrue, isTrueFun) = isTruePair
-    val (isFalse, isFalseFun) = isFalsePair
+    val (toBeTrue, toBeTrueFun) = toBeTruePair
+    val (toBeFalse, toBeFalseFun) = toBeFalsePair
 
     prefixedDescribe("subject is `true`") {
         val fluent = assert(true)
-        test("$isTrue does not throw") {
-            fluent.isTrueFun()
+        test("$toBeTrue does not throw") {
+            fluent.toBeTrueFun()
         }
-        test("$isFalse throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: false`") {
+        test("$toBeFalse throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: false`") {
             expect {
-                fluent.isFalseFun()
+                fluent.toBeFalseFun()
             }.toThrow<AssertionError> {
                 message {
                     containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
@@ -58,9 +58,9 @@ abstract class BooleanAssertionsSpec(
     prefixedDescribe("subject is `false`") {
         val fluent = assert(false)
 
-        test("$isTrue throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: true`") {
+        test("$toBeTrue throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: true`") {
             expect {
-                fluent.isTrueFun()
+                fluent.toBeTrueFun()
             }.toThrow<AssertionError> {
                 message {
                     containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
@@ -68,8 +68,8 @@ abstract class BooleanAssertionsSpec(
                 }
             }
         }
-        test("$isFalse does not throw") {
-            fluent.isFalseFun()
+        test("$toBeFalse does not throw") {
+            fluent.toBeFalseFun()
         }
     }
 })
