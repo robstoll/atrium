@@ -70,6 +70,8 @@ repositories {
 }
 dependencies {
     testCompile "ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version"
+    // either define own assertion verbs or use predefined once
+    // testCompile "ch.tutteli:atrium-verbs:$atrium_version"
 }
 ```
 We have defined a dependency to the bundle `atrium-cc-en_UK-robstoll` in the above example. 
