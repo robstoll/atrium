@@ -3,10 +3,7 @@ package ch.tutteli.atrium.api.cc.en_UK
 import ch.tutteli.atrium.api.cc.en_UK.creating.iterable.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
-import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import kotlin.reflect.KProperty
 
 abstract class IterableContainsSpecBase {

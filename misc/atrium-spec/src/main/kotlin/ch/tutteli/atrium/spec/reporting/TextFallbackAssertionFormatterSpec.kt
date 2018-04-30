@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.toBe
+import ch.tutteli.atrium.api.cc.en_GB.contains
+import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.AssertImpl

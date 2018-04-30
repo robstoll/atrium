@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
-import kotlin.math.exp
 
 /**
  * Makes the assertion that the thrown [Throwable] is of type [TExpected].
@@ -18,6 +17,7 @@ import kotlin.math.exp
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.toThrow()"))
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow() {
     toThrow<TExpected> {}
 }
@@ -32,6 +32,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.toThrow(assertionCreator)"))
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
     AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
 }
@@ -48,26 +49,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.message(assertionCreator)"))
 fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
     property(subject::message).isNotNull(assertionCreator)
-}
-
-/**
- * Creates the assertion that the [Throwable]'s [message][Throwable.message] is not null (see [message]) contains
- * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if defined),
- * using a non disjoint search.
- *
- * It is a shortcut for `message { contains.atLeast(1).values(expected, otherExpected) }`
- *
- * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed
- * (this function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
- *
- * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
- *   assertion [message][Throwable.message] is not null) holds or not.
- *
- * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
- *   or does not contain [expected] or [otherExpected].
- */
-fun <T : Throwable> Assert<T>.messageContains(expected: Any, vararg otherExpected: Any) {
-    message { contains(expected, *otherExpected) }
 }

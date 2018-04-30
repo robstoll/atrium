@@ -30,6 +30,10 @@ object AssertionCollectorBuilder: AssertionCollector {
 
 }
 
+/**
+ * Delegates inter alia to the implementation of [ThrowingAssertionCollectorForExplanation] and
+ * [NonThrowingAssertionCollectorForExplanation].
+ */
 object ExplainingAssertionCollectorOption {
 
     /**

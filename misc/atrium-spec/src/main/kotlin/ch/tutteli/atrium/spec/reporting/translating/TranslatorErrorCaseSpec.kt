@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.api.cc.en_UK.messageContains
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_GB.messageContains
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun

@@ -15,6 +15,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.notToBeNull(assertionCreator)"))
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     AssertImpl.any.typeTransformation.isNotNull(this, T::class, assertionCreator)
 }
@@ -29,6 +30,7 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinli
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.isA(assertionCreator)"))
 inline infix fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
     AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
 }

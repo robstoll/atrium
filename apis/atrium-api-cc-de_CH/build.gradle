@@ -12,7 +12,7 @@ dependencies {
     testCompile prefixedProject('domain-robstoll')
     testCompile prefixedProject('core-robstoll')
     testCompile(prefixedProject('spec')) {
-        exclude module: "${rootProject.name}-translations-en_UK"
+        exclude module: "${rootProject.name}-translations-en_GB"
     }
     testCompile prefixedProject('translations-de_CH')
 }

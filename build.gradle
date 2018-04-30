@@ -18,14 +18,14 @@ buildscript {
 
         //publish.gradle
         bintray_version = '1.7.3'
-        publish_pkg_name = project.name
-        github_url = "https://github.com/robstoll/${project.name}"
+        publish_pkg_name = rootProject.name
+        github_url = "https://github.com/robstoll/${rootProject.name}"
         publish_vcsUrl = "${github_url}.git"
 
         srcKotlin = 'src/main/kotlin'
 
         //gh-pages.gradle
-        docProjects = subprojects.findAll { !it.name.contains("robstoll") }
+        docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec"}
 
         //jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
@@ -33,20 +33,20 @@ buildscript {
             sourceProjects:
                 (subprojects - deprecatedProjects).findAll {
                     // would have two classes with the same name if we add it as project as well,
-                    // (clashes with "${project.name}-translations-en_UK"
-                    it.name != "${project.name}-translations-de_CH" &&
+                    // (clashes with "${project.name}-translations-en_GB"
+                    it.name != "${rootProject.name}-translations-de_CH" &&
                         // does not make sense to listen specs in coverage
-                        it.name != "${project.name}-spec"
+                        it.name != "${rootProject.name}-spec"
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects).findAll {
-                    it.name != "${project.name}-domain-api" &&
-                        it.name != "${project.name}-domain-robstoll" &&
-                        it.name != "${project.name}-core-robstoll" &&
-                        it.name != "${project.name}-spec" &&
-                        it.name != "${project.name}-bc-test" &&
+                    it.name != "${rootProject.name}-domain-api" &&
+                        it.name != "${rootProject.name}-domain-robstoll" &&
+                        it.name != "${rootProject.name}-core-robstoll" &&
+                        it.name != "${rootProject.name}-spec" &&
+                        it.name != "${rootProject.name}-bc-test" &&
                         //TODO remove with 1.0.0
-                        it.name != "${project.name}-assertions"
+                        it.name != "${rootProject.name}-assertions"
                 }
         ]
     }
@@ -138,7 +138,8 @@ configure(apiProjects) {
 }
 
 // has to be after the above two blocks which define `it.ext.publish_artifacts`
-subprojects {
+def bundleSmokeTests = subprojects.findAll{ x -> x.name.endsWith('smoke-test')}
+configure(subprojects - bundleSmokeTests) {
     afterEvaluate { subproject ->
         apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle", to: subproject
     }
@@ -189,6 +190,30 @@ if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
             jar.dependsOn compileModuleJava
         }
     }
+}
+
+configure(bundleSmokeTests) {
+    def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
+    def bundle = project(":$bundleUnderTest")
+    description = "Represents a JDK9 smoke test for $bundleUnderTest"
+
+    sourceCompatibility = '9'
+    targetCompatibility = '9'
+
+    ext.jacoco_additional = bundle
+
+    sourceSets {
+        //we are reusing the source from the bundle, so that we do not have to re-invent the spec
+        test { kotlin { srcDirs += ["${bundle.projectDir}/src/test/kotlin"] } }
+    }
+
+    dependencies {
+        //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
+        testCompile bundle
+        testCompile prefixedProject('verbs')
+    }
+
+
 }
 
 /*

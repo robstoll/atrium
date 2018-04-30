@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_UK.contains
-import ch.tutteli.atrium.api.cc.en_UK.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_UK.message
-import ch.tutteli.atrium.api.cc.en_UK.toThrow
+import ch.tutteli.atrium.api.cc.en_GB.contains
+import ch.tutteli.atrium.api.cc.en_GB.containsDefaultTranslationOf
+import ch.tutteli.atrium.api.cc.en_GB.message
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -12,7 +12,6 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.include
 
-//TODO remove with 1.0.0
 abstract class BooleanAssertionsSpec(
     verbs: AssertionVerbFactory,
     isTruePair: Pair<String, Assert<Boolean>.() -> Assert<Boolean>>,

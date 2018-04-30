@@ -10,13 +10,13 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOp
 import kotlin.reflect.KFunction2
 
 abstract class IterableContainsSpecBase {
-    private val values = Values::class.simpleName
-    private val entries = Entries::class.simpleName
+    private val Values = Values::class.simpleName
+    private val Entries = Entries::class.simpleName
 
     private val containsNotFun: KFunction2<Assert<Iterable<Double>>, Double, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsNot
     protected val toContain = "${Assert<Iterable<Double>>::to.name} ${contain::class.simpleName}"
     protected val containsNot = "${Assert<Iterable<Double>>::notTo.name} ${contain::class.simpleName}"
-    protected val containsNotValues = "${containsNotFun.name} ${Values::class.simpleName}"
+    protected val containsNotValues = "${containsNotFun.name} $Values"
     protected val atLeast = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::atLeast.name
     protected val butAtMost = AtLeastCheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::butAtMost.name
     protected val exactly = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::exactly.name
@@ -26,18 +26,18 @@ abstract class IterableContainsSpecBase {
     private val theInAnyOrderFun: KFunction2<IterableContains.CheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>, Values<Double>, Assert<Iterable<Double>>>
         = IterableContains.CheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::the
     private val theInAnyOrder = theInAnyOrderFun.name
-    protected val inAnyOrderEntries = "$theInAnyOrder $entries"
+    protected val inAnyOrderEntries = "$theInAnyOrder $Entries"
 
     private val theInAnyOrderOnlyFun: KFunction2<IterableContains.Builder<Double, Iterable<Double>, InAnyOrderOnlySearchBehaviour>, Values<Double>, Assert<Iterable<Double>>>
         = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderOnlySearchBehaviour>::the
     private val theInAnyOrderOnly = theInAnyOrderOnlyFun.name
-    protected val inAnyOrderOnlyValues = "$theInAnyOrderOnly $values"
-    protected val inAnyOrderOnlyEntries = "$theInAnyOrderOnly $entries"
+    protected val inAnyOrderOnlyValues = "$theInAnyOrderOnly $Values"
+    protected val inAnyOrderOnlyEntries = "$theInAnyOrderOnly $Entries"
     protected val inOrder = "${IterableContains.Builder<Double, Iterable<Double>, NoOpSearchBehaviour>::inGiven.name} ${order::class.simpleName}"
     protected val butOnly = "${IterableContains.Builder<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::but.name} ${only::class.simpleName}"
     private val theInOrderOnlyFun: KFunction2<IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>, Values<Double>, Assert<Iterable<Double>>>
         = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::the
     private val theInOrderOnly = theInOrderOnlyFun.name
-    protected val inOrderOnlyValues = "$theInOrderOnly $values"
-    protected val inOrderOnlyEntries = "$theInOrderOnly $entries"
+    protected val inOrderOnlyValues = "$theInOrderOnly $Values"
+    protected val inOrderOnlyEntries = "$theInOrderOnly $Entries"
 }

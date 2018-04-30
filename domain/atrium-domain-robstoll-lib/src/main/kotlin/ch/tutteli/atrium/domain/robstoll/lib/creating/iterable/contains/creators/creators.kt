@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders.NoOpCheckerOption
 
@@ -77,6 +78,13 @@ fun <E : Any, T : Iterable<E?>> _containsNullableEntriesInOrderOnly(
     return createAssertionGroupWithoutChecker(checkerBuilder, assertionCreators, ::InOrderOnlyEntriesAssertionCreator)
 }
 
+fun <E: Any, T : Iterable<E>> _containsValuesInOrderOnlyGrouped(
+    builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>,
+    groups: List<List<E>>
+): Assertion {
+    val checkerBuilder = NoOpCheckerOption(builder)
+    return createAssertionGroupWithoutChecker(checkerBuilder, groups, ::InOrderOnlyGroupedValuesAssertionCreator)
+}
 
 private fun <E, T : Iterable<E>, SC, S : IterableContains.SearchBehaviour> createAssertionGroupWithoutChecker(
     checkerOption: IterableContains.CheckerOption<E, T, S>,

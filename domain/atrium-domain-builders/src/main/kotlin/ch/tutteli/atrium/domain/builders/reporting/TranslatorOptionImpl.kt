@@ -8,6 +8,9 @@ import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
+/**
+ * Provides options to create a [Translator].
+ */
 interface TranslatorOption {
 
     /**

@@ -23,3 +23,13 @@ fun <E, T : Iterable<E>> _containsInOrderOnly(
     builder: IterableContains.Builder<E, T, InOrderSearchBehaviour>
 ): IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>
     = IterableContainsBuilder(builder.plant, InOrderOnlySearchBehaviourImpl())
+
+fun <E, T : Iterable<E>> _containsInOrderOnlyGrouped(
+    builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>
+): IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
+    = IterableContainsBuilder(builder.plant, InOrderOnlyGroupedSearchBehaviourImpl())
+
+fun <E, T : Iterable<E>> _containsInOrderOnlyGroupedWithing(
+    builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>
+): IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>
+    = IterableContainsBuilder(builder.plant, InOrderOnlyGroupedWithinSearchBehaviourImpl())
