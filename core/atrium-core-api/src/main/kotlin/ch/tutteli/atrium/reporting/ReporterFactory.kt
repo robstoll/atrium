@@ -10,7 +10,15 @@ import java.util.*
  */
 val reporter by lazy {
     val id = System.getProperty("ch.tutteli.atrium.reporting.reporterFactory") ?: "default"
-    val factory = ServiceLoader.load(ReporterFactory::class.java).iterator().asSequence().first { it.id == id }
+    val itr = ServiceLoader.load(ReporterFactory::class.java).iterator()
+    if (itr.hasNext()) {
+        val i = 0;
+    }
+    val factory = itr
+        .asSequence()
+        .firstOrNull { it.id == id }
+        ?: throw IllegalStateException("Could not find a ${ReporterFactory::class.simpleName} with id $id")
+
     factory.create()
 }
 
