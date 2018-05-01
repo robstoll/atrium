@@ -53,9 +53,10 @@ include {
     }
 
     misc {
+        _ 'bc-test'
         _ 'spec'
         _ 'verbs'
-        _ 'bc-test'
+        _ 'verbs-internal'
     }
 
     //TODO remove all below with 1.0.0

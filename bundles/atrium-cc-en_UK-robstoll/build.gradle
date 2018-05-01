@@ -2,6 +2,7 @@ description = 'Represents a deprecated convenience module which merely bundles d
     'Use atrium-cc-en_GB-robstoll once you have migrated all deprecated entities, this module will be removed with 1.0.0'
 
 dependencies {
+    compile prefixedProject('verbs')
     compile prefixedProject('api-cc-en_GB')
     compile prefixedProject('translations-en_GB')
     compile prefixedProject('domain-robstoll')
@@ -13,6 +14,4 @@ dependencies {
     compile prefixedProject('core-api-deprecated')
     compile prefixedProject('core-robstoll-deprecated')
     compile prefixedProject('translations-en_UK-deprecated')
-
-    testCompile prefixedProject('verbs')
 }

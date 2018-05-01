@@ -1,0 +1,10 @@
+description = 'Specifies the internally used assertion verbs'
+
+dependencies {
+    compile prefixedProject('core-api')
+    compile prefixedProject('domain-builders')
+    compile prefixedProject('spec')
+
+    testCompile prefixedProject('domain-robstoll')
+    testCompile prefixedProject('core-robstoll')
+}

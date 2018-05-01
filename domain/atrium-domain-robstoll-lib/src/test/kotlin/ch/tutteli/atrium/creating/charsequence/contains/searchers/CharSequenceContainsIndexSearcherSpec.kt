@@ -3,7 +3,7 @@ package ch.tutteli.atrium.creating.charsequence.contains.searchers
 import ch.tutteli.atrium.api.cc.en_GB.contains
 import ch.tutteli.atrium.api.cc.en_GB.exactly
 import ch.tutteli.atrium.api.cc.en_GB.value
-import ch.tutteli.atrium.assert
+import ch.tutteli.atrium.verbs.internal.assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 

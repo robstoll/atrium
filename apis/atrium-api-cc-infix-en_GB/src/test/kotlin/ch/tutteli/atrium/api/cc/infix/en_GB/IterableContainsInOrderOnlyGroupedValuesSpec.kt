@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
-import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.entries
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.group
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
