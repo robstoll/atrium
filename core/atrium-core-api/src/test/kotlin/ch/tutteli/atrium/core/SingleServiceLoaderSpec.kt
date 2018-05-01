@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.*
-import ch.tutteli.atrium.assert
-import ch.tutteli.atrium.expect
+import ch.tutteli.atrium.verbs.internal.assert
+import ch.tutteli.atrium.verbs.internal.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it

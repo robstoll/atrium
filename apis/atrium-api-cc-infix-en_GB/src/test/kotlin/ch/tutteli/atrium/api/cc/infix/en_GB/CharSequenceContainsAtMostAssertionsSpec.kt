@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
-import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.case
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.creating.Assert
-
 
 class CharSequenceContainsAtMostAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsAtMostAssertionSpec(
     AssertionVerbFactory,

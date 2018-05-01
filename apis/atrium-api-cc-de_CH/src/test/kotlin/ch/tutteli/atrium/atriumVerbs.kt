@@ -6,29 +6,38 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.ReporterFactory
+import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 
 internal fun <T : Any> esGilt(subject: T)
-    = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, subject, reporter)
 
 internal fun <T : Any> esGilt(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(AssertionVerb.ASSERT, subject, reporter, assertionCreator)
 
 internal fun <T : Any?> esGilt(subject: T)
-    = AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, reporter)
 
 internal fun erwarte(act: () -> Unit)
-    = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
 
 internal enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("es gilt"),
     EXPECT_THROWN("erwarte, die geworfene Exception"),
+    ;
+
+    init {
+        ReporterFactory.specifyFactoryIfNotYetSet("ascii")
+    }
 }
 
-internal object AtriumReporterSupplier {
-    val REPORTER by lazy {
-        reporterBuilder
+class AsciiBulletPointReporterFactory : ReporterFactory {
+    override val id = "ascii"
+
+    override fun create(): Reporter {
+        return reporterBuilder
             .withoutTranslations()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()

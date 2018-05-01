@@ -6,9 +6,9 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.core.robstoll.lib.AssertionVerb.ASSERT
-import ch.tutteli.atrium.core.robstoll.lib.AssertionVerbFactory
-import ch.tutteli.atrium.core.robstoll.lib.assert
+import ch.tutteli.atrium.verbs.internal.AssertionVerb.ASSERT
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter

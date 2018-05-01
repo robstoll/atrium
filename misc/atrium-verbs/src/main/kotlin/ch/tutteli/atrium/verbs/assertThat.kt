@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT
 import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN
 
@@ -19,7 +20,7 @@ import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN
  * @see CoreFactory.newReportingPlant
  */
 fun <T : Any> assertThat(subject: T)
-    = AssertImpl.coreFactory.newReportingPlant(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlant(ASSERT_THAT, subject, reporter)
 
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
@@ -31,7 +32,7 @@ fun <T : Any> assertThat(subject: T)
  * @see CoreFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
 fun <T : Any> assertThat(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT_THAT, subject, reporter, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable] for the given [subject] which might be `null`.
@@ -41,7 +42,7 @@ fun <T : Any> assertThat(subject: T, assertionCreator: Assert<T>.() -> Unit)
  * @see CoreFactory.newReportingPlantNullable
  */
 fun <T : Any?> assertThat(subject: T)
-    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT_THAT, subject, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT_THAT, subject, reporter)
 
 /**
  * Creates a [ThrowableThrown.Builder] for the given function [act] which is expected to throw a [Throwable].
@@ -49,4 +50,4 @@ fun <T : Any?> assertThat(subject: T)
  * @return The newly created [ThrowableThrown.Builder].
  */
 fun assertThat(act: () -> Unit)
-    = AssertImpl.throwable.thrownBuilder(ASSERT_THAT_THROWN, act, AtriumReporterSupplier.REPORTER)
+    = AssertImpl.throwable.thrownBuilder(ASSERT_THAT_THROWN, act, reporter)

@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.cc.en_GB.contains
 import ch.tutteli.atrium.api.cc.en_GB.notToBeNull
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.builders.AssertionVerbFactory
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.property
 import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.returnValueOf0
 import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.returnValueOf1
