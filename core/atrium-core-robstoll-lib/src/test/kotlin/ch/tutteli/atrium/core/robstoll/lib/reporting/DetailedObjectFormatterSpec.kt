@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.core.robstoll.lib.AssertionVerb
-import ch.tutteli.atrium.core.robstoll.lib.AssertionVerbFactory
-import ch.tutteli.atrium.core.robstoll.lib.assert
+import ch.tutteli.atrium.verbs.internal.AssertionVerb
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.core.robstoll.lib.reporting.DetailedObjectFormatter.Companion.INDENT
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.RawString

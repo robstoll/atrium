@@ -5,4 +5,5 @@ dependencies {
         exclude group: 'org.jetbrains.kotlin'
     }
     testCompile prefixedProject('cc-infix-en_GB-robstoll')
+    testCompile prefixedProject('verbs-internal')
 }
