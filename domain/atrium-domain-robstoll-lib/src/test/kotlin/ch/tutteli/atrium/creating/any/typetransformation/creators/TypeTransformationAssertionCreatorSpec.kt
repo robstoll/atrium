@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.creating.any.typetransformation.creators
 
 import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.assert
+import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
-import ch.tutteli.atrium.expect
+import ch.tutteli.atrium.verbs.internal.expect
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion

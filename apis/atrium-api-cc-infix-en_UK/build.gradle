@@ -8,5 +8,5 @@ dependencies {
 
     testCompile prefixedProject('domain-robstoll')
     testCompile prefixedProject('core-robstoll')
-    testCompile prefixedProject('spec')
+    testCompile prefixedProject('verbs-internal')
 }

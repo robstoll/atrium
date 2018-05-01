@@ -11,5 +11,5 @@ dependencies {
     testCompile prefixedProject('domain-robstoll')
     testCompile prefixedProject('core-robstoll')
     testCompile prefixedProject('api-cc-en_GB')
-    testCompile prefixedProject('spec')
+    testCompile prefixedProject('verbs-internal')
 }
