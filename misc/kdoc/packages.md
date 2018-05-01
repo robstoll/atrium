@@ -51,7 +51,8 @@ Misc modules:
 - **atrium-spec** contains [Spek](http://spekframework.org/) specifications for interfaces (defined in 
   _atrium-core-api_) and assertion functions. The specifications can be reused by implementation of the core of Atrium 
   as well as by API implementations to assure they fulfill the specifications.  
-- **atrium-verbs** contains out of the box assertion verbs (we suggest to [use your own assertion verbs](https://github.com/robstoll/atrium#use-own-assertion-verbs)).
+- **atrium-verbs** contains out of the box assertion verbs 
+- **atrium-verbs-internal** contains the assertion verbs Atrium uses internally - use with care, no backward compatibility guarantees.
 
 Deprecated modules:
 - **atrium-cc-en&#95;UK-robstoll** use `atrium-cc-en_GB-robstoll` instead. This bundle defines to have a dependency on   
