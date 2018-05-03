@@ -70,7 +70,7 @@ repositories {
 }
 dependencies {
     testCompile "ch.tutteli:atrium-cc-en_UK-robstoll:$atrium_version"
-    // either define own assertion verbs or use predefined once
+    // either define own assertion verbs or use predefined ones
     // testCompile "ch.tutteli:atrium-verbs:$atrium_version"
 }
 ```
