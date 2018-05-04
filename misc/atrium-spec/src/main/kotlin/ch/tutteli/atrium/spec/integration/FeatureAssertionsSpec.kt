@@ -63,6 +63,7 @@ abstract class FeatureAssertionsSpec(
 
     itsLazyWithNestedImmediate: F,
     itsLazyWithNestedLazy: F,
+    additionalContentInException: String? = null,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -124,7 +125,12 @@ abstract class FeatureAssertionsSpec(
                 test("in case of $checkMethod evaluation") {
                     expect {
                         act(assertion)
-                    }.toThrow<AssertionError> { messageContains(stringInExceptionMessage) }
+                    }.toThrow<AssertionError> {
+                        messageContains(stringInExceptionMessage)
+                        if(additionalContentInException != null){
+                            messageContains(additionalContentInException)
+                        }
+                    }
                 }
             }
         }

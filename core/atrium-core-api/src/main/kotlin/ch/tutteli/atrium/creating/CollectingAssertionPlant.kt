@@ -15,7 +15,7 @@ import ch.tutteli.atrium.assertions.Assertion
 interface CollectingAssertionPlant<out T : Any> : AssertionPlant<T> {
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): CollectingAssertionPlant<T>
-    
+
     /**
      * The subject for which this plant will create [Assertion]s or it throws a [PlantHasNoSubjectException] if absent.
      * @throws PlantHasNoSubjectException in case there was not a [subject] defined for this plant.
@@ -28,5 +28,4 @@ interface CollectingAssertionPlant<out T : Any> : AssertionPlant<T> {
      * @return The [Assertion]s which have been [added][addAssertion] to this plant.
      */
     fun getAssertions(): List<Assertion>
-
 }

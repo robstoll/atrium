@@ -121,9 +121,9 @@ abstract class IterableContainsNullSpec(
                     //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
                     assert(setOf()).testeeFun({ AssertImpl.feature.returnValueOf1(
                         this,
-                        "compareTo",
                         subject::compareTo,
-                        2.0
+                        2.0,
+                        "compareTo"
                     ).toBe(0) }, arrayOf())
                 }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
             }
@@ -142,9 +142,9 @@ abstract class IterableContainsNullSpec(
                     //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
                     assert(list).testeeFun({ AssertImpl.feature.returnValueOf1(
                         this,
-                        "compareTo",
                         subject::compareTo,
-                        2.0
+                        2.0,
+                        "compareTo"
                     ).toBe(0) }, arrayOf())
                 }.toThrow<AssertionError> {
                     messageContains(
