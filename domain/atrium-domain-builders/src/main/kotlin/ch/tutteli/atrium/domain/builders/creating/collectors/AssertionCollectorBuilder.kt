@@ -17,7 +17,7 @@ import java.util.*
 object AssertionCollectorBuilder: AssertionCollector {
     override inline fun <T : Any> collect(
         plant: AssertionPlant<T>,
-        noinline subPlantAndAssertionCreator: (CollectingAssertionPlant<T>) -> Unit
+        noinline subPlantAndAssertionCreator: CollectingAssertionPlant<T>.() -> Unit
     ): AssertionGroup = assertionCollector.collect(plant, subPlantAndAssertionCreator)
 
     /**

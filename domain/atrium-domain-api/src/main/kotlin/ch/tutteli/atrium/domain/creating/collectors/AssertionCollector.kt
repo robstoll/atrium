@@ -44,5 +44,5 @@ interface AssertionCollector {
      * @throws IllegalArgumentException in case the given [subPlantAndAssertionCreator] did not create a single
      *   assertion, did not pass it to the [CollectingAssertionPlant] respectively.
      */
-    fun <T: Any> collect(plant: AssertionPlant<T>, subPlantAndAssertionCreator: (CollectingAssertionPlant<T>) -> Unit): AssertionGroup
+    fun <T: Any> collect(plant: AssertionPlant<T>, subPlantAndAssertionCreator: CollectingAssertionPlant<T>.() -> Unit): AssertionGroup
 }
