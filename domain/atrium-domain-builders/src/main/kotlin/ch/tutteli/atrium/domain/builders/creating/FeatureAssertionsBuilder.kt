@@ -48,9 +48,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = featureAssertions.property(plant, name, property)
 
     //Arg0
-    @JvmName("returnValueOf0Class")
+    @JvmName("safeReturnValueOf0")
     inline fun <T : Any, TReturnValue : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction1<T, TReturnValue>): AssertionPlant<TReturnValue>
-        = returnValueOf0(plant, method.name, { method.invoke(plant.subject) })
+        = returnValueOf0(plant, method.name, { method(plant.subject) })
 
     inline fun <T : Any, TReturnValue : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction0<TReturnValue>): AssertionPlant<TReturnValue>
         = returnValueOf0(plant, method.name, method)
@@ -59,9 +59,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = featureAssertions.returnValueOf0(plant, name, method)
 
 
-    @JvmName("returnValueOf0Class")
+    @JvmName("safeReturnValueOf0")
     inline fun <T : Any, TReturnValue : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction1<T, TReturnValue>, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-        = returnValueOf0(plant, method.name, { method.invoke(plant.subject) }, assertionCreator)
+        = returnValueOf0(plant, method.name, { method(plant.subject) }, assertionCreator)
 
     inline fun <T : Any, TReturnValue : Any> returnValueOf0(plant: AssertionPlant<T>, method: KFunction0<TReturnValue>, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
         = returnValueOf0(plant, method.name, method, assertionCreator)
@@ -70,10 +70,10 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = returnValueOf0(plant, name, method).addAssertionsCreatedBy(assertionCreator)
 
 
-    @JvmName("returnValueOf0Class")
+    @JvmName("safeReturnValueOf0")
     inline fun <T : Any, TReturnValue : Any?> returnValueOf0(plant: AssertionPlant<T>, method: KFunction1<T, TReturnValue>): AssertionPlantNullable<TReturnValue> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l = { method.invoke(plant.subject) }
+        val l = { method(plant.subject) }
         return returnValueOf0(plant, method.name, l)
     }
 
@@ -85,9 +85,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
 
     //Arg1
-    @JvmName("returnValueOf1Class")
+    @JvmName("safeReturnValueOf1")
     inline fun <T : Any, T1, TReturnValue : Any> returnValueOf1(plant: AssertionPlant<T>, method: KFunction2<T, T1, TReturnValue>, arg1: T1): AssertionPlant<TReturnValue>
-        = returnValueOf1(plant, method.name, {a1 -> method.invoke(plant.subject, a1) }, arg1)
+        = returnValueOf1(plant, method.name, {a1 -> method(plant.subject, a1) }, arg1)
 
     inline fun <T : Any, T1, TReturnValue : Any> returnValueOf1(plant: AssertionPlant<T>, method: KFunction1<T1, TReturnValue>, arg1: T1): AssertionPlant<TReturnValue>
         = returnValueOf1(plant, method.name, method, arg1)
@@ -96,9 +96,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = featureAssertions.returnValueOf1(plant, name, method, arg1)
 
 
-    @JvmName("returnValueOf1Class")
+    @JvmName("safeReturnValueOf1")
     inline fun <T : Any, T1, TReturnValue : Any> returnValueOf1(plant: AssertionPlant<T>, method: KFunction2<T, T1, TReturnValue>, arg1: T1, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-        = returnValueOf1(plant, method.name, {a1 -> method.invoke(plant.subject, a1) }, arg1, assertionCreator)
+        = returnValueOf1(plant, method.name, {a1 -> method(plant.subject, a1) }, arg1, assertionCreator)
 
     inline fun <T : Any, T1, TReturnValue : Any> returnValueOf1(plant: AssertionPlant<T>, method: KFunction1<T1, TReturnValue>, arg1: T1, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
         = returnValueOf1(plant, method.name, method, arg1, assertionCreator)
@@ -107,10 +107,10 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = returnValueOf1(plant, name, method, arg1).addAssertionsCreatedBy(assertionCreator)
 
 
-    @JvmName("returnValueOf1Class")
+    @JvmName("safeReturnValueOf1")
     inline fun <T : Any, T1, TReturnValue : Any?> returnValueOf1(plant: AssertionPlant<T>, method: KFunction2<T, T1, TReturnValue>, arg1: T1): AssertionPlantNullable<TReturnValue> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l: (T1) -> TReturnValue = {a1 -> method.invoke(plant.subject, a1) }
+        val l: (T1) -> TReturnValue = {a1 -> method(plant.subject, a1) }
         return returnValueOf1(plant, method.name, l, arg1)
     }
 
@@ -122,9 +122,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
 
     //Arg2
-    @JvmName("returnValueOf2Class")
+    @JvmName("safeReturnValueOf2")
     inline fun <T : Any, T1, T2, TReturnValue : Any> returnValueOf2(plant: AssertionPlant<T>, method: KFunction3<T, T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlant<TReturnValue>
-        = returnValueOf2(plant, method.name, {a1, a2 -> method.invoke(plant.subject, a1, a2) }, arg1, arg2)
+        = returnValueOf2(plant, method.name, {a1, a2 -> method(plant.subject, a1, a2) }, arg1, arg2)
 
     inline fun <T : Any, T1, T2, TReturnValue : Any> returnValueOf2(plant: AssertionPlant<T>, method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlant<TReturnValue>
         = returnValueOf2(plant, method.name, method, arg1, arg2)
@@ -133,9 +133,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = featureAssertions.returnValueOf2(plant, name, method, arg1, arg2)
 
 
-    @JvmName("returnValueOf2Class")
+    @JvmName("safeReturnValueOf2")
     inline fun <T : Any, T1, T2, TReturnValue : Any> returnValueOf2(plant: AssertionPlant<T>, method: KFunction3<T, T1, T2, TReturnValue>, arg1: T1, arg2: T2, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-        = returnValueOf2(plant, method.name, {a1, a2 -> method.invoke(plant.subject, a1, a2) }, arg1, arg2, assertionCreator)
+        = returnValueOf2(plant, method.name, {a1, a2 -> method(plant.subject, a1, a2) }, arg1, arg2, assertionCreator)
 
     inline fun <T : Any, T1, T2, TReturnValue : Any> returnValueOf2(plant: AssertionPlant<T>, method: KFunction2<T1, T2, TReturnValue>, arg1: T1, arg2: T2, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
         = returnValueOf2(plant, method.name, method, arg1, arg2, assertionCreator)
@@ -144,10 +144,10 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = returnValueOf2(plant, name, method, arg1, arg2).addAssertionsCreatedBy(assertionCreator)
 
 
-    @JvmName("returnValueOf2Class")
+    @JvmName("safeReturnValueOf2")
     inline fun <T : Any, T1, T2, TReturnValue : Any?> returnValueOf2(plant: AssertionPlant<T>, method: KFunction3<T, T1, T2, TReturnValue>, arg1: T1, arg2: T2): AssertionPlantNullable<TReturnValue> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l : (T1, T2) -> TReturnValue = {a1, a2 -> method.invoke(plant.subject, a1, a2) }
+        val l : (T1, T2) -> TReturnValue = {a1, a2 -> method(plant.subject, a1, a2) }
         return returnValueOf2(plant, method.name, l, arg1, arg2)
     }
 
@@ -159,9 +159,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
 
     //Arg3
-    @JvmName("returnValueOf3Class")
+    @JvmName("safeReturnValueOf3")
     inline fun <T : Any, T1, T2, T3, TReturnValue : Any> returnValueOf3(plant: AssertionPlant<T>, method: KFunction4<T, T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<TReturnValue>
-        = returnValueOf3(plant, method.name, {a1, a2, a3 -> method.invoke(plant.subject, a1, a2, a3) }, arg1, arg2, arg3)
+        = returnValueOf3(plant, method.name, {a1, a2, a3 -> method(plant.subject, a1, a2, a3) }, arg1, arg2, arg3)
 
     inline fun <T : Any, T1, T2, T3, TReturnValue : Any> returnValueOf3(plant: AssertionPlant<T>, method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<TReturnValue>
         = returnValueOf3(plant, method.name, method, arg1, arg2, arg3)
@@ -170,9 +170,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = featureAssertions.returnValueOf3(plant, name, method, arg1, arg2, arg3)
 
 
-    @JvmName("returnValueOf3Class")
+    @JvmName("safeReturnValueOf3")
     inline fun <T : Any, T1, T2, T3, TReturnValue : Any> returnValueOf3(plant: AssertionPlant<T>, method: KFunction4<T, T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-        = returnValueOf3(plant, method.name, {a1, a2, a3 -> method.invoke(plant.subject, a1, a2, a3) }, arg1, arg2, arg3, assertionCreator)
+        = returnValueOf3(plant, method.name, {a1, a2, a3 -> method(plant.subject, a1, a2, a3) }, arg1, arg2, arg3, assertionCreator)
 
     inline fun <T : Any, T1, T2, T3, TReturnValue : Any> returnValueOf3(plant: AssertionPlant<T>, method: KFunction3<T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
         = returnValueOf3(plant, method.name, method, arg1, arg2, arg3, assertionCreator)
@@ -181,10 +181,10 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = returnValueOf3(plant, name, method, arg1, arg2, arg3).addAssertionsCreatedBy(assertionCreator)
 
 
-    @JvmName("returnValueOf3Class")
+    @JvmName("safeReturnValueOf3")
     inline fun <T : Any, T1, T2, T3, TReturnValue : Any?> returnValueOf3(plant: AssertionPlant<T>, method: KFunction4<T, T1, T2, T3, TReturnValue>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<TReturnValue> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l : (T1, T2, T3) -> TReturnValue = {a1, a2, a3 -> method.invoke(plant.subject, a1, a2, a3) }
+        val l : (T1, T2, T3) -> TReturnValue = {a1, a2, a3 -> method(plant.subject, a1, a2, a3) }
         return returnValueOf3(plant, method.name, l, arg1, arg2, arg3)
     }
 
@@ -196,9 +196,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
 
     //Arg4
-    @JvmName("returnValueOf4Class")
+    @JvmName("safeReturnValueOf4")
     inline fun <T : Any, T1, T2, T3, T4, TReturnValue : Any> returnValueOf4(plant: AssertionPlant<T>, method: KFunction5<T, T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<TReturnValue>
-        = returnValueOf4(plant, method.name, {a1, a2, a3, a4 -> method.invoke(plant.subject, a1, a2, a3, a4) }, arg1, arg2, arg3, arg4)
+        = returnValueOf4(plant, method.name, {a1, a2, a3, a4 -> method(plant.subject, a1, a2, a3, a4) }, arg1, arg2, arg3, arg4)
 
     inline fun <T : Any, T1, T2, T3, T4, TReturnValue : Any> returnValueOf4(plant: AssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<TReturnValue>
         = returnValueOf4(plant, method.name, method, arg1, arg2, arg3, arg4)
@@ -207,9 +207,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = featureAssertions.returnValueOf4(plant, name, method, arg1, arg2, arg3, arg4)
 
 
-    @JvmName("returnValueOf4Class")
+    @JvmName("safeReturnValueOf4")
     inline fun <T : Any, T1, T2, T3, T4, TReturnValue : Any> returnValueOf4(plant: AssertionPlant<T>, method: KFunction5<T, T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-        = returnValueOf4(plant, method.name, {a1, a2, a3, a4 -> method.invoke(plant.subject, a1, a2, a3, a4) }, arg1, arg2, arg3, arg4, assertionCreator)
+        = returnValueOf4(plant, method.name, {a1, a2, a3, a4 -> method(plant.subject, a1, a2, a3, a4) }, arg1, arg2, arg3, arg4, assertionCreator)
 
     inline fun <T : Any, T1, T2, T3, T4, TReturnValue : Any> returnValueOf4(plant: AssertionPlant<T>, method: KFunction4<T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
         = returnValueOf4(plant, method.name, method, arg1, arg2, arg3, arg4, assertionCreator)
@@ -218,10 +218,10 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = returnValueOf4(plant, name, method, arg1, arg2, arg3, arg4).addAssertionsCreatedBy(assertionCreator)
 
 
-    @JvmName("returnValueOf4Class")
+    @JvmName("safeReturnValueOf4")
     inline fun <T : Any, T1, T2, T3, T4, TReturnValue : Any?> returnValueOf4(plant: AssertionPlant<T>, method: KFunction5<T, T1, T2, T3, T4, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<TReturnValue> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l : (T1, T2, T3, T4) -> TReturnValue = {a1, a2, a3, a4 -> method.invoke(plant.subject, a1, a2, a3, a4) }
+        val l : (T1, T2, T3, T4) -> TReturnValue = {a1, a2, a3, a4 -> method(plant.subject, a1, a2, a3, a4) }
         return returnValueOf4(plant, method.name, l, arg1, arg2, arg3, arg4)
     }
 
@@ -233,9 +233,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
 
 
     //Arg5
-    @JvmName("returnValueOf5Class")
+    @JvmName("safeReturnValueOf5")
     inline fun <T : Any, T1, T2, T3, T4, T5, TReturnValue : Any> returnValueOf5(plant: AssertionPlant<T>, method: KFunction6<T, T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<TReturnValue>
-        = returnValueOf5(plant, method.name, {a1, a2, a3, a4, a5 -> method.invoke(plant.subject, a1, a2, a3, a4, a5) }, arg1, arg2, arg3, arg4, arg5)
+        = returnValueOf5(plant, method.name, {a1, a2, a3, a4, a5 -> method(plant.subject, a1, a2, a3, a4, a5) }, arg1, arg2, arg3, arg4, arg5)
 
     inline fun <T : Any, T1, T2, T3, T4, T5, TReturnValue : Any> returnValueOf5(plant: AssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<TReturnValue>
         = returnValueOf5(plant, method.name, method, arg1, arg2, arg3, arg4, arg5)
@@ -244,9 +244,9 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = featureAssertions.returnValueOf5(plant, name, method, arg1, arg2, arg3, arg4, arg5)
 
 
-    @JvmName("returnValueOf5Class")
+    @JvmName("safeReturnValueOf5")
     inline fun <T : Any, T1, T2, T3, T4, T5, TReturnValue : Any> returnValueOf5(plant: AssertionPlant<T>, method: KFunction6<T, T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-        = returnValueOf5(plant, method.name, {a1, a2, a3, a4, a5 -> method.invoke(plant.subject, a1, a2, a3, a4, a5) }, arg1, arg2, arg3, arg4, arg5, assertionCreator)
+        = returnValueOf5(plant, method.name, {a1, a2, a3, a4, a5 -> method(plant.subject, a1, a2, a3, a4, a5) }, arg1, arg2, arg3, arg4, arg5, assertionCreator)
 
     inline fun <T : Any, T1, T2, T3, T4, T5, TReturnValue : Any> returnValueOf5(plant: AssertionPlant<T>, method: KFunction5<T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, noinline assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
         = returnValueOf5(plant, method.name, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
@@ -255,10 +255,10 @@ object FeatureAssertionsBuilder : FeatureAssertions {
         = returnValueOf5(plant, name, method, arg1, arg2, arg3, arg4, arg5).addAssertionsCreatedBy(assertionCreator)
 
 
-    @JvmName("returnValueOf5Class")
+    @JvmName("safeReturnValueOf5")
     inline fun <T : Any, T1, T2, T3, T4, T5, TReturnValue : Any?> returnValueOf5(plant: AssertionPlant<T>, method: KFunction6<T, T1, T2, T3, T4, T5, TReturnValue>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<TReturnValue> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
-        val l: (T1, T2, T3, T4, T5) -> TReturnValue = {a1, a2, a3, a4, a5 -> method.invoke(plant.subject, a1, a2, a3, a4, a5) }
+        val l: (T1, T2, T3, T4, T5) -> TReturnValue = {a1, a2, a3, a4, a5 -> method(plant.subject, a1, a2, a3, a4, a5) }
         return returnValueOf5(plant, method.name, l, arg1, arg2, arg3, arg4, arg5)
     }
 
