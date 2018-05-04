@@ -351,7 +351,7 @@ Following an example:
 ```kotlin
 import ch.tutteli.atrium.domain.builders.AssertImpl
 assert(person) {
-    AssertImpl.feature.returnValueOf1(this, "nickname", subject::nickname, false).toBe("Robert aka. Stoll")
+    AssertImpl.feature.returnValueOf1(this, subject::nickname, false, "nickname").toBe("Robert aka. Stoll")
 }
 ```
 The output is the same as above.

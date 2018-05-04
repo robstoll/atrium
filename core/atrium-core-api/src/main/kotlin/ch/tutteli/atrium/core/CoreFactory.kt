@@ -76,9 +76,18 @@ interface CoreFactory {
         assertionVerb: Translatable,
         subject: T,
         assertionChecker: AssertionChecker
-    ): ReportingAssertionPlant<T> = newReportingPlant(
-        AssertionPlantWithCommonFields.CommonFields(assertionVerb, { subject }, assertionChecker, RawString.NULL)
-    )
+    ): ReportingAssertionPlant<T> {
+        val subjectProvider = { subject }.evalOnce()
+        return newReportingPlant(
+            AssertionPlantWithCommonFields.CommonFields(
+                assertionVerb,
+                subjectProvider,
+                subjectProvider,
+                assertionChecker,
+                RawString.NULL
+            )
+        )
+    }
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -161,9 +170,18 @@ interface CoreFactory {
         subject: T,
         assertionChecker: AssertionChecker,
         nullRepresentation: Any
-    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
-        AssertionPlantWithCommonFields.CommonFields(assertionVerb, { subject }, assertionChecker, nullRepresentation)
-    )
+    ): ReportingAssertionPlantNullable<T> {
+        val subjectProvider = { subject }.evalOnce()
+        return newReportingPlantNullable(
+            AssertionPlantWithCommonFields.CommonFields(
+                assertionVerb,
+                subjectProvider,
+                subjectProvider,
+                assertionChecker,
+                nullRepresentation
+            )
+        )
+    }
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.

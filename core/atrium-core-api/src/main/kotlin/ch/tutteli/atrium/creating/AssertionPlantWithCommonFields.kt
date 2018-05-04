@@ -36,11 +36,26 @@ interface AssertionPlantWithCommonFields<out T> {
      */
     class CommonFields<out T>(
         val assertionVerb: Translatable,
+        private val representationProvider: () -> Any?,
         private val subjectProvider: () -> T,
         val assertionChecker: AssertionChecker,
         private val nullRepresentation: Any
     ) {
         val subject: T by lazy { subjectProvider() }
+        val representation: () -> Any by lazy {
+            { representationProvider() ?: nullRepresentation }
+        }
+
+        /**
+         * Helper constructor to reuse [subjectProvider] also for [representationProvider] without the need to create
+         * a second lambda.
+         */
+        private constructor(
+            assertionVerb: Translatable,
+            subjectProvider: () -> T,
+            assertionChecker: AssertionChecker,
+            nullRepresentation: Any
+        ) : this(assertionVerb, subjectProvider, subjectProvider, assertionChecker, nullRepresentation)
 
         @Deprecated(
             "Use the overload with a subject provider instead. This constructor will be removed with 1.0.0",
@@ -61,8 +76,7 @@ interface AssertionPlantWithCommonFields<out T> {
          * @throws AssertionError Might throw an [AssertionError] if any of the [assertions] does not hold.
          */
         fun check(assertions: List<Assertion>) {
-            val nonNullSubjectProvider = { subjectProvider() ?: nullRepresentation }
-            assertionChecker.check(assertionVerb, nonNullSubjectProvider, assertions)
+            assertionChecker.check(assertionVerb, representation, assertions)
         }
     }
 }
