@@ -5,11 +5,11 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
 
 dependencies {
     compile prefixedProject('domain-builders')
+    compile prefixedProject('api-cc-en_GB')
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB')
 
     testCompile prefixedProject('domain-robstoll')
     testCompile prefixedProject('core-robstoll')
-    testCompile prefixedProject('api-cc-en_GB')
     testCompile prefixedProject('verbs-internal')
 }
