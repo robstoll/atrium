@@ -13,6 +13,7 @@ import ch.tutteli.kbox.appendToStringBuilder
  * - [Char] is wrapped in apostrophes (`'`)
  */
 object TextMethodCallFormatter : MethodCallFormatter {
+
     override fun format(name: String, arguments: Array<out Any?>): () -> String = {
         val sb = StringBuilder(name).append("(")
         arguments.asList().appendToStringBuilder(sb, ", ") { it ->

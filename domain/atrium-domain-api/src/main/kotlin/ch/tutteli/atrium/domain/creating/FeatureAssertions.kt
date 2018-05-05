@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.reporting.translating.Translatable
 import java.util.*
 
 /**
@@ -18,10 +19,10 @@ val featureAssertions by lazy { SingleServiceLoader.load(FeatureAssertions::clas
  */
 interface FeatureAssertions {
 
-    fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: String): AssertionPlant<TProperty>
-    fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: String): AssertionPlant<TProperty>
-    fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: String): AssertionPlantNullable<TProperty>
-    fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: String): AssertionPlantNullable<TProperty>
+    fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: Translatable): AssertionPlant<TProperty>
+    fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: Translatable): AssertionPlant<TProperty>
+    fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: Translatable): AssertionPlantNullable<TProperty>
+    fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: Translatable): AssertionPlantNullable<TProperty>
 
     //Arg0
     fun <T : Any, R : Any> returnValueOf0(plant: AssertionPlant<T>, method: () -> R, name: String): AssertionPlant<R>

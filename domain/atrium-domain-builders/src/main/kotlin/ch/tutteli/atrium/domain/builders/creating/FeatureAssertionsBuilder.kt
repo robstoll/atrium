@@ -5,6 +5,8 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.FeatureAssertions
 import ch.tutteli.atrium.domain.creating.featureAssertions
+import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 import java.util.*
 import kotlin.reflect.*
 
@@ -16,45 +18,45 @@ import kotlin.reflect.*
 object FeatureAssertionsBuilder : FeatureAssertions {
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>)
-        = property(plant, { property.invoke(plant.subject) }, property.name)
+        = property(plant, { property.invoke(plant.subject) }, Untranslatable(property.name))
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>)
-        = property(plant, property, property.name)
+        = property(plant, property, Untranslatable(property.name))
 
-    override inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, name: String): AssertionPlant<TProperty>
+    override inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, name: Translatable): AssertionPlant<TProperty>
         = featureAssertions.property(plant, subjectProvider, name)
 
-    override inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, noinline representationProvider: () -> Any?, name: String): AssertionPlant<TProperty>
+    override inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, noinline representationProvider: () -> Any?, name: Translatable): AssertionPlant<TProperty>
         = featureAssertions.property(plant, subjectProvider, representationProvider, name)
 
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit)
-        = property(plant, { property.invoke(plant.subject) }, property.name, assertionCreator)
+        = property(plant, { property.invoke(plant.subject) },  Untranslatable(property.name), assertionCreator)
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit)
-        = property(plant, property, property.name, assertionCreator)
+        = property(plant, property,  Untranslatable(property.name), assertionCreator)
 
-    inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, name: String, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
+    inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, name: Translatable, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
         = property(plant, subjectProvider, name).addAssertionsCreatedBy(assertionCreator)
 
-    inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, noinline representationProvider: () -> Any?, name: String, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
+    inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, noinline representationProvider: () -> Any?, name: Translatable, noinline assertionCreator: AssertionPlant<TProperty>.() -> Unit): AssertionPlant<TProperty>
         = property(plant, subjectProvider, representationProvider, name).addAssertionsCreatedBy(assertionCreator)
 
 
     inline fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>): AssertionPlantNullable<TProperty> {
         //TODO get rid of l if https://youtrack.jetbrains.com/issue/KT-23768 is fixed
         val l = { property.invoke(plant.subject) }
-        return property(plant, l, property.name)
+        return property(plant, l, Untranslatable(property.name))
     }
 
     inline fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, property: KProperty0<TProperty>)
-        = property(plant, property, property.name)
+        = property(plant, property, Untranslatable(property.name))
 
-    override inline fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, name: String): AssertionPlantNullable<TProperty>
+    override inline fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, name: Translatable): AssertionPlantNullable<TProperty>
         = featureAssertions.property(plant, subjectProvider, name)
 
-    override inline fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, noinline representationProvider: () -> Any?, name: String): AssertionPlantNullable<TProperty>
-        = featureAssertions.property(plant, subjectProvider,representationProvider, name)
+    override inline fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, noinline subjectProvider: () -> TProperty, noinline representationProvider: () -> Any?, name: Translatable): AssertionPlantNullable<TProperty>
+        = featureAssertions.property(plant, subjectProvider, representationProvider, name)
 
 
     //Arg0
