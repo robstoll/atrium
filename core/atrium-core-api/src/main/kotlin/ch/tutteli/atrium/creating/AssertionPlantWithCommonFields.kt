@@ -36,8 +36,8 @@ interface AssertionPlantWithCommonFields<out T> {
      */
     class CommonFields<out T>(
         val assertionVerb: Translatable,
-        private val representationProvider: () -> Any?,
         private val subjectProvider: () -> T,
+        private val representationProvider: () -> Any?,
         val assertionChecker: AssertionChecker,
         private val nullRepresentation: Any
     ) {

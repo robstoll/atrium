@@ -214,7 +214,8 @@ interface CoreFactory {
      * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
      *
      * @param subjectProvider The function which will either provide the subject for this plant or throw an
-     *   [PlantHasNoSubjectException] in case it cannot be provided.
+     *   [PlantHasNoSubjectException] in case it cannot be provided. A [CollectingAssertionPlant] should evaluate the
+     *   [subjectProvider] only once.
      *
      * @return The newly created assertion plant.
      */

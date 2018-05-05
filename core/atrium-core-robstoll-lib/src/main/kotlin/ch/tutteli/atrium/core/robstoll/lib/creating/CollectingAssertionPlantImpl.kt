@@ -9,7 +9,7 @@ class CollectingAssertionPlantImpl<out T : Any>(
     CollectingAssertionPlant<T> {
 
     override val self = this
-    override val subject get() = subjectProvider()
+    override val subject by lazy { subjectProvider() }
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): CollectingAssertionPlant<T> {
         this.assertionCreator()
