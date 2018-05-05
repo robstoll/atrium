@@ -26,7 +26,7 @@ fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, subjectProvi
     = coreFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(name, representationProvider, subjectProvider))
 
 private fun <T : Any, TFeature : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(featureName: String, representationProvider: () -> Any?, subjectProvider: () -> TFeature)
-    = AssertionPlantWithCommonFields.CommonFields(Untranslatable(featureName), representationProvider, subjectProvider, coreFactory.newFeatureAssertionChecker(this), RawString.NULL)
+    = AssertionPlantWithCommonFields.CommonFields(Untranslatable(featureName), subjectProvider, representationProvider, coreFactory.newFeatureAssertionChecker(this), RawString.NULL)
 
 
 //Arg0
@@ -135,8 +135,8 @@ private fun <T : Any, R : Any?> AssertionPlant<T>.createPlantForMethodNullable(n
 private fun <T : Any, R : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(name: String, representationProvider: () -> Any?, subjectProvider: () -> R, arguments: Array<out Any?>)
     = AssertionPlantWithCommonFields.CommonFields(
         Untranslatable(coreFactory.newMethodCallFormatter().format(name, arguments)),
-        representationProvider,
         subjectProvider,
+        representationProvider,
         coreFactory.newFeatureAssertionChecker(this),
         RawString.NULL
     )

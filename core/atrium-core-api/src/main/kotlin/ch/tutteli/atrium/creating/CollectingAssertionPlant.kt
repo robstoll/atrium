@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.Assertion
  *
  * In contrast to [ReportingAssertionPlant], this plant does not offer error reporting capabilities and in contrast to
  * [CheckingAssertionPlant] it does not offer checking capabilities either.
- * It merely offers a method to [getAssertions].
+ * It merely offers a method to [getAssertions] (the collected ones).
  *
  * @param T The type of the [subject] of this [AssertionPlant].
  */
