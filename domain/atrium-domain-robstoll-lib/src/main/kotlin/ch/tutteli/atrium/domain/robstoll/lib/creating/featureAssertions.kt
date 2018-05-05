@@ -6,27 +6,28 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
-fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: String): AssertionPlant<TProperty> {
+fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: Translatable): AssertionPlant<TProperty> {
     val provider = subjectProvider.evalOnce()
     return _property(plant, provider, provider, name)
 }
 
-fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: String): AssertionPlantNullable<TProperty> {
+fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: Translatable): AssertionPlantNullable<TProperty> {
     val provider = subjectProvider.evalOnce()
     return _property(plant, provider, provider, name)
 }
 
 
-fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: String): AssertionPlant<TProperty>
+fun <T : Any, TProperty : Any> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: Translatable): AssertionPlant<TProperty>
     = coreFactory.newReportingPlant(plant.createCommonFieldsForFeatureFactory(name, representationProvider, subjectProvider))
 
-fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: String): AssertionPlantNullable<TProperty>
+fun <T : Any, TProperty : Any?> _property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: Translatable): AssertionPlantNullable<TProperty>
     = coreFactory.newReportingPlantNullable(plant.createCommonFieldsForFeatureFactory(name, representationProvider, subjectProvider))
 
-private fun <T : Any, TFeature : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(featureName: String, representationProvider: () -> Any?, subjectProvider: () -> TFeature)
-    = AssertionPlantWithCommonFields.CommonFields(Untranslatable(featureName), subjectProvider, representationProvider, coreFactory.newFeatureAssertionChecker(this), RawString.NULL)
+private fun <T : Any, TFeature : Any?> AssertionPlant<T>.createCommonFieldsForFeatureFactory(featureName: Translatable, representationProvider: () -> Any?, subjectProvider: () -> TFeature)
+    = AssertionPlantWithCommonFields.CommonFields(featureName, subjectProvider, representationProvider, coreFactory.newFeatureAssertionChecker(this), RawString.NULL)
 
 
 //Arg0

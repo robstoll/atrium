@@ -4,20 +4,21 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.FeatureAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Robstoll's implementation of [FeatureAssertions].
  */
 class FeatureAssertionsImpl : FeatureAssertions {
 
-    override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: String): AssertionPlant<TProperty>
+    override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: Translatable): AssertionPlant<TProperty>
         = _property(plant, subjectProvider, name)
-    override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: String): AssertionPlant<TProperty>
+    override fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: Translatable): AssertionPlant<TProperty>
         = _property(plant, subjectProvider, representationProvider, name)
 
-    override fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: String): AssertionPlantNullable<TProperty>
+    override fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, name: Translatable): AssertionPlantNullable<TProperty>
         = _property(plant, subjectProvider, name)
-    override fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: String): AssertionPlantNullable<TProperty>
+    override fun <T : Any, TProperty : Any?> property(plant: AssertionPlant<T>, subjectProvider: () -> TProperty, representationProvider: () -> Any?, name: Translatable): AssertionPlantNullable<TProperty>
         = _property(plant, subjectProvider, representationProvider, name)
 
     //Arg0
