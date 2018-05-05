@@ -4,7 +4,6 @@ package ch.tutteli.atrium.domain.builders.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.domain.creating.collectors.*
 import java.util.*
@@ -16,9 +15,9 @@ import java.util.*
  */
 object AssertionCollectorBuilder: AssertionCollector {
     override inline fun <T : Any> collect(
-        plant: AssertionPlant<T>,
+        noinline subjectProvider: () -> T,
         noinline subPlantAndAssertionCreator: CollectingAssertionPlant<T>.() -> Unit
-    ): AssertionGroup = assertionCollector.collect(plant, subPlantAndAssertionCreator)
+    ): AssertionGroup = assertionCollector.collect(subjectProvider, subPlantAndAssertionCreator)
 
     /**
      * Returns [ExplainingAssertionCollectorOption] providing options to create an assertion collector which collects
