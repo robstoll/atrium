@@ -187,7 +187,7 @@ abstract class AssertionFormatterControllerSpec(
                     it("appends both assertions, no header for group with ${InvisibleAssertionGroupType::class.simpleName}, and prefix holding/failing assertion accordingly") {
                         val invisibleGroup: AssertionGroup = object : AssertionGroup {
                             override val name = Untranslatable("test")
-                            override val type = object : InvisibleAssertionGroupType {}
+                            override val type = InvisibleAssertionGroupType
                             override val representation = "representation"
                             override val assertions = listOf(assertion, failingAssertion)
                         }
