@@ -8,14 +8,14 @@ import ch.tutteli.atrium.assertions.Assertion
  *
  * In contrast to [ReportingAssertionPlant], this plant does not offer error reporting capabilities and in contrast to
  * [CheckingAssertionPlant] it does not offer checking capabilities either.
- * It merely offers a method to [getAssertions].
+ * It merely offers a method to [getAssertions] (the collected ones).
  *
  * @param T The type of the [subject] of this [AssertionPlant].
  */
 interface CollectingAssertionPlant<out T : Any> : AssertionPlant<T> {
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): CollectingAssertionPlant<T>
-    
+
     /**
      * The subject for which this plant will create [Assertion]s or it throws a [PlantHasNoSubjectException] if absent.
      * @throws PlantHasNoSubjectException in case there was not a [subject] defined for this plant.
@@ -28,5 +28,4 @@ interface CollectingAssertionPlant<out T : Any> : AssertionPlant<T> {
      * @return The [Assertion]s which have been [added][addAssertion] to this plant.
      */
     fun getAssertions(): List<Assertion>
-
 }

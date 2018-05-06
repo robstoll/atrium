@@ -44,12 +44,12 @@ fun <T : Any, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, metho
 
 @Deprecated("Use AssertImpl.feature.returnValueOf0, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf0(plant, name, method)",
+        "AssertImpl.feature.returnValueOf0(plant, method, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: () -> TReturnValue): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf0(plant, name, method)
+    = AssertImpl.feature.returnValueOf0(plant, method, name)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf0, will be removed with 1.0.0",
     ReplaceWith(
@@ -62,12 +62,12 @@ fun <T : Any, TReturnValue : Any> _returnValueOf(plant: AssertionPlant<T>, metho
 
 @Deprecated("Use AssertImpl.feature.returnValueOf0, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf0(plant, name, method, assertionCreator)",
+        "AssertImpl.feature.returnValueOf0(plant, method, name, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: () -> TReturnValue, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf0(plant, name, method, assertionCreator)
+    = AssertImpl.feature.returnValueOf0(plant, method, name, assertionCreator)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf0, will be removed with 1.0.0",
     ReplaceWith(
@@ -80,12 +80,12 @@ fun <T : Any, TReturnValue : Any?> _returnValueOf(plant: AssertionPlant<T>, meth
 
 @Deprecated("Use AssertImpl.feature.returnValueOf0, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf0(plant, name, method)",
+        "AssertImpl.feature.returnValueOf0(plant, method, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, TReturnValue : Any?> _method(plant: AssertionPlant<T>, name: String, method: () -> TReturnValue): AssertionPlantNullable<TReturnValue>
-    = AssertImpl.feature.returnValueOf0(plant, name, method)
+    = AssertImpl.feature.returnValueOf0(plant, method, name)
 
 
 //Arg1
@@ -100,12 +100,12 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlan
 
 @Deprecated("Use AssertImpl.feature.returnValueOf1, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf1(plant, name, method, arg1)",
+        "AssertImpl.feature.returnValueOf1(plant, method, arg1, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1) -> TReturnValue, arg1: T1): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf1(plant, name, method, arg1)
+    = AssertImpl.feature.returnValueOf1(plant, method, arg1, name)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf1, will be removed with 1.0.0",
     ReplaceWith(
@@ -118,12 +118,12 @@ fun <T : Any, T1 : Any?, TReturnValue : Any> _returnValueOf(plant: AssertionPlan
 
 @Deprecated("Use AssertImpl.feature.returnValueOf1, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf1(plant, name, method, arg1, assertionCreator)",
+        "AssertImpl.feature.returnValueOf1(plant, method, arg1, name, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1) -> TReturnValue, arg1: T1, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf1(plant, name, method, arg1, assertionCreator)
+    = AssertImpl.feature.returnValueOf1(plant, method, arg1, name, assertionCreator)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf1, will be removed with 1.0.0",
     ReplaceWith(
@@ -136,12 +136,12 @@ fun <T : Any, T1 : Any?, TReturnValue : Any?> _returnValueOf(plant: AssertionPla
 
 @Deprecated("Use AssertImpl.feature.returnValueOf1, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf1(plant, name, method, arg1)",
+        "AssertImpl.feature.returnValueOf1(plant, method, arg1, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, TReturnValue : Any?> _method(plant: AssertionPlant<T>, name: String, method: (T1) -> TReturnValue, arg1: T1): AssertionPlantNullable<TReturnValue>
-    = AssertImpl.feature.returnValueOf1(plant, name, method, arg1)
+    = AssertImpl.feature.returnValueOf1(plant, method, arg1, name)
 
 
 //Arg2
@@ -156,12 +156,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> _returnValueOf(plant: As
 
 @Deprecated("Use AssertImpl.feature.returnValueOf2, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf2(plant, name, method, arg1, arg2)",
+        "AssertImpl.feature.returnValueOf2(plant, method, arg1, arg2, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2) -> TReturnValue, arg1: T1, arg2: T2): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf2(plant, name, method, arg1, arg2)
+    = AssertImpl.feature.returnValueOf2(plant, method, arg1, arg2, name)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf2, will be removed with 1.0.0",
     ReplaceWith(
@@ -174,12 +174,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> _returnValueOf(plant: As
 
 @Deprecated("Use AssertImpl.feature.returnValueOf2, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf2(plant, name, method, arg1, arg2, assertionCreator)",
+        "AssertImpl.feature.returnValueOf2(plant, method, arg1, arg2, name, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2) -> TReturnValue, arg1: T1, arg2: T2, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf2(plant, name, method, arg1, arg2, assertionCreator)
+    = AssertImpl.feature.returnValueOf2(plant, method, arg1, arg2, name, assertionCreator)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf2, will be removed with 1.0.0",
     ReplaceWith(
@@ -192,12 +192,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> _returnValueOf(plant: A
 
 @Deprecated("Use AssertImpl.feature.returnValueOf2, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf2(plant, name, method, arg1, arg2)",
+        "AssertImpl.feature.returnValueOf2(plant, method, arg1, arg2, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, TReturnValue : Any?> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2) -> TReturnValue, arg1: T1, arg2: T2): AssertionPlantNullable<TReturnValue>
-    = AssertImpl.feature.returnValueOf2(plant, name, method, arg1, arg2)
+    = AssertImpl.feature.returnValueOf2(plant, method, arg1, arg2, name)
 
 
 //Arg3
@@ -212,12 +212,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> _returnValueO
 
 @Deprecated("Use AssertImpl.feature.returnValueOf3, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf3(plant, name, method, arg1, arg2, arg3)",
+        "AssertImpl.feature.returnValueOf3(plant, method, arg1, arg2, arg3, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf3(plant, name, method, arg1, arg2, arg3)
+    = AssertImpl.feature.returnValueOf3(plant, method, arg1, arg2, arg3, name)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf3, will be removed with 1.0.0",
     ReplaceWith(
@@ -230,12 +230,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> _returnValueO
 
 @Deprecated("Use AssertImpl.feature.returnValueOf3, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf3(plant, name, method, arg1, arg2, arg3, assertionCreator)",
+        "AssertImpl.feature.returnValueOf3(plant, method, arg1, arg2, arg3, name, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf3(plant, name, method, arg1, arg2, arg3, assertionCreator)
+    = AssertImpl.feature.returnValueOf3(plant, method, arg1, arg2, arg3, name, assertionCreator)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf3, will be removed with 1.0.0",
     ReplaceWith(
@@ -248,12 +248,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> _returnValue
 
 @Deprecated("Use AssertImpl.feature.returnValueOf3, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf3(plant, name, method, arg1, arg2, arg3)",
+        "AssertImpl.feature.returnValueOf3(plant, method, arg1, arg2, arg3, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, TReturnValue : Any?> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<TReturnValue>
-    = AssertImpl.feature.returnValueOf3(plant, name, method, arg1, arg2, arg3)
+    = AssertImpl.feature.returnValueOf3(plant, method, arg1, arg2, arg3, name)
 
 
 //Arg4
@@ -268,12 +268,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> _r
 
 @Deprecated("Use AssertImpl.feature.returnValueOf4, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf4(plant, name, method, arg1, arg2, arg3, arg4)",
+        "AssertImpl.feature.returnValueOf4(plant, method, arg1, arg2, arg3, arg4, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3, T4) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf4(plant, name, method, arg1, arg2, arg3, arg4)
+    = AssertImpl.feature.returnValueOf4(plant, method, arg1, arg2, arg3, arg4, name)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf4, will be removed with 1.0.0",
     ReplaceWith(
@@ -286,12 +286,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> _r
 
 @Deprecated("Use AssertImpl.feature.returnValueOf4, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf4(plant, name, method, arg1, arg2, arg3, arg4, assertionCreator)",
+        "AssertImpl.feature.returnValueOf4(plant, method, arg1, arg2, arg3, arg4, name, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3, T4) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf4(plant, name, method, arg1, arg2, arg3, arg4, assertionCreator)
+    = AssertImpl.feature.returnValueOf4(plant, method, arg1, arg2, arg3, arg4, name, assertionCreator)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf4, will be removed with 1.0.0",
     ReplaceWith(
@@ -304,12 +304,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> _
 
 @Deprecated("Use AssertImpl.feature.returnValueOf4, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf4(plant, name, method, arg1, arg2, arg3, arg4)",
+        "AssertImpl.feature.returnValueOf4(plant, method, arg1, arg2, arg3, arg4, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, TReturnValue : Any?> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3, T4) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<TReturnValue>
-    = AssertImpl.feature.returnValueOf4(plant, name, method, arg1, arg2, arg3, arg4)
+    = AssertImpl.feature.returnValueOf4(plant, method, arg1, arg2, arg3, arg4, name)
 
 
 //Arg5
@@ -324,12 +324,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
 
 @Deprecated("Use AssertImpl.feature.returnValueOf5, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf5(plant, name, method, arg1, arg2, arg3, arg4, arg5)",
+        "AssertImpl.feature.returnValueOf5(plant, method, arg1, arg2, arg3, arg4, arg5, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3, T4, T5) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf5(plant, name, method, arg1, arg2, arg3, arg4, arg5)
+    = AssertImpl.feature.returnValueOf5(plant, method, arg1, arg2, arg3, arg4, arg5, name)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf5, will be removed with 1.0.0",
     ReplaceWith(
@@ -342,12 +342,12 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
 
 @Deprecated("Use AssertImpl.feature.returnValueOf5, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf5(plant, name, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)",
+        "AssertImpl.feature.returnValueOf5(plant, method, arg1, arg2, arg3, arg4, arg5, name, assertionCreator)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3, T4, T5) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: AssertionPlant<TReturnValue>.() -> Unit): AssertionPlant<TReturnValue>
-    = AssertImpl.feature.returnValueOf5(plant, name, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
+    = AssertImpl.feature.returnValueOf5(plant, method, arg1, arg2, arg3, arg4, arg5, name, assertionCreator)
 
 @Deprecated("Use AssertImpl.feature.returnValueOf5, will be removed with 1.0.0",
     ReplaceWith(
@@ -360,9 +360,9 @@ fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValu
 
 @Deprecated("Use AssertImpl.feature.returnValueOf5, will be removed with 1.0.0",
     ReplaceWith(
-        "AssertImpl.feature.returnValueOf5(plant, name, method, arg1, arg2, arg3, arg4, arg5)",
+        "AssertImpl.feature.returnValueOf5(plant, method, arg1, arg2, arg3, arg4, arg5, name)",
         "ch.tutteli.atrium.creating.AssertImpl"
     )
 )
 fun <T : Any, T1 : Any?, T2 : Any?, T3 : Any?, T4 : Any?, T5 : Any?, TReturnValue : Any?> _method(plant: AssertionPlant<T>, name: String, method: (T1, T2, T3, T4, T5) -> TReturnValue, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<TReturnValue>
-    = AssertImpl.feature.returnValueOf5(plant, name, method, arg1, arg2, arg3, arg4, arg5)
+    = AssertImpl.feature.returnValueOf5(plant, method, arg1, arg2, arg3, arg4, arg5, name)

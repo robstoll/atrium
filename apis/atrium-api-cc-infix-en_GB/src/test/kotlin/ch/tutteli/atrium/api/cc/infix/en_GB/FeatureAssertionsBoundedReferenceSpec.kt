@@ -4,9 +4,9 @@ import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.integration.TestData
 
-private typealias F = Assert<TestData>.() -> Unit
+internal typealias F = Assert<TestData>.() -> Unit
 
-class FeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
+class FeatureAssertionsBoundedReferenceSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
     AssertionVerbFactory,
     propertyImmediate,
     propertyLazy,
@@ -44,7 +44,6 @@ class FeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.FeatureAssertio
 ) {
 
     companion object {
-        //TODO get rid of `this` in lambdas as soon as https://youtrack.jetbrains.com/issue/KT-21663 is fixed
         val propertyImmediate: F = { property(subject::description) contains "hello" }
         val propertyLazy: F = { property(subject::description) { this contains "hello" } }
         val return0ValueImmediate: F = { returnValueOf(subject::return0) contains Values("hello") }

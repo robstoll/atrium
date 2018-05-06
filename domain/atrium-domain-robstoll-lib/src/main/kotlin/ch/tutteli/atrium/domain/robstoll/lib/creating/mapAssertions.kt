@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
+import ch.tutteli.atrium.api.cc.en_GB.property
+import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -9,9 +11,7 @@ import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 
 fun <T : Map<*, *>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
     = AssertImpl.collector.collect(plant) {
-        AssertImpl.feature.property(it, Map<*, *>::size) {
-            addAssertion(AssertImpl.any.toBe(this, size))
-        }
+        property(Map<*, *>::size) { toBe(size) }
     }
 
 fun <T : Map<*, *>> _isEmpty(plant: AssertionPlant<T>): Assertion
