@@ -2,6 +2,7 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.CoreFactory
 
@@ -18,8 +19,14 @@ interface AssertionFormatterController {
      * to filter out [Assertion]s (for instance, filter out messages which hold
      * &rarr; see [CoreFactory.newOnlyFailureReporter]).
      * Moreover the controller should take into account whether the control flow
-     * [AssertionFormatterParameterObject.isNotInDoNotFilterGroup] or is in such group, in which case the filtering should
-     * not apply.
+     * [AssertionFormatterParameterObject.isNotInDoNotFilterGroup] or is in such a group,
+     * in which case the filtering should not apply.
+     *
+     * Last but not least, an [AssertionFormatterController] has to take care of [AssertionGroup] with an
+     * [InvisibleAssertionGroupType] as its [AssertionGroup.type]. Such groups should not be format as group but instead
+     * each [AssertionGroup.assertions] should be formatted. This also means, that if there are nested assertion groups
+     * with an [InvisibleAssertionGroupType], that their [AssertionGroup.assertions] should be formatted as if they
+     * were all added directly in the surrounding assertion group.
      *
      * @param assertion The assertion which shall be formatted.
      * @param parameterObject Used to share data between this [AssertionFormatterController] and the [register]ed
@@ -41,12 +48,12 @@ interface AssertionFormatterController {
 
     /**
      * Checks whether the given [assertion] is an [AssertionGroup] and if its [type][AssertionGroup.type]
-     * is a [ExplanatoryAssertionGroupType].
+     * is an [ExplanatoryAssertionGroupType].
      *
      * @return `true` if it is an explanatory assertion group; `false` otherwise.
      */
     fun isExplanatoryAssertionGroup(assertion: Assertion)
-        = (assertion is AssertionGroup && assertion.type is ExplanatoryAssertionGroupType)
+        = assertion is AssertionGroup && assertion.type is ExplanatoryAssertionGroupType
 
     companion object {
         /**
@@ -57,6 +64,7 @@ interface AssertionFormatterController {
          *   given [assertion].
          */
         fun noSuitableAssertionFormatterFound(assertion: Assertion): Nothing = throw UnsupportedOperationException(
-            "no suitable ${AssertionFormatter::class.simpleName} found for the given assertion: $assertion")
+            "No suitable ${AssertionFormatter::class.simpleName} found for the given assertion: $assertion"
+        )
     }
 }
