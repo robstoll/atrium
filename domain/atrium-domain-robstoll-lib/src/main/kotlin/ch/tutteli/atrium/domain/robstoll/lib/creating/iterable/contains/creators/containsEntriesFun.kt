@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
+import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
@@ -7,13 +9,13 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
+import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
+import ch.tutteli.kbox.mapRemainingWithCounter
 
 internal fun <E : Any> createExplanatoryAssertions(
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
@@ -78,30 +80,24 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
     iterableAsList: List<E?>,
     itr: Iterator<E?>
 ): AssertionGroup {
-    val additionalEntries = mutableListOf<E?>()
     val actualSize = iterableAsList.size
-    while (itr.hasNext()) {
-        additionalEntries.add(itr.next())
-    }
-    val featureAssertions = mutableListOf<Assertion>()
-    featureAssertions.add(AssertImpl.builder.descriptive.create(
-        DescriptionAnyAssertion.TO_BE, RawString.create(expectedSize.toString()), { actualSize == expectedSize }
-    ))
-    if (actualSize > expectedSize) {
-        featureAssertions.add(LazyThreadUnsafeAssertionGroup {
-            val assertions = additionalEntries.mapIndexed { index, it ->
-                val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + index)
-                AssertImpl.builder.descriptive.create(description, it ?: RawString.NULL, true)
+    return assertionCollector.collect({iterableAsList}) {
+        property(Collection<*>::size) {
+            toBe(expectedSize)
+            if (actualSize > expectedSize) {
+                addAssertion(LazyThreadUnsafeAssertionGroup {
+                    val assertions = itr.mapRemainingWithCounter { counter, it ->
+                        val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
+                        AssertImpl.builder.descriptive.create(description, it ?: RawString.NULL, true)
+                    }
+                    with(AssertImpl.builder) {
+                        explanatoryGroup.withWarning.create(
+                            list(WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
+                                .create(assertions)
+                        )
+                    }
+                })
             }
-            with(AssertImpl.builder) {
-                explanatoryGroup.withWarning.create(
-                    list(WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
-                        .create(assertions)
-                )
-            }
-        })
+        }
     }
-    return AssertImpl.builder
-        .feature(Untranslatable(additionalEntries::size.name), RawString.create(actualSize.toString()))
-        .create(featureAssertions)
 }
