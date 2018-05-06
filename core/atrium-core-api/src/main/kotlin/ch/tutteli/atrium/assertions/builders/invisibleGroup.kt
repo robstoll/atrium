@@ -2,7 +2,6 @@ package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.DefaultInvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndRepresentationAssertionGroupBuilderImpl
 
@@ -18,4 +17,4 @@ import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndRepresentationAsse
  */
 @Suppress("unused")
 val AssertionBuilder.invisibleGroup get(): EmptyNameAndRepresentationAssertionGroupBuilder<InvisibleAssertionGroupType>
-    = EmptyNameAndRepresentationAssertionGroupBuilderImpl(DefaultInvisibleAssertionGroupType)
+    = EmptyNameAndRepresentationAssertionGroupBuilderImpl(InvisibleAssertionGroupType)

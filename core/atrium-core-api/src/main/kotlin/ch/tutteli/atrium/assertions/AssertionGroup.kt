@@ -87,7 +87,7 @@ interface AssertionGroup : Assertion {
                 "ch.tutteli.atrium.assertions.builders.invisibleGroup"
             )
         )
-        val invisible = EmptyNameAndSubjectAssertionGroupBuilder(DefaultInvisibleAssertionGroupType)
+        val invisible = EmptyNameAndSubjectAssertionGroupBuilder(InvisibleAssertionGroupType)
 
         @Deprecated(
             "use AssertImpl.builder.withType instead",

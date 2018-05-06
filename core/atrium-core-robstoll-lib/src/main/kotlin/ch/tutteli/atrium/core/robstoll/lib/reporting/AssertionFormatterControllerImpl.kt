@@ -2,6 +2,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
@@ -21,9 +22,7 @@ class AssertionFormatterControllerImpl : AssertionFormatterController {
 
         val assertionFormatter = assertionFormatters
             .firstOrNull { it.canFormat(assertion) }
-            ?: AssertionFormatterController.noSuitableAssertionFormatterFound(
-                assertion
-            )
+            ?: AssertionFormatterController.noSuitableAssertionFormatterFound(assertion)
 
         when (assertion) {
             is AssertionGroup -> formatGroup(assertion, assertionFormatter, parameterObject)
@@ -44,7 +43,15 @@ class AssertionFormatterControllerImpl : AssertionFormatterController {
         assertionFormatter.formatGroup(assertionGroup, parameterObject) { childParameterObject, formatAssertionInGroup ->
             assertionGroup.assertions
                 .filter { !noNeedToFormat(it, childParameterObject) }
-                .forEach(formatAssertionInGroup)
+                .forEach { formatChild(it, formatAssertionInGroup) }
+        }
+    }
+
+    private fun formatChild(it: Assertion, formatAssertionInGroup: (Assertion) -> Unit) {
+        if (it is AssertionGroup && it.type is InvisibleAssertionGroupType) {
+            it.assertions.forEach { formatChild(it, formatAssertionInGroup) }
+        } else {
+            formatAssertionInGroup(it)
         }
     }
 
