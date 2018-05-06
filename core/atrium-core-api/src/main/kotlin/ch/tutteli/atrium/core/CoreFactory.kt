@@ -357,7 +357,8 @@ interface CoreFactory {
      * pairs on the same line.
      *
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
-     * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
+     * @param translator The translator which is used to translate [Translatable] such as
+     *   [DescriptiveAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
@@ -376,7 +377,8 @@ interface CoreFactory {
      *   for [RootAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
-     * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
+     * @param translator The translator which is used to translate [Translatable] such as
+     *   [DescriptiveAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
@@ -396,7 +398,8 @@ interface CoreFactory {
      * for each [Assertion] in [AssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
-     * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
+     * @param translator The translator which is used to translate [Translatable] such as
+     *   [DescriptiveAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
@@ -415,7 +418,8 @@ interface CoreFactory {
      *   for [ListAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].
      * @param assertionFormatterController The controller used to steer the flow of the reporting.
      * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
-     * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
+     * @param translator The translator which is used to translate [Translatable] such as
+     *   [DescriptiveAssertion.description].
      *
      * @return The newly created assertion formatter.
      */
@@ -428,9 +432,30 @@ interface CoreFactory {
 
     /**
      * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
+     * formats [AssertionGroup]s of type [SummaryAssertionGroupType].
+     *
+     * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
+     *   for [SummaryAssertionGroupType], [PrefixFailingSummaryAssertion] and [PrefixSuccessfulSummaryAssertion]
+     *   as prefix for each [Assertion] in [AssertionGroup.assertions].
+     * @param assertionFormatterController The controller used to steer the flow of the reporting.
+     * @param objectFormatter The formatter which is used to format objects other than [Assertion]s.
+     * @param translator The translator which is used to translate [Translatable] such as
+     *   [DescriptiveAssertion.description].
+     *
+     * @return The newly created assertion formatter.
+     */
+    fun newTextSummaryAssertionGroupFormatter(
+        bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+        assertionFormatterController: AssertionFormatterController,
+        objectFormatter: ObjectFormatter,
+        translator: Translator
+    ): AssertionFormatter
+
+    /**
+     * Creates an [AssertionFormatter] which is intended for text output (e.g. for the console) and
      * formats [AssertionGroup]s of type [ExplanatoryAssertionGroupType] by creating an
-     * [AssertionFormatterParameterObject] which indicates that formatting its [AssertionGroup.assertions] happens within
-     * an explanatory assertion group.
+     * [AssertionFormatterParameterObject] which indicates that formatting its [AssertionGroup.assertions] happens
+     * within an explanatory assertion group.
      *
      * @param bulletPoints The bullet points used in reporting; will typically use the bullet point registered
      *   for [ExplanatoryAssertionGroupType] as prefix for each [Assertion] in [AssertionGroup.assertions].

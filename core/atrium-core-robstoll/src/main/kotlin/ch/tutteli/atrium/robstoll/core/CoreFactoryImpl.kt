@@ -110,6 +110,13 @@ class CoreFactoryImpl : CoreFactory {
             newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         )
 
+    override fun newTextSummaryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
+        = TextSummaryAssertionGroupFormatter(
+            bulletPoints,
+            assertionFormatterController,
+            newTextSameLineAssertionPairFormatter(objectFormatter, translator)
+        )
+
     override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
         = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
 

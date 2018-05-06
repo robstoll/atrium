@@ -9,13 +9,13 @@ import ch.tutteli.atrium.assertions.AssertionGroup
  * @param assertionCreator The factory function which is used for lazy loading.
  */
 class LazyThreadUnsafeAssertionGroup(assertionCreator: () -> AssertionGroup) : AssertionGroup {
-    private val basicAssertion by lazy(LazyThreadSafetyMode.NONE) {
+    private val assertionGroup by lazy(LazyThreadSafetyMode.NONE) {
         assertionCreator()
     }
 
-    override val name get() = basicAssertion.name
-    override val type get() = basicAssertion.type
-    override val representation get() = basicAssertion.representation
-    override val assertions get() = basicAssertion.assertions
-    override fun holds() = basicAssertion.holds()
+    override val name get() = assertionGroup.name
+    override val type get() = assertionGroup.type
+    override val representation get() = assertionGroup.representation
+    override val assertions get() = assertionGroup.assertions
+    override fun holds() = assertionGroup.holds()
 }
