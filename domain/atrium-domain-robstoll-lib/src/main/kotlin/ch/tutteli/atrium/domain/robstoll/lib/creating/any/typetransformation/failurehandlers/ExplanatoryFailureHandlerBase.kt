@@ -20,12 +20,12 @@ abstract class ExplanatoryFailureHandlerBase<in S : Any, out T : Any> : AnyTypeT
     }
 
     private fun collectAssertions(
-        warningDownCastFailed: Translatable,
+        warningTransformationFailed: Translatable,
         assertionCreator: AssertionPlant<T>.() -> Unit
     ) = AssertImpl.collector
         .forExplanation
         .doNotThrowIfNoAssertionIsCollected
-        .collect(warningDownCastFailed, assertionCreator, null)
+        .collect(warningTransformationFailed, assertionCreator, null)
 
     abstract fun createFailingAssertion(description: Translatable, representation: Any): Assertion
 

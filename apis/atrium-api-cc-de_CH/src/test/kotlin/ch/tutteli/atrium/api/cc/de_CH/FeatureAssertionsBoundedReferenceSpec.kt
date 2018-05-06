@@ -4,9 +4,9 @@ import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.integration.TestData
 
-private typealias F = Assert<TestData>.() -> Unit
+internal typealias F = Assert<TestData>.() -> Unit
 
-class FeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
+class FeatureAssertionsBoundedReferenceSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
     AssertionVerbFactory,
     propertyImmediate,
     propertyLazy,

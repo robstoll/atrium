@@ -31,3 +31,5 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
      */
     fun addAssertion(assertion: Assertion): A
 }
+
+fun <T> BaseAssertionPlant<T, *>.toSubjectProvider(): () -> T = { subject }
