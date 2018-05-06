@@ -133,7 +133,6 @@ class CoreFactoryImpl : CoreFactory {
         assertionFormatterFacade.register {
             TextFeatureAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter)
         }
-        assertionFormatterFacade.register(::InvisibleAssertionGroupFormatter)
         assertionFormatterFacade.register {
             TextExplanatoryAssertionGroupFormatter(bulletPoints, it)
         }
