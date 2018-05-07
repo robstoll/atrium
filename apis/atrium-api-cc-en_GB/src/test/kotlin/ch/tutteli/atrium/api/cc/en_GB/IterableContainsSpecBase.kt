@@ -2,9 +2,12 @@ package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.AtLeastCheckerOption
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import kotlin.reflect.KProperty
+import kotlin.reflect.KFunction4
 
 abstract class IterableContainsSpecBase {
     private val containsProp: KProperty<*> = Assert<Iterable<Double>>::contains
@@ -26,5 +29,7 @@ abstract class IterableContainsSpecBase {
     protected val inOrderOnlyEntries = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::entries.name
     protected val grouped = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::grouped.name
     protected val within = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedSearchBehaviour>::within.name
-    protected val withinInAnyOrder = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder.name
+    private val withinInAnyOrderFun : KFunction4<IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedWithinSearchBehaviour>, Group<Double>, Group<Double>, Array<out Group<Double>>, AssertionPlant<Iterable<Double>>>
+        = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedWithinSearchBehaviour>::inAnyOrder
+    protected val withinInAnyOrder = withinInAnyOrderFun.name
 }
