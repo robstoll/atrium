@@ -68,6 +68,10 @@ object IterableContainsAssertionsBuilder: IterableContainsAssertions {
     override inline fun <E: Any, T : Iterable<E>> valuesInOrderOnlyGrouped(builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>, groups: List<List<E>>): Assertion
         = iterableContainsAssertions.valuesInOrderOnlyGrouped(builder, groups)
 
+    override inline fun <E: Any, T : Iterable<E>> entriesInOrderOnlyGrouped(builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>, groups: List<List<(AssertionPlant<E>.() -> Unit)?>>): Assertion
+        = iterableContainsAssertions.entriesInOrderOnlyGrouped(builder, groups)
+
+
     /**
      * Returns [IterableContainsSearchBehaviourFactoryBuilder]
      * which inter alia delegates to the implementation of [SearchBehaviourFactory].

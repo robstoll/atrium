@@ -79,7 +79,7 @@ fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T
  *
  * Delegates to `the Entries(assertionCreator)`.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *
@@ -120,7 +120,7 @@ fun <E : Any, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilde
  *
  * Delegates to `entries(expected)`.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *

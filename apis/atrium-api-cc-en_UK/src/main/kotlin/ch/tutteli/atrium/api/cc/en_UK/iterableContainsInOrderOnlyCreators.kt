@@ -89,7 +89,7 @@ fun <E : Any, T : Iterable<E>> entry(checkerBuilder: IterableContainsBuilder<E, 
  * [Iterable] which holds all assertions [assertionCreator] might create -- equally an entry for each further
  * [otherAssertionCreators], following the specified order, needs to be contained in the [Iterable]
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
@@ -148,7 +148,7 @@ fun <E : Any, T : Iterable<E?>> nullableEntry(checkerBuilder: IterableContainsBu
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry

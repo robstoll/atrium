@@ -13,26 +13,28 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.kbox.ifWithinBound
 
-class InOrderOnlyGroupedValuesAssertionCreator<E : Any, in T : Iterable<E>>(
+class InOrderOnlyGroupedEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
     private val searchBehaviour: InOrderOnlyGroupedSearchBehaviour
-) : IterableContains.Creator<T, List<E>> {
+) : IterableContains.Creator<T, List<(AssertionPlant<E>.() -> Unit)?>> {
 
-    override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<List<E>>): AssertionGroup {
+    override fun createAssertionGroup(
+        plant: AssertionPlant<T>,
+        searchCriteria: List<List<(AssertionPlant<E>.() -> Unit)?>>
+    ): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
             val assertion = AssertImpl.collector.collect({ plant.subject.toList() }) {
                 var index = 0
                 val sizeExceededProvider = { RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED) }
-                searchCriteria.forEach { values ->
+                searchCriteria.forEach { assertionCreators ->
                     val currentIndex = index
-                    val untilIndex = index + values.size
-                    if (values.size == 1) {
-                        createSingleEntryAssertion(currentIndex, sizeExceededProvider, values)
+                    val untilIndex = index + assertionCreators.size
+                    if (assertionCreators.size == 1) {
+                        createSingleEntryAssertion(currentIndex, sizeExceededProvider, assertionCreators)
                     } else {
-                        createSublistAssertion(currentIndex, untilIndex, sizeExceededProvider, values)
+                        createSublistAssertion(currentIndex, untilIndex, sizeExceededProvider, assertionCreators)
                     }
                     index = untilIndex
                 }
@@ -44,33 +46,34 @@ class InOrderOnlyGroupedValuesAssertionCreator<E : Any, in T : Iterable<E>>(
         }
     }
 
-    private fun CollectingAssertionPlant<List<E>>.createSingleEntryAssertion(
+    private fun CollectingAssertionPlant<List<E?>>.createSingleEntryAssertion(
         currentIndex: Int,
         sizeExceededProvider: () -> RawString,
-        values: List<E>
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ) {
+        val list = this@createSingleEntryAssertion.subject
         val entryProvider = { this.subject[currentIndex] }
-        val representationProvider = { subject.ifWithinBound(currentIndex, entryProvider, sizeExceededProvider) }
-        val featureName = TranslatableWithArgs(DescriptionIterableAssertion.INDEX, currentIndex)
-        AssertImpl.feature.property(this, entryProvider, representationProvider, featureName) {
-            addAssertion(AssertImpl.builder.descriptive.create(
-                DescriptionAnyAssertion.TO_BE,
-                values[0],
+            val searchCriterion = assertionCreators[0]
+            val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, list)
+
+            val (found, entryRepresentation) = list.ifWithinBound(currentIndex,
                 {
-                    this@createSingleEntryAssertion.subject.ifWithinBound(currentIndex,
-                        { entryProvider() == values[0] },
-                        { false }
-                    )
-                }
-            ))
-        }
+                    val entry = entryProvider()
+                    allCreatedAssertionsHold(entry, searchCriterion) to (entry ?: RawString.NULL)
+                },
+                { false to sizeExceededProvider() }
+            )
+            val description = TranslatableWithArgs(DescriptionIterableAssertion.INDEX, currentIndex)
+            addAssertion(AssertImpl.builder
+                .feature(description, entryRepresentation)
+                .create(createEntryAssertion(explanatoryAssertions, found)))
     }
 
-    private fun CollectingAssertionPlant<List<E>>.createSublistAssertion(
+    private fun CollectingAssertionPlant<List<E?>>.createSublistAssertion(
         currentIndex: Int,
         untilIndex: Int,
         sizeExceededProvider: () -> RawString,
-        values: List<E>
+        assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ) {
         val subListProvider = {
             val safeUntilIndex = if (untilIndex < subject.size) untilIndex else subject.size
@@ -80,7 +83,7 @@ class InOrderOnlyGroupedValuesAssertionCreator<E : Any, in T : Iterable<E>>(
         val featureName = TranslatableWithArgs(DescriptionIterableAssertion.INDEX_FROM_TO, currentIndex, untilIndex - 1)
         AssertImpl.feature.property(this, subListProvider, representationProvider, featureName) {
             val inAnyOrderOnly = contains.inAnyOrder.only
-            addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(inAnyOrderOnly, values))
+            addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(inAnyOrderOnly, assertionCreators))
         }
     }
 }
