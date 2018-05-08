@@ -14,6 +14,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertio
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 import ch.tutteli.kbox.mapRemainingWithCounter
 
@@ -73,6 +74,27 @@ internal fun <E : Any> allCreatedAssertionsHold(
         coreFactory.newCheckingPlant(subject)
             .addAssertionsCreatedBy(assertionCreator)
             .allAssertionsHold()
+}
+
+fun <E, SC> createEntryAssertionTemplate(
+    itr: Iterator<E>,
+    index: Int,
+    searchCriterion: SC,
+    entryWithIndex: DescriptionIterableAssertion,
+    matches: (E, SC) -> Boolean
+): ((Boolean) -> Assertion) -> AssertionGroup {
+    return { createEntryFeatureAssertion ->
+        val (found, entryRepresentation) = if (itr.hasNext()) {
+            val entry = itr.next()
+            Pair(matches(entry, searchCriterion), entry ?: RawString.NULL)
+        } else {
+            Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
+        }
+        val description = TranslatableWithArgs(entryWithIndex, index)
+        AssertImpl.builder
+            .feature(description, entryRepresentation)
+            .create(createEntryFeatureAssertion(found))
+    }
 }
 
 fun <E> createSizeFeatureAssertionForInOrderOnly(

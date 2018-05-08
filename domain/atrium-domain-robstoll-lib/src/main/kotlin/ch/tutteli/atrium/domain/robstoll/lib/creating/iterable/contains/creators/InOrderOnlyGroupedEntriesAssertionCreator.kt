@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 import ch.tutteli.atrium.api.cc.en_GB.contains
 import ch.tutteli.atrium.api.cc.en_GB.inAnyOrder
 import ch.tutteli.atrium.api.cc.en_GB.only
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.evalOnce
 import ch.tutteli.atrium.creating.Assert
@@ -19,33 +20,12 @@ import ch.tutteli.kbox.ifWithinBound
 
 class InOrderOnlyGroupedEntriesAssertionCreator<E : Any, in T : Iterable<E?>>(
     searchBehaviour: InOrderOnlyGroupedSearchBehaviour
-) : InOrderOnlyGroupedAssertionCreator<E, E?, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour) {
+) : InOrderOnlyGroupedAssertionCreator<E?, T, (AssertionPlant<E>.() -> Unit)?>(searchBehaviour),
+    InOrderOnlyMatcher<E?, (AssertionPlant<E>.() -> Unit)?> by InOrderOnlyEntriesMatcher()
+{
 
-    override fun CollectingAssertionPlant<List<E?>>.createSingleEntryAssertion(
-        currentIndex: Int,
-        sizeExceededProvider: () -> RawString,
-        searchCriteria: List<(AssertionPlant<E>.() -> Unit)?>
-    ) {
-        val list = this@createSingleEntryAssertion.subject
-        val entryProvider = { this.subject[currentIndex] }
-        val searchCriterion = searchCriteria[0]
-        val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, list)
-
-        val (found, entryRepresentation) = list.ifWithinBound(currentIndex,
-            {
-                val entry = entryProvider()
-                allCreatedAssertionsHold(entry, searchCriterion) to (entry ?: RawString.NULL)
-            },
-            { false to sizeExceededProvider() }
-        )
-        val description = TranslatableWithArgs(DescriptionIterableAssertion.INDEX, currentIndex)
-        addAssertion(AssertImpl.builder
-            .feature(description, entryRepresentation)
-            .create(createEntryAssertion(explanatoryAssertions, found)))
-    }
-
-    override fun Assert<List<E?>>.createSublistAssertion(searchCriteria: List<(AssertionPlant<E>.() -> Unit)?>) {
+    override fun Assert<List<E?>>.createSublistAssertion(groupOfSearchCriteria: List<(AssertionPlant<E>.() -> Unit)?>) {
         val inAnyOrderOnly = contains.inAnyOrder.only
-        addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(inAnyOrderOnly, searchCriteria))
+        addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(inAnyOrderOnly, groupOfSearchCriteria))
     }
 }

@@ -27,9 +27,12 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  */
-abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
+abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E>, SC>(
     private val searchBehaviour: InOrderOnlySearchBehaviour
-) : IterableContains.Creator<T, SC> {
+) : IterableContains.Creator<T, SC>,
+    //TODO use protected visibility once https://youtrack.jetbrains.com/issue/KT-24328 is implemented
+    InOrderOnlyMatcher<E, SC>
+{
 
     final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
@@ -37,7 +40,10 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
             val list = plant.subject.toList()
             val itr = list.iterator()
             searchCriteria.forEachIndexed { index, it ->
-                assertions.add(createEntryAssertion(list, it, createEntryAssertionTemplate(itr, index, it)))
+                val template = createEntryAssertionTemplate(
+                    itr, index, it, DescriptionIterableAssertion.ENTRY_WITH_INDEX, ::matches
+                )
+                assertions.add(template(entryAssertionCreator(list, it)))
             }
             assertions.add(createSizeFeatureAssertionForInOrderOnly(searchCriteria.size, list, itr))
 
@@ -45,23 +51,4 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
             AssertImpl.builder.summary(description).create(assertions)
         }
     }
-
-    abstract fun createEntryAssertion(iterableAsList: List<E?>, searchCriterion: SC, template: ((Boolean) -> Assertion) -> AssertionGroup): AssertionGroup
-
-    private fun createEntryAssertionTemplate(itr: Iterator<E?>, index: Int, searchCriterion: SC): ((Boolean) -> Assertion) -> AssertionGroup
-        = { createEntryFeatureAssertion ->
-
-        val (found, entryRepresentation) = if (itr.hasNext()) {
-            val entry = itr.next()
-            Pair(matches(entry, searchCriterion), entry ?: RawString.NULL)
-        } else {
-            Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
-        }
-        val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, index)
-        AssertImpl.builder
-            .feature(description, entryRepresentation)
-            .create(createEntryFeatureAssertion(found))
-    }
-
-    abstract fun matches(actual: E?, searchCriterion: SC): Boolean
 }
