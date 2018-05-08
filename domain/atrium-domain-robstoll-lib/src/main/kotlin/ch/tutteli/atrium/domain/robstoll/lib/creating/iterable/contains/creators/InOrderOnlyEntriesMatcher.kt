@@ -12,10 +12,10 @@ class InOrderOnlyEntriesMatcher<E: Any> : InOrderOnlyMatcher<E?, (AssertionPlant
         = allCreatedAssertionsHold(actual, searchCriterion)
 
     override fun entryAssertionCreator(
-        iterableAsList: List<E?>,
+        subjectProvider: () -> List<E?>,
         searchCriterion: (AssertionPlant<E>.() -> Unit)?
     ): (Boolean) -> Assertion {
-        val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, iterableAsList)
+        val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, subjectProvider())
         return { found -> createEntryAssertion(explanatoryAssertions, found) }
     }
 }

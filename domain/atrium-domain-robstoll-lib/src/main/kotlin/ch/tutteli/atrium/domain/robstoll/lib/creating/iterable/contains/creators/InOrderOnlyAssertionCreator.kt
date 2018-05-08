@@ -1,15 +1,12 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
@@ -36,19 +33,18 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E>, SC>(
 
     final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
         return LazyThreadUnsafeAssertionGroup {
-            val assertions = mutableListOf<Assertion>()
-            val list = plant.subject.toList()
-            val itr = list.iterator()
-            searchCriteria.forEachIndexed { index, it ->
-                val template = createEntryAssertionTemplate(
-                    itr, index, it, DescriptionIterableAssertion.ENTRY_WITH_INDEX, ::matches
-                )
-                assertions.add(template(entryAssertionCreator(list, it)))
+            val assertion = AssertImpl.collector.collect({ plant.subject.toList() }) {
+                var index = 0
+                searchCriteria.forEachIndexed { currentIndex, searchCriterion ->
+                    createSingleEntryAssertion(currentIndex, searchCriterion, DescriptionIterableAssertion.ENTRY_WITH_INDEX)
+                    index = currentIndex
+                }
+                ++index
+                val remainingList = if (index < subject.size) subject.subList(index, subject.size) else listOf()
+                addAssertion(createSizeFeatureAssertionForInOrderOnly(index, subject, remainingList.iterator()))
             }
-            assertions.add(createSizeFeatureAssertionForInOrderOnly(searchCriteria.size, list, itr))
-
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            AssertImpl.builder.summary(description).create(assertions)
+            AssertImpl.builder.summary(description).create(assertion)
         }
     }
 }
