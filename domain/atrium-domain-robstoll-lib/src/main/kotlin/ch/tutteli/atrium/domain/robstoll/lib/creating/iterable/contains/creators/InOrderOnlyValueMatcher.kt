@@ -11,7 +11,7 @@ class InOrderOnlyValueMatcher<E> : InOrderOnlyMatcher<E, E> {
         = actual == searchCriterion
 
     override fun entryAssertionCreator(
-        iterableAsList: List<E>,
+        subjectProvider: () -> List<E>,
         searchCriterion: E
     ): (Boolean) -> Assertion {
         return { found ->

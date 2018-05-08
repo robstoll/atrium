@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
-import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.cc.en_GB.property
+import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
@@ -9,13 +9,13 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
-import ch.tutteli.atrium.domain.creating.collectors.assertionCollector
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
+import ch.tutteli.kbox.ifWithinBound
 import ch.tutteli.kbox.mapRemainingWithCounter
 
 internal fun <E : Any> createExplanatoryAssertions(
@@ -77,19 +77,20 @@ internal fun <E : Any> allCreatedAssertionsHold(
 }
 
 fun <E, SC> createEntryAssertionTemplate(
-    itr: Iterator<E>,
+    subjectProvider: () -> List<E>,
     index: Int,
     searchCriterion: SC,
     entryWithIndex: DescriptionIterableAssertion,
     matches: (E, SC) -> Boolean
 ): ((Boolean) -> Assertion) -> AssertionGroup {
     return { createEntryFeatureAssertion ->
-        val (found, entryRepresentation) = if (itr.hasNext()) {
-            val entry = itr.next()
+        val list = subjectProvider()
+        val (found, entryRepresentation) = list.ifWithinBound(index, {
+            val entry = list[index]
             Pair(matches(entry, searchCriterion), entry ?: RawString.NULL)
-        } else {
+        }, {
             Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
-        }
+        })
         val description = TranslatableWithArgs(entryWithIndex, index)
         AssertImpl.builder
             .feature(description, entryRepresentation)
@@ -103,7 +104,7 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
     itr: Iterator<E?>
 ): AssertionGroup {
     val actualSize = iterableAsList.size
-    return assertionCollector.collect({iterableAsList}) {
+    return AssertImpl.collector.collect({ iterableAsList }) {
         property(Collection<*>::size) {
             toBe(expectedSize)
             if (actualSize > expectedSize) {
