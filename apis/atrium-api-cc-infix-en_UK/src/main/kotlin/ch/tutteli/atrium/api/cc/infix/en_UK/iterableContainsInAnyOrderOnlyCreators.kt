@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
  * [expected] value.
  *
- * Delegates to `the Objects(expected)`.
+ * Delegates to `the Values(expected)`.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
@@ -31,7 +31,7 @@ fun <E, T : Iterable<E>> value(builder: IterableContainsBuilder<E, T, InAnyOrder
  * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
  * need to be contained in [Iterable] where it does not matter in which order.
  *
- * Delegates to `the Objects(values)`.
+ * Delegates to `the Values(values)`.
  *
  * @param values The values which are expected to be contained within the [Iterable].
  *

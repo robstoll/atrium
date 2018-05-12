@@ -42,7 +42,7 @@ fun <E, T : Iterable<E>> getEnthaeltNicht(plant: Assert<T>): DeprecatedNotChecke
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected] and the [otherExpected] (if defined).
  *
- * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expected, *otherExpected)`
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expected, *otherExpected)`
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
  * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
@@ -95,7 +95,7 @@ fun <E : Any, T : Iterable<E?>> enthaeltNullable(plant: Assert<T>, assertionCrea
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
  * the defined order.
  *
- * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.objekte(expected, *otherExpected)`
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -139,7 +139,7 @@ fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, asserti
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]
  * and neither one of the [otherExpected] (if defined).
  *
- * It is a shortcut for `enthaeltNicht.objekte(expected, *otherExpected)`
+ * It is a shortcut for `enthaeltNicht.nullableWerte(expected, *otherExpected)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

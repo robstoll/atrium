@@ -3,6 +3,7 @@ package ch.tutteli.atrium.spec.integration
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -14,8 +15,8 @@ import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInOrderOnlyGroupedValuesSpec(
     verbs: AssertionVerbFactory,
-    containsPair: Pair<String, Assert<Iterable<Double>>.(Group<Double>, Group<Double>, Array<out Group<Double>>) -> Assert<Iterable<Double>>>,
-    groupFactory: (Array<out Double>) -> Group<Double>,
+    containsPair: Pair<String, Assert<Iterable<Double>>.(GroupWithoutNullableEntries<Double>, GroupWithoutNullableEntries<Double>, Array<out GroupWithoutNullableEntries<Double>>) -> Assert<Iterable<Double>>>,
+    groupFactory: (Array<out Double>) -> GroupWithoutNullableEntries<Double>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -26,7 +27,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
-    fun group(vararg doubles: Double): Group<Double> = groupFactory(doubles.toTypedArray())
+    fun group(vararg doubles: Double): GroupWithoutNullableEntries<Double> = groupFactory(doubles.toTypedArray())
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, group(2.5), group(4.1), arrayOf()) }
@@ -45,7 +46,7 @@ abstract class IterableContainsInOrderOnlyGroupedValuesSpec(
     val fluent = assert(oneToFour)
 
     val (contains, containsFunArr) = containsPair
-    fun Assert<Iterable<Double>>.containsFun(t1: Group<Double>, t2: Group<Double>, vararg tX: Group<Double>)
+    fun Assert<Iterable<Double>>.containsFun(t1: GroupWithoutNullableEntries<Double>, t2: GroupWithoutNullableEntries<Double>, vararg tX: GroupWithoutNullableEntries<Double>)
         = containsFunArr(t1,t2, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)

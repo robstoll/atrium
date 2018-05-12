@@ -3,7 +3,8 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
+import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
 import ch.tutteli.atrium.domain.builders.utils.groupsToList
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlyGroupedWithinSearchBehaviour
@@ -19,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: Order<E>
+    order: Order<E, GroupWithoutNullableEntries<E>>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
@@ -40,7 +41,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyG
  */
 @JvmName("inAnyOrderEntries")
 infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: Order<Assert<E>.() -> Unit>
+    order: Order<Assert<E>.() -> Unit, GroupWithoutNullableEntries<Assert<E>.() -> Unit>>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,
@@ -61,7 +62,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyG
  */
 @JvmName("inAnyOrderNullableEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
-    order: Order<(Assert<E>.() -> Unit)?>
+    order: Order<(Assert<E>.() -> Unit)?, GroupWithNullableEntries<(Assert<E>.() -> Unit)?>>
 ): AssertionPlant<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,

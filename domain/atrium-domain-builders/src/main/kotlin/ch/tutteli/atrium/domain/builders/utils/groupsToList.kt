@@ -1,11 +1,18 @@
 package ch.tutteli.atrium.domain.builders.utils
 
-/**
- * Represents a group of [T] which can be converted to a [List]`<T>`
- */
 interface Group<out T> {
     fun toList(): List<T>
 }
+
+/**
+ * Represents a group of [T] (where `T: Any`) which can be converted to a [List]`<T>`
+ */
+interface GroupWithoutNullableEntries<out T: Any>: Group<T>
+
+/**
+ * Represents a group of [T] (where `T: Any?`) which can be converted to a [List]`<T>`
+ */
+interface GroupWithNullableEntries<out T: Any?>: Group<T>
 
 /**
  * Adds the given [firstGroup], the [secondGroup] and the [otherGroups] into a new [List] and returns it.

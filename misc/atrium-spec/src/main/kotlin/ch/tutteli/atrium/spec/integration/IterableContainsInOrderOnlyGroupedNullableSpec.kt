@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -21,7 +22,7 @@ import kotlin.reflect.KFunction1
 abstract class IterableContainsInOrderOnlyGroupedNullableSpec(
     verbs: AssertionVerbFactory,
     //TODO nullable values should also be tested
-    containsInOrderOnlyGroupedNullableEntriesPair: Pair<String, Assert<Iterable<Double?>>.(Group<(Assert<Double>.() -> Unit)?>, Group<(Assert<Double>.() -> Unit)?>, Array<out Group<(Assert<Double>.() -> Unit)?>>) -> Assert<Iterable<Double?>>>,
+    containsInOrderOnlyGroupedNullableEntriesPair: Pair<String, Assert<Iterable<Double?>>.(GroupWithNullableEntries<(Assert<Double>.() -> Unit)?>, GroupWithNullableEntries<(Assert<Double>.() -> Unit)?>, Array<out GroupWithNullableEntries<(Assert<Double>.() -> Unit)?>>) -> Assert<Iterable<Double?>>>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -32,9 +33,8 @@ abstract class IterableContainsInOrderOnlyGroupedNullableSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    fun group(vararg doubles: (Assert<Double>.() -> Unit)?) = object : Group<(Assert<Double>.() -> Unit)?> {
-        override fun toList() = doubles.toList()
-    }
+    fun group(vararg doubles: (Assert<Double>.() -> Unit)?)
+        = object : GroupWithNullableEntries<(Assert<Double>.() -> Unit)?> { override fun toList() = doubles.toList() }
 
     include(object : SubjectLessAssertionSpec<Iterable<Double?>>(describePrefix,
         containsInOrderOnlyGroupedNullableEntriesPair.first to mapToCreateAssertion { containsInOrderOnlyGroupedNullableEntriesPair.second(this, group(null), group({ toBe(1.0) }, { toBe(2.0) }), arrayOf()) }
@@ -54,7 +54,7 @@ abstract class IterableContainsInOrderOnlyGroupedNullableSpec(
     val fluent = assert(list)
 
     val (containsInOrderOnlyGroupedNullableEntries, containsInOrderOnlyGroupedNullableEntriesArr) = containsInOrderOnlyGroupedNullableEntriesPair
-    fun Assert<Iterable<Double?>>.containsInOrderOnlyGroupedNullableEntriesFun(t1: Group<(Assert<Double>.() -> Unit)?>, t2: Group<(Assert<Double>.() -> Unit)?>, vararg tX: Group<(Assert<Double>.() -> Unit)?>)
+    fun Assert<Iterable<Double?>>.containsInOrderOnlyGroupedNullableEntriesFun(t1: GroupWithNullableEntries<(Assert<Double>.() -> Unit)?>, t2: GroupWithNullableEntries<(Assert<Double>.() -> Unit)?>, vararg tX: GroupWithNullableEntries<(Assert<Double>.() -> Unit)?>)
         = containsInOrderOnlyGroupedNullableEntriesArr(t1, t2, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)

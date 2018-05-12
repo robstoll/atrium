@@ -101,7 +101,7 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
  * the defined order.
  *
- * It is a shortcut for `contains.inOrder.only.objects(expected, *otherExpected)`
+ * It is a shortcut for `contains.inOrder.only.values(expected, *otherExpected)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -148,7 +148,7 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNulllable(plant: Assert<T>, asse
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]
  * and neither one of the [otherExpected] (if defined).
  *
- *  It is a shortcut for `containsNot.objects(expected, *otherExpected)`
+ *  It is a shortcut for `containsNot.values(expected, *otherExpected)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

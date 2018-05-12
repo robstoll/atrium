@@ -42,7 +42,7 @@ class IterableContainsInOrderOnlyEntriesSpec : Spek({
         }
 
         private fun getContainsShortcutName(): String {
-            val f: KFunction2<Assert<Iterable<Double>>, Entries<Double, Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
+            val f: KFunction2<Assert<Iterable<Double>>, Entries<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
             return f.name
         }
 
