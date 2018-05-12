@@ -57,7 +57,7 @@ fun <E, T : Iterable<E>> getEnthaeltNicht(plant: Assert<T>): DeprecatedNotChecke
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = enthaelt.inBeliebigerReihenfolge.zumindest(1).objekte(expected, *otherExpected)
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -101,7 +101,7 @@ fun <E : Any, T : Iterable<E?>> enthaeltNullable(plant: Assert<T>, assertionCrea
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = enthaelt.inGegebenerReihenfolge.nur.objekte(expected, *otherExpected)
+    = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -145,4 +145,4 @@ fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, asserti
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
-    = enthaeltNicht.objekte(expected, *otherExpected)
+    = enthaeltNicht.nullableWerte(expected, *otherExpected)

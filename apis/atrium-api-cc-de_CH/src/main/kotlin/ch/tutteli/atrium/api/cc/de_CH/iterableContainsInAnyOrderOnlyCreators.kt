@@ -19,8 +19,13 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.wert(expected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.wert(expected: E): AssertionPlant<T>
     = werte(expected)
+
+@JvmName("deprecatedWert")
+@Deprecated("Use `nullableWert` instead, will be removed with 1.0.0", ReplaceWith("nullableWert(expected)"))
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.wert(expected: E): AssertionPlant<T>
+    = nullableWert(expected)
 
 @Deprecated("Use the extension fun `wert` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.wert(expected)"))
 fun <E, T : Iterable<E>> wert(checkerBuilder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
@@ -37,8 +42,14 @@ fun <E, T : Iterable<E>> wert(checkerBuilder: IterableContainsBuilder<E, T, InAn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, expected glue otherExpected))
+
+@Deprecated("Use `nullableWerte` instead, will be removed with 1.0.0", ReplaceWith("nullableWerte(expected, *otherExpected)"))
+@JvmName("deprecatedWerte")
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = nullableWerte(expected, *otherExpected)
+
 
 @Deprecated("Use the extension fun `werte` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.werte(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> werte(checkerBuilder: IterableContainsBuilder<E, T, InAnyOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
@@ -117,6 +128,33 @@ fun <E : Any, T : Iterable<E>> eintraege(
 ): AssertionPlant<T>
     = checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)
 
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
+ * [expected] value.
+ *
+ * Delegates to `nullableWerte(expected)`.
+ *
+ * @param expected The value which is expected to be contained within the [Iterable].
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableWert(expected: E): AssertionPlant<T>
+    = nullableWerte(expected)
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
+ * [otherExpected] values need to be contained in [Iterable] where it does not matter in which order.
+ *
+ * @param expected The value which is expected to be contained within the [Iterable].
+ * @param otherExpected Additional values which are expected to be contained within [Iterable].
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableWerte(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, expected glue otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one

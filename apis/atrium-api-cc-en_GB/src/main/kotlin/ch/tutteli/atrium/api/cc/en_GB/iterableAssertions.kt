@@ -47,7 +47,7 @@ val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerOption<E, T, InAnyOrde
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
+    = contains.inAnyOrder.atLeast(1).nullableValues(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -86,7 +86,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = contains.inOrder.only.values(expected, *otherExpected)
+    = contains.inOrder.only.nullableValues(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -125,4 +125,4 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (As
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E)
-    = containsNot.values(expected, *otherExpected)
+    = containsNot.nullableValues(expected, *otherExpected)
