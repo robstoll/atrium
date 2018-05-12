@@ -79,7 +79,7 @@ fun <E, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilder<E, T
  *
  * Delegates to `the Entries(assertionCreator)`.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *
@@ -120,7 +120,7 @@ fun <E : Any, T : Iterable<E>> the(checkerBuilder: IterableContainsCheckerBuilde
  *
  * Delegates to `entries(expected)`.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *
@@ -150,7 +150,7 @@ fun <E : Any, T : Iterable<E?>> nullableEntry(checkerBuilder: IterableContainsCh
 @Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(entries)"))
 @JvmName("entries?")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrder(this, entries.toList()))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, entries.toList()))
 
 @Deprecated("Use the extension fun `the` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder the entries"))
 fun <E : Any, T : Iterable<E?>> nullableEntries(checkerBuilder: IterableContainsCheckerBuilder<E?, T, InAnyOrderSearchBehaviour>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>

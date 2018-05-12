@@ -13,10 +13,20 @@ class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected
 }
 
 /**
+ * Parameter object to express a [Group] with a single identification lambda.
+ */
+class Entry<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: A): Group<A>{
+    override fun toList(): List<A> = listOf(assertionCreator)
+}
+
+/**
  * Parameter object to express `((Assert<T>) -> Unit)?, vararg ((Assert<T>) -> Unit)?` in the infix-api.
  */
-class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(val assertionCreator: A, vararg val otherAssertionCreators: A){
-    fun toList(): List<A> = assertionCreator glue otherAssertionCreators
+class Entries<in T : Any, out A : ((Assert<T>) -> Unit)?>(
+    val assertionCreator: A,
+    vararg val otherAssertionCreators: A
+): Group<A> {
+    override fun toList(): List<A> = assertionCreator glue otherAssertionCreators
 }
 
 /**
