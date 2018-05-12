@@ -20,48 +20,38 @@ class IterableContainsAssertionsImpl : IterableContainsAssertions {
         expected: List<E>
     ): Assertion = _containsValuesInAnyOrder(checkerOption, expected)
 
-    override fun <E : Any, T : Iterable<E>> entriesInAnyOrder(
-        checkerOption: IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>,
-        assertionCreators: List<AssertionPlant<E>.() -> Unit>
-    ): Assertion = _containsEntriesInAnyOrder(checkerOption, assertionCreators)
-
-    override fun <E : Any, T : Iterable<E?>> nullableEntriesInAnyOrder(
+    override fun <E : Any, T : Iterable<E?>> entriesInAnyOrder(
         checkerOption: IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
-    ): Assertion = _containsNullableEntriesInAnyOrder(checkerOption, assertionCreators)
+    ): Assertion = _containsEntriesInAnyOrder(checkerOption, assertionCreators)
 
     override fun <E, T : Iterable<E>> valuesInAnyOrderOnly(
         builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
         expected: List<E>
     ): Assertion = _containsValuesInAnyOrderOnly(builder, expected)
 
-    override fun <E : Any, T : Iterable<E>> entriesInAnyOrderOnly(
-        builder: IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>,
-        assertionCreators: List<AssertionPlant<E>.() -> Unit>
-    ): Assertion = _containsEntriesInAnyOrderOnly(builder, assertionCreators)
-
-    override fun <E : Any, T : Iterable<E?>> nullableEntriesInAnyOrderOnly(
+    override fun <E : Any, T : Iterable<E?>> entriesInAnyOrderOnly(
         builder: IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
-    ): Assertion = _containsNullableEntriesInAnyOrderOnly(builder, assertionCreators)
+    ): Assertion = _containsEntriesInAnyOrderOnly(builder, assertionCreators)
 
     override fun <E, T : Iterable<E>> valuesInOrderOnly(
         builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
         expected: List<E>
     ): Assertion = _containsValuesInOrderOnly(builder, expected)
 
-    override fun <E : Any, T : Iterable<E>> entriesInOrderOnly(
-        builder: IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>,
-        assertionCreators: List<AssertionPlant<E>.() -> Unit>
-    ): Assertion = _containsEntriesInOrderOnly(builder, assertionCreators)
-
-    override fun <E : Any, T : Iterable<E?>> nullableEntriesInOrderOnly(
+    override fun <E : Any, T : Iterable<E?>> entriesInOrderOnly(
         builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>,
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
-    ): Assertion = _containsNullableEntriesInOrderOnly(builder, assertionCreators)
+    ): Assertion = _containsEntriesInOrderOnly(builder, assertionCreators)
 
-    override fun <E: Any, T : Iterable<E>> valuesInOrderOnlyGrouped(
-        builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>,
+    override fun <E: Any, T : Iterable<E?>> valuesInOrderOnlyGrouped(
+        builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<E>>
     ): Assertion = _containsValuesInOrderOnlyGrouped(builder, groups)
+
+    override fun <E : Any, T : Iterable<E?>> entriesInOrderOnlyGrouped(
+        builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
+        groups: List<List<(AssertionPlant<E>.() -> Unit)?>>
+    ): Assertion = _containsEntriesInOrderOnlyGrouped(builder, groups)
 }

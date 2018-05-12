@@ -94,7 +94,7 @@ fun <E : Any, T : Iterable<E>> eintrag(checkerBuilder: IterableContainsBuilder<E
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
@@ -151,7 +151,7 @@ fun <E : Any, T : Iterable<E?>> nullableEintrag(checkerBuilder: IterableContains
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
@@ -165,7 +165,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(this, assertionCreator glue otherAssertionCreators))
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, assertionCreator glue otherAssertionCreators))
 
 @Deprecated("Use the extension fun `eintraege` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> nullableEintraege(

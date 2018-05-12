@@ -50,7 +50,7 @@ infix fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
  *
  * Delegates to `the Entries(assertionCreator)`.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *
@@ -80,7 +80,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  *
  * Delegates to `entries(expected)`.
  *
- * @param assertionCreator The lambda function which creates the assertions which the entry we are looking for
+ * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *
@@ -103,4 +103,4 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAn
  */
 @JvmName("entries?")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.nullableEntriesInAnyOrder(this, entries.toList()))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, entries.toList()))

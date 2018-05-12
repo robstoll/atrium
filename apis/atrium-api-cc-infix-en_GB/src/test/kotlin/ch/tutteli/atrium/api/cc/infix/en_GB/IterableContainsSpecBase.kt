@@ -7,6 +7,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import kotlin.reflect.KFunction2
@@ -44,5 +45,7 @@ abstract class IterableContainsSpecBase {
     protected val inOrderOnlyEntries = "$theInOrderOnly $Entries"
     protected val groupedEntries = "${IterableContains.Builder<Double, Iterable<Double>, InOrderOnlySearchBehaviour>::grouped.name} ${entries::class.simpleName}"
     protected val withinGroup = "${IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedSearchBehaviour>::within.name} ${group::class.simpleName}"
-    protected val withinInAnyOrder = "${IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny.name} ${order::class.simpleName}"
+    private val withinInAnyOrderFun : KFunction2<IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedWithinSearchBehaviour>, Order<Double>, AssertionPlant<Iterable<Double>>>
+        = IterableContains.Builder<Double, Iterable<Double>, InOrderOnlyGroupedWithinSearchBehaviour>::inAny
+    protected val withinInAnyOrder = "${withinInAnyOrderFun.name} ${order::class.simpleName}"
 }
