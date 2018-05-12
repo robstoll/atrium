@@ -20,8 +20,13 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.wert(expected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.wert(expected: E): AssertionPlant<T>
     = werte(expected)
+
+@JvmName("deprecatedWert")
+@Deprecated("Use `nullableWert` instead, will be removed with 1.0.0", ReplaceWith("nullableWert(expected)"))
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.wert(expected: E): AssertionPlant<T>
+    = nullableWert(expected)
 
 @Deprecated("Use the extension fun `wert` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.wert(expected)"))
 fun <E, T : Iterable<E>> wert(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, expected: E): AssertionPlant<T>
@@ -47,8 +52,13 @@ fun <E, T : Iterable<E>> wert(checkerBuilder: IterableContainsCheckerBuilder<E, 
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
+
+@Deprecated("Use `nullableWerte` instead, will be removed with 1.0.0", ReplaceWith("nullableWerte(expected, *otherExpected)"))
+@JvmName("deprecatedWerte")
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = nullableWerte(expected, *otherExpected)
 
 @Deprecated("Use the extension fun `werte` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.werte(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> werte(checkerBuilder: IterableContainsCheckerBuilder<E, T, InAnyOrderSearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
@@ -121,6 +131,43 @@ fun <E : Any, T : Iterable<E>> eintraege(
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
     = checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
+ * within the [Iterable].
+ *
+ * Delegates to `nullableWerte(expected)`.
+ *
+ * @param expected The value which is expected to be contained within the [Iterable].
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableWert(expected: E): AssertionPlant<T>
+    = nullableWerte(expected)
+
+/**
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
+ * [otherExpected] values shall be searched within the [Iterable].
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
+ * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * same entry. Use an option such as [zumindest], [hoechstens] and [genau] to control the number of
+ * occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `enthaelt.inBeliebigerReihenfolge.genau(2).nullableWerte('a')`
+ * instead of:
+ *   `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte('a', 'a')`
+ *
+ * @param expected The object which is expected to be contained within the [Iterable].
+ * @param otherExpected Additional objects which are expected to be contained within [Iterable].
+ *
+ * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableWerte(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
 
 
 /**

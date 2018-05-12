@@ -38,9 +38,9 @@ class IterableContainsNullSpec : Spek({
 
         private fun containsInAnyOrderNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.contains.inAnyOrder.atLeast(1).value(a)
+                plant.contains.inAnyOrder.atLeast(1).nullableValue(a)
             } else {
-                plant.contains.inAnyOrder.atLeast(1).values(a, *aX)
+                plant.contains.inAnyOrder.atLeast(1).nullableValues(a, *aX)
             }
         }
 
@@ -56,9 +56,9 @@ class IterableContainsNullSpec : Spek({
 
         private fun containsNotNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.containsNot.value(a)
+                plant.containsNot.nullableValue(a)
             } else {
-                plant.containsNot.values(a, *aX)
+                plant.containsNot.nullableValues(a, *aX)
             }
         }
 
