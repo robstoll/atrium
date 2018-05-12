@@ -3,6 +3,7 @@ package ch.tutteli.atrium.spec.integration
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.utils.Group
+import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -13,8 +14,8 @@ import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInOrderOnlyGroupedEntriesSpec(
     verbs: AssertionVerbFactory,
-    containsPair: Pair<String, Assert<Iterable<Double>>.(Group<Assert<Double>.() -> Unit>, Group<Assert<Double>.() -> Unit>, Array<out Group<Assert<Double>.() -> Unit>>) -> Assert<Iterable<Double>>>,
-    groupFactory: (Array<out Assert<Double>.() -> Unit>) -> Group<Assert<Double>.() -> Unit>,
+    containsPair: Pair<String, Assert<Iterable<Double>>.(GroupWithoutNullableEntries<Assert<Double>.() -> Unit>, GroupWithoutNullableEntries<Assert<Double>.() -> Unit>, Array<out GroupWithoutNullableEntries<Assert<Double>.() -> Unit>>) -> Assert<Iterable<Double>>>,
+    groupFactory: (Array<out Assert<Double>.() -> Unit>) -> GroupWithoutNullableEntries<Assert<Double>.() -> Unit>,
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
@@ -26,7 +27,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    fun group(vararg assertionCreators: Assert<Double>.() -> Unit): Group<Assert<Double>.() -> Unit> = groupFactory(assertionCreators)
+    fun group(vararg assertionCreators: Assert<Double>.() -> Unit): GroupWithoutNullableEntries<Assert<Double>.() -> Unit> = groupFactory(assertionCreators)
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, group({ toBe(2.5) }), group({ toBe(4.1) }), arrayOf()) }
@@ -45,7 +46,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesSpec(
     val fluent = assert(oneToFour)
 
     val (contains, containsFunArr) = containsPair
-    fun Assert<Iterable<Double>>.containsFun(t1: Group<Assert<Double>.() -> Unit>, t2: Group<Assert<Double>.() -> Unit>, vararg tX: Group<Assert<Double>.() -> Unit>)
+    fun Assert<Iterable<Double>>.containsFun(t1: GroupWithoutNullableEntries<Assert<Double>.() -> Unit>, t2: GroupWithoutNullableEntries<Assert<Double>.() -> Unit>, vararg tX: GroupWithoutNullableEntries<Assert<Double>.() -> Unit>)
         = containsFunArr(t1,t2, tX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)

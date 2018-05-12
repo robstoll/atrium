@@ -39,7 +39,7 @@ val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerOption<E, T, InAnyOrde
  * same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.inAnyOrder.exactly(2).value('a')`
+ *   `contains.inAnyOrder.exactly(2).nullableValues('a')`
  * instead of:
  *   `contains('a', 'a')`
  *
@@ -80,7 +80,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
  * the defined order.
  *
- * It is a shortcut for `contains.inOrder.only.objects(expected, *otherExpected)`
+ * It is a shortcut for `contains.inOrder.only.nullableValues(expected, *otherExpected)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -119,7 +119,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (As
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]
  * and neither one of the [otherExpected] (if defined).
  *
- *  It is a shortcut for `containsNot.objects(expected, *otherExpected)`
+ *  It is a shortcut for `containsNot.nullableValues(expected, *otherExpected)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
