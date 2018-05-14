@@ -124,12 +124,10 @@ assert(x).contains({ isLessThan(2) })
 assert(x).contains({ isLessThan(2) }, { isGreaterThan 5 })
 assert(x).contains.inAnyOrder.atLeast(1).butAtMost(2).value(3.2)
 assert(x).contains.inAnyOrder.exactly(1).values("hello", "robert")
-assert(x).contains.inAnyOrder.atMost(2).`object`(y)
-assert(x).contains.inAnyOrder.notOrAtMost(2).objects(y, z)
+assert(x).contains.inAnyOrder.atMost(2).value(y)
+assert(x).contains.inAnyOrder.notOrAtMost(2).values(y, z)
 assert(x).contains.inAnyOrder.only.value("hello")
-assert(x).contains.inAnyOrder.only.values("hello", "world")
-assert(x).contains.inAnyOrder.only.`object`(personA)
-assert(x).contains.inAnyOrder.only.objects(personA, personB)
+assert(x).contains.inAnyOrder.only.values(personA, personB)
 assert(x).contains.inAnyOrder.only.entry { isLessThan(2) }
 assert(x).contains.inAnyOrder.only.entries({ toBe(3) }, { isLessThan(2) })
 ```
@@ -142,12 +140,10 @@ assert(x) contains { this isLessThan 2 }
 assert(x) contains Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
 assert(x) to contain inAny order atLeast 1 butAtMost 2 value 3.2
 assert(x) to contain inAny order exactly 1 the Values("hello", "robert")
-assert(x) to contain inAny order atMost 2 `object` y
-assert(x) to contain inAny order notOrAtMost 2 the Objects(y, z)
+assert(x) to contain inAny order atMost 2 value y
+assert(x) to contain inAny order notOrAtMost 2 the Values(y, z)
 assert(x) to contain inAny order but only value "hello")
-assert(x) to contain inAny order but only the Values("hello", "world")
-assert(x) to contain inAny order but only `object` personA
-assert(x) to contain inAny order but only the Objects(personA, personB)
+assert(x) to contain inAny order but only the Values(personA, personB)
 assert(x) to contain inAny order but only entry { this isLessThan 2 } 
 assert(x) to contain inAny order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
 ```
@@ -165,6 +161,12 @@ assert(x).contains.inOrder.only.values("hello", "world")
 assert(x).contains.inOrder.only.entry { isLessThan(2) }
 assert(x).contains.inOrder.only.entries({ toBe(3) }, { isLessThan(2) })
 assert(x).contains.inOrder.only.grouped.within.inAnyOrder(Values(1), Values(1, 2), Values(3, 4))
+assert(x).contains.inOrder.only.grouped.within.inAnyOrder(
+    Entries({ toBe(1) }), 
+    Entries({ isLessThan(2) },{ isGreaterThan(2) }), 
+    Entries({ toBe(3) }, { toBe(4) })
+)
+
 ```
 
 *atrium-api-cc-infix-en_GB*
@@ -178,6 +180,11 @@ assert(x) contains inGiven order but only the Values("hello", "world")
 assert(x) contains inGiven order but only entry { this isLessThan 2 }
 assert(x) contains inGiven order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
 assert(x) contains inGiven order but only grouped entries within group inAny Order(Value(1), Values(1, 2), Values(3, 4))
+assert(x) contains inGiven order but only grouped entries within group inAny Order(
+    Entries({ this toBe(1) }), 
+    Entries({ this isLessThan(2) },{ this isGreaterThan(2) }), 
+    Entries({ this toBe(3) }, { this toBe(4) })
+)
 ```
 
 ## Iterable contains not
@@ -202,14 +209,18 @@ assert(x) notTo contain the Entries({ this isLessThan 2 }, { this isGreaterThan 
 
 *atrium-api-cc-en_GB*
 ```kotlin
-assert(listOf(null, 1)).contains.inAnyOrder.entry(null)
-assert(listOf(null, 1)).contains.inAnyOrder.only.entries(null, { isLessThan(2) })
-//see above for other inAnyOrder and inOrder examples
+assert(listOf(null, 1)).contains.inAnyOrder.nullableValue(null)
+assert(listOf(null, 1)).contains.inAnyOrder.nullableValues(null, 1)
+assert(listOf(null, 1)).contains.inAnyOrder.nullableEntry(null)
+assert(listOf(null, 1)).contains.inAnyOrder.entries(null, { isLessThan(2) })
+//see above for inAnyOrder and inOrder options
 ```
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(listOf(null, 1)) to contain inAny order entry null
-assert(listOf(null, 1)) to contain inAny order but only the Entries(null, { this isLessThan 2 })
-//see above for other inAnyOrder and inOrder examples
+assert(listOf(null, 1)) to contain inAny order nullableValue null
+assert(listOf(null, 1)) to contain inAny order the NullableValues(null, 1)
+assert(listOf(null, 1)) to contain inAny order nullableEntry null
+assert(listOf(null, 1)) to contain inAny order the NullableEntries(null, { this isLessThan 2 })
+//see above for inAnyOrder and inOrder options
 ```
