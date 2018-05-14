@@ -55,6 +55,8 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyG
  * need to be contained in [Iterable] in the specified order whereas the identification lambdas within the groups
  * can occur in any order.
  *
+ * An identification lambda can also be defined with `null` in which case it matches an entry which is `null` as well.
+ *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.

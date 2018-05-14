@@ -51,8 +51,8 @@ fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
- * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) where it does not matter
- * in which order the entries appear.
+ * [assertionCreator] -- likewise an entry (can be the same) is searched for each
+ * of the [otherAssertionCreators].
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)`
  *
@@ -64,8 +64,9 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
- * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) where it does not matter
- * in which order the entries appear.
+ * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null`
+ * as well -- likewise an entry (can be the same) is searched for each
+ * of the [otherAssertionCreators].
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)`
  *
@@ -103,8 +104,9 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Asse
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
- * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) in the defined order
- * holding the assertions created by them.
+ * [assertionCreator] where the entry needs to be `null` in case [assertionCreator]
+ * is `null` and an additional entry for each [otherAssertionCreators] (if defined) whereas the entries
+ * have to appear in the defined order.
  *
  * It is a shortcut for `contains.inOrder.only.entries(expected, *otherExpected)`
  *
@@ -116,8 +118,8 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (As
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain [expected]
- * and neither one of the [otherExpected] (if defined).
+ * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] nullable value
+ * and neither one of the [otherExpected] nullable values (if defined).
  *
  *  It is a shortcut for `containsNot.nullableValues(expected, *otherExpected)`
  *
