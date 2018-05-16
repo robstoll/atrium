@@ -42,22 +42,53 @@ fun <E, T : Iterable<E>> getEnthaeltNicht(plant: Assert<T>): DeprecatedNotChecke
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected] and the [otherExpected] (if defined).
  *
- * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expected, *otherExpected)`
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expected, *otherExpected)`
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
  * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same entry. Use an option such as [zumindest], [hoechstens] and [genau] to control the number of occurrences you expect.
+ * same entry. Use an option such as [zumindest], [hoechstens] and [genau] to control
+ * the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `enthaelt.inBeliebigerReihenfolge.genau(2).wert('a')`
  * instead of:
  *   `enthaelt('a', 'a')`
  *
+ * This function will be renamed on a JVM level from `enthaeltNonNullable` to `enthaelt` with 1.0.0
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+@JvmName("enthaeltNonNullable")
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expected, *otherExpected)
+
+@Deprecated("Use the extension fun `enthaeltNichtNullable` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("enthaeltNullable(expected, *otherExpected)"))
+fun  <E, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = enthaeltNullable(expected, *otherExpected)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains the [expected] nullable value
+ * and the [otherExpected] nullable values (if defined).
+ *
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expected, *otherExpected)`
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
+ * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * same entry. Use an option such as [zumindest], [hoechstens] and [genau] to control
+ * the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `enthaelt.inBeliebigerReihenfolge.genau(2).nullableWert('a')`
+ * instead of:
+ *   `enthaeltNullable('a', 'a')`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltNullable(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expected, *otherExpected)
+
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -96,13 +127,26 @@ fun <E : Any, T : Iterable<E?>> enthaeltNullable(plant: Assert<T>, assertionCrea
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
  * the defined order.
  *
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only the [expected] nullable value
+ * and the [otherExpected] nullable values (if defined) in the defined order.
+ *
  * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullable(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)
+
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -138,6 +182,25 @@ fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, asserti
 
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value
+ * and neither one of the [otherExpected] values (if defined).
+ *
+ * It is a shortcut for `enthaeltNicht.werte(expected, *otherExpected)`
+ *
+ * This function will be renamed on a JVM level from `enthaeltNichtNonNullable` to `enthaeltNicht` with 1.0.0
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@JvmName("enthaeltNichtNonNullable")
+fun <E: Any, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
+    = enthaeltNicht.werte(expected, *otherExpected)
+
+@Deprecated("Use the extension fun `enthaeltNichtNullable` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("enthaeltNichtNullable(expected, *otherExpected)"))
+fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
+    = enthaeltNicht.werte(expected, *otherExpected)
+
+/**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] nullable value
  * and neither one of the [otherExpected] nullable values (if defined).
  *
@@ -146,5 +209,5 @@ fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, asserti
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
+fun <E: Any?, T : Iterable<E>> Assert<T>.enthaeltNichtNullable(expected: E, vararg otherExpected: E)
     = enthaeltNicht.nullableWerte(expected, *otherExpected)

@@ -13,7 +13,6 @@ class IterableContainsNullSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNullSpec(
         AssertionVerbFactory,
         getContainsInAnyOrderNullableValuesPair(),
-        getContainsNotNullableValuesPair(),
         getContainsInAnyOrderNullableEntriesPair(),
         getContainsInAnyOrderOnlyNullableEntriesPair(),
         getContainsInOrderOnlyNullableEntriesPair(),
@@ -23,11 +22,10 @@ class IterableContainsNullSpec : Spek({
 
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNullSpec(
         AssertionVerbFactory,
-        getContainsValuesPair(),
-        getContainsNotValuesPair(),
-        getContainsEntriesPair(),
+        getContainsNullableValuesPair(),
+        getContainsNullableEntriesPair(),
         getContainsInAnyOrderOnlyNullableEntriesPair(),
-        getContainsStrictlyEntriesPair(),
+        getContainsStrictlyNullableEntriesPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
@@ -45,36 +43,13 @@ class IterableContainsNullSpec : Spek({
         }
 
         private val containsFun: KFunction2<Assert<Iterable<Double?>>, Values<Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
-        fun getContainsValuesPair() = containsFun.name to Companion::containsShortcut
+        fun getContainsNullableValuesPair() = containsFun.name to Companion::containsShortcut
 
         private fun containsShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
                 plant contains a
             } else {
                 plant contains Values(a, *aX)
-            }
-        }
-
-
-        private val containsNotNullableValuesFun: KFunction2<Assert<Iterable<Double?>>, Values<Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNot
-        fun getContainsNotNullableValuesPair() = containsNotNullableValuesFun.name to Companion::containsNotNullableValues
-
-        private fun containsNotNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant notTo contain value a
-            } else {
-                plant notTo contain the Values(a, *aX)
-            }
-        }
-
-        private val containsNotFun: KFunction2<Assert<Iterable<Double?>>, Values<Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNot
-        fun getContainsNotValuesPair() = containsNotFun.name to Companion::containsNotShortcut
-
-        private fun containsNotShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant containsNot a
-            } else {
-                plant containsNot Values(a, *aX)
             }
         }
 
@@ -91,7 +66,7 @@ class IterableContainsNullSpec : Spek({
         }
 
         private val containsEntriesFun: KFunction2<Assert<Iterable<Double?>>, Entries<Double, (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::contains
-        fun getContainsEntriesPair() = containsEntriesFun.name to Companion::containsEntries
+        fun getContainsNullableEntriesPair() = containsEntriesFun.name to Companion::containsEntries
 
         private fun containsEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
@@ -115,7 +90,7 @@ class IterableContainsNullSpec : Spek({
 
 
         private val containsStrictlyEntriesFun: KFunction2<Assert<Iterable<Double?>>, Entries<Double, (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsStrictly
-        fun getContainsStrictlyEntriesPair() = containsStrictlyEntriesFun.name to Companion::containsStrictlyEntries
+        fun getContainsStrictlyNullableEntriesPair() = containsStrictlyEntriesFun.name to Companion::containsStrictlyEntries
 
         private fun containsStrictlyEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
