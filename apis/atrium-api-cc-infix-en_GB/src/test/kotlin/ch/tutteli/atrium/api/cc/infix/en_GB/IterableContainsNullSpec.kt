@@ -16,7 +16,6 @@ class IterableContainsNullSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNullSpec(
         AssertionVerbFactory,
         getContainsInAnyOrderNullableValuesPair(),
-        getContainsNotNullableValuesPair(),
         getContainsInAnyOrderNullableEntriesPair(),
         getContainsInAnyOrderOnlyNullableEntriesPair(),
         getContainsInOrderOnlyNullableEntriesPair(),
@@ -27,7 +26,6 @@ class IterableContainsNullSpec : Spek({
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNullSpec(
         AssertionVerbFactory,
         getContainsValuesPair(),
-        getContainsNotValuesPair(),
         getContainsEntriesPair(),
         getContainsInAnyOrderOnlyNullableEntriesPair(),
         getContainsStrictlyEntriesPair(),
@@ -69,18 +67,6 @@ class IterableContainsNullSpec : Spek({
                 plant notTo contain the NullableValues(a, *aX)
             }
         }
-
-        private val containsNotFun: KFunction2<Assert<Iterable<Double?>>, NullableValues<Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNot
-        fun getContainsNotValuesPair() = containsNotFun.name to Companion::containsNotShortcut
-
-        private fun containsNotShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant containsNot a
-            } else {
-                plant containsNot NullableValues(a, *aX)
-            }
-        }
-
 
         fun getContainsInAnyOrderNullableEntriesPair()
             = "$toContain $inAnyOrder $inAnyOrderEntries" to Companion::containsNullableEntries

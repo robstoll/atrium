@@ -12,6 +12,7 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
 
     companion object {
         val oneToSeven = listOf(1.0, 2.0, 4.0, 4.0, 5.0, 3.0, 5.0, 6.0, 4.0, 7.0)
+        val oneToSevenNullable = listOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0)
 
         val containsInAnyOrder = String.format(DescriptionIterableAssertion.IN_ANY_ORDER.getDefault(), DescriptionIterableAssertion.CONTAINS.getDefault())
         val containsInAnyOrderOnly = String.format(DescriptionIterableAssertion.IN_ANY_ORDER_ONLY.getDefault(), DescriptionIterableAssertion.CONTAINS.getDefault())

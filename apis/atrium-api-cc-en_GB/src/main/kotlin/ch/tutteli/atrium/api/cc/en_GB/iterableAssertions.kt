@@ -39,14 +39,35 @@ val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerOption<E, T, InAnyOrde
  * same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
- *   `contains.inAnyOrder.exactly(2).nullableValues('a')`
+ *   `contains.inAnyOrder.exactly(2).value('a')`
  * instead of:
  *   `contains('a', 'a')`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains the [expected] nullable value
+ * and the [otherExpected] nullable values (if defined).
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).nullableValues(expected, *otherExpected)`
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
+ * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
+ * same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
+ *
+ * Meaning you might want to use:
+ *   `contains.inAnyOrder.exactly(2).nullableValue('a')`
+ * instead of:
+ *   `containsNullable('a', 'a')`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any?, T : Iterable<E>> Assert<T>.containsNullable(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).nullableValues(expected, *otherExpected)
 
 /**
@@ -77,6 +98,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
 fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
+
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
  * the defined order.
@@ -86,7 +108,18 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = contains.inOrder.only.nullableValues(expected, *otherExpected)
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only [expected] nullable values
+ * and the [otherExpected] nullable values (if defined) in the defined order.
+ *
+ * It is a shortcut for `contains.inOrder.only.nullableValues(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullable(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = contains.inOrder.only.nullableValues(expected, *otherExpected)
 
 /**
@@ -118,6 +151,18 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (As
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value
+ * and neither one of the [otherExpected] values (if defined).
+ *
+ *  It is a shortcut for `containsNot.nullableValues(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E)
+    = containsNot.nullableValues(expected, *otherExpected)
+
+/**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] nullable value
  * and neither one of the [otherExpected] nullable values (if defined).
  *
@@ -126,5 +171,5 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E)
+fun <E : Any?, T : Iterable<E>> Assert<T>.containsNotNullable(expected: E, vararg otherExpected: E)
     = containsNot.nullableValues(expected, *otherExpected)
