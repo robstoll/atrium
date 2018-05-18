@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.builders.utils.Group
 import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
@@ -13,10 +12,10 @@ class IterableContainsInOrderOnlyGroupedValuesSpec : ch.tutteli.atrium.spec.inte
     "[Atrium][Builder] "
 ) {
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() =
-            "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrder
+        fun getContainsPair()
+            = "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderValues
 
-        private fun containsInOrderOnlyGroupedInAnyOrder(
+        private fun containsInOrderOnlyGroupedInAnyOrderValues(
             plant: Assert<Iterable<Double>>,
             a1: GroupWithoutNullableEntries<Double>,
             a2: GroupWithoutNullableEntries<Double>,

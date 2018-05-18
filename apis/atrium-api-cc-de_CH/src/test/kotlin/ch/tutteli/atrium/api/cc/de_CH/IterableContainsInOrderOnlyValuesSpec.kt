@@ -28,9 +28,9 @@ class IterableContainsInOrderOnlyValuesSpec : Spek({
 
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$contains.$inOrder.$only.$inOrderOnlyValues" to Companion::containsInOrderOnly
+            "$contains.$inOrder.$only.$inOrderOnlyValues" to Companion::containsInOrderOnlyValues
 
-        private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
+        private fun containsInOrderOnlyValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant.enthaelt.inGegebenerReihenfolge.nur.wert(a)
             } else {
@@ -38,15 +38,10 @@ class IterableContainsInOrderOnlyValuesSpec : Spek({
             }
         }
 
-        private fun getContainsShortcutName(): String {
-            val f: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaeltStrikt
-            return f.name
-        }
+        private val containsShortcutFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaeltStrikt
+        fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyValuesShortcut
 
-        fun getContainsShortcutPair()
-            = getContainsShortcutName() to Companion::containsInOrderOnlyShortcut
-
-        private fun containsInOrderOnlyShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
+        private fun containsInOrderOnlyValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
             = plant.enthaeltStrikt(a, *aX)
     }
 }

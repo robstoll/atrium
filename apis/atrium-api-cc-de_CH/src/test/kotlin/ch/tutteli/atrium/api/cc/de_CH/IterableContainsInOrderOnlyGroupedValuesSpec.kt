@@ -13,9 +13,9 @@ class IterableContainsInOrderOnlyGroupedValuesSpec : ch.tutteli.atrium.spec.inte
 ) {
     companion object : IterableContainsSpecBase() {
         fun getContainsPair() =
-            "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrder
+            "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderValues
 
-        private fun containsInOrderOnlyGroupedInAnyOrder(
+        private fun containsInOrderOnlyGroupedInAnyOrderValues(
             plant: Assert<Iterable<Double>>,
             a1: GroupWithoutNullableEntries<Double>,
             a2: GroupWithoutNullableEntries<Double>,

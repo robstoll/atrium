@@ -11,6 +11,7 @@ import org.jetbrains.spek.api.dsl.Spec
 abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
 
     companion object {
+        val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)
         val oneToSeven = listOf(1.0, 2.0, 4.0, 4.0, 5.0, 3.0, 5.0, 6.0, 4.0, 7.0)
         val oneToSevenNullable = listOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0)
 

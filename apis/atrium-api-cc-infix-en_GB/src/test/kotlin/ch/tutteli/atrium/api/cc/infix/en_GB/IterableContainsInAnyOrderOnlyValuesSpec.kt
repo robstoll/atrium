@@ -12,16 +12,15 @@ class IterableContainsInAnyOrderOnlyValuesSpec : ch.tutteli.atrium.spec.integrat
     "✔ ", "✘ ", "❗❗ ", "⚬ "
 ) {
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() =
-            "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnly
+        fun getContainsPair()
+            = "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyValues" to Companion::containsInAnyOrderOnlyValues
 
-        private fun containsInAnyOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
+        private fun containsInAnyOrderOnlyValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant to contain inAny order but only value a
             } else {
                 plant to contain inAny order but only the Values(a, *aX)
             }
         }
-
     }
 }

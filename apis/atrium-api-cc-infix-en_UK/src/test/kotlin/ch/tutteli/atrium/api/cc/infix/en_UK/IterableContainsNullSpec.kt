@@ -14,8 +14,6 @@ class IterableContainsNullSpec : Spek({
         AssertionVerbFactory,
         getContainsInAnyOrderNullableValuesPair(),
         getContainsInAnyOrderNullableEntriesPair(),
-        getContainsInOrderOnlyNullableEntriesPair(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
@@ -23,8 +21,6 @@ class IterableContainsNullSpec : Spek({
         AssertionVerbFactory,
         getContainsNullableValuesPair(),
         getContainsNullableEntriesPair(),
-        getContainsStrictlyNullableEntriesPair(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 
@@ -71,29 +67,6 @@ class IterableContainsNullSpec : Spek({
                 plant contains a
             } else {
                 plant contains Entries(a, *aX)
-            }
-        }
-
-
-        private val containsStrictlyEntriesFun: KFunction2<Assert<Iterable<Double?>>, Entries<Double, (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsStrictly
-        fun getContainsStrictlyNullableEntriesPair() = containsStrictlyEntriesFun.name to Companion::containsStrictlyEntries
-
-        private fun containsStrictlyEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant containsStrictly a
-            } else {
-                plant containsStrictly Entries(a, *aX)
-            }
-        }
-
-        fun getContainsInOrderOnlyNullableEntriesPair()
-            = "$toContain $inOrder $butOnly $inOrderOnlyEntries" to Companion::containsInOrderOnlyNullableEntriesPair
-
-        private fun containsInOrderOnlyNullableEntriesPair(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant to contain inGiven order but only entry a
-            } else {
-                plant to contain inGiven order but only the Entries(a, *aX)
             }
         }
     }

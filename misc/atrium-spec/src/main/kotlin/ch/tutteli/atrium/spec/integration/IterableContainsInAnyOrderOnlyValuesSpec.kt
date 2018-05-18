@@ -33,7 +33,6 @@ abstract class IterableContainsInAnyOrderOnlyValuesSpec(
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
-    val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)
     val fluent = assert(oneToFour)
 
     val (containsObjects, containsFunArr) = containsPair

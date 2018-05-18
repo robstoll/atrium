@@ -5,15 +5,15 @@ import ch.tutteli.atrium.creating.Assert
 
 class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderOnlyEntriesSpec(
     AssertionVerbFactory,
-    getContainsInAnyOrderOnlyEntriesPair(),
-    getContainsInAnyOrderOnlyNullableEntriesPair(),
+    getContainsPair(),
+    getContainsNullablePair(),
     "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» "
 ) {
     companion object : IterableContainsSpecBase() {
-        fun getContainsInAnyOrderOnlyEntriesPair() =
-            "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnly
+        fun getContainsPair()
+            = "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyEntries
 
-        private fun containsInAnyOrderOnly(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
+        private fun containsInAnyOrderOnlyEntries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant to contain inAny order but only entry a
             } else {
@@ -21,10 +21,10 @@ class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.integra
             }
         }
 
-        fun getContainsInAnyOrderOnlyNullableEntriesPair()
-            = "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyNullableEntriesPair
+        fun getContainsNullablePair()
+            = "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyEntries nullable" to Companion::containsInAnyOrderOnlyNullableEntries
 
-        private fun containsInAnyOrderOnlyNullableEntriesPair(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
+        private fun containsInAnyOrderOnlyNullableEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
                 plant to contain inAny order but only entry a
             } else {

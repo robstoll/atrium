@@ -14,21 +14,21 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
 }) {
     object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderEntriesSpec(
         AssertionVerbFactory,
-        getEntriesPair(),
+        getContainsPair(),
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderEntriesSpec(
         AssertionVerbFactory,
-        getEntriesShortcutPair(),
+        getContainsShortcutPair(),
         "[Atrium][Shortcut] "
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getEntriesPair()
-            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::entries
+        fun getContainsPair()
+            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntries
 
-        private fun entries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
+        private fun containsInAnyOrderEntries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(a)
             } else {
@@ -36,15 +36,10 @@ class IterableContainsInAnyOrderEntriesSpec : Spek({
             }
         }
 
-        private fun getContainsShortcutName(): String {
-            val f: KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaelt
-            return f.name
-        }
+        private val containsShortcutFun : KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaelt
+        fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
 
-        fun getEntriesShortcutPair()
-            = getContainsShortcutName() to Companion::entriesShortcut
-
-        private fun entriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>)
+        private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>)
             = plant.enthaelt(a, *aX)
     }
 }

@@ -27,10 +27,10 @@ class IterableContainsInOrderOnlyValuesSpec : Spek({
     )
 
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() =
-            "$toContain $inOrder $butOnly $inOrderOnlyValues" to Companion::containsInOrderOnly
+        fun getContainsPair()
+            = "$toContain $inOrder $butOnly $inOrderOnlyValues" to Companion::containsInOrderOnlyValues
 
-        private fun containsInOrderOnly(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
+        private fun containsInOrderOnlyValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant to contain inGiven order but only value a
             } else {
@@ -38,16 +38,10 @@ class IterableContainsInOrderOnlyValuesSpec : Spek({
             }
         }
 
+        private val containsShortcutFun: KFunction2<Assert<Iterable<Double>>, Values<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
+        fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyValuesShortcut
 
-        private fun getContainsShortcutName(): String {
-            val f: KFunction2<Assert<Iterable<Double>>, Values<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
-            return f.name
-        }
-
-        fun getContainsShortcutPair()
-            = getContainsShortcutName() to Companion::containsInOrderOnlyShortcut
-
-        private fun containsInOrderOnlyShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
+        private fun containsInOrderOnlyValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return when {
                 aX.isEmpty() -> plant containsStrictly a
                 aX.size == 1 -> plant containsStrictly Values(a, *aX)
@@ -56,4 +50,3 @@ class IterableContainsInOrderOnlyValuesSpec : Spek({
         }
     }
 }
-

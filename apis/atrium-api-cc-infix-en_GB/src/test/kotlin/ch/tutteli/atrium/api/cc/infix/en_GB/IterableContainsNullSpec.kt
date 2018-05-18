@@ -17,8 +17,6 @@ class IterableContainsNullSpec : Spek({
         AssertionVerbFactory,
         getContainsInAnyOrderNullableValuesPair(),
         getContainsInAnyOrderNullableEntriesPair(),
-        getContainsInOrderOnlyNullableEntriesPair(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
@@ -26,8 +24,6 @@ class IterableContainsNullSpec : Spek({
         AssertionVerbFactory,
         getContainsValuesPair(),
         getContainsEntriesPair(),
-        getContainsStrictlyEntriesPair(),
-        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 
@@ -73,29 +69,6 @@ class IterableContainsNullSpec : Spek({
                 plant contains a
             } else {
                 plant contains NullableEntries(a, *aX)
-            }
-        }
-
-
-        private val containsStrictlyEntriesFun: KFunction2<Assert<Iterable<Double?>>, NullableEntries<Double>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsStrictly
-        fun getContainsStrictlyEntriesPair() = containsStrictlyEntriesFun.name to Companion::containsStrictlyEntries
-
-        private fun containsStrictlyEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant containsStrictly a
-            } else {
-                plant containsStrictly NullableEntries(a, *aX)
-            }
-        }
-
-        fun getContainsInOrderOnlyNullableEntriesPair()
-            = "$toContain $inOrder $butOnly $inOrderOnlyEntries" to Companion::containsInOrderOnlyNullableEntriesPair
-
-        private fun containsInOrderOnlyNullableEntriesPair(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant to contain inGiven order and only entry a
-            } else {
-                plant to contain inGiven order and only the NullableEntries(a, *aX)
             }
         }
     }

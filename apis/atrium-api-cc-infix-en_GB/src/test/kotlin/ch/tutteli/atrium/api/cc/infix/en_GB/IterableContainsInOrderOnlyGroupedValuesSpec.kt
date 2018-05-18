@@ -13,8 +13,8 @@ class IterableContainsInOrderOnlyGroupedValuesSpec : ch.tutteli.atrium.spec.inte
     "[Atrium][Builder] "
 ) {
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() =
-            "$toContain $inOrder $butOnly $groupedEntries $withinGroup $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrder
+        fun getContainsPair()
+            = "$toContain $inOrder $butOnly $groupedEntries $withinGroup $withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrder
 
         private fun containsInOrderOnlyGroupedInAnyOrder(
             plant: Assert<Iterable<Double>>,
