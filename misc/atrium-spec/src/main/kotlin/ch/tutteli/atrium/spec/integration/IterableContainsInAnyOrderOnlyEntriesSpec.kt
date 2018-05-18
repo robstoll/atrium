@@ -36,13 +36,11 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
         checkingTriple(containsInAnyOrderOnlyNullableEntriesPair.first, { containsInAnyOrderOnlyNullableEntriesPair.second(this, { toBe(1.0) }, arrayOf()) }, listOf(1.0).asIterable(), listOf(1.2))
     ) {})
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
+        = group("fun `$funName`", body = body)
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
-    val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)
-    val fluent = assert(oneToFour)
 
     val (containsInAnyOrderOnlyEntries, containsInAnyOrderOnlyEntriesFunArr) = containsInAnyOrderOnlyEntriesPair
 
@@ -57,8 +55,6 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
 
     val anEntryAfterSuccess = "$anEntryWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
     val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
-
-    val isDescr = DescriptionBasic.IS.getDefault()
 
     group("$describePrefix describe non-nullable cases") {
         mapOf<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>) -> Any>(
@@ -110,6 +106,7 @@ abstract class IterableContainsInAnyOrderOnlyEntriesSpec(
                     }
                 }
 
+                val fluent = assert(oneToFour)
                 context("iterable $oneToFour") {
 
                     describe("happy cases") {

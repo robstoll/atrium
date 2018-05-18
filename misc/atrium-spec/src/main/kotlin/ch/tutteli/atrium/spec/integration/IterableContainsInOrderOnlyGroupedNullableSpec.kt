@@ -64,8 +64,6 @@ abstract class IterableContainsInOrderOnlyGroupedNullableSpec(
     val indentFeatureArrow = " ".repeat(featureArrow.length)
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
 
-    val isDescr = DescriptionBasic.IS.getDefault()
-
     fun index(fromIndex: Int, toIndex: Int)
         = String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
 

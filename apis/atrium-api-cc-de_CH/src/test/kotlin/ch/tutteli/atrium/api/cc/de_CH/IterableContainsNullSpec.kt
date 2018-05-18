@@ -14,8 +14,6 @@ class IterableContainsNullSpec : Spek({
         AssertionVerbFactory,
         getContainsInAnyOrderNullableValuesPair(),
         getContainsInAnyOrderNullableEntriesPair(),
-        getContainsInOrderOnlyNullableEntriesPair(),
-        "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
     )
 
@@ -23,8 +21,6 @@ class IterableContainsNullSpec : Spek({
         AssertionVerbFactory,
         getContainsNullableValuesPair(),
         getContainsNullableEntriesPair(),
-        getContainsStrictlyNullableEntriesPair(),
-        "* ", "(/) ", "(x) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Shortcut] "
     )
 
@@ -63,23 +59,5 @@ class IterableContainsNullSpec : Spek({
 
         private fun containsEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>)
             = plant.enthaelt(a, *aX)
-
-
-        private val containsStrictlyEntriesFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltStrikt
-        fun getContainsStrictlyNullableEntriesPair() = containsStrictlyEntriesFun.name to Companion::containsStrictlyEntries
-
-        private fun containsStrictlyEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>)
-            = plant.enthaeltStrikt(a, *aX)
-
-        fun getContainsInOrderOnlyNullableEntriesPair()
-            = "$contains.$inOrder.$only.$inOrderOnlyEntries" to Companion::containsInOrderOnlyNullableEntriesPair
-
-        private fun containsInOrderOnlyNullableEntriesPair(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant.enthaelt.inGegebenerReihenfolge.nur.eintrag(a)
-            } else {
-                plant.enthaelt.inGegebenerReihenfolge.nur.eintraege(a, *aX)
-            }
-        }
     }
 }
