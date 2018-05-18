@@ -22,8 +22,8 @@ abstract class IterableContainsNotAssertionSpec(
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsNotValuesPair.first, { containsNotValuesPair.second(this, 2.3, arrayOf()) }, listOf(2.1) as Iterable<Double>, listOf(2.1, 2.3)),
-        checkingTriple(containsNotNullableValuesPair.first, { containsNotNullableValuesPair.second(this, 2.3, arrayOf()) }, listOf(2.1) as Iterable<Double>, listOf(2.1, 2.3))
+        checkingTriple(containsNotValuesPair.first, { containsNotValuesPair.second(this, 2.3, arrayOf()) }, listOf(2.1).asIterable(), listOf(2.1, 2.3)),
+        checkingTriple(containsNotNullableValuesPair.first, { containsNotNullableValuesPair.second(this, 2.3, arrayOf()) }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
     ) {})
 
     fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
@@ -107,7 +107,7 @@ abstract class IterableContainsNotAssertionSpec(
         }
     }
 
-    group("$describePrefix describe nullable cases"){
+    group("$describePrefix describe nullable cases") {
         describeFun(containsNotNullable){
             context("empty iterable") {
                 test("null does not throw") {

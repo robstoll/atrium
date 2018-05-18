@@ -22,7 +22,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionSpec(
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsNotOrAtMostTriple.first, { containsNotOrAtMostTriple.third(this, 2, 2.3, arrayOf()) }, listOf<Double>() as Iterable<Double>, listOf(2.3, 2.3, 2.3))
+        checkingTriple(containsNotOrAtMostTriple.first, { containsNotOrAtMostTriple.third(this, 2, 2.3, arrayOf()) }, listOf<Double>().asIterable(), listOf(2.3, 2.3, 2.3))
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)

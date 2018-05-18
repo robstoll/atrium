@@ -2,32 +2,25 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.CONTAINS
-import ch.tutteli.atrium.translations.DescriptionIterableAssertion.CONTAINS_NOT
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
-import kotlin.reflect.KFunction1
 
 abstract class IterableContainsNullSpec(
     verbs: AssertionVerbFactory,
     containsPair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
     containsInAnyOrderNullableEntriesPair: Pair<String, Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>) -> Assert<Iterable<Double?>>>,
-    containsInAnyOrderOnlyNullableEntriesPair: Pair<String, Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>) -> Assert<Iterable<Double?>>>,
     containsInOrderOnlyNullableEntriesPair: Pair<String, Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>) -> Assert<Iterable<Double?>>>,
     //TODO add pair for inOrderOnlyGrouped
     rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
-    warningBulletPoint: String,
     listBulletPoint: String,
     explanatoryBulletPoint: String,
     featureArrow: String,
@@ -38,14 +31,12 @@ abstract class IterableContainsNullSpec(
     include(object : SubjectLessAssertionSpec<Iterable<Double?>>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, null, arrayOf()) },
         containsInAnyOrderNullableEntriesPair.first to mapToCreateAssertion { containsInAnyOrderNullableEntriesPair.second(this, null, arrayOf()) },
-        containsInAnyOrderOnlyNullableEntriesPair.first to mapToCreateAssertion { containsInAnyOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) },
         containsInOrderOnlyNullableEntriesPair.first to mapToCreateAssertion { containsInOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
         checkingTriple(containsPair.first, { containsPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
         checkingTriple(containsInAnyOrderNullableEntriesPair.first, { containsInAnyOrderNullableEntriesPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
-        checkingTriple(containsInAnyOrderOnlyNullableEntriesPair.first, { containsInAnyOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
         checkingTriple(containsInOrderOnlyNullableEntriesPair.first, { containsInOrderOnlyNullableEntriesPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2))
     ) {})
 
@@ -57,17 +48,9 @@ abstract class IterableContainsNullSpec(
     val list = listOf(null, 1.0, null, 3.0)
     val fluent = assert(list)
 
-    val (containsNullable, containsFunArr) = containsPair
-    fun Assert<Iterable<Double?>>.containsFun(t: Double?, vararg tX: Double?)
-        = containsFunArr(t, tX)
-
     val (containsInAnyOrderNullableEntries, containsInAnyOrderNullableEntriesArr) = containsInAnyOrderNullableEntriesPair
     fun Assert<Iterable<Double?>>.containsInAnyOrderNullableEntriesFun(t: (Assert<Double>.() -> Unit)?, vararg tX: (Assert<Double>.() -> Unit)?)
         = containsInAnyOrderNullableEntriesArr(t, tX)
-
-    val (containsInAnyOrderOnlyNullableEntries, containsInAnyOrderOnlyNullableEntriesArr) = containsInAnyOrderOnlyNullableEntriesPair
-    fun Assert<Iterable<Double?>>.containsInAnyOrderOnlyNullableEntriesFun(t: (Assert<Double>.() -> Unit)?, vararg tX: (Assert<Double>.() -> Unit)?)
-        = containsInAnyOrderOnlyNullableEntriesArr(t, tX)
 
     val (containsInOrderOnlyNullableEntries, containsInOrderOnlyNullableEntriesArr) = containsInOrderOnlyNullableEntriesPair
     fun Assert<Iterable<Double?>>.containsInOrderOnlyNullableEntriesFun(t: (Assert<Double>.() -> Unit)?, vararg tX: (Assert<Double>.() -> Unit)?)
@@ -79,9 +62,6 @@ abstract class IterableContainsNullSpec(
     val indentListBulletPoint = " ".repeat(listBulletPoint.length)
     val indentFeatureArrow = " ".repeat(featureArrow.length)
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
-
-    val anEntryAfterSuccess = "$anEntryWhich: $separator$indentBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
-    val anEntryAfterFailing = "$anEntryWhich: $separator$indentBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
     val entryWithIndex = DescriptionIterableAssertion.ENTRY_WITH_INDEX.getDefault()
     val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
@@ -108,51 +88,9 @@ abstract class IterableContainsNullSpec(
 
     val isDescr = DescriptionBasic.IS.getDefault()
 
-    fun SpecBody.absentSubjectTests(testeeFun: Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>) -> Assert<Iterable<Double?>>) {
-        context("$returnValueOfFun(...), absent subject and explanation required") {
-            test("empty iterable, states that iterable was empty") {
-                expect {
-                    //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                    assert(setOf()).testeeFun({ AssertImpl.feature.returnValueOf1(
-                        this,
-                        subject::compareTo,
-                        2.0,
-                        "compareTo"
-                    ).toBe(0) }, arrayOf())
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
-            }
-            test("only null, states that iterable only returned null") {
-                expect {
-                    assert(listOf(null, null)).testeeFun({
-                        //TODO get rid of val as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                        val f: KFunction1<Double, Int> = subject::compareTo
-                        returnValueOf(f, 2.0)
-                    }, arrayOf())
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_ONLY_NULL) } }
-            }
-
-            test("$list, it outputs explanation (since we have a non-null entry)") {
-                expect {
-                    //TODO replace with returnValueOf as soon as https://youtrack.jetbrains.com/issue/KT-17340 is fixed
-                    assert(list).testeeFun({ AssertImpl.feature.returnValueOf1(
-                        this,
-                        subject::compareTo,
-                        2.0,
-                        "compareTo"
-                    ).toBe(0) }, arrayOf())
-                }.toThrow<AssertionError> {
-                    messageContains(
-                        "$anEntryWhich: $separator",
-                        "compareTo(2.0):",
-                        "${DescriptionAnyAssertion.TO_BE.getDefault()}: 0"
-                    )
-                }
-            }
-        }
-    }
 
     describeFun(containsInAnyOrderNullableEntries) {
-        absentSubjectTests(Assert<Iterable<Double?>>::containsInAnyOrderNullableEntriesFun)
+        absentSubjectTests(verbs, Assert<Iterable<Double?>>::containsInAnyOrderNullableEntriesFun)
 
         context("iterable $list") {
             context("happy cases (do not throw)") {
@@ -235,76 +173,8 @@ abstract class IterableContainsNullSpec(
         }
     }
 
-    describeFun(containsInAnyOrderOnlyNullableEntries) {
-        absentSubjectTests(Assert<Iterable<Double?>>::containsInAnyOrderOnlyNullableEntriesFun)
-
-        context("iterable $list") {
-            context("happy cases (do not throw)") {
-                test("null, $toBeFun(1.0), null, $toBeFun(3.0)") {
-                    fluent.containsInAnyOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) })
-                }
-                test("$toBeFun(1.0), null, null, $toBeFun(3.0)") {
-                    fluent.containsInAnyOrderOnlyNullableEntriesFun({ toBe(1.0) }, null, null, { toBe(3.0) })
-                }
-                test("$toBeFun(1.0), null, $toBeFun(3.0), null") {
-                    fluent.containsInAnyOrderOnlyNullableEntriesFun({ toBe(1.0) }, null, { toBe(3.0) }, null)
-                }
-                test("$toBeFun(1.0), $toBeFun(3.0), null, null") {
-                    fluent.containsInAnyOrderOnlyNullableEntriesFun({ toBe(1.0) }, { toBe(3.0) }, null, null)
-                }
-            }
-
-            context("failing cases") {
-                test("null, $toBeFun(1.0), $toBeFun(3.0) -- null was missing") {
-                    expect {
-                        fluent.containsInAnyOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, { toBe(3.0) })
-                    }.toThrow<AssertionError> {
-                        message {
-                            contains(
-                                "$containsInAnyOrderOnly:",
-                                "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
-                                "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 1.0",
-                                "$successfulBulletPoint$anEntryAfterSuccess$toBeDescr: 3.0",
-                                "$warningBulletPoint$additionalEntries:",
-                                "${listBulletPoint}null"
-                            )
-                            containsSize(4, 3)
-                        }
-                    }
-                }
-
-                test("first wins: $isLessThanFun(5.0), 1.0, 2.0, 3.0, 4.0") {
-                    expect {
-                        fluent.containsInAnyOrderOnlyNullableEntriesFun({ isLessThan(4.0) }, null, null, { toBe(1.0) })
-                    }.toThrow<AssertionError> {
-                        message {
-                            contains(
-                                "$containsInAnyOrderOnly:",
-                                "$successfulBulletPoint$anEntryAfterSuccess$isLessThanDescr: 4.0",
-                                "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
-                                "$successfulBulletPoint$anEntryAfterSuccess$isDescr: null",
-                                "$failingBulletPoint$anEntryAfterFailing$toBeDescr: 1.0",
-                                "$warningBulletPoint$mismatches:",
-                                "${listBulletPoint}3.0"
-                            )
-                            containsSize(4, 4)
-                        }
-                    }
-                }
-            }
-        }
-
-        context("search for entry where the lambda does not specify any assertion") {
-            it("throws an ${IllegalArgumentException::class.simpleName}") {
-                expect {
-                    fluent.containsInAnyOrderOnlyNullableEntriesFun({})
-                }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
-            }
-        }
-    }
-
     describeFun(containsInOrderOnlyNullableEntries) {
-        absentSubjectTests(Assert<Iterable<Double?>>::containsInOrderOnlyNullableEntriesFun)
+        absentSubjectTests(verbs, Assert<Iterable<Double?>>::containsInOrderOnlyNullableEntriesFun)
 
         context("iterable $list") {
 

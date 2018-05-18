@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Assert
 class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderOnlyEntriesSpec(
     AssertionVerbFactory,
     getContainsPair(),
+    getContainsInAnyOrderOnlyNullableEntriesPair(),
     "* ", "(/) ", "(x) ", "(!) ", "- ", "» "
 ) {
     companion object : IterableContainsSpecBase() {
@@ -18,7 +19,17 @@ class IterableContainsInAnyOrderOnlyEntriesSpec : ch.tutteli.atrium.spec.integra
             } else {
                 plant.enthaelt.inBeliebigerReihenfolge.nur.eintraege(a, *aX)
             }
+        }
 
+        fun getContainsInAnyOrderOnlyNullableEntriesPair()
+            = "$contains.$inAnyOrder.$only.$inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyNullableEntriesPair
+
+        private fun containsInAnyOrderOnlyNullableEntriesPair(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant.enthaelt.inBeliebigerReihenfolge.nur.eintrag(a)
+            } else {
+                plant.enthaelt.inBeliebigerReihenfolge.nur.eintraege(a, *aX)
+            }
         }
     }
 }

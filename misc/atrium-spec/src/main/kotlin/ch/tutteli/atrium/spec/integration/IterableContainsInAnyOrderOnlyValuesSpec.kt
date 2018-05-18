@@ -25,7 +25,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesSpec(
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsPair.first, { containsPair.second(this, 2.5, arrayOf()) }, listOf(2.5) as Iterable<Double>, listOf(2.5, 2.2))
+        checkingTriple(containsPair.first, { containsPair.second(this, 2.5, arrayOf()) }, listOf(2.5).asIterable(), listOf(2.5, 2.2))
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)

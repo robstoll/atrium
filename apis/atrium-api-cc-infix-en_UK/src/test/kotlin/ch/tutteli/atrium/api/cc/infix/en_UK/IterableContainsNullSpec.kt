@@ -14,9 +14,8 @@ class IterableContainsNullSpec : Spek({
         AssertionVerbFactory,
         getContainsInAnyOrderNullableValuesPair(),
         getContainsInAnyOrderNullableEntriesPair(),
-        getContainsInAnyOrderOnlyNullableEntriesPair(),
         getContainsInOrderOnlyNullableEntriesPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
+        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
@@ -24,9 +23,8 @@ class IterableContainsNullSpec : Spek({
         AssertionVerbFactory,
         getContainsNullableValuesPair(),
         getContainsNullableEntriesPair(),
-        getContainsInAnyOrderOnlyNullableEntriesPair(),
         getContainsStrictlyNullableEntriesPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "» ", "▶ ", "◾ ",
+        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 
@@ -73,18 +71,6 @@ class IterableContainsNullSpec : Spek({
                 plant contains a
             } else {
                 plant contains Entries(a, *aX)
-            }
-        }
-
-
-        fun getContainsInAnyOrderOnlyNullableEntriesPair()
-            = "$toContain $inAnyOrder $butOnly $inAnyOrderOnlyEntries" to Companion::containsInAnyOrderOnlyNullableEntriesPair
-
-        private fun containsInAnyOrderOnlyNullableEntriesPair(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant to contain inAny order but only entry a
-            } else {
-                plant to contain inAny order but only the Entries(a, *aX)
             }
         }
 

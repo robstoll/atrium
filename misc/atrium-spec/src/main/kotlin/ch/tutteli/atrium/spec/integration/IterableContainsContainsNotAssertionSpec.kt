@@ -23,8 +23,8 @@ abstract class IterableContainsContainsNotAssertionSpec(
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsPair.first, { containsPair.second(this, 1.2, arrayOf()) }, listOf(1.2) as Iterable<Double>, listOf()),
-        checkingTriple(containsNotPair.first, { containsNotPair.second(this, 2.5, arrayOf()) }, listOf(1.1) as Iterable<Double>, listOf(2.5))
+        checkingTriple(containsPair.first, { containsPair.second(this, 1.2, arrayOf()) }, listOf(1.2).asIterable(), listOf()),
+        checkingTriple(containsNotPair.first, { containsNotPair.second(this, 2.5, arrayOf()) }, listOf(1.1).asIterable(), listOf(2.5))
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
