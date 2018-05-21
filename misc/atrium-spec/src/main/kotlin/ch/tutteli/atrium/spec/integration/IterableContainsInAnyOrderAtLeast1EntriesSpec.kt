@@ -9,20 +9,17 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
 
-abstract class IterableContainsNullSpec(
+abstract class IterableContainsInAnyOrderAtLeast1EntriesSpec(
     verbs: AssertionVerbFactory,
-    containsPair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
     containsInAnyOrderNullableEntriesPair: Pair<String, Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>) -> Assert<Iterable<Double?>>>,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
     include(object : SubjectLessAssertionSpec<Iterable<Double?>>(describePrefix,
-        containsPair.first to mapToCreateAssertion { containsPair.second(this, null, arrayOf()) },
         containsInAnyOrderNullableEntriesPair.first to mapToCreateAssertion { containsInAnyOrderNullableEntriesPair.second(this, null, arrayOf()) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double?>>(verbs, describePrefix,
-        checkingTriple(containsPair.first, { containsPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2)),
         checkingTriple(containsInAnyOrderNullableEntriesPair.first, { containsInAnyOrderNullableEntriesPair.second(this, null, arrayOf()) }, listOf(null) as Iterable<Double?>, listOf(1.2))
     ) {})
 
@@ -34,9 +31,9 @@ abstract class IterableContainsNullSpec(
     val list = listOf(null, 1.0, null, 3.0)
     val fluent = assert(list)
 
-    val (containsInAnyOrderNullableEntries, containsInAnyOrderNullableEntriesArr) = containsInAnyOrderNullableEntriesPair
+    val (containsInAnyOrderNullableEntries, containsInAnyOrderNullableEntriesFunArr) = containsInAnyOrderNullableEntriesPair
     fun Assert<Iterable<Double?>>.containsInAnyOrderNullableEntriesFun(t: (Assert<Double>.() -> Unit)?, vararg tX: (Assert<Double>.() -> Unit)?)
-        = containsInAnyOrderNullableEntriesArr(t, tX)
+        = containsInAnyOrderNullableEntriesFunArr(t, tX)
 
     describeFun(containsInAnyOrderNullableEntries) {
         absentSubjectTests(verbs, Assert<Iterable<Double?>>::containsInAnyOrderNullableEntriesFun)
