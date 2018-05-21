@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsNotOrAtMostAssertionSpec(
+class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsNotOrAtMostAssertionsSpec(
     AssertionVerbFactory,
     getNotOrAtMostTriple(),
     getNotOrAtMostIgnoringCaseTriple(),

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsAtLeastAssertionSpec(
+class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsAtLeastAssertionsSpec(
     AssertionVerbFactory,
     getAtLeastTriple(),
     getAtLeastIgnoringCaseTriple(),

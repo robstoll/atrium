@@ -6,7 +6,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsDefaultTranslationAssertionSpec(
+class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsDefaultTranslationAssertionsSpec(
     AssertionVerbFactory,
     getNameContainsDefaultTranslationOf(),
     getAtLeastTriple(),
