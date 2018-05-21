@@ -12,17 +12,30 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
 }) {
     object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         AssertionVerbFactory,
+        getContainsPair(),
         getContainsNullablePair(),
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         AssertionVerbFactory,
+        getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
         "[Atrium][Shortcut] "
     )
 
     companion object : IterableContainsSpecBase() {
+        fun getContainsPair()
+            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntries
+
+        private fun containsInAnyOrderEntries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(a)
+            } else {
+                plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(a, *aX)
+            }
+        }
+
         fun getContainsNullablePair()
             = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries nullable" to Companion::containsNullableEntries
 
@@ -33,6 +46,13 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
                 plant.enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(a, *aX)
             }
         }
+
+
+        private val containsShortcutFun : KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaelt
+        fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
+
+        private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>)
+            = plant.enthaelt(a, *aX)
 
         private val containsEntriesFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaelt
         fun getContainsNullableShortcutPair() = containsEntriesFun.name + " nullable" to Companion::containsNullableEntriesShortcut
