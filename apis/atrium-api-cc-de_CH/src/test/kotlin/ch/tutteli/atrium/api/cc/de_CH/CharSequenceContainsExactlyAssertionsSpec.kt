@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsExactlyAssertionSpec(
+class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsExactlyAssertionsSpec(
     AssertionVerbFactory,
     getExactlyTriple(),
     getExactlyIgnoringCaseTriple(),

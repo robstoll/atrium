@@ -12,14 +12,14 @@ class IterableContainsNotAssertionsSpec : Spek({
     include(ShortcutSpec)
 
 }) {
-    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionSpec(
+    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionsSpec(
         AssertionVerbFactory,
         getContainsNotPair(),
         getContainsNotNullablePair(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionSpec(
+    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionsSpec(
         AssertionVerbFactory,
         getContainsNotShortcutPair(),
         getContainsNotNullableShortcutPair(),

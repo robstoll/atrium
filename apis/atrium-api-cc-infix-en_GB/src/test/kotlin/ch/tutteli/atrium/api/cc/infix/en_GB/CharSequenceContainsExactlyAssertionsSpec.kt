@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.case
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.creating.Assert
 
-class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsExactlyAssertionSpec(
+class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsExactlyAssertionsSpec(
     AssertionVerbFactory,
     getExactlyTriple(),
     getExactlyIgnoringCaseTriple(),

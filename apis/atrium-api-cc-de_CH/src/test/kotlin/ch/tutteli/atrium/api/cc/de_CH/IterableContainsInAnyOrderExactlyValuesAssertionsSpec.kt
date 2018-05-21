@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class IterableContainsInAnyOrderExactlyValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderExactlyValuesAssertionSpec(
+class IterableContainsInAnyOrderExactlyValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
     AssertionVerbFactory,
     getExactlyTriple(),
     getContainsNotPair()

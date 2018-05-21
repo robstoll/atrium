@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.case
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.creating.Assert
 
-class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsRegexAssertionSpec(
+class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsRegexAssertionsSpec(
     AssertionVerbFactory,
     getNameContainsRegex(),
     getAtLeastTriple(),
