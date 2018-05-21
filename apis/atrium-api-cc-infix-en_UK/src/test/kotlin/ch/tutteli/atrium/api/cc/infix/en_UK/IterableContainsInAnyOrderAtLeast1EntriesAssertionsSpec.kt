@@ -12,17 +12,30 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
 }) {
     object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         AssertionVerbFactory,
+        getContainsPair(),
         getContainsNullablePair(),
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
         AssertionVerbFactory,
+        getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
         "[Atrium][Shortcut] "
     )
 
     companion object : IterableContainsSpecBase() {
+        fun getContainsPair()
+            = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::containsInAnyOrderEntries
+
+        private fun containsInAnyOrderEntries(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant to contain inAny order atLeast 1 entry a
+            } else {
+                plant to contain inAny order atLeast 1 the Entries(a, *aX)
+            }
+        }
+
         fun getContainsNullablePair()
             = "$toContain $inAnyOrder $atLeast 1 $inAnyOrderEntries nullable" to Companion::containsNullableEntries
 
@@ -31,6 +44,18 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
                 plant to contain inAny order atLeast 1 entry a
             } else {
                 plant to contain inAny order atLeast 1 the Entries(a, *aX)
+            }
+        }
+
+
+        private val containsShortcutFun : KFunction2<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains
+        fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInAnyOrderEntriesShortcut
+
+        private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>): Assert<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant contains a
+            } else {
+                plant contains Entries(a, *aX)
             }
         }
 
