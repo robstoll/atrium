@@ -12,17 +12,30 @@ class IterableContainsInAnyOrderAtLeast1ValuesSpec : Spek({
 }) {
     object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeast1ValuesSpec(
         AssertionVerbFactory,
+        getContainsPair(),
         getContainsNullablePair(),
         "[Atrium][Builder] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderAtLeast1ValuesSpec(
         AssertionVerbFactory,
+        getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
         "[Atrium][Shortcut] "
     )
 
     companion object : IterableContainsSpecBase() {
+        fun getContainsPair()
+            = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderValues" to Companion::containsValues
+
+        private fun containsValues(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
+            return if (aX.isEmpty()) {
+                plant.contains.inAnyOrder.atLeast(1).value(a)
+            } else {
+                plant.contains.inAnyOrder.atLeast(1).values(a, *aX)
+            }
+        }
+
         fun getContainsNullablePair()
             = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderValues nullable" to Companion::containsNullableValues
 
@@ -33,6 +46,13 @@ class IterableContainsInAnyOrderAtLeast1ValuesSpec : Spek({
                 plant.contains.inAnyOrder.atLeast(1).nullableValues(a, *aX)
             }
         }
+
+
+        private val containsFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::contains
+        fun getContainsShortcutPair() = containsFun.name to Companion::containsValuesShortcut
+
+        private fun containsValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
+            = plant.contains(a, *aX)
 
         private val containsNullableFun: KFunction3<Assert<Iterable<Double?>>, Double, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNullable
         fun getContainsNullableShortcutPair() = containsNullableFun.name + " nullable" to Companion::containsNullableValuesShortcut
