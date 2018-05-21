@@ -12,7 +12,6 @@ class IterableContainsNotAssertionsSpec : Spek({
     include(ShortcutSpec)
 
 }) {
-
     object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionSpec(
         AssertionVerbFactory,
         getContainsNotPair(),
