@@ -54,8 +54,8 @@ interface IterableContainsAssertions {
     ): Assertion
 
 
-    fun <E : Any, T : Iterable<E?>> valuesInOrderOnlyGrouped(
-        builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
+    fun <E, T : Iterable<E>> valuesInOrderOnlyGrouped(
+        builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<E>>
     ): Assertion
 

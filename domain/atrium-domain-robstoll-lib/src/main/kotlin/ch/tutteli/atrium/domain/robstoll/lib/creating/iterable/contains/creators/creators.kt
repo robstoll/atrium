@@ -56,8 +56,8 @@ fun <E : Any, T : Iterable<E?>> _containsEntriesInOrderOnly(
     return createAssertionGroupWithoutChecker(checkerBuilder, assertionCreators, ::InOrderOnlyEntriesAssertionCreator)
 }
 
-fun <E: Any, T : Iterable<E?>> _containsValuesInOrderOnlyGrouped(
-    builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
+fun <E, T : Iterable<E>> _containsValuesInOrderOnlyGrouped(
+    builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>,
     groups: List<List<E>>
 ): Assertion {
     val checkerBuilder = NoOpCheckerOption(builder)
