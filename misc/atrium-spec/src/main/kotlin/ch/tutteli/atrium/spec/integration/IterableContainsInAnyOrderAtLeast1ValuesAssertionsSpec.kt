@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
@@ -25,9 +24,6 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
         checkingTriple(containsInAnyOrderValuesPair.first, { containsInAnyOrderValuesPair.second(this, 1.2, arrayOf()) }, listOf(1.2).asIterable(), listOf()),
         checkingTriple(containsInAnyOrderNullableValuesPair.first, { containsInAnyOrderNullableValuesPair.second(this, 1.2, arrayOf()) }, listOf(1.2).asIterable(), listOf())
     ) {})
-
-    fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
-        = group("fun `$funName`", body = body)
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
