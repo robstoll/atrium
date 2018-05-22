@@ -183,7 +183,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: NullableValues<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: NullableValues<E>): AssertionPlant<T>
     = this to contain inGiven order and only the values
 
 /**

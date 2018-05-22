@@ -18,6 +18,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
         AssertionVerbFactory,
         getContainsPair(),
+        getContainsNullablePair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
@@ -25,6 +26,7 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
         AssertionVerbFactory,
         getContainsShortcutPair(),
+        getContainsNullableShortcutPair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
@@ -41,6 +43,18 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             }
         }
 
+        fun getContainsNullablePair()
+            = "$toContain $inOrder $butOnly $inOrderOnlyValues nullable" to Companion::containsInOrderOnlyNullableValues
+
+        private fun containsInOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant to contain inGiven order and only nullableValue a
+            } else {
+                plant to contain inGiven order and only the NullableValues(a, *aX)
+            }
+        }
+
+
         private val containsShortcutFun: KFunction2<Assert<Iterable<Double>>, Values<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyValuesShortcut
 
@@ -51,5 +65,11 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
                 else -> plant containsStrictly Values(a, *aX)
             }
         }
+
+        private val containsNullableShortcutFun: KFunction2<Assert<Iterable<Double?>>, NullableValues<Double>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsStrictly
+        fun getContainsNullableShortcutPair() = containsNullableShortcutFun.name + " ${NullableValues::class.simpleName}" to Companion::containsInOrderOnlyNullableValuesShortcut
+
+        private fun containsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
+            = plant.containsStrictly(NullableValues(a, *aX))
     }
 }
