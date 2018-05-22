@@ -116,7 +116,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.()
  */
 @JvmName("enthaelt?")
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaelt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreator, *otherAssertionCreators)
 
 @Deprecated("Use the extension fun `enthaelt`, will be removd with 1.0.0", ReplaceWith("plant.enthaelt(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> enthaeltNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
@@ -174,7 +174,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert
  */
 @JvmName("enthaeltStrikt?")
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)
+    = enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreator, *otherAssertionCreators)
 
 @Deprecated("Use the extension fun `enthaeltStrikt` instead, will be removed with 1.0.0", ReplaceWith("plant.enthaeltStrikt(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>

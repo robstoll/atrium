@@ -83,16 +83,15 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * entry which holds all assertions created by the given [assertionCreator] or is `null` in which case
  * [assertionCreator] has to be defined as `null` as well.
  *
- * Delegates to `entries(assertionCreator)`.
+ * Delegates to `nullableEntries(assertionCreator)`.
  *
  * @param assertionCreator The identification lambda.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("entry?")
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = entries(assertionCreator)
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEntry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = nullableEntries(assertionCreator)
 
 
 /**
@@ -125,7 +124,8 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [assertionCreator] might create -- likewise an entry for each further
+ * [Iterable] which holds all assertions [assertionCreator] might create or needs to be `null` in case
+ * [assertionCreator] is `null` as well -- likewise an entry for each further
  * [otherAssertionCreators] needs to be contained in the [Iterable] where it does not matter in which order the
  * entries appear.
  *
@@ -145,8 +145,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("entries?")
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.entries(
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEntries(
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>

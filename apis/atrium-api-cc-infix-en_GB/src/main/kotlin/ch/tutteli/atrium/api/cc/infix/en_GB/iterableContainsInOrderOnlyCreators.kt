@@ -86,9 +86,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyS
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-//TODO remove, if we have a single assertion creator then we can use the overload for a nullable value instead, otherwise we have two fun which do the same.
-@JvmName("entry?")
-infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.entry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEntry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this the NullableEntries(assertionCreator)
 
 
@@ -116,6 +114,5 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyS
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("entries?")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.the(entries: NullableEntries<E>): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, entries.toList()))
