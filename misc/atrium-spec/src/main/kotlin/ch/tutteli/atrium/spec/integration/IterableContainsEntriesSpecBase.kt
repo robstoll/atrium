@@ -37,10 +37,6 @@ abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec
         val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
         val isDescr = DescriptionBasic.IS.getDefault()
 
-        fun SpecBody.nullableCases(describePrefix: String, body: SpecBody.() -> Unit) {
-            group("$describePrefix describe nullable cases", body = body)
-        }
-
         fun SpecBody.nonNullableCases(
             describePrefix: String,
             containsPair: Pair<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>) -> Assert<Iterable<Double>>>,

@@ -3,16 +3,15 @@ package ch.tutteli.atrium.spec.integration
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
-import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.include
 
 abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
-    containsPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
+    containsInAnyOrderOnlyValuesPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
+    containsInAnyOrderOnlyNullableValuesPair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
     successfulBulletPoint: String,
     failingBulletPoint: String,
     warningBulletPoint: String,
@@ -21,27 +20,32 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
 ) : IterableContainsSpecBase({
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
-        containsPair.first to mapToCreateAssertion { containsPair.second(this, 2.5, arrayOf()) }
+        containsInAnyOrderOnlyValuesPair.first to mapToCreateAssertion { containsInAnyOrderOnlyValuesPair.second(this, 2.5, arrayOf()) },
+        containsInAnyOrderOnlyNullableValuesPair.first to mapToCreateAssertion { containsInAnyOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf()) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(containsPair.first, { containsPair.second(this, 2.5, arrayOf()) }, listOf(2.5).asIterable(), listOf(2.5, 2.2))
+        checkingTriple(containsInAnyOrderOnlyValuesPair.first, { containsInAnyOrderOnlyValuesPair.second(this, 2.5, arrayOf()) }, listOf(2.5).asIterable(), listOf(2.5, 2.2)),
+        checkingTriple(containsInAnyOrderOnlyNullableValuesPair.first, { containsInAnyOrderOnlyNullableValuesPair.second(this, 2.5, arrayOf()) }, listOf(2.5).asIterable(), listOf(2.5, 2.2))
     ) {})
-
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
-    val fluent = assert(oneToFour)
 
-    val (containsObjects, containsFunArr) = containsPair
-    fun Assert<Iterable<Double>>.containsFun(t: Double, vararg tX: Double)
-        = containsFunArr(t, tX.toTypedArray())
+    val (containsInOrderNullableValues, containsInOrderNullableValuesFunArr) = containsInAnyOrderOnlyNullableValuesPair
+    fun Assert<Iterable<Double?>>.containsInOrderNullableValuesFun(t: Double?, vararg tX: Double?)
+        = containsInOrderNullableValuesFunArr(t, tX)
 
     val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
 
-    describeFun(containsObjects) {
+
+    nonNullableCases(describePrefix,
+        containsInAnyOrderOnlyValuesPair,
+        containsInAnyOrderOnlyNullableValuesPair
+    ){ containsValuesFunArr ->
+        fun Assert<Iterable<Double>>.containsFun(t: Double, vararg tX: Double) =
+            containsValuesFunArr(t, tX.toTypedArray())
+
         context("empty collection") {
             val fluentEmpty = assert(setOf())
             test("1.0 throws AssertionError") {
@@ -76,8 +80,9 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
         }
 
         context("iterable $oneToFour") {
+            val fluent = assert(oneToFour)
 
-            describe("happy cases $containsObjects") {
+            describe("happy cases") {
                 listOf(
                     arrayOf(1.0, 2.0, 3.0, 4.0, 4.0),
                     arrayOf(1.0, 3.0, 2.0, 4.0, 4.0),
@@ -193,6 +198,52 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                                 contains.exactly(2).value("$successfulBulletPoint$anEntryWhichIs: 4.0")
                                 containsSize(5, 6)
                                 containsNot(additionalEntries, mismatches, mismatchesAdditionalEntries)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    nullableCases(describePrefix) {
+        describeFun(containsInOrderNullableValues) {
+
+            val list = listOf(null, 1.0, null, 3.0)
+            val fluent = verbs.checkImmediately(list)
+
+            context("iterable $list") {
+                context("happy cases (do not throw)") {
+                    test("null, 1.0, null, 3.0") {
+                        fluent.containsInOrderNullableValuesFun(null, 1.0, null, 3.0)
+                    }
+                    test("1.0, null, null, 3.0") {
+                        fluent.containsInOrderNullableValuesFun(1.0, null, null, 3.0)
+                    }
+                    test("1.0, null, 3.0, null") {
+                        fluent.containsInOrderNullableValuesFun(1.0, null, 3.0, null)
+                    }
+                    test("1.0, 3.0, null, null") {
+                        fluent.containsInOrderNullableValuesFun(1.0, 3.0, null, null)
+                    }
+                }
+
+                context("failing cases") {
+                    test("null, 1.0, 3.0 -- null was missing") {
+                        expect {
+                            fluent.containsInOrderNullableValuesFun(null, 1.0, 3.0)
+                        }.toThrow<AssertionError> {
+                            message {
+                                contains(
+                                    "$containsInAnyOrderOnly:",
+                                    "$successfulBulletPoint$anEntryWhichIs: null",
+                                    "$successfulBulletPoint$anEntryWhichIs: 1.0",
+                                    "$successfulBulletPoint$anEntryWhichIs: 3.0",
+                                    "$warningBulletPoint$additionalEntries:",
+                                    "${listBulletPoint}null"
+                                )
+                                containsSize(4, 3)
                             }
                         }
                     }
