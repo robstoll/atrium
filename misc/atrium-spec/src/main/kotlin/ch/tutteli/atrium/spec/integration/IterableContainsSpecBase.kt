@@ -45,7 +45,7 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
             describePrefix: String,
             containsPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
             containsNullablePair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
-            action: (Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any) -> Unit
+            action: SpecBody.(Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any) -> Unit
         ) {
             group("$describePrefix describe non-nullable cases") {
                 mapOf<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any>(

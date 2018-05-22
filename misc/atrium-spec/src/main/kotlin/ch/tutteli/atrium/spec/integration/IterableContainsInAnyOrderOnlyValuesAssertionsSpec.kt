@@ -43,6 +43,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
         containsInAnyOrderOnlyValuesPair,
         containsInAnyOrderOnlyNullableValuesPair
     ){ containsValuesFunArr ->
+
         fun Assert<Iterable<Double>>.containsFun(t: Double, vararg tX: Double) =
             containsValuesFunArr(t, tX.toTypedArray())
 
