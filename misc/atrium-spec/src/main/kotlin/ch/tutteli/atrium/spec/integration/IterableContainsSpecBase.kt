@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.Spec
+import org.jetbrains.spek.api.dsl.SpecBody
 
 abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
 
@@ -32,5 +33,8 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
 
         fun Assert<CharSequence>.containsSize(actual: Int, expected: Int)
             = contains.exactly(1).regex("size: $actual[^:]+: $expected")
+
+        fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
+            = group("fun `$funName`", body = body)
     }
 }
