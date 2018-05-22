@@ -36,5 +36,27 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
 
         fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
             = group("fun `$funName`", body = body)
+
+        fun SpecBody.nullableCases(describePrefix: String, body: SpecBody.() -> Unit) {
+            group("$describePrefix describe nullable cases", body = body)
+        }
+
+        fun SpecBody.nonNullableCases(
+            describePrefix: String,
+            containsPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
+            containsNullablePair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
+            action: (Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any) -> Unit
+        ) {
+            group("$describePrefix describe non-nullable cases") {
+                mapOf<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any>(
+                    containsPair.first to { a, aX -> containsPair.second(this, a, aX) },
+                    containsNullablePair.first to { a, aX -> containsNullablePair.second(this, a, aX) }
+                ).forEach { (describe, containsEntriesFunArr) ->
+                    describeFun(describe) {
+                        action(containsEntriesFunArr)
+                    }
+                }
+            }
+        }
     }
 }

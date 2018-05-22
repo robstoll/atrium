@@ -13,7 +13,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
     containsInAnyOrderValuesPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsInAnyOrderNullableValuesPair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
     describePrefix: String = "[Atrium] "
-) : IterableContainsEntriesSpecBase(verbs, {
+) : IterableContainsSpecBase({
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsInAnyOrderValuesPair.first to mapToCreateAssertion { containsInAnyOrderValuesPair.second(this, 1.2, arrayOf()) },
@@ -28,93 +28,90 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
 
-    val (containsInAnyOrderValues, containsInAnyOrderValuesFunArr) = containsInAnyOrderValuesPair
-
     val (containsInAnyOrderNullableValues, containsInAnyOrderNullableValuesFunArr) = containsInAnyOrderNullableValuesPair
     fun Assert<Iterable<Double?>>.containsInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?)
         = containsInAnyOrderNullableValuesFunArr(t, tX)
 
-    group("$describePrefix describe non-nullable cases") {
-        mapOf<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any>(
-            containsInAnyOrderValues to { a, aX -> this.containsInAnyOrderValuesFunArr(a, aX) },
-            containsInAnyOrderNullableValues to { a, aX -> this.containsInAnyOrderNullableValuesFunArr(a, aX) }
-        ).forEach { (describe, containsValuesFunArr) ->
-            fun Assert<Iterable<Double>>.containsFun(t: Double, vararg tX: Double)
-                = containsValuesFunArr(t, tX.toTypedArray())
+    nonNullableCases(
+        describePrefix,
+        containsInAnyOrderValuesPair,
+        containsInAnyOrderNullableValuesPair
+    ) { containsValuesFunArr ->
+        fun Assert<Iterable<Double>>.containsFun(t: Double, vararg tX: Double) =
+            containsValuesFunArr(t, tX.toTypedArray())
 
-            describeFun(describe) {
-                context("empty collection") {
-                    val fluentEmptyString = assert(setOf())
-                    test("$containsInAnyOrderValues 1.0 throws AssertionError") {
-                        expect {
-                            fluentEmptyString.containsFun(1.0)
-                        }.toThrow<AssertionError> {
-                            messageContains(
-                                "$containsInAnyOrder: 1.0",
-                                "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
-                            )
-                        }
-                    }
-                }
 
-                val fluent = assert(oneToSeven)
-                context("iterable '$oneToSeven'") {
-
-                    describe("happy cases") {
-                        (1..7).forEach {
-                            val d = it.toDouble()
-                            test("$d does not throw") {
-                                fluent.containsFun(d)
-                            }
-                        }
-                        test("1.0 and 4.0 does not throw") {
-                            fluent.containsFun(1.0, 4.0)
-                        }
-                        test("1.0 and 1.0 (searching twice in the same assertion) does not throw") {
-                            fluent.containsFun(1.0, 1.0)
-                        }
-                    }
-
-                    describe("error cases") {
-                        test("9.5 throws AssertionError") {
-                            expect {
-                                fluent.containsFun(9.5)
-                            }.toThrow<AssertionError> {
-                                messageContains(
-                                    "$containsInAnyOrder: 9.5",
-                                    "$numberOfOccurrences: 0",
-                                    "$atLeast: 1"
-                                )
-                            }
-                        }
-                        test("9.5 and 7.1 throws AssertionError") {
-                            expect {
-                                fluent.containsFun(9.5, 7.1)
-                            }.toThrow<AssertionError> {
-                                messageContains(
-                                    "$containsInAnyOrder: 9.5",
-                                    "$containsInAnyOrder: 7.1"
-                                )
-                            }
-                        }
-                        test("1.0 and 9.5 throws AssertionError") {
-                            expect {
-                                fluent.containsFun(1.0, 9.5)
-                            }.toThrow<AssertionError> {
-                                message {
-                                    contains("$containsInAnyOrder: 9.5")
-                                    containsNot("$containsInAnyOrder: 1.0")
-                                }
-                            }
-                        }
-
-                    }
+        context("empty collection") {
+            val fluentEmptyString = assert(setOf())
+            test("1.0 throws AssertionError") {
+                expect {
+                    fluentEmptyString.containsFun(1.0)
+                }.toThrow<AssertionError> {
+                    messageContains(
+                        "$containsInAnyOrder: 1.0",
+                        "$numberOfOccurrences: 0",
+                        "$atLeast: 1"
+                    )
                 }
             }
         }
+
+        val fluent = assert(oneToSeven)
+        context("iterable '$oneToSeven'") {
+
+            describe("happy cases") {
+                (1..7).forEach {
+                    val d = it.toDouble()
+                    test("$d does not throw") {
+                        fluent.containsFun(d)
+                    }
+                }
+                test("1.0 and 4.0 does not throw") {
+                    fluent.containsFun(1.0, 4.0)
+                }
+                test("1.0 and 1.0 (searching twice in the same assertion) does not throw") {
+                    fluent.containsFun(1.0, 1.0)
+                }
+            }
+
+            describe("error cases") {
+                test("9.5 throws AssertionError") {
+                    expect {
+                        fluent.containsFun(9.5)
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            "$containsInAnyOrder: 9.5",
+                            "$numberOfOccurrences: 0",
+                            "$atLeast: 1"
+                        )
+                    }
+                }
+                test("9.5 and 7.1 throws AssertionError") {
+                    expect {
+                        fluent.containsFun(9.5, 7.1)
+                    }.toThrow<AssertionError> {
+                        messageContains(
+                            "$containsInAnyOrder: 9.5",
+                            "$containsInAnyOrder: 7.1"
+                        )
+                    }
+                }
+                test("1.0 and 9.5 throws AssertionError") {
+                    expect {
+                        fluent.containsFun(1.0, 9.5)
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$containsInAnyOrder: 9.5")
+                            containsNot("$containsInAnyOrder: 1.0")
+                        }
+                    }
+                }
+
+            }
+        }
     }
-    group("$describePrefix describe nullable cases") {
+
+    nullableCases(describePrefix){
 
         describeFun(containsInAnyOrderNullableValues) {
 

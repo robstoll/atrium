@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Assert
 class IterableContainsInAnyOrderOnlyValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     AssertionVerbFactory,
     getContainsPair(),
+    getContainsNullablePair(),
     "✔ ", "✘ ", "❗❗ ", "⚬ "
 ) {
     companion object : IterableContainsSpecBase() {
@@ -17,6 +18,17 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec : ch.tutteli.atrium.spe
                 plant.contains.inAnyOrder.only.value(a)
             } else {
                 plant.contains.inAnyOrder.only.values(a, *aX)
+            }
+        }
+
+        fun getContainsNullablePair() =
+            "$contains.$inAnyOrder.$only.$inAnyOrderOnlyValues nullable" to Companion::containsInAnyOrderOnlyNullableValues
+
+        private fun containsInAnyOrderOnlyNullableValues(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant.contains.inAnyOrder.only.nullableValue(a)
+            } else {
+                plant.contains.inAnyOrder.only.nullableValues(a, *aX)
             }
         }
     }
