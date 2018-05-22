@@ -79,6 +79,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
         containsInOrderOnlyEntriesPair,
         containsInOrderOnlyNullableEntriesPair
     ) { containsEntriesFunArr ->
+
         fun Assert<Iterable<Double>>.containsEntriesFun(t: Assert<Double>.() -> Unit, vararg tX: Assert<Double>.() -> Unit)
             = containsEntriesFunArr(t, tX)
 
