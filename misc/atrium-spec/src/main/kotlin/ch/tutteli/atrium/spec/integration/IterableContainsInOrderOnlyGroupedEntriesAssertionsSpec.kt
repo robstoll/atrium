@@ -29,8 +29,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
-    fun group(vararg assertionCreators: Assert<Double>.() -> Unit): GroupWithoutNullableEntries<Assert<Double>.() -> Unit> = groupFactory(assertionCreators)
-    fun nullableGroup(vararg assertionCreators: (Assert<Double>.() -> Unit)?): GroupWithNullableEntries<(Assert<Double>.() -> Unit)?> = nullableGroupFactory(assertionCreators)
+    fun group(vararg assertionCreators: Assert<Double>.() -> Unit) = groupFactory(assertionCreators)
+    fun nullableGroup(vararg assertionCreators: (Assert<Double>.() -> Unit)?) = nullableGroupFactory(assertionCreators)
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsInOrderOnlyGroupedEntriesPair.first to mapToCreateAssertion { containsInOrderOnlyGroupedEntriesPair.second(this, group({ toBe(2.5) }), group({ toBe(4.1) }), arrayOf()) },
@@ -41,9 +41,6 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         checkingTriple(containsInOrderOnlyGroupedEntriesPair.first, { containsInOrderOnlyGroupedEntriesPair.second(this, group({ toBe(2.5) }), group({ toBe(1.2) }, { toBe(2.2) }), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5)),
         checkingTriple(containsInOrderOnlyGroupedNullableEntriesPair.first, { containsInOrderOnlyGroupedNullableEntriesPair.second(this, nullableGroup({ toBe(2.5) }), nullableGroup({ toBe(1.2) }, { toBe(2.2) }), arrayOf()) }, listOf(2.5, 2.2, 1.2).asIterable(), listOf(2.2, 1.2, 2.5))
     ) {})
-
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
     val expect = verbs::checkException
@@ -356,7 +353,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
             context("iterable $list") {
 
                 describe("happy case") {
-                    test("[1.0, null], [null, 3.0]") {
+                    test("[$toBeFun(1.0), null], [null, $toBeFun(3.0)]") {
                         fluent.containsInOrderOnlyGroupedNullableEntriesFun(
                             nullableGroup({ toBe(1.0) }, null),
                             nullableGroup(null, { toBe(3.0) })
@@ -395,7 +392,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                         }
                     }
 
-                    test("[null, 1.0], [3.0, null, null] -- null too much") {
+                    test("[null, $toBeFun(1.0)], [$toBeFun(3.0), null, null] -- null too much") {
                         expect {
                             fluent.containsInOrderOnlyGroupedNullableEntriesFun(
                                 nullableGroup(null, { toBe(1.0) }),
