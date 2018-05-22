@@ -89,14 +89,14 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
  * as well -- likewise an entry (can be the same) is searched for each
  * of the [otherAssertionCreators].
  *
- * It is a shortcut for `contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)`
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).nullableEntries(assertionCreator, *otherAssertionCreators)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("contains?")
 fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
+    = contains.inAnyOrder.atLeast(1).nullableEntries(assertionCreator, *otherAssertionCreators)
 
 
 /**
@@ -141,14 +141,14 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Asse
  * is `null` and an additional entry for each [otherAssertionCreators] (if defined) whereas the entries
  * have to appear in the defined order.
  *
- * It is a shortcut for `contains.inOrder.only.entries(expected, *otherExpected)`
+ * It is a shortcut for `contains.inOrder.only.nullableEntries(expected, *otherExpected)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("containsStrictly?")
 fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
+    = contains.inOrder.only.nullableEntries(assertionCreator, *otherAssertionCreators)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value

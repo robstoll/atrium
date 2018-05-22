@@ -93,7 +93,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * the identification lambdas within the groups can occur in any order.
  *
  * An identification lambda can also be defined with `null` in which case it matches an entry which is `null` as well.
- * Have a look at [entries] for more information about identification lambdas.
+ * Have a look at [nullableEntries] for more information about identification lambdas.
  *
  * @param firstGroup A group of identification lambdas which have to appear at first within the [Iterable].
  * @param secondGroup A group of identification lambdas which have to appear after the values of the [firstGroup] within the [Iterable].

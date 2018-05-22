@@ -45,9 +45,9 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         private fun containsInOrderOnlyNullableEntriesPair(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.contains.inOrder.only.entry(a)
+                plant.contains.inOrder.only.nullableEntry(a)
             } else {
-                plant.contains.inOrder.only.entries(a, *aX)
+                plant.contains.inOrder.only.nullableEntries(a, *aX)
             }
         }
 
