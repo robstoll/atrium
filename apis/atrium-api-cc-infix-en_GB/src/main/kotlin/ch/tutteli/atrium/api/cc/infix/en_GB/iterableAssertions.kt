@@ -43,15 +43,15 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E)
     = this to contain inAny order atLeast 1 value expected
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the [expected] nullable value.
+ * Makes the assertion that [AssertionPlant.subject] contains the [NullableValue.expected].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 nullableValue expected`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> Assert<T>.containsNullable(expected: E)
-    = this to contain inAny order atLeast 1 nullableValue expected
+infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(value: NullableValue<E>)
+    = this to contain inAny order atLeast 1 nullableValue value.expected
 
 
 /**
@@ -111,17 +111,16 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
- * [assertionCreator] or where it does not matter in which order the entries appear.
+ * [NullableEntry.assertionCreator] or an entry which is `null` in case [NullableEntry.assertionCreator] is `null`
+ * as well where it does not matter in which order the entries appear.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 nullableEntry { ... }`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("contains?")
-//TODO remove, if we have a single assertion creator then we can use the overload for a nullable value instead, otherwise we have two fun which do the same.
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = this to contain inAny order atLeast 1 nullableEntry assertionCreator
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entry: NullableEntry<E>): AssertionPlant<T>
+    = this to contain inAny order atLeast 1 nullableEntry entry.assertionCreator
 
 
 /**
@@ -207,7 +206,6 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-//TODO remove, if we have a single assertion creator then we can use the overload for a nullable value instead, otherwise we have two fun which do the same.
 @JvmName("containsStrictly?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inGiven order and only nullableEntry assertionCreator

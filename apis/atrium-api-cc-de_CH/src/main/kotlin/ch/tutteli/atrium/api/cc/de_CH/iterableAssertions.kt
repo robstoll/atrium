@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -63,9 +64,16 @@ fun <E, T : Iterable<E>> getEnthaeltNicht(plant: Assert<T>): DeprecatedNotChecke
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expected, *otherExpected)
 
-@Deprecated("Use the extension fun `enthaeltNichtNullable` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("enthaeltNullable(expected, *otherExpected)"))
-fun  <E, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = enthaeltNullable(expected, *otherExpected)
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains the [expected] nullable value.
+ *
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWert(expected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expected: E): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWert(expected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the [expected] nullable value
@@ -75,20 +83,22 @@ fun  <E, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: 
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
  * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same entry. Use an option such as [zumindest], [hoechstens] and [genau] to control
- * the number of occurrences you expect.
+ * same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `enthaelt.inBeliebigerReihenfolge.genau(2).nullableWert('a')`
  * instead of:
- *   `enthaeltNullable('a', 'a')`
+ *   `enthaelt.nullableWerte('a', 'a')`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltNullable(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWerte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expected, *otherExpected)
 
+@Deprecated("Use `enthaeltNullableWert/enthaeltNullableWerte` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("enthaeltNullableWerte(expected, *otherExpected)"))
+fun  <E: Any?, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = enthaeltNullableWerte(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -105,22 +115,50 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.()
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null` as well.
+ *
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreator)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintrag(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreator)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null`
+ * as well -- likewise an entry (can be the same) is searched for each of the [otherAssertionCreators].
+ *
+ * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreator, *otherAssertionCreators)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintraege(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreator, *otherAssertionCreators)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null`
  * as well -- likewise an entry (can be the same) is searched for each
  * of the [otherAssertionCreators].
  *
  * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)`
  *
+ * This function will be renamed on a JVM level from `enthaelt?` to `enthaeltNullable` with 1.0.0
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("enthaelt?")
+@Deprecated("Use `enthaeltNullableEintrag/enthaeltNullableEintraege` instead.", ReplaceWith("enthaeltNullableEintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaelt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreator, *otherAssertionCreators)
+    = enthaeltNullableEintraege(assertionCreator, *otherAssertionCreators)
 
-@Deprecated("Use the extension fun `enthaelt`, will be removd with 1.0.0", ReplaceWith("plant.enthaelt(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use `enthaeltNullableEintraege`, will be removd with 1.0.0", ReplaceWith("enthaeltNullableEintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> enthaeltNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = plant.enthaelt(assertionCreator, *otherAssertionCreators)
+    = plant.enthaeltNullableEintraege(assertionCreator, *otherAssertionCreators)
 
 
 /**
@@ -146,7 +184,8 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg othe
  */
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullable(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)
-
+fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the

@@ -1,7 +1,10 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.api.cc.en_GB.nullableEntries
+import ch.tutteli.atrium.api.cc.en_GB.nullableValue
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.esGilt
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction3
@@ -54,10 +57,15 @@ class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec : Spek({
         private fun containsInAnyOrderEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>)
             = plant.enthaelt(a, *aX)
 
-        private val containsEntriesFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaelt
-        fun getContainsNullableShortcutPair() = containsEntriesFun.name + " nullable" to Companion::containsNullableEntriesShortcut
+        private val containsEntriesFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltNullableEintraege
+        fun getContainsNullableShortcutPair() = containsEntriesFun.name to Companion::containsNullableEntriesShortcut
 
-        private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>)
-            = plant.enthaelt(a, *aX)
+        private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant.enthaeltNullableEintrag(a)
+            } else {
+                plant.enthaeltNullableEintraege(a, *aX)
+            }
+        }
     }
 }
