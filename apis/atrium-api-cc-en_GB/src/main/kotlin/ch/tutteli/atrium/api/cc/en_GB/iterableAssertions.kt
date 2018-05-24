@@ -50,6 +50,17 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpec
     = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] contains the [expected] nullable value.
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).nullableValue(expected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E: Any?, T: Iterable<E>> Assert<T>.containsNullableValue(expected: E): AssertionPlant<T>
+    = contains.inAnyOrder.atLeast(1).nullableValue(expected)
+
+/**
  * Makes the assertion that [AssertionPlant.subject] contains the [expected] nullable value
  * and the [otherExpected] nullable values (if defined).
  *
@@ -62,12 +73,12 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpec
  * Meaning you might want to use:
  *   `contains.inAnyOrder.exactly(2).nullableValue('a')`
  * instead of:
- *   `containsNullable('a', 'a')`
+ *   `contains('a', 'a')`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> Assert<T>.containsNullable(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E: Any?, T: Iterable<E>> Assert<T>.containsNullableValues(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).nullableValues(expected, *otherExpected)
 
 /**
@@ -85,19 +96,28 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null` as well.
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).nullableEntry(assertionCreator)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = contains.inAnyOrder.atLeast(1).nullableEntry(assertionCreator)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null`
- * as well -- likewise an entry (can be the same) is searched for each
- * of the [otherAssertionCreators].
+ * as well -- likewise an entry (can be the same) is searched for each of the [otherAssertionCreators].
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).nullableEntries(assertionCreator, *otherAssertionCreators)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("contains?")
-fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntries(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).nullableEntries(assertionCreator, *otherAssertionCreators)
-
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
