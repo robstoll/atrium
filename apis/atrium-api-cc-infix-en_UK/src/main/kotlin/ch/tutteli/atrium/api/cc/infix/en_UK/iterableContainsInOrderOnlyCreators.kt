@@ -11,7 +11,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
  * [expected] value.
  *
- * Delegates to `the Objects(expected)`.
+ * Delegates to `the Values(expected)`.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
@@ -26,7 +26,7 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
  * need to be contained in [Iterable] in the specified order.
  *
- * Delegates to `the Objects(values)`.
+ * Delegates to `the Values(values)`.
  *
  * @param values The values which are expected to be contained within the [Iterable].
  *

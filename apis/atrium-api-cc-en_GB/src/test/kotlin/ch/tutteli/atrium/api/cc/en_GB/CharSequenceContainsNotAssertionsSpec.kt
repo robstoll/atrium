@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.cc.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 
-class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsNotAssertionSpec(
+class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsNotAssertionsSpec(
     AssertionVerbFactory,
     getContainsNotTriple(),
     getContainsNotIgnoringCaseTriple()

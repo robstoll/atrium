@@ -45,8 +45,8 @@ class IterableContainsAssertionsImpl : IterableContainsAssertions {
         assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>
     ): Assertion = _containsEntriesInOrderOnly(builder, assertionCreators)
 
-    override fun <E: Any, T : Iterable<E?>> valuesInOrderOnlyGrouped(
-        builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>,
+    override fun <E, T : Iterable<E>> valuesInOrderOnlyGrouped(
+        builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>,
         groups: List<List<E>>
     ): Assertion = _containsValuesInOrderOnlyGrouped(builder, groups)
 
