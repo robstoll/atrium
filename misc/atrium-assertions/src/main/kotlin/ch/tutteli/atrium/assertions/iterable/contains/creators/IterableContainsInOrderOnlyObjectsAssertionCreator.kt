@@ -34,7 +34,7 @@ class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>(
         AssertImpl.builder.descriptive.create(
             DescriptionAnyAssertion.TO_BE,
             searchCriterion ?: RawString.NULL,
-            found
+            { found }
         )
     }
 

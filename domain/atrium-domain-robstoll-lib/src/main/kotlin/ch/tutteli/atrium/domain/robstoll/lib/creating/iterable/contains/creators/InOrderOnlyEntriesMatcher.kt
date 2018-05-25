@@ -2,9 +2,6 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 
 class InOrderOnlyEntriesMatcher<E: Any> : InOrderOnlyMatcher<E?, (AssertionPlant<E>.() -> Unit)?> {
 
@@ -14,8 +11,8 @@ class InOrderOnlyEntriesMatcher<E: Any> : InOrderOnlyMatcher<E?, (AssertionPlant
     override fun entryAssertionCreator(
         subjectProvider: () -> List<E?>,
         searchCriterion: (AssertionPlant<E>.() -> Unit)?
-    ): (Boolean) -> Assertion {
+    ): (() -> Boolean) -> Assertion {
         val explanatoryAssertions = createExplanatoryAssertions(searchCriterion, subjectProvider())
-        return { found -> createEntryAssertion(explanatoryAssertions, found) }
+        return { found -> createEntryAssertion(explanatoryAssertions, found()) }
     }
 }

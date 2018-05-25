@@ -82,7 +82,7 @@ fun <E, SC> createEntryAssertionTemplate(
     searchCriterion: SC,
     entryWithIndex: DescriptionIterableAssertion,
     matches: (E, SC) -> Boolean
-): ((Boolean) -> Assertion) -> AssertionGroup {
+): ((() -> Boolean) -> Assertion) -> AssertionGroup {
     return { createEntryFeatureAssertion ->
         val list = subjectProvider()
         val (found, entryRepresentation) = list.ifWithinBound(index, {
@@ -94,7 +94,7 @@ fun <E, SC> createEntryAssertionTemplate(
         val description = TranslatableWithArgs(entryWithIndex, index)
         AssertImpl.builder
             .feature(description, entryRepresentation)
-            .create(createEntryFeatureAssertion(found))
+            .create(createEntryFeatureAssertion({ found }))
     }
 }
 
@@ -111,7 +111,7 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
                 addAssertion(LazyThreadUnsafeAssertionGroup {
                     val assertions = itr.mapRemainingWithCounter { counter, it ->
                         val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
-                        AssertImpl.builder.descriptive.create(description, it ?: RawString.NULL, true)
+                        AssertImpl.builder.descriptive.createHoldingAssertion(description, it ?: RawString.NULL)
                     }
                     with(AssertImpl.builder) {
                         explanatoryGroup.withWarning.create(

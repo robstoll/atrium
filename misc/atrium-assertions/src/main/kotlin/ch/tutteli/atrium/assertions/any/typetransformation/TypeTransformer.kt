@@ -35,11 +35,11 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         if (subject != null && canBeTransformed(subject)) {
             val assertionChecker = coreFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = coreFactory.newReportingPlant(assertionVerb, transform(subject), assertionChecker)
-            plant.addAssertion(AssertImpl.builder.descriptive.create(description, representation, true))
+            plant.addAssertion(AssertImpl.builder.descriptive.createHoldingAssertion(description, representation))
             plant.addAssertionsCreatedBy(assertionCreator)
         } else {
             failureHandler.createAndAddAssertionToPlant(warningTransformationFailed, subjectPlant,
-                AssertImpl.builder.descriptive.create(description, representation, false), assertionCreator)
+                AssertImpl.builder.descriptive.createFailingAssertion(description, representation), assertionCreator)
         }
     }
 }

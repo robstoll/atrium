@@ -15,10 +15,9 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
     override fun createFailingAssertion(description: Translatable, representation: Any): Assertion {
         val messageOfOtherException = {
             AssertImpl.builder.explanatoryGroup.withDefault.create(
-                AssertImpl.builder.descriptive.create(
+                AssertImpl.builder.descriptive.createHoldingAssertion(
                     DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
-                    throwable?.localizedMessage ?: RawString.NULL,
-                    true
+                    throwable?.localizedMessage ?: RawString.NULL
                 )
             )
         }

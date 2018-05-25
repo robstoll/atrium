@@ -88,7 +88,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
             featureAssertions.add(LazyThreadUnsafeAssertionGroup {
                 val assertions = additionalEntries.mapIndexed { index, it ->
                     val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, expectedSize + index)
-                    AssertImpl.builder.descriptive.create(description, it ?: RawString.NULL, true)
+                    AssertImpl.builder.descriptive.createHoldingAssertion(description, it ?: RawString.NULL)
                 }
                 AssertImpl.builder.explanatoryGroup.withWarning.create(
                     AssertImpl.builder

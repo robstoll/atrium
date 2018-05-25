@@ -22,7 +22,7 @@ class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformati
             )
             val assertionChecker = coreFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = coreFactory.newReportingPlant(assertionVerb, transform(subject), assertionChecker)
-            plant.addAssertion(AssertImpl.builder.descriptive.create(description, representation, true))
+            plant.addAssertion(AssertImpl.builder.descriptive.createHoldingAssertion(description, representation))
             plant.addAssertionsCreatedBy(assertionCreator)
         } else {
             failureHandler.createAndAddAssertionToPlant(parameterObject)
