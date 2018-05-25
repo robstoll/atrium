@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
@@ -104,15 +105,15 @@ abstract class BigDecimalAssertionsSpec(
         val failureHintNotNumerically = String.format(DescriptionBigDecimalAssertion.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.getDefault(), isNotNumericallyEqualTo)
         context("subject is 10 and expected is 10") {
             val expected = BigDecimal("10")
-            test("$toBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
+            test("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.toBeFun(expected)
-                }.toThrow<UnsupportedOperationException>()
+                }.toThrow<PleaseUseReplacementException>()
             }
-            test("$notToBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
+            test("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.notToBeFun(expected)
-                }.toThrow<UnsupportedOperationException>()
+                }.toThrow<PleaseUseReplacementException>()
             }
 
             test("$toBe with Any overload does not throw") {
@@ -150,15 +151,15 @@ abstract class BigDecimalAssertionsSpec(
             BigDecimal("10.00")
         ).forEach { expected ->
             context("subject is 10 and expected is $expected") {
-                test("$toBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
+                test("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         assertTen.toBeFun(expected)
-                    }.toThrow<UnsupportedOperationException>()
+                    }.toThrow<PleaseUseReplacementException>()
                 }
-                test("$notToBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
+                test("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         assertTen.notToBeFun(expected)
-                    }.toThrow<UnsupportedOperationException>()
+                    }.toThrow<PleaseUseReplacementException>()
                 }
 
                 test("$toBe with Any overload throws an AssertionError and does not contain the hint") {
@@ -194,15 +195,15 @@ abstract class BigDecimalAssertionsSpec(
 
         context("subject is 10 and expected is 9") {
             val expected = BigDecimal("9.999999999999")
-            test("$toBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
+            test("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.toBeFun(expected)
-                }.toThrow<UnsupportedOperationException>()
+                }.toThrow<PleaseUseReplacementException>()
             }
-            test("$notToBe with BigDecimal overload throws ${UnsupportedOperationException::class.simpleName}") {
+            test("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.notToBeFun(expected)
-                }.toThrow<UnsupportedOperationException>()
+                }.toThrow<PleaseUseReplacementException>()
             }
 
             test("$toBe with Any overload throws an AssertionError and does not contain the hint") {

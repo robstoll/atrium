@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import java.math.BigDecimal
 
 @Deprecated("Verwende `istNumerischGleichWie` wenn du erwartest, dass die folgende Behauptung stimmt:\n" +
@@ -11,8 +12,8 @@ import java.math.BigDecimal
     ReplaceWith("istNumerischGleichWie(expected) or istGleichInklusiveScale(expected)"))
 @Suppress("UNUSED_PARAMETER", "unused")
 fun <T : BigDecimal> Assert<T>.ist(expected: T): Nothing
-    = throw UnsupportedOperationException("BigDecimal.equals() vergleicht auch BigDecimal.scale, was dir womöglich nicht bewusst war.\n" +
-    "Falls doch und du möchtest, dass `scale` verglichen wird, dann verwende `istGleichInklusiveScale`.")
+    = throw PleaseUseReplacementException("BigDecimal.equals() vergleicht auch BigDecimal.scale, was dir womöglich nicht bewusst war.\n" +
+    "Falls doch und du möchtest dass `scale` verglichen wird, dann verwende `istGleichInklusiveScale`.")
 
 @Deprecated("Verwende `istNichtNichtNumerischGleichWie` wenn du erwartest, dass die folgende Behauptung falsch ist:\n" +
     "`esGilt(BigDecimal(\"10\").istNicht(BigDecimal(\"10.0\"))`\n" +
@@ -20,8 +21,8 @@ fun <T : BigDecimal> Assert<T>.ist(expected: T): Nothing
     ReplaceWith("istNichtNumerischGleichWie(expected) or istNichtGleichInklusiveScale(expected)"))
 @Suppress("UNUSED_PARAMETER", "unused")
 fun <T : BigDecimal> Assert<T>.istNicht(expected: T): Nothing
-    = throw UnsupportedOperationException("BigDecimal.equals() vergleicht auch BigDecimal.scale, was dir womöglich nicht bewusst war.\n" +
-    "Falls doch und du möchtest, dass `scale` verglichen wird, dann verwende `istNichtGleichInklusiveScale`.")
+    = throw PleaseUseReplacementException("BigDecimal.equals() vergleicht auch BigDecimal.scale, was dir womöglich nicht bewusst war.\n" +
+    "Falls doch und du möchtest dass `scale` verglichen wird, dann verwende `istNichtGleichInklusiveScale`.")
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is numerically equal to [expected].
