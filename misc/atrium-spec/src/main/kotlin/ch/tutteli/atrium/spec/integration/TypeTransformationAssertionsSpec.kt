@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionTypeTransformationAssertion
 import org.jetbrains.spek.api.Spek
@@ -18,7 +19,8 @@ abstract class TypeTransformationAssertionsSpec(
     notToBeNullPair: Pair<String, AssertionPlantNullable<Int?>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit>,
     notToBeNullLessFun: AssertionPlantNullable<Int?>.(Int) -> Unit,
     notToBeNullGreaterAndLessFun: AssertionPlantNullable<Int?>.(Int, Int) -> Unit,
-    nameIsA: String,
+    notToBeButPair:  Pair<String, AssertionPlantNullable<Int?>.(Int) -> Unit>,
+    isA: String,
     isAIntFun: Assert<String>.(assertionCreator: Assert<Int>.() -> Unit) -> Unit,
     isAStringFun: Assert<String>.(assertionCreator: Assert<String>.() -> Unit) -> Unit,
     isACharSequenceFun: Assert<String>.(assertionCreator: Assert<CharSequence>.() -> Unit) -> Unit,
@@ -28,16 +30,17 @@ abstract class TypeTransformationAssertionsSpec(
 ) : Spek({
 
     include(object : CheckingAssertionSpec<SuperType>(verbs, describePrefix,
-        checkingTriple(nameIsA, { isASubTypeFun(this, {}) }, SubType(), SuperType())
+        checkingTriple(isA, { isASubTypeFun(this, {}) }, SubType(), SuperType())
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
         = describeFun(describePrefix, funName, body = body)
 
     val expect = verbs::checkException
-    val (nameNotToBeNull, notToBeNullFun) = notToBeNullPair
+    val (notToBeNull, notToBeNullFun) = notToBeNullPair
+    val (notToBeBut, notToBeNullButFun) = notToBeButPair
 
-    describeFun(nameNotToBeNull) {
+    describeFun(notToBeNull) {
 
         val assert: (Int?) -> AssertionPlantNullable<Int?> = verbs::checkNullable
 
@@ -153,7 +156,7 @@ abstract class TypeTransformationAssertionsSpec(
         }
     }
 
-    describeFun(nameIsA) {
+    describeFun(isA) {
 
         val assert: (String) -> Assert<String> = verbs::checkImmediately
 
@@ -226,6 +229,41 @@ abstract class TypeTransformationAssertionsSpec(
         }
     }
 
+    describeFun(notToBeBut){
+        val assert: (Int?) -> AssertionPlantNullable<Int?> = verbs::checkNullable
+
+        context("subject is null") {
+            it("throws an AssertionError") {
+                expect {
+                    val i: Int? = null
+                    assert(i).notToBeNullButFun(1)
+                }.toThrow<AssertionError> {
+                    message {
+                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
+                        contains(Integer::class.java.name)
+                        containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
+                    }
+                }
+            }
+        }
+
+        context("subject is 2") {
+            val i: Int? = 2
+            test("2 does not throw") {
+                assert(i).notToBeNullButFun(2)
+            }
+
+            test("3 throws an AssertionError") {
+                expect {
+                    assert(i).notToBeNullButFun(3)
+                }.toThrow<AssertionError>{
+                    message {
+                        containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
+                    }
+                }
+            }
+        }
+    }
 }) {
     open class SuperType
     class SubType : SuperType()

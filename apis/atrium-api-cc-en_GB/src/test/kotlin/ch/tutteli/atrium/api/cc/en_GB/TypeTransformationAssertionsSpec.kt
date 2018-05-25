@@ -12,6 +12,7 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
     getNotToBeNullPair(),
     Companion::notToBeNullLess,
     Companion::notToBeNullGreaterAndLess,
+    getNotToBeNullButPair(),
     getNameIsA(),
     Companion::isAInt,
     Companion::isAString,
@@ -31,6 +32,10 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
 
         private fun notToBeNullGreaterAndLess(plant: AssertionPlantNullable<Int?>, lowerBound: Int, upperBound: Int)
             = plant.notToBeNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
+
+
+        private fun getNotToBeNullButPair()
+            = AssertionPlantNullable<Int?>::notToBeNullBut.name to AssertionPlantNullable<Int?>::notToBeNullBut
 
 
         private fun getNameIsA(): String {

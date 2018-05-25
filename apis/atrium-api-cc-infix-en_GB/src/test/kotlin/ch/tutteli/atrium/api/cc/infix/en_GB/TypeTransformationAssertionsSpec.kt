@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.api.cc.en_GB.notToBeNullBut
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -12,6 +13,7 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
     getNotToBeNullPair(),
     Companion::notToBeNullLess,
     Companion::notToBeNullGreaterAndLess,
+    getNotToBeNullButPair(),
     getNameIsA(),
     Companion::isAInt,
     Companion::isAString,
@@ -32,6 +34,11 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
         private fun notToBeNullGreaterAndLess(plant: AssertionPlantNullable<Int?>, lowerBound: Int, upperBound: Int)
             = plant notToBeNull { isGreaterThan(lowerBound); isLessThan(upperBound) }
 
+        private fun getNotToBeNullButPair()
+            = AssertionPlantNullable<Int?>::notToBeNullBut.name to Companion::notToBeNullBut
+
+        private fun notToBeNullBut(plant: AssertionPlantNullable<Int?>, expected: Int)
+            = plant notToBeNullBut expected
 
         private fun getNameIsA(): String {
             val f: Assert<Any>.(Assert<Any>.() -> Unit) -> Unit = Assert<Any>::isA
