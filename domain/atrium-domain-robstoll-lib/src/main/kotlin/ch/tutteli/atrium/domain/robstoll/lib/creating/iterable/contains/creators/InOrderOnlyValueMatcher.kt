@@ -13,7 +13,7 @@ class InOrderOnlyValueMatcher<E> : InOrderOnlyMatcher<E, E> {
     override fun entryAssertionCreator(
         subjectProvider: () -> List<E>,
         searchCriterion: E
-    ): (Boolean) -> Assertion {
+    ): (() -> Boolean) -> Assertion {
         return { found ->
             AssertImpl.builder.descriptive.create(
                 DescriptionAnyAssertion.TO_BE,

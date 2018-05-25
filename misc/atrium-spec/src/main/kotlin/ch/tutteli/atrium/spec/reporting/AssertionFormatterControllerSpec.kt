@@ -54,8 +54,8 @@ abstract class AssertionFormatterControllerSpec(
     testee.register(coreFactory.newTextSummaryAssertionGroupFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
     testee.register(coreFactory.newTextFallbackAssertionFormatter(bulletPoints, testee, ToStringObjectFormatter, UsingDefaultTranslator()))
 
-    val assertion = AssertImpl.builder.descriptive.create(IS_GREATER_OR_EQUALS, 1, true)
-    val failingAssertion = AssertImpl.builder.descriptive.create(IS_LESS_OR_EQUALS, 2, false)
+    val assertion = AssertImpl.builder.descriptive.createHoldingAssertion(IS_GREATER_OR_EQUALS, 1)
+    val failingAssertion = AssertImpl.builder.descriptive.createFailingAssertion(IS_LESS_OR_EQUALS, 2)
 
     val separator = System.getProperty("line.separator")!!
 

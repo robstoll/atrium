@@ -10,10 +10,29 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 interface DescriptiveAssertionBuilder {
 
     /**
-     * Wraps the [test] into a lambda and delegates to the other `create` overload.
+     * Delegates to the `create` overload with a `test` which returns constantly `true`.
      */
-    fun create(description: String, representation: Any, test: Boolean): DescriptiveAssertion
-        = create(description, representation, { test })
+    fun createHoldingAssertion(description: String, representation: Any): DescriptiveAssertion
+        = create(description, representation, trueProvider)
+
+    /**
+     * Delegates to the `create` overload with a `test` which returns constantly `false`.
+     */
+    fun createFailingAssertion(description: String, representation: Any): DescriptiveAssertion
+        = create(description, representation, falseProvider)
+
+    /**
+     * Delegates to the `create` overload with a `test` which returns constantly `true`.
+     */
+    fun createHoldingAssertion(description: Translatable, representation: Any): DescriptiveAssertion
+        = create(description, representation, trueProvider)
+
+    /**
+     * Delegates to the `create` overload with a `test` which returns constantly `false`.
+     */
+    fun createFailingAssertion(description: Translatable, representation: Any): DescriptiveAssertion
+        = create(description, representation, falseProvider)
+
 
     /**
      * Wraps the given [description] into an [Untranslatable] and delegates to the other `create` overload.
@@ -24,12 +43,11 @@ interface DescriptiveAssertionBuilder {
     /**
      * Creates an [DescriptiveAssertion] based on the given [description], [representation] and [test].
      */
-    fun create(description: Translatable, representation: Any, test: Boolean): DescriptiveAssertion
-        = create(description, representation, { test })
-
-    /**
-     * Creates an [DescriptiveAssertion] based on the given [description], [representation] and [test].
-     */
     fun create(description: Translatable, representation: Any, test: () -> Boolean): DescriptiveAssertion
+
+    companion object {
+        private val trueProvider = { true }
+        private val falseProvider = { false }
+    }
 }
 
