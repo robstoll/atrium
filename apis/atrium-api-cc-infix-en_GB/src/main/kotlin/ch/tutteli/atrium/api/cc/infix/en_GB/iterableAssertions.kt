@@ -216,7 +216,6 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsStrictly?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entry: NullableEntry<E>): AssertionPlant<T>
     = this to contain inGiven order and only nullableEntry entry.assertionCreator
 
@@ -245,7 +244,6 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("containsStrictly?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: NullableEntries<E>): AssertionPlant<T>
     = this to contain inGiven order and only the entries
 
