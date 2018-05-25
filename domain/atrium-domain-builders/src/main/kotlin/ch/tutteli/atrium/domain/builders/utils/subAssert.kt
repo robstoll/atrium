@@ -11,4 +11,5 @@ import ch.tutteli.atrium.creating.Assert
  * @param assertionCreator Your assertion creator lambda
  * @return your passed lambda.
  */
-fun <T : Any> subAssert(assertionCreator: Assert<T>.() -> Unit) = assertionCreator
+@Suppress("NOTHING_TO_INLINE")
+inline fun <T : Any> subAssert(noinline assertionCreator: Assert<T>.() -> Unit) = assertionCreator
