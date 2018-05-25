@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import kotlin.reflect.*
 
 /**
@@ -19,10 +20,10 @@ import kotlin.reflect.*
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlant<TProperty>
     = AssertImpl.feature.property(this, property)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KProperty1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, TProperty : Any> CollectingAssertionPlant<T>.property(property: KProperty0<TProperty>): AssertionPlant<TProperty>
-    = AssertImpl.feature.property(this, property)
+    = throw PleaseUseReplacementException("Use the overload with KProperty1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant] for the given [property] which eventually adds [AssertionGroup]s with a
@@ -47,10 +48,10 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty1<T, TPrope
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>, assertionCreator: Assert<TProperty>.() -> Unit): AssertionPlant<TProperty>
     = AssertImpl.feature.property(this, property, assertionCreator)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KProperty1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, TProperty : Any> CollectingAssertionPlant<T>.property(property: KProperty0<TProperty>, assertionCreator: Assert<TProperty>.() -> Unit): AssertionPlant<TProperty>
-    = AssertImpl.feature.property(this, property, assertionCreator)
+    = throw PleaseUseReplacementException("Use the overload with KProperty1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant] for the given [property] which eventually adds [AssertionGroup]s with a
@@ -75,10 +76,10 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty1<T, TPrope
 fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
     = AssertImpl.feature.property(this, property)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KProperty1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, TProperty : Any?> CollectingAssertionPlant<T>.property(property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
-    = AssertImpl.feature.property(this, property)
+    = throw PleaseUseReplacementException("Use the overload with KProperty1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlantNullable] for the given [property] which eventually adds [AssertionGroup]s with a
@@ -101,10 +102,10 @@ fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty1<T, TProp
 fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction0<R>): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf0(this, method)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction0<R>): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf0(this, method)
+    = throw PleaseUseReplacementException("Use the overload with KFunction1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method], which eventually adds [AssertionGroup]s
@@ -131,10 +132,10 @@ fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction1<T, R>): Assert
 fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction0<R>, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf0(this, method, assertionCreator)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction0<R>, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf0(this, method, assertionCreator)
+    = throw PleaseUseReplacementException("Use the overload with KFunction1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method], which eventually adds
@@ -162,10 +163,10 @@ fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction1<T, R>, asserti
 fun <T : Any, R : Any?> Assert<T>.returnValueOf(method: KFunction0<R>): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf0(this, method)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KFunction0<R>): AssertionPlantNullable<R>
-    = AssertImpl.feature.returnValueOf0(this, method)
+    = throw PleaseUseReplacementException("Use the overload with KFunction1 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method], which eventually adds
@@ -191,10 +192,10 @@ fun <T : Any, R : Any?> Assert<T>.returnValueOf(method: KFunction1<T, R>): Asser
 fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction2 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf1(this, method, arg1)
+    = throw PleaseUseReplacementException("Use the overload with KFunction2 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], which eventually adds
@@ -222,10 +223,10 @@ fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>,
 fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1, assertionCreator)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction2 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf1(this, method, arg1, assertionCreator)
+    = throw PleaseUseReplacementException("Use the overload with KFunction2 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], which eventually adds
@@ -253,10 +254,10 @@ fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>,
 fun <T : Any, T1, R : Any?> Assert<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction2 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1): AssertionPlantNullable<R>
-    = AssertImpl.feature.returnValueOf1(this, method, arg1)
+    = throw PleaseUseReplacementException("Use the overload with KFunction2 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1], which eventually adds
@@ -282,10 +283,10 @@ fun <T : Any, T1, R : Any?> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>
 fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction3 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2)
+    = throw PleaseUseReplacementException("Use the overload with KFunction3 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1] and [arg2], which eventually
@@ -313,10 +314,10 @@ fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction3<T, T1,
 fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2, assertionCreator)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction3 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2, assertionCreator)
+    = throw PleaseUseReplacementException("Use the overload with KFunction3 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1] and [arg2], which eventually
@@ -344,10 +345,10 @@ fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction3<T, T1,
 fun <T : Any, T1, T2, R : Any?> Assert<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction3 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2): AssertionPlantNullable<R>
-    = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2)
+    = throw PleaseUseReplacementException("Use the overload with KFunction3 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1] and [arg2], which
@@ -373,10 +374,10 @@ fun <T : Any, T1, T2, R : Any?> Assert<T>.returnValueOf(method: KFunction3<T, T1
 fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction4 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3)
+    = throw PleaseUseReplacementException("Use the overload with KFunction4 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2] and [arg3],
@@ -404,10 +405,10 @@ fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction4<T,
 fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3, assertionCreator)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction4 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3, assertionCreator)
+    = throw PleaseUseReplacementException("Use the overload with KFunction4 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2] and [arg3],
@@ -435,10 +436,10 @@ fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction4<T,
 fun <T : Any, T1, T2, T3, R : Any?> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction4 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<R>
-    = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3)
+    = throw PleaseUseReplacementException("Use the overload with KFunction4 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2] and [arg3],
@@ -464,10 +465,10 @@ fun <T : Any, T1, T2, T3, R : Any?> Assert<T>.returnValueOf(method: KFunction4<T
 fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction5 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, T4, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
+    = throw PleaseUseReplacementException("Use the overload with KFunction5 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3] and [arg4],
@@ -495,10 +496,10 @@ fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction
 fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4, assertionCreator)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction5 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, T4, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4, assertionCreator)
+    = throw PleaseUseReplacementException("Use the overload with KFunction5 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3] and [arg4],
@@ -526,10 +527,10 @@ fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction
 fun <T : Any, T1, T2, T3, T4, R : Any?> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction5 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, T4, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<R>
-    = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
+    = throw PleaseUseReplacementException("Use the overload with KFunction5 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2], [arg3]
@@ -555,10 +556,10 @@ fun <T : Any, T1, T2, T3, T4, R : Any?> Assert<T>.returnValueOf(method: KFunctio
 fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction6 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, T4, T5, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
+    = throw PleaseUseReplacementException("Use the overload with KFunction6 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3], [arg4]
@@ -586,10 +587,10 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunc
 fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction6 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, T4, T5, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
-    = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
+    = throw PleaseUseReplacementException("Use the overload with KFunction6 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlant], for the value returned by calling [method] with [arg1], [arg2], [arg3], [arg4]
@@ -617,10 +618,10 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunc
 fun <T : Any, T1, T2, T3, T4, T5, R : Any?> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
 
-@Suppress("DeprecatedCallableAddReplaceWith")
+@Suppress("DeprecatedCallableAddReplaceWith", "unused")
 @Deprecated("Use the overload with KFunction6 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 fun <T : Any, T1, T2, T3, T4, T5, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<R>
-    = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
+    = throw PleaseUseReplacementException("Use the overload with KFunction6 instead, this way you do not access `subject` too early. Use `YourClass::property` instead of `subject::property`")
 
 /**
  * Creates an [AssertionPlantNullable], for the value returned by calling [method] with [arg1], [arg2], [arg3],
