@@ -59,9 +59,10 @@ is too similar, we will not list it here (ok, we did now but I guess you get the
 - [`and` property](#and-property)
 - [CharSequence contains](#charsequence-contains)
 - [Iterable contains in any order](#iterable-contains-in-any-order)
+- [Iterable contains in any order with nullable elements](#iterable-contains-in-any-order-with-nullable-elements)
 - [Iterable contains in order](#iterable-contains-in-order)
+- [Iterable contains in order with nullable elements](#iterable-contains-in-order-with-nullable-elements)
 - [Iterable contains not](#iterable-contains-not)
-- [Iterable contains with nullable elements](#iterable-contains-with-nullable-elements)
 
 ## Empty CharSequence / Collection
 
@@ -124,12 +125,10 @@ assert(x).contains({ isLessThan(2) })
 assert(x).contains({ isLessThan(2) }, { isGreaterThan 5 })
 assert(x).contains.inAnyOrder.atLeast(1).butAtMost(2).value(3.2)
 assert(x).contains.inAnyOrder.exactly(1).values("hello", "robert")
-assert(x).contains.inAnyOrder.atMost(2).`object`(y)
-assert(x).contains.inAnyOrder.notOrAtMost(2).objects(y, z)
+assert(x).contains.inAnyOrder.atMost(2).value(y)
+assert(x).contains.inAnyOrder.notOrAtMost(2).values(y, z)
 assert(x).contains.inAnyOrder.only.value("hello")
-assert(x).contains.inAnyOrder.only.values("hello", "world")
-assert(x).contains.inAnyOrder.only.`object`(personA)
-assert(x).contains.inAnyOrder.only.objects(personA, personB)
+assert(x).contains.inAnyOrder.only.values(personA, personB)
 assert(x).contains.inAnyOrder.only.entry { isLessThan(2) }
 assert(x).contains.inAnyOrder.only.entries({ toBe(3) }, { isLessThan(2) })
 ```
@@ -142,15 +141,42 @@ assert(x) contains { this isLessThan 2 }
 assert(x) contains Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
 assert(x) to contain inAny order atLeast 1 butAtMost 2 value 3.2
 assert(x) to contain inAny order exactly 1 the Values("hello", "robert")
-assert(x) to contain inAny order atMost 2 `object` y
-assert(x) to contain inAny order notOrAtMost 2 the Objects(y, z)
+assert(x) to contain inAny order atMost 2 value y
+assert(x) to contain inAny order notOrAtMost 2 the Values(y, z)
 assert(x) to contain inAny order but only value "hello")
-assert(x) to contain inAny order but only the Values("hello", "world")
-assert(x) to contain inAny order but only `object` personA
-assert(x) to contain inAny order but only the Objects(personA, personB)
+assert(x) to contain inAny order but only the Values(personA, personB)
 assert(x) to contain inAny order but only entry { this isLessThan 2 } 
 assert(x) to contain inAny order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
 ```
+
+## Iterable contains in any order with nullable elements
+
+*atrium-api-cc-en_GB*
+```kotlin
+assert(listOf(null, 1)).containsNullableValue(null)
+assert(listOf(null, 1)).containsNullableValues(null, 1)
+assert(listOf(null, 1)).containsNullableEntry(null)
+assert(listOf(null, 1)).containsNullableEntries(null,  { isLessThan(2) })
+assert(listOf(null, 1)).contains.inAnyOrder.atLeast(1).nullableValue(null)
+assert(listOf(null, 1)).contains.inAnyOrder.atLeast(1).nullableValues(null, 1)
+assert(listOf(null, 1)).contains.inAnyOrder.atLeast(1).nullableEntry(null)
+assert(listOf(null, 1)).contains.inAnyOrder.atLeast(1).nullableEntries(null, { isLessThan(2) })
+//see above for more `inAnyOrder` options
+```
+
+*atrium-api-cc-infix-en_GB*
+```kotlin
+assert(listOf(null, 1)) contains NullableValue(null)
+assert(listOf(null, 1)) contains NullableValues(null, 1)
+assert(listOf(null, 1)) contains NullableEntry(null)
+assert(listOf(null, 1)) contains NullableEntries(null,  { isLessThan(2) })
+assert(listOf(null, 1)) to contain inAny order atLeast 1 nullableValue null
+assert(listOf(null, 1)) to contain inAny order atLeast 1 the NullableValues(null, 1)
+assert(listOf(null, 1)) to contain inAny order atLeast 1 nullableEntry null
+assert(listOf(null, 1)) to contain inAny order atLeast 1 the NullableEntries(null, { this isLessThan 2 })
+//see above for more `inAny order` options
+```
+
 
 ## Iterable contains in order
 
@@ -164,7 +190,16 @@ assert(x).contains.inOrder.only.value("hello")
 assert(x).contains.inOrder.only.values("hello", "world")
 assert(x).contains.inOrder.only.entry { isLessThan(2) }
 assert(x).contains.inOrder.only.entries({ toBe(3) }, { isLessThan(2) })
-assert(x).contains.inOrder.only.grouped.within.inAnyOrder(Values(1), Values(1, 2), Values(3, 4))
+assert(x).contains.inOrder.only.grouped.within.inAnyOrder(
+    Value(1), 
+    Values(1, 2), 
+    Values(3, 4)
+)
+assert(x).contains.inOrder.only.grouped.within.inAnyOrder(
+    Entry({ toBe(1) }), 
+    Entries({ isLessThan(2) },{ isGreaterThan(2) }), 
+    Entries({ toBe(3) }, { toBe(4) })
+)
 ```
 
 *atrium-api-cc-infix-en_GB*
@@ -173,11 +208,68 @@ assert(x) containsStrictly 1.2
 assert(x) containsStrictly Values(1.2, 5.7) // or Objects as alternative
 assert(x) containsStrictly { this isLessThan 2 }
 assert(x) containsStrictly Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
-assert(x) contains inGiven order but only value "hello"
-assert(x) contains inGiven order but only the Values("hello", "world")
-assert(x) contains inGiven order but only entry { this isLessThan 2 }
-assert(x) contains inGiven order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
-assert(x) contains inGiven order but only grouped entries within group inAny Order(Value(1), Values(1, 2), Values(3, 4))
+assert(x) contains inGiven order and only value "hello"
+assert(x) contains inGiven order and only the Values("hello", "world")
+assert(x) contains inGiven order and only entry { this isLessThan 2 }
+assert(x) contains inGiven order and only the Entries({ this toBe 3 }, { this isLessThan 2 })
+assert(x) contains inGiven order and only grouped entries within group inAny Order(
+    Value(1), 
+    Values(1, 2), 
+    Values(3, 4)
+)
+assert(x) contains inGiven order and only grouped entries within group inAny Order(
+    Entry({ this toBe(1) }), 
+    Entries({ this isLessThan(2) },{ this isGreaterThan(2) }), 
+    Entries({ this toBe(3) }, { this toBe(4) })
+)
+```
+
+## Iterable contains in order with nullable elements
+
+*atrium-api-cc-en_GB*
+```kotlin
+assert(listOf(null, 1)).containsStrictlyNullableValue(null)
+assert(listOf(null, 1)).containsStrictlyNullableValues(null, 1)
+assert(listOf(null, 1)).containsStrictlyNullableEntry(null)
+assert(listOf(null, 1)).containsStrictlyNullableEntries(null,  { isLessThan(2) })
+assert(listOf(null, 1)).contains.inOrder.only.nullableValue(null)
+assert(listOf(null, 1)).contains.inOrder.only.nullableValues(null, 1)
+assert(listOf(null, 1)).contains.inOrder.only.nullableEntry(null)
+assert(listOf(null, 1)).contains.inOrder.only.nullableEntries(null, { isLessThan(2) })
+assert(listOf(null, 1)).contains.inOrder.only.grouped.within.inAnyOrder(
+    NullableValue(1), 
+    NullableValues(1, 2), 
+    NullableValues(3, 4)
+)
+assert(listOf(null, 1)).contains.inOrder.only.grouped.within.inAnyOrder(
+    NullableEntry({ toBe(1) }), 
+    NullableEntries({ isLessThan(2) },{ isGreaterThan(2) }), 
+    NullableEntries({ toBe(3) }, { toBe(4) })
+)
+//see above for more `inOrder` options
+```
+
+*atrium-api-cc-infix-en_GB*
+```kotlin
+assert(listOf(null, 1)) containsStrictly NullableValue(null)
+assert(listOf(null, 1)) containsStrictly NullableValues(null, 1)
+assert(listOf(null, 1)) containsStrictly NullableEntry(null)
+assert(listOf(null, 1)) containsStrictly NullableEntries(null,  { isLessThan(2) })
+assert(listOf(null, 1)) to contain inGiven order and only nullableValue null
+assert(listOf(null, 1)) to contain inGiven order and only the NullableValues(null, 1)
+assert(listOf(null, 1)) to contain inGiven order and only nullableEntry null
+assert(listOf(null, 1)) to contain inGiven order and only the NullableEntries(null, { this isLessThan 2 })
+assert(listOf(null, 1)) contains inGiven order and only grouped entries within group inAny Order(
+    NullableValue(1), 
+    NullableValues(1, 2), 
+    NullableValues(3, 4)
+)
+assert(listOf(null, 1)) contains inGiven order and only grouped entries within group inAny Order(
+    NullableEntry({ this toBe(1) }), 
+    NullableEntries({ this isLessThan(2) },{ this isGreaterThan(2) }), 
+    NullableEntries({ this toBe(3) }, { this toBe(4) })
+)
+//see above for more `inGiven order` options
 ```
 
 ## Iterable contains not
@@ -193,23 +285,25 @@ assert(x).containsNot.entries({ isLessThan(2) }, { isGreaterThan 5 })
 *atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) containsNot 1.2
-assert(x) containsNot Values(1.2, 5.7) // or Objects as alternative
+assert(x) containsNot Values(1.2, 5.7)
 assert(x) notTo contain entry { this isLessThan 2 }
 assert(x) notTo contain the Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
 ```
 
-## Iterable contains with nullable elements
+## Iterable contains not with nullable elements
 
 *atrium-api-cc-en_GB*
 ```kotlin
-assert(listOf(null, 1)).contains.inAnyOrder.entry(null)
-assert(listOf(null, 1)).contains.inAnyOrder.only.entries(null, { isLessThan(2) })
-//see above for other inAnyOrder and inOrder examples
+assert(x).containsNot.nullableValue(null)
+assert(x).containsNot.nullableValues(null, 1)
+assert(x).containsNot.nullableEntry(null)
+assert(x).containsNot.nullableEntries(null, { isLessThan(2) })
 ```
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(listOf(null, 1)) to contain inAny order entry null
-assert(listOf(null, 1)) to contain inAny order but only the Entries(null, { this isLessThan 2 })
-//see above for other inAnyOrder and inOrder examples
+assert(x) notTo contain nullableValue null
+assert(x) notTo contain the NullableValues(null, 1)
+assert(x) notTo contain nullableEntry null
+assert(x) notTo contain the NullableEntries(null, { this isLessThan 2 })
 ```

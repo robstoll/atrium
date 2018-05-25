@@ -56,7 +56,7 @@ object IterableContainsAssertionsBuilder: IterableContainsAssertions {
     override inline fun <E : Any, T : Iterable<E?>> entriesInOrderOnly(builder: IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>, assertionCreators: List<(AssertionPlant<E>.() -> Unit)?>)
         = iterableContainsAssertions.entriesInOrderOnly(builder, assertionCreators)
 
-    override inline fun <E: Any, T : Iterable<E?>> valuesInOrderOnlyGrouped(builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>, groups: List<List<E>>): Assertion
+    override inline fun <E, T : Iterable<E>> valuesInOrderOnlyGrouped(builder: IterableContains.Builder<E, T, InOrderOnlyGroupedSearchBehaviour>, groups: List<List<E>>): Assertion
         = iterableContainsAssertions.valuesInOrderOnlyGrouped(builder, groups)
 
     override inline fun <E: Any, T : Iterable<E?>> entriesInOrderOnlyGrouped(builder: IterableContains.Builder<E?, T, InOrderOnlyGroupedSearchBehaviour>, groups: List<List<(AssertionPlant<E>.() -> Unit)?>>): Assertion

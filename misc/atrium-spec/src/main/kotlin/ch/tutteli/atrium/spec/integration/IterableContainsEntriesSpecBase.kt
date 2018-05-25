@@ -7,9 +7,11 @@ import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
+import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionComparableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.dsl.Spec
+import org.jetbrains.spek.api.dsl.SpecBody
 import kotlin.reflect.KFunction
 import kotlin.reflect.KFunction0
 
@@ -33,5 +35,24 @@ abstract class IterableContainsEntriesSpecBase(verbs: AssertionVerbFactory, spec
         val isLessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
         val isGreaterThanDescr = DescriptionComparableAssertion.IS_GREATER_THAN.getDefault()
         val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
+        val isDescr = DescriptionBasic.IS.getDefault()
+
+        fun SpecBody.nonNullableCases(
+            describePrefix: String,
+            containsPair: Pair<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>) -> Assert<Iterable<Double>>>,
+            containsNullablePair: Pair<String, Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>) -> Assert<Iterable<Double?>>>,
+            action: (Assert<Iterable<Double>>.(Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>) -> Any) -> Unit
+        ) {
+            group("$describePrefix describe non-nullable cases") {
+                mapOf<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>) -> Any>(
+                    containsPair.first to { a, aX -> containsPair.second(this, a, aX) },
+                    containsNullablePair.first to { a, aX -> containsNullablePair.second(this, a, aX) }
+                ).forEach { (describe, containsEntriesFunArr) ->
+                    describeFun(describe) {
+                        action(containsEntriesFunArr)
+                    }
+                }
+            }
+        }
     }
 }

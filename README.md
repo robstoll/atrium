@@ -45,6 +45,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [ReporterBuilder](#reporterbuilder)
 - [Internationalization](#internationalization-1)
 - [APIs](#apis)
+- [Java Interoperability](#java-interoperability)
 - [Contribute](#contribute)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [Known Limitations](#known-limitations)
@@ -887,6 +888,23 @@ Atrium provides three modules which bundle API, translation, domain and core, so
 Have a look at 
 [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
 for more information and to see how the API styles differ.
+ 
+
+# Java Interoperability
+Atrium provides some helper functions in case you have to deal with Java Code where not all types are non-nullable. 
+[Platform types](https://kotlinlang.org/docs/reference/java-interop.html#notation-for-platform-types)
+are turned into a non-nullable version per default (if possible). 
+Yet, you might know that a certain function returns potentially null, so its return type is actually nullable, 
+and thus you want to turn the platform type into the nullable version. 
+You need to use a cast to do this but this might be cumbersome especially if you deal with generics. 
+Thus Atrium provides the following function to ease dealing with Java Code at least for some standard cases:
+- [`nullable`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L22)
+  turns a type into a nullable type.
+- [`nullableContainer`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L95)
+  turns an `Iterable` into an iterable with nullable entry type, likewise it does the same for `Array`
+- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L121)
+  turns a `Map` into a map with a nullable value type
+ 
  
 # Contribute
 You are very welcome to contribute:

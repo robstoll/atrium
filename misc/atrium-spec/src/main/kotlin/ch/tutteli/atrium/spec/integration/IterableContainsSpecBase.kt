@@ -7,11 +7,14 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.Spec
+import org.jetbrains.spek.api.dsl.SpecBody
 
 abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
 
     companion object {
+        val oneToFour = listOf(1.0, 2.0, 3.0, 4.0, 4.0)
         val oneToSeven = listOf(1.0, 2.0, 4.0, 4.0, 5.0, 3.0, 5.0, 6.0, 4.0, 7.0)
+        val oneToSevenNullable = listOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0)
 
         val containsInAnyOrder = String.format(DescriptionIterableAssertion.IN_ANY_ORDER.getDefault(), DescriptionIterableAssertion.CONTAINS.getDefault())
         val containsInAnyOrderOnly = String.format(DescriptionIterableAssertion.IN_ANY_ORDER_ONLY.getDefault(), DescriptionIterableAssertion.CONTAINS.getDefault())
@@ -30,5 +33,30 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
 
         fun Assert<CharSequence>.containsSize(actual: Int, expected: Int)
             = contains.exactly(1).regex("size: $actual[^:]+: $expected")
+
+        fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
+            = group("fun `$funName`", body = body)
+
+        fun SpecBody.nullableCases(describePrefix: String, body: SpecBody.() -> Unit) {
+            group("$describePrefix describe nullable cases", body = body)
+        }
+
+        fun SpecBody.nonNullableCases(
+            describePrefix: String,
+            containsPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
+            containsNullablePair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
+            action: SpecBody.(Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any) -> Unit
+        ) {
+            group("$describePrefix describe non-nullable cases") {
+                mapOf<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any>(
+                    containsPair.first to { a, aX -> containsPair.second(this, a, aX) },
+                    containsNullablePair.first to { a, aX -> containsNullablePair.second(this, a, aX) }
+                ).forEach { (describe, containsEntriesFunArr) ->
+                    describeFun(describe) {
+                        action(containsEntriesFunArr)
+                    }
+                }
+            }
+        }
     }
 }

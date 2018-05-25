@@ -27,6 +27,7 @@ abstract class IterableContainsSpecBase {
         = IterableContains.CheckerOption<Double, Iterable<Double>, InAnyOrderSearchBehaviour>::the
     private val theInAnyOrder = theInAnyOrderFun.name
     protected val inAnyOrderEntries = "$theInAnyOrder $Entries"
+    protected val inAnyOrderValues = "$theInAnyOrder $Values"
 
     private val theInAnyOrderOnlyFun: KFunction2<IterableContains.Builder<Double, Iterable<Double>, InAnyOrderOnlySearchBehaviour>, Values<Double>, Assert<Iterable<Double>>>
         = IterableContains.Builder<Double, Iterable<Double>, InAnyOrderOnlySearchBehaviour>::the
