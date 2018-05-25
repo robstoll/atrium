@@ -59,7 +59,7 @@ fun <E, T : Iterable<E>> getContainsNot(plant: Assert<T>): DeprecatedNotCheckerB
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.contains(expected, *otherExpected)"))
+@Deprecated("Use `containsNullableValues` from package en_GB or `contains` from package en_GB in case you do not deal with nullable elements, will be removed with 1.0.0", ReplaceWith("containsNullableValues(expected, *otherExpected)", "ch.tutteli.atrium.api.cc.en_GB.containsNullableValues"))
 fun <E, T : Iterable<E>> Assert<T>.contains(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)
 
@@ -88,7 +88,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("contains?")
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.contains(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use `containsNullableEntries` from package en_GB or `contains` from package en_GB in case you do not deal with nullable elements, will be removed with 1.0.0", ReplaceWith("containsNullableEntries(assertionCreator, *otherAssertionCreators)", "ch.tutteli.atrium.api.cc.en_GB.containsNullableEntries"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
 
@@ -106,7 +106,7 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsStrictly(expected, *otherExpected)"))
+@Deprecated("Use `containsStrictlyNullableValues` from package en_GB or `containsStrictly` from package en_GB in case you do not deal with nullable elements, will be removed with 1.0.0", ReplaceWith("containsStrictlyNullableValues(expected, *otherExpected)", "ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues"))
 fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = contains.inOrder.only.values(expected, *otherExpected)
 
@@ -134,7 +134,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsStrictly(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use `containsStrictlyNullableEntries` from package en_GB or `containsStrictly` from package en_GB in case you do not deal with nullable elements, will be removed with 1.0.0", ReplaceWith("containsStrictlyNullableEntries(assertionCreator, *otherAssertionCreators)", "ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableEntries"))
 @JvmName("containsStrictly?")
 fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
@@ -153,6 +153,6 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNulllable(plant: Assert<T>, asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.containsNot(expected, *otherExpected)"))
+@Deprecated("Use `containsNot.nullableValues` from package en_GB or `containsNot` from package en_GB in case you do not deal with nullable elements, will be removed with 1.0.0", ReplaceWith("containsNot.nullableValues(expected, *otherExpected)", "ch.tutteli.atrium.api.cc.en_GB.containsNot", "ch.tutteli.atrium.api.cc.en_GB.nullableValues" ))
 fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E)
     = containsNot.values(expected, *otherExpected)
