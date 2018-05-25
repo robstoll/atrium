@@ -21,19 +21,31 @@ fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>): CharSequen
 
 
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.descriptive.create(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
+    = AssertImpl.builder.descriptive
+        .withTest { plant.subject.startsWith(expected) }
+        .create(STARTS_WITH, expected)
 
 fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.descriptive.create(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
+    = AssertImpl.builder.descriptive
+        .withTest { !plant.subject.startsWith(expected) }
+        .create(STARTS_NOT_WITH, expected)
 
 fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.descriptive.create(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
+    = AssertImpl.builder.descriptive
+        .withTest { plant.subject.endsWith(expected) }
+        .create(ENDS_WITH, expected)
 
 fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.descriptive.create(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
+    = AssertImpl.builder.descriptive
+        .withTest { !plant.subject.endsWith(expected) }
+        .create(ENDS_NOT_WITH, expected)
 
 fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertImpl.builder.descriptive.create(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+    = AssertImpl.builder.descriptive
+        .withTest { plant.subject.isEmpty() }
+        .create(DescriptionBasic.IS, RawString.create(EMPTY))
 
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertImpl.builder.descriptive.create(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+    = AssertImpl.builder.descriptive
+        .withTest { plant.subject.isNotEmpty() }
+        .create(DescriptionBasic.IS_NOT, RawString.create(EMPTY))

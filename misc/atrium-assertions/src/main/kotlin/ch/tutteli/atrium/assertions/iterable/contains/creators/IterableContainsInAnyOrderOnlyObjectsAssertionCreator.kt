@@ -28,6 +28,8 @@ class IterableContainsInAnyOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>
 
     override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: E, list: MutableList<E?>): Pair<Boolean, Assertion> {
         val found: Boolean = list.remove(searchCriterion)
-        return found to AssertImpl.builder.descriptive.create(AN_ENTRY_WHICH_IS, searchCriterion ?: RawString.NULL, { found })
+        return found to AssertImpl.builder.descriptive
+            .withTest { found }
+            .create(AN_ENTRY_WHICH_IS, searchCriterion ?: RawString.NULL)
     }
 }

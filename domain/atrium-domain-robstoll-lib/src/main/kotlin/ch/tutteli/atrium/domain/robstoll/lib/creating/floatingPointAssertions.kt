@@ -42,6 +42,7 @@ private fun <T : Comparable<T>> createToBeWithErrorToleranceExplained(df: Decima
 
 private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T, absDiff: () -> T, explanatoryAssertionCreator: (DecimalFormat) -> List<Assertion>): Assertion
     = AssertImpl.builder.descriptive
+        .withTest { absDiff() <= tolerance }
         .withFailureHint {
             //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
             //we do not want to see the failure nor the exact check in the 'an entry which...' part
@@ -53,4 +54,4 @@ private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T
             )
         }
         .showForAnyFailure
-        .create(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, { absDiff() <= tolerance })
+        .create(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected)

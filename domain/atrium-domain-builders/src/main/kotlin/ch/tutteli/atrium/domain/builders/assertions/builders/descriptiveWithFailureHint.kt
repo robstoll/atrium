@@ -4,53 +4,36 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionBuilder
-import ch.tutteli.atrium.domain.assertions.composers.assertionComposer
-import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.assertions.builders.DescriptiveLikeAssertionBuilder
+import ch.tutteli.atrium.domain.builders.assertions.builders.impl.DescriptiveAssertionWithFailureHintOptionImpl
 
 /**
  * Builder to create a descriptive [Assertion] with an additional hint which is only shown if the `test()` fails.
  */
-@Suppress("unused")
-fun DescriptiveAssertionBuilder.withFailureHint(failureHintFactory: () -> Assertion)
-    = DescriptiveAssertionWithFailureHintOption(failureHintFactory)
+fun DescriptiveAssertionBuilder.withFailureHint(
+    failureHintFactory: () -> Assertion
+): DescriptiveAssertionWithFailureHintOption = DescriptiveAssertionWithFailureHintOptionImpl(test, failureHintFactory)
 
 /**
- * Provides options to create a descriptive [Assertion] with an additional failure hint.
+ * Provides options to create a [DescriptiveAssertion] like assertion with an additional failure hint.
  */
-class DescriptiveAssertionWithFailureHintOption(private val failureHintFactory: () -> Assertion) {
+interface DescriptiveAssertionWithFailureHintOption {
     /**
      * Specifies that the failure hint shall be shown in any case.
      */
-    val showForAnyFailure get() = DescriptiveAssertionWithFailureHintBuilder({ true }, failureHintFactory)
+    val showForAnyFailure: DescriptiveAssertionWithFailureHintBuilder
 
     /**
      * Specifies that the failure hint shall only be shown if the given [predicate] holds
      */
-    fun showOnlyIf(predicate: () -> Boolean) = DescriptiveAssertionWithFailureHintBuilder(predicate, failureHintFactory)
+    fun showOnlyIf(predicate: () -> Boolean): DescriptiveAssertionWithFailureHintBuilder
 }
 
 /**
  * Builder to create kind of a [DescriptiveAssertion] if a test holds or an [AssertionGroup] which includes additionally
  * a failure hint created by the given [failureHintFactory] in case [showHint] evaluates to `true`.
  */
-class DescriptiveAssertionWithFailureHintBuilder internal constructor(
-    private val showHint: () -> Boolean,
-    private val failureHintFactory: () -> Assertion
-) {
-    /**
-     * Creates kind of a [DescriptiveAssertion] if [test] holds or an [AssertionGroup] which includes additionally
-     * a failure hint created by the previously specified [failureHintFactory] in case the previously specified
-     * [showHint]-lambda evaluates to `true`.
-     */
-    fun create(
-        description: Translatable,
-        representation: Any,
-        test: () -> Boolean
-    ): Assertion = assertionComposer.createDescriptiveWithFailureHint(
-        description,
-        representation,
-        test,
-        showHint,
-        failureHintFactory
-    )
+interface DescriptiveAssertionWithFailureHintBuilder : DescriptiveLikeAssertionBuilder {
+    val showHint: () -> Boolean
+    val failureHintFactory: () -> Assertion
 }

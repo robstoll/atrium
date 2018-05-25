@@ -54,8 +54,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
             it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name}") {
                 val assertionGroup = with(AssertImpl.builder) {
                     root(ASSERT, "subject").create(
-                        descriptive.createFailingAssertion(TO_BE, "bli"),
-                        descriptive.createFailingAssertion(NOT_TO_BE, "bye")
+                        descriptive.failing.create(TO_BE, "bli"),
+                        descriptive.failing.create(NOT_TO_BE, "bye")
                     )
                 }
                 assert(mapOf("1" to 2).entries)
