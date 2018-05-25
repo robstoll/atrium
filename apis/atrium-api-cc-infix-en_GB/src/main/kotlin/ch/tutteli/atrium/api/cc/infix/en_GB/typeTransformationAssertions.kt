@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -15,6 +16,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     AssertImpl.any.typeTransformation.isNotNull(this, T::class, assertionCreator)
 }
@@ -29,6 +31,7 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinli
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline infix fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
     AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
 }
@@ -43,6 +46,7 @@ inline infix fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator:
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNullBut(expected: T) {
     notToBeNull { this toBe expected }
 }

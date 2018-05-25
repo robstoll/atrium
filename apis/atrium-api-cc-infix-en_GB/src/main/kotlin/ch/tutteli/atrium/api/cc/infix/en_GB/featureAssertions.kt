@@ -3,10 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
-import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.creating.CollectingAssertionPlant
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import kotlin.reflect.*
 
@@ -16,6 +13,7 @@ import kotlin.reflect.*
  *
  * @return An [AssertionPlant] for the given [property].
  */
+@AssertMarker
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlant<TProperty>
     = AssertImpl.feature.property(this, property)
 
@@ -30,6 +28,7 @@ fun <T : Any, TProperty : Any> CollectingAssertionPlant<T>.property(property: KP
  *
  * @return An [AssertionPlant] for the given [property].
  */
+@AssertMarker
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty1<T, TProperty>): AssertionPlant<TProperty>
     = AssertImpl.feature.property(this, property)
 
@@ -44,6 +43,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty1<T, TPrope
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty0<TProperty>, assertionCreator: Assert<TProperty>.() -> Unit): AssertionPlant<TProperty>
     = AssertImpl.feature.property(this, property, assertionCreator)
 
@@ -62,6 +62,7 @@ fun <T : Any, TProperty : Any> CollectingAssertionPlant<T>.property(property: KP
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty1<T, TProperty>, assertionCreator: Assert<TProperty>.() -> Unit): AssertionPlant<TProperty>
     = AssertImpl.feature.property(this, property, assertionCreator)
 
@@ -72,6 +73,7 @@ fun <T : Any, TProperty : Any> Assert<T>.property(property: KProperty1<T, TPrope
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty0<TProperty>): AssertionPlantNullable<TProperty>
     = AssertImpl.feature.property(this, property)
 
@@ -86,6 +88,7 @@ fun <T : Any, TProperty : Any?> CollectingAssertionPlant<T>.property(property: K
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty1<T, TProperty>): AssertionPlantNullable<TProperty>
     = AssertImpl.feature.property(this, property)
 
@@ -98,6 +101,7 @@ fun <T : Any, TProperty : Any?> Assert<T>.property(property: KProperty1<T, TProp
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction0<R>): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf0(this, method)
 
@@ -112,6 +116,7 @@ fun <T : Any, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFuncti
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction1<T, R>): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf0(this, method)
@@ -128,6 +133,7 @@ fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction1<T, R>): Assert
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction0<R>, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf0(this, method, assertionCreator)
 
@@ -147,6 +153,7 @@ fun <T : Any, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFuncti
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction1<T, R>, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf0(this, method, assertionCreator)
@@ -159,6 +166,7 @@ fun <T : Any, R : Any> Assert<T>.returnValueOf(method: KFunction1<T, R>, asserti
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 fun <T : Any, R : Any?> Assert<T>.returnValueOf(method: KFunction0<R>): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf0(this, method)
 
@@ -174,6 +182,7 @@ fun <T : Any, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KFunct
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, R : Any?> Assert<T>.returnValueOf(method: KFunction1<T, R>): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf0(this, method)
@@ -188,6 +197,7 @@ fun <T : Any, R : Any?> Assert<T>.returnValueOf(method: KFunction1<T, R>): Asser
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1)
 
@@ -203,6 +213,7 @@ fun <T : Any, T1, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFu
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>, arg1: T1): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1)
@@ -219,6 +230,7 @@ fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>,
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1, assertionCreator)
 
@@ -238,6 +250,7 @@ fun <T : Any, T1, R : Any> CollectingAssertionPlant<T>.returnValueOf(method: KFu
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>, arg1: T1, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1, assertionCreator)
@@ -250,6 +263,7 @@ fun <T : Any, T1, R : Any> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>,
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 fun <T : Any, T1, R : Any?> Assert<T>.returnValueOf(method: KFunction1<T1, R>, arg1: T1): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1)
 
@@ -265,6 +279,7 @@ fun <T : Any, T1, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method: KF
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, R : Any?> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>, arg1: T1): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf1(this, method, arg1)
@@ -279,6 +294,7 @@ fun <T : Any, T1, R : Any?> Assert<T>.returnValueOf(method: KFunction2<T, T1, R>
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2)
 
@@ -294,6 +310,7 @@ fun <T : Any, T1, T2, R : Any> CollectingAssertionPlant<T>.returnValueOf(method:
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction3<T, T1, T2, R>, arg1: T1, arg2: T2): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2)
@@ -310,6 +327,7 @@ fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction3<T, T1,
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2, assertionCreator)
 
@@ -329,6 +347,7 @@ fun <T : Any, T1, T2, R : Any> CollectingAssertionPlant<T>.returnValueOf(method:
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction3<T, T1, T2, R>, arg1: T1, arg2: T2, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2, assertionCreator)
@@ -341,6 +360,7 @@ fun <T : Any, T1, T2, R : Any> Assert<T>.returnValueOf(method: KFunction3<T, T1,
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 fun <T : Any, T1, T2, R : Any?> Assert<T>.returnValueOf(method: KFunction2<T1, T2, R>, arg1: T1, arg2: T2): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2)
 
@@ -356,6 +376,7 @@ fun <T : Any, T1, T2, R : Any?> CollectingAssertionPlant<T>.returnValueOf(method
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, R : Any?> Assert<T>.returnValueOf(method: KFunction3<T, T1, T2, R>, arg1: T1, arg2: T2): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf2(this, method, arg1, arg2)
@@ -370,6 +391,7 @@ fun <T : Any, T1, T2, R : Any?> Assert<T>.returnValueOf(method: KFunction3<T, T1
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3)
 
@@ -385,6 +407,7 @@ fun <T : Any, T1, T2, T3, R : Any> CollectingAssertionPlant<T>.returnValueOf(met
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction4<T, T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3)
@@ -401,6 +424,7 @@ fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction4<T,
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3, assertionCreator)
 
@@ -420,6 +444,7 @@ fun <T : Any, T1, T2, T3, R : Any> CollectingAssertionPlant<T>.returnValueOf(met
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction4<T, T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3, assertionCreator)
@@ -432,6 +457,7 @@ fun <T : Any, T1, T2, T3, R : Any> Assert<T>.returnValueOf(method: KFunction4<T,
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, R : Any?> Assert<T>.returnValueOf(method: KFunction3<T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3)
 
@@ -447,6 +473,7 @@ fun <T : Any, T1, T2, T3, R : Any?> CollectingAssertionPlant<T>.returnValueOf(me
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, R : Any?> Assert<T>.returnValueOf(method: KFunction4<T, T1, T2, T3, R>, arg1: T1, arg2: T2, arg3: T3): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf3(this, method, arg1, arg2, arg3)
@@ -461,6 +488,7 @@ fun <T : Any, T1, T2, T3, R : Any?> Assert<T>.returnValueOf(method: KFunction4<T
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
 
@@ -476,6 +504,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any> CollectingAssertionPlant<T>.returnValueOf
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction5<T, T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
@@ -492,6 +521,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4, assertionCreator)
 
@@ -511,6 +541,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any> CollectingAssertionPlant<T>.returnValueOf
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction5<T, T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4, assertionCreator)
@@ -523,6 +554,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any> Assert<T>.returnValueOf(method: KFunction
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, T4, R : Any?> Assert<T>.returnValueOf(method: KFunction4<T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
 
@@ -538,6 +570,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any?> CollectingAssertionPlant<T>.returnValueO
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, T4, R : Any?> Assert<T>.returnValueOf(method: KFunction5<T, T1, T2, T3, T4, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf4(this, method, arg1, arg2, arg3, arg4)
@@ -552,6 +585,7 @@ fun <T : Any, T1, T2, T3, T4, R : Any?> Assert<T>.returnValueOf(method: KFunctio
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
 
@@ -567,6 +601,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> CollectingAssertionPlant<T>.returnVal
  *
  * @return An [AssertionPlant] for the return value of the given [method].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunction6<T, T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
@@ -583,6 +618,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunc
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
 
@@ -602,6 +638,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> CollectingAssertionPlant<T>.returnVal
  * @throws AssertionError Might throw an [AssertionError] if an additionally created [Assertion]
  *   (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunction6<T, T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, assertionCreator: Assert<R>.() -> Unit): AssertionPlant<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5, assertionCreator)
@@ -614,6 +651,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any> Assert<T>.returnValueOf(method: KFunc
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 fun <T : Any, T1, T2, T3, T4, T5, R : Any?> Assert<T>.returnValueOf(method: KFunction5<T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)
 
@@ -629,6 +667,7 @@ fun <T : Any, T1, T2, T3, T4, T5, R : Any?> CollectingAssertionPlant<T>.returnVa
  *
  * @return An [AssertionPlantNullable] for the given [property].
  */
+@AssertMarker
 @JvmName("safeReturnValueOf")
 fun <T : Any, T1, T2, T3, T4, T5, R : Any?> Assert<T>.returnValueOf(method: KFunction6<T, T1, T2, T3, T4, T5, R>, arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5): AssertionPlantNullable<R>
     = AssertImpl.feature.returnValueOf5(this, method, arg1, arg2, arg3, arg4, arg5)

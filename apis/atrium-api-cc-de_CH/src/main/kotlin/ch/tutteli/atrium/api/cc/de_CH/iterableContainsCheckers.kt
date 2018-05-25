@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.*
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl.*
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.api.cc.de_CH.assertions.iterable.contains.builders.IterableContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder
@@ -23,6 +24,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.zumindest(times: Int): AtLeastCheckerOption<E, T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -46,6 +48,7 @@ fun <E, T : Iterable<E>> zumindest(builder:  DeprecatedBuilder<E, T, InAnyOrderS
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [genau] restriction instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T, S>.aberHoechstens(times: Int): ButAtMostCheckerOption<E, T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
@@ -65,6 +68,7 @@ fun <E, T : Iterable<E>> aberHoechstens(checkerBuilder: DeprecatedAtLeastChecker
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.genau(times: Int): ExactlyCheckerOption<E, T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -89,6 +93,7 @@ fun <E, T : Iterable<E>> genau(builder: DeprecatedBuilder<E, T, InAnyOrderSearch
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [genau] instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.hoechstens(times: Int): AtMostCheckerOption<E, T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -108,6 +113,7 @@ fun <E, T : Iterable<E>> hoechstens(builder: DeprecatedBuilder<E, T, InAnyOrderS
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.nichtOderHoechstens(times: Int): NotOrAtMostCheckerOption<E, T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)
 

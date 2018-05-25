@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
@@ -11,6 +12,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
     = addAssertion(AssertImpl.collection.hasSize(this, size))
 
@@ -20,6 +22,7 @@ infix fun <T : Collection<*>> Assert<T>.hasSize(size: Int)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(AssertImpl.collection.isEmpty(this))
 
@@ -29,5 +32,6 @@ infix fun <T : Collection<*>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : Collection<*>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(AssertImpl.collection.isNotEmpty(this))

@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -17,6 +18,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow() {
     toThrow<TExpected> {}
 }
@@ -31,6 +33,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline infix fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
     AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
 }
@@ -47,6 +50,7 @@ inline infix fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 infix fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
     property(subject::message).notToBeNull(assertionCreator)
 }
@@ -66,6 +70,7 @@ infix fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() 
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or does not contain the [expected] object.
  */
+@AssertMarker
 infix fun <T : Throwable> Assert<T>.messageContains(expected: Any) {
     this messageContains Values(expected)
 }
@@ -85,6 +90,7 @@ infix fun <T : Throwable> Assert<T>.messageContains(expected: Any) {
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or does not contain all the [values].
  */
+@AssertMarker
 infix fun <T : Throwable> Assert<T>.messageContains(values: Values<Any>) {
     message { contains(values) }
 }

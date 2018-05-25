@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.build
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -20,6 +21,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @return The newly created builder.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     = AssertImpl.charSequence.containsBuilder(this)
 
@@ -29,6 +31,7 @@ infix fun <T : CharSequence> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain:
  *
  * @return The newly created builder.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): NotCheckerOption<T, NotSearchBehaviour>
     = NotCheckerOptionImpl(AssertImpl.charSequence.containsNotBuilder(this))
 
@@ -47,6 +50,7 @@ infix fun <T : CharSequence> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") conta
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T>
     = this contains Values(expected)
 
@@ -75,6 +79,7 @@ infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionPlant<T>
     = this to contain atLeast 1 the values
 
@@ -88,6 +93,7 @@ infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionP
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable: Translatable): AssertionPlant<T>
     = this contains DefaultTranslationsOf(translatable)
 
@@ -113,6 +119,7 @@ infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTranslationsOf): AssertionPlant<T>
     = this to contain atLeast 1 the defaultTranslationOf
 
@@ -124,6 +131,7 @@ infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTra
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): AssertionPlant<T>
     = this contains RegexPatterns(pattern)
 
@@ -149,6 +157,7 @@ infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): Assertion
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.contains(patterns: RegexPatterns): AssertionPlant<T>
     = this to contain atLeast 1 the patterns
 
@@ -160,6 +169,7 @@ infix fun <T : CharSequence> Assert<T>.contains(patterns: RegexPatterns): Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
     = this containsNot Values(expected)
 
@@ -172,6 +182,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
     = this notTo contain the values
 
@@ -186,6 +197,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf)
     = this notTo contain the defaultTranslationsOf
 
@@ -196,6 +208,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: Defaul
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
@@ -205,6 +218,7 @@ infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsNotWith(this, expected))
 
@@ -215,6 +229,7 @@ infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
@@ -224,6 +239,7 @@ infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsNotWith(this, expected))
 
@@ -236,6 +252,7 @@ infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
@@ -247,5 +264,6 @@ infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty:
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty)
     = addAssertion(AssertImpl.charSequence.isNotEmpty(this))

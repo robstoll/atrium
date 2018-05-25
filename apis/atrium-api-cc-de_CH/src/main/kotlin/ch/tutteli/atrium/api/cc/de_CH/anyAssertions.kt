@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -16,6 +17,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : Any> Assert<T>.ist(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
@@ -28,6 +30,7 @@ fun <T : Any> Assert<T>.ist(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : Any> Assert<T>.istNicht(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
@@ -40,6 +43,7 @@ fun <T : Any> Assert<T>.istNicht(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
@@ -52,6 +56,7 @@ fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
@@ -76,6 +81,7 @@ fun <T : Any?> AssertionPlantNullable<T>.istNull() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T: Any?> AssertionPlantNullable<T>.ist(@Suppress("UNUSED_PARAMETER") `null`: Nothing?){
     addAssertion(AssertImpl.any.isNull(this))
 }
@@ -102,5 +108,6 @@ val <T : Any> AssertionPlant<T>.und: AssertionPlant<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
+@AssertMarker
 infix fun <T : Any> AssertionPlant<T>.und(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -15,6 +16,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNull(noinline assertionCreator: Assert<T>.() -> Unit) {
     AssertImpl.any.typeTransformation.isNotNull(this, T::class, assertionCreator)
 }
@@ -29,6 +31,7 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNull(noinline as
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline fun <reified TSub : Any> Assert<Any>.istEin(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
     AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
 }
@@ -43,6 +46,7 @@ inline fun <reified TSub : Any> Assert<Any>.istEin(noinline assertionCreator: As
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline fun <reified T : Any> AssertionPlantNullable<T?>.istNichtNullAber(expected: T) {
     istNichtNull { ist(expected) }
 }

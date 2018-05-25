@@ -6,6 +6,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -18,6 +19,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOp
  *
  * @return The newly created builder.
  */
+@AssertMarker
 infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contain: contain): IterableContains.Builder<E, T, NoOpSearchBehaviour>
     = AssertImpl.iterable.containsBuilder(this)
 
@@ -27,6 +29,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contai
  *
  * @return The newly created builder.
  */
+@AssertMarker
 infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") contain: contain): NotCheckerOption<E, T, InAnyOrderSearchBehaviour>
     = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
@@ -39,6 +42,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") con
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E)
     = this to contain inAny order atLeast 1 value expected
 
@@ -50,6 +54,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(expected: NullableValue<E>)
     = this to contain inAny order atLeast 1 nullableValue expected.expected
 
@@ -72,6 +77,7 @@ infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(expected: NullableValue
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the values
 
@@ -93,6 +99,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(values: Values<E>): Asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(values: NullableValues<E>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the values
 
@@ -106,6 +113,7 @@ infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(values: NullableValues<
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
@@ -119,6 +127,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entry: NullableEntry<E>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 nullableEntry entry.assertionCreator
 
@@ -133,6 +142,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entry: NullableEntry<E>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
@@ -147,6 +157,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: NullableEntries<E>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
@@ -159,6 +170,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: NullableEntrie
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): AssertionPlant<T>
     = this to contain inGiven order and only value expected
 
@@ -170,6 +182,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValue<E>): AssertionPlant<T>
     = this to contain inGiven order and only nullableValue expected.expected
 
@@ -181,6 +194,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValu
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): AssertionPlant<T>
     = this to contain inGiven order and only the values
 
@@ -192,6 +206,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: NullableValues<E>): AssertionPlant<T>
     = this to contain inGiven order and only the values
 
@@ -204,6 +219,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: NullableValues
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = this to contain inGiven order and only entry assertionCreator
 
@@ -216,6 +232,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entry: NullableEntry<E>): AssertionPlant<T>
     = this to contain inGiven order and only nullableEntry entry.assertionCreator
 
@@ -230,6 +247,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entry: Nullable
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): AssertionPlant<T>
     = this to contain inGiven order and only the entries
 
@@ -244,6 +262,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: NullableEntries<E>): AssertionPlant<T>
     = this to contain inGiven order and only the entries
 
@@ -256,6 +275,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Nullab
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlant<T>
     = this notTo contain value expected
 
@@ -267,5 +287,6 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E): Asserti
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): AssertionPlant<T>
     = this notTo contain the values

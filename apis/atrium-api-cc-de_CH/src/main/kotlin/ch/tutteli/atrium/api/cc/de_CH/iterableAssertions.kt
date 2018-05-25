@@ -18,6 +18,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsB
  *
  * @return The newly created builder.
  */
+@AssertMarker
 val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContains.Builder<E, T, NoOpSearchBehaviour>
     get() = AssertImpl.iterable.containsBuilder(this)
 
@@ -32,6 +33,7 @@ fun <E, T : Iterable<E>> getEnthaelt(plant: Assert<T>): DeprecatedBuilder<E, T, 
  *
  * @return The newly created builder.
  */
+@AssertMarker
 val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: NotCheckerOption<E, T, InAnyOrderSearchBehaviour>
     get() = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
@@ -60,6 +62,7 @@ fun <E, T : Iterable<E>> getEnthaeltNicht(plant: Assert<T>): DeprecatedNotChecke
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 @JvmName("enthaeltNonNullable")
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expected, *otherExpected)
@@ -72,6 +75,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpec
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expected: E): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWert(expected)
 
@@ -93,6 +97,7 @@ fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expected: E): Asser
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWerte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expected, *otherExpected)
 
@@ -110,6 +115,7 @@ fun  <E: Any?, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpe
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
 
@@ -122,6 +128,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintrag(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreator)
 
@@ -135,6 +142,7 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintrag(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintraege(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreator, *otherAssertionCreators)
 
@@ -170,6 +178,7 @@ fun <E : Any, T : Iterable<E?>> enthaeltNullable(plant: Assert<T>, assertionCrea
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)
 
@@ -181,6 +190,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg othe
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expected: E): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableWert(expected)
 
@@ -193,6 +203,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expected: E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)
 
@@ -206,6 +217,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expected: 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)
 
@@ -219,6 +231,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableEintrag(assertionCreator)
 
@@ -233,6 +246,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertio
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreator, *otherAssertionCreators)
 
@@ -257,6 +271,7 @@ fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, asserti
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 @JvmName("enthaeltNichtNonNullable")
 fun <E: Any, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
     = enthaeltNicht.werte(expected, *otherExpected)

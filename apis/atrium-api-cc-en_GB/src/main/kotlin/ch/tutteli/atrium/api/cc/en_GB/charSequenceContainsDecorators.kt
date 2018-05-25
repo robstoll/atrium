@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.cc.en_GB.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
@@ -13,6 +14,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
  *
  * @return The newly created builder.
  */
+@AssertMarker
 val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoringCase
     get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
     = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
@@ -22,6 +24,7 @@ val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.igno
  *
  * @return The newly created builder.
  */
+@AssertMarker
 val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoringCase
     get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour>
     = NotCheckerOptionImpl(containsBuilder.ignoringCase)

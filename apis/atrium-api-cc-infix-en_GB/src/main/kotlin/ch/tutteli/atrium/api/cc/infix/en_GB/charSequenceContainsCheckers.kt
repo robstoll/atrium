@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders.*
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders.impl.*
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 
@@ -16,6 +17,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@AssertMarker
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atLeast(times: Int): AtLeastCheckerOption<T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -34,6 +36,7 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
+@AssertMarker
 infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.butAtMost(times: Int): ButAtMostCheckerOption<T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
@@ -48,6 +51,7 @@ infix fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.but
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@AssertMarker
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.exactly(times: Int): ExactlyCheckerOption<T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -67,6 +71,7 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
+@AssertMarker
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.atMost(times: Int): AtMostCheckerOption<T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -81,5 +86,6 @@ infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@AssertMarker
 infix fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerOption<T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)

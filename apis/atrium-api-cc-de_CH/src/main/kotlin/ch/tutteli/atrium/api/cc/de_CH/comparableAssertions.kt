@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
@@ -10,6 +11,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : Comparable<T>> Assert<T>.istKleinerAls(expected: T)
     = addAssertion(AssertImpl.comparable.isLessThan(this, expected))
 
@@ -19,6 +21,7 @@ fun <T : Comparable<T>> Assert<T>.istKleinerAls(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : Comparable<T>> Assert<T>.istKleinerOderGleich(expected: T)
     = addAssertion(AssertImpl.comparable.isLessOrEquals(this, expected))
 
@@ -28,6 +31,7 @@ fun <T : Comparable<T>> Assert<T>.istKleinerOderGleich(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : Comparable<T>> Assert<T>.istGroesserAls(expected: T)
     = addAssertion(AssertImpl.comparable.isGreaterThan(this, expected))
 
@@ -37,6 +41,7 @@ fun <T : Comparable<T>> Assert<T>.istGroesserAls(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : Comparable<T>> Assert<T>.istGroesserOderGleich(expected: T)
     = addAssertion(AssertImpl.comparable.isGreaterOrEquals(this, expected))
 

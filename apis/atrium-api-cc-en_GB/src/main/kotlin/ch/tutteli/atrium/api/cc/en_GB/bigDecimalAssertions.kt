@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import java.math.BigDecimal
@@ -39,6 +40,7 @@ fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
@@ -57,6 +59,7 @@ fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
 
@@ -73,6 +76,7 @@ fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
@@ -88,5 +92,6 @@ fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : BigDecimal> Assert<T>.isNotEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotEqualIncludingScale(this, expected))

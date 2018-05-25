@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -20,6 +21,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
  *
  * @return The newly created builder.
  */
+@AssertMarker
 val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     get() = AssertImpl.charSequence.containsBuilder(this)
 
@@ -34,6 +36,7 @@ fun <T : CharSequence> getEnthaelt(plant: Assert<T>): DeprecatedBuilder<T, NoOpS
  *
  * @return The newly created builder.
  */
+@AssertMarker
 val <T : CharSequence> Assert<T>.enthaeltNicht: NotCheckerOption<T, NotSearchBehaviour>
     get() = NotCheckerOptionImpl(
         AssertImpl.charSequence.containsNotBuilder(
@@ -72,6 +75,7 @@ fun <T : CharSequence> getEnthaeltNicht(plant:  Assert<T>): DeprecatedNotChecker
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
     = enthaelt.zumindest(1).werte(expected, *otherExpected)
 
@@ -84,6 +88,7 @@ fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: A
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpected: Any)
     = enthaeltNicht.werte(expected, *otherExpected)
 
@@ -109,6 +114,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
     = enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)
 
@@ -122,6 +128,7 @@ fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Trans
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable)
     = enthaeltNicht.standardUebersetzungVon(expected, *otherExpected)
 
@@ -148,6 +155,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expecte
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.enthaeltRegex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
     = enthaelt.zumindest(1).regex(pattern, *otherPatterns)
 
@@ -157,6 +165,7 @@ fun <T : CharSequence> Assert<T>.enthaeltRegex(pattern: String, vararg otherPatt
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
@@ -166,6 +175,7 @@ fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsNotWith(this, expected))
 
@@ -176,6 +186,7 @@ fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
@@ -185,6 +196,7 @@ fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsNotWith(this, expected))
 
@@ -195,6 +207,7 @@ fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.istLeer()
     = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
@@ -204,5 +217,6 @@ fun <T : CharSequence> Assert<T>.istLeer()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : CharSequence> Assert<T>.istNichtLeer()
     = addAssertion(AssertImpl.charSequence.isNotEmpty(this))

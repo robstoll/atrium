@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import java.math.BigDecimal
@@ -38,6 +39,7 @@ fun <T : BigDecimal> Assert<T>.istNicht(expected: T): Nothing
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : BigDecimal> Assert<T>.istNumerischGleichWie(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
@@ -56,6 +58,7 @@ fun <T : BigDecimal> Assert<T>.istNumerischGleichWie(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : BigDecimal> Assert<T>.istNichtNumerischGleichWie(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
 
@@ -72,6 +75,7 @@ fun <T : BigDecimal> Assert<T>.istNichtNumerischGleichWie(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : BigDecimal> Assert<T>.istGleichInklusiveScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::istNumerischGleichWie.name))
 
@@ -87,5 +91,6 @@ fun <T : BigDecimal> Assert<T>.istGleichInklusiveScale(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 fun <T : BigDecimal> Assert<T>.istNichtGleichInklusiveScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotEqualIncludingScale(this, expected))

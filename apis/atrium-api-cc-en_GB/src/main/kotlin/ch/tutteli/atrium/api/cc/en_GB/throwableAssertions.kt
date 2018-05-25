@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -17,6 +18,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow() {
     toThrow<TExpected> {}
 }
@@ -31,6 +33,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
     AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
 }
@@ -47,6 +50,7 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow(noinl
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
+@AssertMarker
 fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
     property(subject::message).notToBeNull(assertionCreator)
 }
@@ -67,6 +71,7 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or does not contain [expected] or [otherExpected].
  */
+@AssertMarker
 fun <T : Throwable> Assert<T>.messageContains(expected: Any, vararg otherExpected: Any) {
     message { contains(expected, *otherExpected) }
 }

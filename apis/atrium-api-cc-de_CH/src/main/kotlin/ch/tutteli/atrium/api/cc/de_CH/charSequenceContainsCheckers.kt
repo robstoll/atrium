@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.*
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl.*
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
 import ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders.CharSequenceContainsAtLeastCheckerBuilder as DeprecatedAtLeastCheckerBuilder
@@ -27,6 +28,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@AssertMarker
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.zumindest(times: Int): AtLeastCheckerOption<T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -50,12 +52,9 @@ fun <T : CharSequence, S : SearchBehaviour> zumindest(builder: DeprecatedBuilder
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [genau] restriction instead.
  */
+@AssertMarker
 fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerOption<T, S>.aberHoechstens(times: Int): ButAtMostCheckerOption<T, S>
-    = ButAtMostCheckerOptionImpl(
-    times,
-    this,
-    containsBuilder
-)
+    = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
 @Deprecated("Use the extension fun `aberHoechstens`. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.aberHoechstens(times)"))
 fun <T : CharSequence, S : DeprecatedSearchBehaviour> aberHoechstens(checkerBuilder: DeprecatedAtLeastCheckerBuilder<T, S>, times: Int): DeprecatedButAtMostCheckerBuilder<T, S>
@@ -73,6 +72,7 @@ fun <T : CharSequence, S : DeprecatedSearchBehaviour> aberHoechstens(checkerBuil
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@AssertMarker
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.genau(times: Int): ExactlyCheckerOption<T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -97,6 +97,7 @@ fun <T : CharSequence, S : DeprecatedSearchBehaviour> genau(builder: DeprecatedB
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [genau] instead.
  */
+@AssertMarker
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.hoechstens(times: Int): AtMostCheckerOption<T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -116,6 +117,7 @@ fun <T : CharSequence, S : DeprecatedSearchBehaviour> hoechstens(builder: Deprec
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [enthaeltNicht] instead.
  */
+@AssertMarker
 fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.Builder<T, S>.nichtOderHoechstens(times: Int): NotOrAtMostCheckerOption<T, S>
     = NotOrAtMostCheckerOptionImpl(
     times,

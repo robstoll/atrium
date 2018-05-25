@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -15,6 +16,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
@@ -27,6 +29,7 @@ infix fun <T : Any> Assert<T>.toBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
@@ -39,6 +42,7 @@ infix fun <T : Any> Assert<T>.notToBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : Any> Assert<T>.isSame(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
@@ -51,6 +55,7 @@ infix fun <T : Any> Assert<T>.isSame(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : Any> Assert<T>.isNotSame(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
@@ -62,6 +67,7 @@ infix fun <T : Any> Assert<T>.isNotSame(expected: T)
  * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@AssertMarker
 infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?) {
     addAssertion(AssertImpl.any.isNull(this))
 }
@@ -76,5 +82,6 @@ infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER"
  *
  * @return This plant to support a fluent API.
  */
+@AssertMarker
 infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)

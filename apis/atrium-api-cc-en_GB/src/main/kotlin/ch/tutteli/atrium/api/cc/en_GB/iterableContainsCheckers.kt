@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.*
 import ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.impl.*
+import ch.tutteli.atrium.creating.AssertMarker
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 
@@ -16,6 +17,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atLeast(times: Int): AtLeastCheckerOption<E, T, S>
     = AtLeastCheckerOptionImpl(times, this)
 
@@ -34,6 +36,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T, S>.butAtMost(times: Int): ButAtMostCheckerOption<E, T, S>
     = ButAtMostCheckerOptionImpl(times, this, containsBuilder)
 
@@ -48,6 +51,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> AtLeastCheckerOption<E, T
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.exactly(times: Int): ExactlyCheckerOption<E, T, S>
     = ExactlyCheckerOptionImpl(times, this)
 
@@ -67,6 +71,7 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.atMost(times: Int): AtMostCheckerOption<E, T, S>
     = AtMostCheckerOptionImpl(times, this)
 
@@ -81,5 +86,6 @@ fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] equals to zero; use [containsNot] instead.
  */
+@AssertMarker
 fun <E, T : Iterable<E>, S: InAnyOrderSearchBehaviour> IterableContains.Builder<E, T, S>.notOrAtMost(times: Int): NotOrAtMostCheckerOption<E, T, S>
     = NotOrAtMostCheckerOptionImpl(times, this)
