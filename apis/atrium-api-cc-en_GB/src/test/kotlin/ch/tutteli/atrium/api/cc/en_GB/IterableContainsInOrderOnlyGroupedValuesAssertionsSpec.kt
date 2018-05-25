@@ -35,8 +35,8 @@ class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec : ch.tutteli.atrium
             }
         }
 
-        fun getContainsNullablePair() =
-            "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder nullable" to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues
+        fun getContainsNullablePair()
+            = "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder nullable" to Companion::containsInOrderOnlyGroupedInAnyOrderNullableValues
 
         private fun containsInOrderOnlyGroupedInAnyOrderNullableValues(
             plant: Assert<Iterable<Double?>>,

@@ -55,10 +55,10 @@ class IterableContainsNotAssertionsSpec : Spek({
         private fun containsNotShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
             = plant.enthaeltNicht(a, *aX)
 
-        private val containsNotNullableShortcutFun : KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltNichtNullable
-        private fun getContainsNotNullableShortcutPair() = containsNotNullableShortcutFun.name to Companion::containsNotNullableShortcut
+        private val containsNotNullableShortcutFun : KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltNicht
+        private fun getContainsNotNullableShortcutPair() = containsNotNullableShortcutFun.name + " nullable" to Companion::containsNotNullableShortcut
 
         private fun containsNotNullableShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
-            = plant.enthaeltNichtNullable(a, *aX)
+            = plant.enthaeltNicht(a, *aX)
     }
 }

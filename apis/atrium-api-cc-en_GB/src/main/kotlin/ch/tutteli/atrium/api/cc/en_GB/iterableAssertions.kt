@@ -207,15 +207,3 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assert
  */
 fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E)
     = containsNot.nullableValues(expected, *otherExpected)
-
-/**
- * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] nullable value
- * and neither one of the [otherExpected] nullable values (if defined).
- *
- *  It is a shortcut for `containsNot.nullableValues(expected, *otherExpected)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <E : Any?, T : Iterable<E>> Assert<T>.containsNotNullable(expected: E, vararg otherExpected: E)
-    = containsNot.nullableValues(expected, *otherExpected)

@@ -261,18 +261,6 @@ fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, asserti
 fun <E: Any, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
     = enthaeltNicht.werte(expected, *otherExpected)
 
-@Deprecated("Use the extension fun `enthaeltNichtNullable` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("enthaeltNichtNullable(expected, *otherExpected)"))
+@Deprecated("Use `enthaeltNicht.nullableValues` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("enthaeltNicht.nullableValues(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
     = enthaeltNicht.werte(expected, *otherExpected)
-
-/**
- * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] nullable value
- * and neither one of the [otherExpected] nullable values (if defined).
- *
- * It is a shortcut for `enthaeltNicht.nullableWerte(expected, *otherExpected)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <E: Any?, T : Iterable<E>> Assert<T>.enthaeltNichtNullable(expected: E, vararg otherExpected: E)
-    = enthaeltNicht.nullableWerte(expected, *otherExpected)
