@@ -57,11 +57,16 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
         private fun containsInOrderOnlyEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>)
             = plant.enthaeltStrikt(a, *aX)
 
-        private val containsNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltStrikt
-        fun getContainsNullableShortcutPair() = containsNullableShortcutFun.name + " nullable" to Companion::containsInOrderOnlyNullableEntriesShortcut
+        private val containsNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltStriktNullableEintraege
+        fun getContainsNullableShortcutPair() = containsNullableShortcutFun.name to Companion::containsInOrderOnlyNullableEntriesShortcut
 
-        private fun containsInOrderOnlyNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>)
-            = plant.enthaeltStrikt(a, *aX)
+        private fun containsInOrderOnlyNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant.enthaeltStriktNullableEintrag(a)
+            } else {
+                plant.enthaeltStriktNullableEintraege(a, *aX)
+            }
+        }
     }
 }
 

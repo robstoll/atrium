@@ -174,6 +174,17 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg othe
     = enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] contains only the [expected] nullable value.
+ *
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableWert(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expected: E): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.nullableWert(expected)
+
+/**
  * Makes the assertion that [AssertionPlant.subject] contains only the [expected] nullable value
  * and the [otherExpected] nullable values (if defined) in the defined order.
  *
@@ -182,8 +193,6 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg othe
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullable(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expected, *otherExpected)
 
@@ -203,6 +212,19 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [assertionCreator] where the entry needs to be `null` in case [assertionCreator]
+ * is `null`.
+ *
+ * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.eintrag(expected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.nullableEintrag(assertionCreator)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [assertionCreator] where the entry needs to be `null` in case [assertionCreator]
  * is `null` and an additional entry for each [otherAssertionCreators] (if defined) whereas the entries
  * have to appear in the defined order.
  *
@@ -211,9 +233,13 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("enthaeltStrikt?")
-fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreator, *otherAssertionCreators)
+
+@JvmName("enthaeltStrikt?")
+@Deprecated("Use `enthaeltStriktNullableEintrag/enthaeltStriktNullableEintraege` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)"))
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)
 
 @Deprecated("Use the extension fun `enthaeltStrikt` instead, will be removed with 1.0.0", ReplaceWith("plant.enthaeltStrikt(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>

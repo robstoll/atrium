@@ -69,7 +69,12 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
         private val containsNullableShortcutFun: KFunction2<Assert<Iterable<Double?>>, NullableValues<Double>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsStrictly
         fun getContainsNullableShortcutPair() = containsNullableShortcutFun.name + " ${NullableValues::class.simpleName}" to Companion::containsInOrderOnlyNullableValuesShortcut
 
-        private fun containsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
-            = plant.containsStrictly(NullableValues(a, *aX))
+        private fun containsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant containsStrictly NullableValue(a)
+            } else {
+                plant containsStrictly NullableValues(a, *aX)
+            }
+        }
     }
 }

@@ -43,15 +43,15 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E)
     = this to contain inAny order atLeast 1 value expected
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the [NullableValue.expected].
+ * Makes the assertion that [AssertionPlant.subject] contains the [expected] nullable value.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 nullableValue expected`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(value: NullableValue<E>)
-    = this to contain inAny order atLeast 1 nullableValue value.expected
+infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(expected: NullableValue<E>)
+    = this to contain inAny order atLeast 1 nullableValue expected.expected
 
 
 /**
@@ -147,7 +147,6 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("contains?")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: NullableEntries<E>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
@@ -162,6 +161,17 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: NullableEntrie
  */
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): AssertionPlant<T>
     = this to contain inGiven order and only value expected
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only the [expected] nullable value in the defined order.
+ *
+ * It is a shortcut for `to contain inGiven order and only nullable expected`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValue<E>): AssertionPlant<T>
+    = this to contain inGiven order and only nullableValue expected.expected
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the expected [values] in the defined order.
@@ -189,7 +199,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: NullableValues
  * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
  * by the [assertionCreator].
  *
- * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
+ * It is a shortcut for `to contain inGiven order and only the entry { ... }`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -199,16 +209,16 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
- * by the [assertionCreator].
+ * by the [NullableEntry.assertionCreator].
  *
- * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
+ * It is a shortcut for `to contain inGiven order and only nullableEntry { ... }`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("containsStrictly?")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = this to contain inGiven order and only nullableEntry assertionCreator
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entry: NullableEntry<E>): AssertionPlant<T>
+    = this to contain inGiven order and only nullableEntry entry.assertionCreator
 
 
 /**
