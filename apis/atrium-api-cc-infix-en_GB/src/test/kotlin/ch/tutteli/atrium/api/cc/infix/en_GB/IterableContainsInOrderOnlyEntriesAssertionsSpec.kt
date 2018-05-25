@@ -71,7 +71,7 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
         private fun containsStrictlyEntries(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant containsStrictly a
+                plant containsStrictly NullableEntry(a)
             } else {
                 plant containsStrictly NullableEntries(a, *aX)
             }

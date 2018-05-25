@@ -58,11 +58,16 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
         private fun containsInOrderOnlyValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
             = plant.enthaeltStrikt(a, *aX)
 
-        private val containsNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltStriktNullable
-        fun getContainsNullableShortcutPair() = containsNullableShortcutFun.name + " nullable" to Companion::containsInOrderOnlyNullableValuesShortcut
+        private val containsNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltStriktNullableWerte
+        fun getContainsNullableShortcutPair() = containsNullableShortcutFun.name to Companion::containsInOrderOnlyNullableValuesShortcut
 
-        private fun containsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
-            = plant.enthaeltStriktNullable(a, *aX)
+        private fun containsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
+            return if (aX.isEmpty()) {
+                plant.enthaeltStriktNullableWert(a)
+            } else {
+                plant.enthaeltStriktNullableWerte(a, *aX)
+            }
+        }
     }
 }
 
