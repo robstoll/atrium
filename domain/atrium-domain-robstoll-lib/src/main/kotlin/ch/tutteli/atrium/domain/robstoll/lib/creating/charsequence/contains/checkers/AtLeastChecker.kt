@@ -20,5 +20,5 @@ class AtLeastChecker(
 ) : Checker(times, nameContainsNotFun, atLeastCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
-        = createBasicAssertion(DescriptionCharSequenceAssertion.AT_LEAST, foundNumberOfTimes >= times)
+        = createDescriptiveAssertion(DescriptionCharSequenceAssertion.AT_LEAST, foundNumberOfTimes >= times)
 }
