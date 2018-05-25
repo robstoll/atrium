@@ -31,7 +31,9 @@ fun Assert<Int>.istVielfachesVon(base: Int)
     = addAssertion(_istVielfachesVon(this, base))
 
 fun _istVielfachesVon(plant: AssertionPlant<Int>, base: Int): Assertion
-    = AssertImpl.builder.descriptive.create(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
+    = AssertImpl.builder.descriptive
+        .withTest { plant.subject % base == 0 }
+        .create(DescriptionIntAssertions.IS_MULTIPLE_OF, base)
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")

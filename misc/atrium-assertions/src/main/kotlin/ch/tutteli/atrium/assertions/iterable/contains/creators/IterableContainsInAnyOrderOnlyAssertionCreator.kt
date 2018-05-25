@@ -86,11 +86,10 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
     protected abstract fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: SC, list: MutableList<E?>): Pair<Boolean, Assertion>
 
     private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion>
-        = mutableListOf(AssertImpl.builder.descriptive.create(
-            DescriptionAnyAssertion.TO_BE,
-            RawString.create(allSearchCriteria.size.toString()),
-            { actualSize == allSearchCriteria.size }
-        ))
+        = mutableListOf(AssertImpl.builder.descriptive
+            .withTest { actualSize == allSearchCriteria.size }
+            .create(DescriptionAnyAssertion.TO_BE, RawString.create(allSearchCriteria.size.toString()))
+        )
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {
         val assertions = list.map { AssertImpl.builder.explanatory.create(it) }

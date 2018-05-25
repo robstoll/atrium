@@ -80,7 +80,7 @@ interface AssertionBuilder {
      * [DescriptiveAssertion.description] (such as `is less than`) and a [DescriptiveAssertion.representation]
      * (which most of time corresponds to the expected value).
      */
-    val descriptive: DescriptiveAssertionBuilder
+    val descriptive: DescriptiveAssertionHoldsOption
 
     /**
      * Builder to create an [ExplanatoryAssertion] -- use it to explain something which is typically formatted by an

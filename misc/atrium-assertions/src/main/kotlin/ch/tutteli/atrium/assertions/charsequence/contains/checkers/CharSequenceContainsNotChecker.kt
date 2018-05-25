@@ -12,5 +12,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 class CharSequenceContainsNotChecker : CharSequenceContains.Checker {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
-        = AssertImpl.builder.descriptive.create(DescriptionBasic.IS, 0, { foundNumberOfTimes == 0 })
+        = AssertImpl.builder.descriptive
+            .withTest { foundNumberOfTimes == 0 }
+            .create(DescriptionBasic.IS, 0)
 }
