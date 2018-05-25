@@ -253,25 +253,13 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Nullab
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value.
  *
- * Delegates to `containsNot Values(expected)`.
+ * It is a shortcut for `notTo contain value expected`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlant<T>
-    = this containsNot Values(expected)
-
-/**
- * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] nullable value.
- *
- * Delegates to `containsNot NullableValues(expected)`.
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <E : Any?, T : Iterable<E>> Assert<T>.containsNotNullable(expected: E): AssertionPlant<T>
-    = this containsNot NullableValues(expected)
-
+    = this notTo contain value expected
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the expected [values].
@@ -282,15 +270,4 @@ infix fun <E : Any?, T : Iterable<E>> Assert<T>.containsNotNullable(expected: E)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): AssertionPlant<T>
-    = this notTo contain the values
-
-/**
- * Makes the assertion that [AssertionPlant.subject] does not contain the expected nullable [values].
- *
- * It is a shortcut for `notTo contain the NullableValues(...)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <E : Any?, T : Iterable<E>> Assert<T>.containsNot(values: NullableValues<E>): AssertionPlant<T>
     = this notTo contain the values

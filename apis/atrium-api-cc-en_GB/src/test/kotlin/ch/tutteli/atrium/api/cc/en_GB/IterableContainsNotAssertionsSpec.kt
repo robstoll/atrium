@@ -23,7 +23,7 @@ class IterableContainsNotAssertionsSpec : Spek({
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionsSpec(
         AssertionVerbFactory,
         getContainsNotShortcutPair(),
-        getContainsNotNullableShortcutPair(),
+        getContainsNotNullablePair(),
         "[Atrium][Shortcut] "
     )
 
@@ -55,11 +55,5 @@ class IterableContainsNotAssertionsSpec : Spek({
 
         private fun containsNotShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
             = plant.containsNot(a, *aX)
-
-        private val containsNotNullableShortcutFun : KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNotNullable
-        private fun getContainsNotNullableShortcutPair() = containsNotNullableShortcutFun.name to Companion::containsNotNullableShortcut
-
-        private fun containsNotNullableShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
-            = plant.containsNotNullable(a, *aX)
     }
 }
