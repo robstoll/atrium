@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import java.math.BigDecimal
 
 @Deprecated("Use `isNumericallyEqualTo` if you expect that the following assertion holds:\n" +
@@ -11,7 +12,7 @@ import java.math.BigDecimal
     ReplaceWith("this isNumericallyEqualTo expected or isEqualIncludingScale expected"))
 @Suppress("UNUSED_PARAMETER", "unused")
 infix fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
-    = throw UnsupportedOperationException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
+    = throw PleaseUseReplacementException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
     "If you know it and want that `scale` is included in the comparison, then use `isEqualIncludingScale`.")
 
 @Deprecated("Use `isNotNumericallyEqualTo` if you expect that the following assertion is wrong:\n" +
@@ -20,7 +21,7 @@ infix fun <T : BigDecimal> Assert<T>.toBe(expected: T): Nothing
     ReplaceWith("this isNotNumericallyEqualTo expected or isNotEqualIncludingScale expected"))
 @Suppress("UNUSED_PARAMETER", "unused")
 infix fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
-    = throw UnsupportedOperationException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
+    = throw PleaseUseReplacementException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
     "If you know it and want that `scale` is included in the comparison, then use `isNotEqualIncludingScale`.")
 
 /**

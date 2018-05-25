@@ -182,7 +182,8 @@ def createBcTasksForApis(String version, String forgive, String... apis) {
 createBcTasksForApis('0.6.0',
     'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
         '(Iterable.*(error cases|failing cases|context empty collection).*)|' +
-        '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)' +
+        '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)|' +
+        '(BigDecimalAssertionsSpec.*throws UnsupportedOperationException.*)' +
     ')',
     'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
 )
