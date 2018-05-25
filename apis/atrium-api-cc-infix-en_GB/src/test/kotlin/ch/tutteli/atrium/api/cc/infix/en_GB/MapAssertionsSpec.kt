@@ -6,15 +6,18 @@ import ch.tutteli.atrium.creating.Assert
 
 class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
     AssertionVerbFactory,
-    Assert<Map<String, Int>>::hasSize.name to Assert<Map<String, Int>>::hasSize,
+    Assert<Map<String, Int>>::hasSize.name to Companion::hasSize,
     "${Assert<Map<String, Int>>::toBe.name} ${Empty::class.simpleName}" to Companion::isEmpty,
     "${Assert<Map<String, Int>>::notToBe.name} ${Empty::class.simpleName}" to Companion::isNotEmpty
 ) {
     companion object {
-        fun isEmpty(plant: Assert<Map<String, Int>>)
+        private fun hasSize(plant: Assert<Map<String, Int>>, size: Int): Assert<Map<String, Int>>
+            = plant hasSize size
+
+        private fun isEmpty(plant: Assert<Map<String, Int>>)
             = plant toBe Empty
 
-        fun isNotEmpty(plant: Assert<Map<String, Int>>)
+        private fun isNotEmpty(plant: Assert<Map<String, Int>>)
             = plant notToBe Empty
     }
 }
