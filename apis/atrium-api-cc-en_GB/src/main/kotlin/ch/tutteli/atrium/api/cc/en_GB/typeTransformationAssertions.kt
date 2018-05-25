@@ -32,3 +32,17 @@ inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNull(noinline ass
 inline fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator: AssertionPlant<TSub>.() -> Unit) {
     AssertImpl.any.typeTransformation.isA(this, TSub::class, assertionCreator)
 }
+
+/**
+ * Makes the assertion that [AssertionPlantNullable.subject] is not null but the [expected] value.
+ *
+ * Is a shortcut for `notToBeNull { toBe(expected) }`
+ *
+ * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+ *   assertion ([AssertionPlant.subject] is not null) holds or not.
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNullBut(expected: T) {
+    notToBeNull { toBe(expected) }
+}
