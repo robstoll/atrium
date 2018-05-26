@@ -2,12 +2,12 @@ package ch.tutteli.atrium.domain.builders.assertions.builders.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintBuilder
-import ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintOption
+import ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintShowOption
 
-internal class DescriptiveAssertionWithFailureHintOptionImpl(
+internal class DescriptiveAssertionWithFailureHintShowOptionImpl(
     private val test: () -> Boolean,
     private val failureHintFactory: () -> Assertion
-): DescriptiveAssertionWithFailureHintOption {
+): DescriptiveAssertionWithFailureHintShowOption {
 
    override val showForAnyFailure get(): DescriptiveAssertionWithFailureHintBuilder
         = DescriptiveAssertionWithFailureHintBuilderImpl(test, { true }, failureHintFactory)

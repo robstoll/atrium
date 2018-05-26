@@ -19,10 +19,14 @@ fun _createDescriptiveWithFailureHint(
         true //TODO that's a hack, do we have a better solution?
     }
     return if (holds || !showHint()) {
-        AssertImpl.builder.descriptive.withTest({ holds }).create(description, representation)
+        AssertImpl.builder.descriptive
+            .withTest({ holds })
+            .create(description, representation)
     } else {
-        AssertImpl.builder.fixHoldsGroup.createFailingWithListType(
-            description, representation, failureHintFactory()
-        )
+        AssertImpl.builder
+            .fixHoldsGroup(description, representation)
+            .withListType
+            .failing
+            .create(failureHintFactory())
     }
 }

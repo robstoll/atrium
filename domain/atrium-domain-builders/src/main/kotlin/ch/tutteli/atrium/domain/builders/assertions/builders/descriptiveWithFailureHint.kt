@@ -5,19 +5,21 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionBuilder
 import ch.tutteli.atrium.assertions.builders.DescriptiveLikeAssertionBuilder
-import ch.tutteli.atrium.domain.builders.assertions.builders.impl.DescriptiveAssertionWithFailureHintOptionImpl
+import ch.tutteli.atrium.domain.builders.assertions.builders.impl.DescriptiveAssertionWithFailureHintShowOptionImpl
 
 /**
- * Builder to create a descriptive [Assertion] with an additional hint which is only shown if the `test()` fails.
+ * Builder to create a descriptive [Assertion] with an additional hint which might be shown if the
+ * [DescriptiveAssertionBuilder.test] fails.
  */
 fun DescriptiveAssertionBuilder.withFailureHint(
     failureHintFactory: () -> Assertion
-): DescriptiveAssertionWithFailureHintOption = DescriptiveAssertionWithFailureHintOptionImpl(test, failureHintFactory)
+): DescriptiveAssertionWithFailureHintShowOption
+    = DescriptiveAssertionWithFailureHintShowOptionImpl(test, failureHintFactory)
 
 /**
- * Provides options to create a [DescriptiveAssertion] like assertion with an additional failure hint.
+ * Provides options to specify in which situations the failure hint should be shown.
  */
-interface DescriptiveAssertionWithFailureHintOption {
+interface DescriptiveAssertionWithFailureHintShowOption {
     /**
      * Specifies that the failure hint shall be shown in any case.
      */

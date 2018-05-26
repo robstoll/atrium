@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.AssertionGroupType
 /**
  * Base interface for all [AssertionGroup] builder which want to provide different overloads for [create] methods.
  */
-interface AssertionGroupBuilder<out T: AssertionGroupType> {
+interface AssertionGroupBuilder<out T : AssertionGroupType> {
 
     /**
      * The [AssertionGroupType] which shall be used for the [AssertionGroup].

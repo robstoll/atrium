@@ -1,52 +1,76 @@
 package ch.tutteli.atrium.domain.builders.assertions.builders
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
+import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.domain.builders.assertions.FixHoldsAssertionGroup
+import ch.tutteli.atrium.assertions.builders.AssertionGroupBuilder
+import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixHoldsAssertionGroupTypeOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  *  Builder to create an [AssertionGroup] whose [AssertionGroup.holds] is fixed (not determined based on its
- * [AssertionGroup.assertions] but specified by the argument `holds` passed to its constructor).
+ * [AssertionGroup.assertions] but specified by the [FixHoldsAssertionGroupHoldsOption]).
+ *
+ * @param name The [AssertionGroup.name].
+ * @param representation The [AssertionGroup.representation].
  */
 @Suppress("unused")
-val AssertionBuilder.fixHoldsGroup get() = FixHoldsAssertionGroupBuilder()
+fun AssertionBuilder.fixHoldsGroup(name: Translatable, representation: Any): FixHoldsAssertionGroupTypeOption
+    = FixHoldsAssertionGroupTypeOptionImpl(name, representation)
 
 /**
-*  Builder to create an [AssertionGroup] whose [AssertionGroup.holds] is fixed (not determined based on its
-* [AssertionGroup.assertions] but specified by the argument `holds` passed to `create`).
-*/
-class FixHoldsAssertionGroupBuilder internal constructor() {
-    /**
-     * Creates an [AssertionGroup] whose [AssertionGroup.holds] returns `false`, its [AssertionGroup.type] is
-     * [DefaultListAssertionGroupType] and it uses the given [name], [subject] and [assertion] as single [Assertion]
-     * in [AssertionGroup.assertions].
-     */
-    fun createFailingWithListType(name: Translatable, subject: Any, assertion: Assertion): AssertionGroup
-        = createFailingWithListType(name, subject, listOf(assertion))
+ * Provides options to specify the [AssertionGroup.type].
+ */
+interface FixHoldsAssertionGroupTypeOption {
+    val name: Translatable
+    val subject: Any
 
     /**
-     * Creates an [AssertionGroup] whose [AssertionGroup.holds] returns `false`, its [AssertionGroup.type] is
-     * [DefaultListAssertionGroupType] and it uses the given [name], [subject] and [assertions].
+     * Defines that a [ListAssertionGroupType] shall be used for [AssertionGroup.type].
      */
-    fun createFailingWithListType(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
-        = create(name, subject, false, DefaultListAssertionGroupType, assertions)
+    val withListType: FixHoldsAssertionGroupHoldsOption<ListAssertionGroupType>
 
     /**
-     * Creates an [AssertionGroup] whose [AssertionGroup.holds] returns the given [holds] and
-     * uses the given [name], [subject], [type] and [assertion] as single [Assertion] in [AssertionGroup.assertions].
+     * Uses the given [type] as [AssertionGroup.type].
+     *
+     * @param type The [AssertionGroup.type].
      */
-    fun create(name: Translatable, subject: Any, holds: Boolean, type: AssertionGroupType, assertion: Assertion): AssertionGroup
-        = create(name, subject, holds, type, listOf(assertion))
+    fun <T : AssertionGroupType> withType(type: T): FixHoldsAssertionGroupHoldsOption<T>
+}
+
+/**
+ * Provides options to specify the [AssertionGroup.holds].
+ */
+interface FixHoldsAssertionGroupHoldsOption<out T: AssertionGroupType> {
+    val name: Translatable
+    val subject: Any
+    val groupType: T
 
     /**
-     * Creates an [AssertionGroup] whose [AssertionGroup.holds] returns the given [holds] and
-     * uses the given [name], [subject], [type] and [assertions] for the created group.
+     * Defines that the [AssertionGroup] holds.
      */
-    fun create(name: Translatable, subject: Any, holds: Boolean, type: AssertionGroupType, assertions: List<Assertion>): AssertionGroup
-        = FixHoldsAssertionGroup(type, name, subject, assertions, holds)
+    val holding: FixHoldsAssertionGroupBuilder<T>
+
+    /**
+     * Defines that the [AssertionGroup] does not hold.
+     */
+    val failing: FixHoldsAssertionGroupBuilder<T>
+
+    /**
+     * Uses the given [holds] as [AssertionGroup.holds].
+     */
+    fun withClaim(holds: Boolean): FixHoldsAssertionGroupBuilder<T>
+}
+
+
+/**
+ *  Builder to create an [AssertionGroup] whose [AssertionGroup.holds] is fixed (not determined based on its
+ * [AssertionGroup.assertions] but specified by property [holds]).
+ */
+interface FixHoldsAssertionGroupBuilder<out T : AssertionGroupType> : AssertionGroupBuilder<T> {
+    val name: Translatable
+    val subject: Any
+    val holds: Boolean
 }
 

@@ -74,7 +74,7 @@ abstract class AssertionFormatterControllerSpec(
             listOf<Pair<String, (ExplanatoryAssertionGroupType, List<Assertion>) -> AssertionGroup>>(
                 "${AssertionBuilder::class.simpleName}.${AssertionBuilder::explanatoryGroup.name}.withType(t)" to { t, a -> AssertImpl.builder.explanatoryGroup.withType(t).create(a) },
                 "${AssertionBuilder::class.simpleName}.withType(t, ..)" to { t, a -> AssertImpl.builder.withType(t, AssertionVerb.VERB, 1).create(a) },
-                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::fixHoldsGroup.name}" to { t, a -> AssertImpl.builder.fixHoldsGroup.create(AssertionVerb.VERB, 1, false, t, a) }
+                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::fixHoldsGroup.name}" to { t, a -> AssertImpl.builder.fixHoldsGroup(AssertionVerb.VERB, 1).withType(t).failing.create(a) }
             ).forEach { (groupName, factory) ->
                 listOf(
                     Triple(
