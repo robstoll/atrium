@@ -47,22 +47,29 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
                     createExplanatoryGroupForMismatchesEtc(list, WARNING_ADDITIONAL_ENTRIES)
                 })
             }
-            assertions.add(AssertImpl.builder
-                .feature(Untranslatable(list::size.name), RawString.create(actualSize.toString()))
-                .create(featureAssertions)
+            assertions.add(AssertImpl.builder.feature
+                .withDescriptionAndRepresentation(Untranslatable(list::size.name), RawString.create(actualSize.toString()))
+                .withAssertions(featureAssertions)
+                .build()
             )
 
             val description = searchBehaviour.decorateDescription(CONTAINS)
-            val summary = AssertImpl.builder.summary(description).create(assertions)
+            val summary = AssertImpl.builder.summary
+                .withDescription(description)
+                .withAssertions(assertions)
+                .build()
+
             if (mismatches != 0 && list.isNotEmpty()) {
                 val warningDescription = when (list.size) {
                     mismatches -> WARNING_MISMATCHES
                     else -> WARNING_MISMATCHES_ADDITIONAL_ENTRIES
                 }
-                AssertImpl.builder.invisibleGroup.create(
-                    summary,
-                    createExplanatoryGroupForMismatchesEtc(list, warningDescription)
-                )
+                AssertImpl.builder.invisibleGroup
+                    .withAssertions(
+                        summary,
+                        createExplanatoryGroupForMismatchesEtc(list, warningDescription)
+                    )
+                    .build()
             } else {
                 summary
             }
@@ -89,7 +96,13 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {
         val assertions = list.map { AssertImpl.builder.explanatory.create(it) }
-        val additionalEntries = AssertImpl.builder.list(warning, RawString.EMPTY).create(assertions)
-        return AssertImpl.builder.explanatoryGroup.withWarning.create(additionalEntries)
+        val additionalEntries = AssertImpl.builder.list
+            .withDescriptionAndRepresentation(warning, RawString.EMPTY)
+            .withAssertions(assertions)
+            .build()
+        return AssertImpl.builder.explanatoryGroup
+            .withWarning
+            .withAssertion(additionalEntries)
+            .build()
     }
 }

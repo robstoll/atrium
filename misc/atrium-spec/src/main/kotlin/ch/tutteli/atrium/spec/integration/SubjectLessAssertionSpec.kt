@@ -23,8 +23,12 @@ abstract class SubjectLessAssertionSpec<T : Any>(
                 val plant = coreFactory.newReportingPlant(AssertionVerb.ASSERT, 1.0,
                     coreFactory.newOnlyFailureReporter(
                         coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
-                    ))
-                val explanatoryGroup = AssertImpl.builder.explanatoryGroup.withDefault.create(assertions)
+                    )
+                )
+                val explanatoryGroup = AssertImpl.builder.explanatoryGroup
+                    .withDefault
+                    .withAssertions(assertions)
+                    .build()
                 plant.addAssertion(explanatoryGroup)
             }
         }

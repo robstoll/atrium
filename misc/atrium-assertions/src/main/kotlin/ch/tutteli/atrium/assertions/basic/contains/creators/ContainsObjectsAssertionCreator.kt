@@ -34,15 +34,18 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : ch.tutteli.atrium
 ) : ContainsAssertionCreator<T, S, C>(checkers) {
 
     final override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
-        = AssertImpl.builder.invisibleGroup.create(assertions)
+        = AssertImpl.builder.invisibleGroup
+            .withAssertions(assertions)
+            .build()
 
     final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: S, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val count = search(plant, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
         val description = searchBehaviour.decorateDescription(descriptionContains)
-        return AssertImpl.builder
-            .list(description, searchCriterion ?: RawString.NULL)
-            .create(featureAssertion)
+        return AssertImpl.builder.list
+            .withDescriptionAndRepresentation(description, searchCriterion ?: RawString.NULL)
+            .withAssertion(featureAssertion)
+            .build()
     }
 
     /**

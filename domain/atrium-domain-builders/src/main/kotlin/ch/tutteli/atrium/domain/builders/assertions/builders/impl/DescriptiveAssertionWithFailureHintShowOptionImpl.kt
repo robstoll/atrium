@@ -10,8 +10,8 @@ internal class DescriptiveAssertionWithFailureHintShowOptionImpl(
 ): DescriptiveAssertionWithFailureHintShowOption {
 
    override val showForAnyFailure get(): DescriptiveAssertionWithFailureHintBuilder
-        = DescriptiveAssertionWithFailureHintBuilderImpl(test, { true }, failureHintFactory)
+        = DescriptiveAssertionWithFailureHintBuilder.create(test, { true }, failureHintFactory)
 
     override fun showOnlyIf(predicate: () -> Boolean): DescriptiveAssertionWithFailureHintBuilder
-        = DescriptiveAssertionWithFailureHintBuilderImpl(test, predicate, failureHintFactory)
+        = DescriptiveAssertionWithFailureHintBuilder.create(test, predicate, failureHintFactory)
 }

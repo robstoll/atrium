@@ -53,10 +53,12 @@ class TextFallbackAssertionFormatterSpec : Spek({
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
             it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name}") {
                 val assertionGroup = with(AssertImpl.builder) {
-                    root(ASSERT, "subject").create(
-                        descriptive.failing.create(TO_BE, "bli"),
-                        descriptive.failing.create(NOT_TO_BE, "bye")
-                    )
+                    root.withDescriptionAndRepresentation(ASSERT, "subject")
+                        .withAssertions(
+                            descriptive.failing.create(TO_BE, "bli"),
+                            descriptive.failing.create(NOT_TO_BE, "bye")
+                        )
+                        .build()
                 }
                 assert(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
@@ -82,10 +84,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
             TextFallbackAssertionFormatter(
                 bulletPoints,
                 assertionFormatterController,
-                TextSameLineAssertionPairFormatter(
-                    objectFormatter,
-                    translator
-                ),
+                TextSameLineAssertionPairFormatter(objectFormatter, translator),
                 objectFormatter
             )
         }

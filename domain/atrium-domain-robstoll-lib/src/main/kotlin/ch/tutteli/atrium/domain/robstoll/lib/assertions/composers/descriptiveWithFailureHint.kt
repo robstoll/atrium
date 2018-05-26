@@ -23,10 +23,11 @@ fun _createDescriptiveWithFailureHint(
             .withTest({ holds })
             .create(description, representation)
     } else {
-        AssertImpl.builder
-            .fixedClaimGroup(description, representation)
+        AssertImpl.builder.fixedClaimGroup
             .withListType
             .failing
-            .create(failureHintFactory())
+            .withDescriptionAndRepresentation(description, representation)
+            .withAssertion(failureHintFactory())
+            .build()
     }
 }

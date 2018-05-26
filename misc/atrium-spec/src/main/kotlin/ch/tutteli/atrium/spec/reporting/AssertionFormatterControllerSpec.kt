@@ -74,12 +74,27 @@ abstract class AssertionFormatterControllerSpec(
 
             val anonymousType = object : ExplanatoryAssertionGroupType {}
 
-            val fixedClaimGroup : KFunction3<AssertionBuilder, Translatable, Any, FixedClaimAssertionGroupTypeOption>  = AssertionBuilder::fixedClaimGroup
-
             listOf<Pair<String, (ExplanatoryAssertionGroupType, List<Assertion>) -> AssertionGroup>>(
-                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::explanatoryGroup.name}.customType(t)" to { t, a -> AssertImpl.builder.explanatoryGroup.withType(t).create(a) },
-                "${AssertionBuilder::class.simpleName}.customType(t, ..)" to { t, a -> AssertImpl.builder.customType(t, AssertionVerb.VERB, 1).create(a) },
-                "${AssertionBuilder::class.simpleName}.${fixedClaimGroup.name}" to { t, a -> AssertImpl.builder.fixedClaimGroup(AssertionVerb.VERB, 1).withType(t).failing.create(a) }
+                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::explanatoryGroup.name}.customType(t)" to { t, a ->
+                    AssertImpl.builder.explanatoryGroup
+                        .withType(t)
+                        .withAssertions(a)
+                        .build()
+                },
+                "${AssertionBuilder::class.simpleName}.customType(t, ..)" to { t, a ->
+                    AssertImpl.builder.customType(t)
+                        .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
+                        .withAssertions(a)
+                        .build()
+                },
+                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::fixedClaimGroup.name}" to { t, a ->
+                    AssertImpl.builder.fixedClaimGroup
+                        .withType(t)
+                        .failing
+                        .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
+                        .withAssertions(a)
+                        .build()
+                }
             ).forEach { (groupName, factory) ->
                 listOf(
                     Triple(
@@ -127,10 +142,13 @@ abstract class AssertionFormatterControllerSpec(
 
             context("first an ${ExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
                 it("appends only the explanatory assertion group") {
-                    val rootGroup = AssertImpl.builder.root(AssertionVerb.ASSERT, 5).create(
-                        AssertImpl.builder.explanatoryGroup.withDefault.create(listOf(assertion)),
-                        assertion
-                    )
+                    val rootGroup = AssertImpl.builder.root
+                        .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
+                        .withAssertions(
+                            AssertImpl.builder.explanatoryGroup.withDefault.withAssertion(assertion).build(),
+                            assertion
+                        )
+                        .build()
                     testee.format(rootGroup, parameterObject)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
                         "$indentBulletPoint$arrow ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
@@ -139,11 +157,14 @@ abstract class AssertionFormatterControllerSpec(
 
             context("first a regular assertion, then an ${ExplanatoryAssertionGroupType::class.simpleName} and finally a regular assertion again") {
                 it("appends only the explanatory assertion group") {
-                    val rootGroup = AssertImpl.builder.root(AssertionVerb.ASSERT, 5).create(listOf(
-                        assertion,
-                        AssertImpl.builder.explanatoryGroup.withWarning.create(assertion),
-                        assertion
-                    ))
+                    val rootGroup = AssertImpl.builder.root
+                        .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
+                        .withAssertions(
+                            assertion,
+                            AssertImpl.builder.explanatoryGroup.withWarning.withAssertion(assertion).build(),
+                            assertion
+                        )
+                        .build()
                     testee.format(rootGroup, parameterObject)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
                         "$indentBulletPoint$warning ${IS_GREATER_OR_EQUALS.getDefault()}: 1")
@@ -151,11 +172,20 @@ abstract class AssertionFormatterControllerSpec(
             }
 
             context("an assertion group with assertions within an ${ExplanatoryAssertionGroupType::class.simpleName}") {
-                val assertionGroup = AssertImpl.builder.list(AssertionVerb.EXPECT_THROWN, 2).create(listOf(assertion, failingAssertion))
-                val explanatoryAssertionGroup = AssertImpl.builder.explanatoryGroup.withDefault.create(listOf(assertionGroup, assertion))
+                val assertionGroup = AssertImpl.builder.list
+                    .withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2)
+                    .withAssertions(assertion, failingAssertion)
+                    .build()
+                val explanatoryAssertionGroup = AssertImpl.builder.explanatoryGroup
+                    .withDefault
+                    .withAssertions(listOf(assertionGroup, assertion))
+                    .build()
 
                 it("appends the explanatory assertion group including all its assertions") {
-                    val rootGroup = AssertImpl.builder.root(AssertionVerb.ASSERT, 5).create(explanatoryAssertionGroup)
+                    val rootGroup = AssertImpl.builder.root
+                        .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
+                        .withAssertion(explanatoryAssertionGroup)
+                        .build()
                     testee.format(rootGroup, parameterObject)
                     verbs.checkImmediately(sb.toString()).toBe("${AssertionVerb.ASSERT.getDefault()}: 5$separator" +
                         "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
@@ -166,8 +196,14 @@ abstract class AssertionFormatterControllerSpec(
 
                 context("within another ${ExplanatoryAssertionGroupType::class.simpleName} which is preceded and followed by a regular assertion ") {
                     it("appends the explanatory assertion group including all its assertions") {
-                        val explanatoryAssertionGroup2 = AssertImpl.builder.explanatoryGroup.withWarning.create(explanatoryAssertionGroup)
-                        val rootGroup2 = AssertImpl.builder.root(IS_LESS_THAN, 10).create(listOf(failingAssertion, explanatoryAssertionGroup2, assertion))
+                        val explanatoryAssertionGroup2 = AssertImpl.builder.explanatoryGroup
+                            .withWarning
+                            .withAssertion(explanatoryAssertionGroup)
+                            .build()
+                        val rootGroup2 = AssertImpl.builder.root
+                            .withDescriptionAndRepresentation(IS_LESS_THAN, 10)
+                            .withAssertions(failingAssertion, explanatoryAssertionGroup2, assertion)
+                            .build()
                         testee.format(rootGroup2, parameterObject)
                         verbs.checkImmediately(sb.toString()).toBe("${IS_LESS_THAN.getDefault()}: 10$separator" +
                             "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$separator" +
@@ -196,7 +232,10 @@ abstract class AssertionFormatterControllerSpec(
                             override val representation = "representation"
                             override val assertions = listOf(assertion, failingAssertion)
                         }
-                        val summaryGroup = AssertImpl.builder.summary(AssertionVerb.ASSERT).create(invisibleGroup)
+                        val summaryGroup = AssertImpl.builder.summary
+                            .withDescription(AssertionVerb.ASSERT)
+                            .withAssertion(invisibleGroup)
+                            .build()
                         testee.format(summaryGroup, parameterObject)
                         verbs.checkImmediately(sb.toString()).toBe(separator +
                             "${AssertionVerb.ASSERT.getDefault()}: ${RawString.EMPTY}$separator" +

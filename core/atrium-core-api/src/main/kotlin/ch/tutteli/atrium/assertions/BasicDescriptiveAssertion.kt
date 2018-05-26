@@ -15,7 +15,7 @@ class BasicDescriptiveAssertion
 @Deprecated(
     "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
-        "AssertImpl.builder.descriptive.create(description, representation, test)",
+        "AssertImpl.builder.descriptive.withAssertions(description, representation, test)",
         "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
     )
 )
@@ -37,7 +37,7 @@ constructor(
     @Deprecated(
         "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
         ReplaceWith(
-            "AssertImpl.builder.descriptive.create(description, representation, holds)",
+            "AssertImpl.builder.descriptive.withAssertions(description, representation, holds)",
             "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
         )
     )

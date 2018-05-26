@@ -36,20 +36,23 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
 
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup {
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        return AssertImpl.builder
-            .list(description, RawString.EMPTY)
-            .create(assertions)
+        return AssertImpl.builder.list
+            .withDescriptionAndRepresentation(description, RawString.EMPTY)
+            .withAssertions(assertions)
+            .build()
     }
 
     override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(plant.subject.iterator(), searchCriterion)
+        val explanatoryGroup = AssertImpl.builder.explanatoryGroup
+            .withDefault
+            .withAssertions(explanatoryAssertions)
+            .build()
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        return AssertImpl.builder
-            .list(AN_ENTRY_WHICH, RawString.EMPTY)
-            .create(
-                AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions),
-                featureAssertion
-            )
+        return AssertImpl.builder.list
+            .withDescriptionAndRepresentation(AN_ENTRY_WHICH, RawString.EMPTY)
+            .withAssertions(explanatoryGroup, featureAssertion)
+            .build()
     }
 
     private fun createExplanatoryAssertionsAndMatchingCount(itr: Iterator<E?>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Pair<List<Assertion>, Int> {

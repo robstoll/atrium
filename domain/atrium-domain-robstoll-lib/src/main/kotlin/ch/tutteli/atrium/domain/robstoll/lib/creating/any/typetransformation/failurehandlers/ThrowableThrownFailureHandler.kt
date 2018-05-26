@@ -14,12 +14,15 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
 
     override fun createFailingAssertion(description: Translatable, representation: Any): Assertion {
         val messageOfOtherException = {
-            AssertImpl.builder.explanatoryGroup.withDefault.create(
-                AssertImpl.builder.descriptive.holding.create(
-                    DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
-                    throwable?.localizedMessage ?: RawString.NULL
+            AssertImpl.builder.explanatoryGroup
+                .withDefault
+                .withAssertion(
+                    AssertImpl.builder.descriptive.holding.create(
+                        DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
+                        throwable?.localizedMessage ?: RawString.NULL
+                    )
                 )
-            )
+                .build()
         }
         return ExplanatoryFailureHandlerWithHint<Any, TExpected>(
             showHint = { throwable != null && !expectedType.isInstance(throwable) },
