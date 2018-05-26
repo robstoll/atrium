@@ -49,9 +49,10 @@ private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T
             //same problematic applies to feature assertions within an identification lambda
             val df = DecimalFormat("###,##0.0")
             df.maximumFractionDigits = 340
-            AssertImpl.builder.explanatoryGroup.withDefault.create(
-                explanatoryAssertionCreator(df)
-            )
+            AssertImpl.builder.explanatoryGroup
+                .withDefault
+                .withAssertions(explanatoryAssertionCreator(df))
+                .build()
         }
         .showForAnyFailure
         .create(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected)

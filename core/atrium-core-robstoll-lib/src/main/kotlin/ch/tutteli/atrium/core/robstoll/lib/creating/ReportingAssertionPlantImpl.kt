@@ -22,12 +22,13 @@ class ReportingAssertionPlantImpl<out T : Any>(
     commonFields: AssertionPlantWithCommonFields.CommonFields<T>
 ) : MutableListBasedReportingAssertionPlant<T, AssertionPlant<T>>(commonFields),
     ReportingAssertionPlant<T> {
+
     override val self = this
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T> {
         val assertions = coreFactory.newCollectingPlant({ subject })
             .addAssertionsCreatedBy(assertionCreator)
             .getAssertions()
-        return addAssertion(assertionBuilder.invisibleGroup.create(assertions))
+        return addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
     }
 }

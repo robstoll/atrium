@@ -35,6 +35,6 @@ class DelegatingAssertionChecker<out T : Any?>(private val subjectPlant: BaseAss
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
     override fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) {
-        subjectPlant.addAssertion(assertionBuilder.invisibleGroup.create(assertions))
+        subjectPlant.addAssertion(assertionBuilder.invisibleGroup.withAssertions(assertions).build())
     }
 }

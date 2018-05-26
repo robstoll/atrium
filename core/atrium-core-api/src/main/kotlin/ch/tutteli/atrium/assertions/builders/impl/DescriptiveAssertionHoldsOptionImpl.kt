@@ -7,12 +7,8 @@ internal object DescriptiveAssertionHoldsOptionImpl : DescriptiveAssertionHoldsO
     private val falseProvider = { false }
     private val trueProvider = { true }
 
-    override val failing: DescriptiveAssertionBuilder
-        = DescriptiveAssertionBuilderImpl(falseProvider)
+    override val failing: DescriptiveAssertionBuilder = DescriptiveAssertionBuilderImpl(falseProvider)
+    override val holding: DescriptiveAssertionBuilder = DescriptiveAssertionBuilderImpl(trueProvider)
 
-    override val holding: DescriptiveAssertionBuilder
-        = DescriptiveAssertionBuilderImpl(trueProvider)
-
-    override fun withTest(test: () -> Boolean): DescriptiveAssertionBuilder
-        = DescriptiveAssertionBuilderImpl(test)
+    override fun withTest(test: () -> Boolean): DescriptiveAssertionBuilder = DescriptiveAssertionBuilderImpl(test)
 }

@@ -55,11 +55,16 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(
     .collect(description, assertionCreator, subject)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
-    return AssertImpl.builder
-        .fixedClaimGroup(AN_ENTRY_WHICH)
+    val explanatoryGroup = AssertImpl.builder.explanatoryGroup
+        .withDefault
+        .withAssertions(explanatoryAssertions)
+        .build()
+    return AssertImpl.builder.fixedClaimGroup
         .withListType
         .withClaim(found)
-        .create(AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions))
+        .withDescriptionAndRepresentation(AN_ENTRY_WHICH, RawString.EMPTY)
+        .withAssertion(explanatoryGroup)
+        .build()
 }
 
 internal fun <E : Any> allCreatedAssertionsHold(
@@ -89,9 +94,10 @@ fun <E, SC> createEntryAssertionTemplate(
             Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
         })
         val description = TranslatableWithArgs(entryWithIndex, index)
-        AssertImpl.builder
-            .feature(description, entryRepresentation)
-            .create(createEntryFeatureAssertion({ found }))
+        AssertImpl.builder.feature
+            .withDescriptionAndRepresentation(description, entryRepresentation)
+            .withAssertion(createEntryFeatureAssertion({ found }))
+            .build()
     }
 }
 
@@ -110,12 +116,16 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
                         val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
                         AssertImpl.builder.descriptive.holding.create(description, it ?: RawString.NULL)
                     }
-                    with(AssertImpl.builder) {
-                        explanatoryGroup.withWarning.create(
-                            list(WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
-                                .create(assertions)
+
+                    AssertImpl.builder.explanatoryGroup
+                        .withWarning
+                        .withAssertion(
+                            AssertImpl.builder.list
+                                .withDescriptionAndRepresentation(WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
+                                .withAssertions(assertions)
+                                .build()
                         )
-                    }
+                        .build()
                 })
             }
         }

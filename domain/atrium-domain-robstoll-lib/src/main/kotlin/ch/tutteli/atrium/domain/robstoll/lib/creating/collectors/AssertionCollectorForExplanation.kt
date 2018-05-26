@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
@@ -32,15 +33,16 @@ class AssertionCollectorForExplanation(private val throwIfNoAssertionIsCollected
 
             collectedAssertions
         } catch (e: PlantHasNoSubjectException) {
-            listOf(AssertImpl.builder.explanatoryGroup.withWarning.createWithExplanatoryAssertion(warning))
+            listOf(AssertImpl.builder.explanatoryGroup
+                .withWarning
+                .withExplanatoryAssertion(warning)
+                .build()
+            )
         }
     }
 
     private fun <E : Any> collect(assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
-        val collectingAssertionPlant =
-            createPlant(
-                subject
-            )
+        val collectingAssertionPlant = createPlant(subject)
         if (assertionCreator != null) {
             collectingAssertionPlant.addAssertionsCreatedBy(assertionCreator)
         } else {

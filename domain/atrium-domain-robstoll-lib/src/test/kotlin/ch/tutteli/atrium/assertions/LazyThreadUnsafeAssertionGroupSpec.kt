@@ -18,7 +18,10 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
         val assertion = AssertImpl.builder.descriptive.failing.create(Untranslatable("b"), 3)
         val testee = LazyThreadUnsafeAssertionGroup {
             ++callingCount
-            AssertImpl.builder.feature(Untranslatable("a"), 2).create(assertion)
+            AssertImpl.builder.feature
+                .withDescriptionAndRepresentation(Untranslatable("a"), 2)
+                .withAssertion(assertion)
+                .build()
         }
         test("does not evaluate anything") {
             assert(callingCount).toBe(0)

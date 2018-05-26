@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.withFailureHint
@@ -27,12 +28,12 @@ fun <T : BigDecimal> _isEqualIncludingScale(
 ): Assertion = AssertImpl.builder.descriptive
     .withTest{ plant.subject == expected }
     .withFailureHint {
-        AssertImpl.builder.explanatoryGroup.withDefault.createWithExplanatoryAssertion(
-            FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL, nameOfIsNumericallyEqualTo
-        )
+        AssertImpl.builder.explanatoryGroup
+            .withDefault
+            .withExplanatoryAssertion(FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL, nameOfIsNumericallyEqualTo)
+            .build()
     }
     .showOnlyIf { isNumericallyEqualTo(plant, expected) }
-
     .create(IS_EQUAL_INCLUDING_SCALE, expected)
 
 fun <T : BigDecimal> _isNotEqualIncludingScale(plant: AssertionPlant<T>, expected: T)

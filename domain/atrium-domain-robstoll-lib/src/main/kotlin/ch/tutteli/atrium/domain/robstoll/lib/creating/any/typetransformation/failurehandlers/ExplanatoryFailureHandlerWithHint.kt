@@ -13,7 +13,7 @@ class ExplanatoryFailureHandlerWithHint<in S : Any, out T : Any>(
     override fun createFailingAssertion(description: Translatable, representation: Any): Assertion {
         val failingAssertion = AssertImpl.builder.descriptive.failing.create(description, representation)
         return if (showHint()) {
-            AssertImpl.builder.invisibleGroup.create(listOf(failureHintFactory(), failingAssertion))
+            AssertImpl.builder.invisibleGroup.withAssertions(listOf(failureHintFactory(), failingAssertion)).build()
         } else {
             failingAssertion
         }

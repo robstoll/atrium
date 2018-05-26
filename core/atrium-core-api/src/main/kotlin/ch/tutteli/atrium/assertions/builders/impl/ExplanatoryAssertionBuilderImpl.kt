@@ -6,6 +6,5 @@ import ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionBuilder
 
 internal object ExplanatoryAssertionBuilderImpl : ExplanatoryAssertionBuilder {
 
-    override fun create(explanation: Any?) : ExplanatoryAssertion
-        = BasicExplanatoryAssertion(explanation)
+    override fun create(explanation: Any?): ExplanatoryAssertion = BasicExplanatoryAssertion(explanation)
 }

@@ -22,34 +22,36 @@ internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(assertio
         collectIterableAssertionsForExplanation(assertionCreator, first)
     } else {
         collectIterableAssertionsForExplanation(
-            DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_ONLY_NULL,
-            assertionCreator,
-            null)
+            DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_ONLY_NULL, assertionCreator, null
+        )
     }
 }
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
     = collectIterableAssertionsForExplanation(
-        DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE,
-        assertionCreator,
-        subject
+        DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE, assertionCreator, subject
     )
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun <E : Any> collectIterableAssertionsForExplanation(description: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
-    =  AssertImpl.collector
+    = AssertImpl.collector
         .forExplanation
         .throwIfNoAssertionIsCollected
         .collect(description, assertionCreator, subject)
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
-    = AssertImpl.builder
-        .fixedClaimGroup(DescriptionIterableAssertion.AN_ENTRY_WHICH)
+    = AssertImpl.builder.fixedClaimGroup
         .withListType
         .withClaim(found)
-        .create(AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions))
+        .withDescriptionAndRepresentation(DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString.EMPTY)
+        .withAssertion(AssertImpl.builder.explanatoryGroup
+            .withDefault
+            .withAssertions(explanatoryAssertions)
+            .build()
+        )
+        .build()
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean
