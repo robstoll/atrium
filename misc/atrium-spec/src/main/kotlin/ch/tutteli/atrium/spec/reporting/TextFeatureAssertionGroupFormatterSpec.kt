@@ -35,14 +35,14 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
         AssertImpl.builder.descriptive.holding.create(AssertionVerb.EXPECT_THROWN, 2)
     )
     val featureAssertionGroup = AssertImpl.builder
-        .withType(object : FeatureAssertionGroupType {}, TranslatorIntSpec.TestTranslatable.PLACEHOLDER, 2)
+        .customType(object : FeatureAssertionGroupType {}, TranslatorIntSpec.TestTranslatable.PLACEHOLDER, 2)
         .create(assertions)
 
     describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(bulletPoints, coreFactory.newAssertionFormatterController(), ToStringObjectFormatter, UsingDefaultTranslator())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${FeatureAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(AssertImpl.builder
-                .withType(object : FeatureAssertionGroupType {}, Untranslatable.EMPTY, 1)
+                .customType(object : FeatureAssertionGroupType {}, Untranslatable.EMPTY, 1)
                 .create(listOf())
             )
             verbs.checkImmediately(result).toBe(true)
@@ -90,7 +90,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                         AssertImpl.builder.descriptive.failing.create(AssertionVerb.ASSERT, 30)
                     )
                     val featureAssertionGroup2 = AssertImpl.builder
-                        .withType(object : FeatureAssertionGroupType {}, AssertionVerb.EXPECT_THROWN, 10)
+                        .customType(object : FeatureAssertionGroupType {}, AssertionVerb.EXPECT_THROWN, 10)
                         .create(featureAssertions)
                     facade.format(featureAssertionGroup2, sb, alwaysTrueAssertionFilter)
                     verbs.checkImmediately(sb.toString()).toBe(separator

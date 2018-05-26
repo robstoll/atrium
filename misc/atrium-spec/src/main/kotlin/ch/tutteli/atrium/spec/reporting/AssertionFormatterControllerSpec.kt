@@ -72,8 +72,8 @@ abstract class AssertionFormatterControllerSpec(
             val anonymousType = object : ExplanatoryAssertionGroupType {}
 
             listOf<Pair<String, (ExplanatoryAssertionGroupType, List<Assertion>) -> AssertionGroup>>(
-                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::explanatoryGroup.name}.withType(t)" to { t, a -> AssertImpl.builder.explanatoryGroup.withType(t).create(a) },
-                "${AssertionBuilder::class.simpleName}.withType(t, ..)" to { t, a -> AssertImpl.builder.withType(t, AssertionVerb.VERB, 1).create(a) },
+                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::explanatoryGroup.name}.customType(t)" to { t, a -> AssertImpl.builder.explanatoryGroup.withType(t).create(a) },
+                "${AssertionBuilder::class.simpleName}.customType(t, ..)" to { t, a -> AssertImpl.builder.customType(t, AssertionVerb.VERB, 1).create(a) },
                 "${AssertionBuilder::class.simpleName}.${AssertionBuilder::fixedClaimGroup.name}" to { t, a -> AssertImpl.builder.fixedClaimGroup(AssertionVerb.VERB, 1).withType(t).failing.create(a) }
             ).forEach { (groupName, factory) ->
                 listOf(

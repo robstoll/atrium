@@ -41,7 +41,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
     describeFun(AssertionFormatter::canFormat.name) {
         val testee = testeeFactory(bulletPoints, coreFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${SummaryAssertionGroupType::class.simpleName}") {
-            val result = testee.canFormat(AssertImpl.builder.withType(object : SummaryAssertionGroupType {},  Untranslatable.EMPTY, 1).create(listOf()))
+            val result = testee.canFormat(AssertImpl.builder.customType(object : SummaryAssertionGroupType {},  Untranslatable.EMPTY, 1).create(listOf()))
             verbs.checkImmediately(result).toBe(true)
         }
     }
@@ -53,7 +53,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                 AssertImpl.builder.descriptive.failing.create(AssertionVerb.EXPECT_THROWN, 2)
             )
             val summaryAssertionGroup = AssertImpl.builder
-                .withType(DefaultSummaryAssertionGroupType, AssertionVerb.ASSERT, 22)
+                .customType(DefaultSummaryAssertionGroupType, AssertionVerb.ASSERT, 22)
                 .create(assertions)
 
             context("format directly the group (no prefix given)") {
@@ -127,7 +127,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     )
                 )
                 val summaryAssertionGroup2 = AssertImpl.builder
-                    .withType(object : SummaryAssertionGroupType {}, AssertionVerb.ASSERT, 10)
+                    .customType(object : SummaryAssertionGroupType {}, AssertionVerb.ASSERT, 10)
                     .create(summaryAssertions)
 
                 it("puts the assertions one under the other and adds an extra indent to the second one") {

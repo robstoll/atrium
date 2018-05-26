@@ -38,7 +38,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
         val testee = testeeFactory(bulletPoints, coreFactory.newAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${assertionGroupTypeClass.simpleName}") {
             val result = testee.canFormat(AssertImpl.builder
-                .withType(anonymousAssertionGroupType, Untranslatable.EMPTY, 1)
+                .customType(anonymousAssertionGroupType, Untranslatable.EMPTY, 1)
                 .create(listOf())
             )
             verbs.checkImmediately(result).toBe(true)
@@ -116,7 +116,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     AssertImpl.builder.descriptive.failing.create(AssertionVerb.ASSERT, 20)
                 )
                 val indentAssertionGroup2 = AssertImpl.builder
-                    .withType(anonymousAssertionGroupType, AssertionVerb.ASSERT, 10)
+                    .customType(anonymousAssertionGroupType, AssertionVerb.ASSERT, 10)
                     .create(indentAssertions)
 
                 it("puts the assertions one under the other and adds an extra indent to the second one") {
