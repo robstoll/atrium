@@ -29,6 +29,6 @@ internal object AssertionBuilderImpl : AssertionBuilder {
     override val explanatory get()
         = ExplanatoryAssertionBuilderImpl
 
-    override fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, representation: Any) : BasicAssertionGroupBuilder<T>
+    override fun <T: AssertionGroupType> customType(groupType: T, name: Translatable, representation: Any) : BasicAssertionGroupBuilder<T>
         = BasicAssertionGroupBuilderImpl(groupType, name, representation)
 }

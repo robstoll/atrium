@@ -90,9 +90,9 @@ interface AssertionGroup : Assertion {
         val invisible = EmptyNameAndSubjectAssertionGroupBuilder(InvisibleAssertionGroupType)
 
         @Deprecated(
-            "use AssertImpl.builder.withType instead",
+            "use AssertImpl.builder.customType instead",
             ReplaceWith(
-                "AssertImpl.builder.withType(groupType)",
+                "AssertImpl.builder.customType(groupType)",
                 "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
             )
         )
@@ -101,10 +101,10 @@ interface AssertionGroup : Assertion {
         @Deprecated("Use AssertImpl.builder instead, will be removed with 1.0.0")
         class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(name: Translatable, subject: Any, assertion: Assertion)
-                = assertionBuilder.withType(groupType, name, subject).create(assertion)
+                = assertionBuilder.customType(groupType, name, subject).create(assertion)
 
             fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
-                = assertionBuilder.withType(groupType, name, subject).create(assertions)
+                = assertionBuilder.customType(groupType, name, subject).create(assertions)
         }
 
         @Deprecated("Use AssertImpl.builder instead, will be removed with 1.0.0")

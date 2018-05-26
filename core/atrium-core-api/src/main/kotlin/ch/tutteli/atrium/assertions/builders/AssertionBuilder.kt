@@ -98,5 +98,5 @@ interface AssertionBuilder {
      * @param name The [AssertionGroup.name].
      * @param representation The [AssertionGroup.representation].
      */
-    fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, representation: Any): BasicAssertionGroupBuilder<T>
+    fun <T: AssertionGroupType> customType(groupType: T, name: Translatable, representation: Any): BasicAssertionGroupBuilder<T>
 }
