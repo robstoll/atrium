@@ -18,7 +18,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param assertions The assertions of this group, which are defined for [representation].
  * @param holds Indicates whether the [assertions] hold or not.
  */
-internal data class FixHoldsAssertionGroup(
+internal data class FixedClaimAssertionGroup(
     override val type: AssertionGroupType,
     override val name: Translatable,
     override val representation: Any,

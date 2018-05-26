@@ -3,7 +3,7 @@ package ch.tutteli.atrium.assertions.iterable.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
+import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -46,7 +46,7 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(description: Tran
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
     = AssertImpl.builder
-        .fixHoldsGroup(DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString.EMPTY)
+        .fixedClaimGroup(DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString.EMPTY)
         .withListType
         .withClaim(found)
         .create(AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions))
