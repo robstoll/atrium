@@ -5,6 +5,9 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
+/**
+ * Base interface for builders which create a descriptive like assertion (such as [DescriptiveAssertion]).
+ */
 interface DescriptiveLikeAssertionBuilder {
     /**
      * The previously defined test which is used to determine [DescriptiveAssertion.holds].

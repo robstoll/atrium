@@ -30,6 +30,13 @@ interface AssertionGroupBuilder<out T : AssertionGroupType> {
 
     /**
      * Creates the [AssertionGroup] with the previously specified [groupType] using the given
+     * [assertion1], [assertion2] and [assertion3] as [AssertionGroup.assertions].
+     */
+    fun create(assertion1: Assertion, assertion2: Assertion, assertion3: Assertion): AssertionGroup
+        = create(listOf(assertion1, assertion2, assertion3))
+
+    /**
+     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
      * [assertions] as [AssertionGroup.assertions].
      */
     fun create(assertions: List<Assertion>): AssertionGroup
