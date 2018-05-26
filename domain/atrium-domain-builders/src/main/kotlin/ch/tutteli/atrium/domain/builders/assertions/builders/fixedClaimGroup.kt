@@ -6,11 +6,22 @@ import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.AssertionGroupBuilder
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixedClaimAssertionGroupTypeOptionImpl
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  *  Builder to create an [AssertionGroup] whose [AssertionGroup.holds] is fixed (not determined based on its
- * [AssertionGroup.assertions]).
+ * [AssertionGroup.assertions]) using the given [name] and [RawString.EMPTY] as [AssertionGroup.representation].
+ *
+ * @param name The [AssertionGroup.name].
+ */
+@Suppress("unused")
+fun AssertionBuilder.fixedClaimGroup(name: Translatable)
+    = fixedClaimGroup(name, RawString.EMPTY)
+
+/**
+ *  Builder to create an [AssertionGroup] whose [AssertionGroup.holds] is fixed (not determined based on its
+ * [AssertionGroup.assertions]) using the given [name] and [representation].
  *
  * @param name The [AssertionGroup.name].
  * @param representation The [AssertionGroup.representation].
