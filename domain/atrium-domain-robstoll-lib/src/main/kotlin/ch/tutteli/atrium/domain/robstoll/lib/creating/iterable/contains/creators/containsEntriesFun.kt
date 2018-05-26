@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -56,13 +55,11 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(
     .collect(description, assertionCreator, subject)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
-    return AssertImpl.builder.fixHoldsGroup.create(
-        AN_ENTRY_WHICH,
-        RawString.EMPTY,
-        found,
-        DefaultListAssertionGroupType,
-        AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions)
-    )
+    return AssertImpl.builder
+        .fixHoldsGroup(AN_ENTRY_WHICH, RawString.EMPTY)
+        .withListType
+        .withClaim(found)
+        .create(AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions))
 }
 
 internal fun <E : Any> allCreatedAssertionsHold(

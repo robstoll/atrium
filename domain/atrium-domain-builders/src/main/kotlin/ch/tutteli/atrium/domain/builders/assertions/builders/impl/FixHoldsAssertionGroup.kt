@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.builders.assertions
+package ch.tutteli.atrium.domain.builders.assertions.builders.impl
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.translating.Translatable

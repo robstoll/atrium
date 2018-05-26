@@ -1,12 +1,10 @@
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors.AssertionCollectorForExplanation
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -41,19 +39,17 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator:
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun <E : Any> collectIterableAssertionsForExplanation(description: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
     =  AssertImpl.collector
-    .forExplanation
-    .throwIfNoAssertionIsCollected
-    .collect(description, assertionCreator, subject)
+        .forExplanation
+        .throwIfNoAssertionIsCollected
+        .collect(description, assertionCreator, subject)
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
-    = AssertImpl.builder.fixHoldsGroup.create(
-        DescriptionIterableAssertion.AN_ENTRY_WHICH,
-        RawString.EMPTY,
-        found,
-        DefaultListAssertionGroupType,
-            AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions)
-    )
+    = AssertImpl.builder
+        .fixHoldsGroup(DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString.EMPTY)
+        .withListType
+        .withClaim(found)
+        .create(AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions))
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean
