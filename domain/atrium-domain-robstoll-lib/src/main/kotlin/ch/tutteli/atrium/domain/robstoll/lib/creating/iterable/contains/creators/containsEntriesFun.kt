@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
+import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -56,7 +56,7 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
     return AssertImpl.builder
-        .fixHoldsGroup(AN_ENTRY_WHICH, RawString.EMPTY)
+        .fixedClaimGroup(AN_ENTRY_WHICH, RawString.EMPTY)
         .withListType
         .withClaim(found)
         .create(AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions))
