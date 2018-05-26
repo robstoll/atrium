@@ -56,7 +56,7 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
     return AssertImpl.builder
-        .fixedClaimGroup(AN_ENTRY_WHICH, RawString.EMPTY)
+        .fixedClaimGroup(AN_ENTRY_WHICH)
         .withListType
         .withClaim(found)
         .create(AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions))

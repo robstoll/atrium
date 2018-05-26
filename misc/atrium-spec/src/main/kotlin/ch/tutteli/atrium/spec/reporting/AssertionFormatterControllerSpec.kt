@@ -7,9 +7,11 @@ import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.assertions.builders.FixedClaimAssertionGroupTypeOption
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -20,6 +22,7 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import kotlin.reflect.KFunction3
 
 abstract class AssertionFormatterControllerSpec(
     verbs: AssertionVerbFactory,
@@ -71,10 +74,12 @@ abstract class AssertionFormatterControllerSpec(
 
             val anonymousType = object : ExplanatoryAssertionGroupType {}
 
+            val fixedClaimGroup : KFunction3<AssertionBuilder, Translatable, Any, FixedClaimAssertionGroupTypeOption>  = AssertionBuilder::fixedClaimGroup
+
             listOf<Pair<String, (ExplanatoryAssertionGroupType, List<Assertion>) -> AssertionGroup>>(
                 "${AssertionBuilder::class.simpleName}.${AssertionBuilder::explanatoryGroup.name}.customType(t)" to { t, a -> AssertImpl.builder.explanatoryGroup.withType(t).create(a) },
                 "${AssertionBuilder::class.simpleName}.customType(t, ..)" to { t, a -> AssertImpl.builder.customType(t, AssertionVerb.VERB, 1).create(a) },
-                "${AssertionBuilder::class.simpleName}.${AssertionBuilder::fixedClaimGroup.name}" to { t, a -> AssertImpl.builder.fixedClaimGroup(AssertionVerb.VERB, 1).withType(t).failing.create(a) }
+                "${AssertionBuilder::class.simpleName}.${fixedClaimGroup.name}" to { t, a -> AssertImpl.builder.fixedClaimGroup(AssertionVerb.VERB, 1).withType(t).failing.create(a) }
             ).forEach { (groupName, factory) ->
                 listOf(
                     Triple(
