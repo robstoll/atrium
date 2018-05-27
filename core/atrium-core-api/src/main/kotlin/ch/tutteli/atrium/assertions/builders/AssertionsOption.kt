@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.impl.AssertionsOptionImpl
-import ch.tutteli.atrium.assertions.builders.impl.BasicAssertionGroupFinalStepImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -70,11 +69,11 @@ interface AssertionsOption<out T : AssertionGroupType, R> {
         fun <T : AssertionGroupType> withDefaultFinalStepAndEmptyDescriptionAndRepresentation(
             groupType: T
         ): AssertionsOption<T, BasicAssertionGroupFinalStep>
-            = AssertionsOptionImpl(groupType, Untranslatable.EMPTY, RawString.EMPTY, ::BasicAssertionGroupFinalStepImpl)
+            = AssertionsOptionImpl(groupType, Untranslatable.EMPTY, RawString.EMPTY, BasicAssertionGroupFinalStep.Companion::create)
 
         fun <T : AssertionGroupType> asFactoryWithDefaultFinalStep(): (T, Translatable, Any) -> AssertionsOption<T, BasicAssertionGroupFinalStep>
             = { t, d, r ->
-                AssertionsOptionImpl(t, d, r, ::BasicAssertionGroupFinalStepImpl)
+                AssertionsOptionImpl(t, d, r, BasicAssertionGroupFinalStep.Companion::create)
             }
     }
 }

@@ -32,7 +32,7 @@ class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecke
      */
     override fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) {
         val assertionGroup = assertionBuilder.root
-            .withDescriptionAndRepresentation(assertionVerb, representationProvider())
+            .withDescriptionAndRepresentation(assertionVerb, representationProvider)
             .withAssertions(assertions)
             .build()
 
