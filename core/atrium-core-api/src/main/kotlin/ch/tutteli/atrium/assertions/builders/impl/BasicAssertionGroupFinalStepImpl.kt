@@ -9,10 +9,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal class BasicAssertionGroupFinalStepImpl(
     override val groupType: AssertionGroupType,
-    override val name: Translatable,
+    override val description: Translatable,
     override val representation: Any,
     override val assertions: List<Assertion>
 ) : BasicAssertionGroupFinalStep {
 
-    override fun build(): AssertionGroup = BasicAssertionGroup(groupType, name, representation, assertions)
+    override fun build(): AssertionGroup = BasicAssertionGroup(groupType, description, representation, assertions)
 }

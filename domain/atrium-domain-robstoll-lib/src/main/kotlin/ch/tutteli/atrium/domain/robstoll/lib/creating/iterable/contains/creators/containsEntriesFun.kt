@@ -116,7 +116,7 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
                         val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
                         AssertImpl.builder.descriptive
                             .holding
-                            .withDescriptionAndRepresentation(description, it ?: RawString.NULL)
+                            .withDescriptionAndNullableRepresentation(description, it)
                             .build()
                     }
 

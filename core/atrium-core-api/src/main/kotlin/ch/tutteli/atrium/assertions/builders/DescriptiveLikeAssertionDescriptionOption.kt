@@ -3,6 +3,7 @@ package ch.tutteli.atrium.assertions.builders
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.impl.DescriptiveLikeAssertionDescriptionOptionImpl
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
@@ -16,10 +17,24 @@ interface DescriptiveLikeAssertionDescriptionOption<R> {
     val test: () -> Boolean
 
     /**
-     * Wraps the given [description] into an [Untranslatable] and delegates to the other `create` overload.
+     * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation].
      */
     fun withDescriptionAndRepresentation(description: String, representation: Any): R
         = withDescriptionAndRepresentation(Untranslatable(description), representation)
+
+    /**
+     * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation]
+     * unless [representation] is null in which case [RawString.NULL] is used.
+     */
+    fun withDescriptionAndNullableRepresentation(description: String, representation: Any?): R
+        = withDescriptionAndNullableRepresentation(Untranslatable(description), representation)
+
+    /**
+     * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation]
+     * unless [representation] is null in which case [RawString.NULL] is used.
+     */
+    fun withDescriptionAndNullableRepresentation(description: Translatable, representation: Any?): R
+        = withDescriptionAndRepresentation(description, representation ?: RawString.NULL)
 
     /**
      * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation].
@@ -29,7 +44,7 @@ interface DescriptiveLikeAssertionDescriptionOption<R> {
     companion object {
         fun <R> create(
             test: () -> Boolean,
-            factory: (()-> Boolean, Translatable, Any) -> R
+            factory: (() -> Boolean, Translatable, Any) -> R
         ): DescriptiveLikeAssertionDescriptionOption<R> = DescriptiveLikeAssertionDescriptionOptionImpl(test, factory)
     }
 }
