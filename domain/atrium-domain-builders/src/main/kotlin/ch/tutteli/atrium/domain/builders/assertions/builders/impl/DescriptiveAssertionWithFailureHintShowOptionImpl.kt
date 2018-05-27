@@ -17,5 +17,5 @@ internal class DescriptiveAssertionWithFailureHintShowOptionImpl(
         = createDescriptiveLikeAssertionDescriptionOption(predicate)
 
     private fun createDescriptiveLikeAssertionDescriptionOption(predicate: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
-        = DescriptiveLikeAssertionDescriptionOption.create(test, { t, d, r -> DescriptiveAssertionWithFailureHintFinalStepImpl(t, predicate, failureHintFactory, d, r) })
+        = DescriptiveLikeAssertionDescriptionOption.create(test, { t, d, r -> DescriptiveAssertionWithFailureHintFinalStep.create(t, predicate, failureHintFactory, d, r) })
 }

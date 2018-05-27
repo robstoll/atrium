@@ -9,11 +9,11 @@ internal object DescriptiveAssertionHoldsOptionImpl : DescriptiveAssertionHoldsO
     private val trueProvider = { true }
 
     override val failing: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
-        = DescriptiveLikeAssertionDescriptionOptionImpl(falseProvider, ::DescriptiveAssertionFinalStepImpl)
+        = DescriptiveLikeAssertionDescriptionOption.create(falseProvider, DescriptiveAssertionFinalStep.Companion::create)
 
     override val holding: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
-        = DescriptiveLikeAssertionDescriptionOptionImpl(trueProvider, ::DescriptiveAssertionFinalStepImpl)
+        = DescriptiveLikeAssertionDescriptionOption.create(trueProvider, DescriptiveAssertionFinalStep.Companion::create)
 
     override fun withTest(test: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
-        = DescriptiveLikeAssertionDescriptionOptionImpl(test, ::DescriptiveAssertionFinalStepImpl)
+        = DescriptiveLikeAssertionDescriptionOption.create(test, DescriptiveAssertionFinalStep.Companion::create)
 }
