@@ -6,10 +6,10 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionsOption
 import ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep
-import ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupOption
+import ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupTypeOption
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-internal object ExplanatoryAssertionGroupOptionImpl : ExplanatoryAssertionGroupOption {
+internal object ExplanatoryAssertionGroupTypeOptionImpl : ExplanatoryAssertionGroupTypeOption {
 
     override val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
         get() = assertionsOption(DefaultExplanatoryAssertionGroupType)

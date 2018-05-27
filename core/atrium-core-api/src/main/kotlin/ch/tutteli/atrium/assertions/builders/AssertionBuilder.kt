@@ -50,7 +50,7 @@ interface AssertionBuilder {
      * reporting (a [Reporter] has to neglect whether the [Assertion.holds] or not). Use it to provide explanations.
      * It is inter alia used in [Iterable] `contains entries` assertions to describe the identification lambda you used.
      */
-    val explanatoryGroup: ExplanatoryAssertionGroupOption
+    val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
 
     /**
      * Builder to create a [DescriptiveAssertion] -- use it to create a simple assertion consisting of a

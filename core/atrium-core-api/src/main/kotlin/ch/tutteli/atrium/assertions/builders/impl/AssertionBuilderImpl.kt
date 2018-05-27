@@ -15,7 +15,7 @@ internal object AssertionBuilderImpl : AssertionBuilder {
         get() = DescriptionAndEmptyRepresentationOption.create(DefaultSummaryAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
 
     override val explanatoryGroup get()
-        = ExplanatoryAssertionGroupOptionImpl
+        = ExplanatoryAssertionGroupTypeOptionImpl
 
     override val descriptive get()
         = DescriptiveAssertionHoldsOptionImpl
