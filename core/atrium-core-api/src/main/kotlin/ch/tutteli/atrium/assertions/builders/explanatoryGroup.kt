@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 /**
- * Provides options to create an [AssertionGroup] with a certain [ExplanatoryAssertionGroupType].
+ * Option step which allows to specify what [ExplanatoryAssertionGroupType] is used as [AssertionGroup.type].
  */
 interface ExplanatoryAssertionGroupTypeOption {
 
@@ -26,8 +26,19 @@ interface ExplanatoryAssertionGroupTypeOption {
     fun <T : ExplanatoryAssertionGroupType> withType(groupType: T): AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>
 }
 
+/**
+ * Final step which creates an [AssertionGroup] with an [ExplanatoryAssertionGroupType] based on the previously
+ * defined [groupType] and the [explanatoryAssertions].
+ */
 interface ExplanatoryAssertionGroupFinalStep: AssertionBuilderFinalStep<AssertionGroup>{
+    /**
+     * The previously defined [AssertionGroup.type].
+     */
     val groupType: ExplanatoryAssertionGroupType
+
+    /**
+     * The previously defined [AssertionGroup.assertions]
+     */
     val explanatoryAssertions: List<Assertion>
 
     companion object {

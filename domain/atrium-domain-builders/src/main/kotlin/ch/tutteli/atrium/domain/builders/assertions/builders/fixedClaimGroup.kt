@@ -1,22 +1,19 @@
 package ch.tutteli.atrium.domain.builders.assertions.builders
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.assertions.ListAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.builders.AssertionBuilderFinalStep
-import ch.tutteli.atrium.assertions.builders.AssertionsOption
-import ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndRepresentationOption
+import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixedClaimAssertionGroupFinalStepImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixedClaimAssertionGroupHoldsOptionImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixedClaimAssertionGroupTypeOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-
 /**
  *  Builder to create an [AssertionGroup] whose [AssertionGroup.holds] is fixed (not determined based on its
  * [AssertionGroup.assertions]).
+ *
+ * The intended use case is if all [AssertionGroup.assertions] are [AssertionGroup]s with an
+ * [ExplanatoryAssertionGroupType]. Such groups always return `true` for [AssertionGroup.holds] but you might want to
+ * explain a complex failing assertion with those groups. In such a use case this builder is your choice.
  */
 @Suppress("unused")
 val AssertionBuilder.fixedClaimGroup: FixedClaimAssertionGroupTypeOption
@@ -24,11 +21,11 @@ val AssertionBuilder.fixedClaimGroup: FixedClaimAssertionGroupTypeOption
 
 
 /**
- * Provides options to specify the [AssertionGroup.type].
+ * Option step which allows to specify the [AssertionGroup.type].
  */
 interface FixedClaimAssertionGroupTypeOption {
     /**
-     * Defines that a [ListAssertionGroupType] shall be used for [AssertionGroup.type].
+     * Uses [ListAssertionGroupType] as [AssertionGroup.type].
      */
     val withListType: FixedClaimAssertionGroupHoldsOption<ListAssertionGroupType>
 
@@ -42,13 +39,14 @@ interface FixedClaimAssertionGroupTypeOption {
 
 
 /**
- * Provides options to specify the [AssertionGroup.holds].
+ * Option step which allows to specify the [AssertionGroup.holds].
  */
 interface FixedClaimAssertionGroupHoldsOption<T : AssertionGroupType> {
     /**
-     * Defines the [AssertionGroup.type].
+     * The previously defined [AssertionGroup.type].
      */
     val groupType: T
+
 
     /**
      * Defines the [AssertionGroup] holds.
@@ -72,12 +70,12 @@ interface FixedClaimAssertionGroupHoldsOption<T : AssertionGroupType> {
 }
 
 /**
- *  Builder to create an [AssertionGroup] whose [AssertionGroup.holds] is fixed (not determined based on its
+ * Final step which creates an [AssertionGroup] whose [AssertionGroup.holds] is fixed (not determined based on its
  * [AssertionGroup.assertions] but on the given [holds]).
  */
-interface FixedClaimAssertionGroupFinalStep : AssertionBuilderFinalStep<AssertionGroup> {
+interface FixedClaimAssertionGroupFinalStep : BasicAssertionGroupFinalStep {
     /**
-     * Defines the [AssertionGroup.holds].
+     * The previously defined [AssertionGroup.holds].
      */
     val holds: Boolean
 

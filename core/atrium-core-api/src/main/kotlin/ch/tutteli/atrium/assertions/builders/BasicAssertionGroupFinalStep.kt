@@ -7,28 +7,28 @@ import ch.tutteli.atrium.assertions.builders.impl.BasicAssertionGroupFinalStepIm
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Final step of the building process to create an [AssertionGroup] with the given [groupType], [description],
+ * Final step which creates an [AssertionGroup] with the previously defined [groupType], [description],
  * [representation] and [assertions].
  */
 interface BasicAssertionGroupFinalStep : AssertionBuilderFinalStep<AssertionGroup> {
 
     /**
-     * The [AssertionGroupType] which shall be used for [AssertionGroup.type].
+     * The previously defined [AssertionGroup.type].
      */
     val groupType: AssertionGroupType
 
     /**
-     * The [AssertionGroup.name].
+     * The previously defined [AssertionGroup.name].
      */
     val description: Translatable
 
     /**
-     * The [AssertionGroup.representation].
+     * The previously defined [AssertionGroup.representation].
      */
     val representation: Any
 
     /**
-     * The [AssertionGroup.assertions]
+     * The previously defined [AssertionGroup.assertions]
      */
     val assertions: List<Assertion>
 
