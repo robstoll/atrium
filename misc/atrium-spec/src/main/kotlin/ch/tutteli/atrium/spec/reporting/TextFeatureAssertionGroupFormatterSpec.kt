@@ -94,10 +94,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                 it("indents the group ${AssertionGroup::name.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$featureBulletPoint` for each assertion and `$listBulletPoint` for each element in the list group") {
                     val featureAssertions = listOf(
                         AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5).build(), featureAssertionGroup,
-                        AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
-                            AssertionVerb.ASSERT,
-                            30
-                        ).build()
+                        AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 30).build()
                     )
                     val featureAssertionGroup2 = AssertImpl.builder
                         .customType(object : FeatureAssertionGroupType {})

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.impl.AssertionBuilderImpl
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Returns the [AssertionBuilder].
@@ -74,4 +75,18 @@ interface AssertionBuilder {
      * @param groupType the [AssertionGroup.type].
      */
     fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionGroupBuilderOptions<T>
+
+    /**
+     * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test]
+     *
+     * Shortcut for:
+     * ```
+     * descriptive
+     *   .withTest(test)
+     *   .withDescriptionAndRepresentation(description, representation)
+     *   .build()
+     * ```
+     */
+    fun createDescriptive(description: Translatable, representation: Any, test: () -> Boolean)
+        = descriptive.withTest(test).withDescriptionAndRepresentation(description, representation).build()
 }

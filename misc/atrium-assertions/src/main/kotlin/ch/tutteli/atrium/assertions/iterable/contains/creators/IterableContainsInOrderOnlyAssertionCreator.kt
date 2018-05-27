@@ -82,19 +82,21 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
         while (itr.hasNext()) {
             additionalEntries.add(itr.next())
         }
-        val featureAssertions = mutableListOf<Assertion>()
-        featureAssertions.add(AssertImpl.builder.descriptive
+
+        val sizeAssertion = AssertImpl.builder.descriptive
             .withTest { actualSize == expectedSize }
-            .withDescriptionAndRepresentation(DescriptionAnyAssertion.TO_BE, RawString.create(expectedSize.toString())).build()
-        )
+            .withDescriptionAndRepresentation(DescriptionAnyAssertion.TO_BE, RawString.create(expectedSize.toString()))
+            .build()
+
+        val featureAssertions = mutableListOf<Assertion>()
+        featureAssertions.add(sizeAssertion)
         if (actualSize > expectedSize) {
             featureAssertions.add(LazyThreadUnsafeAssertionGroup {
                 val assertions = additionalEntries.mapIndexed { index, it ->
                     val description = TranslatableWithArgs(DescriptionIterableAssertion.ENTRY_WITH_INDEX, expectedSize + index)
-                    AssertImpl.builder.descriptive.holding.withDescriptionAndRepresentation(
-                        description,
-                        it ?: RawString.NULL
-                    )
+                    AssertImpl.builder.descriptive
+                        .holding
+                        .withDescriptionAndNullableRepresentation(description, it)
                         .build()
                 }
                 val warningAdditionalAssertions = AssertImpl.builder.list

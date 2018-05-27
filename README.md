@@ -833,9 +833,7 @@ We follow the convention that impl-functions are prefixed with `_`
 -- this way the chance that it shows up in code completion, e.g. when a developer starts to type `is`, is very low):
 ```kotlin
 fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion 
-    = AssertImpl.builder.descriptive
-        .withTest { plant.subject % base == 0 }
-        .create(DescriptionIntAssertions.IS_MULTIPLE_OF, base)
+    = AssertImpl.builder.createDescriptive(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
 ```
 Notice that the impl-function is not an extension function as before 
 because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
