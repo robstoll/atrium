@@ -30,8 +30,8 @@ interface DescriptiveLikeAssertionDescriptionOption<R> {
         = withDescriptionAndNullableRepresentation(Untranslatable(description), representation)
 
     /**
-     * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation]
-     * unless [representation] is null in which case [RawString.NULL] is used.
+     * Uses the given [description] as [DescriptiveAssertion.description] and [representation]
+     * as [DescriptiveAssertion.representation] unless [representation] is null in which case [RawString.NULL] is used.
      */
     fun withDescriptionAndNullableRepresentation(description: Translatable, representation: Any?): R
         = withDescriptionAndRepresentation(description, representation ?: RawString.NULL)

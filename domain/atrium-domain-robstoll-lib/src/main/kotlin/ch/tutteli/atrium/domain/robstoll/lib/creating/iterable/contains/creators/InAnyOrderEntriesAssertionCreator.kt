@@ -37,7 +37,7 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
     override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup {
         val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
         return AssertImpl.builder.list
-            .withDescriptionAndRepresentation(description, RawString.EMPTY)
+            .withDescriptionAndEmptyRepresentation(description)
             .withAssertions(assertions)
             .build()
     }
@@ -50,7 +50,7 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
             .build()
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
         return AssertImpl.builder.list
-            .withDescriptionAndRepresentation(AN_ENTRY_WHICH, RawString.EMPTY)
+            .withDescriptionAndEmptyRepresentation(AN_ENTRY_WHICH)
             .withAssertions(explanatoryGroup, featureAssertion)
             .build()
     }

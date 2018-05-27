@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.impl.AssertionGroupDescriptionAndRepresentationOptionImpl
 import ch.tutteli.atrium.reporting.LazyRepresentation
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGroupType, R> {
@@ -20,9 +21,23 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
         = withDescriptionAndRepresentation(description, LazyRepresentation(representationProvider))
 
     /**
+     * Uses the given [description] as [AssertionGroup.name] and [RawString.EMPTY] as [AssertionGroup.representation].
+     */
+    fun withDescriptionAndEmptyRepresentation(description: Translatable): R
+        = withDescriptionAndRepresentation(description, RawString.EMPTY)
+
+    /**
+     * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation]
+     * unless [representation] is null in which case [RawString.NULL] is used.
+     */
+    fun withDescriptionAndNullableRepresentation(description: Translatable, representation: Any?): R
+        = withDescriptionAndRepresentation(description, representation ?: RawString.NULL)
+
+    /**
      * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation].
      */
     fun withDescriptionAndRepresentation(description: Translatable, representation: Any): R
+
 
     companion object {
         fun <T: AssertionGroupType, R> create(
