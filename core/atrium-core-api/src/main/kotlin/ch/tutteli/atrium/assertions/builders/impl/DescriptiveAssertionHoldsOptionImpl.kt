@@ -3,10 +3,10 @@ package ch.tutteli.atrium.assertions.builders.impl
 import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionFinalStep
 import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionHoldsOption
 import ch.tutteli.atrium.assertions.builders.DescriptiveLikeAssertionDescriptionOption
+import ch.tutteli.atrium.core.falseProvider
+import ch.tutteli.atrium.core.trueProvider
 
 internal object DescriptiveAssertionHoldsOptionImpl : DescriptiveAssertionHoldsOption {
-    private val falseProvider = { false }
-    private val trueProvider = { true }
 
     override val failing: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
         = DescriptiveLikeAssertionDescriptionOption.create(falseProvider, DescriptiveAssertionFinalStep.Companion::create)
