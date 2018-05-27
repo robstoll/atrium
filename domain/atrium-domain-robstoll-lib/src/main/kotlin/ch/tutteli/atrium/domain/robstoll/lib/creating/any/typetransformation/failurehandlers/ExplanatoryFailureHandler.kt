@@ -6,5 +6,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 class ExplanatoryFailureHandler<in S : Any, out T : Any> : ExplanatoryFailureHandlerBase<S, T>() {
 
     override fun createFailingAssertion(description: Translatable, representation: Any)
-        = AssertImpl.builder.descriptive.create(description, representation, false)
+        = AssertImpl.builder.descriptive
+            .failing
+            .withDescriptionAndRepresentation(description, representation)
+            .build()
 }

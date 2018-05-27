@@ -2,6 +2,8 @@ package ch.tutteli.atrium.spec.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
+import ch.tutteli.atrium.core.falseProvider
+import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.ReportingAssertionPlant
@@ -56,8 +58,8 @@ abstract class ReportingAssertionPlantSpec(
     listOf(
         triple(
             plant::createAndAddAssertion.name,
-            { createAndAddAssertion(description, expected, { true }) },
-            { createAndAddAssertion(description, expected, { false }) }
+            { createAndAddAssertion(description, expected, trueProvider) },
+            { createAndAddAssertion(description, expected, falseProvider) }
         ),
         triple(
             plant::addAssertion.name,
@@ -65,8 +67,8 @@ abstract class ReportingAssertionPlantSpec(
             { addAssertion(basicAssertionWhichFails) }),
         triple(
             "${plant::addAssertionsCreatedBy.name} using ${plant::createAndAddAssertion.name} inside",
-            { addAssertionsCreatedBy { createAndAddAssertion(description, expected, { true }) } },
-            { addAssertionsCreatedBy { createAndAddAssertion(description, expected, { false }) } }
+            { addAssertionsCreatedBy { createAndAddAssertion(description, expected, trueProvider) } },
+            { addAssertionsCreatedBy { createAndAddAssertion(description, expected, falseProvider) } }
         ),
         triple(
             "${plant::addAssertionsCreatedBy.name} using ${plant::addAssertion.name} inside",

@@ -38,10 +38,17 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
         assertionCreator: AssertionPlant<TSub>.() -> Unit
     ) {
         val explanatoryAssertions = collectAssertions(warningTransformationFailed, assertionCreator)
-        subjectPlant.addAssertion(AssertImpl.builder.invisibleGroup.create(listOf(
-            failingAssertion,
-            AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions)
-        )))
+        val explanatoryGroup = AssertImpl.builder.explanatoryGroup
+            .withDefaultType
+            .withAssertions(explanatoryAssertions)
+            .build()
+        subjectPlant.addAssertion(AssertImpl.builder.invisibleGroup
+            .withAssertions(
+                failingAssertion,
+                explanatoryGroup
+            )
+            .build()
+        )
     }
 
     private fun collectAssertions(warningDownCastFailed: Translatable, assertionCreator: AssertionPlant<TSub>.() -> Unit)

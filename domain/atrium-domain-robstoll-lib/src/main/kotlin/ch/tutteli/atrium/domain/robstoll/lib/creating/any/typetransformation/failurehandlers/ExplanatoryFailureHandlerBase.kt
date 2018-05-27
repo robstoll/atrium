@@ -12,10 +12,15 @@ abstract class ExplanatoryFailureHandlerBase<in S : Any, out T : Any> : AnyTypeT
 
     override fun createAndAddAssertionToPlant(parameterObject: ParameterObject<S, T>) {
         val explanatoryAssertions = collectAssertions(parameterObject.warningTransformationFailed, parameterObject.assertionCreator)
-        val assertion = AssertImpl.builder.invisibleGroup.create(listOf(
-            createFailingAssertion(parameterObject.description, parameterObject.representation),
-            AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions)
-        ))
+        val assertion = AssertImpl.builder.invisibleGroup
+            .withAssertions(
+                createFailingAssertion(parameterObject.description, parameterObject.representation),
+                AssertImpl.builder.explanatoryGroup
+                    .withDefaultType
+                    .withAssertions(explanatoryAssertions)
+                    .build()
+            )
+            .build()
         parameterObject.subjectPlant.addAssertion(assertion)
     }
 

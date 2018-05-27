@@ -15,5 +15,5 @@ fun <T : Any> _collectAssertions(
     check(!collectedAssertions.isEmpty()) {
         "There was not any assertion created. Did you forget to add it to the plant?"
     }
-    return AssertImpl.builder.invisibleGroup.create(collectedAssertions)
+    return AssertImpl.builder.invisibleGroup.withAssertions(collectedAssertions).build()
 }

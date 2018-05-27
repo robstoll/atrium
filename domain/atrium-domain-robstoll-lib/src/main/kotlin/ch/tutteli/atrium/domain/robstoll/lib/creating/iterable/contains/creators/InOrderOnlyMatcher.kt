@@ -8,7 +8,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 interface InOrderOnlyMatcher<E, SC> {
     fun matches(actual: E, searchCriterion: SC): Boolean
 
-    fun entryAssertionCreator(subjectProvider: () -> List<E>, searchCriterion: SC): (Boolean) -> Assertion
+    fun entryAssertionCreator(subjectProvider: () -> List<E>, searchCriterion: SC): (() -> Boolean) -> Assertion
 
     fun CollectingAssertionPlant<List<E>>.createSingleEntryAssertion(
         currentIndex: Int,

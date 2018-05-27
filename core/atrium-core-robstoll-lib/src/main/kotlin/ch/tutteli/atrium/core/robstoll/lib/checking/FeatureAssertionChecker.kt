@@ -44,9 +44,10 @@ class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPl
      * @throws AssertionError Might throw an [AssertionError] in case one of the given [assertions] does not hold.
      */
     override fun check(assertionVerb: Translatable, representationProvider: () -> Any, assertions: List<Assertion>) {
-        val featureAssertionGroup = assertionBuilder
-            .feature(assertionVerb, representationProvider)
-            .create(ArrayList(assertions))
-        subjectPlant.addAssertion(featureAssertionGroup)
+        subjectPlant.addAssertion(assertionBuilder.feature
+            .withDescriptionAndRepresentation(assertionVerb, representationProvider)
+            .withAssertions(ArrayList(assertions))
+            .build()
+        )
     }
 }

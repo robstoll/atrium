@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.assertions.builders.AssertionsOption
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndRepresentationAssertionGroupBuilderImpl
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.LazyRepresentation
+import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * The base interface for [Assertion] groups, providing a default implementation for [Assertion.holds]
@@ -90,9 +90,9 @@ interface AssertionGroup : Assertion {
         val invisible = EmptyNameAndSubjectAssertionGroupBuilder(InvisibleAssertionGroupType)
 
         @Deprecated(
-            "use AssertImpl.builder.withType instead",
+            "use AssertImpl.builder.customType instead",
             ReplaceWith(
-                "AssertImpl.builder.withType(groupType)",
+                "AssertImpl.builder.customType(groupType)",
                 "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
             )
         )
@@ -100,11 +100,17 @@ interface AssertionGroup : Assertion {
 
         @Deprecated("Use AssertImpl.builder instead, will be removed with 1.0.0")
         class BasicAssertionGroupBuilder(private val groupType: AssertionGroupType) {
-            fun create(name: Translatable, subject: Any, assertion: Assertion)
-                = assertionBuilder.withType(groupType, name, subject).create(assertion)
+            fun create(name: Translatable, subject: Any, assertion: Assertion): AssertionGroup
+                = assertionBuilder.customType(groupType)
+                .withDescriptionAndRepresentation(name, subject)
+                .withAssertion(assertion)
+                .build()
 
             fun create(name: Translatable, subject: Any, assertions: List<Assertion>): AssertionGroup
-                = assertionBuilder.withType(groupType, name, subject).create(assertions)
+                = assertionBuilder.customType(groupType)
+                .withDescriptionAndRepresentation(name, subject)
+                .withAssertions(assertions)
+                .build()
         }
 
         @Deprecated("Use AssertImpl.builder instead, will be removed with 1.0.0")
@@ -126,10 +132,14 @@ interface AssertionGroup : Assertion {
         @Deprecated("Use AssertImpl.builder instead, will be removed with 1.0.0")
         class EmptyNameAndSubjectAssertionGroupBuilder(private val groupType: AssertionGroupType) {
             fun create(assertion: Assertion): AssertionGroup
-                = EmptyNameAndRepresentationAssertionGroupBuilderImpl(groupType).create(assertion)
+                = AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(groupType)
+                    .withAssertion(assertion)
+                    .build()
 
             fun create(assertions: List<Assertion>): AssertionGroup
-                = EmptyNameAndRepresentationAssertionGroupBuilderImpl(groupType).create(assertions)
+                = AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(groupType)
+                    .withAssertions(assertions)
+                    .build()
         }
     }
 }

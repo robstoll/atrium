@@ -8,7 +8,7 @@ class BasicExplanatoryAssertion
 @Deprecated(
     "use `AssertImpl.builder.explanatory` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
-        "AssertImpl.builder.explanatory.create(explanation)",
+        "AssertImpl.builder.explanatory.withAssertions(explanation)",
         "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
     )
 )

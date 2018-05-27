@@ -1,34 +1,32 @@
 package ch.tutteli.atrium.assertions.builders.impl
 
-import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.assertions.DefaultFeatureAssertionGroupType
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
-import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.assertions.builders.BasicAssertionGroupBuilder
-import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.*
 
 internal object AssertionBuilderImpl : AssertionBuilder {
 
-    override fun list(name: Translatable, representation: Any)
-        = BasicAssertionGroupBuilderImpl(DefaultListAssertionGroupType, name, representation)
+    override val list: DefaultAssertionGroupBuilderOptions<ListAssertionGroupType>
+        = createDescriptionAndRepresentationOption(DefaultListAssertionGroupType)
 
-    override fun feature(featureName: Translatable, featureRepresentation: Any)
-        = BasicAssertionGroupBuilderImpl(DefaultFeatureAssertionGroupType, featureName, featureRepresentation)
+    override val feature: DefaultAssertionGroupBuilderOptions<FeatureAssertionGroupType>
+        = createDescriptionAndRepresentationOption(DefaultFeatureAssertionGroupType)
 
-    override fun summary(name: Translatable)
-        = BasicAssertionGroupBuilderImpl(DefaultSummaryAssertionGroupType, name, RawString.EMPTY)
+    override val summary: AssertionGroupDescriptionAndEmptyRepresentationOption<SummaryAssertionGroupType, AssertionsOption<SummaryAssertionGroupType, BasicAssertionGroupFinalStep>>
+        = AssertionGroupDescriptionAndEmptyRepresentationOption.create(DefaultSummaryAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
 
-    override val explanatoryGroup get()
-        = ExplanatoryAssertionGroupOptionImpl
+    override val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
+        = ExplanatoryAssertionGroupTypeOptionImpl
 
-    override val descriptive get()
-        = DescriptiveAssertionBuilderImpl
+    override val descriptive: DescriptiveAssertionHoldsOption
+        = DescriptiveAssertionHoldsOptionImpl
 
-    override val explanatory get()
-        = ExplanatoryAssertionBuilderImpl
+    override val explanatory: ExplanatoryAssertionExplanationOption
+        = ExplanatoryAssertionExplanationOptionImpl
 
-    override fun <T: AssertionGroupType> withType(groupType: T, name: Translatable, representation: Any) : BasicAssertionGroupBuilder<T>
-        = BasicAssertionGroupBuilderImpl(groupType, name, representation)
+    override fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionGroupBuilderOptions<T>
+        = createDescriptionAndRepresentationOption(groupType)
+
+
+    private fun <T: AssertionGroupType> createDescriptionAndRepresentationOption(type: T): DefaultAssertionGroupBuilderOptions<T>
+        = AssertionGroupDescriptionAndRepresentationOption.create(type, AssertionsOption.asFactoryWithDefaultFinalStep())
 }

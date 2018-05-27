@@ -48,9 +48,10 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
             ).forEach { typeRepresentation, type ->
                 context("formatting an ${AssertionGroup::class.simpleName} of type $typeRepresentation") {
                     it("does not include ${AssertionGroup::name.name} nor ${AssertionGroup::representation.name}") {
-                        val assertionGroup = AssertImpl.builder
-                            .withType(type, TestDescription.TEST_NAME, testSubject)
-                            .create(listOf())
+                        val assertionGroup = AssertImpl.builder.customType(type)
+                            .withDescriptionAndRepresentation(TestDescription.TEST_NAME, testSubject)
+                            .withAssertions(listOf())
+                            .build()
                         val parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
                         testee.formatGroup(assertionGroup, parameterObject, { _, _ -> sb.append(testString) })
                         verbs.checkImmediately(sb.toString())

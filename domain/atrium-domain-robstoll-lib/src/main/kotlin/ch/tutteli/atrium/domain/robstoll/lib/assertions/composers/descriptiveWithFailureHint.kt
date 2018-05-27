@@ -2,7 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.assertions.composers
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
-import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
+import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -19,10 +19,16 @@ fun _createDescriptiveWithFailureHint(
         true //TODO that's a hack, do we have a better solution?
     }
     return if (holds || !showHint()) {
-        AssertImpl.builder.descriptive.create(description, representation, holds)
+        AssertImpl.builder.descriptive
+            .withTest({ holds })
+            .withDescriptionAndRepresentation(description, representation)
+            .build()
     } else {
-        AssertImpl.builder.fixHoldsGroup.createFailingWithListType(
-            description, representation, failureHintFactory()
-        )
+        AssertImpl.builder.fixedClaimGroup
+            .withListType
+            .failing
+            .withDescriptionAndRepresentation(description, representation)
+            .withAssertion(failureHintFactory())
+            .build()
     }
 }

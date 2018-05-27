@@ -3,7 +3,6 @@ package ch.tutteli.atrium.assertions.builders
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndRepresentationAssertionGroupBuilderImpl
 
 /**
  * Builder to create an [AssertionGroup] with an [InvisibleAssertionGroupType] -- use it only if you have several
@@ -16,5 +15,5 @@ import ch.tutteli.atrium.assertions.builders.impl.EmptyNameAndRepresentationAsse
  * It is very likely that you do not need this kind of [AssertionGroup] and another type does a better job.
  */
 @Suppress("unused")
-val AssertionBuilder.invisibleGroup get(): EmptyNameAndRepresentationAssertionGroupBuilder<InvisibleAssertionGroupType>
-    = EmptyNameAndRepresentationAssertionGroupBuilderImpl(InvisibleAssertionGroupType)
+val AssertionBuilder.invisibleGroup: AssertionsOption<InvisibleAssertionGroupType, BasicAssertionGroupFinalStep>
+    get() = AssertionsOption.withDefaultFinalStepAndEmptyDescriptionAndRepresentation(InvisibleAssertionGroupType)

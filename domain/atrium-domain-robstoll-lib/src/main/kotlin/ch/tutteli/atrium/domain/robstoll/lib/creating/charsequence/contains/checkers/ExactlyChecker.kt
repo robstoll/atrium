@@ -20,5 +20,5 @@ class ExactlyChecker(
 ) : Checker(times, nameContainsNotFun, exactlyCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
-        = createDescriptiveAssertion(DescriptionCharSequenceAssertion.EXACTLY, foundNumberOfTimes == times)
+        = createDescriptiveAssertion(DescriptionCharSequenceAssertion.EXACTLY, { foundNumberOfTimes == times })
 }

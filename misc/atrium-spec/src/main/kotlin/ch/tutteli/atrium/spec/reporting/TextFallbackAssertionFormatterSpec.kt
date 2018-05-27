@@ -64,7 +64,8 @@ abstract class TextFallbackAssertionFormatterSpec(
         }
         context("assertion of type ${DescriptiveAssertion::class.simpleName}") {
             it("writes ${DescriptiveAssertion::description.name} and ${DescriptiveAssertion::representation.name} on the same line separated by colon and space") {
-                val assertion = AssertImpl.builder.descriptive.create(IS_SAME, "bli", false)
+                val assertion =
+                    AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "bli").build()
                 testee.formatNonGroup(assertion, parameterObject)
                 verbs.checkImmediately(sb.toString()).toBe("$separator${IS_SAME.getDefault()}: bli")
             }
@@ -83,8 +84,8 @@ abstract class TextFallbackAssertionFormatterSpec(
                         override val name = Untranslatable("group")
                         override val representation = "subject of group"
                         override val assertions = listOf(
-                            AssertImpl.builder.descriptive.create(IS_SAME, "b", false),
-                            AssertImpl.builder.descriptive.create(TO_BE, "d", false)
+                            AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "b").build(),
+                            AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(TO_BE, "d").build()
                         )
                     }, sb, alwaysTrueAssertionFilter)
 
@@ -109,8 +110,8 @@ abstract class TextFallbackAssertionFormatterSpec(
                                 override val name = Untranslatable("inner group")
                                 override val representation = "subject of inner group"
                                 override val assertions = listOf(
-                                    AssertImpl.builder.descriptive.create(IS_SAME, "b", false),
-                                    AssertImpl.builder.descriptive.create(TO_BE, "d", false)
+                                    AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "b").build(),
+                                    AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(TO_BE, "d").build()
                                 )
                             },
                             unsupportedAssertion

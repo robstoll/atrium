@@ -13,7 +13,7 @@ import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 class LazyRepresentation(private val provider: () -> Any) {
 
     /**
-     * Evaluates the representation
+     * Evaluates the representation.
      */
     fun eval() = provider()
 }

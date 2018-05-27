@@ -17,7 +17,7 @@ data class BasicAssertionGroup
 @Deprecated(
     "use `AssertImpl.builder.explanatoryGroup` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
-        "AssertImpl.builder.withType(type).create(name, representation, assertions)",
+        "AssertImpl.builder.customType(type).withAssertions(name, representation, assertions)",
         "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
     )
 )
