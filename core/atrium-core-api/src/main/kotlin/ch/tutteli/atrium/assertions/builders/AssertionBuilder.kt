@@ -67,7 +67,7 @@ interface AssertionBuilder {
      * For instance, it is used to explain additional entries in an [Iterable] `contains entries` assertion.
      * It is typically used in an [explanatoryGroup].
      */
-    val explanatory: ExplanatoryAssertionDescriptionOption
+    val explanatory: ExplanatoryAssertionExplanationOption
 
     /**
      * Builder to create a basic [AssertionGroup] with a custom [AssertionGroupType].

@@ -20,8 +20,8 @@ internal object AssertionBuilderImpl : AssertionBuilder {
     override val descriptive: DescriptiveAssertionHoldsOption
         = DescriptiveAssertionHoldsOptionImpl
 
-    override val explanatory: ExplanatoryAssertionDescriptionOption
-        = ExplanatoryAssertionDescriptionOptionImpl
+    override val explanatory: ExplanatoryAssertionExplanationOption
+        = ExplanatoryAssertionExplanationOptionImpl
 
     override fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionGroupBuilderOptions<T>
         = createDescriptionAndRepresentationOption(groupType)

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 /**
  * Option step which allows to specify [ExplanatoryAssertion.explanation].
  */
-interface ExplanatoryAssertionDescriptionOption {
+interface ExplanatoryAssertionExplanationOption {
 
     /**
      * Uses the given [translatable] together with the [arg] and optionally [otherArgs] to create an
