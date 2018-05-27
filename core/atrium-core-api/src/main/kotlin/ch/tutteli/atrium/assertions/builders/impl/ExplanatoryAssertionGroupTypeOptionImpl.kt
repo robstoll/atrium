@@ -12,22 +12,22 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 internal object ExplanatoryAssertionGroupTypeOptionImpl : ExplanatoryAssertionGroupTypeOption {
 
     override val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
-        get() = assertionsOption(DefaultExplanatoryAssertionGroupType)
+        = createAssertionsOption(DefaultExplanatoryAssertionGroupType)
 
     override val withWarningType: AssertionsOption<WarningAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
-        get() = assertionsOption(WarningAssertionGroupType)
+        = createAssertionsOption(WarningAssertionGroupType)
 
     override fun <T : ExplanatoryAssertionGroupType> withType(
         groupType: T
-    ): AssertionsOption<T, ExplanatoryAssertionGroupFinalStep> = assertionsOption(groupType)
+    ): AssertionsOption<T, ExplanatoryAssertionGroupFinalStep> = createAssertionsOption(groupType)
 
-    private fun <T : ExplanatoryAssertionGroupType> assertionsOption(groupType: T)
+    private fun <T : ExplanatoryAssertionGroupType> createAssertionsOption(groupType: T)
         = AssertionsOption.withEmptyDescriptionAndRepresentation(
-            groupType, ::createExplanatoryAssertionGroupFinalStepImpl
+            groupType, ::createExplanatoryAssertionGroupFinalStep
         )
 
     @Suppress("UNUSED_PARAMETER")
-    private fun <T : ExplanatoryAssertionGroupType> createExplanatoryAssertionGroupFinalStepImpl(
+    private fun <T : ExplanatoryAssertionGroupType> createExplanatoryAssertionGroupFinalStep(
         groupType: T,
         ignoredDescription: Translatable,
         ignoredRepresentation: Any,
