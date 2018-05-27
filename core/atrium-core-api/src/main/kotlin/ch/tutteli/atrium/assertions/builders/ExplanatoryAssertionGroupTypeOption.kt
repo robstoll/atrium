@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 /**
  * Provides options to create an [AssertionGroup] with a certain [ExplanatoryAssertionGroupType].
  */
-interface ExplanatoryAssertionGroupOption {
+interface ExplanatoryAssertionGroupTypeOption {
 
     /**
      * Builder to create an [AssertionGroup] with a [DefaultExplanatoryAssertionGroupType].
