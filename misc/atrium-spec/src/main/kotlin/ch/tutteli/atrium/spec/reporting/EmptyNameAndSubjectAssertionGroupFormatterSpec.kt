@@ -41,13 +41,13 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
     val testSubject = "testSubject"
     describeFun(AssertionFormatter::formatGroup.name) {
 
-        context("has ${AssertionGroup::name.name} and ${AssertionGroup::representation.name}") {
+        context("has ${AssertionGroup::description.name} and ${AssertionGroup::representation.name}") {
             mapOf(
                 "object: ${assertionGroupClass.simpleName}" to anonymousAssertionGroupType,
                 "${assertionGroupType::class.simpleName}" to assertionGroupType
             ).forEach { typeRepresentation, type ->
                 context("formatting an ${AssertionGroup::class.simpleName} of type $typeRepresentation") {
-                    it("does not include ${AssertionGroup::name.name} nor ${AssertionGroup::representation.name}") {
+                    it("does not include ${AssertionGroup::description.name} nor ${AssertionGroup::representation.name}") {
                         val assertionGroup = AssertImpl.builder.customType(type)
                             .withDescriptionAndRepresentation(TestDescription.TEST_NAME, testSubject)
                             .withAssertions(listOf())

@@ -45,7 +45,7 @@ abstract class AssertionFormatterSpec(
         it("throws an UnsupportedOperationException if ${AssertionGroup::class.simpleName} is passed") {
             verbs.checkException {
                 testee.format(object : AssertionGroup {
-                    override val name = Untranslatable("test")
+                    override val description = Untranslatable("test")
                     override val type = RootAssertionGroupType
                     override val representation = 1
                     override val assertions: List<Assertion> = emptyList()

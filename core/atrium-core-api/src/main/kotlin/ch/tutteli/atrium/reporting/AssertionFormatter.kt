@@ -79,7 +79,7 @@ interface AssertionFormatter {
      *
      * Formatting an [AssertionGroup] makes up of two parts (where the first might be skipped):
      *
-     * 1. formatting the group header (e.g. [name][AssertionGroup.name]: [subject][AssertionGroup.name])
+     * 1. formatting the group header (e.g. [AssertionGroup.description]: [AssertionGroup.representation])
      * 2. formatting the [AssertionGroup.assertions] where the control flow for formatting should be steered
      * by the [AssertionFormatterController] for which an [AssertionFormatter] has to call [formatAssertions]
      * and define a child-[AssertionFormatterParameterObject] which inter alia proposes the indent level to use, the

@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface AssertionPairFormatter {
 
     /**
-     * Formats the header ([name][AssertionGroup.name] and [representation][AssertionGroup.representation])
+     * Formats the header ([AssertionGroup.description] and [AssertionGroup.representation])
      * of the given [assertionGroup] and appends the result to the [sb][AssertionFormatterParameterObject.sb]
      * of the given [parameterObject].
      *

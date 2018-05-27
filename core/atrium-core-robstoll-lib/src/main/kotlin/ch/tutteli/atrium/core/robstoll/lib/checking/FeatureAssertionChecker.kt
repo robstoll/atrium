@@ -36,7 +36,7 @@ class FeatureAssertionChecker<out T : Any>(private val subjectPlant: AssertionPl
      * given [assertionVerb], [representationProvider] and [assertions] and [adds][AssertionPlant.addAssertion] the
      * assertion group to the [subjectPlant] instead of checking it itself.
      *
-     * @param assertionVerb Is used as [AssertionGroup.name] -- as side notice,
+     * @param assertionVerb Is used as [AssertionGroup.description] -- as side notice,
      *   the parameter was not renamed to `featureName` due to potential issues with named parameters.
      * @param representationProvider Provides the [AssertionGroup.representation]
      * @param assertions Is used as [AssertionGroup.assertions].

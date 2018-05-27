@@ -47,7 +47,7 @@ abstract class FeatureAssertionCheckerSpec(
 
             check("its ${AssertionGroup::representation.name} corresponds to the passed assertionVerb") {
                 verbs.checkImmediately(captor.firstValue).isA<AssertionGroup> {
-                    property(subject::name).toBe(assertionVerb)
+                    property(subject::description).toBe(assertionVerb)
                 }
             }
 

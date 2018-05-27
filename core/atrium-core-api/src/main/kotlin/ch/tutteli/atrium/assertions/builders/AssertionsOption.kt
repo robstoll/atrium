@@ -18,12 +18,12 @@ interface AssertionsOption<out T : AssertionGroupType, R> {
     val groupType: T
 
     /**
-     * The previously defined[AssertionGroup.name].
+     * The previously defined [AssertionGroup.description].
      */
     val description: Translatable
 
     /**
-     * The previously defined[AssertionGroup.representation].
+     * The previously defined [AssertionGroup.representation].
      */
     val representation: Any
 
