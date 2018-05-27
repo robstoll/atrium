@@ -29,6 +29,7 @@ class InAnyOrderOnlyValuesAssertionCreator<E, in T : Iterable<E?>>(
         val found: Boolean = list.remove(searchCriterion)
         return found to AssertImpl.builder.descriptive
             .withTest {found }
-            .create(AN_ENTRY_WHICH_IS, searchCriterion ?: RawString.NULL)
+            .withDescriptionAndRepresentation(AN_ENTRY_WHICH_IS, searchCriterion ?: RawString.NULL)
+            .build()
     }
 }

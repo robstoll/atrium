@@ -17,9 +17,11 @@ fun <T : Map<*, *>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
 fun <T : Map<*, *>> _isEmpty(plant: AssertionPlant<T>): Assertion
     = AssertImpl.builder.descriptive
         .withTest { plant.subject.isEmpty() }
-        .create(DescriptionBasic.IS, RawString.create(EMPTY))
+        .withDescriptionAndRepresentation(DescriptionBasic.IS, RawString.create(EMPTY))
+        .build()
 
 fun <T : Map<*, *>> _isNotEmpty(plant: AssertionPlant<T>): Assertion
     = AssertImpl.builder.descriptive
         .withTest { plant.subject.isNotEmpty() }
-        .create(DescriptionBasic.IS_NOT, RawString.create(EMPTY))
+        .withDescriptionAndRepresentation(DescriptionBasic.IS_NOT, RawString.create(EMPTY))
+        .build()

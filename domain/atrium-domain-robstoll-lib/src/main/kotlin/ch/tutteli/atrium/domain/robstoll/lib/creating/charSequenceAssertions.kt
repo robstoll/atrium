@@ -23,29 +23,35 @@ fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>): CharSequen
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
     = AssertImpl.builder.descriptive
         .withTest { plant.subject.startsWith(expected) }
-        .create(STARTS_WITH, expected)
+        .withDescriptionAndRepresentation(STARTS_WITH, expected)
+        .build()
 
 fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
     = AssertImpl.builder.descriptive
         .withTest { !plant.subject.startsWith(expected) }
-        .create(STARTS_NOT_WITH, expected)
+        .withDescriptionAndRepresentation(STARTS_NOT_WITH, expected)
+        .build()
 
 fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
     = AssertImpl.builder.descriptive
         .withTest { plant.subject.endsWith(expected) }
-        .create(ENDS_WITH, expected)
+        .withDescriptionAndRepresentation(ENDS_WITH, expected)
+        .build()
 
 fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
     = AssertImpl.builder.descriptive
         .withTest { !plant.subject.endsWith(expected) }
-        .create(ENDS_NOT_WITH, expected)
+        .withDescriptionAndRepresentation(ENDS_NOT_WITH, expected)
+        .build()
 
 fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
     = AssertImpl.builder.descriptive
         .withTest { plant.subject.isEmpty() }
-        .create(DescriptionBasic.IS, RawString.create(EMPTY))
+        .withDescriptionAndRepresentation(DescriptionBasic.IS, RawString.create(EMPTY))
+        .build()
 
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
     = AssertImpl.builder.descriptive
         .withTest { plant.subject.isNotEmpty() }
-        .create(DescriptionBasic.IS_NOT, RawString.create(EMPTY))
+        .withDescriptionAndRepresentation(DescriptionBasic.IS_NOT, RawString.create(EMPTY))
+        .build()

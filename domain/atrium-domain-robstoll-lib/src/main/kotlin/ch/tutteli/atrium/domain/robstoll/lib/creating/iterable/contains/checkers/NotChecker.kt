@@ -13,5 +13,6 @@ class NotChecker : IterableContains.Checker {
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
         = AssertImpl.builder.descriptive
             .withTest { foundNumberOfTimes == 0 }
-            .create(DescriptionBasic.IS, 0)
+            .withDescriptionAndRepresentation(DescriptionBasic.IS, 0)
+            .build()
 }

@@ -10,14 +10,14 @@ interface DescriptiveAssertionHoldsOption {
     /**
      * Defines a constant failing assertion.
      */
-    val failing: DescriptiveAssertionBuilder
+    val failing: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
     /**
      * Defines a constant holding assertion.
      */
-    val holding: DescriptiveAssertionBuilder
+    val holding: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
 
     /**
      * Whether the assertion holds or not is defined by the given [test].
      */
-    fun withTest(test: () -> Boolean): DescriptiveAssertionBuilder
+    fun withTest(test: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
 }

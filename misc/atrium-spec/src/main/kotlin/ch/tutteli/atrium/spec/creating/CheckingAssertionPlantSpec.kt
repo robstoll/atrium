@@ -75,9 +75,9 @@ abstract class CheckingAssertionPlantSpec(
 
         inCaseOf("a custom ${DescriptiveAssertion::class.java.simpleName} which fails") {
             testee.addAssertion(
-                AssertImpl.builder.descriptive.failing.create(
+                AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
                     DescriptionAnyAssertion.TO_BE, "my expected result"
-                )
+                ).build()
             )
             test("${testee::allAssertionsHold.name} returns `false` and does not throw an Exception") {
                 val result = testee.allAssertionsHold()

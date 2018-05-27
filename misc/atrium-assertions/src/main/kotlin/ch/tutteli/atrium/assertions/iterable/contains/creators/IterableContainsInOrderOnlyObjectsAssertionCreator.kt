@@ -31,9 +31,9 @@ class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>(
 
     private fun createEntryFeatureAssertion(searchCriterion: E): (Boolean) -> Assertion
         = { found ->
-            AssertImpl.builder.descriptive
-                .withTest { found }
-                .create(DescriptionAnyAssertion.TO_BE, searchCriterion ?: RawString.NULL)
+        AssertImpl.builder.descriptive
+            .withTest { found }
+            .withDescriptionAndRepresentation(DescriptionAnyAssertion.TO_BE, searchCriterion ?: RawString.NULL).build()
         }
 
     override fun matches(actual: E?, searchCriterion: E): Boolean

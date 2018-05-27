@@ -44,6 +44,9 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
      *   evaluated (see [ReportingAssertionPlant]).
      */
     fun createAndAddAssertion(description: Translatable, expected: Any, test: () -> Boolean): AssertionPlant<T>
-        = addAssertion(assertionBuilder.descriptive.withTest(test).create(description, expected))
+        = addAssertion(assertionBuilder.descriptive.withTest(test).withDescriptionAndRepresentation(
+        description,
+        expected
+    ).build())
 }
 

@@ -48,7 +48,7 @@ abstract class OnlyFailureReporterSpec(
         val assertion = object : Assertion {
             override fun holds() = true
         }
-        val basicAssertion = AssertImpl.builder.descriptive.holding.create(TO_BE, 0)
+        val basicAssertion = AssertImpl.builder.descriptive.holding.withDescriptionAndRepresentation(TO_BE, 0).build()
         val basicAssertionAnonymous = object : DescriptiveAssertion {
             override val representation = 1
             override val description = AssertionVerb.VERB

@@ -32,7 +32,8 @@ fun Assert<Int>.isMultipleOf(base: Int)
 fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion
     = AssertImpl.builder.descriptive
         .withTest { plant.subject % base == 0 }
-        .create(DescriptionIntAssertions.IS_MULTIPLE_OF, base)
+        .withDescriptionAndRepresentation(DescriptionIntAssertions.IS_MULTIPLE_OF, base)
+        .build()
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")

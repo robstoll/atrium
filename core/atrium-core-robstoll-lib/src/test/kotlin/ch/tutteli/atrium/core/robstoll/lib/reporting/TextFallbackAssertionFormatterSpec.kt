@@ -55,8 +55,8 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 val assertionGroup = with(AssertImpl.builder) {
                     root.withDescriptionAndRepresentation(ASSERT, "subject")
                         .withAssertions(
-                            descriptive.failing.create(TO_BE, "bli"),
-                            descriptive.failing.create(NOT_TO_BE, "bye")
+                            descriptive.failing.withDescriptionAndRepresentation(TO_BE, "bli").build(),
+                            descriptive.failing.withDescriptionAndRepresentation(NOT_TO_BE, "bye").build()
                         )
                         .build()
                 }
