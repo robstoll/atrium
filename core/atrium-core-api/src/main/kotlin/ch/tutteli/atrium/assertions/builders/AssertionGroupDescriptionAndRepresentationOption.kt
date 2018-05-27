@@ -7,9 +7,12 @@ import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
+/**
+ * Option step which allows to specify [AssertionGroup.name] and [AssertionGroup.representation].
+ */
 interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGroupType, R> {
     /**
-     * The [AssertionGroupType] which shall be used for the [AssertionGroup].
+     * The previously defined [AssertionGroup.type].
      */
     val groupType: T
 

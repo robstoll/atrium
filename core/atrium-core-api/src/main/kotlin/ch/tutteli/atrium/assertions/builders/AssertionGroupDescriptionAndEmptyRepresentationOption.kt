@@ -6,11 +6,16 @@ import ch.tutteli.atrium.assertions.builders.impl.AssertionGroupDescriptionAndEm
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.RawString
 
+/**
+ * Option step which allows to specify the [AssertionGroup.name] -- [RawString.EMPTY] is
+ * used as [AssertionGroup.representation].
+ */
 interface AssertionGroupDescriptionAndEmptyRepresentationOption<out T: AssertionGroupType, R> {
     /**
-     * The [AssertionGroupType] which shall be used for the [AssertionGroup].
+     * The previously defined [AssertionGroup.type].
      */
     val groupType: T
+
 
     /**
      * Uses the given [description] as [AssertionGroup.name] and [RawString.EMPTY] as [AssertionGroup.representation].

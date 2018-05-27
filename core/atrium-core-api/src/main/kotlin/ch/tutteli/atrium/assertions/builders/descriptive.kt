@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions.builders
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.impl.DescriptiveAssertionFinalStepImpl
@@ -8,7 +9,7 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Options to define [DescriptiveAssertion.holds].
+ * Option step which allows to specify [DescriptiveAssertion.holds].
  */
 interface DescriptiveAssertionHoldsOption {
 
@@ -22,17 +23,17 @@ interface DescriptiveAssertionHoldsOption {
     val holding: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
 
     /**
-     * Whether the assertion holds or not is defined by the given [test].
+     * Uses the given [test] as [DescriptiveAssertion.holds].
      */
     fun withTest(test: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
 }
 
 /**
- * Options descriptive like assertion (such as [DescriptiveAssertion]).
+ * Option step which allows to specify the description of a descriptive like assertion (such as [DescriptiveAssertion]).
  */
 interface DescriptiveLikeAssertionDescriptionOption<R> {
     /**
-     * The previously defined test which is used to determine [DescriptiveAssertion.holds].
+     * The previously defined test which is used to determine [Assertion.holds].
      */
     val test: () -> Boolean
 
@@ -56,6 +57,10 @@ interface DescriptiveLikeAssertionDescriptionOption<R> {
     }
 }
 
+/**
+ * Final step which creates a [DescriptiveAssertion] based on the previously defined [test], [description]
+ * and [representation].
+ */
 interface DescriptiveAssertionFinalStep : AssertionBuilderFinalStep<DescriptiveAssertion> {
     /**
      * The previously defined test which is used to determine [DescriptiveAssertion.holds].
@@ -63,12 +68,12 @@ interface DescriptiveAssertionFinalStep : AssertionBuilderFinalStep<DescriptiveA
     val test: () -> Boolean
 
     /**
-     * The [DescriptiveAssertion.description].
+     * The previously defined [DescriptiveAssertion.description].
      */
     val description: Translatable
 
     /**
-     * The [DescriptiveAssertion.representation].
+     * The previously defined [DescriptiveAssertion.representation].
      */
     val representation: Any
 

@@ -8,21 +8,22 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 /**
- * Builder to create an [ExplanatoryAssertion].
+ * Option step which allows to specify [ExplanatoryAssertion.explanation].
  */
 interface ExplanatoryAssertionDescriptionOption {
 
     /**
-     * Creates an [ExplanatoryAssertion] using the given [translatable] (using the given [arg] and
-     * optionally [otherArgs] as arguments of the [TranslatableWithArgs]) as explanation.
+     * Uses the given [translatable] together with the [arg] and optionally [otherArgs] to create an
+     * [TranslatableWithArgs] which is then used as [ExplanatoryAssertion.explanation].
      *
-     * It then delegates to the overload which expects a single [Translatable].
+     * It delegates to the overload which expects a single [Translatable]; see there for more details about
+     * how the [Translatable] is used as [ExplanatoryAssertion.explanation].
      */
     fun withDescription(translatable: Translatable, arg: Any, vararg otherArgs: Any): ExplanatoryAssertionFinalStep
         = withDescription(TranslatableWithArgs(translatable, arrayOf(arg, *otherArgs)))
 
     /**
-     * Creates an [ExplanatoryAssertion] using the given [translatable] as explanation.
+     * Uses the given [translatable] as explanation.
      *
      * In detail, the given [translatable] is turned into a [RawString] so that an [ObjectFormatter] translates the
      * given [translatable] and treats the result as raw string.
@@ -31,7 +32,7 @@ interface ExplanatoryAssertionDescriptionOption {
         = withDescription(RawString.create(translatable))
 
     /**
-     * Creates an [ExplanatoryAssertion] using the given [explanation].
+     * Uses the given [explanation] as [ExplanatoryAssertion.explanation].
      *
      * In case you want to pass a [String] which should be treated as [RawString] in reporting, then please wrap it
      * into a [RawString] (`RawString.create("Your text..")`.
@@ -39,7 +40,13 @@ interface ExplanatoryAssertionDescriptionOption {
     fun withDescription(explanation: Any?) : ExplanatoryAssertionFinalStep
 }
 
+/**
+ * Final step which creates an [ExplanatoryAssertion] based on the previously defined [explanation].
+ */
 interface ExplanatoryAssertionFinalStep : AssertionBuilderFinalStep<ExplanatoryAssertion>{
+    /**
+     * The previously defined [ExplanatoryAssertion.explanation].
+     */
     val explanation: Any?
 
     companion object {

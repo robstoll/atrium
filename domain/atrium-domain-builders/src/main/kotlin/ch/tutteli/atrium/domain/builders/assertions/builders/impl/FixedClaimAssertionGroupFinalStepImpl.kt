@@ -7,10 +7,10 @@ import ch.tutteli.atrium.domain.builders.assertions.builders.FixedClaimAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal class FixedClaimAssertionGroupFinalStepImpl(
-    private val groupType: AssertionGroupType,
-    private val description: Translatable,
-    private val representation: Any,
-    private val assertions: List<Assertion>,
+    override val groupType: AssertionGroupType,
+    override val description: Translatable,
+    override val representation: Any,
+    override val assertions: List<Assertion>,
     override val holds: Boolean
 ) : FixedClaimAssertionGroupFinalStep {
 

@@ -9,47 +9,43 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Base interface for all [AssertionGroup] builder which want to provide different overloads for [withAssertion] methods.
+ * Option step which allows to specify [AssertionGroup.assertions].
  */
 interface AssertionsOption<out T : AssertionGroupType, R> {
     /**
-     * The [AssertionGroupType] which shall be used for [AssertionGroup.type].
+     * The previously defined [AssertionGroup.type].
      */
     val groupType: T
 
     /**
-     * The [AssertionGroup.name].
+     * The previously defined[AssertionGroup.name].
      */
     val description: Translatable
 
     /**
-     * The [AssertionGroup.representation].
+     * The previously defined[AssertionGroup.representation].
      */
     val representation: Any
 
 
     /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [assertion] as single [AssertionGroup.assertions].
+     * Uses the given [assertion] as single [AssertionGroup.assertions].
      */
     fun withAssertion(assertion: Assertion): R = withAssertions(listOf(assertion))
 
     /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [assertion1] and [assertion2] as [AssertionGroup.assertions].
+     * Uses the given [assertion1] and [assertion2] as [AssertionGroup.assertions].
      */
     fun withAssertions(assertion1: Assertion, assertion2: Assertion): R = withAssertions(listOf(assertion1, assertion2))
 
     /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [assertion1], [assertion2] and [assertion3] as [AssertionGroup.assertions].
+     * Uses the given [assertion1], [assertion2] and [assertion3] as [AssertionGroup.assertions].
      */
     fun withAssertions(assertion1: Assertion, assertion2: Assertion, assertion3: Assertion): R
         = withAssertions(listOf(assertion1, assertion2, assertion3))
 
     /**
-     * Creates the [AssertionGroup] with the previously specified [groupType] using the given
-     * [assertions] as [AssertionGroup.assertions].
+     * Uses the given [assertions] as [AssertionGroup.assertions].
      */
     fun withAssertions(assertions: List<Assertion>): R
 
