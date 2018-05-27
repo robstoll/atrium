@@ -17,10 +17,13 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
             AssertImpl.builder.explanatoryGroup
                 .withDefault
                 .withAssertion(
-                    AssertImpl.builder.descriptive.holding.create(
-                        DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
-                        throwable?.localizedMessage ?: RawString.NULL
-                    )
+                    AssertImpl.builder.descriptive
+                        .holding
+                        .withDescriptionAndRepresentation(
+                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
+                            throwable?.localizedMessage ?: RawString.NULL
+                        )
+                        .build()
                 )
                 .build()
         }

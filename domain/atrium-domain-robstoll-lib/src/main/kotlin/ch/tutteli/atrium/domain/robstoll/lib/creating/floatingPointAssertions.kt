@@ -55,4 +55,5 @@ private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T
                 .build()
         }
         .showForAnyFailure
-        .create(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected)
+        .withDescriptionAndRepresentation(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected)
+        .build()

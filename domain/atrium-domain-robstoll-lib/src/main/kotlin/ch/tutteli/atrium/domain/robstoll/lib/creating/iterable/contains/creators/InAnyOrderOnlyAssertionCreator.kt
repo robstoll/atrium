@@ -91,7 +91,11 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
     private fun createSizeFeatureAssertion(allSearchCriteria: List<SC>, actualSize: Int): MutableList<Assertion>
         = mutableListOf(AssertImpl.builder.descriptive
             .withTest { actualSize == allSearchCriteria.size }
-            .create(DescriptionAnyAssertion.TO_BE, RawString.create(allSearchCriteria.size.toString()))
+            .withDescriptionAndRepresentation(
+                DescriptionAnyAssertion.TO_BE,
+                RawString.create(allSearchCriteria.size.toString())
+            )
+            .build()
         )
 
     private fun createExplanatoryGroupForMismatchesEtc(list: MutableList<E?>, warning: DescriptionIterableAssertion): AssertionGroup {

@@ -114,7 +114,10 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
                 addAssertion(LazyThreadUnsafeAssertionGroup {
                     val assertions = itr.mapRemainingWithCounter { counter, it ->
                         val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
-                        AssertImpl.builder.descriptive.holding.create(description, it ?: RawString.NULL)
+                        AssertImpl.builder.descriptive
+                            .holding
+                            .withDescriptionAndRepresentation(description, it ?: RawString.NULL)
+                            .build()
                     }
 
                     AssertImpl.builder.explanatoryGroup

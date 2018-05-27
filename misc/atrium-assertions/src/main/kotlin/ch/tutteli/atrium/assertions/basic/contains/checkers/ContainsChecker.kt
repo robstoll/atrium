@@ -48,6 +48,6 @@ abstract class ContainsChecker(
      */
     protected fun createBasicAssertion(description: Translatable, check: Boolean): DescriptiveAssertion
         = AssertImpl.builder.descriptive
-            .withTest { check }
-            .create(description, RawString.create(times.toString()))
+        .withTest { check }
+        .withDescriptionAndRepresentation(description, RawString.create(times.toString())).build()
 }

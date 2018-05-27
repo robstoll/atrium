@@ -49,8 +49,8 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
     describeFun(AssertionFormatter::formatGroup.name) {
         context("${AssertionGroup::class.simpleName} of type ${assertionGroupTypeClass.simpleName}") {
             val assertions = listOf(
-                AssertImpl.builder.descriptive.holding.create(AssertionVerb.ASSERT, 1),
-                AssertImpl.builder.descriptive.holding.create(AssertionVerb.EXPECT_THROWN, 2)
+                AssertImpl.builder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 1).build(),
+                AssertImpl.builder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2).build()
             )
             val indentAssertionGroup = groupFactory(assertions)
 
@@ -66,7 +66,10 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
             context("in an ${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
                 it("puts the assertions one under the other and indents the second one including a prefix") {
                     val featureAssertions = listOf(indentAssertionGroup,
-                        AssertImpl.builder.descriptive.failing.create(AssertionVerb.ASSERT, 20)
+                        AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                            AssertionVerb.ASSERT,
+                            20
+                        ).build()
                     )
                     val featureAssertionGroup = AssertImpl.builder.feature
                         .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
@@ -83,7 +86,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
 
             context("in an ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
                 val listAssertions = listOf(indentAssertionGroup,
-                    AssertImpl.builder.descriptive.failing.create(AssertionVerb.ASSERT, 20)
+                    AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 20).build()
                 )
                 val listAssertionGroup = AssertImpl.builder.list
                     .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
@@ -102,7 +105,10 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                 context("in another ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
                     it("puts the assertions one under the other and indents as the other assertions but adds an extra indent to the second assertion including a prefix") {
                         val listAssertions2 = listOf(listAssertionGroup,
-                            AssertImpl.builder.descriptive.failing.create(AssertionVerb.EXPECT_THROWN, 30)
+                            AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
+                                AssertionVerb.EXPECT_THROWN,
+                                30
+                            ).build()
                         )
                         val listAssertionGroup2 = AssertImpl.builder.list
                             .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
@@ -122,8 +128,8 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
 
             context("in another ${AssertionGroup::class.simpleName} of type object: ${assertionGroupTypeClass::class.simpleName}") {
                 val indentAssertions = listOf(
-                    AssertImpl.builder.descriptive.failing.create(AssertionVerb.ASSERT, 21), indentAssertionGroup,
-                    AssertImpl.builder.descriptive.failing.create(AssertionVerb.ASSERT, 20)
+                    AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 21).build(), indentAssertionGroup,
+                    AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 20).build()
                 )
                 val indentAssertionGroup2 = AssertImpl.builder.customType(anonymousAssertionGroupType)
                     .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
