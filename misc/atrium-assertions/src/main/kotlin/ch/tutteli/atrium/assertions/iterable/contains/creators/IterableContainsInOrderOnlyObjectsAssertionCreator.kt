@@ -33,7 +33,8 @@ class IterableContainsInOrderOnlyObjectsAssertionCreator<E, T : Iterable<E?>>(
         = { found ->
         AssertImpl.builder.descriptive
             .withTest { found }
-            .withDescriptionAndRepresentation(DescriptionAnyAssertion.TO_BE, searchCriterion ?: RawString.NULL).build()
+            .withDescriptionAndNullableRepresentation(DescriptionAnyAssertion.TO_BE, searchCriterion)
+            .build()
         }
 
     override fun matches(actual: E?, searchCriterion: E): Boolean

@@ -14,7 +14,7 @@ class InOrderOnlyValueMatcher<E> : InOrderOnlyMatcher<E, E> {
         = { found ->
         AssertImpl.builder.descriptive
             .withTest(found)
-            .withDescriptionAndRepresentation(DescriptionAnyAssertion.TO_BE, searchCriterion ?: RawString.NULL)
+            .withDescriptionAndNullableRepresentation(DescriptionAnyAssertion.TO_BE, searchCriterion)
             .build()
         }
 }
