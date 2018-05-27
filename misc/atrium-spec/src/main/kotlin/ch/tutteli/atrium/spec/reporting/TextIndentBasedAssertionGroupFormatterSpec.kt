@@ -66,10 +66,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
             context("in an ${AssertionGroup::class.simpleName} of type ${FeatureAssertionGroupType::class.simpleName}") {
                 it("puts the assertions one under the other and indents the second one including a prefix") {
                     val featureAssertions = listOf(indentAssertionGroup,
-                        AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
-                            AssertionVerb.ASSERT,
-                            20
-                        ).build()
+                        AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 20).build()
                     )
                     val featureAssertionGroup = AssertImpl.builder.feature
                         .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
@@ -105,10 +102,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                 context("in another ${AssertionGroup::class.simpleName} of type ${ListAssertionGroupType::class.simpleName}") {
                     it("puts the assertions one under the other and indents as the other assertions but adds an extra indent to the second assertion including a prefix") {
                         val listAssertions2 = listOf(listAssertionGroup,
-                            AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
-                                AssertionVerb.EXPECT_THROWN,
-                                30
-                            ).build()
+                            AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 30).build()
                         )
                         val listAssertionGroup2 = AssertImpl.builder.list
                             .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)

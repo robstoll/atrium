@@ -11,8 +11,5 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 class NotChecker : IterableContains.Checker {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
-        = AssertImpl.builder.descriptive
-            .withTest { foundNumberOfTimes == 0 }
-            .withDescriptionAndRepresentation(DescriptionBasic.IS, 0)
-            .build()
+        = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, 0, { foundNumberOfTimes == 0 })
 }

@@ -110,10 +110,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                                 override val name = Untranslatable("inner group")
                                 override val representation = "subject of inner group"
                                 override val assertions = listOf(
-                                    AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(
-                                        IS_SAME,
-                                        "b"
-                                    ).build(),
+                                    AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "b").build(),
                                     AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(TO_BE, "d").build()
                                 )
                             },

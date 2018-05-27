@@ -21,37 +21,19 @@ fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>): CharSequen
 
 
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.descriptive
-        .withTest { plant.subject.startsWith(expected) }
-        .withDescriptionAndRepresentation(STARTS_WITH, expected)
-        .build()
+    = AssertImpl.builder.createDescriptive(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
 
 fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.descriptive
-        .withTest { !plant.subject.startsWith(expected) }
-        .withDescriptionAndRepresentation(STARTS_NOT_WITH, expected)
-        .build()
+    = AssertImpl.builder.createDescriptive(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
 
 fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.descriptive
-        .withTest { plant.subject.endsWith(expected) }
-        .withDescriptionAndRepresentation(ENDS_WITH, expected)
-        .build()
+    = AssertImpl.builder.createDescriptive(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
 
 fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.descriptive
-        .withTest { !plant.subject.endsWith(expected) }
-        .withDescriptionAndRepresentation(ENDS_NOT_WITH, expected)
-        .build()
+    = AssertImpl.builder.createDescriptive(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
 
 fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertImpl.builder.descriptive
-        .withTest { plant.subject.isEmpty() }
-        .withDescriptionAndRepresentation(DescriptionBasic.IS, RawString.create(EMPTY))
-        .build()
+    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
 
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertImpl.builder.descriptive
-        .withTest { plant.subject.isNotEmpty() }
-        .withDescriptionAndRepresentation(DescriptionBasic.IS_NOT, RawString.create(EMPTY))
-        .build()
+    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
