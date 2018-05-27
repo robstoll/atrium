@@ -10,4 +10,4 @@ import ch.tutteli.atrium.checking.AssertionChecker
  */
 @Suppress("unused")
 val AssertionBuilder.root: DefaultAssertionGroupBuilderOptions<RootAssertionGroupType>
-    get() = DescriptionAndRepresentationOption.create(RootAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
+    get() = AssertionGroupDescriptionAndRepresentationOption.create(RootAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
