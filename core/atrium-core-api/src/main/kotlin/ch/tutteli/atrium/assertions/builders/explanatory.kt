@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
+import ch.tutteli.atrium.assertions.builders.impl.ExplanatoryAssertionFinalStepImpl
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -36,4 +37,12 @@ interface ExplanatoryAssertionDescriptionOption {
      * into a [RawString] (`RawString.create("Your text..")`.
      */
     fun withDescription(explanation: Any?) : ExplanatoryAssertionFinalStep
+}
+
+interface ExplanatoryAssertionFinalStep : AssertionBuilderFinalStep<ExplanatoryAssertion>{
+    val explanation: Any?
+
+    companion object {
+        fun create(explanation: Any?): ExplanatoryAssertionFinalStep = ExplanatoryAssertionFinalStepImpl(explanation)
+    }
 }
