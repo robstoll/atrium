@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.builders.assertions.builders.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.DescriptiveLikeAssertionDescriptionOption
+import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintFinalStep
 import ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintShowOption
 
@@ -11,7 +12,7 @@ internal class DescriptiveAssertionWithFailureHintShowOptionImpl(
 ): DescriptiveAssertionWithFailureHintShowOption {
 
    override val showForAnyFailure get(): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
-        = createDescriptiveLikeAssertionDescriptionOption({ true })
+        = createDescriptiveLikeAssertionDescriptionOption(trueProvider)
 
     override fun showOnlyIf(predicate: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
         = createDescriptiveLikeAssertionDescriptionOption(predicate)
