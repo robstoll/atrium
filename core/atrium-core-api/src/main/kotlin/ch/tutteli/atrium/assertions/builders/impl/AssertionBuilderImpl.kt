@@ -5,10 +5,10 @@ import ch.tutteli.atrium.assertions.builders.*
 
 internal object AssertionBuilderImpl : AssertionBuilder {
 
-    override val list: DefaultAssertionBuilderOptions<ListAssertionGroupType>
+    override val list: DefaultAssertionGroupBuilderOptions<ListAssertionGroupType>
         = createDescriptionAndRepresentationOption(DefaultListAssertionGroupType)
 
-    override val feature: DefaultAssertionBuilderOptions<FeatureAssertionGroupType>
+    override val feature: DefaultAssertionGroupBuilderOptions<FeatureAssertionGroupType>
         = createDescriptionAndRepresentationOption(DefaultFeatureAssertionGroupType)
 
     override val summary: DescriptionAndEmptyRepresentationOption<SummaryAssertionGroupType, AssertionsOption<SummaryAssertionGroupType, BasicAssertionGroupFinalStep>>
@@ -23,10 +23,10 @@ internal object AssertionBuilderImpl : AssertionBuilder {
     override val explanatory: ExplanatoryAssertionDescriptionOption
         = ExplanatoryAssertionDescriptionOptionImpl
 
-    override fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionBuilderOptions<T>
+    override fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionGroupBuilderOptions<T>
         = createDescriptionAndRepresentationOption(groupType)
 
 
-    private fun <T: AssertionGroupType> createDescriptionAndRepresentationOption(type: T): DefaultAssertionBuilderOptions<T>
+    private fun <T: AssertionGroupType> createDescriptionAndRepresentationOption(type: T): DefaultAssertionGroupBuilderOptions<T>
         = DescriptionAndRepresentationOption.create(type, AssertionsOption.asFactoryWithDefaultFinalStep())
 }

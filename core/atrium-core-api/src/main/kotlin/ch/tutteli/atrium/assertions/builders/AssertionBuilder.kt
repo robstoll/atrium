@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.Reporter
  */
 val assertionBuilder: AssertionBuilder = AssertionBuilderImpl
 
-typealias DefaultAssertionBuilderOptions<T> = DescriptionAndRepresentationOption<T, AssertionsOption<T, BasicAssertionGroupFinalStep>>
+typealias DefaultAssertionGroupBuilderOptions<T> = DescriptionAndRepresentationOption<T, AssertionsOption<T, BasicAssertionGroupFinalStep>>
 
 /**
  * Represents a builder which creates [Assertion]s and [AssertionGroup]s.
@@ -23,13 +23,13 @@ interface AssertionBuilder {
      * Builder to create an [AssertionGroup] with a [ListAssertionGroupType] -- kind of the default type
      * for [AssertionGroup]s, if you do not know what to choose, this is probably the best fit for you.
      */
-    val list: DefaultAssertionBuilderOptions<ListAssertionGroupType>
+    val list: DefaultAssertionGroupBuilderOptions<ListAssertionGroupType>
 
     /**
      * Builder to create an [AssertionGroup] with a [FeatureAssertionGroupType] -- use it if you want to make an
      * [Assertion] about a feature of the subject.
      */
-    val feature: DefaultAssertionBuilderOptions<FeatureAssertionGroupType>
+    val feature: DefaultAssertionGroupBuilderOptions<FeatureAssertionGroupType>
 
     /**
      * Builder to create an [AssertionGroup] with a [SummaryAssertionGroupType] -- use it if it is essential that also
@@ -73,5 +73,5 @@ interface AssertionBuilder {
      *
      * @param groupType the [AssertionGroup.type].
      */
-    fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionBuilderOptions<T>
+    fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionGroupBuilderOptions<T>
 }
