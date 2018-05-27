@@ -5,9 +5,9 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Represents a base class for [AssertionGroup]s which have an empty [name] and [representation].
+ * Represents a base class for [AssertionGroup]s which have an empty [description] and [representation].
  *
- * @constructor Represents a base class for [AssertionGroup]s which have an empty [name] and [representation].
+ * @constructor Represents a base class for [AssertionGroup]s which have an empty [description] and [representation].
  * @param type The type of the group, e.g. [InvisibleAssertionGroupType].
  * @param assertions The assertions of this group.
  */
@@ -22,7 +22,7 @@ constructor(
     /**
      * [Untranslatable.EMPTY] -- an empty string as [Untranslatable].
      */
-    override val name: Translatable = Untranslatable.EMPTY
+    override val description: Translatable = Untranslatable.EMPTY
 
     /**
      * [RawString.EMPTY] -- an empty string as [RawString].

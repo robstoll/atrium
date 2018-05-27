@@ -13,23 +13,31 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface AssertionGroup : Assertion {
 
     /**
-     * The name of the group.
+     * The description of the group.
      */
-    val name: Translatable
+    val description: Translatable
+
+    @Deprecated("Use description, will be removed with 1.0.0", ReplaceWith("description"))
+    val name get() = description
+
 
     /**
      * The type of the group, e.g. [RootAssertionGroupType].
      */
     val type: AssertionGroupType
 
+
+    /**
+     * A complementing representation to the description -- typically the subject for which the [assertions]
+     * are defined.
+     *
+     * For instance, if the description is `index 0` then the representation shows what is at index 0.
+     */
+    val representation: Any
+
     @Deprecated("Use representation, will be removed with 1.0.0", ReplaceWith("representation"))
     val subject get() = representation
 
-    /**
-     * The representation of the subject for which the [assertions] are defined.
-     * Typically it is the subject itself. Other examples are [RawString] or [LazyRepresentation].
-     */
-    val representation: Any
 
     /**
      * The assertions of this group, which are defined for the subject represented by [representation].

@@ -51,7 +51,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
 
     describe("fun ${TextFallbackAssertionFormatter::format.name}") {
         context("a ${AssertionGroup::class.simpleName} of type ${RootAssertionGroupType::class.simpleName}") {
-            it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name}") {
+            it("includes the group ${AssertionGroup::description.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name}") {
                 val assertionGroup = with(AssertImpl.builder) {
                     root.withDescriptionAndRepresentation(ASSERT, "subject")
                         .withAssertions(

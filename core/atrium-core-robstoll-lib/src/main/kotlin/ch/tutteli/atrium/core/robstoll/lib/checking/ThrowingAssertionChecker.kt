@@ -24,7 +24,7 @@ class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecke
      * Creates an [AssertionGroup] -- based on the given [assertionVerb], [representationProvider] and [assertions] --
      * formats it for reporting using the [reporter] and checks whether it holds.
      *
-     * @param assertionVerb I used as [AssertionGroup.name].
+     * @param assertionVerb Is used as [AssertionGroup.description].
      * @param representationProvider Provides the [AssertionGroup.representation].
      * @param assertions Is used as [AssertionGroup.assertions].
      *

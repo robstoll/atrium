@@ -8,7 +8,7 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Option step which allows to specify [AssertionGroup.name] and [AssertionGroup.representation].
+ * Option step which allows to specify [AssertionGroup.description] and [AssertionGroup.representation].
  */
 interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGroupType, R> {
     /**
@@ -17,27 +17,27 @@ interface AssertionGroupDescriptionAndRepresentationOption<out T : AssertionGrou
     val groupType: T
 
     /**
-     * Uses the given [description] as [AssertionGroup.name] and [representationProvider] to create a
+     * Uses the given [description] as [AssertionGroup.description] and [representationProvider] to create a
      * [LazyRepresentation] which is used as [AssertionGroup.representation].
      */
     fun withDescriptionAndRepresentation(description: Translatable, representationProvider: () -> Any): R
         = withDescriptionAndRepresentation(description, LazyRepresentation(representationProvider))
 
     /**
-     * Uses the given [description] as [AssertionGroup.name] and [RawString.EMPTY] as [AssertionGroup.representation].
+     * Uses the given [description] as [AssertionGroup.description] and [RawString.EMPTY] as [AssertionGroup.representation].
      */
     fun withDescriptionAndEmptyRepresentation(description: Translatable): R
         = withDescriptionAndRepresentation(description, RawString.EMPTY)
 
     /**
-     * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation]
+     * Uses the given [description] as [AssertionGroup.description] and [representation] as [AssertionGroup.representation]
      * unless [representation] is null in which case [RawString.NULL] is used.
      */
     fun withDescriptionAndNullableRepresentation(description: Translatable, representation: Any?): R
         = withDescriptionAndRepresentation(description, representation ?: RawString.NULL)
 
     /**
-     * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation].
+     * Uses the given [description] as [AssertionGroup.description] and [representation] as [AssertionGroup.representation].
      */
     fun withDescriptionAndRepresentation(description: Translatable, representation: Any): R
 

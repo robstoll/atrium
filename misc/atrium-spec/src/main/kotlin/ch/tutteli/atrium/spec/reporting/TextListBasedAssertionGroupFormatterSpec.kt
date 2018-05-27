@@ -72,7 +72,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
 
                 context("${AssertionGroup::class.simpleName} of type object: ${assertionGroupClass.simpleName}") {
                     context("format directly the group") {
-                        it("includes the group ${AssertionGroup::name.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name} which are prepended with a `$listBulletPoint` as bullet point") {
+                        it("includes the group ${AssertionGroup::description.name}, its ${AssertionGroup::representation.name} as well as the ${AssertionGroup::assertions.name} which are prepended with a `$listBulletPoint` as bullet point") {
                             facade.format(listAssertionGroup, sb, alwaysTrueAssertionFilter)
                             verbs.checkImmediately(sb.toString()).toBe(separator
                                 + "placeholder %s: 2$separator"
@@ -89,7 +89,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
                             .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 10)
                             .withAssertions(featureAssertions)
                             .build()
-                        it("indents the group ${AssertionGroup::name.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
+                        it("indents the group ${AssertionGroup::description.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                             facade.format(featureAssertionGroup, sb, alwaysTrueAssertionFilter)
                             verbs.checkImmediately(sb.toString()).toBe(separator
                                 + "$arrow ${AssertionVerb.ASSERT.getDefault()}: 10$separator"
@@ -99,7 +99,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
                                 + "$indentArrow$bulletPoint ${AssertionVerb.ASSERT.getDefault()}: 20")
                         }
                         context("in another ${AssertionGroup::class.simpleName} of type ${assertionGroupType::class.simpleName}") {
-                            it("indents the group ${AssertionGroup::name.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
+                            it("indents the group ${AssertionGroup::description.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                                 val listAssertions = listOf(
                                     AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5).build(), featureAssertionGroup,
                                     AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 30).build()
@@ -123,7 +123,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
                         }
                     }
                     context("in another ${AssertionGroup::class.simpleName} of type ${assertionGroupClass.simpleName}") {
-                        it("indents the group ${AssertionGroup::name.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
+                        it("indents the group ${AssertionGroup::description.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$listBulletPoint` for each assertion and `$bulletPoint` for each element in the list group") {
                             val listAssertions = listOf(
                                 AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5).build(),
                                 listAssertionGroup,

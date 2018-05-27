@@ -31,7 +31,7 @@ class TextNextLineAssertionPairFormatter(
 ) : AssertionPairFormatter {
 
     override fun formatGroupHeader(parameterObject: AssertionFormatterParameterObject, assertionGroup: AssertionGroup, newParameterObject: AssertionFormatterParameterObject)
-        = format(parameterObject, assertionGroup.name, assertionGroup.representation, newParameterObject)
+        = format(parameterObject, assertionGroup.description, assertionGroup.representation, newParameterObject)
 
     override fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any)
         = format(parameterObject, translatable, representation, parameterObject)

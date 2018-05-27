@@ -43,7 +43,7 @@ class TextFeatureAssertionGroupFormatter(
 
     override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
         parameterObject.appendLnIndentAndPrefix()
-        val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), assertionGroup.name)
+        val translatable = TranslatableWithArgs(Untranslatable("$arrow%s"), assertionGroup.description)
         val group =
             NameDecoratingAssertionGroup(
                 translatable,
@@ -58,6 +58,6 @@ class TextFeatureAssertionGroupFormatter(
         newName: Translatable,
         assertionGroup: AssertionGroup
     ) : AssertionGroup by assertionGroup {
-        override val name: Translatable = newName
+        override val description: Translatable = newName
     }
 }

@@ -18,7 +18,7 @@ interface BasicAssertionGroupFinalStep : AssertionBuilderFinalStep<AssertionGrou
     val groupType: AssertionGroupType
 
     /**
-     * The previously defined [AssertionGroup.name].
+     * The previously defined [AssertionGroup.description].
      */
     val description: Translatable
 
@@ -35,9 +35,9 @@ interface BasicAssertionGroupFinalStep : AssertionBuilderFinalStep<AssertionGrou
     companion object {
         fun create(
             groupType: AssertionGroupType,
-            name: Translatable,
+            description: Translatable,
             representation: Any,
             assertions: List<Assertion>
-        ): BasicAssertionGroupFinalStep = BasicAssertionGroupFinalStepImpl(groupType, name, representation, assertions)
+        ): BasicAssertionGroupFinalStep = BasicAssertionGroupFinalStepImpl(groupType, description, representation, assertions)
     }
 }

@@ -29,7 +29,7 @@ class TextSameLineAssertionPairFormatter(
 ) : AssertionPairFormatter {
 
     override fun formatGroupHeader(parameterObject: AssertionFormatterParameterObject, assertionGroup: AssertionGroup, newParameterObject: AssertionFormatterParameterObject)
-        = format(parameterObject, assertionGroup.name, assertionGroup.representation)
+        = format(parameterObject, assertionGroup.description, assertionGroup.representation)
 
     override fun format(parameterObject: AssertionFormatterParameterObject, translatable: Translatable, representation: Any) {
         parameterObject.sb.append(translator.translate(translatable)).append(": ").append(objectFormatter.format(representation))

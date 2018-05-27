@@ -45,7 +45,7 @@ interface DescriptiveLikeAssertionDescriptionOption<R> {
         = withDescriptionAndRepresentation(description, representation ?: RawString.NULL)
 
     /**
-     * Uses the given [description] as [AssertionGroup.name] and [representation] as [AssertionGroup.representation].
+     * Uses the given [description] as [AssertionGroup.description] and [representation] as [AssertionGroup.representation].
      */
     fun withDescriptionAndRepresentation(description: Translatable, representation: Any): R
 

@@ -46,7 +46,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         .withAssertions(listOf())
         .build()
     val supportedAnonymousAssertionGroupWithAnonymousType = object : AssertionGroup {
-        override val name = Untranslatable("test")
+        override val description = Untranslatable("test")
         override val type = supportedAnonymousAssertionGroupType
         override val representation = 1
         override val assertions: List<Assertion> = emptyList()
@@ -56,7 +56,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         .withAssertions(listOf())
         .build()
     val supportedAnonymousAssertionGroup = object : AssertionGroup {
-        override val name = Untranslatable("test")
+        override val description = Untranslatable("test")
         override val type = supportedAssertionGroupType
         override val representation = 1
         override val assertions: List<Assertion> = emptyList()

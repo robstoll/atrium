@@ -42,7 +42,7 @@ abstract class TextFallbackAssertionFormatterSpec(
             it("... an anonymous class of ${AssertionGroup::class.simpleName} with an anonymous ${AssertionGroupType::class.simpleName}") {
                 testee.canFormat(object : AssertionGroup {
                     override val type = object : AssertionGroupType {}
-                    override val name = Untranslatable("outer group")
+                    override val description = Untranslatable("outer group")
                     override val representation = "subject of outer group"
                     override val assertions = listOf<Assertion>()
                 }
@@ -81,7 +81,7 @@ abstract class TextFallbackAssertionFormatterSpec(
                 it("uses the system line separator to separate the assertions") {
                     facade.format(object : AssertionGroup {
                         override val type = RootAssertionGroupType
-                        override val name = Untranslatable("group")
+                        override val description = Untranslatable("group")
                         override val representation = "subject of group"
                         override val assertions = listOf(
                             AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "b").build(),
@@ -102,12 +102,12 @@ abstract class TextFallbackAssertionFormatterSpec(
                 it("uses the system line separator to separate the assertions") {
                     facade.format(object : AssertionGroup {
                         override val type = RootAssertionGroupType
-                        override val name = Untranslatable("outer group")
+                        override val description = Untranslatable("outer group")
                         override val representation = "subject of outer group"
                         override val assertions = listOf(
                             object : AssertionGroup {
                                 override val type = object : AssertionGroupType {}
-                                override val name = Untranslatable("inner group")
+                                override val description = Untranslatable("inner group")
                                 override val representation = "subject of inner group"
                                 override val assertions = listOf(
                                     AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(IS_SAME, "b").build(),

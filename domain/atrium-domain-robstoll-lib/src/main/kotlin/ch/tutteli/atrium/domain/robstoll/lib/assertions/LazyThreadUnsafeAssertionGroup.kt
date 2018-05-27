@@ -13,7 +13,7 @@ class LazyThreadUnsafeAssertionGroup(assertionCreator: () -> AssertionGroup) : A
         assertionCreator()
     }
 
-    override val name get() = assertionGroup.name
+    override val description get() = assertionGroup.description
     override val type get() = assertionGroup.type
     override val representation get() = assertionGroup.representation
     override val assertions get() = assertionGroup.assertions
