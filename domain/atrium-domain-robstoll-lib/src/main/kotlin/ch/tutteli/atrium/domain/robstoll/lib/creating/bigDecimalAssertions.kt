@@ -32,7 +32,7 @@ fun <T : BigDecimal> _isEqualIncludingScale(
         .withTest{ plant.subject == expected }
         .withFailureHint {
             AssertImpl.builder.explanatoryGroup
-                .withDefault
+                .withDefaultType
                 .withExplanatoryAssertion(FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL, nameOfIsNumericallyEqualTo)
                 .build()
         }

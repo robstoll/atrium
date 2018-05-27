@@ -47,7 +47,7 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
         .withClaim(found)
         .withDescriptionAndRepresentation(DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString.EMPTY)
         .withAssertion(AssertImpl.builder.explanatoryGroup
-            .withDefault
+            .withDefaultType
             .withAssertions(explanatoryAssertions)
             .build()
         )

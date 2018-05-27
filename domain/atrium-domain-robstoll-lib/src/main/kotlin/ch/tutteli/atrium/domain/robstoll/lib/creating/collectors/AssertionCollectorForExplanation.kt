@@ -34,7 +34,7 @@ class AssertionCollectorForExplanation(private val throwIfNoAssertionIsCollected
             collectedAssertions
         } catch (e: PlantHasNoSubjectException) {
             listOf(AssertImpl.builder.explanatoryGroup
-                .withWarning
+                .withWarningType
                 .withExplanatoryAssertion(warning)
                 .build()
             )

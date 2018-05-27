@@ -7,11 +7,9 @@ import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.FixedClaimAssertionGroupTypeOption
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -22,7 +20,6 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
-import kotlin.reflect.KFunction3
 
 abstract class AssertionFormatterControllerSpec(
     verbs: AssertionVerbFactory,
@@ -147,7 +144,7 @@ abstract class AssertionFormatterControllerSpec(
                     val rootGroup = AssertImpl.builder.root
                         .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
                         .withAssertions(
-                            AssertImpl.builder.explanatoryGroup.withDefault.withAssertion(assertion).build(),
+                            AssertImpl.builder.explanatoryGroup.withDefaultType.withAssertion(assertion).build(),
                             assertion
                         )
                         .build()
@@ -163,7 +160,7 @@ abstract class AssertionFormatterControllerSpec(
                         .withDescriptionAndRepresentation(AssertionVerb.ASSERT, 5)
                         .withAssertions(
                             assertion,
-                            AssertImpl.builder.explanatoryGroup.withWarning.withAssertion(assertion).build(),
+                            AssertImpl.builder.explanatoryGroup.withWarningType.withAssertion(assertion).build(),
                             assertion
                         )
                         .build()
@@ -179,7 +176,7 @@ abstract class AssertionFormatterControllerSpec(
                     .withAssertions(assertion, failingAssertion)
                     .build()
                 val explanatoryAssertionGroup = AssertImpl.builder.explanatoryGroup
-                    .withDefault
+                    .withDefaultType
                     .withAssertions(listOf(assertionGroup, assertion))
                     .build()
 
@@ -199,7 +196,7 @@ abstract class AssertionFormatterControllerSpec(
                 context("within another ${ExplanatoryAssertionGroupType::class.simpleName} which is preceded and followed by a regular assertion ") {
                     it("appends the explanatory assertion group including all its assertions") {
                         val explanatoryAssertionGroup2 = AssertImpl.builder.explanatoryGroup
-                            .withWarning
+                            .withWarningType
                             .withAssertion(explanatoryAssertionGroup)
                             .build()
                         val rootGroup2 = AssertImpl.builder.root

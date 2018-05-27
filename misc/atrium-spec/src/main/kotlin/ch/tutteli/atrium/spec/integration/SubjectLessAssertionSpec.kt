@@ -26,7 +26,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
                     )
                 )
                 val explanatoryGroup = AssertImpl.builder.explanatoryGroup
-                    .withDefault
+                    .withDefaultType
                     .withAssertions(assertions)
                     .build()
                 plant.addAssertion(explanatoryGroup)

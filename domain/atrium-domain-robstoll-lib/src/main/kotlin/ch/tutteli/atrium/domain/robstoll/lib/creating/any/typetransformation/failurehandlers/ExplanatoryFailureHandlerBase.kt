@@ -16,7 +16,7 @@ abstract class ExplanatoryFailureHandlerBase<in S : Any, out T : Any> : AnyTypeT
             .withAssertions(
                 createFailingAssertion(parameterObject.description, parameterObject.representation),
                 AssertImpl.builder.explanatoryGroup
-                    .withDefault
+                    .withDefaultType
                     .withAssertions(explanatoryAssertions)
                     .build()
             )
