@@ -74,7 +74,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("inAnyOrderEntries")
+@JvmName("inBeliebigerReihenfolgeEintraege")
 fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inBeliebigerReihenfolge(
     firstGroup: GroupWithoutNullableEntries<Assert<E>.() -> Unit>,
     secondGroup: GroupWithoutNullableEntries<Assert<E>.() -> Unit>,
@@ -103,7 +103,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("inAnyOrderNullableEntries")
+@JvmName("inBeliebigerReihenfolgeNullableEintraege")
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inBeliebigerReihenfolge(
     firstGroup: GroupWithNullableEntries<(Assert<E>.() -> Unit)?>,
     secondGroup: GroupWithNullableEntries<(Assert<E>.() -> Unit)?>,
