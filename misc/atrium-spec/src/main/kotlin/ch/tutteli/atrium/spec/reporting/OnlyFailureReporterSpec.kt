@@ -48,7 +48,7 @@ abstract class OnlyFailureReporterSpec(
         val assertion = object : Assertion {
             override fun holds() = true
         }
-        val basicAssertion = AssertImpl.builder.descriptive.create(TO_BE, 0, true)
+        val basicAssertion = AssertImpl.builder.descriptive.holding.withDescriptionAndRepresentation(TO_BE, 0).build()
         val basicAssertionAnonymous = object : DescriptiveAssertion {
             override val representation = 1
             override val description = AssertionVerb.VERB
@@ -61,7 +61,10 @@ abstract class OnlyFailureReporterSpec(
             override val representation = 0
             override val assertions = listOf(assertion, basicAssertion, basicAssertionAnonymous)
         }
-        val assertionGroup = AssertImpl.builder.root(AssertionVerb.VERB, 1).create(listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
+        val assertionGroup = AssertImpl.builder.root
+            .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
+            .withAssertions(listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
+            .build()
 
         mapOf(
             "object: ${Assertion::class.simpleName}" to assertion,

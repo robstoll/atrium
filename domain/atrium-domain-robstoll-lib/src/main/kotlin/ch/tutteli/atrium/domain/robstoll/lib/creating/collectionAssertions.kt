@@ -16,7 +16,7 @@ fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
     }
 
 fun <T : Collection<*>> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertImpl.builder.descriptive.create(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
 
 fun <T : Collection<*>> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertImpl.builder.descriptive.create(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })

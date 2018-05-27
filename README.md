@@ -699,7 +699,7 @@ assert(13).isEven()
 ```
 
 Do you want to provide extra hints in case the assertion fails? 
-Have a look at [`AssertImpl.builder.descriptive.withFailureHint`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.assertions.builders/with-failure-hint.html).
+Have a look at [`AssertImpl.builder.descriptive.withTest({...}).withFailureHint`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.assertions.builders/with-failure-hint.html).
 You might want to have a look at [`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.creating/-assert-impl/index.html)
 in general, it is kind of the entry point for assertion-function-writers.
 It guides you to existing assertion function implementations 
@@ -833,13 +833,16 @@ We follow the convention that impl-functions are prefixed with `_`
 -- this way the chance that it shows up in code completion, e.g. when a developer starts to type `is`, is very low):
 ```kotlin
 fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion 
-    = AssertImpl.builder.descriptive.create(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
+    = AssertImpl.builder.createDescriptive(DescriptionIntAssertions.IS_MULTIPLE_OF, base, { plant.subject % base == 0 })
 ```
 Notice that the impl-function is not an extension function as before 
 because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
 We typically use `AssertionPlant` for impl-functions and `Assert` for API functions. 
+In the above example we created a simple [DescriptiveAssertion](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions/-basic-descriptive-assertion/index.html)
+(`createAndAddAssertion` does the same under the hood)
+with a test which defines whether the assertion holds as well as a description (`IS_MULTIPLE_OF`) and a representation (`base`).
 
-[`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/doc/ch.tutteli.atrium.domain.builders.creating/-assert-impl/index.html)
+[`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.creating/-assert-impl/index.html)
 helps you in writing own assertion functions. 
 I suggest you use it as entry point (rather than memorizing different class names), 
 it guides you to existing assertion function implementations for different types 

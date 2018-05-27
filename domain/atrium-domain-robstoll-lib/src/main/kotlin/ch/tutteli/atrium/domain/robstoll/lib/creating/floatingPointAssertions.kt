@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.ExplanatoryAssertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.assertions.builders.withFailureHint
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -28,29 +29,36 @@ fun <T : BigDecimal> _toBeWithErrorTolerance(plant: AssertionPlant<T>, expected:
 private fun <T : Comparable<T>> toBeWithErrorToleranceOfFloatOrDouble(plant: AssertionPlant<T>, expected: T, tolerance: T, absDiff: () -> T): Assertion {
     return toBeWithErrorTolerance(expected, tolerance, absDiff) { df ->
         listOf(
-            AssertImpl.builder.explanatory.create(
-                FAILURE_DUE_TO_FLOATING_POINT_NUMBER,
-                plant.subject::class.java.name
-            ),
+            AssertImpl.builder.explanatory
+                .withDescription(FAILURE_DUE_TO_FLOATING_POINT_NUMBER, plant.subject::class.java.name)
+                .build(),
             createToBeWithErrorToleranceExplained(df, plant, expected, absDiff, tolerance)
         )
     }
 }
 
-private fun <T : Comparable<T>> createToBeWithErrorToleranceExplained(df: DecimalFormat, plant: AssertionPlant<T>, expected: T, absDiff: () -> T, tolerance: T)
-    = AssertImpl.builder.explanatory.create(TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED, df.format(plant.subject), df.format(expected), df.format(absDiff()), df.format(tolerance))
+private fun <T : Comparable<T>> createToBeWithErrorToleranceExplained(df: DecimalFormat, plant: AssertionPlant<T>, expected: T, absDiff: () -> T, tolerance: T): ExplanatoryAssertion
+    = AssertImpl.builder.explanatory
+    .withDescription(
+        TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED,
+        df.format(plant.subject), df.format(expected), df.format(absDiff()), df.format(tolerance)
+    )
+    .build()
 
 private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T, absDiff: () -> T, explanatoryAssertionCreator: (DecimalFormat) -> List<Assertion>): Assertion
     = AssertImpl.builder.descriptive
+        .withTest { absDiff() <= tolerance }
         .withFailureHint {
             //TODO that's not nice in case we use it in an Iterable contains assertion, for instance contains...entry { toBeWithErrorTolerance(x, 0.01) }
             //we do not want to see the failure nor the exact check in the 'an entry which...' part
             //same problematic applies to feature assertions within an identification lambda
             val df = DecimalFormat("###,##0.0")
             df.maximumFractionDigits = 340
-            AssertImpl.builder.explanatoryGroup.withDefault.create(
-                explanatoryAssertionCreator(df)
-            )
+            AssertImpl.builder.explanatoryGroup
+                .withDefaultType
+                .withAssertions(explanatoryAssertionCreator(df))
+                .build()
         }
         .showForAnyFailure
-        .create(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected, { absDiff() <= tolerance })
+        .withDescriptionAndRepresentation(TranslatableWithArgs(TO_BE_WITH_ERROR_TOLERANCE, tolerance), expected)
+        .build()

@@ -16,7 +16,7 @@ object LazyThreadUnsafeBasicAssertionSpec : Spek({
         var callingCount = 0
         val testee = LazyThreadUnsafeBasicAssertion {
             ++callingCount
-            AssertImpl.builder.descriptive.create(Untranslatable("a"), 2, false)
+            AssertImpl.builder.descriptive.failing.withDescriptionAndRepresentation(Untranslatable("a"), 2).build()
         }
         test("does not evaluate anything") {
             assert(callingCount).toBe(0)

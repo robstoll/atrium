@@ -44,7 +44,10 @@ abstract class InOrderOnlyAssertionCreator<E, in T : Iterable<E>, SC>(
                 addAssertion(createSizeFeatureAssertionForInOrderOnly(index, subject, remainingList.iterator()))
             }
             val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-            AssertImpl.builder.summary(description).create(assertion)
+            AssertImpl.builder.summary
+                .withDescription(description)
+                .withAssertion(assertion)
+                .build()
         }
     }
 }

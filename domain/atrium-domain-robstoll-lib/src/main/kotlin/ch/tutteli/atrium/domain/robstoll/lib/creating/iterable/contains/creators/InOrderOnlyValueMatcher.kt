@@ -10,16 +10,11 @@ class InOrderOnlyValueMatcher<E> : InOrderOnlyMatcher<E, E> {
     override fun matches(actual: E, searchCriterion: E): Boolean
         = actual == searchCriterion
 
-    override fun entryAssertionCreator(
-        subjectProvider: () -> List<E>,
-        searchCriterion: E
-    ): (Boolean) -> Assertion {
-        return { found ->
-            AssertImpl.builder.descriptive.create(
-                DescriptionAnyAssertion.TO_BE,
-                searchCriterion ?: RawString.NULL,
-                found
-            )
+    override fun entryAssertionCreator(subjectProvider: () -> List<E>, searchCriterion: E): (() -> Boolean) -> Assertion
+        = { found ->
+        AssertImpl.builder.descriptive
+            .withTest(found)
+            .withDescriptionAndNullableRepresentation(DescriptionAnyAssertion.TO_BE, searchCriterion)
+            .build()
         }
-    }
 }

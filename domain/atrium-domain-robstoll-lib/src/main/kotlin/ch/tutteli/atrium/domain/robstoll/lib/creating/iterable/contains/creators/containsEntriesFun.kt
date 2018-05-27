@@ -4,11 +4,10 @@ import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.fixHoldsGroup
+import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -56,13 +55,16 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(
     .collect(description, assertionCreator, subject)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
-    return AssertImpl.builder.fixHoldsGroup.create(
-        AN_ENTRY_WHICH,
-        RawString.EMPTY,
-        found,
-        DefaultListAssertionGroupType,
-        AssertImpl.builder.explanatoryGroup.withDefault.create(explanatoryAssertions)
-    )
+    val explanatoryGroup = AssertImpl.builder.explanatoryGroup
+        .withDefaultType
+        .withAssertions(explanatoryAssertions)
+        .build()
+    return AssertImpl.builder.fixedClaimGroup
+        .withListType
+        .withClaim(found)
+        .withDescriptionAndEmptyRepresentation(AN_ENTRY_WHICH)
+        .withAssertion(explanatoryGroup)
+        .build()
 }
 
 internal fun <E : Any> allCreatedAssertionsHold(
@@ -82,7 +84,7 @@ fun <E, SC> createEntryAssertionTemplate(
     searchCriterion: SC,
     entryWithIndex: DescriptionIterableAssertion,
     matches: (E, SC) -> Boolean
-): ((Boolean) -> Assertion) -> AssertionGroup {
+): ((() -> Boolean) -> Assertion) -> AssertionGroup {
     return { createEntryFeatureAssertion ->
         val list = subjectProvider()
         val (found, entryRepresentation) = list.ifWithinBound(index, {
@@ -92,9 +94,10 @@ fun <E, SC> createEntryAssertionTemplate(
             Pair(false, RawString.create(DescriptionIterableAssertion.SIZE_EXCEEDED))
         })
         val description = TranslatableWithArgs(entryWithIndex, index)
-        AssertImpl.builder
-            .feature(description, entryRepresentation)
-            .create(createEntryFeatureAssertion(found))
+        AssertImpl.builder.feature
+            .withDescriptionAndRepresentation(description, entryRepresentation)
+            .withAssertion(createEntryFeatureAssertion({ found }))
+            .build()
     }
 }
 
@@ -111,14 +114,21 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
                 addAssertion(LazyThreadUnsafeAssertionGroup {
                     val assertions = itr.mapRemainingWithCounter { counter, it ->
                         val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
-                        AssertImpl.builder.descriptive.create(description, it ?: RawString.NULL, true)
+                        AssertImpl.builder.descriptive
+                            .holding
+                            .withDescriptionAndNullableRepresentation(description, it)
+                            .build()
                     }
-                    with(AssertImpl.builder) {
-                        explanatoryGroup.withWarning.create(
-                            list(WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
-                                .create(assertions)
+
+                    AssertImpl.builder.explanatoryGroup
+                        .withWarningType
+                        .withAssertion(
+                            AssertImpl.builder.list
+                                .withDescriptionAndEmptyRepresentation(WARNING_ADDITIONAL_ENTRIES)
+                                .withAssertions(assertions)
+                                .build()
                         )
-                    }
+                        .build()
                 })
             }
         }

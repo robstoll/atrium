@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -179,7 +180,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_KNOWN} (with a date as parameter) is provided for 'fr'") {
                 it("uses the translation form 'fr' but the primary Locale to format the date") {
                     verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1, { false })
+                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_KNOWN, firstOfFeb2017), 1, falseProvider)
                     }.toThrow<AssertionError> { messageContains("02/01/17 était Mittwoch!!") }
                 }
             }
@@ -187,7 +188,7 @@ abstract class TranslatorIntSpec(
             describe("translation for $testTranslatable.${TestTranslatable.DATE_UNKNOWN} (with a date as parameter) is provided for 'it'") {
                 it("uses default translation but the primary Locale to format the date") {
                     verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_UNKNOWN, firstOfFeb2017), 1, { false })
+                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.DATE_UNKNOWN, firstOfFeb2017), 1, falseProvider)
                     }.toThrow<AssertionError> { messageContains("only Mittwoch") }
                 }
             }
@@ -197,7 +198,7 @@ abstract class TranslatorIntSpec(
                 it("uses the translation from 'fr' for $testTranslatable.${TestTranslatable.PLACEHOLDER} "
                     + "and the translation from 'ch' for $descriptionAnyAssertion.$toBe") {
                     verbs.checkException {
-                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.PLACEHOLDER, toBe), 1, { false })
+                        assertWithDeCh(1).createAndAddAssertion(TranslatableWithArgs(TestTranslatable.PLACEHOLDER, toBe), 1, falseProvider)
                     }.toThrow<AssertionError> { messageContains("Caractère de remplacement ist") }
                 }
             }

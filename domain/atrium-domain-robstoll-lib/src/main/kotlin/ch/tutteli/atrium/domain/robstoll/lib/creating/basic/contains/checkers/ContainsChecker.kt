@@ -45,6 +45,6 @@ abstract class ContainsChecker(
      *
      * @return The newly created [DescriptiveAssertion].
      */
-    protected fun createDescriptiveAssertion(description: Translatable, check: Boolean): DescriptiveAssertion
-        = AssertImpl.builder.descriptive.create(description, RawString.create(times.toString()), check)
+    protected fun createDescriptiveAssertion(description: Translatable, check: () -> Boolean): DescriptiveAssertion
+        = AssertImpl.builder.createDescriptive(description, RawString.create(times.toString()), check)
 }
