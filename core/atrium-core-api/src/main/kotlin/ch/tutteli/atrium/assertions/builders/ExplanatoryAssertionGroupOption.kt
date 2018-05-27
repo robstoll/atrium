@@ -13,12 +13,12 @@ interface ExplanatoryAssertionGroupOption {
     /**
      * Builder to create an [AssertionGroup] with a [DefaultExplanatoryAssertionGroupType].
      */
-    val withDefault: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
+    val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
 
     /**
      * Builder to create an [AssertionGroup] with a [WarningAssertionGroupType].
      */
-    val withWarning: AssertionsOption<WarningAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
+    val withWarningType: AssertionsOption<WarningAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
 
     /**
      * Builder to create an [AssertionGroup] with a custom [ExplanatoryAssertionGroupType].

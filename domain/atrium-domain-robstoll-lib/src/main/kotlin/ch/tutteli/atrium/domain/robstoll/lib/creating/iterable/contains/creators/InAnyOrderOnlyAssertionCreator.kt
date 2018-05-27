@@ -105,7 +105,7 @@ abstract class InAnyOrderOnlyAssertionCreator<E, in T : Iterable<E?>, in SC>(
             .withAssertions(assertions)
             .build()
         return AssertImpl.builder.explanatoryGroup
-            .withWarning
+            .withWarningType
             .withAssertion(additionalEntries)
             .build()
     }

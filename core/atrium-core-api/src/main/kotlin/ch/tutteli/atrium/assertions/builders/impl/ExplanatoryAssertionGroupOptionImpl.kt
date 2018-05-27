@@ -11,10 +11,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal object ExplanatoryAssertionGroupOptionImpl : ExplanatoryAssertionGroupOption {
 
-    override val withDefault: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
+    override val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
         get() = assertionsOption(DefaultExplanatoryAssertionGroupType)
 
-    override val withWarning: AssertionsOption<WarningAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
+    override val withWarningType: AssertionsOption<WarningAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
         get() = assertionsOption(WarningAssertionGroupType)
 
     override fun <T : ExplanatoryAssertionGroupType> withType(

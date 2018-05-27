@@ -45,7 +45,7 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
     override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(plant.subject.iterator(), searchCriterion)
         val explanatoryGroup = AssertImpl.builder.explanatoryGroup
-            .withDefault
+            .withDefaultType
             .withAssertions(explanatoryAssertions)
             .build()
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)

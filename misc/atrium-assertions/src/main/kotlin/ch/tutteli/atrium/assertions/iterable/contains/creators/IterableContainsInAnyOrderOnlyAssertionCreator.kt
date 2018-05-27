@@ -108,7 +108,7 @@ abstract class IterableContainsInAnyOrderOnlyAssertionCreator<E, T : Iterable<E?
             .withAssertions(assertions)
             .build()
         return AssertImpl.builder.explanatoryGroup
-            .withWarning
+            .withWarningType
             .withAssertion(additionalEntries)
             .build()
     }

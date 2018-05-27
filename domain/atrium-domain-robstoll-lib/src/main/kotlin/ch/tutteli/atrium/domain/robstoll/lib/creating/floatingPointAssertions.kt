@@ -55,7 +55,7 @@ private fun <T : Comparable<T>> toBeWithErrorTolerance(expected: T, tolerance: T
             val df = DecimalFormat("###,##0.0")
             df.maximumFractionDigits = 340
             AssertImpl.builder.explanatoryGroup
-                .withDefault
+                .withDefaultType
                 .withAssertions(explanatoryAssertionCreator(df))
                 .build()
         }

@@ -16,6 +16,6 @@ abstract class TextWarningAssertionGroupFormatterSpec(
     testeeFactory,
     WarningAssertionGroupType::class.java,
     WarningAssertionGroupType,
-    { AssertImpl.builder.explanatoryGroup.withWarning.withAssertions(it).build() },
+    { AssertImpl.builder.explanatoryGroup.withWarningType.withAssertions(it).build() },
     describePrefix
 )

@@ -56,7 +56,7 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
     val explanatoryGroup = AssertImpl.builder.explanatoryGroup
-        .withDefault
+        .withDefaultType
         .withAssertions(explanatoryAssertions)
         .build()
     return AssertImpl.builder.fixedClaimGroup
@@ -121,7 +121,7 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
                     }
 
                     AssertImpl.builder.explanatoryGroup
-                        .withWarning
+                        .withWarningType
                         .withAssertion(
                             AssertImpl.builder.list
                                 .withDescriptionAndRepresentation(WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
