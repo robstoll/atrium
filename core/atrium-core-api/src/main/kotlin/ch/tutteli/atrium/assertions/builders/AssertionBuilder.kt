@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.Reporter
  */
 val assertionBuilder: AssertionBuilder = AssertionBuilderImpl
 
-typealias DefaultAssertionGroupBuilderOptions<T> = DescriptionAndRepresentationOption<T, AssertionsOption<T, BasicAssertionGroupFinalStep>>
+typealias DefaultAssertionGroupBuilderOptions<T> = AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, BasicAssertionGroupFinalStep>>
 
 /**
  * Represents a builder which creates [Assertion]s and [AssertionGroup]s.
@@ -43,7 +43,7 @@ interface AssertionBuilder {
      * it will complain that you expected `1` but it did not match `1`. If you could see that it actually matched the
      * first `1` and only did not match the second `1`, then it would be clear from the beginning.
      */
-    val summary: DescriptionAndEmptyRepresentationOption<SummaryAssertionGroupType, AssertionsOption<SummaryAssertionGroupType, BasicAssertionGroupFinalStep>>
+    val summary: AssertionGroupDescriptionAndEmptyRepresentationOption<SummaryAssertionGroupType, AssertionsOption<SummaryAssertionGroupType, BasicAssertionGroupFinalStep>>
 
     /**
      * Builder to create an [AssertionGroup] with a [ExplanatoryAssertionGroupType] -- such a group is always shown in

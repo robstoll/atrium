@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.ListAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.AssertionBuilderFinalStep
 import ch.tutteli.atrium.assertions.builders.AssertionsOption
-import ch.tutteli.atrium.assertions.builders.DescriptionAndRepresentationOption
+import ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndRepresentationOption
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixedClaimAssertionGroupFinalStepImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixedClaimAssertionGroupHoldsOptionImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.FixedClaimAssertionGroupTypeOptionImpl
@@ -53,17 +53,17 @@ interface FixedClaimAssertionGroupHoldsOption<T : AssertionGroupType> {
     /**
      * Defines the [AssertionGroup] holds.
      */
-    val holding: DescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
+    val holding: AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
 
     /**
      * Defines the [AssertionGroup] does not hold.
      */
-    val failing: DescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
+    val failing: AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
 
     /**
      * Uses the given [holds] as [AssertionGroup.holds].
      */
-    fun withClaim(holds: Boolean): DescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
+    fun withClaim(holds: Boolean): AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
 
     companion object {
         fun <T: AssertionGroupType> create(groupType: T): FixedClaimAssertionGroupHoldsOption<T>

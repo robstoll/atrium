@@ -2,11 +2,11 @@ package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.assertions.builders.impl.DescriptionAndEmptyRepresentationOptionImpl
+import ch.tutteli.atrium.assertions.builders.impl.AssertionGroupDescriptionAndEmptyRepresentationOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.RawString
 
-interface DescriptionAndEmptyRepresentationOption<out T: AssertionGroupType, R> {
+interface AssertionGroupDescriptionAndEmptyRepresentationOption<out T: AssertionGroupType, R> {
     /**
      * The [AssertionGroupType] which shall be used for the [AssertionGroup].
      */
@@ -21,6 +21,6 @@ interface DescriptionAndEmptyRepresentationOption<out T: AssertionGroupType, R> 
         fun <T: AssertionGroupType, R> create(
             type: T,
             factory: (T, Translatable, Any) -> R
-        ): DescriptionAndEmptyRepresentationOption<T, R> = DescriptionAndEmptyRepresentationOptionImpl(type, factory)
+        ): AssertionGroupDescriptionAndEmptyRepresentationOption<T, R> = AssertionGroupDescriptionAndEmptyRepresentationOptionImpl(type, factory)
     }
 }
