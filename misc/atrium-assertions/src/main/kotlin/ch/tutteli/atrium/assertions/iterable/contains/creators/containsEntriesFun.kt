@@ -45,7 +45,7 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
     = AssertImpl.builder.fixedClaimGroup
         .withListType
         .withClaim(found)
-        .withDescriptionAndRepresentation(DescriptionIterableAssertion.AN_ENTRY_WHICH, RawString.EMPTY)
+        .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.AN_ENTRY_WHICH)
         .withAssertion(AssertImpl.builder.explanatoryGroup
             .withDefaultType
             .withAssertions(explanatoryAssertions)

@@ -43,7 +43,7 @@ abstract class ContainsObjectsAssertionCreator<T : Any, S, B : ch.tutteli.atrium
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
         val description = searchBehaviour.decorateDescription(descriptionContains)
         return AssertImpl.builder.list
-            .withDescriptionAndRepresentation(description, searchCriterion ?: RawString.NULL)
+            .withDescriptionAndNullableRepresentation(description, searchCriterion)
             .withAssertion(featureAssertion)
             .build()
     }

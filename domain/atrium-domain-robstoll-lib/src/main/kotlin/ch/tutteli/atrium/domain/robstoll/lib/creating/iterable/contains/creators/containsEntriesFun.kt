@@ -62,7 +62,7 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
     return AssertImpl.builder.fixedClaimGroup
         .withListType
         .withClaim(found)
-        .withDescriptionAndRepresentation(AN_ENTRY_WHICH, RawString.EMPTY)
+        .withDescriptionAndEmptyRepresentation(AN_ENTRY_WHICH)
         .withAssertion(explanatoryGroup)
         .build()
 }
@@ -124,7 +124,7 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
                         .withWarningType
                         .withAssertion(
                             AssertImpl.builder.list
-                                .withDescriptionAndRepresentation(WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
+                                .withDescriptionAndEmptyRepresentation(WARNING_ADDITIONAL_ENTRIES)
                                 .withAssertions(assertions)
                                 .build()
                         )

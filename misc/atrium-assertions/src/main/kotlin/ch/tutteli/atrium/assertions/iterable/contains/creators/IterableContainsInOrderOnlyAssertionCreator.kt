@@ -98,7 +98,7 @@ abstract class IterableContainsInOrderOnlyAssertionCreator<E, T : Iterable<E?>, 
                         .build()
                 }
                 val warningAdditionalAssertions = AssertImpl.builder.list
-                    .withDescriptionAndRepresentation(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES, RawString.EMPTY)
+                    .withDescriptionAndEmptyRepresentation(DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES)
                     .withAssertions(assertions)
                     .build()
                 AssertImpl.builder.explanatoryGroup

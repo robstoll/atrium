@@ -42,7 +42,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
 
         it("does not append a new line if the subject is ${RawString::class.simpleName}${RawString.Companion::EMPTY.name}") {
             val assertionGroup = AssertImpl.builder.root
-                .withDescriptionAndRepresentation(Untranslatable(name), RawString.EMPTY)
+                .withDescriptionAndEmptyRepresentation(Untranslatable(name))
                 .withAssertions(listOf())
                 .build()
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
