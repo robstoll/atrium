@@ -6,27 +6,27 @@ import ch.tutteli.atrium.assertions.builders.*
 internal object AssertionBuilderImpl : AssertionBuilder {
 
     override val list: DefaultAssertionBuilderOptions<ListAssertionGroupType>
-        get() = descriptionAndRepresentationOption(DefaultListAssertionGroupType)
+        = createDescriptionAndRepresentationOption(DefaultListAssertionGroupType)
 
     override val feature: DefaultAssertionBuilderOptions<FeatureAssertionGroupType>
-        get() = descriptionAndRepresentationOption(DefaultFeatureAssertionGroupType)
+        = createDescriptionAndRepresentationOption(DefaultFeatureAssertionGroupType)
 
     override val summary: DescriptionAndEmptyRepresentationOption<SummaryAssertionGroupType, AssertionsOption<SummaryAssertionGroupType, BasicAssertionGroupFinalStep>>
-        get() = DescriptionAndEmptyRepresentationOption.create(DefaultSummaryAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
+        = DescriptionAndEmptyRepresentationOption.create(DefaultSummaryAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
 
-    override val explanatoryGroup get()
+    override val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
         = ExplanatoryAssertionGroupTypeOptionImpl
 
-    override val descriptive get()
+    override val descriptive: DescriptiveAssertionHoldsOption
         = DescriptiveAssertionHoldsOptionImpl
 
-    override val explanatory get()
+    override val explanatory: ExplanatoryAssertionDescriptionOption
         = ExplanatoryAssertionDescriptionOptionImpl
 
     override fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionBuilderOptions<T>
-        = descriptionAndRepresentationOption(groupType)
+        = createDescriptionAndRepresentationOption(groupType)
 
 
-    private fun <T: AssertionGroupType> descriptionAndRepresentationOption(type: T): DefaultAssertionBuilderOptions<T>
+    private fun <T: AssertionGroupType> createDescriptionAndRepresentationOption(type: T): DefaultAssertionBuilderOptions<T>
         = DescriptionAndRepresentationOption.create(type, AssertionsOption.asFactoryWithDefaultFinalStep())
 }

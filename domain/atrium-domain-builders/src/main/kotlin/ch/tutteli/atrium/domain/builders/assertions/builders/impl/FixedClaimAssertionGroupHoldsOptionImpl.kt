@@ -13,21 +13,20 @@ internal class FixedClaimAssertionGroupHoldsOptionImpl<T: AssertionGroupType>(
 ) : FixedClaimAssertionGroupHoldsOption<T> {
 
     override val holding: DescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
-        get() = descriptionAndRepresentationOption(true)
+        get() = createDescriptionAndRepresentationOption(true)
 
     override val failing: DescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
-        get() = descriptionAndRepresentationOption(false)
+        get() = createDescriptionAndRepresentationOption(false)
 
     override fun withClaim(holds: Boolean): DescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
-        = descriptionAndRepresentationOption(holds)
+        = createDescriptionAndRepresentationOption(holds)
 
+    private fun createDescriptionAndRepresentationOption(holds: Boolean)
+        = DescriptionAndRepresentationOption.create(groupType, createAssertionOptionWithHolds(holds))
 
-    private fun descriptionAndRepresentationOption(holds: Boolean)
-        = DescriptionAndRepresentationOption.create(groupType, createAssertionOptionsWithHolds(holds))
+    private fun createAssertionOptionWithHolds(holds: Boolean): (T, Translatable, Any) -> AssertionsOption<T, FixedClaimAssertionGroupFinalStep>
+        = { t, d, r -> AssertionsOption.create(t, d, r, createFixedClaimAssertionGroupFinalStep(holds)) }
 
-    private fun createAssertionOptionsWithHolds(holds: Boolean): (T, Translatable, Any) -> AssertionsOption<T, FixedClaimAssertionGroupFinalStep>
-        = { t, d, r -> AssertionsOption.create(t, d, r, createFixedClaimAssertionGroup(holds)) }
-
-    private fun createFixedClaimAssertionGroup(holds: Boolean): (T, Translatable, Any, List<Assertion>) -> FixedClaimAssertionGroupFinalStep
+    private fun createFixedClaimAssertionGroupFinalStep(holds: Boolean): (T, Translatable, Any, List<Assertion>) -> FixedClaimAssertionGroupFinalStep
         = {t, d, r, a -> FixedClaimAssertionGroupFinalStep.create(t, d, r, a, holds)}
 }
