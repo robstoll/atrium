@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -31,7 +30,4 @@ abstract class ExplanatoryFailureHandlerBase<in S : Any, out T : Any> : AnyTypeT
         .forExplanation
         .doNotThrowIfNoAssertionIsCollected
         .collect(warningTransformationFailed, assertionCreator, null)
-
-    abstract fun createFailingAssertion(description: Translatable, representation: Any): Assertion
-
 }
