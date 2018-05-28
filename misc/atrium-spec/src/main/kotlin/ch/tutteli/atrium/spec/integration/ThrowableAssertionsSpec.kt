@@ -58,16 +58,19 @@ abstract class ThrowableAssertionsSpec(
             }
         }, { toThrowFunLazy {} }, { toThrowFun() })
 
-        checkToThrow("it throws an AssertionError when the wrong exception occurs", { doToThrow ->
+        checkToThrow("it throws an AssertionError when the wrong exception occurs and shows message and stacktrace as extra hint", { doToThrow ->
+            val errMessage = "oho... error occurred"
             verbs.checkException {
                 verbs.checkException {
-                    throw UnsupportedOperationException()
+                    throw UnsupportedOperationException(errMessage)
                 }.doToThrow()
             }.toThrow<AssertionError> {
                 messageContains(
                     UnsupportedOperationException::class.java.name,
                     DescriptionThrowableAssertion.IS_A.getDefault(),
-                    IllegalArgumentException::class.java.name
+                    IllegalArgumentException::class.java.name,
+                    DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE.getDefault() + ": \"" + errMessage,
+                    DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE.getDefault() + ": " + ThrowableAssertionsSpec::class.java.name
                 )
             }
         }, { toThrowFunLazy {} }, { toThrowFun() })

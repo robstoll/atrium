@@ -1,9 +1,11 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionThrowableAssertion
 import kotlin.reflect.KClass
 
@@ -13,23 +15,53 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
 ) : ExplanatoryFailureHandlerBase<Throwable, TExpected>() {
 
     override fun createFailingAssertion(description: Translatable, representation: Any): Assertion {
-        val messageOfOtherException = {
+        val propertiesOfOtherException = {
+            throwable!! //cannot be null since we checked it in showHint (see below)
             AssertImpl.builder.explanatoryGroup
                 .withDefaultType
-                .withAssertion(
-                    AssertImpl.builder.descriptive
-                        .holding
-                        .withDescriptionAndRepresentation(
-                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE,
-                            throwable?.localizedMessage ?: RawString.NULL
-                        )
+                .withAssertions(
+                    AssertImpl.builder.explanatory
+                        .withDescription(TranslatableWithArgs(
+                            DescriptionThrowableAssertion.OCCURRED_EXCEPTION_PROPERTIES,
+                            throwable::class.java.simpleName
+                        ))
+                        .build(),
+                    AssertImpl.builder.explanatoryGroup
+                        .withDefaultType
+                        .withAssertions(createMessageHint(throwable), createStackTraceHint(throwable))
                         .build()
                 )
                 .build()
         }
-        return ExplanatoryFailureHandlerWithHint<Any, TExpected>(
+        return AssertImpl.any.typeTransformation.failureHandlers.newExplanatoryWithHint<Any, TExpected>(
             showHint = { throwable != null && !expectedType.isInstance(throwable) },
-            failureHintFactory = messageOfOtherException
+            failureHintFactory = propertiesOfOtherException
         ).createFailingAssertion(description, representation)
+    }
+
+    private fun createMessageHint(throwable: Throwable): DescriptiveAssertion {
+        return AssertImpl.builder.descriptive
+            .holding
+            .withDescriptionAndNullableRepresentation(
+                DescriptionThrowableAssertion.OCCURRED_EXCEPTION_MESSAGE, throwable.localizedMessage
+            )
+            .build()
+    }
+
+    private fun createStackTraceHint(throwable: Throwable): DescriptiveAssertion {
+        val stackTrace = throwable.stackTrace
+        val stackTraceAsString = stackTrace.take(MAX_NUM_OF_STACK).joinToString("\n") +
+            if (stackTrace.size > MAX_NUM_OF_STACK) "\n..." else ""
+
+        return AssertImpl.builder.descriptive
+            .holding
+            .withDescriptionAndNullableRepresentation(
+                DescriptionThrowableAssertion.OCCURRED_EXCEPTION_STACKTRACE, RawString.create(stackTraceAsString)
+            )
+            .build()
+    }
+
+    companion object {
+        private const val MAX_NUM_OF_STACK = 7
     }
 }
