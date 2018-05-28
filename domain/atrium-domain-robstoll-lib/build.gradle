@@ -5,11 +5,16 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
 
 dependencies {
     compile prefixedProject('domain-builders')
-    compile prefixedProject('api-cc-en_GB')
+    // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
+    // automatically in their compile classpath. Thus:
+    compileOnly prefixedProject('api-cc-en_GB') // for us
+    runtimeOnly prefixedProject('api-cc-en_GB') // for depending modules
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB')
 
+    testCompile prefixedProject('api-cc-en_GB')
     testCompile prefixedProject('domain-robstoll')
     testCompile prefixedProject('core-robstoll')
     testCompile prefixedProject('verbs-internal')
+
 }
