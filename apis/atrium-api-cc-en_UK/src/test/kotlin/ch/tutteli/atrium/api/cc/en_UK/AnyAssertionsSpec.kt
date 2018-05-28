@@ -32,20 +32,12 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
             plant.isNull()
         }
 
-        private fun andImmediateName(): String {
-            val f: KProperty1<Assert<Int>, Assert<Int>> = Assert<Int>::and
-            return f.name
-        }
-
+        private val andImmediate : KProperty1<Assert<Int>, Assert<Int>> = Assert<Int>::and
         fun getAndImmediatePair(): Pair<String, Assert<Int>.() -> Assert<Int>>
-            = andImmediateName() to Assert<Int>::and
+            = andImmediate.name to Assert<Int>::and
 
-        private fun andLazyName(): String {
-            val f: KFunction2<Assert<Int>, Assert<Int>.() -> Unit, Assert<Int>> = Assert<Int>::and
-            return f.name
-        }
-
-        fun getAndLazyPair(): Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>>
-            = andLazyName() to Assert<Int>::and
+        private val andLazyName : KFunction2<Assert<Int>, Assert<Int>.() -> Unit, Assert<Int>> = Assert<Int>::and
+        fun getAndLazyPair(): Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>> =
+            andLazyName.name to Assert<Int>::and
     }
 }
