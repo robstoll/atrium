@@ -49,22 +49,6 @@ interface ExplanatoryAssertionGroupFinalStep: AssertionBuilderFinalStep<Assertio
     }
 }
 
-
-/**
- * Creates the [AssertionGroup] with the previously specified [AssertionsOption.groupType] using the given
- * [translatable] -- which is used in an [TranslatableWithArgs] together with the given arguments ([arg] and
- * optionally [otherArgs]) -- to create an [ExplanatoryAssertion] which is used as single
- * [Assertion] in [AssertionGroup.assertions].
- *
- * See [AssertionsOption.withAssertion] for details.
- */
-fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertion(
-    translatable: Translatable,
-    arg: Any,
-    vararg otherArgs: Any
-): ExplanatoryAssertionGroupFinalStep
-    = withAssertion(assertionBuilder.explanatory.withDescription(translatable, arg, *otherArgs).build())
-
 /**
  * Creates the [AssertionGroup] with the previously specified [AssertionsOption.groupType] using the given
  * [translatable] to create an [ExplanatoryAssertion] which is used as single
@@ -76,3 +60,18 @@ fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertion
     translatable: Translatable
 ): ExplanatoryAssertionGroupFinalStep
     = withAssertion(assertionBuilder.explanatory.withDescription(translatable).build())
+
+/**
+ * Creates the [AssertionGroup] with the previously specified [AssertionsOption.groupType] using the given
+ * [translatable] -- which is used in an [TranslatableWithArgs] together with the given arguments ([arg] and
+ * optionally [otherArgs]) -- to create an [ExplanatoryAssertion] which is used as single
+ * [Assertion] in [AssertionGroup.assertions].
+ *
+ * See [AssertionsOption.withAssertion] for details.
+ */
+fun <T : ExplanatoryAssertionGroupType> AssertionsOption<T, ExplanatoryAssertionGroupFinalStep>.withExplanatoryAssertions(
+    translatable: Translatable,
+    arg: Any,
+    vararg otherArgs: Any
+): ExplanatoryAssertionGroupFinalStep
+    = withAssertion(assertionBuilder.explanatory.withDescription(translatable, arg, *otherArgs).build())
