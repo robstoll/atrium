@@ -17,6 +17,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Does not add enough to be a valid alternative to the overlaod with assertionCreator, will be removed with 1.0.0", ReplaceWith("wirft {}"))
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft() {
     wirft<TExpected> {}
 }

@@ -25,7 +25,7 @@ abstract class TranslationSupplierSpec(
         it("throws an ${IllegalArgumentException::class.simpleName} in case one passes Locale.ROOT"){
             verbs.checkException {
                 testee.get(Untranslatable("whatever"), Locale.ROOT)
-            }.toThrow<IllegalArgumentException>()
+            }.toThrow<IllegalArgumentException>{}
         }
     }
 })

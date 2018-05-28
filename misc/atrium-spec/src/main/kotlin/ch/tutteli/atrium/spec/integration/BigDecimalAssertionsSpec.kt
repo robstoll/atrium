@@ -108,12 +108,12 @@ abstract class BigDecimalAssertionsSpec(
             test("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.toBeFun(expected)
-                }.toThrow<PleaseUseReplacementException>()
+                }.toThrow<PleaseUseReplacementException>{}
             }
             test("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.notToBeFun(expected)
-                }.toThrow<PleaseUseReplacementException>()
+                }.toThrow<PleaseUseReplacementException>{}
             }
 
             test("$toBe with Any overload does not throw") {
@@ -154,12 +154,12 @@ abstract class BigDecimalAssertionsSpec(
                 test("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         assertTen.toBeFun(expected)
-                    }.toThrow<PleaseUseReplacementException>()
+                    }.toThrow<PleaseUseReplacementException>{}
                 }
                 test("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         assertTen.notToBeFun(expected)
-                    }.toThrow<PleaseUseReplacementException>()
+                    }.toThrow<PleaseUseReplacementException>{}
                 }
 
                 test("$toBe with Any overload throws an AssertionError and does not contain the hint") {
@@ -198,12 +198,12 @@ abstract class BigDecimalAssertionsSpec(
             test("$toBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.toBeFun(expected)
-                }.toThrow<PleaseUseReplacementException>()
+                }.toThrow<PleaseUseReplacementException>{}
             }
             test("$notToBe with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     assertTen.notToBeFun(expected)
-                }.toThrow<PleaseUseReplacementException>()
+                }.toThrow<PleaseUseReplacementException>{}
             }
 
             test("$toBe with Any overload throws an AssertionError and does not contain the hint") {

@@ -19,7 +19,7 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
 
         private fun toThrowImmediate(builder: ThrowableThrown.Builder) {
             //TODO change to infix as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
-            builder.toThrow<IllegalArgumentException>()
+            builder.toThrow<IllegalArgumentException>{}
         }
 
         private fun toThrowLazy(builder: ThrowableThrown.Builder, assertionCreator: Assert<Throwable>.() -> Unit) {

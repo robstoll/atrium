@@ -18,7 +18,7 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
             = Triple("toThrow", Companion::toThrowImmediate, Companion::toThrowLazy)
 
         private fun toThrowImmediate(builder: ThrowableThrown.Builder) {
-            builder.toThrow<IllegalArgumentException>()
+            builder.toThrow<IllegalArgumentException>{}
         }
 
         private fun toThrowLazy(builder: ThrowableThrown.Builder, assertionCreator: Assert<Throwable>.() -> Unit) {
