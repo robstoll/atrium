@@ -132,7 +132,7 @@ In case you are using a [predefined assertion verb](#out-of-the-box-assertion-ve
 then you need to add a corresponding `import` statement, so for the above it would be `import ch.tutteli.atrium.verbs.assert.assert` 
 (and for later examples you require `import ch.tutteli.atrium.verbs.expect.expect`).
 
-:information_source: Before we continue with the next example, a quick introduction about assertion verbs (the icon :information_source: signify additional information, worth reading IMO but if you only after code examples, then you can skip to the next section).  
+:information_source: Before we continue with the next example, a quick introduction about assertion verbs (the icon :information_source: signify additional information, worth reading IMO but if you are only after code examples, then you can skip to the next section).  
 Atrium lets you choose the assertion verb (`assert` in the above example). 
 Regardless whether you prefer `expect`, `assertThat` or yet another assertion verb/phrase
 you can [define your own assertion verbs](#use-own-assertion-verbs) which suit your coding style.
@@ -200,14 +200,7 @@ assert(4 + 6) {
 
 An assertion group throws an `AssertionError` at the end of its block; hence reports that both assertions do not hold.
 
-Such a block is actually nothing else than a [lambda with a receiver](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver)
-of type `AssertionPlant` (code-ish speaking `AssertionPlant<T>.() -> Unit`).
-The only thing you need to know about `AssertionPlant` at the moment is, that `assert(4 + 6)` creates an `AssertionPlant<Int>` 
-and that all assertion functions are defined as [extension function](https://kotlinlang.org/docs/reference/extensions.html)
-of `AssertionPlant`.
-Have a look at [writing an own assertion function](#write-own-assertion-functions) to get more information about `AssertionPlant`.
-
-:information_source: You can use `and` as filling element between single assertions and assertion group blocks:
+You can use `and` as filling element between single assertions and assertion group blocks:
 ```kotlin
 assert(4 + 6).isLessThan(5).and.isGreaterThan(10)
 
@@ -217,6 +210,15 @@ assert(4 + 6) {
     // ...
 }
 ```
+
+:information_source: An assertion group block is actually nothing else than a [lambda with a receiver](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver)
+of type `Assert` (code-ish speaking `Assert<T>.() -> Unit`).
+The only thing you need to know about `Assert` at the moment is, that `assert(4 + 6)` creates an `Assert<Int>` 
+and that all assertion functions are defined as [extension function](https://kotlinlang.org/docs/reference/extensions.html)
+of `Assert`.
+Have a look at [writing an own assertion function](#write-own-assertion-functions) to get more information about `Assert`.
+
+
  
 ## Nullable Types
 ```kotlin
@@ -342,7 +344,7 @@ The error message shows also another nice feature of Atrium.
 It provides builders to create more sophisticated assertions.
 Using `contains("treboR", "llotS")` is actually a shortcut for calling a sophisticated assertion builder for `CharSequence`. 
 In this example it calls `contains.atLeast(1).values("treboR", "llotS")` which is reflected in the output. 
-Have a look at the [KDoc of the CharSequence contains Builders](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h.assertions.charsequence.contains.builders/index.html)
+Have a look at [API differences, CharSequence contains](https://github.com/robstoll/atrium/tree/master/apis/differences.md#charsequence-contains)
 to see more options.
 
 :poop: Unfortunately, due to a [bug in Kotlin](https://youtrack.jetbrains.com/issue/KT-17340)
@@ -352,7 +354,7 @@ Following an example:
 ```kotlin
 import ch.tutteli.atrium.domain.builders.AssertImpl
 assert(person) {
-    AssertImpl.feature.returnValueOf1(this, subject::nickname, false, "nickname").toBe("Robert aka. Stoll")
+    AssertImpl.feature.returnValueOf1(this, Person::nickname, arg1= false).toBe("Robert aka. Stoll")
 }
 ```
 The output is the same as above.
@@ -387,11 +389,11 @@ The assertion function `contains(2, 3)` is a shortcut for using a
 This is reflected in the output, which tells us that we expected that the `number of occurrences` of `3` (which is actually `0`) `is at least: 1`.
 And what about the expected value `2`, why do we not see anything about it in the output?
 The output does not show anything about the expected value `2` because we configured [`ReporterBuilder`](#reporterbuilder) to use an 
-[Only Failure Reporter](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium/-i-atrium-factory/new-only-failure-reporter.html) 
+[Only Failure Reporter](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.core/-core-factory/new-only-failure-reporter.html) 
 which shows us only assertions (or sub assertions) which failed.
 
 Back to the shortcut functions Atrium provides for common `contains` assertions. 
-Next to expecting that certain values (or objects) are contained in or rather returned by an `Iterable`, 
+Next to expecting that certain values are contained in or rather returned by an `Iterable`, 
 Atrium allows us to write identification lambdas in form of [assertion group blocks](#define-single-assertions-or-assertion-groups).
 An entry is considered as identified if it holds all specified assertions of such a block.
 Following an example:
@@ -413,7 +415,7 @@ assert(listOf(1, 2, 2, 4)).contains({ isLessThan(0) }, { isGreaterThan(2); isLes
 In the above example neither of the two identification lambdas matched any entries and thus both are reported as failing (sub) assertions.
 
 The last two `contains` shortcut functions which Atrium provides for `Iterable<T>` are kind of the opposite of `inAnyOrder.atLeast(1)` and are named `containsStrictly`.
-Again Atrium provides two overloads, one for values/objects, e.g. `containsStrictly(1, 2)` which calls `contains.inOrder.only.values(1, 2)` and
+Again Atrium provides two overloads, one for values, e.g. `containsStrictly(1, 2)` which calls `contains.inOrder.only.values(1, 2)` and
 a second one which expects one or more identification lambdas, e.g. `containsStriclty({ isLessThan(0) }, { isGreaterThan(5) })` 
 and effectively calls `contains.inOrder.only.entries({ isLessThan(2) }, { isGreaterThan(5) })`.
 We will spare the examples here and show them in the following sections.
@@ -700,7 +702,7 @@ assert(13).isEven()
 
 Do you want to provide extra hints in case the assertion fails? 
 Have a look at [`AssertImpl.builder.descriptive.withTest({...}).withFailureHint`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.assertions.builders/with-failure-hint.html).
-You might want to have a look at [`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.creating/-assert-impl/index.html)
+You might want to have a look at [`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html)
 in general, it is kind of the entry point for assertion-function-writers.
 It guides you to existing assertion function implementations 
 as well as to the `AssertionBuilder` which itself helps you with creating assertions. 
@@ -838,11 +840,11 @@ fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion
 Notice that the impl-function is not an extension function as before 
 because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
 We typically use `AssertionPlant` for impl-functions and `Assert` for API functions. 
-In the above example we created a simple [DescriptiveAssertion](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions/-basic-descriptive-assertion/index.html)
+In the above example we created a simple [DescriptiveAssertion](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions/-descriptive-assertion/index.html)
 (`createAndAddAssertion` does the same under the hood)
 with a test which defines whether the assertion holds as well as a description (`IS_MULTIPLE_OF`) and a representation (`base`).
 
-[`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.creating/-assert-impl/index.html)
+[`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html)
 helps you in writing own assertion functions. 
 I suggest you use it as entry point (rather than memorizing different class names), 
 it guides you to existing assertion function implementations for different types 
@@ -948,6 +950,7 @@ In case you do not have an account for kotlinlang.slack.com yet, then please [In
 
 # Roadmap
 I plan that Atrium is going to support in the future:
+- platform JS (I will turn Atrium into a multi-platform project)
 - A sophisticated assertion builder for `toBeWithErrorTolerance` for floating point numbers 
   (so that once could extend it with `relativeOf`, `positiveOf` etc.)
 - Generating testing reports in html
