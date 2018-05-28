@@ -17,7 +17,7 @@ class ExplanatoryFailureHandlerWithHint<in S : Any, out T : Any>(
                 .build()
         return if (showHint()) {
             AssertImpl.builder.invisibleGroup
-                .withAssertions(failureHintFactory(), failingAssertion)
+                .withAssertions(failingAssertion, failureHintFactory())
                 .build()
         } else {
             failingAssertion

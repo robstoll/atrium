@@ -54,7 +54,10 @@ interface AnyTypeTransformation {
     interface FailureHandler<in S : Any, out T : Any> {
 
         /**
-         * Creates the failing assertion.
+         * Creates the failing assertion and adds it to the [ParameterObject.subjectPlant].
+         *
+         * Typically it uses [createFailingAssertion] to create the failing assertion and augments it with
+         * collected assertions or such.
          *
          * @param parameterObject The [ParameterObject] containing inter alia [ParameterObject.assertionCreator], the
          *   lambda which could have created subsequent assertions for the transformed [AssertionPlant.subject].
@@ -62,6 +65,11 @@ interface AnyTypeTransformation {
          * @throws AssertionError Might throw an [AssertionError] depending on the [ParameterObject.subjectPlant].
          */
         fun createAndAddAssertionToPlant(parameterObject: ParameterObject<S, T>)
+
+        /**
+         * Creates the failing [Assertion] based on the given [description] and [representation]
+         */
+        fun createFailingAssertion(description: Translatable, representation: Any): Assertion
     }
 
     /**
