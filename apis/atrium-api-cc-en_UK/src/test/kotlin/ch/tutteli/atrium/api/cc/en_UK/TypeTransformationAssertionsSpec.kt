@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.api.cc.en_GB.notToBeNull
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -38,7 +37,7 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
             = "${notToBeNull<kotlin.Int>().name}{ ${Assert<*>::toBe.name}(...) }" to Companion::notToBeNullBut
 
         private fun notToBeNullBut(plant: AssertionPlantNullable<Int?>, expected: Int)
-            = plant.notToBeNull { toBe(expected) }
+            = plant.isNotNull { toBe(expected) }
 
 
         private fun getNameIsA(): String {

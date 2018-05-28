@@ -1,10 +1,7 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
-import ch.tutteli.atrium.api.cc.en_GB.nullableEntries
-import ch.tutteli.atrium.api.cc.en_GB.nullableValue
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.esGilt
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction3
