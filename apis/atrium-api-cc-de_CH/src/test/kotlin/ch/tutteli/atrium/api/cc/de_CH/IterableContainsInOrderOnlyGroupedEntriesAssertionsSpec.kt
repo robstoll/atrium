@@ -15,8 +15,8 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec : ch.tutteli.atriu
     "[Atrium][Builder] "
 ) {
     companion object : IterableContainsSpecBase() {
-        fun getContainsPair() =
-            "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderEntries
+        fun getContainsPair()
+            = "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder" to Companion::containsInOrderOnlyGroupedInAnyOrderEntries
 
         private fun containsInOrderOnlyGroupedInAnyOrderEntries(
             plant: Assert<Iterable<Double>>,
@@ -35,8 +35,8 @@ class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec : ch.tutteli.atriu
             }
         }
 
-        fun getContainsNullablePair() =
-            "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder nullable" to Companion::containsInOrderOnlyGroupedNullableEntriesPair
+        fun getContainsNullablePair()
+            = "$contains.$inOrder.$only.$grouped.$within.$withinInAnyOrder nullable" to Companion::containsInOrderOnlyGroupedNullableEntriesPair
 
         private fun containsInOrderOnlyGroupedNullableEntriesPair(
             plant: Assert<Iterable<Double?>>,
