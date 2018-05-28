@@ -25,8 +25,8 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
             builder.toThrow<IllegalArgumentException>(assertionCreator)
         }
 
-        private fun getMessagePair() =
-            Assert<Throwable>::message.name to Assert<Throwable>::message
+        private fun getMessagePair()
+            = Assert<Throwable>::message.name to Assert<Throwable>::message
 
         private fun messageWithContainsFun(plant: Assert<Throwable>, expected: Any)
             = plant.message { contains(expected) }
