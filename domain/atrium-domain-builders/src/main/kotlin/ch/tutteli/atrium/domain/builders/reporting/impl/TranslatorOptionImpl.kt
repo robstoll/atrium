@@ -14,19 +14,14 @@ internal class TranslatorOptionImpl(
 
     override fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale)
         = ObjectFormatterOptionImpl(
-        coreFactory.newTranslator(
-            translationSupplier,
-            localeOrderDecider,
-            primaryLocale,
-            fallbackLocales.toList()
+            coreFactory.newTranslator(
+                translationSupplier,
+                localeOrderDecider,
+                primaryLocale,
+                fallbackLocales.toList()
+            )
         )
-    )
 
     override fun withTranslator(factory: (TranslationSupplier, LocaleOrderDecider) -> Translator)
-        = ObjectFormatterOptionImpl(
-        factory(
-            translationSupplier,
-            localeOrderDecider
-        )
-    )
+        = ObjectFormatterOptionImpl(factory(translationSupplier, localeOrderDecider))
 }

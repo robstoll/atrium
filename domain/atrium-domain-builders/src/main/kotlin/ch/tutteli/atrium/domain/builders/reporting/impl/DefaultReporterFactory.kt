@@ -14,7 +14,7 @@ import ch.tutteli.atrium.reporting.ReporterFactory
  * - withDefaultAssertionFormatterFacade
  * - withTextSameLineAssertionPairFormatter
  * - withDefaultTextCapabilities
- * - buildOnlyFailureReporter
+ * - onlyFailureReporter
  *
  */
 class DefaultReporterFactory : ReporterFactory {
@@ -28,6 +28,7 @@ class DefaultReporterFactory : ReporterFactory {
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
             .withDefaultTextCapabilities()
-            .buildOnlyFailureReporter()
+            .onlyFailureReporter()
+            .build()
     }
 }

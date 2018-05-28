@@ -5,7 +5,7 @@ import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
-class PropertiesPerLocaleTranslationSupplierSpec : Spek({
+object PropertiesPerLocaleTranslationSupplierSpec : Spek({
     include(AtriumsTranslationSupplierSpec)
     include(AtriumsTranslationIntSpec)
 }) {
@@ -25,7 +25,8 @@ class PropertiesPerLocaleTranslationSupplierSpec : Spek({
                 .withDefaultAssertionFormatterFacade()
                 .withTextSameLineAssertionPairFormatter()
                 .withDefaultTextCapabilities()
-                .buildOnlyFailureReporter()
+                .onlyFailureReporter()
+                .build()
         },
         true,
         "[Atrium's TranslationIntSpec] "

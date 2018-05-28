@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.reporting.AssertionFormatter
+import ch.tutteli.atrium.domain.builders.reporting.impl.AssertionFormatterFacadeOptionImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.ObjectFormatter
@@ -36,4 +36,13 @@ interface AssertionFormatterFacadeOption {
      * Uses the given [factory] to build a custom [AssertionFormatterFacade].
      */
     fun withAssertionFormatterFacade(factory: (AssertionFormatterController) -> AssertionFormatterFacade): AssertionPairFormatterOption
+
+    companion object {
+        fun create(
+            assertionFormatterController: AssertionFormatterController,
+            objectFormatter: ObjectFormatter,
+            translator: Translator
+        ): AssertionFormatterFacadeOption
+            = AssertionFormatterFacadeOptionImpl(assertionFormatterController, objectFormatter, translator)
+    }
 }

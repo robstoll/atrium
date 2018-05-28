@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.domain.builders.reporting.impl.LocaleOrderDeciderOptionImpl
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 
@@ -23,4 +24,9 @@ interface LocaleOrderDeciderOption {
      * Uses [localeOrderDecider] as [LocaleOrderDecider].
      */
     fun withLocaleOrderDecider(localeOrderDecider: LocaleOrderDecider): TranslatorOption
+
+    companion object {
+        fun create(translationSupplier: TranslationSupplier): LocaleOrderDeciderOption
+            = LocaleOrderDeciderOptionImpl(translationSupplier)
+    }
 }
