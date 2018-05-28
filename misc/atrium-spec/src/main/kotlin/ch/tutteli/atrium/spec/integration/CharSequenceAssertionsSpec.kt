@@ -85,13 +85,13 @@ abstract class CharSequenceAssertionsSpec(
             test("$containsNotDefaultTranslationOf ${TestTranslatable.HELLO} throws AssertionError") {
                 expect {
                     fluent.containsNotDefaultTranslationOfFun(TestTranslatable.HELLO)
-                }.toThrow<AssertionError>()
+                }.toThrow<AssertionError>{}
             }
 
             test("$containsDefaultTranslationOf ${TestTranslatable.WELCOME} throws AssertionError") {
                 expect {
                     fluent.containsDefaultTranslationOfFun(TestTranslatable.WELCOME)
-                }.toThrow<AssertionError>()
+                }.toThrow<AssertionError>{}
             }
 
             test("$containsNotDefaultTranslationOf ${TestTranslatable.WELCOME} does not throw") {

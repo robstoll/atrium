@@ -91,7 +91,7 @@ abstract class ReportingAssertionPlantSpec(
                 it("throws an AssertionError when an additional assertion does not hold") {
                     expect {
                         testee.failingFun()
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>{}
                 }
             }
 
@@ -132,7 +132,7 @@ abstract class ReportingAssertionPlantSpec(
                         val testee = createTestee()
                         expect {
                             testee.failingFun()
-                        }.toThrow<AssertionError>()
+                        }.toThrow<AssertionError>{}
 
                         it("does not re-throw due to the previous failing assertion") {
                             testee.holdingFun()

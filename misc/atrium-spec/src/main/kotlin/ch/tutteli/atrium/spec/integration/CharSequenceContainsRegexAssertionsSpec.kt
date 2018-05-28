@@ -69,45 +69,45 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
             test("if an erroneous pattern is passed to `$containsAtLeast` as first argument") {
                 expect {
                     assert("a").containsAtLeastFun(1, "notA(validPattern")
-                }.toThrow<PatternSyntaxException>()
+                }.toThrow<PatternSyntaxException>{}
             }
             test("if an erroneous pattern is passed to `$containsAtLeast` as second argument") {
                 expect {
                     assert("a").containsAtLeastFun(1, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<PatternSyntaxException>()
+                }.toThrow<PatternSyntaxException>{}
             }
 
             test("if an erroneous pattern is passed to `$containsShortcut` as first argument") {
                 expect {
                     assert("a").containsShortcutFun("notA(validPattern")
-                }.toThrow<PatternSyntaxException>()
+                }.toThrow<PatternSyntaxException>{}
             }
             test("if an erroneous pattern is passed to `$containsShortcut` as second argument") {
                 expect {
                     assert("a").containsShortcutFun("h(a|e)llo", "notA(validPattern")
-                }.toThrow<PatternSyntaxException>()
+                }.toThrow<PatternSyntaxException>{}
             }
 
             test("if an erroneous pattern is passed to `$containsAtMost` as first argument") {
                 expect {
                     assert("a").containsAtMostFun(2, "notA(validPattern")
-                }.toThrow<PatternSyntaxException>()
+                }.toThrow<PatternSyntaxException>{}
             }
             test("if an erroneous pattern is passed to `$containsAtMost` as second argument") {
                 expect {
                     assert("a").containsAtMostFun(2, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<PatternSyntaxException>()
+                }.toThrow<PatternSyntaxException>{}
             }
 
             test("if an erroneous pattern is passed to `$containsAtMostIgnoringCase` as first argument") {
                 expect {
                     assert("a").containsAtMostIgnoringCaseFun(2, "notA(validPattern")
-                }.toThrow<PatternSyntaxException>()
+                }.toThrow<PatternSyntaxException>{}
             }
             test("if an erroneous pattern is passed to `$containsAtMostIgnoringCase` as second argument") {
                 expect {
                     assert("a").containsAtMostIgnoringCaseFun(2, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<PatternSyntaxException>()
+                }.toThrow<PatternSyntaxException>{}
             }
         }
 

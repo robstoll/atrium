@@ -163,13 +163,13 @@ abstract class VerbSpec(
             it("does not throw an exception expecting an IllegalArgumentException") {
                 assertionVerb({
                     throw IllegalArgumentException()
-                }).toThrow<IllegalArgumentException>()
+                }).toThrow<IllegalArgumentException>{}
             }
             it("throws an AssertionError when expecting an UnsupportedOperationException") {
                 expect {
                     assertionVerb({
                         throw IllegalArgumentException()
-                    }).toThrow<UnsupportedOperationException>()
+                    }).toThrow<UnsupportedOperationException>{}
                 }.toThrow<AssertionError> {
                     message {
                         containsDefaultTranslationOf(DescriptionThrowableAssertion.IS_A)

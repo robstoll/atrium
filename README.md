@@ -243,7 +243,7 @@ for the subject as if it had a non-nullable type  (`String` in the above example
 expect {
     //this block does something but eventually...
     throw IllegalArgumentException("name is empty")
-}.toThrow<IllegalStateException>()
+}.toThrow<IllegalStateException>{}
 
     // expect the thrown exception: java.lang.IllegalArgumentException: name is empty        (java.lang.IllegalArgumentException <1364913072>)
     // ◆ is a: IllegalStateException (java.lang.IllegalStateException)

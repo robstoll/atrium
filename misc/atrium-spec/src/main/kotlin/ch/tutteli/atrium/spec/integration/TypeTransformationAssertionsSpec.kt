@@ -90,7 +90,7 @@ abstract class TypeTransformationAssertionsSpec(
                     expect {
                         val i: Int? = 1
                         assert(i).notToBeNullLessFun(0)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>{}
                 }
             }
             context("it allows to define multiple assertions for the subject") {

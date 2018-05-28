@@ -100,7 +100,7 @@ abstract class ThrowableAssertionsSpec(
             checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageWithCheck ->
                 expect {
                     assert(throwable).messageWithCheck()
-                }.toThrow<AssertionError>()
+                }.toThrow<AssertionError>{}
             }, { messageWithContainsFun("hello") })
 
             checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
@@ -127,7 +127,7 @@ abstract class ThrowableAssertionsSpec(
             checkNarrowingAssertion<Throwable>("it throws an AssertionError if the assertion does not hold", { messageContains ->
                 expect {
                     assert(throwable).messageContains()
-                }.toThrow<AssertionError>()
+                }.toThrow<AssertionError>{}
             }, { messageContainsFun("nada", arrayOf()) })
 
             checkNarrowingAssertion<Throwable>("it does not throw an exception if the assertion holds", { messageWithCheck ->
@@ -138,7 +138,7 @@ abstract class ThrowableAssertionsSpec(
             checkNarrowingAssertion<Throwable>("it throws an IllegalArgumentException if an object is passed", { messageContains ->
                 expect {
                     assert(throwable).messageContains()
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException>{}
             }, { messageContainsFun(Object(), arrayOf()) })
         }
 

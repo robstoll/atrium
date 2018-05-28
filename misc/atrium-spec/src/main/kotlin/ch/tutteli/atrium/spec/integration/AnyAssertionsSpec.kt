@@ -121,7 +121,7 @@ abstract class AnyAssertionsSpec(
                 test("$notToBe throws AssertionError") {
                     expect {
                         fluent.notToBeFun(test)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>{}
                 }
                 test("$isSame does not throw") {
                     fluent.isSameFun(test)
@@ -129,7 +129,7 @@ abstract class AnyAssertionsSpec(
                 test("$isNotSame throws AssertionError") {
                     expect {
                         fluent.isNotSameFun(test)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>{}
                 }
             }
             context("not same but one equals the other") {
@@ -140,12 +140,12 @@ abstract class AnyAssertionsSpec(
                 test("$notToBe throws AssertionError") {
                     expect {
                         fluent.notToBeFun(other)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>{}
                 }
                 test("$isSame throws AssertionError") {
                     expect {
                         fluent.isSameFun(other)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>{}
                 }
                 test("$isNotSame does not throw") {
                     fluent.isNotSameFun(other)
@@ -156,7 +156,7 @@ abstract class AnyAssertionsSpec(
                 test("$toBe does not throw") {
                     expect {
                         fluent.toBeFun(other)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>{}
                 }
                 test("$notToBe throws AssertionError") {
                     fluent.notToBeFun(other)
@@ -164,7 +164,7 @@ abstract class AnyAssertionsSpec(
                 test("$isSame throws AssertionError") {
                     expect {
                         fluent.isSameFun(other)
-                    }.toThrow<AssertionError>()
+                    }.toThrow<AssertionError>{}
                 }
                 test("$isNotSame does not throw") {
                     fluent.isNotSameFun(other)
