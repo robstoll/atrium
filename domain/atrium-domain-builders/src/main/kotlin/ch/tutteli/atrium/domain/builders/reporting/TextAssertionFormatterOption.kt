@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.domain.builders.reporting.impl.TextAssertionFormatterOptionImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
@@ -42,4 +43,11 @@ interface TextAssertionFormatterOption {
         factory: (AssertionFormatterChosenOptions) -> (AssertionFormatterController) -> AssertionFormatter,
         vararg otherFactories: (AssertionFormatterChosenOptions) -> (AssertionFormatterController) -> AssertionFormatter
     ): ReporterOption
+
+    companion object {
+        fun create(
+            options: AssertionFormatterChosenOptions,
+            assertionPairFormatter: AssertionPairFormatter
+        ): TextAssertionFormatterOption = TextAssertionFormatterOptionImpl(options, assertionPairFormatter)
+    }
 }

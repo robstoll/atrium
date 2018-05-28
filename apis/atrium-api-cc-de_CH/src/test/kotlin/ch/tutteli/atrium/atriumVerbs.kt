@@ -54,7 +54,8 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
                 PrefixFailingSummaryAssertion::class.java to "(x) ",
                 WarningAssertionGroupType::class.java to "(!) "
             )
-            .buildOnlyFailureReporter()
+            .onlyFailureReporter()
+            .build()
     }
 }
 

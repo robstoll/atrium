@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.domain.builders.reporting.impl
 
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.domain.builders.reporting.LocaleOrderDeciderOption
+import ch.tutteli.atrium.domain.builders.reporting.ObjectFormatterOption
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
@@ -10,20 +12,14 @@ import java.util.*
 internal object ReporterBuilderImpl : ReporterBuilder {
 
     override fun withoutTranslations(primaryLocale: Locale)
-        =
-        ObjectFormatterOptionImpl(
-            UsingDefaultTranslator(
-                primaryLocale
-            )
-        )
+        = withTranslator(UsingDefaultTranslator(primaryLocale))
 
     override fun withTranslator(translator: Translator)
-        = ObjectFormatterOptionImpl(translator)
+        = ObjectFormatterOption.create(translator)
 
     override fun withDefaultTranslationSupplier()
-        =
-        LocaleOrderDeciderOptionImpl(coreFactory.newPropertiesBasedTranslationSupplier())
+        = withTranslationSupplier(coreFactory.newPropertiesBasedTranslationSupplier())
 
     override fun withTranslationSupplier(translationSupplier: TranslationSupplier)
-        = LocaleOrderDeciderOptionImpl(translationSupplier)
+        = LocaleOrderDeciderOption.create(translationSupplier)
 }

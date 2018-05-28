@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.domain.builders.reporting.impl.ObjectFormatterOptionImpl
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 
@@ -23,4 +24,9 @@ interface ObjectFormatterOption {
      * Uses the given [factory] to build a custom [ObjectFormatter].
      */
     fun withObjectFormatter(factory: (Translator) -> ObjectFormatter): AssertionFormatterControllerOption
+
+    companion object {
+        fun create(translator: Translator): ObjectFormatterOption
+            = ObjectFormatterOptionImpl(translator)
+    }
 }

@@ -10,10 +10,7 @@ internal class LocaleOrderDeciderOptionImpl(
 ) : LocaleOrderDeciderOption {
 
     override fun withDefaultLocaleOrderDecider()
-        = TranslatorOptionImpl(
-        translationSupplier,
-        coreFactory.newLocaleOrderDecider()
-    )
+        = withLocaleOrderDecider(coreFactory.newLocaleOrderDecider())
 
     override fun withLocaleOrderDecider(localeOrderDecider: LocaleOrderDecider)
         = TranslatorOptionImpl(translationSupplier, localeOrderDecider)

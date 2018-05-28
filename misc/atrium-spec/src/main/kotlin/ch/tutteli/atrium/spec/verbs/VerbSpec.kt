@@ -42,7 +42,8 @@ private object AtriumReporterSupplier {
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
             .withDefaultTextCapabilities()
-            .buildOnlyFailureReporter()
+            .onlyFailureReporter()
+            .build()
     }
 }
 
