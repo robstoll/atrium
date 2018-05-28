@@ -215,7 +215,7 @@ which delegates to an implementation which composes different assertions to new 
 
 
 # Package ch.tutteli.atrium.domain.builders
-Contains [AssertImpl](./ch.tutteli.atrium.domain.builders/index.html).
+Contains [AssertImpl](./ch.tutteli.atrium.domain.builders/-assert-impl/index.html).
 
 # Package ch.tutteli.atrium.domain.builders.assertions.builders
 Contains extension functions for the [AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html).
