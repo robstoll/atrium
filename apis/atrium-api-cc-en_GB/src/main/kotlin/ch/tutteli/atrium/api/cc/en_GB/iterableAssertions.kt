@@ -96,6 +96,18 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [assertionCreator].
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).entry(assertionCreator, *otherAssertionCreators)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> Assert<T>.any(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+    = contains.inAnyOrder.atLeast(1).entry(assertionCreator)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null` as well.
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).nullableEntry(assertionCreator)`
@@ -104,6 +116,18 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = contains.inAnyOrder.atLeast(1).nullableEntry(assertionCreator)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null` as well.
+ *
+ * It is a shortcut for `contains.inAnyOrder.atLeast(1).nullableEntry(assertionCreator)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E?>> Assert<T>.anyOfNullable(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).nullableEntry(assertionCreator)
 
 /**
@@ -207,3 +231,28 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assert
  */
 fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E)
     = containsNot.nullableValues(expected, *otherExpected)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] does not contain a single entry which holds all assertions
+ * created by the [assertionCreator].
+ *
+ *  It is a shortcut for `containsNot.entry(assertionCreator)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> Assert<T>.none(assertionCreator: (Assert<E>.() -> Unit))
+    = containsNot.entry(assertionCreator)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] does not contain a single entry which holds all assertions
+ * created by the [assertionCreator] or does not contain a single entry which is `null`
+ * in case [assertionCreator] is `null` as well.
+ *
+ *  It is a shortcut for `containsNot.nullableEntry(assertionCreator)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E?>> Assert<T>.noneOfNullable(assertionCreator: (Assert<E>.() -> Unit)?)
+    = containsNot.nullableEntry(assertionCreator)

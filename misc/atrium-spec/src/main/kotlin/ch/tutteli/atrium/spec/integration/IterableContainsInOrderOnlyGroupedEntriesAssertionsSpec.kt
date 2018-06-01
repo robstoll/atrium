@@ -144,6 +144,8 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
 
     fun groupToNullableGroup(group: GroupWithoutNullableEntries<Assert<Double>.() -> Unit>) = nullableGroup(*group.toList().toTypedArray())
 
+
+    //TODO this seesm to work regard descibe non-nullable cases AtLeast1EntriesAssertionSpec does not
     group("$describePrefix describe non-nullable cases") {
         mapOf<String, Assert<Iterable<Double>>.(GroupWithoutNullableEntries<Assert<Double>.() -> Unit>, GroupWithoutNullableEntries<Assert<Double>.() -> Unit>, Array<out GroupWithoutNullableEntries<Assert<Double>.() -> Unit>>) -> Any>(
             containsInOrderOnlyGroupedEntries to { g1, g2, gX -> containsInOrderOnlyGroupedEntriesFunArr(this, g1, g2, gX) },
