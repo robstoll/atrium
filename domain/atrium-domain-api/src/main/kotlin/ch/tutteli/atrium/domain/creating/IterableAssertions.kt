@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.creating
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
@@ -22,4 +23,6 @@ val iterableAssertions by lazy { SingleServiceLoader.load(IterableAssertions::cl
 interface IterableAssertions {
     fun <E, T : Iterable<E>> containsBuilder(plant: AssertionPlant<T>): IterableContains.Builder<E, T, NoOpSearchBehaviour>
     fun <E, T : Iterable<E>> containsNotBuilder(plant: AssertionPlant<T>): IterableContains.Builder<E, T, NotSearchBehaviour>
+
+    fun <E: Any, T : Iterable<E?>> all(plant: AssertionPlant<T>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Assertion
 }

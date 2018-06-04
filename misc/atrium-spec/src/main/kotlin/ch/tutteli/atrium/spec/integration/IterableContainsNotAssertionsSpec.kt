@@ -31,84 +31,80 @@ abstract class IterableContainsNotAssertionsSpec(
 
     val expect = verbs::checkException
 
-    val (containsNot, containsNotFunArr) = containsNotValuesPair
-
     val (containsNotNullable, containsNotNullableFunArr) = containsNotNullableValuesPair
     fun Assert<Iterable<Double?>>.containsNotNullableFun(a: Double?, vararg aX: Double?) =
         containsNotNullableFunArr(a, aX)
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
 
-    group("$describePrefix describe non-nullable cases") {
-        mapOf<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Any>(
-            containsNot to { a, aX -> this.containsNotFunArr(a, aX) },
-            containsNotNullable to { a, aX -> this.containsNotNullableFunArr(a, aX) }
-        ).forEach { (describe, containsNotFunArr) ->
+    nonNullableCases(
+        describePrefix,
+        containsNotValuesPair,
+        containsNotNullableValuesPair
+    ) {containsNotFunArr ->
 
-            fun Assert<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double) =
-                containsNotFunArr(a, aX.toTypedArray())
+        fun Assert<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double)
+            = containsNotFunArr(a, aX.toTypedArray())
 
-            describeFun(describe) {
-                val fluent = verbs.checkImmediately(oneToSeven)
+        val fluent = verbs.checkImmediately(oneToSeven)
 
-                context("iterable $oneToSeven") {
-                    group("happy case") {
-                        test("1.1 does not throw") {
-                            fluent.containsNotFun(1.1)
-                        }
-                        test("1.1, 2.2, 3.3 does not throw") {
-                            fluent.containsNotFun(1.1, 2.2, 3.3)
-                        }
-                        test("3.3, 1.1, 2.2 does not throw") {
-                            fluent.containsNotFun(3.3, 1.1, 2.2)
-                        }
-                    }
+        context("iterable $oneToSeven") {
+            group("happy case") {
+                test("1.1 does not throw") {
+                    fluent.containsNotFun(1.1)
+                }
+                test("1.1, 2.2, 3.3 does not throw") {
+                    fluent.containsNotFun(1.1, 2.2, 3.3)
+                }
+                test("3.3, 1.1, 2.2 does not throw") {
+                    fluent.containsNotFun(3.3, 1.1, 2.2)
+                }
+            }
 
-                    group("failing assertions; search string at different positions") {
-                        test("4.0 throws AssertionError") {
-                            expect {
-                                fluent.containsNotFun(4.0)
-                            }.toThrow<AssertionError> {
-                                message {
-                                    containsRegex(
-                                        "$containsNotDescr: 4.0.*$separator" +
-                                            ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 3.*$separator" +
-                                            ".*${DescriptionBasic.IS.getDefault()}: 0"
-                                    )
-                                }
-                            }
-                        }
-                        test("1.0, 4.0 throws AssertionError") {
-                            expect {
-                                fluent.containsNotFun(1.0, 4.0)
-                            }.toThrow<AssertionError> {
-                                message {
-                                    containsRegex(
-                                        "$containsNotDescr: 1.0.*$separator" +
-                                            ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 1.*$separator" +
-                                            ".*${DescriptionBasic.IS.getDefault()}: 0",
-                                        "$containsNotDescr: 4.0.*$separator" +
-                                            ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 3.*$separator" +
-                                            ".*${DescriptionBasic.IS.getDefault()}: 0"
-                                    )
-                                }
-                            }
-                        }
-                        test("4.0, 1.0 once throws AssertionError") {
-                            expect {
-                                fluent.containsNotFun(4.0, 1.0)
-                            }.toThrow<AssertionError> {
-                                messageContains("$containsNotDescr: 4.0")
-                            }
+            group("failing assertions; search string at different positions") {
+                test("4.0 throws AssertionError") {
+                    expect {
+                        fluent.containsNotFun(4.0)
+                    }.toThrow<AssertionError> {
+                        message {
+                            containsRegex(
+                                "$containsNotDescr: 4.0.*$separator" +
+                                    ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 3.*$separator" +
+                                    ".*${DescriptionBasic.IS.getDefault()}: 0"
+                            )
                         }
                     }
                 }
+                test("1.0, 4.0 throws AssertionError") {
+                    expect {
+                        fluent.containsNotFun(1.0, 4.0)
+                    }.toThrow<AssertionError> {
+                        message {
+                            containsRegex(
+                                "$containsNotDescr: 1.0.*$separator" +
+                                    ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 1.*$separator" +
+                                    ".*${DescriptionBasic.IS.getDefault()}: 0",
+                                "$containsNotDescr: 4.0.*$separator" +
+                                    ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 3.*$separator" +
+                                    ".*${DescriptionBasic.IS.getDefault()}: 0"
+                            )
+                        }
+                    }
+                }
+                test("4.0, 1.0 once throws AssertionError") {
+                    expect {
+                        fluent.containsNotFun(4.0, 1.0)
+                    }.toThrow<AssertionError> {
+                        messageContains("$containsNotDescr: 4.0")
+                    }
+                }
             }
+
         }
     }
 
-    group("$describePrefix describe nullable cases") {
-        describeFun(containsNotNullable){
+    nullableCases(describePrefix) {
+        describeFun(containsNotNullable) {
             context("empty iterable") {
                 test("null does not throw") {
                     verbs.checkImmediately(listOf<Double?>()).containsNotNullableFun(null)

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
+import ch.tutteli.atrium.domain.builders.creating.FloatingPointAssertionsBuilder.toBeWithErrorTolerance
 import ch.tutteli.atrium.spec.integration.AnyAssertionsSpec
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1

@@ -190,7 +190,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
             }
 
             context("iterable $oneToSeven") {
-                test("null") {
+                test("null, throws an AssertionError") {
                     expect {
                         assert(oneToSeven).containsInAnyOrderNullableEntriesFun(null)
                     }.toThrow<AssertionError> {
