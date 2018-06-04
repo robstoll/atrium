@@ -24,7 +24,12 @@ object IterableAssertionsBuilder : IterableAssertions {
     override inline fun <E, T : Iterable<E>> containsNotBuilder(plant: AssertionPlant<T>)
         = iterableAssertions.containsNotBuilder(plant)
 
-    /**
+    override inline fun <E : Any, T : Iterable<E?>> all(
+        plant: AssertionPlant<T>,
+        noinline assertionCreator: (AssertionPlant<E>.() -> Unit)?
+    ): Assertion = iterableAssertions.all(plant, assertionCreator)
+
+        /**
      * Returns [IterableContainsAssertionsBuilder]
      * which inter alia delegates to the implementation of [IterableContainsAssertions].
      */

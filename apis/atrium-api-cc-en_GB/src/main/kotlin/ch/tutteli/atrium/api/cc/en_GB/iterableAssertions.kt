@@ -232,6 +232,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assert
 fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E, vararg otherExpected: E)
     = containsNot.nullableValues(expected, *otherExpected)
 
+
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain a single entry which holds all assertions
  * created by the [assertionCreator].
@@ -256,3 +257,24 @@ fun <E : Any, T : Iterable<E>> Assert<T>.none(assertionCreator: (Assert<E>.() ->
  */
 fun <E : Any, T : Iterable<E?>> Assert<T>.noneOfNullable(assertionCreator: (Assert<E>.() -> Unit)?)
     = containsNot.nullableEntry(assertionCreator)
+
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] has at least one element and that the elements hold all assertions
+ * created by the [assertionCreator].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E>> Assert<T>.all(assertionCreator: Assert<E>.() -> Unit)
+    = addAssertion(AssertImpl.iterable.all(this, assertionCreator))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] ahs at least one element and that the elements hold all assertions
+ * created by the [assertionCreator] or are all `null` in case [assertionCreator] is `null` as well.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T : Iterable<E?>> Assert<T>.allOfNullable(assertionCreator: (Assert<E>.() -> Unit)?)
+    = addAssertion(AssertImpl.iterable.all(this, assertionCreator))

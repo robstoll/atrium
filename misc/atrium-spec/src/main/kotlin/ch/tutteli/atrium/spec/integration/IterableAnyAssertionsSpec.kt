@@ -144,14 +144,6 @@ abstract class IterableAnyAssertionsSpec(
                     }
                 }
             }
-
-            context("search for entry where the lambda does not specify any assertion") {
-                it("throws an ${IllegalArgumentException::class.simpleName}") {
-                    expect {
-                        fluent.anyOfNullableFun({})
-                    }.toThrow<IllegalArgumentException> { messageContains("not any assertion created") }
-                }
-            }
         }
     }
 })

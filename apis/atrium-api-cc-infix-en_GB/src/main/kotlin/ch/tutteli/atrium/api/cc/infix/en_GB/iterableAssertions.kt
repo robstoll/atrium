@@ -318,3 +318,25 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.none(assertionCreator: (Assert<E>
  */
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.none(entry: NullableEntry<E>)
     = this notTo contain nullableEntry entry.assertionCreator
+
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] has at least one element and that the elements hold all assertions
+ * created by the [assertionCreator].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <E : Any, T : Iterable<E>> Assert<T>.all(assertionCreator: Assert<E>.() -> Unit)
+    = addAssertion(AssertImpl.iterable.all(this, assertionCreator))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] ahs at least one element and that the elements hold all assertions
+ * created by the [NullableEntry.assertionCreator] or are all `null` in case
+ * [NullableEntry.assertionCreator] is `null` as well.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.all(entry: NullableEntry<E>)
+    = addAssertion(AssertImpl.iterable.all(this, entry.assertionCreator))
