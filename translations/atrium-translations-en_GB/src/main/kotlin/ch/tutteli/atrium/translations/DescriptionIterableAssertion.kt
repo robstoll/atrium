@@ -7,6 +7,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Iterable].
  */
 enum class DescriptionIterableAssertion(override val value: String) : StringBasedTranslatable {
+    ALL("all entries"),
     AN_ENTRY_WHICH("an entry which"),
     AN_ENTRY_WHICH_IS("an entry which is"),
     AT_LEAST("is at least"),
@@ -15,6 +16,7 @@ enum class DescriptionIterableAssertion(override val value: String) : StringBase
     CONTAINS_NOT("does not contain"),
     ENTRY_WITH_INDEX("entry %s"),
     EXACTLY("is exactly"),
+    HAS_ELEMENT("has at least one element"),
     IN_ANY_ORDER("%s, in any order"),
     IN_ANY_ORDER_ONLY("%s only, in any order"),
     IN_ORDER("%, in order"),
