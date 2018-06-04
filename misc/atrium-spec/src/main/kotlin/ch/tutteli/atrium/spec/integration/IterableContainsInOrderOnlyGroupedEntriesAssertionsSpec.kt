@@ -62,7 +62,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
         = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
     fun entryWithIndex(index: Int)
-        = String.format(DescriptionIterableAssertion.ENTRY_WITH_INDEX.getDefault(), index)
+        = String.format(entryWithIndex, index)
 
     fun index(fromIndex: Int, toIndex: Int)
         = String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)

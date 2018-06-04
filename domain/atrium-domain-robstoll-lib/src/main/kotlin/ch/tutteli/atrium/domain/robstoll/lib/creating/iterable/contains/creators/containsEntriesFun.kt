@@ -106,11 +106,10 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
     iterableAsList: List<E?>,
     itr: Iterator<E?>
 ): AssertionGroup {
-    val actualSize = iterableAsList.size
     return AssertImpl.collector.collect({ iterableAsList }) {
         property(Collection<*>::size) {
             toBe(expectedSize)
-            if (actualSize > expectedSize) {
+            if (iterableAsList.size > expectedSize) {
                 addAssertion(LazyThreadUnsafeAssertionGroup {
                     val assertions = itr.mapRemainingWithCounter { counter, it ->
                         val description = TranslatableWithArgs(ENTRY_WITH_INDEX, expectedSize + counter)
