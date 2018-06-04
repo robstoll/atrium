@@ -58,7 +58,6 @@ abstract class IterableContainsInOrderOnlyGroupedValuesAssertionsSpec(
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
     val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
 
-    val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
     val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint${DescriptionAnyAssertion.TO_BE.getDefault()}"

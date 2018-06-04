@@ -58,8 +58,6 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
     val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
 
-    val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
-
     fun index(index: Int)
         = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 

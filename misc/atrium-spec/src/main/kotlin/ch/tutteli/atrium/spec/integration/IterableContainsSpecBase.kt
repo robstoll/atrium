@@ -24,6 +24,7 @@ abstract class IterableContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) {
         val additionalEntries = DescriptionIterableAssertion.WARNING_ADDITIONAL_ENTRIES.getDefault()
         val mismatches = DescriptionIterableAssertion.WARNING_MISMATCHES.getDefault()
         val mismatchesAdditionalEntries = DescriptionIterableAssertion.WARNING_MISMATCHES_ADDITIONAL_ENTRIES.getDefault()
+        val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
 
         val atLeast = DescriptionIterableAssertion.AT_LEAST.getDefault()
         val atMost = DescriptionIterableAssertion.AT_MOST.getDefault()
