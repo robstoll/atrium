@@ -53,7 +53,6 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
 
     val entryWithIndex = DescriptionIterableAssertion.ENTRY_WITH_INDEX.getDefault()
-    val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
     val explanatoryPointWithIndent = "$indentFeatureArrow$indentFeatureBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
 
     val entryWhichWithFeature = "$indentFeatureArrow$featureBulletPoint$anEntryWhich"
