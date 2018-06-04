@@ -4,13 +4,21 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
         'If you are a consumer of Atrium, then you should depend on atrium-domain-robstoll instead.'
 
 dependencies {
-    compile prefixedProject('domain-builders')
+    //TODO get rid of the exclusions as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
+    def withoutKbox = { exclude group: 'ch.tutteli', module: 'kbox' }
+    compile prefixedProject('domain-builders'), withoutKbox
+
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-cc-en_GB') // for us
-    runtimeOnly prefixedProject('api-cc-en_GB') // for depending modules
+    compileOnly prefixedProject('api-cc-en_GB'), withoutKbox // for us
+    runtimeOnly prefixedProject('api-cc-en_GB'), withoutKbox // for depending modules
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
-    compileOnly prefixedProject('translations-en_GB')
+    compileOnly prefixedProject('translations-en_GB'), withoutKbox
+    compile("ch.tutteli:kbox:$kbox_version") {
+        exclude group: 'org.jetbrains.kotlin'
+        //TODO get rid of the exclusion as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
+        exclude group: 'ch.tutteli'
+    }
 
     testCompile prefixedProject('api-cc-en_GB')
     testCompile prefixedProject('domain-robstoll')

@@ -58,13 +58,11 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
     val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
 
-    val sizeExceeded = DescriptionIterableAssertion.SIZE_EXCEEDED.getDefault()
-
     fun index(index: Int)
         = String.format(DescriptionIterableAssertion.INDEX.getDefault(), index)
 
     fun entryWithIndex(index: Int)
-        = String.format(DescriptionIterableAssertion.ENTRY_WITH_INDEX.getDefault(), index)
+        = String.format(entryWithIndex, index)
 
     fun index(fromIndex: Int, toIndex: Int)
         = String.format(DescriptionIterableAssertion.INDEX_FROM_TO.getDefault(), fromIndex, toIndex)
@@ -143,6 +141,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
     }
 
     fun groupToNullableGroup(group: GroupWithoutNullableEntries<Assert<Double>.() -> Unit>) = nullableGroup(*group.toList().toTypedArray())
+
 
     group("$describePrefix describe non-nullable cases") {
         mapOf<String, Assert<Iterable<Double>>.(GroupWithoutNullableEntries<Assert<Double>.() -> Unit>, GroupWithoutNullableEntries<Assert<Double>.() -> Unit>, Array<out GroupWithoutNullableEntries<Assert<Double>.() -> Unit>>) -> Any>(
