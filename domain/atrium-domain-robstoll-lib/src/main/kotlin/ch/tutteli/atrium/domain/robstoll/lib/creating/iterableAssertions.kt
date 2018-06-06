@@ -13,11 +13,10 @@ import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertio
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders.IterableContainsBuilder
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreatedAssertionsHold
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createExplanatoryAssertions
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createHasElementAssertion
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviourImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NotSearchBehaviourImpl
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 import ch.tutteli.kbox.mapWithIndex
 
@@ -92,15 +91,3 @@ private fun <E : Any> createExplanatoryAssertionGroup(
         .withAssertions(explanatoryAssertions)
         .build()
 }
-
-private fun <E : Any> createHasElementAssertion(list: List<E?>): AssertionGroup {
-    val hasElement = list.isNotEmpty()
-    return AssertImpl.builder.feature
-        .withDescriptionAndRepresentation(HAS_ELEMENT, RawString.create(hasElement.toString()))
-        .withAssertion(
-            AssertImpl.builder.createDescriptive(
-                DescriptionBasic.IS, RawString.create(true.toString()), { hasElement })
-        )
-        .build()
-}
-
