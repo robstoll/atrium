@@ -8,7 +8,8 @@ import ch.tutteli.atrium.creating.Assert
 class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
     AssertionVerbFactory,
     getNotOrAtMostTriple(),
-    getContainsNotPair()
+    getContainsNotPair(),
+    "◆ "
 ) {
 
     companion object : IterableContainsSpecBase() {
