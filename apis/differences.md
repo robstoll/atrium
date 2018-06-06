@@ -118,7 +118,7 @@ assert(x) contains Values("hello", "world")
 assert(x) to contain atLeast 1 butAtMost 2 value "hello"
 assert(x) to contain exactly 1 the Values("hello", "robert")
 assert(x) to contain atMost 2 regex "h(e|a)llo"
-assert(x) to contain ignoring case notOrAtMost 1 the RegularPatterns("h(e|a)llo", "[Rr]obert")
+assert(x) to contain ignoring case notOrAtMost 1 the RegexPatterns("h(e|a)llo", "[Rr]obert")
 assert(x) notTo contain defaultTranslationOf DescriptionBasic.IS_NOT
 ```
 Notice that the final steps 
