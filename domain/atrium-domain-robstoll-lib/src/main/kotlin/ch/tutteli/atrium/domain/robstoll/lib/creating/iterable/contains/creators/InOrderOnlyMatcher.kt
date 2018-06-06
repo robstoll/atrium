@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.toSubjectProvider
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createEntryAssertionTemplate
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 interface InOrderOnlyMatcher<E, SC> {

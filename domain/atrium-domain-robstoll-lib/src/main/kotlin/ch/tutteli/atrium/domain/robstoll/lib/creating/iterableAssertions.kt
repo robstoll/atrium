@@ -11,8 +11,8 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOp
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.builders.IterableContainsBuilder
-import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators.allCreatedAssertionsHold
-import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators.createExplanatoryAssertions
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreatedAssertionsHold
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createExplanatoryAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviourImpl
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.searchbehaviours.NotSearchBehaviourImpl
 import ch.tutteli.atrium.reporting.RawString

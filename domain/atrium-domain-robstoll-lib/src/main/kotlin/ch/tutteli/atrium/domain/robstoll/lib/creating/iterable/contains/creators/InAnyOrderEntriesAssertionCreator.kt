@@ -10,6 +10,10 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators.ContainsAssertionCreator
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.allCreatedAssertionsHold
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.collectIterableAssertionsForExplanation
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.collectIterableAssertionsForExplanationWithFirst
+import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createHasElementAssertion
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHICH
