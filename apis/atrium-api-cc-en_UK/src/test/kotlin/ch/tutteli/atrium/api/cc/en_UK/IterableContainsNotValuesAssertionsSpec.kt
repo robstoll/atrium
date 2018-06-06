@@ -1,30 +1,31 @@
-package ch.tutteli.atrium.api.cc.de_CH
+package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction3
 
-class IterableContainsNotAssertionsSpec : Spek({
+class IterableContainsNotValuesAssertionsSpec : Spek({
 
     include(BuilderSpec)
     include(ShortcutSpec)
 
 }) {
-    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionsSpec(
+
+    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotValuesAssertionsSpec(
         AssertionVerbFactory,
         getContainsNotPair(),
         getContainsNotNullablePair(),
-        "* ", "(/) ", "(x) ", ">> ", "=> ",
+        "◆ ", "✔ ", "✘ ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotValuesAssertionsSpec(
         AssertionVerbFactory,
         getContainsNotShortcutPair(),
         getContainsNotNullableShortcutPair(),
-        "* ", "(/) ", "(x) ", ">> ", "=> ",
+        "◆ ", "✔ ", "✘ ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 
@@ -34,9 +35,9 @@ class IterableContainsNotAssertionsSpec : Spek({
 
         private fun containsNotFun(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
-                plant.enthaeltNicht.wert(a)
+                plant.containsNot.value(a)
             } else {
-                plant.enthaeltNicht.werte(a, *aX)
+                plant.containsNot.values(a, *aX)
             }
         }
 
@@ -44,23 +45,23 @@ class IterableContainsNotAssertionsSpec : Spek({
 
         private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant.enthaeltNicht.nullableWert(a)
+                plant.containsNot.nullableValue(a)
             } else {
-                plant.enthaeltNicht.nullableWerte(a, *aX)
+                plant.containsNot.nullableValues(a, *aX)
             }
         }
 
 
-        private val containsNotShortcutFun : KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaeltNicht
+        private val containsNotShortcutFun : KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsNot
         private fun getContainsNotShortcutPair() = containsNotShortcutFun.name to Companion::containsNotShortcut
 
         private fun containsNotShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant.enthaeltNicht(a, *aX)
+            = plant.containsNot(a, *aX)
 
-        private val containsNotNullableShortcutFun : KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltNicht
+        private val containsNotNullableShortcutFun : KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsNot
         private fun getContainsNotNullableShortcutPair() = containsNotNullableShortcutFun.name + " nullable" to Companion::containsNotNullableShortcut
 
         private fun containsNotNullableShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
-            = plant.enthaeltNicht(a, *aX)
+            = plant.containsNot(a, *aX)
     }
 }

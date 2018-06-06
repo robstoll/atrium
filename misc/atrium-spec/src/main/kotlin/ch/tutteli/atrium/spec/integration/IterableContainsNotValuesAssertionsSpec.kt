@@ -1,15 +1,17 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.cc.en_GB.containsNot
+import ch.tutteli.atrium.api.cc.en_GB.containsRegex
+import ch.tutteli.atrium.api.cc.en_GB.message
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
 
-abstract class IterableContainsNotAssertionsSpec(
+abstract class IterableContainsNotValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsNotValuesPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsNotNullableValuesPair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
@@ -133,11 +135,24 @@ abstract class IterableContainsNotAssertionsSpec(
                         }
                     }
                 }
-                test("4.0, 1.0 once throws AssertionError") {
+                test("4.0, 1.1 throws AssertionError") {
                     expect {
                         fluent.containsNotFun(4.0, 1.0)
                     }.toThrow<AssertionError> {
-                        messageContains("$containsNotDescr: 4.0")
+                        message {
+                            containsRegex(
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: 4.0.*$separator" +
+                                    "$featureFailing$numberOfOccurrences: 3$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true$separator" +
+                                    "\\Q$rootBulletPoint\\E$containsNotDescr: 1.0.*$separator" +
+                                    "$featureFailing$numberOfOccurrences: 1$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
+                            )
+                        }
                     }
                 }
             }
@@ -169,7 +184,7 @@ abstract class IterableContainsNotAssertionsSpec(
                     }
                 }
 
-                test("1.1, null throws AssertionError") {
+                test("1.1, null throws AssertionError mentioning only null") {
                     expect {
                         verbs.checkImmediately(oneToSevenNullable).containsNotNullableFun(1.1, null)
                     }.toThrow<AssertionError> {
@@ -181,7 +196,7 @@ abstract class IterableContainsNotAssertionsSpec(
                                     "$featureSuccess$hasElement: true$separator" +
                                     "$isAfterSuccess: true"
                             )
-                            this.containsNot("$containsNotDescr: 1.1")
+                            containsNot("$containsNotDescr: 1.1")
                         }
                     }
                 }
