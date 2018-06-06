@@ -88,7 +88,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                     fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
-                        contains("$containsInOrderOnly:")
+                        contains("$rootBulletPoint$containsInOrderOnly:")
                         entryFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
                         containsNot(additionalEntries)
                         containsSize(0, 1)
@@ -100,7 +100,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                     fluentEmpty.containsEntriesFun({ isLessThan(1.0) }, { isGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
-                        contains("$containsInOrderOnly:")
+                        contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                         entryFailing(0, sizeExceeded, "$isLessThanDescr: 1.0")
                         entryFailing(1, sizeExceeded, "$isGreaterThanDescr: 4.0")
                         containsNot(additionalEntries)
@@ -149,7 +149,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                             { toBe(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0, "$isLessThanDescr: 5.0")
                             entryFailing(1, 2.0, "$toBeDescr: 1.0")
                             entryFailing(2, 3.0, "$toBeDescr: 2.0")
@@ -165,7 +165,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                         fluent.containsEntriesFun({ toBe(1.0) }, { toBe(2.0) }, { toBe(3.0) }, { toBe(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0, "$toBeDescr: 1.0")
                             entrySuccess(1, 2.0, "$toBeDescr: 2.0")
                             entrySuccess(2, 3.0, "$toBeDescr: 3.0")
@@ -184,7 +184,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                         fluent.containsEntriesFun({ toBe(1.0) }, { toBe(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0, "$toBeDescr: 1.0")
                             entryFailing(1, 2.0, "$toBeDescr: 4.0")
                             contains(
@@ -202,7 +202,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                         fluent.containsEntriesFun({ toBe(1.0) }, { toBe(3.0) }, { isGreaterThan(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0, "$toBeDescr: 1.0")
                             entryFailing(1, 2.0, "$toBeDescr: 3.0")
                             entryFailing(2, 3.0, "$isGreaterThanDescr: 4.0")
@@ -226,7 +226,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                             { toBe(5.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0, "$toBeDescr: 1.0")
                             entrySuccess(1, 2.0, "$toBeDescr: 2.0")
                             entrySuccess(2, 3.0, "$toBeDescr: 3.0")
@@ -267,7 +267,8 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                             null,
                             { isLessThan(5.0) },
                             null,
-                            { isLessThan(5.0) })
+                            { isLessThan(5.0) }
+                        )
                     }
                 }
 
@@ -279,10 +280,11 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                                 null,
                                 null,
                                 { isLessThan(5.0) },
-                                { isGreaterThan(2.0) })
+                                { isGreaterThan(2.0) }
+                            )
                         }.toThrow<AssertionError> {
                             message {
-                                contains("$containsInOrderOnly:")
+                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                                 entrySuccess(0, "null", "$isDescr: null")
                                 entryFailing(1, 1.0, "$isDescr: null")
                                 entryFailing(2, "null", "$isLessThanDescr: 5.0")
@@ -297,7 +299,7 @@ abstract class IterableContainsInOrderOnlyEntriesAssertionsSpec(
                             fluent.containsInOrderOnlyNullableEntriesFun(null, { toBe(1.0) }, null, { toBe(3.0) }, null)
                         }.toThrow<AssertionError> {
                             message {
-                                contains("$containsInOrderOnly:")
+                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                                 entrySuccess(0, "null", "$isDescr: null")
                                 entrySuccess(1, 1.0, "$toBeDescr: 1.0")
                                 entrySuccess(2, "null", "$isDescr: null")

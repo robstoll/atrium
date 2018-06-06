@@ -83,7 +83,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                     fluentEmpty.containsFun(1.0)
                 }.toThrow<AssertionError> {
                     message {
-                        contains("$containsInOrderOnly:")
+                        contains("$rootBulletPoint$containsInOrderOnly:")
                         entryFailing(0, sizeExceeded, 1.0)
                         containsNot(additionalEntries)
                         containsSize(0, 1)
@@ -95,7 +95,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                     fluentEmpty.containsFun(1.0, 4.0)
                 }.toThrow<AssertionError> {
                     message {
-                        contains("$containsInOrderOnly:")
+                        contains("$rootBulletPoint$containsInOrderOnly:")
                         entryFailing(0, sizeExceeded, 1.0)
                         entryFailing(1, sizeExceeded, 4.0)
                         containsNot(additionalEntries)
@@ -121,7 +121,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                         fluent.containsFun(4.0, 1.0, 2.0, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entryFailing(0, 1.0, 4.0)
                             entryFailing(1, 2.0, 1.0)
                             entryFailing(2, 3.0, 2.0)
@@ -137,7 +137,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                         fluent.containsFun(1.0, 2.0, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0)
                             entrySuccess(1, 2.0)
                             entrySuccess(2, 3.0)
@@ -156,7 +156,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                         fluent.containsFun(1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0)
                             entryFailing(1, 2.0, 4.0)
                             contains(
@@ -174,7 +174,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                         fluent.containsFun(1.0, 3.0, 5.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0)
                             entryFailing(1, 2.0, 3.0)
                             entryFailing(2, 3.0, 5.0)
@@ -192,7 +192,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                         fluent.containsFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInOrderOnly:")
+                            contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                             entrySuccess(0, 1.0)
                             entrySuccess(1, 2.0)
                             entrySuccess(2, 3.0)
@@ -226,7 +226,7 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                             fluent.containsInOrderOnlyNullableValuesFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
-                                contains("$containsInOrderOnly:")
+                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnly:")
                                 entrySuccess(0, RawString.NULL.string)
                                 entrySuccess(1, 1.0)
                                 entryFailing(2, RawString.NULL.string, 3.0)

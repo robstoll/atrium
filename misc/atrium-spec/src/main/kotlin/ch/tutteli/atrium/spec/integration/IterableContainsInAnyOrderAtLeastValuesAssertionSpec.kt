@@ -17,6 +17,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
     errorMsgAtLeastButAtMost: (Int, Int) -> String,
+    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -45,6 +46,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     fun Assert<Iterable<Double>>.containsAtLeastButAtMostFun(atLeast: Int, atMost: Int, a: Double, vararg aX: Double)
         = containsAtLeastButAtMostFunArr(atLeast, atMost, a, aX.toTypedArray())
 
+    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
@@ -118,7 +120,21 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                 test("${containsAtLeastTest("1.0, 2.3, 3.1 and 6.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.0, 2.3, 3.1, 6.0)
-                    }.toThrow<AssertionError> { messageContains(atLeast, 2.3, 3.1) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(atLeast, 2.3, 3.1)
+                            //TODO should be like following
+//                            contains.exactly(2).values(
+//                                "$numberOfOccurrences: 0",
+//                                "$atLeast: 1"
+//                            )
+//                            contains.exactly(1).values(
+//                                "$rootBulletPoint$containsInAnyOrder: ",
+//                                "$anEntryWhichIs: 2.3",
+//                                "$anEntryWhichIs: 3.1"
+//                            )
+                        }
+                    }
                 }
             }
 
@@ -136,7 +152,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 5.0",
+                                "$rootBulletPoint$containsInAnyOrder: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
@@ -157,7 +173,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 5.0",
+                                "$rootBulletPoint$containsInAnyOrder: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
@@ -177,7 +193,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 4.0",
+                                "$rootBulletPoint$containsInAnyOrder: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
@@ -197,7 +213,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 5.0",
+                                "$rootBulletPoint$containsInAnyOrder: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")

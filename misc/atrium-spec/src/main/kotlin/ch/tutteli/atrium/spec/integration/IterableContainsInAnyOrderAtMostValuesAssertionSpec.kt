@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AT_MOST
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -14,6 +15,7 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
     containsAtMostTriple: Triple<String, (String, String) -> String, Assert<Iterable<Double>>.(Int, Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -38,6 +40,8 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
+
+    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
 
     describeFun(containsAtMost) {
 
@@ -91,12 +95,42 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                 test("${containsAtMostTest("5.0, 3.1, 3.0, 4.0", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 5.0, 3.1, 3.0, 4.0)
-                    }.toThrow<AssertionError> { messageContains(atMost, 5.0, 4.0) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(atLeast, 3.1, atMost, 4.0)
+                            //TODO should be like following
+//                            contains.exactly(2).values(
+//                                "$numberOfOccurrences: 0",
+//                            )
+//                            contains.exactly(1).values(
+//                                "$rootBulletPoint$containsInAnyOrder: ",
+//                                "$anEntryWhichIs: 3.1",
+//                                "$anEntryWhichIs: 4.0",
+//                                "$atLeast: 1",
+//                                "$atMost: 2"
+//                            )
+                        }
+                    }
                 }
                 test("${containsAtMostTest("21.1 and 34.0 and 11.23", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 21.1, 34.0, 11.23)
-                    }.toThrow<AssertionError> { messageContains(atLeast, 21.1, 34.0, 11.23) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(atLeast, 21.1, 34.0, 11.23)
+                            //TODO should be like following
+//                            contains.exactly(2).values(
+//                                "$numberOfOccurrences: 0",
+//                                "$atLeast: 1",
+//                            )
+//                            contains.exactly(1).values(
+//                                "$rootBulletPoint$containsInAnyOrder: ",
+//                                "$anEntryWhichIs: 21.1",
+//                                "$anEntryWhichIs: 34.0",
+//                                "$anEntryWhichIs: 11.23"
+//                            )
+                        }
+                    }
                 }
             }
 
@@ -115,7 +149,7 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 4.0",
+                                "$rootBulletPoint$containsInAnyOrder: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")

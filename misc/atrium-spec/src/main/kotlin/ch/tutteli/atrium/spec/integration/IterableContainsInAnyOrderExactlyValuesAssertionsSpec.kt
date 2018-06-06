@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.EXACTLY
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -13,6 +14,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsExactlyTriple: Triple<String, (String, String) -> String, Assert<Iterable<Double>>.(Int, Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -38,6 +40,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
     val exactly = EXACTLY.getDefault()
+    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
 
     describeFun(containsExactly) {
         context("throws an $illegalArgumentException") {
@@ -89,7 +92,21 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                 test("${containsExactlyTest("1.0 and 2.3 and 3.1", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 1.0, 2.3, 3.1)
-                    }.toThrow<AssertionError> { messageContains(exactly, 2.3, 3.1) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(exactly, 2.3, 3.1)
+                            //TODO should be like following
+//                            contains.exactly(2).values(
+//                                "$numberOfOccurrences: 0",
+//                                "$atLeast: 1"
+//                            )
+//                            contains.exactly(1).values(
+//                                "$rootBulletPoint$containsInAnyOrder: ",
+//                                "$anEntryWhichIs: 2.3",
+//                                "$anEntryWhichIs: 3.1"
+//                            )
+                        }
+                    }
                 }
             }
 
@@ -109,7 +126,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 5.0",
+                                "$rootBulletPoint$containsInAnyOrder: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
@@ -123,7 +140,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 4.0",
+                                "$rootBulletPoint$containsInAnyOrder: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$exactly: 2")
@@ -140,7 +157,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 5.0",
+                                "$rootBulletPoint$containsInAnyOrder: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")

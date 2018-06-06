@@ -9,7 +9,8 @@ class IterableContainsInAnyOrderAtMostValuesAssertionsSpec : ch.tutteli.atrium.s
     AssertionVerbFactory,
     getAtMostTriple(),
     getContainsNotPair(),
-    getExactlyPair()
+    getExactlyPair(),
+    "◆ "
 ) {
 
     companion object : IterableContainsSpecBase() {

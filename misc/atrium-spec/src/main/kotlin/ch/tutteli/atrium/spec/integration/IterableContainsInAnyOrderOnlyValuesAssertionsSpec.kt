@@ -12,6 +12,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsInAnyOrderOnlyValuesPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsInAnyOrderOnlyNullableValuesPair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
+    rootBulletPoint: String,
     successfulBulletPoint: String,
     failingBulletPoint: String,
     warningBulletPoint: String,
@@ -55,7 +56,7 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         contains(
-                            "$containsInAnyOrderOnly:",
+                            "$rootBulletPoint$containsInAnyOrderOnly:",
                             "$failingBulletPoint$anEntryWhichIs: 1.0"
                         )
                         containsNot(additionalEntries)
@@ -68,8 +69,8 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                     fluentEmpty.containsFun(1.0, 4.0)
                 }.toThrow<AssertionError> {
                     message {
-                        contains(
-                            "$containsInAnyOrderOnly:",
+                        contains.exactly(1).values(
+                            "$rootBulletPoint$containsInAnyOrderOnly:",
                             "$failingBulletPoint$anEntryWhichIs: 1.0",
                             "$failingBulletPoint$anEntryWhichIs: 4.0"
                         )
@@ -106,8 +107,8 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             fluent.containsFun(1.0, 2.0, 3.0, 4.0)
                         }.toThrow<AssertionError> {
                             message {
-                                contains(
-                                    "$containsInAnyOrderOnly:",
+                                contains.exactly(1).values(
+                                    "$rootBulletPoint$containsInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryWhichIs: 1.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 2.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 3.0",
@@ -125,8 +126,8 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             fluent.containsFun(1.0, 4.0)
                         }.toThrow<AssertionError> {
                             message {
-                                contains(
-                                    "$containsInAnyOrderOnly:",
+                                contains.exactly(1).values(
+                                    "$rootBulletPoint$containsInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryWhichIs: 1.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 4.0",
                                     "$warningBulletPoint$additionalEntries:",
@@ -146,8 +147,8 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             fluent.containsFun(1.0, 2.0, 3.0, 4.0, 5.0)
                         }.toThrow<AssertionError> {
                             message {
-                                contains(
-                                    "$containsInAnyOrderOnly:",
+                                contains.exactly(1).values(
+                                    "$rootBulletPoint$containsInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryWhichIs: 1.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 2.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 3.0",
@@ -167,16 +168,15 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             fluent.containsFun(1.0, 3.0, 5.0)
                         }.toThrow<AssertionError> {
                             message {
-                                contains(
-                                    "$containsInAnyOrderOnly:",
+                                contains.exactly(1).values(
+                                    "$rootBulletPoint$containsInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryWhichIs: 1.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 3.0",
                                     "$failingBulletPoint$anEntryWhichIs: 5.0",
                                     "$warningBulletPoint$mismatchesAdditionalEntries:",
-                                    "${listBulletPoint}2.0",
-                                    "${listBulletPoint}4.0",
-                                    "${listBulletPoint}4.0"
+                                    "${listBulletPoint}2.0"
                                 )
+                                contains.exactly(2).value("${listBulletPoint}4.0")
                                 containsSize(5, 3)
                             }
                         }
@@ -189,8 +189,8 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             fluent.containsFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0)
                         }.toThrow<AssertionError> {
                             message {
-                                contains(
-                                    "$containsInAnyOrderOnly:",
+                                contains.exactly(1).values(
+                                    "$rootBulletPoint$containsInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryWhichIs: 1.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 2.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 3.0",
@@ -236,8 +236,8 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
                             fluent.containsInOrderNullableValuesFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
-                                contains(
-                                    "$containsInAnyOrderOnly:",
+                                contains.exactly(1).values(
+                                    "$rootBulletPoint$containsInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryWhichIs: null",
                                     "$successfulBulletPoint$anEntryWhichIs: 1.0",
                                     "$successfulBulletPoint$anEntryWhichIs: 3.0",

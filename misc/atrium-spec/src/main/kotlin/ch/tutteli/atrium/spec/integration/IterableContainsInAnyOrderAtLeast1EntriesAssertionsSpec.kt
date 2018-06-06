@@ -12,6 +12,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsInAnyOrderEntriesPair: Pair<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>) -> Assert<Iterable<Double>>>,
     containsInAnyOrderNullableEntriesPair: Pair<String, Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>) -> Assert<Iterable<Double?>>>,
+    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsEntriesSpecBase(verbs, {
 
@@ -47,13 +48,15 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                 expect {
                     fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
-                    messageContains(
-                        "$containsInAnyOrder: $separator",
-                        "$anEntryWhich: $separator",
-                        "$isLessThanDescr: 1.0",
-                        "$numberOfOccurrences: 0",
-                        "$atLeast: 1"
-                    )
+                    message {
+                        contains.exactly(1).values(
+                            "$rootBulletPoint$containsInAnyOrder: $separator",
+                            "$anEntryWhich: $separator",
+                            "$isLessThanDescr: 1.0",
+                            "$numberOfOccurrences: 0",
+                            "$atLeast: 1"
+                        )
+                    }
                 }
             }
             test("$isLessThanFun(1.0) and $isGreaterThanFun(2.0) throws AssertionError") {
@@ -67,7 +70,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                             "$atLeast: 1"
                         )
                         contains.exactly(1).values(
-                            "$containsInAnyOrder: $separator",
+                            "$rootBulletPoint$containsInAnyOrder: $separator",
                             "$isLessThanDescr: 1.0",
                             "$isGreaterThanDescr: 2.0"
                         )
@@ -90,7 +93,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
-                                "$containsInAnyOrder: $separator",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anEntryWhich: $separator",
                                 "$isGreaterThanDescr: 1.0",
                                 "$isLessThanDescr: 2.0",
@@ -159,7 +162,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                             fluent.containsInAnyOrderNullableEntriesFun({ toBe(2.0) })
                         }.toThrow<AssertionError> {
                             messageContains(
-                                "$containsInAnyOrder: $separator",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
                                 "$anEntryWhich: $separator",
                                 "$toBeDescr: 2.0",
                                 "$numberOfOccurrences: 0",
@@ -179,7 +182,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                                     "$atLeast: 1"
                                 )
                                 contains.exactly(1).values(
-                                    "$containsInAnyOrder: $separator",
+                                    "$rootBulletPoint$containsInAnyOrder: $separator",
                                     "$isLessThanDescr: 1.0",
                                     "$isGreaterThanDescr: 3.0"
                                 )
@@ -195,7 +198,7 @@ abstract class IterableContainsInAnyOrderAtLeast1EntriesAssertionsSpec(
                         assert(oneToSeven).containsInAnyOrderNullableEntriesFun(null)
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$containsInAnyOrder: $separator",
+                            "$rootBulletPoint$containsInAnyOrder: $separator",
                             "$anEntryWhich: $separator",
                             "$isDescr: null",
                             "$numberOfOccurrences: 0",

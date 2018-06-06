@@ -120,6 +120,7 @@ abstract class IterableContainsNotValuesAssertionsSpec(
                         fluent.containsNotFun(1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
+                            //TODO that is wrong, should not have two rootBulletPoints
                             containsRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: 1.0.*$separator" +
                                     "$featureFailing$numberOfOccurrences: 1$separator"+

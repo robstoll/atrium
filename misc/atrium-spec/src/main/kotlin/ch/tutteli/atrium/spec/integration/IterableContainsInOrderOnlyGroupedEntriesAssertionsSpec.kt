@@ -184,7 +184,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                             fluentEmpty.containsFun(group({ toBe(1.0) }), group({ toBe(1.2) }))
                         }.toThrow<AssertionError> {
                             message {
-                                contains("$containsInOrderOnlyGrouped:")
+                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                 indexFail(0, sizeExceeded, "$toBeDescr: 1.0")
                                 indexFail(1, sizeExceeded, "$toBeDescr: 1.2")
                                 containsNot(additionalEntries)
@@ -221,7 +221,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                 fluent.containsFun(group({ toBe(4.0) }, { toBe(1.0) }), group({ toBe(2.0) }, { toBe(3.0) }, { toBe(4.0) }))
                             }.toThrow<AssertionError> {
                                 message {
-                                    contains("$containsInOrderOnlyGrouped:")
+                                    contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                     indexFail(0, 1, listOf(1.0, 2.0),
                                         failAfterFail("$toBeDescr: 4.0"),
                                         successAfterFail("$toBeDescr: 1.0"),
@@ -245,7 +245,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                 fluent.containsFun(group({ isLessThan(2.1) }, { isLessThan(2.0) }),  group({ toBe(4.0) }, { toBe(3.0) }, { toBe(4.0) }))
                             }.toThrow<AssertionError> {
                                 message {
-                                    contains("$containsInOrderOnlyGrouped:")
+                                    contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                     indexFail(0, 1, listOf(1.0, 2.0),
                                         successAfterFail("$isLessThanDescr: 2.1"),
                                         failAfterFail("$isLessThanDescr: 2.0"),
@@ -268,7 +268,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                 fluent.containsFun(group({ toBe(1.0) }), group({ toBe(4.0) }, { toBe(2.0) }, { toBe(3.0) }))
                             }.toThrow<AssertionError> {
                                 message {
-                                    contains("$containsInOrderOnlyGrouped:")
+                                    contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                     indexSuccess(0, 1.0, "$toBeDescr: 1.0")
                                     indexSuccess(1, 3, listOf(2.0, 3.0, 4.0),
                                         successAfterSuccess("$toBeDescr: 4.0", "$toBeDescr: 2.0", "$toBeDescr: 3.0"),
@@ -285,7 +285,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                 fluent.containsFun(group({ toBe(1.0) }), group({ toBe(4.0) }))
                             }.toThrow<AssertionError> {
                                 message {
-                                    contains("$containsInOrderOnlyGrouped:")
+                                    contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                     indexSuccess(0, 1.0, "$toBeDescr: 1.0")
                                     indexFail(1, 2.0, "$toBeDescr: 4.0")
                                     containsRegex(size(indentBulletPoint, failingBulletPoint, 5, 2))
@@ -298,7 +298,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                 fluent.containsFun(group({ toBe(1.0) }, { toBe(3.0) }), group({ toBe(5.0) }))
                             }.toThrow<AssertionError> {
                                 message {
-                                    contains("$containsInOrderOnlyGrouped:")
+                                    contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                     indexFail(0, 1, listOf(1.0, 2.0),
                                         successAfterFail("$toBeDescr: 1.0"),
                                         failAfterFail("$toBeDescr: 3.0"),
@@ -316,7 +316,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                 fluent.containsFun(group({ toBe(4.0) }, { toBe(1.0) }, { toBe(3.0) }, { toBe(2.0) }), group({ toBe(5.0) }, { toBe(4.0) }))
                             }.toThrow<AssertionError> {
                                 message {
-                                    contains("$containsInOrderOnlyGrouped:")
+                                    contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                     indexSuccess(0, 3, listOf(1.0, 2.0, 3.0, 4.0),
                                         successAfterSuccess("$toBeDescr: 4.0", "$toBeDescr: 1.0", "$toBeDescr: 3.0", "$toBeDescr: 2.0"),
                                         successSizeAfterSuccess(4)
@@ -375,7 +375,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                                 nullableGroup({ isLessThan(5.0) }, { isGreaterThan(2.0) }))
                         }.toThrow<AssertionError> {
                             message {
-                                contains("$containsInOrderOnlyGrouped:")
+                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                 indexFail(0, 1, listOf(null, 1.0),
                                     successAfterFail("$isDescr: null"),
                                     failAfterFail("$isDescr: null"),
@@ -399,7 +399,7 @@ abstract class IterableContainsInOrderOnlyGroupedEntriesAssertionsSpec(
                             )
                         }.toThrow<AssertionError> {
                             message {
-                                contains("$containsInOrderOnlyGrouped:")
+                                contains.exactly(1).value("$rootBulletPoint$containsInOrderOnlyGrouped:")
                                 indexSuccess(0, 1, listOf(null, 1.0),
                                     successAfterSuccess("$isDescr: null"),
                                     successAfterSuccess("$toBeDescr: 1.0"),

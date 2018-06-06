@@ -16,6 +16,7 @@ class IterableAnyAssertionsSpec : Spek({
         AssertionVerbFactory,
         Assert<Iterable<Double>>::any.name to Assert<Iterable<Double>>::any,
         Assert<Iterable<Double?>>::anyOfNullable.name to Assert<Iterable<Double?>>::anyOfNullable,
+        "◆ ",
         "[Atrium][Predicate] "
     )
 
@@ -23,6 +24,7 @@ class IterableAnyAssertionsSpec : Spek({
         AssertionVerbFactory,
         getContainsPair(),
         getContainsNullablePair(),
+        "◆ ",
         "[Atrium][Builder] "
     )
 
@@ -30,6 +32,7 @@ class IterableAnyAssertionsSpec : Spek({
         AssertionVerbFactory,
         getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
+        "◆ ",
         "[Atrium][Shortcut] "
     )
 
