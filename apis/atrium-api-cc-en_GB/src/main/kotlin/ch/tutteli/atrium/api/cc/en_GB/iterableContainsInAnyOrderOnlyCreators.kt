@@ -110,7 +110,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySe
  * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
- * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
+ * @param otherAssertionCreators Additional identification lambdas which each kind of identify (separately) an entry
  *   which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
@@ -139,7 +139,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySear
  * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
- * @param otherAssertionCreators Additional lambda functions which each kind of identify (separately) an entry
+ * @param otherAssertionCreators Additional identification lambdas which each kind of identify (separately) an entry
  *   which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
