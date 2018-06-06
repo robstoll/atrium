@@ -12,6 +12,7 @@ import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertio
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.*
 import ch.tutteli.kbox.ifWithinBound
@@ -78,7 +79,7 @@ internal fun <E : Any> allCreatedAssertionsHold(
             .allAssertionsHold()
 }
 
-fun <E, SC> createEntryAssertionTemplate(
+internal fun <E, SC> createEntryAssertionTemplate(
     subjectProvider: () -> List<E>,
     index: Int,
     searchCriterion: SC,
@@ -101,7 +102,7 @@ fun <E, SC> createEntryAssertionTemplate(
     }
 }
 
-fun <E> createSizeFeatureAssertionForInOrderOnly(
+internal fun <E> createSizeFeatureAssertionForInOrderOnly(
     expectedSize: Int,
     iterableAsList: List<E?>,
     itr: Iterator<E?>
@@ -133,3 +134,15 @@ fun <E> createSizeFeatureAssertionForInOrderOnly(
         }
     }
 }
+
+internal fun <E> createHasElementAssertion(iterable: Iterable<E>): AssertionGroup {
+    val hasElement = iterable.iterator().hasNext()
+    return AssertImpl.builder.feature
+        .withDescriptionAndRepresentation(HAS_ELEMENT, RawString.create(hasElement.toString()))
+        .withAssertion(
+            AssertImpl.builder.createDescriptive(
+                DescriptionBasic.IS, RawString.create(true.toString()), { hasElement })
+        )
+        .build()
+}
+

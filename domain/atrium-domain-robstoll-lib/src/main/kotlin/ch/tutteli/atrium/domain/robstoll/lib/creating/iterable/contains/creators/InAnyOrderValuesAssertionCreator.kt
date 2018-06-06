@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
 
-import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
@@ -24,12 +25,29 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
     searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
-) : ContainsObjectsAssertionCreator<T, SC, InAnyOrderSearchBehaviour, IterableContains.Checker>(searchBehaviour, checkers),
+) : ContainsObjectsAssertionCreator<T, SC, InAnyOrderSearchBehaviour, IterableContains.Checker>(
+    searchBehaviour,
+    checkers
+),
     IterableContains.Creator<T, SC> {
 
     override val descriptionContains = DescriptionIterableAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES
+    override val assertionGroupType: AssertionGroupType
+        get() = if (searchBehaviour is NotSearchBehaviour) {
+            DefaultSummaryAssertionGroupType
+        } else {
+            DefaultListAssertionGroupType
+        }
 
     override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
         = plant.subject.filter({ it == searchCriterion }).size
+
+    override fun decorateAssertions(plant: AssertionPlant<T>, featureAssertion: Assertion): List<Assertion> {
+        return if (searchBehaviour is NotSearchBehaviour) {
+            listOf(featureAssertion, createHasElementAssertion(plant.subject))
+        } else {
+            listOf(featureAssertion)
+        }
+    }
 }

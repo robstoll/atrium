@@ -16,6 +16,7 @@ class IterableNoneAssertionsSpec : Spek({
         AssertionVerbFactory,
         Assert<Iterable<Double>>::none.name to Assert<Iterable<Double>>::none,
         Assert<Iterable<Double?>>::noneOfNullable.name to Assert<Iterable<Double?>>::noneOfNullable,
+        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Predicate] "
     )
 
@@ -23,6 +24,7 @@ class IterableNoneAssertionsSpec : Spek({
         AssertionVerbFactory,
         getContainsNotPair(),
         getContainsNotNullablePair(),
+        "◆ ", "✔ ", "✘ ", "⚬ ", "» ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
     companion object : IterableContainsSpecBase() {

@@ -2,12 +2,14 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
+import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
+import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators.ContainsAssertionCreator
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHICH
@@ -43,15 +45,25 @@ class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
     }
 
     override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
+        val hasElementAssertion = createHasElementAssertion(plant.subject)
         val (explanatoryAssertions, count) = createExplanatoryAssertionsAndMatchingCount(plant.subject.iterator(), searchCriterion)
         val explanatoryGroup = AssertImpl.builder.explanatoryGroup
             .withDefaultType
             .withAssertions(explanatoryAssertions)
             .build()
         val featureAssertion = featureFactory(count, DescriptionIterableAssertion.NUMBER_OF_OCCURRENCES)
-        return AssertImpl.builder.list
+        val assertions = mutableListOf(explanatoryGroup, featureAssertion)
+
+        val groupType = if (searchBehaviour is NotSearchBehaviour) {
+            assertions.add(hasElementAssertion)
+            DefaultSummaryAssertionGroupType
+        } else {
+            DefaultListAssertionGroupType
+        }
+
+        return AssertImpl.builder.customType(groupType)
             .withDescriptionAndEmptyRepresentation(AN_ENTRY_WHICH)
-            .withAssertions(explanatoryGroup, featureAssertion)
+            .withAssertions(assertions)
             .build()
     }
 

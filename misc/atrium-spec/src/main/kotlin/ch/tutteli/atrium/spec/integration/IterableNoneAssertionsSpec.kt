@@ -3,7 +3,6 @@ package ch.tutteli.atrium.spec.integration
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
-import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -13,6 +12,13 @@ abstract class IterableNoneAssertionsSpec(
     verbs: AssertionVerbFactory,
     nonePair: Pair<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit) -> Assert<Iterable<Double>>>,
     noneNullablePair: Pair<String, Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?) -> Assert<Iterable<Double?>>>,
+    rootBulletPoint: String,
+    successfulBulletPoint: String,
+    failingBulletPoint: String,
+    listBulletPoint: String,
+    explanatoryBulletPoint: String,
+    featureArrow: String,
+    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterablePredicateSpecBase(verbs, {
 
@@ -34,6 +40,19 @@ abstract class IterableNoneAssertionsSpec(
     val (containsNotNullable, containsNotNullableFun) = noneNullablePair
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
+    val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
+    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
+    val indentListBulletPoint = " ".repeat(listBulletPoint.length)
+    val indentFeatureArrow = " ".repeat(featureArrow.length)
+
+    val featureSuccess = "$indentBulletPoint$indentListBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
+    val featureFailing = "$indentBulletPoint$indentListBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
+    val isAfterFailing = "$indentBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
+    val isAfterSuccess = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
+    val afterExplanatory = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint\\Q$explanatoryBulletPoint\\E"
 
     nonNullableCases(
         describePrefix,
@@ -59,9 +78,13 @@ abstract class IterableNoneAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
-                                "$containsNotDescr: $separator"+
-                                ".*$anEntryWhich: $separator"+
-                                ".*$toBeDescr: 4.0"
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$afterExplanatory$toBeDescr: 4.0.*$separator" +
+                                    "$featureFailing$numberOfOccurrences: 3$separator"+
+                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
                             )
                         }
                     }
@@ -72,11 +95,6 @@ abstract class IterableNoneAssertionsSpec(
 
     nullableCases(describePrefix) {
         describeFun(containsNotNullable) {
-            context("empty iterable") {
-                test("null does not throw") {
-                    verbs.checkImmediately(listOf<Double?>()).containsNotNullableFun(null)
-                }
-            }
             context("iterable $oneToSeven") {
                 test("null does not throw") {
                     verbs.checkImmediately(oneToSeven).containsNotNullableFun(null)
@@ -87,11 +105,15 @@ abstract class IterableNoneAssertionsSpec(
                     expect {
                         verbs.checkImmediately(oneToSevenNullable).containsNotNullableFun(null)
                     }.toThrow<AssertionError> {
-                        message{
+                        message {
                             containsRegex(
-                                "$containsNotDescr: $separator"+
-                                    ".*$anEntryWhich: $separator"+
-                                    ".*$isDescr: null"
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$afterExplanatory$isDescr: null$separator" +
+                                    "$featureFailing$numberOfOccurrences: 2$separator"+
+                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
                             )
                         }
                     }
@@ -101,11 +123,15 @@ abstract class IterableNoneAssertionsSpec(
                     expect {
                         verbs.checkImmediately(oneToSevenNullable).containsNotNullableFun({ toBe(1.0) })
                     }.toThrow<AssertionError> {
-                        message{
+                        message {
                             containsRegex(
-                                "$containsNotDescr: $separator"+
-                                    ".*$anEntryWhich: $separator"+
-                                    ".*$toBeDescr: 1.0"
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
+                                    "$indentBulletPoint\\Q$listBulletPoint\\E$anEntryWhich: $separator"+
+                                    "$afterExplanatory$toBeDescr: 1.0.*$separator" +
+                                    "$featureFailing$numberOfOccurrences: 1$separator"+
+                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
                             )
                         }
                     }

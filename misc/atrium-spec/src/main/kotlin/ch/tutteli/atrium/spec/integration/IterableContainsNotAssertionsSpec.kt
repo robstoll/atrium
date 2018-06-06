@@ -13,8 +13,13 @@ abstract class IterableContainsNotAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsNotValuesPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsNotNullableValuesPair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
+    rootBulletPoint: String,
+    successfulBulletPoint: String,
+    failingBulletPoint: String,
+    featureArrow: String,
+    featureBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : IterableContainsSpecBase({
+) : IterableContainsEntriesSpecBase(verbs, {
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
         containsNotValuesPair.first to mapToCreateAssertion { containsNotValuesPair.second(this, 2.3, arrayOf()) },
@@ -36,6 +41,17 @@ abstract class IterableContainsNotAssertionsSpec(
         containsNotNullableFunArr(a, aX)
 
     val containsNotDescr = DescriptionIterableAssertion.CONTAINS_NOT.getDefault()
+    val hasElement = DescriptionIterableAssertion.HAS_ELEMENT.getDefault()
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
+    val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
+    val indentFeatureArrow = " ".repeat(featureArrow.length)
+
+    val featureSuccess = "$indentBulletPoint\\Q$successfulBulletPoint$featureArrow\\E"
+    val featureFailing = "$indentBulletPoint\\Q$failingBulletPoint$featureArrow\\E"
+    val isAfterFailing = "$indentBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
+    val isAfterSuccess = "$indentBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
 
     nonNullableCases(
         describePrefix,
@@ -46,9 +62,29 @@ abstract class IterableContainsNotAssertionsSpec(
         fun Assert<Iterable<Double>>.containsNotFun(a: Double, vararg aX: Double)
             = containsNotFunArr(a, aX.toTypedArray())
 
-        val fluent = verbs.checkImmediately(oneToSeven)
+        context("empty collection") {
+            val fluent = verbs.checkImmediately(setOf<Double>())
+
+            test("4.0 throws AssertionError") {
+                expect {
+                    fluent.containsNotFun(4.0)
+                }.toThrow<AssertionError> {
+                    message {
+                        containsRegex(
+                            "\\Q$rootBulletPoint\\E$containsNotDescr: 4.0.*$separator" +
+                                "$featureSuccess$numberOfOccurrences: 0$separator"+
+                                "$isAfterSuccess: 0.*$separator"+
+                                "$featureFailing$hasElement: false$separator" +
+                                "$isAfterFailing: true"
+                        )
+                    }
+                }
+            }
+        }
 
         context("iterable $oneToSeven") {
+            val fluent = verbs.checkImmediately(oneToSeven)
+
             group("happy case") {
                 test("1.1 does not throw") {
                     fluent.containsNotFun(1.1)
@@ -68,9 +104,11 @@ abstract class IterableContainsNotAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
-                                "$containsNotDescr: 4.0.*$separator" +
-                                    ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 3.*$separator" +
-                                    ".*${DescriptionBasic.IS.getDefault()}: 0"
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: 4.0.*$separator" +
+                                    "$featureFailing$numberOfOccurrences: 3$separator"+
+                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
                             )
                         }
                     }
@@ -81,12 +119,16 @@ abstract class IterableContainsNotAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
-                                "$containsNotDescr: 1.0.*$separator" +
-                                    ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 1.*$separator" +
-                                    ".*${DescriptionBasic.IS.getDefault()}: 0",
-                                "$containsNotDescr: 4.0.*$separator" +
-                                    ".*${CharSequenceContainsSpecBase.numberOfOccurrences}: 3.*$separator" +
-                                    ".*${DescriptionBasic.IS.getDefault()}: 0"
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: 1.0.*$separator" +
+                                    "$featureFailing$numberOfOccurrences: 1$separator"+
+                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true$separator"+
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: 4.0.*$separator" +
+                                    "$featureFailing$numberOfOccurrences: 3$separator"+
+                                    "$isAfterFailing: 0.*$separator"+
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
                             )
                         }
                     }
@@ -105,11 +147,6 @@ abstract class IterableContainsNotAssertionsSpec(
 
     nullableCases(describePrefix) {
         describeFun(containsNotNullable) {
-            context("empty iterable") {
-                test("null does not throw") {
-                    verbs.checkImmediately(listOf<Double?>()).containsNotNullableFun(null)
-                }
-            }
             context("iterable $oneToSeven") {
                 test("null does not throw") {
                     verbs.checkImmediately(oneToSeven).containsNotNullableFun(null)
@@ -120,11 +157,15 @@ abstract class IterableContainsNotAssertionsSpec(
                     expect {
                         verbs.checkImmediately(oneToSevenNullable).containsNotNullableFun(null)
                     }.toThrow<AssertionError> {
-                        messageContains(
-                            "$containsNotDescr: null",
-                            "${CharSequenceContainsSpecBase.numberOfOccurrences}: 2",
-                            "${DescriptionBasic.IS.getDefault()}: 0"
-                        )
+                        message {
+                            containsRegex(
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: null$separator" +
+                                    "$featureFailing$numberOfOccurrences: 2$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
+                            )
+                        }
                     }
                 }
 
@@ -132,12 +173,16 @@ abstract class IterableContainsNotAssertionsSpec(
                     expect {
                         verbs.checkImmediately(oneToSevenNullable).containsNotNullableFun(1.1, null)
                     }.toThrow<AssertionError> {
-                        messageContains(
-                            "$containsNotDescr: null",
-                            "${CharSequenceContainsSpecBase.numberOfOccurrences}: 2",
-                            "${DescriptionBasic.IS.getDefault()}: 0"
-                        )
-                        message { this.containsNot("$containsNotDescr: 1.1") }
+                        message {
+                            containsRegex(
+                                "\\Q$rootBulletPoint\\E$containsNotDescr: null$separator" +
+                                    "$featureFailing$numberOfOccurrences: 2$separator" +
+                                    "$isAfterFailing: 0.*$separator" +
+                                    "$featureSuccess$hasElement: true$separator" +
+                                    "$isAfterSuccess: true"
+                            )
+                            this.containsNot("$containsNotDescr: 1.1")
+                        }
                     }
                 }
             }
