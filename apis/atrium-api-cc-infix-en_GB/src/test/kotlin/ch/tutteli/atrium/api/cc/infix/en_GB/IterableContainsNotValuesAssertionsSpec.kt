@@ -7,14 +7,14 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
 
-class IterableContainsNotAssertionsSpec : Spek({
+class IterableContainsNotValuesAssertionsSpec : Spek({
 
     include(BuilderSpec)
     include(ShortcutSpec)
 
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionsSpec(
+    object BuilderSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotValuesAssertionsSpec(
         AssertionVerbFactory,
         getContainsNotPair(),
         getContainsNotNullablePair(),
@@ -22,7 +22,7 @@ class IterableContainsNotAssertionsSpec : Spek({
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotAssertionsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsNotValuesAssertionsSpec(
         AssertionVerbFactory,
         getContainsNotShortcutPair(),
         getContainsNotNullablePair(),
