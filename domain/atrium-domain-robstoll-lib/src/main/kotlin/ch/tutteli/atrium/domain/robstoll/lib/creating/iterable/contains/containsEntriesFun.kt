@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creators
+package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains
 
 import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
