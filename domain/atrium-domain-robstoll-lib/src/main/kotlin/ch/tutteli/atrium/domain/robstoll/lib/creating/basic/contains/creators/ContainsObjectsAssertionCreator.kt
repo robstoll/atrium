@@ -28,17 +28,9 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
 abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.SearchBehaviour, C : Contains.Checker>(
-    protected val searchBehaviour: S,
+    searchBehaviour: S,
     checkers: List<C>
-) : ContainsAssertionCreator<T, SC, C>(checkers) {
-
-    final override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup{
-        val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        return AssertImpl.builder.list
-            .withDescriptionAndEmptyRepresentation(description)
-            .withAssertions(assertions)
-            .build()
-    }
+) : ContainsAssertionCreator<T, SC, C>(searchBehaviour, checkers) {
 
     final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: SC, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val count = search(plant, searchCriterion)
