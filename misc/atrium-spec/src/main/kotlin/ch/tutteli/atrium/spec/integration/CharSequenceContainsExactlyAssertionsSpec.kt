@@ -14,6 +14,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
     containsExactlyTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsExactlyIgnoringCaseTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -46,6 +48,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
     val exactly = EXACTLY.getDefault()
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsExactly) {
         context("throws an $illegalArgumentException") {
@@ -138,7 +142,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsIgnoringCase: 'o'",
+                                "$rootBulletPoint$containsIgnoringCase: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$exactly: 2")
@@ -152,7 +157,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
@@ -172,11 +178,12 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'l'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$exactly: 2")
-                            containsNot("$containsDescr 'o'")
+                            containsNot("$valueWithIndent: 'o'")
                         }
                     }
                 }
@@ -189,11 +196,12 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
-                            containsNot("$containsDescr 'l'")
+                            containsNot("$valueWithIndent: 'l'")
                         }
                     }
                 }

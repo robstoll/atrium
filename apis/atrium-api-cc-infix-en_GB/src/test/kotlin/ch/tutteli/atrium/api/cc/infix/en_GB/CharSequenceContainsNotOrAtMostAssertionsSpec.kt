@@ -9,7 +9,8 @@ class CharSequenceContainsNotOrAtMostAssertionsSpec : ch.tutteli.atrium.spec.int
     AssertionVerbFactory,
     getNotOrAtMostTriple(),
     getNotOrAtMostIgnoringCaseTriple(),
-    getContainsNotPair()
+    getContainsNotPair(),
+    "◆ ", "⚬ "
 ) {
 
     companion object : CharSequenceContainsSpecBase() {

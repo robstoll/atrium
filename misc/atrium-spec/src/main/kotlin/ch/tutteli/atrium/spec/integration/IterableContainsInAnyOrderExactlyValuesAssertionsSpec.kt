@@ -95,16 +95,15 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(exactly, 2.3, 3.1)
-                            //TODO should be like following
-//                            contains.exactly(2).values(
-//                                "$numberOfOccurrences: 0",
-//                                "$atLeast: 1"
-//                            )
-//                            contains.exactly(1).values(
-//                                "$rootBulletPoint$containsInAnyOrder: ",
-//                                "$anEntryWhichIs: 2.3",
-//                                "$anEntryWhichIs: 3.1"
-//                            )
+                            contains.exactly(2).values(
+                                "$numberOfOccurrences: 0",
+                                "$exactly: 1"
+                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 2.3",
+                                "$anEntryWhichIs: 3.1"
+                            )
                         }
                     }
                 }
@@ -126,7 +125,8 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$rootBulletPoint$containsInAnyOrder: 5.0",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
@@ -140,11 +140,12 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$rootBulletPoint$containsInAnyOrder: 4.0",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$exactly: 2")
-                            containsNot("$containsInAnyOrder 5.0")
+                            containsNot("$anEntryWhichIs: 5.0")
                         }
                     }
                 }
@@ -157,11 +158,12 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$rootBulletPoint$containsInAnyOrder: 5.0",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
-                            containsNot("$containsInAnyOrder 4.0")
+                            containsNot("$anEntryWhichIs: 4.0")
                         }
                     }
                 }

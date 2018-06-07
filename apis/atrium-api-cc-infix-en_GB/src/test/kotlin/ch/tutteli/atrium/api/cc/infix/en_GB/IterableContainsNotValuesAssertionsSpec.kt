@@ -18,7 +18,7 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
         AssertionVerbFactory,
         getContainsNotPair(),
         getContainsNotNullablePair(),
-        "◆ ", "✔ ", "✘ ", "▶ ", "◾ ",
+        "◆ ", "✔ ", "✘ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Builder] "
     )
 
@@ -26,7 +26,7 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
         AssertionVerbFactory,
         getContainsNotShortcutPair(),
         getContainsNotNullablePair(),
-        "◆ ", "✔ ", "✘ ", "▶ ", "◾ ",
+        "◆ ", "✔ ", "✘ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Shortcut] "
     )
 

@@ -14,6 +14,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
     containsNotOrAtMostTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotOrAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -44,6 +46,9 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
         = containsNotOrAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsNotOrAtMost) {
 
@@ -119,7 +124,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atMost: 1")
@@ -145,11 +151,12 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'l'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsDescr: 'o'")
+                            containsNot("$valueWithIndent: 'o'")
                         }
                     }
                 }

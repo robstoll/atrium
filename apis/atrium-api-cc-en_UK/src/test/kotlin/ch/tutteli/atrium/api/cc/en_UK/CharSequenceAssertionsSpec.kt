@@ -12,5 +12,6 @@ object CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSeque
     Assert<CharSequence>::startsWith.name to Assert<CharSequence>::startsWith,
     Assert<CharSequence>::startsNotWith.name to Assert<CharSequence>::startsNotWith,
     Assert<CharSequence>::endsWith.name to Assert<CharSequence>::endsWith,
-    Assert<CharSequence>::endsNotWith.name to Assert<CharSequence>::endsNotWith
+    Assert<CharSequence>::endsNotWith.name to Assert<CharSequence>::endsNotWith,
+    "◆ ", "⚬ "
 )
