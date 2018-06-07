@@ -37,9 +37,6 @@ abstract class IterableContainsInAnyOrderOnlyValuesAssertionsSpec(
     fun Assert<Iterable<Double?>>.containsInOrderNullableValuesFun(t: Double?, vararg tX: Double?)
         = containsInOrderNullableValuesFunArr(t, tX)
 
-    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
-
-
     nonNullableCases(describePrefix,
         containsInAnyOrderOnlyValuesPair,
         containsInAnyOrderOnlyNullableValuesPair

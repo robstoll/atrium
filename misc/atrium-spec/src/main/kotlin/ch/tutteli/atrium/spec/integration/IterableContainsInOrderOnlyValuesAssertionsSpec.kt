@@ -67,7 +67,6 @@ abstract class IterableContainsInOrderOnlyValuesAssertionsSpec(
                 "$toBeAfterFailing: $expected")
     }
 
-
     nonNullableCases(describePrefix,
         containsInOrderOnlyValuesPair,
         containsInOrderOnlyNullableValuesPair

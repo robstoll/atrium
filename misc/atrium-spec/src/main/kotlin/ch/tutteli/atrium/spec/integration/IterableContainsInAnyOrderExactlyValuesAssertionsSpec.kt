@@ -40,7 +40,6 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
     val exactly = EXACTLY.getDefault()
-    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
 
     describeFun(containsExactly) {
         context("throws an $illegalArgumentException") {
