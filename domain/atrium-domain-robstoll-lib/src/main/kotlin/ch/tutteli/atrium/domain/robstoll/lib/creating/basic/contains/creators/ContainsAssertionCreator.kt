@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -8,6 +7,7 @@ import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
@@ -22,28 +22,19 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
 abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>(
+    protected val searchBehaviour: Contains.SearchBehaviour,
     private val checkers: List<C>
 ) : Contains.Creator<T, SC> {
 
     final override fun createAssertionGroup(plant: AssertionPlant<T>, searchCriteria: List<SC>): AssertionGroup {
-        val assertions = searchCriteria.map { createAssertionGroupForSearchCriterion(plant, it) }
-        return createAssertionGroupForSearchCriteriaAssertions(assertions)
-    }
-
-    /**
-     * Creates an [AssertionGroup] representing the sophisticated `contains` assertion as a whole based on the given
-     * [assertions] which where created for the search criteria.
-     *
-     * @param assertions The assertions representing search criteria passed to [createAssertionGroup].
-     *
-     * @return The newly created [AssertionGroup].
-     */
-    protected abstract fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
-
-    private fun createAssertionGroupForSearchCriterion(plant: AssertionPlant<T>, searchCriterion: SC): AssertionGroup {
-        return LazyThreadUnsafeAssertionGroup {
-            searchAndCreateAssertion(plant, searchCriterion, this::featureFactory)
+        val assertions = searchCriteria.map { it ->
+            LazyThreadUnsafeAssertionGroup { searchAndCreateAssertion(plant, it, this::featureFactory) }
         }
+        val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
+        return AssertImpl.builder.list
+            .withDescriptionAndEmptyRepresentation(description)
+            .withAssertions(assertions)
+            .build()
     }
 
     /**
@@ -72,5 +63,4 @@ abstract class ContainsAssertionCreator<in T : Any, in SC, C : Contains.Checker>
             .withAssertions(assertions)
             .build()
     }
-
 }
