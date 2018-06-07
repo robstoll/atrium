@@ -39,8 +39,6 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
         = containsNotOrAtMostFunArr(atLeast, a, aX.toTypedArray())
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
-    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
-
     describeFun(containsNotOrAtMost) {
 
         context("throws an $illegalArgumentException") {

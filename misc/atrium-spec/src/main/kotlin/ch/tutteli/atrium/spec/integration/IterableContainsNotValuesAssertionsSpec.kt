@@ -57,7 +57,6 @@ abstract class IterableContainsNotValuesAssertionsSpec(
     val isAfterFailing = "$indentBulletPoint$indentListBulletPoint$indentFailingBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
     val isAfterSuccess = "$indentBulletPoint$indentListBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow\\Q$featureBulletPoint\\E$isDescr"
 
-    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
     val anEntryWhichIsWithIndent = "$indentBulletPoint$listBulletPoint$anEntryWhichIs"
 
     nonNullableCases(

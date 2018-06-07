@@ -46,8 +46,6 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
     fun Assert<Iterable<Double>>.containsAtLeastButAtMostFun(atLeast: Int, atMost: Int, a: Double, vararg aX: Double)
         = containsAtLeastButAtMostFunArr(atLeast, atMost, a, aX.toTypedArray())
 
-    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
-
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 

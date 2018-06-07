@@ -41,8 +41,6 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
 
-    val anEntryWhichIs = DescriptionIterableAssertion.AN_ENTRY_WHICH_IS.getDefault()
-
     describeFun(containsAtMost) {
 
         context("throws an $illegalArgumentException") {
