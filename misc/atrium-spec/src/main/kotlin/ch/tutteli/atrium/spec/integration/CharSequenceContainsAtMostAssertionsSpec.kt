@@ -95,7 +95,7 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsAtMostTest("'l'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'l')

@@ -94,7 +94,7 @@ abstract class CharSequenceContainsNotAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsNotTest("'l'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotFun('l')

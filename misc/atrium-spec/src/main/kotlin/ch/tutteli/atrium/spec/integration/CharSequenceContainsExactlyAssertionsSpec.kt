@@ -89,7 +89,7 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions with $containsExactly once") {
+            group("failing cases; search string at different positions with $containsExactly once") {
                 test("${containsExactlyTest("'h'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'h')

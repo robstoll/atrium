@@ -94,7 +94,7 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsNotOrAtMostTest("'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l')
