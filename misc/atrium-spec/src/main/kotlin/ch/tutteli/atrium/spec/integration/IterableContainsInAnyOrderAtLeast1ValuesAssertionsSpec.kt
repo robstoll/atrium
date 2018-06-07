@@ -51,7 +51,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                     fluentEmptyString.containsFun(1.0)
                 }.toThrow<AssertionError> {
                     messageContains(
-                        "$rootBulletPoint$containsInAnyOrder: 1.0",
+                        "$rootBulletPoint$containsInAnyOrder: $separator",
+                        "$anEntryWhichIs: 1.0",
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
                     )
@@ -83,7 +84,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                         fluent.containsFun(9.5)
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$rootBulletPoint$containsInAnyOrder: 9.5",
+                            "$rootBulletPoint$containsInAnyOrder: $separator",
+                            "$anEntryWhichIs: 9.5",
                             "$numberOfOccurrences: 0",
                             "$atLeast: 1"
                         )
@@ -94,20 +96,15 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                         fluent.containsFun(9.5, 7.1)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(
-                                "$containsInAnyOrder: 9.5",
-                                "$containsInAnyOrder: 7.1"
+                            contains.exactly(2).values(
+                                "$numberOfOccurrences: 0",
+                                "$atLeast: 1"
                             )
-                            //TODO should be like following
-//                            contains.exactly(2).values(
-//                                "$numberOfOccurrences: 0",
-//                                "$atLeast: 1"
-//                            )
-//                            contains.exactly(1).values(
-//                                "$rootBulletPoint$containsInAnyOrder: ",
-//                                "$anEntryWhichIs: 9.5",
-//                                "$anEntryWhichIs: 7.1"
-//                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 9.5",
+                                "$anEntryWhichIs: 7.1"
+                            )
                         }
                     }
                 }
@@ -116,8 +113,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                         fluent.containsFun(1.0, 9.5)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInAnyOrder: 9.5")
-                            containsNot("$containsInAnyOrder: 1.0")
+                            containsRegex("$containsInAnyOrder: $separator.*$anEntryWhichIs: 9.5")
+                            containsNot.regex("$containsInAnyOrder: $separator.*$anEntryWhichIs: 1.0")
                         }
                     }
                 }

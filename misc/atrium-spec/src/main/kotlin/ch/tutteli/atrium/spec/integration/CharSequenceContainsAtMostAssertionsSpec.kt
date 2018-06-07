@@ -15,6 +15,8 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
     containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -46,6 +48,9 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsAtMost) {
 
@@ -129,7 +134,8 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsIgnoringCase: 'o'",
+                                "$rootBulletPoint$containsIgnoringCase: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
@@ -146,11 +152,12 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'l'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsDescr 'o'")
+                            containsNot("$valueWithIndent: 'o'")
                         }
                     }
                 }

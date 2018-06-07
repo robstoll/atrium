@@ -14,6 +14,8 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsPair: Pair<String, Assert<CharSequence>.(String, Array<out String>) -> Assert<CharSequence>>,
     containsNotPair: Pair<String, Assert<CharSequence>.(String, Array<out String>) -> Assert<CharSequence>>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     featureArrow: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
@@ -43,6 +45,9 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
     fun Assert<CharSequence>.containsNotFun(t: String, vararg tX: String)
         = containsNotFunArr(t, tX)
 
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+
     describeFun(containsFunName, containsNot) {
         context("empty string") {
             val fluentEmptyString = assert("")
@@ -51,6 +56,8 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                     fluentEmptyString.containsFun("Hello")
                 }.toThrow<AssertionError> {
                     messageContains(
+                        "$rootBulletPoint$containsDescr: $separator" +
+                            "$valueWithIndent: \"Hello\"",
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
                     )
@@ -101,9 +108,13 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(2).values(
-                                containsDescr,
                                 "$numberOfOccurrences: 0",
                                 "$atLeast: 1"
+                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsDescr: $separator",
+                                "$valueWithIndent: \"hello\"",
+                                "$valueWithIndent: \"robert\""
                             )
                         }
                     }

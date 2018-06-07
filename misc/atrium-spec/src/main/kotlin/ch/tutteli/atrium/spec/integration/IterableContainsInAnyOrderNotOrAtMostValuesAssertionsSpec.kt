@@ -93,17 +93,16 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                         fluent.containsNotOrAtMostFun(1, 5.0, 3.1, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(atMost, 5.0, 4.0)
-                            //TODO should be like following
-//                            contains.exactly(2).values(
-//                                "$numberOfOccurrences: 0",
-//                                "$atMost: 1"
-//                            )
-//                            contains.exactly(1).values(
-//                                "$rootBulletPoint$containsInAnyOrder: ",
-//                                "$anEntryWhichIs: 5.0",
-//                                "$anEntryWhichIs: 4.0"
-//                            )
+                            contains.exactly(2).values(
+                                "$atMost: 1"
+                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 5.0",
+                                "$numberOfOccurrences: 2",
+                                "$anEntryWhichIs: 4.0",
+                                "$numberOfOccurrences: 3"
+                            )
                         }
                     }
                 }
@@ -116,7 +115,8 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$rootBulletPoint$containsInAnyOrder: 5.0",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 5.0",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atMost: 1")
@@ -138,11 +138,12 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$rootBulletPoint$containsInAnyOrder: 4.0",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsInAnyOrder: 5.0")
+                            containsNot("$anEntryWhichIs: 5.0")
                         }
                     }
                 }

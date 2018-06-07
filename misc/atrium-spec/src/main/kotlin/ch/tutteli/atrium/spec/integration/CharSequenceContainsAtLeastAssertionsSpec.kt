@@ -19,6 +19,8 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
     errorMsgAtLeastButAtMost: (Int, Int) -> String,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -62,6 +64,9 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsAtLeast, containsAtLeastButAtMost) {
         context("throws an $illegalArgumentException") {
@@ -186,7 +191,8 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
@@ -210,11 +216,12 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                 "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
-                            containsNot("$containsDescr 'l'")
+                            containsNot("$valueWithIndent: 'l'")
                         }
                     }
                 }
@@ -233,11 +240,12 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'l'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsDescr 'o'")
+                            containsNot("$valueWithIndent: 'o'")
                             containsNotDefaultTranslationOf(AT_LEAST)
                         }
                     }
@@ -255,11 +263,12 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
-                            containsNot("$containsDescr 'l'")
+                            containsNot("$valueWithIndent: 'l'")
                             containsNotDefaultTranslationOf(AT_MOST)
                         }
                     }

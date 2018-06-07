@@ -97,18 +97,15 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                         fluent.containsAtMostFun(2, 5.0, 3.1, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(atLeast, 3.1, atMost, 4.0)
-                            //TODO should be like following
-//                            contains.exactly(2).values(
-//                                "$numberOfOccurrences: 0",
-//                            )
-//                            contains.exactly(1).values(
-//                                "$rootBulletPoint$containsInAnyOrder: ",
-//                                "$anEntryWhichIs: 3.1",
-//                                "$anEntryWhichIs: 4.0",
-//                                "$atLeast: 1",
-//                                "$atMost: 2"
-//                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 3.1",
+                                "$numberOfOccurrences: 0",
+                                "$atLeast: 1",
+                                "$anEntryWhichIs: 4.0",
+                                "$numberOfOccurrences: 3",
+                                "$atMost: 2"
+                            )
                         }
                     }
                 }
@@ -117,18 +114,16 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                         fluent.containsAtMostFun(2, 21.1, 34.0, 11.23)
                     }.toThrow<AssertionError> {
                         message {
-                            contains(atLeast, 21.1, 34.0, 11.23)
-                            //TODO should be like following
-//                            contains.exactly(2).values(
-//                                "$numberOfOccurrences: 0",
-//                                "$atLeast: 1",
-//                            )
-//                            contains.exactly(1).values(
-//                                "$rootBulletPoint$containsInAnyOrder: ",
-//                                "$anEntryWhichIs: 21.1",
-//                                "$anEntryWhichIs: 34.0",
-//                                "$anEntryWhichIs: 11.23"
-//                            )
+                            contains.exactly(3).values(
+                                "$numberOfOccurrences: 0",
+                                "$atLeast: 1"
+                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 21.1",
+                                "$anEntryWhichIs: 34.0",
+                                "$anEntryWhichIs: 11.23"
+                            )
                         }
                     }
                 }
@@ -149,11 +144,12 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$rootBulletPoint$containsInAnyOrder: 4.0",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsInAnyOrder 5.0")
+                            containsNot("$anEntryWhichIs: 5.0")
                         }
                     }
                 }

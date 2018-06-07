@@ -7,7 +7,8 @@ class CharSequenceContainsExactlyAssertionsSpec : ch.tutteli.atrium.spec.integra
     AssertionVerbFactory,
     getExactlyTriple(),
     getExactlyIgnoringCaseTriple(),
-    getContainsNotPair()
+    getContainsNotPair(),
+    "* ", "- "
 ) {
 
     companion object : CharSequenceContainsSpecBase() {
