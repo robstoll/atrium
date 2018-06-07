@@ -139,7 +139,7 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions with $containsAtLeast once") {
+            group("failing cases; search string at different positions with $containsAtLeast once") {
                 test("${containsAtLeastTest("'h'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'h')

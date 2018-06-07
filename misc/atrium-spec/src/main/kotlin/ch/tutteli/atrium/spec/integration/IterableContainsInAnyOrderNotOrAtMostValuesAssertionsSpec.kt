@@ -72,7 +72,7 @@ abstract class IterableContainsInAnyOrderNotOrAtMostValuesAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsNotOrAtMostTest("4.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsNotOrAtMostFun(1, 4.0)

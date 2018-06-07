@@ -76,7 +76,7 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsAtMostTest("4.0", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 4.0)

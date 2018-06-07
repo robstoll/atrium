@@ -70,7 +70,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions with $containsExactly once") {
+            group("failing cases; search string at different positions with $containsExactly once") {
                 test("${containsExactlyTest("4.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 4.0)

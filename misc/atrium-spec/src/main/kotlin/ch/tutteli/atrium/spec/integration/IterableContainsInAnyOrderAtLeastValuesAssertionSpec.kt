@@ -101,7 +101,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                 }
             }
 
-            group("failing assertions; search wrong number at different positions with $containsAtLeast once") {
+            group("failing cases; search wrong number at different positions with $containsAtLeast once") {
                 test("${containsAtLeastTest("1.1", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.1)
