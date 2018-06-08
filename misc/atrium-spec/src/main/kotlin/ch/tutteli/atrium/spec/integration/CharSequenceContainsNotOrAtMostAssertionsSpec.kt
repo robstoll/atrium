@@ -98,22 +98,37 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                 test("${containsNotOrAtMostTest("'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l')
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                    }.toThrow<AssertionError> { messageContains("$atMost: 1", "$valueWithIndent: 'l'") }
                 }
-                test("${containsNotOrAtMostTest("'H', 'l'", "once")} throws AssertionError") {
+                test("${containsNotOrAtMostTest("'H', 'l'", "once")} throws AssertionError mentioning only 'l'") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'H', 'l')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 1", "$valueWithIndent: 'l'")
+                            containsNot(atLeast, "$valueWithIndent: 'H'")
+                        }
+                    }
                 }
-                test("${containsNotOrAtMostTest("'l', 'H'", "once")} once throws AssertionError") {
+                test("${containsNotOrAtMostTest("'l', 'H'", "once")} once throws AssertionError mentioning only 'l'") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l', 'H')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 1", "$valueWithIndent: 'l'")
+                            containsNot(atLeast, "$valueWithIndent: 'H'")
+                        }
+                    }
                 }
-                test("${containsNotOrAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError") {
+                test("${containsNotOrAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError mentioning 'l' and 'o'") {
                     expect {
-                        fluentHelloWorld.containsNotOrAtMostFun(1, 'o', 'E', 'W', 'l')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'o', 'l') }
+                        fluentHelloWorld.containsNotOrAtMostIgnoringCaseFun(1, 'o', 'E', 'W', 'l')
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 1", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
+                            containsNot(atLeast, "$valueWithIndent: 'E'", "$valueWithIndent: 'W'")
+                        }
+                    }
                 }
             }
 

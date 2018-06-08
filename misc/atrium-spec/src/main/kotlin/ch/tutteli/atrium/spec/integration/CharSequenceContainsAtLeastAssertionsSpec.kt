@@ -69,6 +69,7 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
     val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsAtLeast, containsAtLeastButAtMost) {
+
         context("throws an $illegalArgumentException") {
             test("for at least -1 -- only positive numbers") {
                 expect {
@@ -143,7 +144,7 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                 test("${containsAtLeastTest("'h'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'h')
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_LEAST) } }
+                    }.toThrow<AssertionError> { messageContains("$atLeast: 1", "$valueWithIndent: 'h'") }
                 }
                 test("${containsAtLeastIgnoringCase("'h'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'h')
@@ -158,19 +159,29 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'H', 'E')
                 }
 
-                test("${containsAtLeastTest("'E', 'H'", "once")} throws AssertionError") {
+                test("${containsAtLeastTest("'E', 'H'", "once")} throws AssertionError mentioning only 'E'") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'E', 'H')
-                    }.toThrow<AssertionError> { messageContains(atLeast, 'E') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atLeast: 1", "$valueWithIndent: 'E'")
+                            containsNot("$valueWithIndent: 'H'")
+                        }
+                    }
                 }
                 test("${containsAtLeastIgnoringCase("'E', 'H'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'E', 'H')
                 }
 
-                test("${containsAtLeastTest("'H', 'E', 'w' and 'r'", "once")} throws AssertionError") {
+                test("${containsAtLeastTest("'H', 'E', 'w' and 'r'", "once")} throws AssertionError mentioning 'E' and 'w'") {
                     expect {
                         fluentHelloWorld.containsAtLeastFun(1, 'H', 'E', 'w', 'r')
-                    }.toThrow<AssertionError> { messageContains(atLeast, 'E', 'w') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atLeast: 1", "$valueWithIndent: 'E'", "$valueWithIndent: 'w'")
+                            containsNot("$valueWithIndent: 'H'", "$valueWithIndent: 'r'")
+                        }
+                    }
                 }
                 test("${containsAtLeastIgnoringCase("'H', 'E', 'w' and 'r'", "once")} does not throw") {
                     fluentHelloWorld.containsAtLeastIgnoringCaseFun(1, 'H', 'E', 'w', 'r')
@@ -245,8 +256,7 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$valueWithIndent: 'o'")
-                            containsNotDefaultTranslationOf(AT_LEAST)
+                            containsNot(atLeast, "$valueWithIndent: 'o'")
                         }
                     }
                 }
@@ -268,8 +278,7 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
-                            containsNot("$valueWithIndent: 'l'")
-                            containsNotDefaultTranslationOf(AT_MOST)
+                            containsNot(atMost, "$valueWithIndent: 'l'")
                         }
                     }
                 }
