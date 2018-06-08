@@ -14,33 +14,33 @@ class CharSequenceContainsDefaultTranslationOfAssertionsSpec : ch.tutteli.atrium
 
     companion object : CharSequenceContainsSpecBase() {
 
-        private fun getNameContainsDefaultTranslationOf() = "$contains with search mode $defaultTranslationOf"
+        private fun getNameContainsDefaultTranslationOf() = "$contains with search mode defaultTranslationOf was removed from this API"
 
         private fun getAtLeastTriple() = Triple(
-            "$contains.$atLeast.$defaultTranslationOf",
+            "$contains.$atLeast.defaultTranslationOf",
             { what: String, times: String -> "$contains $what $atLeast $times" },
             Companion::containsAtLeast
         )
 
         private fun containsAtLeast(plant: Assert<CharSequence>, atLeast: Int, a: Translatable, aX: Array<out Translatable>)
-            = plant.contains.atLeast(atLeast).defaultTranslationOf(a, *aX)
+            = plant.contains.atLeast(atLeast).values(a.getDefault(), *aX.map { it.getDefault() }.toTypedArray())
 
         private fun getAtMostTriple() = Triple(
-            "$contains.$atMost.$defaultTranslationOf",
+            "$contains.$atMost.defaultTranslationOf",
             { what: String, times: String -> "$contains $what $atMost $times" },
             Companion::containsAtMost
         )
 
         private fun containsAtMost(plant: Assert<CharSequence>, atMost: Int, a: Translatable, aX: Array<out Translatable>)
-            = plant.contains.atMost(atMost).defaultTranslationOf(a, *aX)
+            = plant.contains.atMost(atMost).values(a.getDefault(), *aX.map { it.getDefault() }.toTypedArray())
 
         private fun getAtMostIgnoringCaseTriple() = Triple(
-            "$contains.$ignoringCase.$atMost.$defaultTranslationOf",
+            "$contains.$ignoringCase.$atMost.defaultTranslationOf",
             { what: String, times: String -> "$contains $ignoringCase $what $atMost $times" },
             Companion::containsAtMostIgnoringCase
         )
 
         private fun containsAtMostIgnoringCase(plant: Assert<CharSequence>, atMost: Int, a: Translatable, aX: Array<out Translatable>)
-            = plant.contains.ignoringCase.atMost(atMost).defaultTranslationOf(a, *aX)
+            = plant.contains.ignoringCase.atMost(atMost).values(a.getDefault(), *aX.map { it.getDefault() }.toTypedArray())
     }
 }

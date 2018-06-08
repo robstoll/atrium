@@ -71,45 +71,6 @@ fun <T : CharSequence> Assert<T>.containsNot(expected: Any, vararg otherExpected
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
- * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if defined),
- * using a non disjoint search.
- *
- * It is a shortcut for `contains.atLeast(1).defaultTranslationOf(expected, *otherExpected)`.
- *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
- * default translation of [expected] is defined as `'a'` and one default translation of the
- * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
- * the number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `contains.exactly(2).defaultTranslationOf(IS)`
- * instead of:
- *   `containsDefaultTranslationOf(IS, IS)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = contains.atLeast(1).defaultTranslationOf(expected, *otherExpected)
-
-/**
- * Makes the assertion that [AssertionPlant.subject] does  not contain [expected]'s
- * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
- * [getDefault][Translatable.getDefault] representation (if defined).
- *
- * It is a shortcut for `containsNot.defaultTranslationOf(expected, *otherExpected)`.
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <T : CharSequence> Assert<T>.containsNotDefaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable)
-    = containsNot.defaultTranslationOf(expected, * otherExpected)
-
-
-/**
  * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given regular expression
  * [pattern] as well as the [otherPatterns] (if defined), using a non disjoint search.
  *

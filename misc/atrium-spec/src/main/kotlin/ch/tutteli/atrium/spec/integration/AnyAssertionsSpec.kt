@@ -80,19 +80,19 @@ abstract class AnyAssertionsSpec(
                 test("$notToBe throws AssertionError") {
                     expect {
                         assert(1).notToBeFun(1)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(NOT_TO_BE) } }
+                    }.toThrow<AssertionError> { messageContains(NOT_TO_BE.getDefault()) }
                 }
                 test("$isNotSame throws AssertionError") {
                     expect {
                         assert(1).isNotSameFun(1)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(IS_NOT_SAME) } }
+                    }.toThrow<AssertionError> { messageContains(IS_NOT_SAME.getDefault()) }
                 }
             }
             context("one does not equal the other") {
                 test("$toBe throws AssertionError") {
                     expect {
                         assert(1).toBeFun(2)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(TO_BE) } }
+                    }.toThrow<AssertionError> { messageContains(TO_BE.getDefault()) }
                 }
                 test("$notToBe does not throw") {
                     assert(1).notToBeFun(2)
@@ -100,7 +100,7 @@ abstract class AnyAssertionsSpec(
                 test("$isSame throws AssertionError") {
                     expect {
                         assert(1).isSameFun(2)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(IS_SAME) } }
+                    }.toThrow<AssertionError> { messageContains(IS_SAME.getDefault()) }
                 }
                 test("$isNotSame does not throw") {
                     assert(1).isNotSameFun(2)
@@ -193,10 +193,8 @@ abstract class AnyAssertionsSpec(
                     it("contains the '${testee::subject.name}'") {
                         expectFun.toThrow<AssertionError> { messageContains(subject.toString()) }
                     }
-                    it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message - which should be '${DescriptionAnyAssertion.TO_BE.getDefault()}'") {
-                        expectFun.toThrow<AssertionError> {
-                            message { containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE) }
-                        }
+                    it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message - which should be '${TO_BE.getDefault()}'") {
+                        expectFun.toThrow<AssertionError> { messageContains(TO_BE.getDefault()) }
                     }
                     it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
                         expectFun.toThrow<AssertionError> { messageContains(RawString.NULL.string) }
