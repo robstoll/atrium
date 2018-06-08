@@ -14,7 +14,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour as DeprecatedNotSearchBehaviour
 
 /**
- * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
+ * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
  *
  * @return The newly created builder.
  */
@@ -29,7 +29,7 @@ fun <T : CharSequence> getIgnoriereGrossKleinschreibung(builder: DeprecatedBuild
 
 
 /**
- * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
+ * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
  *
  * @return The newly created builder.
  */
