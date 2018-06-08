@@ -28,7 +28,7 @@ fun SpecBody.absentSubjectTests(
                         "compareTo"
                     ).toBe(0)
                 }, arrayOf())
-            }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE) } }
+            }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE.getDefault()) }
         }
         test("only null, states that iterable only returned null") {
             expect {
@@ -37,7 +37,7 @@ fun SpecBody.absentSubjectTests(
                     val f: KFunction1<Double, Int> = subject::compareTo
                     returnValueOf(f, 2.0)
                 }, arrayOf())
-            }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_ONLY_NULL) } }
+            }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CANNOT_EVALUATE_SUBJECT_ONLY_NULL.getDefault()) }
         }
 
         val list = listOf(null, 1.0, null, 3.0)

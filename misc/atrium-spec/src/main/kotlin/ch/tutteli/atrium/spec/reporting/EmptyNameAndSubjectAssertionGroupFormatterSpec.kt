@@ -2,7 +2,6 @@ package ch.tutteli.atrium.spec.reporting
 
 import ch.tutteli.atrium.api.cc.en_GB.contains
 import ch.tutteli.atrium.api.cc.en_GB.containsNot
-import ch.tutteli.atrium.api.cc.en_GB.containsNotDefaultTranslationOf
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
@@ -55,7 +54,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
                         val parameterObject = AssertionFormatterParameterObject.new(sb, alwaysTrueAssertionFilter)
                         testee.formatGroup(assertionGroup, parameterObject, { _, _ -> sb.append(testString) })
                         verbs.checkImmediately(sb.toString())
-                            .containsNotDefaultTranslationOf(TestDescription.TEST_NAME)
+                            .containsNot(TestDescription.TEST_NAME.getDefault())
                             .containsNot(testSubject)
                             .contains(testString)
                     }

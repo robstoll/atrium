@@ -122,7 +122,7 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                 test("${containsExactlyTest("5.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 5.0)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(EXACTLY) } }
+                    }.toThrow<AssertionError> { messageContains(EXACTLY.getDefault()) }
                 }
                 test("${containsExactlyTest("5.0", "twice")} does not throw") {
                     fluent.containsExactlyFun(2, 5.0)

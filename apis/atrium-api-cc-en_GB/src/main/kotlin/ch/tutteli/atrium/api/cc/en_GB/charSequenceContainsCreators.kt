@@ -112,54 +112,6 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
- * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
- * representations of the [otherExpected] (if defined) shall be searched, using a non disjoint search.
- *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
- * default translation of [expected] is defined as `'a'` and one default translation of the
- * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
- * the number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `contains.exactly(2).defaultTranslationOf(IS)`
- * instead of:
- *   `contains.atLeast(1).defaultTranslationOf(IS, IS)`
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, expected glue otherExpected))
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
- * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
- * representations of the [otherExpected] (if defined) shall be searched (ignoring case), using a non disjoint search.
- *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
- * default translation of [expected] is defined as `'a'` and one default translation of the
- * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
- * the number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `contains.exactly(2).defaultTranslationOf(IS)`
- * instead of:
- *   `contains.atLeast(1).defaultTranslationOf(IS, IS)`
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@JvmName("defaultTranslationOfIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, expected glue otherExpected))
-
-
-/**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
  * as well as the [otherPatterns] are expected to have a match, using a non disjoint search.
  *

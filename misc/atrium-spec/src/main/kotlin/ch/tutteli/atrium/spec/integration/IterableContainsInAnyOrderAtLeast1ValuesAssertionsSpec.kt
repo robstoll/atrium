@@ -151,7 +151,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                     test("2.5 throws AssertionError") {
                         expect {
                             fluent.containsInAnyOrderNullableValuesFun(2.5)
-                        }.toThrow<AssertionError> { message { containsDefaultTranslationOf(DescriptionIterableAssertion.CONTAINS) } }
+                        }.toThrow<AssertionError> { messageContains(DescriptionIterableAssertion.CONTAINS.getDefault()) }
                     }
                 }
             }

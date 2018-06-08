@@ -154,7 +154,7 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                 test("${containsNotOrAtMostIgnoringCase("'o'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostIgnoringCaseFun(2, 'o')
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                    }.toThrow<AssertionError> { messageContains(AT_MOST.getDefault()) }
                 }
 
                 test("${containsNotOrAtMostTest("'o'", "3 times")} does not throw") {

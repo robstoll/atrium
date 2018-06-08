@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_GB.message
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
@@ -9,7 +7,7 @@ import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionMapAssertion
+import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -47,6 +45,10 @@ abstract class MapAssertionsSpec(
     val (isEmpty, isEmptyFun) = isEmptyPair
     val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
 
+    val isDescr = DescriptionBasic.IS.getDefault()
+    val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+    val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
+
     describeFun(hasSize) {
         context("collection with two entries") {
             test("expect 2 does not throw") {
@@ -77,11 +79,7 @@ abstract class MapAssertionsSpec(
         it("throws an AssertionError if a collection is not empty") {
             expect {
                 assert(mapOf("a" to 1, "b" to 2)).isEmptyFun()
-            }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionBasic.IS, DescriptionMapAssertion.EMPTY)
-                }
-            }
+            }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
         }
     }
 
@@ -93,11 +91,7 @@ abstract class MapAssertionsSpec(
         it("throws an AssertionError if a collection is empty") {
             expect {
                 assert(mapOf()).isNotEmptyFun()
-            }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionBasic.IS_NOT, DescriptionMapAssertion.EMPTY)
-                }
-            }
+            }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
         }
     }
 })
