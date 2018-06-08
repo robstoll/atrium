@@ -148,10 +148,10 @@ abstract class VerbSpec(
                 expect {
                     assertionVerb(null).notToBeNull {}
                 }.toThrow<AssertionError> {
-                    message {
-                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
-                        contains(Integer::class.java.name)
-                    }
+                    messageContains(
+                        DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                        Integer::class.java.name
+                    )
                 }
             }
         }
@@ -171,11 +171,11 @@ abstract class VerbSpec(
                         throw IllegalArgumentException()
                     }).toThrow<UnsupportedOperationException>{}
                 }.toThrow<AssertionError> {
-                    message {
-                        containsDefaultTranslationOf(DescriptionThrowableAssertion.IS_A)
-                        contains(IllegalArgumentException::class.java.name,
-                            UnsupportedOperationException::class.java.name)
-                    }
+                    messageContains(
+                        DescriptionThrowableAssertion.IS_A.getDefault(),
+                        IllegalArgumentException::class.java.name,
+                        UnsupportedOperationException::class.java.name
+                    )
                 }
             }
         }

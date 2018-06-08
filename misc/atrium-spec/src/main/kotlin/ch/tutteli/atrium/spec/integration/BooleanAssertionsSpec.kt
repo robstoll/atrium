@@ -1,12 +1,10 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.contains
-import ch.tutteli.atrium.api.cc.en_GB.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_GB.message
-import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
+import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
@@ -43,30 +41,20 @@ abstract class BooleanAssertionsSpec(
         test("$toBeTrue does not throw") {
             fluent.toBeTrueFun()
         }
-        test("$toBeFalse throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: false`") {
+        test("$toBeFalse throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.$TO_BE and `: false`") {
             expect {
                 fluent.toBeFalseFun()
-            }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
-                    contains(": false")
-                }
-            }
+            }.toThrow<AssertionError> { messageContains("${TO_BE.getDefault()}: false") }
         }
     }
 
     prefixedDescribe("subject is `false`") {
         val fluent = assert(false)
 
-        test("$toBeTrue throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.${DescriptionAnyAssertion.TO_BE} and `: true`") {
+        test("$toBeTrue throws an AssertionError containing ${DescriptionAnyAssertion::class.simpleName}.$TO_BE and `: true`") {
             expect {
                 fluent.toBeTrueFun()
-            }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
-                    contains(": true")
-                }
-            }
+            }.toThrow<AssertionError> { messageContains("${TO_BE.getDefault()}: true") }
         }
         test("$toBeFalse does not throw") {
             fluent.toBeFalseFun()

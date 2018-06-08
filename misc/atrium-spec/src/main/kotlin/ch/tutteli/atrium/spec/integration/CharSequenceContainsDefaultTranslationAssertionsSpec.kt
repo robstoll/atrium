@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.containsDefaultTranslationOf
-import ch.tutteli.atrium.api.cc.en_GB.message
+import ch.tutteli.atrium.api.cc.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -84,12 +83,12 @@ abstract class CharSequenceContainsDefaultTranslationAssertionsSpec(
             test("${containsAtMostTest(AssertionVerb.ASSERT.toString(), "twice")} throws AssertionError") {
                 expect {
                     fluent.containsAtMostFun(2, AssertionVerb.ASSERT)
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                }.toThrow<AssertionError> { messageContains(AT_MOST.getDefault()) }
             }
             test("${containsAtMostIgnoringCase(AssertionVerb.ASSERT.toString(), "4 times")} throws AssertionError") {
                 expect {
                     fluent.containsAtMostIgnoringCaseFun(4, AssertionVerb.ASSERT)
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                }.toThrow<AssertionError> { messageContains(AT_MOST.getDefault()) }
             }
         }
     }
