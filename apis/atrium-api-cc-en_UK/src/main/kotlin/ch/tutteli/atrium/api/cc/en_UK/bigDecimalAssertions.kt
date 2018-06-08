@@ -40,7 +40,7 @@ fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNumericallyEqualTo(expected)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNumericallyEqualTo(expected)"))
 fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
@@ -59,7 +59,7 @@ fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotNumericallyEqualTo(expected)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotNumericallyEqualTo(expected)"))
 fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotNumericallyEqualTo(this, expected))
 
@@ -76,7 +76,7 @@ fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.v(expected)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.v(expected)"))
 fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
@@ -92,6 +92,6 @@ fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotEqualIncludingScale(expected)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotEqualIncludingScale(expected)"))
 fun <T : BigDecimal> Assert<T>.isNotEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNotEqualIncludingScale(this, expected))

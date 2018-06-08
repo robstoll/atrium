@@ -23,7 +23,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
 val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     get() = AssertImpl.charSequence.containsBuilder(this)
 
-@Deprecated("Use the extension fun `enthaelt` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.enthaelt"))
+@Deprecated("Use the extension fun `enthaelt` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("plant.enthaelt"))
 fun <T : CharSequence> getEnthaelt(plant: Assert<T>): DeprecatedBuilder<T, NoOpSearchBehaviour>
     = DeprecatedBuilder(plant, plant.enthaelt.searchBehaviour)
 
@@ -41,7 +41,7 @@ val <T : CharSequence> Assert<T>.enthaeltNicht: NotCheckerOption<T, NotSearchBeh
         )
     )
 
-@Deprecated("Use the extension fun `enthaeltNicht` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.enthaeltNicht"))
+@Deprecated("Use the extension fun `enthaeltNicht` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("plant.enthaeltNicht"))
 fun <T : CharSequence> getEnthaeltNicht(plant:  Assert<T>): DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>
     = DeprecatedNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(plant))
 

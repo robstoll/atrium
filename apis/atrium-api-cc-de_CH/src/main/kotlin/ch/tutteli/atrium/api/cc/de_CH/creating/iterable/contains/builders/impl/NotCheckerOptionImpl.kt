@@ -16,7 +16,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  *   `contains not` assertion for [Iterable].
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
-@Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("NotCheckerBuilder"))
+@Deprecated("Do not rely on this type; will be made internal with 1.0.0", ReplaceWith("NotCheckerBuilder"))
 open class NotCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     containsBuilder: IterableContains.Builder<E, T, S>
 ) : NotCheckerOptionBase<E, T, S>(containsBuilder),
