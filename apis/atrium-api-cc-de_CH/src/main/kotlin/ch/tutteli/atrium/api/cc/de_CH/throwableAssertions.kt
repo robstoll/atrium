@@ -54,7 +54,7 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
 
 /**
  * Creates the assertion that the [Throwable]'s [message][Throwable.message] is not null (see [message]) contains
- * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if defined),
+ * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if given),
  * using a non disjoint search.
  *
  * It is a shortcut for `message { enthaelt.zumindest(1).werte(expected, otherExpected) }`

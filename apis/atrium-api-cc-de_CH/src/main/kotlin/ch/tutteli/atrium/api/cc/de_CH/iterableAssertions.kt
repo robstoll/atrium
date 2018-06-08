@@ -40,7 +40,7 @@ fun <E, T : Iterable<E>> getEnthaeltNicht(plant: Assert<T>): DeprecatedNotChecke
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains [expected] and the [otherExpected] values (if defined).
+ * Makes the assertion that [AssertionPlant.subject] contains [expected] and the [otherExpected] values (if given).
  *
  * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expected, *otherExpected)`
  *
@@ -76,7 +76,7 @@ fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expectedOrNull: E):
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the [expected][expectedOrNull] nullable value
- * and the [other expected][otherExpectedOrNulls] nullable values (if defined).
+ * and the [other expected][otherExpectedOrNulls] nullable values (if given).
  *
  * It is a shortcut for `enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expectedOrNull, *otherExpectedOrNulls)`
  *
@@ -173,7 +173,7 @@ fun <E : Any, T : Iterable<E?>> enthaeltNullable(plant: Assert<T>, assertionCrea
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
+ * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if given) in
  * the defined order.
  *
  * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)`
@@ -197,7 +197,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expectedOrN
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the [expected][expectedOrNull] nullable value
- * and the [other expected][otherExpectedOrNulls] nullable values (if defined) in the defined order.
+ * and the [other expected][otherExpectedOrNulls] nullable values (if given) in the defined order.
  *
  * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expectedOrNull, *otherExpectedOrNulls)`
  *
@@ -209,7 +209,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expectedOr
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
- * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) in the defined order
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
  * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)`
@@ -235,7 +235,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertio
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [assertionCreatorOrNull] or `null` in case [assertionCreatorOrNull] is defined as `null` and likewise an additional
- * entry for each [otherAssertionCreatorsOrNulls] (if defined) whereas the entries have to appear in the defined order.
+ * entry for each [otherAssertionCreatorsOrNulls] (if given) whereas the entries have to appear in the defined order.
  *
  * It is a shortcut for `enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
  *
@@ -257,7 +257,7 @@ fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, asserti
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value
- * and neither one of the [otherExpected] values (if defined).
+ * and neither one of the [otherExpected] values (if given).
  *
  * It is a shortcut for `enthaeltNicht.werte(expected, *otherExpected)`
  *

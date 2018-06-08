@@ -48,7 +48,7 @@ fun <T : CharSequence> getEnthaeltNicht(plant:  Assert<T>): DeprecatedNotChecker
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation
- * and the [toString] representation of the [otherExpected] (if defined), using a non disjoint search.
+ * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).werte(expected, *otherExpected)`.
  *
@@ -77,7 +77,7 @@ fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: A
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]'s [toString] representation
- * and neither one of the [otherExpected]'s [toString] representation (if defined).
+ * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `enthaeltNicht.werte(expected, *otherExpected)`.
  *
@@ -92,7 +92,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
- * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if defined),
+ * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if given),
  * using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)`.
@@ -119,7 +119,7 @@ fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Trans
 /**
  * Makes the assertion that [AssertionPlant.subject] does  not contain [expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
- * [getDefault][Translatable.getDefault] representation (if defined).
+ * [getDefault][Translatable.getDefault] representation (if given).
  *
  * It is a shortcut for `enthaeltNicht.standardUebersetzungVon(expected, *otherExpected)`.
  *
@@ -132,7 +132,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expecte
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given regular expression
- * [pattern] as well as the [otherPatterns] (if defined), using a non disjoint search.
+ * [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).regex(pattern, *otherPatterns)`.
  *

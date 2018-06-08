@@ -93,7 +93,7 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnl
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
  * entry which holds all assertions [entries].[assertionCreator][Entries.assertionCreator] might create and likewise
- * a further entry for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators] (if defined) whereas the entries
+ * a further entry for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators] (if given) whereas the entries
  * have to appear in the specified order.
  *
  * @param entries The parameter object containing the identification lambdas.
@@ -110,7 +110,7 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyS
  * or is `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] is defined as `null`
  * and likewise a further entry for each
  * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreators]
- * (if defined) whereas the entries have to appear in the specified order.
+ * (if given) whereas the entries have to appear in the specified order.
  *
  * @param nullableEntries The parameter object containing the identification lambdas.
  *

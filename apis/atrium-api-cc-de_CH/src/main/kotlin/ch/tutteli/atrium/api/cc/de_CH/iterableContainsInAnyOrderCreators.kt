@@ -49,7 +49,7 @@ fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderS
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
- * [otherExpected] values (if defined) shall be searched within the [Iterable].
+ * [otherExpected] values (if given) shall be searched within the [Iterable].
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
  * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
@@ -94,7 +94,7 @@ fun <E, T : Iterable<E>> objekte(checkerBuilder: IterableContainsCheckerBuilder<
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected][expectedOrNull]
- * nullable value as well as the [other expected][otherExpectedOrNulls] nullable values (if defined)
+ * nullable value as well as the [other expected][otherExpectedOrNulls] nullable values (if given)
  * shall be searched within the [Iterable].
  *
  * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and

@@ -226,7 +226,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [entries].[assertionCreator][Entries.assertionCreator] and an additional entry
- * for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators] (if defined) in the defined order
+ * for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
  * It is a shortcut for `to contain inGiven order and only the Entries(...)`
@@ -242,7 +242,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  * [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] or `null` in case
  * [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] is defined as `null` and likewise an
  * additional entry for each [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreators]
- * (if defined) whereas the entries have to appear in the defined order.
+ * (if given) whereas the entries have to appear in the defined order.
  *
  * It is a shortcut for `to contain inGiven order and only the NullableEntries(...)`
  *
