@@ -80,43 +80,6 @@ infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionP
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the [getDefault][Translatable.getDefault]
- * representation of the given [translatable].
- *
- * It is a shortcut for `to contain atLeast 1 defaultTranslationOf translatable)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable: Translatable): AssertionPlant<T>
-    = this contains DefaultTranslationsOf(translatable)
-
-/**
- * Makes the assertion that [AssertionPlant.subject] contains [DefaultTranslationsOf.expected]'s
- * [getDefault][Translatable.getDefault] representation and the [getDefault][Translatable.getDefault] representations
- * of the [DefaultTranslationsOf.otherExpected] (if defined), using a non disjoint search.
- *
- * It is a shortcut for `to contain atLeast 1 the DefaultTranslationsOf(...)`
- *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
- * default translation of [DefaultTranslationsOf.expected] is defined as `'a'` and one default translation of the
- * [DefaultTranslationsOf.otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to control
- * the number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `to contain exactly 2 defaultTranslationOf IS`
- * instead of:
- *   `to contain atLeast 1 the DefaultTranslationOf(IS, IS)`
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTranslationsOf): AssertionPlant<T>
-    = this to contain atLeast 1 the defaultTranslationOf
-
-/**
  * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given [pattern].
  *
  * It is a shortcut for `to contain atLeast 1 regex pattern`.
@@ -174,21 +137,6 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
  */
 infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
     = this notTo contain the values
-
-
-/**
- * Makes the assertion that [AssertionPlant.subject] does  not contain [DefaultTranslationsOf.expected]'s
- * [getDefault][Translatable.getDefault] representation and neither one of the [DefaultTranslationsOf.otherExpected]'s
- * [getDefault][Translatable.getDefault] representation (if defined).
- *
- * It is a shortcut for `notTo contain the DefaultTranslationsOf(expected, *otherExpected)`.
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: DefaultTranslationsOf)
-    = this notTo contain the defaultTranslationsOf
-
 
 /**
  * Makes the assertion that [AssertionPlant.subject] starts with [expected].
