@@ -20,32 +20,23 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
 ) {
     companion object {
         fun getContainsDefaultTranslationOfPair()
-            = getContainsName() to Companion::containsDefaultTranslationOf
+            = "containsDefaultTranslationOf no longer in this API"  to Companion::containsDefaultTranslationOf
 
-        private fun getContainsName(): String {
-            val f: KFunction2<Assert<CharSequence>, DefaultTranslationsOf, Assert<CharSequence>> = Assert<CharSequence>::contains
-            return "${f.name} ${DefaultTranslationsOf::class.simpleName}"
-        }
 
         private fun containsDefaultTranslationOf(plant: Assert<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>): Assert<CharSequence> {
             return if (otherExpected.isEmpty()) {
-                plant containsDefaultTranslationOf expected
+                plant contains expected.getDefault()
             } else {
-                plant contains DefaultTranslationsOf(expected, *otherExpected)
+                plant contains Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
             }
         }
 
-
         fun getContainsNotDefaultTranslationOfPair()
-            = getContainsNotName() to Companion::containsNotDefaultTranslationOf
+            = "containsNotDefaultTranslationOf no longer in this API" to Companion::containsNotDefaultTranslationOf
 
-        private fun getContainsNotName(): String {
-            val f: KFunction2<Assert<CharSequence>, DefaultTranslationsOf, Assert<CharSequence>> = Assert<CharSequence>::containsNot
-            return "${f.name} ${DefaultTranslationsOf::class.simpleName}"
-        }
 
         private fun containsNotDefaultTranslationOf(plant: Assert<CharSequence>, expected: Translatable, otherExpected: Array<out Translatable>)
-            = plant containsNot DefaultTranslationsOf(expected, *otherExpected)
+            = plant containsNot Values(expected.getDefault(), *otherExpected.map { it.getDefault() }.toTypedArray())
 
         fun toBeEmpty(plant: Assert<CharSequence>)
             = plant toBe Empty

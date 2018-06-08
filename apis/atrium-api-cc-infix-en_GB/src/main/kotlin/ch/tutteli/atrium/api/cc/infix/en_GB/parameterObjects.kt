@@ -8,13 +8,6 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.kbox.glue
 
 /**
- * Parameter object to express `Translatable, vararg Translatable` in the infix-api.
- */
-class DefaultTranslationsOf(val expected: Translatable, vararg val otherExpected: Translatable) {
-    fun toList(): List<Translatable> = expected glue otherExpected
-}
-
-/**
  * Parameter object to express a [Group] with a single identification lambda.
  */
 class Entry<in T : Any>(
