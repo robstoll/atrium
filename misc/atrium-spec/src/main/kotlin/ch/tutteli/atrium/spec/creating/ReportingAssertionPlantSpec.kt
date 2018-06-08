@@ -107,9 +107,7 @@ abstract class ReportingAssertionPlantSpec(
                     context("exception message") {
 
                         it("contains the ${plant.commonFields::assertionVerb.name}'") {
-                            expectFun().toThrow<AssertionError> {
-                                message { containsDefaultTranslationOf(assertionVerb) }
-                            }
+                            expectFun().toThrow<AssertionError> { messageContains(assertionVerb.getDefault()) }
                         }
                         it("contains the '${plant::subject.name}'") {
                             expectFun().toThrow<AssertionError> {
@@ -117,14 +115,10 @@ abstract class ReportingAssertionPlantSpec(
                             }
                         }
                         it("contains the '${DescriptiveAssertion::description.name}' of the assertion-message") {
-                            expectFun().toThrow<AssertionError> {
-                                message { containsDefaultTranslationOf(description) }
-                            }
+                            expectFun().toThrow<AssertionError> { messageContains(description.getDefault()) }
                         }
                         it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
-                            expectFun().toThrow<AssertionError> {
-                                messageContains(expected)
-                            }
+                            expectFun().toThrow<AssertionError> { messageContains(expected) }
                         }
                     }
 

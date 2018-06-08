@@ -51,10 +51,10 @@ abstract class ThrowableAssertionsSpec(
                     /* no exception occurs */
                 }.doToThrow()
             }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED)
-                    contains("${DescriptionThrowableAssertion.IS_A.getDefault()}: ${IllegalArgumentException::class.simpleName}")
-                }
+                messageContains(
+                    DescriptionThrowableAssertion.NO_EXCEPTION_OCCURRED.getDefault(),
+                    "${DescriptionThrowableAssertion.IS_A.getDefault()}: ${IllegalArgumentException::class.simpleName}"
+                )
             }
         }, { toThrowFunLazy {} }, { toThrowFun() })
 
@@ -88,10 +88,10 @@ abstract class ThrowableAssertionsSpec(
             expect {
                 assert(throwable).message()
             }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
-                    contains(String::class.java.name)
-                }
+                messageContains(
+                    DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                    String::class.java.name
+                )
             }
         }, { messageFun {} })
 
@@ -115,10 +115,10 @@ abstract class ThrowableAssertionsSpec(
             expect {
                 assert(throwable).messageContains()
             }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
-                    contains(String::class.java.name)
-                }
+                messageContains(
+                    DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                    String::class.java.name
+                )
             }
         }, { messageContainsFun(1, arrayOf(2.3, 'z', "hello")) })
 

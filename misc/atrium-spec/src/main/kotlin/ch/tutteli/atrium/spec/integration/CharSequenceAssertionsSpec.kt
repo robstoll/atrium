@@ -180,13 +180,13 @@ abstract class CharSequenceAssertionsSpec(
             test("$startsNotWith 'Hello' throws an AssertionError") {
                 expect {
                     fluent.startsNotWithFun("Hello")
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(STARTS_NOT_WITH) } }
+                }.toThrow<AssertionError> { messageContains(STARTS_NOT_WITH.getDefault()) }
             }
 
             test("$startsWith 'Robert' throws an AssertionError") {
                 expect {
                     fluent.startsWithFun("goodbye")
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(STARTS_WITH) } }
+                }.toThrow<AssertionError> { messageContains(STARTS_WITH.getDefault()) }
             }
             test("$startsNotWith 'Robert' does not throw") {
                 fluent.startsNotWithFun("goodbye")
@@ -199,7 +199,7 @@ abstract class CharSequenceAssertionsSpec(
             test("$endsWith 'Hello' throws an AssertionError") {
                 expect {
                     fluent.endsWithFun("Hello")
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(ENDS_WITH) } }
+                }.toThrow<AssertionError> { messageContains(ENDS_WITH.getDefault()) }
             }
             test("$endsNotWith 'Hello' does not throw") {
                 fluent.endsNotWithFun("Hello")
@@ -211,7 +211,7 @@ abstract class CharSequenceAssertionsSpec(
             test("$endsNotWith 'Robert' throws an AssertionError") {
                 expect {
                     fluent.endsNotWithFun("Robert")
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(ENDS_NOT_WITH) } }
+                }.toThrow<AssertionError> { messageContains(ENDS_NOT_WITH.getDefault()) }
             }
         }
     }

@@ -47,6 +47,10 @@ abstract class CollectionAssertionsSpec(
     val (isEmpty, isEmptyFun) = isEmptyPair
     val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
 
+    val isDescr = DescriptionBasic.IS.getDefault()
+    val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
+    val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
+
     describeFun(hasSize) {
         context("collection with two entries") {
             test("expect 2 does not throw") {
@@ -77,11 +81,7 @@ abstract class CollectionAssertionsSpec(
         it("throws an AssertionError if a collection is not empty") {
             expect {
                 assert(listOf(1, 2)).isEmptyFun()
-            }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionBasic.IS, DescriptionCollectionAssertion.EMPTY)
-                }
-            }
+            }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
         }
     }
 
@@ -93,11 +93,7 @@ abstract class CollectionAssertionsSpec(
         it("throws an AssertionError if a collection is empty") {
             expect {
                 assert(listOf()).isNotEmptyFun()
-            }.toThrow<AssertionError> {
-                message {
-                    containsDefaultTranslationOf(DescriptionBasic.IS_NOT, DescriptionCollectionAssertion.EMPTY)
-                }
-            }
+            }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
         }
     }
 })

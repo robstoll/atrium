@@ -50,10 +50,10 @@ abstract class TypeTransformationAssertionsSpec(
                     val i: Int? = null
                     assert(i).notToBeNullFun {}
                 }.toThrow<AssertionError> {
-                    message {
-                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
-                        contains(Integer::class.java.name)
-                    }
+                    messageContains(
+                        DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                        Integer::class.java.name
+                    )
                 }
             }
 
@@ -63,11 +63,11 @@ abstract class TypeTransformationAssertionsSpec(
                         val i: Int? = null
                         assert(i).notToBeNullLessFun(2)
                     }.toThrow<AssertionError> {
-                        message {
-                            containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
-                            contains(Integer::class.java.name)
-                            containsDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
-                        }
+                        messageContains(
+                            DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                            Integer::class.java.name,
+                            DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
+                        )
                     }
                 }
             }
@@ -105,8 +105,8 @@ abstract class TypeTransformationAssertionsSpec(
                         assert(i).notToBeNullGreaterAndLessFun(2, 5)
                     }.toThrow<AssertionError> {
                         message {
-                            containsDefaultTranslationOf(DescriptionComparableAssertion.IS_GREATER_THAN)
-                            containsNotDefaultTranslationOf(DescriptionComparableAssertion.IS_LESS_THAN)
+                            contains(DescriptionComparableAssertion.IS_GREATER_THAN.getDefault())
+                            containsNot(DescriptionComparableAssertion.IS_LESS_THAN.getDefault())
                         }
                     }
                 }
@@ -117,9 +117,9 @@ abstract class TypeTransformationAssertionsSpec(
                         assert(i).notToBeNullGreaterAndLessFun(2, 0)
                     }.toThrow<AssertionError> {
                         message {
-                            containsDefaultTranslationOf(
-                                DescriptionComparableAssertion.IS_GREATER_THAN,
-                                DescriptionComparableAssertion.IS_LESS_THAN
+                            contains(
+                                DescriptionComparableAssertion.IS_GREATER_THAN.getDefault(),
+                                DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
                             )
                         }
                     }
@@ -133,11 +133,11 @@ abstract class TypeTransformationAssertionsSpec(
                 expect {
                     verbs.checkLazily(A()) { property(subject::i).notToBeNull {} }
                 }.toThrow<AssertionError> {
-                    message {
-                        contains(A::class.simpleName!!)
-                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
-                        contains(Integer::class.java.name)
-                    }
+                    messageContains(
+                        A::class.simpleName!!,
+                        DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                        Integer::class.java.name
+                    )
                 }
             }
 
@@ -146,11 +146,12 @@ abstract class TypeTransformationAssertionsSpec(
                 expect {
                     verbs.checkLazily(A()) { property(subject::i).notToBeNullLessFun(1) }
                 }.toThrow<AssertionError> {
-                    message {
-                        contains(A::class.simpleName!!)
-                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A, DescriptionComparableAssertion.IS_LESS_THAN)
-                        contains(Integer::class.java.name)
-                    }
+                    messageContains(
+                        A::class.simpleName!!,
+                        DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                        DescriptionComparableAssertion.IS_LESS_THAN.getDefault(),
+                        Integer::class.java.name
+                    )
                 }
             }
         }
@@ -165,10 +166,10 @@ abstract class TypeTransformationAssertionsSpec(
                 expect {
                     assert("hello").isAIntFun {}
                 }.toThrow<AssertionError> {
-                    message {
-                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
-                        contains(Integer::class.java.name)
-                    }
+                    messageContains(
+                        DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                        Integer::class.java.name
+                    )
                 }
             }
         }
@@ -238,11 +239,11 @@ abstract class TypeTransformationAssertionsSpec(
                     val i: Int? = null
                     assert(i).notToBeNullButFun(1)
                 }.toThrow<AssertionError> {
-                    message {
-                        containsDefaultTranslationOf(DescriptionTypeTransformationAssertion.IS_A)
-                        contains(Integer::class.java.name)
-                        containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
-                    }
+                    messageContains(
+                        DescriptionTypeTransformationAssertion.IS_A.getDefault(),
+                        Integer::class.java.name,
+                        "${DescriptionAnyAssertion.TO_BE.getDefault()}: 1"
+                    )
                 }
             }
         }
@@ -256,10 +257,10 @@ abstract class TypeTransformationAssertionsSpec(
             test("3 throws an AssertionError") {
                 expect {
                     assert(i).notToBeNullButFun(3)
-                }.toThrow<AssertionError>{
-                    message {
-                        containsDefaultTranslationOf(DescriptionAnyAssertion.TO_BE)
-                    }
+                }.toThrow<AssertionError> {
+                    messageContains(
+                        "${DescriptionAnyAssertion.TO_BE.getDefault()}: 3"
+                    )
                 }
             }
         }
