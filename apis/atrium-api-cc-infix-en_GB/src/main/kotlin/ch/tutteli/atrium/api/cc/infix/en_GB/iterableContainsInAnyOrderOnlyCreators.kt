@@ -22,17 +22,17 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] must contain only the
- * [expected] nullable value.
+ * [expected][expectedOrNull] nullable value.
  *
- * Delegates to `the NullableValues(expected)`.
+ * Delegates to `the NullableValues(expectedOrNull)`.
  *
- * @param expected The nullable value which is expected to be contained within the [Iterable].
+ * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableValue(expected: E): AssertionPlant<T>
-    = this the NullableValues(expected)
+infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableValue(expectedOrNull: E): AssertionPlant<T>
+    = this the NullableValues(expectedOrNull)
 
 
 /**
@@ -75,31 +75,32 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
     = this the Entries(assertionCreator)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
- * entry which holds all assertions created by the given [assertionCreator] or is `null` in which case
- * [assertionCreator] has to be defined as `null` as well.
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] must contain only one
+ * entry which holds all assertions created by the given [assertionCreatorOrNull] or has to be `null` in case
+ * [assertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `the NullableEntries(assertionCreator)`.
+ * Delegates to `the NullableEntries(assertionCreatorOrNull)`.
  *
- * @param assertionCreator The identification lambda.
+ * @param assertionCreatorOrNull The identification lambda.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEntry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = this the NullableEntries(assertionCreator)
+infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = this the NullableEntries(assertionCreatorOrNull)
 
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [Entries.assertionCreator] might create -- equally an entry for each further
- * [Entries.otherAssertionCreators] needs to be contained in the [Iterable] where it does not matter in which order the
- * entries appear.
+ * [Iterable] which holds all assertions [entries].[assertionCreator][Entries.assertionCreator] might create
+ * -- likewise an entry for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators]
+ * needs to be contained in the [Iterable] where it does not matter in which order the entries appear but only as
+ * many entries should be returned by the [Iterable] as assertion creators are defined.
  *
  * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as
  * identification lambdas -- should be ordered in such a way that the most specific identification lambda appears
  * first, not that a less specific lambda wins. For instance, given a `setOf(1, 2)` you should not search for
- * `entries({ isGreaterThan(0) }, { toBe(1) })` but for `entries({ toBe(1) }, { isGreaterThan(0) })` otherwise
+ * `Entries({ isGreaterThan(0) }, { toBe(1) })` but for `Entries({ toBe(1) }, { isGreaterThan(0) })` otherwise
  * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
  * entry which is left -- in this case `2` -- and of course this would fail.
  *
@@ -113,23 +114,24 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [NullableEntries.assertionCreator] might create or it needs to be `null` in
- * case [NullableEntries.assertionCreator] is `null` -- likewise an entry for each
- * further [NullableEntries.otherAssertionCreators] needs to be contained in the [Iterable]
- * where it does not matter in which order the entries appear but only as many entries should be returned by the
- * [Iterable] as assertion creators are defined.
+ * [Iterable] which holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] might
+ * create or it needs to be `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreator]
+ * is defined as `null` -- likewise an entry for each
+ * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreators] needs to be contained in
+ * the [Iterable] where it does not matter in which order the entries appear but only as many entries
+ * should be returned by the [Iterable] as assertion creators are defined.
  *
  * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as
  * identification lambdas -- should be ordered in such a way that the most specific identification lambda appears
  * first, not that a less specific lambda wins. For instance, given a `setOf(1, 2)` you should not search for
- * `entries({ isGreaterThan(0) }, { toBe(1) })` but for `entries({ toBe(1) }, { isGreaterThan(0) })` otherwise
- * `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could only match the
- * entry which is left -- in this case `2` -- and of course this would fail.
+ * `NullableEntries({ isGreaterThan(0) }, { toBe(1) })` but for `NullableEntries({ toBe(1) }, { isGreaterThan(0) })`
+ * otherwise `isGreaterThan(0)` matches `1` before `toBe(1)` would match it. As a consequence `toBe(1)` could
+ * only match the entry which is left -- in this case `2` -- and of course this would fail.
  *
- * @param entries The parameter object containing the identification lambdas.
+ * @param nullableEntries The parameter object containing the identification lambdas.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.the(entries: NullableEntries<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, entries.toList()))
+infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.the(nullableEntries: NullableEntries<E>): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, nullableEntries.toList()))
