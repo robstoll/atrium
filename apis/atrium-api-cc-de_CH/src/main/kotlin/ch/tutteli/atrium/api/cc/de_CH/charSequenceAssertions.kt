@@ -109,6 +109,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Most probably only used by Atrium itself; will be made internal with 1.0.0", ReplaceWith("please open an issue on GitHub if you use it as well"))
 fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
     = enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)
 
@@ -122,6 +123,7 @@ fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Trans
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Most probably only used by Atrium itself; will be made internal with 1.0.0", ReplaceWith("please open an issue on GitHub if you use it as well"))
 fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable)
     = enthaeltNicht.standardUebersetzungVon(expected, *otherExpected)
 

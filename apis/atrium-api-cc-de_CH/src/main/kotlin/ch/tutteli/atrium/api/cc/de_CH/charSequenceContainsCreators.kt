@@ -118,6 +118,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Most probably only used by Atrium itself; will be made internal with 1.0.0", ReplaceWith("please open an issue on GitHub if you use it as well"))
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.standardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
     = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, expected glue otherExpected))
 
@@ -141,6 +142,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated("Most probably only used by Atrium itself; will be made internal with 1.0.0", ReplaceWith("please open an issue on GitHub if you use it as well"))
 @JvmName("standardUebersetzungVonGrossKleinschreibungIgnorierend")
 fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.standardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
     = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, expected glue otherExpected))
