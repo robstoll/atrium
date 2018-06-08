@@ -109,7 +109,7 @@ infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [DefaultTranslationsOf.expected]'s
  * [getDefault][Translatable.getDefault] representation and the [getDefault][Translatable.getDefault] representations
- * of the [DefaultTranslationsOf.otherExpected] (if defined), using a non disjoint search.
+ * of the [DefaultTranslationsOf.otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `to contain atLeast 1 the DefaultTranslationsOf(...)`
  *
@@ -199,7 +199,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
 /**
  * Makes the assertion that [AssertionPlant.subject] does  not contain [DefaultTranslationsOf.expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [DefaultTranslationsOf.otherExpected]'s
- * [getDefault][Translatable.getDefault] representation (if defined).
+ * [getDefault][Translatable.getDefault] representation (if given).
  *
  * It is a shortcut for `notTo contain the DefaultTranslationsOf(expected, *otherExpected)`.
  *

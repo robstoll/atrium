@@ -101,7 +101,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
  * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
- * representations of the [otherExpected] (if defined) shall be searched, using a non disjoint search.
+ * representations of the [otherExpected] (if given) shall be searched, using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
@@ -125,7 +125,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
  * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
- * representations of the [otherExpected] (if defined) shall be searched (ignoring case), using a non disjoint search.
+ * representations of the [otherExpected] (if given) shall be searched (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the

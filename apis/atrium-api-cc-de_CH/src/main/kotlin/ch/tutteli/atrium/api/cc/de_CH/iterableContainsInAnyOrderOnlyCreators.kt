@@ -83,7 +83,7 @@ fun <E, T : Iterable<E>> objekte(checkerBuilder: IterableContainsBuilder<E, T, I
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected][expectedOrNull]
- * nullable value as well as the [other expected][otherExpectedOrNulls] nullable values (if defined) need to be
+ * nullable value as well as the [other expected][otherExpectedOrNulls] nullable values (if given) need to be
  * contained in [Iterable] where it does not matter in which order but only as
  * many entries should be returned by the [Iterable] as values defined.
  *

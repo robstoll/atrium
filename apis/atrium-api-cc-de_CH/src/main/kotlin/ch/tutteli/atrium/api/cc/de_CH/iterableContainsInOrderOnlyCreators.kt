@@ -48,7 +48,7 @@ fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearch
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
- * [expected] value as well as the [otherExpected] values (if defined) in the specified order.
+ * [expected] value as well as the [otherExpected] values (if given) in the specified order.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
@@ -83,7 +83,7 @@ fun <E, T : Iterable<E>> objekte(checkerBuilder: IterableContainsBuilder<E, T, I
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
  * [expected][expectedOrNull] nullable value as well as the [other expected][otherExpectedOrNulls] nullable values
- * (if defined) in the specified order.
+ * (if given) in the specified order.
  *
  * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
  * @param otherExpectedOrNulls Additional nullable values which are expectedOrNull to be contained within [Iterable].
@@ -146,7 +146,7 @@ fun <E : Any, T : Iterable<E?>> nullableEintrag(checkerBuilder: IterableContains
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
  * entry which holds all assertions [assertionCreator] might create and likewise a further entry for each
- * [otherAssertionCreators] (if defined) whereas the entries have to appear in the specified order.
+ * [otherAssertionCreators] (if given) whereas the entries have to appear in the specified order.
  *
  * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -175,7 +175,7 @@ fun <E : Any, T : Iterable<E>> eintraege(
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
  * entry which holds all assertions [assertionCreatorOrNull] might create or is `null` in case [assertionCreatorOrNull]
  * is defined as `null` and likewise a further entry for each
- * [otherAssertionCreatorsOrNull] (if defined) whereas the entries have to appear in the specified order.
+ * [otherAssertionCreatorsOrNull] (if given) whereas the entries have to appear in the specified order.
  *
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for

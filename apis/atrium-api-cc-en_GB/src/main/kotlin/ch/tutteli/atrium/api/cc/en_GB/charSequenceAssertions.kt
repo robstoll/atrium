@@ -30,7 +30,7 @@ val <T : CharSequence> Assert<T>.containsNot: NotCheckerOption<T, NotSearchBehav
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation
- * and the [toString] representation of the [otherExpected] (if defined), using a non disjoint search.
+ * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).values(expected, *otherExpected)`.
  *
@@ -59,7 +59,7 @@ fun <T : CharSequence> Assert<T>.contains(expected: Any, vararg otherExpected: A
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]'s [toString] representation
- * and neither one of the [otherExpected]'s [toString] representation (if defined).
+ * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `containsNot.values(expected, *otherExpected)`.
  *
@@ -75,7 +75,7 @@ fun <T : CharSequence> Assert<T>.containsNot(expected: Any, vararg otherExpected
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given regular expression
- * [pattern] as well as the [otherPatterns] (if defined), using a non disjoint search.
+ * [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `contains.atLeast(1).regex(pattern, *otherPatterns)`.
  *

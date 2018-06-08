@@ -29,7 +29,7 @@ val <E, T : Iterable<E>> Assert<T>.containsNot: NotCheckerOption<E, T, NotSearch
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains [expected] and the [otherExpected] values (if defined).
+ * Makes the assertion that [AssertionPlant.subject] contains [expected] and the [otherExpected] values (if given).
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).values(expected, *otherExpected)`
  *
@@ -61,7 +61,7 @@ fun <E: Any?, T: Iterable<E>> Assert<T>.containsNullableValue(expectedOrNull: E)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the [expectedOrNull][expectedOrNull] nullable value
- * and the [other expected][otherExpectedOrNulls] nullable values (if defined).
+ * and the [other expected][otherExpectedOrNulls] nullable values (if given).
  *
  * It is a shortcut for `contains.inAnyOrder.atLeast(1).nullableValues(expectedOrNull, *otherExpectedOrNulls)`
  *
@@ -132,7 +132,7 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntries(assertionCreator
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if defined) in
+ * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if given) in
  * the defined order.
  *
  * It is a shortcut for `contains.inOrder.only.nullableValues(expected, *otherExpected)`
@@ -156,7 +156,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValue(expected
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the [expected][expectedOrNull] nullable value
- * and the [other expected][otherExpectedOrNulls] nullable values (if defined) in the defined order.
+ * and the [other expected][otherExpectedOrNulls] nullable values (if given) in the defined order.
  *
  * It is a shortcut for `contains.inOrder.only.nullableValues(expectedOrNull, *otherExpectedOrNulls)`
  *
@@ -168,7 +168,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValues(expecte
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
- * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if defined) in the defined order
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
  * It is a shortcut for `contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)`
@@ -194,7 +194,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntry(assertio
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
  * [assertionCreatorOrNull] or `null` in case [assertionCreatorOrNull] is defined as `null` and likewise an additional
- * entry for each [otherAssertionCreatorsOrNulls] (if defined) whereas the entries have to appear in the defined order.
+ * entry for each [otherAssertionCreatorsOrNulls] (if given) whereas the entries have to appear in the defined order.
  *
  * It is a shortcut for `contains.inOrder.only.nullableEntries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
  *
@@ -207,7 +207,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assert
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value
- * and neither one of the [otherExpected] values (if defined).
+ * and neither one of the [otherExpected] values (if given).
  *
  *  It is a shortcut for `containsNot.nullableValues(expected, *otherExpected)`
  *

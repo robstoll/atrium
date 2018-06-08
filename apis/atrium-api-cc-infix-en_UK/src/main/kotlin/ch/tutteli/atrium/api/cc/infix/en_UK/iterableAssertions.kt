@@ -111,7 +111,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
- * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) where it
+ * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) where it
  * does not matter in which order the entries appear.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Entries(...)`
@@ -144,7 +144,7 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
- * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) where it
+ * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) where it
  * does not matter in which order the entries appear.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Entries(...)`
@@ -213,7 +213,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
- * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) in the defined order
+ * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
  * It is a shortcut for `to contain inGiven order but only the Entries(...)`
@@ -246,7 +246,7 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, asser
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
- * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if defined) in the defined order
+ * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
  * It is a shortcut for `to contain inGiven order but only the Entries(...)`
