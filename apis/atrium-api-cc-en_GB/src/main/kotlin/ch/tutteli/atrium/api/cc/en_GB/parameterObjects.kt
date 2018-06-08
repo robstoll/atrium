@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
 import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
@@ -7,6 +8,9 @@ import ch.tutteli.kbox.glue
 
 /**
  * Parameter object to express a [GroupWithoutNullableEntries] with a single identification lambda.
+ *
+ * @param assertionCreator The identification lambda identifying the entry where an entry is considered
+ *   to be identified if it holds all [Assertion]s the lambda might create.
  */
 class Entry<in T : Any>(
     val assertionCreator: Assert<T>.() -> Unit
@@ -19,6 +23,10 @@ class Entry<in T : Any>(
  *
  * In case `null` is used for the identification lambda then it is expected that the corresponding entry
  * is `null` as well.
+ *
+ * @param assertionCreator The identification lambda identifying the entry where an entry is considered
+ *   to be identified if it holds all [Assertion]s the lambda might create or if it is `null` in case
+ *   [assertionCreator] is defined as `null`.
  */
 class NullableEntry<in T : Any>(
     val assertionCreator: (Assert<T>.() -> Unit)?
@@ -28,6 +36,10 @@ class NullableEntry<in T : Any>(
 
 /**
  * Parameter object to express a [GroupWithoutNullableEntries] of identification lambdas.
+ *
+ * @param assertionCreator The identification lambda identifying the entry where an entry is considered
+ *   to be identified if it holds all [Assertion]s the lambda might create.
+ * @param otherAssertionCreators A variable amount of additional identification lambdas.
  */
 class Entries<in T : Any>(
     val assertionCreator: Assert<T>.() -> Unit,
@@ -41,12 +53,17 @@ class Entries<in T : Any>(
  *
  * In case `null` is used for an identification lambda then it is expected that the corresponding entry
  * is `null` as well.
+ *
+ * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
+ *   to be identified if it holds all [Assertion]s the lambda might create or if it is `null` in case
+ *   [assertionCreatorOrNull] is defined as `null`.
+ * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
 class NullableEntries<in T : Any>(
-    val assertionCreator: (Assert<T>.() -> Unit)?,
-    vararg val otherAssertionCreators: (Assert<T>.() -> Unit)?
+    val assertionCreatorOrNull: (Assert<T>.() -> Unit)?,
+    vararg val otherAssertionCreatorsOrNulls: (Assert<T>.() -> Unit)?
 ) : GroupWithNullableEntries<(Assert<T>.() -> Unit)?> {
-    override fun toList(): List<(Assert<T>.() -> Unit)?> = assertionCreator glue otherAssertionCreators
+    override fun toList(): List<(Assert<T>.() -> Unit)?> = assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
 }
 
 /**

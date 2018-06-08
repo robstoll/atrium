@@ -133,10 +133,10 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] might create or needs
- * to be `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] is defined as `null` --
- * likewise an entry (can be the same) is searched for each of
- * the [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreators].
+ * holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] might create or
+ * needs to be `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull]
+ * is defined as `null` -- likewise an entry (can be the same) is searched for each of
+ * the [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreatorsOrNulls].
  *
  * @param nullableEntries The parameter object which contains the identification lambdas.
  *

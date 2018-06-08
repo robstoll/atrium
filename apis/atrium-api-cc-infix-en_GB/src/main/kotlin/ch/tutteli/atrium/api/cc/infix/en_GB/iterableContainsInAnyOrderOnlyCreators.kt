@@ -114,11 +114,11 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] might
- * create or it needs to be `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreator]
- * is defined as `null` -- likewise an entry for each
- * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreators] needs to be contained in
- * the [Iterable] where it does not matter in which order the entries appear but only as many entries
+ * [Iterable] which holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull]
+ * might create or it needs to be `null` in case
+ * [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] is defined as `null` -- likewise an
+ * entry for each [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreatorsOrNulls] needs to
+ * be contained in the [Iterable] where it does not matter in which order the entries appear but only as many entries
  * should be returned by the [Iterable] as assertion creators are defined.
  *
  * Notice, that a first-wins strategy applies which means your assertion creator lambdas -- which kind of serve as

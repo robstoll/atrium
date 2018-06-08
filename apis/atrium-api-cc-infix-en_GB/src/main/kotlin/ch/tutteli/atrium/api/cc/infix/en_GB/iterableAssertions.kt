@@ -140,10 +140,10 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): As
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains an entry holding the
- * assertions created by [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] or an entry
- * which is `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] is defined as `null`
- * -- likewise an entry (can be the same) is searched for each of the
- * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreators].
+ * assertions created by [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] or an entry
+ * which is `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull]
+ * is defined as `null` -- likewise an entry (can be the same) is searched for each of the
+ * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreatorsOrNulls].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the NullableEntries(...)`
  *
@@ -242,10 +242,11 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
- * the assertions created by [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] or `null` in case
- * [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] is defined as `null` and likewise an
- * additional entry for each [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreators]
- * (if given) whereas the entries have to appear in the defined order.
+ * the assertions created by [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] or
+ * `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] is defined as `null`
+ * and likewise an additional entry for each
+ * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreatorsOrNulls] (if given)
+ * whereas the entries have to appear in the defined order.
  *
  * It is a shortcut for `to contain inGiven order and only the NullableEntries(...)`
  *
