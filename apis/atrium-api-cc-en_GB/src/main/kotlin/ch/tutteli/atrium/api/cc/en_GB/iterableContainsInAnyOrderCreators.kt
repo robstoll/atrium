@@ -23,18 +23,18 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
     = values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] nullable value
- * shall be searched within the [Iterable].
+ * Finishes the specification of the sophisticated `contains` assertion where the [expectedOrNull][expectedOrNull]
+ * nullable value shall be searched within the [Iterable].
  *
- * Delegates to `nullableValues(expected)`.
+ * Delegates to `nullableValues(expectedOrNull)`.
  *
- * @param expected The nullable value which is expected to be contained within the [Iterable].
+ * @param expectedOrNull The nullable value which is expected to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValue(expected: E): AssertionPlant<T>
-    = nullableValues(expected)
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValue(expectedOrNull: E): AssertionPlant<T>
+    = nullableValues(expectedOrNull)
 
 
 /**
@@ -60,26 +60,28 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] nullable value as well
- * as the [otherExpected] nullable values (if defined) shall be searched within the [Iterable].
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected][expectedOrNull]
+ * nullable value as well as the [other expected][otherExpectedOrNulls] nullable values (if defined)
+ * shall be searched within the [Iterable].
  *
- * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and [expected] is
- * defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
+ * Notice, that it does not search for unique matches. Meaning, if the iterable is `setOf('a', 'b')` and
+ * [expectedOrNull] is defined as `'a'` and one [otherExpectedOrNulls] is defined as `'a'` as well, then both match,
+ * even though they match the same entry. Use an option such as [atLeast], [atMost] and [exactly] to control the
+ * number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `contains.inAnyOrder.exactly(2).nullableValues('a')`
  * instead of:
  *   `contains.inAnyOrder.atLeast(1).nullableValues('a', 'a')`
  *
- * @param expected The object which is expected to be contained within the [Iterable].
- * @param otherExpected Additional objects which are expected to be contained within [Iterable].
+ * @param expectedOrNull The object which is expected to be contained within the [Iterable].
+ * @param otherExpectedOrNulls Additional objects which are expected to be contained within [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValues(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, expected glue otherExpected))
+fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+    = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, expectedOrNull glue otherExpectedOrNulls))
 
 
 /**
@@ -100,20 +102,20 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [assertionCreator] might create or needs to be `null` in case [assertionCreator]
- * is `null` as well.
+ * holds all assertions [assertionCreatorOrNull] might create or needs to be `null` in case [assertionCreatorOrNull]
+ * is defined as `null`.
  *
- * Delegates to `nullableEntries(expected)`.
+ * Delegates to `nullableEntries(assertionCreatorOrNull)`.
  *
- * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
+ * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEntry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = nullableEntries(assertionCreator)
+fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = nullableEntries(assertionCreatorOrNull)
 
 
 /**
@@ -138,21 +140,21 @@ fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSe
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [assertionCreator] might create or needs to be `null` in case
- * [assertionCreator] is `null` as well -- likewise an entry (can be the same) is searched for each
- * of the [otherAssertionCreators].
+ * holds all assertions [assertionCreatorOrNull] might create or needs to be `null` in case
+ * [assertionCreatorOrNull] is defined as `null` -- likewise an entry (can be the same) is searched for each
+ * of the [otherAssertionCreatorsOrNulls].
  *
- * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
- *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
- *   or not.
- * @param otherAssertionCreators Additional identification lambdas which each kind of identify (separately) an entry
- *   which we are looking for.
+ * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are
+ *   looking for has to hold; or in other words, the function which defines whether an entry is the one we are
+ *   looking for or not.
+ * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each kind of identify (separately)
+ *   an entry which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEntries(
-    assertionCreator: (Assert<E>.() -> Unit)?,
-    vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
+    assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
+    vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, assertionCreator glue otherAssertionCreators))
+    = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))

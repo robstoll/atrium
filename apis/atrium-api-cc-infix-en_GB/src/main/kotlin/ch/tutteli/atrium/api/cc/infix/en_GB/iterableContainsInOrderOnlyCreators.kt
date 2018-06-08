@@ -22,22 +22,22 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyS
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
- * [expected] nullable value.
+ * [expected][expectedOrNull] nullable value.
  *
- * Delegates to `the NullableValues(expected)`.
+ * Delegates to `the NullableValues(expectedOrNull)`.
  *
- * @param expected The nullable value which is expected to be contained within the [Iterable].
+ * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableValue(expected: E): AssertionPlant<T>
-    = this the NullableValues(expected)
+infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableValue(expectedOrNull: E): AssertionPlant<T>
+    = this the NullableValues(expectedOrNull)
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected [values]
- * need to be contained in [Iterable] in the specified order.
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
+ * expected [values] in the specified order.
  *
  * @param values The values which are expected to be contained within the [Iterable].
  *
@@ -48,21 +48,21 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyS
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, values.toList()))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the expected nullable [values]
- * need to be contained in [Iterable] in the specified order.
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
+ * expected [nullableValues] in the specified order.
  *
- * @param values The nullable values which are expected to be contained within the [Iterable].
+ * @param nullableValues The nullable nullableValues which are expected to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.the(values: NullableValues<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, values.toList()))
+infix fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.the(nullableValues: NullableValues<E>): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, nullableValues.toList()))
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
- * entry which holds all assertions created by the given [assertionCreator].
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a
+ * single entry which holds all assertions created by the given [assertionCreator].
  *
  * Delegates to `the Entries(assertionCreator)`
  *
@@ -75,25 +75,26 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyS
     = this the Entries(assertionCreator)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
- * entry which holds all assertions created by the given [assertionCreator] or needs to be `null` in case
- * [assertionCreator] is `null` as well.
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a
+ * single entry which holds all assertions created by the given [assertionCreatorOrNull] or needs to be `null`
+ * in case [assertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `the NullableEntries(assertionCreator)`.
+ * Delegates to `the NullableEntries(assertionCreatorOrNull)`.
  *
- * @param assertionCreator The identification lambda.
+ * @param assertionCreatorOrNull The identification lambda.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEntry(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = this the NullableEntries(assertionCreator)
+infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = this the NullableEntries(assertionCreatorOrNull)
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
- * [Iterable] which holds all assertions [Entries.assertionCreator] might create -- likewise an entry for each further
- * [Entries.otherAssertionCreators], following the specified order, needs to be contained in the [Iterable]
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
+ * entry which holds all assertions [entries].[assertionCreator][Entries.assertionCreator] might create and likewise
+ * a further entry for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators] (if defined) whereas the entries
+ * have to appear in the specified order.
  *
  * @param entries The parameter object containing the identification lambdas.
  *
@@ -104,15 +105,17 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyS
     = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, entries.toList()))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
- * [Iterable] which holds all assertions [NullableEntries.assertionCreator] might create or needs to be `null` in case
- * [NullableEntries.assertionCreator] is `null` as well -- likewise an entry for each further
- * [NullableEntries.otherAssertionCreators], following the specified order, needs to be contained in the [Iterable].
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
+ * entry which holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] might create
+ * or is `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreator] is defined as `null`
+ * and likewise a further entry for each
+ * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreators]
+ * (if defined) whereas the entries have to appear in the specified order.
  *
- * @param entries The parameter object containing the identification lambdas.
+ * @param nullableEntries The parameter object containing the identification lambdas.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.the(entries: NullableEntries<E>): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, entries.toList()))
+infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.the(nullableEntries: NullableEntries<E>): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, nullableEntries.toList()))

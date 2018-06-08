@@ -33,7 +33,7 @@ fun <E, T : Iterable<E>> zumindest(builder:  DeprecatedBuilder<E, T, InAnyOrderS
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the entry which we
- * are looking for, occurs `at most` number of [times] within the [Iterable].
+ * are looking for occurs `at most` number of [times] within the [Iterable].
  *
  * The resulting restriction will be a `contains at least but at most` assertion.
  *
@@ -56,7 +56,7 @@ fun <E, T : Iterable<E>> aberHoechstens(checkerBuilder: DeprecatedAtLeastChecker
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
- * are looking for, occurs `genau` number of [times] within the [Iterable].
+ * are looking for occurs `genau` number of [times] within the [Iterable].
  *
  * @param times The number which the check will compare against the actual number of times an expected entry is
  *   found in the [Iterable].
@@ -75,7 +75,7 @@ fun <E, T : Iterable<E>> genau(builder: DeprecatedBuilder<E, T, InAnyOrderSearch
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
- * are looking for, occurs `at least` once but `at most` number of [times] within the [Iterable].
+ * are looking for occurs `at least` once but `at most` number of [times] within the [Iterable].
  *
  * If you want to use a higher lower bound than one, then use `zumindest(2).aberHoechstens(3)` instead of `hoechstens(3)`.
  * And in case you want to state that it is either not contained at all or at most a certain number of times,
@@ -99,7 +99,7 @@ fun <E, T : Iterable<E>> hoechstens(builder: DeprecatedBuilder<E, T, InAnyOrderS
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the entry which we
- * are looking for, occurs `not at all or at most` number of [times] within the [Iterable].
+ * are looking for occurs `not at all or at most` number of [times] within the [Iterable].
  *
  * @param times The number which the check will compare against the actual number of times an expected entry is
  *   found in the [Iterable].

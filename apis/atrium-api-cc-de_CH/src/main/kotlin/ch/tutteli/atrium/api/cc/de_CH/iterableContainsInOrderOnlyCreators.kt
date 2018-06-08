@@ -28,17 +28,17 @@ fun <E, T : Iterable<E>> wert(checkerBuilder: IterableContainsBuilder<E, T, InOr
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
- * [expected] nullable value.
+ * [expected][expectedOrNull] nullable value.
  *
- * Delegate to `nullableWerte(expected)`.
+ * Delegate to `nullableWerte(expectedOrNull)`.
  *
- * @param expected The nullable value which is expected to be contained within the [Iterable].
+ * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableWert(expected: E): AssertionPlant<T>
-    = nullableWerte(expected)
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableWert(expectedOrNull: E): AssertionPlant<T>
+    = nullableWerte(expectedOrNull)
 
 @JvmName("deprecatedWert")
 @Deprecated("Use `nullableWert` instead, will be removed with 1.0.0", ReplaceWith("nullableWert(expected)"))
@@ -47,8 +47,8 @@ fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearch
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
- * [otherExpected] values (if defined) need to be contained in [Iterable] in the specified order.
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
+ * [expected] value as well as the [otherExpected] values (if defined) in the specified order.
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
@@ -81,17 +81,18 @@ fun <E, T : Iterable<E>> objekte(checkerBuilder: IterableContainsBuilder<E, T, I
     = checkerBuilder.werte(expected, *otherExpected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] nullable value
- * as well as the [otherExpected] nullable values (if defined) need to be contained in [Iterable] in the specified order.
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
+ * [expected][expectedOrNull] nullable value as well as the [other expected][otherExpectedOrNulls] nullable values
+ * (if defined) in the specified order.
  *
- * @param expected The nullable value which is expected to be contained within the [Iterable].
- * @param otherExpected Additional nullable values which are expected to be contained within [Iterable].
+ * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
+ * @param otherExpectedOrNulls Additional nullable values which are expectedOrNull to be contained within [Iterable].
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableWerte(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, expectedOrNull glue otherExpectedOrNulls))
 
 @Deprecated("Use `nullableWerte` instead, will be removed with 1.0.0", ReplaceWith("nullableWerte(expected, *otherExpected)"))
 @JvmName("deprecatedWerte")
@@ -100,8 +101,8 @@ fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearch
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
- * entry which holds all assertions created by the given [assertionCreator].
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a
+ * single entry which holds all assertions created by the given [assertionCreator].
  *
  * Delegates to `eintraege(assertionCreator)`.
  *
@@ -118,19 +119,19 @@ fun <E : Any, T : Iterable<E>> eintrag(checkerBuilder: IterableContainsBuilder<E
     = eintraege(checkerBuilder, assertionCreator)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
- * entry which holds all assertions created by the given [assertionCreator] or needs to be `null` in case
- * [assertionCreator] is `null` as well.
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only a
+ * single entry which holds all assertions created by the given [assertionCreatorOrNull] or needs to be `null`
+ * in case [assertionCreatorOrNull] is defined as `null`.
  *
- * Delegates to `nullableEintraege(assertionCreator)`.
+ * Delegates to `nullableEintraege(assertionCreatorOrNull)`.
  *
- * @param assertionCreator The identification lambda.
+ * @param assertionCreatorOrNull The identification lambda.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEintrag(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = nullableEintraege(assertionCreator)
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = nullableEintraege(assertionCreatorOrNull)
 
 @JvmName("deprecatedEintrag")
 @Deprecated("Use `nullableEintrag` instead, will be removed with 1.0.0", ReplaceWith("nullableEintrag(assertionCreator)"))
@@ -143,9 +144,9 @@ fun <E : Any, T : Iterable<E?>> nullableEintrag(checkerBuilder: IterableContains
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
- * [Iterable] which holds all assertions [assertionCreator] might create -- likewise an entry for each further
- * [otherAssertionCreators], following the specified order, needs to be contained in the [Iterable]
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
+ * entry which holds all assertions [assertionCreator] might create and likewise a further entry for each
+ * [otherAssertionCreators] (if defined) whereas the entries have to appear in the specified order.
  *
  * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
@@ -171,25 +172,25 @@ fun <E : Any, T : Iterable<E>> eintraege(
     = checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
- * [Iterable] which holds all assertions [assertionCreator] might create or needs to be `null` in case
- * [assertionCreator] is `null` as well -- likewise an entry for each further
- * [otherAssertionCreators], following the specified order, needs to be contained in the [Iterable].
+ * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
+ * entry which holds all assertions [assertionCreatorOrNull] might create or is `null` in case [assertionCreatorOrNull]
+ * is defined as `null` and likewise a further entry for each
+ * [otherAssertionCreatorsOrNull] (if defined) whereas the entries have to appear in the specified order.
  *
- * @param assertionCreator The identification lambda which creates the assertions which the entry we are looking for
+ * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking for
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
- * @param otherAssertionCreators Additional identification lambdas which each kind of identify (separately) an entry
+ * @param otherAssertionCreatorsOrNulls Additional identification lambdas which each kind of identify (separately) an entry
  *   which we are looking for.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEintraege(
-    assertionCreator: (Assert<E>.() -> Unit)?,
-    vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
+    assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
+    vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
-    = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, assertionCreator glue otherAssertionCreators))
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
 
 @JvmName("deprecatedEintraege")
 @Deprecated("Use `nullableEintraege` instead, will be removed with 1.0.0", ReplaceWith("nullableEintraege(assertionCreator, *otherAssertionCreators)"))
