@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.spec.integration
 
+import ch.tutteli.atrium.api.cc.en_GB.contains
 import ch.tutteli.atrium.api.cc.en_GB.containsDefaultTranslationOf
 import ch.tutteli.atrium.api.cc.en_GB.message
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
@@ -20,8 +21,10 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     containsShortcutTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(String, Array<out String>) -> Assert<CharSequence>>,
     containsAtMostTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, String, Array<out String>) -> Assert<CharSequence>>,
     containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, String, Array<out String>) -> Assert<CharSequence>>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
-) : Spek({
+) : CharSequenceContainsSpecBase({
 
     include(object : SubjectLessAssertionSpec<CharSequence>(describePrefix,
         containsAtLeastTriple.first to mapToCreateAssertion { containsAtLeastTriple.third(this, 2, "a|b", arrayOf()) },
@@ -63,6 +66,9 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
     val (containsAtMostIgnoringCase, containsAtMostIgnoringCaseTest, containsAtMostIgnoringCaseFunArr) = containsAtMostIgnoringCaseTriple
     fun Assert<CharSequence>.containsAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String)
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint${CharSequenceContainsSpecBase.value}"
 
     describeFun(containsRegex) {
         context("throws an ${PatternSyntaxException::class.simpleName}") {
@@ -145,12 +151,30 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
             test("${containsAtMostTest("'[a-z]'", "16 times")} throws AssertionError") {
                 expect {
                     fluent.containsAtMostFun(16, "[a-z]")
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(
+                            "$rootBulletPoint$containsDescr: $separator" +
+                                "$valueWithIndent: \"[a-z]\"",
+                                "$numberOfOccurrences: 17",
+                                "$atMost: 16"
+                        )
+                    }
+                }
             }
             test("${containsAtMostIgnoringCaseTest("'[a-z]'", "18 times")} throws AssertionError") {
                 expect {
                     fluent.containsAtMostIgnoringCaseFun(18, "[a-z]")
-                }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                }.toThrow<AssertionError> {
+                    message {
+                        contains(
+                            "$rootBulletPoint$containsIgnoringCase: $separator" +
+                                "$valueWithIndent: \"[a-z]\"",
+                            "$numberOfOccurrences: 19",
+                            "$atMost: 18"
+                        )
+                    }
+                }
             }
         }
     }

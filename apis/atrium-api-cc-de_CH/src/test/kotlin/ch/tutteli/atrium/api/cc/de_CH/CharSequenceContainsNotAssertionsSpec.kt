@@ -6,7 +6,8 @@ import ch.tutteli.atrium.creating.Assert
 class CharSequenceContainsNotAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceContainsNotAssertionsSpec(
     AssertionVerbFactory,
     getContainsNotTriple(),
-    getContainsNotIgnoringCaseTriple()
+    getContainsNotIgnoringCaseTriple(),
+    "* ", "- "
 ) {
 
     companion object : CharSequenceContainsSpecBase() {

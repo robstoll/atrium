@@ -12,6 +12,7 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsInAnyOrderValuesPair: Pair<String, Assert<Iterable<Double>>.(Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsInAnyOrderNullableValuesPair: Pair<String, Assert<Iterable<Double?>>.(Double?, Array<out Double?>) -> Assert<Iterable<Double?>>>,
+    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -48,7 +49,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                     fluentEmptyString.containsFun(1.0)
                 }.toThrow<AssertionError> {
                     messageContains(
-                        "$containsInAnyOrder: 1.0",
+                        "$rootBulletPoint$containsInAnyOrder: $separator",
+                        "$anEntryWhichIs: 1.0",
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
                     )
@@ -80,7 +82,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                         fluent.containsFun(9.5)
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$containsInAnyOrder: 9.5",
+                            "$rootBulletPoint$containsInAnyOrder: $separator",
+                            "$anEntryWhichIs: 9.5",
                             "$numberOfOccurrences: 0",
                             "$atLeast: 1"
                         )
@@ -90,10 +93,17 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                     expect {
                         fluent.containsFun(9.5, 7.1)
                     }.toThrow<AssertionError> {
-                        messageContains(
-                            "$containsInAnyOrder: 9.5",
-                            "$containsInAnyOrder: 7.1"
-                        )
+                        message {
+                            contains.exactly(2).values(
+                                "$numberOfOccurrences: 0",
+                                "$atLeast: 1"
+                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 9.5",
+                                "$anEntryWhichIs: 7.1"
+                            )
+                        }
                     }
                 }
                 test("1.0 and 9.5 throws AssertionError") {
@@ -101,8 +111,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                         fluent.containsFun(1.0, 9.5)
                     }.toThrow<AssertionError> {
                         message {
-                            contains("$containsInAnyOrder: 9.5")
-                            containsNot("$containsInAnyOrder: 1.0")
+                            containsRegex("$containsInAnyOrder: $separator.*$anEntryWhichIs: 9.5")
+                            containsNot.regex("$containsInAnyOrder: $separator.*$anEntryWhichIs: 1.0")
                         }
                     }
                 }
@@ -127,11 +137,8 @@ abstract class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec(
                     null to arrayOf(1.0),
                     1.0 to arrayOf(3.0, null)
                 ).forEach { (first, rest) ->
-                    val restText = if (rest.isEmpty()) {
-                        ""
-                    } else {
-                        ", ${rest.joinToString()}"
-                    }
+                    val restText = if (rest.isEmpty()) "" else ", ${rest.joinToString()}"
+
                     context("search for $first$restText") {
                         test("$first$restText does not throw") {
                             fluent.containsInAnyOrderNullableValuesFun(first, *rest)

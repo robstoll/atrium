@@ -103,7 +103,7 @@ abstract class IterableContainsNotEntriesAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("$isLessThanFun(4.0) throws AssertionError") {
                     expect {
                         fluent.containsNotFun({ isLessThan(4.0) })

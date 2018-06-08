@@ -24,6 +24,8 @@ abstract class CharSequenceAssertionsSpec(
     startsNotWithPair: Pair<String, Assert<CharSequence>.(CharSequence) -> Assert<CharSequence>>,
     endsWithPair: Pair<String, Assert<CharSequence>.(CharSequence) -> Assert<CharSequence>>,
     endsNotWithPair: Pair<String, Assert<CharSequence>.(CharSequence) -> Assert<CharSequence>>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -75,6 +77,9 @@ abstract class CharSequenceAssertionsSpec(
     val hello = TestTranslatable.HELLO.getDefault()
     val welcome = TestTranslatable.WELCOME.getDefault()
 
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+
     describeFun(containsDefaultTranslationOf, containsNotDefaultTranslationOf) {
 
         context("text '$text' and translatables ${TestTranslatable.HELLO} ($hello) and ${TestTranslatable.WELCOME} ($welcome)") {
@@ -103,8 +108,9 @@ abstract class CharSequenceAssertionsSpec(
                     fluent.containsDefaultTranslationOfFun(TestTranslatable.HELLO, TestTranslatable.WELCOME)
                 }.toThrow<AssertionError> {
                     message {
-                        contains("$containsDescr: \"$welcome\"")
-                        containsNot("$containsDescr: \"$hello\"")
+                        contains("$rootBulletPoint$containsDescr: $separator" +
+                            "$valueWithIndent: \"$welcome\"")
+                        containsNot("$valueWithIndent: \"$hello\"")
                     }
                 }
             }
@@ -114,8 +120,9 @@ abstract class CharSequenceAssertionsSpec(
                     fluent.containsNotDefaultTranslationOfFun(TestTranslatable.HELLO, TestTranslatable.WELCOME)
                 }.toThrow<AssertionError> {
                     message {
-                        contains("$containsNot: \"$hello\"")
-                        containsNot("$containsNot: \"$welcome\"")
+                        contains("$rootBulletPoint$containsNot: $separator" +
+                            "$valueWithIndent: \"$hello\"")
+                        containsNot("$valueWithIndent: \"$welcome\"")
                     }
                 }
             }

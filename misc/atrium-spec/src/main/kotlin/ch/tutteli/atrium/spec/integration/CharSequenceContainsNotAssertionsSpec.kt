@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.contains
-import ch.tutteli.atrium.api.cc.en_GB.message
 import ch.tutteli.atrium.api.cc.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
@@ -17,6 +15,8 @@ abstract class CharSequenceContainsNotAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsNotTriple: Triple<String, (String) -> String, Assert<CharSequence>.(Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotIgnoringCaseTriple: Triple<String, (String) -> String, Assert<CharSequence>.(Any, Array<out Any>) -> Assert<CharSequence>>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -48,6 +48,9 @@ abstract class CharSequenceContainsNotAssertionsSpec(
 
     val containsNotDescr = DescriptionCharSequenceAssertion.CONTAINS_NOT.getDefault()
     val containsNotIgnoringCaseDescr = String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), containsNotDescr)
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsNot) {
 
@@ -91,13 +94,14 @@ abstract class CharSequenceContainsNotAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsNotTest("'l'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotFun('l')
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$containsNotDescr: 'l'",
+                            "$rootBulletPoint$containsNotDescr: $separator" +
+                                "$valueWithIndent: 'l'",
                             "$numberOfOccurrences: 3",
                             "${DescriptionBasic.IS.getDefault()}: 0"
                         )
@@ -106,20 +110,21 @@ abstract class CharSequenceContainsNotAssertionsSpec(
                 test("${containsNotTest("'H', 'l'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotFun('H', 'l')
-                    }.toThrow<AssertionError> { messageContains("$containsNotDescr: 'l'") }
+                    }.toThrow<AssertionError> { messageContains("$valueWithIndent: 'l'") }
                 }
                 test("${containsNotTest("'l', 'H'")} once throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotFun('l', 'H')
-                    }.toThrow<AssertionError> { messageContains("$containsNotDescr: 'l'") }
+                    }.toThrow<AssertionError> { messageContains("$valueWithIndent: 'l'") }
                 }
                 test("${containsNotIgnoringCaseTest("'H', 'l'")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotIgnoringCaseFun('H', 'l')
                     }.toThrow<AssertionError> {
                         messageContains(
-                            "$containsNotIgnoringCaseDescr: 'H'",
-                            "$containsNotIgnoringCaseDescr: 'l'"
+                            "$rootBulletPoint$containsNotIgnoringCaseDescr: $separator" +
+                                "$valueWithIndent: 'H'",
+                            "$valueWithIndent: 'l'"
                         )
                     }
                 }

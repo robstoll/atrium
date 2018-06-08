@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.cre
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -37,11 +36,12 @@ class CharSequenceContainsAssertionCreator<in T : CharSequence, in SC: Any, S : 
 
     override val descriptionContains = DescriptionCharSequenceAssertion.CONTAINS
     override val descriptionNumberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES
-    override val assertionGroupType = DefaultListAssertionGroupType
+    override val groupDescription = DescriptionCharSequenceAssertion.VALUE
+
+    override fun getAssertionGroupType() = DefaultListAssertionGroupType
 
     override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
         = searcher.search(plant.subject, searchCriterion)
 
-    override fun decorateAssertions(plant: AssertionPlant<T>, featureAssertion: Assertion)
-        = listOf(featureAssertion)
+    override fun decorateAssertion(plant: AssertionPlant<T>, featureAssertion: Assertion) = listOf(featureAssertion)
 }

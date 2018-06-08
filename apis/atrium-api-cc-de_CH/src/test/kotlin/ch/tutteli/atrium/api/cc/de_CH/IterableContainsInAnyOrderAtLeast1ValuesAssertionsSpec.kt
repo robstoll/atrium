@@ -14,6 +14,7 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
         AssertionVerbFactory,
         getContainsPair(),
         getContainsNullablePair(),
+        "* ",
         "[Atrium][Builder] "
     )
 
@@ -21,6 +22,7 @@ class IterableContainsInAnyOrderAtLeast1ValuesAssertionsSpec : Spek({
         AssertionVerbFactory,
         getContainsShortcutPair(),
         getContainsNullableShortcutPair(),
+        "* ",
         "[Atrium][Shortcut] "
     )
 

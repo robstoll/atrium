@@ -15,7 +15,8 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
     Assert<CharSequence>::startsWith.name to Companion::startsWith,
     Assert<CharSequence>::startsNotWith.name to Companion::startsNotWith,
     Assert<CharSequence>::endsWith.name to Companion::endsWith,
-    Assert<CharSequence>::endsNotWith.name to Companion::endsNotWith
+    Assert<CharSequence>::endsNotWith.name to Companion::endsNotWith,
+    "◆ ", "⚬ "
 ) {
     companion object {
         fun getContainsDefaultTranslationOfPair()

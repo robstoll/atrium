@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AT_MOST
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -14,6 +15,7 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
     containsAtMostTriple: Triple<String, (String, String) -> String, Assert<Iterable<Double>>.(Int, Double, Array<out Double>) -> Assert<Iterable<Double>>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterableContainsSpecBase({
 
@@ -72,31 +74,66 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsAtMostTest("4.0", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 4.0)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                    }.toThrow<AssertionError> { messageContains("$atMost: 2", "$anEntryWhichIs: 4.0") }
                 }
-                test("${containsAtMostTest("1.0, 4.0", "twice")} throws AssertionError") {
+                test("${containsAtMostTest("1.0, 4.0", "twice")} throws AssertionError mentioning only 4.0") {
                     expect {
                         fluent.containsAtMostFun(2, 1.0, 4.0)
-                    }.toThrow<AssertionError> { messageContains(atMost, 4.0) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 2", "$anEntryWhichIs: 4.0")
+                            containsNot("$anEntryWhichIs: 1.0")
+                        }
+                    }
                 }
-                test("${containsAtMostTest("4.0, 1.0", "twice")} once throws AssertionError") {
+                test("${containsAtMostTest("4.0, 1.0", "twice")} once throws AssertionError mentioning only 4.0") {
                     expect {
                         fluent.containsAtMostFun(2, 4.0, 1.0)
-                    }.toThrow<AssertionError> { messageContains(atMost, 4.0) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 2", "$anEntryWhichIs: 4.0")
+                            containsNot("$anEntryWhichIs: 1.0")
+                        }
+                    }
                 }
                 test("${containsAtMostTest("5.0, 3.1, 3.0, 4.0", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 5.0, 3.1, 3.0, 4.0)
-                    }.toThrow<AssertionError> { messageContains(atMost, 5.0, 4.0) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 3.1",
+                                "$numberOfOccurrences: 0",
+                                "$atLeast: 1",
+                                "$anEntryWhichIs: 4.0",
+                                "$numberOfOccurrences: 3",
+                                "$atMost: 2"
+                            )
+                        }
+                    }
                 }
                 test("${containsAtMostTest("21.1 and 34.0 and 11.23", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 21.1, 34.0, 11.23)
-                    }.toThrow<AssertionError> { messageContains(atLeast, 21.1, 34.0, 11.23) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains.exactly(3).values(
+                                "$numberOfOccurrences: 0",
+                                "$atLeast: 1"
+                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 21.1",
+                                "$anEntryWhichIs: 34.0",
+                                "$anEntryWhichIs: 11.23"
+                            )
+                        }
+                    }
                 }
             }
 
@@ -115,11 +152,12 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsInAnyOrder: 4.0",
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhichIs: 4.0",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsInAnyOrder 5.0")
+                            containsNot("$anEntryWhichIs: 5.0")
                         }
                     }
                 }

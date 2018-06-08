@@ -14,6 +14,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
     containsExactlyTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsExactlyIgnoringCaseTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -46,6 +48,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
     val (containsNot, errorMsgContainsNot) = containsNotPair
 
     val exactly = EXACTLY.getDefault()
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsExactly) {
         context("throws an $illegalArgumentException") {
@@ -85,29 +89,39 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions with $containsExactly once") {
+            group("failing cases; search string at different positions with $containsExactly once") {
                 test("${containsExactlyTest("'h'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'h')
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(EXACTLY) } }
+                    }.toThrow<AssertionError> { messageContains("$exactly: 1", "$valueWithIndent: 'h'") }
                 }
                 test("${containsExactlyIgnoringCase("'h'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'h')
                 }
 
-                test("${containsExactlyTest("'H', 'E'", "once")} throws AssertionError") {
+                test("${containsExactlyTest("'H', 'E'", "once")} throws AssertionError mentioning only 'E'") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'H', 'E')
-                    }.toThrow<AssertionError> { messageContains(exactly, 'E') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$exactly: 1", "$valueWithIndent: 'E'")
+                            containsNot("$valueWithIndent: 'H'")
+                        }
+                    }
                 }
                 test("${containsExactlyIgnoringCase("'H', 'E'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'H', 'E')
                 }
 
-                test("${containsExactlyTest("'E', 'H'", "once")} throws AssertionError") {
+                test("${containsExactlyTest("'E', 'H'", "once")} throws AssertionError mentioning only 'E'") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'E', 'H')
-                    }.toThrow<AssertionError> { messageContains(exactly, 'E') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$exactly: 1", "$valueWithIndent: 'E'")
+                            containsNot("$valueWithIndent: 'H'")
+                        }
+                    }
                 }
                 test("${containsExactlyIgnoringCase("'E', 'H'", "once")} throws AssertionError") {
                     fluentHelloWorld.containsExactlyIgnoringCaseFun(1, 'E', 'H')
@@ -127,7 +141,7 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                 test("${containsExactlyTest("'o'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsExactlyFun(1, 'o')
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(EXACTLY) } }
+                    }.toThrow<AssertionError> { messageContains("$exactly: 1", "$valueWithIndent: 'o'") }
                 }
                 test("${containsExactlyTest("'o'", "twice")} does not throw") {
                     fluentHelloWorld.containsExactlyFun(2, 'o')
@@ -138,7 +152,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsIgnoringCase: 'o'",
+                                "$rootBulletPoint$containsIgnoringCase: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$exactly: 2")
@@ -152,7 +167,8 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
@@ -172,11 +188,12 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'l'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$exactly: 2")
-                            containsNot("$containsDescr 'o'")
+                            containsNot("$valueWithIndent: 'o'")
                         }
                     }
                 }
@@ -189,11 +206,12 @@ abstract class CharSequenceContainsExactlyAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$exactly: 3")
-                            containsNot("$containsDescr 'l'")
+                            containsNot("$valueWithIndent: 'l'")
                         }
                     }
                 }

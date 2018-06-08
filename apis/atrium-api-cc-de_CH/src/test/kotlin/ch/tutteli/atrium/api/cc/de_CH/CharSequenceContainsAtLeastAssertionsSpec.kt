@@ -11,7 +11,8 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integra
     getAtLeastBustAtMostIgnoringCaseTriple(),
     getContainsNotPair(),
     getExactlyPair(),
-    Companion::getErrorMsgAtLeastButAtMost
+    Companion::getErrorMsgAtLeastButAtMost,
+    "* ", "- "
 ) {
 
     companion object : CharSequenceContainsSpecBase() {

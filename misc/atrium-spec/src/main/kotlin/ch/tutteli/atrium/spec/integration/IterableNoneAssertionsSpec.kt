@@ -71,7 +71,7 @@ abstract class IterableNoneAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("$toBeDescr(4.0) throws AssertionError") {
                     expect {
                         fluent.containsNotFun({ toBe(4.0) })

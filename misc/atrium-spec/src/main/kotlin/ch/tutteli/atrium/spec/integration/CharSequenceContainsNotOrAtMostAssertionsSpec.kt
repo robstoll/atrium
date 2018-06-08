@@ -14,6 +14,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
     containsNotOrAtMostTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotOrAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -44,6 +46,9 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
         = containsNotOrAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsNotOrAtMost) {
 
@@ -89,26 +94,41 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsNotOrAtMostTest("'l'", "once")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l')
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                    }.toThrow<AssertionError> { messageContains("$atMost: 1", "$valueWithIndent: 'l'") }
                 }
-                test("${containsNotOrAtMostTest("'H', 'l'", "once")} throws AssertionError") {
+                test("${containsNotOrAtMostTest("'H', 'l'", "once")} throws AssertionError mentioning only 'l'") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'H', 'l')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 1", "$valueWithIndent: 'l'")
+                            containsNot(atLeast, "$valueWithIndent: 'H'")
+                        }
+                    }
                 }
-                test("${containsNotOrAtMostTest("'l', 'H'", "once")} once throws AssertionError") {
+                test("${containsNotOrAtMostTest("'l', 'H'", "once")} once throws AssertionError mentioning only 'l'") {
                     expect {
                         fluentHelloWorld.containsNotOrAtMostFun(1, 'l', 'H')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 1", "$valueWithIndent: 'l'")
+                            containsNot(atLeast, "$valueWithIndent: 'H'")
+                        }
+                    }
                 }
-                test("${containsNotOrAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError") {
+                test("${containsNotOrAtMostTest("'o', 'E', 'W', 'l'", "once")} throws AssertionError mentioning 'l' and 'o'") {
                     expect {
-                        fluentHelloWorld.containsNotOrAtMostFun(1, 'o', 'E', 'W', 'l')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'o', 'l') }
+                        fluentHelloWorld.containsNotOrAtMostIgnoringCaseFun(1, 'o', 'E', 'W', 'l')
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 1", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
+                            containsNot(atLeast, "$valueWithIndent: 'E'", "$valueWithIndent: 'W'")
+                        }
+                    }
                 }
             }
 
@@ -119,7 +139,8 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'o'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atMost: 1")
@@ -145,11 +166,12 @@ abstract class CharSequenceContainsNotOrAtMostAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'l'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsDescr: 'o'")
+                            containsNot("$valueWithIndent: 'o'")
                         }
                     }
                 }

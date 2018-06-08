@@ -11,7 +11,8 @@ class CharSequenceContainsRegexAssertionsSpec : ch.tutteli.atrium.spec.integrati
     getAtLeastTriple(),
     getShortcutTriple(),
     getAtMostTriple(),
-    getAtMostIgnoringCaseTriple()
+    getAtMostIgnoringCaseTriple(),
+    "◆ ", "⚬ "
 ) {
 
     companion object : CharSequenceContainsSpecBase() {

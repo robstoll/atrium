@@ -8,7 +8,7 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.int
     AssertionVerbFactory,
     getContainsPair(),
     getContainsNotPair(),
-    ">> "
+    "* ", "- ", ">> "
 ) {
     companion object : CharSequenceContainsSpecBase() {
         private val containsFun: KFunction3<Assert<CharSequence>, Any, Array<out Any>, Assert<CharSequence>> = Assert<CharSequence>::enthaelt
