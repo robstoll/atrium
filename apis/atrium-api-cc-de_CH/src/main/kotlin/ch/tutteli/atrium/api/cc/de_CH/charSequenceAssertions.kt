@@ -81,6 +81,9 @@ fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: A
  *
  * It is a shortcut for `enthaeltNicht.werte(expected, *otherExpected)`.
  *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
