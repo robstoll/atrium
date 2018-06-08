@@ -22,7 +22,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
 fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.wert(expected: E): AssertionPlant<T>
     = werte(expected)
 
-@Deprecated("Use the extension fun `wert` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.wert(expected)"))
+@Deprecated("Use the extension fun `wert` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.wert(expected)"))
 fun <E, T : Iterable<E>> wert(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
     = werte(checkerBuilder, expected)
 
@@ -41,7 +41,7 @@ fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearch
     = nullableWerte(expectedOrNull)
 
 @JvmName("deprecatedWert")
-@Deprecated("Use `nullableWert` instead, will be removed with 1.0.0", ReplaceWith("nullableWert(expected)"))
+@Deprecated("Use `nullableWert` instead; will be removed with 1.0.0", ReplaceWith("nullableWert(expected)"))
 fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.wert(expected: E): AssertionPlant<T>
     = werte(expected)
 
@@ -59,7 +59,7 @@ fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearch
 fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
 
-@Deprecated("Use the extension fun `werte` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.werte(expected, *otherExpected)"))
+@Deprecated("Use the extension fun `werte` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.werte(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> werte(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
     = checkerBuilder.werte(expected, *otherExpected)
 
@@ -68,7 +68,7 @@ fun <E, T : Iterable<E>> werte(checkerBuilder: IterableContainsBuilder<E, T, InO
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.objekt(expected: E): AssertionPlant<T>
     = werte(expected)
 
-@Deprecated("Use the extension fun `wert` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.wert(expected)"))
+@Deprecated("Use the extension fun `wert` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.wert(expected)"))
 fun <E, T : Iterable<E>> objekt(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E): AssertionPlant<T>
     = werte(checkerBuilder, expected)
 
@@ -76,7 +76,7 @@ fun <E, T : Iterable<E>> objekt(checkerBuilder: IterableContainsBuilder<E, T, In
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.objekte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = werte(expected, *otherExpected)
 
-@Deprecated("Use the extension fun `werte` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.werte(expected, *otherExpected)"))
+@Deprecated("Use the extension fun `werte` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.werte(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> objekte(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, expected: E, vararg otherExpected: E): AssertionPlant<T>
     = checkerBuilder.werte(expected, *otherExpected)
 
@@ -94,7 +94,7 @@ fun <E, T : Iterable<E>> objekte(checkerBuilder: IterableContainsBuilder<E, T, I
 fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, expectedOrNull glue otherExpectedOrNulls))
 
-@Deprecated("Use `nullableWerte` instead, will be removed with 1.0.0", ReplaceWith("nullableWerte(expected, *otherExpected)"))
+@Deprecated("Use `nullableWerte` instead; will be removed with 1.0.0", ReplaceWith("nullableWerte(expected, *otherExpected)"))
 @JvmName("deprecatedWerte")
 fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = nullableWerte(expected, *otherExpected)
@@ -114,7 +114,7 @@ fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearch
 fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.eintrag(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = eintraege(assertionCreator)
 
-@Deprecated("Use the extension fun `eintrag` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.eintrag(assertionCreator)"))
+@Deprecated("Use the extension fun `eintrag` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.eintrag(assertionCreator)"))
 fun <E : Any, T : Iterable<E>> eintrag(checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>, assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = eintraege(checkerBuilder, assertionCreator)
 
@@ -134,11 +134,11 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
     = nullableEintraege(assertionCreatorOrNull)
 
 @JvmName("deprecatedEintrag")
-@Deprecated("Use `nullableEintrag` instead, will be removed with 1.0.0", ReplaceWith("nullableEintrag(assertionCreator)"))
+@Deprecated("Use `nullableEintrag` instead; will be removed with 1.0.0", ReplaceWith("nullableEintrag(assertionCreator)"))
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.eintrag(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = nullableEintrag(assertionCreator)
 
-@Deprecated("Use the extension fun `nullableEintrag` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.nullableEintrag(assertionCreator)"))
+@Deprecated("Use the extension fun `nullableEintrag` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.nullableEintrag(assertionCreator)"))
 fun <E : Any, T : Iterable<E?>> nullableEintrag(checkerBuilder: IterableContainsBuilder<E?, T, InOrderOnlySearchBehaviour>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = nullableEintraege(checkerBuilder, assertionCreator)
 
@@ -163,7 +163,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
 ): AssertionPlant<T>
     = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, assertionCreator glue otherAssertionCreators))
 
-@Deprecated("Use the extension fun `eintraege` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use the extension fun `eintraege` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.eintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E>> eintraege(
     checkerBuilder: IterableContainsBuilder<E, T, InOrderOnlySearchBehaviour>,
     assertionCreator: Assert<E>.() -> Unit,
@@ -193,14 +193,14 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
     = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
 
 @JvmName("deprecatedEintraege")
-@Deprecated("Use `nullableEintraege` instead, will be removed with 1.0.0", ReplaceWith("nullableEintraege(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use `nullableEintraege` instead; will be removed with 1.0.0", ReplaceWith("nullableEintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.eintraege(
     assertionCreator: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreators: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
     = nullableEintraege(assertionCreator, *otherAssertionCreators)
 
-@Deprecated("Use the extension fun `nullableEintraege` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("checkerBuilder.nullableEintraege(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use the extension fun `nullableEintraege` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("checkerBuilder.nullableEintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> nullableEintraege(
     checkerBuilder: IterableContainsBuilder<E?, T, InOrderOnlySearchBehaviour>,
     assertionCreator: (Assert<E>.() -> Unit)?,

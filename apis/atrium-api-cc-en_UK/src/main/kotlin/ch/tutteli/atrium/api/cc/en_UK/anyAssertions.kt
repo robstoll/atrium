@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.toBe(expected)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.toBe(expected)"))
 fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
@@ -29,7 +29,7 @@ fun <T : Any> Assert<T>.toBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.notToBe(expected)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.notToBe(expected)"))
 fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
@@ -42,7 +42,7 @@ fun <T : Any> Assert<T>.notToBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isSame(expected)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isSame(expected)"))
 fun <T : Any> Assert<T>.isSame(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
@@ -55,7 +55,7 @@ fun <T : Any> Assert<T>.isSame(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotSame(expected)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotSame(expected)"))
 fun <T : Any> Assert<T>.isNotSame(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
@@ -81,7 +81,7 @@ fun <T : Any?> AssertionPlantNullable<T>.isNull() {
  *
  * @return This plant to support a fluent API.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.and"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.and"))
 val <T : Any> AssertionPlant<T>.and: AssertionPlant<T> get() = this
 
 /**
@@ -94,6 +94,6 @@ val <T : Any> AssertionPlant<T>.and: AssertionPlant<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.and(assertionCreator)"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.and(assertionCreator)"))
 infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)

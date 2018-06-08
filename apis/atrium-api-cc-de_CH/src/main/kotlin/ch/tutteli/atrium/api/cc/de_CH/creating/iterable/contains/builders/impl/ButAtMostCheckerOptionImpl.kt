@@ -22,7 +22,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  *   found in the [Iterable].
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
-@Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("ButAtMostCheckerBuilder"))
+@Deprecated("Do not rely on this type; will be made internal with 1.0.0", ReplaceWith("ButAtMostCheckerBuilder"))
 open class ButAtMostCheckerOptionImpl<out E, out T : Iterable<E>, out S : InAnyOrderSearchBehaviour>(
     times: Int,
     atLeastBuilder: AtLeastCheckerOption<E, T, S>,
