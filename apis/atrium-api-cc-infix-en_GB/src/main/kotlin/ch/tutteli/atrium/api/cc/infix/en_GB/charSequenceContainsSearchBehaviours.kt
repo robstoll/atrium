@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 
 /**
- * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
+ * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
  *
  * @param case Has to be `case`.
  *
@@ -20,7 +20,7 @@ infix fun <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour
     = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
 /**
- * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
+ * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
  *
  * @param case Has to be `case`.
  *
