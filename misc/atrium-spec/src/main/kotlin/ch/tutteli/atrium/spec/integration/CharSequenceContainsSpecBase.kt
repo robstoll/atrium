@@ -13,6 +13,7 @@ abstract class CharSequenceContainsSpecBase(spec: Spec.() -> Unit) : Spek(spec) 
         val containsDescr = DescriptionCharSequenceAssertion.CONTAINS.getDefault()
         val containsIgnoringCase = String.format(DescriptionCharSequenceAssertion.IGNORING_CASE.getDefault(), DescriptionCharSequenceAssertion.CONTAINS.getDefault())
         val numberOfOccurrences = DescriptionCharSequenceAssertion.NUMBER_OF_OCCURRENCES.getDefault()
+        val value = DescriptionCharSequenceAssertion.VALUE.getDefault()
 
         val atLeast = DescriptionCharSequenceAssertion.AT_LEAST.getDefault()
         val atMost = DescriptionCharSequenceAssertion.AT_MOST.getDefault()

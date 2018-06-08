@@ -35,18 +35,10 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  * @param checkers The checkers which create assertions based on the search result.
  */
 class InAnyOrderEntriesAssertionCreator<out E : Any, in T : Iterable<E?>>(
-    private val searchBehaviour: InAnyOrderSearchBehaviour,
+    searchBehaviour: InAnyOrderSearchBehaviour,
     checkers: List<IterableContains.Checker>
-) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(checkers),
+) : ContainsAssertionCreator<T, (AssertionPlant<E>.() -> Unit)?, IterableContains.Checker>(searchBehaviour, checkers),
     IterableContains.Creator<T, (AssertionPlant<E>.() -> Unit)?> {
-
-    override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup {
-        val description = searchBehaviour.decorateDescription(DescriptionIterableAssertion.CONTAINS)
-        return AssertImpl.builder.list
-            .withDescriptionAndEmptyRepresentation(description)
-            .withAssertions(assertions)
-            .build()
-    }
 
     override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: (AssertionPlant<E>.() -> Unit)?, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val hasElementAssertion = createHasElementAssertion(plant.subject)

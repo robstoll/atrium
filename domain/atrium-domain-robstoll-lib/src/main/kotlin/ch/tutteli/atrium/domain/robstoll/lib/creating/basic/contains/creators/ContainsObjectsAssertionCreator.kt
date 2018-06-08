@@ -3,12 +3,11 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.basic.contains.creators
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.assertions.DefaultListAssertionGroupType
-import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.basic.contains.Contains
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
 /**
  * Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
@@ -29,22 +28,17 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
 abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.SearchBehaviour, C : Contains.Checker>(
-    protected val searchBehaviour: S,
+    searchBehaviour: S,
     checkers: List<C>
-) : ContainsAssertionCreator<T, SC, C>(checkers) {
-
-    final override fun createAssertionGroupForSearchCriteriaAssertions(assertions: List<Assertion>): AssertionGroup
-        = AssertImpl.builder.invisibleGroup
-            .withAssertions(assertions)
-            .build()
+) : ContainsAssertionCreator<T, SC, C>(searchBehaviour, checkers) {
 
     final override fun searchAndCreateAssertion(plant: AssertionPlant<T>, searchCriterion: SC, featureFactory: (Int, Translatable) -> AssertionGroup): AssertionGroup {
         val count = search(plant, searchCriterion)
         val featureAssertion = featureFactory(count, descriptionNumberOfOccurrences)
-        val description = searchBehaviour.decorateDescription(descriptionContains)
-        return AssertImpl.builder.customType(assertionGroupType)
-            .withDescriptionAndNullableRepresentation(description, searchCriterion)
-            .withAssertions(decorateAssertions(plant, featureAssertion))
+
+        return  AssertImpl.builder.customType(getAssertionGroupType())
+            .withDescriptionAndNullableRepresentation(groupDescription, searchCriterion)
+            .withAssertions(decorateAssertion(plant, featureAssertion))
             .build()
     }
 
@@ -59,9 +53,14 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.S
     protected abstract val descriptionNumberOfOccurrences: Translatable
 
     /**
+     * Provides the translation for [AssertionGroup.description]
+     */
+    protected abstract val groupDescription: Translatable
+
+    /**
      * Provides the [AssertionGroupType] for the resulting [AssertionGroup].
      */
-    protected abstract val assertionGroupType: AssertionGroupType
+    protected abstract fun getAssertionGroupType(): AssertionGroupType
 
 
     /**
@@ -79,5 +78,5 @@ abstract class ContainsObjectsAssertionCreator<in T : Any, in SC, S : Contains.S
     /**
      * Either return the given [featureAssertion] as [List] or add further assertions.
      */
-    abstract fun decorateAssertions(plant: AssertionPlant<T>, featureAssertion: Assertion): List<Assertion>
+    abstract fun decorateAssertion(plant: AssertionPlant<T>, featureAssertion: Assertion): List<Assertion>
 }

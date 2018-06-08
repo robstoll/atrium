@@ -9,7 +9,8 @@ class IterableContainsInAnyOrderAtLeastValuesAssertionsSpec : ch.tutteli.atrium.
     getAtLeastButAtMostTriple(),
     getContainsNotPair(),
     getExactlyPair(),
-    Companion::getErrorMsgAtLeastButAtMost
+    Companion::getErrorMsgAtLeastButAtMost,
+    "◆ "
 ) {
 
     companion object : IterableContainsSpecBase() {

@@ -15,6 +15,8 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
     containsAtMostIgnoringCaseTriple: Triple<String, (String, String) -> String, Assert<CharSequence>.(Int, Any, Array<out Any>) -> Assert<CharSequence>>,
     containsNotPair: Pair<String, (Int) -> String>,
     exactlyPair: Pair<String, (Int) -> String>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
 
@@ -46,6 +48,9 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
 
     val (containsNot, errorMsgContainsNot) = containsNotPair
     val (exactly, errorMsgExactly) = exactlyPair
+
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
 
     describeFun(containsAtMost) {
 
@@ -90,31 +95,51 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                 }
             }
 
-            group("failing assertions; search string at different positions") {
+            group("failing cases; search string at different positions") {
                 test("${containsAtMostTest("'l'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'l')
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                    }.toThrow<AssertionError> { messageContains("$atMost: 2", "$valueWithIndent: 'l'") }
                 }
-                test("${containsAtMostTest("'H', 'l'", "twice")} throws AssertionError") {
+                test("${containsAtMostTest("'H', 'l'", "twice")} throws AssertionError mentioning only 'l'") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'H', 'l')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 2", "$valueWithIndent: 'l'")
+                            containsNot(atLeast, "$valueWithIndent: 'H'")
+                        }
+                    }
                 }
-                test("${containsAtMostTest("'l', 'H'", "twice")} once throws AssertionError") {
+                test("${containsAtMostTest("'l', 'H'", "twice")} once throws AssertionError mentioning only 'l'") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'l', 'H')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'l') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 2", "$valueWithIndent: 'l'")
+                            containsNot(atLeast, "$valueWithIndent: 'H'")
+                        }
+                    }
                 }
-                test("${containsAtMostTest("'o', 'E', 'W', 'l'", "twice")} throws AssertionError") {
+                test("${containsAtMostTest("'o', 'E', 'W', 'l'", "twice")} throws AssertionError mentioning 'l' and 'o'") {
                     expect {
-                        fluentHelloWorld.containsAtMostFun(2, 'o', 'E', 'W', 'l')
-                    }.toThrow<AssertionError> { messageContains(atMost, 'o', 'l') }
+                        fluentHelloWorld.containsAtMostIgnoringCaseFun(2, 'o', 'E', 'W', 'l')
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 2", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
+                            containsNot(atLeast, "$valueWithIndent: 'E'", "$valueWithIndent: 'W'")
+                        }
+                    }
                 }
                 test("${containsAtMostTest("'x' and 'y' and 'z'", "twice")} throws AssertionError") {
                     expect {
                         fluentHelloWorld.containsAtMostFun(2, 'x', 'y', 'z')
-                    }.toThrow<AssertionError> { messageContains(atLeast, 'x', 'y', 'z') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atLeast: 1", "$valueWithIndent: 'x'", "$valueWithIndent: 'y'", "$valueWithIndent: 'z'")
+                            containsNot(atMost)
+                        }
+                    }
                 }
             }
 
@@ -129,7 +154,8 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsIgnoringCase: 'o'",
+                                "$rootBulletPoint$containsIgnoringCase: $separator" +
+                                    "$valueWithIndent: 'o'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
@@ -146,11 +172,12 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains(
-                                "$containsDescr: 'l'",
+                                "$rootBulletPoint$containsDescr: $separator" +
+                                    "$valueWithIndent: 'l'",
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$containsDescr 'o'")
+                            containsNot("$valueWithIndent: 'o'")
                         }
                     }
                 }

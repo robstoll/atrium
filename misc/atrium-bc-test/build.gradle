@@ -182,6 +182,54 @@ def createBcTasksForApis(String version, String forgive, String... apis) {
 createBcTasksForApis('0.6.0',
     'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
         '(Iterable.*(error cases|failing cases|context empty collection).*)|' +
+        '(IterableContainsNotAssertionsSpec.*:(enthaeltNicht|containsNot|notTo contain) 4.0 throws AssertionError.*)|' +
+        '(IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec.*:(' +
+            '((enthaelt|contains|to contain) 5.0 (nichtOderHoechstens|notOrAtMost) once throws AssertionError)|' +
+            '((enthaelt|contains|to contain) 5.0 and 4.0 (nichtOderHoechstens|notOrAtMost) twice throws AssertionError)' +
+        ').*)|' +
+        '(IterableContainsInAnyOrderExactlyObjectsAssertionsSpec.*:(' +
+            '((enthaelt|contains|to contain) 5.0 (genau|exactly) 3 times throws AssertionError)|' +
+            '((enthaelt|contains|to contain) 5.0 and 4.0 (genau|exactly) twice throws AssertionError)|' +
+            '((enthaelt|contains|to contain) 5.0 and 4.0 (genau|exactly) 3 times throws AssertionError)' +
+        ').*)|' +
+        '(IterableContainsInAnyOrderAtMostObjectsAssertionsSpec.*:(enthaelt|contains|to contain) 5.0 and 4.0 (hoechstens|atMost) twice throws AssertionError.*)|' +
+        '(IterableContainsInAnyOrderAtLeastObjectsAssertionsSpec.*:(' +
+            '((enthaelt|contains|to contain) 5.0 in any order (zumindest|atLeast) 3 times throws AssertionError)|' +
+            '((enthaelt|contains|to contain) 5.0 and 4.0 in any order (zumindest|atLeast) 3 times throws AssertionError)|' +
+            '((enthaelt|contains|to contain) 5.0 and 4.0 (zumindest|atLeast) once (aberHoechstens|butAtMost) twice throws AssertionError)|' +
+            '((enthaelt|contains|to contain) 5.0 and 4.0 (zumindest|atLeast) 3 times (aberHoechstens|butAtMost) 4 times throws AssertionError)' +
+        ').*)|' +
+        '(CharSequenceContainsNotOrAtMostAssertionsSpec.*:(' +
+            '((enthaelt|contains|to contain) \'o\' (nichtOderHoechstens|notOrAtMost) once throws AssertionError)|' +
+            '((enthaelt|contains|to contain) \'o\' and \'l\' (nichtOderHoechstens|notOrAtMost) twice throws AssertionError)' +
+        ').*)|' +
+        '(CharSequenceContainsNotAssertionsSpec.*:(' +
+            '((enthaeltNicht|containsNot|notTo contain) \'l\' throws AssertionError)|' +
+            '((enthaeltNicht|containsNot|notTo contain) \'H\', \'l\' throws AssertionError)|' +
+            '((enthaeltNicht|containsNot|notTo contain) \'l\', \'H\' once throws AssertionError)|' +
+            '((enthaeltNicht|containsNot|notTo contain) (ignoriereGrossKleinschreibung|ignoringCase|ignoring case) \'H\', \'l\' throws AssertionError)' +
+        ').*)|' +
+        '(CharSequenceContainsExactlyAssertionsSpec.*:(' +
+            '((enthaelt|contains|to contain) (ignoriereGrossKleinschreibung|ignoringCase|ignoring case) \'o\' (genau|exactly) twice throws)|' +
+            '((enthaelt|contains|to contain) \'o\' (genau|exactly) 3 times throws AssertionError)|' +
+            '((enthaelt|contains|to contain) \'o\' and \'l\' (genau|exactly) twice throws AssertionError)|' +
+            '((enthaelt|contains|to contain) \'o\' and \'l\' (genau|exactly) 3 times throws AssertionError)' +
+        ').*)|' +
+        '(CharSequenceContainsContainsNotAssertionsSpec.*:(enthaelt|contains|contains Values) \'hello\' and \'robert\' throws AssertionError.*)|' +
+        '(CharSequenceContainsAtMostAssertionsSpec.*:(' +
+            '((enthaelt|contains|to contain) (ignoriereGrossKleinschreibung|ignoringCase|ignoring case) \'o\' (hoechstens|atMost) twice throws AssertionError )|' +
+            '((enthaelt|contains|to contain) \'o\' and \'l\' (hoechstens|atMost) twice throws AssertionError)' +
+        ').*)|' +
+        '(CharSequenceContainsAtLeastAssertionsSpec.*:(' +
+            '((enthaelt|contains|to contain) \'o\' (zumindest|atLeast) 3 times throws AssertionError)|' +
+            '((enthaelt|contains|to contain) \'o\' and \'l\' (zumindest|atLeast) 3 times throws AssertionError)|' +
+            '((enthaelt|contains|to contain) \'o\' and \'l\' (zumindest|atLeast) once (aberHoechstens|butAtMost) twice throws AssertionError)|' +
+            '((enthaelt|contains|to contain) \'o\' and \'l\' (zumindest|atLeast) 3 times (aberHoechstens|butAtMost) 4 times throws AssertionError)' +
+        ').*)|' +
+        '(CharSequenceAssertionsSpec.*:(' +
+            '((enthaeltStandardUebersetzungVon|containsDefaultTranslationOf|contains DefaultTranslationsOf) HELLO and WELCOME, throws AssertionError)|' +
+            '((enthaeltNichtDieStandardUebersetzungVon|containsNotDefaultTranslationOf|containsNot DefaultTranslationsOf) HELLO and WELCOME, throws AssertionError)' +
+        ').*)|' +
         '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)|' +
         '(BigDecimalAssertionsSpec.*throws UnsupportedOperationException.*)' +
     ')',

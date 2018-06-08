@@ -7,7 +7,7 @@ class IterableContainsInAnyOrderOnlyValuesAssertionsSpec : ch.tutteli.atrium.spe
     AssertionVerbFactory,
     getContainsPair(),
     getContainsNullablePair(),
-    "(/) ", "(x) ", "(!) ", "- "
+    "* ", "(/) ", "(x) ", "(!) ", "- "
 ) {
     companion object : IterableContainsSpecBase() {
         fun getContainsPair()

@@ -8,7 +8,8 @@ import ch.tutteli.atrium.creating.Assert
 class IterableContainsInAnyOrderExactlyValuesAssertionsSpec : ch.tutteli.atrium.spec.integration.IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
     AssertionVerbFactory,
     getExactlyTriple(),
-    getContainsNotPair()
+    getContainsNotPair(),
+    "◆ "
 ) {
 
     companion object : IterableContainsSpecBase() {

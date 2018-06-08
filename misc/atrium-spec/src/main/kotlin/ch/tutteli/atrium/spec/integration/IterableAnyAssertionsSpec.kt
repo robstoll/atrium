@@ -13,6 +13,7 @@ abstract class IterableAnyAssertionsSpec(
     verbs: AssertionVerbFactory,
     anyPair: Pair<String, Assert<Iterable<Double>>.(Assert<Double>.() -> Unit) -> Assert<Iterable<Double>>>,
     anyNullablePair: Pair<String, Assert<Iterable<Double?>>.((Assert<Double>.() -> Unit)?) -> Assert<Iterable<Double?>>>,
+    rootBulletPoint: String,
     describePrefix: String = "[Atrium] "
 ) : IterablePredicateSpecBase(verbs, {
 
@@ -44,7 +45,7 @@ abstract class IterableAnyAssertionsSpec(
                     fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     messageContains(
-                        "$containsInAnyOrder: $separator",
+                        "$rootBulletPoint$containsInAnyOrder: $separator",
                         "$anEntryWhich: $separator",
                         "$isLessThanDescr: 1.0",
                         "$numberOfOccurrences: 0",
@@ -66,16 +67,14 @@ abstract class IterableAnyAssertionsSpec(
                     expect {
                         fluent.containsEntriesFun({ isGreaterThan(1.0); isLessThan(2.0) })
                     }.toThrow<AssertionError> {
-                        message {
-                            contains.exactly(1).values(
-                                "$containsInAnyOrder: $separator",
-                                "$anEntryWhich: $separator",
-                                "$isGreaterThanDescr: 1.0",
-                                "$isLessThanDescr: 2.0",
-                                "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
-                            )
-                        }
+                        messageContains(
+                            "$rootBulletPoint$containsInAnyOrder: $separator",
+                            "$anEntryWhich: $separator",
+                            "$isGreaterThanDescr: 1.0",
+                            "$isLessThanDescr: 2.0",
+                            "$numberOfOccurrences: 0",
+                            "$atLeast: 1"
+                        )
                     }
                 }
             }
@@ -117,13 +116,15 @@ abstract class IterableAnyAssertionsSpec(
                         expect {
                             fluent.anyOfNullableFun({ toBe(2.0) })
                         }.toThrow<AssertionError> {
-                            messageContains(
-                                "$containsInAnyOrder: $separator",
-                                "$anEntryWhich: $separator",
-                                "$toBeDescr: 2.0",
-                                "$numberOfOccurrences: 0",
-                                "$atLeast: 1"
-                            )
+                            message {
+                                contains.exactly(1).values(
+                                    "$rootBulletPoint$containsInAnyOrder: $separator",
+                                    "$anEntryWhich: $separator",
+                                    "$toBeDescr: 2.0",
+                                    "$numberOfOccurrences: 0",
+                                    "$atLeast: 1"
+                                )
+                            }
                         }
                     }
                 }
@@ -134,13 +135,15 @@ abstract class IterableAnyAssertionsSpec(
                     expect {
                         assert(oneToSeven).anyOfNullableFun(null)
                     }.toThrow<AssertionError> {
-                        messageContains(
-                            "$containsInAnyOrder: $separator",
-                            "$anEntryWhich: $separator",
-                            "$isDescr: null",
-                            "$numberOfOccurrences: 0",
-                            "$atLeast: 1"
-                        )
+                        message {
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsInAnyOrder: $separator",
+                                "$anEntryWhich: $separator",
+                                "$isDescr: null",
+                                "$numberOfOccurrences: 0",
+                                "$atLeast: 1"
+                            )
+                        }
                     }
                 }
             }

@@ -14,6 +14,8 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsPair: Pair<String, Assert<CharSequence>.(String, Array<out String>) -> Assert<CharSequence>>,
     containsNotPair: Pair<String, Assert<CharSequence>.(String, Array<out String>) -> Assert<CharSequence>>,
+    rootBulletPoint: String,
+    listBulletPoint: String,
     featureArrow: String,
     describePrefix: String = "[Atrium] "
 ) : CharSequenceContainsSpecBase({
@@ -43,6 +45,10 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
     fun Assert<CharSequence>.containsNotFun(t: String, vararg tX: String)
         = containsNotFunArr(t, tX)
 
+    val indentBulletPoint = " ".repeat(rootBulletPoint.length)
+    val valueWithIndent = "$indentBulletPoint$listBulletPoint$value"
+    val containsNotDescr = CONTAINS_NOT.getDefault()
+
     describeFun(containsFunName, containsNot) {
         context("empty string") {
             val fluentEmptyString = assert("")
@@ -51,6 +57,8 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                     fluentEmptyString.containsFun("Hello")
                 }.toThrow<AssertionError> {
                     messageContains(
+                        "$rootBulletPoint$containsDescr: $separator" +
+                            "$valueWithIndent: \"Hello\"",
                         "$numberOfOccurrences: 0",
                         "$atLeast: 1"
                     )
@@ -70,7 +78,7 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                 test("$containsNot 'Hello' throws AssertionError") {
                     expect {
                         fluent.containsNotFun("Hello")
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS_NOT) } }
+                    }.toThrow<AssertionError> { messageContains(containsNotDescr, "$valueWithIndent: \"Hello\"") }
                 }
 
                 test("$containsFunName 'Hello' and 'Robert' does not throw") {
@@ -79,7 +87,9 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                 test("$containsNot 'Hello' and 'Robert' throws AssertionError") {
                     expect {
                         fluent.containsNotFun("Hello", "Robert")
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS_NOT) } }
+                    }.toThrow<AssertionError> {
+                        messageContains(containsNotDescr, "$valueWithIndent: \"Hello\"", "$valueWithIndent: \"Robert\"")
+                    }
                 }
             }
 
@@ -87,7 +97,9 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                 test("$containsFunName 'notInThere' and 'neitherInThere' throws AssertionError") {
                     expect {
                         fluent.containsFun("notInThere", "neitherInThere")
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS) } }
+                    }.toThrow<AssertionError> {
+                        messageContains(containsDescr, "$valueWithIndent: \"notInThere\"", "$valueWithIndent: \"neitherInThere\"")
+                    }
                 }
                 test("$containsNot 'notInThere' and 'neitherInThere' does not throw") {
                     fluent.containsNotFun("notInThere", "neitherInThere")
@@ -101,9 +113,13 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(2).values(
-                                containsDescr,
                                 "$numberOfOccurrences: 0",
                                 "$atLeast: 1"
+                            )
+                            contains.exactly(1).values(
+                                "$rootBulletPoint$containsDescr: $separator",
+                                "$valueWithIndent: \"hello\"",
+                                "$valueWithIndent: \"robert\""
                             )
                         }
                     }
@@ -117,21 +133,31 @@ abstract class CharSequenceContainsContainsNotAssertionsSpec(
                 test("$containsFunName 'notInThere' throws AssertionError") {
                     expect {
                         fluent.containsFun("notInThere")
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(CONTAINS) } }
+                    }.toThrow<AssertionError> { messageContains(containsDescr, "$valueWithIndent: \"notInThere\"") }
                 }
                 test("$containsNot 'notInThere' does not throw") {
                     fluent.containsNotFun("notInThere")
                 }
 
-                test("$containsFunName 'Hello' and 'notInThere' throws AssertionError") {
+                test("$containsFunName 'Hello' and 'notInThere' throws AssertionError mentioning only 'Hello'") {
                     expect {
                         fluent.containsFun("Hello", "notInThere")
-                    }.toThrow<AssertionError> { messageContains(containsDescr, "notInThere") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(containsDescr, "$valueWithIndent: \"notInThere\"")
+                            containsNot("$valueWithIndent: \"Hello\"")
+                        }
+                    }
                 }
-                test("$containsNot 'Hello' and 'notInThere' throws AssertionError") {
+                test("$containsNot 'Hello' and 'notInThere' throws AssertionError mentioning only 'notInThere'") {
                     expect {
                         fluent.containsNotFun("Hello", "notInThere")
-                    }.toThrow<AssertionError> { messageContains(CONTAINS_NOT.getDefault(), "Hello") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains(containsNotDescr, "$valueWithIndent: \"Hello\"")
+                            containsNot("$valueWithIndent: \"notInThere\"")
+                        }
+                    }
                 }
             }
 

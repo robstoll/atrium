@@ -8,7 +8,7 @@ class CharSequenceContainsContainsNotAssertionsSpec : ch.tutteli.atrium.spec.int
     AssertionVerbFactory,
     getContainsPair(),
     getContainsNotPair(),
-    "▶ "
+    "◆ ", "⚬ ", "▶ "
 ) {
     companion object {
         private val containsFun: KFunction2<Assert<CharSequence>, Values<Any>, Assert<CharSequence>> = Assert<CharSequence>::contains
