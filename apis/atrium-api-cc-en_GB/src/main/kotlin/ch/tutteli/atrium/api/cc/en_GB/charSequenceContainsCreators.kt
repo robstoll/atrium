@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @param expected The object which is expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -30,8 +30,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
     = values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as
- * the [otherExpected] objects shall be searched, using a non disjoint search.
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
+ * the [otherExpected] values shall be searched, using a non disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
@@ -47,8 +47,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * instead of:
  *   `contains.atLeast(1).values('a', 'a')`
  *
- * @param expected The object which is expected to be contained within the input of the search.
- * @param otherExpected Additional objects which are expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
+ * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -60,7 +60,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
  * (ignoring case), using a non disjoint search.
  *
  * Delegates to `values(expected)`.
@@ -70,7 +70,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @param expected The object which is expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -81,8 +81,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
     = values(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as
- * the [otherExpected] objects shall be searched (ignoring case), using a non disjoint search.
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
+ * the [otherExpected] values shall be searched (ignoring case), using a non disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
@@ -98,8 +98,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * instead of:
  *   `contains.ignoringCase.atLeast(1).values('a', 'a')`
  *
- * @param expected The object which is expected to be contained within the input of the search.
- * @param otherExpected Additional objects which are expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
+ * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
