@@ -78,17 +78,27 @@ abstract class IterableContainsInAnyOrderAtMostValuesAssertionSpec(
                 test("${containsAtMostTest("4.0", "twice")} throws AssertionError") {
                     expect {
                         fluent.containsAtMostFun(2, 4.0)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_MOST) } }
+                    }.toThrow<AssertionError> { messageContains("$atMost: 2", "$anEntryWhichIs: 4.0") }
                 }
-                test("${containsAtMostTest("1.0, 4.0", "twice")} throws AssertionError") {
+                test("${containsAtMostTest("1.0, 4.0", "twice")} throws AssertionError mentioning only 4.0") {
                     expect {
                         fluent.containsAtMostFun(2, 1.0, 4.0)
-                    }.toThrow<AssertionError> { messageContains(atMost, 4.0) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 2", "$anEntryWhichIs: 4.0")
+                            containsNot("$anEntryWhichIs: 1.0")
+                        }
+                    }
                 }
-                test("${containsAtMostTest("4.0, 1.0", "twice")} once throws AssertionError") {
+                test("${containsAtMostTest("4.0, 1.0", "twice")} once throws AssertionError mentioning only 4.0") {
                     expect {
                         fluent.containsAtMostFun(2, 4.0, 1.0)
-                    }.toThrow<AssertionError> { messageContains(atMost, 4.0) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atMost: 2", "$anEntryWhichIs: 4.0")
+                            containsNot("$anEntryWhichIs: 1.0")
+                        }
+                    }
                 }
                 test("${containsAtMostTest("5.0, 3.1, 3.0, 4.0", "twice")} throws AssertionError") {
                     expect {

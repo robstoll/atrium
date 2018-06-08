@@ -73,19 +73,29 @@ abstract class IterableContainsInAnyOrderExactlyValuesAssertionsSpec(
                 test("${containsExactlyTest("4.0", "once")} throws AssertionError") {
                     expect {
                         fluent.containsExactlyFun(1, 4.0)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(EXACTLY) } }
+                    }.toThrow<AssertionError> { messageContains("$exactly: 1", "$anEntryWhichIs: 4.0") }
                 }
 
-                test("${containsExactlyTest("1.0, 2.3", "once")} throws AssertionError") {
+                test("${containsExactlyTest("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         fluent.containsExactlyFun(1, 1.0, 2.3)
-                    }.toThrow<AssertionError> { messageContains(exactly, 2.3) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$exactly: 1", "$anEntryWhichIs: 2.3")
+                            containsNot("$anEntryWhichIs: 1.0")
+                        }
+                    }
                 }
 
-                test("${containsExactlyTest("2.3, 1.0", "once")} throws AssertionError") {
+                test("${containsExactlyTest("2.3, 1.0", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         fluent.containsExactlyFun(1, 2.3, 1.0)
-                    }.toThrow<AssertionError> { messageContains(exactly, 2.3) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$exactly: 1", "$anEntryWhichIs: 2.3")
+                            containsNot("$anEntryWhichIs: 1.0")
+                        }
+                    }
                 }
 
                 test("${containsExactlyTest("1.0 and 2.3 and 3.1", "once")} throws AssertionError") {

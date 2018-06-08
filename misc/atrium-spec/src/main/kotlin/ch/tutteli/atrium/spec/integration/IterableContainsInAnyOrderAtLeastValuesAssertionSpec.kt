@@ -103,17 +103,27 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                 test("${containsAtLeastTest("1.1", "once")} throws AssertionError") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError> { message { containsDefaultTranslationOf(AT_LEAST) } }
+                    }.toThrow<AssertionError> { messageContains("$atLeast: 1", "$anEntryWhichIs: 1.1") }
                 }
-                test("${containsAtLeastTest("1.0, 2.3", "once")} throws AssertionError") {
+                test("${containsAtLeastTest("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         fluent.containsAtLeastFun(1, 1.0, 2.3)
-                    }.toThrow<AssertionError> { messageContains(atLeast, 2.3) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atLeast: 1", "$anEntryWhichIs: 2.3")
+                            containsNot("$anEntryWhichIs: 1.0")
+                        }
+                    }
                 }
-                test("${containsAtLeastTest("2.3, 1.0", "once")} throws AssertionError") {
+                test("${containsAtLeastTest("2.3, 1.0", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         fluent.containsAtLeastFun(1, 2.3, 1.0)
-                    }.toThrow<AssertionError> { messageContains(atLeast, 2.3) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$atLeast: 1", "$anEntryWhichIs: 2.3")
+                            containsNot("$anEntryWhichIs: 1.0")
+                        }
+                    }
                 }
                 test("${containsAtLeastTest("1.0, 2.3, 3.1 and 6.0", "once")} throws AssertionError") {
                     expect {
@@ -196,8 +206,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                                 "$numberOfOccurrences: 3$separator"
                             )
                             endsWith("$atMost: 2")
-                            containsNot("$anEntryWhichIs: 5.0")
-                            containsNotDefaultTranslationOf(AT_LEAST)
+                            containsNot(atLeast, "$anEntryWhichIs: 5.0")
                         }
                     }
                 }
@@ -217,8 +226,7 @@ abstract class IterableContainsInAnyOrderAtLeastValuesAssertionSpec(
                                 "$numberOfOccurrences: 2$separator"
                             )
                             endsWith("$atLeast: 3")
-                            containsNot("$anEntryWhichIs: 4.0")
-                            containsNotDefaultTranslationOf(DescriptionIterableAssertion.AT_MOST)
+                            containsNot(atMost, "$anEntryWhichIs: 4.0")
                         }
                     }
                 }
