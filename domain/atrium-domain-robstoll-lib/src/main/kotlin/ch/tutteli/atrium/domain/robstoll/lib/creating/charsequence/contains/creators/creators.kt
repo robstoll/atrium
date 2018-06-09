@@ -14,15 +14,15 @@ fun <T : CharSequence> _containsValues(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: List<Any>
 ): AssertionGroup
-    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerOption, IndexSearcher(), expected)
+    = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IndexSearcher(), expected)
 
 fun <T : CharSequence> _containsValuesIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<Any>
 ): AssertionGroup
-    = checkOnlyAllowedTypeAndCreateAssertionGroup(checkerOption, IgnoringCaseIndexSearcher(), expected)
+    = checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(checkerOption, IgnoringCaseIndexSearcher(), expected)
 
-private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeAndCreateAssertionGroup(
+private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOnlyAllowedTypeNotEmptyStringAndCreateAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
     searcher: CharSequenceContains.Searcher<S>,
     expected: List<Any>
@@ -35,6 +35,12 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
             "Only values of type CharSequence, Number and Char are allowed\nGiven: $it\n" +
                 "We provide an API with Any for convenience (so that you can mix String and Int for instance).\n" +
                 "Use toString() if you really want to search for its toString()-representation."
+        }
+        require(it != "") {
+            "Searching for the empty string does not make sense. You probably forgot to specify the search criterion."
+        }
+        require(it.toString() != "") {
+            "Searching for an empty CharSequence does not make sense. You probably forgot to specify the search criterion."
         }
     }
     return createAssertionGroup(checkerOption, searcher, expected)

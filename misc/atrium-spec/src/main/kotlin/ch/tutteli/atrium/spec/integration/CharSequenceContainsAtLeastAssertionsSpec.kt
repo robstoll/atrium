@@ -4,10 +4,9 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_LEAST
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_MOST
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
+import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsAtLeastAssertionsSpec(
@@ -123,6 +122,17 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                         fluent.containsAtLeastButAtMostFun(1, 2, "that's fine", fluent)
                     }.toThrow<IllegalArgumentException> { messageContains("CharSequence", "Number", "Char") }
                 }
+            }
+
+            test("searching for an empty String - warns the user that the assertion is useless") {
+                expect{
+                    fluent.containsAtLeastFun(1, "that's fine", "" /* <- that's not */)
+                }.toThrow<IllegalArgumentException> { messageContains("empty string", "forgot")  }
+            }
+            test("searching for an empty CharSequence - warns the user that the assertion is useless") {
+                expect{
+                    fluent.containsAtLeastFun(1, "that's fine", StringBuilder() /* <- that's not */)
+                }.toThrow<IllegalArgumentException> { messageContains("empty CharSequence", "forgot")  }
             }
         }
 
@@ -284,6 +294,27 @@ abstract class CharSequenceContainsAtLeastAssertionsSpec(
                 }
                 test("${containsAtLeastIgnoringCase("'o' and 'l'", " 3 times")} does not throw") {
                     fluentHelloWorld.containsAtLeastButAtMostIgnoringCaseFun(3, 4, 'o', 'l')
+                }
+            }
+        }
+
+        group("special cases") {
+            given("string: \"\\0 hello\"") {
+                test("${containsAtLeastTest("\"hello\" and '\\0'", "once")} does not throw") {
+                    verbs.checkImmediately('\u0000' + " hello").containsAtLeastFun(1, "hello", 0.toChar())
+                }
+            }
+
+            val aaaa = "aaaa"
+            val aaaaFluent = verbs.checkImmediately(aaaa)
+            given("string \"$aaaa\""){
+                test("${containsAtLeastTest("'a'", "4 times")} does not throw") {
+                    aaaaFluent.containsAtLeastFun(4, 'a')
+                }
+                test("${containsAtLeastTest("'a'", "5 times")} throws AssertionError") {
+                    expect {
+                        aaaaFluent.containsAtLeastFun(5, 'a')
+                    }.toThrow<AssertionError> { messageContains("$atLeast: 5", "$valueWithIndent: 'a'") }
                 }
             }
         }

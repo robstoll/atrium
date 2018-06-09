@@ -29,6 +29,8 @@ class ForgivingTest(private val test: Test) :
             println("forgiving $test")
         } catch (e: PlantHasNoSubjectException){
             println("forgiving $test")
+        } catch(e: IllegalArgumentException){
+            println("forgiving $test")
         }
         return context
     }

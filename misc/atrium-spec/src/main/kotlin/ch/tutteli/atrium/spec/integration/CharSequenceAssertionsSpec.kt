@@ -30,8 +30,8 @@ abstract class CharSequenceAssertionsSpec(
 ) : CharSequenceContainsSpecBase({
 
     include(object : SubjectLessAssertionSpec<CharSequence>(describePrefix,
-        containsDefaultTranslationOfPair.first to mapToCreateAssertion { containsDefaultTranslationOfPair.second(this, Untranslatable.EMPTY, arrayOf()) },
-        containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable.EMPTY, arrayOf()) },
+        containsDefaultTranslationOfPair.first to mapToCreateAssertion { containsDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) },
+        containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) },
         startsWithPair.first to mapToCreateAssertion { startsWithPair.second(this, "") },
