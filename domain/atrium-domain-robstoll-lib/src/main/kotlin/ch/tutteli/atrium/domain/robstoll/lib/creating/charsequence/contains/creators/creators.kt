@@ -9,6 +9,8 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.sear
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchers.IndexSearcher
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchers.RegexSearcher
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.STRING_MATCHING_REGEX
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.VALUE
 
 fun <T : CharSequence> _containsValues(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
@@ -43,7 +45,7 @@ private fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour> checkOn
             "Searching for an empty CharSequence does not make sense. You probably forgot to specify the search criterion."
         }
     }
-    return createAssertionGroup(checkerOption, searcher, expected)
+    return createAssertionGroup(checkerOption, searcher, expected, VALUE)
 }
 
 fun <T : CharSequence> _containsDefaultTranslationOf(
@@ -62,23 +64,25 @@ fun <T : CharSequence> _containsRegex(
     checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
     expected: List<String>
 ): AssertionGroup
-    = createAssertionGroup(checkerOption, RegexSearcher(), expected)
+    = createAssertionGroup(checkerOption, RegexSearcher(), expected, STRING_MATCHING_REGEX)
 
 fun <T : CharSequence> _containsRegexIgnoringCase(
     checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
     expected: List<String>
 ): AssertionGroup
-    = createAssertionGroup(checkerOption, IgnoringCaseRegexSearcher(), expected)
+    = createAssertionGroup(checkerOption, IgnoringCaseRegexSearcher(), expected, STRING_MATCHING_REGEX)
 
 private fun <T : CharSequence, SC : Any, S : CharSequenceContains.SearchBehaviour> createAssertionGroup(
     checkerOption: CharSequenceContains.CheckerOption<T, S>,
     searcher: CharSequenceContains.Searcher<S>,
-    expected: List<SC>
+    expected: List<SC>,
+    groupDescription: Translatable
 ): AssertionGroup {
     val creator = CharSequenceContainsAssertionCreator<T, SC, S>(
         checkerOption.containsBuilder.searchBehaviour,
         searcher,
-        checkerOption.checkers
+        checkerOption.checkers,
+        groupDescription
     )
     return creator.createAssertionGroup(checkerOption.containsBuilder.plant, expected)
 }
