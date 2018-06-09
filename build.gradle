@@ -12,7 +12,7 @@ buildscript {
         dokka_sourceMapping = 'tree/master'
 
         //spek.gradle
-        jacoco_tool_version = '0.7.9'
+        jacoco_tool_version = '0.8.1'
         spek_version = '1.1.5'
         junit_platform_version = '1.1.0'
 
@@ -163,6 +163,11 @@ configure(jacocoMulti.jacocoProjects) {
 
     afterEvaluate { subproject ->
         junitjacoco {
+
+            jacoco {
+                toolVersion = jacoco_tool_version
+            }
+
             jacocoReport {
                 if (project.hasProperty('jacoco_additional')) {
                     project.jacoco_additional.each {
