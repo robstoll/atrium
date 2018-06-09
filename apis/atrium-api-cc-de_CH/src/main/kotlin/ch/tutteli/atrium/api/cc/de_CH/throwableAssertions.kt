@@ -17,7 +17,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Does not add enough to be a valid alternative to the overlaod with assertionCreator, will be removed with 1.0.0", ReplaceWith("wirft {}"))
+@Deprecated("Does not add enough to be a valid alternative to the overlaod with assertionCreator; will be removed with 1.0.0", ReplaceWith("wirft {}"))
 inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft() {
     wirft<TExpected> {}
 }
@@ -54,7 +54,7 @@ fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Uni
 
 /**
  * Creates the assertion that the [Throwable]'s [message][Throwable.message] is not null (see [message]) contains
- * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if defined),
+ * [expected]'s [toString] representation and the [toString] representation of the [otherExpected] (if given),
  * using a non disjoint search.
  *
  * It is a shortcut for `message { enthaelt.zumindest(1).werte(expected, otherExpected) }`

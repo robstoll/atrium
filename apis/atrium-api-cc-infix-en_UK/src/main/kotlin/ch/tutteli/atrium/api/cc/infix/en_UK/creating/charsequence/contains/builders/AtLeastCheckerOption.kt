@@ -13,7 +13,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  * @param T The input type of the search.
  * @param S The search behaviour which should be applied for the input of the search.
  */
-@Deprecated("Use pendant from package en_GB, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption"))
+@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.creating.charsequence.contains.builders.AtLeastCheckerOption"))
 interface AtLeastCheckerOption<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>
     : WithTimesCheckerOption<T, S>
 
@@ -30,7 +30,7 @@ interface AtLeastCheckerOption<out T : CharSequence, out S : CharSequenceContain
  *   found in the input of the search.
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
-@Deprecated("Do not rely on this type, will be made internal with 1.0.0", ReplaceWith("AtLeastCheckerOption"))
+@Deprecated("Do not rely on this type; will be made internal with 1.0.0", ReplaceWith("AtLeastCheckerOption"))
 open class AtLeastCheckerOptionImpl<out T : CharSequence, out S : SearchBehaviour>(
     times: Int,
     containsBuilder: CharSequenceContains.Builder<T, S>
