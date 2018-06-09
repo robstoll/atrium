@@ -17,7 +17,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 @Deprecated(
-    "use the builder from the package creating, will be removed with 1.0.0",
+    "use the builder from the package creating; will be removed with 1.0.0",
     ReplaceWith(
         "ExactlyCheckerOption",
         "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.ExactlyCheckerOption"

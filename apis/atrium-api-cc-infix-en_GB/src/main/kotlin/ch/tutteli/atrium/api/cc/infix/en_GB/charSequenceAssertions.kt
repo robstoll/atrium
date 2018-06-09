@@ -120,6 +120,9 @@ infix fun <T : CharSequence> Assert<T>.contains(patterns: RegexPatterns): Assert
  *
  * Delegates to [containsNot] [Values].
  *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
@@ -131,6 +134,9 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
  * of the given [values].
  *
  * It is a shortcut for `notTo contain the Values(expected, *otherExpected)`.
+ *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

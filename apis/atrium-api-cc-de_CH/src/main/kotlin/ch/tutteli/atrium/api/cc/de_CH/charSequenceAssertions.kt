@@ -23,7 +23,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
 val <T : CharSequence> Assert<T>.enthaelt: CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     get() = AssertImpl.charSequence.containsBuilder(this)
 
-@Deprecated("Use the extension fun `enthaelt` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.enthaelt"))
+@Deprecated("Use the extension fun `enthaelt` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("plant.enthaelt"))
 fun <T : CharSequence> getEnthaelt(plant: Assert<T>): DeprecatedBuilder<T, NoOpSearchBehaviour>
     = DeprecatedBuilder(plant, plant.enthaelt.searchBehaviour)
 
@@ -41,14 +41,14 @@ val <T : CharSequence> Assert<T>.enthaeltNicht: NotCheckerOption<T, NotSearchBeh
         )
     )
 
-@Deprecated("Use the extension fun `enthaeltNicht` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("plant.enthaeltNicht"))
+@Deprecated("Use the extension fun `enthaeltNicht` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("plant.enthaeltNicht"))
 fun <T : CharSequence> getEnthaeltNicht(plant:  Assert<T>): DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>
     = DeprecatedNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(plant))
 
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation
- * and the [toString] representation of the [otherExpected] (if defined), using a non disjoint search.
+ * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).werte(expected, *otherExpected)`.
  *
@@ -77,9 +77,12 @@ fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: A
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain [expected]'s [toString] representation
- * and neither one of the [otherExpected]'s [toString] representation (if defined).
+ * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `enthaeltNicht.werte(expected, *otherExpected)`.
+ *
+ * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
+ * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -89,7 +92,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
- * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if defined),
+ * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if given),
  * using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)`.
@@ -116,7 +119,7 @@ fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Trans
 /**
  * Makes the assertion that [AssertionPlant.subject] does  not contain [expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
- * [getDefault][Translatable.getDefault] representation (if defined).
+ * [getDefault][Translatable.getDefault] representation (if given).
  *
  * It is a shortcut for `enthaeltNicht.standardUebersetzungVon(expected, *otherExpected)`.
  *
@@ -129,7 +132,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expecte
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given regular expression
- * [pattern] as well as the [otherPatterns] (if defined), using a non disjoint search.
+ * [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).regex(pattern, *otherPatterns)`.
  *

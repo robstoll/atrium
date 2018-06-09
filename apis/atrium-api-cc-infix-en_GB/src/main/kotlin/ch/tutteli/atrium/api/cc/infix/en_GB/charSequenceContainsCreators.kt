@@ -19,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @param expected The object which is expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -46,7 +46,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  * instead of:
  *   `to contain atLeast 1 the Values('a', 'a')`
  *
- * @param values The objects which are expected to be contained within the input of the search.
+ * @param values The values which are expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -57,7 +57,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
 
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
  * (ignoring case), using a non disjoint search.
  *
  * Delegates to `the Values(expected)`.
@@ -67,7 +67,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @param expected The object which is expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -95,7 +95,7 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  * instead of:
  *   `to contain ignoring case atLeast 1 the Values('a', 'a')`
  *
- * @param values The objects which are expected to be contained within the input of the search.
+ * @param values The values which are expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -125,8 +125,9 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  * are expected to have a match, using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [RegexPatterns.pattern]
- * is defined as `'a(b)?'` and one of the [RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
+ * [patterns].[pattern][RegexPatterns.pattern] is defined as `'a(b)?'` and one of the
+ * [patterns].[otherPatterns][RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *
@@ -164,8 +165,9 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  * are expected to have a match (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [RegexPatterns.pattern]
- * is defined as `'a(b)?'` and one of the [RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
+ * [patterns].[pattern][RegexPatterns.pattern] is defined as `'a(b)?'` and one of the
+ * [patterns].[otherPatterns][RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *

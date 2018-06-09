@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched,
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched,
  * using a non disjoint search.
  *
  * Delegates to `werte(expected)`.
@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @param expected The object which is expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -30,8 +30,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
     = werte(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as
- * the [otherExpected] objects shall be searched, using a non disjoint search.
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
+ * the [otherExpected] values shall be searched, using a non disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
@@ -41,8 +41,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
  * same sequence in the input of the search.
  *
- * @param expected The object which is expected to be contained within the input of the search.
- * @param otherExpected Additional objects which are expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
+ * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -53,7 +53,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
     = addAssertion(AssertImpl.charSequence.contains.values(this, expected glue otherExpected))
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object shall be searched
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
  * (ignoring case), using a non disjoint search.
  *
  * Delegates to `werte(expected)`.
@@ -63,7 +63,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @param expected The object which is expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -74,8 +74,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
     = werte(expected)
 
 /**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected] object as well as
- * the [otherExpected] objects shall be searched (ignoring case), using a non disjoint search.
+ * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
+ * the [otherExpected] values shall be searched (ignoring case), using a non disjoint search.
  *
  * Notice that a runtime check applies which assures that only [CharSequence], [Number] and [Char] are passed (this
  * function expects `Any` for your convenience, so that you can mix [String] and [Int] for instance).
@@ -85,8 +85,8 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * is defined as `'a'` and one [otherExpected] is defined as `'a'` as well, then both match, even though they match the
  * same sequence in the input of the search.
  *
- * @param expected The object which is expected to be contained within the input of the search.
- * @param otherExpected Additional objects which are expected to be contained within the input of the search.
+ * @param expected The value which is expected to be contained within the input of the search.
+ * @param otherExpected Additional values which are expected to be contained within the input of the search.
  *
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -101,7 +101,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
  * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
- * representations of the [otherExpected] (if defined) shall be searched, using a non disjoint search.
+ * representations of the [otherExpected] (if given) shall be searched, using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
@@ -125,7 +125,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
  * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
- * representations of the [otherExpected] (if defined) shall be searched (ignoring case), using a non disjoint search.
+ * representations of the [otherExpected] (if given) shall be searched (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the

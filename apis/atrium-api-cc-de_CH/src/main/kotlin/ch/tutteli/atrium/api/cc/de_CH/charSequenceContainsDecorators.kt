@@ -14,7 +14,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour as DeprecatedNotSearchBehaviour
 
 /**
- * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
+ * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains` assertion.
  *
  * @return The newly created builder.
  */
@@ -22,14 +22,14 @@ val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.igno
     get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
     = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
-@Deprecated("Use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
+@Deprecated("Use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
 fun <T : CharSequence> getIgnoriereGrossKleinschreibung(builder: DeprecatedBuilder<T, NoOpSearchBehaviour>)
     : DeprecatedBuilder<T, IgnoringCaseSearchBehaviour>
     = DeprecatedBuilder(builder.plant, builder.ignoriereGrossKleinschreibung.searchBehaviour)
 
 
 /**
- * Defines that the decoration behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
+ * Defines that the search behaviour `ignore case` shall be applied to this sophisticated `contains not` assertion.
  *
  * @return The newly created builder.
  */
@@ -37,7 +37,7 @@ val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoriereGrossKle
     get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour>
     = NotCheckerOptionImpl(containsBuilder.ignoriereGrossKleinschreibung)
 
-@Deprecated("Use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility, will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
+@Deprecated("Use the extension fun `ignoriereGrossKleinschreibung` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("builder.ignoriereGrossKleinschreibung"))
 fun <T : CharSequence> getIgnoriereGrossKleinschreibung(builder: DeprecatedNotCheckerBuilder<T, NotSearchBehaviour>)
     : DeprecatedNotCheckerBuilder<T, IgnoringCaseSearchBehaviour>
     = DeprecatedNotCheckerBuilder(builder.containsBuilder.ignoriereGrossKleinschreibung)
