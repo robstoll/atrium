@@ -228,7 +228,12 @@ createBcTasksForApis('0.6.0',
         ').*)|' +
         '(CharSequenceAssertionsSpec.*:(' +
             '((enthaeltStandardUebersetzungVon|containsDefaultTranslationOf|contains DefaultTranslationsOf) HELLO and WELCOME, throws AssertionError)|' +
-            '((enthaeltNichtDieStandardUebersetzungVon|containsNotDefaultTranslationOf|containsNot DefaultTranslationsOf) HELLO and WELCOME, throws AssertionError)' +
+            '((enthaeltNichtDieStandardUebersetzungVon|containsNotDefaultTranslationOf|containsNot DefaultTranslationsOf) HELLO and WELCOME, throws AssertionError)|' +
+            '(.*can be used in ExplanatoryAssertionGroup and reported without failure.*fun `(' +
+                'enthaeltStandardUebersetzungVon|enthaeltNichtDieStandardUebersetzungVon|' +
+                'containsDefaultTranslationOf|containsNotDefaultTranslationOf|' +
+                '(contains DefaultTranslationsOf)|(containsNot DefaultTranslationsOf)' +
+            ')`)' +
         ').*)|' +
         '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)|' +
         '(BigDecimalAssertionsSpec.*throws UnsupportedOperationException.*)' +

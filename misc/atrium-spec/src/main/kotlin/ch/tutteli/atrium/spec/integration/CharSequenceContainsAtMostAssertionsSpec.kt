@@ -7,6 +7,7 @@ import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.AT_MOST
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
+import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.include
 
 abstract class CharSequenceContainsAtMostAssertionsSpec(
@@ -188,6 +189,32 @@ abstract class CharSequenceContainsAtMostAssertionsSpec(
                     fluentHelloWorld.containsAtMostFun(3, 'o', 'l')
                 }
 
+            }
+        }
+
+        group("special cases") {
+            given("string: \"\\0 hello\"") {
+                test("${containsAtMostTest("\"hello\" and '\\0'", "twice")} does not throw") {
+                    verbs.checkImmediately('\u0000' + " hello").containsAtMostFun(2, "hello", 0.toChar())
+                }
+            }
+
+            val aaaa = "aaaa"
+            val aaaaFluent = verbs.checkImmediately(aaaa)
+            given("string \"$aaaa\""){
+                test("${containsAtMostTest("'a'", "4 times")} does not throw") {
+                    aaaaFluent.containsAtMostFun(4, 'a')
+                }
+                test("${containsAtMostTest("'a'", "3 times")} throws AssertionError") {
+                    expect {
+                        aaaaFluent.containsAtMostFun(3, 'a')
+                    }.toThrow<AssertionError> {
+                        message {
+                            contains("$valueWithIndent: 'a'", "$numberOfOccurrences: 4", "$atMost: 3")
+                            containsNot(atLeast)
+                        }
+                    }
+                }
             }
         }
     }
