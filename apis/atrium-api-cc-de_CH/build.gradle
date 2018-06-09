@@ -3,7 +3,13 @@ description = 'An assertion function API in de_CH with a focus on code completio
         'in other words, the developer should be able to: ' +
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
-ext.jacoco_additional = prefixedProject('translations-de_CH')
+ext.jacoco_additional = [
+    prefixedProject('translations-de_CH'),
+    prefixedProject('domain-robstoll'),
+    prefixedProject('domain-robstoll-lib'),
+    prefixedProject('core-robstoll'),
+    prefixedProject('core-robstoll-lib'),
+]
 
 dependencies {
     compile prefixedProject('domain-api-deprecated')
