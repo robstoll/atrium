@@ -65,7 +65,7 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
         = containsAtMostIgnoringCaseFunArr(atLeast, a, aX)
 
     val indentBulletPoint = " ".repeat(rootBulletPoint.length)
-    val valueWithIndent = "$indentBulletPoint$listBulletPoint${CharSequenceContainsSpecBase.value}"
+    val regexWithIndent = "$indentBulletPoint$listBulletPoint$stringMatchingRegex"
 
     describeFun(containsRegex) {
         context("throws an ${PatternSyntaxException::class.simpleName}") {
@@ -152,7 +152,7 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
                     message {
                         contains(
                             "$rootBulletPoint$containsDescr: $separator" +
-                                "$valueWithIndent: \"[a-z]\"",
+                                "$regexWithIndent: \"[a-z]\"",
                                 "$numberOfOccurrences: 17",
                                 "$atMost: 16"
                         )
@@ -166,7 +166,7 @@ abstract class CharSequenceContainsRegexAssertionsSpec(
                     message {
                         contains(
                             "$rootBulletPoint$containsIgnoringCase: $separator" +
-                                "$valueWithIndent: \"[a-z]\"",
+                                "$regexWithIndent: \"[a-z]\"",
                             "$numberOfOccurrences: 19",
                             "$atMost: 18"
                         )

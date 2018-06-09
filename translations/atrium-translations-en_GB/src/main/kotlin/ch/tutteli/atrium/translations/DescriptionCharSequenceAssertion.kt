@@ -19,5 +19,6 @@ enum class DescriptionCharSequenceAssertion(override val value: String) : String
     NUMBER_OF_OCCURRENCES("number of occurrences"),
     STARTS_WITH("starts with"),
     STARTS_NOT_WITH("does not start with"),
+    STRING_MATCHING_REGEX("string matching regex"),
     VALUE("value"),
 }
