@@ -3,6 +3,11 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
         'providing an implementation as well and want to reuse certain artifacts. ' +
         'If you are a consumer of Atrium, then you should depend on atrium-domain-robstoll instead.'
 
+ext.jacoco_additional = [
+    prefixedProject('core-robstoll'),
+    prefixedProject('core-robstoll-lib'),
+]
+
 dependencies {
     //TODO get rid of the exclusions as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
     def withoutKbox = { exclude group: 'ch.tutteli', module: 'kbox' }

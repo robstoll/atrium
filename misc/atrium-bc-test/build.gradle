@@ -31,6 +31,60 @@ dependencies {
     compile prefixedProject('core-api')
 }
 
+def bbcTests = task("bbcTests", group: 'Verification') {
+    description = "runs all binary backward compatibility tests"
+    dependsOn build
+}
+
+def bcTests = task("bcTests", group: 'Verification') {
+    description = "runs all backward compatibility tests which compile against the current code"
+    dependsOn build
+}
+
+def createBcTasksForApis(String version, String forgive, String... apis) {
+
+    def bc_version = task("bc-$version", group: 'Verification')
+    def bbc_version = task("bbc-$version", group: 'Verification')
+
+    apis.each { apiName ->
+        createBcTasks(apiName, version, forgive)
+        bc_version.dependsOn "bc-${apiName}-$version"
+        bbc_version.dependsOn "bbc-${apiName}-$version"
+    }
+}
+
+Task createJacocoReporTask(String apiName, String name, Task runTask){
+    project.task("jacoco-$name", type: JacocoReport) {
+        sourceDirectories = sourceSets.main.allJava.sourceDirectories
+        classDirectories = files(sourceSets.main.output.classesDirs)
+        executionData runTask
+
+        sourceDirectories = project.sourceSets.main.allJava.sourceDirectories
+        classDirectories = project.sourceSets.main.output.classesDirs
+
+        def projects = apiName.contains('en_UK') ?
+            jacocoMulti.sourceProjects :
+            jacocoMulti.sourceProjects -
+                prefixedProject('translations-en_GB') -
+                prefixedProject('translations-en_UK-deprecated') +
+                prefixedProject('translations-de_CH') +
+                prefixedProject('translations-de_CH-deprecated')
+
+        projects.each {
+            sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
+            classDirectories += it.sourceSets.main.output.classesDirs
+        }
+
+        reports {
+            csv.enabled = false
+            xml.enabled = true
+            xml.destination file("${buildDir}/reports/jacoco/$name/report.xml")
+            html.enabled = true
+            html.destination file("${buildDir}/reports/jacoco/$name/html/")
+        }
+    }
+}
+
 def createBcTasks(String apiName, String version, String forgive) {
     def nameUnderline = "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
     def name = "${apiName}-$version"
@@ -93,8 +147,6 @@ def createBcTasks(String apiName, String version, String forgive) {
         main = 'org.junit.platform.console.ConsoleLauncher'
         args = getArgs(configurations[testJar].asPath)
     }
-    check.dependsOn bbcTask
-
 
     def unzip = task("unzip-$name") {
         inputs.files configurations[testJarSources]
@@ -130,53 +182,19 @@ def createBcTasks(String apiName, String version, String forgive) {
         applyTo bbcTask
     }
 
-    def jacocoReport = project.task("jacoco-bc-$name", type: JacocoReport) {
-        sourceDirectories = sourceSets.main.allJava.sourceDirectories
-        classDirectories = files(sourceSets.main.output.classesDirs)
-        executionData bcTask
-        executionData bbcTask
+    def jacocoBbcReport = createJacocoReporTask(apiName, "bbc-$name", bbcTask)
+    def jacocoBcReport = createJacocoReporTask(apiName, "bc-$name", bcTask)
 
-        sourceDirectories = project.sourceSets.main.allJava.sourceDirectories
-        classDirectories = project.sourceSets.main.output.classesDirs
+    //if we want it to be part of the build
+    //check.dependsOn jacocoReport
+    //check.dependsOn bbcTask
+    //check.dependsOn bcTask
 
-        def projects = apiName.contains('en_UK') ?
-            jacocoMulti.sourceProjects :
-            jacocoMulti.sourceProjects -
-                prefixedProject('translations-en_GB') -
-                prefixedProject('translations-en_UK-deprecated') +
-                prefixedProject('translations-de_CH') +
-                prefixedProject('translations-de_CH-deprecated')
-
-        projects.each {
-            sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
-            classDirectories += it.sourceSets.main.output.classesDirs
-        }
-
-        reports {
-            csv.enabled = false
-            xml.enabled = true
-            xml.destination file("${buildDir}/reports/jacoco/bc-$name/report.xml")
-            html.enabled = true
-            html.destination file("${buildDir}/reports/jacoco/bc-$name/html/")
-        }
-    }
-
-    check.dependsOn jacocoReport
-
-    check.dependsOn bcTask
+    bbcTests.dependsOn jacocoBbcReport
+    bbcTests.dependsOn bbcTask
+    bcTests.dependsOn jacocoBcReport
+    bcTests.dependsOn bcTask
     project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
-}
-
-def createBcTasksForApis(String version, String forgive, String... apis) {
-
-    def bc_version = task("bc-$version", group: 'Verification')
-    def bbc_version = task("bbc-$version", group: 'Verification')
-
-    apis.each { apiName ->
-        createBcTasks(apiName, version, forgive)
-        bc_version.dependsOn "bc-${apiName}-$version"
-        bbc_version.dependsOn "bbc-${apiName}-$version"
-    }
 }
 
 createBcTasksForApis('0.6.0',

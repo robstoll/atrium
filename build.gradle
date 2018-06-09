@@ -46,7 +46,12 @@ buildscript {
                         it.name != "${rootProject.name}-spec" &&
                         it.name != "${rootProject.name}-bc-test" &&
                         //TODO remove with 1.0.0
-                        it.name != "${rootProject.name}-assertions"
+                        it.name != "${rootProject.name}-assertions" &&
+                        it.name != "${rootProject.name}-core-api-deprecated" &&
+                        it.name != "${rootProject.name}-core-robstoll-deprecated" &&
+                        it.name != "${rootProject.name}-domain-api-deprecated" &&
+                        it.name != "${rootProject.name}-translations-de_CH-deprecated" &&
+                        it.name != "${rootProject.name}-translations-en_UK-deprecated"
                 }
         ]
     }
@@ -155,9 +160,24 @@ configure(jacocoMulti.jacocoProjects) {
             exclude group: 'org.jetbrains.kotlin'
         }
     }
+
+    afterEvaluate { subproject ->
+        junitjacoco {
+            jacocoReport {
+                if (project.hasProperty('jacoco_additional')) {
+                    project.jacoco_additional.each {
+                        sourceDirectories += it.sourceSets.main.allJava.sourceDirectories
+                        classDirectories += it.sourceSets.main.output.classesDirs
+                    }
+                }
+                reports {
+                    html.enabled = true
+                }
+            }
+        }
+    }
 }
 
-apply from: 'gradle/scripts/jacoco-multi-project.gradle'
 apply from: 'gradle/scripts/gh-pages.gradle'
 
 if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
@@ -201,7 +221,7 @@ configure(bundleSmokeTests) {
     sourceCompatibility = '9'
     targetCompatibility = '9'
 
-    ext.jacoco_additional = bundle
+    ext.jacoco_additional = [bundle]
 
     sourceSets {
         //we are reusing the source from the bundle, so that we do not have to re-invent the spec

@@ -4,15 +4,35 @@ jdk:
   - oraclejdk8
   - oraclejdk9
 
+env:
+  - MODE=current
+  - MODE=bbc
+  - MODE=bc
+
+
 before_install:
  - chmod +x gr
 install: true
 
 script:
-  - ./gr -i build CodeCoverageReport
+  - |
+    if [ $MODE == current ]; then
+        ./gr -i build
+    elif [ $MODE == bbc ]; then
+        ./gr -i bbcTests
+    else
+        ./gr -i bcTests
+    fi
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - |
+    if [ $MODE == current ]; then
+        bash <(curl -s https://codecov.io/bash) -F current
+    elif [ $MODE == bbc ]; then
+        bash <(curl -s https://codecov.io/bash) -F bbc
+    else
+        bash <(curl -s https://codecov.io/bash) -F bc
+    fi
 
 before_cache:
     - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock

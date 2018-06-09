@@ -1,13 +1,27 @@
 ignore:
-    - "**/*-api-late-binding/**/*"
-    - "domain/atrium-domain-builders/**/creating/AssertImpl.kt"
-    - "domain/atrium-domain-builders/**/creating/*Builder.kt"
+    - "domain/atrium-domain-builders/**/AssertImpl.kt"
+    - "domain/atrium-domain-builders/**/creating/**Builder.kt"
     - "domain/atrium-domain-builders/**/creating/*Builders.kt"
 
     # TODO remove with 1.0.0
     - "misc/atrium-assertions/**/*"
     - "apis/**/assertions/**/*"
     - "domain/atrium-domain-api/**/assertions/**/*"
-    - "translations/*-deprecated/**/*"
+    - "domain/atrium-domain-api-deprecated/**/*"
     - "**/IAtriumFactory.kt"
     - "**/AtriumFactory.kt"
+
+
+flags:
+  api:
+    paths:
+      - apis/
+  domain:
+    paths:
+      - domain/
+  core:
+    paths:
+      - core/
+  misc:
+    paths:
+      - misc/
