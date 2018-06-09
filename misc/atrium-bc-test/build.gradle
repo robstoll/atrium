@@ -181,7 +181,6 @@ def createBcTasksForApis(String version, String forgive, String... apis) {
 
 createBcTasksForApis('0.6.0',
     'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
-        '(Iterable.*(error cases|failing cases|context empty collection).*)|' +
         '(IterableContainsNotAssertionsSpec.*:(enthaeltNicht|containsNot|notTo contain) 4.0 throws AssertionError.*)|' +
         '(IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec.*:(' +
             '((enthaelt|contains|to contain) 5.0 (nichtOderHoechstens|notOrAtMost) once throws AssertionError)|' +
@@ -235,6 +234,10 @@ createBcTasksForApis('0.6.0',
                 '(contains DefaultTranslationsOf)|(containsNot DefaultTranslationsOf)' +
             ')`)' +
         ').*)|' +
+        '(Iterable.*Spec.*fun.*`[^`]*(' +
+            'enthaelt|enthaeltNicht|enthaeltStrikt|eintraege|' +
+            'contains|containsNot|containsStrictly|[Ee]ntries' +
+        ')`.*(error cases|failing cases|context empty collection).*)|' +
         '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)|' +
         '(BigDecimalAssertionsSpec.*throws UnsupportedOperationException.*)' +
     ')',
