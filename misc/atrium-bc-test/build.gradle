@@ -21,7 +21,7 @@ dependencies {
         exclude group: 'org.jetbrains.kotlin'
     }
     common "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", withoutKotlin
-    common "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    common kotlinStdLib()
 
     compile configurations.common.dependencies
     compile prefixedProject('core-api')
