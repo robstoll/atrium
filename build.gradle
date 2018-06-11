@@ -1,6 +1,6 @@
 buildscript {
     rootProject.version = '0.7.0-SNAPSHOT'
-    rootProject.group = 'ch.tutteli'
+    rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     ext {
