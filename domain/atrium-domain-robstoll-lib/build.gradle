@@ -10,7 +10,6 @@ ext.jacoco_additional = [
 
 dependencies {
     //TODO get rid of the exclusions as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
-    def withoutKbox = { exclude group: 'ch.tutteli', module: 'kbox' }
     compile prefixedProject('domain-builders'), withoutKbox
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
