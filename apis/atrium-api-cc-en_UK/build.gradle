@@ -6,7 +6,7 @@ dependencies {
     compile prefixedProject('domain-api-deprecated')
     compile prefixedProject('domain-builders')
 
-    testCompile prefixedProject('domain-robstoll')
-    testCompile prefixedProject('core-robstoll')
+    testRuntimeOnly prefixedProject('domain-robstoll')
+    testRuntimeOnly prefixedProject('core-robstoll')
     testCompile prefixedProject('verbs-internal')
 }
