@@ -15,6 +15,7 @@ dependencies {
     compile prefixedProject('translations-en_GB')
 }
 
+// spek is required (not the platform) because we are specifying abstract Specs here
 repositories {
     maven { url "https://dl.bintray.com/jetbrains/spek" }
 }
