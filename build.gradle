@@ -64,7 +64,8 @@ buildscript {
     dependencies {
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
-        classpath "ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version")
     }
 }
 
@@ -87,11 +88,6 @@ subprojects { subproject ->
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
-
-    dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    }
 
     apply plugin: 'org.jetbrains.dokka'
 
@@ -138,11 +134,6 @@ subprojects { subproject ->
     }
 }
 
-def apiProjects = subprojects.findAll { it.name.startsWith('atrium-api') }
-configure(apiProjects) {
-
-}
-
 // has to be after the above two blocks which define `it.ext.publish_artifacts`
 def bundleSmokeTests = subprojects.findAll{ x -> x.name.endsWith('smoke-test')}
 configure(subprojects - bundleSmokeTests) {
@@ -151,6 +142,12 @@ configure(subprojects - bundleSmokeTests) {
     }
 }
 
+configure(subprojects - jacocoMulti.jacocoProjects) {
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    }
+}
 configure(jacocoMulti.jacocoProjects) {
 
     apply plugin: 'ch.tutteli.spek'
