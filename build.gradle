@@ -84,7 +84,7 @@ subprojects { subproject ->
         maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
     }
 
-    apply plugin: 'kotlin'
+    apply plugin: 'ch.tutteli.kotlin'
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
@@ -153,9 +153,7 @@ configure(jacocoMulti.jacocoProjects) {
     apply plugin: 'ch.tutteli.spek'
 
     dependencies {
-        testCompile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
-            exclude group: 'org.jetbrains.kotlin'
-        }
+        testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", withoutKotlin
     }
 
     afterEvaluate { subproject ->
