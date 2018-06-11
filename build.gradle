@@ -144,8 +144,8 @@ configure(subprojects - bundleSmokeTests) {
 
 configure(subprojects - jacocoMulti.jacocoProjects) {
     dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        compile kotlinStdLib()
+        compile kotlinReflect()
     }
 }
 configure(jacocoMulti.jacocoProjects) {
