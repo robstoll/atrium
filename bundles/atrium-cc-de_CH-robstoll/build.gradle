@@ -4,8 +4,9 @@ dependencies {
     compile prefixedProject('verbs')
     compile prefixedProject('api-cc-de_CH')
     compile prefixedProject('translations-de_CH')
-    compile prefixedProject('domain-robstoll')
-    compile prefixedProject('core-robstoll')
+    compile prefixedProject('domain-builders')
+    runtimeOnly prefixedProject('domain-robstoll')
+    runtimeOnly prefixedProject('core-robstoll')
 
     //TODO remove with 1.0.0
     compile prefixedProject('assertions')
