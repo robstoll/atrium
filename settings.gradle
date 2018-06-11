@@ -1,7 +1,7 @@
 rootProject.name = 'atrium'
 
 buildscript {
-    gradle.ext.tutteli_plugins_version = '0.4.0'
+    gradle.ext.tutteli_plugins_version = '0.6.0'
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
     }
@@ -28,28 +28,28 @@ include {
         }
     }
 
-    apis {
-        _ 'api-cc-de_CH'
-        _ 'api-cc-en_GB'
-        _ 'api-cc-infix-en_GB'
+    folder('apis', 'api-') {
+        _ 'cc-de_CH'
+        _ 'cc-en_GB'
+        _ 'cc-infix-en_GB'
     }
 
-    domain {
-        _ 'domain-api'
-        _ 'domain-builders'
-        _ 'domain-robstoll'
-        _ 'domain-robstoll-lib'
+    folder('domain', 'domain-') {
+        _ 'api'
+        _ 'builders'
+        _ 'robstoll'
+        _ 'robstoll-lib'
     }
 
-    core {
-        _ 'core-api'
-        _ 'core-robstoll'
-        _ 'core-robstoll-lib'
+    folder('core', 'core-') {
+        _ 'api'
+        _ 'robstoll'
+        _ 'robstoll-lib'
     }
 
-    translations {
-        _ 'translations-de_CH'
-        _ 'translations-en_GB'
+    folder('translations', 'translations-') {
+        _ 'de_CH'
+        _ 'en_GB'
     }
 
     misc {
