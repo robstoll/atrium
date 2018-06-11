@@ -9,8 +9,8 @@ dependencies {
     }
     compile prefixedProject('core-api')
 
-    testCompile prefixedProject('domain-robstoll')
-    testCompile prefixedProject('core-robstoll')
+    testRuntimeOnly prefixedProject('domain-robstoll')
+    testRuntimeOnly prefixedProject('core-robstoll')
     testCompile prefixedProject('api-cc-en_GB')
     testCompile prefixedProject('verbs-internal')
 }
