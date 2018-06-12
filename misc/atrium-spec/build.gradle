@@ -2,16 +2,16 @@ description = 'Provides specifications of Atrium -- an assertion framework for K
         ' be reused by implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    compile("ch.tutteli:kbox:$kbox_version") {
-        exclude group: 'org.jetbrains.kotlin'
-    }
+    compile "ch.tutteli:kbox:$kbox_version", withoutKotlin
     compile prefixedProject('domain-api')
     compile prefixedProject('core-api')
     compile prefixedProject('domain-builders')
+
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:
     compileOnly prefixedProject('api-cc-en_GB') // for us
     runtimeOnly prefixedProject('api-cc-en_GB') // for depending modules
+
     compile prefixedProject('translations-en_GB')
 }
 
@@ -21,10 +21,6 @@ repositories {
 }
 
 dependencies {
-    compile("org.jetbrains.spek:spek-api:$spek_version") {
-        exclude group: 'org.jetbrains.kotlin'
-    }
-    compile("com.nhaarman:mockito-kotlin:$mockito_kotlin_version") {
-        exclude group: 'org.jetbrains.kotlin'
-    }
+    compile "org.jetbrains.spek:spek-api:$spek_version", withoutKotlin
+    compile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", withoutKotlin
 }
