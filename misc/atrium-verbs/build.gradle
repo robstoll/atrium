@@ -5,6 +5,6 @@ dependencies {
     compile prefixedProject('core-api')
 
     testCompile prefixedProject('spec')
-    testCompile prefixedProject('domain-robstoll')
-    testCompile prefixedProject('core-robstoll')
+    testRuntime prefixedProject('domain-robstoll')
+    testRuntime prefixedProject('core-robstoll')
 }

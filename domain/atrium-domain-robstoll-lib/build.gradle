@@ -16,6 +16,7 @@ dependencies {
     // automatically in their compile classpath. Thus:
     compileOnly prefixedProject('api-cc-en_GB'), withoutKbox // for us
     runtimeOnly prefixedProject('api-cc-en_GB'), withoutKbox // for depending modules
+
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB'), withoutKbox
     compile("ch.tutteli:kbox:$kbox_version") {
