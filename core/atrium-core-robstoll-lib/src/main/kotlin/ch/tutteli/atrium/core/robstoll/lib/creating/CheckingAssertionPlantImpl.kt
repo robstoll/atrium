@@ -4,10 +4,12 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
 
 class CheckingAssertionPlantImpl<out T : Any>(
-    override val subject: T
+    subjectProvider: () -> T
 ) : MutableListBasedAssertionPlant<T, AssertionPlant<T>>(),
     CheckingAssertionPlant<T> {
+
     override val self = this
+    override val subject by lazy { subjectProvider() }
 
     override fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): CheckingAssertionPlant<T> {
         this.assertionCreator()

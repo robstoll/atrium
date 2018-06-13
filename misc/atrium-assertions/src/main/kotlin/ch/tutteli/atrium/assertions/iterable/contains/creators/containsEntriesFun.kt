@@ -58,7 +58,7 @@ internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (
     = when (subject) {
         null -> assertionCreator == null
         else -> assertionCreator != null &&
-            coreFactory.newCheckingPlant(subject)
+            coreFactory.newCheckingPlant({ subject as E })
                 .addAssertionsCreatedBy(assertionCreator)
                 .allAssertionsHold()
     }

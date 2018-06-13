@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators
 
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
@@ -20,8 +19,8 @@ class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformati
             val assertionVerb = Untranslatable(
                 "Should not be shown to the user; if you see this, please fill in a bug report at $BUG_REPORT_URL"
             )
-            val assertionChecker = coreFactory.newDelegatingAssertionChecker(subjectPlant)
-            val plant = coreFactory.newReportingPlant(assertionVerb, transform(subject), assertionChecker)
+            val assertionChecker = AssertImpl.coreFactory.newDelegatingAssertionChecker(subjectPlant)
+            val plant = AssertImpl.coreFactory.newReportingPlant(assertionVerb, { transform(subject) }, assertionChecker)
             plant.addAssertion(AssertImpl.builder.descriptive
                 .holding
                 .withDescriptionAndRepresentation(description, representation)

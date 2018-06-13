@@ -12,13 +12,13 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 
 internal fun <T : Any> esGilt(subject: T)
-    = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, subject, reporter)
+    = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
 
 internal fun <T : Any> esGilt(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(AssertionVerb.ASSERT, subject, reporter, assertionCreator)
+    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(AssertionVerb.ASSERT, { subject }, reporter, assertionCreator)
 
 internal fun <T : Any?> esGilt(subject: T)
-    = AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, subject, reporter)
+    = AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, { subject }, reporter)
 
 internal fun erwarte(act: () -> Unit)
     = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)

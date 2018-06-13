@@ -110,7 +110,7 @@ abstract class TranslatorIntSpec(
 
     val reporterDeCh = reporterFactory(Locale("de", "CH"), arrayOf(Locale("fr")))
     fun <T : Any> assertWithDeCh(subject: T)
-        = coreFactory.newReportingPlant(AssertionVerb.ASSERT, subject, reporterDeCh)
+        = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporterDeCh)
 
     val descriptionAnyAssertion = DescriptionAnyAssertion::class.simpleName
     val testTranslatable = TestTranslatable::class.simpleName
@@ -213,7 +213,7 @@ abstract class TranslatorIntSpec(
         countries.forEach { country ->
             val locale = Locale.Builder().setLanguage("zh").setRegion(country).build()
             val reporter = reporterFactory(locale, arrayOf())
-            val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, 1, reporter)
+            val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1 }, reporter)
 
             prefixedDescribe("primary locale is 'zh_$country' and no fallback defined") {
                 if (withSpecialCases) {

@@ -55,8 +55,9 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private fun createReportingPlantForThrowable(throwableThrownBuilder: ThrowableThrownBuilder, throwable: Throwable?): ReportingAssertionPlantNullable<Throwable?> {
         return coreFactory.newReportingPlantNullable(
             throwableThrownBuilder.assertionVerb,
-            throwable,
+            { throwable },
             throwableThrownBuilder.reporter,
-            absentThrowableMessageProvider.message)
+            absentThrowableMessageProvider.message
+        )
     }
 }

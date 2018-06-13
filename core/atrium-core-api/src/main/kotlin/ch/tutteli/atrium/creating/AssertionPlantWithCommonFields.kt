@@ -2,6 +2,7 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.core.evalOnce
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -46,27 +47,16 @@ interface AssertionPlantWithCommonFields<out T> {
             { representationProvider() ?: nullRepresentation }
         }
 
-        /**
-         * Helper constructor to reuse [subjectProvider] also for [representationProvider] without the need to create
-         * a second lambda.
-         */
-        private constructor(
-            assertionVerb: Translatable,
-            subjectProvider: () -> T,
-            assertionChecker: AssertionChecker,
-            nullRepresentation: Any
-        ) : this(assertionVerb, subjectProvider, subjectProvider, assertionChecker, nullRepresentation)
-
         @Deprecated(
             "Use the overload with a subject provider instead. This constructor will be removed with 1.0.0",
-            ReplaceWith("this.CommonFields(assertionVerb, { subject }, assertionChecker, nullRepresentation)")
+            ReplaceWith("this.CommonFields(assertionVerb, { subject }.evalOnce(), { subject }.evalOnce() /* better assign to a variable than duplicating it, also this way subject gets called twice */, assertionChecker, nullRepresentation)")
         )
         constructor(
             assertionVerb: Translatable,
             subject: T,
             assertionChecker: AssertionChecker,
             nullRepresentation: Any
-        ) : this(assertionVerb, { subject }, assertionChecker, nullRepresentation)
+        ) : this(assertionVerb, { subject }.evalOnce(), { subject }.evalOnce(), assertionChecker, nullRepresentation)
 
         /**
          * Uses [assertionChecker] to check the given [assertions] (see [AssertionChecker.check]).
