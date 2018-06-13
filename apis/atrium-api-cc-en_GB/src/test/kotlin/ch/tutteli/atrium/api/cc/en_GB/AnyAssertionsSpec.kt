@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.cc.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
-import ch.tutteli.atrium.domain.builders.creating.FloatingPointAssertionsBuilder.toBeWithErrorTolerance
 import ch.tutteli.atrium.spec.integration.AnyAssertionsSpec
 import kotlin.reflect.KFunction2
 import kotlin.reflect.KProperty1
@@ -14,8 +13,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     AnyAssertionsSpecFunFactory(),
     Assert<Int>::toBe.name,
     Assert<Int>::notToBe.name,
-    Assert<Int>::isSame.name,
-    Assert<Int>::isNotSame.name,
+    Assert<Int>::isSameAs.name,
+    Assert<Int>::isNotSameAs.name,
     "${AssertionPlantNullable<Int?>::toBe.name}(null)" to Companion::toBeNull,
     getAndImmediatePair(),
     getAndLazyPair()
@@ -23,8 +22,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
         override val toBeFun = Assert<T>::toBe
         override val notToBeFun = Assert<T>::notToBe
-        override val isSameFun = Assert<T>::isSame
-        override val isNotSameFun = Assert<T>::isNotSame
+        override val isSameFun = Assert<T>::isSameAs
+        override val isNotSameFun = Assert<T>::isNotSameAs
     }
 
     companion object {

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting
 
-import ch.tutteli.atrium.api.cc.en_GB.isSame
+import ch.tutteli.atrium.api.cc.en_GB.isSameAs
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
@@ -48,14 +48,14 @@ abstract class ObjectFormatterSpec(
             val text = "test message"
             val result = testee.format(RawString.create(text))
             it("should still be the ${StringBasedRawString::class.simpleName}") {
-                verbs.checkLazily(result) { isSame(text) }
+                verbs.checkLazily(result) { isSameAs(text) }
             }
         }
 
         context("a ${TranslatableBasedRawString::class.simpleName}") {
             val result = testee.format(RawString.create(translatable))
             it("should be 1:1 the translation (like it was wrapped in an ${StringBasedRawString::class.simpleName})") {
-                verbs.checkImmediately(result).isSame(translatedText)
+                verbs.checkImmediately(result).isSameAs(translatedText)
             }
         }
     }

@@ -12,8 +12,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     AnyAssertionsSpecFunFactory(),
     Assert<Int>::toBe.name,
     Assert<Int>::notToBe.name,
-    Assert<Int>::isSame.name,
-    Assert<Int>::isNotSame.name,
+    Assert<Int>::isSameAs.name,
+    Assert<Int>::isNotSameAs.name,
     "${AssertionPlantNullable<Int?>::toBe.name} null" to Companion::toBeNull,
     getAndImmediatePair(),
     getAndLazyPair()
@@ -21,8 +21,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     class AnyAssertionsSpecFunFactory<T : Any> : AnyAssertionsSpec.AnyAssertionsSpecFunFactory<T> {
         override val toBeFun: Assert<T>.(T) -> Assert<T> = { this toBe it }
         override val notToBeFun: Assert<T>.(T) -> Assert<T> = { this notToBe it }
-        override val isSameFun: Assert<T>.(T) -> Assert<T> = { this isSame it }
-        override val isNotSameFun: Assert<T>.(T) -> Assert<T> = { this isNotSame it }
+        override val isSameFun: Assert<T>.(T) -> Assert<T> = { this isSameAs it }
+        override val isNotSameFun: Assert<T>.(T) -> Assert<T> = { this isNotSameAs it }
     }
 
     companion object {
