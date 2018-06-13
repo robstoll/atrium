@@ -62,7 +62,7 @@ abstract class FeatureAssertionCheckerSpec(
             check("copies the assertion") {
                 assertions.clear()
                 verbs.checkImmediately(captor.firstValue).isA<AssertionGroup> {
-                    property(subject::assertions).hasSize(1).and.isNotSame(assertions)
+                    property(subject::assertions).hasSize(1).and.isNotSameAs(assertions)
                 }
             }
         }

@@ -34,24 +34,24 @@ infix fun <T : Any> Assert<T>.notToBe(expected: T)
  * Makes the assertion that [AssertionPlant.subject] is the same instance as [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
- * Currently the following is possible: `assert(1).isSame(1.0)`
+ * Currently the following is possible: `assert(1).isSameAs(1.0)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any> Assert<T>.isSame(expected: T)
+infix fun <T : Any> Assert<T>.isSameAs(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not the same instance as [expected].
  *
  * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
- * Currently the following is possible: `assert(1).isNotSame(1.0)`
+ * Currently the following is possible: `assert(1).isNotSameAs(1.0)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : Any> Assert<T>.isNotSame(expected: T)
+infix fun <T : Any> Assert<T>.isNotSameAs(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**

@@ -42,7 +42,7 @@ fun <T : Any> Assert<T>.notToBe(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isSame(expected)"))
+@Deprecated("Use `isSameAs` from package en_GB; will be removed with 1.0.0", ReplaceWith("isSameAs(expected)", "ch.tutteli.atrium.api.cc.en_GB.isSameAs"))
 fun <T : Any> Assert<T>.isSame(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
@@ -55,7 +55,7 @@ fun <T : Any> Assert<T>.isSame(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.isNotSame(expected)"))
+@Deprecated("Use `isNotSameAs` from package en_GB; will be removed with 1.0.0", ReplaceWith("isNotSameAs(expected)", "ch.tutteli.atrium.api.cc.en_GB.isNotSameAs"))
 fun <T : Any> Assert<T>.isNotSame(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
