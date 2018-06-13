@@ -9,7 +9,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 /**
  * An assertion plant which has [CommonFields].
  *
- * @param T The type of [CommonFields.subject] of this [AssertionPlant].
+ * @param T The type of the [AssertionPlant.subject].
  */
 interface AssertionPlantWithCommonFields<out T> {
 
@@ -21,18 +21,21 @@ interface AssertionPlantWithCommonFields<out T> {
     /**
      * Common fields of an assertion plant.
      *
-     * @param T The type of the [subject] of this [AssertionPlant].
+     * @param T The type of the [AssertionPlant.subject].
      *
      * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
-     * @property subject The subject for which this plant will create/check [Assertion]s.
      * @property assertionChecker The checker which will be used to check [Assertion]s.
-     * @property nullRepresentation The representation used in reporting in case [subject] is `null`.
+     * @property subjectProvider Provides the [AssertionPlant.subject] for which this plant will
+     *   create/check [Assertion]s.
+     * @property nullRepresentation The representation used in reporting in case [representationProvider]
+     *   cannot provide a representation, provides `null` respectively.
      *
      * @constructor
      * @param assertionVerb The assertion verb which will be used inter alia in error reporting.
-     * @param subjectProvider Provides the [subject] for which this plant will create/check [Assertion]s.
+     * @param subjectProvider Provides the [AssertionPlant.subject] for which this plant will create/check [Assertion]s.
      * @param assertionChecker The checker which will be used to check [Assertion]s.
-     * @param nullRepresentation The representation used in reporting in case [subject] is `null`.
+     * @property nullRepresentation The representation used in reporting in case [representationProvider]
+     *   cannot provide a representation, provides `null` respectively.
      *
      */
     class CommonFields<out T>(
@@ -42,7 +45,6 @@ interface AssertionPlantWithCommonFields<out T> {
         val assertionChecker: AssertionChecker,
         private val nullRepresentation: Any
     ) {
-        val subject: T by lazy { subjectProvider() }
         val representation: () -> Any by lazy {
             { representationProvider() ?: nullRepresentation }
         }
