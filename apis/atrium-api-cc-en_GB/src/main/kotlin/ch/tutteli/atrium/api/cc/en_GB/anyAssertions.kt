@@ -64,7 +64,7 @@ fun <T : Any> Assert<T>.isNotSameAs(expected: T)
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?){
+fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null`: Nothing?) {
     addAssertion(AssertImpl.any.isNull(this))
 }
 
