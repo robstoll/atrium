@@ -6,7 +6,6 @@ import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.core.SingleServiceLoader
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
-import ch.tutteli.atrium.creating.toSubjectProvider
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import java.util.*
 
@@ -46,7 +45,7 @@ interface AssertionCollector {
      *   assertion, did not pass it to the [CollectingAssertionPlant] respectively.
      */
     fun <T: Any> collect(plant: AssertionPlant<T>, subPlantAndAssertionCreator: CollectingAssertionPlant<T>.() -> Unit): AssertionGroup
-        = collect(plant.toSubjectProvider(), subPlantAndAssertionCreator)
+        = collect(plant.subjectProvider, subPlantAndAssertionCreator)
 
     /**
      * Use this function if you want to make [Assertion](s) about a feature or you perform a type transformation or any

@@ -11,10 +11,4 @@ import ch.tutteli.atrium.assertions.Assertion
  * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API.
  */
 interface BaseReportingAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>>
-    : BaseAssertionPlant<T, A>, AssertionPlantWithCommonFields<T> {
-    
-    /**
-     * The subject for which this plant will create, check and report [Assertion]s.
-     */
-    override val subject get() = commonFields.subject
-}
+    : BaseAssertionPlant<T, A>, AssertionPlantWithCommonFields<T>
