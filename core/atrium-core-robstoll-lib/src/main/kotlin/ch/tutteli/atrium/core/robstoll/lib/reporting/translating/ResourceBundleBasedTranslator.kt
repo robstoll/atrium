@@ -4,7 +4,7 @@ import ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.kbox.forThisAndForEachIn
+import ch.tutteli.kbox.forElementAndForEachIn
 import java.util.*
 
 /**
@@ -37,7 +37,7 @@ internal class ResourceBundleBasedTranslator(
 
     override fun translateWithoutArgs(translatable: Translatable): String {
         val control = ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
-        primaryLocale.forThisAndForEachIn(fallbackLocales) { locale ->
+        forElementAndForEachIn(primaryLocale, fallbackLocales) { locale ->
             try {
                 val bundle = ResourceBundle.getBundle(translatable::class.java.name, locale, control)
                 return bundle.getString(translatable.name)

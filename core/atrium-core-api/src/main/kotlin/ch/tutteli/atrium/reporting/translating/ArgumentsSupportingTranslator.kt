@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting.translating
 
-import ch.tutteli.kbox.forThisAndForEachIn
+import ch.tutteli.kbox.forElementAndForEachIn
 import java.util.*
 
 /**
@@ -29,7 +29,7 @@ abstract class ArgumentsSupportingTranslator(
 ) : Translator {
 
     init {
-        primaryLocale.forThisAndForEachIn(fallbackLocales) {
+        forElementAndForEachIn(primaryLocale, fallbackLocales) {
             require(it.language != "no") {
                 "The macrolanguage `no` is not supported but $it given.\nUse either nb_... or nn_..."
             }

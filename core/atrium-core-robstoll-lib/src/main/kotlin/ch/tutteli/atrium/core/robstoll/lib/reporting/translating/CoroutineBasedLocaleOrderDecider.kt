@@ -3,7 +3,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
-import ch.tutteli.kbox.forThisAndForEachIn
+import ch.tutteli.kbox.forElementAndForEachIn
 import java.util.*
 import kotlin.coroutines.experimental.SequenceBuilder
 import kotlin.coroutines.experimental.buildSequence
@@ -22,7 +22,7 @@ class CoroutineBasedLocaleOrderDecider : LocaleOrderDecider {
 
     override fun determineOrder(primaryLocale: Locale, fallbackLocales: List<Locale>): Sequence<Locale> {
         return buildSequence {
-            primaryLocale.forThisAndForEachIn(fallbackLocales) { locale ->
+            forElementAndForEachIn(primaryLocale, fallbackLocales) { locale ->
                 when (locale.language) {
                     "zh" -> specialCaseChinese(locale)
                     else -> normalCase(locale)
