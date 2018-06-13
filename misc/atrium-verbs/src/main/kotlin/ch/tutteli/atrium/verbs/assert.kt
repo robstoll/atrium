@@ -51,5 +51,3 @@ fun <T : Any?> assert(subject: T)
  */
 fun assert(act: () -> Unit)
     = AssertImpl.throwable.thrownBuilder(ASSERT_THROWN, act, reporter)
-
-

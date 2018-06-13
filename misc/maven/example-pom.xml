@@ -9,23 +9,20 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>ch.tutteli</groupId>
-            <artifactId>atrium-cc-en_UK-robstoll</artifactId>
+            <groupId>ch.tutteli.atrium</groupId>
+            <artifactId>atrium-cc-en_GB-robstoll</artifactId>
+            <!--<artifactId>atrium-cc-infix-en_GB-robstoll</artifactId>-->
+            <!--<artifactId>atrium-cc-de_CH-robstoll</artifactId>-->
             <version>${atrium.version}</version>
             <scope>test</scope>
+
+            <!-- use the following to exclude pre-defined assertion verbs -->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>ch.tutteli.atrium</groupId>-->
+                    <!--<artifactId>atrium-verbs</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
         </dependency>
-        <!--
-            comment out if you want to use the out-of-the-box assertion verbs.
-            I encourage to define own assertion verbs. Following an explanation:
-            https://github.com/robstoll/atrium#use-own-assertion-verbs
-        -->
-        <!--
-        <dependency>
-            <groupId>ch.tutteli</groupId>
-            <artifactId>atrium-verbs</artifactId>
-            <version>${atrium.version}</version>
-            <scope>test</scope>
-        </dependency>
-        -->
     </dependencies>
 </project>
