@@ -2,7 +2,7 @@ description = 'Provides specifications of Atrium -- an assertion framework for K
         ' be reused by implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    compile "ch.tutteli:kbox:$kbox_version", withoutKotlin
+    compile kbox(), withoutKotlin
     compile prefixedProject('domain-api')
     compile prefixedProject('core-api')
     compile prefixedProject('domain-builders')
