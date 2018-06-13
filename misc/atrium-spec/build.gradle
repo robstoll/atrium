@@ -22,5 +22,5 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.spek:spek-api:$spek_version", withoutKotlin
-    compile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", withoutKotlin
+    compile mockito(), withoutKotlin
 }

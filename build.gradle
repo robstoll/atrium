@@ -9,6 +9,7 @@ buildscript {
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.2.41'
         mockito_kotlin_version = '1.5.0'
+        mockito = { "com.nhaarman:mockito-kotlin:$mockito_kotlin_version" }
         dokka_version = '0.9.16'
         dokka_sourceMapping = 'tree/master'
 
@@ -154,7 +155,7 @@ configure(jacocoMulti.jacocoProjects) {
     apply plugin: 'ch.tutteli.spek'
 
     dependencies {
-        testCompile "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", withoutKotlin
+        testCompile mockito(), withoutKotlin
     }
 
     afterEvaluate { subproject ->

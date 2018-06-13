@@ -20,7 +20,7 @@ dependencies {
         exclude group: 'org.junit.platform'
         exclude group: 'org.jetbrains.kotlin'
     }
-    common "com.nhaarman:mockito-kotlin:$mockito_kotlin_version", withoutKotlin
+    common mockito(), withoutKotlin
     common kotlinStdLib()
 
     compile configurations.common.dependencies
