@@ -3,10 +3,12 @@
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.domain.builders.utils.nullable
 import ch.tutteli.atrium.domain.builders.utils.nullableContainer
+import ch.tutteli.atrium.domain.builders.utils.nullableKeyMap
 import ch.tutteli.atrium.domain.builders.utils.nullableValueMap
 import ch.tutteli.atrium.domani.builders.utils.Test
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.verbs.internal.assert
+import ch.tutteli.atrium.verbs.internal.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -21,6 +23,8 @@ object NullableSpec : Spek({
     val nullableContainerFun: KFunction1<Iterable<Int>, Iterable<Int?>> = t2 as KFunction1<Iterable<Int>, Iterable<Int?>>
     val t3: (Map<Int, String>) -> Map<Int, String?> = ::nullableValueMap
     val nullableValueMapFun: KFunction1<Map<Int, String>, Map<Int, String?>> = t3 as KFunction1<Map<Int, String>, Map<Int, String?>>
+    val t4: (Map<out Int, String>) -> Map<out Int?, String> = ::nullableKeyMap
+    val nullableKeyMapFun: KFunction1<Map<out Int, String>, Map<out Int?, String>> = t4 as KFunction1<Map<out Int, String>, Map<out Int?, String>>
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) = describeFun("", funName, body = body)
 
@@ -92,12 +96,40 @@ object NullableSpec : Spek({
         }
     }
 
+    describeFun(nullableKeyMapFun.name) {
+        it("can be applied to a (Mutable)Map<Int!, String!>!") {
+            assert(nullableKeyMap(testee.numbersWithString)[1]).toBe(null)
+            expect {
+                assert(nullableKeyMap(testee.numbersWithString)[1]).notToBeNull {
+                    toBe("hello")
+                }
+            }.toThrow<AssertionError> {  }
+        }
+        it("can pass `null` as key") {
+            assert(nullableKeyMap(testee.numbersWithString)[null]).toBe(null)
+        }
+
+        it("can be combined with ${nullableFun.name}") {
+            assert(nullable(nullableKeyMap(testee.numbersWithString))).notToBeNull {
+                val k: KFunction1<Int?, String?> = subject::get
+                returnValueOf(k, 0).toBe(null)
+            }
+        }
+    }
+
     describeFun(nullableValueMapFun.name) {
         it("can be applied to a (Mutable)Map<Int!, String!>!") {
             assert(nullableValueMap(testee.numbersWithString)[1]).toBe(null)
+            expect {
+                assert(nullableValueMap(testee.numbersWithString)[1]).notToBeNull {
+                    toBe("hello")
+                }
+            }.toThrow<AssertionError> {  }
+
         }
         it("can be combined with ${nullableFun.name}") {
             assert(nullable(nullableValueMap(testee.numbersWithString))).notToBeNull {
+                subject
                 returnValueOf(subject::get, 0).toBe(null)
             }
         }
