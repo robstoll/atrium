@@ -20,7 +20,7 @@ abstract class SubjectLessAssertionSpec<T : Any>(
                 val assertions = coreFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException() })
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
-                val plant = coreFactory.newReportingPlant(AssertionVerb.ASSERT, 1.0,
+                val plant = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1.0 },
                     coreFactory.newOnlyFailureReporter(
                         coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
                     )
