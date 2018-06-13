@@ -28,7 +28,7 @@ interface IAtriumFactory {
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [BaseAssertionPlant.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
@@ -51,7 +51,7 @@ interface IAtriumFactory {
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [BaseAssertionPlant.subject]).
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
      *
@@ -97,7 +97,7 @@ interface IAtriumFactory {
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [BaseAssertionPlant.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      * @param assertionCreator The
      *
@@ -126,7 +126,7 @@ interface IAtriumFactory {
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [BaseAssertionPlant.subject]).
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
@@ -149,7 +149,7 @@ interface IAtriumFactory {
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     *   (see [BaseAssertionPlant.subject]).
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
      *
