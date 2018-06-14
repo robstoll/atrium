@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.api.cc.en_GB.contains
 import ch.tutteli.atrium.api.cc.en_GB.notToBeNull
 import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.property
 import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.returnValueOf0
@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.builders.creating.FeatureAssertionsBuilder.retur
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.spec.integration.TestData
 
-internal typealias F = Assert<TestData>.() -> Unit
+internal typealias F = AssertionPlant<TestData>.() -> Unit
 
 class FeatureAssertionsBuilderNameSpec : ch.tutteli.atrium.spec.integration.FeatureAssertionsSpec(
     AssertionVerbFactory,
