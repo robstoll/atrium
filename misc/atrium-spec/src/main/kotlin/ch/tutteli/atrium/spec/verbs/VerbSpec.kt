@@ -22,13 +22,13 @@ import org.jetbrains.spek.api.dsl.it
 
 // does not make sense to test the verbs with the verbs themselves. Thus we create our own assertion verbs here
 private fun <T : Any> assert(subject: T): AssertionPlant<T>
-    = coreFactory.newReportingPlant(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = coreFactory.newReportingPlant(ASSERT, { subject }, AtriumReporterSupplier.REPORTER)
 
 private fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, AtriumReporterSupplier.REPORTER, assertionCreator)
+    = coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, { subject }, AtriumReporterSupplier.REPORTER, assertionCreator)
 
 private fun <T : Any?> assert(subject: T)
-    = coreFactory.newReportingPlantNullable(ASSERT, subject, AtriumReporterSupplier.REPORTER)
+    = coreFactory.newReportingPlantNullable(ASSERT, { subject }, AtriumReporterSupplier.REPORTER)
 
 private fun expect(act: () -> Unit)
     = AssertImpl.throwable.thrownBuilder(EXPECT_THROWN, act, AtriumReporterSupplier.REPORTER)

@@ -42,31 +42,41 @@ interface CoreFactory {
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
-     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
+     * uses [subjectProvider] as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
+     * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
+     *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
      */
     fun <T : Any> newReportingPlant(
         assertionVerb: Translatable,
-        subject: T,
+        subjectProvider: () -> T,
         reporter: Reporter
-    ): ReportingAssertionPlant<T> = newReportingPlant(assertionVerb, subject, newThrowingAssertionChecker(reporter))
+    ): ReportingAssertionPlant<T> = newReportingPlant(
+        assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter)
+    )
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
-     * It uses the given [assertionChecker] for assertion checking.
+     * It uses the given [assertionChecker] for assertion checking, uses [subjectProvider] as
+     * [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
+     * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
+     *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
      *
@@ -74,15 +84,15 @@ interface CoreFactory {
      */
     fun <T : Any> newReportingPlant(
         assertionVerb: Translatable,
-        subject: T,
+        subjectProvider: () -> T,
         assertionChecker: AssertionChecker
     ): ReportingAssertionPlant<T> {
-        val subjectProvider = { subject }.evalOnce()
+        val evalOnceSubjectProvider = subjectProvider.evalOnce()
         return newReportingPlant(
             AssertionPlantWithCommonFields.CommonFields(
                 assertionVerb,
-                subjectProvider,
-                subjectProvider,
+                evalOnceSubjectProvider,
+                evalOnceSubjectProvider,
                 assertionChecker,
                 RawString.NULL
             )
@@ -93,7 +103,7 @@ interface CoreFactory {
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
      * It uses the [AssertionPlantWithCommonFields.CommonFields.assertionChecker] of the given [commonFields] for
-     * assertion checking.
+     * assertion checking
      *
      * @param commonFields The commonFields for the new assertion plant.
      *
@@ -107,12 +117,16 @@ interface CoreFactory {
      * given [assertionCreator] lambda where the created [Assertion]s are added as a group and usually (depending on
      * the configured [Reporter]) reported as a whole.
      *
-     * It creates a [CoreFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     * It creates a [CoreFactory.newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
+     * uses [subjectProvider] as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
+     * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
+     *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      * @param assertionCreator The
      *
@@ -123,43 +137,52 @@ interface CoreFactory {
      */
     fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(
         assertionVerb: Translatable,
-        subject: T,
+        subjectProvider: () -> T,
         reporter: Reporter,
         assertionCreator: AssertionPlant<T>.() -> Unit
-    ) = newReportingPlant(assertionVerb, subject, reporter)
+    ) = newReportingPlant(assertionVerb, subjectProvider, reporter)
         .addAssertionsCreatedBy(assertionCreator)
 
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
-     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking.
+     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
+     * uses [subjectProvider] as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
+     * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
+     *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
      */
     fun <T : Any?> newReportingPlantNullable(
         assertionVerb: Translatable,
-        subject: T,
+        subjectProvider: () -> T,
         reporter: Reporter,
         nullRepresentation: Any = RawString.NULL
-    ): ReportingAssertionPlantNullable<T>
-        = newReportingPlantNullable(assertionVerb, subject, newThrowingAssertionChecker(reporter), nullRepresentation)
+    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
+        assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter), nullRepresentation
+    )
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
-     * It uses the given [assertionChecker] for assertion checking.
+     * It uses the given [assertionChecker] for assertion checking, uses [subjectProvider] as
+     * [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
+     * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subject The subject for which this plant will create/check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.subject]).
+     * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
+     *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * @param assertionChecker The checker which will be used to check [Assertion]s.
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
      *
@@ -167,16 +190,16 @@ interface CoreFactory {
      */
     fun <T : Any?> newReportingPlantNullable(
         assertionVerb: Translatable,
-        subject: T,
+        subjectProvider: () -> T,
         assertionChecker: AssertionChecker,
-        nullRepresentation: Any
+        nullRepresentation: Any = RawString.NULL
     ): ReportingAssertionPlantNullable<T> {
-        val subjectProvider = { subject }.evalOnce()
+        val evalOnceSubjectProvider = subjectProvider.evalOnce()
         return newReportingPlantNullable(
             AssertionPlantWithCommonFields.CommonFields(
                 assertionVerb,
-                subjectProvider,
-                subjectProvider,
+                evalOnceSubjectProvider,
+                evalOnceSubjectProvider,
                 assertionChecker,
                 nullRepresentation
             )
@@ -199,11 +222,12 @@ interface CoreFactory {
      * Creates a [CheckingAssertionPlant] which provides a method to check whether
      * [allAssertionsHold][CheckingAssertionPlant.allAssertionsHold].
      *
-     * @param subject The subject for which this plant will create [Assertion]s.
+     * @param subjectProvider The provider which provides the subject for which this plant will
+     * create and check [Assertion]s.
      *
      * @return The newly created assertion plant.
      */
-    fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
+    fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
 
     /**
      * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect

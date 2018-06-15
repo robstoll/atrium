@@ -2,7 +2,6 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.creator
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
-import ch.tutteli.atrium.creating.toSubjectProvider
 import ch.tutteli.atrium.domain.robstoll.lib.creating.iterable.contains.createEntryAssertionTemplate
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
@@ -17,12 +16,12 @@ interface InOrderOnlyMatcher<E, SC> {
         translatableIndex: DescriptionIterableAssertion
     ) {
         val template = createEntryAssertionTemplate(
-            this.toSubjectProvider(),
+            this.subjectProvider,
             currentIndex,
             searchCriterion,
             translatableIndex,
             ::matches
         )
-        addAssertion(template(entryAssertionCreator(this.toSubjectProvider(), searchCriterion)))
+        addAssertion(template(entryAssertionCreator(this.subjectProvider, searchCriterion)))
     }
 }
