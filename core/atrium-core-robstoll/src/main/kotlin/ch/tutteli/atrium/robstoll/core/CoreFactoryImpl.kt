@@ -49,8 +49,8 @@ class CoreFactoryImpl : CoreFactory {
     override fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
         = ReportingAssertionPlantNullableImpl(commonFields)
 
-    override fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
-        = CheckingAssertionPlantImpl(subject)
+    override fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
+        = CheckingAssertionPlantImpl(subjectProvider)
 
     override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)

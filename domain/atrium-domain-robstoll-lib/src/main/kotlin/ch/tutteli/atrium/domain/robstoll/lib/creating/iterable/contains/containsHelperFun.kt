@@ -74,7 +74,7 @@ internal fun <E : Any> allCreatedAssertionsHold(
 ): Boolean = when (subject) {
     null -> assertionCreator == null
     else -> assertionCreator != null &&
-        coreFactory.newCheckingPlant(subject)
+        coreFactory.newCheckingPlant({ subject as E })
             .addAssertionsCreatedBy(assertionCreator)
             .allAssertionsHold()
 }
@@ -145,4 +145,3 @@ internal fun <E> createHasElementAssertion(iterable: Iterable<E>): AssertionGrou
         )
         .build()
 }
-

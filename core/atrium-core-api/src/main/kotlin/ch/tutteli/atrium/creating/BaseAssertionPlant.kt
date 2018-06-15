@@ -20,6 +20,11 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
     val subject: T
 
     /**
+     * The provider which provides [subject].
+     */
+    val subjectProvider: () -> T
+
+    /**
      * Adds the given [assertion] to this plant.
      *
      * @param assertion The assertion which will be added to this plant.
@@ -31,5 +36,3 @@ interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
      */
     fun addAssertion(assertion: Assertion): A
 }
-
-fun <T> BaseAssertionPlant<T, *>.toSubjectProvider(): () -> T = { subject }

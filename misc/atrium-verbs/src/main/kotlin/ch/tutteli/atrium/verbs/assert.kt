@@ -20,7 +20,7 @@ import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
  * @see CoreFactory.newReportingPlant
  */
 fun <T : Any> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingPlant(ASSERT, subject, reporter)
+    = AssertImpl.coreFactory.newReportingPlant(ASSERT, { subject }, reporter)
 
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
@@ -32,7 +32,7 @@ fun <T : Any> assert(subject: T)
  * @see CoreFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
 fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, subject, reporter, assertionCreator)
+    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, { subject }, reporter, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable] for the given [subject] which might be `null`.
@@ -42,7 +42,7 @@ fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
  * @see CoreFactory.newReportingPlantNullable
  */
 fun <T : Any?> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT, subject, reporter)
+    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT, { subject }, reporter)
 
 /**
  * Creates a [ThrowableThrown.Builder] for the given function [act] which is expected to throw a [Throwable].

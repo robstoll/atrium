@@ -37,7 +37,7 @@ object AtriumFactory : IAtriumFactory {
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newCheckingPlant(subject)"))
     override fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
-        = CheckingAssertionPlantImpl(subject)
+        = CheckingAssertionPlantImpl({ subject })
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newCollectingPlant(subjectProvider)"))
     override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>

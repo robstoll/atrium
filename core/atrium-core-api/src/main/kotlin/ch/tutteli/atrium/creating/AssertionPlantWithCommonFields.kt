@@ -2,13 +2,14 @@ package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.core.evalOnce
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields.CommonFields
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * An assertion plant which has [CommonFields].
  *
- * @param T The type of [CommonFields.subject] of this [AssertionPlant].
+ * @param T The type of the [AssertionPlant.subject].
  */
 interface AssertionPlantWithCommonFields<out T> {
 
@@ -20,53 +21,44 @@ interface AssertionPlantWithCommonFields<out T> {
     /**
      * Common fields of an assertion plant.
      *
-     * @param T The type of the [subject] of this [AssertionPlant].
+     * @param T The type of the [AssertionPlant.subject].
      *
      * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
-     * @property subject The subject for which this plant will create/check [Assertion]s.
      * @property assertionChecker The checker which will be used to check [Assertion]s.
-     * @property nullRepresentation The representation used in reporting in case [subject] is `null`.
+     * @property subjectProvider Provides the [AssertionPlant.subject] for which this plant will
+     *   create/check [Assertion]s.
+     * @property nullRepresentation The representation used in reporting in case [representationProvider]
+     *   cannot provide a representation, provides `null` respectively.
      *
      * @constructor
      * @param assertionVerb The assertion verb which will be used inter alia in error reporting.
-     * @param subjectProvider Provides the [subject] for which this plant will create/check [Assertion]s.
+     * @param subjectProvider Provides the [AssertionPlant.subject] for which this plant will create/check [Assertion]s.
      * @param assertionChecker The checker which will be used to check [Assertion]s.
-     * @param nullRepresentation The representation used in reporting in case [subject] is `null`.
+     * @property nullRepresentation The representation used in reporting in case [representationProvider]
+     *   cannot provide a representation, provides `null` respectively.
      *
      */
     class CommonFields<out T>(
         val assertionVerb: Translatable,
-        private val subjectProvider: () -> T,
+        val subjectProvider: () -> T,
         private val representationProvider: () -> Any?,
         val assertionChecker: AssertionChecker,
         private val nullRepresentation: Any
     ) {
-        val subject: T by lazy { subjectProvider() }
         val representation: () -> Any by lazy {
             { representationProvider() ?: nullRepresentation }
         }
 
-        /**
-         * Helper constructor to reuse [subjectProvider] also for [representationProvider] without the need to create
-         * a second lambda.
-         */
-        private constructor(
-            assertionVerb: Translatable,
-            subjectProvider: () -> T,
-            assertionChecker: AssertionChecker,
-            nullRepresentation: Any
-        ) : this(assertionVerb, subjectProvider, subjectProvider, assertionChecker, nullRepresentation)
-
         @Deprecated(
             "Use the overload with a subject provider instead. This constructor will be removed with 1.0.0",
-            ReplaceWith("this.CommonFields(assertionVerb, { subject }, assertionChecker, nullRepresentation)")
+            ReplaceWith("this.CommonFields(assertionVerb, { subject }.evalOnce(), { subject }.evalOnce() /* better assign to a variable than duplicating it, also this way subject gets called twice */, assertionChecker, nullRepresentation)")
         )
         constructor(
             assertionVerb: Translatable,
             subject: T,
             assertionChecker: AssertionChecker,
             nullRepresentation: Any
-        ) : this(assertionVerb, { subject }, assertionChecker, nullRepresentation)
+        ) : this(assertionVerb, { subject }.evalOnce(), { subject }.evalOnce(), assertionChecker, nullRepresentation)
 
         /**
          * Uses [assertionChecker] to check the given [assertions] (see [AssertionChecker.check]).

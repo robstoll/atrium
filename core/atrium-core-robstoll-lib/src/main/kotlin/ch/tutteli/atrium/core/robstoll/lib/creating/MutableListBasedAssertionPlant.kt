@@ -3,8 +3,11 @@ package ch.tutteli.atrium.core.robstoll.lib.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 
-abstract class MutableListBasedAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> :
-    BaseAssertionPlant<T, A> {
+abstract class MutableListBasedAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>>(
+    override val subjectProvider: () -> T
+) : BaseAssertionPlant<T, A> {
+
+    final override val subject : T by lazy { subjectProvider() }
 
     /**
      * The instance itself but typed as [A] which is the type used for the fluent style API.
