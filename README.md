@@ -900,7 +900,7 @@ as well as to the `AssertionBuilder` which itself helps you with creating assert
 <details>
 <summary>:interrobang: create a sophisticated assertion builder</summary>
 
-Do you want to write an own sophisticated assertion builder instead of an assertion function?
+Do you want to write an own sophisticated assertion builder (or extend a current with more options) instead of an assertion function?
 Great, I do not provide hands on documentation yet (had only one question about it so far). 
 Therefore, please have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
 [ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-api/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
