@@ -10,9 +10,9 @@ internal class ReporterOptionImpl(
     override val assertionFormatterFacade: AssertionFormatterFacade
 ) : ReporterOption {
 
-    override fun onlyFailureReporter(): ReporterBuilderFinalStep
-        = customReporter(coreFactory::newOnlyFailureReporter)
+    override fun withOnlyFailureReporter(): ReporterBuilderFinalStep
+        = withCustomReporter(coreFactory::newOnlyFailureReporter)
 
-    override fun customReporter(factory: (AssertionFormatterFacade) -> Reporter): ReporterBuilderFinalStep
-        = ReporterBuilderFinalStep.create({factory(assertionFormatterFacade)})
+    override fun withCustomReporter(factory: (AssertionFormatterFacade) -> Reporter): ReporterBuilderFinalStep
+        = ReporterBuilderFinalStep.create { factory(assertionFormatterFacade) }
 }

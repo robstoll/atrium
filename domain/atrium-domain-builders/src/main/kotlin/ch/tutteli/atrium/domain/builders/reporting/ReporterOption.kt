@@ -15,12 +15,12 @@ interface ReporterOption {
     /**
      * Uses [CoreFactory.newOnlyFailureReporter] as [Reporter].
      */
-    fun onlyFailureReporter(): ReporterBuilderFinalStep
+    fun withOnlyFailureReporter(): ReporterBuilderFinalStep
 
     /**
      * Uses the given [factory] to build a custom [Reporter].
      */
-    fun customReporter(factory: (AssertionFormatterFacade) -> Reporter): ReporterBuilderFinalStep
+    fun withCustomReporter(factory: (AssertionFormatterFacade) -> Reporter): ReporterBuilderFinalStep
 
     companion object {
         fun create(assertionFormatterFacade: AssertionFormatterFacade): ReporterOption
