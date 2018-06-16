@@ -35,6 +35,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [Expect an Exception](#expect-an-exception)
   - [Property Assertions](#property-assertions)
   - [Method Assertions](#method-assertions)
+  - [Type Assertions](#type-assertions)
   - [Collection Assertions](#collection-assertions)
     - [Shortcut Functions](#shortcut-functions)
     - [Sophisticated Assertion Builders](#sophisticated-assertion-builders)
@@ -435,6 +436,36 @@ In case you have a function with 6 or more parameters and you do not want or can
 then I suggest that you [write a specific assertion function](#write-own-assertion-functions) for it.
 
 </details>
+
+## Type Assertions
+```kotlin
+interface SuperType
+data class SubType1(val number: Int): SuperType
+data class SubType2(val word: String): SuperType
+
+val x: SuperType = SubType2("hello")
+assert(x).isA<SubType1> {
+    property(subject::number).toBe(2)
+}
+    // assert: SubType2(s=hello)        (ch.tutteli.atrium.api.cc.en_GB.SubType2 <2134607032>)
+    // ◆ is type or sub-type of: SubType1 (ch.tutteli.atrium.api.cc.en_GB.SubType1)
+    //    ❗❗ Could not evaluate the defined assertion(s) -- the down-cast to ch.tutteli.atrium.api.cc.en_GB.SubType1 failed.
+```
+You can narrow a type with the `isA` function. 
+On one hand it checks that the `subject` of the current assertion is actually the expected type 
+and on the other hand it turns the `subject` into the type which allows you to make specific assertions only possible for the corresponding type
+-- for instance, considering the above example, `number` is not available on `SuperType` but only on `SubType2`.
+
+<details>
+<summary>:interrobang: How to make arbitrary type transformations?</summary>
+
+Atrium provides the possibility to make arbitrary type transformations 
+as long as you can provide a checking function which can tell whether the transformation is safe or not 
+and a transformation function which performs the transformation as such.
+For an example, have a look at the [TypeTransformationAssertionCreatorSpec](https://github.com/robstoll/atrium/blob/v0.7.0/domain/atrium-domain-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/creating/any/typetransformation/creators/TypeTransformationAssertionCreatorSpec.kt).
+
+</details>
+
 
 ## Collection Assertions
 
