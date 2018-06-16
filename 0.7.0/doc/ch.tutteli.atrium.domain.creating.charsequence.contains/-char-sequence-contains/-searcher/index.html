@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CharSequenceContains.Searcher - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.charsequence.contains</a>&nbsp;/&nbsp;<a href="../index.html">CharSequenceContains</a>&nbsp;/&nbsp;<a href="./index.html">Searcher</a><br/>
+<br/>
+<h1>Searcher</h1>
+<code><span class="keyword">interface </span><span class="identifier">Searcher</span><span class="symbol">&lt;</span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//domain/atrium-domain-api/src/main/kotlin/ch/tutteli/atrium/domain/creating/charsequence/contains/CharSequenceContains.kt#L67">(source)</a>
+<p>Represents a searcher which supports the search behaviour <a href="index.html#S">S</a> for a given input <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a> of the search.</p>
+<h3>Parameters</h3>
+<p><a name="S"></a>
+<code>S</code> - The search behaviour which should be applied to the input <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a> in which the <a href="./index.html">Searcher</a>
+will look for something -- the actual implementation of the search behaviour happens in the
+<a href="./index.html">Searcher</a>; <a href="../-search-behaviour.html">SearchBehaviour</a> only decorates the <a href="../../../ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a> for reporting.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="search.html">search</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">search</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher$search(kotlin.CharSequence, kotlin.Any)/searchIn">searchIn</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher$search(kotlin.CharSequence, kotlin.Any)/searchFor">searchFor</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Searches in the given <a href="search.html#ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher$search(kotlin.CharSequence, kotlin.Any)/searchIn">searchIn</a> for the given <a href="search.html#ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher$search(kotlin.CharSequence, kotlin.Any)/searchFor">searchFor</a>, using its <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/to-string.html">toString</a>
+implementation, and returns the number of occurrences.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher.html">Searcher</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">Searcher</span></s><span class="symbol">&lt;</span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Searcher</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents a <em>deprecated</em> searcher which supports the search behaviour <a href="../../../ch.tutteli.atrium.assertions.charsequence.contains/-char-sequence-contains/-searcher.html#S">S</a> for a given input <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a> of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

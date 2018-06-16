@@ -1,0 +1,37 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionCollectorBuilder.collect - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.creating.collectors</a>&nbsp;/&nbsp;<a href="index.html">AssertionCollectorBuilder</a>&nbsp;/&nbsp;<a href="./collect.html">collect</a><br/>
+<br/>
+<h1>collect</h1>
+<a name="ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder$collect(kotlin.Function0((ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.CollectingAssertionPlant((ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder.collect.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">collect</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder$collect(kotlin.Function0((ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.CollectingAssertionPlant((ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder.collect.T)), kotlin.Unit)))/subjectProvider">subjectProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="collect.html#T"><span class="identifier">T</span></a><span class="symbol">, </span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder$collect(kotlin.Function0((ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.CollectingAssertionPlant((ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder.collect.T)), kotlin.Unit)))/subPlantAndAssertionCreator">subPlantAndAssertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html"><span class="identifier">CollectingAssertionPlant</span></a><span class="symbol">&lt;</span><a href="collect.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/creating/collectors/AssertionCollectorBuilder.kt#L17">(source)</a>
+<p>Overrides <a href="../../ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/collect.html">AssertionCollector.collect</a></p>
+<p>Use this function if you want to make <a href="s">Assertion</a> about a feature or you perform a type transformation or any
+other action which results in a sub-<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> being created and you do not require this resulting plant.</p>
+<p>Or in other words, you do not want to make further assertions about the resulting subject in the resulting sub
+assertion plant.</p>
+<p>This function can be useful in several cases. For instance:</p>
+<ul><li>You are writing an assertion about a feature often enough so that it deserves an own assertion function
+(see e.g. <a href="../../ch.tutteli.atrium.domain.creating/-map-assertions/has-size.html">MapAssertions.hasSize</a>)</li>
+<li>You want the collected assertion to be part of an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a></li>
+</ul>
+<h3>Parameters</h3>
+<p><a name="subjectProvider"></a>
+<code>subjectProvider</code> - Provides the subject which is used as <a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/subject.html">CollectingAssertionPlant.subject</a>.</p>
+<p><a name="subPlantAndAssertionCreator"></a>
+<code>subPlantAndAssertionCreator</code> - A lambda which typically creates a sub <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> and adds assertions
+to it. For instance, if you create a feature assertion or a type transformation assertion, you will typically
+end up creating a sub assertion plant which delegates created <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s to the <a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html">CollectingAssertionPlant</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalArgumentException"></a>
+<code>IllegalArgumentException</code> - in case the given <a href="../../ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/collect.html#ch.tutteli.atrium.domain.creating.collectors.AssertionCollector$collect(kotlin.Function0((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Function1((ch.tutteli.atrium.creating.CollectingAssertionPlant((ch.tutteli.atrium.domain.creating.collectors.AssertionCollector.collect.T)), kotlin.Unit)))/subPlantAndAssertionCreator">subPlantAndAssertionCreator</a> did not create a single
+assertion, did not pass it to the <a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/index.html">CollectingAssertionPlant</a> respectively.</p>
+<p><strong>Return</strong><br/>
+The collected assertions as an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a>.</p>
+</BODY>
+</HTML>

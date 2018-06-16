@@ -1,0 +1,132 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.builders.reporting - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.builders.reporting</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.builders.reporting</h2>
+<p>Contains the <a href="./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html">ReporterBuilder</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-formatter-chosen-options/index.html">AssertionFormatterChosenOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">AssertionFormatterChosenOptions</span></code>
+<p>Represents the so far chosen options which are relevant to create <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-controller-option/index.html">AssertionFormatterControllerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatterControllerOption</span></code>
+<p>Provides options to create an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-controller/index.html">AssertionFormatterController</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-formatter-facade-option/index.html">AssertionFormatterFacadeOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionFormatterFacadeOption</span></code>
+<p>Provides options to create an <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-pair-formatter-option/index.html">AssertionPairFormatterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionPairFormatterOption</span></code>
+<p>Provides options to create an <a href="../ch.tutteli.atrium.reporting/-assertion-pair-formatter/index.html">AssertionPairFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-locale-order-decider-option/index.html">LocaleOrderDeciderOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">LocaleOrderDeciderOption</span></code>
+<p>Provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-locale-order-decider/index.html">LocaleOrderDecider</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-object-formatter-option/index.html">ObjectFormatterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ObjectFormatterOption</span></code>
+<p>Provides options to create an <a href="../ch.tutteli.atrium.reporting/-object-formatter/index.html">ObjectFormatter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-builder/index.html">ReporterBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ReporterBuilder</span></code>
+<p>Provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> or <a href="../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-builder-final-step/index.html">ReporterBuilderFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ReporterBuilderFinalStep</span></code>
+<p>Final step in the <a href="-reporter-builder/index.html">ReporterBuilder</a> process, creates the desired <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-reporter-option/index.html">ReporterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ReporterOption</span></code>
+<p>Provides options to finalise the building process, which means creating a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-text-assertion-formatter-option/index.html">TextAssertionFormatterOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TextAssertionFormatterOption</span></code>
+<p>Provides options to register <a href="../ch.tutteli.atrium.reporting/-assertion-formatter/index.html">AssertionFormatter</a>s to the chosen <a href="../ch.tutteli.atrium.reporting/-assertion-formatter-facade/index.html">AssertionFormatterFacade</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-translator-option/index.html">TranslatorOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TranslatorOption</span></code>
+<p>Provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="reporter-builder.html">reporterBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">reporterBuilder</span><span class="symbol">: </span><a href="-reporter-builder/index.html"><span class="identifier">ReporterBuilder</span></a></code>
+<p>Entry point to build a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>
+-- the first step provides options to create a <a href="../ch.tutteli.atrium.reporting.translating/-translator/index.html">Translator</a> or a <a href="../ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html">TranslationSupplier</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

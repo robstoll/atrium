@@ -1,0 +1,24 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SingleServiceLoader.load - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.core</a>&nbsp;/&nbsp;<a href="index.html">SingleServiceLoader</a>&nbsp;/&nbsp;<a href="./load.html">load</a><br/>
+<br/>
+<h1>load</h1>
+<a name="ch.tutteli.atrium.core.SingleServiceLoader$load(java.lang.Class((ch.tutteli.atrium.core.SingleServiceLoader.load.T)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">load</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.core.SingleServiceLoader$load(java.lang.Class((ch.tutteli.atrium.core.SingleServiceLoader.load.T)))/clazz">clazz</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="load.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="load.html#T"><span class="identifier">T</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/core/SingleServiceLoader.kt#L20">(source)</a>
+<p>Loads a service vai <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> for a given <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html">Class</a> and throws an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/IllegalStateException.html">IllegalStateException</a>
+in case it finds more than one service.</p>
+<h3>Parameters</h3>
+<p><a name="clazz"></a>
+<code>clazz</code> - The service represented by a <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html">Class</a>.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - in case none or more than one service is found for the given <a href="load.html#ch.tutteli.atrium.core.SingleServiceLoader$load(java.lang.Class((ch.tutteli.atrium.core.SingleServiceLoader.load.T)))/clazz">clazz</a></p>
+<p><strong>Return</strong><br/>
+The loaded service</p>
+</BODY>
+</HTML>

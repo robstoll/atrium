@@ -1,0 +1,214 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.assertions.builders - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.assertions.builders</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.assertions.builders</h2>
+<p>The <a href="./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html">AssertionBuilder</a> 
+and other builders to ease the creation of Assertions.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-assertion-builder/index.html">AssertionBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionBuilder</span></code>
+<p>Represents a builder which creates <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s and <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-builder-final-step/index.html">AssertionBuilderFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionBuilderFinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step in the <a href="-assertion-builder/index.html">AssertionBuilder</a> process, creates the desired <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> of type <a href="-assertion-builder-final-step/index.html#T">T</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-group-description-and-empty-representation-option/index.html">AssertionGroupDescriptionAndEmptyRepresentationOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionGroupDescriptionAndEmptyRepresentationOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Option step which allows to specify the <a href="../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a> -- <a href="../ch.tutteli.atrium.reporting/-raw-string/-e-m-p-t-y.html">RawString.EMPTY</a> is
+used as <a href="../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertion-group-description-and-representation-option/index.html">AssertionGroupDescriptionAndRepresentationOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionGroupDescriptionAndRepresentationOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Option step which allows to specify <a href="../ch.tutteli.atrium.assertions/-assertion-group/description.html">AssertionGroup.description</a> and <a href="../ch.tutteli.atrium.assertions/-assertion-group/representation.html">AssertionGroup.representation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-assertions-option/index.html">AssertionsOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AssertionsOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">, </span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Option step which allows to specify <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-basic-assertion-group-final-step/index.html">BasicAssertionGroupFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">BasicAssertionGroupFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with the previously defined <a href="-basic-assertion-group-final-step/group-type.html">groupType</a>, <a href="-basic-assertion-group-final-step/description.html">description</a>,
+<a href="-basic-assertion-group-final-step/representation.html">representation</a> and <a href="-basic-assertion-group-final-step/assertions.html">assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-descriptive-assertion-final-step/index.html">DescriptiveAssertionFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html"><span class="identifier">DescriptiveAssertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates a <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the previously defined <a href="-descriptive-assertion-final-step/test.html">test</a>, <a href="-descriptive-assertion-final-step/description.html">description</a>
+and <a href="-descriptive-assertion-final-step/representation.html">representation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-descriptive-assertion-holds-option/index.html">DescriptiveAssertionHoldsOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionHoldsOption</span></code>
+<p>Option step which allows to specify <a href="../ch.tutteli.atrium.assertions/-assertion/holds.html">DescriptiveAssertion.holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-descriptive-like-assertion-description-option/index.html">DescriptiveLikeAssertionDescriptionOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveLikeAssertionDescriptionOption</span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span></code>
+<p>Option step which allows to specify the description of a descriptive like assertion (such as <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-explanatory-assertion-explanation-option/index.html">ExplanatoryAssertionExplanationOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionExplanationOption</span></code>
+<p>Option step which allows to specify <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion/explanation.html">ExplanatoryAssertion.explanation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-explanatory-assertion-final-step/index.html">ExplanatoryAssertionFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html"><span class="identifier">ExplanatoryAssertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates an <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html">ExplanatoryAssertion</a> based on the previously defined <a href="-explanatory-assertion-final-step/explanation.html">explanation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-explanatory-assertion-group-final-step/index.html">ExplanatoryAssertionGroupFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionGroupFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> based on the previously
+defined <a href="-explanatory-assertion-group-final-step/group-type.html">groupType</a> and the <a href="-explanatory-assertion-group-final-step/explanatory-assertions.html">explanatoryAssertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-explanatory-assertion-group-type-option/index.html">ExplanatoryAssertionGroupTypeOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionGroupTypeOption</span></code>
+<p>Option step which allows to specify what <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> is used as <a href="../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Type Aliases</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-default-assertion-group-builder-options.html">DefaultAssertionGroupBuilderOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">typealias </span><span class="identifier">DefaultAssertionGroupBuilderOptions</span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">=</span>&nbsp;<a href="-assertion-group-description-and-representation-option/index.html"><span class="identifier">AssertionGroupDescriptionAndRepresentationOption</span></a><span class="symbol">&lt;</span><a href="-default-assertion-group-builder-options.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="-default-assertion-group-builder-options.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertion-builder.html">assertionBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertionBuilder</span><span class="symbol">: </span><a href="-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a></code>
+<p>Returns the <a href="-assertion-builder/index.html">AssertionBuilder</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="invisible-group.html">invisibleGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">invisibleGroup</span><span class="symbol">: </span><a href="-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html"><span class="identifier">InvisibleAssertionGroupType</span></a><span class="symbol">,</span>&nbsp;<a href="-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Builder to create an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../ch.tutteli.atrium.assertions/-invisible-assertion-group-type.html">InvisibleAssertionGroupType</a> -- use it only if you have several
+independent <a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s which should be evaluated together.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="root.html">root</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">root</span><span class="symbol">: </span><a href="-default-assertion-group-builder-options.html"><span class="identifier">DefaultAssertionGroupBuilderOptions</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-root-assertion-group-type.html"><span class="identifier">RootAssertionGroupType</span></a><span class="symbol">&gt;</span></code>
+<p>Builder to create the root <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> -- do not use it in assertion functions; this group should only be
+created by <a href="../ch.tutteli.atrium.checking/-assertion-checker/index.html">AssertionChecker</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-explanatory-assertion.html">withExplanatoryAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a><span class="symbol">&gt;</span> <a href="-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="with-explanatory-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-explanatory-assertion-group-final-step/index.html"><span class="identifier">ExplanatoryAssertionGroupFinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">withExplanatoryAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders$withExplanatoryAssertion(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion.T, ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep)), ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-explanatory-assertion-group-final-step/index.html"><span class="identifier">ExplanatoryAssertionGroupFinalStep</span></a></code>
+<p>Creates the <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with the previously specified <a href="-assertions-option/group-type.html">AssertionsOption.groupType</a> using the given
+<a href="with-explanatory-assertion.html#ch.tutteli.atrium.assertions.builders$withExplanatoryAssertion(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion.T, ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep)), ch.tutteli.atrium.reporting.translating.Translatable)/translatable">translatable</a> to create an <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html">ExplanatoryAssertion</a> which is used as single
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> in <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="with-explanatory-assertions.html">withExplanatoryAssertions</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a><span class="symbol">&gt;</span> <a href="-assertions-option/index.html"><span class="identifier">AssertionsOption</span></a><span class="symbol">&lt;</span><a href="with-explanatory-assertions.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="-explanatory-assertion-group-final-step/index.html"><span class="identifier">ExplanatoryAssertionGroupFinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">withExplanatoryAssertions</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.builders$withExplanatoryAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.assertions.builders.withExplanatoryAssertions.T, ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Array((kotlin.Any)))/translatable">translatable</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.builders$withExplanatoryAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.assertions.builders.withExplanatoryAssertions.T, ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Array((kotlin.Any)))/arg">arg</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.assertions.builders$withExplanatoryAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.assertions.builders.withExplanatoryAssertions.T, ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Array((kotlin.Any)))/otherArgs">otherArgs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-explanatory-assertion-group-final-step/index.html"><span class="identifier">ExplanatoryAssertionGroupFinalStep</span></a></code>
+<p>Creates the <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with the previously specified <a href="-assertions-option/group-type.html">AssertionsOption.groupType</a> using the given
+<a href="with-explanatory-assertions.html#ch.tutteli.atrium.assertions.builders$withExplanatoryAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.assertions.builders.withExplanatoryAssertions.T, ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Array((kotlin.Any)))/translatable">translatable</a> -- which is used in an <a href="../ch.tutteli.atrium.reporting.translating/-translatable-with-args/index.html">TranslatableWithArgs</a> together with the given arguments (<a href="with-explanatory-assertions.html#ch.tutteli.atrium.assertions.builders$withExplanatoryAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.assertions.builders.withExplanatoryAssertions.T, ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Array((kotlin.Any)))/arg">arg</a> and
+optionally <a href="with-explanatory-assertions.html#ch.tutteli.atrium.assertions.builders$withExplanatoryAssertions(ch.tutteli.atrium.assertions.builders.AssertionsOption((ch.tutteli.atrium.assertions.builders.withExplanatoryAssertions.T, ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep)), ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.Array((kotlin.Any)))/otherArgs">otherArgs</a>) -- to create an <a href="../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html">ExplanatoryAssertion</a> which is used as single
+<a href="../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> in <a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

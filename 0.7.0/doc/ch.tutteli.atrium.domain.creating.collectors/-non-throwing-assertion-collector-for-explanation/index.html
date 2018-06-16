@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NonThrowingAssertionCollectorForExplanation - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.creating.collectors</a>&nbsp;/&nbsp;<a href="./index.html">NonThrowingAssertionCollectorForExplanation</a><br/>
+<br/>
+<h1>NonThrowingAssertionCollectorForExplanation</h1>
+<code><span class="keyword">interface </span><span class="identifier">NonThrowingAssertionCollectorForExplanation</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//domain/atrium-domain-api/src/main/kotlin/ch/tutteli/atrium/domain/creating/collectors/assertionCollectorsForExplanation.kt#L26">(source)</a>
+<p>Represents an assertion collector meant for explanation which does <em>not</em> throw in case not a single <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>
+was collected.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="collect.html">collect</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">collect</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation$collect(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)), kotlin.Unit)), ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)/warning">warning</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation$collect(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)), kotlin.Unit)), ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="collect.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation$collect(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)), kotlin.Unit)), ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)/subject">subject</span><span class="symbol">:</span>&nbsp;<a href="collect.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Collects the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> created by <a href="collect.html#ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation$collect(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)), kotlin.Unit)), ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)/assertionCreator">assertionCreator</a> and uses the given <a href="collect.html#ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation$collect(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)), kotlin.Unit)), ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation.collect.E)/subject">subject</a> as
+<a href="../../ch.tutteli.atrium.creating/-collecting-assertion-plant/subject.html">CollectingAssertionPlant.subject</a> if not null.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

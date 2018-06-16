@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>irgendEinNullable - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.de_CH</a>&nbsp;/&nbsp;<a href="./irgend-ein-nullable.html">irgendEinNullable</a><br/>
+<br/>
+<h1>irgendEinNullable</h1>
+<a name="ch.tutteli.atrium.api.cc.de_CH$irgendEinNullable(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.irgendEinNullable.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.irgendEinNullable.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="irgend-ein-nullable.html#E"><span class="identifier">E</span></a><span class="symbol">?</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="irgend-ein-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">irgendEinNullable</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$irgendEinNullable(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.irgendEinNullable.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.irgendEinNullable.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="irgend-ein-nullable.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="irgend-ein-nullable.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//apis/atrium-api-cc-de_CH/src/main/kotlin/ch/tutteli/atrium/api/cc/de_CH/iterableAssertions.kt#L307">(source)</a>
+<p>Makes the assertion that <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> (which has a nullable entry type) contains an entry holding
+the assertions created by <a href="irgend-ein-nullable.html#ch.tutteli.atrium.api.cc.de_CH$irgendEinNullable(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.irgendEinNullable.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.irgendEinNullable.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a> or an entry which is <code>null</code> in case <a href="irgend-ein-nullable.html#ch.tutteli.atrium.api.cc.de_CH$irgendEinNullable(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.irgendEinNullable.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.irgendEinNullable.E)), kotlin.Unit)))/assertionCreatorOrNull">assertionCreatorOrNull</a>
+is defined as <code>null</code>.</p>
+<p>It is a shortcut for <code>enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)</code></p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DescriptiveAssertionWithFailureHintShowOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.assertions.builders</a>&nbsp;/&nbsp;<a href="./index.html">DescriptiveAssertionWithFailureHintShowOption</a><br/>
+<br/>
+<h1>DescriptiveAssertionWithFailureHintShowOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionWithFailureHintShowOption</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/assertions/builders/descriptiveWithFailureHint.kt#L25">(source)</a>
+<p>Option step which allows to specify in which situations the failure hint should be shown.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="show-for-any-failure.html">showForAnyFailure</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">showForAnyFailure</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions.builders/-descriptive-like-assertion-description-option/index.html"><span class="identifier">DescriptiveLikeAssertionDescriptionOption</span></a><span class="symbol">&lt;</span><a href="../-descriptive-assertion-with-failure-hint-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHintFinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the failure hint shall be shown in any case.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="show-only-if.html">showOnlyIf</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">showOnlyIf</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintShowOption$showOnlyIf(kotlin.Function0((kotlin.Boolean)))/predicate">predicate</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.assertions.builders/-descriptive-like-assertion-description-option/index.html"><span class="identifier">DescriptiveLikeAssertionDescriptionOption</span></a><span class="symbol">&lt;</span><a href="../-descriptive-assertion-with-failure-hint-final-step/index.html"><span class="identifier">DescriptiveAssertionWithFailureHintFinalStep</span></a><span class="symbol">&gt;</span></code>
+<p>Defines that the failure hint shall only be shown if the given <a href="show-only-if.html#ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintShowOption$showOnlyIf(kotlin.Function0((kotlin.Boolean)))/predicate">predicate</a> holds.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintShowOption.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/test">test</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders.DescriptiveAssertionWithFailureHintShowOption.Companion$create(kotlin.Function0((kotlin.Boolean)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">DescriptiveAssertionWithFailureHintShowOption</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

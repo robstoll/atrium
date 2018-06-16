@@ -1,0 +1,34 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>and - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.en_UK</a>&nbsp;/&nbsp;<a href="./and.html">and</a><br/>
+<br/>
+<h1>and</h1>
+<a name="ch.tutteli.atrium.api.cc.en_UK$and#ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.and.T))"></a>
+<code><span class="keyword">val </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">and</span></s><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//apis/atrium-api-cc-en_UK/src/main/kotlin/ch/tutteli/atrium/api/cc/en_UK/anyAssertions.kt#L85">(source)</a><br/>
+<strong>Deprecated:</strong> Use pendant from package en_GB; will be removed with 1.0.0<br/>
+<br/>
+<p>Can be used to separate assertions when using the fluent API.</p>
+<p>For instance <code>assert(1).isLessThan(2).and.isGreaterThan(0)</code> creates
+two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and a second
+asserts that 1 is greater than 0. If the first assertion fails, then usually (depending on the configured
+<a href="../ch.tutteli.atrium.checking/-assertion-checker/index.html">AssertionChecker</a>) the second assertion is not evaluated.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+<a name="ch.tutteli.atrium.api.cc.en_UK$and(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.and.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.and.T)), kotlin.Unit)))"></a>
+<code><span class="keyword">infix</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><s><span class="identifier">and</span></s><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_UK$and(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.and.T)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_UK.and.T)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="and.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//apis/atrium-api-cc-en_UK/src/main/kotlin/ch/tutteli/atrium/api/cc/en_UK/anyAssertions.kt#L98">(source)</a><br/>
+<strong>Deprecated:</strong> Use pendant from package en_GB; will be removed with 1.0.0<br/>
+<br/>
+<p>Can be used to create a group of sub assertions when using the fluent API.</p>
+<p>For instance <code>assert(1).isLessThan(3).and { isEven(); isGreaterThan(1) }</code> creates
+two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the
+second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1.
+Hence the reporting might (depending on the configured <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) contain both failing sub-assertions.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

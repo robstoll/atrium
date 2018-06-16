@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ReporterFactory - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./index.html">ReporterFactory</a><br/>
+<br/>
+<h1>ReporterFactory</h1>
+<code><span class="keyword">interface </span><span class="identifier">ReporterFactory</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/reporting/ReporterFactory.kt#L35">(source)</a>
+<p>Responsible to create a <a href="../-reporter/index.html">Reporter</a>.</p>
+<p>It identify itself via its <a href="id.html">id</a>. This id can be used by a user to specify that this <a href="./index.html">ReporterFactory</a> shall be used.
+In order to do that, the user has to define the system property <code>ch.tutteli.atrium.reporting.reporterFactory</code></p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Identification of the supplier</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create.html">create</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">create</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-reporter/index.html"><span class="identifier">Reporter</span></a></code>
+<p>Creates a new <a href="../-reporter/index.html">Reporter</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-s-y-s-t-e-m_-p-r-o-p-e-r-t-y.html">SYSTEM_PROPERTY</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SYSTEM_PROPERTY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The key of the system property which is used to define which <a href="./index.html">ReporterFactory</a> shall be used.
+You can use <a href="specify-factory.html">specifyFactory</a> or <a href="specify-factory-if-not-yet-set.html">specifyFactoryIfNotYetSet</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="specify-factory.html">specifyFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">specifyFactory</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterFactory.Companion$specifyFactory(kotlin.String)/reporterFactoryId">reporterFactoryId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Sets the system property with key <a href="-s-y-s-t-e-m_-p-r-o-p-e-r-t-y.html">SYSTEM_PROPERTY</a> (which is <code>ch.tutteli.atrium.reporting.reporterFactory</code>)
+to the given <a href="specify-factory.html#ch.tutteli.atrium.reporting.ReporterFactory.Companion$specifyFactory(kotlin.String)/reporterFactoryId">reporterFactoryId</a> regardless if another id was specified before.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="specify-factory-if-not-yet-set.html">specifyFactoryIfNotYetSet</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">specifyFactoryIfNotYetSet</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.ReporterFactory.Companion$specifyFactoryIfNotYetSet(kotlin.String)/reporterFactoryId">reporterFactoryId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets the system property with key <a href="-s-y-s-t-e-m_-p-r-o-p-e-r-t-y.html">SYSTEM_PROPERTY</a> (which is <code>ch.tutteli.atrium.reporting.reporterFactory</code>)
+to the given <a href="specify-factory-if-not-yet-set.html#ch.tutteli.atrium.reporting.ReporterFactory.Companion$specifyFactoryIfNotYetSet(kotlin.String)/reporterFactoryId">reporterFactoryId</a> if another id was not <em>yet</em> specified before.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,87 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ContainsBuilder - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.basic.contains.builders</a>&nbsp;/&nbsp;<a href="./index.html">ContainsBuilder</a><br/>
+<br/>
+<h1>ContainsBuilder</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><s><span class="identifier">ContainsBuilder</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-search-behaviour/index.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-builder/index.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//domain/atrium-domain-api-deprecated/src/main/kotlin/ch/tutteli/atrium/assertions/basic/contains/builders/ContainsBuilder.kt#L28">(source)</a><br/>
+<strong>Deprecated:</strong> use the interface Contains.Builder instead, will be removed with 1.0.0<br/>
+<br/>
+<p>Represents the <em>deprecated</em> base class for builders representing the entry point of the process of building a sophisticated
+<code>contains</code> assertion.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of the <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a>.</p>
+<p><a name="S"></a>
+<code>S</code> - The type of the current <a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-search-behaviour/index.html">Contains.SearchBehaviour</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ContainsBuilder</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder$<init>(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder.T)), ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder.S)/plant">plant</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder$<init>(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder.T)), ch.tutteli.atrium.assertions.basic.contains.builders.ContainsBuilder.S)/searchBehaviour">searchBehaviour</span><span class="symbol">:</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">)</span></code>
+<p>Represents the base class for builders representing the entry point of the process of building a
+sophisticated <code>contains</code> assertion.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="plant.html">plant</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">plant</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>The <a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html">AssertionPlant</a> for which the sophisticated <code>contains</code> assertions shall be built.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="search-behaviour.html">searchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">searchBehaviour</span><span class="symbol">: </span><a href="index.html#S"><span class="identifier">S</span></a></code>
+<p>The search behaviour which shall be applied to the input of the search.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-builder/index.html">CharSequenceContainsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><s><span class="identifier">CharSequenceContainsBuilder</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ContainsBuilder</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-builder/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-builder/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-builder.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-builder/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.charsequence.contains.builders/-char-sequence-contains-builder/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the <em>deprecated</em> entry point of the fluent API of sophisticated <code>contains</code> assertions.
+It contains the <a href="plant.html">plant</a> for which the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be build as well as the decoration behaviour which shall be
+applied to the <a href="plant.html">plant</a>'s <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">subject</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html">IterableContainsBuilder</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><s><span class="identifier">IterableContainsBuilder</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">E</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ContainsBuilder</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-builder.html"><span class="identifier">Builder</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html#E"><span class="identifier">E</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions.iterable.contains.builders/-iterable-contains-builder/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the <em>deprecated</em> entry point of the fluent API of sophisticated <code>contains</code> assertions.
+It contains the <a href="plant.html">plant</a> for which the <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> shall be build as well as the decoration behaviour which shall be
+applied to the <a href="plant.html">plant</a>'s <a href="../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">subject</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Contains.Creator - doc</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">doc</a>&nbsp;/&nbsp;<a href="../../index.html">ch.tutteli.atrium.domain.creating.basic.contains</a>&nbsp;/&nbsp;<a href="../index.html">Contains</a>&nbsp;/&nbsp;<a href="./index.html">Creator</a><br/>
+<br/>
+<h1>Creator</h1>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//domain/atrium-domain-api/src/main/kotlin/ch/tutteli/atrium/domain/creating/basic/contains/Contains.kt#L92">(source)</a>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+as such.</p>
+<h3>Parameters</h3>
+<p><a name="T"></a>
+<code>T</code> - The type of the <a href="../../../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a>.</p>
+<p><a name="SC"></a>
+<code>SC</code> - The type of the search criteria.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-assertion-group.html">createAssertionGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator.SC)))/plant">plant</span><span class="symbol">:</span>&nbsp;<a href="../../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator.SC)))/searchCriteria">searchCriteria</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="index.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a></code>
+<p>Creates an <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> representing the sophisticated <code>contains</code> assertion for the given <a href="create-assertion-group.html#ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator.SC)))/plant">plant</a> based
+on the given <a href="create-assertion-group.html#ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator$createAssertionGroup(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator.T)), kotlin.collections.List((ch.tutteli.atrium.domain.creating.basic.contains.Contains.Creator.SC)))/searchCriteria">searchCriteria</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.assertions.basic.contains/-contains/-creator.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">Creator</span></s><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Creator</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.assertions.basic.contains/-contains/-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.assertions.basic.contains/-contains/-creator.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-creator.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Creator</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-creator.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+as such.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-creator.html">Creator</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">Creator</span><span class="symbol">&lt;</span><span class="keyword">in</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="keyword">in</span>&nbsp;<span class="identifier">SC</span><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Creator</span></a><span class="symbol">&lt;</span><a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-creator.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../../ch.tutteli.atrium.domain.creating.iterable.contains/-iterable-contains/-creator.html#SC"><span class="identifier">SC</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the final step of a sophisticated <code>contains</code> assertion builder which creates the <a href="../../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+as such.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

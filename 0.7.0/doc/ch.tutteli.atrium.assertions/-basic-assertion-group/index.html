@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>BasicAssertionGroup - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./index.html">BasicAssertionGroup</a><br/>
+<br/>
+<h1>BasicAssertionGroup</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><s><span class="identifier">BasicAssertionGroup</span></s>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/assertions/BasicAssertionGroup.kt#L16">(source)</a><br/>
+<strong>Deprecated:</strong> Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0<br/>
+<br/>
+<p>A default implementation for <a href="../-assertion-group/index.html">AssertionGroup</a> -- it has a certain <a href="type.html">type</a>, a <a href="description.html">description</a>, a <a href="representation.html">representation</a>
+and of course <a href="assertions.html">assertions</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">BasicAssertionGroup</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/type">type</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/description">description</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/representation">representation</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.assertions.BasicAssertionGroup$<init>(ch.tutteli.atrium.assertions.AssertionGroupType, ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Any, kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>A default implementation for <a href="../-assertion-group/index.html">AssertionGroup</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assertions.html">assertions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">assertions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>The assertions of this group, which are defined for the subject represented by <a href="representation.html">representation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="description.html">description</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">description</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code>
+<p>The description of the group.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="representation.html">representation</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">representation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code>
+<p>The representation of the subject for which the <a href="assertions.html">assertions</a> are defined.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="type.html">type</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><a href="../-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code>
+<p>The type of the group, e.g. <a href="../-feature-assertion-group-type.html">FeatureAssertionGroupType</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-assertion-group/name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><s><span class="identifier">name</span></s><span class="symbol">: </span><a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-assertion-group/subject.html">subject</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><s><span class="identifier">subject</span></s><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-assertion-group/holds.html">holds</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">holds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>Holds if all its <a href="../-assertion-group/assertions.html">assertions</a> hold.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

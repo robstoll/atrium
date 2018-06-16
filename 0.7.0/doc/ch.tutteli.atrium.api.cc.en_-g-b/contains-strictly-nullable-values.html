@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>containsStrictlyNullableValues - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.en_GB</a>&nbsp;/&nbsp;<a href="./contains-strictly-nullable-values.html">containsStrictlyNullableValues</a><br/>
+<br/>
+<h1>containsStrictlyNullableValues</h1>
+<a name="ch.tutteli.atrium.api.cc.en_GB$containsStrictlyNullableValues(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.T)), ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E, kotlin.Array((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E)))"></a>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">, </span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html"><span class="identifier">Iterable</span></a><span class="symbol">&lt;</span><a href="contains-strictly-nullable-values.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="contains-strictly-nullable-values.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">containsStrictlyNullableValues</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.api.cc.en_GB$containsStrictlyNullableValues(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.T)), ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E, kotlin.Array((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E)))/expectedOrNull">expectedOrNull</span><span class="symbol">:</span>&nbsp;<a href="contains-strictly-nullable-values.html#E"><span class="identifier">E</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="ch.tutteli.atrium.api.cc.en_GB$containsStrictlyNullableValues(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.T)), ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E, kotlin.Array((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E)))/otherExpectedOrNulls">otherExpectedOrNulls</span><span class="symbol">:</span>&nbsp;<a href="contains-strictly-nullable-values.html#E"><span class="identifier">E</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="contains-strictly-nullable-values.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//apis/atrium-api-cc-en_GB/src/main/kotlin/ch/tutteli/atrium/api/cc/en_GB/iterableAssertions.kt#L171">(source)</a>
+<p>Makes the assertion that <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> (which has a nullable entry type) contains only
+the <a href="contains-strictly-nullable-values.html#ch.tutteli.atrium.api.cc.en_GB$containsStrictlyNullableValues(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.T)), ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E, kotlin.Array((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E)))/expectedOrNull">expected</a> nullable value and the <a href="contains-strictly-nullable-values.html#ch.tutteli.atrium.api.cc.en_GB$containsStrictlyNullableValues(ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.T)), ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E, kotlin.Array((ch.tutteli.atrium.api.cc.en_GB.containsStrictlyNullableValues.E)))/otherExpectedOrNulls">other expected</a> nullable values
+(if given) in the defined order.</p>
+<p>It is a shortcut for <code>contains.inOrder.only.nullableValues(expectedOrNull, *otherExpectedOrNulls)</code></p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+This plant to support a fluent API.</p>
+</BODY>
+</HTML>

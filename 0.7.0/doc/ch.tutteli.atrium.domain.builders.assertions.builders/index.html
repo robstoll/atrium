@@ -1,0 +1,95 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.builders.assertions.builders - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.builders.assertions.builders</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.builders.assertions.builders</h2>
+<p>Contains extension functions for the <a href="./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html">AssertionBuilder</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-descriptive-assertion-with-failure-hint-final-step/index.html">DescriptiveAssertionWithFailureHintFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionWithFailureHintFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions.builders/-assertion-builder-final-step/index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates a <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> if the <a href="-descriptive-assertion-with-failure-hint-final-step/test.html">test</a> holds or an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which includes
+additionally a failure hint created by the given <a href="-descriptive-assertion-with-failure-hint-final-step/failure-hint-factory.html">failureHintFactory</a> in case <a href="-descriptive-assertion-with-failure-hint-final-step/show-hint.html">showHint</a> evaluates to <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-descriptive-assertion-with-failure-hint-show-option/index.html">DescriptiveAssertionWithFailureHintShowOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionWithFailureHintShowOption</span></code>
+<p>Option step which allows to specify in which situations the failure hint should be shown.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-fixed-claim-assertion-group-final-step/index.html">FixedClaimAssertionGroupFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FixedClaimAssertionGroupFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions.builders/-basic-assertion-group-final-step/index.html"><span class="identifier">BasicAssertionGroupFinalStep</span></a></code>
+<p>Final step which creates an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is fixed (not determined based on its
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a> but on the given <a href="-fixed-claim-assertion-group-final-step/holds.html">holds</a>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-fixed-claim-assertion-group-holds-option/index.html">FixedClaimAssertionGroupHoldsOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FixedClaimAssertionGroupHoldsOption</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a><span class="symbol">&gt;</span></code>
+<p>Option step which allows to specify the <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-fixed-claim-assertion-group-type-option/index.html">FixedClaimAssertionGroupTypeOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FixedClaimAssertionGroupTypeOption</span></code>
+<p>Option step which allows to specify the <a href="../ch.tutteli.atrium.assertions/-assertion-group/type.html">AssertionGroup.type</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="fixed-claim-group.html">fixedClaimGroup</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><a href="../ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html"><span class="identifier">AssertionBuilder</span></a><span class="symbol">.</span><span class="identifier">fixedClaimGroup</span><span class="symbol">: </span><a href="-fixed-claim-assertion-group-type-option/index.html"><span class="identifier">FixedClaimAssertionGroupTypeOption</span></a></code>
+<p>Builder to create an <a href="../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> whose <a href="../ch.tutteli.atrium.assertions/-assertion-group/holds.html">AssertionGroup.holds</a> is fixed (not determined based on its
+<a href="../ch.tutteli.atrium.assertions/-assertion-group/assertions.html">AssertionGroup.assertions</a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="with-failure-hint.html">withFailureHint</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive-like-assertion-description-option/index.html"><span class="identifier">DescriptiveLikeAssertionDescriptionOption</span></a><span class="symbol">&lt;</span><a href="../ch.tutteli.atrium.assertions.builders/-descriptive-assertion-final-step/index.html"><span class="identifier">DescriptiveAssertionFinalStep</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">withFailureHint</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.builders.assertions.builders$withFailureHint(ch.tutteli.atrium.assertions.builders.DescriptiveLikeAssertionDescriptionOption((ch.tutteli.atrium.assertions.builders.DescriptiveAssertionFinalStep)), kotlin.Function0((ch.tutteli.atrium.assertions.Assertion)))/failureHintFactory">failureHintFactory</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-descriptive-assertion-with-failure-hint-show-option/index.html"><span class="identifier">DescriptiveAssertionWithFailureHintShowOption</span></a></code>
+<p>Option to create a <a href="../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> like assertion with an additional hint which might be shown if the
+<a href="../ch.tutteli.atrium.assertions.builders/-descriptive-like-assertion-description-option/test.html">DescriptiveLikeAssertionDescriptionOption.test</a> fails.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>reporter - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="./reporter.html">reporter</a><br/>
+<br/>
+<h1>reporter</h1>
+<a name="ch.tutteli.atrium.reporting$reporter"></a>
+<code><span class="keyword">val </span><span class="identifier">reporter</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/reporting/ReporterFactory.kt#L17">(source)</a>
+<p>The access point to an implementation of <a href="-reporter/index.html">Reporter</a>.</p>
+<p>It loads implementations of <a href="-reporter-factory/index.html">ReporterFactory</a> lazily via <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> and searches for the id specified via the
+system property with key <a href="-reporter-factory/-s-y-s-t-e-m_-p-r-o-p-e-r-t-y.html">ReporterFactory.SYSTEM_PROPERTY</a> (which is <code>ch.tutteli.atrium.reporting.reporterFactory</code>)
+or uses <code>default</code> in case the system property is not specified.</p>
+<p>Use <a href="-reporter-factory/specify-factory.html">ReporterFactory.specifyFactory</a> or <a href="-reporter-factory/specify-factory-if-not-yet-set.html">ReporterFactory.specifyFactoryIfNotYetSet</a> to define the system property.</p>
+<p>Notice, that searching for a <a href="-reporter-factory/index.html">ReporterFactory</a> is only done once and the result is cached afterwards.
+Please <a href="https://github.com/robstoll/atrium/issues/new">open an issue</a> if you want to change reporter during a test-run.</p>
+<p><strong>Getter</strong><br/>
+<p>The access point to an implementation of <a href="-reporter/index.html">Reporter</a>.</p>
+<p>It loads implementations of <a href="-reporter-factory/index.html">ReporterFactory</a> lazily via <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> and searches for the id specified via the
+system property with key <a href="-reporter-factory/-s-y-s-t-e-m_-p-r-o-p-e-r-t-y.html">ReporterFactory.SYSTEM_PROPERTY</a> (which is <code>ch.tutteli.atrium.reporting.reporterFactory</code>)
+or uses <code>default</code> in case the system property is not specified.</p>
+<p>Use <a href="-reporter-factory/specify-factory.html">ReporterFactory.specifyFactory</a> or <a href="-reporter-factory/specify-factory-if-not-yet-set.html">ReporterFactory.specifyFactoryIfNotYetSet</a> to define the system property.</p>
+<p>Notice, that searching for a <a href="-reporter-factory/index.html">ReporterFactory</a> is only done once and the result is cached afterwards.
+Please <a href="https://github.com/robstoll/atrium/issues/new">open an issue</a> if you want to change reporter during a test-run.</p>
+</p>
+</BODY>
+</HTML>

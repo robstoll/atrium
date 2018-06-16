@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours</h2>
+<p>Contains <a href="./ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours/-search-behaviour-factory/index.html">SearchBehaviourFactory</a>
+which defines the minimum set of <a href="./ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html">CharSequenceContains.SearchBehaviour</a>
+an implementation has to provide.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-ignoring-case-search-behaviour.html">IgnoringCaseSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IgnoringCaseSearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a></code>
+<p>Represents the search behaviour that a <a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a> should ignore case
+when searching for an expected object.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-no-op-search-behaviour/index.html">NoOpSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">NoOpSearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a></code>
+<p>Represents the default search behaviour or rather does not define a search behaviour at all.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-not-search-behaviour.html">NotSearchBehaviour</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">NotSearchBehaviour</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-no-op-search-behaviour/index.html"><span class="identifier">NoOpSearchBehaviour</span></a></code>
+<p>Represents still the default search behaviour but a <a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker.html">CharSequenceContains.Checker</a> should be used which verifies
+that the <a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-searcher/index.html">CharSequenceContains.Searcher</a> could not find the expected object.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-search-behaviour-factory/index.html">SearchBehaviourFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SearchBehaviourFactory</span></code>
+<p>Defines the minimum set of <a href="../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html">CharSequenceContains.SearchBehaviour</a>s an implementation of the domain of Atrium
+has to provide.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="search-behaviour-factory.html">searchBehaviourFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">searchBehaviourFactory</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>The access point to an implementation of <a href="-search-behaviour-factory/index.html">SearchBehaviourFactory</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

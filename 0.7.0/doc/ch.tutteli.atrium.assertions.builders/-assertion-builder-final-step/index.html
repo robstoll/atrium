@@ -1,0 +1,82 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionBuilderFinalStep - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.assertions.builders</a>&nbsp;/&nbsp;<a href="./index.html">AssertionBuilderFinalStep</a><br/>
+<br/>
+<h1>AssertionBuilderFinalStep</h1>
+<code><span class="keyword">interface </span><span class="identifier">AssertionBuilderFinalStep</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/assertions/builders/AssertionBuilderFinalStep.kt#L8">(source)</a>
+<p>Final step in the <a href="../-assertion-builder/index.html">AssertionBuilder</a> process, creates the desired <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> of type <a href="index.html#T">T</a>.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="build.html">build</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="index.html#T"><span class="identifier">T</span></a></code>
+<p>Creates and returns the new <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-basic-assertion-group-final-step/index.html">BasicAssertionGroupFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">BasicAssertionGroupFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with the previously defined <a href="../-basic-assertion-group-final-step/group-type.html">groupType</a>, <a href="../-basic-assertion-group-final-step/description.html">description</a>,
+<a href="../-basic-assertion-group-final-step/representation.html">representation</a> and <a href="../-basic-assertion-group-final-step/assertions.html">assertions</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-descriptive-assertion-final-step/index.html">DescriptiveAssertionFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html"><span class="identifier">DescriptiveAssertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> based on the previously defined <a href="../-descriptive-assertion-final-step/test.html">test</a>, <a href="../-descriptive-assertion-final-step/description.html">description</a>
+and <a href="../-descriptive-assertion-final-step/representation.html">representation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.builders.assertions.builders/-descriptive-assertion-with-failure-hint-final-step/index.html">DescriptiveAssertionWithFailureHintFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DescriptiveAssertionWithFailureHintFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates a <a href="../../ch.tutteli.atrium.assertions/-descriptive-assertion/index.html">DescriptiveAssertion</a> if the <a href="../../ch.tutteli.atrium.domain.builders.assertions.builders/-descriptive-assertion-with-failure-hint-final-step/test.html">test</a> holds or an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> which includes
+additionally a failure hint created by the given <a href="../../ch.tutteli.atrium.domain.builders.assertions.builders/-descriptive-assertion-with-failure-hint-final-step/failure-hint-factory.html">failureHintFactory</a> in case <a href="../../ch.tutteli.atrium.domain.builders.assertions.builders/-descriptive-assertion-with-failure-hint-final-step/show-hint.html">showHint</a> evaluates to <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-explanatory-assertion-final-step/index.html">ExplanatoryAssertionFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html"><span class="identifier">ExplanatoryAssertion</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates an <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion/index.html">ExplanatoryAssertion</a> based on the previously defined <a href="../-explanatory-assertion-final-step/explanation.html">explanation</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-explanatory-assertion-group-final-step/index.html">ExplanatoryAssertionGroupFinalStep</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionGroupFinalStep</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">AssertionBuilderFinalStep</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html"><span class="identifier">AssertionGroup</span></a><span class="symbol">&gt;</span></code>
+<p>Final step which creates an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> with an <a href="../../ch.tutteli.atrium.assertions/-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> based on the previously
+defined <a href="../-explanatory-assertion-group-final-step/group-type.html">groupType</a> and the <a href="../-explanatory-assertion-group-final-step/explanatory-assertions.html">explanatoryAssertions</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

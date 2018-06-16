@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExplanatoryAssertionGroupType - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a><br/>
+<br/>
+<h1>ExplanatoryAssertionGroupType</h1>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-do-not-filter-assertion-group-type.html"><span class="identifier">DoNotFilterAssertionGroupType</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/assertions/ExplanatoryAssertionGroupType.kt#L8">(source)</a>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> are mainly
+used to explain something -- it is not of importance whether they hold or not and thus such <a href="-assertion-group/index.html">AssertionGroup</a>s should
+always return <code>true</code> for <a href="-assertion-group/holds.html">holds</a>.</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-default-explanatory-assertion-group-type.html">DefaultExplanatoryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">DefaultExplanatoryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> are used to explain
+something rather than pointing something out -- accordingly the <a href="-assertion-group/holds.html">AssertionGroup.holds</a> should always return <code>true</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-warning-assertion-group-type.html">WarningAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">WarningAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-explanatory-assertion-group-type.html"><span class="identifier">ExplanatoryAssertionGroupType</span></a></code>
+<p>The <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> are used to state
+a warning rather than making an assumption.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

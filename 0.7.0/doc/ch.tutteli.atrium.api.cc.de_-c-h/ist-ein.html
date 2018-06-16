@@ -1,0 +1,23 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>istEin - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.api.cc.de_CH</a>&nbsp;/&nbsp;<a href="./ist-ein.html">istEin</a><br/>
+<br/>
+<h1>istEin</h1>
+<a name="ch.tutteli.atrium.api.cc.de_CH$istEin(ch.tutteli.atrium.creating.AssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.istEin.TSub)), kotlin.Unit)))"></a>
+<code><span class="keyword">inline</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="keyword">reified</span>&nbsp;<span class="identifier">TSub</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../ch.tutteli.atrium.creating/-assert.html"><span class="identifier">Assert</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">istEin</span><span class="symbol">(</span><span class="keyword">noinline</span> <span class="identifier" id="ch.tutteli.atrium.api.cc.de_CH$istEin(ch.tutteli.atrium.creating.AssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.istEin.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</span><span class="symbol">:</span>&nbsp;<a href="../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="ist-ein.html#TSub"><span class="identifier">TSub</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//apis/atrium-api-cc-de_CH/src/main/kotlin/ch/tutteli/atrium/api/cc/de_CH/typeTransformationAssertions.kt#L32">(source)</a>
+<p>Makes the assertion that <a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> <em>is a</em> <a href="ist-ein.html#TSub">TSub</a> (the same type or a sub-type) and if so,
+uses <a href="ist-ein.html#ch.tutteli.atrium.api.cc.de_CH$istEin(ch.tutteli.atrium.creating.AssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.istEin.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a> which could create further assertions which are added as a group.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - Might throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> if the assertion made is not correct.</p>
+<p><strong>Return</strong><br/>
+Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
+assertion (<a href="../ch.tutteli.atrium.creating/-base-assertion-plant/subject.html">AssertionPlant.subject</a> <em>is a</em>   <a href="ist-ein.html#TSub">TSub</a>) holds or not.
+Define subsequent assertions via the <a href="ist-ein.html#ch.tutteli.atrium.api.cc.de_CH$istEin(ch.tutteli.atrium.creating.AssertionPlant((kotlin.Any)), kotlin.Function1((ch.tutteli.atrium.creating.AssertionPlant((ch.tutteli.atrium.api.cc.de_CH.istEin.TSub)), kotlin.Unit)))/assertionCreator">assertionCreator</a> lambda.</p>
+</BODY>
+</HTML>

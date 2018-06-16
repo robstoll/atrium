@@ -1,0 +1,147 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>WithTimesCheckerOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.creating.charsequence.contains.builders</a>&nbsp;/&nbsp;<a href="./index.html">WithTimesCheckerOption</a><br/>
+<br/>
+<h1>WithTimesCheckerOption</h1>
+<code><span class="keyword">interface </span><span class="identifier">WithTimesCheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html"><span class="identifier">CheckerOption</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/creating/charsequence/contains/builders/WithTimesCheckerOption.kt#L9">(source)</a>
+<p>A <a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html">CharSequenceContains.CheckerOption</a> which is used to choose
+a <a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker.html">CharSequenceContains.Checker</a> which is based on a number of <a href="times.html">times</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="times.html">times</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">times</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html">addAssertion</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span> <a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-checker-option.html"><span class="identifier">CheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="identifier">addAssertion</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.domain.creating.charsequence.contains$addAssertion(ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.CheckerOption((ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion.T, ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion.S)), ch.tutteli.atrium.assertions.Assertion)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.creating/-assertion-plant/index.html"><span class="identifier">AssertionPlant</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/add-assertion.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Helper method to simplify adding assertions to the plant which itself is stored in
+<a href="../../ch.tutteli.atrium.domain.creating.basic.contains/-contains/-checker-option/contains-builder.html">CharSequenceContains.CheckerOption.containsBuilder</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.de_-c-h.creating.charsequence.contains.builders/-at-least-checker-option.html">AtLeastCheckerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtLeastCheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.de_-c-h.creating.charsequence.contains.builders/-at-least-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.de_-c-h.creating.charsequence.contains.builders/-at-least-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point for another option after a <code>contains at least</code>-check within a sophisticated
+<code>contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-g-b.creating.charsequence.contains.builders/-at-least-checker-option.html">AtLeastCheckerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtLeastCheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.en_-g-b.creating.charsequence.contains.builders/-at-least-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.en_-g-b.creating.charsequence.contains.builders/-at-least-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point for another option after a <code>contains at least</code>-check within a sophisticated
+<code>contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.en_-u-k.creating.charsequence.contains.builders/-at-least-checker-option.html">AtLeastCheckerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">AtLeastCheckerOption</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.en_-u-k.creating.charsequence.contains.builders/-at-least-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.en_-u-k.creating.charsequence.contains.builders/-at-least-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point for another option after a <code>contains at least</code>-check within a sophisticated
+<code>contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-g-b.creating.charsequence.contains.builders/-at-least-checker-option.html">AtLeastCheckerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">AtLeastCheckerOption</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-g-b.creating.charsequence.contains.builders/-at-least-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.infix.en_-g-b.creating.charsequence.contains.builders/-at-least-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point for another option after a <code>contains at least</code>-check within a sophisticated
+<code>contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.creating.charsequence.contains.builders/-at-least-checker-option.html">AtLeastCheckerOption</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><s><span class="identifier">AtLeastCheckerOption</span></s><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.creating.charsequence.contains.builders/-at-least-checker-option.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../../ch.tutteli.atrium.api.cc.infix.en_-u-k.creating.charsequence.contains.builders/-at-least-checker-option.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>Represents the extension point for another option after a <code>contains at least</code>-check within a sophisticated
+<code>contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-at-least-checker-option-base/index.html">AtLeastCheckerOptionBase</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AtLeastCheckerOptionBase</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../-at-least-checker-option-base/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-at-least-checker-option-base/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The base class for builders which create a <code>contains at least</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-at-most-checker-option-base/index.html">AtMostCheckerOptionBase</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">AtMostCheckerOptionBase</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../-at-most-checker-option-base/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-at-most-checker-option-base/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The base class for builders which create a <code>contains at least once but at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-but-at-most-checker-option-base/index.html">ButAtMostCheckerOptionBase</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ButAtMostCheckerOptionBase</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../-but-at-most-checker-option-base/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-but-at-most-checker-option-base/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The base class for builders which create the second step of a <code>contains at least but at most</code> check within the
+fluent API of a sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-exactly-checker-option-base/index.html">ExactlyCheckerOptionBase</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">ExactlyCheckerOptionBase</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../-exactly-checker-option-base/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-exactly-checker-option-base/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The base class for builders which create a <code>contains exactly</code> check within the fluent API of a sophisticated
+<code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-not-or-at-most-checker-option-base/index.html">NotOrAtMostCheckerOptionBase</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">NotOrAtMostCheckerOptionBase</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a><span class="symbol">, </span><span class="keyword">out</span>&nbsp;<span class="identifier">S</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.domain.creating.charsequence.contains/-char-sequence-contains/-search-behaviour.html"><span class="identifier">SearchBehaviour</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">WithTimesCheckerOption</span></a><span class="symbol">&lt;</span><a href="../-not-or-at-most-checker-option-base/index.html#T"><span class="identifier">T</span></a><span class="symbol">,</span>&nbsp;<a href="../-not-or-at-most-checker-option-base/index.html#S"><span class="identifier">S</span></a><span class="symbol">&gt;</span></code>
+<p>The base class for builders which create a <code>contains not or at most</code> check within the fluent API of a
+sophisticated <code>contains</code> assertion for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

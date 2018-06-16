@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionChecker.check - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.checking</a>&nbsp;/&nbsp;<a href="index.html">AssertionChecker</a>&nbsp;/&nbsp;<a href="./check.html">check</a><br/>
+<br/>
+<h1>check</h1>
+<a name="ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Any)), kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">check</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Any)), kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertionVerb">assertionVerb</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.reporting.translating/-translatable/index.html"><span class="identifier">Translatable</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Any)), kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/representationProvider">representationProvider</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Any)), kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/checking/AssertionChecker.kt#L21">(source)</a>
+<p>Checks given <a href="check.html#ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Any)), kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</a> and reports if one of them fails (does not hold).</p>
+<h3>Parameters</h3>
+<p><a name="assertionVerb"></a>
+<code>assertionVerb</code> - The assertion verb which will be used in error reporting.</p>
+<p><a name="representationProvider"></a>
+<code>representationProvider</code> - Provides the representation of the subject for which the <a href="check.html#ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Any)), kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</a>
+have been created.</p>
+<p><a name="assertions"></a>
+<code>assertions</code> - The <a href="check.html#ch.tutteli.atrium.checking.AssertionChecker$check(ch.tutteli.atrium.reporting.translating.Translatable, kotlin.Function0((kotlin.Any)), kotlin.collections.List((ch.tutteli.atrium.assertions.Assertion)))/assertions">assertions</a> which are checked.</p>
+<h3>Exceptions</h3>
+<p><a name="AssertionError"></a>
+<code>AssertionError</code> - An implementation is allowed to throw <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/AssertionError.html">AssertionError</a> if an assertion fails.</p>
+</BODY>
+</HTML>

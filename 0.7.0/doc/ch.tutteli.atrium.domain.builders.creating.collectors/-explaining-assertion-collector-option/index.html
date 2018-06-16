@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ExplainingAssertionCollectorOption - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.domain.builders.creating.collectors</a>&nbsp;/&nbsp;<a href="./index.html">ExplainingAssertionCollectorOption</a><br/>
+<br/>
+<h1>ExplainingAssertionCollectorOption</h1>
+<code><span class="keyword">object </span><span class="identifier">ExplainingAssertionCollectorOption</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/creating/collectors/AssertionCollectorBuilder.kt#L36">(source)</a>
+<p>Delegates inter alia to the implementation of <a href="../../ch.tutteli.atrium.domain.creating.collectors/-throwing-assertion-collector-for-explanation/index.html">ThrowingAssertionCollectorForExplanation</a> and
+<a href="../../ch.tutteli.atrium.domain.creating.collectors/-non-throwing-assertion-collector-for-explanation/index.html">NonThrowingAssertionCollectorForExplanation</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="do-not-throw-if-no-assertion-is-collected.html">doNotThrowIfNoAssertionIsCollected</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">doNotThrowIfNoAssertionIsCollected</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.collectors/-non-throwing-assertion-collector-for-explanation/index.html"><span class="identifier">NonThrowingAssertionCollectorForExplanation</span></a></code>
+<p>Choosing this option will ignore use cases where not a single <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> was collected.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="throw-if-no-assertion-is-collected.html">throwIfNoAssertionIsCollected</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">throwIfNoAssertionIsCollected</span><span class="symbol">: </span><a href="../../ch.tutteli.atrium.domain.creating.collectors/-throwing-assertion-collector-for-explanation/index.html"><span class="identifier">ThrowingAssertionCollectorForExplanation</span></a></code>
+<p>Choosing this option causes the <a href="../../ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html">AssertionCollector</a> to throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/IllegalArgumentException.html">IllegalArgumentException</a> in case not a single
+<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a> was collected.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

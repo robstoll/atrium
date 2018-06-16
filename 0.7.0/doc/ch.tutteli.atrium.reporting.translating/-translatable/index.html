@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Translatable - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting.translating</a>&nbsp;/&nbsp;<a href="./index.html">Translatable</a><br/>
+<br/>
+<h1>Translatable</h1>
+<code><span class="keyword">interface </span><span class="identifier">Translatable</span></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/reporting/translating/Translatable.kt#L6">(source)</a>
+<p>Something which is translatable, identified by <a href="id.html">id</a> with a default representation given by <a href="get-default.html">getDefault</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The id of this <a href="./index.html">Translatable</a> -- per default it is "<a href="#">Class.name</a><a href="name.html">name</a>"</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="name.html">name</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The name of this <a href="./index.html">Translatable</a> -- the name together with its <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html#name">Class.name</a> should identify a <a href="./index.html">Translatable</a> (see <a href="id.html">id</a>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-default.html">getDefault</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getDefault</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the default representation of this <a href="./index.html">Translatable</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-i-d_-s-e-p-a-r-a-t-o-r.html">ID_SEPARATOR</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">ID_SEPARATOR</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The separator used in <a href="id.html">id</a> to separate <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html#name">Class.name</a> and <a href="name.html">name</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-string-based-translatable/index.html">StringBasedTranslatable</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">StringBasedTranslatable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Translatable</span></a></code>
+<p>Something which is <a href="./index.html">Translatable</a> and provides a default representation by <a href="../-string-based-translatable/value.html">value</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-translatable-with-args/index.html">TranslatableWithArgs</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TranslatableWithArgs</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Translatable</span></a></code>
+<p>A <a href="./index.html">Translatable</a> which contains placeholders for arguments.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-untranslatable/index.html">Untranslatable</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Untranslatable</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Translatable</span></a></code>
+<p>Represents a <a href="./index.html">Translatable</a> which is not translatable but has only a fixed <a href="../-untranslatable/name.html">name</a> which serves as <a href="../-untranslatable/get-default.html">getDefault</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

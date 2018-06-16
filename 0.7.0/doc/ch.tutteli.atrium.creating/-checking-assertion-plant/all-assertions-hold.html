@@ -1,0 +1,26 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CheckingAssertionPlant.allAssertionsHold - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.creating</a>&nbsp;/&nbsp;<a href="index.html">CheckingAssertionPlant</a>&nbsp;/&nbsp;<a href="./all-assertions-hold.html">allAssertionsHold</a><br/>
+<br/>
+<h1>allAssertionsHold</h1>
+<a name="ch.tutteli.atrium.creating.CheckingAssertionPlant$allAssertionsHold()"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">allAssertionsHold</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/creating/CheckingAssertionPlant.kt#L33">(source)</a>
+<p>Checks whether the newly <a href="#">added</a> <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s hold.</p>
+<p>Calling this method more than once should not re-check previously <a href="#">added</a> <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s.
+In contrast to <a href="../-reporting-assertion-plant.html">ReportingAssertionPlant</a>, this method should not report or throw an exception
+if an assertion does not hold. It merely states whether the newly <a href="#">added</a> <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s hold.</p>
+<p>However, it should throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/IllegalStateException.html">IllegalStateException</a> in case no new assertions have been added to this plant.
+Particularly after one called <a href="./all-assertions-hold.html">allAssertionsHold</a> and a second call happens without adding an additional
+assertion in between.</p>
+<h3>Exceptions</h3>
+<p><a name="IllegalStateException"></a>
+<code>IllegalStateException</code> - in case no new assertions have been added to this plant.</p>
+<p><strong>Return</strong><br/>
+<code>true</code> if the <a href="#">added</a> <a href="../../ch.tutteli.atrium.assertions/-assertion/index.html">Assertion</a>s hold; <code>false</code> otherwise.</p>
+</BODY>
+</HTML>

@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AssertionFormatter.format - doc</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">doc</a>&nbsp;/&nbsp;<a href="../index.html">ch.tutteli.atrium.reporting</a>&nbsp;/&nbsp;<a href="index.html">AssertionFormatter</a>&nbsp;/&nbsp;<a href="./format.html">format</a><br/>
+<br/>
+<h1>format</h1>
+<a name="ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">format</span><span class="symbol">(</span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</span><span class="symbol">:</span>&nbsp;<a href="../../ch.tutteli.atrium.assertions/-assertion/index.html"><span class="identifier">Assertion</span></a><span class="symbol">, </span><span class="identifier" id="ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</span><span class="symbol">:</span>&nbsp;<a href="../-assertion-formatter-parameter-object/index.html"><span class="identifier">AssertionFormatterParameterObject</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/reporting/AssertionFormatter.kt#L50">(source)</a>
+<p>Formats the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> and appends the result to the <a href="../-assertion-formatter-parameter-object/sb.html">sb</a>
+of the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</a>.</p>
+<p>This method should not be overridden (unfortunately an interface method cannot yet be final in Kotlin). This
+default implementation checks whether the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a> and calls
+<a href="throw-not-intended-for-assertion-groups.html">throwNotIntendedForAssertionGroups</a> in case it is; calls <a href="format-non-group.html">formatNonGroup</a> with the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> and
+<a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/parameterObject">parameterObject</a> otherwise.</p>
+<p>This function should be in sync with <a href="can-format.html">canFormat</a>. If <a href="can-format.html">canFormat</a> returns <code>true</code> then this method should be able
+to format the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> without problems. If <a href="can-format.html">canFormat</a> returns <code>false</code> then this method should throw
+an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/UnsupportedOperationException.html">UnsupportedOperationException</a>.
+Moreover, it should throw an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/UnsupportedOperationException.html">UnsupportedOperationException</a> in case the <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>
+-- use <a href="throw-not-intended-for-assertion-groups.html">AssertionFormatter.throwNotIntendedForAssertionGroups</a> for this purpose.</p>
+<h3>Parameters</h3>
+<p><a name="assertion"></a>
+<code>assertion</code> - The assertion which should be formatted (not an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>).</p>
+<p><a name="parameterObject"></a>
+<code>parameterObject</code> - The parameter object which contains inter alia the <a href="../-assertion-formatter-parameter-object/sb.html">sb</a>
+to which the result will be appended.</p>
+<h3>Exceptions</h3>
+<p><a name="UnsupportedOperationException"></a>
+<code>UnsupportedOperationException</code> - in case this <a href="index.html">AssertionFormatter</a> cannot format the given <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a>
+(<a href="can-format.html">canFormat</a> returns <code>false</code>) or if <a href="format.html#ch.tutteli.atrium.reporting.AssertionFormatter$format(ch.tutteli.atrium.assertions.Assertion, ch.tutteli.atrium.reporting.AssertionFormatterParameterObject)/assertion">assertion</a> is an <a href="../../ch.tutteli.atrium.assertions/-assertion-group/index.html">AssertionGroup</a>.</p>
+</BODY>
+</HTML>

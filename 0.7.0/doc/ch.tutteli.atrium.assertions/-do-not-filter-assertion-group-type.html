@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DoNotFilterAssertionGroupType - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="index.html">ch.tutteli.atrium.assertions</a>&nbsp;/&nbsp;<a href="./-do-not-filter-assertion-group-type.html">DoNotFilterAssertionGroupType</a><br/>
+<br/>
+<h1>DoNotFilterAssertionGroupType</h1>
+<code><span class="keyword">interface </span><span class="identifier">DoNotFilterAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-assertion-group-type.html"><span class="identifier">AssertionGroupType</span></a></code> <a href="https://github.com/robstoll/atrium/tree/v0.7.0-RC1//core/atrium-core-api/src/main/kotlin/ch/tutteli/atrium/assertions/DoNotFilterAssertionGroupType.kt#L11">(source)</a>
+<p>An <a href="-assertion-group-type.html">AssertionGroupType</a> which indicates that a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> should not filter its <a href="-assertion-group/assertions.html">AssertionGroup.assertions</a>.</p>
+<p>In contrast to <a href="-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a> (which is a subtype), a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a> is allowed to filter out
+the whole <a href="-assertion-group/index.html">AssertionGroup</a>.</p>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-explanatory-assertion-group-type.html">ExplanatoryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ExplanatoryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-do-not-filter-assertion-group-type.html"><span class="identifier">DoNotFilterAssertionGroupType</span></a></code>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> are mainly
+used to explain something -- it is not of importance whether they hold or not and thus such <a href="-assertion-group/index.html">AssertionGroup</a>s should
+always return <code>true</code> for <a href="-assertion-group/holds.html">holds</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-summary-assertion-group-type.html">SummaryAssertionGroupType</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">SummaryAssertionGroupType</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-do-not-filter-assertion-group-type.html"><span class="identifier">DoNotFilterAssertionGroupType</span></a></code>
+<p>Represents the <a href="-assertion-group-type.html">AssertionGroupType</a> for <a href="-assertion-group/index.html">AssertionGroup</a>s whose <a href="-assertion-group/assertions.html">assertions</a> should
+all be reported in reporting (no filtering by a <a href="../ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) since it represents a summary which itself
+will point out which assertions hold and which do not.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

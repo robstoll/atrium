@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ch.tutteli.atrium.core - doc</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">doc</a>&nbsp;/&nbsp;<a href="./index.html">ch.tutteli.atrium.core</a><br/>
+<br/>
+<h2>Package ch.tutteli.atrium.core</h2>
+<p>Contains the <a href="./ch.tutteli.atrium.core/-core-factory/index.html">CoreFactory</a>.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-core-factory/index.html">CoreFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">CoreFactory</span></code>
+<p>The minimum contract of the 'abstract factory' of atrium.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-single-service-loader/index.html">SingleServiceLoader</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">SingleServiceLoader</span></code>
+<p>Loads a service vai <a href="http://docs.oracle.com/javase/6/docs/api/java/util/ServiceLoader.html">ServiceLoader</a> for a given <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Class.html">Class</a> and throws an <a href="http://docs.oracle.com/javase/6/docs/api/java/lang/IllegalStateException.html">IllegalStateException</a>
+in case it finds more than one service.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extensions for External Classes</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="kotlin.-function0/index.html">kotlin.Function0</a></p>
+</td>
+<td>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="core-factory.html">coreFactory</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">coreFactory</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code>
+<p>The access point to an implementation of <a href="-core-factory/index.html">CoreFactory</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="false-provider.html">falseProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">falseProvider</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Returns <code>false</code> on calling.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="true-provider.html">trueProvider</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">trueProvider</span><span class="symbol">: </span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Returns <code>true</code> on calling.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
