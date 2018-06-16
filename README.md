@@ -1162,7 +1162,7 @@ Thus, Atrium provides the following functions to ease dealing with Java Code at 
   turns an `Iterable` into an iterable with nullable entry type, likewise it does the same for `Array`.
 - [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L121)
   turns a `Map` into a map with a nullable key type.
-- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L121)
+- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L134)
   turns a `Map` into a map with a nullable value type.
  
  
