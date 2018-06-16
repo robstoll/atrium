@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
@@ -15,10 +14,10 @@ import ch.tutteli.kbox.glue
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Assert<T>
     = values(expected)
 
 /**
@@ -29,10 +28,10 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  *
  * @param expectedOrNull The nullable value which is expectedOrNull to be contained within the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableValue(expectedOrNull: E): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableValue(expectedOrNull: E): Assert<T>
     = nullableValues(expectedOrNull)
 
 
@@ -43,10 +42,10 @@ fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearch
  * @param expected The value which is expected to be contained within the [Iterable].
  * @param otherExpected Additional values which are expected to be contained within [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.values(expected: E, vararg otherExpected: E): Assert<T>
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, expected glue otherExpected))
 
 /**
@@ -57,10 +56,10 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  * @param expectedOrNull The value which is expectedOrNull to be contained within the [Iterable].
  * @param otherExpectedOrNulls Additional values which are expectedOrNull to be contained within [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.nullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): Assert<T>
     = plant.addAssertion(AssertImpl.iterable.contains.valuesInOrderOnly(this, expectedOrNull glue otherExpectedOrNulls))
 
 
@@ -72,10 +71,10 @@ fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearch
  *
  * @param assertionCreator The identification lambda.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): Assert<T>
     = entries(assertionCreator)
 
 /**
@@ -87,10 +86,10 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  *
  * @param assertionCreatorOrNull The identification lambda.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): Assert<T>
     = nullableEntries(assertionCreatorOrNull)
 
 
@@ -105,13 +104,13 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearc
  * @param otherAssertionCreators Additional identification lambdas which each kind of identify (separately) an entry
  *   which we are looking for.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchBehaviour>.entries(
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
-): AssertionPlant<T>
+): Assert<T>
     = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, assertionCreator glue otherAssertionCreators))
 
 /**
@@ -126,11 +125,11 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlySearchB
  * @param otherAssertionCreatorsOrNull Additional identification lambdas which each kind of identify (separately) an entry
  *   which we are looking for.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlySearchBehaviour>.nullableEntries(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNull: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
+): Assert<T>
     = plant.addAssertion(AssertImpl.iterable.contains.entriesInOrderOnly(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNull))

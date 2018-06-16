@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -20,7 +19,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> value(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         expected: Any
-    ): AssertionPlant<T> = the(checkerBuilder, Values(expected))
+    ): Assert<T> = the(checkerBuilder, Values(expected))
 
     @JvmStatic
     @Deprecated(
@@ -30,7 +29,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> the(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         values: Values<Any>
-    ): AssertionPlant<T> = checkerBuilder the values
+    ): Assert<T> = checkerBuilder the values
 
 
     @JvmStatic
@@ -41,7 +40,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> valueIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         expected: Any
-    ): AssertionPlant<T> = valuesIgnoringCase(checkerBuilder, Values(expected))
+    ): Assert<T> = valuesIgnoringCase(checkerBuilder, Values(expected))
 
     @JvmStatic
     @Deprecated(
@@ -51,7 +50,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> valuesIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         values: Values<Any>
-    ): AssertionPlant<T> = checkerBuilder the values
+    ): Assert<T> = checkerBuilder the values
 
 
     @JvmStatic
@@ -62,7 +61,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> defaultTranslationOf(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         translatable: Translatable
-    ): AssertionPlant<T> = the(checkerBuilder, DefaultTranslationsOf(translatable))
+    ): Assert<T> = the(checkerBuilder, DefaultTranslationsOf(translatable))
 
     @JvmStatic
     @Deprecated(
@@ -72,7 +71,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> the(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         translatables: DefaultTranslationsOf
-    ): AssertionPlant<T> = checkerBuilder the translatables
+    ): Assert<T> = checkerBuilder the translatables
 
 
     @JvmStatic
@@ -83,7 +82,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         translatable: Translatable
-    ): AssertionPlant<T> = valuesIgnoringCase(checkerBuilder, DefaultTranslationsOf(translatable))
+    ): Assert<T> = valuesIgnoringCase(checkerBuilder, DefaultTranslationsOf(translatable))
 
     @JvmStatic
     @Deprecated(
@@ -93,7 +92,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> valuesIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         translatables: DefaultTranslationsOf
-    ): AssertionPlant<T> = checkerBuilder the translatables
+    ): Assert<T> = checkerBuilder the translatables
 
 
     @JvmStatic
@@ -104,7 +103,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> regex(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         pattern: String
-    ): AssertionPlant<T> = the(checkerBuilder, RegexPatterns(pattern))
+    ): Assert<T> = the(checkerBuilder, RegexPatterns(pattern))
 
     @JvmStatic
     @Deprecated(
@@ -114,7 +113,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> the(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         patterns: RegexPatterns
-    ): AssertionPlant<T> = checkerBuilder the patterns
+    ): Assert<T> = checkerBuilder the patterns
 
 
     @JvmStatic
@@ -125,7 +124,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> regexIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         pattern: String
-    ): AssertionPlant<T> = regexIgnoringCase(checkerBuilder, RegexPatterns(pattern))
+    ): Assert<T> = regexIgnoringCase(checkerBuilder, RegexPatterns(pattern))
 
     @JvmStatic
     @Deprecated(
@@ -135,5 +134,5 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> regexIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         patterns: RegexPatterns
-    ): AssertionPlant<T> = checkerBuilder the patterns
+    ): Assert<T> = checkerBuilder the patterns
 }

@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion
@@ -21,12 +20,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param expected The object which is expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.value(expected)"))
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Assert<T>
     = this the Values(expected)
 
 /**
@@ -49,12 +48,12 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  *
  * @param values The objects which are expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(values)"))
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(values: Values<Any>): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.values(this, values.toList()))
 
 
@@ -71,13 +70,13 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  *
  * @param expected The object which is expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.value(expected)"))
 @JvmName("valueIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(expected: Any): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Assert<T>
     = this the Values(expected)
 
 /**
@@ -100,13 +99,13 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  *
  * @param values The objects which are expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(values)"))
 @JvmName("valuesIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(values: Values<Any>): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(values: Values<Any>): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, values.toList()))
 
 
@@ -118,11 +117,11 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.defaultTranslationOf(translatable)"))
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.defaultTranslationOf(translatable: Translatable): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.defaultTranslationOf(translatable: Translatable): Assert<T>
     = this the DefaultTranslationsOf(translatable)
 
 /**
@@ -141,11 +140,11 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  * instead of:
  *   `to contain atLeast 1 the DefaultTranslationsOf(IS, IS)`
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(translatables)"))
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(translatables: DefaultTranslationsOf): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, translatables.toList()))
 
 
@@ -157,12 +156,12 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  *
  * By non disjoint is meant that 'aa' in 'aaaa' is found three times and not only two times.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("defaultTranslationOfIgnoringCase")
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.defaultTranslationOf(translatable)"))
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.defaultTranslationOf(translatable: Translatable): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.defaultTranslationOf(translatable: Translatable): Assert<T>
     = this the DefaultTranslationsOf(translatable)
 
 /**
@@ -182,12 +181,12 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  *
  * @param translatables The objects which are expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(translatables)"))
 @JvmName("defaultTranslationsOfIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(translatables: DefaultTranslationsOf): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(translatables: DefaultTranslationsOf): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, translatables.toList()))
 
 
@@ -199,11 +198,11 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  *
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.regex(pattern)"))
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String): Assert<T>
     = this the RegexPatterns(pattern)
 
 /**
@@ -223,11 +222,11 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  *
  * @param patterns The patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(patterns)"))
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.regex(this, patterns.toList()))
 
 
@@ -239,12 +238,12 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  *
  * @param pattern The patterns which is expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.regex(pattern)"))
 @JvmName("regexIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Assert<T>
     = this the RegexPatterns(pattern)
 
 /**
@@ -264,10 +263,10 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  *
  * @param patterns The patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.the(patterns)"))
 @JvmName("regexIgnoringCase")
-infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): AssertionPlant<T>
+infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, patterns.toList()))

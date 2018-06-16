@@ -6,14 +6,13 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.only
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 
 /**
- * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [Assert] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
@@ -22,7 +21,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.to(@Suppress("UNUSED_PARAMETER") contai
     = AssertImpl.iterable.containsBuilder(this)
 
 /**
- * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [Assert] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.
@@ -32,7 +31,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.notTo(@Suppress("UNUSED_PARAMETER") con
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the [expected] value.
+ * Makes the assertion that [Assert.subject] contains the [expected] value.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 value expected`
  *
@@ -43,7 +42,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E)
     = this to contain inAny order atLeast 1 value expected
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains the
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains the
  * [expected][expectedOrNull] nullable value.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 nullableValue expected`
@@ -56,7 +55,7 @@ infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(expected: NullableValue
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains the expected [values].
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains the expected [values].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Values(...)`
  *
@@ -74,11 +73,11 @@ infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(expected: NullableValue
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(values: Values<E>): Assert<T>
     = this to contain inAny order atLeast 1 the values
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the expected [nullableValues].
+ * Makes the assertion that [Assert.subject] contains the expected [nullableValues].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the NullableValues(...)`
  *
@@ -96,12 +95,12 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(values: Values<E>): Asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(nullableValues: NullableValues<E>): AssertionPlant<T>
+infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(nullableValues: NullableValues<E>): Assert<T>
     = this to contain inAny order atLeast 1 the nullableValues
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains an entry holding the assertions created by the
  * [assertionCreator] where it does not matter in which order the entries appear.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -109,11 +108,11 @@ infix fun <E : Any?, T : Iterable<E>> Assert<T>.contains(nullableValues: Nullabl
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.() -> Unit): Assert<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains an entry holding the
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains an entry holding the
  * assertions created by [nullableEntry].[assertionCreator][NullableEntry.assertionCreator] or an entry which is `null`
  * in case [nullableEntry] is defined as `null`.
  *
@@ -122,11 +121,11 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(nullableEntry: NullableEntry<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(nullableEntry: NullableEntry<E>): Assert<T>
     = this to contain inAny order atLeast 1 nullableEntry nullableEntry.assertionCreator
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains an entry holding the assertions created by the
  * [entries].[assertionCreator][Entries.assertionCreator] -- likewise an entry (can be the same) is searched for each
  * of the [entries].[otherAssertionCreators][Entries.otherAssertionCreators].
  *
@@ -135,11 +134,11 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(nullableEntry: Nullable
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): Assert<T>
     = this to contain inAny order atLeast 1 the entries
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains an entry holding the
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains an entry holding the
  * assertions created by [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] or an entry
  * which is `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull]
  * is defined as `null` -- likewise an entry (can be the same) is searched for each of the
@@ -150,23 +149,23 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(nullableEntries: NullableEntries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(nullableEntries: NullableEntries<E>): Assert<T>
     = this to contain inAny order atLeast 1 the nullableEntries
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only the [expected] value.
+ * Makes the assertion that [Assert.subject] contains only the [expected] value.
  *
  * It is a shortcut for `to contain inGiven order and only value expected`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): Assert<T>
     = this to contain inGiven order and only value expected
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains only
  * the [expected] nullable value.
  *
  * It is a shortcut for `to contain inGiven order and only nullableValue expected`
@@ -174,22 +173,22 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValue<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValue<E>): Assert<T>
     = this to contain inGiven order and only nullableValue expected.expected
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only the expected [values] in the defined order.
+ * Makes the assertion that [Assert.subject] contains only the expected [values] in the defined order.
  *
  * It is a shortcut for `to contain inGiven order and only the Values(...)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): Assert<T>
     = this to contain inGiven order and only the values
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains only
  * the expected [nullableValues] in the defined order.
  *
  * It is a shortcut for `to contain inGiven order and only the NullableValues(...)`
@@ -197,11 +196,11 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(nullableValues: NullableValues<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(nullableValues: NullableValues<E>): Assert<T>
     = this to contain inGiven order and only the nullableValues
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
+ * Makes the assertion that [Assert.subject] contains only one entry which is holding the assertions created
  * by the [assertionCreator].
  *
  * It is a shortcut for `to contain inGiven order and only the entry { ... }`
@@ -209,11 +208,11 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(nullableValues: Nullab
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): Assert<T>
     = this to contain inGiven order and only entry assertionCreator
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only one entry
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains only one entry
  * which is holding the assertions created by [nullableEntry].[assertionCreator][NullableEntry.assertionCreator] or
  * only one entry which is `null` in case [nullableEntry] is defined as `null`.
  *
@@ -222,12 +221,12 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: NullableEntry<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: NullableEntry<E>): Assert<T>
     = this to contain inGiven order and only nullableEntry nullableEntry.assertionCreator
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains only an entry holding the assertions created by the
  * [entries].[assertionCreator][Entries.assertionCreator] and an additional entry
  * for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
@@ -237,11 +236,11 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): Assert<T>
     = this to contain inGiven order and only the entries
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains only an entry holding
  * the assertions created by [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] or
  * `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] is defined as `null`
  * and likewise an additional entry for each
@@ -253,35 +252,35 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntries: NullableEntries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntries: NullableEntries<E>): Assert<T>
     = this to contain inGiven order and only the nullableEntries
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value.
+ * Makes the assertion that [Assert.subject] does not contain the [expected] value.
  *
  * It is a shortcut for `notTo contain value expected`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(expected: E): Assert<T>
     = this notTo contain value expected
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain the expected [values].
+ * Makes the assertion that [Assert.subject] does not contain the expected [values].
  *
  * It is a shortcut for `notTo contain the Values(...)`
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): Assert<T>
     = this notTo contain the values
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains an entry holding the assertions created by the
  * [assertionCreator].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -289,11 +288,11 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): A
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.any(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.any(assertionCreator: Assert<E>.() -> Unit): Assert<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains an entry holding
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) contains an entry holding
  * the assertions created by the [nullableEntry].[assertionCreator][NullableEntry.assertionCreator] or an entry
  * which is `null` in case [nullableEntry] is defined as `null`.
  *
@@ -302,11 +301,11 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.any(assertionCreator: Assert<E>.(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.any(nullableEntry: NullableEntry<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.any(nullableEntry: NullableEntry<E>): Assert<T>
     = this to contain inAny order atLeast 1 nullableEntry nullableEntry.assertionCreator
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain a single entry which holds all assertions
+ * Makes the assertion that [Assert.subject] does not contain a single entry which holds all assertions
  * created by the [assertionCreator].
  *
  *  It is a shortcut for `notTo contain entry assertionCreator`
@@ -318,7 +317,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.none(assertionCreator: (Assert<E>
     = this notTo contain entry assertionCreator
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) does not contain a single entry
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) does not contain a single entry
  * which holds all assertions created by [nullableEntry].[assertionCreator][NullableEntry.assertionCreator]
  * or does not contain a single entry which is `null` in case [nullableEntry] is defined as `null`.
  *
@@ -332,7 +331,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.none(nullableEntry: NullableEntr
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] has at least one element and that every element holds all
+ * Makes the assertion that [Assert.subject] has at least one element and that every element holds all
  * assertions created by the [assertionCreator].
  *
  * @return This plant to support a fluent API.
@@ -342,7 +341,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.all(assertionCreator: Assert<E>.(
     = addAssertion(AssertImpl.iterable.all(this, assertionCreator))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) has at least one element and
+ * Makes the assertion that [Assert.subject] (which has a nullable entry type) has at least one element and
  * that every element holds all assertions created by the
  * [nullableEntry].[assertionCreator][NullableEntry.assertionCreator] or that all elements are `null`
  * in case [nullableEntry] is defined as `null`.

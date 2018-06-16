@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
@@ -19,14 +18,14 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: GroupWithoutNullableEntries<E>,
     secondGroup: GroupWithoutNullableEntries<E>,
     vararg otherExpectedGroups: GroupWithoutNullableEntries<E>
-): AssertionPlant<T> = plant.addAssertion(
+): Assert<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)
@@ -43,14 +42,14 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: GroupWithNullableEntries<E>,
     secondGroup: GroupWithNullableEntries<E>,
     vararg otherExpectedGroups: GroupWithNullableEntries<E>
-): AssertionPlant<T> = plant.addAssertion(
+): Assert<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)
@@ -71,7 +70,7 @@ fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithin
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderEntries")
@@ -79,7 +78,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
     firstGroup: GroupWithoutNullableEntries<Assert<E>.() -> Unit>,
     secondGroup: GroupWithoutNullableEntries<Assert<E>.() -> Unit>,
     vararg otherExpectedGroups: GroupWithoutNullableEntries<Assert<E>.() -> Unit>
-): AssertionPlant<T> = plant.addAssertion(
+): Assert<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)
@@ -100,7 +99,7 @@ fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  * @param otherExpectedGroups Additional groups of values which are expected to appear after the [secondGroup] within
  *   [Iterable] whereas the groups have to appear in the given order.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderNullableEntries")
@@ -108,7 +107,7 @@ fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroup
     firstGroup: GroupWithNullableEntries<(Assert<E>.() -> Unit)?>,
     secondGroup: GroupWithNullableEntries<(Assert<E>.() -> Unit)?>,
     vararg otherExpectedGroups: GroupWithNullableEntries<(Assert<E>.() -> Unit)?>
-): AssertionPlant<T> = plant.addAssertion(
+): Assert<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,
         groupsToList(firstGroup, secondGroup, otherExpectedGroups)

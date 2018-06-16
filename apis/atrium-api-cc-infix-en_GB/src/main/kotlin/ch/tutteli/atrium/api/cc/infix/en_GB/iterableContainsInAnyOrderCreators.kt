@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.addAssertion
@@ -15,10 +14,10 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  *
  * @param expected The value which is expected to be contained within the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Assert<T>
     = this the Values(expected)
 
 /**
@@ -29,10 +28,10 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  *
  * @param expectedOrNull The value which is expectedOrNull to be contained within the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValue(expectedOrNull: E): AssertionPlant<T>
+infix fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.nullableValue(expectedOrNull: E): Assert<T>
     = this the NullableValues(expectedOrNull)
 
 
@@ -52,10 +51,10 @@ infix fun <E : Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAny
  *
  * @param values The values which are expected to be contained within the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): Assert<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, values.toList()))
 
 
@@ -76,10 +75,10 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  *
  * @param nullableValues The nullableValues which are expected to be contained within the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E: Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(nullableValues: NullableValues<E>): AssertionPlant<T>
+infix fun <E: Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(nullableValues: NullableValues<E>): Assert<T>
     = addAssertion(AssertImpl.iterable.contains.valuesInAnyOrder(this, nullableValues.toList()))
 
 
@@ -93,10 +92,10 @@ infix fun <E: Any?, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.entry(assertionCreator: Assert<E>.() -> Unit): Assert<T>
     = this the Entries(assertionCreator)
 
 /**
@@ -110,10 +109,10 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  *   has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.nullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): Assert<T>
     = this the NullableEntries(assertionCreatorOrNull)
 
 
@@ -125,10 +124,10 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAn
  *
  * @param entries The parameter object which contains the identification lambdas.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyOrderSearchBehaviour>.the(entries: Entries<E>): Assert<T>
     = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, entries.toList()))
 
 /**
@@ -140,8 +139,8 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
  *
  * @param nullableEntries The parameter object which contains the identification lambdas.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(nullableEntries: NullableEntries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAnyOrderSearchBehaviour>.the(nullableEntries: NullableEntries<E>): Assert<T>
     = addAssertion(AssertImpl.iterable.contains.entriesInAnyOrder(this, nullableEntries.toList()))

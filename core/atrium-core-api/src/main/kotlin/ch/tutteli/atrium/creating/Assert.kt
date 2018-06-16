@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.creating
 
 /**
- * Type alias for [AssertionPlant] which should be used in API modules.
+ * Type alias for [Assert] which should be used in API modules.
  */
-typealias Assert<T> = AssertionPlant<T>
+typealias AssertionPlant<T> = Assert<T>
 
 /**
- * DSL Marker for [AssertionPlant] (and its type alias [Assert]).
+ * DSL Marker for [Assert] (and its type alias [AssertionPlant]).
  */
 @DslMarker
 annotation class AssertMarker

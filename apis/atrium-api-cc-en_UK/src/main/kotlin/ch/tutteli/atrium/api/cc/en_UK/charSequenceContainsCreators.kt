@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
@@ -22,12 +22,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @param expected The object which is expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.value(expected)"))
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.value(expected: Any): Assert<T>
     = values(expected)
 
 /**
@@ -51,13 +51,13 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @param expected The object which is expected to be contained within the input of the search.
  * @param otherExpected Additional objects which are expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.values(expected, *otherExpected)"))
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.values(this, expected glue otherExpected))
 
 
@@ -74,13 +74,13 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  *
  * @param expected The object which is expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.value(expected)"))
 @JvmName("valueIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(expected: Any): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.value(expected: Any): Assert<T>
     = values(expected)
 
 /**
@@ -104,14 +104,14 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @param expected The object which is expected to be contained within the input of the search.
  * @param otherExpected Additional objects which are expected to be contained within the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.values(expected, *otherExpected)"))
 @JvmName("valuesIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.values(expected: Any, vararg otherExpected: Any): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
 
 
@@ -132,11 +132,11 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * instead of:
  *   `contains.atLeast(1).defaultTranslationOf(IS, IS)`
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.defaultTranslationOf(expected, *otherExpected)"))
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, expected glue otherExpected))
 
 /**
@@ -156,12 +156,12 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * instead of:
  *   `contains.atLeast(1).defaultTranslationOf(IS, IS)`
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.defaultTranslationOf(expected, *otherExpected)"))
 @JvmName("defaultTranslationOfIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.defaultTranslationOf(expected: Translatable, vararg otherExpected: Translatable): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, expected glue otherExpected))
 
 
@@ -183,11 +183,11 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.regex(pattern, *otherPatterns)"))
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
 
 /**
@@ -208,10 +208,10 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.en_GB.regex(pattern, *otherPatterns)"))
 @JvmName("regexIgnoringCase")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): Assert<T>
     = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))

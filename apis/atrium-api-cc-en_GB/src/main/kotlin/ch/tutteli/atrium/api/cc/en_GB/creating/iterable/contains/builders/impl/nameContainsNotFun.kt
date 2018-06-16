@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.impl
 
 import ch.tutteli.atrium.api.cc.en_GB.containsNot
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import kotlin.reflect.KFunction3
 
 internal fun nameContainsNotValuesFun(): String {
-    val f: KFunction3<AssertionPlant<Iterable<Double>>, Double, Array<out Double>, AssertionPlant<Iterable<Double>>> = AssertionPlant<Iterable<Double>>::containsNot
+    val f: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsNot
     return f.name
 }

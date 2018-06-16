@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.cc.de_CH
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -15,7 +14,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
 import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharSequenceContainsNotSearchBehaviour as DeprecatedNotSearchBehaviour
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContains.Builder] based on this [Assert] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
@@ -29,7 +28,7 @@ fun <T : CharSequence> getEnthaelt(plant: Assert<T>): DeprecatedBuilder<T, NoOpS
 
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContains.Builder] based on this [Assert] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.
@@ -47,7 +46,7 @@ fun <T : CharSequence> getEnthaeltNicht(plant:  Assert<T>): DeprecatedNotChecker
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [toString] representation
+ * Makes the assertion that [Assert.subject] contains [expected]'s [toString] representation
  * and the [toString] representation of the [otherExpected] (if given), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).werte(expected, *otherExpected)`.
@@ -72,11 +71,11 @@ fun <T : CharSequence> getEnthaeltNicht(plant:  Assert<T>): DeprecatedNotChecker
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaelt(expected: Any, vararg otherExpected: Any)
     = enthaelt.zumindest(1).werte(expected, *otherExpected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain [expected]'s [toString] representation
+ * Makes the assertion that [Assert.subject] does not contain [expected]'s [toString] representation
  * and neither one of the [otherExpected]'s [toString] representation (if given).
  *
  * It is a shortcut for `enthaeltNicht.werte(expected, *otherExpected)`.
@@ -91,7 +90,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
     = enthaeltNicht.werte(expected, *otherExpected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
+ * Makes the assertion that [Assert.subject] contains [expected]'s [getDefault][Translatable.getDefault]
  * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if given),
  * using a non disjoint search.
  *
@@ -113,11 +112,11 @@ fun <T : CharSequence> Assert<T>.enthaeltNicht(expected: Any, vararg otherExpect
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Most probably only used by Atrium itself; will be made internal with 1.0.0", ReplaceWith("please open an issue on GitHub if you use it as well"))
-fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable)
     = enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does  not contain [expected]'s
+ * Makes the assertion that [Assert.subject] does  not contain [expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if given).
  *
@@ -131,7 +130,7 @@ fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expecte
     = enthaeltNicht.standardUebersetzungVon(expected, *otherExpected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given regular expression
+ * Makes the assertion that [Assert.subject] contains a sequence which matches the given regular expression
  * [pattern] as well as the [otherPatterns] (if given), using a non disjoint search.
  *
  * It is a shortcut for `enthaelt.zumindest(1).regex(pattern, *otherPatterns)`.
@@ -150,14 +149,14 @@ fun <T : CharSequence> Assert<T>.enthaeltNichtDieStandardUebersetzungVon(expecte
  * @param pattern The pattern which is expected to have a match against the input of the search.
  * @param otherPatterns Additional patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <T : CharSequence> Assert<T>.enthaeltRegex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
+fun <T : CharSequence> Assert<T>.enthaeltRegex(pattern: String, vararg otherPatterns: String)
     = enthaelt.zumindest(1).regex(pattern, *otherPatterns)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] starts with [expected].
+ * Makes the assertion that [Assert.subject] starts with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -166,7 +165,7 @@ fun <T : CharSequence> Assert<T>.beginntMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not start with [expected].
+ * Makes the assertion that [Assert.subject] does not start with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -176,7 +175,7 @@ fun <T : CharSequence> Assert<T>.beginntNichtMit(expected: CharSequence)
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] ends with [expected].
+ * Makes the assertion that [Assert.subject] ends with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -185,7 +184,7 @@ fun <T : CharSequence> Assert<T>.endetMit(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not end with [expected].
+ * Makes the assertion that [Assert.subject] does not end with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -195,7 +194,7 @@ fun <T : CharSequence> Assert<T>.endetNichtMit(expected: CharSequence)
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
+ * Makes the assertion that [Assert.subject] [CharSequence].[kotlin.text.isEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -204,7 +203,7 @@ fun <T : CharSequence> Assert<T>.istLeer()
     = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
+ * Makes the assertion that [Assert.subject] [CharSequence].[kotlin.text.isNotEmpty].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.

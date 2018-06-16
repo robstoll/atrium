@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
@@ -16,12 +15,12 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InOr
  *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<E, GroupWithoutNullableEntries<E>>
-): AssertionPlant<T> = plant.addAssertion(
+): Assert<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
         groupsToList(order.firstGroup, order.secondGroup, order.otherExpectedGroups)
@@ -35,13 +34,13 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyG
  *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderNullableValues")
 infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<E, GroupWithNullableEntries<E>>
-): AssertionPlant<T> = plant.addAssertion(
+): Assert<T> = plant.addAssertion(
     AssertImpl.iterable.contains.valuesInOrderOnlyGrouped(
         this,
         groupsToList(order.firstGroup, order.secondGroup, order.otherExpectedGroups)
@@ -57,13 +56,13 @@ infix fun <E, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGrouped
  *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderEntries")
 infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<Assert<E>.() -> Unit, GroupWithoutNullableEntries<Assert<E>.() -> Unit>>
-): AssertionPlant<T> = plant.addAssertion(
+): Assert<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,
         groupsToList(order.firstGroup, order.secondGroup, order.otherExpectedGroups)
@@ -80,13 +79,13 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyG
  *
  * @param order A parameter object containing the different groups which have to appear in order in the [Iterable].
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @JvmName("inAnyOrderNullableEntries")
 infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAny(
     order: Order<(Assert<E>.() -> Unit)?, GroupWithNullableEntries<(Assert<E>.() -> Unit)?>>
-): AssertionPlant<T> = plant.addAssertion(
+): Assert<T> = plant.addAssertion(
     AssertImpl.iterable.contains.entriesInOrderOnlyGrouped(
         this,
         groupsToList(order.firstGroup, order.secondGroup, order.otherExpectedGroups)

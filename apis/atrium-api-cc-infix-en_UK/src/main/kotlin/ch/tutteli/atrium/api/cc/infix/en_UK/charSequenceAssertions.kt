@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.charsequence.contains.builders.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -13,7 +12,7 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.charsequence.contains.bui
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsBuilder as DeprecatedBuilder
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContains.Builder] based on this [Assert] which allows to define
  * a sophisticated `contains` assertions.
  *
  * @param contain Has to be `contain`.
@@ -30,7 +29,7 @@ fun <T : CharSequence> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") contai
 
 
 /**
- * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
+ * Creates a [CharSequenceContains.Builder] based on this [Assert] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.
@@ -45,7 +44,7 @@ fun <T : CharSequence> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") con
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the [toString] representation of the given [expected]
+ * Makes the assertion that [Assert.subject] contains the [toString] representation of the given [expected]
  * using a non disjoint search.
  *
  * It is a shortcut for `to contain atLeast 1 value expected`
@@ -60,11 +59,11 @@ fun <T : CharSequence> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") con
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.contains(expected)"))
-infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.contains(expected: Any): Assert<T>
     = this contains Values(expected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the given [values] [toString] representation
+ * Makes the assertion that [Assert.subject] contains the given [values] [toString] representation
  * using a non disjoint search.
  *
  * It is a shortcut for `to contain atLeast 1 the Values(...)`
@@ -89,12 +88,12 @@ infix fun <T : CharSequence> Assert<T>.contains(expected: Any): AssertionPlant<T
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.contains(values)"))
-infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): Assert<T>
     = this to contain atLeast 1 the values
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the [getDefault][Translatable.getDefault]
+ * Makes the assertion that [Assert.subject] contains the [getDefault][Translatable.getDefault]
  * representation of the given [translatable].
  *
  * It is a shortcut for `to contain atLeast 1 defaultTranslationOf translatable)`
@@ -103,11 +102,11 @@ infix fun <T : CharSequence> Assert<T>.contains(values: Values<Any>): AssertionP
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.containsDefaultTranslationOf(translatable)"))
-infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable: Translatable): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable: Translatable): Assert<T>
     = this contains DefaultTranslationsOf(translatable)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains [DefaultTranslationsOf.expected]'s
+ * Makes the assertion that [Assert.subject] contains [DefaultTranslationsOf.expected]'s
  * [getDefault][Translatable.getDefault] representation and the [getDefault][Translatable.getDefault] representations
  * of the [DefaultTranslationsOf.otherExpected] (if given), using a non disjoint search.
  *
@@ -129,23 +128,23 @@ infix fun <T : CharSequence> Assert<T>.containsDefaultTranslationOf(translatable
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.contains(defaultTranslationOf)"))
-infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTranslationsOf): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.contains(defaultTranslationOf: DefaultTranslationsOf): Assert<T>
     = this to contain atLeast 1 the defaultTranslationOf
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given [pattern].
+ * Makes the assertion that [Assert.subject] contains a sequence which matches the given [pattern].
  *
  * It is a shortcut for `to contain atLeast 1 regex pattern`.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.containsRegex(pattern)"))
-infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): Assert<T>
     = this contains RegexPatterns(pattern)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a sequence which matches the given [patterns]
+ * Makes the assertion that [Assert.subject] contains a sequence which matches the given [patterns]
  * using a non disjoint search.
  *
  * It is a shortcut for `to contain atLeast 1 the RegexPatterns(...)`.
@@ -163,15 +162,15 @@ infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): Assertion
  *
  * @param patterns The patterns which are expected to have a match against the input of the search.
  *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
+ * @return The [Assert] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.contains(patterns)"))
-infix fun <T : CharSequence> Assert<T>.contains(patterns: RegexPatterns): AssertionPlant<T>
+infix fun <T : CharSequence> Assert<T>.contains(patterns: RegexPatterns): Assert<T>
     = this to contain atLeast 1 the patterns
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not [expected]'s [toString] representation.
+ * Makes the assertion that [Assert.subject] does not [expected]'s [toString] representation.
  *
  * Delegates to [containsNot] [Values].
  *
@@ -183,7 +182,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(expected: Any)
     = this containsNot Values(expected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain the [toString] representation
+ * Makes the assertion that [Assert.subject] does not contain the [toString] representation
  * of the given [values].
  *
  * It is a shortcut for `notTo contain the Values(expected, *otherExpected)`.
@@ -197,7 +196,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(values: Values<Any>)
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does  not contain [DefaultTranslationsOf.expected]'s
+ * Makes the assertion that [Assert.subject] does  not contain [DefaultTranslationsOf.expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [DefaultTranslationsOf.otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if given).
  *
@@ -212,7 +211,7 @@ infix fun <T : CharSequence> Assert<T>.containsNot(defaultTranslationsOf: Defaul
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] starts with [expected].
+ * Makes the assertion that [Assert.subject] starts with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -222,7 +221,7 @@ infix fun <T : CharSequence> Assert<T>.startsWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.startsWith(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not start with [expected].
+ * Makes the assertion that [Assert.subject] does not start with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -233,7 +232,7 @@ infix fun <T : CharSequence> Assert<T>.startsNotWith(expected: CharSequence)
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] ends with [expected].
+ * Makes the assertion that [Assert.subject] ends with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -243,7 +242,7 @@ infix fun <T : CharSequence> Assert<T>.endsWith(expected: CharSequence)
     = addAssertion(AssertImpl.charSequence.endsWith(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not end with [expected].
+ * Makes the assertion that [Assert.subject] does not end with [expected].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -254,7 +253,7 @@ infix fun <T : CharSequence> Assert<T>.endsNotWith(expected: CharSequence)
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isEmpty].
+ * Makes the assertion that [Assert.subject] [CharSequence].[kotlin.text.isEmpty].
  *
  * @param Empty Has to be `Empty`.
  *
@@ -266,7 +265,7 @@ infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty:
     = addAssertion(AssertImpl.charSequence.isEmpty(this))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
+ * Makes the assertion that [Assert.subject] [CharSequence].[kotlin.text.isNotEmpty].
  *
  * @param onlyEmptyAllowed Has to be `Empty`.
  *

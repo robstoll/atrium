@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import java.math.BigDecimal
@@ -26,7 +25,7 @@ fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is numerically equal to [expected].
+ * Makes the assertion that [Assert.subject] is numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) == 0`)
@@ -44,7 +43,7 @@ fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not numerically equal to [expected].
+ * Makes the assertion that [Assert.subject] is not numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) != 0`)
@@ -63,7 +62,7 @@ fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is equal to [expected] including [BigDecimal.scale].
+ * Makes the assertion that [Assert.subject] is equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [isNumericallyEqualTo] which does not compare [BigDecimal.scale]
  * in contrast to this function.
@@ -78,7 +77,7 @@ fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
+ * Makes the assertion that [Assert.subject] is not equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [isNotNumericallyEqualTo] which does not compare [BigDecimal.scale]
  * in contrast to this function.

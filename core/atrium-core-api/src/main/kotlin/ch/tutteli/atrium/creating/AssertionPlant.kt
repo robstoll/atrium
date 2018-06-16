@@ -13,10 +13,13 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * It is the entry point for most assertion functions and provides only a reduced set of [ReportingAssertionPlant]
  * which is actually created when a user of Atrium is using an assertion verb function.
  *
- * @param T The type of the [subject] of this [AssertionPlant].
+ * This class should actually be named [AssertionPlant] but since a typealias looks ugly in code completion and most
+ * users will interact with [Assert], we decided to switch the names. [AssertionPlant] still exists as type alias.
+ *
+ * @param T The type of the [subject] of this [Assert].
  */
 @AssertMarker
-interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>> {
+interface Assert<out T : Any> : BaseAssertionPlant<T, Assert<T>> {
 
     /**
      * Adds the assertions created by the [assertionCreator] lambda to this plant.
@@ -31,8 +34,8 @@ interface AssertionPlant<out T : Any> : BaseAssertionPlant<T, AssertionPlant<T>>
     fun addAssertionsCreatedBy(assertionCreator: AssertionPlant<T>.() -> Unit): AssertionPlant<T>
 
     /**
-     * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test] and [adds][addAssertion] it
-     * to the plant.
+     * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test] and
+     * [adds][addAssertion] it to the plant.
      *
      * @param description The description of the assertion, e.g., `is less than`.
      * @param expected The expected value, e.g., `5`

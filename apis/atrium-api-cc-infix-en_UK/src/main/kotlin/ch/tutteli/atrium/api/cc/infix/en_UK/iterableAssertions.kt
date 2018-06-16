@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.cc.infix.en_UK
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.NotCheckerOption
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.NotCheckerOptionImpl
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour
@@ -12,7 +11,7 @@ import ch.tutteli.atrium.api.cc.infix.en_UK.assertions.iterable.contains.builder
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsBuilder as DeprecatedBuilder
 
 /**
- * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [Assert] which allows to define
  * more sophisticated `contains` assertions.
  *
  * @return The newly created builder.
@@ -27,7 +26,7 @@ fun <E, T : Iterable<E>> to(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") cont
 
 
 /**
- * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
+ * Creates an [IterableContains.Builder] based on this [Assert] which allows to define
  * more sophisticated `contains not` assertions.
  *
  * @return The newly created builder.
@@ -42,7 +41,7 @@ fun <E, T : Iterable<E>> notTo(plant: Assert<T>, @Suppress("UNUSED_PARAMETER") c
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the [expected] value.
+ * Makes the assertion that [Assert.subject] contains the [expected] value.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 value expected`
  *
@@ -54,7 +53,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(expected: E)
     = this to contain inAny order atLeast 1 value expected
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the expected [values].
+ * Makes the assertion that [Assert.subject] contains the expected [values].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Values(...)`
  *
@@ -72,11 +71,11 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(expected: E)
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use `contains NullableValues` from package en_GB or `contains Values` from package en_GB in case you do not deal with nullable elements; will be removed with 1.0.0", ReplaceWith("this contains NullableValues(values.expected, *values.otherExpected)", "ch.tutteli.atrium.api.cc.infix.en_GB.contains", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableValues"))
-infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): Assert<T>
     = this to contain inAny order atLeast 1 the values
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the expected [objects].
+ * Makes the assertion that [Assert.subject] contains the expected [objects].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 the Objects(...)`
  *
@@ -93,11 +92,11 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(values: Values<E>): AssertionP
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `contains Values(expected, otherExpected)` without adding enough to be a legit alternative.", ReplaceWith("this contains Values(objects)"))
-infix fun <E, T : Iterable<E>> Assert<T>.contains(objects: Objects<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.contains(objects: Objects<E>): Assert<T>
     = this to contain inAny order atLeast 1 the objects
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains an entry holding the assertions created by the
  * [assertionCreator] where it does not matter in which order the entries appear.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -106,11 +105,11 @@ infix fun <E, T : Iterable<E>> Assert<T>.contains(objects: Objects<E>): Assertio
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.contains(assertionCreator)"))
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.() -> Unit): Assert<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) where it
  * does not matter in which order the entries appear.
  *
@@ -120,11 +119,11 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.contains(entries)"))
-infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Assert<E>.() -> Unit>): Assert<T>
     = this to contain inAny order atLeast 1 the entries
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains an entry holding the assertions created by the
  * [assertionCreator] where it does not matter in which order the entries appear.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -134,16 +133,16 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Asse
  */
 @Deprecated("Use `contains NullableEntry` from package en_GB; will be removed with 1.0.0", ReplaceWith("this contains NullableEntry(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB.contains", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableEntry"))
 @JvmName("contains?")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?): Assert<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
 @Deprecated("Use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant contains assertionCreator"))
-fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): Assert<T>
     = plant contains assertionCreator
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) where it
  * does not matter in which order the entries appear.
  *
@@ -154,16 +153,16 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
  */
 @Deprecated("Use `contains NullableEntries` from package en_GB; will be removed with 1.0.0", ReplaceWith("this contains NullableEntries(entries.assertionCreator, *entries.otherAssertionCreators)", "ch.tutteli.atrium.api.cc.infix.en_GB.contains", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableEntries"))
 @JvmName("contains?")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (Assert<E>.() -> Unit)?>): Assert<T>
     = this to contain inAny order atLeast 1 the entries
 
 @Deprecated("Use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant contains entries"))
-fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): Assert<T>
     = plant contains entries
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only the [expected] value.
+ * Makes the assertion that [Assert.subject] contains only the [expected] value.
  *
  * It is a shortcut for `to contain inGiven order but only value expected`
  *
@@ -171,11 +170,11 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, entries: Entr
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use `containsStrictly NullableValue` from package en_GB or `containsStrictly` from package en_GB in case you do not deal with nullable elements; will be removed with 1.0.0", ReplaceWith("this contains NullableValue(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsStrictly", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableValue"))
-infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): Assert<T>
     = this to contain inGiven order but only value expected
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only the expected [values] in the defined order.
+ * Makes the assertion that [Assert.subject] contains only the expected [values] in the defined order.
  *
  * It is a shortcut for `to contain inGiven order but only the Values(...)`
  *
@@ -183,11 +182,11 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): Assertio
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use `containsStrictly NullableValues` from package en_GB or `containsStrictly` from package en_GB in case you do not deal with nullable elements; will be removed with 1.0.0", ReplaceWith("this contains NullableValues(value.expected, *value.otherExpected)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsStrictly", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableValues"))
-infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): Assert<T>
     = this to contain inGiven order but only the values
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only the expected [objects] in the defined order.
+ * Makes the assertion that [Assert.subject] contains only the expected [objects] in the defined order.
  *
  * It is a shortcut for `to contain inGiven order but only the Objects(...)`
  *
@@ -195,11 +194,11 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): As
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `containsStrictly Values(expected, otherExpected)` without adding enough to be a legit alternative.", ReplaceWith("this containsStrictly Values(objects)"))
-infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(objects: Objects<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(objects: Objects<E>): Assert<T>
     = this to contain inGiven order but only the objects
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
+ * Makes the assertion that [Assert.subject] contains only one entry which is holding the assertions created
  * by the [assertionCreator].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -208,11 +207,11 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(objects: Objects<E>): 
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.containsStrictly(assertionCreator)"))
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): Assert<T>
     = this to contain inGiven order but only entry assertionCreator
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains only an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
@@ -222,11 +221,11 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.containsStrictly(entries)"))
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E, Assert<E>.() -> Unit>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E, Assert<E>.() -> Unit>): Assert<T>
     = this to contain inGiven order but only the entries
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
+ * Makes the assertion that [Assert.subject] contains only one entry which is holding the assertions created
  * by the [assertionCreator].
  *
  * It is a shortcut for `to contain inAny order atLeast 1 entry { ... }`
@@ -236,16 +235,16 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  */
 @Deprecated("Use `contains NullableEntry` from package en_GB; will be removed with 1.0.0", ReplaceWith("this contains NullableEntry(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB.contains", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableEntry"))
 @JvmName("containsStrictly?")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): Assert<T>
     = this to contain inGiven order but only entry assertionCreator
 
 @Deprecated("Use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant containsStrictly assertionCreator"))
-fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): Assert<T>
     = plant containsStrictly assertionCreator
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject] contains only an entry holding the assertions created by the
  * [Entries.assertionCreator] and an additional entry for each [Entries.otherAssertionCreators] (if given) in the defined order
  * holding the assertions created by them.
  *
@@ -256,15 +255,15 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, asser
  */
 @Deprecated("Use `containsStrictly NullableEntries` from package en_GB; will be removed with 1.0.0", ReplaceWith("this containsStrictly NullableEntries(entries.assertionCreator, *entries.otherAssertionCreators)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsStrictly", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableEntries"))
 @JvmName("containsStrictly?")
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (Assert<E>.() -> Unit)?>): Assert<T>
     = this to contain inGiven order but only the entries
 
 @Deprecated("Use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant containsStrictly entries"))
-fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): Assert<T>
     = plant containsStrictly entries
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value.
+ * Makes the assertion that [Assert.subject] does not contain the [expected] value.
  *
  * Delegates to `containsNot Values(expected)`.
  *
@@ -272,11 +271,11 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, entri
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use pendant from package en_GB; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.api.cc.infix.en_GB.containsNot(expected)"))
-infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): Assert<T>
     = this containsNot Values(expected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain the expected [values].
+ * Makes the assertion that [Assert.subject] does not contain the expected [values].
  *
  * It is a shortcut for `notTo contain the Values(...)`
  *
@@ -284,11 +283,11 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsNot(expected: E): AssertionPlan
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use `notTo contain the NullableValues` from package en_GB or `containsNot` from package en_GB in case you do not deal with nullable elements; will be removed with 1.0.0", ReplaceWith("notTo contain the NullableValues(values.expected, *values.otherExpected)", "ch.tutteli.atrium.api.cc.infix.en_GB.notTo", "ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain", "ch.tutteli.atrium.api.cc.infix.en_GB.the", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableValues"))
-infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsNot(values: Values<E>): Assert<T>
     = this notTo contain the values
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain the expected [objects].
+ * Makes the assertion that [Assert.subject] does not contain the expected [objects].
  *
  * It is a shortcut for `notTo contain the Objects(...)`
  *

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -20,7 +20,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> value(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         expected: Any
-    ): AssertionPlant<T> = values(checkerBuilder, expected)
+    ): Assert<T> = values(checkerBuilder, expected)
 
     @JvmStatic
     @Deprecated(
@@ -31,7 +31,7 @@ object CharSequenceContainsSearchersKt {
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         expected: Any,
         vararg otherExpected: Any
-    ): AssertionPlant<T> = checkerBuilder.values(expected, *otherExpected)
+    ): Assert<T> = checkerBuilder.values(expected, *otherExpected)
 
 
     @JvmStatic
@@ -42,7 +42,7 @@ object CharSequenceContainsSearchersKt {
     fun <T : CharSequence> valueIgnoringCase(
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         expected: Any
-    ): AssertionPlant<T> = valuesIgnoringCase(checkerBuilder, expected)
+    ): Assert<T> = valuesIgnoringCase(checkerBuilder, expected)
 
     @JvmStatic
     @Deprecated(
@@ -53,7 +53,7 @@ object CharSequenceContainsSearchersKt {
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         expected: Any,
         vararg otherExpected: Any
-    ): AssertionPlant<T> = checkerBuilder.values(expected, *otherExpected)
+    ): Assert<T> = checkerBuilder.values(expected, *otherExpected)
 
 
     @JvmStatic
@@ -65,7 +65,7 @@ object CharSequenceContainsSearchersKt {
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         expected: Translatable,
         vararg otherExpected: Translatable
-    ): AssertionPlant<T> = checkerBuilder.defaultTranslationOf(expected, *otherExpected)
+    ): Assert<T> = checkerBuilder.defaultTranslationOf(expected, *otherExpected)
 
     @JvmStatic
     @Deprecated(
@@ -76,7 +76,7 @@ object CharSequenceContainsSearchersKt {
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         expected: Translatable,
         vararg otherExpected: Translatable
-    ): AssertionPlant<T> = checkerBuilder.defaultTranslationOf(expected, *otherExpected)
+    ): Assert<T> = checkerBuilder.defaultTranslationOf(expected, *otherExpected)
 
 
     @JvmStatic
@@ -88,7 +88,7 @@ object CharSequenceContainsSearchersKt {
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, NoOpSearchBehaviour>,
         pattern: String,
         vararg otherPatterns: String
-    ): AssertionPlant<T> = checkerBuilder.regex(pattern, *otherPatterns)
+    ): Assert<T> = checkerBuilder.regex(pattern, *otherPatterns)
 
     @JvmStatic
     @Deprecated(
@@ -99,5 +99,5 @@ object CharSequenceContainsSearchersKt {
         checkerBuilder: CharSequenceContainsCheckerBuilder<T, IgnoringCaseSearchBehaviour>,
         pattern: String,
         vararg otherPatterns: String
-    ): AssertionPlant<T> = checkerBuilder.regex(pattern, *otherPatterns)
+    ): Assert<T> = checkerBuilder.regex(pattern, *otherPatterns)
 }
