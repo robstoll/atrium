@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.7.0-RC2'
+    rootProject.version = '0.7.0'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
@@ -11,7 +11,7 @@ buildscript {
         mockito_kotlin_version = '1.5.0'
         mockito = { "com.nhaarman:mockito-kotlin:$mockito_kotlin_version" }
         dokka_version = '0.9.17'
-        dokka_sourceMapping = 'tree/v0.7.0-RC2'
+        dokka_sourceMapping = 'tree/v0.7.0'
 
         //spek.gradle
         jacoco_tool_version = '0.8.1'
@@ -105,7 +105,7 @@ subprojects { subproject ->
 
         if (!rootProject.version.endsWith("-SNAPSHOT")) {
             externalDocumentationLink {
-                url = new URL("https://robstoll.github.io/atrium/0.7.0/doc/")
+                url = new URL("https://robstoll.github.io/atrium/${rootProject.version}/doc/")
             }
         }
     }

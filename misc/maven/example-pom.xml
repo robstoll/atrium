@@ -5,7 +5,7 @@
     <artifactId>com.example.artifactId</artifactId>
 
     <properties>
-        <atrium.version>0.7.0-RC2</atrium.version>
+        <atrium.version>0.7.0</atrium.version>
     </properties>
     <dependencies>
         <dependency>
