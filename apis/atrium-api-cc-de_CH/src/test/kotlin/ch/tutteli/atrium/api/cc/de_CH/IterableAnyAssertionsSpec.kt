@@ -76,12 +76,12 @@ class IterableAnyAssertionsSpec : Spek({
             = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntriesSequence
 
         private fun containsInAnyOrderEntriesSequence(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
-            = AssertImpl.changeSubject(plant, { plant.subject.asSequence() }).asIterable().enthaelt(a)
+            = AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable().enthaelt(a)
 
         fun getContainsNullableSequencePair()
             = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
 
         private fun containsNullableEntriesSequence(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
-            =  AssertImpl.changeSubject(plant, { plant.subject.asSequence() }).asIterable().enthaeltNullableEintrag(a)
+            =  AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable().enthaeltNullableEintrag(a)
     }
 }
