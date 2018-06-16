@@ -36,7 +36,7 @@ interface IAtriumFactory {
     @Deprecated(
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
-            "AssertImpl.coreFactory.newReportingPlant(assertionVerb, subject, reporter)",
+            "AssertImpl.coreFactory.newReportingPlant(assertionVerb, { subject }, reporter)",
             "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
         )
     )
@@ -60,7 +60,7 @@ interface IAtriumFactory {
     @Deprecated(
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
-            "AssertImpl.coreFactory.newReportingPlant(assertionVerb, subject, assertionChecker)",
+            "AssertImpl.coreFactory.newReportingPlant(assertionVerb, { subject }, assertionChecker)",
             "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
         )
     )
@@ -109,7 +109,7 @@ interface IAtriumFactory {
     @Deprecated(
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
-            "AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(assertionVerb, subject, reporter, assertionCreator)",
+            "AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(assertionVerb, { subject }, reporter, assertionCreator)",
             "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
         )
     )
@@ -134,7 +134,7 @@ interface IAtriumFactory {
     @Deprecated(
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
-            "AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, subject, reporter, nullRepresentation)",
+            "AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, { subject }, reporter, nullRepresentation)",
             "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
         )
     )
@@ -158,7 +158,7 @@ interface IAtriumFactory {
     @Deprecated(
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
-            "AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, subject, assertionChecker, nullRepresentation)",
+            "AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, { subject }, assertionChecker, nullRepresentation)",
             "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
         )
     )
@@ -195,7 +195,7 @@ interface IAtriumFactory {
     @Deprecated(
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
-            "AssertImpl.coreFactory.newCheckingPlant(subject)",
+            "AssertImpl.coreFactory.newCheckingPlant({ subject })",
             "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
         )
     )
