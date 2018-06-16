@@ -15,12 +15,14 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     /**
      * Uses [CoreFactory.newOnlyFailureReporter] as [Reporter].
      */
+    @Deprecated("use `withOnlyFailureReporter.build()` from the builder from package domain.builders.reporting", ReplaceWith("this.withOnlyFailureReporter().build()"))
     fun buildOnlyFailureReporter(): Reporter
         = coreFactory.newOnlyFailureReporter(assertionFormatterFacade)
 
     /**
      * Uses the given [factory] to build a custom [Reporter].
      */
+    @Deprecated("use `withCustomReporter` from the builder from package domain.builders.reporting", ReplaceWith("this.withCustomReporter(factory).build()"))
     fun buildCustomReporter(factory: (AssertionFormatterFacade) -> Reporter): Reporter
         = factory(assertionFormatterFacade)
 
