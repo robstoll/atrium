@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.builders.utils
 
-import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
  * Helper function to circumvent Kotlin inference issues involving lambdas such as:
@@ -12,4 +12,4 @@ import ch.tutteli.atrium.creating.Assert
  * @return your passed lambda.
  */
 @Suppress("NOTHING_TO_INLINE")
-inline fun <T : Any> subAssert(noinline assertionCreator: Assert<T>.() -> Unit) = assertionCreator
+inline fun <T : Any> subAssert(noinline assertionCreator: AssertionPlant<T>.() -> Unit) = assertionCreator
