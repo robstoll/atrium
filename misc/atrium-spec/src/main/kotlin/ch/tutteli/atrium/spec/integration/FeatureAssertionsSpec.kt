@@ -90,13 +90,13 @@ abstract class FeatureAssertionsSpec(
         Triple("`returnValueOf` with 5 arguments and lazy", return5ValueLazy, "${TestData::return5.name}(\"a\", 1, true, 1.2, 'b')")
     )
     val nullableFailingFunctions = arrayOf(
-        Triple("`property` isNull", propertyNullableDoesNotHold, TestData::nullableValue.name),
-        Triple("`returnValueOf` without argument and isNull", return0ValueNullableDoesNotHold, "${TestData::returnNullable0.name}()"),
-        Triple("`returnValueOf` with 1 argument and isNull", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
-        Triple("`returnValueOf` with 2 arguments and isNull", return2ValueNullableDoesNotHold, "${TestData::returnNullable2.name}(\"a\", 1)"),
-        Triple("`returnValueOf` with 3 arguments and isNull", return3ValueNullableDoesNotHold, "${TestData::returnNullable3.name}(\"a\", 1, true)"),
-        Triple("`returnValueOf` with 4 arguments and isNull", return4ValueNullableDoesNotHold, "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)"),
-        Triple("`returnValueOf` with 5 arguments and isNull", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
+        Triple("`property` toBe(null)", propertyNullableDoesNotHold, TestData::nullableValue.name),
+        Triple("`returnValueOf` without argument and toBe(null)", return0ValueNullableDoesNotHold, "${TestData::returnNullable0.name}()"),
+        Triple("`returnValueOf` with 1 argument and toBe(null)", return1ValueNullableDoesNotHold, "${TestData::returnNullable1.name}(\"a\")"),
+        Triple("`returnValueOf` with 2 arguments and toBe(null)", return2ValueNullableDoesNotHold, "${TestData::returnNullable2.name}(\"a\", 1)"),
+        Triple("`returnValueOf` with 3 arguments and toBe(null)", return3ValueNullableDoesNotHold, "${TestData::returnNullable3.name}(\"a\", 1, true)"),
+        Triple("`returnValueOf` with 4 arguments and toBe(null)", return4ValueNullableDoesNotHold, "${TestData::returnNullable4.name}(\"a\", 1, true, 1.2)"),
+        Triple("`returnValueOf` with 5 arguments and toBe(null)", return5ValueNullableDoesNotHold, "${TestData::returnNullable5.name}(\"a\", 1, true, 1.2, 'b')")
     )
     val nullableHoldsFunctions = arrayOf(
         "`property` notToBeNull" to propertyNullableHolds,
