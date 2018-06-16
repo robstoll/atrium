@@ -944,9 +944,32 @@ Atrium does not support (yet):
 - assertion functions for `Array` (you can use `returnValueOf(subject::asIterable){}` in the meantime)
 
 # FAQ
-So far there have not been frequently asked questions but you are invited to ask your question
-in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
+You find frequently asked questions below.
+If your question is not answered below, then please do not hesitate and ask your question in the [atrium Slack channel](https://kotlinlang.slack.com/messages/C887ZKGCQ).
 In case you do not have an account for kotlinlang.slack.com yet, then please [Invite yourself](http://slack.kotlinlang.org/). 
+
+## Are there contains/any/none/all assertions for `Sequence`/`Array`?
+
+Atrium does not provide extension function applicable to `Assert<Sequence<E>>` (or `Array`) directly,
+because they would basically duplicate the functions available for `Iterable<E>`.  
+However, Atrium provides `asIterable` so that you can turn `Assert<Sequence<E>>` 
+into `Assert<Iterable<E>>`. An example:
+```kotlin
+assert(sequenceOf(1, 2, 3)).asIterable().contains(2)
+```
+Likewise you can turn an `Assert<Array<E>>`, `Assert<DoubleArray>` etc. into an `Assert<Iterable<E>>`.
+
+<details>
+<summary>:interrobag: why do I not see anything about the transformation in reporting?</summary>
+
+`asIterable` uses `AssertImpl.changeSubject` internally which is intended for not showing up in reporting.
+If you would like that the transformation is reflected in reporting then you can use a regular feature assertion 
+as follows:
+```
+assert(sequenceOf(1, 2, 3)).returnValueOf(Sequence::asIterable).contains(2)
+```
+
+</details>
 
 # Roadmap
 I plan that Atrium is going to support in the future:

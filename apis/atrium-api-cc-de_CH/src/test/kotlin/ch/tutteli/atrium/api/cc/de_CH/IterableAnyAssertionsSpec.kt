@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 import kotlin.reflect.KFunction2
@@ -36,6 +37,15 @@ class IterableAnyAssertionsSpec : Spek({
         "[Atrium][Shortcut] "
     )
 
+    object SequenceSpec : ch.tutteli.atrium.spec.integration.IterableAnyAssertionsSpec(
+        AssertionVerbFactory,
+        getContainsSequencePair(),
+        getContainsNullableSequencePair(),
+        "* ",
+        "[Atrium][Sequence] "
+    )
+
+
     companion object : IterableContainsSpecBase() {
         fun getContainsPair()
             = "$contains.$inAnyOrder.$atLeast(1).$inAnyOrderEntries" to Companion::containsInAnyOrderEntries
@@ -60,5 +70,18 @@ class IterableAnyAssertionsSpec : Spek({
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
             = plant.enthaeltNullableEintrag(a)
+
+
+        private fun getContainsSequencePair()
+            = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntriesSequence
+
+        private fun containsInAnyOrderEntriesSequence(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
+            = AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable().enthaelt(a)
+
+        fun getContainsNullableSequencePair()
+            = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
+
+        private fun containsNullableEntriesSequence(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
+            =  AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable().enthaeltNullableEintrag(a)
     }
 }

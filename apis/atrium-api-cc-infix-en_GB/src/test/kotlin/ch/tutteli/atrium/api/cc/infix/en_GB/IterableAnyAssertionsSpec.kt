@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.contain
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.order
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
@@ -36,6 +37,15 @@ class IterableAnyAssertionsSpec : Spek({
         "◆ ",
         "[Atrium][Shortcut] "
     )
+
+    object SequenceSpec : ch.tutteli.atrium.spec.integration.IterableAnyAssertionsSpec(
+        AssertionVerbFactory,
+        getContainsSequencePair(),
+        getContainsNullableSequencePair(),
+        "◆ ",
+        "[Atrium][Sequence] "
+    )
+
 
     companion object : IterableContainsSpecBase() {
         private val anyFun : KFunction2<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::any
@@ -75,5 +85,18 @@ class IterableAnyAssertionsSpec : Spek({
 
         private fun containsNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
             = plant contains NullableEntry(a)
+
+
+        private fun getContainsSequencePair()
+            = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutFun.name}" to Companion::containsInAnyOrderEntriesSequence
+
+        private fun containsInAnyOrderEntriesSequence(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit)
+            = AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable() contains a
+
+        fun getContainsNullableSequencePair()
+            = "asSequence().${Sequence<*>::asIterable.name}().${containsShortcutNullableFun.name}" to Companion::containsNullableEntriesSequence
+
+        private fun containsNullableEntriesSequence(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?)
+            =  AssertImpl.changeSubject(plant) { plant.subject.asSequence() }.asIterable() contains NullableEntry(a)
     }
 }

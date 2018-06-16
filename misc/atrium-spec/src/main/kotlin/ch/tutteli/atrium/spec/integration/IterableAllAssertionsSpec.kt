@@ -22,13 +22,13 @@ abstract class IterableAllAssertionsSpec(
 ) : IterablePredicateSpecBase(verbs, {
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
-        allPair.first to mapToCreateAssertion { allPair.second(this, { toBe(2.5) }) },
+        allPair.first to mapToCreateAssertion { allPair.second(this) { toBe(2.5) } },
         allNullablePair.first to mapToCreateAssertion { allNullablePair.second(this, null) }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(allPair.first, { allPair.second(this, { isGreaterThan(2.5) }) }, listOf(2.6, 3.0, 4.0).asIterable(), listOf(1.0, 2.5, 3.0)),
-        checkingTriple(allNullablePair.first, { allNullablePair.second(this,  { isGreaterThan(2.5) }) }, listOf(2.6, 3.0, 4.0).asIterable(), listOf(1.0, 2.5, 3.0))
+        checkingTriple(allPair.first, { allPair.second(this) { isGreaterThan(2.5) } }, listOf(2.6, 3.0, 4.0).asIterable(), listOf(1.0, 2.5, 3.0)),
+        checkingTriple(allNullablePair.first, { allNullablePair.second(this) { isGreaterThan(2.5) } }, listOf(2.6, 3.0, 4.0).asIterable(), listOf(1.0, 2.5, 3.0))
     ) {})
 
     val assert: (Iterable<Double>) -> Assert<Iterable<Double>> = verbs::checkImmediately
@@ -58,7 +58,7 @@ abstract class IterableAllAssertionsSpec(
             val fluentEmpty = assert(setOf())
             test("$isLessThanFun(1.0) throws AssertionError") {
                 expect {
-                    fluentEmpty.containsEntriesFun({ isLessThan(1.0) })
+                    fluentEmpty.containsEntriesFun { isLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageContains(
                         "$rootBulletPoint$featureArrow$hasElement: false$separator"+
@@ -73,7 +73,7 @@ abstract class IterableAllAssertionsSpec(
             context("all are $isGreaterThanFun(2.5) and $isLessThanFun(7.0)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        fluent.containsEntriesFun({ isGreaterThan(2.5); isLessThan(7.0) })
+                        fluent.containsEntriesFun { isGreaterThan(2.5); isLessThan(7.0) }
                     }.toThrow<AssertionError> {
                         message {
                             contains.exactly(1).values(
@@ -92,7 +92,7 @@ abstract class IterableAllAssertionsSpec(
 
             context("all are $isGreaterThanFun(0.5) and $isLessThanFun(7.5)") {
                 it("does not throw an exception") {
-                    fluent.containsEntriesFun({ isGreaterThan(0.5); isLessThan(7.5) })
+                    fluent.containsEntriesFun { isGreaterThan(0.5); isLessThan(7.5) }
                 }
             }
         }
