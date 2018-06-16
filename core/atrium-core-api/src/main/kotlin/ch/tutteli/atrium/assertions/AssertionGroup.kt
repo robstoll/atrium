@@ -57,7 +57,7 @@ interface AssertionGroup : Assertion {
             "Use AssertImpl.builder.root instead, will be removed with 1.0.0",
             ReplaceWith(
                 "AssertImpl.builder.root",
-                "ch.tutteli.atrium.domain.builders.creating.AssertImpl",
+                "ch.tutteli.atrium.domain.builders.AssertImpl",
                 "ch.tutteli.atrium.assertions.builders.root"
             )
         )
@@ -65,25 +65,25 @@ interface AssertionGroup : Assertion {
 
         @Deprecated(
             "use AssertImpl.builder.list instead, will be removed with 1.0.0",
-            ReplaceWith("AssertImpl.builder.list", "ch.tutteli.atrium.domain.builders.creating.AssertImpl")
+            ReplaceWith("AssertImpl.builder.list", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val list = BasicAssertionGroupBuilder(DefaultListAssertionGroupType)
 
         @Deprecated(
             "use AssertImpl.builder.feature instead, will be removed with 1.0.0",
-            ReplaceWith("AssertImpl.builder.feature", "ch.tutteli.atrium.domain.builders.creating.AssertImpl")
+            ReplaceWith("AssertImpl.builder.feature", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)
 
         @Deprecated(
             "use AssertImpl.builder.summary instead, will be removed with 1.0.0",
-            ReplaceWith("AssertImpl.builder.summary", "ch.tutteli.atrium.domain.builders.creating.AssertImpl")
+            ReplaceWith("AssertImpl.builder.summary", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val summary = BasicAssertionGroupBuilder(DefaultSummaryAssertionGroupType)
 
         @Deprecated(
             "use AssertImpl.builder.explanatoryGroup instead, will be removed with 1.0.0",
-            ReplaceWith("AssertImpl.builder.explanatoryGroup", "ch.tutteli.atrium.domain.builders.creating.AssertImpl")
+            ReplaceWith("AssertImpl.builder.explanatoryGroup", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val explanatory = ExplanatoryAssertionGroupOption()
 
@@ -91,7 +91,7 @@ interface AssertionGroup : Assertion {
             "use AssertImpl.builder.invisible instead, will be removed with 1.0.0",
             ReplaceWith(
                 "AssertImpl.builder.invisibleGroup",
-                "ch.tutteli.atrium.domain.builders.creating.AssertImpl",
+                "ch.tutteli.atrium.domain.builders.AssertImpl",
                 "ch.tutteli.atrium.assertions.builders.invisibleGroup"
             )
         )
@@ -101,7 +101,7 @@ interface AssertionGroup : Assertion {
             "use AssertImpl.builder.customType instead",
             ReplaceWith(
                 "AssertImpl.builder.customType(groupType)",
-                "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+                "ch.tutteli.atrium.domain.builders.AssertImpl"
             )
         )
         fun withType(groupType: AssertionGroupType) = BasicAssertionGroupBuilder(groupType)

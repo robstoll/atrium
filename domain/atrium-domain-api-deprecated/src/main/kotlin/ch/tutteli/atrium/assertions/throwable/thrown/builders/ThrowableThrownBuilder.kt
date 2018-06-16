@@ -25,7 +25,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
     "use AssertImpl, will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.throwable.thrownBuilder(assertionVerb, act, reporter)",
-        "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+        "ch.tutteli.atrium.domain.builders.AssertImpl"
     )
 )
 class ThrowableThrownBuilder(
