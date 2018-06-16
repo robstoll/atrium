@@ -1215,7 +1215,7 @@ assert(sequenceOf(1, 2, 3)).asIterable().contains(2)
 Likewise you can turn an `Assert<Array<E>>`, `Assert<DoubleArray>` etc. into an `Assert<Iterable<E>>`.
 
 <details>
-<summary>:interrobag: why do I not see anything about the transformation in reporting?</summary>
+<summary>:interrobang: why do I not see anything about the transformation in reporting?</summary>
 
 `asIterable` uses `AssertImpl.changeSubject` internally which is intended for not showing up in reporting.
 If you would like that the transformation is reflected in reporting then you can use a regular feature assertion 
