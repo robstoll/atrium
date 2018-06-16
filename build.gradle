@@ -105,7 +105,7 @@ subprojects { subproject ->
 
         if (!rootProject.version.endsWith("-SNAPSHOT")) {
             externalDocumentationLink {
-                url = new URL("https://robstoll.github.io/atrium/$rootProject.version/doc/")
+                url = new URL("https://robstoll.github.io/atrium/0.7.0/doc/")
             }
         }
     }
@@ -138,9 +138,25 @@ subprojects { subproject ->
 
 // has to be after the above two blocks which define `it.ext.publish_artifacts`
 def bundleSmokeTests = subprojects.findAll{ x -> x.name.endsWith('smoke-test')}
-configure(subprojects - bundleSmokeTests) {
-    afterEvaluate { subproject ->
+configure(subprojects - bundleSmokeTests) { subproject ->
+    afterEvaluate {
         apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle", to: subproject
+
+        def includeBuildTime = task('includeBuildTime') {
+            doLast {
+                project.tasks.withType(Jar) { jarTask ->
+                    jarTask.manifest {
+                        attributes('Build-Time': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ'))
+                    }
+                }
+            }
+        }
+
+        task publishBintray {
+            dependsOn includeBuildTime
+            dependsOn bintrayUpload
+            bintrayUpload.mustRunAfter(includeBuildTime)
+        }
     }
 }
 
@@ -259,7 +275,7 @@ Release & deploy a commit
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
 4. deploy to bintray:
-    a) gr bintrayUpload
+    a) gr clean publishBintray
     b) Log in to bintray, check and publish new jars
 5. create release on github
     a) git tag vX.Y.Z
