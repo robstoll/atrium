@@ -47,4 +47,14 @@ dokka {
         suffix = '#L'
     }
     sourceDirs = docProjects.collect { subProject -> file("${subProject.projectDir}/$srcKotlin") }
+    [
+        "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.impl",
+        "ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl",
+        "ch.tutteli.atrium.domain.builders.reporting.impl",
+    ].each { pkg ->
+        packageOptions {
+            prefix = pkg
+            suppress = true
+        }
+    }
 }

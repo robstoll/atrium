@@ -330,7 +330,7 @@ Contains inter alia [DeprecationTestEngine](ch.tutteli.atrium.spec/-deprecation-
 which is used in backward compatibility tests.
 
 
-# Package ch.tutteli.atrium.translations/index.html
+# Package ch.tutteli.atrium.translations
 Contains [Translatable](./ch.tutteli.atrium.reporting.translating/-translatable/index.html)s.
 
 
