@@ -23,13 +23,13 @@ abstract class IterableNoneAssertionsSpec(
 ) : IterablePredicateSpecBase(verbs, {
 
     include(object : SubjectLessAssertionSpec<Iterable<Double>>(describePrefix,
-        nonePair.first to mapToCreateAssertion { nonePair.second(this, { toBe(2.3) }) },
-        noneNullablePair.first to mapToCreateAssertion { noneNullablePair.second(this, { toBe(2.3) }) }
+        nonePair.first to mapToCreateAssertion { nonePair.second(this) { toBe(2.3) } },
+        noneNullablePair.first to mapToCreateAssertion { noneNullablePair.second(this) { toBe(2.3) } }
     ) {})
 
     include(object : CheckingAssertionSpec<Iterable<Double>>(verbs, describePrefix,
-        checkingTriple(nonePair.first, { nonePair.second(this, { toBe(2.3) }) }, listOf(2.1).asIterable(), listOf(2.1, 2.3)),
-        checkingTriple(noneNullablePair.first, { noneNullablePair.second(this, { toBe(2.3) }) }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
+        checkingTriple(nonePair.first, { nonePair.second(this) { toBe(2.3) } }, listOf(2.1).asIterable(), listOf(2.1, 2.3)),
+        checkingTriple(noneNullablePair.first, { noneNullablePair.second(this) { toBe(2.3) } }, listOf(2.1).asIterable(), listOf(2.1, 2.3))
     ) {})
 
     fun SpecBody.describeFun(funName: String, body: SpecBody.() -> Unit)
@@ -66,7 +66,7 @@ abstract class IterableNoneAssertionsSpec(
             group("happy case") {
                 listOf(1.1, 2.2, 3.3).forEach {
                     test("$toBeDescr($it) does not throw") {
-                        fluent.containsNotFun({ toBe(1.1) })
+                        fluent.containsNotFun { toBe(1.1) }
                     }
                 }
             }
@@ -74,7 +74,7 @@ abstract class IterableNoneAssertionsSpec(
             group("failing cases; search string at different positions") {
                 test("$toBeDescr(4.0) throws AssertionError") {
                     expect {
-                        fluent.containsNotFun({ toBe(4.0) })
+                        fluent.containsNotFun { toBe(4.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
@@ -121,7 +121,7 @@ abstract class IterableNoneAssertionsSpec(
 
                 test("1.0 throws AssertionError") {
                     expect {
-                        verbs.checkImmediately(oneToSevenNullable).containsNotNullableFun({ toBe(1.0) })
+                        verbs.checkImmediately(oneToSevenNullable).containsNotNullableFun { toBe(1.0) }
                     }.toThrow<AssertionError> {
                         message {
                             containsRegex(
