@@ -18,7 +18,7 @@ data class BasicAssertionGroup
     "use `AssertImpl.builder.customType` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
         "AssertImpl.builder.customType(type).withAssertions(description, representation, assertions).build()",
-        "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+        "ch.tutteli.atrium.domain.builders.AssertImpl"
     )
 )
 constructor(

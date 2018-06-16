@@ -9,7 +9,7 @@ class BasicExplanatoryAssertion
     "use `AssertImpl.builder.explanatory` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
         "AssertImpl.builder.explanatory.withAssertions(explanation)",
-        "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+        "ch.tutteli.atrium.domain.builders.AssertImpl"
     )
 )
 constructor(override val explanation: Any?) : ExplanatoryAssertion

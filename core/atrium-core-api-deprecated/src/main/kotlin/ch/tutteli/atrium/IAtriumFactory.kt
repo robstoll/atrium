@@ -16,7 +16,7 @@ import java.util.*
  */
 @Deprecated(
     "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
-    ReplaceWith("AssertImpl.coreFactory", "ch.tutteli.atrium.domain.builders.creating.AssertImpl")
+    ReplaceWith("AssertImpl.coreFactory", "ch.tutteli.atrium.domain.builders.AssertImpl")
 )
 interface IAtriumFactory {
 
@@ -37,7 +37,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlant(assertionVerb, { subject }, reporter)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, reporter: Reporter): ReportingAssertionPlant<T>
@@ -61,7 +61,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlant(assertionVerb, { subject }, assertionChecker)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any> newReportingPlant(assertionVerb: Translatable, subject: T, assertionChecker: AssertionChecker): ReportingAssertionPlant<T>
@@ -81,7 +81,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlant(commonFields)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any> newReportingPlant(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlant<T>
@@ -110,7 +110,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(assertionVerb, { subject }, reporter, assertionCreator)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any> newReportingPlantAndAddAssertionsCreatedBy(assertionVerb: Translatable, subject: T, reporter: Reporter, assertionCreator: AssertionPlant<T>.() -> Unit)
@@ -135,7 +135,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, { subject }, reporter, nullRepresentation)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, reporter: Reporter, nullRepresentation: Any = RawString.NULL): ReportingAssertionPlantNullable<T>
@@ -159,7 +159,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, { subject }, assertionChecker, nullRepresentation)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any?> newReportingPlantNullable(assertionVerb: Translatable, subject: T, assertionChecker: AssertionChecker, nullRepresentation: Any): ReportingAssertionPlantNullable<T>
@@ -179,7 +179,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlantNullable(commonFields)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any?> newReportingPlantNullable(commonFields: AssertionPlantWithCommonFields.CommonFields<T>): ReportingAssertionPlantNullable<T>
@@ -196,7 +196,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newCheckingPlant({ subject })",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any> newCheckingPlant(subject: T): CheckingAssertionPlant<T>
@@ -218,7 +218,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newCollectingPlant(subjectProvider)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
@@ -235,7 +235,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newThrowingAssertionChecker(reporter)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
@@ -254,7 +254,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newFeatureAssertionChecker(subjectPlant)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
@@ -272,7 +272,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newDelegatingAssertionChecker(subjectPlant)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun <T : Any?> newDelegatingAssertionChecker(subjectPlant: BaseAssertionPlant<T, *>): AssertionChecker
@@ -291,7 +291,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newMethodCallFormatter()",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newMethodCallFormatter(): MethodCallFormatter
@@ -328,7 +328,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
@@ -350,7 +350,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newPropertiesBasedTranslationSupplier()",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
@@ -368,7 +368,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newLocaleOrderDecider()",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newLocaleOrderDecider(): LocaleOrderDecider
@@ -384,7 +384,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newDetailedObjectFormatter(translator)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newDetailedObjectFormatter(translator: Translator): ObjectFormatter
@@ -398,7 +398,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newAssertionFormatterController()",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newAssertionFormatterController(): AssertionFormatterController
@@ -414,7 +414,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newAssertionFormatterFacade(assertionFormatterController)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newAssertionFormatterFacade(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacade
@@ -432,7 +432,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextSameLineAssertionPairFormatter(objectFormatter, translator)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator): AssertionPairFormatter
@@ -455,7 +455,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
@@ -477,7 +477,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
@@ -498,7 +498,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
@@ -519,7 +519,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
@@ -543,7 +543,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.registerTextAssertionFormatterCapabilities(bulletPoints, assertionFormatterController, textAssertionPairFormatter, objectFormatter, translator)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun registerTextAssertionFormatterCapabilities(
@@ -565,7 +565,7 @@ interface IAtriumFactory {
         "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newOnlyFailureReporter(assertionFormatterFacade)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter

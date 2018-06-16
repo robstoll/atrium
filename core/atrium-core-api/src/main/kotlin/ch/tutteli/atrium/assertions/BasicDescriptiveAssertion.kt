@@ -16,7 +16,7 @@ class BasicDescriptiveAssertion
     "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
         "AssertImpl.builder.descriptive.withAssertions(description, representation, test)",
-        "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+        "ch.tutteli.atrium.domain.builders.AssertImpl"
     )
 )
 constructor(
@@ -38,7 +38,7 @@ constructor(
         "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
         ReplaceWith(
             "AssertImpl.builder.descriptive.withAssertions(description, representation, holds)",
-            "ch.tutteli.atrium.domain.builders.creating.AssertImpl"
+            "ch.tutteli.atrium.domain.builders.AssertImpl"
         )
     )
     constructor(description: Translatable, representation: Any, holds: Boolean)
