@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.7.0-SNAPSHOT'
+    rootProject.version = '0.7.0-RC1'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
@@ -11,7 +11,7 @@ buildscript {
         mockito_kotlin_version = '1.5.0'
         mockito = { "com.nhaarman:mockito-kotlin:$mockito_kotlin_version" }
         dokka_version = '0.9.17'
-        dokka_sourceMapping = 'tree/master'
+        dokka_sourceMapping = 'tree/v0.7.0-RC1'
 
         //spek.gradle
         jacoco_tool_version = '0.8.1'
@@ -251,7 +251,7 @@ Release & deploy a commit
         3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
         4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
         5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
-    b) Update README -> Use own Assertion Verbs -> link to atriumVerbs if it changed
+    b) Update REAMDE -> Use own Assertion Verbs -> link to atriumVerbs if it changed
     c) commit & push (modified build.gradle, README.md and differences.md)
 3. update github pages:
     a) gr ghPages

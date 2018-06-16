@@ -208,8 +208,6 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
         fun withTextAssertionPairFormatter(factory: (ObjectFormatter, Translator) -> AssertionPairFormatter)
             = TextAssertionFormatterOptions(options, factory(options.objectFormatter, options.translator))
 
-        @Deprecated("Will be removed in 0.7.0 -- choose an AssertionPairFormatter instead, use the suggestion replacement if you want to stick to same line formatting",
-            ReplaceWith("withTextSameLineAssertionPairFormatter().withDefaultTextCapabilities(bulletPoints)"))
         fun withSameLineTextAssertionFormatter(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterBuilder
             = withTextSameLineAssertionPairFormatter()
             .withDefaultTextCapabilities(*bulletPoints)
