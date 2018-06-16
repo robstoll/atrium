@@ -29,6 +29,9 @@ internal enum class AssertionVerb(override val value: String) : StringBasedTrans
     ;
 
     init {
+        // we specify the factory here because we only need to specify it once and
+        // we do not want to specify it if it is not used. The verbs have to be loaded on their first usage
+        // and thus this is a good place.
         ReporterFactory.specifyFactoryIfNotYetSet("ascii")
     }
 }
