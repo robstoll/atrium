@@ -54,13 +54,13 @@ abstract class FeatureAssertionsBoundedReferenceWhenCollectingPlantSpec(
             "`returnValueOf` with 4  arguments and lazy" to return4ValueLazy,
             "`returnValueOf` with 5  arguments and lazy" to return5ValueLazy,
 
-            "`property` isNull" to propertyNullableHolds,
-            "`returnValueOf` without argument and isNull" to return0ValueNullableHolds,
-            "`returnValueOf` with 1 argument and isNull" to return1ValueNullableHolds,
-            "`returnValueOf` with 2 arguments and isNull" to return2ValueNullableHolds,
-            "`returnValueOf` with 3 arguments and isNull" to return3ValueNullableHolds,
-            "`returnValueOf` with 4 arguments and isNull" to return4ValueNullableHolds,
-            "`returnValueOf` with 5 arguments and isNull" to return5ValueNullableHolds
+            "`property` toBe(null)" to propertyNullableHolds,
+            "`returnValueOf` without argument and toBe(null)" to return0ValueNullableHolds,
+            "`returnValueOf` with 1 argument and toBe(null)" to return1ValueNullableHolds,
+            "`returnValueOf` with 2 arguments and toBe(null)" to return2ValueNullableHolds,
+            "`returnValueOf` with 3 arguments and toBe(null)" to return3ValueNullableHolds,
+            "`returnValueOf` with 4 arguments and toBe(null)" to return4ValueNullableHolds,
+            "`returnValueOf` with 5 arguments and toBe(null)" to return5ValueNullableHolds
 
             ).forEach { (description, featureFun) ->
             test(description) {
