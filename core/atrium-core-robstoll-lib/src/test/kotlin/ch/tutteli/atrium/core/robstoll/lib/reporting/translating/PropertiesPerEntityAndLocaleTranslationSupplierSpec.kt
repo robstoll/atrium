@@ -25,7 +25,7 @@ object PropertiesPerEntityAndLocaleTranslationSupplierSpec : Spek({
                 .withDefaultAssertionFormatterFacade()
                 .withTextSameLineAssertionPairFormatter()
                 .withDefaultTextCapabilities()
-                .onlyFailureReporter()
+                .withOnlyFailureReporter()
                 .build()
         },
         true,
