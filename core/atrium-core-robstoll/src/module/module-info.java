@@ -4,4 +4,7 @@ module ch.tutteli.atrium.core.robstoll {
     requires ch.tutteli.atrium.core.robstoll.lib;
 
     exports ch.tutteli.atrium.robstoll.core;
+
+    provides ch.tutteli.atrium.core.CoreFactory
+        with ch.tutteli.atrium.robstoll.core.CoreFactoryImpl;
 }
