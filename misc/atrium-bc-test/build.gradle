@@ -49,7 +49,7 @@ def createBcTasksForApis(String version, String forgive, String... apis) {
     }
 }
 
-Task createJacocoReporTask(String apiName, String name, Task runTask){
+Task createJacocoReportTask(String apiName, String name, Task runTask){
     project.task("jacoco-$name", type: JacocoReport) {
         sourceDirectories = sourceSets.main.allJava.sourceDirectories
         classDirectories = files(sourceSets.main.output.classesDirs)
@@ -58,7 +58,7 @@ Task createJacocoReporTask(String apiName, String name, Task runTask){
         sourceDirectories = project.sourceSets.main.allJava.sourceDirectories
         classDirectories = project.sourceSets.main.output.classesDirs
 
-        def projects = apiName.contains('en_UK') ?
+        def projects = apiName.contains('en_UK') || apiName.contains('en_GB') ?
             jacocoMulti.sourceProjects :
             jacocoMulti.sourceProjects -
                 prefixedProject('translations-en_GB') -
@@ -94,7 +94,7 @@ def createBcTasks(String apiName, String version, String forgive) {
         create(srcName) {
             java.srcDirs = [] // we don't have java sources
             kotlin.srcDirs = [srcDirectory]
-            resources.srcDirs = [] //we don't have resources
+            resources.srcDirs = [srcDirectory]
         }
     }
 
@@ -105,17 +105,25 @@ def createBcTasks(String apiName, String version, String forgive) {
     }
 
     dependencies {
-        add(testJar, "ch.tutteli:atrium-api-$apiName:$version:tests") {
+        def groupId = version == '0.6.0' ? 'ch.tutteli': 'ch.tutteli.atrium'
+        add(testJar, "$groupId:atrium-api-$apiName:$version:tests") {
             exclude group: '*'
         }
-        add(testJarSources, "ch.tutteli:atrium-api-$apiName:$version:testsources") {
+        add(testJarSources, "$groupId:atrium-api-$apiName:$version:testsources") {
             exclude group: '*'
         }
 
-        add(confCommon, "ch.tutteli:atrium-spec:$version") {
+        add(confCommon, "$groupId:atrium-spec:$version") {
             exclude group: '*'
         }
-        add(confCommon, prefixedProject("api-cc-en_UK")) //required for atrium-spec
+        if (version == '0.6.0') {
+            add(confCommon, prefixedProject("api-cc-en_UK")) //required for atrium-spec
+        } else {
+            add(confCommon, prefixedProject("api-cc-en_GB")) //required for atrium-spec
+            if (apiName != 'de_CH') {
+                add(confCommon, prefixedProject("verbs-internal")) //required by the api
+            }
+        }
         add(confCommon, prefixedProject("$apiName-robstoll"))
         add(confCommon, sourceSets.main.runtimeClasspath)
 
@@ -178,8 +186,8 @@ def createBcTasks(String apiName, String version, String forgive) {
         applyTo bbcTask
     }
 
-    def jacocoBbcReport = createJacocoReporTask(apiName, "bbc-$name", bbcTask)
-    def jacocoBcReport = createJacocoReporTask(apiName, "bc-$name", bcTask)
+    def jacocoBbcReport = createJacocoReportTask(apiName, "bbc-$name", bbcTask)
+    def jacocoBcReport = createJacocoReportTask(apiName, "bc-$name", bcTask)
 
     //if we want it to be part of the build
     //check.dependsOn jacocoReport
@@ -257,3 +265,8 @@ createBcTasksForApis('0.6.0',
     ')',
     'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
 )
+createBcTasksForApis('0.7.0',
+    'forgive=^$',
+    'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
+)
+
