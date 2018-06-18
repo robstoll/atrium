@@ -7,6 +7,7 @@ import org.jetbrains.spek.engine.SpekTestEngine
 import org.junit.platform.engine.*
 import org.junit.platform.engine.support.descriptor.AbstractTestDescriptor
 import org.junit.platform.engine.support.hierarchical.Node
+import java.lang.reflect.InvocationTargetException
 
 /**
  * Represents a [TestEngine] (id 'spek-deprecation') which uses the [SpekTestEngine] but allows to define tests
@@ -34,7 +35,7 @@ class DeprecationTestEngine : TestEngine {
             if (forgive != null) {
                 exchangeWithForgivingTests(descriptor, Regex(forgive))
             }
-            require(descriptor.children.isNotEmpty()){
+            require(descriptor.children.isNotEmpty()) {
                 "Could not find any specification, check your runtime classpath"
             }
             descriptor
@@ -72,7 +73,21 @@ class DeprecationTestEngine : TestEngine {
         Node<SpekExecutionContext> {
 
         override fun getType() = TestDescriptor.Type.TEST
-        override fun execute(context: SpekExecutionContext?, dynamicTestExecutor: Node.DynamicTestExecutor?)
-            = throw throwable
+        override fun execute(context: SpekExecutionContext?, dynamicTestExecutor: Node.DynamicTestExecutor?) =
+            when (throwable) {
+                is InvocationTargetException ->
+                    throw AssertionError(
+                        "InvocationTargetException occurred with targetException:" +
+                            "\n ${throwable.targetException}",
+                        throwable
+                    )
+                is ExceptionInInitializerError -> throw AssertionError(
+                    "ExceptionInInitializerError occurred with exception:" +
+                        "\n ${throwable.exception}",
+                    throwable
+                )
+
+                else -> throw throwable
+            }
     }
 }
