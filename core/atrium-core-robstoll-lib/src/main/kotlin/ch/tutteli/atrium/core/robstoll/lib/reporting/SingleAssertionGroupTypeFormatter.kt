@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
+import kotlin.reflect.KClass
 
 /**
  * A base type for [AssertionFormatter] which [canFormat][AssertionFormatter.canFormat] only
@@ -20,7 +21,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  * @param clazz The [AssertionGroupType] which the concrete sub class [canFormat][AssertionFormatter.canFormat].
  */
 abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
-    private val clazz: Class<T>
+    private val clazz: KClass<T>
 ) : AssertionFormatter {
 
     /**
@@ -28,7 +29,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * is [T] or a sub type.
      */
     final override fun canFormat(assertion: Assertion)
-        = assertion is AssertionGroup && clazz.isAssignableFrom(assertion.type::class.java)
+        = assertion is AssertionGroup && clazz.isInstance(assertion.type)
 
     /**
      * Always throws an [UnsupportedOperationException], because this [AssertionFormatter] can only format
@@ -37,7 +38,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * @throws UnsupportedOperationException always!
      */
     final override fun formatNonGroup(assertion: Assertion, parameterObject: AssertionFormatterParameterObject)
-        = throw UnsupportedOperationException("supports only ${clazz.name} for which one has to call ${AssertionFormatter::formatGroup.name}")
+        = throw UnsupportedOperationException("supports only ${clazz.qualifiedName} for which one has to call ${AssertionFormatter::formatGroup.name}")
 
     /**
      * Checks whether [assertionGroup] is [T] or a sub type and if so, calls [formatGroupHeaderAndGetChildParameterObject]
@@ -58,8 +59,8 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * @throws UnsupportedOperationException if the given [assertionGroup] is not [T] or a sub type of it.
      */
     final override fun formatGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit) = when {
-        clazz.isAssignableFrom(assertionGroup.type::class.java) -> formatSpecificGroup(assertionGroup, parameterObject, formatAssertions)
-        else -> throw UnsupportedOperationException("supports only ${clazz.name}")
+        clazz.isInstance(assertionGroup.type) -> formatSpecificGroup(assertionGroup, parameterObject, formatAssertions)
+        else -> throw UnsupportedOperationException("supports only ${clazz.qualifiedName}")
     }
 
     private fun formatSpecificGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit) {

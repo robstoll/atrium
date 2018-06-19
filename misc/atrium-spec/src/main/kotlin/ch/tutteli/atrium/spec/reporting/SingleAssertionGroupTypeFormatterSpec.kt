@@ -19,11 +19,12 @@ import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.it
+import kotlin.reflect.KClass
 
 abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>(
     verbs: AssertionVerbFactory,
-    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
-    supportedAssertionGroupTypeClass: Class<T>,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    supportedAssertionGroupTypeClass: KClass<T>,
     supportedAssertionGroupType: T,
     supportedAnonymousAssertionGroupType: T,
     describePrefix: String = "[Atrium] "
@@ -102,7 +103,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         it("throws an UnsupportedOperationException") {
             verbs.checkException {
                 testee.formatNonGroup(unsupportedAssertion, parameterObject)
-            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.name) }
+            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.qualifiedName!!) }
             verbs.checkImmediately(sb).isEmpty()
         }
     }
@@ -113,7 +114,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
         it("throws an UnsupportedOperationException for an ${AssertionGroup::class.simpleName} with type object: ${AssertionGroupType::class.simpleName}") {
             verbs.checkException {
                 testee.formatGroup(unsupportedAssertionGroup, parameterObject, doNotFormatChildren)
-            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.name) }
+            }.toThrow<UnsupportedOperationException> { messageContains(supportedAssertionGroupTypeClass.qualifiedName!!) }
             verbs.checkImmediately(sb).isEmpty()
         }
 

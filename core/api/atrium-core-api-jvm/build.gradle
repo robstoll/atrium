@@ -1,0 +1,8 @@
+description = 'API of the core of Atrium for the JVM platform.'
+
+dependencies {
+    compile kbox(), withoutKotlin
+    compile kotlinReflect()
+    testCompile prefixedProject('cc-infix-en_GB-robstoll')
+    testCompile prefixedProject('verbs-internal')
+}

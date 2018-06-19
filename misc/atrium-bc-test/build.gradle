@@ -24,7 +24,7 @@ dependencies {
     common kotlinStdLib()
 
     compile configurations.common.dependencies
-    compile prefixedProject('core-api')
+    compile prefixedProject('core-api-jvm')
 }
 
 def bbcTests = task("bbcTests", group: 'Verification') {
