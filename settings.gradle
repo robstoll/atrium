@@ -42,7 +42,11 @@ include {
     }
 
     folder('core', 'core-') {
-        _ 'api'
+        folder('api', 'api-') {
+            common
+            jvm
+            js
+        }
         _ 'robstoll'
         _ 'robstoll-lib'
     }

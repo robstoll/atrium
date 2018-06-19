@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.AssertionPairFormatter
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
+import kotlin.reflect.KClass
 
 /**
  * Represents an [AssertionFormatter] which formats [AssertionGroup]s with a [FeatureAssertionGroupType] by
@@ -33,13 +34,13 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
 class TextFeatureAssertionGroupFormatter(
-    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+    bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController,
     private val assertionPairFormatter: AssertionPairFormatter
-) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<FeatureAssertionGroupType>(FeatureAssertionGroupType::class.java, assertionFormatterController) {
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<FeatureAssertionGroupType>(FeatureAssertionGroupType::class, assertionFormatterController) {
 
-    private val prefix = (bulletPoints[FeatureAssertionGroupType::class.java] ?: "◾ ")
-    private val arrow = (bulletPoints[PrefixFeatureAssertionGroupHeader::class.java] ?: "▶ ")
+    private val prefix = (bulletPoints[FeatureAssertionGroupType::class] ?: "◾ ")
+    private val arrow = (bulletPoints[PrefixFeatureAssertionGroupHeader::class] ?: "▶ ")
 
     override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
         parameterObject.appendLnIndentAndPrefix()

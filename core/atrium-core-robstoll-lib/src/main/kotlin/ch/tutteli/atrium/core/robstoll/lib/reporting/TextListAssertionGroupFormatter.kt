@@ -7,6 +7,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.AssertionPairFormatter
+import kotlin.reflect.KClass
 
 /**
  * Represents an [AssertionFormatter] which formats [AssertionGroup]s with a [ListAssertionGroupType] by
@@ -24,12 +25,12 @@ import ch.tutteli.atrium.reporting.AssertionPairFormatter
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
 class TextListAssertionGroupFormatter(
-    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+    bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController,
     assertionPairFormatter: AssertionPairFormatter
 ) : TextListBasedAssertionGroupFormatter<ListAssertionGroupType>(
-    bulletPoints[ListAssertionGroupType::class.java] ?: "⚬ ",
+    bulletPoints[ListAssertionGroupType::class] ?: "⚬ ",
     assertionFormatterController,
     assertionPairFormatter,
-    ListAssertionGroupType::class.java
+    ListAssertionGroupType::class
 )

@@ -235,7 +235,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          */
         fun withDefaultTextCapabilities(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterBuilder {
             coreFactory.registerTextAssertionFormatterCapabilities(
-                bulletPoints.toMap(), options.assertionFormatterFacade, assertionPairFormatter, options.objectFormatter, options.translator)
+                bulletPoints.associate { it.first.kotlin to it.second }, options.assertionFormatterFacade, assertionPairFormatter, options.objectFormatter, options.translator)
             return ReporterBuilder(options.assertionFormatterFacade)
         }
 

@@ -9,6 +9,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
+import kotlin.reflect.KClass
 
 @Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 class TextIndentAssertionGroupFormatterSpec : Spek({
@@ -25,7 +26,7 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
     object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<IndentAssertionGroupType>(
         AssertionVerbFactory,
         factory(),
-        IndentAssertionGroupType::class.java,
+        IndentAssertionGroupType::class,
         DefaultIndentAssertionGroupType,
         object : IndentAssertionGroupType {},
         "[Atrium's EmptyNameAndSubject...Spec] ")
@@ -33,7 +34,7 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<IndentAssertionGroupType>(
         AssertionVerbFactory,
         factoryWithBulletPoints(),
-        IndentAssertionGroupType::class.java,
+        IndentAssertionGroupType::class,
         DefaultIndentAssertionGroupType,
         object : IndentAssertionGroupType {},
         "[Atrium's SingleAssertionGroupType...Spec] "
@@ -47,15 +48,15 @@ class TextIndentAssertionGroupFormatterSpec : Spek({
         fun factory() = { assertionFormatterController: AssertionFormatterController ->
             TextIndentAssertionGroupFormatter(
                 mapOf(
-                    IndentAssertionGroupType::class.java to "**"
+                    IndentAssertionGroupType::class to "**"
                 ), assertionFormatterController
             )
         }
 
-        fun factoryWithBulletPoints() = { _: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
+        fun factoryWithBulletPoints() = { _: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
             TextIndentAssertionGroupFormatter(
                 mapOf(
-                    IndentAssertionGroupType::class.java to "**"
+                    IndentAssertionGroupType::class to "**"
                 ), assertionFormatterController
             )
         }

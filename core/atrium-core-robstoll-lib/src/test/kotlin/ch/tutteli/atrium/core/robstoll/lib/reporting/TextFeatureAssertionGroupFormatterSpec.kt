@@ -9,6 +9,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
+import kotlin.reflect.KClass
 
 class TextFeatureAssertionGroupFormatterSpec : Spek({
 
@@ -24,7 +25,7 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<FeatureAssertionGroupType>(
         AssertionVerbFactory,
         factory(),
-        FeatureAssertionGroupType::class.java,
+        FeatureAssertionGroupType::class,
         object : FeatureAssertionGroupType {},
         DefaultFeatureAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
@@ -36,7 +37,7 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
 
 
     companion object {
-        internal fun factory() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+        internal fun factory() = { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextFeatureAssertionGroupFormatter(
                 bulletPoints,
                 controller,

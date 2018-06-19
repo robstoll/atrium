@@ -6,6 +6,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.AssertionPairFormatter
+import kotlin.reflect.KClass
 
 /**
  * Represents an [AssertionFormatter] which formats [AssertionGroup]s with type [T] by using the given
@@ -26,7 +27,7 @@ abstract class TextListBasedAssertionGroupFormatter<in T : AssertionGroupType>(
     bulletPoint: String,
     assertionFormatterController: AssertionFormatterController,
     private val assertionPairFormatter: AssertionPairFormatter,
-    clazz: Class<T>
+    clazz: KClass<T>
 ) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<T>(clazz, assertionFormatterController) {
     private val formatter =
         TextPrefixBasedAssertionGroupFormatter(bulletPoint)

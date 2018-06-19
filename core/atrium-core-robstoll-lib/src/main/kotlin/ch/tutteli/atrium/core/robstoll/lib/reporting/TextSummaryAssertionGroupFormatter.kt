@@ -5,6 +5,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.AssertionPairFormatter
+import kotlin.reflect.KClass
 
 /**
  * Represents an [AssertionFormatter] which formats [AssertionGroup]s with a [SummaryAssertionGroupType] by
@@ -28,12 +29,12 @@ import ch.tutteli.atrium.reporting.AssertionPairFormatter
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
 class TextSummaryAssertionGroupFormatter(
-    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+    bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     private val assertionFormatterController: AssertionFormatterController,
     private val assertionPairFormatter: AssertionPairFormatter
-) : SingleAssertionGroupTypeFormatter<SummaryAssertionGroupType>(SummaryAssertionGroupType::class.java) {
-    private val successful = (bulletPoints[PrefixSuccessfulSummaryAssertion::class.java] ?: "✔ ")
-    private val failing = (bulletPoints[PrefixFailingSummaryAssertion::class.java] ?: "✘ ")
+) : SingleAssertionGroupTypeFormatter<SummaryAssertionGroupType>(SummaryAssertionGroupType::class) {
+    private val successful = (bulletPoints[PrefixSuccessfulSummaryAssertion::class] ?: "✔ ")
+    private val failing = (bulletPoints[PrefixFailingSummaryAssertion::class] ?: "✘ ")
 
     override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
         parameterObject.appendLnIndentAndPrefix()

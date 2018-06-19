@@ -37,7 +37,7 @@ abstract class OnlyFailureReporterSpec(
     val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
     facade.register {
         coreFactory.newTextFallbackAssertionFormatter(
-            mapOf(RootAssertionGroupType::class.java to "[]"),
+            mapOf(RootAssertionGroupType::class to "[]"),
             it,
             coreFactory.newDetailedObjectFormatter(translator), translator)
     }

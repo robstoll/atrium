@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
+import kotlin.reflect.KClass
 
 /**
  * A base type for [AssertionFormatter] which [canFormat][AssertionFormatter.canFormat] only
@@ -23,7 +24,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  *   when it comes to format children of an [AssertionGroup].
  */
 abstract class NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
-    clazz: Class<T>,
+    clazz: KClass<T>,
     private val assertionFormatterController: AssertionFormatterController
 ) : SingleAssertionGroupTypeFormatter<T>(clazz) {
 

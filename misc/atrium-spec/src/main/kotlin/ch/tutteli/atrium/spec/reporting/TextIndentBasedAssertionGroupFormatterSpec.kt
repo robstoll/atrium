@@ -13,12 +13,13 @@ import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import kotlin.reflect.KClass
 
 @Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
     verbs: AssertionVerbFactory,
-    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
-    assertionGroupTypeClass: Class<T>,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
+    assertionGroupTypeClass: KClass<T>,
     anonymousAssertionGroupType: T,
     groupFactory: (List<Assertion>) -> AssertionGroup,
     describePrefix: String = "[Atrium] "

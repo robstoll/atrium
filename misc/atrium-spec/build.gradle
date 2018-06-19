@@ -4,7 +4,7 @@ description = 'Provides specifications of Atrium -- an assertion framework for K
 dependencies {
     compile kbox(), withoutKotlin
     compile prefixedProject('domain-api')
-    compile prefixedProject('core-api')
+    compile prefixedProject('core-api-jvm')
     compile prefixedProject('domain-builders')
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB

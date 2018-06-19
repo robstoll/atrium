@@ -14,10 +14,11 @@ import ch.tutteli.atrium.spec.describeFun
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import kotlin.reflect.KClass
 
 abstract class TextSummaryAssertionGroupFormatterSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
@@ -30,8 +31,8 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
     val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length + 1)
 
     val facade = createFacade(mapOf(
-        PrefixSuccessfulSummaryAssertion::class.java to "$successBulletPoint ",
-        PrefixFailingSummaryAssertion::class.java to "$failingBulletPoint "
+        PrefixSuccessfulSummaryAssertion::class to "$successBulletPoint ",
+        PrefixFailingSummaryAssertion::class to "$failingBulletPoint "
     )) { bulletPoints, controller, _, _ ->
         testeeFactory(bulletPoints, controller)
     }

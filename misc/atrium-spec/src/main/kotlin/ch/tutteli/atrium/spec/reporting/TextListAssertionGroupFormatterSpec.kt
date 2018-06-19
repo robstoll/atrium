@@ -8,10 +8,11 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.spec.AssertionVerbFactory
+import kotlin.reflect.KClass
 
 abstract class TextListAssertionGroupFormatterSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : TextListBasedAssertionGroupFormatterSpec<ListAssertionGroupType>(
     verbs,

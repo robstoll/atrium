@@ -38,12 +38,12 @@ abstract class AssertionFormatterControllerSpec(
     val successfulBulletPoint = "(check)"
     val failingBulletPoint = "(fail)"
     val bulletPoints = mapOf(
-        ExplanatoryAssertionGroupType::class.java to "$arrow ",
-        WarningAssertionGroupType::class.java to "$warning ",
-        ListAssertionGroupType::class.java to "$listBulletPoint ",
-        RootAssertionGroupType::class.java to "$bulletPoint ",
-        PrefixSuccessfulSummaryAssertion::class.java to "$successfulBulletPoint ",
-        PrefixFailingSummaryAssertion::class.java to "$failingBulletPoint "
+        ExplanatoryAssertionGroupType::class to "$arrow ",
+        WarningAssertionGroupType::class to "$warning ",
+        ListAssertionGroupType::class to "$listBulletPoint ",
+        RootAssertionGroupType::class to "$bulletPoint ",
+        PrefixSuccessfulSummaryAssertion::class to "$successfulBulletPoint ",
+        PrefixFailingSummaryAssertion::class to "$failingBulletPoint "
     )
 
     val indentArrow = " ".repeat(arrow.length + 1)

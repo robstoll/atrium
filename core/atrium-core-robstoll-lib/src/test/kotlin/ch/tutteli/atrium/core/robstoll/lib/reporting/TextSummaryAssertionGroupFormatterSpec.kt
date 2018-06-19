@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.reporting.ToStringObjectFormatter
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
+import kotlin.reflect.KClass
 
 class TextSummaryAssertionGroupFormatterSpec : Spek({
 
@@ -26,7 +27,7 @@ class TextSummaryAssertionGroupFormatterSpec : Spek({
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<SummaryAssertionGroupType>(
         AssertionVerbFactory,
         factory(),
-        SummaryAssertionGroupType::class.java,
+        SummaryAssertionGroupType::class,
         DefaultSummaryAssertionGroupType,
         object : SummaryAssertionGroupType {},
         "[Atrium's SingleAssertionGroupType...Spec] "
@@ -37,7 +38,7 @@ class TextSummaryAssertionGroupFormatterSpec : Spek({
         factory(), "[Atrium's AssertionFormatterSpec] ")
 
     companion object {
-        fun factoryWithoutObjectFormatter() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, controller: AssertionFormatterController ->
+        fun factoryWithoutObjectFormatter() = { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController ->
             TextSummaryAssertionGroupFormatter(
                 bulletPoints,
                 controller,
@@ -48,7 +49,7 @@ class TextSummaryAssertionGroupFormatterSpec : Spek({
             )
         }
 
-        fun factory() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+        fun factory() = { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextSummaryAssertionGroupFormatter(
                 bulletPoints,
                 controller,
