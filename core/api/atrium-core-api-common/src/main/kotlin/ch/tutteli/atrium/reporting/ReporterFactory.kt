@@ -1,12 +1,14 @@
 package ch.tutteli.atrium.reporting
 
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.getAtriumProperty
+import ch.tutteli.atrium.core.polyfills.loadServices
+import ch.tutteli.atrium.core.polyfills.setAtriumProperty
 
 /**
  * The access point to an implementation of [Reporter].
  *
- * It loads implementations of [ReporterFactory] lazily via [ServiceLoader] and searches for the id specified via the
- * system property with key [SYSTEM_PROPERTY] (which is `ch.tutteli.atrium.reporting.reporterFactory`)
+ * It loads implementations of [ReporterFactory] lazily via [loadServices] and searches for the id specified via the
+ * system property with key [ReporterFactory.SYSTEM_PROPERTY] (which is `ch.tutteli.atrium.reporting.reporterFactory`)
  * or uses `default` in case the system property is not specified.
  *
  * Use [ReporterFactory.specifyFactory] or [ReporterFactory.specifyFactoryIfNotYetSet] to define the system property.
@@ -14,11 +16,9 @@ import java.util.*
  * Notice, that searching for a [ReporterFactory] is only done once and the result is cached afterwards.
  * Please [open an issue](https://github.com/robstoll/atrium/issues/new) if you want to change reporter during a test-run.
  */
-actual val reporter: Reporter by lazy {
-    val id = System.getProperty(SYSTEM_PROPERTY) ?: "default"
-    val itr = ServiceLoader.load(ReporterFactory::class.java).iterator()
-    val factory = itr
-        .asSequence()
+val reporter: Reporter by lazy {
+    val id = getAtriumProperty(ReporterFactory.SYSTEM_PROPERTY) ?: "default"
+    val factory = loadServices(ReporterFactory::class)
         .firstOrNull { it.id == id }
         ?: throw IllegalStateException("Could not find a ${ReporterFactory::class.simpleName} with id $id")
 
@@ -32,21 +32,26 @@ actual val reporter: Reporter by lazy {
  * It identify itself via its [id]. This id can be used by a user to specify that this [ReporterFactory] shall be used.
  * In order to do that, the user has to define the system property `ch.tutteli.atrium.reporting.reporterFactory`
  */
-actual interface ReporterFactory {
+interface ReporterFactory {
     /**
      * Identification of the supplier
      */
-    actual val id: String
+    val id: String
 
     /**
      * Creates a new [Reporter].
      */
-    actual fun create(): Reporter
+    fun create(): Reporter
 
     /**
      * Provides utility functions to specify a [ReporterFactory].
      */
-    actual companion object {
+    companion object {
+        /**
+         * The key of the system property which is used to define which [ReporterFactory] shall be used.
+         * You can use [ReporterFactory.specifyFactory] or [ReporterFactory.specifyFactoryIfNotYetSet]
+         */
+        const val SYSTEM_PROPERTY = "ch.tutteli.atrium.reporting.reporterFactory"
 
         /**
          * Sets the system property with key [SYSTEM_PROPERTY] (which is `ch.tutteli.atrium.reporting.reporterFactory`)
@@ -55,8 +60,8 @@ actual interface ReporterFactory {
          * Use [specifyFactoryIfNotYetSet] if you only want to set a default value but not overwrite an existing
          * specification.
          */
-        actual fun specifyFactory(reporterFactoryId: String) {
-            System.setProperty(SYSTEM_PROPERTY, reporterFactoryId)
+        fun specifyFactory(reporterFactoryId: String) {
+            setAtriumProperty(SYSTEM_PROPERTY, reporterFactoryId)
         }
 
         /**
@@ -66,8 +71,8 @@ actual interface ReporterFactory {
          * Use [specifyFactory] if you do not care if another id was specified before or in other words, if you want to
          * overwrite a previously defined id.
          */
-        actual fun specifyFactoryIfNotYetSet(reporterFactoryId: String) {
-            if (System.getProperty(SYSTEM_PROPERTY) == null) {
+        fun specifyFactoryIfNotYetSet(reporterFactoryId: String) {
+            if (getAtriumProperty(SYSTEM_PROPERTY) == null) {
                 specifyFactory(reporterFactoryId)
             }
         }
