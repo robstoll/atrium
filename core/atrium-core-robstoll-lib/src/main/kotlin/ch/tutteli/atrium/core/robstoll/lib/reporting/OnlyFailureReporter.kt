@@ -12,8 +12,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @constructor A [Reporter] which reports only failing assertions.
  * @param assertionFormatterFacade The formatter used to format [Assertion]s.
  */
-class OnlyFailureReporter(private val assertionFormatterFacade: AssertionFormatterFacade) :
-    Reporter {
+class OnlyFailureReporter(private val assertionFormatterFacade: AssertionFormatterFacade) : Reporter {
 
     /**
      * Formats the given [assertion] with the help of the defined [assertionFormatterFacade]

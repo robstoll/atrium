@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.reporting.translating
 
+import ch.tutteli.atrium.core.polyfills.format
+
 /**
  * A [Translatable] which contains placeholders for arguments.
  *
@@ -13,9 +15,7 @@ package ch.tutteli.atrium.reporting.translating
  * @param arguments The arguments which should be used to substitute the placeholders of the [translatable].
  *
  */
-expect class TranslatableWithArgs constructor(translatable: Translatable, arguments: Array<Any>) : Translatable {
-    val translatable: Translatable
-    val arguments: Array<Any>
+class TranslatableWithArgs constructor(val translatable: Translatable, val arguments: Array<Any>) : Translatable {
 
     /**
      * Creates a [TranslatableWithArgs] with the given [translatable] and its one and only [argument].
@@ -23,7 +23,7 @@ expect class TranslatableWithArgs constructor(translatable: Translatable, argume
      * @param translatable A [Translatable] which one placeholder for an [argument].
      * @param argument The argument which will be used to substitute the placeholder of the given [translatable].
      */
-    constructor(translatable: Translatable, argument: Any)
+    constructor(translatable: Translatable, argument: Any) : this(translatable, arrayOf(argument))
 
     /**
      * Creates a [TranslatableWithArgs] with the given [translatable], the first argument [arg1] and the [otherArguments].
@@ -32,5 +32,9 @@ expect class TranslatableWithArgs constructor(translatable: Translatable, argume
      * @param arg1 The argument for the first placeholder of the given [translatable].
      * @param otherArguments The remaining arguments for the remaining placeholders of the given [translatable].
      */
-    constructor(translatable: Translatable, arg1: Any, vararg otherArguments: Any)
+    constructor(translatable: Translatable, arg1: Any, vararg otherArguments: Any) : this(translatable, arrayOf(arg1, *otherArguments))
+
+    override val name get() = translatable.name
+    override val id get() = determineIdForTranslatable(this)
+    override fun getDefault() = String.format(translatable.getDefault(), *arguments)
 }

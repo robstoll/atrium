@@ -3,6 +3,8 @@ package ch.tutteli.atrium.core
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.polyfills.Locale
+import ch.tutteli.atrium.core.polyfills.loadService
+import ch.tutteli.atrium.core.polyfills.loadServices
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -13,8 +15,11 @@ import kotlin.reflect.KClass
 
 /**
  * The access point to an implementation of [CoreFactory].
+ *
+ * It loads the implementation lazily via [loadService].
  */
-expect val coreFactory : CoreFactory
+
+val coreFactory by lazy { loadService(CoreFactory::class) }
 
 /**
  * The minimum contract of the 'abstract factory' of atrium.
@@ -265,7 +270,6 @@ interface CoreFactory {
      * @return The newly created assertion checker.
      */
     fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
-
 
     /**
      * Creates an [AssertionChecker] which delegates the checking of [Assertion]s to the given [subjectPlant]
