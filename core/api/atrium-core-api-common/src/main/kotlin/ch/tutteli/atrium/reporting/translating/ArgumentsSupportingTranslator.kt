@@ -10,14 +10,14 @@ import ch.tutteli.atrium.core.polyfills.format
  * an abstract method [translateWithoutArgs] which sub-classes have to implement.
  *
  * @property primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
- *   which will be used in [String.Companion.format], which in turn is used to substitute the placeholders in
+ *   which will be used in [String.format], which in turn is used to substitute the placeholders in
  *   the resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
  * @property fallbackLocales Used in case a translation for a given [Translatable] is not defined for
  *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  *
  * @constructor
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
- *   which will be used in [String.Companion.format], which in turn is used to substitute the
+ *   which will be used in [String.format], which in turn is used to substitute the
  *   placeholders in the resulting translation of [TranslatableWithArgs.translatable] with
  *   the [TranslatableWithArgs.arguments].
  * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
@@ -71,7 +71,7 @@ abstract class ArgumentsSupportingTranslator(
      * @param translatable The [Translatable] which shall be translated.
      *
      * @return The translation for the given [translatable] or
-     *   [Translatable.getDefault] of the given [translatable] in case there is no translation defined
+     *   [Translatable.getDefault] of the given [translatable] in case there is no translation defined.
      */
     protected abstract fun translateWithoutArgs(translatable: Translatable): String
 
@@ -84,6 +84,6 @@ abstract class ArgumentsSupportingTranslator(
                 else -> arg
             }
         }
-        return String.format(primaryLocale, result, *arr)
+        return result.format(primaryLocale, arr[0], *arr.drop(1).toTypedArray())
     }
 }
