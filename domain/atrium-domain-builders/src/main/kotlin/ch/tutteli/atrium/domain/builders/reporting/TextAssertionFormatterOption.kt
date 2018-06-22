@@ -46,7 +46,10 @@ interface TextAssertionFormatterOption {
      * Have a look at the sub types of [BulletPointIdentifier] to get a feel for what and how you can customise
      * bullet points.
      */
-    @Deprecated("use the overload which expects KClass instead; will be removed with 1.0.0", ReplaceWith("withTextCapabilities(*bulletPoints.asSequence().associate { it.first.kotlin to it.second }.toList().toTypedArray())"))
+    @Deprecated(
+        "Use the overload which expects KClass instead; will be removed with 1.0.0",
+        ReplaceWith("this.withTextCapabilities(*bulletPoints.asSequence().associate { it.first.kotlin to it.second }.toList().toTypedArray())")
+    )
     fun withDefaultTextCapabilities(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterOption
         = withTextCapabilities(*bulletPoints.asSequence().associate { it.first.kotlin to it.second }.toList().toTypedArray())
 

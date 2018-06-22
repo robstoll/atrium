@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.core.polyfills
 
+import ch.tutteli.atrium.reporting.translating.Locale
 import kotlin.String
 
 actual fun String.Companion.format(locale: Locale, message: String, vararg arguments: Any): String {

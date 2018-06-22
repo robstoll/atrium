@@ -1,16 +1,16 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
-import ch.tutteli.atrium.reporting.translating.ArgumentsSupportingTranslator
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.reporting.translating.Translator
+import ch.tutteli.atrium.reporting.translating.*
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.kbox.forElementAndForEachIn
 import java.util.*
 
 /**
  * Represents a [Translator] which reuses [ResourceBundle] properties based capabilities but uses an enhanced
- * fallback mechanism. Instead of falling back to [Locale.getDefault] one is able to specify fallback [Locale] oneself.
- * Whether this includes [Locale.getDefault] or not is up to the user.
+ * fallback mechanism.
+ *
+ * Instead of falling back to [java.util.Locale.getDefault] one is able to specify fallback [Locale] oneself.
+ * Whether this includes [java.util.Locale.getDefault] or not is up to the user.
  *
  * The translations are located in properties files structured per entity (enum, object or class).
  * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
@@ -22,8 +22,8 @@ import java.util.*
  * This class is only used as reference implementation to see that compatibility with ResourceBundle is still given.
  *
  * @constructor  Represents a [Translator] which reuses [ResourceBundle] properties based capabilities but uses
- *   an enhanced fallback mechanism. Instead of falling back to [Locale.getDefault] one is able to
- *   specify fallback [Locale] oneself. Whether this includes [Locale.getDefault] or not is up to the user.
+ *   an enhanced fallback mechanism. Instead of falling back to [java.util.Locale.getDefault] one is able to
+ *   specify fallback [Locale] oneself. Whether this includes [java.util.Locale.getDefault] or not is up to the user.
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
  *   which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in the
  *   resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
@@ -39,7 +39,7 @@ internal class ResourceBundleBasedTranslator(
         val control = ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
         forElementAndForEachIn(primaryLocale, fallbackLocales) { locale ->
             try {
-                val bundle = ResourceBundle.getBundle(translatable::class.java.name, locale, control)
+                val bundle = ResourceBundle.getBundle(translatable::class.java.name, locale.toJavaLocale(), control)
                 return bundle.getString(translatable.name)
             } catch (ex: MissingResourceException) {
                 //that's fine we'll return getDefault below if no translation was found

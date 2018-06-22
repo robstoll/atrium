@@ -16,10 +16,10 @@ import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.PropertiesPerEn
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.TranslationSupplierBasedTranslator
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
-import java.util.*
 import kotlin.reflect.KClass
 
 /**

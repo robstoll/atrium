@@ -4,10 +4,10 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.reporting.LocaleOrderDeciderOption
 import ch.tutteli.atrium.domain.builders.reporting.ObjectFormatterOption
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
-import java.util.*
 
 internal object ReporterBuilderImpl : ReporterBuilder {
 

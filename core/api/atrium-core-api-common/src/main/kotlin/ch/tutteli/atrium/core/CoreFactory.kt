@@ -2,9 +2,8 @@ package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.core.polyfills.Locale
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.core.polyfills.loadService
-import ch.tutteli.atrium.core.polyfills.loadServices
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider

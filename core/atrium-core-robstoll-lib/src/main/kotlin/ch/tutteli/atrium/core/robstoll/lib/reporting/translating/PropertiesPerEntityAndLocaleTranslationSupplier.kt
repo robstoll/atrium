@@ -1,8 +1,9 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
-import java.util.*
+import java.util.ResourceBundle
 
 /**
  * Represents a [TranslationSupplier] which is based on properties-files which are structured per
@@ -17,10 +18,12 @@ import java.util.*
  */
 class PropertiesPerEntityAndLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<String>() {
 
-    override fun getNotForRoot(translatable: Translatable, locale: Locale): String? {
+    override fun get(translatable: Translatable, locale: Locale): String? {
         val qualifiedName = translatable::class.java.name
         val fileName = getFileNameFor(qualifiedName, locale)
-        val translations = getOrLoadProperties(fileName, fileName, { qualifiedName + Translatable.ID_SEPARATOR + it })
+        val translations = getOrLoadProperties(fileName, fileName, keyCreator = {
+            qualifiedName + Translatable.ID_SEPARATOR + it
+        })
         return translations[translatable.id]
     }
 }

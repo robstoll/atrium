@@ -15,6 +15,7 @@ import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.CoroutineBasedL
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.PropertiesPerEntityAndLocaleTranslationSupplier
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.TranslationSupplierBasedTranslator
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.core.migration.toAtriumLocale
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
@@ -61,7 +62,7 @@ object AtriumFactory : IAtriumFactory {
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales)"))
     override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
-        = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales.toList())
+        = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale.toAtriumLocale(), fallbackLocales.map { it.toAtriumLocale() })
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newPropertiesBasedTranslationSupplier()"))
     override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
