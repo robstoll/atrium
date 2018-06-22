@@ -6,6 +6,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.kbox.glue
 
 /**
  * Option step which allows to specify [ExplanatoryAssertion.explanation].
@@ -20,7 +21,7 @@ interface ExplanatoryAssertionExplanationOption {
      * how the [Translatable] is used as [ExplanatoryAssertion.explanation].
      */
     fun withDescription(translatable: Translatable, arg: Any, vararg otherArgs: Any): ExplanatoryAssertionFinalStep
-        = withDescription(TranslatableWithArgs(translatable, arrayOf(arg, *otherArgs)))
+        = withDescription(TranslatableWithArgs(translatable, arg glue otherArgs))
 
     /**
      * Uses the given [translatable] as explanation.
