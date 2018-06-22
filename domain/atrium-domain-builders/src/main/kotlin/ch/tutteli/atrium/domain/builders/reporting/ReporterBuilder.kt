@@ -19,7 +19,7 @@ val reporterBuilder : ReporterBuilder = ReporterBuilderImpl
 interface ReporterBuilder {
 
     /**
-     * Uses [UsingDefaultTranslator] as [Translator] where [getLocaleDefault] is used to format arguments
+     * Uses [UsingDefaultTranslator] as [Translator] where [getDefaultLocale] is used to format arguments
      * of [TranslatableWithArgs].
      *
      * [UsingDefaultTranslator] does not require a [TranslationSupplier] nor a [LocaleOrderDecider] and thus
@@ -28,7 +28,7 @@ interface ReporterBuilder {
      * Notice that [UsingDefaultTranslator] does not translate but uses what [Translatable.getDefault] returns.
      */
     fun withoutTranslationsUseDefaultLocale(): ObjectFormatterOption
-        = withoutTranslations(getLocaleDefault())
+        = withoutTranslations(getDefaultLocale())
 
     /**
      * Uses [UsingDefaultTranslator] as [Translator] where the given [primaryLocale] is used to format arguments
