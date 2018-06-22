@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.reporting.translating
 
-import ch.tutteli.atrium.core.polyfills.Locale
-import ch.tutteli.atrium.core.polyfills.getLocaleDefault
 import ch.tutteli.atrium.core.polyfills.format
 
 /**

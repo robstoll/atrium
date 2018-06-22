@@ -2,6 +2,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
+import ch.tutteli.atrium.core.migration.toAtriumLocale
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
 
@@ -10,13 +11,23 @@ object ResourceBundleBasedTranslatorSpec : Spek({
     include(AtriumsTranslatorIntSpec)
 }) {
     object AtriumsTranslatorErrorCaseSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorErrorCaseSpec(
-        AssertionVerbFactory, ::ResourceBundleBasedTranslator, "[Atrium's TranslatorErrorSpec] ")
+        AssertionVerbFactory,
+        { primaryLocale: java.util.Locale,
+          fallbackLocales: List<java.util.Locale> ->
+            ResourceBundleBasedTranslator(primaryLocale.toAtriumLocale(), fallbackLocales.map { it.toAtriumLocale() })
+        }, "[Atrium's TranslatorErrorSpec] "
+    )
 
     object AtriumsTranslatorIntSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec(
         AssertionVerbFactory,
         { primaryLocale, fallbackLocales ->
             reporterBuilder
-                .withTranslator(ResourceBundleBasedTranslator.create(primaryLocale, *fallbackLocales))
+                .withTranslator(
+                    ResourceBundleBasedTranslator.create(
+                        primaryLocale.toAtriumLocale(),
+                        *fallbackLocales.map { it.toAtriumLocale() }.toTypedArray()
+                    )
+                )
                 .withDetailedObjectFormatter()
                 .withDefaultAssertionFormatterController()
                 .withDefaultAssertionFormatterFacade()
@@ -29,5 +40,4 @@ object ResourceBundleBasedTranslatorSpec : Spek({
         false,
         "[Atrium's TranslatorIntSpec] "
     )
-
 }

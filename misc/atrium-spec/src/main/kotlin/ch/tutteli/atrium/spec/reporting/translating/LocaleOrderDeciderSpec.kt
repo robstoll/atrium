@@ -2,6 +2,7 @@ package ch.tutteli.atrium.spec.reporting.translating
 
 import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.prefixedDescribe
@@ -11,7 +12,6 @@ import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
-import java.util.*
 
 abstract class LocaleOrderDeciderSpec(
     verbs: AssertionVerbFactory,
@@ -29,25 +29,21 @@ abstract class LocaleOrderDeciderSpec(
     val variantAB = "${variantA}_VariantB"
     val localeDe = Locale("de")
     val localeDeCh = Locale("de", "ch")
-    val localeDeChVariantA = Locale("de", "ch", variantA)
-    val localeDeChVariantAVariantB = Locale("de", "ch", variantAB)
-    val localeDeChVariantAScriptLatnBuilder = Locale.Builder()
-        .setLanguage("de")
-        .setScript("Latn")
-        .setRegion("ch")
-        .setVariant(variantA)
-    val localeDeScriptLatnChVariantA = localeDeChVariantAScriptLatnBuilder.build()
-    val localeDeScriptLatnCh = localeDeChVariantAScriptLatnBuilder.setVariant("").build()
-    val localeDeScriptLatn = localeDeChVariantAScriptLatnBuilder.setRegion("").build()
+    val localeDeChVariantA = Locale("de", null, "ch", variantA)
+    val localeDeChVariantAVariantB = Locale("de", null, "ch", variantAB)
+    val localeDeScriptLatnChVariantA = Locale("de", "Latn", "ch", variantA)
+    val localeDeScriptLatnCh = Locale("de", "Latn", "ch", null)
+    val localeDeScriptLatn = Locale("de", "Latn", null, null)
+    val france = Locale("fr", "FR")
+    val french = Locale("fr")
     listOf(
         Triple("without fallbackLocales", emptyList(), emptyArray()),
-        Triple("with fallback fr", listOf(Locale.FRENCH), arrayOf(Locale.FRENCH)),
-        Triple("with fallback fr_FR", listOf(Locale.FRANCE), arrayOf(Locale.FRANCE, Locale.FRENCH)),
-        Triple("with fallback fr_CH and fr_FR", listOf(Locale("fr", "CH"), Locale.FRANCE), arrayOf(Locale("fr", "CH"), Locale.FRENCH, Locale.FRANCE, Locale.FRENCH))
-
+        Triple("with fallback fr", listOf(french), arrayOf(french)),
+        Triple("with fallback fr_FR", listOf(france), arrayOf(france, french)),
+        Triple("with fallback fr_CH and fr_FR", listOf(Locale("fr", "CH"), france), arrayOf(Locale("fr", "CH"), french, france, french))
     ).forEach { (description, fallbackLocales, additionalLocaleCandidates) ->
         val andAdditional = if (additionalLocaleCandidates.isNotEmpty()) {
-            ", " + additionalLocaleCandidates.joinToString(", ", " and ", { it, sb -> sb.append(it) })
+            ", " + additionalLocaleCandidates.joinToString(", ", " and ") { it, sb -> sb.append(it) }
         } else {
             ""
         }
