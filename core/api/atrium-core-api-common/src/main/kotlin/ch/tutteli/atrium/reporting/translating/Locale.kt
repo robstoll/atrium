@@ -37,4 +37,4 @@ data class Locale(val language: String, val script: String?, val country: String
     }
 }
 
-expect fun getLocaleDefault(): Locale
+expect fun getDefaultLocale(): Locale
