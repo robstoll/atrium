@@ -3,13 +3,11 @@ package ch.tutteli.atrium.robstoll.core
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.CoroutineBasedLocaleOrderDecider
-import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.PropertiesPerEntityAndLocaleTranslationSupplier
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.CheckingAssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
 
 /**
@@ -23,7 +21,6 @@ import ch.tutteli.atrium.reporting.translating.Translator
  * - [AssertionChecker]
  * - [MethodCallFormatter]
  * - [Translator]
- * - [TranslationSupplier]
  * - [CoroutineBasedLocaleOrderDecider]
  * - [ObjectFormatter]
  * - [AssertionFormatterFacade]
@@ -32,8 +29,4 @@ import ch.tutteli.atrium.reporting.translating.Translator
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
-class CoreFactoryImpl : CoreFactoryCommonImpl(), CoreFactory {
-
-    override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
-        = PropertiesPerEntityAndLocaleTranslationSupplier()
-}
+class CoreFactoryImpl : CoreFactoryCommonImpl(), CoreFactory
