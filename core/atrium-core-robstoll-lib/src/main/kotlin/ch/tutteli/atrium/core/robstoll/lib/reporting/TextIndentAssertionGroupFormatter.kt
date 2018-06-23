@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.IndentAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
+import kotlin.reflect.KClass
 
 /**
  * Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [IndentAssertionGroupType] or rather
@@ -27,10 +28,10 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  */
 @Deprecated("So far indentation was achieved by grouping (which is the solution to go). Will be removed with 1.0.0")
 class TextIndentAssertionGroupFormatter(
-    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+    bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController
-) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IndentAssertionGroupType>(IndentAssertionGroupType::class.java, assertionFormatterController) {
-    private val bulletPoint = bulletPoints[IndentAssertionGroupType::class.java] ?: " ⋄ "
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<IndentAssertionGroupType>(IndentAssertionGroupType::class, assertionFormatterController) {
+    private val bulletPoint = bulletPoints[IndentAssertionGroupType::class] ?: " ⋄ "
 
     override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject)
         = parameterObject.createChildWithNewPrefix(bulletPoint)

@@ -5,7 +5,7 @@ buildscript {
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     ext {
         ghPages_version = rootProject.version
-        kbox_version = '0.9.0'
+        kbox_version = '0.10.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.2.50'
         mockito_kotlin_version = '1.5.0'
@@ -42,7 +42,9 @@ buildscript {
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects).findAll {
-                    it.name != "${rootProject.name}-domain-api" &&
+                    !it.name.endsWith("-common") &&
+                    !it.name.endsWith("-js") &&
+                        it.name != "${rootProject.name}-domain-api" &&
                         it.name != "${rootProject.name}-domain-robstoll" &&
                         it.name != "${rootProject.name}-core-robstoll" &&
                         it.name != "${rootProject.name}-spec" &&
@@ -77,14 +79,56 @@ repositories {
     mavenCentral()
 }
 
-subprojects { subproject ->
-    subproject.version = rootProject.version
-    subproject.group = rootProject.group
+subprojects {
+    it.version = rootProject.version
 
     repositories {
         mavenCentral()
         maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
     }
+}
+
+def commonProjects = subprojects.findAll { it.name.endsWith("-common") }
+def jsProjects =  subprojects.findAll { it.name.endsWith("-js") }
+def jvmProjects =  subprojects.findAll { it.name.endsWith("-jvm") }
+
+static def getCommonProject(String name, String suffix) {
+    return ":${name.substring(0, name.indexOf(suffix))}-common"
+}
+
+configure(commonProjects) {
+    apply plugin: 'kotlin-platform-common'
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+    }
+}
+
+configure(jvmProjects) { Project subproject ->
+    apply plugin: 'kotlin-platform-jvm'
+
+    dependencies {
+        expectedBy project(getCommonProject(subproject.name, '-jvm'))
+    }
+}
+
+configure(jsProjects) { Project subproject ->
+    apply plugin: 'kotlin-platform-js'
+
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+        expectedBy project(getCommonProject(subproject.name, '-js'))
+    }
+
+    compileKotlin2Js {
+        kotlinOptions.moduleKind = "umd"
+        kotlinOptions.sourceMap = true
+        kotlinOptions.sourceMapEmbedSources = "always"
+    }
+}
+configure(subprojects - commonProjects - jsProjects)  { subproject ->
+    subproject.version = rootProject.version
+    subproject.group = rootProject.group
 
     apply plugin: 'ch.tutteli.kotlin'
 
@@ -136,6 +180,12 @@ subprojects { subproject ->
     }
 }
 
+configure(commonProjects + jsProjects) {
+    afterEvaluate {
+        it.ext.publish_artifacts = [jar]
+    }
+}
+
 // has to be after the above two blocks which define `it.ext.publish_artifacts`
 def bundleSmokeTests = subprojects.findAll{ x -> x.name.endsWith('smoke-test')}
 configure(subprojects - bundleSmokeTests) { subproject ->
@@ -160,7 +210,7 @@ configure(subprojects - bundleSmokeTests) { subproject ->
     }
 }
 
-configure(subprojects - jacocoMulti.jacocoProjects) {
+configure(subprojects - jacocoMulti.jacocoProjects - commonProjects - jvmProjects - jsProjects) {
     dependencies {
         compile kotlinStdLib()
         compile kotlinReflect()
@@ -251,8 +301,6 @@ configure(bundleSmokeTests) {
         testCompile bundle
         testCompile prefixedProject('verbs')
     }
-
-
 }
 
 /*

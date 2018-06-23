@@ -17,10 +17,11 @@ import ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import kotlin.reflect.KClass
 
 abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
     verbs: AssertionVerbFactory,
-    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     assertionGroupClass: Class<T>,
     assertionGroupType: T,
     anonymousAssertionGroupType: T,
@@ -60,15 +61,15 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
             val indent = " ".repeat(bulletPoint.length + 1)
             context("listBulletPoint: $listBulletPoint, bulletPoint: $bulletPoint") {
                 val bulletPoints = mapOf(
-                    RootAssertionGroupType::class.java to "$bulletPoint ",
-                    ListAssertionGroupType::class.java to "$listBulletPoint ",
-                    PrefixFeatureAssertionGroupHeader::class.java to "$arrow ",
-                    FeatureAssertionGroupType::class.java to "$bulletPoint "
+                    RootAssertionGroupType::class to "$bulletPoint ",
+                    ListAssertionGroupType::class to "$listBulletPoint ",
+                    PrefixFeatureAssertionGroupHeader::class to "$arrow ",
+                    FeatureAssertionGroupType::class to "$bulletPoint "
                 )
                 val facade = createFacade()
-                facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-                facade.register({ coreFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
-                facade.register({ coreFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+                facade.register { testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+                facade.register { coreFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
+                facade.register { coreFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
 
                 context("${AssertionGroup::class.simpleName} of type object: ${assertionGroupClass.simpleName}") {
                     context("format directly the group") {

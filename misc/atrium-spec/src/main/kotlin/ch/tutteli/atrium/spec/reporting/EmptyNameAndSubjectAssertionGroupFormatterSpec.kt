@@ -16,11 +16,12 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import kotlin.reflect.KClass
 
 abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroupType>(
     verbs: AssertionVerbFactory,
     testeeFactory: (AssertionFormatterController) -> AssertionFormatter,
-    assertionGroupClass: Class<T>,
+    assertionGroupClass: KClass<T>,
     assertionGroupType: T,
     anonymousAssertionGroupType: T,
     describePrefix: String = "[Atrium] "

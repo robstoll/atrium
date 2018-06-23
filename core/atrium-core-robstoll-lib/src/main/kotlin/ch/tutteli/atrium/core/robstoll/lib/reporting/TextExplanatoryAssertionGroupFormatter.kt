@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
+import kotlin.reflect.KClass
 
 /**
  * Represents an [AssertionFormatter] which formats [AssertionGroup]s with an [ExplanatoryAssertionGroupType] by
@@ -33,11 +34,11 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  *   when it comes to format children of an [AssertionGroup].
  */
 class TextExplanatoryAssertionGroupFormatter(
-    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+    bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController
-) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<ExplanatoryAssertionGroupType>(ExplanatoryAssertionGroupType::class.java, assertionFormatterController) {
-    private val explanatoryBulletPoint = bulletPoints[ExplanatoryAssertionGroupType::class.java] ?: "» "
-    private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class.java] ?: "❗❗ "
+) : NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<ExplanatoryAssertionGroupType>(ExplanatoryAssertionGroupType::class, assertionFormatterController) {
+    private val explanatoryBulletPoint = bulletPoints[ExplanatoryAssertionGroupType::class] ?: "» "
+    private val warningBulletPoint = bulletPoints[WarningAssertionGroupType::class] ?: "❗❗ "
 
     override fun formatGroupHeaderAndGetChildParameterObject(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject): AssertionFormatterParameterObject {
         val bulletPoint = when (assertionGroup.type) {

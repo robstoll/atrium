@@ -46,16 +46,16 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
-            .withDefaultTextCapabilities(
-                RootAssertionGroupType::class.java to "* ",
-                ListAssertionGroupType::class.java to "- ",
-                FeatureAssertionGroupType::class.java to "=> ",
+            .withTextCapabilities(
+                RootAssertionGroupType::class to "* ",
+                ListAssertionGroupType::class to "- ",
+                FeatureAssertionGroupType::class to "=> ",
                 //TODO remove with 1.0.0
-                IndentAssertionGroupType::class.java to "| ",
-                PrefixFeatureAssertionGroupHeader::class.java to ">> ",
-                PrefixSuccessfulSummaryAssertion::class.java to "(/) ",
-                PrefixFailingSummaryAssertion::class.java to "(x) ",
-                WarningAssertionGroupType::class.java to "(!) "
+                IndentAssertionGroupType::class to "| ",
+                PrefixFeatureAssertionGroupHeader::class to ">> ",
+                PrefixSuccessfulSummaryAssertion::class to "(/) ",
+                PrefixFailingSummaryAssertion::class to "(x) ",
+                WarningAssertionGroupType::class to "(!) "
             )
             .withOnlyFailureReporter()
             .build()

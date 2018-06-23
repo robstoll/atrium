@@ -5,7 +5,7 @@ description = 'contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
 
 dependencies {
     compile kbox(), withoutKotlin
-    compile prefixedProject('core-api')
+    compile prefixedProject('core-api-jvm')
 
     testRuntimeOnly prefixedProject('domain-robstoll')
     testRuntimeOnly prefixedProject('core-robstoll')

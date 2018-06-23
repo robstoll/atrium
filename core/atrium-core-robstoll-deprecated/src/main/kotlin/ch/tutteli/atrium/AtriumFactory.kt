@@ -15,6 +15,7 @@ import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.CoroutineBasedL
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.PropertiesPerEntityAndLocaleTranslationSupplier
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.TranslationSupplierBasedTranslator
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.core.migration.toAtriumLocale
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
@@ -61,7 +62,7 @@ object AtriumFactory : IAtriumFactory {
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales)"))
     override fun newTranslator(translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, primaryLocale: Locale, vararg fallbackLocales: Locale): Translator
-        = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales.toList())
+        = TranslationSupplierBasedTranslator(translationSupplier, localeOrderDecider, primaryLocale.toAtriumLocale(), fallbackLocales.map { it.toAtriumLocale() })
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newPropertiesBasedTranslationSupplier()"))
     override fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
@@ -87,36 +88,36 @@ object AtriumFactory : IAtriumFactory {
     override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
         = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
-    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)"))
+    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTextFallbackAssertionFormatter(bulletPoints.asSequence().map { it.key.kotlin to it.value }.toMap(), assertionFormatterController, objectFormatter, translator)"))
     override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFallbackAssertionFormatter(
-        bulletPoints,
+        toKClassBasedMap(bulletPoints),
         assertionFormatterController,
         newTextSameLineAssertionPairFormatter(objectFormatter, translator),
         objectFormatter
     )
 
-    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)"))
+    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTextFeatureAssertionGroupFormatter(bulletPoints.asSequence().map { it.key.kotlin to it.value }.toMap(), assertionFormatterController, objectFormatter, translator)"))
     override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFeatureAssertionGroupFormatter(
-        bulletPoints,
+        toKClassBasedMap(bulletPoints),
         assertionFormatterController,
         newTextSameLineAssertionPairFormatter(objectFormatter, translator)
     )
 
-    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)"))
+    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTextListAssertionGroupFormatter(bulletPoints.asSequence().map { it.key.kotlin to it.value }.toMap(), assertionFormatterController, objectFormatter, translator)"))
     override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextListAssertionGroupFormatter(
-        bulletPoints,
+        toKClassBasedMap(bulletPoints),
         assertionFormatterController,
         newTextSameLineAssertionPairFormatter(objectFormatter, translator)
     )
 
-    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)"))
+    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints.asSequence().map { it.key.kotlin to it.value }.toMap(), assertionFormatterController)"))
     override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
-        = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
+        = TextExplanatoryAssertionGroupFormatter(toKClassBasedMap(bulletPoints), assertionFormatterController)
 
-    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.registerTextAssertionFormatterCapabilities(bulletPoints, assertionFormatterFacade, textAssertionPairFormatter, objectFormatter, translator)"))
+    @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.registerTextAssertionFormatterCapabilities(bulletPoints.asSequence().map { it.key.kotlin to it.value }.toMap(), assertionFormatterFacade, textAssertionPairFormatter, objectFormatter, translator)"))
     override fun registerTextAssertionFormatterCapabilities(
         bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
@@ -125,24 +126,27 @@ object AtriumFactory : IAtriumFactory {
         translator: Translator
     ) {
         assertionFormatterFacade.register {
-            TextListAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter)
+            TextListAssertionGroupFormatter(toKClassBasedMap(bulletPoints), it, textAssertionPairFormatter)
         }
         assertionFormatterFacade.register {
-            TextFeatureAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter)
+            TextFeatureAssertionGroupFormatter(toKClassBasedMap(bulletPoints), it, textAssertionPairFormatter)
         }
         assertionFormatterFacade.register {
-            TextExplanatoryAssertionGroupFormatter(bulletPoints, it)
+            TextExplanatoryAssertionGroupFormatter(toKClassBasedMap(bulletPoints), it)
         }
         assertionFormatterFacade.register {
-            TextIndentAssertionGroupFormatter(bulletPoints, it)
+            TextIndentAssertionGroupFormatter(toKClassBasedMap(bulletPoints), it)
         }
         assertionFormatterFacade.register {
-            TextSummaryAssertionGroupFormatter(bulletPoints, it, textAssertionPairFormatter)
+            TextSummaryAssertionGroupFormatter(toKClassBasedMap(bulletPoints), it, textAssertionPairFormatter)
         }
         assertionFormatterFacade.register {
-            TextFallbackAssertionFormatter(bulletPoints, it, textAssertionPairFormatter, objectFormatter)
+            TextFallbackAssertionFormatter(toKClassBasedMap(bulletPoints), it, textAssertionPairFormatter, objectFormatter)
         }
     }
+
+    private fun toKClassBasedMap(bulletPoints: Map<Class<out BulletPointIdentifier>, String>) =
+        bulletPoints.asSequence().map { it.key.kotlin to it.value }.toMap()
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newOnlyFailureReporter(assertionFormatterFacade)"))
     override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter

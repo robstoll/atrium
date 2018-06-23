@@ -8,13 +8,14 @@ import ch.tutteli.atrium.domain.builders.reporting.TextAssertionFormatterOption
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionPairFormatter
+import kotlin.reflect.KClass
 
 internal class TextAssertionFormatterOptionImpl(
     override val options: AssertionFormatterChosenOptions,
     override val assertionPairFormatter: AssertionPairFormatter
 ) : TextAssertionFormatterOption {
 
-    override fun withDefaultTextCapabilities(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterOption {
+    override fun withTextCapabilities(vararg bulletPoints: Pair<KClass<out BulletPointIdentifier>, String>): ReporterOption {
         coreFactory.registerTextAssertionFormatterCapabilities(
             bulletPoints.toMap(), options.assertionFormatterFacade, assertionPairFormatter, options.objectFormatter, options.translator)
         return ReporterOptionImpl(options.assertionFormatterFacade)

@@ -16,10 +16,11 @@ import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.PropertiesPerEn
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.TranslationSupplierBasedTranslator
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import ch.tutteli.atrium.reporting.translating.Translator
-import java.util.*
+import kotlin.reflect.KClass
 
 /**
  * Robstoll's `abstract factory` for atrium-core.
@@ -88,7 +89,7 @@ class CoreFactoryImpl : CoreFactory {
     override fun newTextSameLineAssertionPairFormatter(objectFormatter: ObjectFormatter, translator: Translator)
         = TextSameLineAssertionPairFormatter(objectFormatter, translator)
 
-    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
+    override fun newTextFallbackAssertionFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFallbackAssertionFormatter(
             bulletPoints,
             assertionFormatterController,
@@ -96,32 +97,32 @@ class CoreFactoryImpl : CoreFactory {
             objectFormatter
         )
 
-    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
+    override fun newTextFeatureAssertionGroupFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextFeatureAssertionGroupFormatter(
             bulletPoints,
             assertionFormatterController,
             newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         )
 
-    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
+    override fun newTextListAssertionGroupFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextListAssertionGroupFormatter(
             bulletPoints,
             assertionFormatterController,
             newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         )
 
-    override fun newTextSummaryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
+    override fun newTextSummaryAssertionGroupFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator): AssertionFormatter
         = TextSummaryAssertionGroupFormatter(
             bulletPoints,
             assertionFormatterController,
             newTextSameLineAssertionPairFormatter(objectFormatter, translator)
         )
 
-    override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
+    override fun newTextExplanatoryAssertionGroupFormatter(bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController): AssertionFormatter
         = TextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)
 
     override fun registerTextAssertionFormatterCapabilities(
-        bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+        bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
         assertionFormatterFacade: AssertionFormatterFacade,
         textAssertionPairFormatter: AssertionPairFormatter,
         objectFormatter: ObjectFormatter,

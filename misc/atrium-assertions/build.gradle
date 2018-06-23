@@ -4,7 +4,7 @@ dependencies {
     compile prefixedProject('domain-api')
     compile prefixedProject('domain-api-deprecated')
     compileOnly prefixedProject('domain-robstoll')
-    compile prefixedProject('core-api')
+    compile prefixedProject('core-api-jvm')
     // it is up to the consumer of atrium-assertions which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB')
 }
