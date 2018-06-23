@@ -3,7 +3,7 @@ package ch.tutteli.atrium.core
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.reporting.translating.Locale
-import ch.tutteli.atrium.core.polyfills.loadService
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -15,10 +15,9 @@ import kotlin.reflect.KClass
 /**
  * The access point to an implementation of [CoreFactory].
  *
- * It loads the implementation lazily via [loadService].
+ * It loads the implementation lazily via [loadSingleService].
  */
-
-val coreFactory by lazy { loadService(CoreFactory::class) }
+val coreFactory by lazy { loadSingleService(CoreFactory::class) }
 
 /**
  * The minimum contract of the 'abstract factory' of atrium.
