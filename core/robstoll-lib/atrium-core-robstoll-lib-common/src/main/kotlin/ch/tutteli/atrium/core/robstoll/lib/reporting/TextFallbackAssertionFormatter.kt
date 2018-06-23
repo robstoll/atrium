@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
@@ -67,7 +68,7 @@ class TextFallbackAssertionFormatter(
     }
 
     private fun formatFallback(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) {
-        val translatable = Untranslatable("Unsupported type ${assertion::class.java.name}, can only report whether it holds")
+        val translatable = Untranslatable("Unsupported type ${assertion::class.fullName}, can only report whether it holds")
         assertionPairFormatter.format(parameterObject, translatable, assertion.holds())
     }
 

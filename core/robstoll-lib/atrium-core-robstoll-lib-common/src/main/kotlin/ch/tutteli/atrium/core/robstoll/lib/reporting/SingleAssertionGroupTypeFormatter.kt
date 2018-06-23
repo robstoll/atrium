@@ -3,6 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
@@ -38,7 +39,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      * @throws UnsupportedOperationException always!
      */
     final override fun formatNonGroup(assertion: Assertion, parameterObject: AssertionFormatterParameterObject)
-        = throw UnsupportedOperationException("supports only ${clazz.qualifiedName} for which one has to call ${AssertionFormatter::formatGroup.name}")
+        = throw UnsupportedOperationException("supports only ${clazz.fullName} for which one has to call ${AssertionFormatter::formatGroup.name}")
 
     /**
      * Checks whether [assertionGroup] is [T] or a sub type and if so, calls [formatGroupHeaderAndGetChildParameterObject]
@@ -60,7 +61,7 @@ abstract class SingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
      */
     final override fun formatGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit) = when {
         clazz.isInstance(assertionGroup.type) -> formatSpecificGroup(assertionGroup, parameterObject, formatAssertions)
-        else -> throw UnsupportedOperationException("supports only ${clazz.qualifiedName}")
+        else -> throw UnsupportedOperationException("supports only ${clazz.fullName}")
     }
 
     private fun formatSpecificGroup(assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject, formatAssertions: (AssertionFormatterParameterObject, (Assertion) -> Unit) -> Unit) {

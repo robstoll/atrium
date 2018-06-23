@@ -6,7 +6,6 @@ import ch.tutteli.atrium.reporting.StringBasedRawString
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.translating.TranslatableBasedRawString
 import ch.tutteli.atrium.reporting.translating.Translator
-import java.text.DecimalFormat
 import kotlin.reflect.KClass
 
 /**
@@ -26,12 +25,9 @@ import kotlin.reflect.KClass
  *   (in most cases).
  * @param translator The [Translator] used to translate [TranslatableBasedRawString]s.
  */
-class DetailedObjectFormatter(private val translator: Translator) : ObjectFormatter {
-    private val decimalFormat = DecimalFormat("0.0")
-
-    init {
-        decimalFormat.maximumFractionDigits = 340
-    }
+actual class DetailedObjectFormatter actual constructor(
+    private val translator: Translator
+) : DetailedObjectFormatterCommon(translator), ObjectFormatter {
 
     /**
      * Returns a formatted version of the given [value].
@@ -56,40 +52,22 @@ class DetailedObjectFormatter(private val translator: Translator) : ObjectFormat
      * @return The formatted [value].
      */
     override fun format(value: Any?): String = when (value) {
-        null -> RawString.NULL.string
-        is LazyRepresentation -> format(value.eval())
-        is Char -> "'$value'"
-        is Boolean -> value.toString()
-        is String -> format(value)
-        is CharSequence -> format(value)
-        is StringBasedRawString -> value.string
-        is TranslatableBasedRawString -> translator.translate(value.translatable)
         is Class<*> -> format(value)
-        is KClass<*> -> format(value)
-        is Enum<*> -> format(value)
-        is Throwable -> format(value)
-        else -> value.toString() + INDENT + classNameAndIdentity(value)
+        else -> super.format(value)
     }
 
-    private fun format(string: String) = "\"$string\"" + INDENT + identityHash(string)
-    private fun format(charSequence: CharSequence) = "\"$charSequence\"" + INDENT + classNameAndIdentity(charSequence)
     private fun format(clazz: Class<*>) = "${clazz.simpleName} (${clazz.name})"
-    private fun format(clazz: KClass<*>): String {
-        val kotlinClass = "${clazz.simpleName} (${clazz.qualifiedName})"
+
+    override fun format(kClass: KClass<*>): String {
+        val kotlinClass = "${kClass.simpleName} (${kClass.qualifiedName})"
         return when {
-            clazz.qualifiedName == clazz.java.name -> kotlinClass
-            clazz.java.isPrimitive -> "$kotlinClass -- Class: ${clazz.java.simpleName}"
-            else -> "$kotlinClass -- Class: ${format(clazz.java)}"
+            kClass.qualifiedName == kClass.java.name -> kotlinClass
+            kClass.java.isPrimitive -> "$kotlinClass -- Class: ${kClass.java.simpleName}"
+            else -> "$kotlinClass -- Class: ${format(kClass.java)}"
         }
     }
 
-    private fun format(enum: Enum<*>) = enum.toString() + INDENT + "(" + enum::class.java.name + ")"
-    private fun format(throwable: Throwable) = throwable::class.java.name
-
-    private fun classNameAndIdentity(any: Any)
-        = "(${any::class.java.name} ${identityHash(any)})"
-
-    private fun identityHash(any: Any) = "<${System.identityHashCode(any)}>"
+    override fun identityHash(indent: String, any: Any): String = "$indent<${System.identityHashCode(any)}>"
 
     companion object {
         internal const val INDENT: String = "        "

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.reporting.translating.*
+import ch.tutteli.atrium.core.polyfills.format
 
 /**
  * Represents a [Translator] which uses a [TranslationSupplier] to retrieve translations and [CoroutineBasedLocaleOrderDecider]
@@ -17,7 +18,7 @@ import ch.tutteli.atrium.reporting.translating.*
  * @param localeOrderDecider Decides in which order [Locale]s are processed to find a translation for a
  *   given [Translatable].
  * @param primaryLocale The [Locale] to which the translator translates per default as well as the [Locale]
- *   which will be used in [java.lang.String.format], which in turn is used to substitute the placeholders in
+ *   which will be used in [String.format], which in turn is used to substitute the placeholders in
  *   the resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
  * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
  *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
