@@ -60,9 +60,9 @@ abstract class DetailedObjectFormatterCommon(
     private fun format(string: String) = "\"$string\"" + identityHash(INDENT, string)
     private fun format(charSequence: CharSequence) = "\"$charSequence\"" + classNameAndIdentity(charSequence)
     private fun format(enum: Enum<*>) =
-        enum.toString() + INDENT + "(" + (enum::class.fullName ?: "<unknown enum>") + ")"
+        enum.toString() + INDENT + "(" + (enum::class.fullName) + ")"
 
-    private fun format(throwable: Throwable) = throwable::class.fullName ?: "<unknown throwable>"
+    private fun format(throwable: Throwable) = throwable::class.fullName
 
     private fun classNameAndIdentity(any: Any): String = INDENT + "(${any::class.fullName}${identityHash(" ", any)})"
 

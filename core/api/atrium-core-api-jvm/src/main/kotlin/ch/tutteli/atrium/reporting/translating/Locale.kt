@@ -1,12 +1,11 @@
 package ch.tutteli.atrium.reporting.translating
 
+import ch.tutteli.atrium.core.migration.toAtriumLocale
+
 /**
  * Returns [java.util.Locale.getDefault].
  */
-actual fun getDefaultLocale(): Locale {
-    val defaultLocale = java.util.Locale.getDefault()
-    return Locale(defaultLocale.language, defaultLocale.script, defaultLocale.country, defaultLocale.variant)
-}
+actual fun getDefaultLocale(): Locale = java.util.Locale.getDefault().toAtriumLocale()
 
 /**
  * Transforms this [Locale] into a [java.util.Locale].

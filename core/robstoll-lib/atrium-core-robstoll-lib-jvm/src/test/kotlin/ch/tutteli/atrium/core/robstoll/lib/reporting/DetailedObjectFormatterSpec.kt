@@ -68,13 +68,13 @@ object DetailedObjectFormatterSpec : Spek({
                 val value = StringBuilder("")
                 val result = testee.format(value)
                 assert(result).toBe("\"\"" + INDENT
-                    + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
+                    + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
             }
             it("returns ${CharSequence::class.simpleName} in quotes $typeNameAndHash") {
                 val value = StringBuilder("atrium")
                 val result = testee.format(value)
                 assert(result).toBe("\"$value\"" + INDENT
-                    + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
+                    + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
             }
         }
 
@@ -91,13 +91,8 @@ object DetailedObjectFormatterSpec : Spek({
             val translator = mock<Translator> {
                 on { translate(AssertionVerb.ASSERT) } doReturn translation
             }
-            val testeeWithMockedTranslation =
-                DetailedObjectFormatter(translator)
-            val result = testeeWithMockedTranslation.format(
-                RawString.create(
-                    AssertionVerb.ASSERT
-                )
-            )
+            val testeeWithMockedTranslation = DetailedObjectFormatter(translator)
+            val result = testeeWithMockedTranslation.format(RawString.create(AssertionVerb.ASSERT))
             it("returns the translated string") {
                 assert(result).toBe(translation)
             }
@@ -147,7 +142,7 @@ object DetailedObjectFormatterSpec : Spek({
 
             context("a non primitive Kotlin class (java Class is not the same)") {
                 val result = testee.format(CharSequence::class)
-                it("returns the simpleName and qualified in parenthesis including java's simpleName") {
+                it("returns the simpleName and qualified in parenthesis including java's simpleName and name") {
                     val clazz = CharSequence::class
                     assert(result).toBe("${clazz.simpleName} (${clazz.qualifiedName}) -- Class: ${clazz.java.simpleName} (${clazz.java.name})")
                 }
@@ -155,19 +150,30 @@ object DetailedObjectFormatterSpec : Spek({
         }
 
         mapOf(
-            Byte::class.java.simpleName to 1.toByte(),
-            Short::class.java.simpleName to 1.toShort(),
-            Int::class.java.simpleName to 1,
-            Long::class.java.simpleName to 1L,
-            Float::class.java.simpleName to 1.0f,
-            Double::class.java.simpleName to 1.0
+            java.lang.Byte::class.java.simpleName to 1.toByte(),
+            java.lang.Short::class.java.simpleName to 1.toShort(),
+            java.lang.Integer::class.java.simpleName to 1,
+            java.lang.Long::class.java.simpleName to 1L,
+            java.lang.Float::class.java.simpleName to 1.0f,
+            java.lang.Double::class.java.simpleName to 1.0
         ).forEach { (typeName, value) ->
             on(typeName) {
                 val result = testee.format(value)
                 it("returns ${AssertionPlant<*>::subject.name}.toString() $typeNameAndHash") {
                     assert(result).toBe(value.toString() + INDENT
-                        + "(${value::class.java.name} <${System.identityHashCode(value)}>)")
+                        + "(${value::class.qualifiedName} <${System.identityHashCode(value)}>)")
                 }
+            }
+        }
+
+        on("an anonymous class"){
+            val anonymous = object : Any() {
+                override fun toString(): String = "anonym type"
+            }
+            val result = testee.format(anonymous)
+            it("returns ${AssertionPlant<*>::subject.name}.toString() $typeNameAndHash") {
+                assert(result).toBe(anonymous.toString() + INDENT
+                    + "(${anonymous::class.java.name} <${System.identityHashCode(anonymous)}>)")
             }
         }
     }
