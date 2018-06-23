@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
-import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
 import java.util.*
@@ -21,23 +21,6 @@ abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
      */
     private val translations = ConcurrentHashMap<T, Map<String, String>>()
 
-    final override fun get(translatable: Translatable, locale: Locale): String? {
-        require(locale != Locale.ROOT) {
-            "Locale.ROOT is not supported -- most likely a bug in the chosen implementation of ${LocaleOrderDecider::class.simpleName}"
-        }
-        return getNotForRoot(translatable, locale)
-    }
-
-    /**
-     * Returns the translation for the given [translatable] and the given [locale] or `null` if it does not have
-     * any translation.
-     *
-     * It does not have to check if [locale] is [Locale.ROOT] anymore, this is already done in [get].
-     *
-     * @return The translation or null if no translation was found.
-     */
-    protected abstract fun getNotForRoot(translatable: Translatable, locale: Locale): String?
-
     /**
      * Gets the cached [Properties] content as [Map] for the given [key] or
      * loads the properties file with the given [fileName] and creates a map out of it using the given [keyCreator]
@@ -57,7 +40,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
         require(!fileName.contains("../")) {
             "only paths without any '../' are allowed"
         }
-        return this.translations.getOrPut(key, {
+        return this.translations.getOrPut(key) {
             val absoluteFileName = if (fileName.startsWith('/')) fileName else "/$fileName"
             val file = this::class.java.getResourceAsStream("$absoluteFileName.properties")
             if (file != null) {
@@ -71,7 +54,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
             } else {
                 emptyMap()
             }
-        })
+        }
     }
 
     /**
@@ -91,13 +74,13 @@ abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
             //using _ as separator to be compatible with ResourceBundle
             .append('_').append(locale.language)
 
-        if (locale.script.isNotEmpty()) {
+        if (locale.script != null) {
             sb.append('_').append(locale.script)
         }
-        if (locale.country.isNotEmpty()) {
+        if (locale.country != null) {
             sb.append('_').append(locale.country)
         }
-        if (locale.variant.isNotEmpty()) {
+        if (locale.variant != null) {
             sb.append('_').append(locale.variant)
         }
         return sb.toString().replace('.', '/')

@@ -9,6 +9,7 @@ import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.include
+import kotlin.reflect.KClass
 
 class TextExplanatoryAssertionGroupFormatterSpec : Spek({
 
@@ -29,7 +30,7 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     object AtriumsEmptyNameAndSubjectAssertionGroupFormatterSpec : ch.tutteli.atrium.spec.reporting.EmptyNameAndSubjectAssertionGroupFormatterSpec<ExplanatoryAssertionGroupType>(
         AssertionVerbFactory,
         factoryWithoutBulletPoint(),
-        ExplanatoryAssertionGroupType::class.java,
+        ExplanatoryAssertionGroupType::class,
         DefaultExplanatoryAssertionGroupType,
         object : ExplanatoryAssertionGroupType {},
         "[Atrium's EmptyNameAndSubject...Spec] ")
@@ -37,7 +38,7 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     object AtriumsSingleAssertionGroupTypeFormatterSpec : ch.tutteli.atrium.spec.reporting.SingleAssertionGroupTypeFormatterSpec<ExplanatoryAssertionGroupType>(
         AssertionVerbFactory,
         factoryWithObjectFormatter(),
-        ExplanatoryAssertionGroupType::class.java,
+        ExplanatoryAssertionGroupType::class,
         object : ExplanatoryAssertionGroupType {},
         DefaultExplanatoryAssertionGroupType,
         "[Atrium's SingleAssertionGroupType...Spec] "
@@ -49,7 +50,7 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
     )
 
     companion object {
-        private fun factory() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController ->
+        private fun factory() = { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController ->
             TextExplanatoryAssertionGroupFormatter(
                 bulletPoints,
                 assertionFormatterController
@@ -57,10 +58,10 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
         }
 
         private fun factoryWithoutBulletPoint() = { assertionFormatterController: AssertionFormatterController ->
-            factory()(mapOf(ExplanatoryAssertionGroupType::class.java to "*"), assertionFormatterController)
+            factory()(mapOf(ExplanatoryAssertionGroupType::class to "*"), assertionFormatterController)
         }
 
-        private fun factoryWithObjectFormatter() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
+        private fun factoryWithObjectFormatter() = { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
             factory()(bulletPoints, assertionFormatterController)
         }
     }

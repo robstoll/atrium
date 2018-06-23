@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
-import java.util.*
 
 /**
  * Represents a [TranslationSupplier] which is based on properties-files which are structured per [Locale].
@@ -17,9 +17,9 @@ import java.util.*
  */
 class PropertiesPerLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<Locale>() {
 
-    override fun getNotForRoot(translatable: Translatable, locale: Locale): String? {
+    override fun get(translatable: Translatable, locale: Locale): String? {
         val fileName = getFileNameFor(this::class.java.`package`.name + ".Atrium", locale)
-        val translations = getOrLoadProperties(locale, fileName, { it })
+        val translations = getOrLoadProperties(locale, fileName, keyCreator = { it })
         return translations[translatable.id]
     }
 }

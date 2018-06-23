@@ -3,8 +3,8 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.migration.toAtriumLocale
 import ch.tutteli.atrium.reporting.translating.*
-import java.util.*
 
 /**
  * The *deprecated* builder to create a [Reporter] consisting of several components.
@@ -47,12 +47,13 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
         @Deprecated(
             "use reporterBuilder from package domain.builders.reporting, will be removed with 1.0.0",
             ReplaceWith(
-                "reporterBuilder.withoutTranslations(primaryLocale)",
-                "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder"
+                "reporterBuilder.withoutTranslations(primaryLocale.toAtriumLocale())",
+                "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder",
+                "ch.tutteli.atrium.core.migration.toAtriumLocale"
             )
         )
-        fun withoutTranslations(primaryLocale: Locale = Locale.getDefault())
-            = ObjectFormatterOptions(UsingDefaultTranslator(primaryLocale))
+        fun withoutTranslations(primaryLocale: java.util.Locale = java.util.Locale.getDefault())
+            = ObjectFormatterOptions(UsingDefaultTranslator(primaryLocale.toAtriumLocale()))
 
         /**
          * Uses the given [translator] as [Translator] skipping the options for [TranslationSupplier] and
@@ -123,8 +124,8 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * @param fallbackLocales One [Locale] after another (in the given order) will be considered as primary Locale
          *   in case no translation was found the previous primary Locale.
          */
-        fun withDefaultTranslator(primaryLocale: Locale, vararg fallbackLocales: Locale)
-            = ObjectFormatterOptions(coreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, fallbackLocales.toList()))
+        fun withDefaultTranslator(primaryLocale: java.util.Locale, vararg fallbackLocales: java.util.Locale)
+            = ObjectFormatterOptions(coreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale.toAtriumLocale(), fallbackLocales.map { it.toAtriumLocale() }))
 
         /**
          * Uses the given [factory] to build a [Translator].
@@ -235,7 +236,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          */
         fun withDefaultTextCapabilities(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterBuilder {
             coreFactory.registerTextAssertionFormatterCapabilities(
-                bulletPoints.toMap(), options.assertionFormatterFacade, assertionPairFormatter, options.objectFormatter, options.translator)
+                bulletPoints.associate { it.first.kotlin to it.second }, options.assertionFormatterFacade, assertionPairFormatter, options.objectFormatter, options.translator)
             return ReporterBuilder(options.assertionFormatterFacade)
         }
 

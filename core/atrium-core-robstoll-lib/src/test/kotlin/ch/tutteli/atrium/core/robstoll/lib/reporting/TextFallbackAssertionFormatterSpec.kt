@@ -23,6 +23,7 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.include
+import kotlin.reflect.KClass
 
 class TextFallbackAssertionFormatterSpec : Spek({
 
@@ -32,16 +33,16 @@ class TextFallbackAssertionFormatterSpec : Spek({
     val squarePoint = "▪"
 
     val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
-    facade.register({
+    facade.register {
         TextFallbackAssertionFormatter(
-            mapOf(RootAssertionGroupType::class.java to "$squarePoint "),
+            mapOf(RootAssertionGroupType::class to "$squarePoint "),
             it,
             TextSameLineAssertionPairFormatter(
                 ToStringObjectFormatter,
                 UsingDefaultTranslator()
             ), ToStringObjectFormatter
         )
-    })
+    }
 
     var sb = StringBuilder()
     afterEachTest {
@@ -80,7 +81,7 @@ class TextFallbackAssertionFormatterSpec : Spek({
     )
 
     companion object {
-        internal fun factory() = { bulletPoints: Map<Class<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+        internal fun factory() = { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
             TextFallbackAssertionFormatter(
                 bulletPoints,
                 assertionFormatterController,

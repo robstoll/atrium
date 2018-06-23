@@ -1,5 +1,5 @@
 description = 'Contains translations for Atrium in de_CH.'
 
 dependencies {
-    compile prefixedProject('core-api')
+    compile prefixedProject('core-api-jvm')
 }

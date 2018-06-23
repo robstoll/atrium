@@ -18,10 +18,11 @@ import ch.tutteli.atrium.translations.DescriptionAnyAssertion.TO_BE
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import kotlin.reflect.KClass
 
 abstract class TextFallbackAssertionFormatterSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
@@ -75,9 +76,9 @@ abstract class TextFallbackAssertionFormatterSpec(
     describeFun(testee::formatGroup.name) {
         context("${AssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
             val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
-            facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+            facade.register { testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
 
-            context("only ${BasicDescriptiveAssertion::class.simpleName}") {
+            context("only ${DescriptiveAssertion::class.simpleName}") {
                 it("uses the system line separator to separate the assertions") {
                     facade.format(object : AssertionGroup {
                         override val type = RootAssertionGroupType

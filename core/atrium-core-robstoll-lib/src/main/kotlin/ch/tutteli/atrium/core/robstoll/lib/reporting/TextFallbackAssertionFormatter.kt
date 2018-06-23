@@ -3,6 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.Untranslatable
+import kotlin.reflect.KClass
 
 /**
  * Formats an [Assertion] for text output (e.g. to the console) by using the given [assertionPairFormatter]
@@ -34,14 +35,13 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  *   (e.g. [DescriptiveAssertion.description] and [DescriptiveAssertion.representation])
  */
 class TextFallbackAssertionFormatter(
-    bulletPoints: Map<Class<out BulletPointIdentifier>, String>,
+    bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     private val assertionFormatterController: AssertionFormatterController,
     private val assertionPairFormatter: AssertionPairFormatter,
     private val objectFormatter: ObjectFormatter
 ) : AssertionFormatter {
-    private val rootPrefix = bulletPoints[RootAssertionGroupType::class.java] ?: "◆ "
-    private val formatter =
-        TextPrefixBasedAssertionGroupFormatter(rootPrefix)
+    private val rootPrefix = bulletPoints[RootAssertionGroupType::class] ?: "◆ "
+    private val formatter = TextPrefixBasedAssertionGroupFormatter(rootPrefix)
 
     override fun canFormat(assertion: Assertion): Boolean {
         // two fallback are implemented one for IAssertionGroup (uses always formatGroup)

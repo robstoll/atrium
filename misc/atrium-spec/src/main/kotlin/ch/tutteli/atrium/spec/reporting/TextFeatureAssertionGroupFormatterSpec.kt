@@ -20,10 +20,11 @@ import ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
+import kotlin.reflect.KClass
 
 abstract class TextFeatureAssertionGroupFormatterSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (Map<Class<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
@@ -56,7 +57,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
     describeFun(AssertionFormatter::formatGroup.name) {
 
         val facade = createFacade()
-        facade.register({ testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) })
+        facade.register { testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
         facade.register { coreFactory.newTextListAssertionGroupFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
         facade.register { coreFactory.newTextFallbackAssertionFormatter(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator()) }
 

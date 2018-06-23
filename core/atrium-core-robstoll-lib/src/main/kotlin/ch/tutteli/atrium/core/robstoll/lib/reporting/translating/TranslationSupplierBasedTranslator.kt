@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
 import ch.tutteli.atrium.reporting.translating.*
-import java.util.*
 
 /**
  * Represents a [Translator] which uses a [TranslationSupplier] to retrieve translations and [CoroutineBasedLocaleOrderDecider]
