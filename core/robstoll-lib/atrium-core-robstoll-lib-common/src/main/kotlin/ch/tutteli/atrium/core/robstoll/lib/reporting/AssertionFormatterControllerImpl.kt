@@ -6,7 +6,6 @@ import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
-import java.util.*
 
 /**
  * Represents an [AssertionFormatterController] which does nothing special in addition
@@ -15,7 +14,7 @@ import java.util.*
  * @see AssertionFormatterController
  */
 class AssertionFormatterControllerImpl : AssertionFormatterController {
-    private val assertionFormatters = ArrayDeque<AssertionFormatter>()
+    private val assertionFormatters = mutableListOf<AssertionFormatter>()
 
     override fun format(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) {
         if (noNeedToFormat(assertion, parameterObject)) return
