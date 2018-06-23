@@ -6,7 +6,7 @@ dependencies {
     compile prefixedProject('translations-de_CH')
     compile prefixedProject('domain-builders')
     runtimeOnly prefixedProject('domain-robstoll')
-    runtimeOnly prefixedProject('core-robstoll')
+    runtimeOnly prefixedProject('core-robstoll-jvm')
 
     //TODO remove with 1.0.0
     compile prefixedProject('assertions')

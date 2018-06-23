@@ -1,4 +1,4 @@
-description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the core of Atrium.'
+description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the core of Atrium for the JVM platform.'
 
 dependencies {
     compile prefixedProject('core-api-jvm')

@@ -4,7 +4,7 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
         'If you are a consumer of Atrium, then you should depend on atrium-domain-robstoll instead.'
 
 ext.jacoco_additional = [
-    prefixedProject('core-robstoll'),
+    prefixedProject('core-robstoll-jvm'),
     prefixedProject('core-robstoll-lib'),
 ]
 
@@ -27,6 +27,6 @@ dependencies {
 
     testCompile prefixedProject('api-cc-en_GB')
     testRuntimeOnly prefixedProject('domain-robstoll')
-    testRuntimeOnly prefixedProject('core-robstoll')
+    testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal')
 }

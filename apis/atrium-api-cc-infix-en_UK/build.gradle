@@ -7,6 +7,6 @@ dependencies {
     compile prefixedProject('domain-builders')
 
     testRuntimeOnly prefixedProject('domain-robstoll')
-    testRuntimeOnly prefixedProject('core-robstoll')
+    testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal')
 }
