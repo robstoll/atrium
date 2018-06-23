@@ -2,5 +2,5 @@ description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the core of Atr
 
 dependencies {
     compile prefixedProject('core-api-jvm')
-    compile prefixedProject('core-robstoll-lib')
+    compile prefixedProject('core-robstoll-lib-jvm')
 }
