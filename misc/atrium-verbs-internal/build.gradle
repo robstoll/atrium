@@ -6,5 +6,5 @@ dependencies {
     compile prefixedProject('spec')
 
     testCompile prefixedProject('domain-robstoll')
-    testCompile prefixedProject('core-robstoll')
+    testCompile prefixedProject('core-robstoll-jvm')
 }

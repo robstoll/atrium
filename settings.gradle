@@ -47,7 +47,11 @@ include {
             jvm
             js
         }
-        _ 'robstoll'
+        folder('robstoll', 'robstoll-') {
+            common
+            jvm
+            js
+        }
         _ 'robstoll-lib'
     }
 
