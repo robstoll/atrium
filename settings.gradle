@@ -52,7 +52,11 @@ include {
             jvm
             js
         }
-        _ 'robstoll-lib'
+        folder('robstoll-lib', 'robstoll-lib-') {
+            common
+            jvm
+            js
+        }
     }
 
     folder('translations', 'translations-') {
