@@ -1,4 +1,4 @@
-description = 'API of the domain of Atrium.'
+description = 'API of the domain of Atrium for the JVM platform.'
 
 dependencies {
     compile prefixedProject('core-api-jvm')
