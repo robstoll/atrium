@@ -21,18 +21,18 @@ import kotlin.reflect.KClass
 val coreFactory by lazy { loadSingleService(CoreFactory::class) }
 
 /**
- * The minimum contract of the 'abstract factory' of atrium-core.
+ * The platform specific minimum contract of the 'abstract factory' of atrium-core.
  *
- * It inherits methods from [CoreFactoryCommon] where the actual, platform specific, interfaces might add
- * additional methods.
+ * It inherits methods from [CoreFactoryCommon] where the `actual` or in other words platform specific interfaces
+ * might add additional methods.
  *
- * The platform specific types have to define the default methods for `newReportingPlantNullable` (otherwise we are not
- * binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
+ * Notice, the platform specific types have to define the default methods for `newReportingPlantNullable`
+ * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
  */
 expect interface CoreFactory: CoreFactoryCommon
 
 /**
- * The minimum contract of the 'abstract factory' of atrium-core.
+ * The minimum contract of the 'abstract factory' of atrium-core for any platform.
  *
  * It provides factory methods to create:
  * - [AssertionPlant]
