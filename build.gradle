@@ -36,7 +36,7 @@ buildscript {
                 (subprojects - deprecatedProjects).findAll {
                     // would have two classes with the same name if we add it as project as well,
                     // (clashes with "${project.name}-translations-en_GB"
-                    it.name != "${rootProject.name}-translations-de_CH" &&
+                    it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec"
                 },

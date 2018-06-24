@@ -48,7 +48,7 @@ include {
     }
 
     translations('translations-') {
-        _ 'de_CH'
+        kotlinJvmJs('de_CH')
         _ 'en_GB'
     }
 
