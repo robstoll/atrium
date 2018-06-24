@@ -8,12 +8,11 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.translating.Translatable
-import java.util.*
 
 /**
  * The access point to an implementation of [NonThrowingAssertionCollectorForExplanation].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val nonThrowingAssertionCollectorForExplanation: NonThrowingAssertionCollectorForExplanation by lazy {
     loadSingleService(NonThrowingAssertionCollectorForExplanation::class)
@@ -51,7 +50,7 @@ interface NonThrowingAssertionCollectorForExplanation {
 /**
  * The access point to an implementation of [ThrowingAssertionCollectorForExplanation].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExplanation by lazy {
     loadSingleService(ThrowingAssertionCollectorForExplanation::class)

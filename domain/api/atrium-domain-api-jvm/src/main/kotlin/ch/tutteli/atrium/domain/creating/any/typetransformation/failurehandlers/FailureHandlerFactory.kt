@@ -5,12 +5,11 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
-import java.util.*
 
 /**
  * The access point to an implementation of [FailureHandlerFactory].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val failureHandlerFactory by lazy { loadSingleService(FailureHandlerFactory::class) }
 

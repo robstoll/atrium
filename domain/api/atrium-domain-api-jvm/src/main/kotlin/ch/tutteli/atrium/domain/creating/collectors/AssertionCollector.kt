@@ -7,12 +7,11 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.domain.creating.MapAssertions
-import java.util.*
 
 /**
  * The access point to an implementation of [AssertionCollector].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val assertionCollector: AssertionCollector by lazy { loadSingleService(AssertionCollector::class) }
 

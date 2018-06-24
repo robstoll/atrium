@@ -6,12 +6,11 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
-import java.util.*
 
 /**
  * The access point to an implementation of [IterableAssertions].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val iterableAssertions by lazy { loadSingleService(IterableAssertions::class) }
 

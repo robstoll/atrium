@@ -5,12 +5,11 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
-import java.util.*
 
 /**
  * The access point to an implementation of [IterableContainsAssertions].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val iterableContainsAssertions by lazy { loadSingleService(IterableContainsAssertions::class) }
 
