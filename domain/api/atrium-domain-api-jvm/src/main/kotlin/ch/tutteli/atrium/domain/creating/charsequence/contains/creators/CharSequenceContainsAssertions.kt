@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.creating.charsequence.contains.creators
 
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
@@ -13,7 +13,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val charSequenceContainsAssertions by lazy { SingleServiceLoader.load(CharSequenceContainsAssertions::class.java) }
+val charSequenceContainsAssertions by lazy { loadSingleService(CharSequenceContainsAssertions::class) }
 
 
 /**

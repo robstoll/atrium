@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating
 
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -11,7 +11,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val throwableAssertions by lazy { SingleServiceLoader.load(ThrowableAssertions::class.java) }
+val throwableAssertions by lazy { loadSingleService(ThrowableAssertions::class) }
 
 
 /**

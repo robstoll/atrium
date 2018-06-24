@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import java.util.*
 
@@ -12,7 +12,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val failureHandlerFactory by lazy { SingleServiceLoader.load(FailureHandlerFactory::class.java) }
+val failureHandlerFactory by lazy { loadSingleService(FailureHandlerFactory::class) }
 
 /**
  * Defines the minimum set of [AnyTypeTransformation.FailureHandler]s an implementation of the domain of Atrium

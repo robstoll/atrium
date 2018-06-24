@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating
 
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -11,7 +11,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val featureAssertions by lazy { SingleServiceLoader.load(FeatureAssertions::class.java) }
+val featureAssertions by lazy { loadSingleService(FeatureAssertions::class) }
 
 /**
  * Defines the minimum set of assertion functions -- used to create feature assertions --

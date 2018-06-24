@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.creating.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
@@ -12,7 +12,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val iterableContainsAssertions by lazy { SingleServiceLoader.load(IterableContainsAssertions::class.java) }
+val iterableContainsAssertions by lazy { loadSingleService(IterableContainsAssertions::class) }
 
 
 /**

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating.charsequence.contains.checkers
 
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import java.util.*
 
@@ -9,7 +9,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val checkerFactory by lazy { SingleServiceLoader.load(CheckerFactory::class.java) }
+val checkerFactory by lazy { loadSingleService(CheckerFactory::class) }
 
 
 /**

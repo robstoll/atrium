@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.creating.collectors
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.domain.creating.MapAssertions
@@ -14,7 +14,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val assertionCollector: AssertionCollector by lazy { SingleServiceLoader.load(AssertionCollector::class.java) }
+val assertionCollector: AssertionCollector by lazy { loadSingleService(AssertionCollector::class) }
 
 /**
  * Responsible to collect assertions made in a sub-[AssertionPlant].
