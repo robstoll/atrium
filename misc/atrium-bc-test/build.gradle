@@ -21,7 +21,7 @@ dependencies {
         exclude group: 'org.jetbrains.kotlin'
     }
     common mockito(), withoutKotlin
-    common kotlinStdLib()
+    common kotlinStdlib()
 
     compile configurations.common.dependencies
     compile prefixedProject('core-api-jvm')

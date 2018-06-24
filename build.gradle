@@ -75,6 +75,8 @@ buildscript {
 }
 
 apply plugin: "ch.tutteli.project.utils"
+apply plugin: 'ch.tutteli.kotlin.utils'
+kotlinutils.kotlinVersion = kotlin_version
 
 repositories {
     mavenCentral()
@@ -82,6 +84,8 @@ repositories {
 
 subprojects {
     it.version = rootProject.version
+    it.version = rootProject.version
+    it.group = rootProject.group
 
     repositories {
         mavenCentral()
@@ -89,52 +93,15 @@ subprojects {
     }
 }
 
-def commonProjects = subprojects.findAll { it.name.endsWith("-common") }
-def jsProjects =  subprojects.findAll { it.name.endsWith("-js") }
-def jvmProjects =  subprojects.findAll { it.name.endsWith("-jvm") }
+def commonProjects = getCommonProjects()
+def jsProjects =  getJsProjects()
+def jvmProjects =  getJvmProjects()
 
-static def getCommonProject(String name, String suffix) {
-    return ":${name.substring(0, name.indexOf(suffix))}-common"
-}
-
-configure(commonProjects) {
-    apply plugin: 'kotlin-platform-common'
-    apply plugin: 'ch.tutteli.kotlin.utils'
-
-    dependencies {
-        compile kotlinStdCommonLib()
-    }
-}
-
-configure(jvmProjects) { Project subproject ->
-    apply plugin: 'kotlin-platform-jvm'
-    apply plugin: 'ch.tutteli.kotlin.utils'
-
-    dependencies {
-        compile kotlinStdLib()
-        expectedBy project(getCommonProject(subproject.name, '-jvm'))
-    }
-}
-
-configure(jsProjects) { Project subproject ->
-    apply plugin: 'kotlin-platform-js'
-    apply plugin: 'ch.tutteli.kotlin.utils'
-
-    dependencies {
-        compile kotlinStdJsLib()
-        expectedBy project(getCommonProject(subproject.name, '-js'))
-    }
-
-    compileKotlin2Js {
-        kotlinOptions.moduleKind = "umd"
-        kotlinOptions.sourceMap = true
-        kotlinOptions.sourceMapEmbedSources = "always"
-    }
-}
+configureCommonProjects()
+configureJsProjects()
+configureJvmProjects()
 
 configure(subprojects - commonProjects - jsProjects)  { subproject ->
-    subproject.version = rootProject.version
-    subproject.group = rootProject.group
 
     apply plugin: 'kotlin'
 
@@ -186,10 +153,6 @@ configure(subprojects - commonProjects - jsProjects)  { subproject ->
     }
 }
 
-subprojects {
-    apply plugin: 'ch.tutteli.kotlin.utils'
-}
-
 configure(commonProjects + jsProjects) {
     afterEvaluate {
         it.ext.publish_artifacts = [jar]
@@ -222,7 +185,7 @@ configure(subprojects - bundleSmokeTests) { subproject ->
 
 configure(subprojects - jacocoMulti.jacocoProjects - commonProjects - jvmProjects - jsProjects) {
     dependencies {
-        compile kotlinStdLib()
+        compile kotlinStdlib()
         compile kotlinReflect()
     }
 }
@@ -325,7 +288,7 @@ Release & deploy a commit
         3) search for `tree/master` and replace it with `tree/vX.Y.Z` (README.md)
         4) search for `latest#/doc` and replace with `X.Y.Z/doc` (README.md and differences.md)
         5) Remove the warning in README.md about taking a sneak peak (copy it, well be added afterwards)
-    b) Update REAMDE -> Use own Assertion Verbs -> link to atriumVerbs if it changed
+    b) Update README -> Use own Assertion Verbs -> link to atriumVerbs if it changed
     c) commit & push (modified build.gradle, README.md and differences.md)
 3. update github pages:
     a) gr ghPages
