@@ -44,9 +44,9 @@ buildscript {
                 (subprojects - deprecatedProjects - translationProjects).findAll {
                     !it.name.endsWith("-common") &&
                     !it.name.endsWith("-js") &&
-                        it.name != "${rootProject.name}-domain-api" &&
+                        it.name != "${rootProject.name}-domain-api-jvm" &&
                         it.name != "${rootProject.name}-domain-robstoll" &&
-                        it.name != "${rootProject.name}-core-robstoll" &&
+                        it.name != "${rootProject.name}-core-robstoll-jvm" &&
                         it.name != "${rootProject.name}-spec" &&
                         it.name != "${rootProject.name}-bc-test" &&
                         //TODO remove with 1.0.0

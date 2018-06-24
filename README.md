@@ -903,7 +903,7 @@ as well as to the `AssertionBuilder` which itself helps you with creating assert
 Do you want to write an own sophisticated assertion builder (or extend a current with more options) instead of an assertion function?
 Great, I do not provide hands on documentation yet (had only one question about it so far). 
 Therefore, please have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
-[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-api/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
+[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-api-jvm/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
 Notice that the implementation supports [Internationalization](#internationalization-1).
 
 I am willing to provide more documentation if you need it (please open an issue). 
