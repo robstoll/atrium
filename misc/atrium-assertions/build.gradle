@@ -1,7 +1,7 @@
 description = 'A deprecated module, you should not longer rely on it, will be removed with 1.0.0\nLook at the suggested replacements'
 
 dependencies {
-    compile prefixedProject('domain-api')
+    compile prefixedProject('domain-api-jvm')
     compile prefixedProject('domain-api-deprecated')
     compileOnly prefixedProject('domain-robstoll')
     compile prefixedProject('core-api-jvm')
