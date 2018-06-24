@@ -1,0 +1,5 @@
+description = 'Contains translations for Atrium in en_GB for the JS platform.'
+
+dependencies {
+    compile prefixedProject('core-api-js')
+}
