@@ -4,12 +4,11 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.reporting.translating.Translatable
-import java.util.*
 
 /**
  * The access point to an implementation of [FeatureAssertions].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val featureAssertions by lazy { loadSingleService(FeatureAssertions::class) }
 

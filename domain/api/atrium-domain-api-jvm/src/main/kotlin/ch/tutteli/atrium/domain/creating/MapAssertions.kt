@@ -3,12 +3,11 @@ package ch.tutteli.atrium.domain.creating
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
-import java.util.*
 
 /**
  * The access point to an implementation of [MapAssertions].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
 

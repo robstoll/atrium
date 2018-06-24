@@ -7,20 +7,19 @@ import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.domain.creating.AnyAssertions
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.reporting.translating.Translatable
-import java.util.*
 import kotlin.reflect.KClass
 
 /**
  * The access point to an implementation of [AnyTypeTransformationAssertions].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val anyTypeTransformationAssertions by lazy { loadSingleService(AnyTypeTransformationAssertions::class) }
 
 /**
  * The access point to an implementation of [AnyAssertions].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val anyAssertions by lazy { loadSingleService(AnyAssertions::class) }
 

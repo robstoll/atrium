@@ -6,12 +6,11 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.reporting.translating.Translatable
-import java.util.*
 
 /**
  * The access point to an implementation of [AssertionComposer].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val assertionComposer by lazy { loadSingleService(AssertionComposer::class) }
 

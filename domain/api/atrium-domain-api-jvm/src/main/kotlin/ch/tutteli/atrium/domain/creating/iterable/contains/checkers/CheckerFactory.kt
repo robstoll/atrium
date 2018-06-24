@@ -2,12 +2,11 @@ package ch.tutteli.atrium.domain.creating.iterable.contains.checkers
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
-import java.util.*
 
 /**
  * The access point to an implementation of [CheckerFactory].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val checkerFactory by lazy { loadSingleService(CheckerFactory::class) }
 

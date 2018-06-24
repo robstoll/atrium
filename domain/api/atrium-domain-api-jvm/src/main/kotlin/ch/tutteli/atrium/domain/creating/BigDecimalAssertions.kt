@@ -4,12 +4,11 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.math.BigDecimal
-import java.util.*
 
 /**
  * The access point to an implementation of [BigDecimalAssertions].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val bigDecimalAssertions by lazy { loadSingleService(BigDecimalAssertions::class) }
 

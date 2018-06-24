@@ -6,12 +6,11 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
-import java.util.*
 
 /**
  * The access point to an implementation of [CharSequenceAssertions].
  *
- * It loads the implementation lazily via [ServiceLoader].
+ * It loads the implementation lazily via [loadSingleService].
  */
 val charSequenceAssertions by lazy { loadSingleService(CharSequenceAssertions::class) }
 
