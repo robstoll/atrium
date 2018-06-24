@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating.throwable.thrown.providers
 
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.translating.Translatable
 import java.util.*
@@ -10,7 +10,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val absentThrowableMessageProviderFactory by lazy { SingleServiceLoader.load(AbsentThrowableMessageProviderFactory::class.java) }
+val absentThrowableMessageProviderFactory by lazy { loadSingleService(AbsentThrowableMessageProviderFactory::class) }
 
 
 /**

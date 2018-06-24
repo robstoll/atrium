@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.creating.collectors
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.creating.PlantHasNoSubjectException
@@ -16,7 +16,7 @@ import java.util.*
  * It loads the implementation lazily via [ServiceLoader].
  */
 val nonThrowingAssertionCollectorForExplanation: NonThrowingAssertionCollectorForExplanation by lazy {
-    SingleServiceLoader.load(NonThrowingAssertionCollectorForExplanation::class.java)
+    loadSingleService(NonThrowingAssertionCollectorForExplanation::class)
 }
 
 /**
@@ -54,7 +54,7 @@ interface NonThrowingAssertionCollectorForExplanation {
  * It loads the implementation lazily via [ServiceLoader].
  */
 val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExplanation by lazy {
-    SingleServiceLoader.load(ThrowingAssertionCollectorForExplanation::class.java)
+    loadSingleService(ThrowingAssertionCollectorForExplanation::class)
 }
 
 /**

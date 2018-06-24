@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours
 
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import java.util.*
 
@@ -9,7 +9,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val searchBehaviourFactory by lazy { SingleServiceLoader.load(SearchBehaviourFactory::class.java) }
+val searchBehaviourFactory by lazy { loadSingleService(SearchBehaviourFactory::class) }
 
 
 /**

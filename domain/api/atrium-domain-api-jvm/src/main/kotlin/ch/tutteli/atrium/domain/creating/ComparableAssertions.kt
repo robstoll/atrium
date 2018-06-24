@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.util.*
 
@@ -10,7 +10,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val comparableAssertions by lazy { SingleServiceLoader.load(ComparableAssertions::class.java) }
+val comparableAssertions by lazy { loadSingleService(ComparableAssertions::class) }
 
 
 /**

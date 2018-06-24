@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.domain.creating.throwable.thrown.creators
 
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import java.util.*
@@ -11,7 +11,7 @@ import kotlin.reflect.KClass
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val throwableThrownAssertions by lazy { SingleServiceLoader.load(ThrowableThrownAssertions::class.java) }
+val throwableThrownAssertions by lazy { loadSingleService(ThrowableThrownAssertions::class) }
 
 
 /**

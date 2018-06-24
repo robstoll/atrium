@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import java.math.BigDecimal
 import java.util.*
@@ -11,7 +11,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val floatingPointAssertions by lazy { SingleServiceLoader.load(FloatingPointAssertions::class.java) }
+val floatingPointAssertions by lazy { loadSingleService(FloatingPointAssertions::class) }
 
 
 /**

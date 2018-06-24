@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
-import ch.tutteli.atrium.core.SingleServiceLoader
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.reporting.translating.Translatable
 import java.util.*
 
@@ -13,7 +13,7 @@ import java.util.*
  *
  * It loads the implementation lazily via [ServiceLoader].
  */
-val assertionComposer by lazy { SingleServiceLoader.load(AssertionComposer::class.java) }
+val assertionComposer by lazy { loadSingleService(AssertionComposer::class) }
 
 /**
  * Responsible to compose [Assertion]s based on the [AssertionBuilder].
