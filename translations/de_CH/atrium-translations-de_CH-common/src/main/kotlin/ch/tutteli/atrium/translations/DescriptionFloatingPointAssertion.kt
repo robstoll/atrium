@@ -2,11 +2,10 @@ package ch.tutteli.atrium.translations
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import java.math.BigDecimal
 
 /**
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Float], [Double]
- * and [BigDecimal].
+ * and maybe other platform specific floating point types (such as `BigDecimal` in JVM).
  */
 enum class DescriptionFloatingPointAssertion(override val value: String) : StringBasedTranslatable {
     TO_BE_WITH_ERROR_TOLERANCE("ist (mit Fehler ± %s)"),
