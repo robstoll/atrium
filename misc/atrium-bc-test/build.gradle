@@ -63,7 +63,7 @@ Task createJacocoReportTask(String apiName, String name, Task runTask){
             jacocoMulti.sourceProjects -
                 prefixedProject('translations-en_GB') -
                 prefixedProject('translations-en_UK-deprecated') +
-                prefixedProject('translations-de_CH') +
+                prefixedProject('translations-de_CH-jvm') +
                 prefixedProject('translations-de_CH-deprecated')
 
         projects.each {
