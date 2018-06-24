@@ -1,7 +1,7 @@
 rootProject.name = 'atrium'
 
 buildscript {
-    gradle.ext.tutteli_plugins_version = '0.7.1'
+    gradle.ext.tutteli_plugins_version = '0.8.0'
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
     }
@@ -34,32 +34,20 @@ include {
         _ 'cc-infix-en_GB'
     }
 
-    folder('domain', 'domain-') {
+    domain('domain-') {
         _ 'api'
         _ 'builders'
         _ 'robstoll'
         _ 'robstoll-lib'
     }
 
-    folder('core', 'core-') {
-        folder('api', 'api-') {
-            common
-            jvm
-            js
-        }
-        folder('robstoll', 'robstoll-') {
-            common
-            jvm
-            js
-        }
-        folder('robstoll-lib', 'robstoll-lib-') {
-            common
-            jvm
-            js
-        }
+    core('core-') {
+        kotlinJvmJs('api')
+        kotlinJvmJs('robstoll')
+        kotlinJvmJs('robstoll-lib')
     }
 
-    folder('translations', 'translations-') {
+    translations('translations-') {
         _ 'de_CH'
         _ 'en_GB'
     }
@@ -80,16 +68,16 @@ include {
         _ 'api-cc-en_UK'
         _ 'api-cc-infix-en_UK'
     }
-    domain {
-        _ 'domain-api-deprecated'
+    domain('domain-') {
+        _ 'api-deprecated'
     }
-    core {
-        _ 'core-api-deprecated'
-        _ 'core-robstoll-deprecated'
+    core('core-') {
+        _ 'api-deprecated'
+        _ 'robstoll-deprecated'
     }
-    translations {
-        _ 'translations-de_CH-deprecated'
-        _ 'translations-en_UK-deprecated'
+    translations('translations-') {
+        _ 'de_CH-deprecated'
+        _ 'en_UK-deprecated'
     }
     misc {
         _ 'assertions'
