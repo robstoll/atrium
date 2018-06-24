@@ -48,8 +48,8 @@ include {
     }
 
     translations('translations-') {
-        _ 'de_CH'
-        _ 'en_GB'
+        kotlinJvmJs('de_CH')
+        kotlinJvmJs('en_GB')
     }
 
     misc {

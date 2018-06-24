@@ -61,9 +61,9 @@ Task createJacocoReportTask(String apiName, String name, Task runTask){
         def projects = apiName.contains('en_UK') || apiName.contains('en_GB') ?
             jacocoMulti.sourceProjects :
             jacocoMulti.sourceProjects -
-                prefixedProject('translations-en_GB') -
+                prefixedProject('translations-en_GB-jvm') -
                 prefixedProject('translations-en_UK-deprecated') +
-                prefixedProject('translations-de_CH') +
+                prefixedProject('translations-de_CH-jvm') +
                 prefixedProject('translations-de_CH-deprecated')
 
         projects.each {

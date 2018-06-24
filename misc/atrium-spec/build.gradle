@@ -12,7 +12,7 @@ dependencies {
     compileOnly prefixedProject('api-cc-en_GB') // for us
     runtimeOnly prefixedProject('api-cc-en_GB') // for depending modules
 
-    compile prefixedProject('translations-en_GB')
+    compile prefixedProject('translations-en_GB-jvm')
 }
 
 // spek is required (not the platform) because we are specifying abstract Specs here
