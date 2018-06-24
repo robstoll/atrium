@@ -2,7 +2,7 @@ description = 'An API in en_GB with a focus on code completion and infix functio
         'meaning it provides a fluent API in en_GB which is designed to ease the usage of code completion'
 
 ext.jacoco_additional = [
-    prefixedProject('translations-en_GB'),
+    prefixedProject('translations-en_GB-jvm'),
     prefixedProject('domain-robstoll'),
     prefixedProject('domain-robstoll-lib'),
     prefixedProject('core-robstoll-jvm'),

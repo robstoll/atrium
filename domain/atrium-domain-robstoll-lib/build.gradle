@@ -18,7 +18,7 @@ dependencies {
     runtimeOnly prefixedProject('api-cc-en_GB'), withoutKbox // for depending modules
 
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
-    compileOnly prefixedProject('translations-en_GB'), withoutKbox
+    compileOnly prefixedProject('translations-en_GB-jvm'), withoutKbox
     compile(kbox()) {
         exclude group: 'org.jetbrains.kotlin'
         //TODO get rid of the exclusion as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed

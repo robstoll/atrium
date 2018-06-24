@@ -49,7 +49,7 @@ include {
 
     translations('translations-') {
         kotlinJvmJs('de_CH')
-        _ 'en_GB'
+        kotlinJvmJs('en_GB')
     }
 
     misc {
