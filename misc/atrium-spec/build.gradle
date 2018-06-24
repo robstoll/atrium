@@ -3,7 +3,7 @@ description = 'Provides specifications of Atrium -- an assertion framework for K
 
 dependencies {
     compile kbox(), withoutKotlin
-    compile prefixedProject('domain-api')
+    compile prefixedProject('domain-api-jvm')
     compile prefixedProject('core-api-jvm')
     compile prefixedProject('domain-builders')
 

@@ -35,7 +35,7 @@ include {
     }
 
     domain('domain-') {
-        _ 'api'
+        kotlinJvmJs('api')
         _ 'builders'
         _ 'robstoll'
         _ 'robstoll-lib'
