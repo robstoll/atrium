@@ -69,6 +69,7 @@ buildscript {
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version")
         classpath("ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version")
     }
 }
@@ -98,25 +99,29 @@ static def getCommonProject(String name, String suffix) {
 
 configure(commonProjects) {
     apply plugin: 'kotlin-platform-common'
+    apply plugin: 'ch.tutteli.kotlin.utils'
 
     dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+        compile kotlinStdCommonLib()
     }
 }
 
 configure(jvmProjects) { Project subproject ->
     apply plugin: 'kotlin-platform-jvm'
+    apply plugin: 'ch.tutteli.kotlin.utils'
 
     dependencies {
+        compile kotlinStdLib()
         expectedBy project(getCommonProject(subproject.name, '-jvm'))
     }
 }
 
 configure(jsProjects) { Project subproject ->
     apply plugin: 'kotlin-platform-js'
+    apply plugin: 'ch.tutteli.kotlin.utils'
 
     dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+        compile kotlinStdJsLib()
         expectedBy project(getCommonProject(subproject.name, '-js'))
     }
 
@@ -126,11 +131,12 @@ configure(jsProjects) { Project subproject ->
         kotlinOptions.sourceMapEmbedSources = "always"
     }
 }
+
 configure(subprojects - commonProjects - jsProjects)  { subproject ->
     subproject.version = rootProject.version
     subproject.group = rootProject.group
 
-    apply plugin: 'ch.tutteli.kotlin'
+    apply plugin: 'kotlin'
 
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
@@ -178,6 +184,10 @@ configure(subprojects - commonProjects - jsProjects)  { subproject ->
         }
         subproject.ext.publish_artifacts += [testJar, testSourceJar]
     }
+}
+
+subprojects {
+    apply plugin: 'ch.tutteli.kotlin.utils'
 }
 
 configure(commonProjects + jsProjects) {

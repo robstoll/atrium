@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.core
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.core.polyfills.loadSingleService
@@ -20,7 +21,18 @@ import kotlin.reflect.KClass
 val coreFactory by lazy { loadSingleService(CoreFactory::class) }
 
 /**
- * The minimum contract of the 'abstract factory' of atrium.
+ * The minimum contract of the 'abstract factory' of atrium-core.
+ *
+ * It inherits methods from [CoreFactoryCommon] where the actual, platform specific, interfaces might add
+ * additional methods.
+ *
+ * The platform specific types have to define the default methods for `newReportingPlantNullable` (otherwise we are not
+ * binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
+ */
+expect interface CoreFactory: CoreFactoryCommon
+
+/**
+ * The minimum contract of the 'abstract factory' of atrium-core.
  *
  * It provides factory methods to create:
  * - [AssertionPlant]
@@ -30,7 +42,6 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * - [AssertionChecker]
  * - [MethodCallFormatter]
  * - [Translator]
- * - [TranslationSupplier]
  * - [LocaleOrderDecider]
  * - [ObjectFormatter]
  * - [AssertionFormatterFacade]
@@ -39,7 +50,7 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * - [AssertionPairFormatter]
  * - [Reporter]
  */
-interface CoreFactory {
+interface CoreFactoryCommon {
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
@@ -145,69 +156,6 @@ interface CoreFactory {
     ) = newReportingPlant(assertionVerb, subjectProvider, reporter)
         .addAssertionsCreatedBy(assertionCreator)
 
-
-    /**
-     * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
-     *
-     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
-     * uses [subjectProvider] as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
-     * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
-     * (the provider is most likely called more than once).
-     *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
-     *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
-     *
-     * @return The newly created assertion plant.
-     */
-    fun <T : Any?> newReportingPlantNullable(
-        assertionVerb: Translatable,
-        subjectProvider: () -> T,
-        reporter: Reporter,
-        nullRepresentation: Any = RawString.NULL
-    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
-        assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter), nullRepresentation
-    )
-
-    /**
-     * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
-     *
-     * It uses the given [assertionChecker] for assertion checking, uses [subjectProvider] as
-     * [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
-     * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
-     * (the provider is most likely called more than once).
-     *
-     * @param assertionVerb The assertion verb which will be used inter alia in reporting
-     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
-     * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
-     *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * @param assertionChecker The checker which will be used to check [Assertion]s.
-     *   (see [AssertionPlantWithCommonFields.CommonFields.assertionChecker]).
-     *
-     * @return The newly created assertion plant.
-     */
-    fun <T : Any?> newReportingPlantNullable(
-        assertionVerb: Translatable,
-        subjectProvider: () -> T,
-        assertionChecker: AssertionChecker,
-        nullRepresentation: Any = RawString.NULL
-    ): ReportingAssertionPlantNullable<T> {
-        val evalOnceSubjectProvider = subjectProvider.evalOnce()
-        return newReportingPlantNullable(
-            AssertionPlantWithCommonFields.CommonFields(
-                assertionVerb,
-                evalOnceSubjectProvider,
-                evalOnceSubjectProvider,
-                assertionChecker,
-                nullRepresentation
-            )
-        )
-    }
-
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
      *
@@ -281,7 +229,7 @@ interface CoreFactory {
 
 
     /**
-     * Creates a [MethodCallFormatter] which represents arguments of a method call by using their [Object.toString]
+     * Creates a [MethodCallFormatter] which represents arguments of a method call by using their [Any.toString]
      * representation with the exception of:
      * - [CharSequence], is wrapped in quotes (`"`) and line breaks (CR or/and LF) are escaped so that the
      *   whole representation remains on one line.
@@ -299,13 +247,9 @@ interface CoreFactory {
      * It uses the given [translationSupplier] to retrieve all available translations.
      * In case no translation exists for a given property (neither for the [primaryLocale] nor for
      * any [fallbackLocales]) then it uses [Translatable]'s [getDefault][Translatable.getDefault].
-     * As consequence a [Translator] does not or rather should not support [Locale.ROOT] -- users are discouraged
-     * to define properties files for Locale.ROOT.
-     * An implementation based on [ResourceBundle] would still take Locale.ROOT into account but apply it before the
-     * defined [fallbackLocales] have been considered.
      *
      * Please refer to the documentation of [Translator] to see to which extend a translator has to be compatible
-     * with [ResourceBundle].
+     * with Java's `ResourceBundle`.
      *
      * @param translationSupplier Provides the translations for a desired [Locale].
      * @param localeOrderDecider Decides in which order [Locale]s are processed to find a translation for a
@@ -327,26 +271,11 @@ interface CoreFactory {
     ): Translator
 
     /**
-     * Creates a [TranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
-     * the structure of the properties files.
-     *
-     * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
-     * stored in a properties file named `DescriptionAnyAssertion_de_CH.properties` in the folder `/ch/tutteli/atrium/`.
-     * Moreover the files need to be encoded in ISO-8859-1 (restriction to be compatible with [ResourceBundle]).
-     *
-     * An entry in such a file would look like as follows:
-     * `TO_BE = a translation for TO_BE`
-     *
-     * @return The newly created translation supplier.
-     */
-    fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
-
-    /**
      * Creates a [LocaleOrderDecider] which decides in which order [Locale]s are processed to find a translation for a
      * given [Translatable].
      *
      * Please refer to the documentation of [LocaleOrderDecider] to see to which extend a translator has to be
-     * compatible with [ResourceBundle].
+     * compatible with Java's `ResourceBundle`.
      *
      * @return The newly created [Locale] order decider.
      */
@@ -498,7 +427,7 @@ interface CoreFactory {
      * -- to the given [assertionFormatterFacade] using the given [textAssertionPairFormatter].
      *
      * Should at least support [RootAssertionGroupType], [FeatureAssertionGroupType], [ListAssertionGroupType],
-     * [SummaryAssertionGroupType] and [ExplanatoryAssertionGroupType] (see [AssertionGroupBuilder]).
+     * [SummaryAssertionGroupType] and [ExplanatoryAssertionGroupType] (see [AssertionBuilder]).
      *
      * @param bulletPoints The bullet points used in reporting to prefix each [Assertion] in
      *   [AssertionGroup.assertions].

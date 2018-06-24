@@ -8,6 +8,7 @@ module ch.tutteli.atrium.core.api {
     exports ch.tutteli.atrium.checking;
     exports ch.tutteli.atrium.core;
     exports ch.tutteli.atrium.core.migration;
+    exports ch.tutteli.atrium.core.polyfills;
     exports ch.tutteli.atrium.creating;
     exports ch.tutteli.atrium.reporting;
     exports ch.tutteli.atrium.reporting.translating;
