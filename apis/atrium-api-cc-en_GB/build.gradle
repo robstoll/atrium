@@ -4,7 +4,7 @@ description = 'An assertion function API in en_GB with a focus on code completio
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
 ext.jacoco_additional = [
-    prefixedProject('translations-en_GB'),
+    prefixedProject('translations-en_GB-jvm'),
     prefixedProject('domain-robstoll'),
     prefixedProject('domain-robstoll-lib'),
     prefixedProject('core-robstoll-jvm'),

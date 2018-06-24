@@ -1,6 +1,6 @@
 description = 'Deprecated, use atrium-api-cc-en_GB instead.'
 
-ext.jacoco_additional = [prefixedProject('translations-en_GB')]
+ext.jacoco_additional = [prefixedProject('translations-en_GB-jvm')]
 
 dependencies {
     compile prefixedProject('domain-api-deprecated')

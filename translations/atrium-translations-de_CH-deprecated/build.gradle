@@ -1,6 +1,6 @@
-description = "Deprecated translation project - use ${rootProject.name}-translations-de_CH instead."
+description = "Deprecated translation project - use ${rootProject.name}-translations-de_CH-jvm instead."
 
 dependencies {
     compile prefixedProject('core-api-jvm')
-    compile prefixedProject('translations-de_CH')
+    compile prefixedProject('translations-de_CH-jvm')
 }

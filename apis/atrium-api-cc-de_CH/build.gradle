@@ -4,7 +4,7 @@ description = 'An assertion function API in de_CH with a focus on code completio
         'start creating an assertion + code completion + . + code completion + . + and so on.'
 
 ext.jacoco_additional = [
-    prefixedProject('translations-de_CH'),
+    prefixedProject('translations-de_CH-jvm'),
     prefixedProject('domain-robstoll'),
     prefixedProject('domain-robstoll-lib'),
     prefixedProject('core-robstoll-jvm'),
@@ -18,7 +18,7 @@ dependencies {
     testRuntimeOnly prefixedProject('domain-robstoll')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile(prefixedProject('spec')) {
-        exclude module: "${rootProject.name}-translations-en_GB"
+        exclude module: "${rootProject.name}-translations-en_GB-jvm"
     }
-    testCompile prefixedProject('translations-de_CH')
+    testCompile prefixedProject('translations-de_CH-jvm')
 }
