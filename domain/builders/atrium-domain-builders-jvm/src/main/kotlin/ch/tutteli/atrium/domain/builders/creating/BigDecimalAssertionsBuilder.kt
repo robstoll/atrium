@@ -5,12 +5,12 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.BigDecimalAssertions
 import ch.tutteli.atrium.domain.creating.bigDecimalAssertions
 import java.math.BigDecimal
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Delegates inter alia to the implementation of [BigDecimalAssertions].
  * In detail, it implements [BigDecimalAssertions] by delegating to [bigDecimalAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object BigDecimalAssertionsBuilder : BigDecimalAssertions {
 

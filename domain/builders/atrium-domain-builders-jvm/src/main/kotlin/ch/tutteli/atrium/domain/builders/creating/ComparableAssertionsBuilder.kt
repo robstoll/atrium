@@ -4,12 +4,12 @@ package ch.tutteli.atrium.domain.builders.creating
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.ComparableAssertions
 import ch.tutteli.atrium.domain.creating.comparableAssertions
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Delegates inter alia to the implementation of [ComparableAssertions].
  * In detail, it implements [ComparableAssertions] by delegating to [comparableAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object ComparableAssertionsBuilder : ComparableAssertions {
 

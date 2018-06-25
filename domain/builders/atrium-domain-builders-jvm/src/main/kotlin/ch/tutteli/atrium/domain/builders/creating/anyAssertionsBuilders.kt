@@ -13,13 +13,13 @@ import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.
 import ch.tutteli.atrium.domain.creating.any.typetransformation.failurehandlers.failureHandlerFactory
 import ch.tutteli.atrium.domain.creating.anyAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import kotlin.reflect.KClass
 
 /**
  * Delegates inter alia to the implementation of [AnyAssertions].
  * In detail, it implements [AnyAssertions] by delegating to [anyAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object AnyAssertionsBuilder : AnyAssertions {
     override inline fun <T : Any> toBe(plant: AssertionPlant<T>, expected: T)
@@ -47,7 +47,7 @@ object AnyAssertionsBuilder : AnyAssertions {
 /**
  * Delegates inter alia to the implementation of [AnyTypeTransformationAssertions].
  * In detail, it implements [AnyTypeTransformationAssertions] by delegating to [anyTypeTransformationAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
 
@@ -73,7 +73,7 @@ object AnyTypeTransformationAssertionsBuilder: AnyTypeTransformationAssertions {
 /**
  * Delegates inter alia to the implementation of [FailureHandlerFactory].
  * In detail, it implements [FailureHandlerFactory] by delegating to [failureHandlerFactory]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object AnyTypeTransformationFailureHandlerFactoryBuilder : FailureHandlerFactory {
 
