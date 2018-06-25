@@ -4,7 +4,7 @@ ext.jacoco_additional = [prefixedProject('translations-en_GB-jvm')]
 
 dependencies {
     compile prefixedProject('domain-api-deprecated')
-    compile prefixedProject('domain-builders')
+    compile prefixedProject('domain-builders-jvm')
 
     testRuntimeOnly prefixedProject('domain-robstoll')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')

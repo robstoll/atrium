@@ -2,7 +2,7 @@ description = 'Specifies the internally used assertion verbs'
 
 dependencies {
     compile prefixedProject('core-api-jvm')
-    compile prefixedProject('domain-builders')
+    compile prefixedProject('domain-builders-jvm')
     compile prefixedProject('spec')
 
     testCompile prefixedProject('domain-robstoll')
