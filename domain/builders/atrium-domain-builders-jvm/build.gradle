@@ -1,4 +1,4 @@
-description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs.'
+description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs for the JVM platform.'
 
 dependencies {
     compile prefixedProject('domain-api-jvm')
