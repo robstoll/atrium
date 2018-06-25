@@ -13,7 +13,7 @@ import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import java.math.BigDecimal
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api
@@ -37,7 +37,7 @@ object AssertImpl {
     /**
      * Returns the implementation of [CoreFactory].
      * In detail, its an `inline` property which returns [ch.tutteli.atrium.core.coreFactory]
-     * which in turn delegates to the implementation via [ServiceLoader].
+     * which in turn delegates to the implementation via [loadSingleService].
      */
     inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
 

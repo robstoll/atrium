@@ -6,12 +6,12 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.CollectingAssertionPlant
 import ch.tutteli.atrium.domain.creating.collectors.*
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Delegates inter alia to the implementation of [AssertionCollector].
  * In detail, it implements [AssertionCollector] by delegating to [assertionCollector]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object AssertionCollectorBuilder: AssertionCollector {
     override inline fun <T : Any> collect(

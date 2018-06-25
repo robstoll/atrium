@@ -12,12 +12,12 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Delegates inter alia to the implementation of [CharSequenceAssertions].
  * In detail, it implements [CharSequenceAssertions] by delegating to [charSequenceAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 
@@ -55,7 +55,7 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 /**
  * Delegates inter alia to the implementation of [CharSequenceContainsAssertions].
  * In detail, it implements [CharSequenceContainsAssertions] by delegating to [charSequenceContainsAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
 
@@ -87,7 +87,7 @@ object CharSequenceContainsAssertionsBuilder: CharSequenceContainsAssertions {
 /**
  * Delegates inter alia to the implementation of [SearchBehaviourFactory].
  * In detail, it implements [SearchBehaviourFactory] by delegating to [searchBehaviourFactory]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object CharSequenceContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 

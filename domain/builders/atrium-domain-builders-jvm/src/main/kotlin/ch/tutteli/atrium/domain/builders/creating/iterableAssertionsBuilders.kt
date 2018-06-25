@@ -9,12 +9,12 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.creators.IterableCont
 import ch.tutteli.atrium.domain.creating.iterable.contains.creators.iterableContainsAssertions
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
 import ch.tutteli.atrium.domain.creating.iterableAssertions
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Delegates inter alia to the implementation of [IterableAssertions].
  * In detail, it implements [IterableAssertions] by delegating to [iterableAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object IterableAssertionsBuilder : IterableAssertions {
 
@@ -39,7 +39,7 @@ object IterableAssertionsBuilder : IterableAssertions {
 /**
  * Delegates inter alia to the implementation of [IterableContainsAssertions].
  * In detail, it implements [IterableContainsAssertions] by delegating to [iterableContainsAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object IterableContainsAssertionsBuilder: IterableContainsAssertions {
 
@@ -78,7 +78,7 @@ object IterableContainsAssertionsBuilder: IterableContainsAssertions {
 /**
  * Delegates inter alia to the implementation of [SearchBehaviourFactory].
  * In detail, it implements [SearchBehaviourFactory] by delegating to [searchBehaviourFactory]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object IterableContainsSearchBehaviourFactoryBuilder : SearchBehaviourFactory {
 

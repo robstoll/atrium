@@ -11,13 +11,13 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.providers.absentThrowa
 import ch.tutteli.atrium.domain.creating.throwableAssertions
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import kotlin.reflect.KClass
 
 /**
  * Delegates inter alia to the implementation of [ThrowableAssertions].
  * In detail, it implements [ThrowableAssertions] by delegating to [throwableAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object ThrowableAssertionsBuilder : ThrowableAssertions {
 
@@ -37,7 +37,7 @@ object ThrowableAssertionsBuilder : ThrowableAssertions {
 /**
  * Delegates inter alia to the implementation of [ThrowableThrownAssertions].
  * In detail, it implements [ThrowableThrownAssertions] by delegating to [throwableThrownAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 
@@ -57,7 +57,7 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
 /**
  * Delegates inter alia to the implementation of [AbsentThrowableMessageProviderFactory].
  * In detail, it implements [AbsentThrowableMessageProviderFactory] by delegating to [absentThrowableMessageProviderFactory]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object AbsentThrowableMessageProviderFactoryBuilder : AbsentThrowableMessageProviderFactory {
 

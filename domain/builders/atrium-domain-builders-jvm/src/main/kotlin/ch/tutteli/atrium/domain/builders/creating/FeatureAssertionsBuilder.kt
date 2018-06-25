@@ -7,13 +7,13 @@ import ch.tutteli.atrium.domain.creating.FeatureAssertions
 import ch.tutteli.atrium.domain.creating.featureAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
-import java.util.*
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import kotlin.reflect.*
 
 /**
  * Delegates inter alia to the implementation of [FeatureAssertions].
  * In detail, it implements [FeatureAssertions] by delegating to [featureAssertions]
- * which in turn delegates to the implementation via [ServiceLoader].
+ * which in turn delegates to the implementation via [loadSingleService].
  */
 object FeatureAssertionsBuilder : FeatureAssertions {
 
