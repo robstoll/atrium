@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.domain.builders.reporting.impl
 
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.reporting.LocaleOrderDeciderOption
 import ch.tutteli.atrium.domain.builders.reporting.ObjectFormatterOption
 import ch.tutteli.atrium.domain.builders.reporting.ReporterBuilder
@@ -18,7 +17,7 @@ internal actual object ReporterBuilderImpl : ReporterBuilder {
         = ObjectFormatterOption.create(translator)
 
     override fun withDefaultTranslationSupplier()
-        = withTranslationSupplier(coreFactory.newPropertiesBasedTranslationSupplier())
+        = TODO("we have to implement a translation supplier for JS")
 
     override fun withTranslationSupplier(translationSupplier: TranslationSupplier)
         = LocaleOrderDeciderOption.create(translationSupplier)

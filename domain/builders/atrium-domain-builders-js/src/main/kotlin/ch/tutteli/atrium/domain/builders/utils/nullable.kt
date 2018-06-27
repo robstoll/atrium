@@ -13,7 +13,6 @@ import kotlin.reflect.*
  * such as `String!` or in other words, when you deal with Java and you want to turn the return type (which is a platform
  * type) of your function into a nullable type.
  */
-@JvmName("nullable1")
 inline fun <T1, R> nullable(t: KFunction1<T1, R>): KFunction1<T1, R?> = t
 
 /**
@@ -23,7 +22,6 @@ inline fun <T1, R> nullable(t: KFunction1<T1, R>): KFunction1<T1, R?> = t
  * such as `String!` or in other words, when you deal with Java and you want to turn the return type (which is a platform
  * type) of your function into a nullable type.
  */
-@JvmName("nullable2")
 inline fun <T1, T2, R> nullable(t: KFunction2<T1, T2, R>):  KFunction2<T1, T2,  R?> = t
 
 /**
@@ -33,7 +31,6 @@ inline fun <T1, T2, R> nullable(t: KFunction2<T1, T2, R>):  KFunction2<T1, T2,  
  * such as `String!` or in other words, when you deal with Java and you want to turn the return type (which is a platform
  * type) of your function into a nullable type.
  */
-@JvmName("nullable3")
 inline fun <T1, T2, T3, R> nullable(t: KFunction3<T1, T2, T3, R>):  KFunction3<T1, T2, T3, R?> = t
 
 /**
@@ -43,7 +40,6 @@ inline fun <T1, T2, T3, R> nullable(t: KFunction3<T1, T2, T3, R>):  KFunction3<T
  * such as `String!` or in other words, when you deal with Java and you want to turn the return type (which is a platform
  * type) of your function into a nullable type.
  */
-@JvmName("nullable4")
 inline fun <T1, T2, T3, T4, R> nullable(t: KFunction4<T1, T2, T3, T4, R>): KFunction4<T1, T2, T3, T4, R?> = t
 
 /**
@@ -53,5 +49,4 @@ inline fun <T1, T2, T3, T4, R> nullable(t: KFunction4<T1, T2, T3, T4, R>): KFunc
  * such as `String!` or in other words, when you deal with Java and you want to turn the return type (which is a platform
  * type) of your function into a nullable type.
  */
-@JvmName("nullable5")
 inline fun <T1, T2, T3, T4, T5, R> nullable(t: KFunction5<T1, T2, T3, T4, T5, R>): KFunction5<T1, T2, T3, T4, T5, R?> = t

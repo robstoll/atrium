@@ -22,12 +22,12 @@ class DefaultReporterFactory : ReporterFactory {
 
     override fun create(): Reporter {
         return reporterBuilder
-            .withoutTranslations()
+            .withoutTranslationsUseDefaultLocale()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
-            .withDefaultTextCapabilities()
+            .withTextCapabilities()
             .withOnlyFailureReporter()
             .build()
     }
