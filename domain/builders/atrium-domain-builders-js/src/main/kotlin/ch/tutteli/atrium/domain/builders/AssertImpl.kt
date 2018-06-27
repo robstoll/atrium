@@ -1,25 +1,21 @@
+@file:Suppress("OVERRIDE_BY_INLINE")
+
 package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
-import ch.tutteli.atrium.reporting.BUG_REPORT_URL
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import java.math.BigDecimal
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api
  * to give users of Atrium a fluent API as well.
  */
-@Suppress("OVERRIDE_BY_INLINE")
 actual object AssertImpl : AssertImplCommon{
 
     /**
@@ -52,12 +48,6 @@ actual object AssertImpl : AssertImplCommon{
     override inline val any get() = AnyAssertionsBuilder
 
     /**
-     * Returns [BigDecimalAssertionsBuilder]
-     * which inter alia delegates to the implementation of [BigDecimalAssertions].
-     */
-    inline val bigDecimal get() = BigDecimalAssertionsBuilder
-
-    /**
      * Returns [CharSequenceAssertionsBuilder]
      * which inter alia delegates to the implementation of [CharSequenceAssertions].
      */
@@ -82,9 +72,8 @@ actual object AssertImpl : AssertImplCommon{
     override inline val feature get() = FeatureAssertionsBuilder
 
     /**
-     * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double], [BigDecimal]
-     * and maybe more.
-     * which inter alia delegates to the implementation of [FloatingPointAssertions].
+     * Returns [FloatingPointAssertionsBuilder] - [Assertion]s applicable to [Float], [Double]
+     * and maybe more - which inter alia delegates to the implementation of [FloatingPointAssertions].
      */
     override inline val floatingPoint get() = FloatingPointAssertionsBuilder
 
