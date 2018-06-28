@@ -6,17 +6,17 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.domain.builders.creating.*
 import ch.tutteli.atrium.domain.builders.creating.collectors.AssertionCollectorBuilder
 import ch.tutteli.atrium.domain.creating.*
 import ch.tutteli.atrium.domain.creating.collectors.AssertionCollector
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Bundles different domain objects which are defined by the module atrium-domain-api
- * to give users of Atrium a fluent API as well.
+ * to give users of Atrium a fluent API for the domain as well.
  */
-actual object AssertImpl : AssertImplCommon{
+actual object AssertImpl : AssertImplCommon {
 
     /**
      * Returns [AssertionBuilder] - helping you creating [Assertion]s.
