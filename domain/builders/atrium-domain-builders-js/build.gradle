@@ -1,0 +1,5 @@
+description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs for the JS platform.'
+
+dependencies {
+    compile prefixedProject('domain-api-js')
+}

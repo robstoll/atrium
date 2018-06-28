@@ -5,7 +5,7 @@ dependencies {
     compile kbox(), withoutKotlin
     compile prefixedProject('domain-api-jvm')
     compile prefixedProject('core-api-jvm')
-    compile prefixedProject('domain-builders')
+    compile prefixedProject('domain-builders-jvm')
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:

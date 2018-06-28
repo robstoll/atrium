@@ -10,7 +10,7 @@ ext.jacoco_additional = [
 ]
 
 dependencies {
-    compile prefixedProject('domain-builders')
+    compile prefixedProject('domain-builders-jvm')
 
     testRuntimeOnly prefixedProject('domain-robstoll')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')

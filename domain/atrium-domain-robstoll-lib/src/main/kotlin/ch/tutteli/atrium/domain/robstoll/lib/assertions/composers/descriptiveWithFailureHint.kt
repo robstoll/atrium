@@ -20,7 +20,7 @@ fun _createDescriptiveWithFailureHint(
     }
     return if (holds || !showHint()) {
         AssertImpl.builder.descriptive
-            .withTest({ holds })
+            .withTest { holds }
             .withDescriptionAndRepresentation(description, representation)
             .build()
     } else {
