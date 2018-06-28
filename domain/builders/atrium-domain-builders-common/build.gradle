@@ -1,0 +1,5 @@
+description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs as common module'
+
+dependencies {
+    compile prefixedProject('domain-api-common')
+}

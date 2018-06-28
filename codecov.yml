@@ -1,7 +1,7 @@
 ignore:
-    - "domain/atrium-domain-builders/**/AssertImpl.kt"
-    - "domain/atrium-domain-builders/**/creating/**Builder.kt"
-    - "domain/atrium-domain-builders/**/creating/*Builders.kt"
+    - "domain/atrium-domain-builders-jvm/**/AssertImpl.kt"
+    - "domain/atrium-domain-builders-jvm/**/creating/**Builder.kt"
+    - "domain/atrium-domain-builders-jvm/**/creating/*Builders.kt"
 
     # TODO remove with 1.0.0
     - "misc/atrium-assertions/**/*"

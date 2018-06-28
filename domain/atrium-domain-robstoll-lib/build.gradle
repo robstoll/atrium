@@ -10,7 +10,7 @@ ext.jacoco_additional = [
 
 dependencies {
     //TODO get rid of the exclusions as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
-    compile prefixedProject('domain-builders'), withoutKbox
+    compile prefixedProject('domain-builders-jvm'), withoutKbox
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:

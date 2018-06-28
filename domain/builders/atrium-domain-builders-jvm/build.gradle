@@ -1,0 +1,10 @@
+description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs for the JVM platform.'
+
+dependencies {
+    compile prefixedProject('domain-api-jvm')
+
+    testRuntimeOnly prefixedProject('domain-robstoll')
+    testRuntimeOnly prefixedProject('core-robstoll-jvm')
+    testCompile prefixedProject('api-cc-en_GB')
+    testCompile prefixedProject('verbs-internal')
+}
