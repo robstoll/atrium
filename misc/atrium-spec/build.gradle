@@ -9,8 +9,8 @@ dependencies {
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-cc-en_GB') // for us
-    runtimeOnly prefixedProject('api-cc-en_GB') // for depending modules
+    compileOnly prefixedProject('api-cc-en_GB-jvm') // for us
+    runtimeOnly prefixedProject('api-cc-en_GB-jvm') // for depending modules
 
     compile prefixedProject('translations-en_GB-jvm')
 }

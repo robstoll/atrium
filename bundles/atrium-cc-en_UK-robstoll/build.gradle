@@ -3,7 +3,7 @@ description = 'Represents a deprecated convenience module which merely bundles d
 
 dependencies {
     compile prefixedProject('verbs')
-    compile prefixedProject('api-cc-en_GB')
+    compile prefixedProject('api-cc-en_GB-jvm')
     compile prefixedProject('translations-en_GB-jvm')
     runtimeOnly prefixedProject('domain-robstoll')
     runtimeOnly prefixedProject('core-robstoll-jvm')
