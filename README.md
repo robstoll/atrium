@@ -90,9 +90,9 @@ repositories {
 }
 dependencies {
     testCompile("ch.tutteli.atrium:atrium-cc-infix-en_GB-robstoll:$atrium_version") { 
-        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB' 
+        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB-jvm' 
     }
-    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-robstoll:$atrium_version")
+    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-jvm-robstoll:$atrium_version")
 }
 ```
 
@@ -123,9 +123,9 @@ repositories {
 }
 dependencies {
     testCompile("ch.tutteli.atrium:atrium-cc-de_CH-robstoll:$atrium_version") { 
-        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB' 
+        exclude group: 'ch.tutteli.atrium', module: 'atrium-api-cc-en_GB-jvm' 
     }
-    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-robstoll:$atrium_version")
+    testRuntimeOnly("ch.tutteli.atrium:atrium-api-cc-en_GB-jvm-robstoll:$atrium_version")
 }
 ```
 
@@ -423,7 +423,7 @@ The output is the same as above.
 In other cases type inference will not be good enough to infer `T` of `Assert<T>.() -> Unit` 
 if you use the workaround ([this bug](https://youtrack.jetbrains.com/issue/KT-24230)).
 you can use the helper function `subAssert` in such cases which is merely an identity function. 
-As an example, have a look at [FeatureAssertionsClassReferenceSpec ](https://github.com/robstoll/atrium/tre/master/apis/atrium-api-cc-en_GB/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
+As an example, have a look at [FeatureAssertionsClassReferenceSpec ](https://github.com/robstoll/atrium/tre/master/apis/atrium-api-cc-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
 
 </details> <br/>
 
