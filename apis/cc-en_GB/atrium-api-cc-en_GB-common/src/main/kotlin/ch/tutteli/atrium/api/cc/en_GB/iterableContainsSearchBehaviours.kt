@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
+import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.*
