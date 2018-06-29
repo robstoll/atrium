@@ -26,7 +26,7 @@ for the rest):
 ```
 dependencies {
     testCompile "ch.tutteli:atrium-cc-en_GB-robstoll:$atrium_version"
-    testCompile "ch.tutteli:atrium-api-cc-infix-en_GB:$atrium_version"
+    testCompile "ch.tutteli:atrium-api-cc-infix-en_GB-jvm:$atrium_version"
 }
 ```
 
