@@ -119,7 +119,7 @@ def createBcTasks(String apiName, String version, String forgive) {
         if (version == '0.6.0') {
             add(confCommon, prefixedProject("api-cc-en_UK")) //required for atrium-spec
         } else {
-            add(confCommon, prefixedProject("api-cc-en_GB")) //required for atrium-spec
+            add(confCommon, prefixedProject("api-cc-en_GB-jvm")) //required for atrium-spec
             if (apiName != 'de_CH') {
                 add(confCommon, prefixedProject("verbs-internal")) //required by the api
             }

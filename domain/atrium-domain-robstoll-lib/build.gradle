@@ -14,8 +14,8 @@ dependencies {
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-cc-en_GB'), withoutKbox // for us
-    runtimeOnly prefixedProject('api-cc-en_GB'), withoutKbox // for depending modules
+    compileOnly prefixedProject('api-cc-en_GB-jvm'), withoutKbox // for us
+    runtimeOnly prefixedProject('api-cc-en_GB-jvm'), withoutKbox // for depending modules
 
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
     compileOnly prefixedProject('translations-en_GB-jvm'), withoutKbox
@@ -25,7 +25,7 @@ dependencies {
         exclude group: 'ch.tutteli.kbox'
     }
 
-    testCompile prefixedProject('api-cc-en_GB')
+    testCompile prefixedProject('api-cc-en_GB-jvm')
     testRuntimeOnly prefixedProject('domain-robstoll')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal')
