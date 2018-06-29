@@ -1,4 +1,4 @@
-description = 'Deprecated, use atrium-api-cc-infix-en_GB instead.'
+description = 'Deprecated, use atrium-api-cc-infix-en_GB-jvm instead.'
 
 ext.jacoco_additional = [prefixedProject('translations-en_GB-jvm')]
 
