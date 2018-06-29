@@ -1,12 +1,12 @@
 ignore:
-    - "domain/atrium-domain-builders-jvm/**/AssertImpl.kt"
-    - "domain/atrium-domain-builders-jvm/**/creating/**Builder.kt"
-    - "domain/atrium-domain-builders-jvm/**/creating/*Builders.kt"
+    - "domain/builders/**/AssertImpl.kt"
+    - "domain/builders/**/creating/**Builder.kt"
+    - "domain/builders/**/creating/*Builders.kt"
 
     # TODO remove with 1.0.0
     - "misc/atrium-assertions/**/*"
     - "apis/**/assertions/**/*"
-    - "domain/atrium-domain-api-jvm/**/assertions/**/*"
+    - "domain/api/**/assertions/**/*"
     - "domain/atrium-domain-api-deprecated/**/*"
     - "**/IAtriumFactory.kt"
     - "**/AtriumFactory.kt"
