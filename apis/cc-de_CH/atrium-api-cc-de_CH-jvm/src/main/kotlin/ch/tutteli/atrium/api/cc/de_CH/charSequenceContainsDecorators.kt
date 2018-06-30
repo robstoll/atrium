@@ -18,7 +18,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoriereGrossKleinschreibung
+actual val <T : CharSequence> CharSequenceContains.Builder<T, NoOpSearchBehaviour>.ignoriereGrossKleinschreibung
     get() : CharSequenceContains.Builder<T, IgnoringCaseSearchBehaviour>
     = AssertImpl.charSequence.contains.searchBehaviours.ignoringCase(this)
 
@@ -33,7 +33,7 @@ fun <T : CharSequence> getIgnoriereGrossKleinschreibung(builder: DeprecatedBuild
  *
  * @return The newly created builder.
  */
-val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoriereGrossKleinschreibung
+actual val <T : CharSequence> NotCheckerOption<T, NotSearchBehaviour>.ignoriereGrossKleinschreibung
     get() : NotCheckerOption<T, IgnoringCaseSearchBehaviour>
     = NotCheckerOptionImpl(containsBuilder.ignoriereGrossKleinschreibung)
 

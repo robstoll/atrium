@@ -16,8 +16,7 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-actual fun <T : Any> Assert<T>.ist(expected: T)
-    = addAssertion(AssertImpl.any.toBe(this, expected))
+expect fun <T : Any> Assert<T>.ist(expected: T): AssertionPlant<T>
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not (equal to) [expected].
@@ -28,8 +27,7 @@ actual fun <T : Any> Assert<T>.ist(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-actual fun <T : Any> Assert<T>.istNicht(expected: T)
-    = addAssertion(AssertImpl.any.notToBe(this, expected))
+expect fun <T : Any> Assert<T>.istNicht(expected: T): AssertionPlant<T>
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is the same instance as [expected].
@@ -40,8 +38,7 @@ actual fun <T : Any> Assert<T>.istNicht(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-actual fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
-    = addAssertion(AssertImpl.any.isSame(this, expected))
+expect fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T): AssertionPlant<T>
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not the same instance as [expected].
@@ -52,20 +49,8 @@ actual fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-actual fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T)
-    = addAssertion(AssertImpl.any.isNotSame(this, expected))
+expect fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T): AssertionPlant<T>
 
-/**
- * Makes the assertion that [AssertionPlant.subject] is `null`.
- *
- * @return Does not support a fluent API because: what else would you want to assert about `null` anyway?
- *
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated("Will be removed with 1.0.0 because it is redundant in terms of `ist(null)` without adding enough to be a legit alternative.", ReplaceWith("ist(null)"))
-fun <T : Any?> AssertionPlantNullable<T>.istNull() {
-    ist(null)
-}
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is `null`.
@@ -76,9 +61,7 @@ fun <T : Any?> AssertionPlantNullable<T>.istNull() {
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-actual fun <T : Any?> AssertionPlantNullable<T>.ist(@Suppress("UNUSED_PARAMETER") `null`: Nothing?) {
-    addAssertion(AssertImpl.any.isNull(this))
-}
+expect fun <T: Any?> AssertionPlantNullable<T>.ist(`null`: Nothing?)
 
 /**
  * Can be used to separate assertions when using the fluent API.
@@ -90,7 +73,7 @@ actual fun <T : Any?> AssertionPlantNullable<T>.ist(@Suppress("UNUSED_PARAMETER"
  *
  * @return This plant to support a fluent API.
  */
-actual val <T : Any> Assert<T>.und: Assert<T> get() = this
+expect val <T : Any> Assert<T>.und: Assert<T>
 
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
@@ -102,5 +85,4 @@ actual val <T : Any> Assert<T>.und: Assert<T> get() = this
  *
  * @return This plant to support a fluent API.
  */
-actual infix fun <T : Any> AssertionPlant<T>.und(assertionCreator: Assert<T>.() -> Unit)
-    = addAssertionsCreatedBy(assertionCreator)
+expect infix fun <T : Any> AssertionPlant<T>.und(assertionCreator: Assert<T>.() -> Unit): Assert<T>

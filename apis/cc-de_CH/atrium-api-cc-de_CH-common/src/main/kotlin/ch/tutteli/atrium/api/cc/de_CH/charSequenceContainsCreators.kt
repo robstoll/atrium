@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.kbox.glue
@@ -26,8 +27,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
-    = werte(expected)
+expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -49,8 +49,7 @@ actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBe
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.values(this, expected glue otherExpected))
+expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
@@ -69,9 +68,7 @@ actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-@JvmName("wertGrossKleinschreibungIgnorierend")
-actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
-    = werte(expected)
+expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -93,60 +90,7 @@ actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCase
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-@JvmName("werteGrossKleinschreibungIgnorierend")
-actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
-
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
- * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
- * representations of the [otherExpected] (if given) shall be searched, using a non disjoint search.
- *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
- * default translation of [expected] is defined as `'a'` and one default translation of the
- * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [zumindest], [hoechstens] and [genau] to control
- * the number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `enthaelt.genau(2).standardUebersetzungVon(IS)`
- * instead of:
- *   `enthaelt.zumindest(1).standardUebersetzungVon(IS, IS)`
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated("Most probably only used by Atrium itself; will be made internal with 1.0.0", ReplaceWith("please open an issue on GitHub if you use it as well"))
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.standardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOf(this, expected glue otherExpected))
-
-/**
- * Finishes the specification of the sophisticated `contains` assertion where the [expected]'s
- * [getDefault][Translatable.getDefault] representation as well as the [getDefault][Translatable.getDefault]
- * representations of the [otherExpected] (if given) shall be searched (ignoring case), using a non disjoint search.
- *
- * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'a'` and the
- * default translation of [expected] is defined as `'a'` and one default translation of the
- * [otherExpected] is defined as `'a'` as well, then both match, even though they match the
- * same sequence in the input of the search. Use an option such as [zumindest], [hoechstens] and [genau] to control
- * the number of occurrences you expect.
- *
- * Meaning you might want to use:
- *   `enthaelt.genau(2).standardUebersetzungVon(IS)`
- * instead of:
- *   `enthaelt.zumindest(1).standardUebersetzungVon(IS, IS)`
- *
- * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-@Deprecated("Most probably only used by Atrium itself; will be made internal with 1.0.0", ReplaceWith("please open an issue on GitHub if you use it as well"))
-@JvmName("standardUebersetzungVonGrossKleinschreibungIgnorierend")
-fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.standardUebersetzungVon(expected: Translatable, vararg otherExpected: Translatable): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.defaultTranslationOfIgnoringCase(this, expected glue otherExpected))
-
+expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -169,8 +113,7 @@ fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchB
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
+expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -193,6 +136,4 @@ actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBe
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("regexIgnoringCase")
-actual fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
-    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
+expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
