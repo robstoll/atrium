@@ -1,8 +1,14 @@
+@file:JvmMultifileClass
+@file:JvmName("IterableAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.NotCheckerOption
+import ch.tutteli.atrium.api.cc.de_CH.creating.iterable.contains.builders.impl.NotCheckerOptionImpl
+import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
+import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
@@ -13,7 +19,8 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.NotS
  *
  * @return The newly created builder.
  */
-expect val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContains.Builder<E, T, NoOpSearchBehaviour>
+val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContains.Builder<E, T, NoOpSearchBehaviour>
+    get() = AssertImpl.iterable.containsBuilder(this)
 
 /**
  * Creates an [IterableContains.Builder] based on this [AssertionPlant] which allows to define
@@ -21,8 +28,8 @@ expect val <E, T : Iterable<E>> Assert<T>.enthaelt: IterableContains.Builder<E, 
  *
  * @return The newly created builder.
  */
-expect val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: NotCheckerOption<E, T, NotSearchBehaviour>
-
+val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: NotCheckerOption<E, T, NotSearchBehaviour>
+    get() = NotCheckerOptionImpl(AssertImpl.iterable.containsNotBuilder(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains [expected] and the [otherExpected] values (if given).
@@ -44,7 +51,9 @@ expect val <E, T : Iterable<E>> Assert<T>.enthaeltNicht: NotCheckerOption<E, T, 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+@JvmName("enthaeltNonNullable")
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).werte(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains the
@@ -55,7 +64,8 @@ expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg oth
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expectedOrNull: E): AssertionPlant<T>
+fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expectedOrNull: E): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWert(expectedOrNull)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains the
@@ -76,10 +86,8 @@ expect fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWert(expectedOrNu
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWerte(
-    expectedOrNull: E,
-    vararg otherExpectedOrNulls: E
-): AssertionPlant<T>
+fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableWerte(expectedOrNull, *otherExpectedOrNulls)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -90,7 +98,8 @@ expect fun <E: Any?, T: Iterable<E>> Assert<T>.enthaeltNullableWerte(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.() -> Unit)
+    =  enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(assertionCreator)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -102,10 +111,8 @@ expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Asser
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(
-    assertionCreator: Assert<E>.() -> Unit,
-    vararg otherAssertionCreators: Assert<E>.() -> Unit
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains an entry holding the
@@ -117,9 +124,8 @@ expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaelt(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintrag(
-    assertionCreatorOrNull: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
+fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains an entry holding the
@@ -132,10 +138,8 @@ expect fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintrag(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintraege(
-    assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
-    vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
+fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintraege(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if given) in
@@ -146,7 +150,8 @@ expect fun <E: Any, T: Iterable<E?>> Assert<T>.enthaeltNullableEintraege(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.werte(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
@@ -157,7 +162,8 @@ expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vara
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expectedOrNull: E): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expectedOrNull: E): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.nullableWert(expectedOrNull)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
@@ -169,10 +175,8 @@ expect fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expe
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(
-    expectedOrNull: E,
-    vararg otherExpectedOrNulls: E
-): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.nullableWerte(expectedOrNull, *otherExpectedOrNulls)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -184,10 +188,8 @@ expect fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(
-    assertionCreator: Assert<E>.() -> Unit,
-    vararg otherAssertionCreators: Assert<E>.() -> Unit
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.eintraege(assertionCreator, *otherAssertionCreators)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
@@ -199,9 +201,8 @@ expect fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(
-    assertionCreatorOrNull: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.nullableEintrag(assertionCreatorOrNull)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
@@ -214,11 +215,8 @@ expect fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(
-    assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
-    vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
-
+fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inGegebenerReihenfolge.nur.nullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain the [expected] value
@@ -231,7 +229,9 @@ expect fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E: Any, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E): AssertionPlant<T>
+@JvmName("enthaeltNichtNonNullable")
+fun <E: Any, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
+    = enthaeltNicht.werte(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
@@ -242,7 +242,8 @@ expect fun <E: Any, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> Assert<T>.irgendEiner(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.irgendEiner(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).eintrag(assertionCreator)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains an entry holding
@@ -254,9 +255,8 @@ expect fun <E : Any, T : Iterable<E>> Assert<T>.irgendEiner(assertionCreator: As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEinNullable(
-    assertionCreatorOrNull: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
+fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEinNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = enthaelt.inBeliebigerReihenfolge.zumindest(1).nullableEintrag(assertionCreatorOrNull)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] does not contain a single entry which holds all assertions
@@ -267,7 +267,8 @@ expect fun <E: Any, T: Iterable<E?>> Assert<T>.irgendEinNullable(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> Assert<T>.keiner(assertionCreator: (Assert<E>.() -> Unit)): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.keiner(assertionCreator: (Assert<E>.() -> Unit))
+    = enthaeltNicht.eintrag(assertionCreator)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) does not contain a single entry
@@ -279,9 +280,8 @@ expect fun <E : Any, T : Iterable<E>> Assert<T>.keiner(assertionCreator: (Assert
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E?>> Assert<T>.keinerDerNullable(
-    assertionCreatorOrNull: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> Assert<T>.keinerDerNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
+    = enthaeltNicht.nullableEintrag(assertionCreatorOrNull)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] has at least one element and that every element holds all
@@ -290,7 +290,8 @@ expect fun <E : Any, T : Iterable<E?>> Assert<T>.keinerDerNullable(
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> Assert<T>.alle(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.alle(assertionCreator: Assert<E>.() -> Unit)
+    = addAssertion(AssertImpl.iterable.all(this, assertionCreator))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) has at least one element and
@@ -300,6 +301,5 @@ expect fun <E : Any, T : Iterable<E>> Assert<T>.alle(assertionCreator: Assert<E>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E?>> Assert<T>.alleDerNullable(
-    assertionCreatorOrNull: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> Assert<T>.alleDerNullable(assertionCreatorOrNull: (Assert<E>.() -> Unit)?)
+    = addAssertion(AssertImpl.iterable.all(this, assertionCreatorOrNull))

@@ -1,7 +1,13 @@
+@file:JvmMultifileClass
+@file:JvmName("IterableContainsInAnyOrderOnlyCreatorsKt")
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
+import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 
@@ -16,9 +22,8 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.wert(
-    expected: E
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.wert(expected: E): AssertionPlant<T>
+    = werte(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only the
@@ -31,9 +36,8 @@ expect fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderO
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableWert(
-    expectedOrNull: E
-): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableWert(expectedOrNull: E): AssertionPlant<T>
+    = nullableWerte(expectedOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as the
@@ -46,10 +50,8 @@ expect fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrder
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.werte(
-    expected: E,
-    vararg otherExpected: E
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.werte(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, expected glue otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected][expectedOrNull]
@@ -63,10 +65,8 @@ expect fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderO
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableWerte(
-    expectedOrNull: E,
-    vararg otherExpectedOrNulls: E
-): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.nullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.valuesInAnyOrderOnly(this, expectedOrNull glue otherExpectedOrNulls))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
@@ -79,9 +79,8 @@ expect fun <E : Any?, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrder
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.eintrag(
-    assertionCreator: Assert<E>.() -> Unit
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.eintrag(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+    = eintraege(assertionCreator)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only one
@@ -95,9 +94,8 @@ expect fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderO
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEintrag(
-    assertionCreatorOrNull: (Assert<E>.() -> Unit)?
-): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = nullableEintraege(assertionCreatorOrNull)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the entry needs to be contained in the
@@ -121,10 +119,11 @@ expect fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrde
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.eintraege(
+fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOnlySearchBehaviour>.eintraege(
     assertionCreator: Assert<E>.() -> Unit,
     vararg otherAssertionCreators: Assert<E>.() -> Unit
 ): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, assertionCreator glue otherAssertionCreators))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
@@ -150,7 +149,8 @@ expect fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderO
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEintraege(
+fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrderOnlySearchBehaviour>.nullableEintraege(
     assertionCreatorOrNull: (Assert<E>.() -> Unit)?,
     vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?
 ): AssertionPlant<T>
+    = plant.addAssertion(AssertImpl.iterable.contains.entriesInAnyOrderOnly(this, assertionCreatorOrNull glue otherAssertionCreatorsOrNulls))
