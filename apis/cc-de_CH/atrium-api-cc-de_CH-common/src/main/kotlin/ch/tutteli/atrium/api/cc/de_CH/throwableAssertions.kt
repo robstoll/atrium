@@ -1,6 +1,10 @@
+@file:JvmMultifileClass
+@file:JvmName("ThrowableAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
+import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -17,7 +21,9 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft(noinline assertionCreator: Assert<TExpected>.() -> Unit)
+inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft(noinline assertionCreator: Assert<TExpected>.() -> Unit) {
+    AssertImpl.throwable.thrown.toBe(this, TExpected::class, assertionCreator)
+}
 
 /**
  * Creates an [AssertionPlantNullable] for the [message][Throwable.message] of the plant's
@@ -31,7 +37,9 @@ expect inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.wirft(
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or if an additionally created [Assertion]s (by calling [assertionCreator]) does not hold.
  */
-expect fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit)
+fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.() -> Unit) {
+    property(subject::message).istNichtNull(assertionCreator)
+}
 
 /**
  * Creates the assertion that the [Throwable]'s [message][Throwable.message] is not null (see [message]) contains
@@ -49,4 +57,6 @@ expect fun <T : Throwable> Assert<T>.message(assertionCreator: Assert<String>.()
  * @throws AssertionError Might throw an [AssertionError] in case [message][Throwable.message] is `null`
  *   or does not contain [expected] or [otherExpected].
  */
-expect fun <T : Throwable> Assert<T>.messageEnthaelt(expected: Any, vararg otherExpected: Any)
+fun <T : Throwable> Assert<T>.messageEnthaelt(expected: Any, vararg otherExpected: Any) {
+    message { enthaelt(expected, *otherExpected) }
+}

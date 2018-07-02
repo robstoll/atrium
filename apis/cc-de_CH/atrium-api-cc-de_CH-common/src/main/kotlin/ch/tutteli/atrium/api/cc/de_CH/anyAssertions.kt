@@ -1,6 +1,10 @@
+@file:JvmMultifileClass
+@file:JvmName("AnyAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
+import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -16,7 +20,8 @@ import ch.tutteli.atrium.reporting.Reporter
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <T : Any> Assert<T>.ist(expected: T): AssertionPlant<T>
+fun <T : Any> Assert<T>.ist(expected: T)
+    = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not (equal to) [expected].
@@ -27,7 +32,8 @@ expect fun <T : Any> Assert<T>.ist(expected: T): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <T : Any> Assert<T>.istNicht(expected: T): AssertionPlant<T>
+fun <T : Any> Assert<T>.istNicht(expected: T)
+    = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is the same instance as [expected].
@@ -38,7 +44,8 @@ expect fun <T : Any> Assert<T>.istNicht(expected: T): AssertionPlant<T>
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T): AssertionPlant<T>
+fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
+    = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is not the same instance as [expected].
@@ -49,8 +56,8 @@ expect fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T): AssertionPlant<T
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T): AssertionPlant<T>
-
+fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T)
+    = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is `null`.
@@ -61,7 +68,9 @@ expect fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T): AssertionPl
  *
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <T: Any?> AssertionPlantNullable<T>.ist(`null`: Nothing?)
+fun <T : Any?> AssertionPlantNullable<T>.ist(@Suppress("UNUSED_PARAMETER") `null`: Nothing?) {
+    addAssertion(AssertImpl.any.isNull(this))
+}
 
 /**
  * Can be used to separate assertions when using the fluent API.
@@ -73,7 +82,7 @@ expect fun <T: Any?> AssertionPlantNullable<T>.ist(`null`: Nothing?)
  *
  * @return This plant to support a fluent API.
  */
-expect val <T : Any> Assert<T>.und: Assert<T>
+val <T : Any> Assert<T>.und: Assert<T> get() = this
 
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
@@ -85,4 +94,5 @@ expect val <T : Any> Assert<T>.und: Assert<T>
  *
  * @return This plant to support a fluent API.
  */
-expect infix fun <T : Any> AssertionPlant<T>.und(assertionCreator: Assert<T>.() -> Unit): Assert<T>
+infix fun <T : Any> AssertionPlant<T>.und(assertionCreator: Assert<T>.() -> Unit)
+    = addAssertionsCreatedBy(assertionCreator)

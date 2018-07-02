@@ -1,14 +1,16 @@
+@file:JvmMultifileClass
+@file:JvmName("CharSequenceContainsCreatorsKt")
 package ch.tutteli.atrium.api.cc.de_CH
 
-import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
+import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.addAssertion
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.kbox.glue
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched,
@@ -27,7 +29,8 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
+    = werte(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -49,7 +52,8 @@ expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBe
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
+    = addAssertion(AssertImpl.charSequence.contains.values(this, expected glue otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value shall be searched
@@ -68,7 +72,9 @@ expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
  */
-expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
+@JvmName("wertGrossKleinschreibungIgnorierend")
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.wert(expected: Any): AssertionPlant<T>
+    = werte(expected)
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [expected] value as well as
@@ -90,7 +96,9 @@ expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCase
  * @throws IllegalArgumentException in case [expected] or one of the [otherExpected] is not a
  *   [CharSequence], [Number] or [Char].
  */
-expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
+@JvmName("werteGrossKleinschreibungIgnorierend")
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.werte(expected: Any, vararg otherExpected: Any): AssertionPlant<T>
+    = addAssertion(AssertImpl.charSequence.contains.valuesIgnoringCase(this, expected glue otherExpected))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -113,7 +121,8 @@ expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCase
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
+    = addAssertion(AssertImpl.charSequence.contains.regex(this, pattern glue otherPatterns))
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the given regular expression [pattern]
@@ -136,4 +145,6 @@ expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBe
  * @return The [AssertionPlant] for which the assertion was built to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
+@JvmName("regexIgnoringCase")
+fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>.regex(pattern: String, vararg otherPatterns: String): AssertionPlant<T>
+    = addAssertion(AssertImpl.charSequence.contains.regexIgnoringCase(this, pattern glue otherPatterns))
