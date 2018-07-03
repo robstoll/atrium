@@ -29,7 +29,7 @@ include {
     }
 
     folder('apis', 'api-') {
-        _ 'cc-de_CH'
+        kotlinJvmJs('cc-de_CH')
         kotlinJvmJs('cc-en_GB')
         kotlinJvmJs('cc-infix-en_GB')
     }
