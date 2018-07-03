@@ -68,8 +68,4 @@ actual class DetailedObjectFormatter actual constructor(
     }
 
     override fun identityHash(indent: String, any: Any): String = "$indent<${System.identityHashCode(any)}>"
-
-    companion object {
-        internal const val INDENT: String = "        "
-    }
 }
