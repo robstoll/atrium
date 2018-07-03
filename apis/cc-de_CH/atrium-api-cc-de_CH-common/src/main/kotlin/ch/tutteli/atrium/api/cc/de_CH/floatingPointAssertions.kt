@@ -1,7 +1,13 @@
+@file:JvmMultifileClass
+@file:JvmName("FloatingPointAssertionsKt")
+
 package ch.tutteli.atrium.api.cc.de_CH
 
+import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
+import ch.tutteli.atrium.core.polyfills.JvmName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is equal to [expected] with an error [tolerance]
@@ -16,7 +22,8 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun Assert<Float>.istMitFehlerToleranz(expected: Float, tolerance: Float): AssertionPlant<Float>
+fun Assert<Float>.istMitFehlerToleranz(expected: Float, tolerance: Float)
+    = addAssertion(AssertImpl.floatingPoint.toBeWithErrorTolerance(this, expected, tolerance))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is equal to [expected] with an error [tolerance]
@@ -31,4 +38,5 @@ expect fun Assert<Float>.istMitFehlerToleranz(expected: Float, tolerance: Float)
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-expect fun Assert<Double>.istMitFehlerToleranz(expected: Double, tolerance: Double): AssertionPlant<Double>
+fun Assert<Double>.istMitFehlerToleranz(expected: Double, tolerance: Double)
+    = addAssertion(AssertImpl.floatingPoint.toBeWithErrorTolerance(this, expected, tolerance))
