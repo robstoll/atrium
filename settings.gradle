@@ -38,7 +38,7 @@ include {
         kotlinJvmJs('api')
         kotlinJvmJs('builders')
         _ 'robstoll'
-        _ 'robstoll-lib'
+        kotlinJvmJs('robstoll-lib')
     }
 
     core('core-') {
