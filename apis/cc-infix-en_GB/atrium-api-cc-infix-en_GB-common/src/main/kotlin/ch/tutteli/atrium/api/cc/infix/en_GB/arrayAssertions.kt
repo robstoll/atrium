@@ -8,6 +8,9 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 /**
  * Turns `Assert<Array<E>>` into `Assert<Iterable<E>>`.
  *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
+ *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 fun <E> Assert<Array<E>>.asIterable(): AssertionPlant<Iterable<E>>
@@ -15,6 +18,9 @@ fun <E> Assert<Array<E>>.asIterable(): AssertionPlant<Iterable<E>>
 
 /**
  * Turns `Assert<CharArray>` into `Assert<Iterable<Byte>>`.
+ *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
@@ -25,6 +31,9 @@ fun Assert<ByteArray>.asIterable(): AssertionPlant<Iterable<Byte>>
 /**
  * Turns `Assert<CharArray>` into `Assert<Iterable<Char>>`.
  *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
+ *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("charArrAsIterable")
@@ -33,6 +42,9 @@ fun Assert<CharArray>.asIterable(): AssertionPlant<Iterable<Char>>
 
 /**
  * Turns `Assert<ShortArray>` into `Assert<Iterable<Short>>`.
+ *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
@@ -43,6 +55,9 @@ fun Assert<ShortArray>.asIterable(): AssertionPlant<Iterable<Short>>
 /**
  * Turns `Assert<IntArray>` into `Assert<Iterable<Int>>`.
  *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
+ *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("intArrAsIterable")
@@ -52,6 +67,9 @@ fun Assert<IntArray>.asIterable(): AssertionPlant<Iterable<Int>>
 /**
  * Turns `Assert<LongArray>` into `Assert<Iterable<Double>>`.
  *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
+ *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("longArrAsIterable")
@@ -59,6 +77,9 @@ fun Assert<LongArray>.asIterable(): AssertionPlant<Iterable<Long>>
     = AssertImpl.changeSubject(this) { subject.asIterable() }
 /**
  * Turns `Assert<FloatArray>` into `Assert<Iterable<Float>>`.
+ *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
@@ -69,6 +90,9 @@ fun Assert<FloatArray>.asIterable(): AssertionPlant<Iterable<Float>>
 /**
  * Turns `Assert<DoubleArray>` into `Assert<Iterable<Double>>`.
  *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
+ *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
 @JvmName("doubleArrAsIterable")
@@ -77,6 +101,9 @@ fun Assert<DoubleArray>.asIterable(): AssertionPlant<Iterable<Double>>
 
 /**
  * Turns `Assert<BooleanArray>` into `Assert<Iterable<Boolean>>`.
+ *
+ * The transformation as such is not reflected in reporting.
+ * Use `returnValueOf(Sequence::asIterable)` if you want to show the transformation in reporting.
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
