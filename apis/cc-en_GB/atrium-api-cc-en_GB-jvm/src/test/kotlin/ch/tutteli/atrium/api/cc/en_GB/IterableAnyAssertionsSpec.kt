@@ -12,6 +12,7 @@ class IterableAnyAssertionsSpec : Spek({
     include(PredicateSpec)
     include(BuilderSpec)
     include(ShortcutSpec)
+    include(SequenceSpec)
 }) {
     object PredicateSpec : ch.tutteli.atrium.spec.integration.IterableAnyAssertionsSpec(
         AssertionVerbFactory,
