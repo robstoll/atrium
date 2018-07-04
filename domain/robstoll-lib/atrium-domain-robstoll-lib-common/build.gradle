@@ -1,0 +1,22 @@
+description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation' +
+        'of the domain of Atrium as common module. You should only depend on this module if you are ' +
+        'providing an implementation as well and want to reuse certain artifacts. ' +
+        'If you are a consumer of Atrium, then you should depend on atrium-domain-robstoll instead.'
+
+dependencies {
+    //TODO get rid of the exclusions as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
+    compile prefixedProject('domain-builders-common'), withoutKbox
+
+    // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
+    // automatically in their compile classpath. Thus:
+    compileOnly prefixedProject('api-cc-en_GB-common'), withoutKbox // for us
+    runtimeOnly prefixedProject('api-cc-en_GB-common'), withoutKbox // for depending modules
+
+    // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-common'), withoutKbox
+    compile("ch.tutteli.kbox:kbox-common:$kbox_version") {
+        exclude group: 'org.jetbrains.kotlin'
+        //TODO get rid of the exclusion as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
+        exclude group: 'ch.tutteli.kbox'
+    }
+}
