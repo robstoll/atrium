@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.cc.en_GB.contains
 import ch.tutteli.atrium.api.cc.en_GB.containsNot
 import ch.tutteli.atrium.api.cc.en_GB.message
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion
@@ -63,7 +64,7 @@ abstract class FloatingPointWithErrorToleranceAssertionsSpec(
                     }
 
                     val toBeInclErrorTolerance = String.format(DescriptionFloatingPointAssertion.TO_BE_WITH_ERROR_TOLERANCE.getDefault(), tolerance)
-                    val failureNotice = String.format(DescriptionFloatingPointAssertion.FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(), subject::class.java.name)
+                    val failureNotice = String.format(DescriptionFloatingPointAssertion.FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault(), subject::class.fullName)
                     failing.forEach { num ->
                         test("... compare to $num throws AssertionError") {
                             expect {
