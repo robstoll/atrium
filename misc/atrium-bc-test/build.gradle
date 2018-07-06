@@ -261,12 +261,16 @@ createBcTasksForApis('0.6.0',
             'contains|containsNot|containsStrictly|[Ee]ntries' +
         ')`.*(error cases|failing cases|context empty collection).*)|' +
         '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)|' +
-        '(BigDecimalAssertionsSpec.*throws UnsupportedOperationException.*)' +
+        '(BigDecimalAssertionsSpec.*throws UnsupportedOperationException.*)|' +
+        '(FloatingPointAssertionsSpec.*throws AssertionError.*)|' +
+        '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)' +
     ')',
     'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
 )
 createBcTasksForApis('0.7.0',
-    'forgive=^$',
+    'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|en_GB|(infix\\.(en_UK|en_GB)))\\.(' +
+        '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)' +
+    ')',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 
