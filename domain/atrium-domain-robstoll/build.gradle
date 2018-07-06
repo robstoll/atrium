@@ -2,5 +2,5 @@ description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain (ass
 
 dependencies {
     compile prefixedProject('domain-api-jvm')
-    compile prefixedProject('domain-robstoll-lib')
+    compile prefixedProject('domain-robstoll-lib-jvm')
 }

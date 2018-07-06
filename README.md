@@ -462,7 +462,7 @@ and on the other hand it turns the `subject` into the type which allows you to m
 Atrium provides the possibility to make arbitrary type transformations 
 as long as you can provide a checking function which can tell whether the transformation is safe or not 
 and a transformation function which performs the transformation as such.
-For an example, have a look at the [TypeTransformationAssertionCreatorSpec](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-robstoll-lib/src/test/kotlin/ch/tutteli/atrium/creating/any/typetransformation/creators/TypeTransformationAssertionCreatorSpec.kt).
+For an example, have a look at the [TypeTransformationAssertionCreatorSpec](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-robstoll-lib-jvm/src/test/kotlin/ch/tutteli/atrium/creating/any/typetransformation/creators/TypeTransformationAssertionCreatorSpec.kt).
 
 </details>
 
