@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.core.evalOnce
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.BaseAssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL

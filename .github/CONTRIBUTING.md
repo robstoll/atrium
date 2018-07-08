@@ -26,10 +26,10 @@ By participating, you are expected to uphold this code. Please report unacceptab
   [Invite yourself](http://slack.kotlinlang.org/) :wink:
   
 - Found a bug?  
-  [Open an issue](https://github.com/robstoll/atrium/issues/new).
+  [Open an issue](https://github.com/robstoll/atrium/issues/new?template=bug_report.md).
   
 - Missing a feature?  
-  [Create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
+  [Create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
   
 - You would like to write an assertion function but have trouble to start?  
   Please read the section [Your First Code Contribution](#your-first-code-contribution). 

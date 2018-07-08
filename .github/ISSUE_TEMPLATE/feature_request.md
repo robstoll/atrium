@@ -6,7 +6,7 @@ about: Suggest an idea for this project
 
 *Platform* (JVM and/or JS): 
 
-## Code example
+## Code related feature
 ```
 assert(listOf(1, 2)).myDesiredFeature(...)
 ```

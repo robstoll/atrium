@@ -14,7 +14,8 @@ import ch.tutteli.atrium.core.polyfills.setAtriumProperty
  * Use [ReporterFactory.specifyFactory] or [ReporterFactory.specifyFactoryIfNotYetSet] to define the system property.
  *
  * Notice, that searching for a [ReporterFactory] is only done once and the result is cached afterwards.
- * Please [open an issue](https://github.com/robstoll/atrium/issues/new) if you want to change reporter during a test-run.
+ * Please [open an issue](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]%20change%20Reporter%20during%20test%20run)
+ * if you want to able to change the [Reporter] during a test-run.
  */
 val reporter: Reporter by lazy {
     val id = getAtriumProperty(ReporterFactory.SYSTEM_PROPERTY) ?: "default"

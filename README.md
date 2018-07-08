@@ -584,7 +584,7 @@ Please star Atrium if you like using it.
 <summary>:interrobang: too verbose?</summary>
 
 As side notice, in case you are dealing with large `Iterable` and do not want such a verbose output, 
-then let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]). 
+then let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]). 
 So far the verbose output was always handy for me but you might have other test cases than me.
 Also notice, that Atrium cannot yet deal with infinite `Iterable`s.
 If you have to, then please open a feature request as well.
@@ -990,7 +990,7 @@ assert: 10        (java.lang.Integer <934275857>)
 ```
 
 You prefer another reporting style but Atrium does not yet support it? 
-Please let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
+Please let me know it by [writing a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 
 There are more options to choose from. 
@@ -1045,7 +1045,7 @@ For further technical information have a look at the KDoc of [Translator](https:
 Notice, Atrium does not yet support generating multiple reports (e.g., in different languages) in the same test run 
 -- but Atrium is designed to support this use case. 
 Hence, if you need this feature, then please let me know it by writing a 
-[feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
+[feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 
 <hr/>
 </details><br/>
@@ -1169,7 +1169,7 @@ Thus, Atrium provides the following functions to ease dealing with Java Code at 
 # Contribute
 You are more than welcome to contribute:
 - star Atrium if you like it
-- [open an issue](https://github.com/robstoll/atrium/issues/new) or [create a feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature])
+- [open a bug](https://github.com/robstoll/atrium/issues/new?template=bug_report.md) or [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 - [ask a question](https://kotlinlang.slack.com/messages/C887ZKGCQ)
   so that I better understand where Atrium needs to improve.
 - share your assertion functions with the rest of us by creating a pull request.
@@ -1188,7 +1188,7 @@ The code documentation is generated with dokka and is hosted on github-pages:
 According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
 library does not yet offer a lot of out-of-the-box assertion functions. 
 More functions will follow but only if they are used somewhere by someone. 
-So, let me know if you miss something by creating a [feature request](https://github.com/robstoll/atrium/issues/new?title=[Feature]).
+So, let me know if you miss something by creating a [feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
 Some assertion functions which I miss myself will follow in the next version. 
 They are listed in the [Roadmap](#roadmap) below.
 
@@ -1258,7 +1258,7 @@ I plan that Atrium is going to support certain features in the future. Following
 - Inclusion of mockito's verify (so that it appears in the report as well).
     
 Are you missing something else? 
-[Feature Requests](https://github.com/robstoll/atrium/issues/new?title=[Feature])
+[Feature Requests](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 are very welcome.
 
 # License
