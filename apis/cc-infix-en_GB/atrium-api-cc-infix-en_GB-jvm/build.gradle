@@ -3,7 +3,7 @@ description = 'An API in en_GB with a focus on code completion and infix functio
 
 ext.jacoco_additional = [
     prefixedProject('translations-en_GB-jvm'),
-    prefixedProject('domain-robstoll'),
+    prefixedProject('domain-robstoll-jvm'),
     prefixedProject('domain-robstoll-lib-jvm'),
     prefixedProject('core-robstoll-jvm'),
     prefixedProject('core-robstoll-lib-jvm'),
@@ -12,7 +12,7 @@ ext.jacoco_additional = [
 dependencies {
     compile prefixedProject('domain-builders-jvm')
 
-    testRuntimeOnly prefixedProject('domain-robstoll')
+    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal')
 }

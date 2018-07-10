@@ -1,6 +1,0 @@
-description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain (assertion functions and builders) of Atrium'
-
-dependencies {
-    compile prefixedProject('domain-api-jvm')
-    compile prefixedProject('domain-robstoll-lib-jvm')
-}

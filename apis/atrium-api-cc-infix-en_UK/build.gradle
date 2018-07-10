@@ -6,7 +6,7 @@ dependencies {
     compile prefixedProject('domain-api-deprecated')
     compile prefixedProject('domain-builders-jvm')
 
-    testRuntimeOnly prefixedProject('domain-robstoll')
+    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal')
 }

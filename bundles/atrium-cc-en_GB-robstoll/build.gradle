@@ -4,6 +4,6 @@ dependencies {
     compile prefixedProject('verbs')
     compile prefixedProject('api-cc-en_GB-jvm')
     compile prefixedProject('translations-en_GB-jvm')
-    runtimeOnly prefixedProject('domain-robstoll')
+    runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 }

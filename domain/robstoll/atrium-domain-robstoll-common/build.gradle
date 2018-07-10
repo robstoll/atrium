@@ -1,0 +1,6 @@
+description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain of Atrium as common module'
+
+dependencies {
+    compile prefixedProject('domain-api-common')
+    compile prefixedProject('domain-robstoll-lib-common')
+}
