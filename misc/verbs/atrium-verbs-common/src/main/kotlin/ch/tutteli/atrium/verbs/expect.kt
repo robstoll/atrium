@@ -2,6 +2,7 @@ package ch.tutteli.atrium.verbs
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.core.newReportingPlantNullable
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable

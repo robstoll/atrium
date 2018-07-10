@@ -2,6 +2,7 @@ package ch.tutteli.atrium.verbs
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.CoreFactory
+import ch.tutteli.atrium.core.newReportingPlantNullable
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -9,8 +10,8 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
-import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT
-import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
+import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT
+import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THAT_THROWN
 
 /**
  * Creates an [AssertionPlant] for the given [subject].
@@ -19,8 +20,8 @@ import ch.tutteli.atrium.verbs.AssertionVerb.ASSERT_THROWN
  *
  * @see CoreFactory.newReportingPlant
  */
-fun <T : Any> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingPlant(ASSERT, { subject }, reporter)
+fun <T : Any> assertThat(subject: T)
+    = AssertImpl.coreFactory.newReportingPlant(ASSERT_THAT, { subject }, reporter)
 
 /**
  * Creates an [AssertionPlant] for the given [subject] and [AssertionPlant.addAssertionsCreatedBy] the
@@ -31,8 +32,8 @@ fun <T : Any> assert(subject: T)
  *
  * @see CoreFactory.newReportingPlantAndAddAssertionsCreatedBy
  */
-fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT, { subject }, reporter, assertionCreator)
+fun <T : Any> assertThat(subject: T, assertionCreator: Assert<T>.() -> Unit)
+    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(ASSERT_THAT, { subject }, reporter, assertionCreator)
 
 /**
  * Creates an [AssertionPlantNullable] for the given [subject] which might be `null`.
@@ -41,13 +42,13 @@ fun <T : Any> assert(subject: T, assertionCreator: Assert<T>.() -> Unit)
  *
  * @see CoreFactory.newReportingPlantNullable
  */
-fun <T : Any?> assert(subject: T)
-    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT, { subject }, reporter)
+fun <T : Any?> assertThat(subject: T)
+    = AssertImpl.coreFactory.newReportingPlantNullable(ASSERT_THAT, { subject }, reporter)
 
 /**
  * Creates a [ThrowableThrown.Builder] for the given function [act] which is expected to throw a [Throwable].
  *
  * @return The newly created [ThrowableThrown.Builder].
  */
-fun assert(act: () -> Unit)
-    = AssertImpl.throwable.thrownBuilder(ASSERT_THROWN, act, reporter)
+fun assertThat(act: () -> Unit)
+    = AssertImpl.throwable.thrownBuilder(ASSERT_THAT_THROWN, act, reporter)
