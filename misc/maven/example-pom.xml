@@ -20,7 +20,7 @@
             <!--<exclusions>-->
                 <!--<exclusion>-->
                     <!--<groupId>ch.tutteli.atrium</groupId>-->
-                    <!--<artifactId>atrium-verbs</artifactId>-->
+                    <!--<artifactId>atrium-verbs-jvm</artifactId>-->
                 <!--</exclusion>-->
             <!--</exclusions>-->
         </dependency>

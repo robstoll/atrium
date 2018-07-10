@@ -272,7 +272,7 @@ configure(bundleSmokeTests) {
     dependencies {
         //I don't see how to set up compileTestKotlin with --patch-module, so we have put the module-info.java directly in src/test/kotlin instead
         testCompile bundle
-        testCompile prefixedProject('verbs')
+        testCompile prefixedProject('verbs-jvm')
     }
 }
 

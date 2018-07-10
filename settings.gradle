@@ -55,7 +55,7 @@ include {
     misc {
         _ 'bc-test'
         _ 'spec'
-        _ 'verbs'
+        kotlinJvmJs('verbs')
         _ 'verbs-internal'
     }
 

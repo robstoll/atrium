@@ -1,4 +1,4 @@
-description = 'Assertion verbs for Atrium -- an assertion framework for Kotlin.'
+description = 'Assertion verbs for Atrium for the JVM platform.'
 
 dependencies {
     compile prefixedProject('domain-builders-jvm')
