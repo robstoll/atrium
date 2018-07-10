@@ -7,7 +7,7 @@ dependencies {
     compile kbox(), withoutKotlin
     compile prefixedProject('core-api-jvm')
 
-    testRuntimeOnly prefixedProject('domain-robstoll')
+    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('api-cc-en_GB-jvm')
     testCompile prefixedProject('verbs-internal')

@@ -45,7 +45,7 @@ buildscript {
                     !it.name.endsWith("-common") &&
                     !it.name.endsWith("-js") &&
                         it.name != "${rootProject.name}-domain-api-jvm" &&
-                        it.name != "${rootProject.name}-domain-robstoll" &&
+                        it.name != "${rootProject.name}-domain-robstoll-jvm" &&
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
                         it.name != "${rootProject.name}-spec" &&
                         it.name != "${rootProject.name}-bc-test" &&

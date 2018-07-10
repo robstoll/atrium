@@ -26,7 +26,7 @@ dependencies {
     }
 
     testCompile prefixedProject('api-cc-en_GB-jvm')
-    testRuntimeOnly prefixedProject('domain-robstoll')
+    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal')
 }

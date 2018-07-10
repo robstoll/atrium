@@ -1,0 +1,6 @@
+description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain (assertion functions and builders) of Atrium for the JS platform.'
+
+dependencies {
+    compile prefixedProject('domain-api-js')
+    compile prefixedProject('domain-robstoll-lib-js')
+}
