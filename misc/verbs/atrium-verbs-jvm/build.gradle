@@ -1,0 +1,10 @@
+description = 'Assertion verbs for Atrium for the JVM platform.'
+
+dependencies {
+    compile prefixedProject('domain-builders-jvm')
+    compile prefixedProject('core-api-jvm')
+
+    testCompile prefixedProject('spec')
+    testRuntime prefixedProject('domain-robstoll-jvm')
+    testRuntime prefixedProject('core-robstoll-jvm')
+}

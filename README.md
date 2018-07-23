@@ -423,7 +423,7 @@ The output is the same as above.
 In other cases type inference will not be good enough to infer `T` of `Assert<T>.() -> Unit` 
 if you use the workaround ([this bug](https://youtrack.jetbrains.com/issue/KT-24230)).
 you can use the helper function `subAssert` in such cases which is merely an identity function. 
-As an example, have a look at [FeatureAssertionsClassReferenceSpec ](https://github.com/robstoll/atrium/tre/master/apis/atrium-api-cc-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
+As an example, have a look at [FeatureAssertionsClassReferenceSpec](https://github.com/robstoll/atrium/tre/master/apis/atrium-api-cc-en_GB-jvm/src/test/kotlin/ch/tutteli/atrium/api/cc/en_GB/FeatureAssertionsClassReferenceSpec.kt#L54)
 
 </details> <br/>
 
@@ -918,16 +918,16 @@ Atrium offers three assertion verbs out of the box: `assert`, `assertThat` and `
 
 But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
 In order to create an own assertion verb it is sufficient to:
- 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/atrium-verbs-internal/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt)
+ 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content.
  3. Adjust package name and `import`s and rename `assert` and `expect` as desired (you can also leave it that way of course).
  4. Most probably you can remove `AssertionVerbFactory` at the bottom of the file
- 5. exclude `atrium-verbs` from your dependencies. 
+ 5. exclude `atrium-verbs-jvm` (`atrium-verbs-js` respectively) from your dependencies. 
     Taking the setup shown in the [Installation](#installation) section, you would replace the `dependencies` block as follows:
     ```
     dependencies {
         testCompile("ch.tutteli.atrium:atrium-cc-en_GB-robstoll:$atrium_version") {
-            exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs'
+            exclude group: 'ch.tutteli.atrium', module: 'atrium-verbs-jvm'
         }
     }
     ```
@@ -1134,7 +1134,7 @@ Atrium is
 [built up by different modules](https://robstoll.github.io/atrium/latest#/doc/) 
 and it is your choice which implementation you want to use. 
 Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
-so that you just have to have a dependency on that one bundle:
+so that you just have to have a dependency on that one bundle (kind a bit like a BOM pom):
 
 - [atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_GB-robstoll/build.gradle)
 - [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)

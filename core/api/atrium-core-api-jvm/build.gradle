@@ -4,5 +4,5 @@ dependencies {
     compile kbox(), withoutKotlin
     compile kotlinReflect()
     testCompile prefixedProject('cc-infix-en_GB-robstoll')
-    testCompile prefixedProject('verbs-internal')
+    testCompile prefixedProject('verbs-internal-jvm')
 }

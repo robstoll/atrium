@@ -55,8 +55,8 @@ include {
     misc {
         _ 'bc-test'
         _ 'spec'
-        _ 'verbs'
-        _ 'verbs-internal'
+        kotlinJvmJs('verbs')
+        kotlinJvmJs('verbs-internal')
     }
 
     //TODO remove all below with 1.0.0

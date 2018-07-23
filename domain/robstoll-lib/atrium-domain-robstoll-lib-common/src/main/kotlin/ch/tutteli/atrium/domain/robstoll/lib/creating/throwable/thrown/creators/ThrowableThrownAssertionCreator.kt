@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.core.evalOnce
+import ch.tutteli.atrium.core.newReportingPlantNullable
 import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators.DownCastAssertionCreator
@@ -41,17 +40,10 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private fun createReportingPlantForThrowable(
         throwableThrownBuilder: ThrowableThrown.Builder,
         throwable: Throwable?
-    ): ReportingAssertionPlantNullable<Throwable?> {
-        //TODO use the default method once it is moved to ThrowableThrownCommon in 1.0.0
-        val evalOnceSubjectProvider = { throwable }.evalOnce()
-        return coreFactory.newReportingPlantNullable(
-            AssertionPlantWithCommonFields.CommonFields(
-                throwableThrownBuilder.assertionVerb,
-                evalOnceSubjectProvider,
-                evalOnceSubjectProvider,
-                coreFactory.newThrowingAssertionChecker(throwableThrownBuilder.reporter),
-                absentThrowableMessageProvider.message
-            )
-        )
-    }
+    ): ReportingAssertionPlantNullable<Throwable?> = coreFactory.newReportingPlantNullable(
+        throwableThrownBuilder.assertionVerb,
+        { throwable },
+        throwableThrownBuilder.reporter,
+        absentThrowableMessageProvider.message
+    )
 }
