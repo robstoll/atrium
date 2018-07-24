@@ -1240,19 +1240,16 @@ I plan that Atrium is going to support certain features in the future. Following
 - see if I could further improve error reporting in the IDE with the help of opentest4j exceptions.
 
 ## 0.9.0
-
 - fix verbosity issues in conjunction with feature assertions and explanatory assertion groups.
 - A sophisticated assertion builder for `toBeWithErrorTolerance` for floating point numbers
   (so that one could extend it with `relativeOf`, `positiveOf` etc.).
   
 ## 0.10.0 (or 1.0.0) 
-  
 - Generating testing reports in html.
   - generate multiple reports in the same test run.
   - extension for Spek so that reporting includes the `describe`, `it` etc. 
   
 ## 0.11.0 (or 1.1.0)  
-
 - Inclusion of mockito's verify (so that it appears in the report as well).
     
 Are you missing something else? 
@@ -1260,4 +1257,4 @@ Are you missing something else?
 are very welcome.
 
 # License
-Atrium is published under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
+Atrium is licensed under [EUPL 1.2](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12).
