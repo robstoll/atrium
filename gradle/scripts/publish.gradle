@@ -115,4 +115,5 @@ tasks.withType(Jar) { task ->
             'Implementation-URL': publish_vcsUrl, \
             'Implementation-Kotlin-Version': kotlin_version
     }
+    task.from("$rootProject.projectDir/LICENSE.txt")
 }
