@@ -208,7 +208,7 @@ assert(4 + 6).isLessThan(5).isGreaterThan(10)
 
 
 Using the fluent API allows you to write the `assert(...)` part only once but making several single assertions for the same 
-[subject](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.creating/-base-assertion-plant/subject.html).
+[subject](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-base-assertion-plant/subject.html).
 The expression which determines the subject of the assertion (`4 + 6` in the above example) is evaluated only once. 
 
 In this sense we could have written it also as follows (which is only the same because `4 + 6` does not have side effects).
@@ -496,7 +496,7 @@ This is reflected in the output, which tells us that we expected that the `numbe
 
 Exactly, what about the expected value `2`, why do we not see anything about it in the output?
 The output does not show anything about the expected value `2` because the predefined assertion verbs have configured [`ReporterBuilder`](#reporterbuilder) 
-to use an [Only Failure Reporter](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.core/-core-factory/new-only-failure-reporter.html) 
+to use an [Only Failure Reporter](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.core/-core-factory/new-only-failure-reporter.html) 
 which shows us only assertions (or sub assertions) which failed.
 
 Back to the shortcut functions.
@@ -689,7 +689,7 @@ so that you get the extra help needed.
 
 There is, but IntelliJ will not show it to you due to [this bug](https://youtrack.jetbrains.com/issue/KT-24836) (please upvote it).
 You should be able to see the KDoc of other functions without problems. 
-But in case, you can also browse the online documentation, e.g. [KDoc of toBe](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/to-be.html).
+But in case, you can also browse the online documentation, e.g. [KDoc of toBe](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/to-be.html).
 
 </details>
 
@@ -840,8 +840,8 @@ Let us see how we actually defined `isMultipleOf`.
     <hr/>
     </details>
  
-    The method [createAndAddAssertion](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.creating/-assertion-plant/create-and-add-assertion.html) expects:
-    - a [Translatable](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
+    The method [createAndAddAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.creating/-assertion-plant/create-and-add-assertion.html) expects:
+    - a [Translatable](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translatable/index.html)
       as  description of your assertion.
     - the representation of the expected value.
     - and the actual check as lambda where you typically use the `subject` of the assertion.
@@ -857,7 +857,7 @@ And finally you specify the test as such in the lambda passed as third argument.
 
 if you do not access `subject` other than in the lambda passed as third argument, 
 then you have what I call a `subjectless reporting function`.
-This is a good property because it means your function can be used in [explanation groups](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/explanatory-group.html)
+This is a good property because it means your function can be used in [explanation groups](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/explanatory-group.html)
 without breaking reporting.
 For instance, `assert(listOf(1, 2, 5, 8,9)).all { isMultipleOf(2) }` would blow up in the middle of error reporting if we did not adhere to the `subjectless reporting` property.
 
@@ -874,7 +874,7 @@ Consider the following assertion function:
 fun Assert<Int>.isEven() = createAndAddAssertion(
     DescriptionBasic.IS, RawString.create("an even number"), { subject % 2 == 0 })
 ```
-We are using a [RawString](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
+We are using a [RawString](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-raw-string/index.html)
 here so that `"an even number"` is not treated as a `String` in reporting.
 Also notice, that we are reusing a common description (`DescriptionBasic.IS`) as first argument.
 Its usage looks then as follows:
@@ -889,8 +889,8 @@ assert(13).isEven()
 <summary>:interrobang: provide some extra hints</summary>
 
 Do you want to provide extra hints in case the assertion fails? 
-Have a look at [`AssertImpl.builder.descriptive.withTest({...}).withFailureHint`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders.assertions.builders/with-failure-hint.html).
-You might want to have a look at [`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html)
+Have a look at [`AssertImpl.builder.descriptive.withTest({...}).withFailureHint`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders.assertions.builders/with-failure-hint.html).
+You might want to have a look at [`AssertImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html)
 in general, it is kind of the entry point for assertion-function-writers.
 It guides you to existing assertion function implementations 
 as well as to the `AssertionBuilder` which itself helps you with creating assertions. 
@@ -1033,14 +1033,14 @@ uses `atrium-translations-de_CH`.
 <summary>:interrobang: Using a TranslationSupplier</summary>
 
 Next to providing translations via code you can also use a 
-[TranslationSupplier](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html)
-based [Translator](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html)
+[TranslationSupplier](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translation-supplier/index.html)
+based [Translator](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html)
 by configuring the [`ReporterBuilder`](#reporterbuilder) accordingly (e.g. use `withDefaultTranslationSupplier` instead of `withoutTranslations`). 
 Atrium supports a properties files based `TranslationSupplier` which is more or less what
 [ResourceBundle](https://docs.oracle.com/javase/tutorial/i18n/resbundle/propfile.html)
 provides out of the box. 
 Yet, a `Translator` uses a more enhanced fallback mechanism compared to a `ResourceBundle`. 
-For further technical information have a look at the KDoc of [Translator](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html).
+For further technical information have a look at the KDoc of [Translator](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting.translating/-translator/index.html).
 
 Notice, Atrium does not yet support generating multiple reports (e.g., in different languages) in the same test run 
 -- but Atrium is designed to support this use case. 
@@ -1084,15 +1084,15 @@ fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion
 ```
 Notice that the impl-function is not an extension function as before 
 because we do not want to pollute the API of `AssertionPlant<Int>` (of `Assert<Int>` respectively) with this function.
-In the above example we created a simple [DescriptiveAssertion](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions/-descriptive-assertion/index.html)
+In the above example we created a simple [DescriptiveAssertion](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions/-descriptive-assertion/index.html)
 (`createAndAddAssertion` does the same under the hood)
 with a test which defines whether the assertion holds as well as a description (`IS_MULTIPLE_OF`) and a representation (`base`).
 
-[`AssertImpl`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html)
+[`AssertImpl`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.domain.builders/-assert-impl/index.html)
 helps you in writing own assertion functions. 
 I suggest you use it as entry point (rather than memorizing different class names), 
 it guides you to existing assertion function implementations for different types 
-as well as to other builders such as the [`AssertionBuilder`](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html)
+as well as to other builders such as the [`AssertionBuilder`](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html)
 which in turn helps you with creating assertions.
 
 In the API module we define the extension function and call the impl-function:
@@ -1131,7 +1131,7 @@ All have their design focus on interoperability with code completion (thus `cc`)
 -- so that you can let your IDE do some of the work.
 
 Atrium is 
-[built up by different modules](https://robstoll.github.io/atrium/latest#/doc/) 
+[built up by different modules](https://docs.atriumlib.org/latest#/doc/) 
 and it is your choice which implementation you want to use. 
 Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
 so that you just have to have a dependency on that one bundle (kind a bit like a BOM pom):
@@ -1182,7 +1182,7 @@ for further suggestions and guidelines.
 
 # KDoc - Code Documentation
 The code documentation is generated with dokka and is hosted on github-pages:
-[KDoc of atrium](https://robstoll.github.io/atrium/)
+[KDoc of atrium](https://docs.atriumlib.org/)
 
 # Known Limitations
 According to the [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it) principle this 
@@ -1229,9 +1229,9 @@ assert(sequenceOf(1, 2, 3)).returnValueOf(Sequence::asIterable).contains(2)
 ## Where do I find a list of all available functions?
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
-- [atrium-cc-de_CH-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h/index.html)
-- [atrium-cc-en_GB-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
-- [atrium-cc-infix-en_GB-robstoll](https://robstoll.github.io/atrium/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
+- [atrium-cc-de_CH-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.de_-c-h/index.html)
+- [atrium-cc-en_GB-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.en_-g-b/index.html)
+- [atrium-cc-infix-en_GB-robstoll](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.api.cc.infix.en_-g-b/index.html)
 
 # Roadmap
 
