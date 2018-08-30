@@ -1195,8 +1195,6 @@ They are listed in the [Roadmap](#roadmap) below.
 Atrium does not support (yet):
 - contains assertion functions for `Map` (you can use `assert(map.entries)` in the meantime -- or `keys`/`values` if your assertion is only about keys or values)
 - infinite `Iterable`s
-- assertion functions for `Sequence` (you can use `returnValueOf(subject::asIterable){}` in the meantime)
-- assertion functions for `Array` (you can use `returnValueOf(subject::asIterable){}` in the meantime)
 
 # FAQ
 You find frequently asked questions below.
