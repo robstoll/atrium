@@ -2,6 +2,7 @@ package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.bigDecimal
 import java.math.BigDecimal
 
 @Deprecated("Use AssertImpl.bigDecimal.isNumericallyEqualTo, will be removed with 1.0.0",
