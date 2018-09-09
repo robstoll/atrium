@@ -918,7 +918,7 @@ Atrium offers three assertion verbs out of the box: `assert`, `assertThat` and `
 
 But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
 In order to create an own assertion verb it is sufficient to:
- 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt)
+ 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content.
  3. Adjust package name and `import`s and rename `assert` and `expect` as desired (you can also leave it that way of course).
  4. Most probably you can remove `AssertionVerbFactory` at the bottom of the file
