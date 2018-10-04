@@ -4,19 +4,17 @@ buildscript {
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     ext {
-        ghPages_version = rootProject.version
+        // main
         kbox_version = '0.10.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.2.61'
         mockito_kotlin_version = '1.5.0'
         mockito = { "com.nhaarman:mockito-kotlin:$mockito_kotlin_version" }
-        dokka_version = '0.9.17'
-        dokka_sourceMapping = 'tree/master'
 
-        //spek.gradle
+        // test
         jacoco_tool_version = '0.8.2'
-        spek_version = '1.1.5'
         junit_platform_version = '1.2.0'
+        spek_version = '1.1.5'
 
         //publish.gradle
         bintray_version = '1.7.3'
@@ -24,10 +22,11 @@ buildscript {
         github_url = "https://github.com/robstoll/${rootProject.name}"
         publish_vcsUrl = "${github_url}.git"
 
-        srcKotlin = 'src/main/kotlin'
-
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec"}
+        ghPages_version = rootProject.version
+        dokka_sourceMapping = 'tree/master'
+        srcKotlin = 'src/main/kotlin'
 
         //jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
@@ -66,9 +65,9 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("ch.tutteli:tutteli-gradle-dokka:$gradle.ext.tutteli_plugins_version")
         classpath("ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version")
         classpath("ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version")
     }
@@ -108,33 +107,15 @@ configure(subprojects - commonProjects - jsProjects)  { subproject ->
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
 
-    apply plugin: 'org.jetbrains.dokka'
-
-    dokka {
-        outputFormat = 'html'
-        outputDirectory = "${subproject.buildDir}/kdoc"
-
-        linkMapping {
-            dir = rootProject.projectDir.absolutePath
-            url = "$github_url/${dokka_sourceMapping}/"
-            suffix = '#L'
-        }
-
-        if (!rootProject.version.endsWith("-SNAPSHOT")) {
-            externalDocumentationLink {
-                url = new URL("https://robstoll.github.io/atrium/${rootProject.version}/doc/")
-            }
-        }
+    apply plugin: 'ch.tutteli.dokka'
+    tutteliDokka {
+        githubUser = 'robstoll'
+        ghPages = true
     }
 
     def sourceJar = task('sourceJar', type: Jar) {
         from subproject.sourceSets.main.allSource
         classifier = 'sources'
-    }
-
-    def javadocJar = task('javadocJar', type: Jar, dependsOn: dokka) {
-        from dokka.outputDirectory
-        classifier = 'javadoc'
     }
 
     subproject.ext.publish_artifacts = [sourceJar, javadocJar]
