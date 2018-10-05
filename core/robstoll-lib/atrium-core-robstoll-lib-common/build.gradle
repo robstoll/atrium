@@ -4,6 +4,6 @@ description = 'contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
         'Atrium, then you should depend on atrium-core-robstoll-common instead.'
 
 dependencies {
-    compile "ch.tutteli.kbox:kbox-common:$kbox_version", withoutKotlin
+    compile "ch.tutteli.kbox:kbox-common:$kbox_version", excludeKotlin
     compile prefixedProject('core-api-common')
 }

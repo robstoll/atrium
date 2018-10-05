@@ -15,12 +15,10 @@ configurations {
 
 dependencies {
     common "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
-    common "org.jetbrains.spek:spek-api:$spek_version", withoutKotlin
-    common("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
-        exclude group: 'org.junit.platform'
-        exclude group: 'org.jetbrains.kotlin'
-    }
-    common mockito(), withoutKotlin
+    common "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
+    common "org.jetbrains.spek:spek-junit-platform-engine:$spek_version", excludeKotlin
+        
+    common mockito(), excludeKotlin
     common kotlinStdlib()
 
     compile configurations.common.dependencies

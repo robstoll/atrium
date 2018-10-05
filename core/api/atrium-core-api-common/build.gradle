@@ -1,5 +1,5 @@
 description = 'API of the core of Atrium as common module'
 
 dependencies {
-    compile "ch.tutteli.kbox:kbox-common:$kbox_version", withoutKotlin
+    compile "ch.tutteli.kbox:kbox-common:$kbox_version", excludeKotlin
 }

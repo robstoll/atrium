@@ -16,17 +16,12 @@ buildscript {
         junit_platform_version = '1.2.0'
         spek_version = '1.1.5'
 
-        //publish.gradle
-        bintray_version = '1.7.3'
-        publish_pkg_name = rootProject.name
-        github_url = "https://github.com/robstoll/${rootProject.name}"
-        publish_vcsUrl = "${github_url}.git"
-
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec"}
         ghPages_version = rootProject.version
         dokka_sourceMapping = 'tree/master'
         srcKotlin = 'src/main/kotlin'
+        github_url = "https://github.com/robstoll/${rootProject.name}"
 
         //jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
@@ -69,6 +64,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath("ch.tutteli:tutteli-gradle-dokka:$gradle.ext.tutteli_plugins_version")
         classpath("ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version")
+        classpath("ch.tutteli:tutteli-gradle-publish:$gradle.ext.tutteli_plugins_version")
         classpath("ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version")
     }
 }
@@ -82,10 +78,6 @@ repositories {
 }
 
 subprojects {
-    it.version = rootProject.version
-    it.version = rootProject.version
-    it.group = rootProject.group
-
     repositories {
         mavenCentral()
         maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
@@ -108,60 +100,25 @@ configure(subprojects - commonProjects - jsProjects)  { subproject ->
     targetCompatibility = 1.7
 
     apply plugin: 'ch.tutteli.dokka'
-    tutteliDokka {
-        githubUser = 'robstoll'
-        ghPages = true
-    }
-
-    def sourceJar = task('sourceJar', type: Jar) {
-        from subproject.sourceSets.main.allSource
-        classifier = 'sources'
-    }
-
-    subproject.ext.publish_artifacts = [sourceJar, javadocJar]
-
-    if (subproject.name.startsWith("${rootProject.name}-api")) {
-        def testJar = task('testJar', type: Jar) {
-            from sourceSets.test.output
-            classifier = 'tests'
-        }
-
-        def testSourceJar = task('testSourceJar', type: Jar) {
-            from sourceSets.test.allSource
-            classifier = 'testsources'
-        }
-        subproject.ext.publish_artifacts += [testJar, testSourceJar]
-    }
 }
 
-configure(commonProjects + jsProjects) {
-    afterEvaluate {
-        it.ext.publish_artifacts = [jar]
+def apiProjects = subprojects.findAll { it.name.startsWith("${rootProject.name}-api") }
+configure(apiProjects)  { subproject ->
+    task('testJar', type: Jar) {
+        from sourceSets.test.output
+        classifier = 'tests'
+    }
+
+    task('testSourcesJar', type: Jar) {
+        from sourceSets.test.allSource
+        classifier = 'testsources'
     }
 }
 
 // has to be after the above two blocks which define `it.ext.publish_artifacts`
-def bundleSmokeTests = subprojects.findAll{ x -> x.name.endsWith('smoke-test')}
+def bundleSmokeTests = subprojects.findAll{ it.name.endsWith('smoke-test')}
 configure(subprojects - bundleSmokeTests) { subproject ->
-    afterEvaluate {
-        apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle", to: subproject
-
-        def includeBuildTime = task('includeBuildTime') {
-            doLast {
-                project.tasks.withType(Jar) { jarTask ->
-                    jarTask.manifest {
-                        attributes('Build-Time': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ'))
-                    }
-                }
-            }
-        }
-
-        task publishBintray {
-            dependsOn includeBuildTime
-            dependsOn bintrayUpload
-            bintrayUpload.mustRunAfter(includeBuildTime)
-        }
-    }
+    apply plugin: 'ch.tutteli.publish'
 }
 
 configure(subprojects - jacocoMulti.jacocoProjects - commonProjects - jvmProjects - jsProjects) {
@@ -175,7 +132,7 @@ configure(jacocoMulti.jacocoProjects) {
     apply plugin: 'ch.tutteli.spek'
 
     dependencies {
-        testCompile mockito(), withoutKotlin
+        testCompile mockito(), excludeKotlin
     }
 
     afterEvaluate { subproject ->

@@ -2,7 +2,7 @@ description = 'Provides specifications of Atrium -- an assertion framework for K
         ' be reused by implementations of Atrium, to verify that they fulfill the specification.'
 
 dependencies {
-    compile kbox(), withoutKotlin
+    compile kbox(), excludeKotlin
     compile prefixedProject('domain-api-jvm')
     compile prefixedProject('core-api-jvm')
     compile prefixedProject('domain-builders-jvm')
@@ -21,6 +21,6 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.spek:spek-api:$spek_version", withoutKotlin
-    compile mockito(), withoutKotlin
+    compile "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
+    compile mockito(), excludeKotlin
 }

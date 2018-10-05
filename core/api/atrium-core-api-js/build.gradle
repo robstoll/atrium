@@ -1,5 +1,5 @@
 description = 'API of the core of Atrium for the JS platform.'
 
 dependencies {
-    compile "ch.tutteli.kbox:kbox-js:$kbox_version", withoutKotlin
+    compile "ch.tutteli.kbox:kbox-js:$kbox_version", excludeKotlin
 }
