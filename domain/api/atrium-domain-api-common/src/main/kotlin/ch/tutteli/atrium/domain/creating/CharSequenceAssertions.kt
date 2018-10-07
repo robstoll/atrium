@@ -29,4 +29,5 @@ interface CharSequenceAssertions {
     fun <T : CharSequence> endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
     fun <T : CharSequence> isEmpty(plant: AssertionPlant<T>): Assertion
     fun <T : CharSequence> isNotEmpty(plant: AssertionPlant<T>): Assertion
+    fun <T : CharSequence> isNotBlank(plant: AssertionPlant<T>): Assertion
 }

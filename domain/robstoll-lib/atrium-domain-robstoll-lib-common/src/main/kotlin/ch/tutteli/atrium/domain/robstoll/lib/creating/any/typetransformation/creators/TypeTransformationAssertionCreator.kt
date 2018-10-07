@@ -14,7 +14,7 @@ class TypeTransformationAssertionCreator<S : Any, T : Any> : AnyTypeTransformati
         val (description, representation, subjectPlant, assertionCreator) = parameterObject
         val subject = subjectPlant.subject
         if (subject != null && canBeTransformed(subject)) {
-            val plant = AssertImpl.changeSubject(subjectPlant, { transform(subject) })
+            val plant = AssertImpl.changeSubject(subjectPlant) { transform(subject) }
             plant.addAssertion(AssertImpl.builder.descriptive
                 .holding
                 .withDescriptionAndRepresentation(description, representation)
