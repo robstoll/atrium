@@ -11,7 +11,12 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.sear
 import ch.tutteli.atrium.domain.robstoll.lib.creating.charsequence.contains.searchbehaviours.NotSearchBehaviourImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.BLANK
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.EMPTY
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_WITH
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.STARTS_NOT_WITH
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.STARTS_WITH
 
 fun <T : CharSequence> _containsBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     = CharSequenceContainsBuilder(plant, NoOpSearchBehaviourImpl())
@@ -37,3 +42,6 @@ fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
 
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+
+fun <T : CharSequence> _isNotBlank(plant: AssertionPlant<T>): Assertion
+    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(BLANK)) { plant.subject.isNotBlank() }

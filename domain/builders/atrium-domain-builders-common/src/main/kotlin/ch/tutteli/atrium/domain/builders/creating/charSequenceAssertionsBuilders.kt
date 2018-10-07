@@ -1,6 +1,7 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.CharSequenceAssertions
 import ch.tutteli.atrium.domain.creating.charSequenceAssertions
@@ -12,7 +13,6 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Delegates inter alia to the implementation of [CharSequenceAssertions].
@@ -44,6 +44,9 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
 
     override inline fun <T : CharSequence> isNotEmpty(plant: AssertionPlant<T>)
         = charSequenceAssertions.isNotEmpty(plant)
+
+    override inline fun <T : CharSequence> isNotBlank(plant: AssertionPlant<T>)
+        = charSequenceAssertions.isNotBlank(plant)
 
     /**
      * Returns [CharSequenceContainsAssertionsBuilder]

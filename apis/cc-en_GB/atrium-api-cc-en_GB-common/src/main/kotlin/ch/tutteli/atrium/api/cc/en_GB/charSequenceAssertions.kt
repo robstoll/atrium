@@ -8,7 +8,6 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Creates a [CharSequenceContains.Builder] based on this [AssertionPlant] which allows to define
@@ -154,3 +153,12 @@ fun <T : CharSequence> Assert<T>.isEmpty()
  */
 fun <T : CharSequence> Assert<T>.isNotEmpty()
     = addAssertion(AssertImpl.charSequence.isNotEmpty(this))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotBlank].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : CharSequence> Assert<T>.isNotBlank()
+    = addAssertion(AssertImpl.charSequence.isNotBlank(this))
