@@ -81,14 +81,22 @@ Task createJacocoReportTask(String apiName, String name, Task runTask){
     }
 }
 
+static String getNameUnderline(String apiName, String version){
+    return "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
+}
+
+File getSrcDirectory(String apiName, String version){
+    return file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
+}
+
 def createBcTasks(String apiName, String version, String forgive) {
-    def nameUnderline = "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
+    def nameUnderline = getNameUnderline(apiName, version)
     def name = "${apiName}-$version"
     def srcName = "src_$nameUnderline"
     def confCommon = "conf_$nameUnderline"
     def testJar = "testJar_$nameUnderline"
     def testJarSources = "testJarSources_$nameUnderline"
-    def srcDirectory = file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
+    def srcDirectory = getSrcDirectory(apiName, version)
 
     sourceSets {
         create(srcName) {
@@ -201,6 +209,21 @@ def createBcTasks(String apiName, String version, String forgive) {
     project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
 
+def createFixSrcTask(String apiName, String version, String file, Closure modifyContent) {
+    def nameUnderline070 = getNameUnderline(apiName, version)
+    def name = "${apiName}-$version"
+    def fixSrc = task("fixSrc-$name") {
+        doLast {
+            def srcFile = project.file("${getSrcDirectory(apiName, version)}/ch/tutteli/atrium/api/${apiName.replaceAll('-', '/')}/$file")
+            String newContent = modifyContent(srcFile.getText('UTF-8'))
+            srcFile.write(newContent, 'UTF-8')
+        }
+    }
+    def unzip = project.tasks.getByName("unzip-$name")
+    fixSrc.mustRunAfter(unzip)
+    project."compileSrc_${nameUnderline070}Kotlin".dependsOn fixSrc
+}
+
 createBcTasksForApis('0.6.0',
     'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
         '(IterableContainsNotAssertionsSpec.*:(enthaeltNicht|containsNot|notTo contain) 4.0 throws AssertionError.*)|' +
@@ -274,3 +297,6 @@ createBcTasksForApis('0.7.0',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 
+createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
+    return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
+}

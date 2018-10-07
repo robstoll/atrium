@@ -10,7 +10,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
     AssertionVerbFactory,
     getContainsDefaultTranslationOfPair(),
     getContainsNotDefaultTranslationOfPair(),
-    "${Assert<CharSequence>::toBe.name} ${Empty::class.simpleName}" to Companion::toBeEmpty,
+    "toBe ${Empty::class.simpleName}" to Companion::toBeEmpty,
     "notToBe ${Empty::class.simpleName}" to Companion::notToBeEmpty,
     "notToBe ${Blank::class.simpleName}" to Companion::notToBeBlank,
     Assert<CharSequence>::startsWith.name to Companion::startsWith,

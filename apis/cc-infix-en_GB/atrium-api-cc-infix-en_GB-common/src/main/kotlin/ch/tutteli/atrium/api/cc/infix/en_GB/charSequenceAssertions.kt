@@ -196,21 +196,21 @@ infix fun <T : CharSequence> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty:
 /**
  * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotEmpty].
  *
- * @param onlyEmptyAllowed Has to be `Empty`.
+ * @param Empty Has to be `Empty`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyEmptyAllowed: Empty)
+infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(AssertImpl.charSequence.isNotEmpty(this))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotBlank].
  *
- * @param onlyBlankAllowed Has to be `Blank`.
+ * @param Blank Has to be `Blank`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") onlyBlankAllowed: Blank)
+infix fun <T : CharSequence> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Blank: Blank)
     = addAssertion(AssertImpl.charSequence.isNotBlank(this))
