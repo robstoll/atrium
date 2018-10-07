@@ -1,17 +1,18 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Blank
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
-import kotlin.reflect.KFunction2
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
 class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceAssertionsSpec(
     AssertionVerbFactory,
     getContainsDefaultTranslationOfPair(),
     getContainsNotDefaultTranslationOfPair(),
     "${Assert<CharSequence>::toBe.name} ${Empty::class.simpleName}" to Companion::toBeEmpty,
-    "${Assert<CharSequence>::notToBe.name} ${Empty::class.simpleName}" to Companion::notToBeEmpty,
+    "notToBe ${Empty::class.simpleName}" to Companion::notToBeEmpty,
+    "notToBe ${Blank::class.simpleName}" to Companion::notToBeBlank,
     Assert<CharSequence>::startsWith.name to Companion::startsWith,
     Assert<CharSequence>::startsNotWith.name to Companion::startsNotWith,
     Assert<CharSequence>::endsWith.name to Companion::endsWith,
@@ -43,6 +44,9 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
 
         fun notToBeEmpty(plant: Assert<CharSequence>)
             = plant notToBe Empty
+
+        fun notToBeBlank(plant: Assert<CharSequence>)
+            = plant notToBe Blank
 
         fun startsWith(plant: Assert<CharSequence>, expected: CharSequence)
             = plant startsWith expected

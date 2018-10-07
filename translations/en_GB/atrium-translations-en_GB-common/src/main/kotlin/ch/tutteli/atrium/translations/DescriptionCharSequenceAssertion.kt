@@ -9,6 +9,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 enum class DescriptionCharSequenceAssertion(override val value: String) : StringBasedTranslatable {
     AT_LEAST("is at least"),
     AT_MOST("is at most"),
+    BLANK("blank"),
     CONTAINS("contains"),
     CONTAINS_NOT("does not contain"),
     EMPTY("empty"),
