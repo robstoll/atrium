@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.throwable.thrown.creators
 
 import ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation

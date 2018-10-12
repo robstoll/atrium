@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.iterable.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -12,5 +13,5 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 class IterableContainsNotChecker : IterableContains.Checker {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
-        = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, 0, { foundNumberOfTimes == 0 })
+        = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, 0) { foundNumberOfTimes == 0 }
 }
