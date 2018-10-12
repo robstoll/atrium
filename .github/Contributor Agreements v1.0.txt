@@ -1,0 +1,201 @@
+﻿Atrium Contributor Agreements v1.0
+ 
+This agreement is based on the Harmony contributor agreements harmonyagreements.org.
+Thank you for your interest in contributing to the project
+Atrium
+currently developed on the platform 
+https://github.com/robstoll/atrium
+and owned by 
+Robert Stoll (the “Project Owner”, hereafter "We" or "Us").
+
+This contributor agreement ("Agreement") documents the rights granted by contributors to 
+Us. To make this document effective, please sign it and send it to Us by mail, email, fax, or 
+electronic submission, following the instructions published on the Joinup site. This is a 
+legally binding document, so please read it carefully before agreeing to it. The Agreement 
+may cover more than one project managed by Us.
+
+1. Definitions
+"You" (Individual) means the individual who Submits a Contribution to Us.
+"You" (Entity) means any Legal Entity on behalf of whom a Contribution has been received 
+by Us. "Legal Entity" means an entity which is not a natural person. "Affiliates" means other 
+Legal Entities that control, are controlled by, or under common control with that Legal 
+Entity. For the purposes of this definition, "control" means (i) the power, direct or indirect, 
+to cause the direction or management of such Legal Entity, whether by contract or 
+otherwise, (ii) ownership of fifty percent (50%) or more of the outstanding shares or 
+securities which vote to elect the management or other persons who direct such Legal Entity 
+or (iii) beneficial ownership of such entity.
+"Contribution" means any work of authorship that is Submitted by You to Us in which You 
+own or assert ownership rights including, but not limited to Copyright. If You do not fully 
+own the entire work of authorship, please ensure that a paper copy of this Agreement is 
+signed by all relevant copyright holders 
+"Copyright" means all rights protecting works of authorship owned or controlled by You [or 
+Your Affiliates], including copyright, moral and neighbouring rights, as appropriate, for the 
+full term of their existence including any extensions by You.
+"Work" means the work of authorship which is made available by Us to third parties. When 
+this Agreement covers more than one project, the Work means the work of authorship to 
+which the Contribution was Submitted. After You Submit your Contribution, it may be 
+included in the Work.
+"Submit" means any form of electronic, verbal, or written communication sent to Us or our 
+representatives, including but not limited to electronic mails, attachments, lists, source code 
+control systems, and issue tracking systems that are managed by, or on behalf of, Us for 
+the purpose of discussing and improving the Work, but excluding communication that is 
+conspicuously marked or otherwise designated in writing by You as "Not a Contribution."
+"Submission Date" means the date on which You Submit a Contribution to Us.
+"Effective Date" means the date You execute this Agreement or the date You first Submit a 
+Contribution to Us, whichever is earlier.
+"Media" means any Contribution or portion of a Contribution which is not software: data, 
+metadata, data bases, documents, manuals, images, video, etc.
+
+2. Grant of Rights
+2.1 Copyright Assignment
+(a) At the time the Contribution is Submitted, You irrevocably assign to Us all right, title, 
+and interest worldwide in all Copyright covering the Contribution; provided that this transfer 
+is conditioned upon compliance with Section 2.3. In particular, You agree to transfer the 
+following rights:
+1.	the right to use and to re-use in a whole or in part;
+2.	the right to modify, including the right to translate and to re-write in a different 
+form;
+3.	the rights to licence and sub-licence any of the rights herein;
+4.	the right to distribute copies and cause the distribution;
+5.	the right to display publicly;
+6.	the right to communicate to the public by telecommunication, by electronic 
+publication, by press information services, by downloadable and non-
+downloadable files, by communication with computer terminals; by sending of 
+telegrams, messages and wire service, by electronic and non-electronic 
+publications;
+7.	the right to reproduce by any mean including paper, digital, electronic or non-
+electronic format;
+8.	the right to integrate and incorporate into any existing or future Work;
+9.	the right to transfer to another environment (hardware, software, computer 
+electronic, Web, multimedia or other);
+10.	the right to make improvements and derivative works;
+11.	the right to store;
+12.	the right to licence the above-mentioned rights. 
+ 
+(b) To the extent that any of the rights in Section 2.1(a) cannot be assigned by You to Us, 
+You grant to Us a perpetual, worldwide, exclusive, royalty-free, transferable, irrevocable 
+licence under such non-assigned rights, with rights to sublicense through multiple tiers of 
+sub licensees, to practice such non-assigned rights, including, but not limited to, the right to 
+reproduce, modify, display, perform and distribute the Contribution; provided that this 
+licence is conditioned upon compliance with Section 2.3.
+
+(c) To the extent that any of the rights in Section 2.1(a) can neither be assigned nor 
+licensed by You to Us, You irrevocably waive and agree never to assert such rights against 
+Us, any of our successors in interest, or any of our licensees, either direct or indirect; 
+provided that this agreement not to assert is conditioned upon compliance with Section 2.3.
+
+(d) Upon such transfer of rights to Us, to the maximum extent possible, We immediately 
+grant to You a perpetual, worldwide, non-exclusive, royalty-free, transferable, irrevocable 
+licence under such rights covering the Contribution, with rights to sublicense through 
+multiple tiers of sub licensees, to reproduce, modify, display, perform, and distribute the 
+Contribution. The intention of the parties is that this licence will be as broad as possible and 
+to provide You with rights as similar as possible to the owner of the rights that You 
+transferred. This licence back is limited to the Contribution and does not provide any rights 
+to the Work, which shall be subject to the outbound licence(s) as provided in Section 2.3.
+
+2.2 Patent Licence
+For patent claims including, without limitation, method, process, and apparatus claims 
+which You [or Your Affiliates] own, control or have the right to grant, now or in the future, 
+You grant to Us a perpetual, worldwide, non-exclusive, transferable, royalty-free, 
+irrevocable patent licence, with the right to sublicense these rights to multiple tiers of sub 
+licensees, to make, have made, use, sell, offer for sale, import and otherwise transfer the 
+Contribution and the Contribution in combination with the Work (and portions of such 
+combination). This licence is granted only to the extent that the exercise of the licensed 
+rights infringes such patent claims; and provided that this licence is conditioned upon 
+compliance with Section 2.3.
+
+2.3 Outbound Licence(s)
+As a condition on the grant of rights in Sections 2.1 and 2.2, We agree to license the 
+Contribution under the terms of the following initial licences (including any right to adopt 
+any future version of these licences):
+To the extend the Work includes software (source code or binaries):
+•	The EUPL v1.2 or later
+To the extend the Work includes Media:
+•	The ISA Open Metadata Licence v1.1 or later
+ Without prejudice to the former conditions - and for the exclusive purpose of ensuring 
+copyleft compatibility, We may licence the Contribution under any licences which are 
+approved by the Open Source Initiative, or the Free Software Foundation, or Creative 
+Commons or equivalent non-proprietary licences published by the European Commission on 
+or after the Effective Date, including both permissive and copyleft licences, whether or not 
+such licences are subsequently disapproved by relevant organisations (including any right to 
+adopt any future version of these licences).
+
+2.4 Moral Rights. If moral rights apply to the Contribution, to the maximum extent 
+permitted by law, You waive and agree not to assert such moral rights against Us or our 
+successors in interest, or any of our licensees, either direct or indirect.
+
+2.5 Our Rights. You acknowledge that We are not obligated to use Your Contribution as part 
+of the Work and may decide to include any Contribution We consider appropriate.
+2.6 Reservation of Rights. Any rights not expressly assigned or licensed under this section 
+are expressly reserved by You.
+
+3. Agreement
+You confirm that:
+(a) You have the legal authority to enter into this Agreement.
+(b) You [or Your Affiliates] own the Copyright and any other proprietary rights in the 
+Contribution, including patent claims where applicable, which are required to transfer or 
+grant the rights as provided under Section 2. 
+(c)(Individual) The grant of rights under Section 2 does not violate any grant of rights which 
+You have made to third parties, including Your employer.  If You are an employee or official, 
+You have had Your employer approve this Agreement or sign the Entity version of this 
+document.  If You are less than eighteen years old, please have Your parents or guardian 
+sign the Agreement on your behalf.
+(c)(Entity) The grant of rights under Section 2 does not violate any grant of rights which 
+You or Your Affiliates have made to third parties.
+(d) You communicated to Us a paper copy of this Agreement, signed by all relevant 
+copyright holders, if You do not own the Copyright in the entire work of authorship 
+Submitted.
+
+4. Disclaimer
+EXCEPT FOR THE EXPRESS WARRANTIES IN SECTION 3, THE CONTRIBUTION IS PROVIDED 
+"AS IS". MORE PARTICULARLY, ALL EXPRESS OR IMPLIED WARRANTIES INCLUDING, 
+WITHOUT LIMITATION, ANY IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A 
+PARTICULAR PURPOSE AND NON-INFRINGEMENT ARE EXPRESSLY DISCLAIMED BY YOU TO 
+US [AND BY US TO YOU]. TO THE EXTENT THAT ANY SUCH WARRANTIES CANNOT BE 
+DISCLAIMED, SUCH WARRANTY IS LIMITED IN DURATION TO THE MINIMUM PERIOD 
+PERMITTED BY LAW.
+
+5. Consequential Damage Waiver
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL YOU [OR 
+US] BE LIABLE FOR ANY LOSS OF PROFITS, LOSS OF ANTICIPATED SAVINGS, LOSS OF 
+DATA, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL AND EXEMPLARY DAMAGES 
+ARISING OUT OF THIS AGREEMENT REGARDLESS OF THE LEGAL OR EQUITABLE THEORY 
+(CONTRACT, TORT OR OTHERWISE) UPON WHICH THE CLAIM IS BASED.
+
+6. Miscellaneous
+6.1 This Agreement will be governed by and construed in accordance with the laws of the 
+jurisdiction in which the Project Owner has its principal place of business
+Any litigation resulting from the interpretation of this Agreement, arising between the 
+European Commission, as the project owner, and any Contributor, will be subject to the 
+jurisdiction of the Court of Justice of the European Communities, as laid down in article 238 
+of the Treaty establishing the European Community. 
+Any litigation arising between Parties, other than the European Commission, and resulting 
+from the interpretation of this Agreement, will be subject to the exclusive jurisdiction of the 
+competent court where the Project Owner resides or conducts its primary business.
+6.2 This Agreement sets out the entire agreement between You and Us for Your 
+Contributions to Us and overrides all other agreements or understandings.
+6.3 If You or We assign the rights or obligations received through this Agreement to a third 
+party, as a condition of the assignment, that third party must agree in writing to abide by all 
+the rights and obligations in the Agreement.
+6.4 The failure of either party to require performance by the other party of any provision of 
+this Agreement in one situation shall not affect the right of a party to require such 
+performance at any time in the future. A waiver of performance under a provision in one 
+situation shall not be considered a waiver of the performance of the provision in the future 
+or a waiver of the provision in its entirety.
+6.5 If any provision of this Agreement is found void and unenforceable, such provision will 
+be replaced to the extent possible with a provision that comes closest to the meaning of the 
+original provision and which is enforceable.  The terms and conditions set forth in this 
+Agreement shall apply notwithstanding any failure of essential purpose of this Agreement or 
+any limited remedy to the maximum extent possible under law.
+
+SIGNATURES
+
+Us – the act of accepting a contribution is considered as our valid signature.
+
+You (Individual) – the consent in the form of a sign-off remark in your pull request 
+is considered as your valid signature.
+
+You (Legal Entity or Employer, or any other relevant copyright holder if applicable) – In 
+such case, only a paper copy of this agreement, signed by all relevant stakeholders’ 
+legitimate representatives, will be considered as a valid commitment.
+
