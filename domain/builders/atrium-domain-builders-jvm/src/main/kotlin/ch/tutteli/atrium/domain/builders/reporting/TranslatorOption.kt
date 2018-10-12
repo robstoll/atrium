@@ -2,12 +2,13 @@ package ch.tutteli.atrium.domain.builders.reporting
 
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.migration.toAtriumLocale
-import ch.tutteli.atrium.reporting.translating.*
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.reporting.translating.Translator
 
 /**
  * Provides options to create a [Translator].
  */
-actual interface TranslatorOption: TranslatorOptionCommon {
+actual interface TranslatorOption : TranslatorOptionCommon {
 
     /**
      * Uses [CoreFactory.newTranslator] as [Translator] where the specified [translationSupplier] is used to
@@ -27,8 +28,12 @@ actual interface TranslatorOption: TranslatorOptionCommon {
             "ch.tutteli.atrium.core.migration.toAtriumLocale"
         )
     )
-    fun withDefaultTranslator(primaryLocale: java.util.Locale, vararg fallbackLocales: java.util.Locale): ObjectFormatterOption
-        = withDefaultTranslator(
+    fun withDefaultTranslator(
+        primaryLocale: java.util.Locale,
+        vararg fallbackLocales: java.util.Locale
+    ): ObjectFormatterOption =
+        @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+        withDefaultTranslator(
             primaryLocale.toAtriumLocale(),
             *fallbackLocales.map { it.toAtriumLocale() }.toTypedArray()
         )

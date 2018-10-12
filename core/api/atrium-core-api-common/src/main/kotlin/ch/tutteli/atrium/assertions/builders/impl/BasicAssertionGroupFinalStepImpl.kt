@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+
 package ch.tutteli.atrium.assertions.builders.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -13,6 +15,5 @@ internal class BasicAssertionGroupFinalStepImpl(
     override val representation: Any,
     override val assertions: List<Assertion>
 ) : BasicAssertionGroupFinalStep {
-
     override fun build(): AssertionGroup = BasicAssertionGroup(groupType, description, representation, assertions)
 }

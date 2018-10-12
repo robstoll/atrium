@@ -8,5 +8,6 @@ internal class ExplanatoryAssertionGroupFinalStepImpl(
     override val explanatoryAssertions: List<Assertion>
 ) : ExplanatoryAssertionGroupFinalStep{
 
+    @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
     override fun build(): AssertionGroup = ExplanatoryAssertionGroup(groupType, explanatoryAssertions)
 }
