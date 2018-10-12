@@ -3,4 +3,7 @@ description = 'Specifies the internally used assertion verbs for the JS platform
 dependencies {
     compile prefixedProject('core-api-js')
     compile prefixedProject('domain-builders-js')
+
+    testCompile prefixedProject('domain-robstoll-js')
+    testCompile prefixedProject('core-robstoll-js')
 }
