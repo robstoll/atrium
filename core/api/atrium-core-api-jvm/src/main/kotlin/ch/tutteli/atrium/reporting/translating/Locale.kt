@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.migration.toAtriumLocale
 /**
  * Returns [java.util.Locale.getDefault].
  */
+@Suppress("DEPRECATION" /* that's fine, we want the java getDefault behaviour */)
 actual fun getDefaultLocale(): Locale = java.util.Locale.getDefault().toAtriumLocale()
 
 /**

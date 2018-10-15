@@ -15,7 +15,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class TranslationSupplierBasedTranslatorSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: java.util.Locale, fallbackLocals: List<java.util.Locale>) -> Translator,
+    testeeFactory: (translationSupplier: TranslationSupplier, localeOrderDecider: LocaleOrderDecider, locale: Locale, fallbackLocals: List<Locale>) -> Translator,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -23,7 +23,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         = describeFun(describePrefix, funName, body = body)
 
     fun testeeFactory(translationSupplier: TranslationSupplier, locale: Locale, vararg fallbackLocals: Locale)
-        = testeeFactory(translationSupplier, coreFactory.newLocaleOrderDecider(), locale.toJavaLocale(), fallbackLocals.map { it.toJavaLocale() })
+        = testeeFactory(translationSupplier, coreFactory.newLocaleOrderDecider(), locale, fallbackLocals.toList())
 
     fun mockTranslationProvider(locale: Locale, translatable: Translatable, translation: String): TranslationSupplier {
         return mock {
@@ -45,6 +45,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         override val name = "hello"
     }
 
+    @Suppress("unused")
     fun SpecBody.checkUsesDefaultOfTranslatable(testee: Translator) {
         it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
             val result = testee.translate(translatableHello)
@@ -52,6 +53,7 @@ abstract class TranslationSupplierBasedTranslatorSpec(
         }
     }
 
+    @Suppress("unused")
     fun SpecBody.checkTranslationSuccessfulForDesiredTranslatable(testee: Translator, translation: String, locale: Locale) {
         context("but for the wrong ${Translatable::class.simpleName}") {
             it("uses ${Translatable::class.simpleName}'s ${Translatable::getDefault.name}") {
