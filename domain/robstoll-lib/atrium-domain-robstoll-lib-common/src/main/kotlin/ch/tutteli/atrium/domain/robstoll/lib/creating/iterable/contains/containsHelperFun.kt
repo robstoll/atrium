@@ -68,13 +68,17 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
         .build()
 }
 
+@Suppress(
+    "USELESS_CAST"
+    //TODO remove if https://youtrack.jetbrains.com/issue/KT-24917 is fixed
+)
 internal fun <E : Any> allCreatedAssertionsHold(
     subject: E?,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?
 ): Boolean = when (subject) {
     null -> assertionCreator == null
     else -> assertionCreator != null &&
-        coreFactory.newCheckingPlant({ subject as E })
+        coreFactory.newCheckingPlant { subject as E }
             .addAssertionsCreatedBy(assertionCreator)
             .allAssertionsHold()
 }
@@ -97,7 +101,7 @@ internal fun <E, SC> createEntryAssertionTemplate(
         val description = TranslatableWithArgs(entryWithIndex, index)
         AssertImpl.builder.feature
             .withDescriptionAndRepresentation(description, entryRepresentation)
-            .withAssertion(createEntryFeatureAssertion({ found }))
+            .withAssertion(createEntryFeatureAssertion { found })
             .build()
     }
 }
@@ -140,8 +144,9 @@ internal fun <E> createHasElementAssertion(iterable: Iterable<E>): AssertionGrou
     return AssertImpl.builder.feature
         .withDescriptionAndRepresentation(HAS_ELEMENT, RawString.create(hasElement.toString()))
         .withAssertion(
-            AssertImpl.builder.createDescriptive(
-                DescriptionBasic.IS, RawString.create(true.toString()), { hasElement })
+            AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(true.toString())) {
+                hasElement
+            }
         )
         .build()
 }

@@ -54,12 +54,13 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
         )
         .build()
 
+@Suppress("USELESS_CAST")
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean
     = when (subject) {
         null -> assertionCreator == null
         else -> assertionCreator != null &&
-            coreFactory.newCheckingPlant({ subject as E })
+            coreFactory.newCheckingPlant { subject as E }
                 .addAssertionsCreatedBy(assertionCreator)
                 .allAssertionsHold()
     }
