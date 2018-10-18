@@ -17,7 +17,7 @@ buildscript {
         spek_version = '1.1.5'
 
         //gh-pages.gradle
-        docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec"}
+        docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
         ghPages_version = rootProject.version
         dokka_sourceMapping = 'tree/master'
         srcKotlin = 'src/main/kotlin'
@@ -37,7 +37,7 @@ buildscript {
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects).findAll {
                     !it.name.endsWith("-common") &&
-                    !it.name.endsWith("-js") &&
+                        !it.name.endsWith("-js") &&
                         it.name != "${rootProject.name}-domain-api-jvm" &&
                         it.name != "${rootProject.name}-domain-robstoll-jvm" &&
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
@@ -63,6 +63,7 @@ buildscript {
         classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath("ch.tutteli:tutteli-gradle-dokka:$gradle.ext.tutteli_plugins_version")
+        classpath("ch.tutteli:tutteli-gradle-kotlin-module-info:$gradle.ext.tutteli_plugins_version")
         classpath("ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version")
         classpath("ch.tutteli:tutteli-gradle-publish:$gradle.ext.tutteli_plugins_version")
         classpath("ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version")
@@ -85,57 +86,46 @@ subprojects {
 }
 
 def commonProjects = getCommonProjects()
-def jsProjects =  getJsProjects()
-def jvmProjects =  getJvmProjects()
+def jsProjects = getJsProjects()
+def jvmProjects = getJvmProjects()
+def multiplatformProjects = commonProjects + jsProjects + jvmProjects
 
 configureCommonProjects()
 configureJsProjects()
 configureJvmProjects()
 
-configure(subprojects - commonProjects - jsProjects)  { subproject ->
-
+configure(subprojects - multiplatformProjects) {
     apply plugin: 'kotlin'
+    dependencies {
+        compile kotlinStdlib()
+    }
+}
 
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
-
+configure(subprojects - commonProjects - jsProjects) {
     apply plugin: 'ch.tutteli.dokka'
+    apply plugin: 'ch.tutteli.kotlin.module.info'
 }
 
 def apiProjects = subprojects.findAll { it.name.startsWith("${rootProject.name}-api") }
-configure(apiProjects)  { subproject ->
-    task('testJar', type: Jar) {
-        from sourceSets.test.output
-        classifier = 'tests'
-    }
-
-    task('testSourcesJar', type: Jar) {
-        from sourceSets.test.allSource
-        classifier = 'testsources'
-    }
+configure(apiProjects) { apiProject ->
+    createTestJarTask(apiProject)
+    createTestSourcesJarTask(apiProject)
 }
 
 // has to be after the above two blocks which define `it.ext.publish_artifacts`
-def bundleSmokeTests = subprojects.findAll{ it.name.endsWith('smoke-test')}
+def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
 configure(subprojects - bundleSmokeTests) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 }
 
-configure(subprojects - jacocoMulti.jacocoProjects - commonProjects - jvmProjects - jsProjects) {
-    dependencies {
-        compile kotlinStdlib()
-        compile kotlinReflect()
-    }
-}
 configure(jacocoMulti.jacocoProjects) {
-
     apply plugin: 'ch.tutteli.spek'
 
     dependencies {
         testCompile mockito(), excludeKotlin
     }
 
-    afterEvaluate { subproject ->
+    afterEvaluate {
         junitjacoco {
 
             jacoco {
@@ -158,39 +148,6 @@ configure(jacocoMulti.jacocoProjects) {
 }
 
 apply from: 'gradle/scripts/gh-pages.gradle'
-
-if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-    subprojects {
-        def srcModule = "src/module"
-        def moduleInfo = file("${project.projectDir}/$srcModule/module-info.java")
-        if (moduleInfo.exists()) {
-
-            sourceSets {
-                module {
-                    java {
-                        srcDirs = [srcModule]
-                        compileClasspath = main.compileClasspath
-                        sourceCompatibility = '9'
-                        targetCompatibility = '9'
-                    }
-                }
-                main {
-                    kotlin { srcDirs += [srcModule] }
-                }
-            }
-
-            compileModuleJava.configure {
-                dependsOn compileKotlin
-                destinationDir = compileKotlin.destinationDir
-                doFirst {
-                    options.compilerArgs = ['--module-path', classpath.asPath,]
-                    classpath = files()
-                }
-            }
-            jar.dependsOn compileModuleJava
-        }
-    }
-}
 
 configure(bundleSmokeTests) {
     def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
