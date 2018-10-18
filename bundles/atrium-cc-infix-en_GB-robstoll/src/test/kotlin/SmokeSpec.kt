@@ -14,7 +14,7 @@ object SmokeSpec : Spek({
         expect(1) toBe 1
     }
 
-    test("see if own assertion function without i18n can be used"){
+    test("see if own assertion function without i18n can be used") {
         expect(2) tobe even
     }
 
@@ -26,15 +26,14 @@ object SmokeSpec : Spek({
 @Suppress("ClassName")
 object even
 
-infix fun Assert<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) = createAndAddAssertion(
-    DescriptionBasic.IS, RawString.create("an even number"), { subject % 2 == 0 })
+infix fun Assert<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
+    createAndAddAssertion(DescriptionBasic.IS, RawString.create("an even number")) { subject % 2 == 0 }
 
 
-infix fun Assert<Int>.isMultipleOf(base: Int)
-    = addAssertion(_isMultipleOf(this, base))
+infix fun Assert<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 
-fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion
-    = AssertImpl.builder.descriptive
+fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion =
+    AssertImpl.builder.descriptive
         .withTest { plant.subject % base == 0 }
         .withDescriptionAndRepresentation(DescriptionIntAssertions.IS_MULTIPLE_OF, base)
         .build()

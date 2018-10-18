@@ -18,6 +18,7 @@ abstract class CharSequenceContainsSpecBase {
     protected val atMost = CharSequenceContains.Builder<*, *>::hoechstens.name
     protected val notOrAtMost = CharSequenceContains.Builder<*, *>::nichtOderHoechstens.name
     protected val regex = CharSequenceContains.CheckerOption<*, NoOpSearchBehaviour>::regex.name
+    @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
     protected val defaultTranslationOf = CharSequenceContains.CheckerOption<*, NoOpSearchBehaviour>::standardUebersetzungVon.name
     protected val ignoringCase = CharSequenceContains.Builder<*, NoOpSearchBehaviour>::ignoriereGrossKleinschreibung.name
 }

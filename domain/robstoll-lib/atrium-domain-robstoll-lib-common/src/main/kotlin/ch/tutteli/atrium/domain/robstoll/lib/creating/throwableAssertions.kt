@@ -5,5 +5,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.builders.
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-fun _thrownBuilder(assertionVerb: Translatable, act: () -> Unit, reporter: Reporter): ThrowableThrown.Builder
-    = ThrowableThrownBuilder(assertionVerb, act, reporter)
+fun _thrownBuilder(assertionVerb: Translatable, act: () -> Unit, reporter: Reporter): ThrowableThrown.Builder =
+    @Suppress("DEPRECATION")
+    ThrowableThrownBuilder(assertionVerb, act, reporter)

@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -17,7 +18,6 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
 import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * If you use this Spec then your reporter needs to use a translator which uses the following translations
@@ -211,7 +211,7 @@ abstract class TranslatorIntSpec(
     ).forEach { script, countries ->
         val zhWithScript = "zh_$script"
         countries.forEach { country ->
-            val locale = Locale.Builder().setLanguage("zh").setRegion(country).build()
+            val locale = Locale("zh", country)
             val reporter = reporterFactory(locale, arrayOf())
             val assert = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1 }, reporter)
 

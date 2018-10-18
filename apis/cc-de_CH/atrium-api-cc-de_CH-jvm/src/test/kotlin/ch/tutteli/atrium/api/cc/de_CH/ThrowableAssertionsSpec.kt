@@ -17,6 +17,7 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
         private fun getToThrowTriple() = Triple("wirft", Companion::toThrowImmediate, Companion::toThrowLazy)
 
         private fun toThrowImmediate(builder: ThrowableThrown.Builder) {
+            @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
             builder.wirft<IllegalArgumentException>()
         }
 

@@ -1,5 +1,5 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_UK.assertions.iterable.contains.builders
-
 
 import ch.tutteli.atrium.assertions.iterable.contains.builders.IterableContainsCheckerBuilder
 import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains

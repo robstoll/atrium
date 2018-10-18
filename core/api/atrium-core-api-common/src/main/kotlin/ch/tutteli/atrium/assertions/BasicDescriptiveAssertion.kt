@@ -34,6 +34,7 @@ constructor(
      * @param representation The [BasicDescriptiveAssertion.representation].
      * @param holds Determines whether [BasicDescriptiveAssertion.holds] or not
      */
+    @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
     @Deprecated(
         "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
         ReplaceWith(

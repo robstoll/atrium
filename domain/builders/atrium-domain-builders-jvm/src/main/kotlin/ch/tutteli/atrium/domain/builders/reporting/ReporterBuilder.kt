@@ -6,7 +6,7 @@ import ch.tutteli.atrium.reporting.translating.*
 /**
  * Provides options to create a [Translator] or [TranslationSupplier].
  */
-actual interface ReporterBuilder: ReporterBuilderCommon {
+actual interface ReporterBuilder : ReporterBuilderCommon {
 
     /**
      * Uses [UsingDefaultTranslator] as [Translator] where the given [primaryLocale] is used to format arguments
@@ -27,6 +27,7 @@ actual interface ReporterBuilder: ReporterBuilderCommon {
             "ch.tutteli.atrium.core.migration.toAtriumLocale"
         )
     )
-    fun withoutTranslations(primaryLocale: java.util.Locale = java.util.Locale.getDefault()): ObjectFormatterOption
-        = withoutTranslations(primaryLocale.toAtriumLocale())
+    fun withoutTranslations(primaryLocale: java.util.Locale = java.util.Locale.getDefault()): ObjectFormatterOption =
+        @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+        withoutTranslations(primaryLocale.toAtriumLocale())
 }
