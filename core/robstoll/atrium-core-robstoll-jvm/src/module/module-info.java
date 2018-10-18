@@ -1,7 +1,7 @@
 module ch.tutteli.atrium.core.robstoll {
-
     requires transitive ch.tutteli.atrium.core.api;
-    requires ch.tutteli.atrium.core.robstoll.lib;
+    requires            ch.tutteli.atrium.core.robstoll.lib;
+    requires            kotlin.stdlib;
 
     exports ch.tutteli.atrium.robstoll.core;
 

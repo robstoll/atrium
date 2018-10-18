@@ -1,7 +1,7 @@
 module ch.tutteli.atrium.domain.robstoll {
-
     requires transitive ch.tutteli.atrium.domain.api;
-    requires ch.tutteli.atrium.domain.robstoll.lib;
+    requires            ch.tutteli.atrium.domain.robstoll.lib;
+    requires            kotlin.stdlib;
 
     exports ch.tutteli.atrium.domain.robstoll.assertions.composers;
     exports ch.tutteli.atrium.domain.robstoll.creating;

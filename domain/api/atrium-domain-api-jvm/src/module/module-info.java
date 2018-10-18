@@ -1,6 +1,6 @@
 module ch.tutteli.atrium.domain.api {
-
     requires transitive ch.tutteli.atrium.core.api;
+    requires            kotlin.stdlib;
 
     exports ch.tutteli.atrium.domain.assertions.composers;
     exports ch.tutteli.atrium.domain.creating;

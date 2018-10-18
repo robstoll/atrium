@@ -1,5 +1,5 @@
 module ch.tutteli.atrium.api.cc.en_GB {
-
+    requires kotlin.stdlib;
     requires ch.tutteli.atrium.domain.builders;
     requires ch.tutteli.kbox;
 

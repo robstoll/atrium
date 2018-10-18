@@ -1,7 +1,7 @@
 module ch.tutteli.atrium.core.robstoll.lib {
-
     requires ch.tutteli.atrium.core.api;
     requires ch.tutteli.kbox;
+    requires kotlin.stdlib;
 
     exports ch.tutteli.atrium.core.robstoll.lib.checking;
     exports ch.tutteli.atrium.core.robstoll.lib.creating;
