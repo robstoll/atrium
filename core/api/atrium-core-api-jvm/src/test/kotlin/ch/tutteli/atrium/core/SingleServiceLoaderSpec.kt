@@ -10,10 +10,10 @@ import org.jetbrains.spek.api.dsl.it
 object SingleServiceLoaderSpec : Spek({
 
     given("no service") {
-        it("throws an IllegalStateException") {
+        it("throws an NoSuchElementException") {
             expect {
                 SingleServiceLoader.load(SingleServiceLoaderSpec::class.java)
-            }.toThrow<IllegalStateException> {
+            }.toThrow<NoSuchElementException> {
                 message {
                     this contains Values("Could not find any implementation", SingleServiceLoaderSpec::class.java.name)
                 }

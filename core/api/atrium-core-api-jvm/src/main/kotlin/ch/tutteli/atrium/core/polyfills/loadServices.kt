@@ -8,4 +8,4 @@ actual fun <T: Any> loadSingleService(kClass: KClass<T>): T
     = SingleServiceLoader.load(kClass.java)
 
 actual fun <T : Any> loadServices(kClass: KClass<T>): Sequence<T>
-    = ServiceLoader.load(kClass.java).iterator().asSequence()
+    = ServiceLoader.load(kClass.java).asSequence()
