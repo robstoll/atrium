@@ -3,6 +3,16 @@ description = 'API of the core of Atrium for the JVM platform.'
 dependencies {
     compile kbox(), excludeKotlin
     compile kotlinReflect()
+
     testCompile prefixedProject('cc-infix-en_GB-robstoll')
     testCompile prefixedProject('verbs-internal-jvm')
+    testCompile "org.jetbrains.kotlin:kotlin-test"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit5"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+}
+
+junitPlatform.filters {
+    engines {
+        include 'junit-jupiter'
+    }
 }

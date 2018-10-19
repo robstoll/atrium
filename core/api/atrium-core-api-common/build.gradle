@@ -2,4 +2,8 @@ description = 'API of the core of Atrium as common module'
 
 dependencies {
     compile "ch.tutteli.kbox:kbox-common:$kbox_version", excludeKotlin
+    testCompile "org.jetbrains.kotlin:kotlin-test-common"
+    testCompile "org.jetbrains.kotlin:kotlin-test-annotations-common"
+    testCompile prefixedProject('api-cc-infix-en_GB-common')
+    testCompile prefixedProject('verbs-internal-common')
 }
