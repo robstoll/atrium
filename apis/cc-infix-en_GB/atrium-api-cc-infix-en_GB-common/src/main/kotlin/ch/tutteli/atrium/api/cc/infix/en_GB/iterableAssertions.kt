@@ -153,6 +153,16 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E>): As
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(nullableEntries: NullableEntries<E>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the nullableEntries
 
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only the [expected] value.
+ *
+ * It is a shortcut for `to contain inGiven order and only value expected`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(expected: E): AssertionPlant<T>
+    = this to contain inGiven order and only value expected
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the [expected] value.
@@ -162,8 +172,12 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(nullableEntries: Nullab
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming",
+    replaceWith = ReplaceWith("containsExactly(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+)
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): AssertionPlant<T>
-    = this to contain inGiven order and only value expected
+    = containsExactly(expected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
@@ -174,8 +188,24 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): As
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValue<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(expected: NullableValue<E>): AssertionPlant<T>
     = this to contain inGiven order and only nullableValue expected.expected
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
+ * the [expected] nullable value.
+ *
+ * It is a shortcut for `to contain inGiven order and only nullableValue expected`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming",
+    replaceWith = ReplaceWith("containsExactly(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+)
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValue<E>): AssertionPlant<T>
+    = containsExactly(expected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only the expected [values] in the defined order.
@@ -185,8 +215,23 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValu
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(values: Values<E>): AssertionPlant<T>
     = this to contain inGiven order and only the values
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only the expected [values] in the defined order.
+ *
+ * It is a shortcut for `to contain inGiven order and only the Values(...)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming",
+    replaceWith = ReplaceWith("containsExactly(values)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+)
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): AssertionPlant<T>
+    = containsExactly
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
@@ -197,8 +242,24 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(nullableValues: NullableValues<E>): AssertionPlant<T>
+infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(nullableValues: NullableValues<E>): AssertionPlant<T>
     = this to contain inGiven order and only the nullableValues
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
+ * the expected [nullableValues] in the defined order.
+ *
+ * It is a shortcut for `to contain inGiven order and only the NullableValues(...)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming",
+    replaceWith = ReplaceWith("containsExactly(nullableValues)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+)
+infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(nullableValues: NullableValues<E>): AssertionPlant<T>
+    = containsExactly(nullableValues)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
@@ -209,8 +270,24 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(nullableValues: Nullab
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = this to contain inGiven order and only entry assertionCreator
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only one entry which is holding the assertions created
+ * by the [assertionCreator].
+ *
+ * It is a shortcut for `to contain inGiven order and only the entry { ... }`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming",
+    replaceWith = ReplaceWith("containsExactly(assertionCreator)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+)
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
+    = containsExactly(assertionCreator)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only one entry
@@ -222,9 +299,25 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: NullableEntry<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(nullableEntry: NullableEntry<E>): AssertionPlant<T>
     = this to contain inGiven order and only nullableEntry nullableEntry.assertionCreator
 
+/**
+ * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only one entry
+ * which is holding the assertions created by [nullableEntry].[assertionCreator][NullableEntry.assertionCreator] or
+ * only one entry which is `null` in case [nullableEntry] is defined as `null`.
+ *
+ * It is a shortcut for `to contain inGiven order and only nullableEntry { ... }`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming",
+    replaceWith = ReplaceWith("containsExactly(nullableEntry)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+)
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: NullableEntry<E>): AssertionPlant<T>
+    = containsExactly(nullableEntry)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -237,8 +330,26 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: 
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(entries: Entries<E>): AssertionPlant<T>
     = this to contain inGiven order and only the entries
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [entries].[assertionCreator][Entries.assertionCreator] and an additional entry
+ * for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators] (if given) in the defined order
+ * holding the assertions created by them.
+ *
+ * It is a shortcut for `to contain inGiven order and only the Entries(...)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming",
+    replaceWith = ReplaceWith("containsExactly(entries)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+)
+infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): AssertionPlant<T>
+    = containsExactly(entries)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
@@ -253,8 +364,28 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntries: NullableEntries<E>): AssertionPlant<T>
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(nullableEntries: NullableEntries<E>): AssertionPlant<T>
     = this to contain inGiven order and only the nullableEntries
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
+ * the assertions created by [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] or
+ * `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] is defined as `null`
+ * and likewise an additional entry for each
+ * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreatorsOrNulls] (if given)
+ * whereas the entries have to appear in the defined order.
+ *
+ * It is a shortcut for `to contain inGiven order and only the NullableEntries(...)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming",
+    replaceWith = ReplaceWith("containsExactly(nullableEntries)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+)
+infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntries: NullableEntries<E>): AssertionPlant<T>
+    = containsExactly(nullableEntries)
 
 
 /**
