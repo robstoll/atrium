@@ -231,7 +231,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(values: Values<E>
     replaceWith = ReplaceWith("containsExactly(values)", "ch.tutteli.atrium.api.cc.infix.en_GB")
 )
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): AssertionPlant<T>
-    = containsExactly
+    = containsExactly(values)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
