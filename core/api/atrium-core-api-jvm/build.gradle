@@ -6,13 +6,7 @@ dependencies {
 
     testCompile prefixedProject('cc-infix-en_GB-robstoll')
     testCompile prefixedProject('verbs-internal-jvm')
-    testCompile "org.jetbrains.kotlin:kotlin-test"
-    testCompile "org.jetbrains.kotlin:kotlin-test-junit5"
-    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.3.1"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
 }
 
-junitPlatform.filters {
-    engines {
-        include 'junit-jupiter'
-    }
-}
+junitPlatform.filters.engines { include 'junit-jupiter' }
