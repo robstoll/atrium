@@ -31,3 +31,33 @@ infix fun <T : Map<*, *>> Assert<T>.toBe(@Suppress("UNUSED_PARAMETER") Empty: Em
  */
 infix fun <T : Map<*, *>> Assert<T>.notToBe(@Suppress("UNUSED_PARAMETER") Empty: Empty)
     = addAssertion(AssertImpl.map.isNotEmpty(this))
+
+/**
+ * Turns `Assert<Map<K, *>>` into `Assert<Iterable<K>>`.
+ *
+ * The transformation as such is not reflected in reporting.
+ *
+ * @return The newly created [AssertionPlant] for the transformed subject.
+ */
+fun <K> Assert<Map<K, *>>.asKeys(): AssertionPlant<Iterable<K>>
+    = AssertImpl.changeSubject(this) { subject.keys }
+
+/**
+ * Turns `Assert<Map<*, V>>` into `Assert<Iterable<V>>`.
+ *
+ * The transformation as such is not reflected in reporting.
+ *
+ * @return The newly created [AssertionPlant] for the transformed subject.
+ */
+fun <V> Assert<Map<*, V>>.asValues(): AssertionPlant<Iterable<V>>
+    = AssertImpl.changeSubject(this) { subject.values }
+
+/**
+ * Turns `Assert<Map<K, V>>` into `Assert<Iterable<Map.Entry<K, V>>>`.
+ *
+ * The transformation as such is not reflected in reporting.
+ *
+ * @return The newly created [AssertionPlant] for the transformed subject.
+ */
+fun <K, V> Assert<Map<K, V>>.asEntries(): AssertionPlant<Iterable<Map.Entry<K, V>>>
+    = AssertImpl.changeSubject(this) { subject.entries }
