@@ -172,6 +172,48 @@ configure(bundleSmokeTests) {
     }
 }
 
+def createRegisterJsServicesTask(Project project, String packageName, java.util.function.Function<String, Boolean> filter) {
+    configure(project) {
+        def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
+            def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
+            def servicesDir = project.file("../$jvm/src/main/resources/META-INF/services/")
+            def services = project.file("src/main/kotlin/${packageName.replace('.', '/')}/registerServices.kt")
+            inputs.dir servicesDir
+            inputs.file services
+            outputs.file services
+
+            doLast {
+                services.write("""\
+                package $packageName
+    
+                import ch.tutteli.atrium.core.polyfills.registerService
+                
+                @Suppress("unused" /* here in order that the code is executed when module is loaded */)
+                private val register = run {
+            """.stripIndent())
+                servicesDir.traverse {
+                    if (it.isFile() && filter.apply(it.name)) {
+                        services.append("\n    registerService<")
+                        services.append(it.name)
+                        services.append("> { ")
+                        services.append(it.withReader { it.readLine() })
+                        services.append("() }")
+                    }
+                }
+                services.append("\n}")
+            }
+        }
+        compileKotlin2Js.dependsOn registerJsServices
+    }
+}
+
+
+createRegisterJsServicesTask(prefixedProject('core-robstoll-js'), 'ch.tutteli.atrium.robstoll.core') { true }
+createRegisterJsServicesTask(prefixedProject('domain-robstoll-js'), 'ch.tutteli.atrium.domain.robstoll') {
+    it != 'ch.tutteli.atrium.domain.creating.BigDecimalAssertions'
+}
+createRegisterJsServicesTask(prefixedProject('domain-builders-js'), 'ch.tutteli.atrium.domain.builders') { true }
+
 /*
 
 Release & deploy a commit
