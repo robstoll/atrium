@@ -3,6 +3,59 @@ description = 'API of the core of Atrium for the JS platform.'
 dependencies {
     compile "ch.tutteli.kbox:kbox-js:$kbox_version", excludeKotlin
 
+    //TODO replace with bundle if also multiplatform project
     testCompile prefixedProject('api-cc-infix-en_GB-js')
+    testCompile prefixedProject('translations-en_GB-js')
+    testCompile prefixedProject('domain-robstoll-js')
+    testCompile prefixedProject('core-robstoll-js')
     testCompile prefixedProject('verbs-internal-js')
 }
+
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
+    }
+}
+apply plugin: 'com.moowork.node'
+
+compileTestKotlin2Js.configure {
+    kotlinOptions.moduleKind = "commonjs"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMapEmbedSources = "always"
+}
+
+task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
+    from compileKotlin2Js.destinationDir
+
+    prefixedProject('verbs-internal-js').afterEvaluate {
+        configurations.testRuntimeClasspath.each {
+            from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
+        }
+    }
+
+    into "${buildDir}/node_modules"
+}
+
+node {
+    download = true
+}
+
+task installMocha(type: NpmTask) {
+    args = ['install', 'mocha']
+}
+
+task prepareMocha(dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha])
+task runMocha(type: NodeTask, dependsOn: [prepareMocha, test]) {
+    script = file('node_modules/mocha/bin/mocha')
+    args = [compileTestKotlin2Js.outputFile]
+}
+check.dependsOn runMocha
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-27797
+compileTestKotlin2Js.dependsOn(
+    prefixedProject('core-robstoll-js').compileKotlin2Js,
+    prefixedProject('domain-robstoll-js').compileKotlin2Js
+)

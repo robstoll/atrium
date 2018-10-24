@@ -13,4 +13,5 @@ expect val KClass<*>.fullName: String
 /**
  * Casts the given [any] to the type of the given [KClass].
  */
+//TODO should be provided by kotlin IMO: https://youtrack.jetbrains.com/issue/KT-27735
 expect fun <T: Any> KClass<T>.cast(any: Any?): T
