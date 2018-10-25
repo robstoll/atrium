@@ -29,7 +29,7 @@ abstract class MapAsIterableAssertionsSpec(
     ) {})
 
     val holdingSubject: Map<String, Int> = mapOf("a" to 1, "c" to 3, "e" to 5, "g" to 7)
-    val failngSubject: Map<String, Int> = mapOf("b" to 2, "d" to 4, "f" to 6, "h" to 8)
+    val failingSubject: Map<String, Int> = mapOf("b" to 2, "d" to 4, "f" to 6, "h" to 8)
 
     include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, "$describePrefix[keys] ",
         checkingTriple("$asKeysFunName keys", { keys(this).contains("e") }, holdingSubject, failngSubject)
