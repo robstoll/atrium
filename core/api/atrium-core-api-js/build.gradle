@@ -41,6 +41,7 @@ task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
 
 node {
     download = true
+    npmVersion = '6.4.1'
 }
 
 task installMocha(type: NpmTask) {
