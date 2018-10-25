@@ -36,7 +36,7 @@ abstract class MapAsIterableAssertionsSpec(
     ) {})
 
     include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, "$describePrefix[values] ",
-        checkingTriple("$asValuesFunName values", { values(this).contains(3) }, holdingSubject, failngSubject)
+        checkingTriple("$asValuesFunName values", { values(this).contains(3) }, holdingSubject, failingSubject)
     ) {})
 
 //    include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, "$describePrefix[entries] ",
