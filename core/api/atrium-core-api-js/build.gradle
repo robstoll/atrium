@@ -44,7 +44,7 @@ node {
 }
 
 task installMocha(type: NpmTask) {
-    args = ['install', 'mocha']
+    args = ['install', 'mocha', '--prefer-offline']
 }
 
 task prepareMocha(dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha])

@@ -32,8 +32,8 @@ private fun getAnonymousObjectName(@Suppress("UNUSED_PARAMETER") obj: Any): Stri
 
 
 actual fun <T : Any> KClass<T>.cast(any: Any?): T {
-    //TODO according to https://youtrack.jetbrains.com/issue/KT-23178
-    // this == any::class added because isInstance doesn't work with reified simple types
+    //TODO remove if https://youtrack.jetbrains.com/issue/KT-23178 is fixed
+    // this == any::class added because isInstance doesn't work with reified primitive types
     return if (any != null && (this == any::class || isInstance(any))) {
         @Suppress("UNCHECKED_CAST")
         val t = any as T
