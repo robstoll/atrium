@@ -32,7 +32,7 @@ abstract class MapAsIterableAssertionsSpec(
     val failingSubject: Map<String, Int> = mapOf("b" to 2, "d" to 4, "f" to 6, "h" to 8)
 
     include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, "$describePrefix[keys] ",
-        checkingTriple("$asKeysFunName keys", { keys(this).contains("e") }, holdingSubject, failngSubject)
+        checkingTriple("$asKeysFunName keys", { keys(this).contains("e") }, holdingSubject, failingSubject)
     ) {})
 
     include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, "$describePrefix[values] ",
