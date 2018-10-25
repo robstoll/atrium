@@ -40,6 +40,6 @@ abstract class MapAsIterableAssertionsSpec(
     ) {})
 
 //    include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, "$describePrefix[entries] ",
-//        checkingTriple("$asEntriesFunName entries", { entries(this).contains("g" to 7) }, holdingSubject, failngSubject)
+//        checkingTriple("$asEntriesFunName entries", { entries(this).contains("g" to 7) }, holdingSubject, failingSubject)
 //    ) {})
 })
