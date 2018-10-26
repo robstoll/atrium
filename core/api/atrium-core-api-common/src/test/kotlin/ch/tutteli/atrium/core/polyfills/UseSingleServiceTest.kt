@@ -1,35 +1,40 @@
-package ch.tutteli.atrium.core
+package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.Values
 import ch.tutteli.atrium.api.cc.infix.en_GB.isA
 import ch.tutteli.atrium.api.cc.infix.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.infix.en_GB.toThrow
-import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.verbs.internal.expect
 import kotlin.test.Test
 
-class LoadSingleServiceTest {
+class UseSingleServiceTest {
     @Test
-    fun noServiceFound_ThrowsNoSuchElementException() {
+    fun emptyIterator_ThrowsNoSuchElementException() {
         expect {
-            loadSingleService(LoadSingleServiceTest::class)
+            useSingleService(InterfaceWithOneImplementation::class, listOf<InterfaceWithOneImplementation>().iterator())
         }.toThrow<NoSuchElementException> {
-            this messageContains Values("Could not find any implementation", LoadSingleServiceTest::class.fullName)
+            this messageContains Values(
+                "Could not find any implementation",
+                InterfaceWithOneImplementation::class.fullName
+            )
         }
     }
 
     @Test
     fun oneServiceFound_ReturnsTheService() {
-        val service = loadSingleService(InterfaceWithOneImplementation::class)
+        val service = useSingleService(InterfaceWithOneImplementation::class, listOf(SingleService()).iterator())
         assert(service).isA<SingleService> { }
     }
 
     @Test
-    fun twoServicesFound_ThrowsIllegalStateException() {
+    fun twoServiceFound_ReturnsTheService() {
         expect {
-            loadSingleService(InterfaceWithTwoImplementation::class)
+            useSingleService(
+                InterfaceWithTwoImplementation::class, listOf(
+                    Service1(),
+                    Service2()
+                ).iterator())
         }.toThrow<IllegalStateException> {
             this messageContains Values(
                 "Found more than one implementation ",
@@ -39,3 +44,4 @@ class LoadSingleServiceTest {
         }
     }
 }
+

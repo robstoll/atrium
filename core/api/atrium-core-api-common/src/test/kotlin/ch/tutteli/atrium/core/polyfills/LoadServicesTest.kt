@@ -1,10 +1,7 @@
-package ch.tutteli.atrium.core
+package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.*
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
-import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.core.polyfills.loadServices
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.verbs.internal.expect
 import kotlin.test.Test

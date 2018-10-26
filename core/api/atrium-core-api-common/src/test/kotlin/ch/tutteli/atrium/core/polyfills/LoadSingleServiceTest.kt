@@ -1,38 +1,33 @@
-package ch.tutteli.atrium.core
+package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.Values
 import ch.tutteli.atrium.api.cc.infix.en_GB.isA
 import ch.tutteli.atrium.api.cc.infix.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.infix.en_GB.toThrow
-import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.core.polyfills.useSingleService
 import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.verbs.internal.expect
 import kotlin.test.Test
 
-class UseSingleServiceTest {
+class LoadSingleServiceTest {
     @Test
-    fun emptyIterator_ThrowsNoSuchElementException() {
+    fun noServiceFound_ThrowsNoSuchElementException() {
         expect {
-            useSingleService(InterfaceWithOneImplementation::class, listOf<InterfaceWithOneImplementation>().iterator())
+            loadSingleService(LoadSingleServiceTest::class)
         }.toThrow<NoSuchElementException> {
-            this messageContains Values(
-                "Could not find any implementation",
-                InterfaceWithOneImplementation::class.fullName
-            )
+            this messageContains Values("Could not find any implementation", LoadSingleServiceTest::class.fullName)
         }
     }
 
     @Test
     fun oneServiceFound_ReturnsTheService() {
-        val service = useSingleService(InterfaceWithOneImplementation::class, listOf(SingleService()).iterator())
+        val service = loadSingleService(InterfaceWithOneImplementation::class)
         assert(service).isA<SingleService> { }
     }
 
     @Test
-    fun twoServiceFound_ReturnsTheService() {
+    fun twoServicesFound_ThrowsIllegalStateException() {
         expect {
-            useSingleService(InterfaceWithTwoImplementation::class, listOf(Service1(), Service2()).iterator())
+            loadSingleService(InterfaceWithTwoImplementation::class)
         }.toThrow<IllegalStateException> {
             this messageContains Values(
                 "Found more than one implementation ",
@@ -42,4 +37,3 @@ class UseSingleServiceTest {
         }
     }
 }
-

@@ -1,5 +1,4 @@
-import ch.tutteli.atrium.core.*
-import ch.tutteli.atrium.core.polyfills.registerService
+import ch.tutteli.atrium.core.polyfills.*
 
 private val currentWorkaroundToLoadDomainRobstollAndCoreRobstoll = dep()
 private fun dep() {
