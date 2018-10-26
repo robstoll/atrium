@@ -27,8 +27,13 @@ private fun KClass<*>.jsFallback(): String? {
  * @param obj The object from which this [KClass] was created of.
  * @return The full name of this [KClass].
  */
-actual fun <T : Any> KClass<out T>.fullName(obj: T): String =
-    simpleNameWithJsFallback() ?: objFallback(obj)
+actual fun <T : Any> KClass<out T>.fullName(obj: T): String {
+    val name = simpleName
+    return when {
+        name != null && name.startsWith("Function") -> "$name (js: ${js("obj.name")})"
+        else -> simpleNameWithJsFallback() ?: objFallback(obj)
+    }
+}
 
 private fun KClass<*>.objFallback(@Suppress("UNUSED_PARAMETER") obj: Any): String =
     js(

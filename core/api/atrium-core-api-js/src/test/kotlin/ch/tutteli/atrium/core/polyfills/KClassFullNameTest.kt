@@ -82,7 +82,6 @@ class KClassFullNameTest {
         }
     }
 
-
     @Test
     fun property_functionTypes() {
         val f0: () -> Int = { 1 }
@@ -97,6 +96,22 @@ class KClassFullNameTest {
                 f1::class to "Function1",
                 f2::class to "Function2"
             ).forEach(fullNameIsExpected())
+        }
+    }
+
+    @Test
+    fun fun_functionTypes() {
+        val f0: () -> Int = { 1 }
+        val f1: (Int) -> Int = { 1 }
+        val f2: (Int, String) -> Int = { _, _ -> 1 }
+        assert("dummy subject, see sub assertions") {
+            listOf(
+                f0 to "Function0 (js: KClassFullNameTest\$fun_functionTypes\$lambda)",
+                f1 to "Function1 (js: KClassFullNameTest\$fun_functionTypes\$lambda_0)",
+                f2 to "Function2 (js: KClassFullNameTest\$fun_functionTypes\$lambda_1)"
+            ).forEach { (value, expected) ->
+                AssertImpl.feature.returnValueOf0(this, { value::class.fullName(value) }, "fullName") toBe expected
+            }
         }
     }
 
