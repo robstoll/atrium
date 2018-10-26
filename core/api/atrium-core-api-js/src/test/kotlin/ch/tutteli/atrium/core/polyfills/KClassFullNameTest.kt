@@ -1,8 +1,11 @@
 @file:Suppress("DEPRECATION" /*TODO remove with 1.0.0 */)
+
 package ch.tutteli.atrium.core.polyfills
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.toBe
-import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup
+import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -73,9 +76,27 @@ class KClassFullNameTest {
                 objClass to "`object: ${EmptyNameAndRepresentationAssertionGroup::class.simpleName}` (js: objClass\$ObjectLiteral)",
                 listOf<Int>() to "EmptyList",
                 listOf(1, 2) to "ArrayList"
-            ).forEach{ (value, expected) ->
+            ).forEach { (value, expected) ->
                 AssertImpl.feature.returnValueOf0(this, { value::class.fullName(value) }, "fullName") toBe expected
             }
+        }
+    }
+
+
+    @Test
+    fun property_functionTypes() {
+        val f0: () -> Int = { 1 }
+        val f1: (Int) -> Int = { 1 }
+        val f2: (Int, String) -> Int = { _, _ -> 1 }
+        assert("dummy subject, see sub assertions") {
+            listOf(
+                type<() -> Unit>() to "<unknown> (js: Function)",
+                type<(Int) -> Unit>() to "<unknown> (js: Function)",
+                type<(Int, String) -> Unit>() to "<unknown> (js: Function)",
+                f0::class to "Function0",
+                f1::class to "Function1",
+                f2::class to "Function2"
+            ).forEach(fullNameIsExpected())
         }
     }
 
@@ -85,3 +106,4 @@ class KClassFullNameTest {
         }
     }
 }
+

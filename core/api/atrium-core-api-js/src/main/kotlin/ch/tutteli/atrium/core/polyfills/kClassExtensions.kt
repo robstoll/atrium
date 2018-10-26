@@ -9,13 +9,15 @@ actual val KClass<*>.fullName get(): String = simpleNameWithJsFallback() ?: "<un
 
 private fun KClass<*>.simpleNameWithJsFallback() = simpleName ?: jsFallback()
 
-private fun KClass<*>.jsFallback(): String? =
-    when {
+private fun KClass<*>.jsFallback(): String? {
+    val js = this.js
+    return when {
         js.name == "Boolean" -> "Boolean"
         //TODO no need for <unknown> in case https://youtrack.jetbrains.com/issue/KT-27828 is fixed.
         !js.name.contains("$") -> "<unknown> (js: ${js.name})"
         else -> null
     }
+}
 
 /**
  * [KClass.simpleName] or `object: Class/Interface` in case it is an anonymous object.
@@ -40,7 +42,6 @@ private fun KClass<*>.objFallback(@Suppress("UNUSED_PARAMETER") obj: Any): Strin
             "}" +
             "name"
     ) as String + " (js: ${js.name})"
-
 
 
 actual fun <T : Any> KClass<T>.cast(any: Any?): T {

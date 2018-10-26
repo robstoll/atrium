@@ -72,6 +72,22 @@ class KClassCastTest {
     }
 
     @Test
+    fun functionTypes() {
+        val f0: () -> Int = { 1 }
+        val f1: (Int) -> Int = { 1 }
+        val f2: (Int, String) -> Int = { _, _ -> 1 }
+        assert("dummy subject, see sub assertions") {
+            listOf(
+                f0 to f0::class,
+                f1 to f1::class,
+                f2 to f2::class,
+                { 1 } to type<() -> Int>(),
+                { x: Int -> x } to type<(Int) -> Int>()
+            ).forEach(castAndStaysSame())
+        }
+    }
+
+    @Test
     fun illegalCasts_throwsClassCastException() {
         expect {
             Int::class.cast(null)
@@ -95,6 +111,26 @@ class KClassCastTest {
                 Translatable::class.fullName
             )
         }
+        //TODO should throw but does not, see https://youtrack.jetbrains.com/issue/KT-27846
+//        expect {
+        val f: () -> Int = { 1 }
+        f::class.cast({ "a" })
+//        }.toThrow<ClassCastException> { messageContains("???")  }
+
+        //TODO should throw but does not, see https://youtrack.jetbrains.com/issue/KT-27846
+//        expect{
+        type<() -> Int>().cast({ "a " })
+//        }.toThrow<ClassCastException> { messageContains("???")  }
+
+        expect {
+            val f1: (Int) -> Int = { it }
+            f1::class.cast({ "a" })
+        }.toThrow<ClassCastException> { this messageContains Values(" Function0", " Function1") }
+
+        //TODO should throw but does not, see https://youtrack.jetbrains.com/issue/KT-27846
+//        expect {
+        type<(Int) -> Int>().cast({ "a" })
+//        }.toThrow<ClassCastException> { this messageContains Values(" Function0", " Function1") }
     }
 
     private fun Assert<String>.castAndStaysSame(): (Pair<Any, KClass<*>>) -> Unit {
