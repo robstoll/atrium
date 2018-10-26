@@ -86,7 +86,9 @@ abstract class ArrayAsIterableAssertionsSpec(
 
 
     describe("$asIterableFunName arr") {
-        verbs.checkImmediately(arrayOf(1, 2)).arr().containsStrictly(1, 2)
+        test("transformation can be applied and an assertion made") {
+            verbs.checkImmediately(arrayOf(1, 2)).arr().containsStrictly(1, 2)
+        }
     }
 
     describe("$asIterableFunName arrByte") {
