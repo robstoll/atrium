@@ -6,10 +6,7 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.Values
 import ch.tutteli.atrium.api.cc.infix.en_GB.isSameAs
 import ch.tutteli.atrium.api.cc.infix.en_GB.messageContains
 import ch.tutteli.atrium.api.cc.infix.en_GB.toThrow
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.EmptyNameAndRepresentationAssertionGroup
-import ch.tutteli.atrium.assertions.RootAssertionGroupType
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -20,13 +17,6 @@ import kotlin.reflect.KClass
 import kotlin.test.Test
 
 class KClassCastTest {
-
-    private val objInterface = object : Assertion {
-        override fun holds() = true
-    }
-    private val objClass = object : EmptyNameAndRepresentationAssertionGroup(RootAssertionGroupType, listOf()) {}
-
-    private inline fun <reified T: Any> type() = T::class
 
     @Test
     fun primitives() {
@@ -70,6 +60,7 @@ class KClassCastTest {
         assert("dummy subject, see sub assertions") {
             listOf(
                 "string" to String::class,
+                RootAssertionGroupType to AssertionGroupType::class,
                 objInterface to Assertion::class,
                 objClass to EmptyNameAndRepresentationAssertionGroup::class,
                 objClass to AssertionGroup::class,
@@ -91,21 +82,24 @@ class KClassCastTest {
         expect {
             Translatable::class.cast(objInterface)
         }.toThrow<ClassCastException> {
-            this messageContains Values(Assertion::class.fullName, Translatable::class.fullName)
+            this messageContains Values(
+                "`object: ${Assertion::class.fullName}` (js: objInterface",
+                Translatable::class.fullName
+            )
         }
         expect {
             Translatable::class.cast(objClass)
         }.toThrow<ClassCastException> {
             this messageContains Values(
-                EmptyNameAndRepresentationAssertionGroup::class.fullName,
+                "`object: ${EmptyNameAndRepresentationAssertionGroup::class.fullName}` (js: objClass",
                 Translatable::class.fullName
             )
         }
     }
 
     private fun Assert<String>.castAndStaysSame(): (Pair<Any, KClass<*>>) -> Unit {
-        return { (value, klass) ->
-            AssertImpl.feature.property(this, { klass.cast(value) }, Untranslatable("value")) isSameAs value
+        return { (value, kClass) ->
+            AssertImpl.feature.property(this, { kClass.cast(value) }, Untranslatable("value")) isSameAs value
         }
     }
 }
