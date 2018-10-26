@@ -14,7 +14,7 @@ class LoadServicesTest {
 
     @Test
     fun oneServiceFound_ReturnsTheService() {
-        assert(loadServices(InterfaceWithOneImplementation::class)).asIterable().and {
+        assert(loadServices(InterfaceWithOneImplementation::class)).asIterable() and {
             containsStrictly { isA<SingleService> {} }
         }
     }
