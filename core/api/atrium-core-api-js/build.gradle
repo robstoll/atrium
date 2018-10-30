@@ -11,6 +11,12 @@ dependencies {
     testCompile prefixedProject('verbs-internal-js')
 }
 
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-27797
+compileTestKotlin2Js.dependsOn(
+    prefixedProject('core-robstoll-js').compileKotlin2Js,
+    prefixedProject('domain-robstoll-js').compileKotlin2Js
+)
+
 buildscript {
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
@@ -39,9 +45,13 @@ task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
     into "${buildDir}/node_modules"
 }
 
+def nodeModules = file("$rootProject.projectDir/gradle/node_modules")
 node {
     download = true
     npmVersion = '6.4.1'
+    workDir = file("$rootProject.projectDir/.gradle/nodejs")
+    npmWorkDir = file("$rootProject.projectDir/.gradle/npm")
+    nodeModulesDir = nodeModules
 }
 
 task installMocha(type: NpmTask) {
@@ -50,13 +60,7 @@ task installMocha(type: NpmTask) {
 
 task prepareMocha(dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha])
 task runMocha(type: NodeTask, dependsOn: [prepareMocha, test]) {
-    script = file('node_modules/mocha/bin/mocha')
+    script = file("$nodeModules/mocha/bin/mocha")
     args = [compileTestKotlin2Js.outputFile]
 }
 check.dependsOn runMocha
-
-//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-27797
-compileTestKotlin2Js.dependsOn(
-    prefixedProject('core-robstoll-js').compileKotlin2Js,
-    prefixedProject('domain-robstoll-js').compileKotlin2Js
-)

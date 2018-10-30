@@ -172,7 +172,9 @@ configure(bundleSmokeTests) {
     }
 }
 
-def createRegisterJsServicesTask(Project project, String packageName, java.util.function.Function<String, Boolean> filter) {
+import java.util.function.Function
+
+def createRegisterJsServicesTask(Project project, String packageName, Function<String, Boolean> filter) {
     configure(project) {
         def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
             def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
