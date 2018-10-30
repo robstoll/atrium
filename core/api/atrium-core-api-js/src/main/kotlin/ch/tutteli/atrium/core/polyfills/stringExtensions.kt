@@ -19,9 +19,10 @@ actual fun String.format(arg: Any, vararg otherArgs: Any): String =
     replacePlaceholdersWithArgs(this, arg, otherArgs)
 
 private fun replacePlaceholdersWithArgs(string: String, arg: Any, otherArgs: Array<out Any>): String {
-    var tmp = string.replaceFirst("%s", arg.toString())
+    val placeholder = Regex("%s")
+    var tmp = string.replaceFirst(placeholder, arg.toString())
     otherArgs.forEach {
-        tmp = tmp.replaceFirst("%s", it.toString())
+        tmp = tmp.replaceFirst(placeholder, it.toString())
     }
     return tmp
 }

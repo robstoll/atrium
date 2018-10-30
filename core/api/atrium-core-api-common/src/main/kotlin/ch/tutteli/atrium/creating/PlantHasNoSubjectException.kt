@@ -12,6 +12,6 @@ class PlantHasNoSubjectException
     @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
     constructor(): this(
         "subject is not available, you as user should not see this message.\n" +
-            "Please fill in a bug (including stacktrace if possible): $BUG_REPORT_URL"
+            "Please file a bug report (including stacktrace if possible): $BUG_REPORT_URL"
     )
 }

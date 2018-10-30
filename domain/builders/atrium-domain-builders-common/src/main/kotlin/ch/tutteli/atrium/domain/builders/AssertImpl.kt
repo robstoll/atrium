@@ -88,7 +88,7 @@ interface AssertImplCommon {
     ): AssertionPlant<R> {
         val assertionChecker = AssertImpl.coreFactory.newDelegatingAssertionChecker(originalPlant)
         val assertionVerb = Untranslatable(
-            "Should not be shown to the user; if you see this, please fill in a bug report at $BUG_REPORT_URL"
+            "Should not be shown to the user; if you see this, please file a bug report at $BUG_REPORT_URL"
         )
         return AssertImpl.coreFactory.newReportingPlant(assertionVerb, subjectProvider, assertionChecker)
     }

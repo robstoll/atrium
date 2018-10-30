@@ -32,7 +32,7 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         transform: (T) -> TSub
     ) {
         val subject = subjectPlant.subject
-        val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at $BUG_REPORT_URL")
+        val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please file a bug report at $BUG_REPORT_URL")
         if (subject != null && canBeTransformed(subject)) {
             val assertionChecker = coreFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = coreFactory.newReportingPlant(assertionVerb,{ transform(subject) }, assertionChecker)
