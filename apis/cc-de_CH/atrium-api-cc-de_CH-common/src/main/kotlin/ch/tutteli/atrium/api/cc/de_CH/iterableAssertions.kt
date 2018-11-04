@@ -167,7 +167,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(expected: E, vararg other
     replaceWith = ReplaceWith("enthaeltExakt(expected,otherExpected)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = enthaeltExakt(expected, otherExpected)
+    = enthaeltExakt(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
@@ -225,7 +225,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExaktNullableWerte(expectedOrN
     replaceWith = ReplaceWith("enthaeltExaktNullableWerte(expectedOrNull,otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
-    = enthaeltExaktNullableWerte(expectedOrNull, otherExpectedOrNulls)
+    = enthaeltExaktNullableWerte(expectedOrNull, *otherExpectedOrNulls)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -255,7 +255,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(assertionCreator: Assert<
     replaceWith = ReplaceWith("enthaeltExakt(assertionCreator,otherAssertionCreators)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
-    = enthaeltExakt(assertionCreator, otherAssertionCreators)
+    = enthaeltExakt(assertionCreator, *otherAssertionCreators)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
