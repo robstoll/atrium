@@ -52,7 +52,7 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
 
     private fun createStackTraceHint(throwable: Throwable): DescriptiveAssertion {
         val stackTrace = throwable.stack
-        val stackTraceAsString = stackTrace.take(MAX_NUM_OF_STACK).joinToString("\n") +
+        val stackTraceAsString = stackTrace.asSequence().take(MAX_NUM_OF_STACK).joinToString("\n") +
             if (stackTrace.size > MAX_NUM_OF_STACK) "\n..." else ""
 
         return AssertImpl.builder.descriptive

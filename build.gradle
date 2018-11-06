@@ -5,7 +5,7 @@ buildscript {
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     ext {
         // main
-        kbox_version = '0.10.0'
+        kbox_version = '0.11.1'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.2.71'
         mockito_kotlin_version = '1.5.0'
@@ -14,6 +14,7 @@ buildscript {
         // test
         jacoco_tool_version = '0.8.2'
         junit_platform_version = '1.2.0'
+        jupiter_version = '5.3.1'
         spek_version = '1.1.5'
 
         //gh-pages.gradle
@@ -170,6 +171,50 @@ configure(bundleSmokeTests) {
         testCompile prefixedProject('verbs-jvm')
     }
 }
+
+import java.util.function.Function
+
+def createRegisterJsServicesTask(Project project, String packageName, Function<String, Boolean> filter) {
+    configure(project) {
+        def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
+            def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
+            def servicesDir = project.file("../$jvm/src/main/resources/META-INF/services/")
+            def services = project.file("src/main/kotlin/${packageName.replace('.', '/')}/registerServices.kt")
+            inputs.dir servicesDir
+            inputs.file services
+            outputs.file services
+
+            doLast {
+                services.write("""\
+                package $packageName
+    
+                import ch.tutteli.atrium.core.polyfills.registerService
+                
+                @Suppress("unused" /* here in order that the code is executed when module is loaded */)
+                private val register = run {
+            """.stripIndent())
+                servicesDir.traverse {
+                    if (it.isFile() && filter.apply(it.name)) {
+                        services.append("\n    registerService<")
+                        services.append(it.name)
+                        services.append("> { ")
+                        services.append(it.withReader { it.readLine() })
+                        services.append("() }")
+                    }
+                }
+                services.append("\n}")
+            }
+        }
+        compileKotlin2Js.dependsOn registerJsServices
+    }
+}
+
+
+createRegisterJsServicesTask(prefixedProject('core-robstoll-js'), 'ch.tutteli.atrium.robstoll.core') { true }
+createRegisterJsServicesTask(prefixedProject('domain-robstoll-js'), 'ch.tutteli.atrium.domain.robstoll') {
+    it != 'ch.tutteli.atrium.domain.creating.BigDecimalAssertions'
+}
+createRegisterJsServicesTask(prefixedProject('domain-builders-js'), 'ch.tutteli.atrium.domain.builders') { true }
 
 /*
 

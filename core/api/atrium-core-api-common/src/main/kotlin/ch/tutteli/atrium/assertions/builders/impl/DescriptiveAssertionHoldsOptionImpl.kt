@@ -9,10 +9,12 @@ import ch.tutteli.atrium.core.trueProvider
 internal object DescriptiveAssertionHoldsOptionImpl : DescriptiveAssertionHoldsOption {
 
     override val failing: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
-        = DescriptiveLikeAssertionDescriptionOption.create(falseProvider, DescriptiveAssertionFinalStep.Companion::create)
+        //TODO use falseProvider https://youtrack.jetbrains.com/issue/KT-27736
+        = DescriptiveLikeAssertionDescriptionOption.create({ false }, DescriptiveAssertionFinalStep.Companion::create)
 
     override val holding: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
-        = DescriptiveLikeAssertionDescriptionOption.create(trueProvider, DescriptiveAssertionFinalStep.Companion::create)
+        //TODO use trueProvider https://youtrack.jetbrains.com/issue/KT-27736
+        = DescriptiveLikeAssertionDescriptionOption.create({ true }, DescriptiveAssertionFinalStep.Companion::create)
 
     override fun withTest(test: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>
         = DescriptiveLikeAssertionDescriptionOption.create(test, DescriptiveAssertionFinalStep.Companion::create)
