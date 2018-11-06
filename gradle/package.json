@@ -1,5 +1,5 @@
 {
-    "description": "atrium-core-api-js",
+    "description": "atrium",
     "license": "EUPL-1.2",
     "repository": "https://github.com/robstoll/atrium",
     "devDependencies": {
