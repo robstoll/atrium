@@ -39,7 +39,12 @@ class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecke
         val sb = StringBuilder()
         reporter.format(assertionGroup, sb)
         if (!assertionGroup.holds()) {
-            throw AssertionError(sb.toString())
+            throw adjustStack(AssertionError(sb.toString()))
         }
     }
 }
+
+/**
+ * Adjust the stack
+ */
+internal expect fun <T: Throwable> adjustStack(t: T): T
