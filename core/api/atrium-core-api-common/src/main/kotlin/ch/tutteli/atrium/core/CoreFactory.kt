@@ -196,7 +196,7 @@ interface CoreFactoryCommon {
     fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
 
     /**
-     * Creates an [AssertionChecker] which throws [AssertionError]s in case an assertion fails
+     * Creates an [AssertionChecker] which throws [AtriumError]s in case an assertion fails
      * and uses the given [reporter] for reporting.
      *
      * @param reporter The reporter which is used to report [Assertion]s.

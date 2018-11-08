@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.core.polyfills
+package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.Values
 import ch.tutteli.atrium.api.cc.infix.en_GB.containsNot
