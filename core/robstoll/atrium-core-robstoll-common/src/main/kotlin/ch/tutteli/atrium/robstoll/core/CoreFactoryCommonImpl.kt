@@ -149,11 +149,18 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         = OnlyFailureReporter(assertionFormatterFacade)
 
     final override fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
-        = NoOpAtriumErrorAdjuster()
+        = NoOpAtriumErrorAdjuster
 
     override fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
         = RemoveRunnerAtriumErrorAdjuster()
 
     final override fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
         = RemoveAtriumFromAtriumErrorAdjuster()
+
+    final override fun newMultiAtriumErrorAdjuster(
+        firstAdjuster: AtriumErrorAdjuster,
+        secondAdjuster: AtriumErrorAdjuster,
+        otherAdjusters: List<AtriumErrorAdjuster>
+    ): AtriumErrorAdjuster = MultiAtriumErrorAdjusterImpl(firstAdjuster, secondAdjuster, otherAdjusters)
+
 }

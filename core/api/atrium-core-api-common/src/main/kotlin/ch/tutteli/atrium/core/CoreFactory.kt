@@ -3,14 +3,10 @@ package ch.tutteli.atrium.core
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslationSupplier
-import ch.tutteli.atrium.reporting.translating.Translator
+import ch.tutteli.atrium.reporting.translating.*
 import kotlin.reflect.KClass
 
 /**
@@ -29,7 +25,7 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * Notice, the platform specific types have to define the default methods for `newReportingPlantNullable`
  * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
  */
-expect interface CoreFactory: CoreFactoryCommon
+expect interface CoreFactory : CoreFactoryCommon
 
 /**
  * The minimum contract of the 'abstract factory' of atrium-core for any platform.
@@ -56,12 +52,14 @@ interface CoreFactoryCommon {
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
-     * It creates a [newThrowingAssertionChecker] based on the given [reporter] and [newRemoveRunnerAtriumErrorAdjuster]
-     * and uses it for assertion checking; uses [subjectProvider] as
-     * [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
+     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
+     * uses [subjectProvider] as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
      * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid undesired side effects
      * (the provider is most likely called more than once).
+     *
+     * [newMultiAtriumErrorAdjuster] with [newRemoveRunnerAtriumErrorAdjuster] and [newRemoveRunnerAtriumErrorAdjuster]
+     * is used as [AtriumErrorAdjuster].
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
@@ -478,6 +476,22 @@ interface CoreFactoryCommon {
      * @return The newly created adjuster.
      */
     fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
+     * An [AtriumErrorAdjuster] which delegates adjustment to the given [firstAdjuster], [secondAdjuster]
+     * and optionally [otherAdjusters].
+     *
+     * @param firstAdjuster The first adjuster to which is delegated.
+     * @param secondAdjuster The second adjuster to which is delegated.
+     * @param otherAdjusters Optionally further [AtriumErrorAdjuster] which shall be involved in adjusting.
+     *
+     * @return The newly created adjuster.
+     */
+    fun newMultiAtriumErrorAdjuster(
+        firstAdjuster: AtriumErrorAdjuster,
+        secondAdjuster: AtriumErrorAdjuster,
+        otherAdjusters: List<AtriumErrorAdjuster>
+    ): AtriumErrorAdjuster
 }
 
 
@@ -489,6 +503,9 @@ interface CoreFactoryCommon {
  * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
  * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
  * (the provider is most likely called more than once).
+ *
+ * [CoreFactory.newMultiAtriumErrorAdjuster] with [CoreFactory.newRemoveRunnerAtriumErrorAdjuster] and
+ * [CoreFactory.newRemoveRunnerAtriumErrorAdjuster] is used as [AtriumErrorAdjuster].
  *
  * @param assertionVerb The assertion verb which will be used inter alia in reporting
  *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
@@ -507,8 +524,14 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     assertionVerb, subjectProvider, createDefaultAssertionChecker(reporter), nullRepresentation
 )
 
-internal fun CoreFactoryCommon.createDefaultAssertionChecker(reporter: Reporter)
-    = newThrowingAssertionChecker(reporter, newRemoveRunnerAtriumErrorAdjuster())
+private fun CoreFactoryCommon.createDefaultAssertionChecker(reporter: Reporter) =
+    newThrowingAssertionChecker(
+        reporter, newMultiAtriumErrorAdjuster(
+            newRemoveAtriumFromAtriumErrorAdjuster(),
+            newRemoveRunnerAtriumErrorAdjuster(),
+            listOf()
+        )
+    )
 
 /**
  * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
