@@ -49,16 +49,18 @@ expect interface CoreFactory: CoreFactoryCommon
  * - [AssertionFormatter]
  * - [AssertionPairFormatter]
  * - [Reporter]
+ * - [AtriumErrorAdjuster]
  */
 interface CoreFactoryCommon {
 
     /**
      * Creates a [ReportingAssertionPlant] which checks and reports added [Assertion]s.
      *
-     * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
-     * uses [subjectProvider] as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
+     * It creates a [newThrowingAssertionChecker] based on the given [reporter] and [newRemoveRunnerAtriumErrorAdjuster]
+     * and uses it for assertion checking; uses [subjectProvider] as
+     * [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
      * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid undesired side effects
      * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
@@ -74,7 +76,7 @@ interface CoreFactoryCommon {
         subjectProvider: () -> T,
         reporter: Reporter
     ): ReportingAssertionPlant<T> = newReportingPlant(
-        assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter)
+        assertionVerb, subjectProvider, createDefaultAssertionChecker(reporter)
     )
 
     /**
@@ -200,10 +202,11 @@ interface CoreFactoryCommon {
      * and uses the given [reporter] for reporting.
      *
      * @param reporter The reporter which is used to report [Assertion]s.
+     * @param atriumErrorAdjuster The adjuster used to modify the resulting [AtriumError] which will be thrown.
      *
      * @return The newly created assertion checker.
      */
-    fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
+    fun newThrowingAssertionChecker(reporter: Reporter, atriumErrorAdjuster: AtriumErrorAdjuster): AssertionChecker
 
     /**
      * Creates an [AssertionChecker] which creates an [AssertionGroup] of [type][AssertionGroup.type]
@@ -454,6 +457,13 @@ interface CoreFactoryCommon {
      * @return The newly created reporter.
      */
     fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
+
+    /**
+     * An [AtriumErrorAdjuster] which removes stack frames of test runners.
+     *
+     * @return The newly created adjuster
+     */
+    fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
 }
 
 
@@ -480,8 +490,11 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     reporter: Reporter,
     nullRepresentation: Any = RawString.NULL
 ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
-    assertionVerb, subjectProvider, coreFactory.newThrowingAssertionChecker(reporter), nullRepresentation
+    assertionVerb, subjectProvider, createDefaultAssertionChecker(reporter), nullRepresentation
 )
+
+internal fun CoreFactoryCommon.createDefaultAssertionChecker(reporter: Reporter)
+    = newThrowingAssertionChecker(reporter, newRemoveRunnerAtriumErrorAdjuster())
 
 /**
  * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.

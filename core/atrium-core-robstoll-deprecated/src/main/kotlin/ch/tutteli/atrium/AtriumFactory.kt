@@ -47,7 +47,7 @@ object AtriumFactory : IAtriumFactory {
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newThrowingAssertionChecker(reporter)"))
     override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
-        = ThrowingAssertionChecker(reporter)
+        = ThrowingAssertionChecker(reporter, coreFactory.newRemoveRunnerAtriumErrorAdjuster())
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newFeatureAssertionChecker(subjectPlant)"))
     override fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker

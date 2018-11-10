@@ -39,6 +39,7 @@ import kotlin.reflect.KClass
  * - [AssertionFormatter]
  * - [AssertionPairFormatter]
  * - [Reporter]
+ * - [AtriumErrorAdjuster]
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
@@ -54,8 +55,8 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)
 
-    final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
-        = ThrowingAssertionChecker(reporter)
+    final override fun newThrowingAssertionChecker(reporter: Reporter, atriumErrorAdjuster: AtriumErrorAdjuster): AssertionChecker
+        = ThrowingAssertionChecker(reporter, atriumErrorAdjuster)
 
     final override fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
         = FeatureAssertionChecker(subjectPlant)

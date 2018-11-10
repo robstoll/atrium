@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.reporting.AtriumError
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -19,7 +20,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *   and uses the given [reporter] for reporting.
  * @param reporter Will be used for reporting.
  */
-class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecker {
+class ThrowingAssertionChecker(
+    private val reporter: Reporter,
+    private val errorAdjuster: AtriumErrorAdjuster
+) : AssertionChecker {
 
     /**
      * Creates an [AssertionGroup] -- based on the given [assertionVerb], [representationProvider] and [assertions] --
@@ -40,7 +44,7 @@ class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecke
         val sb = StringBuilder()
         reporter.format(assertionGroup, sb)
         if (!assertionGroup.holds()) {
-            throw AtriumError.create(sb.toString())
+            throw AtriumError.create(sb.toString(), errorAdjuster)
         }
     }
 }
