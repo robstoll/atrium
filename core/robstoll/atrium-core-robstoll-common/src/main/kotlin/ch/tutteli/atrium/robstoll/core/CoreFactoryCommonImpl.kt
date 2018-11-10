@@ -147,4 +147,13 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
     final override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
         = OnlyFailureReporter(assertionFormatterFacade)
+
+    final override fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = NoOpAtriumErrorAdjuster()
+
+    override fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = RemoveRunnerAtriumErrorAdjuster()
+
+    final override fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = RemoveAtriumFromAtriumErrorAdjuster()
 }

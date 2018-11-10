@@ -459,11 +459,25 @@ interface CoreFactoryCommon {
     fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
 
     /**
+     * An [AtriumErrorAdjuster] which does not modify a given [AtriumError].
+     *
+     * @return The newly created adjuster.
+     */
+    fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
      * An [AtriumErrorAdjuster] which removes stack frames of test runners.
      *
-     * @return The newly created adjuster
+     * @return The newly created adjuster.
      */
     fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
+     * An [AtriumErrorAdjuster] which removes stack frames of Atrium.
+     *
+     * @return The newly created adjuster.
+     */
+    fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
 }
 
 
