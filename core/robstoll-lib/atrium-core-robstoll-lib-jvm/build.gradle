@@ -4,7 +4,6 @@ description = 'contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
         'Atrium, then you should depend on atrium-core-robstoll instead.'
 
 dependencies {
-    compile kbox(), excludeKotlin
     compile prefixedProject('core-api-jvm')
 
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
