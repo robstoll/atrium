@@ -15,6 +15,7 @@ object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.spec.repor
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
             .withTextCapabilities()
+            .withDefaultAtriumErrorAdjusters()
             .withOnlyFailureReporter()
             .build()
     },

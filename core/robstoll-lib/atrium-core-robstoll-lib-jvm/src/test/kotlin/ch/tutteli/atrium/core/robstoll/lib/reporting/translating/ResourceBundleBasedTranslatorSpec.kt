@@ -23,10 +23,12 @@ object ResourceBundleBasedTranslatorSpec : Spek({
                 .withDefaultAssertionFormatterFacade()
                 .withTextSameLineAssertionPairFormatter()
                 .withTextCapabilities()
+                .withDefaultAtriumErrorAdjusters()
                 .withOnlyFailureReporter()
                 .build()
         },
-        //TODO should be true as soon as http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
+        // ResourceBundleBasedTranslator is only a reference to assure us that we have a similar implementation
+        // it could be true if http://bugs.java.com/bugdatabase/view_bug.do?bug_id=JDK-8193496 is fixed in JDK8
         false,
         "[Atrium's TranslatorIntSpec] "
     )

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.polyfills.stack
 import ch.tutteli.atrium.creating.ReportingAssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
+import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
 import ch.tutteli.atrium.verbs.internal.expect
@@ -141,8 +142,5 @@ private fun <T : Any> createMultiAtriumErrorAdjuster(
 private fun <T : Any> createAssert(subject: T, adjuster: AtriumErrorAdjuster) =
     AssertImpl.coreFactory.newReportingPlant(
         AssertionVerb.ASSERT, { subject },
-        AssertImpl.coreFactory.newThrowingAssertionChecker(
-            reporter,
-            adjuster
-        )
+        AssertImpl.coreFactory.newThrowingAssertionChecker(DelegatingReporter(reporter, adjuster))
     )

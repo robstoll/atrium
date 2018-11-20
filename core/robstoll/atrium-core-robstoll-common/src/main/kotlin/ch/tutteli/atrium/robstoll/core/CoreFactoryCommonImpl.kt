@@ -55,8 +55,8 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)
 
-    final override fun newThrowingAssertionChecker(reporter: Reporter, atriumErrorAdjuster: AtriumErrorAdjuster): AssertionChecker
-        = ThrowingAssertionChecker(reporter, atriumErrorAdjuster)
+    final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
+        = ThrowingAssertionChecker(reporter)
 
     final override fun <T : Any> newFeatureAssertionChecker(subjectPlant: AssertionPlant<T>): AssertionChecker
         = FeatureAssertionChecker(subjectPlant)
@@ -145,8 +145,8 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         }
     }
 
-    final override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
-        = OnlyFailureReporter(assertionFormatterFacade)
+    final override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade, atriumErrorAdjuster: AtriumErrorAdjuster): Reporter
+        = OnlyFailureReporter(assertionFormatterFacade, atriumErrorAdjuster)
 
     final override fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
         = NoOpAtriumErrorAdjuster

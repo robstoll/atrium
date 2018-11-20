@@ -8,6 +8,8 @@ import ch.tutteli.atrium.core.CoreFactory
  */
 interface Reporter {
 
+    val atriumErrorAdjuster: AtriumErrorAdjuster
+
     /**
      * Reports about the given [assertion], using the given [sb] where the actual
      * implementation will decide whether the given [assertion] is noteworthy to be reported.

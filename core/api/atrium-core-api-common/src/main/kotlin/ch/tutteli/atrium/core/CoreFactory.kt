@@ -58,9 +58,6 @@ interface CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid undesired side effects
      * (the provider is most likely called more than once).
      *
-     * [newMultiAtriumErrorAdjuster] with [newRemoveRunnerAtriumErrorAdjuster] and [newRemoveRunnerAtriumErrorAdjuster]
-     * is used as [AtriumErrorAdjuster].
-     *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
@@ -74,7 +71,7 @@ interface CoreFactoryCommon {
         subjectProvider: () -> T,
         reporter: Reporter
     ): ReportingAssertionPlant<T> = newReportingPlant(
-        assertionVerb, subjectProvider, createDefaultAssertionChecker(reporter)
+        assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter)
     )
 
     /**
@@ -200,11 +197,10 @@ interface CoreFactoryCommon {
      * and uses the given [reporter] for reporting.
      *
      * @param reporter The reporter which is used to report [Assertion]s.
-     * @param atriumErrorAdjuster The adjuster used to modify the resulting [AtriumError] which will be thrown.
      *
      * @return The newly created assertion checker.
      */
-    fun newThrowingAssertionChecker(reporter: Reporter, atriumErrorAdjuster: AtriumErrorAdjuster): AssertionChecker
+    fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
 
     /**
      * Creates an [AssertionChecker] which creates an [AssertionGroup] of [type][AssertionGroup.type]
@@ -454,7 +450,10 @@ interface CoreFactoryCommon {
      *
      * @return The newly created reporter.
      */
-    fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
+    fun newOnlyFailureReporter(
+        assertionFormatterFacade: AssertionFormatterFacade,
+        atriumErrorAdjuster: AtriumErrorAdjuster
+    ): Reporter
 
     /**
      * An [AtriumErrorAdjuster] which does not modify a given [AtriumError].
@@ -504,9 +503,6 @@ interface CoreFactoryCommon {
  * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
  * (the provider is most likely called more than once).
  *
- * [CoreFactory.newMultiAtriumErrorAdjuster] with [CoreFactory.newRemoveRunnerAtriumErrorAdjuster] and
- * [CoreFactory.newRemoveRunnerAtriumErrorAdjuster] is used as [AtriumErrorAdjuster].
- *
  * @param assertionVerb The assertion verb which will be used inter alia in reporting
  *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
  * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
@@ -521,17 +517,8 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     reporter: Reporter,
     nullRepresentation: Any = RawString.NULL
 ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
-    assertionVerb, subjectProvider, createDefaultAssertionChecker(reporter), nullRepresentation
+    assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter), nullRepresentation
 )
-
-private fun CoreFactoryCommon.createDefaultAssertionChecker(reporter: Reporter) =
-    newThrowingAssertionChecker(
-        reporter, newMultiAtriumErrorAdjuster(
-            newRemoveAtriumFromAtriumErrorAdjuster(),
-            newRemoveRunnerAtriumErrorAdjuster(),
-            listOf()
-        )
-    )
 
 /**
  * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.

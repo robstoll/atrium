@@ -4,6 +4,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.creating.AssertionPlantWithCommonFields
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
+import ch.tutteli.atrium.reporting.AssertionFormatterFacade
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Locale
@@ -13,6 +15,27 @@ import java.util.*
 import ch.tutteli.atrium.core.newReportingPlantNullable as newReportingPlantNullableFromCommon
 
 actual interface CoreFactory : CoreFactoryCommon {
+
+    /**
+     * Creates a [TranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
+     * the structure of the properties files.
+     *
+     * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
+     * stored in a properties file named `DescriptionAnyAssertion_de_CH.properties` in the folder `/ch/tutteli/atrium/`.
+     * Moreover the files need to be encoded in ISO-8859-1 (restriction to be compatible with [ResourceBundle]).
+     *
+     * An entry in such a file would look like as follows:
+     * `TO_BE = a translation for TO_BE`
+     *
+     * @return The newly created translation supplier.
+     */
+    fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
+
+    @Deprecated(
+        "Use the overload which expects an AtriumErrorAdjuster in addition, will be removed with 1.0.0",
+        ReplaceWith("this.newOnlyFailureReporter(assertionFormatterFacade, this.newNoOpAtriumErrorAdjuster())")
+    )
+    fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
 
     // we need to define the following methods here so that we can retain binary backward compatibility
     // => Kotlin generates an object called CoreFactory$DefaultImpls due to the optional parameters
@@ -72,18 +95,5 @@ actual interface CoreFactory : CoreFactoryCommon {
         assertionVerb, subjectProvider, assertionChecker, nullRepresentation
     )
 
-    /**
-     * Creates a [TranslationSupplier] which is based on properties and is compatible with [ResourceBundle] concerning
-     * the structure of the properties files.
-     *
-     * For instance, the translations for `ch.tutteli.atrium.DescriptionAnyAssertion` and the [Locale] `de_CH` are
-     * stored in a properties file named `DescriptionAnyAssertion_de_CH.properties` in the folder `/ch/tutteli/atrium/`.
-     * Moreover the files need to be encoded in ISO-8859-1 (restriction to be compatible with [ResourceBundle]).
-     *
-     * An entry in such a file would look like as follows:
-     * `TO_BE = a translation for TO_BE`
-     *
-     * @return The newly created translation supplier.
-     */
-    fun newPropertiesBasedTranslationSupplier(): TranslationSupplier
+
 }

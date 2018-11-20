@@ -48,7 +48,7 @@ interface TextAssertionFormatterOptionCommon {
      * Have a look at the sub types of [BulletPointIdentifier] to get a feel for what and how you can customise
      * bullet points.
      */
-    fun withTextCapabilities(vararg bulletPoints: Pair<KClass<out BulletPointIdentifier>, String>): ReporterOption
+    fun withTextCapabilities(vararg bulletPoints: Pair<KClass<out BulletPointIdentifier>, String>): AtriumErrorAdjusterOption
 
     /**
      * Uses the given [factory] and [otherFactories] to create and register [AssertionFormatter]s to
@@ -57,6 +57,6 @@ interface TextAssertionFormatterOptionCommon {
     fun withTextAssertionFormatter(
         factory: (AssertionFormatterChosenOptions) -> (AssertionFormatterController) -> AssertionFormatter,
         vararg otherFactories: (AssertionFormatterChosenOptions) -> (AssertionFormatterController) -> AssertionFormatter
-    ): ReporterOption
+    ): AtriumErrorAdjusterOption
 }
 

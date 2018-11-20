@@ -4,10 +4,8 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.domain.builders.reporting.impl.TextAssertionFormatterOptionImpl
 import ch.tutteli.atrium.reporting.AssertionFormatter
-import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.AssertionPairFormatter
-import kotlin.reflect.KClass
 
 /**
  * Provides options to register [AssertionFormatter]s to the chosen [AssertionFormatterFacade].
@@ -26,10 +24,11 @@ actual interface TextAssertionFormatterOption : TextAssertionFormatterOptionComm
      */
     @Deprecated(
         "Use the overload which expects KClass instead; will be removed with 1.0.0",
-        ReplaceWith("this.withTextCapabilities(*bulletPoints.asSequence().associate { it.first.kotlin to it.second }.toList().toTypedArray())")
+        ReplaceWith("this.withTextCapabilities(*bulletPoints.asSequence().associate { it.first.kotlin to it.second }.toList().toTypedArray()).withDefaultAtriumErrorAdjusters()")
     )
     fun withDefaultTextCapabilities(vararg bulletPoints: Pair<Class<out BulletPointIdentifier>, String>): ReporterOption =
         withTextCapabilities(*bulletPoints.asSequence().associate { it.first.kotlin to it.second }.toList().toTypedArray())
+            .withDefaultAtriumErrorAdjusters()
 
     actual companion object {
         actual fun create(

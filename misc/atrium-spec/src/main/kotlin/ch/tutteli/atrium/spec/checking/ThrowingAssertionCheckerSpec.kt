@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -19,7 +18,7 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class ThrowingAssertionCheckerSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (Reporter, AtriumErrorAdjuster) -> AssertionChecker,
+    testeeFactory: (Reporter) -> AssertionChecker,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -32,8 +31,9 @@ abstract class ThrowingAssertionCheckerSpec(
         on { format(any(), @Suppress("RemoveExplicitTypeArguments") any<StringBuilder>()) }.thenAnswer {
             (it.arguments[1] as StringBuilder).append(reporterResponse)
         }
+        on{ atriumErrorAdjuster }.thenReturn(coreFactory.newNoOpAtriumErrorAdjuster())
     }
-    val testee = testeeFactory(reporter, coreFactory.newRemoveRunnerAtriumErrorAdjuster())
+    val testee = testeeFactory(reporter)
     val assertionWhichHolds = object : Assertion {
         override fun holds() = true
     }

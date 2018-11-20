@@ -1,8 +1,10 @@
-package ch.tutteli.atrium.reporting
+package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.core.polyfills.stack
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
+import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
 import ch.tutteli.atrium.verbs.internal.expect
 import kotlin.test.Test
@@ -58,9 +60,6 @@ class AdjustStackTest {
     private fun <T : Any> createAssert(subject: T, adjuster: AtriumErrorAdjuster) =
         AssertImpl.coreFactory.newReportingPlant(
             AssertionVerb.ASSERT, { subject },
-            AssertImpl.coreFactory.newThrowingAssertionChecker(
-                reporter,
-                adjuster
-            )
+            AssertImpl.coreFactory.newThrowingAssertionChecker(DelegatingReporter(reporter, adjuster))
         )
 }

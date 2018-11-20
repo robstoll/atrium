@@ -16,6 +16,7 @@ object PropertiesPerEntityAndLocaleTranslationSupplierSpec : TranslatorIntSpec(
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
             .withTextCapabilities()
+            .withDefaultAtriumErrorAdjusters()
             .withOnlyFailureReporter()
             .build()
     },
