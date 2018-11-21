@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.7.0'
+    rootProject.version = '0.7.0-android'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
