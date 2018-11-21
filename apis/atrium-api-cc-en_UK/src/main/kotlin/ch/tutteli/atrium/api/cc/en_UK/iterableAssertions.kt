@@ -87,7 +87,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.contains(assertionCreator: Assert<E>.()
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-@JvmName("contains?")
+@JvmName("containsDeprecated")
 @Deprecated("Use `containsNullableEntries` from package en_GB or `contains` from package en_GB in case you do not deal with nullable elements; will be removed with 1.0.0", ReplaceWith("containsNullableEntries(assertionCreator, *otherAssertionCreators)", "ch.tutteli.atrium.api.cc.en_GB.containsNullableEntries"))
 fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).entries(assertionCreator, *otherAssertionCreators)
