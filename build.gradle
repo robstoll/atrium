@@ -103,7 +103,7 @@ subprojects { subproject ->
             suffix = '#L'
         }
 
-        if (!rootProject.version.endsWith("-SNAPSHOT")) {
+        if (!rootProject.version.endsWith("-SNAPSHOT") && !rootProject.version.endsWith("-android")) {
             externalDocumentationLink {
                 url = new URL("https://robstoll.github.io/atrium/${rootProject.version}/doc/")
             }
