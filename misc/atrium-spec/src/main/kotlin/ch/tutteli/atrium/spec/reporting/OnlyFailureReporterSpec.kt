@@ -9,6 +9,7 @@ import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.spec.AssertionVerb
@@ -26,12 +27,12 @@ import org.jetbrains.spek.api.dsl.it
 
 abstract class OnlyFailureReporterSpec(
     verbs: AssertionVerbFactory,
-    testeeFactory: (AssertionFormatterFacade) -> Reporter,
+    testeeFactory: (AssertionFormatterFacade, AtriumErrorAdjuster) -> Reporter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
-        = describeFun(describePrefix, funName, body = body)
+    fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
+        describeFun(describePrefix, funName, body = body)
 
     val translator = UsingDefaultTranslator()
     val facade = coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
@@ -39,9 +40,10 @@ abstract class OnlyFailureReporterSpec(
         coreFactory.newTextFallbackAssertionFormatter(
             mapOf(RootAssertionGroupType::class to "[]"),
             it,
-            coreFactory.newDetailedObjectFormatter(translator), translator)
+            coreFactory.newDetailedObjectFormatter(translator), translator
+        )
     }
-    val testee = testeeFactory(facade)
+    val testee = testeeFactory(facade, coreFactory.newNoOpAtriumErrorAdjuster())
 
     describeFun(testee::format.name) {
         val sb = StringBuilder()
@@ -81,7 +83,9 @@ abstract class OnlyFailureReporterSpec(
 
         context("dependencies") {
             val assertionFormatterFacade = mock<AssertionFormatterFacade>()
-            val testeeWithMockedFacade = testeeFactory(assertionFormatterFacade)
+            val testeeWithMockedFacade = testeeFactory(
+                assertionFormatterFacade, coreFactory.newNoOpAtriumErrorAdjuster()
+            )
 
             it("delegates to ${assertionFormatterFacade::class.java.simpleName}") {
                 testeeWithMockedFacade.format(basicAssertion, sb)

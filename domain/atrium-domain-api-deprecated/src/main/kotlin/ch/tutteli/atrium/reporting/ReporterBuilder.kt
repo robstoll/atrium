@@ -18,7 +18,12 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
      */
     @Deprecated("use `withOnlyFailureReporter.build()` from the builder from package domain.builders.reporting", ReplaceWith("this.withOnlyFailureReporter().build()"))
     fun buildOnlyFailureReporter(): Reporter
-        = coreFactory.newOnlyFailureReporter(assertionFormatterFacade)
+        = coreFactory.newOnlyFailureReporter(assertionFormatterFacade, coreFactory.newMultiAtriumErrorAdjuster(
+            coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+                coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                listOf()
+            )
+        )
 
     /**
      * Uses the given [factory] to build a custom [Reporter].
@@ -41,7 +46,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * the options to specify implementations of them are skipped.
          *
          * Notice that [UsingDefaultTranslator] does not translate but uses what [Translatable.getDefault] returns.
-         * Also notice, that if you omit the [primaryLocale] then [Locale.getDefault] is used.
+         * Also notice, that if you omit the [primaryLocale] then [java.util.Locale.getDefault] is used.
          *
          * @param primaryLocale The [Locale] used to format arguments of [TranslatableWithArgs].
          */

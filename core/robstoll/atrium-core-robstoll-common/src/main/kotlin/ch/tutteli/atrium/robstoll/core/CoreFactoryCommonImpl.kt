@@ -39,6 +39,7 @@ import kotlin.reflect.KClass
  * - [AssertionFormatter]
  * - [AssertionPairFormatter]
  * - [Reporter]
+ * - [AtriumErrorAdjuster]
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
@@ -144,6 +145,22 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         }
     }
 
-    final override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
-        = OnlyFailureReporter(assertionFormatterFacade)
+    final override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade, atriumErrorAdjuster: AtriumErrorAdjuster): Reporter
+        = OnlyFailureReporter(assertionFormatterFacade, atriumErrorAdjuster)
+
+    final override fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = NoOpAtriumErrorAdjuster
+
+    override fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = RemoveRunnerAtriumErrorAdjuster()
+
+    final override fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = RemoveAtriumFromAtriumErrorAdjuster()
+
+    final override fun newMultiAtriumErrorAdjuster(
+        firstAdjuster: AtriumErrorAdjuster,
+        secondAdjuster: AtriumErrorAdjuster,
+        otherAdjusters: List<AtriumErrorAdjuster>
+    ): AtriumErrorAdjuster = MultiAtriumErrorAdjusterImpl(firstAdjuster, secondAdjuster, otherAdjusters)
+
 }

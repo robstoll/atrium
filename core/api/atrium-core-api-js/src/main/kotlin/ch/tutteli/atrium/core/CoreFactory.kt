@@ -7,13 +7,13 @@ import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.core.newReportingPlantNullable as newReportingPlantNullableFromCommon
 
 actual interface CoreFactory : CoreFactoryCommon {
 
     // we need to define the following methods here so that we can retain binary backward compatibility
     // => Kotlin generates an object called CoreFactory$DefaultImpls due to the optional parameters
     // hence we need to place the methods here and cannot move them to CoreFactoryCommon as well
-
 
     /**
      * Creates a [ReportingAssertionPlantNullable] which is the entry point for assertions about nullable types.
@@ -37,8 +37,8 @@ actual interface CoreFactory : CoreFactoryCommon {
         subjectProvider: () -> T,
         reporter: Reporter,
         nullRepresentation: Any = RawString.NULL
-    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
-        assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter), nullRepresentation
+    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
+        assertionVerb, subjectProvider, reporter, nullRepresentation
     )
 
     /**
@@ -64,16 +64,7 @@ actual interface CoreFactory : CoreFactoryCommon {
         subjectProvider: () -> T,
         assertionChecker: AssertionChecker,
         nullRepresentation: Any = RawString.NULL
-    ): ReportingAssertionPlantNullable<T> {
-        val evalOnceSubjectProvider = subjectProvider.evalOnce()
-        return newReportingPlantNullable(
-            AssertionPlantWithCommonFields.CommonFields(
-                assertionVerb,
-                evalOnceSubjectProvider,
-                evalOnceSubjectProvider,
-                assertionChecker,
-                nullRepresentation
-            )
-        )
-    }
+    ): ReportingAssertionPlantNullable<T> = newReportingPlantNullableFromCommon(
+        assertionVerb, subjectProvider, assertionChecker, nullRepresentation
+    )
 }

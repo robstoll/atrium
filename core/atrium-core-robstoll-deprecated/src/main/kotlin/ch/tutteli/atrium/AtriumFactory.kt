@@ -4,6 +4,7 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.checking.AssertionChecker
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.migration.toAtriumLocale
 import ch.tutteli.atrium.core.robstoll.lib.checking.DelegatingAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker
@@ -16,7 +17,6 @@ import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.CoroutineBasedL
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.PropertiesPerEntityAndLocaleTranslationSupplier
 import ch.tutteli.atrium.core.robstoll.lib.reporting.translating.TranslationSupplierBasedTranslator
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.core.migration.toAtriumLocale
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
 import ch.tutteli.atrium.reporting.translating.TranslationSupplier
@@ -146,10 +146,16 @@ object AtriumFactory : IAtriumFactory {
         }
     }
 
-    private fun toKClassBasedMap(bulletPoints: Map<Class<out BulletPointIdentifier>, String>) =
-        bulletPoints.asSequence().map { it.key.kotlin to it.value }.toMap()
+    private fun toKClassBasedMap(bulletPoints: Map<Class<out BulletPointIdentifier>, String>)
+        = bulletPoints.asSequence().map { it.key.kotlin to it.value }.toMap()
 
     @Deprecated("Use coreFactory, will be removed with 1.0.0", ReplaceWith("coreFactory.newOnlyFailureReporter(assertionFormatterFacade)"))
     override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
-        = OnlyFailureReporter(assertionFormatterFacade)
+        = OnlyFailureReporter(
+            assertionFormatterFacade, coreFactory.newMultiAtriumErrorAdjuster(
+                coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                listOf()
+            )
+        )
 }

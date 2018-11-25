@@ -3,14 +3,10 @@ package ch.tutteli.atrium.core
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslationSupplier
-import ch.tutteli.atrium.reporting.translating.Translator
+import ch.tutteli.atrium.reporting.translating.*
 import kotlin.reflect.KClass
 
 /**
@@ -29,7 +25,7 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * Notice, the platform specific types have to define the default methods for `newReportingPlantNullable`
  * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
  */
-expect interface CoreFactory: CoreFactoryCommon
+expect interface CoreFactory : CoreFactoryCommon
 
 /**
  * The minimum contract of the 'abstract factory' of atrium-core for any platform.
@@ -49,6 +45,7 @@ expect interface CoreFactory: CoreFactoryCommon
  * - [AssertionFormatter]
  * - [AssertionPairFormatter]
  * - [Reporter]
+ * - [AtriumErrorAdjuster]
  */
 interface CoreFactoryCommon {
 
@@ -58,7 +55,7 @@ interface CoreFactoryCommon {
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
      * uses [subjectProvider] as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
      * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid undesired side effects
      * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
@@ -196,7 +193,7 @@ interface CoreFactoryCommon {
     fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
 
     /**
-     * Creates an [AssertionChecker] which throws [AssertionError]s in case an assertion fails
+     * Creates an [AssertionChecker] which throws [AtriumError]s in case an assertion fails
      * and uses the given [reporter] for reporting.
      *
      * @param reporter The reporter which is used to report [Assertion]s.
@@ -453,7 +450,47 @@ interface CoreFactoryCommon {
      *
      * @return The newly created reporter.
      */
-    fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
+    fun newOnlyFailureReporter(
+        assertionFormatterFacade: AssertionFormatterFacade,
+        atriumErrorAdjuster: AtriumErrorAdjuster
+    ): Reporter
+
+    /**
+     * An [AtriumErrorAdjuster] which does not modify a given [AtriumError].
+     *
+     * @return The newly created adjuster.
+     */
+    fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
+     * An [AtriumErrorAdjuster] which removes stack frames of test runners.
+     *
+     * @return The newly created adjuster.
+     */
+    fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
+     * An [AtriumErrorAdjuster] which removes stack frames of Atrium.
+     *
+     * @return The newly created adjuster.
+     */
+    fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
+     * An [AtriumErrorAdjuster] which delegates adjustment to the given [firstAdjuster], [secondAdjuster]
+     * and optionally [otherAdjusters].
+     *
+     * @param firstAdjuster The first adjuster to which is delegated.
+     * @param secondAdjuster The second adjuster to which is delegated.
+     * @param otherAdjusters Optionally further [AtriumErrorAdjuster] which shall be involved in adjusting.
+     *
+     * @return The newly created adjuster.
+     */
+    fun newMultiAtriumErrorAdjuster(
+        firstAdjuster: AtriumErrorAdjuster,
+        secondAdjuster: AtriumErrorAdjuster,
+        otherAdjusters: List<AtriumErrorAdjuster>
+    ): AtriumErrorAdjuster
 }
 
 
@@ -480,7 +517,7 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     reporter: Reporter,
     nullRepresentation: Any = RawString.NULL
 ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
-    assertionVerb, subjectProvider, coreFactory.newThrowingAssertionChecker(reporter), nullRepresentation
+    assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter), nullRepresentation
 )
 
 /**

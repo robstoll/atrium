@@ -61,6 +61,7 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
                 PrefixFailingSummaryAssertion::class to "(x) ",
                 WarningAssertionGroupType::class to "(!) "
             )
+            .withDefaultAtriumErrorAdjusters()
             .withOnlyFailureReporter()
             .build()
     }
