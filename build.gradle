@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.7.0-android'
+    rootProject.version = '0.7.0-android-alpha'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
@@ -103,7 +103,7 @@ subprojects { subproject ->
             suffix = '#L'
         }
 
-        if (!rootProject.version.endsWith("-SNAPSHOT") && !rootProject.version.endsWith("-android")) {
+        if (!rootProject.version.contains("-")) {
             externalDocumentationLink {
                 url = new URL("https://robstoll.github.io/atrium/${rootProject.version}/doc/")
             }
