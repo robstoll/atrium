@@ -60,9 +60,34 @@ interface AtriumErrorAdjusterOption : AtriumErrorAdjusterCommonOption<ReporterOp
 }
 
 /**
+ * DSL Marker for [MultipleAdjustersOption]
+ */
+@DslMarker
+annotation class MultipleAdjustersOptionMarker
+
+/**
  * Provides options to combine multiple [AtriumErrorAdjuster]s.
  */
+@MultipleAdjustersOptionMarker
 interface MultipleAdjustersOption : AtriumErrorAdjusterCommonOption<Unit> {
+
+    /**
+     * Uses an [AtriumErrorAdjuster] which removes stack frames of test runners from a given [AtriumError].
+     */
+    @MultipleAdjustersOptionMarker
+    override fun withRemoveRunnerAtriumErrorAdjuster()
+
+    /**
+     * Uses an [AtriumErrorAdjuster] which removes stack frames of Atrium from a given [AtriumError].
+     */
+    @MultipleAdjustersOptionMarker
+    override fun withRemoveAtriumFromAtriumErrorAdjuster()
+
+    /**
+     * Uses the given [AtriumErrorAdjuster] as custom [AtriumErrorAdjuster].
+     */
+    @MultipleAdjustersOptionMarker
+    override fun withAtriumErrorAdjuster(adjuster: AtriumErrorAdjuster): Unit
 
     val adjusters: List<AtriumErrorAdjuster>
 
