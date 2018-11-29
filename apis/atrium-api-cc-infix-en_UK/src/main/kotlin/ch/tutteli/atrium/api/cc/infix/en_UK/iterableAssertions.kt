@@ -134,7 +134,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Asse
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use `contains NullableEntry` from package en_GB; will be removed with 1.0.0", ReplaceWith("this contains NullableEntry(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB.contains", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableEntry"))
-@JvmName("contains?")
+@JvmName("containsDeprecated")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
@@ -154,7 +154,7 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use `contains NullableEntries` from package en_GB; will be removed with 1.0.0", ReplaceWith("this contains NullableEntries(entries.assertionCreator, *entries.otherAssertionCreators)", "ch.tutteli.atrium.api.cc.infix.en_GB.contains", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableEntries"))
-@JvmName("contains?")
+@JvmName("containsDeprecated")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
