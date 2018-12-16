@@ -1,0 +1,15 @@
+description = 'API of the core of Atrium for Android.'
+
+dependencies {
+    compile kbox(), excludeKotlin
+    compile kotlinReflect()
+
+    //TODO change to cc-infix-en_GB-robstoll-android
+    testCompile prefixedProject('cc-infix-en_GB-robstoll')
+    testCompile prefixedProject('verbs-internal-android')
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
+}
+
+junitPlatform.filters.engines { include 'junit-jupiter' }
+
+srcAndResourcesFromJvmProject(project)

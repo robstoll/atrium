@@ -1,9 +1,9 @@
-description = 'Checks that specs from older versions of Atrium can still be run with the components of the current version.'
-
 //Enable if you need to check the task tree
-//plugins {
-//    id "com.dorongold.task-tree" version "1.3"
-//}
+plugins {
+    id "com.dorongold.task-tree" version "1.3"
+}
+
+description = 'Checks that specs from older versions of Atrium can still be run with the components of the current version.'
 
 repositories {
     maven { url "https://dl.bintray.com/jetbrains/spek" }

@@ -29,34 +29,34 @@ include {
     }
 
     folder('apis', 'api-') {
-        kotlinJvmJs('cc-de_CH')
-        kotlinJvmJs('cc-en_GB')
-        kotlinJvmJs('cc-infix-en_GB')
+        kotlinJvmJsAndroid('cc-de_CH')
+        kotlinJvmJsAndroid('cc-en_GB')
+        kotlinJvmJsAndroid('cc-infix-en_GB')
     }
 
     domain('domain-') {
-        kotlinJvmJs('api')
-        kotlinJvmJs('builders')
-        kotlinJvmJs('robstoll')
-        kotlinJvmJs('robstoll-lib')
+        kotlinJvmJsAndroid('api')
+        kotlinJvmJsAndroid('builders')
+        kotlinJvmJsAndroid('robstoll')
+        kotlinJvmJsAndroid('robstoll-lib')
     }
 
     core('core-') {
-        kotlinJvmJs('api')
-        kotlinJvmJs('robstoll')
-        kotlinJvmJs('robstoll-lib')
+        kotlinJvmJsAndroid('api')
+        kotlinJvmJsAndroid('robstoll')
+        kotlinJvmJsAndroid('robstoll-lib')
     }
 
     translations('translations-') {
-        kotlinJvmJs('de_CH')
-        kotlinJvmJs('en_GB')
+        kotlinJvmJsAndroid('de_CH')
+        kotlinJvmJsAndroid('en_GB')
     }
 
     misc {
         _ 'bc-test'
         _ 'spec'
-        kotlinJvmJs('verbs')
-        kotlinJvmJs('verbs-internal')
+        kotlinJvmJsAndroid('verbs')
+        kotlinJvmJsAndroid('verbs-internal')
     }
 
     //TODO remove all below with 1.0.0
