@@ -1,0 +1,8 @@
+description = 'robstoll\'s <rstoll@tutteli.ch> implementation of the domain (assertion functions and builders) of Atrium for Android.'
+
+dependencies {
+    compile prefixedProject('domain-api-android')
+    compile prefixedProject('domain-robstoll-lib-android')
+}
+
+srcAndResourcesFromJvmProject(project)

@@ -1,0 +1,10 @@
+description = 'API of the domain of Atrium for Android.'
+
+dependencies {
+    compile prefixedProject('core-api-android')
+
+    // it is up to the consumer of atrium-domain-api which atrium-translations module is used at runtime
+    compileOnly prefixedProject('translations-en_GB-android')
+}
+
+srcAndResourcesFromJvmProject(project)

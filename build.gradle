@@ -5,7 +5,7 @@ buildscript {
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     ext {
         // main
-        kbox_version = '0.11.1'
+        kbox_version = '0.12.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
         kotlin_version = '1.2.71'
         mockito_kotlin_version = '1.5.0'
@@ -29,9 +29,11 @@ buildscript {
         jacocoMulti = [
             sourceProjects:
                 (subprojects - deprecatedProjects).findAll {
-                    // would have two classes with the same name if we add it as project as well,
-                    // (clashes with "${project.name}-translations-en_GB-jvm"
-                    it.name != "${rootProject.name}-translations-de_CH-jvm" &&
+                    !it.name.endsWith("-js") &&
+                        !it.name.endsWith("-android") &&
+                        // would have two classes with the same name if we add it as project as well,
+                        // (clashes with "${project.name}-translations-en_GB-jvm"
+                        it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec"
                 },
@@ -39,6 +41,7 @@ buildscript {
                 (subprojects - deprecatedProjects - translationProjects).findAll {
                     !it.name.endsWith("-common") &&
                         !it.name.endsWith("-js") &&
+                        !it.name.endsWith("-android") &&
                         it.name != "${rootProject.name}-domain-api-jvm" &&
                         it.name != "${rootProject.name}-domain-robstoll-jvm" &&
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
@@ -53,6 +56,20 @@ buildscript {
                         it.name != "${rootProject.name}-translations-en_UK-deprecated"
                 }
         ]
+
+        srcAndResourcesFromJvmProject = { Project project ->
+            def nameWithoutSuffix = project.name.substring(project.name.indexOf('-') + 1, project.name.lastIndexOf('-'))
+            def jvmProject = prefixedProject(nameWithoutSuffix + '-jvm')
+            project.sourceSets {
+                main {
+                    kotlin { srcDirs += ["${jvmProject.projectDir}/src/main/kotlin"] }
+                    resources { srcDirs += ["${jvmProject.projectDir}/src/main/resources"] }
+                }
+                test {
+                    resources { srcDirs += ["${jvmProject.projectDir}/src/test/resources"] }
+                }
+            }
+        }
     }
 
     repositories {
@@ -94,6 +111,7 @@ def multiplatformProjects = commonProjects + jsProjects + jvmProjects
 configureCommonProjects()
 configureJsProjects()
 configureJvmProjects()
+configureAndroidProjects()
 
 configure(subprojects - multiplatformProjects) {
     apply plugin: 'kotlin'
@@ -119,7 +137,7 @@ configure(subprojects - bundleSmokeTests) { subproject ->
     apply plugin: 'ch.tutteli.publish'
 }
 
-configure(jacocoMulti.jacocoProjects) {
+configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
 
     dependencies {
@@ -179,7 +197,7 @@ def createRegisterJsServicesTask(Project project, String packageName, Function<S
         def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
             def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
             def servicesDir = project.file("../$jvm/src/main/resources/META-INF/services/")
-            def services = project.file("src/main/kotlin/${packageName.replace('.', '/')}/registerServices.kt")
+            def services = project.file("$srcKotlin/${packageName.replace('.', '/')}/registerServices.kt")
             inputs.dir servicesDir
             inputs.file services
             outputs.file services

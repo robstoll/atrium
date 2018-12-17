@@ -1,4 +1,4 @@
-description = 'An API in en_GB with a focus on code completion and infix functions as common module'
+description = 'An API in en_GB with a focus on code completion and infix functions as common module.'
 
 dependencies {
     compile prefixedProject('domain-builders-common')
