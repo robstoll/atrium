@@ -170,7 +170,7 @@ apply from: 'gradle/scripts/gh-pages.gradle'
 
 configure(bundleSmokeTests) {
     def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
-    def bundle = project(":$bundleUnderTest")
+    def bundle = project(":$bundleUnderTest-jvm")
     description = "Represents a JDK9 smoke test for $bundleUnderTest"
 
     sourceCompatibility = '9'

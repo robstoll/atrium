@@ -1,0 +1,9 @@
+description = 'Represents a convenience module which merely bundles dependencies as common module.'
+
+dependencies {
+    compile prefixedProject('verbs-common')
+    compile prefixedProject('api-cc-en_GB-common')
+    compile prefixedProject('translations-en_GB-common')
+    runtimeOnly prefixedProject('domain-robstoll-common')
+    runtimeOnly prefixedProject('core-robstoll-common')
+}

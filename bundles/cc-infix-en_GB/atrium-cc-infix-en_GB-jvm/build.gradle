@@ -1,4 +1,4 @@
-description = 'Represents a convenience module which merely bundles dependencies'
+description = 'Represents a convenience module which merely bundles dependencies for the JVM platform.'
 
 dependencies {
     compile prefixedProject('verbs-jvm')

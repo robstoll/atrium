@@ -1,0 +1,9 @@
+description = 'Represents a convenience module which merely bundles dependencies for the JS platform.'
+
+dependencies {
+    compile prefixedProject('verbs-js')
+    compile prefixedProject('api-cc-infix-en_GB-js')
+    compile prefixedProject('translations-en_GB-js')
+    runtimeOnly prefixedProject('domain-robstoll-js')
+    runtimeOnly prefixedProject('core-robstoll-js')
+}

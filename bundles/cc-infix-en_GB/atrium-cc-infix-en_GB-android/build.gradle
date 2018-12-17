@@ -1,0 +1,9 @@
+description = 'Represents a convenience module which merely bundles dependencies for Android.'
+
+dependencies {
+    compile prefixedProject('verbs-android')
+    compile prefixedProject('api-cc-infix-en_GB-android')
+    compile prefixedProject('translations-en_GB-android')
+    runtimeOnly prefixedProject('domain-robstoll-android')
+    runtimeOnly prefixedProject('core-robstoll-android')
+}
