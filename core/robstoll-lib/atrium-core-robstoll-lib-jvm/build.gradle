@@ -1,17 +1,17 @@
-description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation' +
-        'of Atrium for the JVM platform. You should only depend on this module if you are ' +
-        'providing an implementation as well and want to reuse certain artifacts. If you are a consumer of ' +
-        'Atrium, then you should depend on atrium-core-robstoll instead.'
+description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation ' +
+    'of Atrium for the JVM platform. You should only depend on this module if you are ' +
+    'providing an implementation as well and want to reuse certain artifacts. If you are a consumer of ' +
+    'Atrium, then you should depend on atrium-core-robstoll instead.'
 
 dependencies {
     compile prefixedProject('core-api-jvm')
 
-    testRuntimeOnly prefixedProject('core-robstoll-jvm')
-    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testCompile prefixedProject('api-cc-en_GB-jvm')
     testCompile prefixedProject('verbs-internal-jvm')
-}
 
+    testRuntimeOnly prefixedProject('core-robstoll-jvm')
+    testRuntimeOnly prefixedProject('domain-robstoll-jvm')
+}
 
 //TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
 compileTestKotlin.dependsOn(
