@@ -1,10 +1,10 @@
-description = 'Represents a convenience module which merely bundles dependencies'
+description = 'Represents a convenience module which merely bundles dependencies for the JVM platform.'
 
 dependencies {
     compile prefixedProject('verbs-jvm')
     compile prefixedProject('api-cc-de_CH-jvm')
-    compile prefixedProject('translations-de_CH-jvm')
     compile prefixedProject('domain-builders-jvm')
+    compile prefixedProject('translations-de_CH-jvm')
     runtimeOnly prefixedProject('domain-robstoll-jvm')
     runtimeOnly prefixedProject('core-robstoll-jvm')
 

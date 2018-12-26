@@ -4,7 +4,7 @@ dependencies {
     compile kbox(), excludeKotlin
     compile kotlinReflect()
 
-    testCompile prefixedProject('cc-infix-en_GB-robstoll')
+    testCompile prefixedProject('cc-infix-en_GB-jvm')
     testCompile prefixedProject('verbs-internal-jvm')
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$jupiter_version"
 }

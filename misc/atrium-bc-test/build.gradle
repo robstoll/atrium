@@ -17,7 +17,7 @@ dependencies {
     common "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
     common "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
     common "org.jetbrains.spek:spek-junit-platform-engine:$spek_version", excludeKotlin
-        
+
     common mockito(), excludeKotlin
     common kotlinStdlib()
 
@@ -47,7 +47,7 @@ def createBcTasksForApis(String version, String forgive, String... apis) {
     }
 }
 
-Task createJacocoReportTask(String apiName, String name, Task runTask){
+Task createJacocoReportTask(String apiName, String name, Task runTask) {
     project.task("jacoco-$name", type: JacocoReport) {
         sourceDirectories = sourceSets.main.allJava.sourceDirectories
         classDirectories = files(sourceSets.main.output.classesDirs)
@@ -79,11 +79,11 @@ Task createJacocoReportTask(String apiName, String name, Task runTask){
     }
 }
 
-static String getNameUnderline(String apiName, String version){
+static String getNameUnderline(String apiName, String version) {
     return "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
 }
 
-File getSrcDirectory(String apiName, String version){
+File getSrcDirectory(String apiName, String version) {
     return file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
 }
 
@@ -111,7 +111,7 @@ def createBcTasks(String apiName, String version, String forgive) {
     }
 
     dependencies {
-        def groupId = version == '0.6.0' ? 'ch.tutteli': 'ch.tutteli.atrium'
+        def groupId = version == '0.6.0' ? 'ch.tutteli' : 'ch.tutteli.atrium'
         add(testJar, "$groupId:atrium-api-$apiName:$version:tests") {
             exclude group: '*'
         }
@@ -126,11 +126,15 @@ def createBcTasks(String apiName, String version, String forgive) {
             add(confCommon, prefixedProject("api-cc-en_UK")) //required for atrium-spec
         } else {
             add(confCommon, prefixedProject("api-cc-en_GB-jvm")) //required for atrium-spec
-            if (apiName != 'de_CH') {
+            if (!apiName.endsWith('cc-de_CH')) {
                 add(confCommon, prefixedProject("verbs-internal-jvm")) //required by the api
             }
         }
-        add(confCommon, prefixedProject("$apiName-robstoll"))
+        if (!apiName.endsWith('en_UK')) {
+            add(confCommon, prefixedProject("$apiName-jvm"))
+        } else {
+            add(confCommon, prefixedProject("$apiName-robstoll"))
+        }
         add(confCommon, sourceSets.main.runtimeClasspath)
 
         owner."${srcName}Compile" configurations[confCommon].dependencies

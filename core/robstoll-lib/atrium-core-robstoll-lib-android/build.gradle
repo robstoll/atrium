@@ -1,4 +1,4 @@
-description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation' +
+description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation ' +
         'of Atrium for Android. You should only depend on this module if you are ' +
         'providing an implementation as well and want to reuse certain artifacts. If you are a consumer of ' +
         'Atrium, then you should depend on atrium-core-robstoll instead.'
@@ -6,10 +6,11 @@ description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.c
 dependencies {
     compile prefixedProject('core-api-android')
 
-    testRuntimeOnly prefixedProject('core-robstoll-android')
-    testRuntimeOnly prefixedProject('domain-robstoll-android')
     testCompile prefixedProject('api-cc-en_GB-android')
     testCompile prefixedProject('verbs-internal-android')
+
+    testRuntimeOnly prefixedProject('core-robstoll-android')
+    testRuntimeOnly prefixedProject('domain-robstoll-android')
 }
 
 
