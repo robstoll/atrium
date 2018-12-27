@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.basic.contains.Contains
  *   sophisticated `contains` assertion.
  */
 @Deprecated(
-    "use the interface Contains.CheckerOption instead; will be removed with 1.0.0",
+    "Use the interface Contains.CheckerOption instead; will be removed with 1.0.0",
     ReplaceWith(
         "Contains.CheckerOption",
         "ch.tutteli.atrium.domain.creating.basic.contains.Contains"

@@ -9,7 +9,7 @@ import java.math.BigDecimal
  * and [BigDecimal].
  */
 @Deprecated(
-    "use the description from package translations; will be removed with 1.0.0",
+    "Use the description from package translations; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.translations.DescriptionFloatingPointAssertion")
 )
 enum class DescriptionFloatingPointAssertion(override val value: String) : StringBasedTranslatable {

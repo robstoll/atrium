@@ -24,7 +24,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  * @param exactlyCall The function call which should not be used if [times] equals to zero.
  */
 @Deprecated(
-    "use the abstract class from package creating; will be removed with 1.0.0",
+    "Use the abstract class from package creating; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsExactlyCheckerBuilderBase")
 )
 abstract class CharSequenceContainsExactlyCheckerBuilderBase<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(

@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @Deprecated("Use AssertionGroup, do not rely on this specific type, will be made internal with 1.0.0")
 data class BasicAssertionGroup
 @Deprecated(
-    "use `AssertImpl.builder.customType` instead, will be made `internal` with 1.0.0",
+    "Use `AssertImpl.builder.customType` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
         "AssertImpl.builder.customType(type).withAssertions(description, representation, assertions).build()",
         "ch.tutteli.atrium.domain.builders.AssertImpl"

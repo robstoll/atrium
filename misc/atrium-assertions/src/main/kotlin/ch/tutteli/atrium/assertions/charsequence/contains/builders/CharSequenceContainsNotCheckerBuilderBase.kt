@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  *   sophisticated `contains` assertion for [CharSequence].
  */
 @Deprecated(
-    "use the abstract class from package creating; will be removed with 1.0.0",
+    "Use the abstract class from package creating; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.builders.CharSequenceContainsNotCheckerBuilderBase")
 )
 abstract class CharSequenceContainsNotCheckerBuilderBase<out T : CharSequence, out S : CharSequenceContains.SearchBehaviour>(

@@ -66,35 +66,35 @@ interface AssertionGroup : Assertion {
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "use AssertImpl.builder.list instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.list instead; will be removed with 1.0.0",
             ReplaceWith("AssertImpl.builder.list", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val list = BasicAssertionGroupBuilder(DefaultListAssertionGroupType)
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "use AssertImpl.builder.feature instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.feature instead; will be removed with 1.0.0",
             ReplaceWith("AssertImpl.builder.feature", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val feature = BasicAssertionGroupBuilder(DefaultFeatureAssertionGroupType)
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "use AssertImpl.builder.summary instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.summary instead; will be removed with 1.0.0",
             ReplaceWith("AssertImpl.builder.summary", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val summary = BasicAssertionGroupBuilder(DefaultSummaryAssertionGroupType)
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "use AssertImpl.builder.explanatoryGroup instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.explanatoryGroup instead; will be removed with 1.0.0",
             ReplaceWith("AssertImpl.builder.explanatoryGroup", "ch.tutteli.atrium.domain.builders.AssertImpl")
         )
         val explanatory = ExplanatoryAssertionGroupOption()
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "use AssertImpl.builder.invisible instead; will be removed with 1.0.0",
+            "Use AssertImpl.builder.invisible instead; will be removed with 1.0.0",
             ReplaceWith(
                 "AssertImpl.builder.invisibleGroup",
                 "ch.tutteli.atrium.domain.builders.AssertImpl",
@@ -105,7 +105,7 @@ interface AssertionGroup : Assertion {
 
         @Suppress("DEPRECATION")
         @Deprecated(
-            "use AssertImpl.builder.customType instead",
+            "Use AssertImpl.builder.customType instead",
             ReplaceWith(
                 "AssertImpl.builder.customType(groupType)",
                 "ch.tutteli.atrium.domain.builders.AssertImpl"

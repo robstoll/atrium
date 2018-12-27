@@ -14,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * which itself requires a [TypeTransformationFailureHandler].
  */
 @Deprecated(
-    "use the interface from package domain.creating; will be removed with 1.0.0",
+    "Use the interface from package domain.creating; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation")
 )
 interface AnyTypeTransformation {
@@ -28,7 +28,7 @@ interface AnyTypeTransformation {
      * @param TSub The type to which [AssertionPlant.subject] should have been transformed to.
      */
     @Deprecated(
-        "use the interface from package domain.creating; will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.TypeTransformationFailureHandler")
     )
     interface TypeTransformationFailureHandler<in T : Any, out TSub : Any> {

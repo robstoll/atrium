@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [CharSequence].
  */
 @Deprecated(
-    "use the description from package translations; will be removed with 1.0.0",
+    "Use the description from package translations; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion")
 )
 enum class DescriptionCharSequenceAssertion(override val value: String) : StringBasedTranslatable {

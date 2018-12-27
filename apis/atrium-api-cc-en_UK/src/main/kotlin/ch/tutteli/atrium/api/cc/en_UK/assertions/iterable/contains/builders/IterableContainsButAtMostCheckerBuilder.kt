@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAn
  * @param containsBuilder The previously used [IterableContains.Builder].
  */
 @Deprecated(
-    "use the builder from the package creating; will be removed with 1.0.0",
+    "Use the builder from the package creating; will be removed with 1.0.0",
     ReplaceWith(
         "ButAtMostCheckerOption",
         "ch.tutteli.atrium.api.cc.en_GB.creating.iterable.contains.builders.ButAtMostCheckerOption"
