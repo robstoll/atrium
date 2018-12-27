@@ -685,7 +685,7 @@ This experience is improved by providing up-to-date [code documentation](#kdoc) 
 so that you get the extra help needed.
 
 <details>
-<summary>:poop: there is not KDoc for toBe</summary>
+<summary>:poop: There is no KDoc for toBe</summary>
 
 There is, but IntelliJ will not show it to you due to [this bug](https://youtrack.jetbrains.com/issue/KT-24836) (please upvote it).
 You should be able to see the KDoc of other functions without problems. 
