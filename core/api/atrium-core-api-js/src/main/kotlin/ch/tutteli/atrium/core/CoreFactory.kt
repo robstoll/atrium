@@ -28,7 +28,7 @@ actual interface CoreFactory : CoreFactoryCommon {
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
      *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
+     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
      */
