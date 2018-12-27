@@ -8,7 +8,7 @@ import java.math.BigDecimal
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [BigDecimal].
  */
 @Deprecated(
-    "use the description from package translations, will be removed with 1.0.0",
+    "use the description from package translations; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion")
 )
 enum class DescriptionBigDecimalAssertion(override val value: String) : StringBasedTranslatable {

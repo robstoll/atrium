@@ -24,7 +24,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * @param atLeastCall The name of the function which was called and created this builder.
  */
 @Deprecated(
-    "use the abstract class from package creating, will be removed with 1.0.0",
+    "use the abstract class from package creating; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsAtLeastCheckerBuilderBase")
 )
 abstract class IterableContainsAtLeastCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(

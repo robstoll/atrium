@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.*
 /**
  * The *deprecated* builder to create a [Reporter] consisting of several components.
  */
-@Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+@Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
 class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFacade) {
 
     /**
@@ -35,7 +35,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     /**
      * Provides options to create a [Translator] or [TranslationSupplier].
      */
-    @Deprecated("Use reporterBuilder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use reporterBuilder from package domain.builders.reporting; will be removed with 1.0.0")
     companion object {
 
         /**
@@ -51,7 +51,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * @param primaryLocale The [Locale] used to format arguments of [TranslatableWithArgs].
          */
         @Deprecated(
-            "use reporterBuilder from package domain.builders.reporting, will be removed with 1.0.0",
+            "use reporterBuilder from package domain.builders.reporting; will be removed with 1.0.0",
             ReplaceWith(
                 "reporterBuilder.withoutTranslations(primaryLocale.toAtriumLocale())",
                 "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder",
@@ -68,7 +68,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * a [TranslationSupplier] or a [LocaleOrderDecider].
          */
         @Deprecated(
-            "use reporterBuilder from package domain.builders.reporting, will be removed with 1.0.0",
+            "use reporterBuilder from package domain.builders.reporting; will be removed with 1.0.0",
             ReplaceWith(
                 "reporterBuilder.withTranslator(translator)",
                 "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder"
@@ -91,7 +91,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
          * Uses the given [translationSupplier] as [TranslationSupplier].
          */
         @Deprecated(
-            "use reporterBuilder from package domain.builders.reporting, will be removed with 1.0.0",
+            "use reporterBuilder from package domain.builders.reporting; will be removed with 1.0.0",
             ReplaceWith(
                 "reporterBuilder.withTranslationSupplier(translationSupplier)",
                 "ch.tutteli.atrium.domain.builders.reporting.reporterBuilder"
@@ -101,7 +101,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
             = LocaleOrderDeciderOptions(translationSupplier)
     }
 
-    @Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
     class LocaleOrderDeciderOptions(private val translationSupplier: TranslationSupplier) {
 
         /**
@@ -117,7 +117,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
             = TranslatorOptions(translationSupplier, localeOrderDecider)
     }
 
-    @Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
     class TranslatorOptions(private val translationSupplier: TranslationSupplier, private val localeOrderDecider: LocaleOrderDecider) {
 
         /**
@@ -143,7 +143,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     /**
      * Provides options to create an [ObjectFormatter].
      */
-    @Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
     class ObjectFormatterOptions(private val translator: Translator) {
         /**
          * Uses [CoreFactory.newDetailedObjectFormatter] as [ObjectFormatter].
@@ -161,7 +161,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     /**
      * Provides options to create an [AssertionFormatterController].
      */
-    @Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
     class AssertionFormatterControllerOptions(private val objectFormatter: ObjectFormatter, private val translator: Translator) {
         /**
          * Uses [CoreFactory.newAssertionFormatterController] as [AssertionFormatterController].
@@ -179,7 +179,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
     /**
      * Provides options to create an [AssertionFormatterFacade].
      */
-    @Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
     class AssertionFormatterFacadeOptions(private val assertionFormatterController: AssertionFormatterController, private val objectFormatter: ObjectFormatter, private val translator: Translator) {
         /**
          * Uses [CoreFactory.newAssertionFormatterFacade] as [AssertionFormatterFacade].
@@ -196,13 +196,13 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
             factory(assertionFormatterController), objectFormatter, translator))
     }
 
-    @Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
     class AssertionFormatterChosenOptions(val assertionFormatterFacade: AssertionFormatterFacade, val objectFormatter: ObjectFormatter, val translator: Translator)
 
     /**
      * Provides options to create an [AssertionPairFormatter].
      */
-    @Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
     class AssertionPairFormatterOptions(private val options: AssertionFormatterChosenOptions) {
 
         /**
@@ -227,7 +227,7 @@ class ReporterBuilder(private val assertionFormatterFacade: AssertionFormatterFa
      *
      * @see AssertionFormatterFacadeOptions
      */
-    @Deprecated("Use the builder from package domain.builders.reporting, will be removed with 1.0.0")
+    @Deprecated("Use the builder from package domain.builders.reporting; will be removed with 1.0.0")
     class TextAssertionFormatterOptions(private val options: AssertionFormatterChosenOptions, private val assertionPairFormatter: AssertionPairFormatter) {
 
         /**

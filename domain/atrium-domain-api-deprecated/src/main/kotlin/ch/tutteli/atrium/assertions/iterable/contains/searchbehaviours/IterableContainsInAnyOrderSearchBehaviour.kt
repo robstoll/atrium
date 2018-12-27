@@ -10,7 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * Represents the *deprecated* search behaviour that expected entries might appear in any order within the [Iterable].
  */
 @Deprecated(
-    "use the interface InAnyOrderSearchBehaviour instead, will be removed with 1.0.0",
+    "use the interface InAnyOrderSearchBehaviour instead; will be removed with 1.0.0",
     ReplaceWith(
         "InAnyOrderSearchBehaviour",
         "ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderSearchBehaviour"

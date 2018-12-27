@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
  *   `contains` assertion which was started with the given [containsBuilder].
  */
 @Deprecated(
-    "use the interface IterableContains.CheckerOption instead, will be removed with 1.0.0",
+    "use the interface IterableContains.CheckerOption instead; will be removed with 1.0.0",
     ReplaceWith(
         "IterableContains.CheckerOption",
         "ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains"

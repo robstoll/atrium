@@ -19,7 +19,7 @@ import ch.tutteli.atrium.domain.creating.basic.contains.Contains
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
 @Deprecated(
-    "use the interface Contains.Builder instead, will be removed with 1.0.0",
+    "use the interface Contains.Builder instead; will be removed with 1.0.0",
     ReplaceWith(
         "Contains.Builder",
         "ch.tutteli.atrium.domain.creating.basic.contains.Contains"

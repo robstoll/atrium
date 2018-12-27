@@ -22,7 +22,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param reporter The reporter which will be use for a [CoreFactory.newThrowingAssertionChecker].
  */
 @Deprecated(
-    "use AssertImpl, will be removed with 1.0.0",
+    "use AssertImpl; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.throwable.thrownBuilder(assertionVerb, act, reporter)",
         "ch.tutteli.atrium.domain.builders.AssertImpl"

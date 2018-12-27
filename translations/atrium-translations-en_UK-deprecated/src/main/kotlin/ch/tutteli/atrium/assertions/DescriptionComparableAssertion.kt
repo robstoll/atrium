@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the assertion functions which are applicable to [Comparable].
  */
 @Deprecated(
-    "use the description from package translations, will be removed with 1.0.0",
+    "use the description from package translations; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.translations.DescriptionComparableAssertion")
 )
 enum class DescriptionComparableAssertion(override val value: String) : StringBasedTranslatable {

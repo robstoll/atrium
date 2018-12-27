@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
 @Deprecated(
-    "use the interface CharSequenceContains.Builder instead, will be removed with 1.0.0",
+    "use the interface CharSequenceContains.Builder instead; will be removed with 1.0.0",
     ReplaceWith(
         "CharSequenceContains.Builder",
         "ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains"

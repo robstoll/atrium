@@ -138,7 +138,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Asse
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
-@Deprecated("Use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant contains assertionCreator"))
+@Deprecated("Use the extension fun `contains` instead; will be removed 1.0.0", ReplaceWith("plant contains assertionCreator"))
 fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = plant contains assertionCreator
 
@@ -158,7 +158,7 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
-@Deprecated("Use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant contains entries"))
+@Deprecated("Use the extension fun `contains` instead; will be removed 1.0.0", ReplaceWith("plant contains entries"))
 fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = plant contains entries
 
@@ -240,7 +240,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inGiven order but only entry assertionCreator
 
-@Deprecated("Use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant containsStrictly assertionCreator"))
+@Deprecated("Use the extension fun `containsStrictly` instead; will be removed 1.0.0", ReplaceWith("plant containsStrictly assertionCreator"))
 fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = plant containsStrictly assertionCreator
 
@@ -260,7 +260,7 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, asser
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inGiven order but only the entries
 
-@Deprecated("Use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant containsStrictly entries"))
+@Deprecated("Use the extension fun `containsStrictly` instead; will be removed 1.0.0", ReplaceWith("plant containsStrictly entries"))
 fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = plant containsStrictly entries
 

@@ -14,7 +14,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-@Deprecated("Use CharSequenceContainsCheckers.newExactlyChecker, will be removed with 1.0.0", ReplaceWith("CharSequenceContainsCheckers.newExactlyChecker(times, nameContainsNotFun, exactlyCall)", "ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsCheckers"))
+@Deprecated("Use CharSequenceContainsCheckers.newExactlyChecker; will be removed with 1.0.0", ReplaceWith("CharSequenceContainsCheckers.newExactlyChecker(times, nameContainsNotFun, exactlyCall)", "ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsCheckers"))
 class CharSequenceContainsExactlyChecker(
     times: Int,
     nameContainsNotFun: String,

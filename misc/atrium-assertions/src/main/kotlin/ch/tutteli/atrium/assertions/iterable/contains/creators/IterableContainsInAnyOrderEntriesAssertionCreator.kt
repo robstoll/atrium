@@ -29,7 +29,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHIC
  *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
-@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
+@Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
 open class IterableContainsInAnyOrderEntriesAssertionCreator<E : Any, T : Iterable<E?>>(
     private val searchBehaviour: IterableContainsInAnyOrderSearchBehaviour,
     checkers: List<ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker>

@@ -41,13 +41,13 @@ interface AtriumErrorAdjusterOption : AtriumErrorAdjusterCommonOption<ReporterOp
     fun withMultipleAdjusters(configure: MultipleAdjustersOption.() -> Unit): ReporterOption
 
     @Deprecated(
-        "Define an AtriumErrorAdjuster or use withDefaultAtriumErrorAdjusters, will be removed with 1.0.0",
+        "Define an AtriumErrorAdjuster or use withDefaultAtriumErrorAdjusters; will be removed with 1.0.0",
         ReplaceWith("this.withDefaultAtriumErrorAdjusters().withOnlyFailureReporter()")
     )
     fun withOnlyFailureReporter(): ReporterBuilderFinalStep
 
     @Deprecated(
-        "Define an AtriumErrorAdjuster or use withDefaultAtriumErrorAdjusters, will be removed with 1.0.0",
+        "Define an AtriumErrorAdjuster or use withDefaultAtriumErrorAdjusters; will be removed with 1.0.0",
         ReplaceWith("this.withDefaultAtriumErrorAdjusters().withCustomReporter(factory)")
     )
     fun withCustomReporter(factory: (AssertionFormatterFacade) -> Reporter): ReporterBuilderFinalStep

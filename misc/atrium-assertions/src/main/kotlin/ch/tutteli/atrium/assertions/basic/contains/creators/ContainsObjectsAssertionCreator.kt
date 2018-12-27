@@ -28,7 +28,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param searchBehaviour The chosen search behaviour.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
+@Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
 abstract class ContainsObjectsAssertionCreator<T : Any, S, B : ch.tutteli.atrium.domain.creating.basic.contains.Contains.SearchBehaviour, C : ch.tutteli.atrium.domain.creating.basic.contains.Contains.Checker>(
     private val searchBehaviour: B,
     checkers: List<C>

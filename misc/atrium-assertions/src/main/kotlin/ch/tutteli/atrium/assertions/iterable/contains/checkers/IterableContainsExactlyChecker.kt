@@ -14,7 +14,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-@Deprecated("Use IterableContainsCheckers.newExactlyChecker, will be removed with 1.0.0", ReplaceWith("IterableContainsCheckers.newExactlyChecker(times, nameContainsNotFun, exactlyCall)", "ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers"))
+@Deprecated("Use IterableContainsCheckers.newExactlyChecker; will be removed with 1.0.0", ReplaceWith("IterableContainsCheckers.newExactlyChecker(times, nameContainsNotFun, exactlyCall)", "ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers"))
 class IterableContainsExactlyChecker(
     times: Int,
     nameContainsNotFun: String,

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
  * is passed in (identity function).
  */
 @Deprecated(
-    "use the interface NoOpSearchBehaviour instead, will be removed with 1.0.0",
+    "use the interface NoOpSearchBehaviour instead; will be removed with 1.0.0",
     ReplaceWith(
         "NoOpSearchBehaviour",
         "ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour"

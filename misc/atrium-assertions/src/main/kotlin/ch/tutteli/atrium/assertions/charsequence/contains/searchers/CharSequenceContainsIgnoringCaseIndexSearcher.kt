@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours.CharS
  * Represents a [Searcher] which implements the [CharSequenceContainsIgnoringCaseSearchBehaviour] behaviour and uses
  * [CharSequence.indexOf] to find expected objects.
  */
-@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
+@Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
 class CharSequenceContainsIgnoringCaseIndexSearcher : Searcher<CharSequenceContainsIgnoringCaseSearchBehaviour> {
     private val searcher = CharSequenceContainsIndexSearcher()
 

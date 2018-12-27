@@ -20,7 +20,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
  * @param searchBehaviour The search behaviour which shall be applied to the input of the search.
  */
 @Deprecated(
-    "use the interface IterableContains.Builder instead, will be removed with 1.0.0",
+    "use the interface IterableContains.Builder instead; will be removed with 1.0.0",
     ReplaceWith(
         "IterableContains.Builder",
         "ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains"
