@@ -10,7 +10,7 @@ import org.jetbrains.spek.api.include
 abstract class MapAsIterableAssertionsSpec(
     verbs: AssertionVerbFactory,
     asEntriesFunName: String,
-    asEntries: Assert<Map<String, Int>>.() -> Assert<Iterable<Map.Entry<String, Int>>>,
+    asEntries: Assert<Map<String, Int>>.() -> Assert<Set<Map.Entry<String, Int>>>,
     describePrefix: String = "[Atrium] "
 ) : IterablePredicateSpecBase(verbs, {
 
