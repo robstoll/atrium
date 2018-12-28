@@ -15,50 +15,62 @@ apply plugin: 'ch.tutteli.settings'
 //noinspection GroovyAssignabilityCheck
 include {
 
+    //TODO remove as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
+    def kotlinJvmJsAndAndroidIfCi = { self, String suffix ->
+        if (System.getenv('CI')) {
+            self.kotlinJvmJsAndroid(suffix)
+        } else {
+            self.kotlinJvmJs(suffix)
+
+        }
+    }
+
     bundles {
-        kotlinJvmJsAndroid('cc-de_CH-robstoll')
-        kotlinJvmJsAndroid('cc-en_GB-robstoll')
-        kotlinJvmJsAndroid('cc-infix-en_GB-robstoll')
+
+
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB-robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
             folder('cc-en_GB-robstoll') {
                 _ 'cc-en_GB-robstoll-smoke-test'
             }
-            folder('cc-infix-en_GB-robstoll'){
+            folder('cc-infix-en_GB-robstoll') {
                 _ 'cc-infix-en_GB-robstoll-smoke-test'
             }
         }
     }
 
     folder('apis', 'api-') {
-        kotlinJvmJsAndroid('cc-de_CH')
-        kotlinJvmJsAndroid('cc-en_GB')
-        kotlinJvmJsAndroid('cc-infix-en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
     }
 
     domain('domain-') {
-        kotlinJvmJsAndroid('api')
-        kotlinJvmJsAndroid('builders')
-        kotlinJvmJsAndroid('robstoll')
-        kotlinJvmJsAndroid('robstoll-lib')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'api')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'builders')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll-lib')
     }
 
     core('core-') {
-        kotlinJvmJsAndroid('api')
-        kotlinJvmJsAndroid('robstoll')
-        kotlinJvmJsAndroid('robstoll-lib')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'api')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll-lib')
     }
 
     translations('translations-') {
-        kotlinJvmJsAndroid('de_CH')
-        kotlinJvmJsAndroid('en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'de_CH')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'en_GB')
     }
 
     misc {
         _ 'bc-test'
         _ 'spec'
-        kotlinJvmJsAndroid('verbs')
-        kotlinJvmJsAndroid('verbs-internal')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'verbs-internal')
     }
 
     //TODO remove all below with 1.0.0

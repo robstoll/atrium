@@ -303,8 +303,10 @@ Release & deploy a commit
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
 4. deploy to bintray:
-    a) gr clean publishBintray
-    b) Log in to bintray, check and publish new jars
+    a) Temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
+       export CI=true
+    b) gr clean publishBintray
+    c) Log in to bintray, check and publish new jars
 5. create release on github
     a) git tag vX.Y.Z
     b) git push origin vX.Y.Z
