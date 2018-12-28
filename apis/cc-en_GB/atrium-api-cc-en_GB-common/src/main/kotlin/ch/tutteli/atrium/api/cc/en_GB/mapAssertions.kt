@@ -32,31 +32,12 @@ fun <T : Map<*, *>> Assert<T>.isNotEmpty()
     = addAssertion(AssertImpl.map.isNotEmpty(this))
 
 /**
- * Turns `Assert<Map<K, *>>` into `Assert<Iterable<K>>`.
+ * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>`.
  *
  * The transformation as such is not reflected in reporting.
+ * Use `property(subject::entries)` if you want to show the transformation in reporting.
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-fun <K> Assert<Map<K, *>>.asKeys(): AssertionPlant<Iterable<K>>
-    = AssertImpl.changeSubject(this) { subject.keys }
-
-/**
- * Turns `Assert<Map<*, V>>` into `Assert<Iterable<V>>`.
- *
- * The transformation as such is not reflected in reporting.
- *
- * @return The newly created [AssertionPlant] for the transformed subject.
- */
-fun <V> Assert<Map<*, V>>.asValues(): AssertionPlant<Iterable<V>>
-    = AssertImpl.changeSubject(this) { subject.values }
-
-/**
- * Turns `Assert<Map<K, V>>` into `Assert<Iterable<Map.Entry<K, V>>>`.
- *
- * The transformation as such is not reflected in reporting.
- *
- * @return The newly created [AssertionPlant] for the transformed subject.
- */
-fun <K, V> Assert<Map<K, V>>.asEntries(): AssertionPlant<Iterable<Map.Entry<K, V>>>
+fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = AssertImpl.changeSubject(this) { subject.entries }
