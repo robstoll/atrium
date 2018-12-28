@@ -45,12 +45,11 @@ val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::k
 
 /**
  * Makes the assertion that [AssertionPlant.subject]'s property [keys][Map.keys] holds all assertions the given
- * [assertionCreator] might create.
+ * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  * does not hold.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <K, V> Assert<Map<K, V>>.keys(assertionCreator: Assert<Set<K>>.() -> Unit): Assert<Map<K, V>> =
     //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
@@ -71,12 +70,11 @@ val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map
 
 /**
  * Makes the assertion that [AssertionPlant.subject]'s property [values][Map.values] holds all assertions the given
- * [assertionCreator] might create.
+ * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  * does not hold.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
 fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -> Unit): Assert<Map<K, V>> =
     //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
@@ -94,3 +92,14 @@ fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -
  */
 fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = AssertImpl.changeSubject(this) { subject.entries }
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding value
+ * holds all assertions the given [assertionCreator] might create for it.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
+ * does not hold.
+ */
+inline fun <K,reified V: Any> Assert<Map<K, V>>.getExisting(key: K, noinline assertionCreator: Assert<V>.() -> Unit): Assert<Map<K, V>>
+    = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))

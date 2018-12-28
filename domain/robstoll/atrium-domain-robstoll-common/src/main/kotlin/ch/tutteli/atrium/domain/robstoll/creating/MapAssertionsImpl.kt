@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.MapAssertions
+import ch.tutteli.atrium.domain.robstoll.lib.creating._getExisting
 import ch.tutteli.atrium.domain.robstoll.lib.creating._hasSize
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isEmpty
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotEmpty
@@ -19,4 +20,10 @@ class MapAssertionsImpl : MapAssertions {
 
     override fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>)
         = _isNotEmpty(plant)
+
+    override fun <K, V : Any, T : Map<K, V>> getExisting(
+        plant: AssertionPlant<T>,
+        key: K,
+        assertionCreator: AssertionPlant<V>.() -> Unit
+    ) = _getExisting(plant, key, assertionCreator)
 }

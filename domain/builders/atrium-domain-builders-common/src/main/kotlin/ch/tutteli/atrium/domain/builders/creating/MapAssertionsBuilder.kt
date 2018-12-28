@@ -1,10 +1,10 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.creating.mapAssertions
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Delegates inter alia to the implementation of [MapAssertions].
@@ -21,4 +21,10 @@ object MapAssertionsBuilder : MapAssertions {
 
     override inline fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>)
         = mapAssertions.isNotEmpty(plant)
+
+    override inline fun <K, V : Any, T : Map<K, V>> getExisting(
+        plant: AssertionPlant<T>,
+        key: K,
+        noinline assertionCreator: AssertionPlant<V>.() -> Unit
+    ) = mapAssertions.getExisting(plant, key, assertionCreator)
 }

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
@@ -52,9 +53,8 @@ val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::k
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  * does not hold.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V> Assert<Map<K, V>>.keys(assertionCreator: Assert<Set<K>>.() -> Unit): Assert<Map<K, V>> =
+infix fun <K, V> Assert<Map<K, V>>.keys(assertionCreator: Assert<Set<K>>.() -> Unit): Assert<Map<K, V>> =
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
     addAssertion(AssertImpl.collector.collect(this) {
         property(Map<K, V>::keys, assertionCreator)
@@ -78,9 +78,8 @@ val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  * does not hold.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -> Unit): Assert<Map<K, V>> =
+infix fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -> Unit): Assert<Map<K, V>> =
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
     addAssertion(AssertImpl.collector.collect(this) {
         property(Map<K, V>::values, assertionCreator)
@@ -96,3 +95,11 @@ fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -
  */
 fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = AssertImpl.changeSubject(this) { subject.entries }
+
+/**
+ * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
+ *
+ * @return A fluent builder to finish the assertion.
+ */
+infix fun <K, V: Any> Assert<Map<K, V>>.getExisting(key: K): MapGetOption<K, V>
+    = MapGetOption.create(this, key)

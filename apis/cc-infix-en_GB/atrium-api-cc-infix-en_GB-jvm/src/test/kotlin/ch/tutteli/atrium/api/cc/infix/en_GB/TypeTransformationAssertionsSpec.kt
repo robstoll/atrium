@@ -45,7 +45,8 @@ class TypeTransformationAssertionsSpec : ch.tutteli.atrium.spec.integration.Type
         }
 
         private inline fun <reified TSub : Any> isA(plant: Assert<Any>, noinline assertionCreator: Assert<TSub>.() -> Unit) {
-            plant isA (assertionCreator)
+            //TODO use infix notation as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
+            plant.isA<TSub> { assertionCreator() }
         }
 
         //TODO get rid of different overloads as soon as https://youtrack.jetbrains.com/issue/KT-19884 is fixed
