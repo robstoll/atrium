@@ -1,9 +1,12 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Keyword
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 
 /**
  * Makes the assertion that [AssertionPlantNullable.subject] is not null and if so, uses [assertionCreator]
@@ -46,3 +49,8 @@ inline infix fun <reified TSub : Any> Assert<Any>.isA(noinline assertionCreator:
 inline infix fun <reified T : Any> AssertionPlantNullable<T?>.notToBeNullBut(expected: T) {
     notToBeNull { this toBe expected }
 }
+
+@Deprecated(ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED, ReplaceWith("this notToBeNullBut (keyword as Any)"))
+@Suppress("UNUSED_PARAMETER", "unused")
+infix fun <T: Any> AssertionPlantNullable<T>.notToBeNullBut(keyword: Keyword): Nothing
+    = throw PleaseUseReplacementException("this notToBe (keyword as Any)")

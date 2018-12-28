@@ -213,15 +213,15 @@ def createBcTasks(String apiName, String version, String forgive) {
 
 def createFixSrcTask(String apiName, String version, String file, Closure modifyContent) {
     def nameUnderline070 = getNameUnderline(apiName, version)
-    def name = "${apiName}-$version"
-    def fixSrc = task("fixSrc-$name") {
+    def taskSuffix = "$apiName-$version"
+    def fixSrc = task("fixSrc-$taskSuffix-$file") {
         doLast {
             def srcFile = project.file("${getSrcDirectory(apiName, version)}/ch/tutteli/atrium/api/${apiName.replaceAll('-', '/')}/$file")
             String newContent = modifyContent(srcFile.getText('UTF-8'))
             srcFile.write(newContent, 'UTF-8')
         }
     }
-    def unzip = project.tasks.getByName("unzip-$name")
+    def unzip = project.tasks.getByName("unzip-$taskSuffix")
     fixSrc.mustRunAfter(unzip)
     project."compileSrc_${nameUnderline070}Kotlin".dependsOn fixSrc
 }
@@ -301,4 +301,7 @@ createBcTasksForApis('0.7.0',
 
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
     return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
+}
+createFixSrcTask('cc-infix-en_GB', '0.7.0', 'BigDecimalAssertionsSpec.kt') { String content ->
+    return content.replaceAll(/Assert<BigDecimal>::toBe.name/, '"toBe"').replaceAll(/Assert<BigDecimal>::notToBe.name/, '"notToBe"')
 }

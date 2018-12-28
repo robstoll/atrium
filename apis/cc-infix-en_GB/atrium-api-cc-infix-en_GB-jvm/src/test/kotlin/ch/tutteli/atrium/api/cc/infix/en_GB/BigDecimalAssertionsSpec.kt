@@ -3,6 +3,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import java.math.BigDecimal
+import kotlin.reflect.KFunction2
 
 class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.integration.BigDecimalAssertionsSpec(
     AssertionVerbFactory,
@@ -17,8 +18,11 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.integration.BigDecimalAs
 ) {
     companion object {
         @Suppress("DEPRECATION")
+        private val toBeFun : KFunction2<Assert<BigDecimal>, BigDecimal, Assert<BigDecimal>> =  Assert<BigDecimal>::toBe
+
+        @Suppress("DEPRECATION")
         fun toBePair()
-            = Assert<BigDecimal>::toBe.name to Companion::toBe
+            = toBeFun.name to Companion::toBe
 
         @Suppress("DEPRECATION")
         private fun toBe(plant: Assert<BigDecimal>, a: BigDecimal): Nothing
@@ -28,8 +32,11 @@ class BigDecimalAssertionsSpec : ch.tutteli.atrium.spec.integration.BigDecimalAs
             = plant toBe expected
 
         @Suppress("DEPRECATION")
+        private val notToBeFun : KFunction2<Assert<BigDecimal>, BigDecimal, Assert<BigDecimal>> =  Assert<BigDecimal>::notToBe
+
+        @Suppress("DEPRECATION")
         fun notToBePair()
-            = Assert<BigDecimal>::notToBe.name to Companion::notToBe
+            = notToBeFun.name to Companion::notToBe
 
         @Suppress("DEPRECATION")
         private fun notToBe(plant: Assert<BigDecimal>, expected: BigDecimal): Nothing
