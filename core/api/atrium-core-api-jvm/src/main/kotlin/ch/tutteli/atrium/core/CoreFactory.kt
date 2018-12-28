@@ -50,6 +50,8 @@ actual interface CoreFactory : CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
      *
+     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
+     *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
@@ -75,6 +77,8 @@ actual interface CoreFactory : CoreFactoryCommon {
      * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
+     *
+     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).

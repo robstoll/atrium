@@ -11,7 +11,7 @@ import ch.tutteli.atrium.core.newReportingPlantNullable as newReportingPlantNull
 
 actual interface CoreFactory : CoreFactoryCommon {
 
-    // we need to define the following methods here so that we can retain binary backward compatibility
+    // we need to define the following methods here so that we can retain binary backward compatibility in JVM
     // => Kotlin generates an object called CoreFactory$DefaultImpls due to the optional parameters
     // hence we need to place the methods here and cannot move them to CoreFactoryCommon as well
 
@@ -24,11 +24,14 @@ actual interface CoreFactory : CoreFactoryCommon {
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
      *
+     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
+     *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
      *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
+     *
      *
      * @return The newly created assertion plant.
      */
@@ -49,6 +52,8 @@ actual interface CoreFactory : CoreFactoryCommon {
      * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
      * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
      * (the provider is most likely called more than once).
+     *
+     * Notice, this method will be moved to [CoreFactoryCommon] with 1.0.0.
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
