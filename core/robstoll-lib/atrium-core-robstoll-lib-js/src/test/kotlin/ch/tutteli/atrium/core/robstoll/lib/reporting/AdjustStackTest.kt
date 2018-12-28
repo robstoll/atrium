@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.core.polyfills.stack
+import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
@@ -16,7 +16,7 @@ class AdjustStackTest {
         expect {
             assertNoOp(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(subject::stack).contains(
+            property(subject::stackBacktrace).contains(
                 { contains("mocha") },
                 { contains("atrium-core-api-js.js") }
             )
@@ -28,7 +28,7 @@ class AdjustStackTest {
         expect {
             assertRemoveRunner(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(subject::stack)
+            property(subject::stackBacktrace)
                 .containsNot.entry { contains("mocha") }
                 .contains { contains("atrium-core-api-js.js") }
         }
@@ -39,7 +39,7 @@ class AdjustStackTest {
         expect {
             assertRemoveAtrium(1).toBe(2)
         }.toThrow<AssertionError> {
-            property(subject::stack)
+            property(subject::stackBacktrace)
                 .contains { contains("mocha") }
                 .containsNot.entry { contains("atrium-core-api-js.js") }
         }

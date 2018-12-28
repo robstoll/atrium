@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.reporting
 
+
 /**
  * Responsible to adjust a given [AtriumError] for improved error reporting.
  *
@@ -12,7 +13,7 @@ actual interface AtriumErrorAdjuster : AtriumErrorAdjusterCommon {
      *
      * As side notice, `stack` is a property of Error which is currently not visible in Kotlin.
      *
-     * @return The adjusted stack.
+     * @return The adjusted `stack`.
      */
     fun adjustStack(stackTrace: Sequence<String>): Sequence<String>
 }

@@ -3,7 +3,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.fa
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.core.polyfills.stack
+import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -51,7 +51,7 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
     }
 
     private fun createStackTraceHint(throwable: Throwable): DescriptiveAssertion {
-        val stackTrace = throwable.stack
+        val stackTrace = throwable.stackBacktrace
         val stackTraceAsString = stackTrace.asSequence().take(MAX_NUM_OF_STACK).joinToString("\n") +
             if (stackTrace.size > MAX_NUM_OF_STACK) "\n..." else ""
 

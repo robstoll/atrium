@@ -1,12 +1,13 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
-import ch.tutteli.atrium.core.polyfills.stack
+import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 
 abstract class FilterAtriumErrorAdjuster : AtriumErrorAdjuster {
+
     final override fun adjust(atriumError: AtriumError): AtriumError {
-        val filteredStack = atriumError.stack.asSequence().filterUndesiredStackFrames()
+        val filteredStack = atriumError.stackBacktrace.asSequence().filterUndesiredStackFrames()
         val prefix = "    at "
         atriumError.asDynamic().stack = filteredStack.joinToString("\n$prefix", prefix)
         return atriumError
@@ -20,7 +21,7 @@ abstract class FilterAtriumErrorAdjuster : AtriumErrorAdjuster {
      *
      * Override in subclass if you want a different behaviour.
      *
-     * @returns the given [atriumError].
+     * @return the given [atriumError].
      */
     override fun adjustOtherThanStack(atriumError: AtriumError): AtriumError = atriumError
 

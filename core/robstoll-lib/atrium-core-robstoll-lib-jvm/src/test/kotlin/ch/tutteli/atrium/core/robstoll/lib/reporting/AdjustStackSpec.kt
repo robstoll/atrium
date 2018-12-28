@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.cc.en_GB.*
-import ch.tutteli.atrium.core.polyfills.stack
+import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.ReportingAssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
-import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
 import ch.tutteli.atrium.verbs.internal.expect
@@ -24,7 +23,7 @@ class AdjustStackSpec : Spek({
             expect {
                 assertNoOp(1).toBe(2)
             }.toThrow<AssertionError> {
-                property(subject::stack).contains(
+                property(subject::stackBacktrace).contains(
                     { startsWith("org.jetbrains.spek") },
                     { startsWith("org.junit") },
                     { startsWith("ch.tutteli.atrium") }
@@ -37,11 +36,11 @@ class AdjustStackSpec : Spek({
             subject, AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
         )
 
-        it("does not contain spek nor junit in stack but atrium") {
+        it("does not contain spek nor junit in stackBacktrace but atrium") {
             expect {
                 assertRemoveRunner(1).toBe(2)
             }.toThrow<AssertionError> {
-                property(subject::stack)
+                property(subject::stackBacktrace)
                     .containsNot.entries({ startsWith("org.jetbrains.spek") }, { startsWith("org.junit") })
                     .contains { startsWith("ch.tutteli.atrium") }
             }
@@ -53,11 +52,11 @@ class AdjustStackSpec : Spek({
             subject, AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
         )
 
-        it("does not contain atrium but spek and junit in stack") {
+        it("does not contain atrium but spek and junit in stackBacktrace") {
             expect {
                 assertRemoveAtrium(1).toBe(2)
             }.toThrow<AssertionError> {
-                property(subject::stack)
+                property(subject::stackBacktrace)
                     .contains({ startsWith("org.jetbrains.spek") }, { startsWith("org.junit") })
                     .containsNot.entry { startsWith("ch.tutteli.atrium") }
             }
@@ -73,11 +72,11 @@ class AdjustStackSpec : Spek({
             )
         }
 
-        it("does neither contain atrium nor spek or junit in stack") {
+        it("does neither contain atrium nor spek or junit in stackBacktrace") {
             expect {
                 assertRemoveRunnerAndAtrium(1).toBe(2)
             }.toThrow<AssertionError> {
-                property(subject::stack).isEmpty()
+                property(subject::stackBacktrace).isEmpty()
             }
         }
     }
@@ -91,11 +90,11 @@ class AdjustStackSpec : Spek({
             )
         }
 
-        it("does neither contain atrium nor spek or junit in stack") {
+        it("does neither contain atrium nor spek or junit in stackBacktrace") {
             expect {
                 assertRemoveAtriumAndRunner(1).toBe(2)
             }.toThrow<AssertionError> {
-                property(subject::stack).isEmpty()
+                property(subject::stackBacktrace).isEmpty()
             }
         }
     }
@@ -114,11 +113,11 @@ class AdjustStackSpec : Spek({
             )
         }
 
-        it("does neither contain atrium nor spek or junit in stack") {
+        it("does neither contain atrium nor spek or junit in stackBacktrace") {
             expect {
                 assertRemoveAtriumAndRunner(1).toBe(2)
             }.toThrow<AssertionError> {
-                property(subject::stack).isEmpty()
+                property(subject::stackBacktrace).isEmpty()
             }
         }
     }

@@ -11,7 +11,7 @@ class ThrowableStackTest {
 
     @Test
     fun illegalStateException() {
-        val stack = IllegalStateException("test").stack
+        val stack = IllegalStateException("test").stackBacktrace
         assert(stack.first()) startsWith "${ThrowableStackTest::class.simpleName}.illegalStateException"
         assert(stack) {
             none { this contains "init" }
@@ -21,7 +21,7 @@ class ThrowableStackTest {
 
     @Test
     fun assertionError() {
-        val stack = AssertionError("test").stack
+        val stack = AssertionError("test").stackBacktrace
         assert(stack.first()) startsWith "${ThrowableStackTest::class.simpleName}.assertionError"
         assert(stack) {
             none { this contains "init" }

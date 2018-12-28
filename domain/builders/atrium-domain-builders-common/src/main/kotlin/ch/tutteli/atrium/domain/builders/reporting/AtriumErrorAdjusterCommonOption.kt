@@ -9,12 +9,12 @@ import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 interface AtriumErrorAdjusterCommonOption<R: Any> {
 
     /**
-     * Uses an [AtriumErrorAdjuster] which removes stack frames of test runners from a given [AtriumError].
+     * Uses an [AtriumErrorAdjuster] which removes stackBacktrace frames of test runners from a given [AtriumError].
      */
     fun withRemoveRunnerAtriumErrorAdjuster(): R
 
     /**
-     * Uses an [AtriumErrorAdjuster] which removes stack frames of Atrium from a given [AtriumError].
+     * Uses an [AtriumErrorAdjuster] which removes stackBacktrace frames of Atrium from a given [AtriumError].
      */
     fun withRemoveAtriumFromAtriumErrorAdjuster(): R
 
