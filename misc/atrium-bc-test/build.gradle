@@ -131,7 +131,7 @@ def createBcTasks(String apiName, String version, String forgive) {
             }
         }
         if (!apiName.endsWith('en_UK')) {
-            add(confCommon, prefixedProject("$apiName-jvm"))
+            add(confCommon, prefixedProject("$apiName-robstoll-jvm"))
         } else {
             add(confCommon, prefixedProject("$apiName-robstoll"))
         }

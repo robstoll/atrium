@@ -16,16 +16,16 @@ apply plugin: 'ch.tutteli.settings'
 include {
 
     bundles {
-        kotlinJvmJsAndroid('cc-de_CH')
-        kotlinJvmJsAndroid('cc-en_GB')
-        kotlinJvmJsAndroid('cc-infix-en_GB')
+        kotlinJvmJsAndroid('cc-de_CH-robstoll')
+        kotlinJvmJsAndroid('cc-en_GB-robstoll')
+        kotlinJvmJsAndroid('cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-            folder('cc-en_GB') {
-                _ 'cc-en_GB-smoke-test'
+            folder('cc-en_GB-robstoll') {
+                _ 'cc-en_GB-robstoll-smoke-test'
             }
-            folder('cc-infix-en_GB'){
-                _ 'cc-infix-en_GB-smoke-test'
+            folder('cc-infix-en_GB-robstoll'){
+                _ 'cc-infix-en_GB-robstoll-smoke-test'
             }
         }
     }
