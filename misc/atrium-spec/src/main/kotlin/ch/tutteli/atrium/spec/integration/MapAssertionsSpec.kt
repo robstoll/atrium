@@ -50,7 +50,7 @@ abstract class MapAssertionsSpec(
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
 
     describeFun(hasSize) {
-        context("collection with two entries") {
+        context("map with two entries") {
             test("expect 2 does not throw") {
                 fluent.hasSizeFun(2)
             }
@@ -72,11 +72,11 @@ abstract class MapAssertionsSpec(
     }
 
     describeFun(isEmpty) {
-        it("does not throw if a collection is empty") {
+        it("does not throw if a map is empty") {
             assert(mapOf()).isEmptyFun()
         }
 
-        it("throws an AssertionError if a collection is not empty") {
+        it("throws an AssertionError if a map is not empty") {
             expect {
                 assert(mapOf("a" to 1, "b" to 2)).isEmptyFun()
             }.toThrow<AssertionError> { messageContains("$isDescr: $empty") }
@@ -84,11 +84,11 @@ abstract class MapAssertionsSpec(
     }
 
     describeFun(isNotEmpty) {
-        it("does not throw if a collection is not empty") {
+        it("does not throw if a map is not empty") {
             assert(mapOf("a" to 1)).isNotEmptyFun()
         }
 
-        it("throws an AssertionError if a collection is empty") {
+        it("throws an AssertionError if a map is empty") {
             expect {
                 assert(mapOf()).isNotEmptyFun()
             }.toThrow<AssertionError> { messageContains("$isNotDescr: $empty") }
