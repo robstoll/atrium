@@ -16,3 +16,11 @@ dependencies {
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal-jvm')
 }
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileTestKotlin.dependsOn(
+    prefixedProject('core-robstoll-jvm').compileKotlin,
+    prefixedProject('core-robstoll-jvm').processResources,
+    prefixedProject('domain-robstoll-jvm').compileKotlin,
+    prefixedProject('domain-robstoll-jvm').processResources
+)
