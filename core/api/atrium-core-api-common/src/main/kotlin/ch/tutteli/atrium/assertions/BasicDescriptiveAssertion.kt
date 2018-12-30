@@ -51,5 +51,12 @@ constructor(
     /**
      * @suppress
      */
-    override fun toString() = "$description: $representation (holds=${holds()})"
+    override fun toString() = "$description: $representation (holds=${safeHoldsForToString()})"
+
+    private fun safeHoldsForToString(): String =
+        try {
+            holds().toString()
+        } catch (e: PlantHasNoSubjectException) {
+            "PlantHasNoSubjectException"
+        }
 }
