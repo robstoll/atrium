@@ -9,20 +9,20 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 
 class NonThrowingAssertionCollectorForExplanationImpl : NonThrowingAssertionCollectorForExplanation {
     override fun <E : Any> collect(
-        warning: Translatable,
+        warningCannotEvaluate: Translatable,
         assertionCreator: (AssertionPlant<E>.() -> Unit)?,
         subject: E?
     ): List<Assertion>
         = AssertionCollectorForExplanation(false)
-        .collect(warning, assertionCreator, subject)
+        .collect(warningCannotEvaluate, assertionCreator, subject)
 }
 
 class ThrowingAssertionCollectorForExplanationImpl : ThrowingAssertionCollectorForExplanation {
     override fun <E : Any> collect(
-        warning: Translatable,
+        warningCannotEvaluate: Translatable,
         assertionCreator: (AssertionPlant<E>.() -> Unit)?,
         subject: E?
     ): List<Assertion>
         = AssertionCollectorForExplanation(true)
-        .collect(warning, assertionCreator, subject)
+        .collect(warningCannotEvaluate, assertionCreator, subject)
 }

@@ -47,13 +47,13 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(
 ) = collectIterableAssertionsForExplanation(CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE, assertionCreator, subject)
 
 internal fun <E : Any> collectIterableAssertionsForExplanation(
-    description: Translatable,
+    warningCannotEvaluate: Translatable,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
     subject: E?
 ) = AssertImpl.collector
     .forExplanation
     .throwIfNoAssertionIsCollected
-    .collect(description, assertionCreator, subject)
+    .collect(warningCannotEvaluate, assertionCreator, subject)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
     val explanatoryGroup = AssertImpl.builder.explanatoryGroup

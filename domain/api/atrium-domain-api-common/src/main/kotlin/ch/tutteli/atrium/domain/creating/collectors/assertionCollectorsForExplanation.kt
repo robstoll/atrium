@@ -32,18 +32,19 @@ interface NonThrowingAssertionCollectorForExplanation {
      *
      * In case [subject] is null and [assertionCreator] tries to access it, then a [PlantHasNoSubjectException] is
      * thrown and caught in which case a single [AssertionGroup] with an [ExplanatoryAssertionGroupType]
-     * is returned containing the given [warning].
+     * is returned containing the given [warningCannotEvaluate].
      *
-     * In contrast to [ThrowingAssertionCollectorForExplanation] this assertion collector does not throw.
+     * In contrast to [ThrowingAssertionCollectorForExplanation], this assertion collector does not throw if the
+     * assertionCreator does not create any [Assertion]s.
      *
-     * @param warning The translatable used to explain why the assertions could not be evaluated.
+     * @param warningCannotEvaluate The translatable used to explain why the assertions could not be evaluated.
      * @param assertionCreator The function which should at least create one assertion.
      * @param subject The subject which will be used for the [AssertionPlant].
      *
      * @return A list with the collected assertion or an [AssertionGroup] with an [ExplanatoryAssertionGroupType]
      *   containing a warning if [subject] is `null` and an assertion function tries to access it.
      */
-    fun <E : Any> collect(warning: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion>
+    fun <E : Any> collect(warningCannotEvaluate: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion>
 }
 
 
@@ -66,11 +67,12 @@ interface ThrowingAssertionCollectorForExplanation {
      *
      * In case [subject] is null then a [PlantHasNoSubjectException] is thrown in case the
      * subject is accessed. In such a case a single [AssertionGroup] with an
-     * [ExplanatoryAssertionGroupType] is returned containing the given [warning].
+     * [ExplanatoryAssertionGroupType] is returned containing the given [warningCannotEvaluate].
      *
-     * In contrast to [ThrowingAssertionCollectorForExplanation] this assertion collector should not throw
+     * In contrast to [NonThrowingAssertionCollectorForExplanation], this assertion collector will throw an
+     * [IllegalArgumentException] in case not a single [Assertion] was collected.
      *
-     * @param warning The translatable used to explain why the assertions could not be evaluated.
+     * @param warningCannotEvaluate The translatable used to explain why the assertions could not be evaluated.
      * @param assertionCreator The function which should at least create one assertion.
      * @param subject The subject which will be used for the [AssertionPlant].
      *
@@ -79,5 +81,5 @@ interface ThrowingAssertionCollectorForExplanation {
      *
      * @throws IllegalArgumentException in case not a single [Assertion] was collected.
      */
-    fun <E : Any> collect(warning: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion>
+    fun <E : Any> collect(warningCannotEvaluate: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion>
 }

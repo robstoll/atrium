@@ -15,7 +15,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 class AssertionCollectorForExplanation(private val throwIfNoAssertionIsCollected: Boolean) {
 
     fun <E : Any> collect(
-        warning: Translatable,
+        warningCannotEvaluate: Translatable,
         assertionCreator: (AssertionPlant<E>.() -> Unit)?,
         subject: E?
     ): List<Assertion> {
@@ -35,7 +35,7 @@ class AssertionCollectorForExplanation(private val throwIfNoAssertionIsCollected
         } catch (e: PlantHasNoSubjectException) {
             listOf(AssertImpl.builder.explanatoryGroup
                 .withWarningType
-                .withExplanatoryAssertion(warning)
+                .withExplanatoryAssertion(warningCannotEvaluate)
                 .build()
             )
         }
@@ -46,7 +46,7 @@ class AssertionCollectorForExplanation(private val throwIfNoAssertionIsCollected
         if (assertionCreator != null) {
             collectingAssertionPlant.addAssertionsCreatedBy(assertionCreator)
         } else {
-            collectingAssertionPlant.createAndAddAssertion(DescriptionBasic.IS, RawString.NULL, { subject == null })
+            collectingAssertionPlant.createAndAddAssertion(DescriptionBasic.IS, RawString.NULL) { subject == null }
         }
         return collectingAssertionPlant.getAssertions()
     }

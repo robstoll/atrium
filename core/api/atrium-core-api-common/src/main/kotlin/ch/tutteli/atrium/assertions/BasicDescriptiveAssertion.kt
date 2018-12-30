@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**

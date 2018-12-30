@@ -6,7 +6,6 @@ import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
@@ -35,11 +34,11 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator:
     )
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
-internal fun <E : Any> collectIterableAssertionsForExplanation(description: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
+internal fun <E : Any> collectIterableAssertionsForExplanation(warningCannotEvaluate: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
     = AssertImpl.collector
         .forExplanation
         .throwIfNoAssertionIsCollected
-        .collect(description, assertionCreator, subject)
+        .collect(warningCannotEvaluate, assertionCreator, subject)
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
