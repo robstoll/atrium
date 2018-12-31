@@ -4,9 +4,10 @@ package ch.tutteli.atrium.domain.builders.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.creating.CollectingAssertionPlant
-import ch.tutteli.atrium.domain.creating.collectors.*
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
+import ch.tutteli.atrium.domain.creating.collectors.*
 
 /**
  * Delegates inter alia to the implementation of [AssertionCollector].
@@ -14,10 +15,12 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object AssertionCollectorBuilder: AssertionCollector {
-    override inline fun <T : Any> collect(
-        noinline subjectProvider: () -> T,
-        noinline subPlantAndAssertionCreator: CollectingAssertionPlant<T>.() -> Unit
-    ): AssertionGroup = assertionCollector.collect(subjectProvider, subPlantAndAssertionCreator)
+
+    override fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
+        subjectProvider: () -> T,
+        collectingPlantFactory: (() -> T) -> C,
+        assertionCreator: C.() -> Unit
+    ): AssertionGroup = assertionCollector.collect(subjectProvider, collectingPlantFactory, assertionCreator)
 
     /**
      * Returns [ExplainingAssertionCollectorOption] providing options to create an assertion collector which collects
@@ -26,7 +29,6 @@ object AssertionCollectorBuilder: AssertionCollector {
      * [NonThrowingAssertionCollectorForExplanation].
      */
    inline val forExplanation get() = ExplainingAssertionCollectorOption
-
 }
 
 /**

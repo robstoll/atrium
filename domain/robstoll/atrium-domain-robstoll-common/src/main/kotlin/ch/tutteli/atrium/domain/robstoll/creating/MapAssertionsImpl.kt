@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
-import ch.tutteli.atrium.domain.robstoll.lib.creating._hasSize
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isEmpty
-import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotEmpty
+import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 
 /**
  * Robstoll's implementation of [MapAssertions].
@@ -19,4 +18,16 @@ class MapAssertionsImpl : MapAssertions {
 
     override fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>)
         = _isNotEmpty(plant)
+
+    override fun <K, V : Any, T : Map<K, V>> getExisting(
+        plant: AssertionPlant<T>,
+        key: K,
+        assertionCreator: AssertionPlant<V>.() -> Unit
+    ) = _getExisting(plant, key, assertionCreator)
+
+    override fun <K, V, T : Map<K, V>> getExistingNullable(
+        plant: AssertionPlant<T>,
+        key: K,
+        assertionCreator: AssertionPlantNullable<V>.() -> Unit
+    ) = _getExistingNullable(plant, key, assertionCreator)
 }

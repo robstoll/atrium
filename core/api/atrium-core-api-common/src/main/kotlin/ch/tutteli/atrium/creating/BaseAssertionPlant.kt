@@ -10,7 +10,7 @@ import ch.tutteli.atrium.assertions.Assertion
  * [Assert] respectively ([Assert] is a `typealias` of [AssertionPlant]).
  *
  * @param T The type of the [subject] of this [BaseAssertionPlant].
- * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API.
+ * @param A A subtype of [BaseAssertionPlant] which is used in the fluent style API and as self type.
  */
 interface BaseAssertionPlant<out T : Any?, out A : BaseAssertionPlant<T, A>> {
 

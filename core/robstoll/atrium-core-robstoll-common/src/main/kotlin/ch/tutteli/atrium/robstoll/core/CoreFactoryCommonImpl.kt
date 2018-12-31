@@ -8,6 +8,7 @@ import ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.creating.CheckingAssertionPlantImpl
 import ch.tutteli.atrium.core.robstoll.lib.creating.CollectingAssertionPlantImpl
+import ch.tutteli.atrium.core.robstoll.lib.creating.CollectingAssertionPlantNullableImpl
 import ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionPlantImpl
 import ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionPlantNullableImpl
 import ch.tutteli.atrium.core.robstoll.lib.reporting.*
@@ -54,6 +55,9 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)
+
+    final override fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
+        = CollectingAssertionPlantNullableImpl(subjectProvider)
 
     final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = ThrowingAssertionChecker(reporter)
@@ -151,7 +155,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
     final override fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
         = NoOpAtriumErrorAdjuster
 
-    override fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
+    final override fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
         = RemoveRunnerAtriumErrorAdjuster()
 
     final override fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
@@ -162,5 +166,4 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         secondAdjuster: AtriumErrorAdjuster,
         otherAdjusters: List<AtriumErrorAdjuster>
     ): AtriumErrorAdjuster = MultiAtriumErrorAdjusterImpl(firstAdjuster, secondAdjuster, otherAdjusters)
-
 }

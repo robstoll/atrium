@@ -177,20 +177,35 @@ interface CoreFactoryCommon {
     fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
 
     /**
-     * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
-     * created [Assertion]s inside the lambda.
+     * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to
+     * collect created [Assertion]s inside the lambda.
      *
-     * Notice, that this [AssertionPlant] might not even provide a [AssertionPlant.subject] in which case it
-     * throws a [PlantHasNoSubjectException] if [subject][AssertionPlant.subject] is accessed.
+     * Notice, that the plant might not provide a [CollectingAssertionPlant.subject] in which case it
+     * throws a [PlantHasNoSubjectException] if subject is accessed.
      * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
      *
      * @param subjectProvider The function which will either provide the subject for this plant or throw an
-     *   [PlantHasNoSubjectException] in case it cannot be provided. A [CollectingAssertionPlant] should evaluate the
+     *   [PlantHasNoSubjectException] in case it cannot provide it. A [CollectingAssertionPlant] should evaluate the
      *   [subjectProvider] only once.
      *
      * @return The newly created assertion plant.
      */
     fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
+
+    /**
+     * Creates a [CollectingAssertionPlantNullable] which is intended to be used as receiver object in lambdas to
+     * collect created [Assertion]s inside the lambda.
+     *
+     * Notice, that the plant might not provide a [CollectingAssertionPlantNullable.subject] in which case it
+     * throws a [PlantHasNoSubjectException] if subject is accessed.
+     *
+     * @param subjectProvider The function which will either provide the subject for this plant or throw an
+     *   [PlantHasNoSubjectException] in case it cannot provide it. A [CollectingAssertionPlant] should evaluate the
+     *   [subjectProvider] only once.
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
 
     /**
      * Creates an [AssertionChecker] which throws [AtriumError]s in case an assertion fails

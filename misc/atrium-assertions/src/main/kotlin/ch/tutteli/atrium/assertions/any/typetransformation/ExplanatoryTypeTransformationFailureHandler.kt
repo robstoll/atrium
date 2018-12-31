@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -56,5 +57,5 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
         = AssertImpl.collector
         .forExplanation
         .doNotThrowIfNoAssertionIsCollected
-        .collect(warningDownCastFailed, assertionCreator, null)
+        .collect(warningDownCastFailed, MaybeSubject.Absent, assertionCreator)
 }

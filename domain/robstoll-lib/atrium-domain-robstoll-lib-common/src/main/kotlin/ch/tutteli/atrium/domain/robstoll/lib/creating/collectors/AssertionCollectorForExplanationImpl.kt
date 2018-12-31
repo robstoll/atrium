@@ -3,24 +3,24 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.collectors
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
-import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.CollectingAssertionPlant
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 
-class AssertionCollectorForExplanation(private val throwIfNoAssertionIsCollected: Boolean) {
+class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> (
+    private val throwIfNoAssertionIsCollected: Boolean,
+    private val collectingPlantFactory: (() -> T) -> C
+) {
 
-    fun <E : Any> collect(
+    fun collect(
         warningCannotEvaluate: Translatable,
-        assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-        subject: E?
+        subject: MaybeSubject<T>,
+        assertionCreator: (C.() -> Unit)?
     ): List<Assertion> {
         return try {
-            val collectedAssertions = collect(assertionCreator, subject)
+            val collectedAssertions = collect(subject, assertionCreator)
 
             require(!(throwIfNoAssertionIsCollected && collectedAssertions.isEmpty())) {
                 "There was not any assertion created which could identify an entry. Specify at least one assertion"
@@ -33,27 +33,24 @@ class AssertionCollectorForExplanation(private val throwIfNoAssertionIsCollected
 
             collectedAssertions
         } catch (e: PlantHasNoSubjectException) {
-            listOf(AssertImpl.builder.explanatoryGroup
-                .withWarningType
-                .withExplanatoryAssertion(warningCannotEvaluate)
-                .build()
+            listOf(
+                AssertImpl.builder.explanatoryGroup
+                    .withWarningType
+                    .withExplanatoryAssertion(warningCannotEvaluate)
+                    .build()
             )
         }
     }
 
-    private fun <E : Any> collect(assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?): List<Assertion> {
-        val collectingAssertionPlant = createPlant(subject)
-        if (assertionCreator != null) {
-            collectingAssertionPlant.addAssertionsCreatedBy(assertionCreator)
+    private fun collect(subject: MaybeSubject<T>, assertionCreator: (C.() -> Unit)?): List<Assertion> {
+        return if (assertionCreator != null) {
+            val collectingAssertionPlant = collectingPlantFactory(subject::get)
+            collectingAssertionPlant.assertionCreator()
+            collectingAssertionPlant.getAssertions()
         } else {
-            collectingAssertionPlant.createAndAddAssertion(DescriptionBasic.IS, RawString.NULL) { subject == null }
-        }
-        return collectingAssertionPlant.getAssertions()
-    }
-
-    private fun <E : Any> createPlant(subject: E?): CollectingAssertionPlant<E> {
-        return coreFactory.newCollectingPlant {
-            subject ?: throw PlantHasNoSubjectException()
+            listOf(AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.NULL) {
+                subject is MaybeSubject.Absent
+            })
         }
     }
 
