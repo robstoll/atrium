@@ -54,11 +54,8 @@ val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::k
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V> Assert<Map<K, V>>.keys(assertionCreator: Assert<Set<K>>.() -> Unit): Assert<Map<K, V>> =
-//TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
-    addAssertion(AssertImpl.collector.collect(this) {
-        property(Map<K, V>::keys, assertionCreator)
-    })
+fun <K, V> Assert<Map<K, V>>.keys(assertionCreator: Assert<Set<K>>.() -> Unit): Assert<Map<K, V>>
+    = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
  * Creates an [AssertionPlant] for the [subject][AssertionPlant.subject]'s property [values][Map.values] so that further
@@ -80,11 +77,8 @@ val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -> Unit): Assert<Map<K, V>> =
-//TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
-    addAssertion(AssertImpl.collector.collect(this) {
-        property(Map<K, V>::values, assertionCreator)
-    })
+fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -> Unit): Assert<Map<K, V>>
+    = addAssertion(AssertImpl.map.values(this, assertionCreator))
 
 /**
  * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>`.

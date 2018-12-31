@@ -31,6 +31,18 @@ fun <T : Map<*, *>> _isNotEmpty(plant: AssertionPlant<T>): Assertion
         .withDescriptionAndRepresentation(DescriptionBasic.IS_NOT, RawString.create(DescriptionCollectionAssertion.EMPTY))
         .build()
 
+fun <K, V> _keys(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+    //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
+    = AssertImpl.collector.collect(plant) {
+        property(Map<K, V>::keys, assertionCreator)
+    }
+
+fun <K, V> _values(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
+    //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
+    = AssertImpl.collector.collect(plant) {
+        property(Map<K, V>::values, assertionCreator)
+    }
+
 fun <K, V : Any, T : Map<K, V>> _getExisting(
     plant: AssertionPlant<T>,
     key: K,

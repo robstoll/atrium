@@ -21,6 +21,8 @@ interface MapAssertions {
     fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int): Assertion
     fun <T : Map<*, *>> isEmpty(plant: AssertionPlant<T>): Assertion
     fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>): Assertion
-    fun <K, V: Any, T : Map<K, V>> getExisting(plant: AssertionPlant<T>, key: K, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
-    fun <K, V, T : Map<K, V>> getExistingNullable(plant: AssertionPlant<T>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
+    fun <K, V> keys(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+    fun <K, V> values(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
+    fun <K, V: Any> getExisting(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
+    fun <K, V> getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
 }

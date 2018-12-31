@@ -1,6 +1,7 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
@@ -14,6 +15,7 @@ import ch.tutteli.atrium.domain.creating.mapAssertions
  */
 object MapAssertionsBuilder : MapAssertions {
 
+
     override inline fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int)
         = mapAssertions.hasSize(plant, size)
 
@@ -23,14 +25,24 @@ object MapAssertionsBuilder : MapAssertions {
     override inline fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>)
         = mapAssertions.isNotEmpty(plant)
 
-    override inline fun <K, V : Any, T : Map<K, V>> getExisting(
-        plant: AssertionPlant<T>,
+    override inline fun <K, V> keys(
+        plant: AssertionPlant<Map<K, V>>,
+        noinline assertionCreator: AssertionPlant<Set<K>>.() -> Unit
+    ): Assertion = mapAssertions.keys(plant, assertionCreator)
+
+    override inline fun <K, V> values(
+        plant: AssertionPlant<Map<K, V>>,
+        noinline assertionCreator: AssertionPlant<Collection<V>>.() -> Unit
+    ): Assertion = mapAssertions.values(plant, assertionCreator)
+
+    override inline fun <K, V : Any> getExisting(
+        plant: AssertionPlant<Map<K, V>>,
         key: K,
         noinline assertionCreator: AssertionPlant<V>.() -> Unit
     ) = mapAssertions.getExisting(plant, key, assertionCreator)
 
-    override inline fun <K, V, T : Map<K, V>> getExistingNullable(
-        plant: AssertionPlant<T>,
+    override inline fun <K, V> getExistingNullable(
+        plant: AssertionPlant<Map<K, V>>,
         key: K,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
     )= mapAssertions.getExistingNullable(plant, key, assertionCreator)

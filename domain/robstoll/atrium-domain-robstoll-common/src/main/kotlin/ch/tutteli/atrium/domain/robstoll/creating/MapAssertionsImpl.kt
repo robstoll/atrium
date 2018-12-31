@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
@@ -19,14 +20,20 @@ class MapAssertionsImpl : MapAssertions {
     override fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>)
         = _isNotEmpty(plant)
 
-    override fun <K, V : Any, T : Map<K, V>> getExisting(
-        plant: AssertionPlant<T>,
+    override fun <K, V> keys(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+        = _keys(plant, assertionCreator)
+
+    override fun <K, V> values(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
+        = _values(plant, assertionCreator)
+
+    override fun <K, V : Any> getExisting(
+        plant: AssertionPlant<Map<K, V>>,
         key: K,
         assertionCreator: AssertionPlant<V>.() -> Unit
     ) = _getExisting(plant, key, assertionCreator)
 
-    override fun <K, V, T : Map<K, V>> getExistingNullable(
-        plant: AssertionPlant<T>,
+    override fun <K, V> getExistingNullable(
+        plant: AssertionPlant<Map<K, V>>,
         key: K,
         assertionCreator: AssertionPlantNullable<V>.() -> Unit
     ) = _getExistingNullable(plant, key, assertionCreator)
