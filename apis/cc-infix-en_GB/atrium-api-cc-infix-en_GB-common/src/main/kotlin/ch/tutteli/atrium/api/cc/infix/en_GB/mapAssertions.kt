@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetNullableOption
 import ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders.MapGetOption
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.assertions.Assertion
@@ -52,7 +53,7 @@ val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::k
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
- * does not hold.
+ *   does not hold.
  */
 infix fun <K, V> Assert<Map<K, V>>.keys(assertionCreator: Assert<Set<K>>.() -> Unit): Assert<Map<K, V>> =
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
@@ -77,7 +78,7 @@ val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
- * does not hold.
+ *   does not hold.
  */
 infix fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -> Unit): Assert<Map<K, V>> =
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
@@ -103,3 +104,14 @@ fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
  */
 infix fun <K, V: Any> Assert<Map<K, V>>.getExisting(key: K): MapGetOption<K, V>
     = MapGetOption.create(this, key)
+
+/**
+ * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
+ *
+ * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
+ * nullable value type.
+ *
+ * @return A fluent builder to finish the assertion.
+ */
+infix fun <K, V> Assert<Map<K, V>>.getExistingNullable(key: K): MapGetNullableOption<K, V>
+    = MapGetNullableOption.create(this, key)

@@ -5,9 +5,9 @@ import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.coreFactory
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.PlantHasNoSubjectException
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.collectors.collectOrExplain
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic
@@ -34,7 +34,21 @@ fun <T : Map<*, *>> _isNotEmpty(plant: AssertionPlant<T>): Assertion
 fun <K, V : Any, T : Map<K, V>> _getExisting(
     plant: AssertionPlant<T>,
     key: K,
-    assertionCreator: AssertionPlant<V>.() -> Unit
+    assertionCreator: CollectingAssertionPlant<V>.() -> Unit
+): Assertion = getExisting(plant, key, coreFactory::newCollectingPlant, assertionCreator)
+
+
+fun <K, V, T : Map<K, V>> _getExistingNullable(
+    plant: AssertionPlant<T>,
+    key: K,
+    assertionCreator: CollectingAssertionPlantNullable<V>.() -> Unit
+) : Assertion = getExisting(plant, key, coreFactory::newCollectingPlantNullable, assertionCreator)
+
+private fun <K, V, T : Map<K, V>, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> getExisting(
+    plant: AssertionPlant<T>,
+    key: K,
+    collectingPlantFactory: (() -> V) -> C,
+    assertionCreator: C.() -> Unit
 ): Assertion {
     val holds = try {
         plant.subject.containsKey(key)
@@ -42,20 +56,16 @@ fun <K, V : Any, T : Map<K, V>> _getExisting(
         true //TODO that's a hack, do we have a better solution?
     }
 
-    //TODO that looks like a common pattern to me
-    val assertion: AssertionGroup = if (holds) {
-        AssertImpl.collector.collect({ plant.subject[key]!! }, assertionCreator)
-    } else {
-        val explanatoryAssertions = AssertImpl
-            .collector
-            .forExplanation
-            .doNotThrowIfNoAssertionIsCollected
-            .collect(DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST, assertionCreator, null)
-        AssertImpl.builder.explanatoryGroup
-            .withDefaultType
-            .withAssertions(explanatoryAssertions)
-            .build()
-    }
+    val assertion: AssertionGroup = AssertImpl.collector.collectOrExplain(
+        holds,
+        DescriptionMapAssertion.CANNOT_EVALUATE_KEY_DOES_NOT_EXIST,
+        {
+            @Suppress("UNCHECKED_CAST" /* that's fine will only be called if the key exists */)
+            plant.subject[key] as V
+        },
+        collectingPlantFactory,
+        assertionCreator
+    )
 
     val methodCallRepresentation = coreFactory.newMethodCallFormatter().format("get", arrayOf<Any?>(key))
 

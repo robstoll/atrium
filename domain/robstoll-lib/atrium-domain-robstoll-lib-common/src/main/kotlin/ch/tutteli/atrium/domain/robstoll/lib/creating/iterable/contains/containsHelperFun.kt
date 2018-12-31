@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
@@ -26,7 +27,7 @@ internal fun <E : Any> createExplanatoryAssertions(
         list.isNotEmpty() ->
             collectIterableAssertionsForExplanationWithFirst(assertionCreator, list.firstOrNull { it != null })
         else ->
-            collectIterableAssertionsForExplanation(assertionCreator, null)
+            collectIterableAssertionsForExplanation(assertionCreator, MaybeSubject.Absent)
     }
 }
 
@@ -35,25 +36,25 @@ internal fun <E : Any> collectIterableAssertionsForExplanationWithFirst(
     first: E?
 ): List<Assertion> {
     return if (first != null) {
-        collectIterableAssertionsForExplanation(assertionCreator, first)
+        collectIterableAssertionsForExplanation(assertionCreator, MaybeSubject.Present(first))
     } else {
-        collectIterableAssertionsForExplanation(CANNOT_EVALUATE_SUBJECT_ONLY_NULL, assertionCreator, null)
+        collectIterableAssertionsForExplanation(CANNOT_EVALUATE_SUBJECT_ONLY_NULL, assertionCreator, MaybeSubject.Absent)
     }
 }
 
 internal fun <E : Any> collectIterableAssertionsForExplanation(
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-    subject: E?
-) = collectIterableAssertionsForExplanation(CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE, assertionCreator, subject)
+    maybeSubject: MaybeSubject<E>
+) = collectIterableAssertionsForExplanation(CANNOT_EVALUATE_SUBJECT_EMPTY_ITERABLE, assertionCreator, maybeSubject)
 
 internal fun <E : Any> collectIterableAssertionsForExplanation(
     warningCannotEvaluate: Translatable,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-    subject: E?
+    maybeSubject: MaybeSubject<E>
 ) = AssertImpl.collector
     .forExplanation
     .throwIfNoAssertionIsCollected
-    .collect(warningCannotEvaluate, assertionCreator, subject)
+    .collect(warningCannotEvaluate, maybeSubject, assertionCreator)
 
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean): AssertionGroup {
     val explanatoryGroup = AssertImpl.builder.explanatoryGroup
@@ -144,9 +145,7 @@ internal fun <E> createHasElementAssertion(iterable: Iterable<E>): AssertionGrou
     return AssertImpl.builder.feature
         .withDescriptionAndRepresentation(HAS_ELEMENT, RawString.create(hasElement.toString()))
         .withAssertion(
-            AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(true.toString())) {
-                hasElement
-            }
+            AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(true.toString())) { hasElement }
         )
         .build()
 }

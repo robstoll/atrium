@@ -3,6 +3,7 @@ package ch.tutteli.atrium.domain.builders.creating
 
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.creating.mapAssertions
 
@@ -27,4 +28,10 @@ object MapAssertionsBuilder : MapAssertions {
         key: K,
         noinline assertionCreator: AssertionPlant<V>.() -> Unit
     ) = mapAssertions.getExisting(plant, key, assertionCreator)
+
+    override inline fun <K, V, T : Map<K, V>> getExistingNullable(
+        plant: AssertionPlant<T>,
+        key: K,
+        noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
+    )= mapAssertions.getExistingNullable(plant, key, assertionCreator)
 }
