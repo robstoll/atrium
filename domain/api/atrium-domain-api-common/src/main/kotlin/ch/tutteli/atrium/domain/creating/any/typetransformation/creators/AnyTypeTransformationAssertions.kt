@@ -4,7 +4,6 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.creating.BaseAssertionPlant
-import ch.tutteli.atrium.domain.creating.AnyAssertions
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
@@ -15,13 +14,6 @@ import kotlin.reflect.KClass
  * It loads the implementation lazily via [loadSingleService].
  */
 val anyTypeTransformationAssertions by lazy { loadSingleService(AnyTypeTransformationAssertions::class) }
-
-/**
- * The access point to an implementation of [AnyAssertions].
- *
- * It loads the implementation lazily via [loadSingleService].
- */
-val anyAssertions by lazy { loadSingleService(AnyAssertions::class) }
 
 
 /**
