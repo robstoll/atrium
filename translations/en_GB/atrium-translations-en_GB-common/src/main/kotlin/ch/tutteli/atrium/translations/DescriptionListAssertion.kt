@@ -8,6 +8,5 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionListAssertion(override val value: String) : StringBasedTranslatable {
     CANNOT_EVALUATE_INDEX_OUT_OF_BOUNDS("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- index out of bounds.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    INDEX_WITHIN_BOUND("index within bound"),
     INDEX_OUT_OF_BOUNDS("❗❗ index out of bounds")
 }

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.assertions.builders.partiallyFixedClaimGroup
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectOrExplain
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -29,7 +30,7 @@ private fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T
     collectingPlantFactory: (() -> T) -> C,
     assertionCreator: C.() -> Unit
 ): Assertion {
-    //TODO, same as MAP, generalise to extract
+    //TODO, same as for Map, generalise to a fun like extractFeature
     val holds = try {
         index < plant.subject.size
     } catch (e: PlantHasNoSubjectException) {
@@ -46,14 +47,13 @@ private fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T
 
     val methodCallRepresentation = coreFactory.newMethodCallFormatter().format("get", arrayOf(index))
 
-    return AssertImpl.builder.feature
+    return AssertImpl.builder.partiallyFixedClaimGroup
+        .withFeatureType
+        .withClaim(holds)
         .withDescriptionAndRepresentation(Untranslatable(methodCallRepresentation())) {
             if (holds) plant.subject[index] ?: RawString.NULL
             else RawString.create(DescriptionListAssertion.INDEX_OUT_OF_BOUNDS)
         }
-        .withAssertions(
-            AssertImpl.builder.createDescriptive(DescriptionListAssertion.INDEX_WITHIN_BOUND, true) { holds },
-            assertion
-        )
+        .withAssertion(assertion)
         .build()
 }

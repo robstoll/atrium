@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.assertions.builders.partiallyFixedClaimGroup
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectOrExplain
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -81,14 +82,13 @@ private fun <K, V, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlan
 
     val methodCallRepresentation = coreFactory.newMethodCallFormatter().format("get", arrayOf<Any?>(key))
 
-    return AssertImpl.builder.feature
+    return AssertImpl.builder.partiallyFixedClaimGroup
+        .withFeatureType
+        .withClaim(holds)
         .withDescriptionAndRepresentation(Untranslatable(methodCallRepresentation())) {
             if (holds) plant.subject[key] ?: RawString.NULL
             else RawString.create(DescriptionMapAssertion.KEY_DOES_NOT_EXIST)
         }
-        .withAssertions(
-            AssertImpl.builder.createDescriptive(DescriptionMapAssertion.KEY_EXISTS, true) { holds },
-            assertion
-        )
+        .withAssertion(assertion)
         .build()
 }
