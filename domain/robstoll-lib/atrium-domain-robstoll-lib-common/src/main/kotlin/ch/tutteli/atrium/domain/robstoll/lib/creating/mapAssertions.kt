@@ -43,21 +43,21 @@ fun <K, V> _values(plant: AssertionPlant<Map<K, V>>, assertionCreator: Assertion
         property(Map<K, V>::values, assertionCreator)
     }
 
-fun <K, V : Any, T : Map<K, V>> _getExisting(
-    plant: AssertionPlant<T>,
+fun <K, V : Any> _getExisting(
+    plant: AssertionPlant<Map<K, V>>,
     key: K,
     assertionCreator: CollectingAssertionPlant<V>.() -> Unit
 ): Assertion = getExisting(plant, key, coreFactory::newCollectingPlant, assertionCreator)
 
 
-fun <K, V, T : Map<K, V>> _getExistingNullable(
-    plant: AssertionPlant<T>,
+fun <K, V> _getExistingNullable(
+    plant: AssertionPlant<Map<K, V>>,
     key: K,
     assertionCreator: CollectingAssertionPlantNullable<V>.() -> Unit
 ) : Assertion = getExisting(plant, key, coreFactory::newCollectingPlantNullable, assertionCreator)
 
-private fun <K, V, T : Map<K, V>, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> getExisting(
-    plant: AssertionPlant<T>,
+private fun <K, V, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> getExisting(
+    plant: AssertionPlant<Map<K, V>>,
     key: K,
     collectingPlantFactory: (() -> V) -> C,
     assertionCreator: C.() -> Unit

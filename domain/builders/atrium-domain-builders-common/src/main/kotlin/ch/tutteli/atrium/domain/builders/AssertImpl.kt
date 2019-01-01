@@ -44,6 +44,8 @@ object AssertImpl : AssertImplCommon {
 
     override inline val iterable get() = IterableAssertionsBuilder
 
+    override inline val list get() = ListAssertionsBuilder
+
     override inline val map get() = MapAssertionsBuilder
 
     override inline val throwable get() = ThrowableAssertionsBuilder
@@ -137,6 +139,12 @@ interface AssertImplCommon {
      * which inter alia delegates to the implementation of [IterableAssertions].
      */
     val iterable: IterableAssertionsBuilder
+
+    /**
+     * Returns [ListAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ListAssertions].
+     */
+    val list: ListAssertionsBuilder
 
     /**
      * Returns [MapAssertionsBuilder]

@@ -8,8 +8,6 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 enum class DescriptionMapAssertion(override val value: String) : StringBasedTranslatable {
     CANNOT_EVALUATE_KEY_DOES_NOT_EXIST("$COULD_NOT_EVALUATE_DEFINED_ASSERTIONS -- given key does not exist.\n$VISIT_COULD_NOT_EVALUATE_ASSERTIONS"),
-    EMPTY("empty"),
-    GET("get(%s)"),
     KEY_EXISTS("key exists"),
     KEY_DOES_NOT_EXIST("❗❗ key does not exist")
 }

@@ -14,7 +14,7 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.MapFeatureAs
     valuesVal.name to valuesVal,
     valuesFun.name to valuesFun,
     getExistingFun.name to getExistingFun,
-    getNullableFun.name to getNullableFun
+    getExistingNullableFun.name to getExistingNullableFun
 ){
     companion object {
         private val keysVal: KProperty1<Assert<Map<String, Int>>, Assert<Set<String>>> = Assert<Map<String, Int>>::keys
@@ -22,6 +22,6 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.MapFeatureAs
         private val valuesVal: KProperty1<Assert<Map<String, Int>>, Assert<Collection<Int>>> = Assert<Map<String, Int>>::values
         private val valuesFun: KFunction2<Assert<Map<String, Int>>, Assert<Collection<Int>>.() -> Unit, Assert<Map<String, Int>>> = Assert<Map<String, Int>>::values
         private val getExistingFun: KFunction3<Assert<Map<String, Int>>, String, Assert<Int>.() -> Unit, Assert<Map<String, Int>>> = Assert<Map<String, Int>>::getExistierend
-        private val getNullableFun: KFunction3<Assert<Map<String, Int?>>, String, AssertionPlantNullable<Int?>.() -> Unit, Assert<Map<String, Int?>>> = Assert<Map<String, Int?>>::getExistierendNullable
+        private val getExistingNullableFun: KFunction3<Assert<Map<String, Int?>>, String, AssertionPlantNullable<Int?>.() -> Unit, Assert<Map<String, Int?>>> = Assert<Map<String, Int?>>::getExistierendNullable
     }
 }
