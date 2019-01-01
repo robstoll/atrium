@@ -112,5 +112,5 @@ fun <K, V: Any> Assert<Map<K, V>>.getExistierend(key: K, assertionCreator: Asser
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <K, V: Any> Assert<Map<K, V?>>.getExistierendNullable(key: K, assertionCreator: AssertionPlantNullable<V?>.() -> Unit): Assert<Map<K, V?>>
+fun <K, V> Assert<Map<K, V>>.getExistierendNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assert<Map<K, V>>
     = addAssertion(AssertImpl.map.getExistingNullable(this, key, assertionCreator))

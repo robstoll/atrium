@@ -14,9 +14,16 @@ internal class DescriptiveAssertionWithFailureHintShowOptionImpl(
    override val showForAnyFailure get(): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
         = createDescriptiveLikeAssertionDescriptionOption(trueProvider)
 
-    override fun showOnlyIf(predicate: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
+    override fun showOnlyIf(
+        predicate: () -> Boolean
+    ): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
         = createDescriptiveLikeAssertionDescriptionOption(predicate)
 
-    private fun createDescriptiveLikeAssertionDescriptionOption(predicate: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
-        = DescriptiveLikeAssertionDescriptionOption.create(test, { t, d, r -> DescriptiveAssertionWithFailureHintFinalStep.create(t, predicate, failureHintFactory, d, r) })
+    private fun createDescriptiveLikeAssertionDescriptionOption(
+        predicate: () -> Boolean
+    ): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
+        = DescriptiveLikeAssertionDescriptionOption.create(
+            test,
+            { t, d, r -> DescriptiveAssertionWithFailureHintFinalStep.create(t, predicate, failureHintFactory, d, r) }
+        )
 }

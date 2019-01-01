@@ -14,7 +14,7 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
 
 
 /**
- * Defines the minimum set of assertion functions and builders applicable to [Collection],
+ * Defines the minimum set of assertion functions and builders applicable to [Map],
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapAssertions {

@@ -19,50 +19,9 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 val AssertionBuilder.fixedClaimGroup: FixedClaimAssertionGroupTypeOption
     get() = FixedClaimAssertionGroupTypeOptionImpl
 
+interface FixedClaimAssertionGroupTypeOption: FixedClaimLikeAssertionGroupTypeOption<FixedClaimAssertionGroupFinalStep>
 
-/**
- * Option step which allows to specify the [AssertionGroup.type].
- */
-interface FixedClaimAssertionGroupTypeOption {
-    /**
-     * Uses [ListAssertionGroupType] as [AssertionGroup.type].
-     */
-    val withListType: FixedClaimAssertionGroupHoldsOption<ListAssertionGroupType>
-
-    /**
-     * Uses the given [type] as [AssertionGroup.type].
-     *
-     * @param type The [AssertionGroup.type].
-     */
-    fun <T : AssertionGroupType> withType(type: T): FixedClaimAssertionGroupHoldsOption<T>
-}
-
-
-/**
- * Option step which allows to specify the [AssertionGroup.holds].
- */
-interface FixedClaimAssertionGroupHoldsOption<T : AssertionGroupType> {
-    /**
-     * The previously defined [AssertionGroup.type].
-     */
-    val groupType: T
-
-
-    /**
-     * Defines the [AssertionGroup] holds.
-     */
-    val holding: AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
-
-    /**
-     * Defines the [AssertionGroup] does not hold.
-     */
-    val failing: AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
-
-    /**
-     * Uses the given [holds] as [AssertionGroup.holds].
-     */
-    fun withClaim(holds: Boolean): AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, FixedClaimAssertionGroupFinalStep>>
-
+interface FixedClaimAssertionGroupHoldsOption<T : AssertionGroupType> : FixedClaimLikeAssertionGroupHoldsOption<T, FixedClaimAssertionGroupFinalStep>{
     companion object {
         fun <T: AssertionGroupType> create(groupType: T): FixedClaimAssertionGroupHoldsOption<T>
             = FixedClaimAssertionGroupHoldsOptionImpl(groupType)

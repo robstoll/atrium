@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.assertions.builders.partiallyFixedClaimGroup
 import ch.tutteli.atrium.domain.builders.creating.collectors.collectOrExplain
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -43,21 +44,21 @@ fun <K, V> _values(plant: AssertionPlant<Map<K, V>>, assertionCreator: Assertion
         property(Map<K, V>::values, assertionCreator)
     }
 
-fun <K, V : Any, T : Map<K, V>> _getExisting(
-    plant: AssertionPlant<T>,
+fun <K, V : Any> _getExisting(
+    plant: AssertionPlant<Map<K, V>>,
     key: K,
     assertionCreator: CollectingAssertionPlant<V>.() -> Unit
 ): Assertion = getExisting(plant, key, coreFactory::newCollectingPlant, assertionCreator)
 
 
-fun <K, V, T : Map<K, V>> _getExistingNullable(
-    plant: AssertionPlant<T>,
+fun <K, V> _getExistingNullable(
+    plant: AssertionPlant<Map<K, V>>,
     key: K,
     assertionCreator: CollectingAssertionPlantNullable<V>.() -> Unit
 ) : Assertion = getExisting(plant, key, coreFactory::newCollectingPlantNullable, assertionCreator)
 
-private fun <K, V, T : Map<K, V>, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> getExisting(
-    plant: AssertionPlant<T>,
+private fun <K, V, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> getExisting(
+    plant: AssertionPlant<Map<K, V>>,
     key: K,
     collectingPlantFactory: (() -> V) -> C,
     assertionCreator: C.() -> Unit
@@ -81,14 +82,13 @@ private fun <K, V, T : Map<K, V>, A : BaseAssertionPlant<V, A>, C : BaseCollecti
 
     val methodCallRepresentation = coreFactory.newMethodCallFormatter().format("get", arrayOf<Any?>(key))
 
-    return AssertImpl.builder.feature
+    return AssertImpl.builder.partiallyFixedClaimGroup
+        .withFeatureType
+        .withClaim(holds)
         .withDescriptionAndRepresentation(Untranslatable(methodCallRepresentation())) {
             if (holds) plant.subject[key] ?: RawString.NULL
             else RawString.create(DescriptionMapAssertion.KEY_DOES_NOT_EXIST)
         }
-        .withAssertions(
-            AssertImpl.builder.createDescriptive(DescriptionMapAssertion.KEY_EXISTS, true) { holds },
-            assertion
-        )
+        .withAssertion(assertion)
         .build()
 }
