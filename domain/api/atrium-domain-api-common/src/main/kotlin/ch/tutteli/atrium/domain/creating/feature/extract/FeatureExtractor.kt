@@ -26,8 +26,7 @@ interface FeatureExtractor {
         /**
          * Entry point to use the feature extractor.
          */
-        val builder: RepresentationOption =
-            RepresentationOptionImpl()
+        val builder: RepresentationOption = RepresentationOptionImpl()
     }
 
     /**

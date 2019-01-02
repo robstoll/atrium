@@ -16,8 +16,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 fun DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>.withFailureHint(
     failureHintFactory: () -> Assertion
-): DescriptiveAssertionWithFailureHintShowOption =
-    DescriptiveAssertionWithFailureHintShowOption.create(test, failureHintFactory)
+): DescriptiveAssertionWithFailureHintShowOption
+    = DescriptiveAssertionWithFailureHintShowOption.create(test, failureHintFactory)
+
+
 
 /**
  * Option step which allows to specify in which situations the failure hint should be shown.
