@@ -13,6 +13,8 @@ module ch.tutteli.atrium.domain.api {
     exports ch.tutteli.atrium.domain.creating.charsequence.contains.creators;
     exports ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours;
     exports ch.tutteli.atrium.domain.creating.collectors;
+    exports ch.tutteli.atrium.domain.creating.feature.extract;
+    exports ch.tutteli.atrium.domain.creating.feature.extract.creators;
     exports ch.tutteli.atrium.domain.creating.iterable.contains;
     exports ch.tutteli.atrium.domain.creating.iterable.contains.checkers;
     exports ch.tutteli.atrium.domain.creating.iterable.contains.creators;

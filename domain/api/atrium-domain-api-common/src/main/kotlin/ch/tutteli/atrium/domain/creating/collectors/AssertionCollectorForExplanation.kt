@@ -4,14 +4,18 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.core.coreFactory
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.translating.Translatable
 
+/**
+ * Responsible to collect assertions made in a sub-[AssertionPlant] and intended for explanation.
+ */
 interface AssertionCollectorForExplanation {
 
     /**
      * Collects the [Assertion] created by [assertionCreator] and uses the given [maybeSubject] as
-     * [CollectingAssertionPlant.subject] if [MaybeSubject.Present].
+     * [CollectingAssertionPlant.subject] if it is [MaybeSubject.Present].
      *
      * In case [maybeSubject] is [MaybeSubject.Absent] and [assertionCreator] is accessed, then a
      * [PlantHasNoSubjectException] is thrown and caught in which case a single [AssertionGroup] with an
@@ -53,8 +57,9 @@ interface AssertionCollectorForExplanation {
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
         assertionCreator: (CollectingAssertionPlantNullable<T>.() -> Unit)?
-    ): List<Assertion> =
-        collect(warningCannotEvaluate, maybeSubject, coreFactory::newCollectingPlantNullable, assertionCreator)
+    ): List<Assertion> = collect(
+        warningCannotEvaluate, maybeSubject, coreFactory::newCollectingPlantNullable, assertionCreator
+    )
 
     /**
      * Collects the [Assertion] created by [assertionCreator] with the collecting assertion plant created by the given
@@ -84,3 +89,35 @@ interface AssertionCollectorForExplanation {
         assertionCreator: (C.() -> Unit)?
     ): List<Assertion>
 }
+
+
+/**
+ * The access point to an implementation of [NonThrowingAssertionCollectorForExplanation].
+ *
+ * It loads the implementation lazily via [loadSingleService].
+ */
+val nonThrowingAssertionCollectorForExplanation: NonThrowingAssertionCollectorForExplanation by lazy {
+    loadSingleService(NonThrowingAssertionCollectorForExplanation::class)
+}
+
+/**
+ * Represents an assertion collector meant for explanation which does *not* throw in case not a single [Assertion]
+ * was collected.
+ */
+interface NonThrowingAssertionCollectorForExplanation : AssertionCollectorForExplanation
+
+
+/**
+ * The access point to an implementation of [ThrowingAssertionCollectorForExplanation].
+ *
+ * It loads the implementation lazily via [loadSingleService].
+ */
+val throwingAssertionCollectorForExplanation: ThrowingAssertionCollectorForExplanation by lazy {
+    loadSingleService(ThrowingAssertionCollectorForExplanation::class)
+}
+
+/**
+ * Represents an assertion collector meant for explanation which throws in case not a single [Assertion] was collected.
+ */
+interface ThrowingAssertionCollectorForExplanation : AssertionCollectorForExplanation
+
