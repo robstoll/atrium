@@ -38,15 +38,14 @@ abstract class ListFeatureAssertionsSpec(
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit) =
         describeFun(describePrefix, funName, body = body)
 
-    val assert: (List<Int>) -> Assert<List<Int>> = verbs::checkImmediately
     val expect = verbs::checkException
     val list = listOf(1, 2, 3, 4)
-    val fluent = assert(list)
+    val fluent = verbs.checkImmediately(list)
     val listNullable = listOf(1, null, 3, 4)
     val fluentNullable = verbs.checkImmediately(listNullable)
 
-    val (get, getExistingFun) = getPair
-    val (getNullable, getExistingNullableFun) = getNullablePair
+    val (get, getFun) = getPair
+    val (getNullable, getNullableFun) = getNullablePair
 
     val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     val indexOutOfBounds = DescriptionListAssertion.INDEX_OUT_OF_BOUNDS.getDefault()
@@ -54,18 +53,18 @@ abstract class ListFeatureAssertionsSpec(
     describeFun(get) {
         context("list $list") {
             test("can perform sub-assertion on existing index") {
-                fluent.getExistingFun(0) { toBe(1) }
+                fluent.getFun(0) { toBe(1) }
             }
             test("non-existing index throws but shows intended sub-assertion") {
                 expect {
-                    fluent.getExistingFun(4) { toBe(3) }
+                    fluent.getFun(4) { toBe(3) }
                 }.toThrow<AssertionError> {
                     messageContains("get(4): $indexOutOfBounds", "$toBeDescr: 3")
                 }
             }
             test("throws if no assertion is made") {
                 expect {
-                    fluent.getExistingFun(1) { }
+                    fluent.getFun(1) { }
                 }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
             }
         }
@@ -74,22 +73,22 @@ abstract class ListFeatureAssertionsSpec(
     describeFun(getNullable) {
         context("list $listNullable") {
             test("can perform sub-assertion on existing key") {
-                fluentNullable.getExistingNullableFun(0) { notToBeNullBut(1) }
+                fluentNullable.getNullableFun(0) { notToBeNullBut(1) }
             }
             test("can perform sub-assertion on existing key with value null") {
-                fluentNullable.getExistingNullableFun(1) { toBe(null) }
+                fluentNullable.getNullableFun(1) { toBe(null) }
             }
 
             test("non-existing key throws but shows intended sub-assertion") {
                 expect {
-                    fluentNullable.getExistingNullableFun(4) { toBe(null) }
+                    fluentNullable.getNullableFun(4) { toBe(null) }
                 }.toThrow<AssertionError> {
                     messageContains("get(4): $indexOutOfBounds", "$toBeDescr: null")
                 }
             }
             test("throws if no assertion is made") {
                 expect {
-                    fluent.getExistingNullableFun(1) { }
+                    fluent.getNullableFun(1) { }
                 }.toThrow<IllegalStateException> { messageContains("There was not any assertion created") }
             }
         }

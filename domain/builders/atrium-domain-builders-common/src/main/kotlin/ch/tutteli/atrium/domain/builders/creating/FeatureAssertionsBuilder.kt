@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.FeatureAssertions
+import ch.tutteli.atrium.domain.builders.creating.extractor.FeatureExtractor
 import ch.tutteli.atrium.domain.creating.featureAssertions
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -17,6 +18,8 @@ import kotlin.reflect.*
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object FeatureAssertionsBuilder : FeatureAssertions {
+
+    inline val extractor: FeatureExtractor.RepresentationOption get() = FeatureExtractor.builder
 
     inline fun <T : Any, TProperty : Any> property(plant: AssertionPlant<T>, property: KProperty1<T, TProperty>)
         = property(plant, { property.invoke(plant.subject) }, Untranslatable(property.name))
