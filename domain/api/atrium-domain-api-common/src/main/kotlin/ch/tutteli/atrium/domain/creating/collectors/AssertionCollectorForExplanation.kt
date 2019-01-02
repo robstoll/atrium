@@ -53,8 +53,9 @@ interface AssertionCollectorForExplanation {
         warningCannotEvaluate: Translatable,
         maybeSubject: MaybeSubject<T>,
         assertionCreator: (CollectingAssertionPlantNullable<T>.() -> Unit)?
-    ): List<Assertion> =
-        collect(warningCannotEvaluate, maybeSubject, coreFactory::newCollectingPlantNullable, assertionCreator)
+    ): List<Assertion> = collect(
+        warningCannotEvaluate, maybeSubject, coreFactory::newCollectingPlantNullable, assertionCreator
+    )
 
     /**
      * Collects the [Assertion] created by [assertionCreator] with the collecting assertion plant created by the given
