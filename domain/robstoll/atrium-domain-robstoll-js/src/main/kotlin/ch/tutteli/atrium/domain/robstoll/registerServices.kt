@@ -18,12 +18,14 @@ private val register = run {
     registerService<ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation> { ch.tutteli.atrium.domain.robstoll.creating.collectors.NonThrowingAssertionCollectorForExplanationImpl() }
     registerService<ch.tutteli.atrium.domain.creating.collectors.ThrowingAssertionCollectorForExplanation> { ch.tutteli.atrium.domain.robstoll.creating.collectors.ThrowingAssertionCollectorForExplanationImpl() }
     registerService<ch.tutteli.atrium.domain.creating.ComparableAssertions> { ch.tutteli.atrium.domain.robstoll.creating.ComparableAssertionsImpl() }
+    registerService<ch.tutteli.atrium.domain.creating.feature.extract.creators.FeatureExtractorCreatorFactory> { ch.tutteli.atrium.domain.robstoll.creating.feature.extract.creators.FeatureExtractorCreatorFactoryImpl() }
     registerService<ch.tutteli.atrium.domain.creating.FeatureAssertions> { ch.tutteli.atrium.domain.robstoll.creating.FeatureAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.FloatingPointAssertions> { ch.tutteli.atrium.domain.robstoll.creating.FloatingPointAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.iterable.contains.checkers.CheckerFactory> { ch.tutteli.atrium.domain.robstoll.creating.iterable.contains.checkers.CheckerFactoryImpl() }
     registerService<ch.tutteli.atrium.domain.creating.iterable.contains.creators.IterableContainsAssertions> { ch.tutteli.atrium.domain.robstoll.creating.iterable.contains.creators.IterableContainsAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.SearchBehaviourFactory> { ch.tutteli.atrium.domain.robstoll.creating.iterable.contains.searchbehaviours.SearchBehaviourFactoryImpl() }
     registerService<ch.tutteli.atrium.domain.creating.IterableAssertions> { ch.tutteli.atrium.domain.robstoll.creating.IterableAssertionsImpl() }
+    registerService<ch.tutteli.atrium.domain.creating.ListAssertions> { ch.tutteli.atrium.domain.robstoll.creating.ListAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.MapAssertions> { ch.tutteli.atrium.domain.robstoll.creating.MapAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions> { ch.tutteli.atrium.domain.robstoll.creating.throwable.thrown.creators.ThrowableThrownAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory> { ch.tutteli.atrium.domain.robstoll.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactoryImpl() }

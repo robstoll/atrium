@@ -16,23 +16,19 @@ class CheckerFactoryImpl : CheckerFactory {
         times: Int,
         nameContainsNotFun: String,
         atLeastCall: (Int) -> String
-    ): IterableContains.Checker
-        = AtLeastChecker(times, nameContainsNotFun, atLeastCall)
+    ): IterableContains.Checker = AtLeastChecker(times, nameContainsNotFun, atLeastCall)
 
     override fun newAtMostChecker(
         times: Int,
         nameContainsNotFun: String,
         atMostCall: (Int) -> String
-    ): IterableContains.Checker
-        = AtMostChecker(times, nameContainsNotFun, atMostCall)
+    ): IterableContains.Checker = AtMostChecker(times, nameContainsNotFun, atMostCall)
 
     override fun newExactlyChecker(
         times: Int,
         nameContainsNotFun: String,
         exactlyCall: (Int) -> String
-    ): IterableContains.Checker
-        = ExactlyChecker(times, nameContainsNotFun, exactlyCall)
+    ): IterableContains.Checker = ExactlyChecker(times, nameContainsNotFun, exactlyCall)
 
-    override fun newNotChecker(): IterableContains.Checker
-        = NotChecker()
+    override fun newNotChecker(): IterableContains.Checker = NotChecker()
 }

@@ -1,4 +1,4 @@
-package ch.tutteli.atrium.domain.builders.creating.extractor
+package ch.tutteli.atrium.domain.creating.feature.extract
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
@@ -6,9 +6,11 @@ import ch.tutteli.atrium.assertions.FeatureAssertionGroupType
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.domain.builders.creating.extractor.impl.RepresentationOptionImpl
 import ch.tutteli.atrium.domain.creating.FeatureAssertions
+import ch.tutteli.atrium.domain.creating.feature.extract.creators.featureExtractorCreatorFactory
+import ch.tutteli.atrium.domain.creating.feature.extract.impl.RepresentationOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
+
 
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
@@ -24,7 +26,8 @@ interface FeatureExtractor {
         /**
          * Entry point to use the feature extractor.
          */
-        val builder: RepresentationOption = RepresentationOptionImpl()
+        val builder: RepresentationOption =
+            RepresentationOptionImpl()
     }
 
     /**
@@ -44,26 +47,39 @@ interface FeatureExtractor {
         fun feature(featureRepresentation: () -> String): ParameterObjectOption
     }
 
-
     /**
      * Step to define the [ParameterObject].
      */
     interface ParameterObjectOption {
         /**
-         * Uses the given [parameterObject] which provides a [ParameterObject.featureExtraction] which as [ParameterObject] for a non-nullable .
+         * The previously chosen feature representation.
          */
-        fun <T : Any> withParameterObject(
-            parameterObject: FeatureExtractor.ParameterObject<T>
-        ): Creator<T, Assert<T>, CollectingAssertionPlant<T>>
+        val featureRepresentation: () -> String
 
         /**
-         * Uses the given [parameterObject] as [ParameterObject].
+         * Uses the given [parameterObject] where a non-nullable feature is extracted by
+         * [ParameterObject.featureExtraction].
+         */
+        fun <T : Any> withParameterObject(
+            parameterObject: ParameterObject<T>
+        ): Creator<T, Assert<T>, CollectingAssertionPlant<T>> {
+            return featureExtractorCreatorFactory.create(
+                featureRepresentation, parameterObject, coreFactory::newCollectingPlant
+            )
+        }
+
+        /**
+         * Uses the given [parameterObject] where a nullable feature is extracted by
+         * [ParameterObject.featureExtraction].
          */
         fun <T : Any?> withParameterObjectNullable(
-            parameterObject: FeatureExtractor.ParameterObject<T>
-        ): Creator<T, AssertionPlantNullable<T>, CollectingAssertionPlantNullable<T>>
+            parameterObject: ParameterObject<T>
+        ): Creator<T, AssertionPlantNullable<T>, CollectingAssertionPlantNullable<T>> {
+            return featureExtractorCreatorFactory.create(
+                featureRepresentation, parameterObject, coreFactory::newCollectingPlantNullable
+            )
+        }
     }
-
 
     /**
      * Final step of the sophisticated `safe feature extraction` where once can define [subAssertions] for the extracted
@@ -107,14 +123,14 @@ interface FeatureExtractor {
          * @param assertionCreator A lambda which creates the [Assertion]s for the extracted feature.
          */
         fun subAssertions(assertionCreator: C.() -> Unit): Assertion
-
     }
 
     /**
      * A parameter object which contains all necessary information to extract a feature -- however, not to create
      * assertions.
      *
-     * @param extractionNotSuccessful Used as [AssertionGroup.representation] in case [canBeExtracted] evaluates to false.
+     * @param extractionNotSuccessful Used as [AssertionGroup.representation] in case [canBeExtracted]
+     *   evaluates to false.
      * @param warningCannotEvaluate The [Translatable] used to explain why the extraction could not be carried out.
 
      * @param canBeExtracted Indicates whether it is safe to extract the feature or not (e.g. [Map.containsKey] as
