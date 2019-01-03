@@ -26,22 +26,22 @@ fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>): CharSequen
 
 
 fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.createDescriptive(STARTS_WITH, expected, { plant.subject.startsWith(expected) })
+    = AssertImpl.builder.createDescriptive(STARTS_WITH, expected) { plant.subject.startsWith(expected) }
 
 fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.createDescriptive(STARTS_NOT_WITH, expected, { !plant.subject.startsWith(expected) })
+    = AssertImpl.builder.createDescriptive(STARTS_NOT_WITH, expected) { !plant.subject.startsWith(expected) }
 
 fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.createDescriptive(ENDS_WITH, expected, { plant.subject.endsWith(expected) })
+    = AssertImpl.builder.createDescriptive(ENDS_WITH, expected) { plant.subject.endsWith(expected) }
 
 fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    = AssertImpl.builder.createDescriptive(ENDS_NOT_WITH, expected, { !plant.subject.endsWith(expected) })
+    = AssertImpl.builder.createDescriptive(ENDS_NOT_WITH, expected) { !plant.subject.endsWith(expected) }
 
 fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(EMPTY), { plant.subject.isEmpty() })
+    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(EMPTY)) { plant.subject.isEmpty() }
 
 fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY), { plant.subject.isNotEmpty() })
+    = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY)) { plant.subject.isNotEmpty() }
 
 fun <T : CharSequence> _isNotBlank(plant: AssertionPlant<T>): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(BLANK)) { plant.subject.isNotBlank() }
