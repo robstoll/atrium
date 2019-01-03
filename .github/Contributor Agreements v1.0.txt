@@ -9,10 +9,11 @@ and owned by
 Robert Stoll (the “Project Owner”, hereafter "We" or "Us").
 
 This contributor agreement ("Agreement") documents the rights granted by contributors to 
-Us. To make this document effective, please sign it and send it to Us by mail, email, fax, or 
-electronic submission, following the instructions published on the Joinup site. This is a 
-legally binding document, so please read it carefully before agreeing to it. The Agreement 
-may cover more than one project managed by Us.
+Us. To make this document effective, please sign it. The consent in the form of a sign-off
+remark in your pull request is considered as your valid signature. Alternatively you can
+sign it and send it to Us by email.
+This is a legally binding document, so please read it carefully before agreeing to it.
+The Agreement may cover more than one project managed by Us.
 
 1. Definitions
 "You" (Individual) means the individual who Submits a Contribution to Us.
