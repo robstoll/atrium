@@ -14,14 +14,14 @@ internal object AssertionBuilderImpl : AssertionBuilder {
     override val summary: AssertionGroupDescriptionAndEmptyRepresentationOption<SummaryAssertionGroupType, AssertionsOption<SummaryAssertionGroupType, BasicAssertionGroupFinalStep>>
         = AssertionGroupDescriptionAndEmptyRepresentationOption.create(DefaultSummaryAssertionGroupType, AssertionsOption.asFactoryWithDefaultFinalStep())
 
-    override val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
-        = ExplanatoryAssertionGroupTypeOptionImpl
+    override val explanatoryGroup: ExplanatoryGroup.GroupTypeOption
+        = ExplanatoryGroup.GroupTypeOption.create()
 
-    override val descriptive: DescriptiveAssertionHoldsOption
-        = DescriptiveAssertionHoldsOptionImpl
+    override val descriptive: Descriptive.HoldsOption
+        = Descriptive.HoldsOption.create()
 
-    override val explanatory: ExplanatoryAssertionExplanationOption
-        = ExplanatoryAssertionExplanationOptionImpl
+    override val explanatory: Explanatory.ExplanationOption
+        = Explanatory.ExplanationOption.create()
 
     override fun <T : AssertionGroupType> customType(groupType: T): DefaultAssertionGroupBuilderOptions<T>
         = createDescriptionAndRepresentationOption(groupType)

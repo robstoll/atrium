@@ -4,12 +4,12 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionGroupDescriptionAndRepresentationOption
 import ch.tutteli.atrium.assertions.builders.AssertionsOption
-import ch.tutteli.atrium.domain.builders.assertions.builders.FixedClaimLikeAssertionGroupHoldsOption
+import ch.tutteli.atrium.domain.builders.assertions.builders.FixedClaimLikeGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal abstract class FixedClaimLikeAssertionGroupHoldsOptionImpl<T : AssertionGroupType, R>(
     override val groupType: T
-) : FixedClaimLikeAssertionGroupHoldsOption<T, R> {
+) : FixedClaimLikeGroup.HoldsOption<T, R> {
     override val holding: AssertionGroupDescriptionAndRepresentationOption<T, AssertionsOption<T, R>>
         get() = createDescriptionAndRepresentationOption(true)
 
