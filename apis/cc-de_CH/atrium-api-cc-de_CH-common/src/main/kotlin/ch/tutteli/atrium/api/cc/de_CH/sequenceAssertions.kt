@@ -12,5 +12,5 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  *
  * @return The newly created [AssertionPlant] for the transformed subject.
  */
-fun <E, T : Sequence<E>> Assert<T>.asIterable()
+fun <E> Assert<Sequence<E>>.asIterable(): Assert<Iterable<E>>
     = AssertImpl.changeSubject(this) { subject.asIterable() }
