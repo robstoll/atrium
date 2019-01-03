@@ -13,6 +13,11 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 
+fun <K, V> _containsKey(plant: AssertionPlant<Map<K, V>>, key: K): Assertion = AssertImpl.builder.descriptive
+    .withTest { plant.subject.containsKey(key) }
+    .withDescriptionAndRepresentation(DescriptionMapAssertion.MAP_CONTAINS, key.toString())
+    .build()
+
 fun <T : Map<*, *>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion = AssertImpl.collector.collect(plant) {
     property(Map<*, *>::size) { toBe(size) }
 }

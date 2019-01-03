@@ -6,6 +6,16 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
+
+/**
+ * Makes the assertion that [AssertionPlant.subject]'s [Map] contains [key].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <K, V> Assert<Map<K, V>>.containsKey(key: K)
+    = addAssertion(AssertImpl.map.containsKey(this, key))
+
 /**
  * Makes the assertion that [AssertionPlant.subject]'s [Map.size] is [size].
  *

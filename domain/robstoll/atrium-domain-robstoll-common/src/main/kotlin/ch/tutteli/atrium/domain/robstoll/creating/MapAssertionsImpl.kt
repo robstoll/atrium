@@ -11,6 +11,9 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.*
  */
 class MapAssertionsImpl : MapAssertions {
 
+    override fun <K, V> containsKey(plant: AssertionPlant<Map<K, V>>, key: K)
+        = _containsKey(plant, key)
+
     override fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int)
         = _hasSize(plant, size)
 
