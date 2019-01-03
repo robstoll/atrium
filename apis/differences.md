@@ -64,6 +64,8 @@ is too similar, we will not list it here (ok, we did now but I guess you get the
 - [Iterable contains in order with nullable elements](#iterable-contains-in-order-with-nullable-elements)
 - [Iterable contains not](#iterable-contains-not)
 - [Iterable predicate-like assertions](#iterable-predicate-like-assertions)
+- [List get](#list-get)
+- [Map get](#map-get)
 
 ## Empty CharSequence / Collection
 
@@ -376,4 +378,30 @@ assert(x).allNullables(null)
 assert(x) any NullableEntry { this startsWith "hello" }
 assert(x) none NullableEntry { this endsWith "." }
 assert(x) all NullableEntry(null)
+```
+
+# List get
+*atrium-api-cc-en_GB*
+```kotlin
+assert(x).get(0) { isGreaterThan(1) }
+assert(x).getNullable(0) { notToBeNullBut(1) }
+```
+
+*atrium-api-cc-infix-en_GB*
+```kotlin
+assert(x) get 0 assertIt { this isGreaterThan 1 }
+assert(x) getNullable 0 assertIt { this  notToBeNullBut 1 }
+```
+
+# Map get
+*atrium-api-cc-en_GB*
+```kotlin
+assert(x).getExisting("a") { isGreaterThan(1) }
+assert(x).getExistingNullable("a") { notToBeNullBut(1) }
+```
+
+*atrium-api-cc-infix-en_GB*
+```kotlin
+assert(x) getExisting "a" assertIt { this isGreaterThan 1 }
+assert(x) getExistingNullable "a" assertIt { this  notToBeNullBut 1 }
 ```
