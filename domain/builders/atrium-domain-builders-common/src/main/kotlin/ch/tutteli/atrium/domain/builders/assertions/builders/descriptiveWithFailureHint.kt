@@ -4,24 +4,23 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilderFinalStep
-import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionFinalStep
-import ch.tutteli.atrium.assertions.builders.DescriptiveLikeAssertionDescriptionOption
+import ch.tutteli.atrium.assertions.builders.Descriptive
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.descriptiveWithFailureHint.FinalStepImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.impl.descriptiveWithFailureHint.ShowOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Option to create a [DescriptiveAssertion] like assertion with an additional hint which might be shown if the
- * [DescriptiveLikeAssertionDescriptionOption.test] fails.
+ * [Descriptive.DescriptionOption.test] fails.
  */
-fun DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>.withFailureHint(
+fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withFailureHint(
     failureHintFactory: () -> Assertion
 ): DescriptiveAssertionWithFailureHint.ShowOption
     = DescriptiveAssertionWithFailureHint.ShowOption.create(test, failureHintFactory)
 
 /**
  * Defines the contract to build a [DescriptiveAssertion] like assertion with an additional hint
- * which might be shown if the [DescriptiveLikeAssertionDescriptionOption.test] fails.
+ * which might be shown if the [Descriptive.DescriptionOption.test] fails.
  */
 interface DescriptiveAssertionWithFailureHint{
     /**
@@ -31,12 +30,12 @@ interface DescriptiveAssertionWithFailureHint{
         /**
          * Defines that the failure hint shall be shown in any case.
          */
-        val showForAnyFailure: DescriptiveLikeAssertionDescriptionOption<FinalStep>
+        val showForAnyFailure: Descriptive.DescriptionOption<FinalStep>
 
         /**
          * Defines that the failure hint shall only be shown if the given [predicate] holds.
          */
-        fun showOnlyIf(predicate: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<FinalStep>
+        fun showOnlyIf(predicate: () -> Boolean): Descriptive.DescriptionOption<FinalStep>
 
         companion object {
             fun create(

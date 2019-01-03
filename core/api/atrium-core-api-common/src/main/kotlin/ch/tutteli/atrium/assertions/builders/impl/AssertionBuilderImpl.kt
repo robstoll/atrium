@@ -17,8 +17,8 @@ internal object AssertionBuilderImpl : AssertionBuilder {
     override val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
         = ExplanatoryAssertionGroupTypeOptionImpl
 
-    override val descriptive: DescriptiveAssertionHoldsOption
-        = DescriptiveAssertionHoldsOptionImpl
+    override val descriptive: Descriptive.HoldsOption
+        = Descriptive.HoldsOption.create()
 
     override val explanatory: ExplanatoryAssertionExplanationOption
         = ExplanatoryAssertionExplanationOptionImpl
