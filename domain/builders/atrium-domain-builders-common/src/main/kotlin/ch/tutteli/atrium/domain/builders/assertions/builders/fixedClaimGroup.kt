@@ -17,18 +17,21 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 @Suppress("unused")
 val AssertionBuilder.fixedClaimGroup: FixedClaimGroup.GroupTypeOption
-    get() = GroupTypeOptionImpl
+    get() = FixedClaimGroup.GroupTypeOption.create()
 
 /**
  * Defines the contract to build an [AssertionGroup] which has a fixed [AssertionGroup.holds].
  */
 interface FixedClaimGroup {
-    interface GroupTypeOption : FixedClaimLikeGroup.GroupTypeOption<FinalStep>
+    interface GroupTypeOption : FixedClaimLikeGroup.GroupTypeOption<FinalStep> {
+        companion object {
+            fun create(): GroupTypeOption = GroupTypeOptionImpl
+        }
+    }
 
     interface HoldsOption<T : AssertionGroupType> : FixedClaimLikeGroup.HoldsOption<T, FinalStep>{
         companion object {
-            fun <T: AssertionGroupType> create(groupType: T): HoldsOption<T>
-                = HoldsOptionImpl(groupType)
+            fun <T: AssertionGroupType> create(groupType: T): HoldsOption<T> = HoldsOptionImpl(groupType)
         }
     }
 

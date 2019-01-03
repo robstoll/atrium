@@ -19,7 +19,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 @Suppress("unused")
 val AssertionBuilder.partiallyFixedClaimGroup: PartiallyFixedClaimGroup.GroupTypeOption
-    get() = GroupTypeOptionImpl
+    get() = PartiallyFixedClaimGroup.GroupTypeOption.create()
 
 /**
  * Defines the contract to build an [AssertionGroup] whose [AssertionGroup.holds] is a logic AND operation composed
@@ -29,7 +29,11 @@ val AssertionBuilder.partiallyFixedClaimGroup: PartiallyFixedClaimGroup.GroupTyp
  * all but be fixed.
  */
 interface PartiallyFixedClaimGroup {
-    interface GroupTypeOption : FixedClaimLikeGroup.GroupTypeOption<FinalStep>
+    interface GroupTypeOption : FixedClaimLikeGroup.GroupTypeOption<FinalStep> {
+        companion object {
+            fun create(): PartiallyFixedClaimGroup.GroupTypeOption = GroupTypeOptionImpl
+        }
+    }
 
     interface HoldsOption<T : AssertionGroupType> : FixedClaimLikeGroup.HoldsOption<T, FinalStep>{
         companion object {

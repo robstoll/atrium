@@ -6,8 +6,8 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilderFinalStep
 import ch.tutteli.atrium.assertions.builders.DescriptiveAssertionFinalStep
 import ch.tutteli.atrium.assertions.builders.DescriptiveLikeAssertionDescriptionOption
-import ch.tutteli.atrium.domain.builders.assertions.builders.impl.DescriptiveAssertionWithFailureHintFinalStepImpl
-import ch.tutteli.atrium.domain.builders.assertions.builders.impl.DescriptiveAssertionWithFailureHintShowOptionImpl
+import ch.tutteli.atrium.domain.builders.assertions.builders.impl.descriptiveWithFailureHint.FinalStepImpl
+import ch.tutteli.atrium.domain.builders.assertions.builders.impl.descriptiveWithFailureHint.ShowOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -16,78 +16,75 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  */
 fun DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionFinalStep>.withFailureHint(
     failureHintFactory: () -> Assertion
-): DescriptiveAssertionWithFailureHintShowOption
-    = DescriptiveAssertionWithFailureHintShowOption.create(test, failureHintFactory)
-
-
+): DescriptiveAssertionWithFailureHint.ShowOption
+    = DescriptiveAssertionWithFailureHint.ShowOption.create(test, failureHintFactory)
 
 /**
- * Option step which allows to specify in which situations the failure hint should be shown.
+ * Defines the contract to build a [DescriptiveAssertion] like assertion with an additional hint
+ * which might be shown if the [DescriptiveLikeAssertionDescriptionOption.test] fails.
  */
-interface DescriptiveAssertionWithFailureHintShowOption {
+interface DescriptiveAssertionWithFailureHint{
     /**
-     * Defines that the failure hint shall be shown in any case.
+     * Option step which allows to specify in which situations the failure hint should be shown.
      */
-    val showForAnyFailure: DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
+    interface ShowOption{
+        /**
+         * Defines that the failure hint shall be shown in any case.
+         */
+        val showForAnyFailure: DescriptiveLikeAssertionDescriptionOption<FinalStep>
 
-    /**
-     * Defines that the failure hint shall only be shown if the given [predicate] holds.
-     */
-    fun showOnlyIf(predicate: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<DescriptiveAssertionWithFailureHintFinalStep>
+        /**
+         * Defines that the failure hint shall only be shown if the given [predicate] holds.
+         */
+        fun showOnlyIf(predicate: () -> Boolean): DescriptiveLikeAssertionDescriptionOption<FinalStep>
 
-    companion object {
-        fun create(
-            test: () -> Boolean,
-            failureHintFactory: () -> Assertion
-        ): DescriptiveAssertionWithFailureHintShowOption
-            = DescriptiveAssertionWithFailureHintShowOptionImpl(test, failureHintFactory)
+        companion object {
+            fun create(
+                test: () -> Boolean,
+                failureHintFactory: () -> Assertion
+            ): ShowOption = ShowOptionImpl(test, failureHintFactory)
+        }
     }
-}
-
-/**
- * Final step which creates a [DescriptiveAssertion] if the [test] holds or an [AssertionGroup] which includes
- * additionally a failure hint created by the given [failureHintFactory] in case [showHint] evaluates to `true`.
- */
-interface DescriptiveAssertionWithFailureHintFinalStep : AssertionBuilderFinalStep<Assertion> {
-    /**
-     * The previously defined test which is used to determine [DescriptiveAssertion.holds].
-     */
-    val test: () -> Boolean
 
     /**
-     *  The previously defined [showHint] predicate which defines whether the failure hint shall be shown
-     *  in case the assertion fails or not.
+     * Final step which creates a [DescriptiveAssertion] if the [test] holds or an [AssertionGroup] which includes
+     * additionally a failure hint created by the given [failureHintFactory] in case [showHint] evaluates to `true`.
      */
-    val showHint: () -> Boolean
+    interface FinalStep : AssertionBuilderFinalStep<Assertion> {
+        /**
+         * The previously defined test which is used to determine [DescriptiveAssertion.holds].
+         */
+        val test: () -> Boolean
 
-    /**
-     * The previously defined factory method which creates the failure hint.
-     */
-    val failureHintFactory: () -> Assertion
+        /**
+         *  The previously defined [showHint] predicate which defines whether the failure hint shall be shown
+         *  in case the assertion fails or not.
+         */
+        val showHint: () -> Boolean
 
-    /**
-     * The previously defined [DescriptiveAssertion.description].
-     */
-    val description: Translatable
+        /**
+         * The previously defined factory method which creates the failure hint.
+         */
+        val failureHintFactory: () -> Assertion
 
-    /**
-     * The previously defined [DescriptiveAssertion.representation].
-     */
-    val representation: Any
+        /**
+         * The previously defined [DescriptiveAssertion.description].
+         */
+        val description: Translatable
 
-    companion object {
-        fun create(
-            test: () -> Boolean,
-            showHint: () -> Boolean,
-            failureHintFactory: () -> Assertion,
-            description: Translatable,
-            representation: Any
-        ): DescriptiveAssertionWithFailureHintFinalStep = DescriptiveAssertionWithFailureHintFinalStepImpl(
-            test,
-            showHint,
-            failureHintFactory,
-            description,
-            representation
-        )
+        /**
+         * The previously defined [DescriptiveAssertion.representation].
+         */
+        val representation: Any
+
+        companion object {
+            fun create(
+                test: () -> Boolean,
+                showHint: () -> Boolean,
+                failureHintFactory: () -> Assertion,
+                description: Translatable,
+                representation: Any
+            ): FinalStep = FinalStepImpl(test, showHint, failureHintFactory, description, representation)
+        }
     }
 }
