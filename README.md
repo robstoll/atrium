@@ -273,7 +273,7 @@ assert(subtitle).notToBeNull { startsWith("atrium") }
 ```
 If the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html) then 
 you need to define first, whether you expect it to be `null` or not. 
-In case you expect that it `isNotNull` you can define one or more subsequent assertions 
+In case you expect it `notToBeNull` you can define one or more subsequent assertions 
 for the subject as if it had a non-nullable type  (`String` in the above example) by defining an 
 [assertion group block](#define-single-assertions-or-assertion-groups) 
 -- `{ startsWith("atrium") }` in the above example. 
