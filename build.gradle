@@ -116,8 +116,25 @@ configureAndroidProjects()
 
 configure(subprojects - multiplatformProjects) {
     apply plugin: 'kotlin'
+
+    compileKotlin {
+        kotlinOptions.allWarningsAsErrors = true
+    }
+
     dependencies {
         compile kotlinStdlib()
+    }
+
+}
+
+configure(commonProjects) {
+    compileKotlinCommon {
+        kotlinOptions.allWarningsAsErrors = true
+    }
+}
+configure(jsProjects) {
+    compileKotlin2Js {
+        kotlinOptions.allWarningsAsErrors = true
     }
 }
 
@@ -140,6 +157,10 @@ configure(subprojects - bundleSmokeTests) { subproject ->
 
 configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
+
+    compileKotlin {
+        kotlinOptions.allWarningsAsErrors = true
+    }
 
     dependencies {
         testCompile mockito(), excludeKotlin
