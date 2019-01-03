@@ -8,6 +8,7 @@ import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionAnyAssertion
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion
+import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
@@ -16,6 +17,7 @@ import org.jetbrains.spek.api.include
 
 abstract class MapAssertionsSpec(
     verbs: AssertionVerbFactory,
+    containsKeyPair: Pair<String, Assert<Map<String, Int>>.(String) -> Assert<Map<String, Int>>>,
     hasSizePair: Pair<String, Assert<Map<String, Int>>.(Int) -> Assert<Map<String, Int>>>,
     isEmptyPair: Pair<String, Assert<Map<String, Int>>.() -> Assert<Map<String, Int>>>,
     isNotEmptyPair: Pair<String, Assert<Map<String, Int>>.() -> Assert<Map<String, Int>>>,
@@ -23,12 +25,14 @@ abstract class MapAssertionsSpec(
 ) : Spek({
 
     include(object : SubjectLessAssertionSpec<Map<String, Int>>(describePrefix,
+        containsKeyPair.first to mapToCreateAssertion{ containsKeyPair.second(this, "a") },
         hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 2) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})
 
     include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, describePrefix,
+        checkingTriple(containsKeyPair.first, {containsKeyPair.second(this, "a")}, mapOf("a" to 1), mapOf("b" to 1)),
         checkingTriple(hasSizePair.first, { hasSizePair.second(this, 1) }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, mapOf(), mapOf("a" to 1, "b" to 2)),
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, mapOf("b" to 2), mapOf())
@@ -41,6 +45,7 @@ abstract class MapAssertionsSpec(
     val expect = verbs::checkException
     val fluent = assert(mapOf("a" to 1, "b" to 2))
 
+    val (containsKey, containsKeyFun) = containsKeyPair
     val (hasSize, hasSizeFun) = hasSizePair
     val (isEmpty, isEmptyFun) = isEmptyPair
     val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
@@ -48,6 +53,19 @@ abstract class MapAssertionsSpec(
     val isDescr = DescriptionBasic.IS.getDefault()
     val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
+    val containsKeyDescr = DescriptionMapAssertion.MAP_CONTAINS.getDefault()
+
+    describeFun(containsKey) {
+        it("does not throw if a map contains key a") {
+            assert(mapOf()).containsKeyFun("a")
+        }
+
+        it("throws an AssertionError if map not contains key") {
+            expect {
+                assert(mapOf( "b" to 2)).containsKeyFun("a")
+            }.toThrow<AssertionError> { messageContains("$isDescr: $containsKeyDescr")}
+        }
+    }
 
     describeFun(hasSize) {
         context("map with two entries") {

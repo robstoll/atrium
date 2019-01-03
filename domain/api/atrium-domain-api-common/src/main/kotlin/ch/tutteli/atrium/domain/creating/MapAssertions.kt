@@ -18,6 +18,7 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapAssertions {
+    fun <K, V> containsKey(plant: AssertionPlant<Map<K, V>>, key: K): Assertion
     fun <K, V: Any> getExisting(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
     fun <K, V> getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
     fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion
