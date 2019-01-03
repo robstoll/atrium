@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
 /**
  * Option step which allows to specify [AssertionGroup.assertions].
  */
-interface AssertionsOption<out T : AssertionGroupType, R> {
+interface AssertionsOption<out T : AssertionGroupType, out R> {
     /**
      * The previously defined [AssertionGroup.type].
      */

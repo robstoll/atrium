@@ -1,29 +1,28 @@
-package ch.tutteli.atrium.assertions.builders.impl
+package ch.tutteli.atrium.assertions.builders.impl.explanatoryGroup
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.DefaultExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.AssertionsOption
-import ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupFinalStep
-import ch.tutteli.atrium.assertions.builders.ExplanatoryAssertionGroupTypeOption
+import ch.tutteli.atrium.assertions.builders.ExplanatoryGroup
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-internal object ExplanatoryAssertionGroupTypeOptionImpl : ExplanatoryAssertionGroupTypeOption {
+internal object GroupTypeOptionImpl : ExplanatoryGroup.GroupTypeOption {
 
-    override val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
+    override val withDefaultType: AssertionsOption<DefaultExplanatoryAssertionGroupType, ExplanatoryGroup.FinalStep>
         = createAssertionsOption(DefaultExplanatoryAssertionGroupType)
 
-    override val withWarningType: AssertionsOption<WarningAssertionGroupType, ExplanatoryAssertionGroupFinalStep>
+    override val withWarningType: AssertionsOption<WarningAssertionGroupType, ExplanatoryGroup.FinalStep>
         = createAssertionsOption(WarningAssertionGroupType)
 
     override fun <T : ExplanatoryAssertionGroupType> withType(
         groupType: T
-    ): AssertionsOption<T, ExplanatoryAssertionGroupFinalStep> = createAssertionsOption(groupType)
+    ): AssertionsOption<T, ExplanatoryGroup.FinalStep> = createAssertionsOption(groupType)
 
     private fun <T : ExplanatoryAssertionGroupType> createAssertionsOption(groupType: T)
         = AssertionsOption.withEmptyDescriptionAndRepresentation(
-            groupType, ::createExplanatoryAssertionGroupFinalStep
+            groupType, GroupTypeOptionImpl::createExplanatoryAssertionGroupFinalStep
         )
 
     @Suppress("UNUSED_PARAMETER")
@@ -32,5 +31,5 @@ internal object ExplanatoryAssertionGroupTypeOptionImpl : ExplanatoryAssertionGr
         ignoredDescription: Translatable,
         ignoredRepresentation: Any,
         explanatoryAssertions: List<Assertion>
-    ): ExplanatoryAssertionGroupFinalStep = ExplanatoryAssertionGroupFinalStep.create(groupType, explanatoryAssertions)
+    ): ExplanatoryGroup.FinalStep = ExplanatoryGroup.FinalStep.create(groupType, explanatoryAssertions)
 }

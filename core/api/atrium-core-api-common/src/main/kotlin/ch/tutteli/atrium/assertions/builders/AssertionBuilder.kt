@@ -48,7 +48,10 @@ interface AssertionBuilder {
      * Builder to create an [AssertionGroup] with a [ExplanatoryAssertionGroupType] -- such a group is always shown in
      * reporting (a [Reporter] has to neglect whether the [Assertion.holds] or not). Use it to provide explanations.
      * It is inter alia used in [Iterable] `contains entries` assertions to describe the identification lambda you used.
+     *
+     * Notice, return type will change to [ExplanatoryGroup.GroupTypeOption] with 1.0.0.
      */
+    @Suppress("DEPRECATION" /** TODO change to ExplanatoryGroup.GroupTypeOption with 1.0.0 */)
     val explanatoryGroup: ExplanatoryAssertionGroupTypeOption
 
     /**
@@ -65,7 +68,7 @@ interface AssertionBuilder {
      * For instance, it is used to explain additional entries in an [Iterable] `contains entries` assertion.
      * It is typically used in an [explanatoryGroup].
      */
-    val explanatory: ExplanatoryAssertionExplanationOption
+    val explanatory: Explanatory.ExplanationOption
 
     /**
      * Builder to create a basic [AssertionGroup] with a custom [AssertionGroupType].
