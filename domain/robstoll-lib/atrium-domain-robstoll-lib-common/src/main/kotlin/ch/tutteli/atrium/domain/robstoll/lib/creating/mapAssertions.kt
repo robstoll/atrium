@@ -13,9 +13,9 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 
-fun <K, V> _containsKey(plant: AssertionPlant<Map<K, V>>, key: K): Assertion = AssertImpl.builder.descriptive
+fun <K> _containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion = AssertImpl.builder.descriptive
     .withTest { plant.subject.containsKey(key) }
-    .withDescriptionAndRepresentation(DescriptionMapAssertion.MAP_CONTAINS, key.toString())
+    .withDescriptionAndRepresentation(DescriptionMapAssertion.CONTAINS_KEY, key as Any)
     .build()
 
 fun <K, V : Any> _getExisting(
