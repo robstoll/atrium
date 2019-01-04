@@ -8,6 +8,26 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
+
+/**
+ * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
+ *
+ * @return A fluent builder to finish the assertion.
+ */
+infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K): MapGetOption<K, V, T>
+    = MapGetOption.create(this, key)
+
+/**
+ * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
+ *
+ * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
+ * nullable value type.
+ *
+ * @return A fluent builder to finish the assertion.
+ */
+infix fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: K): MapGetNullableOption<K, V, T>
+    = MapGetNullableOption.create(this, key)
+
 /**
  * Makes the assertion that [AssertionPlant.subject]'s [Map.size] is [size].
  *
@@ -55,7 +75,7 @@ val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::k
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-infix fun <K, V> Assert<Map<K, V>>.keys(assertionCreator: Assert<Set<K>>.() -> Unit): Assert<Map<K, V>>
+infix fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
@@ -77,7 +97,7 @@ val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-infix fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -> Unit): Assert<Map<K, V>>
+infix fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
     = addAssertion(AssertImpl.map.values(this, assertionCreator))
 
 /**
@@ -90,22 +110,3 @@ infix fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>
  */
 fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = AssertImpl.changeSubject(this) { subject.entries }
-
-/**
- * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
- *
- * @return A fluent builder to finish the assertion.
- */
-infix fun <K, V: Any> Assert<Map<K, V>>.getExisting(key: K): MapGetOption<K, V>
-    = MapGetOption.create(this, key)
-
-/**
- * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
- *
- * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
- * nullable value type.
- *
- * @return A fluent builder to finish the assertion.
- */
-infix fun <K, V> Assert<Map<K, V>>.getExistingNullable(key: K): MapGetNullableOption<K, V>
-    = MapGetNullableOption.create(this, key)

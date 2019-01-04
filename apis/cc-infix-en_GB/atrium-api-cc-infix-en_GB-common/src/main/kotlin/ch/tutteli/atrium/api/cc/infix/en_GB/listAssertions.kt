@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.Assert
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <T : Any> Assert<List<T>>.get(index: Int): ListGetOption<T> = ListGetOption.create(this, index)
+infix fun <E : Any, T: List<E>> Assert<T>.get(index: Int): ListGetOption<E, T> = ListGetOption.create(this, index)
 
 /**
  * Prepares the assertion about the return value of calling [get][List.get] with the given [index].
@@ -19,5 +19,5 @@ infix fun <T : Any> Assert<List<T>>.get(index: Int): ListGetOption<T> = ListGetO
  *
  * @return A fluent builder to finish the assertion.
  */
-infix fun <T> Assert<List<T>>.getNullable(index: Int): ListGetNullableOption<T> =
+infix fun <E, T: List<E>> Assert<T>.getNullable(index: Int): ListGetNullableOption<E, T> =
     ListGetNullableOption.create(this, index)

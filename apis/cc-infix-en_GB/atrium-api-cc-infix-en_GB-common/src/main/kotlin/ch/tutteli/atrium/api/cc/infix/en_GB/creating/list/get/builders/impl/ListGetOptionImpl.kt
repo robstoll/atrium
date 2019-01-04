@@ -4,11 +4,11 @@ import ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders.ListGetOp
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
-internal class ListGetOptionImpl<T : Any>(
-    override val plant: Assert<List<T>>,
+internal class ListGetOptionImpl<E : Any, T: List<E>>(
+    override val plant: Assert<T>,
     override val index: Int
-) : ListGetOption<T> {
+) : ListGetOption<E, T> {
 
-    override infix fun assertIt(assertionCreator: Assert<T>.() -> Unit): Assert<List<T>> =
-        plant.addAssertion(AssertImpl.list.get(plant, index, assertionCreator))
+    override infix fun assertIt(assertionCreator: Assert<E>.() -> Unit): Assert<T>
+        = plant.addAssertion(AssertImpl.list.get(plant, index, assertionCreator))
 }

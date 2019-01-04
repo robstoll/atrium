@@ -9,14 +9,15 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * Represents the extension point for another option after a `get key`-step within a
  * sophisticated `get` assertion building process for [Map].
  *
- * @param K The key type of the map.
- * @param V the value type of the map.
+ * @param K The key type of the [Map].
+ * @param V the value type of the [Map].
+ * @param T A subtype of [Map].
  */
-interface MapGetOption<K, V : Any> {
+interface MapGetOption<K, V : Any, T : Map<K, V>> {
     /**
      * The [AssertionPlant] for which this assertion is created
      */
-    val plant: Assert<Map<K, V>>
+    val plant: Assert<T>
 
     /**
      * The given key which will be used to perform the [Map.get].
@@ -32,10 +33,10 @@ interface MapGetOption<K, V : Any> {
      * does not hold.
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
      */
-    infix fun assertIt(assertionCreator: Assert<V>.() -> Unit): Assert<Map<K, V>>
+    infix fun assertIt(assertionCreator: Assert<V>.() -> Unit): Assert<T>
 
     companion object {
-        fun <K, V : Any> create(plant: Assert<Map<K, V>>, key: K): MapGetOption<K, V>
+        fun <K, V : Any, T: Map<K, V>> create(plant: Assert<T>, key: K): MapGetOption<K, V, T>
             = MapGetOptionImpl(plant, key)
     }
 }

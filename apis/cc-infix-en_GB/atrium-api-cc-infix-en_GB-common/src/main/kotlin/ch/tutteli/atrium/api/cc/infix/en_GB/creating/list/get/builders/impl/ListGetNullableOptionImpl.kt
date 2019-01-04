@@ -5,11 +5,11 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
-internal class ListGetNullableOptionImpl<T>(
-    override val plant: Assert<List<T>>,
+internal class ListGetNullableOptionImpl<E, T: List<E>>(
+    override val plant: Assert<T>,
     override val index: Int
-) : ListGetNullableOption<T> {
+) : ListGetNullableOption<E, T> {
 
-    override infix fun assertIt(assertionCreator: AssertionPlantNullable<T>.() -> Unit): Assert<List<T>>
+    override infix fun assertIt(assertionCreator: AssertionPlantNullable<E>.() -> Unit): Assert<T>
         = plant.addAssertion(AssertImpl.list.getNullable(plant, index, assertionCreator))
 }

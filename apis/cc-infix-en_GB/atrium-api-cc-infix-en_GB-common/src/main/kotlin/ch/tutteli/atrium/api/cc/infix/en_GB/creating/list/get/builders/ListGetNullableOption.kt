@@ -10,13 +10,14 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
  * Represents the extension point for another option after a `get index`-step within a
  * sophisticated `get` assertion building process for [List].
  *
- * @param T The entry type
+ * @param E The entry type of the [List].
+ * @param T A subtype of [List].
  */
-interface ListGetNullableOption<T> {
+interface ListGetNullableOption<E, T: List<E>> {
     /**
      * The [AssertionPlant] for which this assertion is created
      */
-    val plant: Assert<List<T>>
+    val plant: Assert<T>
 
     /**
      * The given index which will be used to perform the [List.get].
@@ -35,10 +36,10 @@ interface ListGetNullableOption<T> {
      *   does not hold.
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
      */
-    infix fun assertIt(assertionCreator: AssertionPlantNullable<T>.() -> Unit): Assert<List<T>>
+    infix fun assertIt(assertionCreator: AssertionPlantNullable<E>.() -> Unit): Assert<T>
 
     companion object {
-        fun <T> create(plant: Assert<List<T>>, index: Int): ListGetNullableOption<T>
+        fun <E, T: List<E>> create(plant: Assert<T>, index: Int): ListGetNullableOption<E, T>
             = ListGetNullableOptionImpl(plant, index)
     }
 }

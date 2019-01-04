@@ -9,13 +9,14 @@ import ch.tutteli.atrium.creating.AssertionPlant
  * Represents the extension point for another option after a `get index`-step within a
  * sophisticated `get` assertion building process for [List].
  *
- * @param T The entry type
+ * @param E The entry type of the [List].
+ * @param T A subtype of [List].
  */
-interface ListGetOption<T : Any> {
+interface ListGetOption<E : Any, T: List<E>> {
     /**
      * The [AssertionPlant] for which this assertion is created
      */
-    val plant: Assert<List<T>>
+    val plant: Assert<T>
 
     /**
      * The given index which will be used to perform the [List.get].
@@ -31,10 +32,10 @@ interface ListGetOption<T : Any> {
      *   does not hold.
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
      */
-    infix fun assertIt(assertionCreator: Assert<T>.() -> Unit): Assert<List<T>>
+    infix fun assertIt(assertionCreator: Assert<E>.() -> Unit): Assert<T>
 
     companion object {
-        fun <T: Any> create(plant: Assert<List<T>>, index: Int): ListGetOption<T>
+        fun <E: Any, T: List<E>> create(plant: Assert<T>, index: Int): ListGetOption<E, T>
             = ListGetOptionImpl(plant, index)
     }
 }

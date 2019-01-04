@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <T: Any> Assert<List<T>>.get(index: Int, assertionCreator: Assert<T>.() -> Unit): Assert<List<T>>
+fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.() -> Unit)
     = addAssertion(AssertImpl.list.get(this, index, assertionCreator))
 
 /**
@@ -30,5 +30,5 @@ fun <T: Any> Assert<List<T>>.get(index: Int, assertionCreator: Assert<T>.() -> U
  *   does not hold.
  * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
  */
-fun <T> Assert<List<T>>.getNullable(index: Int, assertionCreator: AssertionPlantNullable<T>.() -> Unit): Assert<List<T>>
+fun <E, T: List<E>> Assert<T>.getNullable(index: Int, assertionCreator: AssertionPlantNullable<E>.() -> Unit)
     = addAssertion(AssertImpl.list.getNullable(this, index, assertionCreator))

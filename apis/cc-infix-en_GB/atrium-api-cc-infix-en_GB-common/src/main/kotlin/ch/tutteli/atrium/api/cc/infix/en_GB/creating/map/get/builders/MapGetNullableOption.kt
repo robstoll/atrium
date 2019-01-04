@@ -10,14 +10,15 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
  * Represents the extension point for another option after a `get key`-step within a
  * sophisticated `get` assertion building process for [Map].
  *
- * @param K The key type of the map.
- * @param V the value type of the map.
+ * @param K The key type of the [Map].
+ * @param V the value type of the [Map].
+ * @param T A subtype of [Map].
  */
-interface MapGetNullableOption<K, V> {
+interface MapGetNullableOption<K, V, T: Map<K, V>> {
     /**
      * The [AssertionPlant] for which this assertion is created
      */
-    val plant: Assert<Map<K, V>>
+    val plant: Assert<T>
 
     /**
      * The given key which will be used to perform the [Map.get].
@@ -36,10 +37,10 @@ interface MapGetNullableOption<K, V> {
      *   does not hold.
      * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
      */
-    infix fun assertIt(assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assert<Map<K, V>>
+    infix fun assertIt(assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assert<T>
 
     companion object {
-        fun <K, V> create(plant: Assert<Map<K, V>>, key: K): MapGetNullableOption<K, V>
+        fun <K, V, T: Map<K, V>> create(plant: Assert<T>, key: K): MapGetNullableOption<K, V, T>
             = MapGetNullableOptionImpl(plant, key)
     }
 }

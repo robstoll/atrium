@@ -7,6 +7,34 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding value
+ * holds all assertions the given [assertionCreator] might create for it.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
+ *   does not hold.
+ * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
+ */
+fun <K, V: Any, T: Map<K, V>> Assert<T>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit)
+    = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding value
+ * holds all assertions the given [assertionCreator] might create for it.
+ *
+ * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
+ * nullable value type.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
+ *   does not hold.
+ * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
+ */
+fun <K, V, T: Map<K, V>> Assert<T>.getExistierendNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit)
+    = addAssertion(AssertImpl.map.getExistingNullable(this, key, assertionCreator))
+
+
+/**
  * Makes the assertion that [AssertionPlant.subject]'s [Map.size] is [size].
  *
  * @return This plant to support a fluent API.
@@ -52,7 +80,7 @@ val <K, V> Assert<Map<K, V>>.keys get() : Assert<Set<K>> = property(Map<K, V>::k
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-fun <K, V> Assert<Map<K, V>>.keys(assertionCreator: Assert<Set<K>>.() -> Unit): Assert<Map<K, V>>
+fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> Unit)
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
@@ -74,7 +102,7 @@ val <K, V> Assert<Map<K, V>>.values get() : Assert<Collection<V>> = property(Map
  * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
  *   does not hold.
  */
-fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -> Unit): Assert<Map<K, V>>
+fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collection<V>>.() -> Unit)
     = addAssertion(AssertImpl.map.values(this, assertionCreator))
 
 /**
@@ -87,30 +115,3 @@ fun <K, V> Assert<Map<K, V>>.values(assertionCreator: Assert<Collection<V>>.() -
  */
 fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = AssertImpl.changeSubject(this) { subject.entries }
-
-/**
- * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding value
- * holds all assertions the given [assertionCreator] might create for it.
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
- *   does not hold.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
- */
-fun <K, V: Any> Assert<Map<K, V>>.getExistierend(key: K, assertionCreator: Assert<V>.() -> Unit): Assert<Map<K, V>>
-    = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
-
-/**
- * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding value
- * holds all assertions the given [assertionCreator] might create for it.
- *
- * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
- * nullable value type.
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if a created [Assertion]s (by calling [assertionCreator])
- *   does not hold.
- * @throws IllegalArgumentException in case the given [assertionCreator] did not create a single assertion.
- */
-fun <K, V> Assert<Map<K, V>>.getExistierendNullable(key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assert<Map<K, V>>
-    = addAssertion(AssertImpl.map.getExistingNullable(this, key, assertionCreator))
