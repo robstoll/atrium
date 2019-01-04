@@ -72,11 +72,9 @@ private fun <E : Any, T : Iterable<E?>> createMismatchAssertions(
         .mapWithIndex()
         .filter { (_, element) -> !allCreatedAssertionsHold(element, assertionCreator) }
         .map { (index, element) ->
-            val indexDescription = TranslatableWithArgs(INDEX, index)
-            AssertImpl.builder.descriptive
-                .withTest { allCreatedAssertionsHold(element, assertionCreator) }
-                .withDescriptionAndNullableRepresentation(indexDescription, element)
-                .build()
+            AssertImpl.builder.createDescriptive(TranslatableWithArgs(INDEX, index), element) {
+                allCreatedAssertionsHold(element, assertionCreator)
+            }
         }
         .toList()
 }

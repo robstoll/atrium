@@ -32,11 +32,8 @@ infix fun Assert<Int>.tobe(@Suppress("UNUSED_PARAMETER") even: even) =
 
 infix fun Assert<Int>.isMultipleOf(base: Int) = addAssertion(_isMultipleOf(this, base))
 
-fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion =
-    AssertImpl.builder.descriptive
-        .withTest { plant.subject % base == 0 }
-        .withDescriptionAndRepresentation(DescriptionIntAssertions.IS_MULTIPLE_OF, base)
-        .build()
+fun _isMultipleOf(plant: AssertionPlant<Int>, base: Int): Assertion
+    = AssertImpl.builder.createDescriptive(DescriptionIntAssertions.IS_MULTIPLE_OF, base) { plant.subject % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
     IS_MULTIPLE_OF("is multiple of")
