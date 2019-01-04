@@ -53,17 +53,17 @@ abstract class MapAssertionsSpec(
     val isDescr = DescriptionBasic.IS.getDefault()
     val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
-    val containsKeyDescr = DescriptionMapAssertion.MAP_CONTAINS.getDefault()
+    val containsKeyDescr = DescriptionMapAssertion.CONTAINS_KEY.getDefault()
 
     describeFun(containsKey) {
-        it("does not throw if a map contains key a") {
-            assert(mapOf()).containsKeyFun("a")
+        it("does not throw if the map contains the key") {
+            assert(mapOf("a" to 1, "b" to 2)).containsKeyFun("a")
         }
 
-        it("throws an AssertionError if map not contains key") {
+        it("throws an AssertionError if the map does not contain the key") {
             expect {
                 assert(mapOf( "b" to 2)).containsKeyFun("a")
-            }.toThrow<AssertionError> { messageContains("$isDescr: $containsKeyDescr")}
+            }.toThrow<AssertionError> { messageContains(containsKeyDescr, "a")}
         }
     }
 

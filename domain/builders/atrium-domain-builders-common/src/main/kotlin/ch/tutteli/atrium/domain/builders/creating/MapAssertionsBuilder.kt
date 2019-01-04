@@ -15,7 +15,7 @@ import ch.tutteli.atrium.domain.creating.mapAssertions
  */
 object MapAssertionsBuilder : MapAssertions {
 
-    override inline fun <K, V> containsKey(plant: AssertionPlant<Map<K, V>>, key: K)
+    override inline fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K)
         = mapAssertions.containsKey(plant, key)
 
     override inline fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int)
