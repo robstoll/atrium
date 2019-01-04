@@ -23,14 +23,14 @@ abstract class ListFeatureAssertionsSpec(
     include(object : SubjectLessAssertionSpec<List<Int>>(describePrefix,
         getPair.first to mapToCreateAssertion { getPair.second(this, 1 ){ isGreaterThan(1) } }
     ){})
-    include(object : SubjectLessAssertionSpec<List<Int?>>(describePrefix,
+    include(object : SubjectLessAssertionSpec<List<Int?>>("$describePrefix[nullable Element] ",
         getNullablePair.first to mapToCreateAssertion { getNullablePair.second(this, 1 ){ toBe(null) } }
     ) {})
 
     include(object : CheckingAssertionSpec<List<Int>>(verbs, describePrefix,
         checkingTriple(getPair.first, { getPair.second(this, 0) { isGreaterThan(1) } }, listOf(2, 1), listOf(1, 2))
     ){})
-    include(object : CheckingAssertionSpec<List<Int?>>(verbs, describePrefix,
+    include(object : CheckingAssertionSpec<List<Int?>>(verbs, "$describePrefix[nullable Element] ",
         checkingTriple(getNullablePair.first, { getNullablePair.second(this, 0) { notToBeNullBut(1) } }, listOf(1, null), listOf(2, 1))
     ) {})
     //@formatter:on
