@@ -11,21 +11,6 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating.*
  */
 class MapAssertionsImpl : MapAssertions {
 
-    override fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int)
-        = _hasSize(plant, size)
-
-    override fun <T : Map<*, *>> isEmpty(plant: AssertionPlant<T>)
-        = _isEmpty(plant)
-
-    override fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>)
-        = _isNotEmpty(plant)
-
-    override fun <K, V> keys(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
-        = _keys(plant, assertionCreator)
-
-    override fun <K, V> values(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
-        = _values(plant, assertionCreator)
-
     override fun <K, V : Any> getExisting(
         plant: AssertionPlant<Map<K, V>>,
         key: K,
@@ -37,4 +22,20 @@ class MapAssertionsImpl : MapAssertions {
         key: K,
         assertionCreator: AssertionPlantNullable<V>.() -> Unit
     ) = _getExistingNullable(plant, key, assertionCreator)
+
+    override fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int)
+        = _hasSize(plant, size)
+
+    override fun isEmpty(plant: AssertionPlant<Map<*, *>>)
+        = _isEmpty(plant)
+
+    override fun isNotEmpty(plant: AssertionPlant<Map<*, *>>)
+        = _isNotEmpty(plant)
+
+    override fun <K> keys(plant: AssertionPlant<Map<K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+        = _keys(plant, assertionCreator)
+
+    override fun <V> values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
+        = _values(plant, assertionCreator)
+
 }

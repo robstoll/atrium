@@ -25,23 +25,23 @@ fun <T : CharSequence> _containsNotBuilder(plant: AssertionPlant<T>): CharSequen
     = CharSequenceContainsBuilder(plant, NotSearchBehaviourImpl())
 
 
-fun <T : CharSequence> _startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
+fun _startsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
     = AssertImpl.builder.createDescriptive(STARTS_WITH, expected) { plant.subject.startsWith(expected) }
 
-fun <T : CharSequence> _startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
+fun _startsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
     = AssertImpl.builder.createDescriptive(STARTS_NOT_WITH, expected) { !plant.subject.startsWith(expected) }
 
-fun <T : CharSequence> _endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
+fun _endsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
     = AssertImpl.builder.createDescriptive(ENDS_WITH, expected) { plant.subject.endsWith(expected) }
 
-fun <T : CharSequence> _endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
+fun _endsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
     = AssertImpl.builder.createDescriptive(ENDS_NOT_WITH, expected) { !plant.subject.endsWith(expected) }
 
-fun <T : CharSequence> _isEmpty(plant: AssertionPlant<T>): Assertion
+fun _isEmpty(plant: AssertionPlant<CharSequence>): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(EMPTY)) { plant.subject.isEmpty() }
 
-fun <T : CharSequence> _isNotEmpty(plant: AssertionPlant<T>): Assertion
+fun _isNotEmpty(plant: AssertionPlant<CharSequence>): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY)) { plant.subject.isNotEmpty() }
 
-fun <T : CharSequence> _isNotBlank(plant: AssertionPlant<T>): Assertion
+fun _isNotBlank(plant: AssertionPlant<CharSequence>): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(BLANK)) { plant.subject.isNotBlank() }

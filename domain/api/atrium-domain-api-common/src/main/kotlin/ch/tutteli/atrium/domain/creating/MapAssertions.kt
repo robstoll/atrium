@@ -18,11 +18,11 @@ val mapAssertions by lazy { loadSingleService(MapAssertions::class) }
  * which an implementation of the domain of Atrium has to provide.
  */
 interface MapAssertions {
-    fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int): Assertion
-    fun <T : Map<*, *>> isEmpty(plant: AssertionPlant<T>): Assertion
-    fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>): Assertion
-    fun <K, V> keys(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
-    fun <K, V> values(plant: AssertionPlant<Map<K, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
     fun <K, V: Any> getExisting(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
     fun <K, V> getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
+    fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion
+    fun isEmpty(plant: AssertionPlant<Map<*, *>>): Assertion
+    fun isNotEmpty(plant: AssertionPlant<Map<*, *>>): Assertion
+    fun <K> keys(plant: AssertionPlant<Map<K, *>>, assertionCreator: AssertionPlant<Set<K>>.() -> Unit): Assertion
+    fun <V> values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
 }

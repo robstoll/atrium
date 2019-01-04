@@ -21,6 +21,6 @@ class IterableAssertionsImpl : IterableAssertions {
     override fun <E, T : Iterable<E>> containsNotBuilder(plant: AssertionPlant<T>): IterableContains.Builder<E, T, NotSearchBehaviour>
         = _containsNotBuilder(plant)
 
-    override fun <E : Any, T : Iterable<E?>> all(plant: AssertionPlant<T>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Assertion
+    override fun <E : Any> all(plant: AssertionPlant<Iterable<E?>>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Assertion
         = _iterableAll(plant, assertionCreator)
 }

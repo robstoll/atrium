@@ -15,26 +15,6 @@ import ch.tutteli.atrium.domain.creating.mapAssertions
  */
 object MapAssertionsBuilder : MapAssertions {
 
-
-    override inline fun <T : Map<*, *>> hasSize(plant: AssertionPlant<T>, size: Int)
-        = mapAssertions.hasSize(plant, size)
-
-    override inline fun <T : Map<*, *>> isEmpty(plant: AssertionPlant<T>)
-        = mapAssertions.isEmpty(plant)
-
-    override inline fun <T : Map<*, *>> isNotEmpty(plant: AssertionPlant<T>)
-        = mapAssertions.isNotEmpty(plant)
-
-    override inline fun <K, V> keys(
-        plant: AssertionPlant<Map<K, V>>,
-        noinline assertionCreator: AssertionPlant<Set<K>>.() -> Unit
-    ): Assertion = mapAssertions.keys(plant, assertionCreator)
-
-    override inline fun <K, V> values(
-        plant: AssertionPlant<Map<K, V>>,
-        noinline assertionCreator: AssertionPlant<Collection<V>>.() -> Unit
-    ): Assertion = mapAssertions.values(plant, assertionCreator)
-
     override inline fun <K, V : Any> getExisting(
         plant: AssertionPlant<Map<K, V>>,
         key: K,
@@ -46,4 +26,24 @@ object MapAssertionsBuilder : MapAssertions {
         key: K,
         noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
     )= mapAssertions.getExistingNullable(plant, key, assertionCreator)
+
+    override inline fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int)
+        = mapAssertions.hasSize(plant, size)
+
+    override inline fun isEmpty(plant: AssertionPlant<Map<*, *>>)
+        = mapAssertions.isEmpty(plant)
+
+    override inline fun isNotEmpty(plant: AssertionPlant<Map<*, *>>)
+        = mapAssertions.isNotEmpty(plant)
+
+    override inline fun <K> keys(
+        plant: AssertionPlant<Map<K, *>>,
+        noinline assertionCreator: AssertionPlant<Set<K>>.() -> Unit
+    ): Assertion = mapAssertions.keys(plant, assertionCreator)
+
+    override inline fun <V> values(
+        plant: AssertionPlant<Map<*, V>>,
+        noinline assertionCreator: AssertionPlant<Collection<V>>.() -> Unit
+    ): Assertion = mapAssertions.values(plant, assertionCreator)
+
 }

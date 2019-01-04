@@ -10,13 +10,13 @@ import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 
-fun <T : Collection<*>> _hasSize(plant: AssertionPlant<T>, size: Int): Assertion
+fun _hasSize(plant: AssertionPlant<Collection<*>>, size: Int): Assertion
     = AssertImpl.collector.collect(plant) {
         property(Collection<*>::size) { toBe(size) }
     }
 
-fun <T : Collection<*>> _isEmpty(plant: AssertionPlant<T>): Assertion
+fun _isEmpty(plant: AssertionPlant<Collection<*>>): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionBasic.IS, RawString.create(EMPTY)) { plant.subject.isEmpty() }
 
-fun <T : Collection<*>> _isNotEmpty(plant: AssertionPlant<T>): Assertion
+fun _isNotEmpty(plant: AssertionPlant<Collection<*>>): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionBasic.IS_NOT, RawString.create(EMPTY)) { plant.subject.isNotEmpty() }

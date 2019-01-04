@@ -11,12 +11,12 @@ import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotEmpty
  */
 class CollectionAssertionsImpl : CollectionAssertions {
 
-    override fun <T : Collection<*>> hasSize(plant: AssertionPlant<T>, size: Int)
+    override fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int)
         = _hasSize(plant, size)
 
-    override fun <T : Collection<*>> isEmpty(plant: AssertionPlant<T>)
+    override fun isEmpty(plant: AssertionPlant<Collection<*>>)
         = _isEmpty(plant)
 
-    override fun <T : Collection<*>> isNotEmpty(plant: AssertionPlant<T>)
+    override fun isNotEmpty(plant: AssertionPlant<Collection<*>>)
         = _isNotEmpty(plant)
 }
