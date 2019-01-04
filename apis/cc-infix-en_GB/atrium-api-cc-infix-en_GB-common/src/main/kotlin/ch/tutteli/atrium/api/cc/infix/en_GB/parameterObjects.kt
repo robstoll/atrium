@@ -81,6 +81,13 @@ class Order<T, G : Group<T>>(
 )
 
 /**
+ * Parameter object to express `Pair<K, V>, vararg Pair<K, V>` in the infix-api.
+ */
+class Pairs<out K, out V>(val expected: Pair<K, V>, vararg val otherExpected: Pair<K, V>) {
+    fun toList(): List<Pair<K, V>> = expected glue otherExpected
+}
+
+/**
  * Parameter object to express `String, vararg String` in the infix-api.
  */
 class RegexPatterns(val pattern: String, vararg val otherPatterns: String) {

@@ -14,4 +14,9 @@ interface MethodCallFormatter {
      * @return An lambda containing the logic to build the representation.
      */
     fun format(methodName: String, arguments: Array<out Any?>): () -> String
+
+    /**
+     * Formats the given [argument].
+     */
+    fun formatArgument(argument: Any?): String
 }

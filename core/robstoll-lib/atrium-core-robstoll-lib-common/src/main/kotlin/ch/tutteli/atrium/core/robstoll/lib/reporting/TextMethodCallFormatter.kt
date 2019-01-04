@@ -2,7 +2,6 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.kbox.appendToStringBuilder
 
 /**
  * Responsible to format a method call for text output (e.g. to the console) where it represents arguments of a
@@ -15,19 +14,15 @@ import ch.tutteli.kbox.appendToStringBuilder
 object TextMethodCallFormatter : MethodCallFormatter {
 
     override fun format(methodName: String, arguments: Array<out Any?>): () -> String = {
-        val sb = StringBuilder(methodName).append("(")
-        arguments.asList().appendToStringBuilder(sb, ", ") { it ->
-            sb.appendArgument(it)
+        arguments.joinToString(", ", prefix = "$methodName(", postfix = ")") {
+            formatArgument(it)
         }
-        sb.append(")").toString()
     }
 
-    private fun StringBuilder.appendArgument(arg: Any?) {
-        append(when (arg) {
-            null -> RawString.NULL.string
-            is CharSequence -> "\"$arg\"".replace("\r", "\\r").replace("\n", "\\n")
-            is Char -> "'$arg'"
-            else -> arg.toString()
-        })
+    override fun formatArgument(argument: Any?): String = when (argument) {
+        null -> RawString.NULL.string
+        is CharSequence -> "\"$argument\"".replace("\r", "\\r").replace("\n", "\\n")
+        is Char -> "'$argument'"
+        else -> argument.toString()
     }
 }

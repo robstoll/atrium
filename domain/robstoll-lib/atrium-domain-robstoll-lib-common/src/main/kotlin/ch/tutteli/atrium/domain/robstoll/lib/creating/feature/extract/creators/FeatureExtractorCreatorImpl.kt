@@ -9,15 +9,15 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.builders.assertions.builders.partiallyFixedClaimGroup
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
 import ch.tutteli.atrium.reporting.RawString
-import ch.tutteli.atrium.reporting.translating.Untranslatable
+import ch.tutteli.atrium.reporting.translating.Translatable
 
 class FeatureExtractorCreatorImpl<T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>>(
-    override val featureRepresentation: () -> String,
+    override val featureRepresentation: Translatable,
     override val parameterObject: FeatureExtractor.ParameterObject<T>,
     override val collectingPlantFactory: (() -> T) -> C
 ) : FeatureExtractor.Creator<T, A, C> {
 
-    override fun subAssertions(assertionCreator: C.() -> Unit): Assertion {
+    override fun extractAndAssertIt(assertionCreator: C.() -> Unit): Assertion {
         val safeToExtract = try {
             parameterObject.canBeExtracted()
         } catch (e: PlantHasNoSubjectException) {
@@ -28,7 +28,7 @@ class FeatureExtractorCreatorImpl<T, A : BaseAssertionPlant<T, A>, C : BaseColle
         return AssertImpl.builder.partiallyFixedClaimGroup
             .withFeatureType
             .withClaim(safeToExtract)
-            .withDescriptionAndRepresentation(Untranslatable(featureRepresentation)) {
+            .withDescriptionAndRepresentation(featureRepresentation) {
                 if (safeToExtract) featureExtractionOnce() ?: RawString.NULL
                 else RawString.create(parameterObject.extractionNotSuccessful)
             }

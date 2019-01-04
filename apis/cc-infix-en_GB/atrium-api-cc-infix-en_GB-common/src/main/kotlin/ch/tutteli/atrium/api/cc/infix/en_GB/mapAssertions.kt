@@ -8,6 +8,38 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
+ * with a corresponding value as defined by [entry]'s [Pair.second].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(entry: Pair<K, V>)
+    = this contains Pairs(entry)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains for each [pairs], a key as defined by
+ * [pairs]'s [Pair.first] with a corresponding value as defined by [pairs]'s [Pair.second].
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one pair in [pairs]
+ * is defined as `'a' to 1` and another pair in [Pairs] is defined as `'a' to 1` as well, then both match,
+ * even though they match the same entry.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(pairs: Pairs<K, V>)
+    = addAssertion(AssertImpl.map.contains(this, pairs.toList()))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains the given [key].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <K> Assert<Map<K, *>>.containsKey(key: K)
+    = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
  * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
@@ -27,15 +59,6 @@ infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K): MapGetOption<
  */
 infix fun <K, V, T: Map<K, V>> Assert<T>.getExistingNullable(key: K): MapGetNullableOption<K, V, T>
     = MapGetNullableOption.create(this, key)
-
-/**
- * Makes the assertion that [AssertionPlant.subject] contains the given [key].
- *
- * @return This plant to support a fluent API.
- * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
- */
-infix fun <K> Assert<Map<K, *>>.containsKey(key: K)
-    = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
  * Makes the assertion that [AssertionPlant.subject]'s [Map.size] is [size].

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 
 object MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
     AssertionVerbFactory,
+    Assert<Map<String, Int>>::contains.name to Assert<Map<String, Int>>::contains,
     Assert<Map<String, *>>::containsKey.name to Assert<Map<String, *>>::containsKey,
     "${Assert<Map<String?, *>>::containsKey.name} for nullable" to Assert<Map<String?, *>>::containsKey,
     Assert<Map<*, *>>::hasSize.name to Assert<Map<*, *>>::hasSize,
