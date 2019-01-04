@@ -31,7 +31,7 @@ abstract class MapFeatureAssertionsSpec(
         "fun ${valuesFunPair.first} fun" to mapToCreateAssertion { valuesFunPair.second(this) { isEmpty() } },
         getExistingPair.first to mapToCreateAssertion { getExistingPair.second(this, "a" ){ isGreaterThan(1) } }
     ){})
-    include(object : SubjectLessAssertionSpec<Map<String, Int?>>(describePrefix,
+    include(object : SubjectLessAssertionSpec<Map<String, Int?>>("$describePrefix[nullable Key] ",
         getExistingNullablePair.first to mapToCreateAssertion { getExistingNullablePair.second(this, "a" ){ toBe(null) } }
     ) {})
 
@@ -42,7 +42,7 @@ abstract class MapFeatureAssertionsSpec(
         checkingTriple("fun ${valuesFunPair.first}", { valuesFunPair.second(this) { contains(1).hasSize(1) } }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple(getExistingPair.first, { getExistingPair.second(this, "a") { isGreaterThan(1) } }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2))
     ){})
-    include(object : CheckingAssertionSpec<Map<String, Int?>>(verbs, describePrefix,
+    include(object : CheckingAssertionSpec<Map<String, Int?>>(verbs, "$describePrefix[nullable Key] ",
         checkingTriple(getExistingNullablePair.first, { getExistingNullablePair.second(this, "a") { notToBeNullBut(1) } }, mapOf("a" to 1), mapOf("a" to null, "b" to 2))
     ) {})
     //@formatter:on
