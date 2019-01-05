@@ -174,7 +174,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(expected: E): Ass
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+    replaceWith = ReplaceWith("containsExactly(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E): AssertionPlant<T>
     = containsExactly(expected)
@@ -202,7 +202,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(expected: NullableValue
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+    replaceWith = ReplaceWith("containsExactly(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
 infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(expected: NullableValue<E>): AssertionPlant<T>
     = containsExactly(expected)
@@ -228,7 +228,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(values: Values<E>
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(values)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+    replaceWith = ReplaceWith("containsExactly(values)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(values: Values<E>): AssertionPlant<T>
     = containsExactly(values)
@@ -256,7 +256,7 @@ infix fun <E, T : Iterable<E>> Assert<T>.containsExactly(nullableValues: Nullabl
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(nullableValues)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+    replaceWith = ReplaceWith("containsExactly(nullableValues)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
 infix fun <E, T : Iterable<E>> Assert<T>.containsStrictly(nullableValues: NullableValues<E>): AssertionPlant<T>
     = containsExactly(nullableValues)
@@ -284,7 +284,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(assertionCreator:
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(assertionCreator)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+    replaceWith = ReplaceWith("containsExactly(assertionCreator)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit): AssertionPlant<T>
     = containsExactly(assertionCreator)
@@ -314,7 +314,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(nullableEntry: N
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(nullableEntry)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+    replaceWith = ReplaceWith("containsExactly(nullableEntry)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntry: NullableEntry<E>): AssertionPlant<T>
     = containsExactly(nullableEntry)
@@ -346,7 +346,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(entries: Entries<
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(entries)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+    replaceWith = ReplaceWith("containsExactly(entries)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
 infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries<E>): AssertionPlant<T>
     = containsExactly(entries)
@@ -382,7 +382,7 @@ infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactly(nullableEntries:
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(nullableEntries)", "ch.tutteli.atrium.api.cc.infix.en_GB")
+    replaceWith = ReplaceWith("containsExactly(nullableEntries)", "ch.tutteli.atrium.api.cc.infix.en_GB.containsExactly")
 )
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(nullableEntries: NullableEntries<E>): AssertionPlant<T>
     = containsExactly(nullableEntries)
