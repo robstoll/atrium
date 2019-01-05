@@ -156,7 +156,7 @@ fun <E : Any, T: Iterable<E>> Assert<T>.containsExactly(expected: E, vararg othe
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(expected, otherExpected)", "ch.tutteli.atrium.api.cc.en_GB")
+    replaceWith = ReplaceWith("containsExactly(expected, *otherExpected)", "ch.tutteli.atrium.api.cc.en_GB.containsExactly")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = containsExactly(expected, *otherExpected)
@@ -184,7 +184,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsExactlyNullableValue(expectedO
  */
 @Deprecated(
     message = "Replaced with containsExactlyNullableValue for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactlyNullableValue(expectedOrNull)", "ch.tutteli.atrium.api.cc.en_GB")
+    replaceWith = ReplaceWith("containsExactlyNullableValue(expectedOrNull)", "ch.tutteli.atrium.api.cc.en_GB.containsExactlyNullableValue")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValue(expectedOrNull: E): AssertionPlant<T>
     = containsExactlyNullableValue(expectedOrNull)
@@ -214,7 +214,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsExactlyNullableValues(expected
  */
 @Deprecated(
     message = "Replaced with containsExactlyNullableValues for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactlyNullableValues(expectedOrNull, otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.en_GB")
+    replaceWith = ReplaceWith("containsExactlyNullableValues(expectedOrNull, *otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.en_GB.containsExactlyNullableValues")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = containsExactlyNullableValues(expectedOrNull, *otherExpectedOrNulls)
@@ -244,7 +244,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(assertionCreator: Asser
  */
 @Deprecated(
     message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactly(assertionCreator, otherAssertionCreators)", "ch.tutteli.atrium.api.cc.en_GB")
+    replaceWith = ReplaceWith("containsExactly(assertionCreator, *otherAssertionCreators)", "ch.tutteli.atrium.api.cc.en_GB.containsExactly")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
     = containsExactly(assertionCreator, *otherAssertionCreators)
@@ -274,7 +274,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactlyNullableEntry(assertion
  */
 @Deprecated(
     message = "Replaced with containsExactlyNullableEntry for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactlyNullableEntry(assertionCreatorOrNull)", "ch.tutteli.atrium.api.cc.en_GB")
+    replaceWith = ReplaceWith("containsExactlyNullableEntry(assertionCreatorOrNull)", "ch.tutteli.atrium.api.cc.en_GB.containsExactlyNullableEntry")
 )
 fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = containsExactlyNullableEntry(assertionCreatorOrNull)
@@ -306,7 +306,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactlyNullableEntries(asserti
  */
 @Deprecated(
     message = "Replaced with containsExactlyNullableEntries for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("containsExactlyNullableEntries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls)", "ch.tutteli.atrium.api.cc.en_GB")
+    replaceWith = ReplaceWith("containsExactlyNullableEntries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)", "ch.tutteli.atrium.api.cc.en_GB.otherAssertionCreatorsOrNulls")
 )
 fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = containsExactlyNullableEntries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
