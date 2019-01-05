@@ -155,7 +155,7 @@ fun <E : Any, T: Iterable<E>> Assert<T>.containsExactly(expected: E, vararg othe
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with containsExactly for clearer naming",
+    message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("containsExactly(expected, otherExpected)", "ch.tutteli.atrium.api.cc.en_GB")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): AssertionPlant<T>
@@ -183,7 +183,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsExactlyNullableValue(expectedO
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with containsExactlyNullableValue for clearer naming",
+    message = "Replaced with containsExactlyNullableValue for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("containsExactlyNullableValue(expectedOrNull)", "ch.tutteli.atrium.api.cc.en_GB")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValue(expectedOrNull: E): AssertionPlant<T>
@@ -213,7 +213,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsExactlyNullableValues(expected
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with containsExactlyNullableValues for clearer naming",
+    message = "Replaced with containsExactlyNullableValues for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("containsExactlyNullableValues(expectedOrNull, otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.en_GB")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
@@ -243,7 +243,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(assertionCreator: Asser
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with containsExactly for clearer naming",
+    message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("containsExactly(assertionCreator, otherAssertionCreators)", "ch.tutteli.atrium.api.cc.en_GB")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
@@ -273,7 +273,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactlyNullableEntry(assertion
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with containsExactlyNullableEntry for clearer naming",
+    message = "Replaced with containsExactlyNullableEntry for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("containsExactlyNullableEntry(assertionCreatorOrNull)", "ch.tutteli.atrium.api.cc.en_GB")
 )
 fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
@@ -305,7 +305,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactlyNullableEntries(asserti
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with containsExactlyNullableEntries for clearer naming",
+    message = "Replaced with containsExactlyNullableEntries for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("containsExactlyNullableEntries(assertionCreatorOrNull, otherAssertionCreatorsOrNulls)", "ch.tutteli.atrium.api.cc.en_GB")
 )
 fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
