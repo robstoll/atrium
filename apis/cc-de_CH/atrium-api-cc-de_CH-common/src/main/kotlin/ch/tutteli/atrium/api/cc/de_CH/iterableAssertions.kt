@@ -192,7 +192,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExaktNullableWert(expectedOrNu
  */
 @Deprecated(
     message = "Replaced with enthaeltExaktNullableWert for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExaktNullableWert(expectedOrNull)", "ch.tutteli.atrium.api.cc.de_CH")
+    replaceWith = ReplaceWith("enthaeltExaktNullableWert(expectedOrNull)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExaktNullableWert")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expectedOrNull: E): AssertionPlant<T>
     = enthaeltExaktNullableWert(expectedOrNull)
@@ -222,7 +222,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExaktNullableWerte(expectedOrN
  */
 @Deprecated(
     message = "Replaced with enthaeltExaktNullableWerte for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExaktNullableWerte(expectedOrNull,otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.de_CH")
+    replaceWith = ReplaceWith("enthaeltExaktNullableWerte(expectedOrNull,otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExaktNullableWerte")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = enthaeltExaktNullableWerte(expectedOrNull, *otherExpectedOrNulls)
@@ -252,7 +252,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(assertionCreator: Assert<
  */
 @Deprecated(
     message = "Replaced with enthaeltExakt for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExakt(assertionCreator,otherAssertionCreators)", "ch.tutteli.atrium.api.cc.de_CH")
+    replaceWith = ReplaceWith("enthaeltExakt(assertionCreator,otherAssertionCreators)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExakt")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
     = enthaeltExakt(assertionCreator, *otherAssertionCreators)
@@ -282,7 +282,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExaktNullableEintrag(assertion
  */
 @Deprecated(
     message = "Replaced with enthaeltExaktNullableEintrag for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExaktNullableEintrag(assertionCreatorOrNull)", "ch.tutteli.atrium.api.cc.de_CH")
+    replaceWith = ReplaceWith("enthaeltExaktNullableEintrag(assertionCreatorOrNull)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExaktNullableEintrag")
 )
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaeltExaktNullableEintrag(assertionCreatorOrNull)
@@ -314,7 +314,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExaktNullableEintraege(asserti
  */
 @Deprecated(
     message = "Replaced with enthaeltExaktNullableEintraege for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExaktNullableEintraege(assertionCreatorOrNull,otherAssertionCreatorsOrNulls)", "ch.tutteli.atrium.api.cc.de_CH")
+    replaceWith = ReplaceWith("enthaeltExaktNullableEintraege(assertionCreatorOrNull,otherAssertionCreatorsOrNulls)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExaktNullableEintraege")
 )
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaeltExaktNullableEintraege(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
