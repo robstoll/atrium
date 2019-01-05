@@ -9,7 +9,6 @@ import kotlin.reflect.KFunction3
 class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
 
     include(BuilderSpec)
-    include(OldShortcutSpec)
     include(ShortcutSpec)
 
 }) {
@@ -19,14 +18,6 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
         getContainsNullablePair(),
         "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
         "[Atrium][Builder] "
-    )
-
-    object OldShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
-        AssertionVerbFactory,
-        oldGetContainsShortcutPair(),
-        oldGetContainsNullableShortcutPair(),
-        "◆ ", "✔ ", "✘ ", "❗❗ ", "⚬ ", "▶ ", "◾ ",
-        "[Atrium][Shortcut] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyValuesAssertionsSpec(
@@ -60,25 +51,6 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             }
         }
 
-        // Tests with old "containsStrictly", remove after deprecated methods are removed
-        private val oldContainsShortcutFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
-        fun oldGetContainsShortcutPair() = oldContainsShortcutFun.name to Companion::oldContainsInOrderOnlyValuesShortcut
-
-        private fun oldContainsInOrderOnlyValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant.containsStrictly(a, *aX)
-
-        private val oldContainsNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsStrictlyNullableValues
-        fun oldGetContainsNullableShortcutPair() = oldContainsNullableShortcutFun.name to Companion::oldContainsInOrderOnlyNullableValuesShortcut
-
-        private fun oldContainsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant.containsStrictlyNullableValue(a)
-            } else {
-                plant.containsStrictlyNullableValues(a, *aX)
-            }
-        }
-
-        // Tests with "containsExactly"
         private val containsShortcutFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsExactly
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyValuesShortcut
 

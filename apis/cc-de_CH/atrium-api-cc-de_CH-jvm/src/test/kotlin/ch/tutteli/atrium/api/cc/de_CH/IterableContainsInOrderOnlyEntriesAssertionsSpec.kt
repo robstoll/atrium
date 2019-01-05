@@ -9,7 +9,6 @@ import kotlin.reflect.KFunction3
 class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
 
     include(BuilderSpec)
-    include(OldShortcutSpec)
     include(ShortcutSpec)
 
 }) {
@@ -19,14 +18,6 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
         getContainsNullablePair(),
         "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",
         "[Atrium][Builder] "
-    )
-
-    object OldShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyEntriesAssertionsSpec(
-        AssertionVerbFactory,
-        oldGetContainsShortcutPair(),
-        oldGetContainsNullableShortcutPair(),
-        "* ", "(/) ", "(x) ", "(!) ", "- ", "» ", ">> ", "=> ",
-        "[Atrium][Shortcut] "
     )
 
     object ShortcutSpec : ch.tutteli.atrium.spec.integration.IterableContainsInOrderOnlyEntriesAssertionsSpec(
@@ -60,25 +51,6 @@ class IterableContainsInOrderOnlyEntriesAssertionsSpec : Spek({
             }
         }
 
-        // Tests with old "enthaeltStrikt", remove after deprecated methods are removed
-        private val oldContainsShortcutFun: KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaeltStrikt
-        fun oldGetContainsShortcutPair() = oldContainsShortcutFun.name to Companion::oldContainsInOrderOnlyEntriesShortcut
-
-        private fun oldContainsInOrderOnlyEntriesShortcut(plant: Assert<Iterable<Double>>, a: Assert<Double>.() -> Unit, aX: Array<out Assert<Double>.() -> Unit>)
-            = plant.enthaeltStrikt(a, *aX)
-
-        private val oldContainsNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, (Assert<Double>.() -> Unit)?, Array<out (Assert<Double>.() -> Unit)?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltStriktNullableEintraege
-        fun oldGetContainsNullableShortcutPair() = oldContainsNullableShortcutFun.name to Companion::oldContainsInOrderOnlyNullableEntriesShortcut
-
-        private fun oldContainsInOrderOnlyNullableEntriesShortcut(plant: Assert<Iterable<Double?>>, a: (Assert<Double>.() -> Unit)?, aX: Array<out (Assert<Double>.() -> Unit)?>): Assert<Iterable<Double?>> {
-            return if (aX.isEmpty()) {
-                plant.enthaeltStriktNullableEintrag(a)
-            } else {
-                plant.enthaeltStriktNullableEintraege(a, *aX)
-            }
-        }
-
-        // Tests with "enthaeltExakt"
         private val containsShortcutFun: KFunction3<Assert<Iterable<Double>>, Assert<Double>.() -> Unit, Array<out Assert<Double>.() -> Unit>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaeltExakt
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyEntriesShortcut
 
