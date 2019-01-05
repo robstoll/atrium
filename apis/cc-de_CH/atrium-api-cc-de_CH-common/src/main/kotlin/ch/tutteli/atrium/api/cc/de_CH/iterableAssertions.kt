@@ -164,7 +164,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(expected: E, vararg other
  */
 @Deprecated(
     message = "Replaced with enthaeltExakt for clearer naming; will be removed with 1.0.0",
-    replaceWith = ReplaceWith("enthaeltExakt(expected,otherExpected)", "ch.tutteli.atrium.api.cc.de_CH")
+    replaceWith = ReplaceWith("enthaeltExakt(expected,*otherExpected)", "ch.tutteli.atrium.api.cc.de_CH.enthaeltExakt")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
     = enthaeltExakt(expected, *otherExpected)
