@@ -163,7 +163,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(expected: E, vararg other
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with enthaeltExakt for clearer naming",
+    message = "Replaced with enthaeltExakt for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("enthaeltExakt(expected,otherExpected)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(expected: E, vararg otherExpected: E): AssertionPlant<T>
@@ -191,7 +191,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExaktNullableWert(expectedOrNu
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with enthaeltExaktNullableWert for clearer naming",
+    message = "Replaced with enthaeltExaktNullableWert for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("enthaeltExaktNullableWert(expectedOrNull)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWert(expectedOrNull: E): AssertionPlant<T>
@@ -221,7 +221,7 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltExaktNullableWerte(expectedOrN
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with enthaeltExaktNullableWerte for clearer naming",
+    message = "Replaced with enthaeltExaktNullableWerte for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("enthaeltExaktNullableWerte(expectedOrNull,otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any?, T : Iterable<E>> Assert<T>.enthaeltStriktNullableWerte(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
@@ -251,7 +251,7 @@ fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltExakt(assertionCreator: Assert<
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with enthaeltExakt for clearer naming",
+    message = "Replaced with enthaeltExakt for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("enthaeltExakt(assertionCreator,otherAssertionCreators)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any, T : Iterable<E>> Assert<T>.enthaeltStrikt(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
@@ -281,7 +281,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExaktNullableEintrag(assertion
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with enthaeltExaktNullableEintrag for clearer naming",
+    message = "Replaced with enthaeltExaktNullableEintrag for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("enthaeltExaktNullableEintrag(assertionCreatorOrNull)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintrag(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
@@ -313,7 +313,7 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltExaktNullableEintraege(asserti
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated(
-    message = "Replaced with enthaeltExaktNullableEintraege for clearer naming",
+    message = "Replaced with enthaeltExaktNullableEintraege for clearer naming; will be removed with 1.0.0",
     replaceWith = ReplaceWith("enthaeltExaktNullableEintraege(assertionCreatorOrNull,otherAssertionCreatorsOrNulls)", "ch.tutteli.atrium.api.cc.de_CH")
 )
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStriktNullableEintraege(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
