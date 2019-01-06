@@ -12,19 +12,19 @@ fun <T : Any> _get(
     plant: AssertionPlant<List<T>>,
     index: Int,
     assertionCreator: CollectingAssertionPlant<T>.() -> Unit
-): Assertion = extractGetCall(index)
+): Assertion = extractorForGetCall(index)
     .withParameterObject(createGetParameterObject(plant, index))
-    .subAssertions(assertionCreator)
+    .extractAndAssertIt(assertionCreator)
 
 fun <T> _getNullable(
     plant: AssertionPlant<List<T>>,
     index: Int,
     assertionCreator: CollectingAssertionPlantNullable<T>.() -> Unit
-): Assertion = extractGetCall(index)
+): Assertion = extractorForGetCall(index)
     .withParameterObjectNullable(createGetParameterObject(plant, index))
-    .subAssertions(assertionCreator)
+    .extractAndAssertIt(assertionCreator)
 
-private fun extractGetCall(index: Int) = AssertImpl.feature.extractor.method("get", index)
+private fun extractorForGetCall(index: Int) = AssertImpl.feature.extractor.methodCall("get", index)
 
 private fun <T> createGetParameterObject(
     plant: AssertionPlant<List<T>>,

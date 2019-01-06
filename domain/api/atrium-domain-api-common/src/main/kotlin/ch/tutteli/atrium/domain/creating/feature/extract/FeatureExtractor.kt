@@ -10,6 +10,7 @@ import ch.tutteli.atrium.domain.creating.FeatureAssertions
 import ch.tutteli.atrium.domain.creating.feature.extract.creators.featureExtractorCreatorFactory
 import ch.tutteli.atrium.domain.creating.feature.extract.impl.RepresentationOptionImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 
 /**
@@ -37,13 +38,19 @@ interface FeatureExtractor {
          * Uses [coreFactory].[newMethodCallFormatter][CoreFactory.newMethodCallFormatter] to create a representation
          * of a method call with the given [methodName] and the given [arguments].
          */
-        fun method(methodName: String, vararg arguments: Any?): ParameterObjectOption
+        fun methodCall(methodName: String, vararg arguments: Any?): ParameterObjectOption
             = feature(coreFactory.newMethodCallFormatter().format(methodName, arguments))
 
         /**
          * Uses the given [featureRepresentation] as representation.
          */
         fun feature(featureRepresentation: () -> String): ParameterObjectOption
+            = withDescription(Untranslatable(featureRepresentation))
+
+        /**
+         * Uses the given [translatable] as representation of the feature.
+         */
+        fun withDescription(translatable: Translatable): ParameterObjectOption
     }
 
     /**
@@ -53,7 +60,7 @@ interface FeatureExtractor {
         /**
          * The previously chosen feature representation.
          */
-        val featureRepresentation: () -> String
+        val featureRepresentation: Translatable
 
         /**
          * Uses the given [parameterObject] where a non-nullable feature is extracted by
@@ -81,14 +88,14 @@ interface FeatureExtractor {
     }
 
     /**
-     * Final step of the sophisticated `safe feature extraction` where once can define [subAssertions] for the extracted
+     * Final step of the sophisticated `safe feature extraction` where once can define [extractAndAssertIt] for the extracted
      * feature.
      */
     interface Creator<T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>>  {
         /**
          * The previously chosen feature representation.
          */
-        val featureRepresentation: () -> String
+        val featureRepresentation: Translatable
 
         /**
          * The previously created [ParameterObject].
@@ -97,7 +104,7 @@ interface FeatureExtractor {
 
         /**
          * The factory method which creates the appropriate collecting plant which is suitable
-         * for the given `assertionCreator` argument when calling [subAssertions].
+         * for the given `assertionCreator` argument when calling [extractAndAssertIt].
          */
         val collectingPlantFactory: (() -> T) -> C
 
@@ -121,7 +128,7 @@ interface FeatureExtractor {
          *
          * @param assertionCreator A lambda which creates the [Assertion]s for the extracted feature.
          */
-        fun subAssertions(assertionCreator: C.() -> Unit): Assertion
+        fun extractAndAssertIt(assertionCreator: C.() -> Unit): Assertion
     }
 
     /**

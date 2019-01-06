@@ -44,7 +44,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(expected: E)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains the
- * [expected][expectedOrNull] nullable value.
+ * [expected] nullable value.
  *
  * It is a shortcut for `to contain inAny order atLeast 1 nullableValue expected`
  *

@@ -2,16 +2,58 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
+import ch.tutteli.atrium.api.cc.en_GB.notToBeNullBut
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionPlant
-import ch.tutteli.atrium.creating.CollectingAssertionPlant
-import ch.tutteli.atrium.creating.CollectingAssertionPlantNullable
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
+import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
+import kotlin.reflect.KClass
+
+fun <K, V : Any> _contains(plant: AssertionPlant<Map<K, V>>, pairs: List<Pair<K, V>>): Assertion {
+    return contains(pairs,
+        { option, key -> option.withParameterObject(createGetParameterObject(plant, key)) },
+        { value -> toBe(value) }
+    )
+}
+
+fun <K, V: Any> _containsNullable(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, pairs: List<Pair<K, V?>>): Assertion {
+    return contains(pairs,
+        { option, key -> option.withParameterObjectNullable(createGetParameterObject(plant, key)) },
+        { value ->
+            //TODO add toBe(Any?) to AssertionPlantNullable
+            if (value == null) toBe(null)
+            else AssertImpl.any.typeTransformation.isNotNull(this, type){ toBe(value) }
+        }
+    )
+}
+
+private  fun <K, V, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
+    pairs: List<Pair<K, V>>,
+    parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.Creator<V, A, C>,
+    assertionCreator: C.(V) -> Unit
+): Assertion =  LazyThreadUnsafeAssertionGroup {
+    //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via AssertionPlant
+    val methodCallFormatter = AssertImpl.coreFactory.newMethodCallFormatter()
+    val assertions = pairs.map { (key: K, value: V) ->
+        val option = AssertImpl.feature.extractor
+            .withDescription(
+                TranslatableWithArgs(DescriptionMapAssertion.ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key))
+            )
+        parameterObjectOption(option, key)
+            .extractAndAssertIt{ assertionCreator(value) }
+    }
+    AssertImpl.builder.list
+        .withDescriptionAndEmptyRepresentation(DescriptionMapAssertion.CONTAINS_IN_ANY_ORDER)
+        .withAssertions(assertions)
+        .build()
+}
+
 
 fun <K> _containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_KEY, key) { plant.subject.containsKey(key) }
@@ -20,19 +62,19 @@ fun <K, V : Any> _getExisting(
     plant: AssertionPlant<Map<K, V>>,
     key: K,
     assertionCreator: CollectingAssertionPlant<V>.() -> Unit
-): Assertion = extractGetCall(key)
+): Assertion = extractorForGetCall(key)
     .withParameterObject(createGetParameterObject(plant, key))
-    .subAssertions(assertionCreator)
+    .extractAndAssertIt(assertionCreator)
 
 fun <K, V> _getExistingNullable(
     plant: AssertionPlant<Map<K, V>>,
     key: K,
     assertionCreator: CollectingAssertionPlantNullable<V>.() -> Unit
-): Assertion = extractGetCall(key)
+): Assertion = extractorForGetCall(key)
     .withParameterObjectNullable(createGetParameterObject(plant, key))
-    .subAssertions(assertionCreator)
+    .extractAndAssertIt(assertionCreator)
 
-private fun <K> extractGetCall(key: K) = AssertImpl.feature.extractor.method("get", key)
+private fun <K> extractorForGetCall(key: K) = AssertImpl.feature.extractor.methodCall("get", key)
 
 private fun <K, V> createGetParameterObject(
     plant: AssertionPlant<Map<K, V>>,

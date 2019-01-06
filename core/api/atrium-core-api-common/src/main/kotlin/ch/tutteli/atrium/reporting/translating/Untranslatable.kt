@@ -19,6 +19,7 @@ class Untranslatable(representation: () -> String) : Translatable {
      */
     constructor(representation: CharSequence) : this({ representation.toString() })
 
+    //TODO should this be a lazy val? currently we calculate it immediately
     override val name: String = representation()
     override fun getDefault() = name
 

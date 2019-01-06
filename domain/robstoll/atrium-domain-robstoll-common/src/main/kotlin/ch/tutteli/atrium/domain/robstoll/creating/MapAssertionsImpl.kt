@@ -5,11 +5,19 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
+import kotlin.reflect.KClass
 
 /**
  * Robstoll's implementation of [MapAssertions].
  */
 class MapAssertionsImpl : MapAssertions {
+
+    override fun <K, V: Any> contains(plant: AssertionPlant<Map<K, V>>, pairs: List<Pair<K, V>>): Assertion
+        = _contains(plant, pairs)
+
+    override fun <K, V: Any> containsNullable(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, pairs: List<Pair<K, V?>>): Assertion
+        = _containsNullable(plant, type, pairs)
+
 
     override fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K)
         = _containsKey(plant, key)
