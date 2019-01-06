@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.spec.reporting.translating
 
-import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
+import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
@@ -52,7 +52,7 @@ abstract class LocaleOrderDeciderSpec(
             context("primary locale is $localeDe") {
                 it("returns $localeDe$andAdditional") {
                     val result = testee.determineOrder(localeDe, fallbackLocales).asIterable()
-                    assert(result).containsStrictly(
+                    assert(result).containsExactly(
                         localeDe
                         , *additionalLocaleCandidates
                     )
@@ -62,7 +62,7 @@ abstract class LocaleOrderDeciderSpec(
             context("primary locale is $localeDeCh") {
                 it("returns $localeDeCh, $localeDe$andAdditional") {
                     val result = testee.determineOrder(localeDeCh, fallbackLocales).asIterable()
-                    assert(result).containsStrictly(
+                    assert(result).containsExactly(
                         localeDeCh
                         , localeDe
                         , *additionalLocaleCandidates)
@@ -76,7 +76,7 @@ abstract class LocaleOrderDeciderSpec(
                     + "$localeDe"
                     + andAdditional) {
                     val result = testee.determineOrder(localeDeChVariantA, fallbackLocales).asIterable()
-                    assert(result).containsStrictly(
+                    assert(result).containsExactly(
                         localeDeChVariantA
                         , localeDeCh
                         , localeDe
@@ -92,7 +92,7 @@ abstract class LocaleOrderDeciderSpec(
                     + "$localeDe"
                     + andAdditional) {
                     val result = testee.determineOrder(localeDeChVariantAVariantB, fallbackLocales).asIterable()
-                    assert(result).containsStrictly(
+                    assert(result).containsExactly(
                         localeDeChVariantAVariantB
                         , localeDeChVariantA
                         , localeDeCh
@@ -111,7 +111,7 @@ abstract class LocaleOrderDeciderSpec(
                     + "$localeDe"
                     + andAdditional) {
                     val result = testee.determineOrder(localeDeScriptLatnChVariantA, fallbackLocales).asIterable()
-                    assert(result).containsStrictly(
+                    assert(result).containsExactly(
                         localeDeScriptLatnChVariantA
                         , localeDeScriptLatnCh
                         , localeDeScriptLatn

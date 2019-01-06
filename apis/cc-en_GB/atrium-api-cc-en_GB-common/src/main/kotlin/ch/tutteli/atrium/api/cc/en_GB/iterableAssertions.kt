@@ -133,6 +133,17 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntry(assertionCreatorOr
 fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntries(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inAnyOrder.atLeast(1).nullableEntries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if given) in
+ * the defined order.
+ *
+ * It is a shortcut for `contains.inOrder.only.nullableValues(expected, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <E : Any, T: Iterable<E>> Assert<T>.containsExactly(expected: E, vararg otherExpected: E): AssertionPlant<T>
+    = contains.inOrder.only.nullableValues(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only [expected] and the [otherExpected] (if given) in
@@ -143,8 +154,12 @@ fun <E: Any, T: Iterable<E?>> Assert<T>.containsNullableEntries(assertionCreator
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
+    replaceWith = ReplaceWith("containsExactly(expected, *otherExpected)", "ch.tutteli.atrium.api.cc.en_GB.containsExactly")
+)
 fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg otherExpected: E): AssertionPlant<T>
-    = contains.inOrder.only.nullableValues(expected, *otherExpected)
+    = containsExactly(expected, *otherExpected)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
@@ -155,8 +170,24 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(expected: E, vararg ot
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValue(expectedOrNull: E): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> Assert<T>.containsExactlyNullableValue(expectedOrNull: E): AssertionPlant<T>
     = contains.inOrder.only.nullableValue(expectedOrNull)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
+ * the [expected][expectedOrNull] nullable value.
+ *
+ * It is a shortcut for `contains.inOrder.only.nullableValue(expectedOrNull, *otherExpected)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactlyNullableValue for clearer naming; will be removed with 1.0.0",
+    replaceWith = ReplaceWith("containsExactlyNullableValue(expectedOrNull)", "ch.tutteli.atrium.api.cc.en_GB.containsExactlyNullableValue")
+)
+fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValue(expectedOrNull: E): AssertionPlant<T>
+    = containsExactlyNullableValue(expectedOrNull)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
@@ -168,8 +199,25 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValue(expected
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+fun <E : Any?, T : Iterable<E>> Assert<T>.containsExactlyNullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
     = contains.inOrder.only.nullableValues(expectedOrNull, *otherExpectedOrNulls)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only
+ * the [expected][expectedOrNull] nullable value and the [other expected][otherExpectedOrNulls] nullable values
+ * (if given) in the defined order.
+ *
+ * It is a shortcut for `contains.inOrder.only.nullableValues(expectedOrNull, *otherExpectedOrNulls)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactlyNullableValues for clearer naming; will be removed with 1.0.0",
+    replaceWith = ReplaceWith("containsExactlyNullableValues(expectedOrNull, *otherExpectedOrNulls)", "ch.tutteli.atrium.api.cc.en_GB.containsExactlyNullableValues")
+)
+fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValues(expectedOrNull: E, vararg otherExpectedOrNulls: E): AssertionPlant<T>
+    = containsExactlyNullableValues(expectedOrNull, *otherExpectedOrNulls)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
@@ -181,8 +229,25 @@ fun <E : Any?, T : Iterable<E>> Assert<T>.containsStrictlyNullableValues(expecte
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
+fun <E : Any, T : Iterable<E>> Assert<T>.containsExactly(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
     = contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains only an entry holding the assertions created by the
+ * [assertionCreator] and an additional entry for each [otherAssertionCreators] (if given) in the defined order
+ * holding the assertions created by them.
+ *
+ * It is a shortcut for `contains.inOrder.only.entries(assertionCreator, *otherAssertionCreators)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactly for clearer naming; will be removed with 1.0.0",
+    replaceWith = ReplaceWith("containsExactly(assertionCreator, *otherAssertionCreators)", "ch.tutteli.atrium.api.cc.en_GB.containsExactly")
+)
+fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Assert<E>.() -> Unit, vararg otherAssertionCreators: Assert<E>.() -> Unit): AssertionPlant<T>
+    = containsExactly(assertionCreator, *otherAssertionCreators)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
@@ -194,8 +259,25 @@ fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(assertionCreator: Asse
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactlyNullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inOrder.only.nullableEntry(assertionCreatorOrNull)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
+ * the assertions created by [assertionCreatorOrNull] or only one entry which is `null` in case [assertionCreatorOrNull]
+ * is defined as `null`.
+ *
+ * It is a shortcut for `contains.inOrder.only.nullableEntry(assertionCreatorOrNull)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactlyNullableEntry for clearer naming; will be removed with 1.0.0",
+    replaceWith = ReplaceWith("containsExactlyNullableEntry(assertionCreatorOrNull)", "ch.tutteli.atrium.api.cc.en_GB.containsExactlyNullableEntry")
+)
+fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntry(assertionCreatorOrNull: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = containsExactlyNullableEntry(assertionCreatorOrNull)
 
 /**
  * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
@@ -208,8 +290,26 @@ fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntry(assertio
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+fun <E : Any, T : Iterable<E?>> Assert<T>.containsExactlyNullableEntries(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = contains.inOrder.only.nullableEntries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] (which has a nullable entry type) contains only an entry holding
+ * the assertions created by [assertionCreatorOrNull] or `null` in case [assertionCreatorOrNull] is defined as `null`
+ * and likewise an additional entry for each [otherAssertionCreatorsOrNulls] (if given)
+ * whereas the entries have to appear in the defined order.
+ *
+ * It is a shortcut for `contains.inOrder.only.nullableEntries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)`
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+@Deprecated(
+    message = "Replaced with containsExactlyNullableEntries for clearer naming; will be removed with 1.0.0",
+    replaceWith = ReplaceWith("containsExactlyNullableEntries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)", "ch.tutteli.atrium.api.cc.en_GB.otherAssertionCreatorsOrNulls")
+)
+fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictlyNullableEntries(assertionCreatorOrNull: (Assert<E>.() -> Unit)?, vararg otherAssertionCreatorsOrNulls: (Assert<E>.() -> Unit)?): AssertionPlant<T>
+    = containsExactlyNullableEntries(assertionCreatorOrNull, *otherAssertionCreatorsOrNulls)
 
 
 /**

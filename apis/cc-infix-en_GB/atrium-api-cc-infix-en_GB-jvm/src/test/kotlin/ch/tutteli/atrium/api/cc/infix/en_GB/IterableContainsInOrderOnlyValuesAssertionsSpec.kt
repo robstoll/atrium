@@ -54,26 +54,25 @@ class IterableContainsInOrderOnlyValuesAssertionsSpec : Spek({
             }
         }
 
-
-        private val containsShortcutFun: KFunction2<Assert<Iterable<Double>>, Values<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsStrictly
+        private val containsShortcutFun: KFunction2<Assert<Iterable<Double>>, Values<Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::containsExactly
         fun getContainsShortcutPair() = containsShortcutFun.name to Companion::containsInOrderOnlyValuesShortcut
 
         private fun containsInOrderOnlyValuesShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
             return when {
-                aX.isEmpty() -> plant containsStrictly a
-                aX.size == 1 -> plant containsStrictly Values(a, *aX)
-                else -> plant containsStrictly Values(a, *aX)
+                aX.isEmpty() -> plant containsExactly a
+                aX.size == 1 -> plant containsExactly Values(a, *aX)
+                else -> plant containsExactly Values(a, *aX)
             }
         }
 
-        private val containsNullableShortcutFun: KFunction2<Assert<Iterable<Double?>>, NullableValues<Double>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsStrictly
+        private val containsNullableShortcutFun: KFunction2<Assert<Iterable<Double?>>, NullableValues<Double>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::containsExactly
         fun getContainsNullableShortcutPair() = containsNullableShortcutFun.name + " ${NullableValues::class.simpleName}" to Companion::containsInOrderOnlyNullableValuesShortcut
 
         private fun containsInOrderOnlyNullableValuesShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
-                plant containsStrictly NullableValue(a)
+                plant containsExactly NullableValue(a)
             } else {
-                plant containsStrictly NullableValues(a, *aX)
+                plant containsExactly NullableValues(a, *aX)
             }
         }
     }
