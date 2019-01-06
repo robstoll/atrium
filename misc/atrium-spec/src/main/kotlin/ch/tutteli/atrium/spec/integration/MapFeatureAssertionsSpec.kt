@@ -36,9 +36,9 @@ abstract class MapFeatureAssertionsSpec(
     ) {})
 
     include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, describePrefix,
-        checkingTriple("val ${keysValPair.first}", { keysValPair.second(this).containsStrictly("a") }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
+        checkingTriple("val ${keysValPair.first}", { keysValPair.second(this).containsExactly("a") }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple("fun ${keysFunPair.first}", { keysFunPair.second(this) { contains("a").and.hasSize(1) } }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
-        checkingTriple("val ${valuesValPair.first}", { valuesValPair.second(this).containsStrictly(1) }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
+        checkingTriple("val ${valuesValPair.first}", { valuesValPair.second(this).containsExactly(1) }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple("fun ${valuesFunPair.first}", { valuesFunPair.second(this) { contains(1).hasSize(1) } }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple(getExistingPair.first, { getExistingPair.second(this, "a") { isGreaterThan(1) } }, mapOf("a" to 2), mapOf("a" to 1, "b" to 2))
     ){})
