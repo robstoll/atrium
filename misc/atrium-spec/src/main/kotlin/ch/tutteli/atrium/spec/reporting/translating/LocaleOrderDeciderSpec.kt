@@ -53,8 +53,8 @@ abstract class LocaleOrderDeciderSpec(
                 it("returns $localeDe$andAdditional") {
                     val result = testee.determineOrder(localeDe, fallbackLocales).asIterable()
                     assert(result).containsExactly(
-                        localeDe,
-                        *additionalLocaleCandidates
+                        localeDe
+                        ,*additionalLocaleCandidates
                     )
                 }
             }
@@ -63,9 +63,9 @@ abstract class LocaleOrderDeciderSpec(
                 it("returns $localeDeCh, $localeDe$andAdditional") {
                     val result = testee.determineOrder(localeDeCh, fallbackLocales).asIterable()
                     assert(result).containsExactly(
-                        localeDeCh,
-                        localeDe,
-                        *additionalLocaleCandidates)
+                        localeDeCh
+                        ,localeDe
+                        ,*additionalLocaleCandidates)
                 }
             }
 
@@ -77,10 +77,10 @@ abstract class LocaleOrderDeciderSpec(
                     + andAdditional) {
                     val result = testee.determineOrder(localeDeChVariantA, fallbackLocales).asIterable()
                     assert(result).containsExactly(
-                        localeDeChVariantA,
-                        localeDeCh,
-                        localeDe,
-                        *additionalLocaleCandidates)
+                        localeDeChVariantA
+                        ,localeDeCh
+                        ,localeDe
+                        ,*additionalLocaleCandidates)
                 }
             }
 
@@ -93,11 +93,11 @@ abstract class LocaleOrderDeciderSpec(
                     + andAdditional) {
                     val result = testee.determineOrder(localeDeChVariantAVariantB, fallbackLocales).asIterable()
                     assert(result).containsExactly(
-                        localeDeChVariantAVariantB,
-                        localeDeChVariantA,
-                        localeDeCh,
-                        localeDe,
-                        *additionalLocaleCandidates)
+                        localeDeChVariantAVariantB
+                        ,localeDeChVariantA
+                        ,localeDeCh
+                        ,localeDe
+                        ,*additionalLocaleCandidates)
                 }
             }
 
@@ -112,13 +112,13 @@ abstract class LocaleOrderDeciderSpec(
                     + andAdditional) {
                     val result = testee.determineOrder(localeDeScriptLatnChVariantA, fallbackLocales).asIterable()
                     assert(result).containsExactly(
-                        localeDeScriptLatnChVariantA,
-                        localeDeScriptLatnCh,
-                        localeDeScriptLatn,
-                        localeDeChVariantA,
-                        localeDeCh,
-                        localeDe,
-                        *additionalLocaleCandidates)
+                        localeDeScriptLatnChVariantA
+                        ,localeDeScriptLatnCh
+                        ,localeDeScriptLatn
+                        ,localeDeChVariantA
+                        ,localeDeCh
+                        ,localeDe
+                        ,*additionalLocaleCandidates)
                 }
             }
         }
