@@ -26,7 +26,7 @@ interface ListGetNullableOption<E, T: List<E>> {
 
     /**
      * Makes the assertion that the given [index] is within the bounds of [AssertionPlant.subject] and that
-     * the corresponding entry holds all assertions the given [assertionCreator] might create for it.
+     * the corresponding nullable entry holds all assertions the given [assertionCreator] might create for it.
      *
      * Notice, that the corresponding entry of the given [index] can be `null` even if the index is within bounds
      * as the [List] has a nullable entry type.

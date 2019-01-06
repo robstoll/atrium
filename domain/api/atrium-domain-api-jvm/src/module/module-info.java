@@ -19,6 +19,7 @@ module ch.tutteli.atrium.domain.api {
     exports ch.tutteli.atrium.domain.creating.iterable.contains.checkers;
     exports ch.tutteli.atrium.domain.creating.iterable.contains.creators;
     exports ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours;
+    exports ch.tutteli.atrium.domain.creating.map;
     exports ch.tutteli.atrium.domain.creating.throwable.thrown;
     exports ch.tutteli.atrium.domain.creating.throwable.thrown.creators;
     exports ch.tutteli.atrium.domain.creating.throwable.thrown.providers;

@@ -7,6 +7,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.creating.map.KeyValue
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
@@ -57,6 +58,31 @@ inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(
     = addAssertion(AssertImpl.map.containsNullable(this, V::class, entries.toList()))
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
+ * with a corresponding value which holds all assertions [keyValue]'s [KeyValue.valueAssertionCreator] might create.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>)
+    = contains(All(keyValue))
+
+/**
+ * Makes the assertion that for each of the [KeyValue] in [keyValues], the [AssertionPlant.subject] contains a key
+ * as defined by keyValue's [KeyValue.key] with a corresponding value which holds all assertions keyValues's
+ * [KeyValue.valueAssertionCreator] might create.
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one of the
+ * [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and another one is defined as `Key('a') { isLessThan(2) }`
+ * then both match, even though they match the same entry.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValues: All<KeyValue<K, V>>)
+    = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValues.toList()))
+
+/**
  * Makes the assertion that [AssertionPlant.subject] contains the given [key].
  *
  * @return This plant to support a fluent API.
@@ -74,7 +100,7 @@ infix fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K): MapGetOption<
     = MapGetOption.create(this, key)
 
 /**
- * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
+ * Prepares the assertion about the nullable return value of calling [get][Map.get] with the given [key].
  *
  * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
  * nullable value type.

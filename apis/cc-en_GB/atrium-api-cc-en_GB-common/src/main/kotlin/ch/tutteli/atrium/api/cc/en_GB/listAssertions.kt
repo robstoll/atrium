@@ -20,7 +20,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.(
 
 /**
  * Makes the assertion that the given [index] is within the bounds of [AssertionPlant.subject] and that
- * the corresponding entry holds all assertions the given [assertionCreator] might create for it.
+ * the corresponding nullable entry holds all assertions the given [assertionCreator] might create for it.
  *
  * Notice, that the corresponding entry for the given [index] can be `null` as the [List] has a
  * nullable entry type.
