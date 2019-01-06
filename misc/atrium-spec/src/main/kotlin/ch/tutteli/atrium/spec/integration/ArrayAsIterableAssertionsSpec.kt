@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.contains
-import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
+import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import org.jetbrains.spek.api.dsl.describe
@@ -86,53 +86,53 @@ abstract class ArrayAsIterableAssertionsSpec(
 
 
     describe("$asIterableFunName arr") {
-        verbs.checkImmediately(arrayOf(1, 2)).arr().containsStrictly(1, 2)
+        verbs.checkImmediately(arrayOf(1, 2)).arr().containsExactly(1, 2)
     }
 
     describe("$asIterableFunName arrByte") {
         test("transformation can be applied and an assertion made") {
-            verbs.checkImmediately(bytes(1.toByte(), 2.toByte())).arrByte().containsStrictly(1.toByte(), 2.toByte())
+            verbs.checkImmediately(bytes(1.toByte(), 2.toByte())).arrByte().containsExactly(1.toByte(), 2.toByte())
         }
     }
     describe("$asIterableFunName arrChar") {
         test("transformation can be applied and an assertion made") {
-            verbs.checkImmediately(chars(1.toChar(), 2.toChar())).arrChar().containsStrictly(1.toChar(), 2.toChar())
+            verbs.checkImmediately(chars(1.toChar(), 2.toChar())).arrChar().containsExactly(1.toChar(), 2.toChar())
         }
     }
     describe("$asIterableFunName arrShort") {
         test("transformation can be applied and an assertion made") {
-            verbs.checkImmediately(shorts(1, 2)).arrShort().containsStrictly(1.toShort(), 2.toShort())
+            verbs.checkImmediately(shorts(1, 2)).arrShort().containsExactly(1.toShort(), 2.toShort())
         }
     }
     describe("$asIterableFunName arrShort") {
         test("transformation can be applied and an assertion made") {
             verbs.checkImmediately(shorts(1.toShort(), 2.toShort())).arrShort()
-                .containsStrictly(1.toShort(), 2.toShort())
+                .containsExactly(1.toShort(), 2.toShort())
         }
     }
     describe("$asIterableFunName arrInt") {
         test("transformation can be applied and an assertion made") {
-            verbs.checkImmediately(ints(1, 2)).arrInt().containsStrictly(1, 2)
+            verbs.checkImmediately(ints(1, 2)).arrInt().containsExactly(1, 2)
         }
     }
     describe("$asIterableFunName arrLong") {
         test("transformation can be applied and an assertion made") {
-            verbs.checkImmediately(longs(1, 2)).arrLong().containsStrictly(1L, 2L)
+            verbs.checkImmediately(longs(1, 2)).arrLong().containsExactly(1L, 2L)
         }
     }
     describe("$asIterableFunName arrFloat") {
         test("transformation can be applied and an assertion made") {
-            verbs.checkImmediately(floats(1f, 2f)).arrFloat().containsStrictly(1f, 2f)
+            verbs.checkImmediately(floats(1f, 2f)).arrFloat().containsExactly(1f, 2f)
         }
     }
     describe("$asIterableFunName arrDouble") {
         test("transformation can be applied and an assertion made") {
-            verbs.checkImmediately(doubles(1.0, 2.0)).arrDouble().containsStrictly(1.0, 2.0)
+            verbs.checkImmediately(doubles(1.0, 2.0)).arrDouble().containsExactly(1.0, 2.0)
         }
     }
     describe("$asIterableFunName arrBoolean") {
         test("transformation can be applied and an assertion made") {
-            verbs.checkImmediately(booleans(true, false)).arrBoolean().containsStrictly(true, false)
+            verbs.checkImmediately(booleans(true, false)).arrBoolean().containsExactly(true, false)
         }
     }
 })
