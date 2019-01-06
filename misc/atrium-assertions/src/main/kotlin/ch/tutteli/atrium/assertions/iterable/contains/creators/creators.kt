@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -11,7 +12,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableC
 import ch.tutteli.atrium.assertions.iterable.contains.searchbehaviours.IterableContainsInOrderOnlySearchBehaviour
 import ch.tutteli.atrium.creating.AssertionPlant
 
-@Deprecated("Use AssertImpl.iterable.contains.valuesInAnyOrder, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.valuesInAnyOrder; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.valuesInAnyOrder(checker, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -24,7 +25,7 @@ fun <E, T : Iterable<E>> _containsObjectsInAnyOrder(
 ): Assertion
     = createAssertionGroup(checker, expected, otherExpected, ::IterableContainsInAnyOrderObjectsAssertionCreator)
 
-@Deprecated("Use AssertImpl.iterable.contains.entriesInAnyOrder, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.entriesInAnyOrder; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.entriesInAnyOrder(checker, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -37,7 +38,7 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrder(
 ): Assertion
     = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
-@Deprecated("Use AssertImpl.iterable.contains.nullableEntriesInAnyOrder, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.nullableEntriesInAnyOrder; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.nullableEntriesInAnyOrder(checker, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -51,7 +52,7 @@ fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrder(
 ): Assertion
     = createAssertionGroup(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderEntriesAssertionCreator)
 
-@Deprecated("Use AssertImpl.iterable.contains.valuesInAnyOrderOnly, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.valuesInAnyOrderOnly; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.valuesInAnyOrderOnly(builder, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -66,7 +67,7 @@ fun <E, T : Iterable<E>> _containsObjectsInAnyOrderOnly(
     return createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsInAnyOrderOnlyObjectsAssertionCreator)
 }
 
-@Deprecated("Use AssertImpl.iterable.contains.entriesInAnyOrderOnly, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.entriesInAnyOrderOnly; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.entriesInAnyOrderOnly(builder, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -81,7 +82,7 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInAnyOrderOnly(
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
 }
 
-@Deprecated("Use AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.nullableEntriesInAnyOrderOnly(builder, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -97,7 +98,7 @@ fun <E : Any, T : Iterable<E?>> _containsEntriesInAnyOrderOnly(
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInAnyOrderOnlyEntriesAssertionCreator)
 }
 
-@Deprecated("Use AssertImpl.iterable.contains.valuesInOrderOnly, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.valuesInOrderOnly; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.valuesInOrderOnly(builder, expected, *otherExpected)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -112,7 +113,7 @@ fun <E, T : Iterable<E>> _containsObjectsInOrderOnly(
     return createAssertionGroupWithoutChecker(checker, expected, otherExpected, ::IterableContainsInOrderOnlyObjectsAssertionCreator)
 }
 
-@Deprecated("Use AssertImpl.iterable.contains.entriesInOrderOnly, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.entriesInOrderOnly; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.entriesInOrderOnly(builder, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"
@@ -127,7 +128,7 @@ fun <E : Any, T : Iterable<E>> _containsEntriesInOrderOnly(
     return createAssertionGroupWithoutChecker(checker, assertionCreator, otherAssertionCreators, ::IterableContainsInOrderOnlyEntriesAssertionCreator)
 }
 
-@Deprecated("Use AssertImpl.iterable.contains.nullableEntriesInOrderOnly, will be removed with 1.0.0",
+@Deprecated("Use AssertImpl.iterable.contains.nullableEntriesInOrderOnly; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.iterable.contains.nullableEntriesInOrderOnly(builder, assertionCreator, *otherAssertionCreators)",
         "ch.tutteli.atrium.creating.AssertImpl"

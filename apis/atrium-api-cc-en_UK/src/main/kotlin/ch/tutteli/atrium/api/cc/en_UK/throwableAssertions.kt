@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -23,8 +24,8 @@ inline fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow() {
 }
 
 /**
- * Makes the assertion that the thrown [Throwable] is of type [TExpected] and it [assertionCreator]
- * which are checked additionally as well.
+ *  Makes the assertion that the thrown [Throwable] is of type [TExpected] and holds all assertions the
+ * [assertionCreator] might create in addition.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first
  *   assertion (a [Throwable] was thrown) holds or not.

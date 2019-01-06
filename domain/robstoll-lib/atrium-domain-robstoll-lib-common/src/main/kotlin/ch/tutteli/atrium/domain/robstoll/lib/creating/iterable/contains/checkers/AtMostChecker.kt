@@ -20,5 +20,5 @@ class AtMostChecker(
 ) : Checker(times, nameContainsNotFun, atMostCall) {
 
     override fun createAssertion(foundNumberOfTimes: Int): Assertion
-        = createDescriptiveAssertion(DescriptionIterableAssertion.AT_MOST, { foundNumberOfTimes <= times })
+        = createDescriptiveAssertion(DescriptionIterableAssertion.AT_MOST) { foundNumberOfTimes <= times }
 }

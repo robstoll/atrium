@@ -11,17 +11,21 @@ import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 
-internal fun <T : Any> esGilt(subject: T)
-    = AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
+internal fun <T : Any> esGilt(subject: T) =
+    AssertImpl.coreFactory.newReportingPlant(AssertionVerb.ASSERT, { subject }, reporter)
 
-internal fun <T : Any> esGilt(subject: T, assertionCreator: Assert<T>.() -> Unit)
-    = AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(AssertionVerb.ASSERT, { subject }, reporter, assertionCreator)
+internal fun <T : Any> esGilt(subject: T, assertionCreator: Assert<T>.() -> Unit) =
+    AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(
+        AssertionVerb.ASSERT,
+        { subject },
+        reporter,
+        assertionCreator
+    )
 
-internal fun <T : Any?> esGilt(subject: T)
-    = AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, { subject }, reporter)
+internal fun <T : Any?> esGilt(subject: T) =
+    AssertImpl.coreFactory.newReportingPlantNullable(AssertionVerb.ASSERT, { subject }, reporter)
 
-internal fun erwarte(act: () -> Unit)
-    = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
+internal fun erwarte(act: () -> Unit) = AssertImpl.throwable.thrownBuilder(AssertionVerb.EXPECT_THROWN, act, reporter)
 
 internal enum class AssertionVerb(override val value: String) : StringBasedTranslatable {
     ASSERT("es gilt"),
@@ -41,7 +45,7 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
 
     override fun create(): Reporter {
         return reporterBuilder
-            .withoutTranslations()
+            .withoutTranslationsUseDefaultLocale()
             .withDetailedObjectFormatter()
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
@@ -50,13 +54,14 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
                 RootAssertionGroupType::class to "* ",
                 ListAssertionGroupType::class to "- ",
                 FeatureAssertionGroupType::class to "=> ",
-                //TODO remove with 1.0.0
+                @Suppress("DEPRECATION" /* TODO remove together with entry with 1.0.0 */)
                 IndentAssertionGroupType::class to "| ",
                 PrefixFeatureAssertionGroupHeader::class to ">> ",
                 PrefixSuccessfulSummaryAssertion::class to "(/) ",
                 PrefixFailingSummaryAssertion::class to "(x) ",
                 WarningAssertionGroupType::class to "(!) "
             )
+            .withDefaultAtriumErrorAdjusters()
             .withOnlyFailureReporter()
             .build()
     }
@@ -78,8 +83,8 @@ internal object VerbSpec : ch.tutteli.atrium.spec.verbs.VerbSpec(
  */
 internal object AssertionVerbFactory : AssertionVerbFactory {
     override fun <T : Any> checkImmediately(subject: T) = esGilt(subject)
-    override fun <T : Any> checkLazily(subject: T, assertionCreator: Assert<T>.() -> Unit)
-        = esGilt(subject, assertionCreator)
+    override fun <T : Any> checkLazily(subject: T, assertionCreator: Assert<T>.() -> Unit) =
+        esGilt(subject, assertionCreator)
 
     override fun <T> checkNullable(subject: T) = esGilt(subject)
     override fun checkException(act: () -> Unit) = erwarte(act)

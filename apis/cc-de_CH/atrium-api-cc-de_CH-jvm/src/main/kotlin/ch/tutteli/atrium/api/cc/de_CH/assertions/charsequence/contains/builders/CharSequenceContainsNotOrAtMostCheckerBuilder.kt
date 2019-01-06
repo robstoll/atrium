@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.api.cc.de_CH.assertions.charsequence.contains.builders
 
 import ch.tutteli.atrium.assertions.charsequence.contains.builders.CharSequenceContainsCheckerBuilder
@@ -17,7 +18,7 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceConta
  * @param containsBuilder The previously used [CharSequenceContains.Builder].
  */
 @Deprecated(
-    "use the builder from the package creating; will be removed with 1.0.0",
+    "Use the builder from the package creating; will be removed with 1.0.0",
     ReplaceWith(
         "NotOrAtMostCheckerOption",
         "ch.tutteli.atrium.api.cc.de_CH.creating.charsequence.contains.builders.NotOrAtMostCheckerOption"

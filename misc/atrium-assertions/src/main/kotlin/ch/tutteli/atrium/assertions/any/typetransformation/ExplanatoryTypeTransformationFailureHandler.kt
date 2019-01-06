@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -6,6 +7,7 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -16,7 +18,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param T The type of the [AssertionPlant.subject].
  * @param T The type to which the [AssertionPlant.subject] should have been down-casted.
  */
-@Deprecated("Use AssertImpl.any.typeTransformation.failureHandlers.newExplanatory, will be removed with 1.0.0")
+@Deprecated("Use AssertImpl.any.typeTransformation.failureHandlers.newExplanatory; will be removed with 1.0.0")
 class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
     AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub> {
     /**
@@ -55,5 +57,5 @@ class ExplanatoryTypeTransformationFailureHandler<T : Any, out TSub : T> :
         = AssertImpl.collector
         .forExplanation
         .doNotThrowIfNoAssertionIsCollected
-        .collect(warningDownCastFailed, assertionCreator, null)
+        .collect(warningDownCastFailed, MaybeSubject.Absent, assertionCreator)
 }

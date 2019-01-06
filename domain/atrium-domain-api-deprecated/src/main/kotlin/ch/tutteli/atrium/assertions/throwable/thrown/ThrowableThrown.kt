@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.assertions.throwable.thrown
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -18,7 +19,7 @@ import kotlin.reflect.KClass
  * and a [Creator] which finally builds the assertion.
  */
 @Deprecated(
-    "use the interface from package domain.creating, will be removed with 1.0.0",
+    "Use the interface from package domain.creating; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown")
 )
 interface ThrowableThrown {
@@ -26,7 +27,7 @@ interface ThrowableThrown {
      * Provides a message which can be used in reporting to represent the case that no [Throwable] at all was thrown.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.AbsentThrowableMessageProvider")
     )
     interface AbsentThrowableMessageProvider {
@@ -43,7 +44,7 @@ interface ThrowableThrown {
      * @param TExpected The type of the [Throwable] which is expected to be thrown.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown.Creator")
     )
     interface Creator<TExpected : Throwable> {

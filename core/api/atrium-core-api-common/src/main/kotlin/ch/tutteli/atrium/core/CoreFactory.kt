@@ -3,14 +3,10 @@ package ch.tutteli.atrium.core
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
 import ch.tutteli.atrium.checking.AssertionChecker
-import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.*
-import ch.tutteli.atrium.reporting.translating.LocaleOrderDecider
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslationSupplier
-import ch.tutteli.atrium.reporting.translating.Translator
+import ch.tutteli.atrium.reporting.translating.*
 import kotlin.reflect.KClass
 
 /**
@@ -29,7 +25,7 @@ val coreFactory by lazy { loadSingleService(CoreFactory::class) }
  * Notice, the platform specific types have to define the default methods for `newReportingPlantNullable`
  * (otherwise we are not binary backward compatible) -> will be moved to CoreFactoryCommon with 1.0.0
  */
-expect interface CoreFactory: CoreFactoryCommon
+expect interface CoreFactory : CoreFactoryCommon
 
 /**
  * The minimum contract of the 'abstract factory' of atrium-core for any platform.
@@ -49,6 +45,7 @@ expect interface CoreFactory: CoreFactoryCommon
  * - [AssertionFormatter]
  * - [AssertionPairFormatter]
  * - [Reporter]
+ * - [AtriumErrorAdjuster]
  */
 interface CoreFactoryCommon {
 
@@ -58,14 +55,14 @@ interface CoreFactoryCommon {
      * It creates a [newThrowingAssertionChecker] based on the given [reporter] for assertion checking,
      * uses [subjectProvider] as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but also as
      * [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid side effects
+     * Notice that [evalOnce] is applied to the given [subjectProvider] to avoid undesired side effects
      * (the provider is most likely called more than once).
      *
      * @param assertionVerb The assertion verb which will be used inter alia in reporting
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
      *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
+     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
      */
@@ -140,7 +137,7 @@ interface CoreFactoryCommon {
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
      *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
-     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
+     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      * @param assertionCreator The
      *
      * @return The newly created [AssertionPlant] which can be used to postulate further assertions.
@@ -180,15 +177,15 @@ interface CoreFactoryCommon {
     fun <T : Any> newCheckingPlant(subjectProvider: () -> T): CheckingAssertionPlant<T>
 
     /**
-     * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to collect
-     * created [Assertion]s inside the lambda.
+     * Creates a [CollectingAssertionPlant] which is intended to be used as receiver object in lambdas to
+     * collect created [Assertion]s inside the lambda.
      *
-     * Notice, that this [AssertionPlant] might not even provide a [AssertionPlant.subject] in which case it
-     * throws a [PlantHasNoSubjectException] if [subject][AssertionPlant.subject] is accessed.
+     * Notice, that the plant might not provide a [CollectingAssertionPlant.subject] in which case it
+     * throws a [PlantHasNoSubjectException] if subject is accessed.
      * Use [newCheckingPlant] instead if you want to know whether the assertions hold.
      *
      * @param subjectProvider The function which will either provide the subject for this plant or throw an
-     *   [PlantHasNoSubjectException] in case it cannot be provided. A [CollectingAssertionPlant] should evaluate the
+     *   [PlantHasNoSubjectException] in case it cannot provide it. A [CollectingAssertionPlant] should evaluate the
      *   [subjectProvider] only once.
      *
      * @return The newly created assertion plant.
@@ -196,7 +193,22 @@ interface CoreFactoryCommon {
     fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
 
     /**
-     * Creates an [AssertionChecker] which throws [AssertionError]s in case an assertion fails
+     * Creates a [CollectingAssertionPlantNullable] which is intended to be used as receiver object in lambdas to
+     * collect created [Assertion]s inside the lambda.
+     *
+     * Notice, that the plant might not provide a [CollectingAssertionPlantNullable.subject] in which case it
+     * throws a [PlantHasNoSubjectException] if subject is accessed.
+     *
+     * @param subjectProvider The function which will either provide the subject for this plant or throw an
+     *   [PlantHasNoSubjectException] in case it cannot provide it. A [CollectingAssertionPlant] should evaluate the
+     *   [subjectProvider] only once.
+     *
+     * @return The newly created assertion plant.
+     */
+    fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
+
+    /**
+     * Creates an [AssertionChecker] which throws [AtriumError]s in case an assertion fails
      * and uses the given [reporter] for reporting.
      *
      * @param reporter The reporter which is used to report [Assertion]s.
@@ -453,7 +465,47 @@ interface CoreFactoryCommon {
      *
      * @return The newly created reporter.
      */
-    fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
+    fun newOnlyFailureReporter(
+        assertionFormatterFacade: AssertionFormatterFacade,
+        atriumErrorAdjuster: AtriumErrorAdjuster
+    ): Reporter
+
+    /**
+     * An [AtriumErrorAdjuster] which does not modify a given [AtriumError].
+     *
+     * @return The newly created adjuster.
+     */
+    fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
+     * An [AtriumErrorAdjuster] which removes stack frames of test runners.
+     *
+     * @return The newly created adjuster.
+     */
+    fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
+     * An [AtriumErrorAdjuster] which removes stack frames of Atrium.
+     *
+     * @return The newly created adjuster.
+     */
+    fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
+
+    /**
+     * An [AtriumErrorAdjuster] which delegates adjustment to the given [firstAdjuster], [secondAdjuster]
+     * and optionally [otherAdjusters].
+     *
+     * @param firstAdjuster The first adjuster to which is delegated.
+     * @param secondAdjuster The second adjuster to which is delegated.
+     * @param otherAdjusters Optionally further [AtriumErrorAdjuster] which shall be involved in adjusting.
+     *
+     * @return The newly created adjuster.
+     */
+    fun newMultiAtriumErrorAdjuster(
+        firstAdjuster: AtriumErrorAdjuster,
+        secondAdjuster: AtriumErrorAdjuster,
+        otherAdjusters: List<AtriumErrorAdjuster>
+    ): AtriumErrorAdjuster
 }
 
 
@@ -470,7 +522,7 @@ interface CoreFactoryCommon {
  *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
  * @param subjectProvider Used as [AssertionPlantWithCommonFields.CommonFields.subjectProvider] but
  *   also as [AssertionPlantWithCommonFields.CommonFields.representationProvider].
- * @param reporter The reporter which will be use for a [CoreFactory.newThrowingAssertionChecker].
+ * @param reporter The reporter which will be used for a [CoreFactory.newThrowingAssertionChecker].
  *
  * @return The newly created assertion plant.
  */
@@ -480,7 +532,7 @@ fun <T : Any?> CoreFactoryCommon.newReportingPlantNullable(
     reporter: Reporter,
     nullRepresentation: Any = RawString.NULL
 ): ReportingAssertionPlantNullable<T> = newReportingPlantNullable(
-    assertionVerb, subjectProvider, coreFactory.newThrowingAssertionChecker(reporter), nullRepresentation
+    assertionVerb, subjectProvider, newThrowingAssertionChecker(reporter), nullRepresentation
 )
 
 /**

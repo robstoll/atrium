@@ -1,8 +1,10 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import kotlin.reflect.KFunction2
 
 class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceAssertionsSpec(
@@ -11,6 +13,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
     getContainsNotDefaultTranslationOfPair(),
     "${Assert<CharSequence>::toBe.name} ${Empty::class.simpleName}" to Companion::toBeEmpty,
     "${Assert<CharSequence>::notToBe.name} ${Empty::class.simpleName}" to Companion::notToBeEmpty,
+    "isNotBlank not implemented in en_UK" to Companion::notToBeBlank,
     Assert<CharSequence>::startsWith.name to Companion::startsWith,
     Assert<CharSequence>::startsNotWith.name to Companion::startsNotWith,
     Assert<CharSequence>::endsWith.name to Companion::endsWith,
@@ -51,6 +54,9 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
 
         fun notToBeEmpty(plant: Assert<CharSequence>)
             = plant notToBe Empty
+
+        fun notToBeBlank(plant: Assert<CharSequence>)
+            = plant.addAssertion(AssertImpl.charSequence.isNotBlank(plant))
 
         fun startsWith(plant: Assert<CharSequence>, expected: CharSequence)
             = plant startsWith expected

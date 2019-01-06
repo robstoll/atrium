@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
+import ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
-object PropertiesPerEntityAndLocaleTranslationSupplierSpec  : ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec(
+object PropertiesPerEntityAndLocaleTranslationSupplierSpec : TranslatorIntSpec(
     AssertionVerbFactory,
     { primaryLocale, fallbackLocales ->
         reporterBuilder
@@ -14,7 +15,8 @@ object PropertiesPerEntityAndLocaleTranslationSupplierSpec  : ch.tutteli.atrium.
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
-            .withDefaultTextCapabilities()
+            .withTextCapabilities()
+            .withDefaultAtriumErrorAdjusters()
             .withOnlyFailureReporter()
             .build()
     },

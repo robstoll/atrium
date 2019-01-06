@@ -23,5 +23,5 @@ interface IterableAssertions {
     fun <E, T : Iterable<E>> containsBuilder(plant: AssertionPlant<T>): IterableContains.Builder<E, T, NoOpSearchBehaviour>
     fun <E, T : Iterable<E>> containsNotBuilder(plant: AssertionPlant<T>): IterableContains.Builder<E, T, NotSearchBehaviour>
 
-    fun <E: Any, T : Iterable<E?>> all(plant: AssertionPlant<T>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Assertion
+    fun <E: Any> all(plant: AssertionPlant<Iterable<E?>>, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Assertion
 }

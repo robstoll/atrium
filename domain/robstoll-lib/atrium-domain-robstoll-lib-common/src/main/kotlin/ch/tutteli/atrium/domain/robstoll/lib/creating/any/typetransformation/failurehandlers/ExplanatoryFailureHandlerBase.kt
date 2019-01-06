@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.fa
 
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation
 import ch.tutteli.atrium.domain.creating.any.typetransformation.AnyTypeTransformation.ParameterObject
@@ -29,5 +30,5 @@ abstract class ExplanatoryFailureHandlerBase<in S : Any, out T : Any> : AnyTypeT
     ) = AssertImpl.collector
         .forExplanation
         .doNotThrowIfNoAssertionIsCollected
-        .collect(warningTransformationFailed, assertionCreator, null)
+        .collect(warningTransformationFailed, MaybeSubject.Absent, assertionCreator)
 }

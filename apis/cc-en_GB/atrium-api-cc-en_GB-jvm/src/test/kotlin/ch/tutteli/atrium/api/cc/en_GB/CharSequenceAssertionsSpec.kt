@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.cc.en_GB
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
 class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequenceAssertionsSpec(
     AssertionVerbFactory,
@@ -10,6 +10,7 @@ class CharSequenceAssertionsSpec : ch.tutteli.atrium.spec.integration.CharSequen
     "containsNotDefaultTranslationOf no longer in this API" to Companion::containsNotDefaultTranslationOf,
     Assert<CharSequence>::isEmpty.name to Assert<CharSequence>::isEmpty,
     Assert<CharSequence>::isNotEmpty.name to Assert<CharSequence>::isNotEmpty,
+    Assert<CharSequence>::isNotBlank.name to Assert<CharSequence>::isNotBlank,
     Assert<CharSequence>::startsWith.name to Assert<CharSequence>::startsWith,
     Assert<CharSequence>::startsNotWith.name to Assert<CharSequence>::startsNotWith,
     Assert<CharSequence>::endsWith.name to Assert<CharSequence>::endsWith,

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.throwable.thrown.creators
 
 import ch.tutteli.atrium.assertions.any.typetransformation.AnyTypeTransformation
@@ -24,7 +25,7 @@ import kotlin.reflect.KClass
  * @param failureHandler A handler which decides how the assertion creator lambda (see [executeActAndCreateAssertion])
  *   is used in reporting.
  */
-@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
+@Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider,
     private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<Throwable, TExpected>

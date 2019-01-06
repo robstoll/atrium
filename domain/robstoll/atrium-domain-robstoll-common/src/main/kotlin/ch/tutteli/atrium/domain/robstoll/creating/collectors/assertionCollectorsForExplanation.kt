@@ -1,28 +1,30 @@
 package ch.tutteli.atrium.domain.robstoll.creating.collectors
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.BaseAssertionPlant
+import ch.tutteli.atrium.creating.BaseCollectingAssertionPlant
+import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.domain.creating.collectors.NonThrowingAssertionCollectorForExplanation
 import ch.tutteli.atrium.domain.creating.collectors.ThrowingAssertionCollectorForExplanation
-import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors.AssertionCollectorForExplanation
+import ch.tutteli.atrium.domain.robstoll.lib.creating.collectors.AssertionCollectorForExplanationImpl
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class NonThrowingAssertionCollectorForExplanationImpl : NonThrowingAssertionCollectorForExplanation {
-    override fun <E : Any> collect(
-        warning: Translatable,
-        assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-        subject: E?
-    ): List<Assertion>
-        = AssertionCollectorForExplanation(false)
-        .collect(warning, assertionCreator, subject)
+    override fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
+        warningCannotEvaluate: Translatable,
+        maybeSubject: MaybeSubject<T>,
+        collectingPlantFactory: (() -> T) -> C,
+        assertionCreator: (C.() -> Unit)?
+    ): List<Assertion> = AssertionCollectorForExplanationImpl(false, collectingPlantFactory)
+        .collect(warningCannotEvaluate, maybeSubject, assertionCreator)
 }
 
 class ThrowingAssertionCollectorForExplanationImpl : ThrowingAssertionCollectorForExplanation {
-    override fun <E : Any> collect(
-        warning: Translatable,
-        assertionCreator: (AssertionPlant<E>.() -> Unit)?,
-        subject: E?
-    ): List<Assertion>
-        = AssertionCollectorForExplanation(true)
-        .collect(warning, assertionCreator, subject)
+    override fun <T, A : BaseAssertionPlant<T, A>, C : BaseCollectingAssertionPlant<T, A, C>> collect(
+        warningCannotEvaluate: Translatable,
+        maybeSubject: MaybeSubject<T>,
+        collectingPlantFactory: (() -> T) -> C,
+        assertionCreator: (C.() -> Unit)?
+    ): List<Assertion> = AssertionCollectorForExplanationImpl(true, collectingPlantFactory)
+        .collect(warningCannotEvaluate, maybeSubject, assertionCreator)
 }

@@ -1,9 +1,9 @@
-description = 'Checks that specs from older versions of Atrium can still be run with the components of the current version.'
-
 //Enable if you need to check the task tree
-//plugins {
-//    id "com.dorongold.task-tree" version "1.3"
-//}
+plugins {
+    id "com.dorongold.task-tree" version "1.3"
+}
+
+description = 'Checks that specs from older versions of Atrium can still be run with the components of the current version.'
 
 repositories {
     maven { url "https://dl.bintray.com/jetbrains/spek" }
@@ -15,12 +15,10 @@ configurations {
 
 dependencies {
     common "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
-    common "org.jetbrains.spek:spek-api:$spek_version", withoutKotlin
-    common("org.jetbrains.spek:spek-junit-platform-engine:$spek_version") {
-        exclude group: 'org.junit.platform'
-        exclude group: 'org.jetbrains.kotlin'
-    }
-    common mockito(), withoutKotlin
+    common "org.jetbrains.spek:spek-api:$spek_version", excludeKotlin
+    common "org.jetbrains.spek:spek-junit-platform-engine:$spek_version", excludeKotlin
+
+    common mockito(), excludeKotlin
     common kotlinStdlib()
 
     compile configurations.common.dependencies
@@ -49,7 +47,7 @@ def createBcTasksForApis(String version, String forgive, String... apis) {
     }
 }
 
-Task createJacocoReportTask(String apiName, String name, Task runTask){
+Task createJacocoReportTask(String apiName, String name, Task runTask) {
     project.task("jacoco-$name", type: JacocoReport) {
         sourceDirectories = sourceSets.main.allJava.sourceDirectories
         classDirectories = files(sourceSets.main.output.classesDirs)
@@ -81,14 +79,22 @@ Task createJacocoReportTask(String apiName, String name, Task runTask){
     }
 }
 
+static String getNameUnderline(String apiName, String version) {
+    return "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
+}
+
+File getSrcDirectory(String apiName, String version) {
+    return file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
+}
+
 def createBcTasks(String apiName, String version, String forgive) {
-    def nameUnderline = "${apiName.replaceAll('-', '_')}_${version.replaceAll("\\.", '_')}"
+    def nameUnderline = getNameUnderline(apiName, version)
     def name = "${apiName}-$version"
     def srcName = "src_$nameUnderline"
     def confCommon = "conf_$nameUnderline"
     def testJar = "testJar_$nameUnderline"
     def testJarSources = "testJarSources_$nameUnderline"
-    def srcDirectory = file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
+    def srcDirectory = getSrcDirectory(apiName, version)
 
     sourceSets {
         create(srcName) {
@@ -105,7 +111,7 @@ def createBcTasks(String apiName, String version, String forgive) {
     }
 
     dependencies {
-        def groupId = version == '0.6.0' ? 'ch.tutteli': 'ch.tutteli.atrium'
+        def groupId = version == '0.6.0' ? 'ch.tutteli' : 'ch.tutteli.atrium'
         add(testJar, "$groupId:atrium-api-$apiName:$version:tests") {
             exclude group: '*'
         }
@@ -120,11 +126,15 @@ def createBcTasks(String apiName, String version, String forgive) {
             add(confCommon, prefixedProject("api-cc-en_UK")) //required for atrium-spec
         } else {
             add(confCommon, prefixedProject("api-cc-en_GB-jvm")) //required for atrium-spec
-            if (apiName != 'de_CH') {
+            if (!apiName.endsWith('cc-de_CH')) {
                 add(confCommon, prefixedProject("verbs-internal-jvm")) //required by the api
             }
         }
-        add(confCommon, prefixedProject("$apiName-robstoll"))
+        if (!apiName.endsWith('en_UK')) {
+            add(confCommon, prefixedProject("$apiName-robstoll-jvm"))
+        } else {
+            add(confCommon, prefixedProject("$apiName-robstoll"))
+        }
         add(confCommon, sourceSets.main.runtimeClasspath)
 
         owner."${srcName}Compile" configurations[confCommon].dependencies
@@ -201,6 +211,21 @@ def createBcTasks(String apiName, String version, String forgive) {
     project."compileSrc_${nameUnderline}Kotlin".dependsOn unzip
 }
 
+def createFixSrcTask(String apiName, String version, String file, Closure modifyContent) {
+    def nameUnderline070 = getNameUnderline(apiName, version)
+    def taskSuffix = "$apiName-$version"
+    def fixSrc = task("fixSrc-$taskSuffix-$file") {
+        doLast {
+            def srcFile = project.file("${getSrcDirectory(apiName, version)}/ch/tutteli/atrium/api/${apiName.replaceAll('-', '/')}/$file")
+            String newContent = modifyContent(srcFile.getText('UTF-8'))
+            srcFile.write(newContent, 'UTF-8')
+        }
+    }
+    def unzip = project.tasks.getByName("unzip-$taskSuffix")
+    fixSrc.mustRunAfter(unzip)
+    project."compileSrc_${nameUnderline070}Kotlin".dependsOn fixSrc
+}
+
 createBcTasksForApis('0.6.0',
     'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
         '(IterableContainsNotAssertionsSpec.*:(enthaeltNicht|containsNot|notTo contain) 4.0 throws AssertionError.*)|' +
@@ -274,3 +299,9 @@ createBcTasksForApis('0.7.0',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 
+createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
+    return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
+}
+createFixSrcTask('cc-infix-en_GB', '0.7.0', 'BigDecimalAssertionsSpec.kt') { String content ->
+    return content.replaceAll(/Assert<BigDecimal>::toBe.name/, '"toBe"').replaceAll(/Assert<BigDecimal>::notToBe.name/, '"notToBe"')
+}

@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting.translating
 
-import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.domain.builders.reporting.reporterBuilder
+import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 
 object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.spec.reporting.translating.TranslatorIntSpec(
     AssertionVerbFactory,
@@ -14,7 +14,8 @@ object PropertiesPerLocaleTranslationSupplierSpec : ch.tutteli.atrium.spec.repor
             .withDefaultAssertionFormatterController()
             .withDefaultAssertionFormatterFacade()
             .withTextSameLineAssertionPairFormatter()
-            .withDefaultTextCapabilities()
+            .withTextCapabilities()
+            .withDefaultAtriumErrorAdjusters()
             .withOnlyFailureReporter()
             .build()
     },

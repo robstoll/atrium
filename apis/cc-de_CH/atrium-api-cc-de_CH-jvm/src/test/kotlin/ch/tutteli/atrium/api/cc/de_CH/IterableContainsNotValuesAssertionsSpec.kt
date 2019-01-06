@@ -32,7 +32,11 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun getContainsNotPair() = containsNot to Companion::containsNotFun
 
-        private fun containsNotFun(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>): Assert<Iterable<Double>> {
+        private fun containsNotFun(
+            plant: Assert<Iterable<Double>>,
+            a: Double,
+            aX: Array<out Double>
+        ): Assert<Iterable<Double>> {
             return if (aX.isEmpty()) {
                 plant.enthaeltNicht.wert(a)
             } else {
@@ -42,7 +46,11 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
 
         private fun getContainsNotNullablePair() = "$containsNot nullable" to Companion::containsNotNullableFun
 
-        private fun containsNotNullableFun(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>): Assert<Iterable<Double?>> {
+        private fun containsNotNullableFun(
+            plant: Assert<Iterable<Double?>>,
+            a: Double?,
+            aX: Array<out Double?>
+        ): Assert<Iterable<Double?>> {
             return if (aX.isEmpty()) {
                 plant.enthaeltNicht.nullableWert(a)
             } else {
@@ -51,16 +59,22 @@ class IterableContainsNotValuesAssertionsSpec : Spek({
         }
 
 
-        private val containsNotShortcutFun : KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> = Assert<Iterable<Double>>::enthaeltNicht
+        private val containsNotShortcutFun: KFunction3<Assert<Iterable<Double>>, Double, Array<out Double>, Assert<Iterable<Double>>> =
+            Assert<Iterable<Double>>::enthaeltNicht
+
         private fun getContainsNotShortcutPair() = containsNotShortcutFun.name to Companion::containsNotShortcut
 
-        private fun containsNotShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>)
-            = plant.enthaeltNicht(a, *aX)
+        private fun containsNotShortcut(plant: Assert<Iterable<Double>>, a: Double, aX: Array<out Double>) =
+            plant.enthaeltNicht(a, *aX)
 
-        private val containsNotNullableShortcutFun : KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> = Assert<Iterable<Double?>>::enthaeltNicht
-        private fun getContainsNotNullableShortcutPair() = containsNotNullableShortcutFun.name + " nullable" to Companion::containsNotNullableShortcut
+        private val containsNotNullableShortcutFun: KFunction3<Assert<Iterable<Double?>>, Double?, Array<out Double?>, Assert<Iterable<Double?>>> =
+            @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
+            Assert<Iterable<Double?>>::enthaeltNicht
 
-        private fun containsNotNullableShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>)
-            = plant.enthaeltNicht(a, *aX)
+        private fun getContainsNotNullableShortcutPair() =
+            containsNotNullableShortcutFun.name + " nullable" to Companion::containsNotNullableShortcut
+
+        private fun containsNotNullableShortcut(plant: Assert<Iterable<Double?>>, a: Double?, aX: Array<out Double?>) =
+            @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */) plant.enthaeltNicht(a, *aX)
     }
 }

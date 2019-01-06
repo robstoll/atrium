@@ -14,15 +14,15 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  *
  * @property assertionVerb The assertion verb which will be used inter alia in error reporting.
  * @property act The function which is expected to throw a [Throwable].
- * @property reporter The reporter which will be use for a [CoreFactory.newThrowingAssertionChecker].
+ * @property reporter The reporter which will be used for a [CoreFactory.newThrowingAssertionChecker].
  *
  * @constructor Represents the entry point of the fluent API of sophisticated a [Throwable] `was thrown` assertions.
  * @param assertionVerb The assertion verb which will be used inter alia in error reporting.
  * @param act The function which is expected to throw a [Throwable].
- * @param reporter The reporter which will be use for a [CoreFactory.newThrowingAssertionChecker].
+ * @param reporter The reporter which will be used for a [CoreFactory.newThrowingAssertionChecker].
  */
 @Deprecated(
-    "use AssertImpl, will be removed with 1.0.0",
+    "Use AssertImpl; will be removed with 1.0.0",
     ReplaceWith(
         "AssertImpl.throwable.thrownBuilder(assertionVerb, act, reporter)",
         "ch.tutteli.atrium.domain.builders.AssertImpl"

@@ -7,7 +7,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
 import ch.tutteli.atrium.core.polyfills.JvmMultifileClass
 import ch.tutteli.atrium.core.polyfills.JvmName
-import ch.tutteli.atrium.core.polyfills.formatNumber
+import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -46,7 +46,10 @@ internal fun <T> createToBeWithErrorToleranceExplained(
 ): ExplanatoryAssertion where T : Comparable<T>, T : Number = AssertImpl.builder.explanatory
     .withDescription(
         TO_BE_WITH_ERROR_TOLERANCE_EXPLAINED,
-        formatNumber(plant.subject), formatNumber(expected), formatNumber(absDiff()), formatNumber(tolerance)
+        formatFloatingPointNumber(plant.subject),
+        formatFloatingPointNumber(expected),
+        formatFloatingPointNumber(absDiff()),
+        formatFloatingPointNumber(tolerance)
     )
     .build()
 

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.assertions.charsequence.contains.searchbehaviours
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
@@ -10,7 +11,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
  * when searching for an expected object.
  */
 @Deprecated(
-    "use the interface IgnoringCaseSearchBehaviour instead, will be removed with 1.0.0",
+    "Use the interface IgnoringCaseSearchBehaviour instead; will be removed with 1.0.0",
     ReplaceWith(
         "IgnoringCaseSearchBehaviour",
         "ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour"

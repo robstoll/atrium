@@ -27,7 +27,7 @@ interface AssertionFormatterControllerOption {
     fun withDefaultAssertionFormatterController(): AssertionFormatterFacadeOption
 
     /**
-     * Uses the given [assertionFormatterController] a custom [AssertionFormatterController].
+     * Uses the given [assertionFormatterController] as custom [AssertionFormatterController].
      */
     fun withAssertionFormatterController(assertionFormatterController: AssertionFormatterController): AssertionFormatterFacadeOption
 

@@ -340,10 +340,10 @@ such as [assert](ch.tutteli.atrium.verbs/assert.html), [assertThat](ch.tutteli.a
 [expect](ch.tutteli.atrium.verbs/expect.html).
  
 # Package ch.tutteli.atrium.verbs.assert
-The `@Deprecated` version of the assertion verb `assert`, will be removed with 1.0.0
+The `@Deprecated` version of the assertion verb `assert`; will be removed with 1.0.0
 
 # Package ch.tutteli.atrium.verbs.assertthat
-The `@Deprecated` version of the assertion verb `assertThat`, will be removed with 1.0.0
+The `@Deprecated` version of the assertion verb `assertThat`; will be removed with 1.0.0
 
 # Package ch.tutteli.atrium.verbs.expect
-The `@Deprecated` version of the assertion verb `expect`, will be removed with 1.0.0
+The `@Deprecated` version of the assertion verb `expect`; will be removed with 1.0.0

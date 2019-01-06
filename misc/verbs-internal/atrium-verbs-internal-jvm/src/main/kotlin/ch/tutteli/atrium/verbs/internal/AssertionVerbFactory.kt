@@ -2,6 +2,8 @@ package ch.tutteli.atrium.verbs.internal
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.reporting.ObjectFormatter
+import ch.tutteli.atrium.reporting.Reporter
 
 /**
  * Only required if you implement a custom component (for instance an own [Reporter], [ObjectFormatter] etc.)

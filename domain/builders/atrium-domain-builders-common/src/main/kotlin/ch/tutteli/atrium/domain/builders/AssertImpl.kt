@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.builders
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.AssertionBuilder
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.CoreFactory
 import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
@@ -17,7 +18,38 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * Bundles different domain objects which are defined by the module atrium-domain-api
  * to give users of Atrium a fluent API as well.
  */
-expect object AssertImpl : AssertImplCommon
+@Suppress("OVERRIDE_BY_INLINE")
+object AssertImpl : AssertImplCommon {
+
+    override inline val builder get() = assertionBuilder
+
+    override inline val collector get() = AssertionCollectorBuilder
+
+    override inline val coreFactory get() = ch.tutteli.atrium.core.coreFactory
+
+
+    //--- assertions ---------------------------------------------------------------------------
+
+    override inline val any get() = AnyAssertionsBuilder
+
+    override inline val charSequence get() = CharSequenceAssertionsBuilder
+
+    override inline val collection get() = CollectionAssertionsBuilder
+
+    override inline val comparable get() = ComparableAssertionsBuilder
+
+    override inline val feature get() = FeatureAssertionsBuilder
+
+    override inline val floatingPoint get() = FloatingPointAssertionsBuilder
+
+    override inline val iterable get() = IterableAssertionsBuilder
+
+    override inline val list get() = ListAssertionsBuilder
+
+    override inline val map get() = MapAssertionsBuilder
+
+    override inline val throwable get() = ThrowableAssertionsBuilder
+}
 
 interface AssertImplCommon {
 
@@ -58,13 +90,13 @@ interface AssertImplCommon {
     ): AssertionPlant<R> {
         val assertionChecker = AssertImpl.coreFactory.newDelegatingAssertionChecker(originalPlant)
         val assertionVerb = Untranslatable(
-            "Should not be shown to the user; if you see this, please fill in a bug report at $BUG_REPORT_URL"
+            "Should not be shown to the user; if you see this, please file a bug report at $BUG_REPORT_URL"
         )
         return AssertImpl.coreFactory.newReportingPlant(assertionVerb, subjectProvider, assertionChecker)
     }
 
 
-//--- assertions ---------------------------------------------------------------------------
+    //--- assertions ---------------------------------------------------------------------------
 
     /**
      * Returns [AnyAssertionsBuilder]
@@ -107,6 +139,12 @@ interface AssertImplCommon {
      * which inter alia delegates to the implementation of [IterableAssertions].
      */
     val iterable: IterableAssertionsBuilder
+
+    /**
+     * Returns [ListAssertionsBuilder]
+     * which inter alia delegates to the implementation of [ListAssertions].
+     */
+    val list: ListAssertionsBuilder
 
     /**
      * Returns [MapAssertionsBuilder]

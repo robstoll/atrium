@@ -1,5 +1,5 @@
 description = 'Contains the bits and pieces behind robstoll\'s <rstoll@tutteli.ch> implementation' +
-        'of the domain of Atrium. You should only depend on this module if you are ' +
+        'of the domain of Atrium for the JVM platform. You should only depend on this module if you are ' +
         'providing an implementation as well and want to reuse certain artifacts. ' +
         'If you are a consumer of Atrium, then you should depend on atrium-domain-robstoll instead.'
 
@@ -9,24 +9,27 @@ ext.jacoco_additional = [
 ]
 
 dependencies {
-    //TODO get rid of the exclusions as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
-    compile prefixedProject('domain-builders-jvm'), withoutKbox
+    compile prefixedProject('domain-builders-jvm')
 
     // we need cc-en_GB for compilation and for runtime but we do not want that depending modules have cc-en_GB
     // automatically in their compile classpath. Thus:
-    compileOnly prefixedProject('api-cc-en_GB-jvm'), withoutKbox // for us
-    runtimeOnly prefixedProject('api-cc-en_GB-jvm'), withoutKbox // for depending modules
+    compileOnly prefixedProject('api-cc-en_GB-jvm') // for us
+    runtimeOnly prefixedProject('api-cc-en_GB-jvm') // for depending modules
 
     // it is up to the consumer of atrium-domain-robstoll-lib which atrium-translations module is used at runtime
-    compileOnly prefixedProject('translations-en_GB-jvm'), withoutKbox
-    compile(kbox()) {
-        exclude group: 'org.jetbrains.kotlin'
-        //TODO get rid of the exclusion as soon as https://youtrack.jetbrains.com/issue/KT-20406 is fixed
-        exclude group: 'ch.tutteli.kbox'
-    }
+    compileOnly prefixedProject('translations-en_GB-jvm')
+    compile kbox(), excludeKotlin
 
     testCompile prefixedProject('api-cc-en_GB-jvm')
     testRuntimeOnly prefixedProject('domain-robstoll-jvm')
     testRuntimeOnly prefixedProject('core-robstoll-jvm')
     testCompile prefixedProject('verbs-internal-jvm')
 }
+
+//TODO should not be necessary https://youtrack.jetbrains.com/issue/KT-28124
+compileTestKotlin.dependsOn(
+    prefixedProject('core-robstoll-jvm').compileKotlin,
+    prefixedProject('core-robstoll-jvm').processResources,
+    prefixedProject('domain-robstoll-jvm').compileKotlin,
+    prefixedProject('domain-robstoll-jvm').processResources
+)

@@ -33,7 +33,6 @@ class AnyTypeTransformationAssertionsImpl : AnyTypeTransformationAssertions {
         _isA(plant, subType, assertionCreator)
     }
 
-
     override fun <T : Any, TSub : T> downCast(
         description: Translatable,
         subType: KClass<TSub>,
@@ -41,15 +40,8 @@ class AnyTypeTransformationAssertionsImpl : AnyTypeTransformationAssertions {
         assertionCreator: AssertionPlant<TSub>.() -> Unit,
         failureHandler: AnyTypeTransformation.FailureHandler<T, TSub>
     ) {
-        _downCast(
-            description,
-            subType,
-            subjectPlant,
-            assertionCreator,
-            failureHandler
-        )
+        _downCast(description, subType, subjectPlant, assertionCreator, failureHandler)
     }
-
 
     override fun <S : Any, T : Any> transform(
         parameterObject: AnyTypeTransformation.ParameterObject<S, T>,
@@ -57,11 +49,6 @@ class AnyTypeTransformationAssertionsImpl : AnyTypeTransformationAssertions {
         transform: (S) -> T,
         failureHandler: AnyTypeTransformation.FailureHandler<S, T>
     ) {
-        _typeTransformation(
-            parameterObject,
-            canBeTransformed,
-            transform,
-            failureHandler
-        )
+        _typeTransformation(parameterObject, canBeTransformed, transform, failureHandler)
     }
 }

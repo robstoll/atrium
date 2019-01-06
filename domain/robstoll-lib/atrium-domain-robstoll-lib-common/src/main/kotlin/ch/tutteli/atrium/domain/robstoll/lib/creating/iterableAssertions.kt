@@ -26,8 +26,8 @@ fun <E, T : Iterable<E>> _containsBuilder(plant: AssertionPlant<T>): IterableCon
 fun <E, T : Iterable<E>> _containsNotBuilder(plant: AssertionPlant<T>): IterableContains.Builder<E, T, NotSearchBehaviour> =
     IterableContainsBuilder(plant, NotSearchBehaviourImpl())
 
-fun <E : Any, T : Iterable<E?>> _iterableAll(
-    plant: AssertionPlant<T>,
+fun <E : Any> _iterableAll(
+    plant: AssertionPlant<Iterable<E?>>,
     assertionCreator: (AssertionPlant<E>.() -> Unit)?
 ): Assertion {
     return LazyThreadUnsafeAssertionGroup {
@@ -72,11 +72,9 @@ private fun <E : Any, T : Iterable<E?>> createMismatchAssertions(
         .mapWithIndex()
         .filter { (_, element) -> !allCreatedAssertionsHold(element, assertionCreator) }
         .map { (index, element) ->
-            val indexDescription = TranslatableWithArgs(INDEX, index)
-            AssertImpl.builder.descriptive
-                .withTest { allCreatedAssertionsHold(element, assertionCreator) }
-                .withDescriptionAndNullableRepresentation(indexDescription, element)
-                .build()
+            AssertImpl.builder.createDescriptive(TranslatableWithArgs(INDEX, index), element) {
+                allCreatedAssertionsHold(element, assertionCreator)
+            }
         }
         .toList()
 }

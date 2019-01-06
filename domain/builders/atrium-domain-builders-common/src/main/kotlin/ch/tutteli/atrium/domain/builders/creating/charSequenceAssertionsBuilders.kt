@@ -1,6 +1,7 @@
 @file:Suppress("OVERRIDE_BY_INLINE", "NOTHING_TO_INLINE")
 package ch.tutteli.atrium.domain.builders.creating
 
+import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.CharSequenceAssertions
 import ch.tutteli.atrium.domain.creating.charSequenceAssertions
@@ -12,7 +13,6 @@ import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.SearchBehaviourFactory
 import ch.tutteli.atrium.domain.creating.charsequence.contains.searchbehaviours.searchBehaviourFactory
 import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.core.polyfills.loadSingleService
 
 /**
  * Delegates inter alia to the implementation of [CharSequenceAssertions].
@@ -27,23 +27,26 @@ object CharSequenceAssertionsBuilder : CharSequenceAssertions {
     override inline fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>)
         = charSequenceAssertions.containsNotBuilder(plant)
 
-    override inline fun <T : CharSequence> startsWith(plant: AssertionPlant<T>, expected: CharSequence)
+    override inline fun startsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
         = charSequenceAssertions.startsWith(plant, expected)
 
-    override inline fun <T : CharSequence> startsNotWith(plant: AssertionPlant<T>, expected: CharSequence)
+    override inline fun startsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
         = charSequenceAssertions.startsNotWith(plant, expected)
 
-    override inline fun <T : CharSequence> endsWith(plant: AssertionPlant<T>, expected: CharSequence)
+    override inline fun endsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
         = charSequenceAssertions.endsWith(plant, expected)
 
-    override inline fun <T : CharSequence> endsNotWith(plant: AssertionPlant<T>, expected: CharSequence)
+    override inline fun endsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence)
         = charSequenceAssertions.endsNotWith(plant, expected)
 
-    override inline fun <T : CharSequence> isEmpty(plant: AssertionPlant<T>)
+    override inline fun isEmpty(plant: AssertionPlant<CharSequence>)
         = charSequenceAssertions.isEmpty(plant)
 
-    override inline fun <T : CharSequence> isNotEmpty(plant: AssertionPlant<T>)
+    override inline fun isNotEmpty(plant: AssertionPlant<CharSequence>)
         = charSequenceAssertions.isNotEmpty(plant)
+
+    override inline fun isNotBlank(plant: AssertionPlant<CharSequence>)
+        = charSequenceAssertions.isNotBlank(plant)
 
     /**
      * Returns [CharSequenceContainsAssertionsBuilder]

@@ -23,10 +23,11 @@ interface CharSequenceAssertions {
     fun <T : CharSequence> containsBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NoOpSearchBehaviour>
     fun <T : CharSequence> containsNotBuilder(plant: AssertionPlant<T>): CharSequenceContains.Builder<T, NotSearchBehaviour>
 
-    fun <T : CharSequence> startsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    fun <T : CharSequence> startsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    fun <T : CharSequence> endsWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    fun <T : CharSequence> endsNotWith(plant: AssertionPlant<T>, expected: CharSequence): Assertion
-    fun <T : CharSequence> isEmpty(plant: AssertionPlant<T>): Assertion
-    fun <T : CharSequence> isNotEmpty(plant: AssertionPlant<T>): Assertion
+    fun startsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
+    fun startsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
+    fun endsWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
+    fun endsNotWith(plant: AssertionPlant<CharSequence>, expected: CharSequence): Assertion
+    fun isEmpty(plant: AssertionPlant<CharSequence>): Assertion
+    fun isNotEmpty(plant: AssertionPlant<CharSequence>): Assertion
+    fun isNotBlank(plant: AssertionPlant<CharSequence>): Assertion
 }

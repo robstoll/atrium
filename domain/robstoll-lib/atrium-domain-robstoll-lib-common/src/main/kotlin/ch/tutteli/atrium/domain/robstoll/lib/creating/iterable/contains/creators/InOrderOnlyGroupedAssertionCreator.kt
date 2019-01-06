@@ -68,15 +68,3 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, in T : Iterable<E>, SC>(
 
     protected abstract fun Assert<List<E>>.createSublistAssertion(groupOfSearchCriteria: List<SC>)
 }
-
-object A{
-    inline val a get () = B
-}
-object B{
-    inline fun foo() = C.foo()
-}
-object C {fun  foo(){} }
-
-fun foo(){
-    A.a.foo()
-}

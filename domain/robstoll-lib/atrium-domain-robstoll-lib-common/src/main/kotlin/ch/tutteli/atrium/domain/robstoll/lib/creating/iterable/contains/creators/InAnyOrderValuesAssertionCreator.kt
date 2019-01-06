@@ -47,7 +47,7 @@ class InAnyOrderValuesAssertionCreator<SC, in T : Iterable<SC>>(
     }
 
     override fun search(plant: AssertionPlant<T>, searchCriterion: SC): Int
-        = plant.subject.filter({ it == searchCriterion }).size
+        = plant.subject.filter { it == searchCriterion }.size
 
     override fun decorateAssertion(plant: AssertionPlant<T>, featureAssertion: Assertion): List<Assertion> {
         return if (searchBehaviour is NotSearchBehaviour) {

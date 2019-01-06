@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 @file:JvmMultifileClass
 @file:JvmName("CharSequenceAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
@@ -158,3 +159,12 @@ fun <T : CharSequence> Assert<T>.istLeer()
  */
 fun <T : CharSequence> Assert<T>.istNichtLeer()
     = addAssertion(AssertImpl.charSequence.isNotEmpty(this))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] [CharSequence].[kotlin.text.isNotBlank].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <T : CharSequence> Assert<T>.istNichtBlank()
+    = addAssertion(AssertImpl.charSequence.isNotBlank(this))

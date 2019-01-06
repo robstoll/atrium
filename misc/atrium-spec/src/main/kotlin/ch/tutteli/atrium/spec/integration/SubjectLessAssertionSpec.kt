@@ -17,12 +17,14 @@ abstract class SubjectLessAssertionSpec<T : Any>(
     group("${groupPrefix}assertion function can be used in an ${AssertionGroup::class.simpleName} with an ${ExplanatoryAssertionGroupType::class.simpleName} and reported without failure") {
         assertionCreator.forEach { (name, createAssertion) ->
             test("fun `$name`") {
-                val assertions = coreFactory.newCollectingPlant<T>({ throw PlantHasNoSubjectException() })
+                val assertions = coreFactory.newCollectingPlant<T> { throw PlantHasNoSubjectException() }
                     .addAssertionsCreatedBy(createAssertion)
                     .getAssertions()
-                val plant = coreFactory.newReportingPlant(AssertionVerb.ASSERT, { 1.0 },
+                val plant = coreFactory.newReportingPlant(
+                    AssertionVerb.ASSERT, { 1.0 },
                     coreFactory.newOnlyFailureReporter(
-                        coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController())
+                        coreFactory.newAssertionFormatterFacade(coreFactory.newAssertionFormatterController()),
+                        coreFactory.newNoOpAtriumErrorAdjuster()
                     )
                 )
                 val explanatoryGroup = AssertImpl.builder.explanatoryGroup
@@ -36,7 +38,6 @@ abstract class SubjectLessAssertionSpec<T : Any>(
 })
 
 /**
- * Helper function to map an arbitrary `IAssert<T>.(...) -> Unit` function to a parameter-less one.
+ * Helper function to map an arbitrary `Assert<T>.(...) -> Unit` function to a parameter-less one.
  */
-fun <T : Any> mapToCreateAssertion(createAssertion: Assert<T>.() -> Unit): Assert<T>.() -> Unit
-    = createAssertion
+fun <T : Any> mapToCreateAssertion(createAssertion: Assert<T>.() -> Unit): Assert<T>.() -> Unit = createAssertion

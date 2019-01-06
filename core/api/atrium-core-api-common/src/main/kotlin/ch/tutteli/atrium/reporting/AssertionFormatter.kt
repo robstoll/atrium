@@ -21,7 +21,7 @@ interface AssertionFormatter {
      * @param assertion The [Assertion] which builds the basis to answer the question whether this
      *   [AssertionFormatter] can format such kinds or not.
      *
-     * @returns `true` if this [AssertionFormatter] ca [format] the given [assertion]; `false` otherwise.
+     * @return `true` if this [AssertionFormatter] ca [format] the given [assertion]; `false` otherwise.
      */
     fun canFormat(assertion: Assertion): Boolean
 

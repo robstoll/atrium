@@ -2,20 +2,22 @@ package ch.tutteli.atrium.api.cc.de_CH
 
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.bigDecimal
 import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import java.math.BigDecimal
 
 @Deprecated("Verwende `istNumerischGleichWie` wenn du erwartest, dass die folgende Behauptung stimmt:\n" +
     "`esGilt(BigDecimal(\"10\").ist(BigDecimal(\"10.0\"))`\n" +
     "Erwartest du hingegen, dass die Behauptung falsch ist (da `BigDecimal.scale` anders ist), dann verwende `istGleichInklusiveScale`.",
-    ReplaceWith("istNumerischGleichWie(expected) or istGleichInklusiveScale(expected)"))
+    ReplaceWith("istNumerischGleichWie(expected) oder istGleichInklusiveScale(expected)"))
 @Suppress("UNUSED_PARAMETER", "unused")
 fun <T : BigDecimal> Assert<T>.ist(expected: T): Nothing
     = throw PleaseUseReplacementException("BigDecimal.equals() vergleicht auch BigDecimal.scale, was dir womöglich nicht bewusst war.\n" +
     "Falls doch und du möchtest dass `scale` verglichen wird, dann verwende `istGleichInklusiveScale`.")
 
-@Deprecated("Verwende `istNichtNichtNumerischGleichWie` wenn du erwartest, dass die folgende Behauptung falsch ist:\n" +
+@Deprecated("Verwende `istNichtNumerischGleichWie` wenn du erwartest, dass die folgende Behauptung falsch ist:\n" +
     "`esGilt(BigDecimal(\"10\").istNicht(BigDecimal(\"10.0\"))`\n" +
     "Erwartest du hingegen, dass die Behauptung stimmt (da `BigDecimal.scale` anders ist), dann verwende `istNichtGleichInklusiveScale`.",
     ReplaceWith("istNichtNumerischGleichWie(expected) or istNichtGleichInklusiveScale(expected)"))
@@ -23,6 +25,15 @@ fun <T : BigDecimal> Assert<T>.ist(expected: T): Nothing
 fun <T : BigDecimal> Assert<T>.istNicht(expected: T): Nothing
     = throw PleaseUseReplacementException("BigDecimal.equals() vergleicht auch BigDecimal.scale, was dir womöglich nicht bewusst war.\n" +
     "Falls doch und du möchtest dass `scale` verglichen wird, dann verwende `istNichtGleichInklusiveScale`.")
+
+@Deprecated("Verwende `istNichtNullAber { istNumerischGleichWie(...) }` wenn du erwartest, dass die folgende Behauptung stimmt:\n" +
+    "`esGilt(BigDecimal(\"10\").ist(BigDecimal(\"10.0\"))`\n" +
+    "Erwartest du hingegen, dass die Behauptung falsch ist (da `BigDecimal.scale` anders ist), dann verwende `istNichtNullAber { istGleichInklusiveScale(...) }`.",
+    ReplaceWith("istNichtNullAber { istNumerischGleichWie(expected) } oder istNichtNullAber { istGleichInklusiveScale(expected) }"))
+@Suppress("UNUSED_PARAMETER", "unused")
+infix fun <T : BigDecimal> AssertionPlantNullable<T?>.istNichtNullAber(expected: T): Nothing
+    = throw PleaseUseReplacementException("BigDecimal.equals() vergleicht auch BigDecimal.scale, was dir womöglich nicht bewusst war.\n" +
+    "Falls doch und du möchtest dass `scale` verglichen wird, dann verwende `istGleichInklusiveScale`.")
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is numerically equal to [expected].

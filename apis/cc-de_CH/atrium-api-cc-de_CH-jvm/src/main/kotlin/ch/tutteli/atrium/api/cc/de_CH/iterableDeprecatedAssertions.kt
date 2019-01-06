@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 @file:JvmMultifileClass
 @file:JvmName("IterableAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH
@@ -46,10 +47,10 @@ fun <E : Any, T : Iterable<E?>> enthaeltNullable(plant: Assert<T>, assertionCrea
 fun <E : Any, T : Iterable<E?>> Assert<T>.enthaeltStrikt(assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)
 
-@Deprecated("Use the extension fun `enthaeltStrikt` instead; will be removed with 1.0.0", ReplaceWith("plant.enthaeltStrikt(assertionCreator, *otherAssertionCreators)"))
+@Deprecated("Use the extension fun `enthaeltStriktNullableEintraege` instead; will be removed with 1.0.0", ReplaceWith("plant.enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)"))
 fun <E : Any, T : Iterable<E?>> enthaeltStriktNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?, vararg otherAssertionCreators: (Assert<E>.() -> Unit)?): AssertionPlant<T>
-    = plant.enthaeltStrikt(assertionCreator, *otherAssertionCreators)
+    = plant.enthaeltStriktNullableEintraege(assertionCreator, *otherAssertionCreators)
 
-@Deprecated("Use `enthaeltNicht.nullableValues` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("enthaeltNicht.nullableValues(expected, *otherExpected)"))
+@Deprecated("Use `enthaeltNicht.nullableWerte` instead. This fun is only here to retain binary compatibility; will be removed with 1.0.0", ReplaceWith("enthaeltNicht.nullableWerte(expected, *otherExpected)"))
 fun <E, T : Iterable<E>> Assert<T>.enthaeltNicht(expected: E, vararg otherExpected: E)
-    = enthaeltNicht.werte(expected, *otherExpected)
+    = enthaeltNicht.nullableWerte(expected, *otherExpected)

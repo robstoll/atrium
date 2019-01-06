@@ -16,36 +16,30 @@ class CharSequenceContainsAssertionsImpl: CharSequenceContainsAssertions {
     override fun <T : CharSequence> values(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: List<Any>
-    ): AssertionGroup
-        = _containsValues(checkerOption, expected)
+    ): AssertionGroup = _containsValues(checkerOption, expected)
 
     override fun <T : CharSequence> valuesIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<Any>
-    ): AssertionGroup
-        = _containsValuesIgnoringCase(checkerOption, expected)
+    ): AssertionGroup = _containsValuesIgnoringCase(checkerOption, expected)
 
     override fun <T : CharSequence> defaultTranslationOf(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: List<Translatable>
-    ): AssertionGroup
-        = _containsDefaultTranslationOf(checkerOption, expected)
+    ): AssertionGroup = _containsDefaultTranslationOf(checkerOption, expected)
 
     override fun <T : CharSequence> defaultTranslationOfIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<Translatable>
-    ): AssertionGroup
-        = _containsDefaultTranslationOfIgnoringCase(checkerOption, expected)
+    ): AssertionGroup = _containsDefaultTranslationOfIgnoringCase(checkerOption, expected)
 
     override fun <T : CharSequence> regex(
         checkerOption: CharSequenceContains.CheckerOption<T, NoOpSearchBehaviour>,
         expected: List<String>
-    ): AssertionGroup
-        = _containsRegex(checkerOption, expected)
+    ): AssertionGroup = _containsRegex(checkerOption, expected)
 
     override fun <T : CharSequence> regexIgnoringCase(
         checkerOption: CharSequenceContains.CheckerOption<T, IgnoringCaseSearchBehaviour>,
         expected: List<String>
-    ): AssertionGroup
-        = _containsRegexIgnoringCase(checkerOption, expected)
+    ): AssertionGroup = _containsRegexIgnoringCase(checkerOption, expected)
 }

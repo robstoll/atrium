@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -8,7 +9,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.IterableContains
  *
  * The checking as such is then usually carried out be the [IterableContains.Creator].
  */
-@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
+@Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
 class IterableContainsNoOpCheckerBuilder<out E, out T : Iterable<E>, out S : IterableContains.SearchBehaviour>(
     override val containsBuilder: IterableContainsBuilder<E, T, S>
 ) : IterableContainsCheckerBuilder<E, T, S> {

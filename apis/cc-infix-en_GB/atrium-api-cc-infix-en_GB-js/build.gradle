@@ -1,5 +1,5 @@
 description = 'An API in en_GB with a focus on code completion and infix functions for the JS platform.' +
-        'It provides a fluent API in en_GB which is designed to ease the usage of code completion'
+        'It provides a fluent API in en_GB which is designed to ease the usage of code completion.'
 
 dependencies {
     compile prefixedProject('domain-builders-js')

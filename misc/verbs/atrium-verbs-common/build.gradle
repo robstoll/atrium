@@ -4,7 +4,6 @@ dependencies {
     compile prefixedProject('domain-builders-common')
     compile prefixedProject('core-api-common')
 
-    testCompile prefixedProject('spec')
     testRuntime prefixedProject('domain-robstoll-common')
     testRuntime prefixedProject('core-robstoll-common')
 }

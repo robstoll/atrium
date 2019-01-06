@@ -17,7 +17,7 @@ val collectionAssertions by lazy { loadSingleService(CollectionAssertions::class
  * which an implementation of the domain of Atrium has to provide.
  */
 interface CollectionAssertions {
-    fun <T : Collection<*>> hasSize(plant: AssertionPlant<T>, size: Int): Assertion
-    fun <T : Collection<*>> isEmpty(plant: AssertionPlant<T>): Assertion
-    fun <T : Collection<*>> isNotEmpty(plant: AssertionPlant<T>): Assertion
+    fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int): Assertion
+    fun isEmpty(plant: AssertionPlant<Collection<*>>): Assertion
+    fun isNotEmpty(plant: AssertionPlant<Collection<*>>): Assertion
 }

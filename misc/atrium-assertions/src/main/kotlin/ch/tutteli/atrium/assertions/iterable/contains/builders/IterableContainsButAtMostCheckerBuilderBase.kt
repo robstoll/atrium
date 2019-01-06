@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.validateButAtMost
@@ -27,7 +28,7 @@ import ch.tutteli.atrium.assertions.iterable.contains.checkers.IterableContainsA
  * @param exactlyCall The name of the function which represents a `Iterable contains exactly` assertion.
  */
 @Deprecated(
-    "use the abstract class from package creating, will be removed with 1.0.0",
+    "Use the abstract class from package creating; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.creating.iterable.contains.IterableContainsButAtMostCheckerBuilderBase")
 )
 abstract class IterableContainsButAtMostCheckerBuilderBase<out E, out T : Iterable<E>, out S : SearchBehaviour>(

@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.core.polyfills
 
-actual fun getAtriumProperty(key: String): String? {
-    TODO("need concept for properties")
-}
+private val properties = mutableMapOf<String, String>()
+
+actual fun getAtriumProperty(key: String): String? = properties[key]
 
 actual fun setAtriumProperty(key: String, newValue: String) {
-    TODO("need concept for properties")
+    properties[key] = newValue
 }

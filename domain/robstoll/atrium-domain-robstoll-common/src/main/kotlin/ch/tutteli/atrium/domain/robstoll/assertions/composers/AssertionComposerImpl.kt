@@ -16,6 +16,5 @@ class AssertionComposerImpl : AssertionComposer {
         test: () -> Boolean,
         showHint: () -> Boolean,
         failureHintFactory: () -> Assertion
-    ): Assertion
-        = _createDescriptiveWithFailureHint(description, representation, test, showHint, failureHintFactory)
+    ): Assertion = _createDescriptiveWithFailureHint(description, representation, test, showHint, failureHintFactory)
 }

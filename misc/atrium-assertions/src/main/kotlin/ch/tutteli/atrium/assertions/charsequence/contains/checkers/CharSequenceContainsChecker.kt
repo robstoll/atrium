@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.charsequence.contains.checkers
 
 import ch.tutteli.atrium.assertions.basic.contains.checkers.ContainsChecker
@@ -16,7 +17,7 @@ import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains
  *
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-@Deprecated("Use the abstract class from package creating, will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsChecker"))
+@Deprecated("Use the abstract class from package creating; will be removed with 1.0.0", ReplaceWith("ch.tutteli.atrium.creating.charsequence.contains.checkers.CharSequenceContainsChecker"))
 abstract class CharSequenceContainsChecker(
     times: Int,
     correctCall: String,

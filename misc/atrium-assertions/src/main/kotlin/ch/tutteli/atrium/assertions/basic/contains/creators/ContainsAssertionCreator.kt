@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.basic.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -21,7 +22,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @constructor Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
  * @param checkers The [Contains.Checker]s which shall be applied to the search result.
  */
-@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
+@Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
 abstract class ContainsAssertionCreator<T : Any, S, C : ch.tutteli.atrium.domain.creating.basic.contains.Contains.Checker>(
     private val checkers: List<C>
 ) : Contains.Creator<T, S> {

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.iterable.contains.checkers
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -12,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableAssertion
  * @param atLeastCall The function which was used and should not be used if [times] equals to zero.
  * @throws IllegalArgumentException In case [times] is smaller than 1.
  */
-@Deprecated("Use IterableContainsCheckers.newAtLeastChecker, will be removed with 1.0.0", ReplaceWith("IterableContainsCheckers.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)", "ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers"))
+@Deprecated("Use IterableContainsCheckers.newAtLeastChecker; will be removed with 1.0.0", ReplaceWith("IterableContainsCheckers.newAtLeastChecker(times, nameContainsNotFun, atLeastCall)", "ch.tutteli.atrium.creating.iterable.contains.checkers.IterableContainsCheckers"))
 class IterableContainsAtLeastChecker(
     times: Int,
     nameContainsNotFun: String,

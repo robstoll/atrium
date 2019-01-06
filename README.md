@@ -273,7 +273,7 @@ assert(subtitle).notToBeNull { startsWith("atrium") }
 ```
 If the subject of the assertion has a [nullable type](https://kotlinlang.org/docs/reference/null-safety.html) then 
 you need to define first, whether you expect it to be `null` or not. 
-In case you expect that it `isNotNull` you can define one or more subsequent assertions 
+In case you expect it `notToBeNull` you can define one or more subsequent assertions 
 for the subject as if it had a non-nullable type  (`String` in the above example) by defining an 
 [assertion group block](#define-single-assertions-or-assertion-groups) 
 -- `{ startsWith("atrium") }` in the above example. 
@@ -685,7 +685,7 @@ This experience is improved by providing up-to-date [code documentation](#kdoc) 
 so that you get the extra help needed.
 
 <details>
-<summary>:poop: there is not KDoc for toBe</summary>
+<summary>:poop: There is no KDoc for toBe</summary>
 
 There is, but IntelliJ will not show it to you due to [this bug](https://youtrack.jetbrains.com/issue/KT-24836) (please upvote it).
 You should be able to see the KDoc of other functions without problems. 

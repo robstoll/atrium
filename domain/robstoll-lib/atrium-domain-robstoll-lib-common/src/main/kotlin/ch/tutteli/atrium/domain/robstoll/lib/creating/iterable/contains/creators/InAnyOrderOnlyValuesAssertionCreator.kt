@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion.AN_ENTRY_WHICH_IS
 
@@ -27,9 +26,6 @@ class InAnyOrderOnlyValuesAssertionCreator<E, in T : Iterable<E?>>(
 
     override fun createAssertionForSearchCriterionAndRemoveMatchFromList(searchCriterion: E, list: MutableList<E?>): Pair<Boolean, Assertion> {
         val found: Boolean = list.remove(searchCriterion)
-        return found to AssertImpl.builder.descriptive
-            .withTest {found }
-            .withDescriptionAndNullableRepresentation(AN_ENTRY_WHICH_IS, searchCriterion)
-            .build()
+        return found to AssertImpl.builder.createDescriptive(AN_ENTRY_WHICH_IS, searchCriterion) { found }
     }
 }

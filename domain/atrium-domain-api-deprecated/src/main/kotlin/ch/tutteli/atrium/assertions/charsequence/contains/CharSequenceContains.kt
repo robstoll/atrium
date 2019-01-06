@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.charsequence.contains
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -10,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Defines the *deprecated* contract for sophisticated [CharSequence] `contains` assertions.
  */
 @Deprecated(
-    "use the interface from package domain.creating, will be removed with 1.0.0",
+    "Use the interface from package domain.creating; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains")
 )
 interface CharSequenceContains {
@@ -20,7 +21,7 @@ interface CharSequenceContains {
      * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.SearchBehaviour")
     )
     interface SearchBehaviour : Contains.SearchBehaviour,
@@ -34,7 +35,7 @@ interface CharSequenceContains {
      * @param SC The type of the search criteria.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Creator")
     )
     interface Creator<in T : CharSequence, in SC> : Contains.Creator<T, SC>,
@@ -47,7 +48,7 @@ interface CharSequenceContains {
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Checker")
     )
     interface Checker : Contains.Checker,
@@ -61,7 +62,7 @@ interface CharSequenceContains {
      *   [Searcher]; [SearchBehaviour] only decorates the [Translatable] for reporting.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.charsequence.contains.CharSequenceContains.Searcher")
     )
     interface Searcher<S : SearchBehaviour> :

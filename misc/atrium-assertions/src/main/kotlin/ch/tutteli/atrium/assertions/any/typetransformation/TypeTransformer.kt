@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.any.typetransformation
 
 import ch.tutteli.atrium.core.coreFactory
@@ -9,12 +10,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
- * Deprecated, use AnyTypeTransformerAssertions.transformType, will be removed with 1.0.0
+ * Deprecated, use AnyTypeTransformerAssertions.transformType; will be removed with 1.0.0
  */
-@Deprecated("Use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0")
+@Deprecated("Use AssertImpl.any.typeTransformation.transform; will be removed with 1.0.0")
 class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTransformation.TypeTransformationFailureHandler<T, TSub>) {
 
-    @Deprecated("Use AssertImpl.any.typeTransformation.transform, will be removed with 1.0.0",
+    @Deprecated("Use AssertImpl.any.typeTransformation.transform; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.any.typeTransformation.transform(AnyTypeTransformation.ParameterObject(description, representation, subjectPlant, assertionCreator, warningTransformationFailed), canBeTransformed, transform, AssertImpl.any.typeTransformation.failureHandlers.chooseAFailureHandler)",
             "ch.tutteli.atrium.creating.AssertImpl",
@@ -31,7 +32,7 @@ class TypeTransformer<T : Any, TSub : Any>(private val failureHandler: AnyTypeTr
         transform: (T) -> TSub
     ) {
         val subject = subjectPlant.subject
-        val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please fill in a bug report at $BUG_REPORT_URL")
+        val assertionVerb = Untranslatable("Should not be shown to the user; if you see this, please file a bug report at $BUG_REPORT_URL")
         if (subject != null && canBeTransformed(subject)) {
             val assertionChecker = coreFactory.newDelegatingAssertionChecker(subjectPlant)
             val plant = coreFactory.newReportingPlant(assertionVerb,{ transform(subject) }, assertionChecker)

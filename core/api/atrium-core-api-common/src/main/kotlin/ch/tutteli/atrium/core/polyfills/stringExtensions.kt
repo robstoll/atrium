@@ -4,7 +4,7 @@ import ch.tutteli.atrium.reporting.translating.Locale
 import ch.tutteli.atrium.reporting.translating.getDefaultLocale
 
 /**
- * Formats this [String] based on the given [locale] and using the given [arg] and [otherArgs] for replacements
+ * Formats this [String] based on the given [locale] and using the given [arg] and [otherArgs] for replacements.
  */
 expect fun String.format(locale: Locale, arg: Any, vararg otherArgs: Any): String
 

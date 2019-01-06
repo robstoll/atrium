@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.PlantHasNoSubjectException
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -13,7 +14,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @Deprecated("Use DescriptiveAssertion, do not rely on this specific type, will be made internal with 1.0.0")
 class BasicDescriptiveAssertion
 @Deprecated(
-    "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
+    "Use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
     ReplaceWith(
         "AssertImpl.builder.descriptive.withAssertions(description, representation, test)",
         "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -34,8 +35,9 @@ constructor(
      * @param representation The [BasicDescriptiveAssertion.representation].
      * @param holds Determines whether [BasicDescriptiveAssertion.holds] or not
      */
+    @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
     @Deprecated(
-        "use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
+        "Use `AssertImpl.builder.descriptive` instead, will be made `internal` with 1.0.0",
         ReplaceWith(
             "AssertImpl.builder.descriptive.withAssertions(description, representation, holds)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -49,5 +51,12 @@ constructor(
     /**
      * @suppress
      */
-    override fun toString() = "$description: $representation (holds=${holds()})"
+    override fun toString() = "$description: $representation (holds=${safeHoldsForToString()})"
+
+    private fun safeHoldsForToString(): String =
+        try {
+            holds().toString()
+        } catch (e: PlantHasNoSubjectException) {
+            "PlantHasNoSubjectException"
+        }
 }

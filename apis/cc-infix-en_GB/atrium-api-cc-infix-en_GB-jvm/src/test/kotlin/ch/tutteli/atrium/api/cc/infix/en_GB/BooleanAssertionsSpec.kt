@@ -2,13 +2,19 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
+import kotlin.reflect.KFunction2
 
 class BooleanAssertionsSpec : ch.tutteli.atrium.spec.integration.BooleanAssertionsSpec(
     AssertionVerbFactory,
-    Assert<Boolean>::toBe.name to Companion::toBeTrue,
-    Assert<Boolean>::toBe.name to Companion::toBeFalse
+    toBeName() to Companion::toBeTrue,
+    toBeName() to Companion::toBeFalse
 ) {
     companion object {
+        fun toBeName(): String{
+            val f : KFunction2<Assert<Boolean>, Boolean, Assert<Boolean>> = Assert<Boolean>::toBe
+            return f.name
+        }
+
         private fun toBeTrue(plant: Assert<Boolean>): Assert<Boolean>
             = plant toBe true
 

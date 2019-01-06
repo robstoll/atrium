@@ -1,0 +1,12 @@
+description = 'Contains base classes for sophisticated assertion builders which can be re-used in APIs for Android.'
+
+dependencies {
+    compile prefixedProject('domain-api-android')
+
+    testRuntimeOnly prefixedProject('domain-robstoll-android')
+    testRuntimeOnly prefixedProject('core-robstoll-android')
+    testCompile prefixedProject('api-cc-en_GB-android')
+    testCompile prefixedProject('verbs-internal-android')
+}
+
+srcAndResourcesFromJvmProject(project)

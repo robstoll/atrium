@@ -10,8 +10,8 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     AssertionVerbFactory,
     AnyAssertionsSpecFunFactory(),
     AnyAssertionsSpecFunFactory(),
-    Assert<Int>::toBe.name,
-    Assert<Int>::notToBe.name,
+    toBeName(),
+    noToBeName(),
     Assert<Int>::isSameAs.name,
     Assert<Int>::isNotSameAs.name,
     "${AssertionPlantNullable<Int?>::toBe.name} null" to Companion::toBeNull,
@@ -26,6 +26,16 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     }
 
     companion object {
+
+        fun toBeName(): String{
+            val f : KFunction2<Assert<Int>, Int, Assert<Int>> = Assert<Int>::toBe
+            return f.name
+        }
+
+        fun noToBeName(): String{
+            val f : KFunction2<Assert<Int>, Int, Assert<Int>> = Assert<Int>::notToBe
+            return f.name
+        }
 
         private fun toBeNull(plant: AssertionPlantNullable<Int?>){
             plant toBe null

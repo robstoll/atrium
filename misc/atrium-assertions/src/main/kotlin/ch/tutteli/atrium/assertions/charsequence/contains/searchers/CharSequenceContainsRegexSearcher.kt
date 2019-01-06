@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.charsequence.contains.searchers
 
 import ch.tutteli.atrium.assertions.charsequence.contains.CharSequenceContains.Searcher
@@ -7,7 +8,7 @@ import java.util.regex.Pattern
 /**
  * Represents a [Searcher] which evaluates the matches of a given regular expression on the input of the search.
  */
-@Deprecated("Please open an issue if you used this class, will be removed with 1.0.0")
+@Deprecated("Please open an issue if you used this class; will be removed with 1.0.0")
 class CharSequenceContainsRegexSearcher : Searcher<CharSequenceContainsNoOpSearchBehaviour> {
     override fun search(searchIn: CharSequence, searchFor: Any): Int
         = search(searchIn, Pattern.compile(searchFor.toString()))

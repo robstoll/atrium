@@ -1,9 +1,12 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED
+import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Keyword
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
@@ -18,6 +21,11 @@ import ch.tutteli.atrium.reporting.Reporter
 infix fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
+@Deprecated(ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED, ReplaceWith("this toBe (keyword as Any)"))
+@Suppress("UNUSED_PARAMETER", "unused")
+infix fun <T: Any> Assert<T>.toBe(keyword: Keyword): Nothing
+    = throw PleaseUseReplacementException("this toBe (keyword as Any)")
+
 /**
  * Makes the assertion that [AssertionPlant.subject] is not (equal to) [expected].
  *
@@ -29,6 +37,11 @@ infix fun <T : Any> Assert<T>.toBe(expected: T)
  */
 infix fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
+
+@Deprecated(ERR_KEYWORD_GIVEN_COLLECTION_ASSUMED, ReplaceWith("this notToBe (keyword as Any)"))
+@Suppress("UNUSED_PARAMETER", "unused")
+infix fun <T: Any> Assert<T>.notToBe(keyword: Keyword): Nothing
+    = throw PleaseUseReplacementException("this notToBe (keyword as Any)")
 
 /**
  * Makes the assertion that [AssertionPlant.subject] is the same instance as [expected].

@@ -1,7 +1,7 @@
 rootProject.name = 'atrium'
 
 buildscript {
-    gradle.ext.tutteli_plugins_version = '0.9.0'
+    gradle.ext.tutteli_plugins_version = '0.21.0'
     repositories {
         maven { url "https://plugins.gradle.org/m2/" }
     }
@@ -15,48 +15,62 @@ apply plugin: 'ch.tutteli.settings'
 //noinspection GroovyAssignabilityCheck
 include {
 
+    //TODO remove as soon as https://youtrack.jetbrains.com/issue/KT-29069 is fixed
+    def kotlinJvmJsAndAndroidIfCi = { self, String suffix ->
+        if (System.getenv('CI')) {
+            self.kotlinJvmJsAndroid(suffix)
+        } else {
+            self.kotlinJvmJs(suffix)
+
+        }
+    }
+
     bundles {
-        _ 'cc-de_CH-robstoll'
-        _ 'cc-en_GB-robstoll'
-        _ 'cc-infix-en_GB-robstoll'
+
+
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH-robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB-robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB-robstoll')
 
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-            folder('smoke-tests') {
+            folder('cc-en_GB-robstoll') {
                 _ 'cc-en_GB-robstoll-smoke-test'
+            }
+            folder('cc-infix-en_GB-robstoll') {
                 _ 'cc-infix-en_GB-robstoll-smoke-test'
             }
         }
     }
 
     folder('apis', 'api-') {
-        kotlinJvmJs('cc-de_CH')
-        kotlinJvmJs('cc-en_GB')
-        kotlinJvmJs('cc-infix-en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-de_CH')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'cc-infix-en_GB')
     }
 
     domain('domain-') {
-        kotlinJvmJs('api')
-        kotlinJvmJs('builders')
-        kotlinJvmJs('robstoll')
-        kotlinJvmJs('robstoll-lib')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'api')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'builders')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll-lib')
     }
 
     core('core-') {
-        kotlinJvmJs('api')
-        kotlinJvmJs('robstoll')
-        kotlinJvmJs('robstoll-lib')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'api')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'robstoll-lib')
     }
 
     translations('translations-') {
-        kotlinJvmJs('de_CH')
-        kotlinJvmJs('en_GB')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'de_CH')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'en_GB')
     }
 
     misc {
         _ 'bc-test'
         _ 'spec'
-        kotlinJvmJs('verbs')
-        kotlinJvmJs('verbs-internal')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'verbs')
+        kotlinJvmJsAndAndroidIfCi(delegate, 'verbs-internal')
     }
 
     //TODO remove all below with 1.0.0

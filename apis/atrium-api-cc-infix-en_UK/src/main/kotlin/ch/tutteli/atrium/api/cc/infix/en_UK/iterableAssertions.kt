@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.api.cc.infix.en_UK
 
 import ch.tutteli.atrium.api.cc.infix.en_UK.creating.iterable.contains.builders.NotCheckerOption
@@ -133,11 +134,11 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.contains(entries: Entries<E, Asse
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use `contains NullableEntry` from package en_GB; will be removed with 1.0.0", ReplaceWith("this contains NullableEntry(expected)", "ch.tutteli.atrium.api.cc.infix.en_GB.contains", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableEntry"))
-@JvmName("contains?")
+@JvmName("containsDeprecated")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inAny order atLeast 1 entry assertionCreator
 
-@Deprecated("Use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant contains assertionCreator"))
+@Deprecated("Use the extension fun `contains` instead; will be removed 1.0.0", ReplaceWith("plant contains assertionCreator"))
 fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = plant contains assertionCreator
 
@@ -153,11 +154,11 @@ fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, assertionCrea
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 @Deprecated("Use `contains NullableEntries` from package en_GB; will be removed with 1.0.0", ReplaceWith("this contains NullableEntries(entries.assertionCreator, *entries.otherAssertionCreators)", "ch.tutteli.atrium.api.cc.infix.en_GB.contains", "ch.tutteli.atrium.api.cc.infix.en_GB.NullableEntries"))
-@JvmName("contains?")
+@JvmName("containsDeprecated")
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.contains(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inAny order atLeast 1 the entries
 
-@Deprecated("Use the extension fun `contains` instead, will be removed 1.0.0", ReplaceWith("plant contains entries"))
+@Deprecated("Use the extension fun `contains` instead; will be removed 1.0.0", ReplaceWith("plant contains entries"))
 fun <E : Any, T : Iterable<E?>> containsNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = plant contains entries
 
@@ -239,7 +240,7 @@ infix fun <E : Any, T : Iterable<E>> Assert<T>.containsStrictly(entries: Entries
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = this to contain inGiven order but only entry assertionCreator
 
-@Deprecated("Use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant containsStrictly assertionCreator"))
+@Deprecated("Use the extension fun `containsStrictly` instead; will be removed 1.0.0", ReplaceWith("plant containsStrictly assertionCreator"))
 fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, assertionCreator: (Assert<E>.() -> Unit)?): AssertionPlant<T>
     = plant containsStrictly assertionCreator
 
@@ -259,7 +260,7 @@ fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, asser
 infix fun <E : Any, T : Iterable<E?>> Assert<T>.containsStrictly(entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = this to contain inGiven order but only the entries
 
-@Deprecated("Use the extension fun `containsStrictly` instead, will be removed 1.0.0", ReplaceWith("plant containsStrictly entries"))
+@Deprecated("Use the extension fun `containsStrictly` instead; will be removed 1.0.0", ReplaceWith("plant containsStrictly entries"))
 fun <E : Any, T : Iterable<E?>> containsStrictlyNullable(plant: Assert<T>, entries: Entries<E, (Assert<E>.() -> Unit)?>): AssertionPlant<T>
     = plant containsStrictly entries
 

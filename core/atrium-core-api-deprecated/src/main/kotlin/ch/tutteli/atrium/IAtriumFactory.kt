@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium
 
 import ch.tutteli.atrium.assertions.*
@@ -12,10 +13,10 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import java.util.*
 
 /**
- * Deprecated, use `AssertImpl.coreFactory` instead which delegates to an implementation of [CoreFactory], will be removed with 1.0.0
+ * Deprecated, use `AssertImpl.coreFactory` instead which delegates to an implementation of [CoreFactory]; will be removed with 1.0.0
  */
 @Deprecated(
-    "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+    "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
     ReplaceWith("AssertImpl.coreFactory", "ch.tutteli.atrium.domain.builders.AssertImpl")
 )
 interface IAtriumFactory {
@@ -29,12 +30,12 @@ interface IAtriumFactory {
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
      *   (see [BaseAssertionPlant.subject]).
-     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
+     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlant(assertionVerb, { subject }, reporter)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -58,7 +59,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlant(assertionVerb, { subject }, assertionChecker)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -78,7 +79,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlant(commonFields)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -98,7 +99,7 @@ interface IAtriumFactory {
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
      *   (see [BaseAssertionPlant.subject]).
-     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
+     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      * @param assertionCreator The
      *
      * @return The newly created [AssertionPlant] which can be used to postulate further assertions.
@@ -107,7 +108,7 @@ interface IAtriumFactory {
      *   created [Assertion] does not hold.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlantAndAddAssertionsCreatedBy(assertionVerb, { subject }, reporter, assertionCreator)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -127,12 +128,12 @@ interface IAtriumFactory {
      *   (see [AssertionPlantWithCommonFields.CommonFields.assertionVerb]).
      * @param subject The subject for which this plant will create/check [Assertion]s.
      *   (see [BaseAssertionPlant.subject]).
-     * @param reporter The reporter which will be use for a [newThrowingAssertionChecker].
+     * @param reporter The reporter which will be used for a [newThrowingAssertionChecker].
      *
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, { subject }, reporter, nullRepresentation)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -156,7 +157,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlantNullable(assertionVerb, { subject }, assertionChecker, nullRepresentation)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -176,7 +177,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newReportingPlantNullable(commonFields)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -193,7 +194,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newCheckingPlant({ subject })",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -215,7 +216,7 @@ interface IAtriumFactory {
      * @return The newly created assertion plant.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newCollectingPlant(subjectProvider)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -232,7 +233,7 @@ interface IAtriumFactory {
      * @return The newly created assertion checker.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newThrowingAssertionChecker(reporter)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -251,7 +252,7 @@ interface IAtriumFactory {
      * @return The newly created assertion checker.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newFeatureAssertionChecker(subjectPlant)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -269,7 +270,7 @@ interface IAtriumFactory {
      * @return The newly created assertion checker.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newDelegatingAssertionChecker(subjectPlant)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -288,7 +289,7 @@ interface IAtriumFactory {
      * @return The newly created method call formatter.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newMethodCallFormatter()",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -325,7 +326,7 @@ interface IAtriumFactory {
      *   have: as language `zh`, country is not set and script is either `Hant` or `Hans`.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTranslator(translationSupplier, localeOrderDecider, primaryLocale, *fallbackLocales)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -347,7 +348,7 @@ interface IAtriumFactory {
      * @return The newly created translation supplier.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newPropertiesBasedTranslationSupplier()",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -365,7 +366,7 @@ interface IAtriumFactory {
      * @return The newly created [Locale] order decider.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newLocaleOrderDecider()",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -381,7 +382,7 @@ interface IAtriumFactory {
      * @return The newly created object formatter.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newDetailedObjectFormatter(translator)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -395,7 +396,7 @@ interface IAtriumFactory {
      * @return The newly created assertion formatter controller.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newAssertionFormatterController()",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -411,7 +412,7 @@ interface IAtriumFactory {
      * @return The newly created assertion formatter facade.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newAssertionFormatterFacade(assertionFormatterController)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -429,7 +430,7 @@ interface IAtriumFactory {
      * @return The newly created assertion formatter.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextSameLineAssertionPairFormatter(objectFormatter, translator)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -452,7 +453,7 @@ interface IAtriumFactory {
      * @return The newly created assertion formatter.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextFallbackAssertionFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -474,7 +475,7 @@ interface IAtriumFactory {
      * @return The newly created assertion formatter.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextFeatureAssertionGroupFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -495,7 +496,7 @@ interface IAtriumFactory {
      * @return The newly created assertion formatter.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextListAssertionGroupFormatter(bulletPoints, assertionFormatterController, objectFormatter, translator)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -516,7 +517,7 @@ interface IAtriumFactory {
      * @return The newly created assertion formatter.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newTextExplanatoryAssertionGroupFormatter(bulletPoints, assertionFormatterController)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -540,7 +541,7 @@ interface IAtriumFactory {
      * @param translator The translator which is used to translate [Translatable] such as [DescriptiveAssertion.description].
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.registerTextAssertionFormatterCapabilities(bulletPoints, assertionFormatterController, textAssertionPairFormatter, objectFormatter, translator)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"
@@ -562,7 +563,7 @@ interface IAtriumFactory {
      * @return The newly created reporter.
      */
     @Deprecated(
-        "use AssertImpl.coreFactory instead, will be removed with 1.0.0",
+        "Use AssertImpl.coreFactory instead; will be removed with 1.0.0",
         ReplaceWith(
             "AssertImpl.coreFactory.newOnlyFailureReporter(assertionFormatterFacade)",
             "ch.tutteli.atrium.domain.builders.AssertImpl"

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.spec.AssertionVerb
 import ch.tutteli.atrium.spec.AssertionVerbFactory
@@ -30,6 +31,7 @@ abstract class ThrowingAssertionCheckerSpec(
         on { format(any(), @Suppress("RemoveExplicitTypeArguments") any<StringBuilder>()) }.thenAnswer {
             (it.arguments[1] as StringBuilder).append(reporterResponse)
         }
+        on{ atriumErrorAdjuster }.thenReturn(coreFactory.newNoOpAtriumErrorAdjuster())
     }
     val testee = testeeFactory(reporter)
     val assertionWhichHolds = object : Assertion {

@@ -8,6 +8,7 @@ import ch.tutteli.atrium.core.robstoll.lib.checking.FeatureAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.checking.ThrowingAssertionChecker
 import ch.tutteli.atrium.core.robstoll.lib.creating.CheckingAssertionPlantImpl
 import ch.tutteli.atrium.core.robstoll.lib.creating.CollectingAssertionPlantImpl
+import ch.tutteli.atrium.core.robstoll.lib.creating.CollectingAssertionPlantNullableImpl
 import ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionPlantImpl
 import ch.tutteli.atrium.core.robstoll.lib.creating.ReportingAssertionPlantNullableImpl
 import ch.tutteli.atrium.core.robstoll.lib.reporting.*
@@ -39,6 +40,7 @@ import kotlin.reflect.KClass
  * - [AssertionFormatter]
  * - [AssertionPairFormatter]
  * - [Reporter]
+ * - [AtriumErrorAdjuster]
  */
 abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
@@ -53,6 +55,9 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
 
     final override fun <T : Any> newCollectingPlant(subjectProvider: () -> T): CollectingAssertionPlant<T>
         = CollectingAssertionPlantImpl(subjectProvider)
+
+    final override fun <T> newCollectingPlantNullable(subjectProvider: () -> T): CollectingAssertionPlantNullable<T>
+        = CollectingAssertionPlantNullableImpl(subjectProvider)
 
     final override fun newThrowingAssertionChecker(reporter: Reporter): AssertionChecker
         = ThrowingAssertionChecker(reporter)
@@ -133,6 +138,7 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
             TextExplanatoryAssertionGroupFormatter(bulletPoints, it)
         }
         assertionFormatterFacade.register {
+            @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
             TextIndentAssertionGroupFormatter(bulletPoints, it)
         }
         assertionFormatterFacade.register {
@@ -143,6 +149,21 @@ abstract class CoreFactoryCommonImpl : CoreFactoryCommon {
         }
     }
 
-    final override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade): Reporter
-        = OnlyFailureReporter(assertionFormatterFacade)
+    final override fun newOnlyFailureReporter(assertionFormatterFacade: AssertionFormatterFacade, atriumErrorAdjuster: AtriumErrorAdjuster): Reporter
+        = OnlyFailureReporter(assertionFormatterFacade, atriumErrorAdjuster)
+
+    final override fun newNoOpAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = NoOpAtriumErrorAdjuster
+
+    final override fun newRemoveRunnerAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = RemoveRunnerAtriumErrorAdjuster()
+
+    final override fun newRemoveAtriumFromAtriumErrorAdjuster(): AtriumErrorAdjuster
+        = RemoveAtriumFromAtriumErrorAdjuster()
+
+    final override fun newMultiAtriumErrorAdjuster(
+        firstAdjuster: AtriumErrorAdjuster,
+        secondAdjuster: AtriumErrorAdjuster,
+        otherAdjusters: List<AtriumErrorAdjuster>
+    ): AtriumErrorAdjuster = MultiAtriumErrorAdjusterImpl(firstAdjuster, secondAdjuster, otherAdjusters)
 }

@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.assertions.iterable.contains.builders
 
 import ch.tutteli.atrium.assertions.basic.contains.builders.ContainsCheckerBuilder
@@ -14,7 +15,7 @@ import ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains
  *   `contains` assertion which was started with the given [containsBuilder].
  */
 @Deprecated(
-    "use the interface IterableContains.CheckerOption instead, will be removed with 1.0.0",
+    "Use the interface IterableContains.CheckerOption instead; will be removed with 1.0.0",
     ReplaceWith(
         "IterableContains.CheckerOption",
         "ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains"

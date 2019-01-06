@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0*/)
 package ch.tutteli.atrium.assertions.iterable.contains
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -11,7 +12,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * Defines the *deprecated* contract for sophisticated [Iterable] `contains` assertions.
  */
 @Deprecated(
-    "use the interface from package domain.creating, will be removed with 1.0.0",
+    "Use the interface from package domain.creating; will be removed with 1.0.0",
     ReplaceWith("ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains")
 )
 interface IterableContains {
@@ -21,7 +22,7 @@ interface IterableContains {
      * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.SearchBehaviour")
     )
     interface SearchBehaviour : Contains.SearchBehaviour, IterableContains.SearchBehaviour
@@ -34,7 +35,7 @@ interface IterableContains {
      * @param S The type of the search criteria.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Creator")
     )
     interface Creator<in T : Iterable<*>, in S> : Contains.Creator<T, S>, IterableContains.Creator<T, S>
@@ -45,7 +46,7 @@ interface IterableContains {
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
     @Deprecated(
-        "use the interface from package domain.creating, will be removed with 1.0.0",
+        "Use the interface from package domain.creating; will be removed with 1.0.0",
         ReplaceWith("ch.tutteli.atrium.domain.creating.iterable.contains.IterableContains.Checker")
     )
     interface Checker : Contains.Checker, IterableContains.Checker

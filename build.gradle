@@ -4,46 +4,44 @@ buildscript {
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
     ext {
-        ghPages_version = rootProject.version
-        kbox_version = '0.10.0'
+        // main
+        kbox_version = '0.12.0'
         kbox = { "ch.tutteli.kbox:kbox:$kbox_version" }
-        kotlin_version = '1.2.61'
+        kotlin_version = '1.2.71'
         mockito_kotlin_version = '1.5.0'
         mockito = { "com.nhaarman:mockito-kotlin:$mockito_kotlin_version" }
-        dokka_version = '0.9.17'
-        dokka_sourceMapping = 'tree/master'
 
-        //spek.gradle
+        // test
         jacoco_tool_version = '0.8.2'
-        spek_version = '1.1.5'
         junit_platform_version = '1.2.0'
-
-        //publish.gradle
-        bintray_version = '1.7.3'
-        publish_pkg_name = rootProject.name
-        github_url = "https://github.com/robstoll/${rootProject.name}"
-        publish_vcsUrl = "${github_url}.git"
-
-        srcKotlin = 'src/main/kotlin'
+        jupiter_version = '5.3.1'
+        spek_version = '1.1.5'
 
         //gh-pages.gradle
-        docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec"}
+        docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
+        ghPages_version = rootProject.version
+        dokka_sourceMapping = 'tree/master'
+        srcKotlin = 'src/main/kotlin'
+        github_url = "https://github.com/robstoll/${rootProject.name}"
 
         //jacoco-multi-project.gradle
         def deprecatedProjects = subprojects.findAll { it.name.endsWith("-deprecated") }
         jacocoMulti = [
             sourceProjects:
                 (subprojects - deprecatedProjects).findAll {
-                    // would have two classes with the same name if we add it as project as well,
-                    // (clashes with "${project.name}-translations-en_GB-jvm"
-                    it.name != "${rootProject.name}-translations-de_CH-jvm" &&
+                    !it.name.endsWith("-js") &&
+                        !it.name.endsWith("-android") &&
+                        // would have two classes with the same name if we add it as project as well,
+                        // (clashes with "${project.name}-translations-en_GB-jvm"
+                        it.name != "${rootProject.name}-translations-de_CH-jvm" &&
                         // does not make sense to listen specs in coverage
                         it.name != "${rootProject.name}-spec"
                 },
             jacocoProjects:
                 (subprojects - deprecatedProjects - translationProjects).findAll {
                     !it.name.endsWith("-common") &&
-                    !it.name.endsWith("-js") &&
+                        !it.name.endsWith("-js") &&
+                        !it.name.endsWith("-android") &&
                         it.name != "${rootProject.name}-domain-api-jvm" &&
                         it.name != "${rootProject.name}-domain-robstoll-jvm" &&
                         it.name != "${rootProject.name}-core-robstoll-jvm" &&
@@ -58,6 +56,20 @@ buildscript {
                         it.name != "${rootProject.name}-translations-en_UK-deprecated"
                 }
         ]
+
+        srcAndResourcesFromJvmProject = { Project project ->
+            def nameWithoutSuffix = project.name.substring(project.name.indexOf('-') + 1, project.name.lastIndexOf('-'))
+            def jvmProject = prefixedProject(nameWithoutSuffix + '-jvm')
+            project.sourceSets {
+                main {
+                    kotlin { srcDirs += ["${jvmProject.projectDir}/src/main/kotlin"] }
+                    resources { srcDirs += ["${jvmProject.projectDir}/src/main/resources"] }
+                }
+                test {
+                    resources { srcDirs += ["${jvmProject.projectDir}/src/test/resources"] }
+                }
+            }
+        }
     }
 
     repositories {
@@ -66,11 +78,14 @@ buildscript {
         maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:$dokka_version"
         classpath "ch.tutteli:tutteli-gradle-project-utils:$gradle.ext.tutteli_plugins_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath("ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version")
-        classpath("ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version")
+        classpath "ch.tutteli:tutteli-gradle-dokka:$gradle.ext.tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-kotlin-module-info:$gradle.ext.tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-kotlin-utils:$gradle.ext.tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-publish:$gradle.ext.tutteli_plugins_version"
+        classpath "ch.tutteli:tutteli-gradle-spek:$gradle.ext.tutteli_plugins_version"
+        classpath 'com.moowork.gradle:gradle-node-plugin:1.2.0'
     }
 }
 
@@ -83,10 +98,6 @@ repositories {
 }
 
 subprojects {
-    it.version = rootProject.version
-    it.version = rootProject.version
-    it.group = rootProject.group
-
     repositories {
         mavenCentral()
         maven { url "https://dl.bintray.com/robstoll/tutteli-jars" }
@@ -94,110 +105,68 @@ subprojects {
 }
 
 def commonProjects = getCommonProjects()
-def jsProjects =  getJsProjects()
-def jvmProjects =  getJvmProjects()
+def jsProjects = getJsProjects()
+def jvmProjects = getJvmProjects()
+def multiplatformProjects = commonProjects + jsProjects + jvmProjects
 
 configureCommonProjects()
 configureJsProjects()
 configureJvmProjects()
+configureAndroidProjects()
 
-configure(subprojects - commonProjects - jsProjects)  { subproject ->
-
+configure(subprojects - multiplatformProjects) {
     apply plugin: 'kotlin'
 
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
-
-    apply plugin: 'org.jetbrains.dokka'
-
-    dokka {
-        outputFormat = 'html'
-        outputDirectory = "${subproject.buildDir}/kdoc"
-
-        linkMapping {
-            dir = rootProject.projectDir.absolutePath
-            url = "$github_url/${dokka_sourceMapping}/"
-            suffix = '#L'
-        }
-
-        if (!rootProject.version.endsWith("-SNAPSHOT")) {
-            externalDocumentationLink {
-                url = new URL("https://robstoll.github.io/atrium/${rootProject.version}/doc/")
-            }
-        }
+    compileKotlin {
+        kotlinOptions.allWarningsAsErrors = true
     }
 
-    def sourceJar = task('sourceJar', type: Jar) {
-        from subproject.sourceSets.main.allSource
-        classifier = 'sources'
+    dependencies {
+        compile kotlinStdlib()
     }
 
-    def javadocJar = task('javadocJar', type: Jar, dependsOn: dokka) {
-        from dokka.outputDirectory
-        classifier = 'javadoc'
+}
+
+configure(commonProjects) {
+    compileKotlinCommon {
+        kotlinOptions.allWarningsAsErrors = true
     }
-
-    subproject.ext.publish_artifacts = [sourceJar, javadocJar]
-
-    if (subproject.name.startsWith("${rootProject.name}-api")) {
-        def testJar = task('testJar', type: Jar) {
-            from sourceSets.test.output
-            classifier = 'tests'
-        }
-
-        def testSourceJar = task('testSourceJar', type: Jar) {
-            from sourceSets.test.allSource
-            classifier = 'testsources'
-        }
-        subproject.ext.publish_artifacts += [testJar, testSourceJar]
+}
+configure(jsProjects) {
+    compileKotlin2Js {
+        kotlinOptions.allWarningsAsErrors = true
     }
 }
 
-configure(commonProjects + jsProjects) {
-    afterEvaluate {
-        it.ext.publish_artifacts = [jar]
-    }
+configure(subprojects - commonProjects - jsProjects) {
+    apply plugin: 'ch.tutteli.dokka'
+    apply plugin: 'ch.tutteli.kotlin.module.info'
+}
+
+def apiProjects = subprojects.findAll { it.name.startsWith("${rootProject.name}-api") && it.name.endsWith("-jvm") }
+configure(apiProjects) { apiProject ->
+    createTestJarTask(apiProject)
+    createTestSourcesJarTask(apiProject)
 }
 
 // has to be after the above two blocks which define `it.ext.publish_artifacts`
-def bundleSmokeTests = subprojects.findAll{ x -> x.name.endsWith('smoke-test')}
+def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
 configure(subprojects - bundleSmokeTests) { subproject ->
-    afterEvaluate {
-        apply from: "${rootProject.projectDir}/gradle/scripts/publish.gradle", to: subproject
-
-        def includeBuildTime = task('includeBuildTime') {
-            doLast {
-                project.tasks.withType(Jar) { jarTask ->
-                    jarTask.manifest {
-                        attributes('Build-Time': new Date().format('yyyy-MM-dd\'T\'HH:mm:ssZ'))
-                    }
-                }
-            }
-        }
-
-        task publishBintray {
-            dependsOn includeBuildTime
-            dependsOn bintrayUpload
-            bintrayUpload.mustRunAfter(includeBuildTime)
-        }
-    }
+    apply plugin: 'ch.tutteli.publish'
 }
 
-configure(subprojects - jacocoMulti.jacocoProjects - commonProjects - jvmProjects - jsProjects) {
-    dependencies {
-        compile kotlinStdlib()
-        compile kotlinReflect()
-    }
-}
-configure(jacocoMulti.jacocoProjects) {
-
+configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
     apply plugin: 'ch.tutteli.spek'
 
-    dependencies {
-        testCompile mockito(), withoutKotlin
+    compileKotlin {
+        kotlinOptions.allWarningsAsErrors = true
     }
 
-    afterEvaluate { subproject ->
+    dependencies {
+        testCompile mockito(), excludeKotlin
+    }
+
+    afterEvaluate {
         junitjacoco {
 
             jacoco {
@@ -221,42 +190,9 @@ configure(jacocoMulti.jacocoProjects) {
 
 apply from: 'gradle/scripts/gh-pages.gradle'
 
-if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
-    subprojects {
-        def srcModule = "src/module"
-        def moduleInfo = file("${project.projectDir}/$srcModule/module-info.java")
-        if (moduleInfo.exists()) {
-
-            sourceSets {
-                module {
-                    java {
-                        srcDirs = [srcModule]
-                        compileClasspath = main.compileClasspath
-                        sourceCompatibility = '9'
-                        targetCompatibility = '9'
-                    }
-                }
-                main {
-                    kotlin { srcDirs += [srcModule] }
-                }
-            }
-
-            compileModuleJava.configure {
-                dependsOn compileKotlin
-                destinationDir = compileKotlin.destinationDir
-                doFirst {
-                    options.compilerArgs = ['--module-path', classpath.asPath,]
-                    classpath = files()
-                }
-            }
-            jar.dependsOn compileModuleJava
-        }
-    }
-}
-
 configure(bundleSmokeTests) {
     def bundleUnderTest = it.name.substring(0, it.name.indexOf('-smoke-test'))
-    def bundle = project(":$bundleUnderTest")
+    def bundle = project(":$bundleUnderTest-jvm")
     description = "Represents a JDK9 smoke test for $bundleUnderTest"
 
     sourceCompatibility = '9'
@@ -275,6 +211,98 @@ configure(bundleSmokeTests) {
         testCompile prefixedProject('verbs-jvm')
     }
 }
+
+import java.util.function.Function
+
+def createRegisterJsServicesTask(String projectName, String packageName, Function<String, Boolean> filter) {
+    def project = prefixedProject(projectName)
+    configure(project) {
+        def registerJsServices = project.tasks.create(name: 'generateJsRegisterServices', group: 'build') {
+            def jvm = "${getProjectNameWithoutSuffix(project)}-jvm"
+            def servicesDir = project.file("../$jvm/src/main/resources/META-INF/services/")
+            def services = project.file("$srcKotlin/${packageName.replace('.', '/')}/registerServices.kt")
+            inputs.dir servicesDir
+            inputs.file services
+            outputs.file services
+
+            doLast {
+                services.write("""\
+                package $packageName
+    
+                import ch.tutteli.atrium.core.polyfills.registerService
+                
+                @Suppress("unused" /* here in order that the code is executed when module is loaded */)
+                private val register = run {
+            """.stripIndent())
+                servicesDir.traverse {
+                    if (it.isFile() && filter.apply(it.name)) {
+                        services.append("\n    registerService<")
+                        services.append(it.name)
+                        services.append("> { ")
+                        services.append(it.withReader { it.readLine() })
+                        services.append("() }")
+                    }
+                }
+                services.append("\n}")
+            }
+        }
+        compileKotlin2Js.dependsOn registerJsServices
+    }
+}
+
+
+createRegisterJsServicesTask('core-robstoll-js', 'ch.tutteli.atrium.robstoll.core') { true }
+createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.robstoll') {
+    it != 'ch.tutteli.atrium.domain.creating.BigDecimalAssertions'
+}
+createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }
+
+def createJsTestTask(subprojectName){
+    configure(prefixedProject(subprojectName)) {
+        apply plugin: 'com.moowork.node'
+
+        compileTestKotlin2Js.configure {
+            kotlinOptions.moduleKind = "commonjs"
+            kotlinOptions.sourceMap = true
+            kotlinOptions.sourceMapEmbedSources = "always"
+        }
+
+        task populateNodeModules(type: Copy, dependsOn: compileKotlin2Js) {
+            from compileKotlin2Js.destinationDir
+
+            prefixedProject('verbs-internal-js').afterEvaluate {
+                configurations.testRuntimeClasspath.each {
+                    from zipTree(it.absolutePath).matching { include '*.js', '*.js.map' }
+                }
+            }
+
+            into "${buildDir}/node_modules"
+        }
+
+        def nodeModulesParentDir = file("$rootProject.projectDir/gradle/")
+        node {
+            download = true
+            npmVersion = '6.4.1'
+            workDir = file("$rootProject.projectDir/.gradle/nodejs")
+            npmWorkDir = file("$rootProject.projectDir/.gradle/npm")
+            nodeModulesDir = nodeModulesParentDir
+        }
+
+        task installMocha(type: NpmTask) {
+            args = ['install', 'mocha', '--prefer-offline']
+        }
+
+        task prepareMocha(dependsOn: [compileTestKotlin2Js, populateNodeModules, installMocha])
+        task runMocha(type: NodeTask, dependsOn: [prepareMocha, test]) {
+            script = file("$nodeModulesParentDir/node_modules/mocha/bin/mocha")
+            args = [compileTestKotlin2Js.outputFile]
+        }
+        check.dependsOn runMocha
+    }
+}
+
+createJsTestTask('core-api-js')
+createJsTestTask('core-robstoll-lib-js')
 
 /*
 
@@ -296,8 +324,10 @@ Release & deploy a commit
     c) add new version to atrium-gh-pages/README.md
     d) commit & push changes
 4. deploy to bintray:
-    a) gr clean publishBintray
-    b) Log in to bintray, check and publish new jars
+    a) Temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
+       export CI=true
+    b) gr clean publishBintray
+    c) Log in to bintray, check and publish new jars
 5. create release on github
     a) git tag vX.Y.Z
     b) git push origin vX.Y.Z

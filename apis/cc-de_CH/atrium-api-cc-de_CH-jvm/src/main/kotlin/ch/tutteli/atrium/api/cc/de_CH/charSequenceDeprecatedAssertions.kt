@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 @file:JvmMultifileClass
 @file:JvmName("CharSequenceAssertionsKt")
 package ch.tutteli.atrium.api.cc.de_CH

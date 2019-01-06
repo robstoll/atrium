@@ -14,8 +14,8 @@ import ch.tutteli.kbox.appendToStringBuilder
  */
 object TextMethodCallFormatter : MethodCallFormatter {
 
-    override fun format(name: String, arguments: Array<out Any?>): () -> String = {
-        val sb = StringBuilder(name).append("(")
+    override fun format(methodName: String, arguments: Array<out Any?>): () -> String = {
+        val sb = StringBuilder(methodName).append("(")
         arguments.asList().appendToStringBuilder(sb, ", ") { it ->
             sb.appendArgument(it)
         }

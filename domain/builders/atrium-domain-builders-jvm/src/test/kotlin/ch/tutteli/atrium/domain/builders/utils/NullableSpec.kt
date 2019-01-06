@@ -84,13 +84,11 @@ object NullableSpec : Spek({
 
         context("Array<out String!>!") {
             it("can be applied to it") {
-                //TODO simplify once Atrium adds helper for Array
-                assert(nullableContainer(testee.stringArray).asIterable()).containsNullableValue(null)
+                assert(nullableContainer(testee.stringArray)).asIterable().containsNullableValue(null)
             }
             it("can be combined with ${nullableFun.name}") {
                 assert(nullable(nullableContainer(testee.stringArray))).notToBeNull {
-                    //TODO simplify once Atrium adds helper for Array
-                    returnValueOf(subject::asIterable).containsStrictlyNullableValues(null, "hello")
+                    asIterable().containsStrictlyNullableValues(null, "hello")
                 }
             }
         }

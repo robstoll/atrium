@@ -1,11 +1,12 @@
+@file:Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)
 package ch.tutteli.atrium.assertions.iterable.contains.creators
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.creating.AssertionPlant
+import ch.tutteli.atrium.creating.MaybeSubject
 import ch.tutteli.atrium.domain.builders.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableAssertion
 
@@ -34,11 +35,11 @@ internal fun <E : Any> collectIterableAssertionsForExplanation(assertionCreator:
     )
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
-internal fun <E : Any> collectIterableAssertionsForExplanation(description: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
+internal fun <E : Any> collectIterableAssertionsForExplanation(warningCannotEvaluate: Translatable, assertionCreator: (AssertionPlant<E>.() -> Unit)?, subject: E?)
     = AssertImpl.collector
         .forExplanation
         .throwIfNoAssertionIsCollected
-        .collect(description, assertionCreator, subject)
+        .collect(warningCannotEvaluate, MaybeSubject(subject), assertionCreator)
 
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found: Boolean)
@@ -53,12 +54,13 @@ internal fun createEntryAssertion(explanatoryAssertions: List<Assertion>, found:
         )
         .build()
 
+@Suppress("USELESS_CAST")
 @Deprecated("Will be removed with 1.0.0", ReplaceWith(""))
 internal fun <E : Any> allCreatedAssertionsHold(subject: E?, assertionCreator: (AssertionPlant<E>.() -> Unit)?): Boolean
     = when (subject) {
         null -> assertionCreator == null
         else -> assertionCreator != null &&
-            coreFactory.newCheckingPlant({ subject as E })
+            coreFactory.newCheckingPlant { subject as E }
                 .addAssertionsCreatedBy(assertionCreator)
                 .allAssertionsHold()
     }

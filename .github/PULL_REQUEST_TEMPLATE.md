@@ -1,3 +1,3 @@
-Please review if you can check all items on the Pull Request Checklist before submitting this pull request:
-https://github.com/robstoll/atrium/blob/master/.github/CONTRIBUTING.md#pull-request-checklist
- 
+
+----
+I confirm that I have read the [Contributor Agreements v1.0](https://github.com/robstoll/atrium/blob/master/.github/Contributor%20Agreements%20v1.0.txt), agree to be bound on them and confirm that my contribution is compliant.

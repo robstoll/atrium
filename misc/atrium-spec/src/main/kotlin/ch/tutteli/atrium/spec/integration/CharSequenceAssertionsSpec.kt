@@ -1,6 +1,11 @@
 package ch.tutteli.atrium.spec.integration
 
-import ch.tutteli.atrium.api.cc.en_GB.*
+import ch.tutteli.atrium.api.cc.en_GB.contains
+import ch.tutteli.atrium.api.cc.en_GB.containsNot
+import ch.tutteli.atrium.api.cc.en_GB.endsWith
+import ch.tutteli.atrium.api.cc.en_GB.message
+import ch.tutteli.atrium.api.cc.en_GB.messageContains
+import ch.tutteli.atrium.api.cc.en_GB.toThrow
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.reporting.translating.Translatable
@@ -9,7 +14,10 @@ import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion
-import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.*
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_NOT_WITH
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.ENDS_WITH
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.STARTS_NOT_WITH
+import ch.tutteli.atrium.translations.DescriptionCharSequenceAssertion.STARTS_WITH
 import org.jetbrains.spek.api.dsl.SpecBody
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.include
@@ -20,6 +28,7 @@ abstract class CharSequenceAssertionsSpec(
     containsNotDefaultTranslationOfPair: Pair<String, Assert<CharSequence>.(Translatable, Array<out Translatable>) -> Assert<CharSequence>>,
     isEmptyPair: Pair<String, Assert<CharSequence>.() -> Assert<CharSequence>>,
     isNotEmptyPair: Pair<String, Assert<CharSequence>.() -> Assert<CharSequence>>,
+    isNotBlankPair: Pair<String, Assert<CharSequence>.() -> Assert<CharSequence>>,
     startsWithPair: Pair<String, Assert<CharSequence>.(CharSequence) -> Assert<CharSequence>>,
     startsNotWithPair: Pair<String, Assert<CharSequence>.(CharSequence) -> Assert<CharSequence>>,
     endsWithPair: Pair<String, Assert<CharSequence>.(CharSequence) -> Assert<CharSequence>>,
@@ -34,6 +43,7 @@ abstract class CharSequenceAssertionsSpec(
         containsNotDefaultTranslationOfPair.first to mapToCreateAssertion { containsNotDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) },
+        isNotBlankPair.first to mapToCreateAssertion { isNotBlankPair.second(this) },
         startsWithPair.first to mapToCreateAssertion { startsWithPair.second(this, "") },
         startsNotWithPair.first to mapToCreateAssertion { startsNotWithPair.second(this, "") },
         endsWithPair.first to mapToCreateAssertion { endsWithPair.second(this, "") },
@@ -45,6 +55,7 @@ abstract class CharSequenceAssertionsSpec(
         checkingTriple(containsNotDefaultTranslationOfPair.first, { containsNotDefaultTranslationOfPair.second(this, Untranslatable("a"), arrayOf()) }, "b", "a"),
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, "", "not empty"),
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, "not empty", ""),
+        checkingTriple(isNotBlankPair.first, { isNotBlankPair.second(this) }, "not blank", ""),
         checkingTriple(startsWithPair.first, { startsWithPair.second(this, "a") }, "abc", "xyz"),
         checkingTriple(startsNotWithPair.first, { startsNotWithPair.second(this, "a") }, "xyz", "abc"),
         checkingTriple(endsWithPair.first, { endsWithPair.second(this, "c") }, "abc", "xyz"),
@@ -62,6 +73,7 @@ abstract class CharSequenceAssertionsSpec(
     val (containsNotDefaultTranslationOf, containsNotDefaultTranslationOfFunArr) = containsNotDefaultTranslationOfPair
     val (isEmpty, isEmptyFun) = isEmptyPair
     val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
+    val (isNotBlank, isNotBlankFun) = isNotBlankPair
     val (startsWith, startsWithFun) = startsWithPair
     val (startsNotWith, startsNotWithFun) = startsNotWithPair
     val (endsWith, endsWithFun) = endsWithPair
@@ -168,6 +180,31 @@ abstract class CharSequenceAssertionsSpec(
                 assert(notEmptyString).isNotEmptyFun()
                 assert(StringBuilder(notEmptyString)).isNotEmptyFun()
                 assert(StringBuffer(notEmptyString)).isNotEmptyFun()
+            }
+        }
+    }
+
+    describeFun(isNotBlank) {
+        context("string is blank") {
+            test("$isNotBlank throws an AssertionError") {
+                val blankString = "   "
+                expect {
+                    assert(blankString).isNotBlankFun()
+                }.toThrow<AssertionError> { message { endsWith("$isNot: blank") } }
+                expect {
+                    assert(StringBuilder(blankString)).isNotBlankFun()
+                }.toThrow<AssertionError> { message { endsWith("$isNot: blank") } }
+                expect {
+                    assert(StringBuffer(blankString)).isNotBlankFun()
+                }.toThrow<AssertionError> { message { endsWith("$isNot: blank") } }
+            }
+        }
+        context("string is not blank") {
+            val notBlankString = "not blank string"
+            test("$isNotBlank does not throw") {
+                assert(notBlankString).isNotBlankFun()
+                assert(StringBuilder(notBlankString)).isNotBlankFun()
+                assert(StringBuffer(notBlankString)).isNotBlankFun()
             }
         }
     }

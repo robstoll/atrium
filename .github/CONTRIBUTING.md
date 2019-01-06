@@ -96,7 +96,7 @@ However, here a few hints in order that your pull request is merged quickly.
 5. Write your commit message in an [imperative style](https://chris.beams.io/posts/git-commit/).     
 
 ## Pull Request Checklist
-Make sure you can check every item on the following list before you create a pull request:  
+Please make sure you can check every item on the following list before you create a pull request:  
 - [ ] your pull request is rebased on the [latest commit on master](https://github.com/robstoll/atrium/commits/master)
 - [ ] your pull request should ideally consists of one small commit. If not then make sure:
      - [ ] it cannot be split up in several pull requests.

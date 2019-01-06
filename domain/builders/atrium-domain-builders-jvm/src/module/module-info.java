@@ -1,7 +1,8 @@
 module ch.tutteli.atrium.domain.builders {
-
     requires transitive ch.tutteli.atrium.domain.api;
     requires transitive ch.tutteli.atrium.core.api;
+    requires            ch.tutteli.kbox;
+    requires            kotlin.stdlib;
 
     exports ch.tutteli.atrium.domain.builders;
     exports ch.tutteli.atrium.domain.builders.assertions.builders;

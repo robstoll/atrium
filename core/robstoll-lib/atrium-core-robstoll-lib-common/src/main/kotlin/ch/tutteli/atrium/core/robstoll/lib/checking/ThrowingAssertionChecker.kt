@@ -5,16 +5,17 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.checking.AssertionChecker
+import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
- * An [AssertionChecker] which throws [AssertionError]s in case an assertion fails
+ * An [AssertionChecker] which throws [AtriumError]s in case an assertion fails
  * and uses the given [reporter] for reporting.
  *
  * @property reporter Will be used for reporting.
  *
- * @constructor An [AssertionChecker] which throws [AssertionError]s in case an assertion fails
+ * @constructor An [AssertionChecker] which throws [AtriumError]s in case an assertion fails
  *   and uses the given [reporter] for reporting.
  * @param reporter Will be used for reporting.
  */
@@ -39,7 +40,7 @@ class ThrowingAssertionChecker(private val reporter: Reporter) : AssertionChecke
         val sb = StringBuilder()
         reporter.format(assertionGroup, sb)
         if (!assertionGroup.holds()) {
-            throw AssertionError(sb.toString())
+            throw AtriumError.create(sb.toString(), reporter.atriumErrorAdjuster)
         }
     }
 }
