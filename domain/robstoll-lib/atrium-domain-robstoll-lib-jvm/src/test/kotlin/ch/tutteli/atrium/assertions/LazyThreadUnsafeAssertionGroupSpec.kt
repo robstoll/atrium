@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.api.cc.en_GB.containsStrictly
+import ch.tutteli.atrium.api.cc.en_GB.containsExactly
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.domain.builders.AssertImpl
@@ -59,7 +59,7 @@ object LazyThreadUnsafeAssertionGroupSpec : Spek({
             }
 
             it("returns the ${AssertionGroup::assertions.name} of the underlying ${AssertionGroup::class.simpleName}") {
-                assert(resultAssertions).containsStrictly(assertion)
+                assert(resultAssertions).containsExactly(assertion)
             }
         }
     }
