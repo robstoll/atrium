@@ -17,6 +17,7 @@ import org.jetbrains.spek.api.include
 abstract class MapAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsPair: Pair<String, Assert<Map<String, Int>>.(Pair<String, Int>, Array<out Pair<String, Int>>) -> Assert<Map<String, Int>>>,
+    containsNullablePair: Pair<String, Assert<Map<String?, Int?>>.(Pair<String?, Int?>, Array<out Pair<String?, Int?>>) -> Assert<Map<String?, Int?>>>,
     containsKeyPair: Pair<String, Assert<Map<String, *>>.(String) -> Assert<Map<*, *>>>,
     containsNullableKeyPair: Pair<String, Assert<Map<String?, *>>.(String?) -> Assert<Map<String?, *>>>,
     hasSizePair: Pair<String, Assert<Map<*, *>>.(Int) -> Assert<Map<*, *>>>,
@@ -32,7 +33,8 @@ abstract class MapAssertionsSpec(
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})
-    include(object : SubjectLessAssertionSpec<Map<String?, Int>>("$describePrefix[nullable Key] ",
+    include(object : SubjectLessAssertionSpec<Map<String?, Int?>>("$describePrefix[nullable Key] ",
+        containsNullablePair.first to mapToCreateAssertion{ containsNullablePair.second(this, null to 1, arrayOf("a" to null)) },
         containsNullableKeyPair.first to mapToCreateAssertion{ containsNullableKeyPair.second(this, null) }
     ) {})
 
@@ -43,8 +45,9 @@ abstract class MapAssertionsSpec(
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, mapOf(), mapOf("a" to 1, "b" to 2)),
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, mapOf("b" to 2), mapOf())
     ) {})
-    include(object : CheckingAssertionSpec<Map<String?, Int>>(verbs, "$describePrefix[nullable Key] ",
-        checkingTriple(containsNullableKeyPair.first, {containsNullableKeyPair.second(this, null)}, mapOf("a" to 1, null to 1), mapOf<String?, Int>("b" to 1))
+    include(object : CheckingAssertionSpec<Map<String?, Int?>>(verbs, "$describePrefix[nullable Key] ",
+        checkingTriple(containsNullablePair.first, {containsNullablePair.second(this, null to 1, arrayOf("a" to null))}, mapOf("a" to null, null to 1), mapOf<String?, Int?>("b" to 1, null to 1)),
+        checkingTriple(containsNullableKeyPair.first, {containsNullableKeyPair.second(this, null)}, mapOf("a" to 1, null to 1), mapOf<String?, Int?>("b" to 1))
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
@@ -56,6 +59,7 @@ abstract class MapAssertionsSpec(
     val fluent = assert(map)
 
     val (contains, containsFun) = containsPair
+    val (containsNullable, containsNullableFun) = containsNullablePair
     val (containsKey, containsKeyFun) = containsKeyPair
     val (containsNullableKey, containsNullableKeyFun) = containsNullableKeyPair
     val (hasSize, hasSizeFun) = hasSizePair
@@ -68,26 +72,25 @@ abstract class MapAssertionsSpec(
     val containsKeyDescr = DescriptionMapAssertion.CONTAINS_KEY.getDefault()
     val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
-    val entryDescr = DescriptionMapAssertion.ENTRY_WITH_KEY.getDefault()
 
-    fun entry(key: String, value: Any): String {
+    fun entry(key: String): String
+        = String.format(DescriptionMapAssertion.ENTRY_WITH_KEY.getDefault(), "\"$key\"")
 
-        return String.format(entryDescr, "\"$key\"") + ": " + value
-    }
+    fun entry(key: String, value: Any): String
+        = entry(key) + ": " + value
 
     describeFun(contains) {
         context("map $map") {
-            test("a to 1 does not throw") {
-                fluent.containsFun("a" to 1, arrayOf())
-            }
-            test("b to 2 does not throw") {
-                fluent.containsFun("b" to 2, arrayOf())
-            }
-            test("a to 1 and b to 2 does not throw") {
-                fluent.containsFun("a" to 1, arrayOf("b" to 2))
-            }
-            test("b to 2 and a to 1 does not throw") {
-                fluent.containsFun("b" to 2, arrayOf("a" to 1))
+            listOf(
+                mapOf("a" to 1),
+                mapOf("b" to 2),
+                mapOf("a" to 1, "b" to 2),
+                mapOf("b" to 2, "a" to 1)
+            ).forEach {
+                test("$it does not throw") {
+                    val pairs = it.toList()
+                    fluent.containsFun(pairs.first(), pairs.drop(1).toTypedArray())
+                }
             }
 
             test("a to 1 and a to 1 does not throw (ignores duplicates)") {
@@ -105,7 +108,50 @@ abstract class MapAssertionsSpec(
                             entry("c", keyDoesNotExist),
                             "$toBeDescr: 4"
                         )
-                        containsNot("$entryDescr a")
+                        containsNot(entry("a"))
+                    }
+                }
+            }
+        }
+    }
+
+    describeFun(containsNullable) {
+        val nullableMap = mapOf("a" to null, null to 1, "b" to 2)
+        val nullableFluent = verbs.checkImmediately(nullableMap)
+        context("map $map") {
+            listOf(
+                mapOf("a" to null),
+                mapOf(null to 1),
+                mapOf("b" to 2),
+                mapOf("a" to null, "b" to 2),
+                mapOf(null to 1, "b" to 2),
+                mapOf(null to 1, "a" to null),
+                mapOf(null to 1, "a" to null, "b" to 2),
+                mapOf("b" to 2, null to 1, "a" to null)
+            ).forEach {
+                test("$it does not throw") {
+                    val pairs = it.toList()
+                    nullableFluent.containsNullableFun(pairs.first(), pairs.drop(1).toTypedArray())
+                }
+            }
+
+            test("a to null and a to null does not throw (ignores duplicates)") {
+                nullableFluent.containsNullableFun("a" to null, arrayOf("a" to null))
+            }
+
+            test("{a to null, null to 2, b to 3, c to 4} throws AssertionError, reports a, null, b and c") {
+                expect {
+                    nullableFluent.containsNullableFun("a" to null, arrayOf(null to 2, "b" to 3, "c" to 4))
+                }.toThrow<AssertionError>{
+                    message {
+                        contains(
+                            entry("b", 2),
+                            "$toBeDescr: 3",
+                            entry("c", keyDoesNotExist)
+                            //TODO seems like notToBeNull is not subjectLess
+                            //"$toBeDescr: 4"
+                        )
+                        containsNot(entry("a"))
                     }
                 }
             }

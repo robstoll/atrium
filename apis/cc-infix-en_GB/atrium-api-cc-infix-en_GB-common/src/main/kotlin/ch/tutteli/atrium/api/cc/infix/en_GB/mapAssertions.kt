@@ -12,6 +12,8 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
  * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
  * with a corresponding value as defined by [entry]'s [Pair.second].
  *
+ * Delegates to `contains Pairs(entry)`.
+ *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
@@ -19,18 +21,40 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(entry: Pair<K, V>)
     = this contains Pairs(entry)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains for each [pairs], a key as defined by
- * [pairs]'s [Pair.first] with a corresponding value as defined by [pairs]'s [Pair.second].
+ * Makes the assertion that [AssertionPlant.subject] contains for each entry in [entries], a key as defined by
+ * entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
  *
- * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one pair in [pairs]
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one pair in [entries]
  * is defined as `'a' to 1` and another pair in [Pairs] is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(pairs: Pairs<K, V>)
-    = addAssertion(AssertImpl.map.contains(this, pairs.toList()))
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(entries: Pairs<K, V>)
+    = addAssertion(AssertImpl.map.contains(this, entries.toList()))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
+ * with a corresponding value as defined by [entry]'s [Pair.second].
+ *
+ * Delegates to `containsNullable Pairs(entry)`.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(entry: Pair<K, V?>)
+    = this containsNullable Pairs(entry)
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains for each entry in [entries], a key as defined by
+ * entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(entries: Pairs<K, V?>)
+    = addAssertion(AssertImpl.map.containsNullable(this, V::class, entries.toList()))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the given [key].

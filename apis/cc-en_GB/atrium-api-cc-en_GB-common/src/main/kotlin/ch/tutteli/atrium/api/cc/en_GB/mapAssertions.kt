@@ -23,6 +23,21 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(entry: Pair<K, V>, vararg othe
     = addAssertion(AssertImpl.map.contains(this, entry glue otherEntries))
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
+ * with a corresponding value as defined by [entry]'s [Pair.second] -- optionally the same assertions are created
+ * for the [otherEntries].
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [entry] is
+ * defined as `'a' to 1` and one of the [otherEntries] is defined as `'a' to 1` as well, then both match,
+ * even though they match the same entry.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.containsNullable(entry: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
+    = addAssertion(AssertImpl.map.containsNullable(this, V::class, entry glue otherEntries))
+
+/**
  * Makes the assertion that [AssertionPlant.subject] contains the given [key].
  *
  * @return This plant to support a fluent API.
