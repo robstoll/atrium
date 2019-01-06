@@ -3,9 +3,11 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
+import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
 import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
@@ -23,7 +25,7 @@ fun <K, V : Any> _containsNullable(
     type: KClass<V>,
     pairs: List<Pair<K, V?>>
 ): Assertion = containsNullable(plant, pairs) { value ->
-    //TODO add toBe(Any?) to AssertionPlantNullable
+    //TODO add toBe(Any?) to AssertionPlantNullable?
     if (value == null) toBe(null)
     else AssertImpl.any.typeTransformation.isNotNull(this, type) { toBe(value) }
 }
@@ -32,6 +34,16 @@ fun <K, V : Any> _containsKeyWithValueAssertion(
     plant: AssertionPlant<Map<K, V>>,
     keyValues: List<KeyValue<K, V>>
 ): Assertion = containsNonNullable(plant, keyValues.map { it.toPair() }) { assertionCreator -> assertionCreator() }
+
+fun <K, V : Any> _containsKeyWithNullableValueAssertions(
+    plant: AssertionPlant<Map<K, V?>>,
+    type: KClass<V>,
+    keyValues: List<KeyNullableValue<K, V>>
+): Assertion = containsNullable(plant, keyValues.map{ it.toPair() }) { assertionCreator ->
+    //TODO add this functionality to AssertionPlantNullable?
+    if(assertionCreator == null) toBe(null)
+    else AssertImpl.any.typeTransformation.isNotNull(this, type ){ assertionCreator() }
+}
 
 private fun <K, V : Any, M> containsNonNullable(
     plant: AssertionPlant<Map<K, V>>,

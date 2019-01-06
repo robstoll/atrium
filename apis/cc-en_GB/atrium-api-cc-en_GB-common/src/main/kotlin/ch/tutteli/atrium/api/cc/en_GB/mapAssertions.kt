@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
 import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.kbox.glue
 
@@ -52,6 +53,23 @@ inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.containsNullable(keyNull
  */
 fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>, vararg otherKeyValues: KeyValue<K, V>)
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValue glue otherKeyValues))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
+ * with a corresponding value which either holds all assertions [keyValue]'s
+ * [KeyNullableValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
+ * [KeyNullableValue.valueAssertionCreatorOrNull] is defined as `null`
+ * -- optionally the same assertions are created for the [otherKeyValues].
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
+ * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
+ * , then both match, even though they match the same entry.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
+    = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValue glue otherKeyValues))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the given [key].

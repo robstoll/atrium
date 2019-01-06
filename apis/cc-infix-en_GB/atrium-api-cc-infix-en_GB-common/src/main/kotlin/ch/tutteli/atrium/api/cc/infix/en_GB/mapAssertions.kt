@@ -7,55 +7,56 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
 import ch.tutteli.atrium.domain.creating.map.KeyValue
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
- * with a corresponding value as defined by [entry]'s [Pair.second].
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyValuePair]'s [Pair.second].
  *
  * Delegates to `contains Pairs(entry)`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(entry: Pair<K, V>)
-    = this contains Pairs(entry)
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>)
+    = this contains Pairs(keyValuePair)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains for each entry in [entries], a key as defined by
+ * Makes the assertion that [AssertionPlant.subject] contains for each entry in [keyValuePairs], a key as defined by
  * entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
  *
- * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one pair in [entries]
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one pair in [keyValuePairs]
  * is defined as `'a' to 1` and another pair in [Pairs] is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(entries: Pairs<K, V>)
-    = addAssertion(AssertImpl.map.contains(this, entries.toList()))
+infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePairs: Pairs<K, V>)
+    = addAssertion(AssertImpl.map.contains(this, keyValuePairs.toList()))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
- * with a corresponding value as defined by [entry]'s [Pair.second].
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyValuePair]'s [Pair.second].
  *
  * Delegates to `containsNullable Pairs(entry)`.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(entry: Pair<K, V?>)
-    = this containsNullable Pairs(entry)
+inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValuePair: Pair<K, V?>)
+    = this containsNullable Pairs(keyValuePair)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains for each entry in [entries], a key as defined by
+ * Makes the assertion that [AssertionPlant.subject] contains for each entry in [keyValuePairs], a key as defined by
  * entry's [Pair.first] with a corresponding value as defined by entry's [Pair.second].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(entries: Pairs<K, V?>)
-    = addAssertion(AssertImpl.map.containsNullable(this, V::class, entries.toList()))
+inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValuePairs: Pairs<K, V?>)
+    = addAssertion(AssertImpl.map.containsNullable(this, V::class, keyValuePairs.toList()))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
@@ -81,6 +82,34 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>
  */
 infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValues: All<KeyValue<K, V>>)
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValues.toList()))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
+ * with a corresponding value which either holds all assertions [keyValue]'s
+ * [KeyNullableValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
+ * [KeyNullableValue.valueAssertionCreatorOrNull] is defined as `null`.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>)
+    = containsNullable(All(keyValue))
+
+/**
+ * Makes the assertion that for each of the [KeyNullableValue] in [keyValues], the [AssertionPlant.subject] contains
+ * a key as defined by keyValue's [KeyNullableValue.key] with a corresponding value which either holds all assertions
+ * keyValue's [KeyNullableValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
+ * [KeyNullableValue.valueAssertionCreatorOrNull] is defined as `null`.
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and one of the
+ * [keyValues] is defined as `Key('a') { isGreaterThan(0) }` and another one is defined as `Key('a') { isLessThan(2) }`
+ * then both match, even though they match the same entry.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValues: All<KeyNullableValue<K, V>>)
+    = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValues.toList()))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the given [key].

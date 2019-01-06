@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
+import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
 import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.atrium.domain.creating.mapAssertions
 import kotlin.reflect.KClass
@@ -26,6 +27,12 @@ object MapAssertionsBuilder : MapAssertions {
         plant: AssertionPlant<Map<K, V>>,
         keyValues: List<KeyValue<K, V>>
     ) = mapAssertions.containsKeyWithValueAssertions(plant, keyValues)
+
+    override inline fun <K, V : Any> containsKeyWithNullableValueAssertions(
+        plant: AssertionPlant<Map<K, V?>>,
+        type: KClass<V>,
+        keyValues: List<KeyNullableValue<K, V>>
+    ) = mapAssertions.containsKeyWithNullableValueAssertions(plant, type, keyValues)
 
     override inline fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K)
         = mapAssertions.containsKey(plant, key)

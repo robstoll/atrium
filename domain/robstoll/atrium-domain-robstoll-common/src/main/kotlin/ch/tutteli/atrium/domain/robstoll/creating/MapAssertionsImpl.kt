@@ -4,6 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
+import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
 import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.atrium.domain.robstoll.lib.creating.*
 import kotlin.reflect.KClass
@@ -13,16 +14,25 @@ import kotlin.reflect.KClass
  */
 class MapAssertionsImpl : MapAssertions {
 
-    override fun <K, V: Any> contains(plant: AssertionPlant<Map<K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
+    override fun <K, V: Any> contains(plant: AssertionPlant<Map<K, V>>, keyValuePairs: List<Pair<K, V>>)
         = _contains(plant, keyValuePairs)
 
-    override fun <K, V: Any> containsNullable(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, keyValuePairs: List<Pair<K, V?>>): Assertion
-        = _containsNullable(plant, type, keyValuePairs)
+    override fun <K, V: Any> containsNullable(
+        plant: AssertionPlant<Map<K, V?>>,
+        type: KClass<V>,
+        keyValuePairs: List<Pair<K, V?>>
+    ) = _containsNullable(plant, type, keyValuePairs)
 
     override fun <K, V : Any> containsKeyWithValueAssertions(
         plant: AssertionPlant<Map<K, V>>,
         keyValues: List<KeyValue<K, V>>
-    ): Assertion = _containsKeyWithValueAssertion(plant, keyValues)
+    ) = _containsKeyWithValueAssertion(plant, keyValues)
+
+    override fun <K, V : Any> containsKeyWithNullableValueAssertions(
+        plant: AssertionPlant<Map<K, V?>>,
+        type: KClass<V>,
+        keyValues: List<KeyNullableValue<K, V>>
+    ) = _containsKeyWithNullableValueAssertions(plant, type, keyValues)
 
     override fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K)
         = _containsKey(plant, key)
