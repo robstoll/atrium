@@ -43,6 +43,7 @@ class AssertionCollectorForExplanationImpl<T, A : BaseAssertionPlant<T, A>, C : 
     }
 
     private fun collect(subject: MaybeSubject<T>, assertionCreator: (C.() -> Unit)?): List<Assertion> {
+        //TODO almost same as in _containsKeyWithNullableValueAssertions
         return if (assertionCreator != null) {
             val collectingAssertionPlant = collectingPlantFactory(subject::get)
             collectingAssertionPlant.assertionCreator()

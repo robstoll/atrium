@@ -2,11 +2,13 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 
 import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
-import ch.tutteli.atrium.api.cc.en_GB.notToBeNullBut
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
+import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
+import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.atrium.domain.robstoll.lib.assertions.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -15,38 +17,68 @@ import ch.tutteli.atrium.translations.DescriptionCollectionAssertion.EMPTY
 import ch.tutteli.atrium.translations.DescriptionMapAssertion
 import kotlin.reflect.KClass
 
-fun <K, V : Any> _contains(plant: AssertionPlant<Map<K, V>>, pairs: List<Pair<K, V>>): Assertion {
-    return contains(pairs,
-        { option, key -> option.withParameterObject(createGetParameterObject(plant, key)) },
-        { value -> toBe(value) }
-    )
+fun <K, V : Any> _contains(plant: AssertionPlant<Map<K, V>>, pairs: List<Pair<K, V>>): Assertion
+    = containsNonNullable(plant, pairs) { value -> toBe(value) }
+
+fun <K, V : Any> _containsNullable(
+    plant: AssertionPlant<Map<K, V?>>,
+    type: KClass<V>,
+    pairs: List<Pair<K, V?>>
+): Assertion = containsNullable(plant, pairs) { value ->
+    //TODO add toBe(Any?) to AssertionPlantNullable?
+    if (value == null) toBe(null)
+    else AssertImpl.any.typeTransformation.isNotNull(this, type) { toBe(value) }
 }
 
-fun <K, V: Any> _containsNullable(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, pairs: List<Pair<K, V?>>): Assertion {
-    return contains(pairs,
-        { option, key -> option.withParameterObjectNullable(createGetParameterObject(plant, key)) },
-        { value ->
-            //TODO add toBe(Any?) to AssertionPlantNullable
-            if (value == null) toBe(null)
-            else AssertImpl.any.typeTransformation.isNotNull(this, type){ toBe(value) }
-        }
-    )
+fun <K, V : Any> _containsKeyWithValueAssertion(
+    plant: AssertionPlant<Map<K, V>>,
+    keyValues: List<KeyValue<K, V>>
+): Assertion = containsNonNullable(plant, keyValues.map { it.toPair() }) { assertionCreator -> assertionCreator() }
+
+fun <K, V : Any> _containsKeyWithNullableValueAssertions(
+    plant: AssertionPlant<Map<K, V?>>,
+    type: KClass<V>,
+    keyValues: List<KeyNullableValue<K, V>>
+): Assertion = containsNullable(plant, keyValues.map{ it.toPair() }) { assertionCreator ->
+    //TODO add this functionality to AssertionPlantNullable?
+    if(assertionCreator == null) toBe(null)
+    else AssertImpl.any.typeTransformation.isNotNull(this, type ){ assertionCreator() }
 }
 
-private  fun <K, V, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
-    pairs: List<Pair<K, V>>,
+private fun <K, V : Any, M> containsNonNullable(
+    plant: AssertionPlant<Map<K, V>>,
+    pairs: List<Pair<K, M>>,
+    assertionCreator: AssertionPlant<V>.(M) -> Unit
+) = contains(
+    pairs,
+    { option, key -> option.withParameterObject(createGetParameterObject(plant, key)) },
+    assertionCreator
+)
+
+private fun <K, V : Any, M> containsNullable(
+    plant: AssertionPlant<Map<K, V?>>,
+    pairs: List<Pair<K, M>>,
+    assertionCreator: AssertionPlantNullable<V?>.(M) -> Unit
+) = contains(
+    pairs,
+    { option, key -> option.withParameterObjectNullable(createGetParameterObject(plant, key)) },
+    assertionCreator
+)
+
+private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertionPlant<V, A, C>> contains(
+    pairs: List<Pair<K, M>>,
     parameterObjectOption: (FeatureExtractor.ParameterObjectOption, K) -> FeatureExtractor.Creator<V, A, C>,
-    assertionCreator: C.(V) -> Unit
+    assertionCreator: C.(M) -> Unit
 ): Assertion =  LazyThreadUnsafeAssertionGroup {
     //TODO we should actually make MethodCallFormatter configurable in ReporterBuilder and then get it via AssertionPlant
     val methodCallFormatter = AssertImpl.coreFactory.newMethodCallFormatter()
-    val assertions = pairs.map { (key: K, value: V) ->
+    val assertions = pairs.map { (key: K, matcher: M) ->
         val option = AssertImpl.feature.extractor
             .withDescription(
                 TranslatableWithArgs(DescriptionMapAssertion.ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key))
             )
         parameterObjectOption(option, key)
-            .extractAndAssertIt{ assertionCreator(value) }
+            .extractAndAssertIt{ assertionCreator(matcher) }
     }
     AssertImpl.builder.list
         .withDescriptionAndEmptyRepresentation(DescriptionMapAssertion.CONTAINS_IN_ANY_ORDER)

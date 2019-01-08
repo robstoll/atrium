@@ -8,6 +8,13 @@ import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 import ch.tutteli.kbox.glue
 
 /**
+ * Parameter object to express `T, vararg T` in the infix-api.
+ */
+class All<T>(val first: T, vararg val others: T){
+    fun toList(): List<T> = first glue others
+}
+
+/**
  * Parameter object to express a [Group] with a single identification lambda.
  *
  * @param assertionCreator The identification lambda identifying the entry where an entry is considered

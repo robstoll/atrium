@@ -5,37 +5,71 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
+import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.kbox.glue
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
- * with a corresponding value as defined by [entry]'s [Pair.second] -- optionally the same assertions are created
- * for the [otherEntries].
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
+ * are created for the [otherPairs].
  *
- * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [entry] is
- * defined as `'a' to 1` and one of the [otherEntries] is defined as `'a' to 1` as well, then both match,
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValuePair] is
+ * defined as `'a' to 1` and one of the [otherPairs] is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(entry: Pair<K, V>, vararg otherEntries: Pair<K, V>)
-    = addAssertion(AssertImpl.map.contains(this, entry glue otherEntries))
+fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vararg otherPairs: Pair<K, V>)
+    = addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [entry]'s [Pair.first]
- * with a corresponding value as defined by [entry]'s [Pair.second] -- optionally the same assertions are created
- * for the [otherEntries].
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyNullableValuePair]'s [Pair.first]
+ * with a corresponding value as defined by [keyNullableValuePair]'s [Pair.second] -- optionally the same assertions
+ * are created for the [otherEntries].
  *
- * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [entry] is
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyNullableValuePair] is
  * defined as `'a' to 1` and one of the [otherEntries] is defined as `'a' to 1` as well, then both match,
  * even though they match the same entry.
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.containsNullable(entry: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
-    = addAssertion(AssertImpl.map.containsNullable(this, V::class, entry glue otherEntries))
+inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.containsNullable(keyNullableValuePair: Pair<K, V?>, vararg otherEntries: Pair<K, V?>)
+    = addAssertion(AssertImpl.map.containsNullable(this, V::class, keyNullableValuePair glue otherEntries))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
+ * with a corresponding value which holds all assertions [keyValue]'s [KeyValue.valueAssertionCreator] might create.
+ * -- optionally the same assertions are created for the [otherKeyValues].
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
+ * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
+ * , then both match, even though they match the same entry.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>, vararg otherKeyValues: KeyValue<K, V>)
+    = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValue glue otherKeyValues))
+
+/**
+ * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
+ * with a corresponding value which either holds all assertions [keyValue]'s
+ * [KeyNullableValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
+ * [KeyNullableValue.valueAssertionCreatorOrNull] is defined as `null`
+ * -- optionally the same assertions are created for the [otherKeyValues].
+ *
+ * Notice, that it does not search for unique matches. Meaning, if the map is `mapOf('a' to 1)` and [keyValue] is
+ * defined as `Key('a') { isGreaterThan(0) }` and one of the [otherKeyValues] is defined as `Key('a') { isLessThan(2) }`
+ * , then both match, even though they match the same entry.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
+    = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValue glue otherKeyValues))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the given [key].
@@ -59,7 +93,7 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K, assertionCreator: As
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding value
+ * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding nullable value
  * holds all assertions the given [assertionCreator] might create for it.
  *
  * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
