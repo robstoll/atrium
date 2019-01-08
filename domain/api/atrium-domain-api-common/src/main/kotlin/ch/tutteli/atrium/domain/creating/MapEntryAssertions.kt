@@ -23,4 +23,6 @@ val mapEntryAssertions by lazy { loadSingleService(MapEntryAssertions::class) }
 interface MapEntryAssertions {
     fun <K: Any> key(plant: AssertionPlant<Map.Entry<K, *>>, assertionCreator: AssertionPlant<K>.() -> Unit): Assertion
     fun <V: Any> value(plant: AssertionPlant<Map.Entry<*, V>>, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
+    fun <K> nullableKey(plant: AssertionPlant<Map.Entry<K, *>>, assertionCreator: AssertionPlantNullable<K>.() -> Unit): Assertion
+    fun <V> nullableValue(plant: AssertionPlant<Map.Entry<*, V>>, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
 }

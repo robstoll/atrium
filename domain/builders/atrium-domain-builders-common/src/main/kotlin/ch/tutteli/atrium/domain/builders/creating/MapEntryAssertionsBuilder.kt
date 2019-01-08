@@ -23,10 +23,20 @@ object MapEntryAssertionsBuilder : MapEntryAssertions {
     override inline fun <K : Any> key(
         plant: AssertionPlant<Map.Entry<K, *>>,
         noinline assertionCreator: AssertionPlant<K>.() -> Unit
-    ): Assertion  = mapEntryAssertions.key(plant, assertionCreator)
+    ): Assertion = mapEntryAssertions.key(plant, assertionCreator)
 
     override inline fun <V : Any> value(
         plant: AssertionPlant<Map.Entry<*, V>>,
         noinline assertionCreator: AssertionPlant<V>.() -> Unit
-    ): Assertion  = mapEntryAssertions.value(plant, assertionCreator)
+    ): Assertion = mapEntryAssertions.value(plant, assertionCreator)
+
+    override inline fun <K> nullableKey(
+        plant: AssertionPlant<Map.Entry<K, *>>,
+        noinline assertionCreator: AssertionPlantNullable<K>.() -> Unit
+    ): Assertion = mapEntryAssertions.nullableKey(plant, assertionCreator)
+
+    override inline fun <V> nullableValue(
+        plant: AssertionPlant<Map.Entry<*, V>>,
+        noinline assertionCreator: AssertionPlantNullable<V>.() -> Unit
+    ): Assertion = mapEntryAssertions.nullableValue(plant, assertionCreator)
 }

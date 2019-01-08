@@ -25,10 +25,10 @@ abstract class MapFeatureAssertionsSpec(
 
     //@formatter:off
     include(object : SubjectLessAssertionSpec<Map<String, Int>>(describePrefix,
-        "val ${keysValPair.first} val" to mapToCreateAssertion { keysValPair.second(this).isEmpty() },
-        "fun ${keysFunPair.first} fun" to mapToCreateAssertion { keysFunPair.second(this) { isEmpty() } },
-        "val ${valuesValPair.first} val" to mapToCreateAssertion { valuesValPair.second(this).isEmpty() },
-        "fun ${valuesFunPair.first} fun" to mapToCreateAssertion { valuesFunPair.second(this) { isEmpty() } },
+        "val ${keysValPair.first}" to mapToCreateAssertion { keysValPair.second(this).isEmpty() },
+        "fun ${keysFunPair.first}" to mapToCreateAssertion { keysFunPair.second(this) { isEmpty() } },
+        "val ${valuesValPair.first}" to mapToCreateAssertion { valuesValPair.second(this).isEmpty() },
+        "fun ${valuesFunPair.first}" to mapToCreateAssertion { valuesFunPair.second(this) { isEmpty() } },
         getExistingPair.first to mapToCreateAssertion { getExistingPair.second(this, "a" ){ isGreaterThan(1) } }
     ){})
     include(object : SubjectLessAssertionSpec<Map<String, Int?>>("$describePrefix[nullable Key] ",
