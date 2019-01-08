@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.loadSingleService
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.creating.MapAssertions
+import ch.tutteli.atrium.domain.creating.MapEntryAssertions
 import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
 import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.atrium.domain.creating.mapAssertions
@@ -17,6 +18,13 @@ import kotlin.reflect.KClass
  * which in turn delegates to the implementation via [loadSingleService].
  */
 object MapAssertionsBuilder : MapAssertions {
+
+    /**
+     * Returns [MapEntryAssertionsBuilder]
+     * which inter alia delegates to the implementation of [MapEntryAssertions].
+     */
+    inline val entry get() : MapEntryAssertionsBuilder = MapEntryAssertionsBuilder
+
     override inline fun <K, V: Any> contains(plant: AssertionPlant<Map<K, V>>, keyValuePairs: List<Pair<K, V>>): Assertion
         = mapAssertions.contains(plant, keyValuePairs)
 

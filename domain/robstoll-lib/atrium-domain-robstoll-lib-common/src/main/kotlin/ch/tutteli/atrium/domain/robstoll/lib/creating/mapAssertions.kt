@@ -137,10 +137,7 @@ fun <K> _keys(plant: AssertionPlant<Map<K, *>>, assertionCreator: AssertionPlant
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
     = AssertImpl.collector.collect(plant) { property(Map<K, *>::keys, assertionCreator) }
 
-fun <V> _values(
-    plant: AssertionPlant<Map<*, V>>,
-    assertionCreator: AssertionPlant<Collection<V>>.() -> Unit
-): Assertion
+fun <V> _values(plant: AssertionPlant<Map<*, V>>, assertionCreator: AssertionPlant<Collection<V>>.() -> Unit): Assertion
 //TODO check that one assertion was created - problem property creates at least a feature assertion group, that's why collect is happy
     = AssertImpl.collector.collect(plant) { property(Map<*, V>::values, assertionCreator) }
 
