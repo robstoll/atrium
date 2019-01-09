@@ -37,6 +37,9 @@ object MapAssertionsBuilder : MapAssertions {
     override inline fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K)
         = mapAssertions.containsKey(plant, key)
 
+    override inline fun <K> containsNotKey(plant: AssertionPlant<Map<K, *>>, key: K)
+        = mapAssertions.containsNotKey(plant, key)
+
     override inline fun <K, V : Any> getExisting(
         plant: AssertionPlant<Map<K, V>>,
         key: K,

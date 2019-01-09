@@ -21,6 +21,8 @@ abstract class MapAssertionsSpec(
     containsKeyWithNullableValueAssertionsPair: Pair<String, Assert<Map<String?, Int?>>.(KeyNullableValue<String?, Int>, Array<out KeyNullableValue<String?, Int>>) -> Assert<Map<String?, Int?>>>,
     containsKeyPair: Pair<String, Assert<Map<String, *>>.(String) -> Assert<Map<*, *>>>,
     containsNullableKeyPair: Pair<String, Assert<Map<String?, *>>.(String?) -> Assert<Map<String?, *>>>,
+    containsNotKeyPair: Pair<String, Assert<Map<String, *>>.(String) -> Assert<Map<*, *>>>,
+    containsNotNullableKeyPair: Pair<String, Assert<Map<String?, *>>.(String?) -> Assert<Map<String?, *>>>,
     hasSizePair: Pair<String, Assert<Map<*, *>>.(Int) -> Assert<Map<*, *>>>,
     isEmptyPair: Pair<String, Assert<Map<*, *>>.() -> Assert<Map<*, *>>>,
     isNotEmptyPair: Pair<String, Assert<Map<*, *>>.() -> Assert<Map<*, *>>>,
@@ -31,6 +33,7 @@ abstract class MapAssertionsSpec(
         containsPair.first to mapToCreateAssertion { containsPair.second(this, "key" to 1, arrayOf()) },
         containsKeyWithValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithValueAssertionsPair.second(this, KeyValue("a") { toBe(1) }, arrayOf(KeyValue("a") { isLessOrEquals(2) })) },
         containsKeyPair.first to mapToCreateAssertion{ containsKeyPair.second(this, "a") },
+        containsNotKeyPair.first to mapToCreateAssertion{ containsKeyPair.second(this, "a") },
         hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 2) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
@@ -38,7 +41,8 @@ abstract class MapAssertionsSpec(
     include(object : SubjectLessAssertionSpec<Map<String?, Int?>>("$describePrefix[nullable Key] ",
         containsNullablePair.first to mapToCreateAssertion{ containsNullablePair.second(this, null to 1, arrayOf("a" to null)) },
         containsKeyWithNullableValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithNullableValueAssertionsPair.second(this, KeyNullableValue(null) { toBe(1) }, arrayOf(KeyNullableValue("a", null))) },
-        containsNullableKeyPair.first to mapToCreateAssertion{ containsNullableKeyPair.second(this, null) }
+        containsNullableKeyPair.first to mapToCreateAssertion{ containsNullableKeyPair.second(this, null) },
+        containsNotNullableKeyPair.first to mapToCreateAssertion{ containsNotNullableKeyPair.second(this, null) }
     ) {})
 
     include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, describePrefix,
@@ -48,6 +52,7 @@ abstract class MapAssertionsSpec(
             mapOf("a" to 1, "b" to 2), mapOf("a" to 2, "b" to 3)
         ),
         checkingTriple(containsKeyPair.first, {containsKeyPair.second(this, "a")}, mapOf("a" to 1), mapOf("b" to 1)),
+        checkingTriple(containsNotKeyPair.first, {containsNotKeyPair.second(this, "b")}, mapOf("a" to 1), mapOf("b" to 1)),
         checkingTriple(hasSizePair.first, { hasSizePair.second(this, 1) }, mapOf("a" to 1), mapOf("a" to 1, "b" to 2)),
         checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, mapOf(), mapOf("a" to 1, "b" to 2)),
         checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, mapOf("b" to 2), mapOf())
@@ -64,6 +69,10 @@ abstract class MapAssertionsSpec(
         checkingTriple(containsNullableKeyPair.first,
             { containsNullableKeyPair.second(this, null)},
             mapOf("a" to 1, null to 1), mapOf<String?, Int?>("b" to 1)
+        ),
+        checkingTriple(containsNotNullableKeyPair.first,
+            { containsNotNullableKeyPair.second(this, null)},
+            mapOf<String?, Int?>("a" to 1, "b" to 1), mapOf<String?, Int?>(null to 1)
         )
     ) {})
 
@@ -83,6 +92,8 @@ abstract class MapAssertionsSpec(
     val (containsKeyWithNullableValueAssertions, containsKeyWithNullableValueAssertionsFun) = containsKeyWithNullableValueAssertionsPair
     val (containsKey, containsKeyFun) = containsKeyPair
     val (containsNullableKey, containsNullableKeyFun) = containsNullableKeyPair
+    val (containsNotKey, containsNotKeyFun) = containsNotKeyPair
+    val (containsNotNullableKey, containsNotNullableKeyFun) = containsNotNullableKeyPair
     val (hasSize, hasSizeFun) = hasSizePair
     val (isEmpty, isEmptyFun) = isEmptyPair
     val (isNotEmpty, isNotEmptyFun) = isNotEmptyPair
@@ -91,6 +102,7 @@ abstract class MapAssertionsSpec(
     val isNotDescr = DescriptionBasic.IS_NOT.getDefault()
     val empty = DescriptionCollectionAssertion.EMPTY.getDefault()
     val containsKeyDescr = DescriptionMapAssertion.CONTAINS_KEY.getDefault()
+    val containsNotKeyDescr = DescriptionMapAssertion.CONTAINS_NOT_KEY.getDefault()
     val toBeDescr = DescriptionAnyAssertion.TO_BE.getDefault()
     val keyDoesNotExist = DescriptionMapAssertion.KEY_DOES_NOT_EXIST.getDefault()
     val lessThanDescr = DescriptionComparableAssertion.IS_LESS_THAN.getDefault()
@@ -293,6 +305,30 @@ abstract class MapAssertionsSpec(
 
     it("does not throw if null is passed and the map contains null as key") {
         fluent.containsKeyFun("a")
+    }
+
+    describeFun(containsNotKey) {
+        it("does not throw if the map does not contain the key") {
+            fluent.containsNotKeyFun("c")
+        }
+
+        it("throws an AssertionError if the map contains the key") {
+            expect {
+                fluent.containsNotKeyFun("a")
+            }.toThrow<AssertionError> { messageContains("$containsNotKeyDescr: \"a\"")}
+        }
+    }
+
+    describeFun(containsNotNullableKey) {
+        it("does not throw if the map does not contain the key") {
+            verbs.checkImmediately(mapOf<String?, Int>("a" to 1, "b" to 2)).containsNotNullableKeyFun(null)
+        }
+
+        it("throws an AssertionError if the map contains the key") {
+            expect {
+                verbs.checkImmediately(mapOf("a" to 1, null to 2)).containsNotNullableKeyFun(null)
+            }.toThrow<AssertionError> { messageContains("$containsNotKeyDescr: null")}
+        }
     }
 
     describeFun(hasSize) {

@@ -15,6 +15,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
     "${containsKeyWithNullableValueAssertionsFun.name} ${KeyNullableValue::class.simpleName}" to Companion::containsKeyWithNullableValueAssertions,
     Assert<Map<String, Int>>::containsKey.name to Companion::containsKey,
     "${Assert<Map<String?, *>>::containsKey.name} for nullable" to Companion::containsNullableKey,
+    Assert<Map<String, Int>>::containsNotKey.name to Companion::containsNotKey,
+    "${Assert<Map<String?, *>>::containsNotKey.name} for nullable" to Companion::containsNotNullableKey,
     Assert<Map<*, *>>::hasSize.name to Companion::hasSize,
     "${Assert<Map<*, *>>::toBe.name} ${Empty::class.simpleName}" to Companion::isEmpty,
     "${Assert<Map<*, *>>::notToBe.name} ${Empty::class.simpleName}" to Companion::isNotEmpty
@@ -61,6 +63,12 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
 
         private fun containsNullableKey(plant: Assert<Map<String?, *>>, key: String?)
             = plant containsKey key
+
+        private fun containsNotKey(plant: Assert<Map<String, *>>, key: String)
+            = plant containsNotKey key
+
+        private fun containsNotNullableKey(plant: Assert<Map<String?, *>>, key: String?)
+            = plant containsNotKey key
 
         private fun hasSize(plant: Assert<Map<*, *>>, size: Int)
             = plant hasSize size
