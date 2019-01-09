@@ -3,7 +3,6 @@ package ch.tutteli.atrium.domain.robstoll.lib.creating
 import ch.tutteli.atrium.api.cc.en_GB.property
 import ch.tutteli.atrium.api.cc.en_GB.toBe
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.feature.extract.FeatureExtractor
@@ -90,8 +89,8 @@ private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertion
 fun <K> _containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_KEY, key) { plant.subject.containsKey(key) }
 
-fun <K> _notContainsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
-    = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.NOT_CONTAINS_KEY, key) { plant.subject.containsKey(key).not()  }
+fun <K> _containsNotKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
+    = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_NOT_KEY, key) { plant.subject.containsKey(key).not()  }
 
 fun <K, V : Any> _getExisting(
     plant: AssertionPlant<Map<K, V>>,

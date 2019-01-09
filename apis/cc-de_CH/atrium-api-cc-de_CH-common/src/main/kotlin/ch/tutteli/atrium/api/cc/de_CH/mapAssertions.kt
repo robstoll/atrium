@@ -82,13 +82,13 @@ fun <K> Assert<Map<K, *>>.enthaeltKey(key: K)
     = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the given [key].
+ * Makes the assertion that [AssertionPlant.subject] does not contain the given [key].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-fun <K> Assert<Map<K, *>>.nichtEnthaeltKey(key: K)
-    = addAssertion(AssertImpl.map.notContainsKey(this, key))
+fun <K> Assert<Map<K, *>>.enthaeltNichtKey(key: K)
+    = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
 /**
  * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding value

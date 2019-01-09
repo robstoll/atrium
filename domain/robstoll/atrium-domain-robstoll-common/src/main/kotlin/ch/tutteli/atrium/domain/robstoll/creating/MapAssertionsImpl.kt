@@ -37,8 +37,8 @@ class MapAssertionsImpl : MapAssertions {
     override fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K)
         = _containsKey(plant, key)
 
-    override fun <K> notContainsKey(plant: AssertionPlant<Map<K, *>>, key: K)
-        = _notContainsKey(plant, key)
+    override fun <K> containsNotKey(plant: AssertionPlant<Map<K, *>>, key: K)
+        = _containsNotKey(plant, key)
 
     override fun <K, V : Any> getExisting(
         plant: AssertionPlant<Map<K, V>>,
