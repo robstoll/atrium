@@ -26,6 +26,7 @@ interface MapAssertions {
     fun <K, V: Any> containsKeyWithValueAssertions(plant: AssertionPlant<Map<K, V>>, keyValues: List<KeyValue<K, V>>): Assertion
     fun <K, V: Any> containsKeyWithNullableValueAssertions(plant: AssertionPlant<Map<K, V?>>, type: KClass<V>, keyValues: List<KeyNullableValue<K, V>>): Assertion
     fun <K> containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
+    fun <K> notContainsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
     fun <K, V: Any> getExisting(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlant<V>.() -> Unit): Assertion
     fun <K, V> getExistingNullable(plant: AssertionPlant<Map<K, V>>, key: K, assertionCreator: AssertionPlantNullable<V>.() -> Unit): Assertion
     fun hasSize(plant: AssertionPlant<Map<*, *>>, size: Int): Assertion

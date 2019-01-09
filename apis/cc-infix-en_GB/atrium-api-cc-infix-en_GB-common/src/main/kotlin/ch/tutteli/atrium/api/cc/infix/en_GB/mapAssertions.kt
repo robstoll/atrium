@@ -121,6 +121,15 @@ infix fun <K> Assert<Map<K, *>>.containsKey(key: K)
     = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
+ * Makes the assertion that [AssertionPlant.subject] not contains the given [key].
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <K> Assert<Map<K, *>>.notContainsKey(key: K)
+    = addAssertion(AssertImpl.map.notContainsKey(this, key))
+
+/**
  * Prepares the assertion about the return value of calling [get][Map.get] with the given [key].
  *
  * @return A fluent builder to finish the assertion.

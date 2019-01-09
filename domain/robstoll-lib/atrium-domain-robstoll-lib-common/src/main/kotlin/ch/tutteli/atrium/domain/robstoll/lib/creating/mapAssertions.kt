@@ -90,6 +90,9 @@ private  fun <K, V, M, A : BaseAssertionPlant<V, A>, C : BaseCollectingAssertion
 fun <K> _containsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
     = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.CONTAINS_KEY, key) { plant.subject.containsKey(key) }
 
+fun <K> _notContainsKey(plant: AssertionPlant<Map<K, *>>, key: K): Assertion
+    = AssertImpl.builder.createDescriptive(DescriptionMapAssertion.NOT_CONTAINS_KEY, key) { plant.subject.containsKey(key).not()  }
+
 fun <K, V : Any> _getExisting(
     plant: AssertionPlant<Map<K, V>>,
     key: K,

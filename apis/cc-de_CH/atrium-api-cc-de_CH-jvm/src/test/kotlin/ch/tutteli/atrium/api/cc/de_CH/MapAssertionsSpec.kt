@@ -14,6 +14,8 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
     "${containsKeyWithNullableValueAssertionsFun.name} ${KeyNullableValue::class.simpleName}" to Assert<Map<String?, Int?>>::enthaeltNullable,
     Assert<Map<String, *>>::enthaeltKey.name to Assert<Map<String, *>>::enthaeltKey,
     "${Assert<Map<String?, *>>::enthaeltKey.name} for nullable" to Assert<Map<String?, *>>::enthaeltKey,
+    Assert<Map<String, *>>::nichtEnthaeltKey.name to Assert<Map<String, *>>::nichtEnthaeltKey,
+    "${Assert<Map<String?, *>>::nichtEnthaeltKey.name} for nullable" to Assert<Map<String?, *>>::nichtEnthaeltKey,
     Assert<Map<*, *>>::hatDieGroesse.name to Assert<Map<*, *>>::hatDieGroesse,
     Assert<Map<*, *>>::istLeer.name to Assert<Map<*, *>>::istLeer,
     Assert<Map<*, *>>::istNichtLeer.name to Assert<Map<*, *>>::istNichtLeer
