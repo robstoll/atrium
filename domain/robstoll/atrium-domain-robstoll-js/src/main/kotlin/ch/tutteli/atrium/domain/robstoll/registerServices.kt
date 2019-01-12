@@ -27,6 +27,8 @@ private val register = run {
     registerService<ch.tutteli.atrium.domain.creating.IterableAssertions> { ch.tutteli.atrium.domain.robstoll.creating.IterableAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.ListAssertions> { ch.tutteli.atrium.domain.robstoll.creating.ListAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.MapAssertions> { ch.tutteli.atrium.domain.robstoll.creating.MapAssertionsImpl() }
+    registerService<ch.tutteli.atrium.domain.creating.MapEntryAssertions> { ch.tutteli.atrium.domain.robstoll.creating.MapEntryAssertionsImpl() }
+    registerService<ch.tutteli.atrium.domain.creating.PairAssertions> { ch.tutteli.atrium.domain.robstoll.creating.PairAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions> { ch.tutteli.atrium.domain.robstoll.creating.throwable.thrown.creators.ThrowableThrownAssertionsImpl() }
     registerService<ch.tutteli.atrium.domain.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactory> { ch.tutteli.atrium.domain.robstoll.creating.throwable.thrown.providers.AbsentThrowableMessageProviderFactoryImpl() }
     registerService<ch.tutteli.atrium.domain.creating.ThrowableAssertions> { ch.tutteli.atrium.domain.robstoll.creating.ThrowableAssertionsImpl() }
