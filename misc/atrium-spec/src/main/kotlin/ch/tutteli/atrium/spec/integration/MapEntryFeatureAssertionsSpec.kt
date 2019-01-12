@@ -23,10 +23,6 @@ abstract class MapEntryFeatureAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    data class MapEntry<K, V>(override val key: K, override val value: V) : Map.Entry<K, V>{
-        override fun toString(): String = "Map.Entry($key, $value)"
-    }
-    fun <K, V> mapEntry(key: K, value: V): Map.Entry<K, V> = MapEntry(key, value)
 
     //@formatter:off
     include(object : SubjectLessAssertionSpec<Map.Entry<String, Int>>(describePrefix,

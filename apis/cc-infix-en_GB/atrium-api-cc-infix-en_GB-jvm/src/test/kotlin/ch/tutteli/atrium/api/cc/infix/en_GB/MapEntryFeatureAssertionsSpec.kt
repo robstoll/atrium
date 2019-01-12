@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
-import kotlin.reflect.KProperty1
 import kotlin.reflect.KFunction2
+import kotlin.reflect.KProperty1
 
 class MapEntryFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.MapEntryFeatureAssertionsSpec(
     AssertionVerbFactory,

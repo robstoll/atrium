@@ -7,6 +7,20 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
+ * Makes the assertion that [AssertionPlant.subject]'s [Map.Entry.key] is (equal to) the given [Pair.first] and
+ * [Map.Entry.value] is [Pair.second].
+ *
+ * Kind of a shortcut for `key.toBe(keyValuePair.first); value.toBe(keyValuePair.second)` but should be evaluated in
+ * an assertion group block -- which has the effect that the assertion about the value is still evaluated even
+ * if the assertion about the key fails. Moreover, it might be that reporting differs compared to using the long form.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+infix fun <K : Any, V : Any> Assert<Map.Entry<K, V>>.isKeyValue(keyValuePair: Pair<K, V>): Assert<Map.Entry<K, V>>
+    = addAssertion(AssertImpl.map.entry.isKeyValue(this, keyValuePair.first, keyValuePair.second))
+
+/**
  * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [key][Map.Entry.key] so that further
  * fluent calls are assertions about it.
  *
@@ -52,7 +66,6 @@ infix fun <K : Any, V> Assert<Map.Entry<K, V>>.key(assertionCreator: Assert<K>.(
  */
 infix fun <K, V> Assert<Map.Entry<K, V>>.nullableKey(assertionCreator: AssertionPlantNullable<K>.() -> Unit)
     = addAssertion(AssertImpl.map.entry.nullableKey(this, assertionCreator))
-
 
 /**
  * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [value][Map.Entry.value] so that further

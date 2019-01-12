@@ -7,6 +7,20 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
+ * Makes the assertion that [AssertionPlant.subject]'s [Map.Entry.key] is (equal to) the given [key] and
+ * [Map.Entry.value] is [value].
+ *
+ * Kind of a shortcut for `this.key.ist(key).und.value.ist(value)` but should be evaluated in
+ * an assertion group block -- which has the effect that the assertion about the value is still evaluated even
+ * if the assertion about the key fails. Moreover, it might be that reporting differs compared to using the long form.
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun <K : Any, V : Any> Assert<Map.Entry<K, V>>.istKeyValue(key: K, value: V): Assert<Map.Entry<K, V>>
+    = addAssertion(AssertImpl.map.entry.isKeyValue(this, key, value))
+
+/**
  * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [key][Map.Entry.key] so that further
  * fluent calls are assertions about it.
  *
