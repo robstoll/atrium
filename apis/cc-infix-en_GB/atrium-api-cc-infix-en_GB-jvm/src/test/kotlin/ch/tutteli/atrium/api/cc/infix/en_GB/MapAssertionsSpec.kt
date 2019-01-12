@@ -25,7 +25,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
         private val containsFun : KFunction2<Assert<Map<String, Int>>, Pair<String, Int>, Assert<Map<String, Int>>> = Assert<Map<String, Int>>::contains
         private fun contains(plant: Assert<Map<String, Int>>, pair: Pair<String, Int>, otherPairs: Array<out Pair<String, Int>>): Assert<Map<String, Int>> {
             return if (otherPairs.isEmpty()) {
-                plant contains pair
+                plant contains (pair.first to pair.second)
             } else {
                 plant contains Pairs(pair, *otherPairs)
             }
@@ -34,7 +34,7 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
         private val containsNullableFun : KFunction2<Assert<Map<String?, Int?>>, Pair<String?, Int?>,Assert<Map<String?, Int?>>> = Assert<Map<String?, Int?>>::containsNullable
         private fun containsNullable(plant: Assert<Map<String?, Int?>>, pair: Pair<String?, Int?>, otherPairs: Array<out Pair<String?, Int?>>): Assert<Map<String?, Int?>> {
             return if (otherPairs.isEmpty()) {
-                plant containsNullable pair
+                plant containsNullable (pair.first to pair.second)
             } else {
                 plant containsNullable Pairs(pair, *otherPairs)
             }

@@ -145,7 +145,7 @@ fun <T : Map<*, *>> Assert<T>.isNotEmpty()
 
 
 /**
- * Creates an [AssertionPlant] for the [subject][AssertionPlant.subject]'s property [keys][Map.keys] so that further
+ * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [keys][Map.keys] so that further
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -168,7 +168,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> U
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
- * Creates an [AssertionPlant] for the [subject][AssertionPlant.subject]'s property [values][Map.values] so that further
+ * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [values][Map.values] so that further
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload

@@ -25,7 +25,7 @@ class MapFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.MapFeatureAs
             = plant keys { assertionCreator() }
 
         fun values(plant: Assert<Map<String, Int>>, assertionCreator: Assert<Collection<Int>>.() -> Unit)
-            = plant values{ assertionCreator() }
+            = plant values { assertionCreator() }
 
         fun getExisting(plant: Assert<Map<String, Int>>, key: String, assertionCreator: Assert<Int>.() -> Unit)
             = plant getExisting key assertIt { assertionCreator() }

@@ -72,6 +72,9 @@ module ch.tutteli.atrium.domain.robstoll {
     provides ch.tutteli.atrium.domain.creating.MapAssertions
         with ch.tutteli.atrium.domain.robstoll.creating.MapAssertionsImpl;
 
+    provides ch.tutteli.atrium.domain.creating.MapEntryAssertions
+        with ch.tutteli.atrium.domain.robstoll.creating.MapEntryAssertionsImpl;
+
     provides ch.tutteli.atrium.domain.creating.throwable.thrown.creators.ThrowableThrownAssertions
         with ch.tutteli.atrium.domain.robstoll.creating.throwable.thrown.creators.ThrowableThrownAssertionsImpl;
 
