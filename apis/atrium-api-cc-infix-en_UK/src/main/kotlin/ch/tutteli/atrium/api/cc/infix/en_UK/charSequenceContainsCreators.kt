@@ -212,10 +212,10 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  * are expected to have a match, using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [RegexPatterns.pattern]
- * is defined as `'a(b)?'` and one of the [RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
- * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
- * control the number of occurrences you expect.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
+ * [RegexPatterns.pattern] is defined as `'a(b)?'` and one of the [RegexPatterns.otherPatterns] is defined
+ * as `'a(b)?'` as well, then both match, even though they match the same sequence in the input of the search.
+ * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `to contain exactly 2 the regex 'a(b)?'`
@@ -253,10 +253,10 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  * are expected to have a match (ignoring case), using a non disjoint search.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [RegexPatterns.pattern]
- * is defined as `'a(b)?'` and one of the [RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
- * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
- * control the number of occurrences you expect.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
+ * [RegexPatterns.pattern] is defined as `'a(b)?'` and one of the [RegexPatterns.otherPatterns] is defined
+ * as `'a(b)?'` as well, then both match, even though they match the same sequence in the input of the search.
+ * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `to contain ignoring case exactly 2 the regex 'a(b)?'`

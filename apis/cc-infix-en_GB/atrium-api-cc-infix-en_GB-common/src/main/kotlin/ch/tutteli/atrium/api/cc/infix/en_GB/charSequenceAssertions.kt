@@ -97,10 +97,10 @@ infix fun <T : CharSequence> Assert<T>.containsRegex(pattern: String): Assertion
  * It is a shortcut for `to contain atLeast 1 the RegexPatterns(...)`.
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
- * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and [RegexPatterns.pattern]
- * is defined as `'a(b)?'` and one of the [RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
- * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
- * control the number of occurrences you expect.
+ * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
+ * [RegexPatterns.expected] is defined as `'a(b)?'` and one of the [RegexPatterns.otherExpected] is defined as
+ * `'a(b)?'` as well, then both match, even though they match the same sequence in the input of the search.
+ * Use an option such as [atLeast], [atMost] and [exactly] to control the number of occurrences you expect.
  *
  * Meaning you might want to use:
  *   `to contain exactly 2 the regex 'a(b)?'`

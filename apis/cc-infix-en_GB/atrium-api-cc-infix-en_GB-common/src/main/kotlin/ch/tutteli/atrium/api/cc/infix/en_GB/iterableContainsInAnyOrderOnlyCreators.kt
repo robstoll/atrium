@@ -92,8 +92,8 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InAnyOrder
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [entries].[assertionCreator][Entries.assertionCreator] might create
- * -- likewise an entry for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators]
+ * [Iterable] which holds all assertions [entries].[assertionCreator][Entries.expected] might create
+ * -- likewise an entry for each [entries].[otherAssertionCreators][Entries.otherExpected]
  * needs to be contained in the [Iterable] where it does not matter in which order the entries appear but only as
  * many entries should be returned by the [Iterable] as assertion creators are defined.
  *
@@ -114,10 +114,10 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InAnyOrderOn
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry needs to be contained in the
- * [Iterable] which holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull]
+ * [Iterable] which holds all assertions [nullableEntries].[assertionCreatorOrNull][NullableEntries.expected]
  * might create or it needs to be `null` in case
- * [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] is defined as `null` -- likewise an
- * entry for each [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreatorsOrNulls] needs to
+ * [nullableEntries].[assertionCreatorOrNull][NullableEntries.expected] is defined as `null` -- likewise an
+ * entry for each [nullableEntries].[otherAssertionCreatorsOrNulls][NullableEntries.otherExpected] needs to
  * be contained in the [Iterable] where it does not matter in which order the entries appear but only as many entries
  * should be returned by the [Iterable] as assertion creators are defined.
  *
