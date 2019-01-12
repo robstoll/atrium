@@ -1,0 +1,30 @@
+package ch.tutteli.atrium.api.cc.de_CH
+
+import ch.tutteli.atrium.AssertionVerbFactory
+import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlantNullable
+import kotlin.reflect.KProperty1
+import kotlin.reflect.KFunction2
+
+class PairFeatureAssertionsSpec : ch.tutteli.atrium.spec.integration.PairFeatureAssertionsSpec(
+    AssertionVerbFactory,
+    firstVal.name to firstVal,
+    firstFun.name to firstFun,
+    secondVal.name to secondVal,
+    secondFun.name to secondFun,
+    nullableFirstVal.name to nullableFirstVal,
+    nullableFirstFun.name to nullableFirstFun,
+    nullableSecondVal.name to nullableSecondVal,
+    nullableSecondFun.name to nullableSecondFun
+){
+    companion object {
+        private val firstVal: KProperty1<Assert<Pair<String, Int>>, Assert<String>> = Assert<Pair<String, Int>>::first
+        private val firstFun: KFunction2<Assert<Pair<String, Int>>, Assert<String>.() -> Unit, Assert<Pair<String, Int>>> = Assert<Pair<String, Int>>::first
+        private val secondVal: KProperty1<Assert<Pair<String, Int>>, Assert<Int>> = Assert<Pair<String, Int>>::second
+        private val secondFun: KFunction2<Assert<Pair<String, Int>>, Assert<Int>.() -> Unit, Assert<Pair<String, Int>>> = Assert<Pair<String, Int>>::second
+        private val nullableFirstVal: KProperty1<Assert<Pair<String?, Int?>>, AssertionPlantNullable<String?>> = Assert<Pair<String?, Int?>>::nullableFirst
+        private val nullableFirstFun: KFunction2<Assert<Pair<String?, Int?>>, AssertionPlantNullable<String?>.() -> Unit, Assert<Pair<String?, Int?>>> = Assert<Pair<String?, Int?>>::nullableFirst
+        private val nullableSecondVal: KProperty1<Assert<Pair<String?, Int?>>, AssertionPlantNullable<Int?>> = Assert<Pair<String?, Int?>>::nullableSecond
+        private val nullableSecondFun: KFunction2<Assert<Pair<String?, Int?>>, AssertionPlantNullable<Int?>.() -> Unit, Assert<Pair<String?, Int?>>> = Assert<Pair<String?, Int?>>::nullableSecond
+    }
+}

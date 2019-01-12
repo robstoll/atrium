@@ -48,6 +48,8 @@ object AssertImpl : AssertImplCommon {
 
     override inline val map get() = MapAssertionsBuilder
 
+    override inline val pair get() = PairAssertionsBuilder
+
     override inline val throwable get() = ThrowableAssertionsBuilder
 }
 
@@ -151,6 +153,12 @@ interface AssertImplCommon {
      * which inter alia delegates to the implementation of [MapAssertions].
      */
     val map: MapAssertionsBuilder
+
+    /**
+     * Returns [PairAssertionsBuilder]
+     * which inter alia delegates to the implementation of [PairAssertions].
+     */
+    val pair: PairAssertionsBuilder
 
     /**
      * Returns [ThrowableAssertionsBuilder]
