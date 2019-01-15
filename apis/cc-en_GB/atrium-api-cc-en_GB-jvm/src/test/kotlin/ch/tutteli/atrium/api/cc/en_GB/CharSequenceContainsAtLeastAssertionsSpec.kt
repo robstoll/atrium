@@ -39,9 +39,11 @@ class CharSequenceContainsAtLeastAssertionsSpec : ch.tutteli.atrium.spec.integra
 
         private fun containsAtLeastIgnoringCase(plant: Assert<CharSequence>, atLeast: Int, a: Any, aX: Array<out Any>): Assert<CharSequence> {
             return if (aX.isEmpty()) {
-                plant.contains.ignoringCase.atLeast(atLeast).value(a)
+                if(atLeast == 1) plant.contains.ignoringCase.value(a)
+                else plant.contains.ignoringCase.atLeast(atLeast).value(a)
             } else {
-                plant.contains.ignoringCase.atLeast(atLeast).values(a, *aX)
+                if(atLeast == 1) plant.contains.ignoringCase.values(a, *aX)
+                else plant.contains.ignoringCase.atLeast(atLeast).values(a, *aX)
             }
         }
 

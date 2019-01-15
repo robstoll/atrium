@@ -19,13 +19,13 @@ abstract class CheckingAssertionSpec<T : Any>(
             val (holdingSubject, failingSubject) = holdingAndFailingSubject
             group("fun `$name`") {
                 test("assertion which holds -- does not throw, returns `true`") {
-                    val checkingPlant = AssertImpl.coreFactory.newCheckingPlant({ holdingSubject })
+                    val checkingPlant = AssertImpl.coreFactory.newCheckingPlant { holdingSubject }
                     checkingPlant.createAssertion()
                     verbs.checkImmediately(checkingPlant.allAssertionsHold()).toBe(true)
                 }
 
                 test("assertion which does not hold -- does not throw, returns `false`") {
-                    val checkingPlant = AssertImpl.coreFactory.newCheckingPlant({ failingSubject })
+                    val checkingPlant = AssertImpl.coreFactory.newCheckingPlant { failingSubject }
                     checkingPlant.createAssertion()
                     verbs.checkImmediately(checkingPlant.allAssertionsHold()).toBe(false)
                 }
