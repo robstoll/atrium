@@ -127,8 +127,8 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, NoOpSearchBeh
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
- * [patterns].[pattern][RegexPatterns.pattern] is defined as `'a(b)?'` and one of the
- * [patterns].[otherPatterns][RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * [patterns].[pattern][RegexPatterns.expected] is defined as `'a(b)?'` and one of the
+ * [patterns].[otherPatterns][RegexPatterns.otherExpected] is defined as `'a(b)?'` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *
@@ -167,8 +167,8 @@ infix fun <T : CharSequence> CharSequenceContains.CheckerOption<T, IgnoringCaseS
  *
  * By non disjoint is meant that `'aa'` in `'aaaa'` is found three times and not only two times.
  * Also notice, that it does not search for unique matches. Meaning, if the input of the search is `'ab'` and
- * [patterns].[pattern][RegexPatterns.pattern] is defined as `'a(b)?'` and one of the
- * [patterns].[otherPatterns][RegexPatterns.otherPatterns] is defined as `'a(b)?'` as well, then both match, even though
+ * [patterns].[pattern][RegexPatterns.expected] is defined as `'a(b)?'` and one of the
+ * [patterns].[otherPatterns][RegexPatterns.otherExpected] is defined as `'a(b)?'` as well, then both match, even though
  * they match the same sequence in the input of the search. Use an option such as [atLeast], [atMost] and [exactly] to
  * control the number of occurrences you expect.
  *

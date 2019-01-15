@@ -119,9 +119,9 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.CheckerOption<E?, T, InAn
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which holds
- * all assertions [entries].[assertionCreator][Entries.assertionCreator] might create -- likewise an entry
+ * all assertions [entries].[assertionCreator][Entries.expected] might create -- likewise an entry
  * (can be the same) is searched for each of
- * the [entries].[otherAssertionCreators][Entries.otherAssertionCreators].
+ * the [entries].[otherAssertionCreators][Entries.otherExpected].
  *
  * @param entries The parameter object which contains the identification lambdas.
  *
@@ -133,10 +133,10 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.CheckerOption<E, T, InAnyO
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where an entry shall be searched which either
- * holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull] might create or
- * needs to be `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull]
+ * holds all assertions [nullableEntries].[assertionCreatorOrNull][NullableEntries.expected] might create or
+ * needs to be `null` in case [nullableEntries].[assertionCreatorOrNull][NullableEntries.expected]
  * is defined as `null` -- likewise an entry (can be the same) is searched for each of
- * the [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreatorsOrNulls].
+ * the [nullableEntries].[otherAssertionCreatorsOrNulls][NullableEntries.otherExpected].
  *
  * @param nullableEntries The parameter object which contains the identification lambdas.
  *

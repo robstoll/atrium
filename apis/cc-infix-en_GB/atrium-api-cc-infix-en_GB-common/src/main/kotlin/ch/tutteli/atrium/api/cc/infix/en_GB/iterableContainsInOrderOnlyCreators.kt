@@ -92,8 +92,8 @@ infix fun <E : Any, T : Iterable<E?>> IterableContains.Builder<E?, T, InOrderOnl
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
- * entry which holds all assertions [entries].[assertionCreator][Entries.assertionCreator] might create and likewise
- * a further entry for each [entries].[otherAssertionCreators][Entries.otherAssertionCreators] (if given) whereas the entries
+ * entry which holds all assertions [entries].[assertionCreator][Entries.expected] might create and likewise
+ * a further entry for each [entries].[otherAssertionCreators][Entries.otherExpected] (if given) whereas the entries
  * have to appear in the specified order.
  *
  * @param entries The parameter object containing the identification lambdas.
@@ -106,10 +106,10 @@ infix fun <E : Any, T : Iterable<E>> IterableContains.Builder<E, T, InOrderOnlyS
 
 /**
  * Finishes the specification of the sophisticated `contains` assertion where the [Iterable] needs to contain only an
- * entry which holds all assertions [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull]
- * might create or is `null` in case [nullableEntries].[assertionCreator][NullableEntries.assertionCreatorOrNull]
+ * entry which holds all assertions [nullableEntries].[assertionCreatorOrNull][NullableEntries.expected]
+ * might create or is `null` in case [nullableEntries].[assertionCreatorOrNull][NullableEntries.expected]
  * is defined as `null` and likewise a further entry for each
- * [nullableEntries].[otherAssertionCreators][NullableEntries.otherAssertionCreatorsOrNulls]
+ * [nullableEntries].[otherAssertionCreatorsOrNulls][NullableEntries.otherExpected]
  * (if given) whereas the entries have to appear in the specified order.
  *
  * @param nullableEntries The parameter object containing the identification lambdas.
