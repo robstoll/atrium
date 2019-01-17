@@ -2,11 +2,14 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.ReportingAssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
+import ch.tutteli.atrium.domain.builders.utils.subAssert
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
+import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.verbs.internal.expect
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -31,112 +34,142 @@ class AdjustStackSpec : Spek({
             }
         }
     }
-    describe("remove test runner adjuster") {
-        fun <T : Any> assertRemoveRunner(subject: T) = createAssert(
-            subject, AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
+
+    fun mapStartsWith(list: List<String>): Pair<Assert<String>.() -> Unit, Array<out Assert<String>.() -> Unit>>{
+        val asserts = list.map { c -> subAssert<String>{ startsWith(c) }}
+        return asserts.first() to asserts.drop(1).toTypedArray()
+    }
+
+    mapOf(
+        "remove test runner adjuster" to Triple(
+            AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+            listOf("org.jetbrains.spek", "org.junit"),
+            listOf("ch.tutteli.atrium")
+        ),
+        "remove atrium adjuster" to Triple(
+            AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+            listOf("ch.tutteli.atrium"),
+            listOf("org.jetbrains.spek", "org.junit")
         )
+    ).forEach { (description, triple) ->
+        val (adjuster, containsNot, contains) = triple
+        val (containsNotFirst, containsNotRest) = mapStartsWith(containsNot)
+        val (containsFirst, containsRest) = mapStartsWith(contains)
+        describe(description) {
+            it("does not contain $containsNot in stackBacktrace but $contains") {
+                expect {
+                    createAssert(1, adjuster).toBe(2)
+                }.toThrow<AssertionError> {
+                    property(subject::stackBacktrace)
+                        .containsNot.entries(containsNotFirst, *containsNotRest)
+                        .contains(containsFirst, *containsRest)
+                }
+            }
 
-        it("does not contain spek nor junit in stackBacktrace but atrium") {
-            expect {
-                assertRemoveRunner(1).toBe(2)
-            }.toThrow<AssertionError> {
-                property(subject::stackBacktrace)
-                    .containsNot.entries({ startsWith("org.jetbrains.spek") }, { startsWith("org.junit") })
-                    .contains { startsWith("ch.tutteli.atrium") }
+
+            it("does not contain $containsNot in stackBacktrace of cause, but $contains") {
+                val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+                adjuster.adjust(throwable)
+                assert(throwable.cause!!.stackBacktrace)
+                    .containsNot.entries(containsNotFirst, *containsNotRest)
+                    .contains(containsFirst, *containsRest)
+            }
+
+            it("does not contain $containsNot in stackBacktrace of cause of cause, but $contains") {
+                val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world", IllegalStateException("and good night")))
+                adjuster.adjust(throwable)
+                assert(throwable.cause!!.cause!!.stackBacktrace)
+                    .containsNot.entries(containsNotFirst, *containsNotRest)
+                    .contains(containsFirst, *containsRest)
+            }
+
+            it("does not contain $containsNot in stackBacktrace of suppressed exception, but $contains") {
+                val throwable1 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+                val throwable2 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+                val throwable = IllegalStateException("with suppressed")
+                throwable.addSuppressed(throwable1)
+                throwable.addSuppressed(throwable2)
+                adjuster.adjust(throwable)
+                assert(throwable.suppressed).asIterable().all{
+                    property(subject::stackBacktrace)
+                        .containsNot.entries(containsNotFirst, *containsNotRest)
+                        .contains(containsFirst, *containsRest)
+                }
+            }
+
+            it("does not contain $containsNot in stackBacktrace of cause of suppressed exception, but $contains") {
+                val throwable1 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+                val throwable2 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+                val throwable = IllegalStateException("with suppressed")
+                throwable.addSuppressed(throwable1)
+                throwable.addSuppressed(throwable2)
+                adjuster.adjust(throwable)
+                assert(throwable.suppressed).asIterable().all{
+                    property(subject::cause).notToBeNull {
+                        property(subject::stackBacktrace)
+                            .containsNot.entries(containsNotFirst, *containsNotRest)
+                            .contains(containsFirst, *containsRest)
+                    }
+                }
             }
         }
     }
 
-    describe("remove atrium adjuster") {
-        fun <T : Any> assertRemoveAtrium(subject: T) = createAssert(
-            subject, AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
-        )
-
-        it("does not contain atrium but spek and junit in stackBacktrace") {
-            expect {
-                assertRemoveAtrium(1).toBe(2)
-            }.toThrow<AssertionError> {
-                property(subject::stackBacktrace)
-                    .contains({ startsWith("org.jetbrains.spek") }, { startsWith("org.junit") })
-                    .containsNot.entry { startsWith("ch.tutteli.atrium") }
-            }
-        }
-    }
-
-    describe("combine remove runner adjuster and remove atrium adjuster") {
-        fun <T : Any> assertRemoveRunnerAndAtrium(subject: T): ReportingAssertionPlant<T> {
-            return createMultiAtriumErrorAdjuster(
-                subject,
-                AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-                AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
-            )
-        }
-
-        it("does neither contain atrium nor spek or junit in stackBacktrace") {
-            expect {
-                assertRemoveRunnerAndAtrium(1).toBe(2)
-            }.toThrow<AssertionError> {
-                property(subject::stackBacktrace).isEmpty()
-            }
-        }
-    }
-
-    describe("combine remove atrium adjuster and remove runner adjuster") {
-        fun <T : Any> assertRemoveAtriumAndRunner(subject: T): ReportingAssertionPlant<T> {
-            return createMultiAtriumErrorAdjuster(
-                subject,
-                AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-                AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
-            )
-        }
-
-        it("does neither contain atrium nor spek or junit in stackBacktrace") {
-            expect {
-                assertRemoveAtriumAndRunner(1).toBe(2)
-            }.toThrow<AssertionError> {
-                property(subject::stackBacktrace).isEmpty()
-            }
-        }
-    }
-
-    describe("combine remove atrium adjuster, remove runner adjuster and noop adjuster") {
-        fun <T : Any> assertRemoveAtriumAndRunner(subject: T): ReportingAssertionPlant<T> {
-            return createMultiAtriumErrorAdjuster(
-                subject,
+    mapOf(
+        "combine remove runner adjuster and remove atrium adjuster" to AssertImpl.coreFactory.newMultiAtriumErrorAdjuster(
+            AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+            AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+            listOf()
+        ),
+        "combine remove atrium adjuster and remove runner adjuster" to AssertImpl.coreFactory.newMultiAtriumErrorAdjuster(
+            AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+            AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+            listOf()
+        ),
+        "combine noop ajdust, remove atrium adjuster and remove runner adjuster" to AssertImpl.coreFactory.newMultiAtriumErrorAdjuster(
+            AssertImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
+            AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+            listOf(AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster())
+        ),
+        "combine remove atrium adjuster, remove runner adjuster and noop adjuster several times" to AssertImpl.coreFactory.newMultiAtriumErrorAdjuster(
+            AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
+            AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+            listOf(
                 AssertImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
-                AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster(),
-                listOf(
-                    AssertImpl.coreFactory.newNoOpAtriumErrorAdjuster(),
-                    AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
-                    AssertImpl.coreFactory.newNoOpAtriumErrorAdjuster()
-                )
+                AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster(),
+                AssertImpl.coreFactory.newNoOpAtriumErrorAdjuster()
             )
-        }
+        )
+    ).forEach { (description, adjuster) ->
+        describe(description) {
+            it("does neither contain atrium nor spek nor junit in stackBacktrace") {
+                expect {
+                    createAssert(1, adjuster).toBe(2)
+                }.toThrow<AssertionError> {
+                    property(subject::stackBacktrace).isEmpty()
+                }
+            }
 
-        it("does neither contain atrium nor spek or junit in stackBacktrace") {
-            expect {
-                assertRemoveAtriumAndRunner(1).toBe(2)
-            }.toThrow<AssertionError> {
-                property(subject::stackBacktrace).isEmpty()
+            it("does neither contain atrium nor spek nor junit in stackBacktrace of cause") {
+                val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+                adjuster.adjust(throwable)
+                assert(throwable.cause!!.stackBacktrace).isEmpty()
+            }
+
+            it("does neither contain atrium nor spek nor junit in stackBacktrace of suppressed") {
+                val throwable1 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+                val throwable2 = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+                val throwable = IllegalStateException("with suppressed")
+                throwable.addSuppressed(throwable1)
+                throwable.addSuppressed(throwable2)
+                adjuster.adjust(throwable)
+                assert(throwable.suppressed).asIterable().all{
+                    property(subject::stackBacktrace).isEmpty()
+                }
             }
         }
     }
 })
-
-private fun <T : Any> createMultiAtriumErrorAdjuster(
-    subject: T,
-    firstAdjuster: AtriumErrorAdjuster,
-    secondAdjuster: AtriumErrorAdjuster,
-    otherAdjuster: List<AtriumErrorAdjuster> = listOf()
-): ReportingAssertionPlant<T> {
-    return createAssert(
-        subject, AssertImpl.coreFactory.newMultiAtriumErrorAdjuster(
-            firstAdjuster,
-            secondAdjuster,
-            otherAdjuster
-        )
-    )
-}
 
 private fun <T : Any> createAssert(subject: T, adjuster: AtriumErrorAdjuster) =
     AssertImpl.coreFactory.newReportingPlant(

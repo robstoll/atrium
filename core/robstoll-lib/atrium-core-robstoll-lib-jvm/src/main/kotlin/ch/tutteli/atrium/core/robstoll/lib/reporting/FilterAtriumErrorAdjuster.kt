@@ -1,28 +1,20 @@
 package ch.tutteli.atrium.core.robstoll.lib.reporting
 
-import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 
 abstract class FilterAtriumErrorAdjuster : AtriumErrorAdjuster {
 
-    final override fun adjust(atriumError: AtriumError): AtriumError {
-        val filteredStackTrace = atriumError.stackTrace.asSequence().filterUndesiredStackFrames()
+    final override fun <T : Throwable> adjust(throwable: T) {
+        val filteredStackTrace = adjustStackTrace(throwable.stackTrace.asSequence())
         val arr = filteredStackTrace.toList().toTypedArray()
-        atriumError.stackTrace = arr
-        return atriumError
+        throwable.stackTrace = arr
+        throwable.cause?.let { adjust(it) }
+        throwable.suppressed.forEach { adjust(it) }
+        adjustOtherThanStacks(throwable)
     }
 
-    final override fun adjustStackTrace(stackTrace: Sequence<StackTraceElement>): Sequence<StackTraceElement> =
-        stackTrace.filterUndesiredStackFrames()
-
     /**
-     * Returns the given [atriumError] without adjusting anything.
-     *
-     * Override in subclass if you want a different behaviour.
-     *
-     * @return the given [atriumError].
+     * Does nothing (no adjustments) - override in subclass if you want a different behaviour.
      */
-    override fun adjustOtherThanStack(atriumError: AtriumError): AtriumError = atriumError
-
-    protected abstract fun Sequence<StackTraceElement>.filterUndesiredStackFrames(): Sequence<StackTraceElement>
+    override fun <T : Throwable> adjustOtherThanStacks(throwable: T) {}
 }

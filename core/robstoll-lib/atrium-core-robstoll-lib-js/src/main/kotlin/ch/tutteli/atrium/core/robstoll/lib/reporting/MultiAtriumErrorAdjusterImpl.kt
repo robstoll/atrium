@@ -8,8 +8,8 @@ actual class MultiAtriumErrorAdjusterImpl actual constructor(
     private val otherAdjusters: List<AtriumErrorAdjuster>
 ) : FilterAtriumErrorAdjuster(), AtriumErrorAdjuster {
 
-    override fun Sequence<String>.filterUndesiredStackFrames(): Sequence<String> =
-        firstAdjuster.adjustStack(this)
+    override fun adjustStack(stackTrace: Sequence<String>): Sequence<String> =
+        firstAdjuster.adjustStack(stackTrace)
             .let { secondAdjuster.adjustStack(it) }
             .let {
                 otherAdjusters.fold(it) { filteredStack, adjuster ->

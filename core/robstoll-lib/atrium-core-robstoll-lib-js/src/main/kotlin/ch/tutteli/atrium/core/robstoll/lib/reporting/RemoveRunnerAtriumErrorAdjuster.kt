@@ -3,7 +3,7 @@ package ch.tutteli.atrium.core.robstoll.lib.reporting
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 
 actual class RemoveRunnerAtriumErrorAdjuster : FilterAtriumErrorAdjuster(), AtriumErrorAdjuster {
-    override fun Sequence<String>.filterUndesiredStackFrames(): Sequence<String> = takeWhile {
+    override fun adjustStack(stackTrace: Sequence<String>): Sequence<String> = stackTrace.takeWhile {
         !runnerRegex.containsMatchIn(it)
     }
 

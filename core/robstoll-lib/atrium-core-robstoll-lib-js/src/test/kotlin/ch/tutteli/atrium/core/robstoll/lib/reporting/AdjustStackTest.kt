@@ -6,6 +6,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.reporter
 import ch.tutteli.atrium.verbs.internal.AssertionVerb
+import ch.tutteli.atrium.verbs.internal.assert
 import ch.tutteli.atrium.verbs.internal.expect
 import kotlin.test.Test
 
@@ -35,6 +36,16 @@ class AdjustStackTest {
     }
 
     @Test
+    fun removeRunner_containsAtriumButNotMochaInCause() {
+        val adjuster = AssertImpl.coreFactory.newRemoveRunnerAtriumErrorAdjuster()
+        val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+        adjuster.adjust(throwable)
+        assert(throwable.cause!!.stackBacktrace)
+            .containsNot.entry { contains("mocha") }
+            .contains { contains("atrium-core-robstoll-lib-js") }
+    }
+
+    @Test
     fun removeAtrium_containsMochaButNotAtrium() {
         expect {
             assertRemoveAtrium(1).toBe(2)
@@ -43,6 +54,16 @@ class AdjustStackTest {
                 .contains { contains("mocha") }
                 .containsNot.entry { contains("atrium-core-api-js.js") }
         }
+    }
+
+    @Test
+    fun removeAtrium_containsMochaButNotAtriumInCause() {
+        val adjuster = AssertImpl.coreFactory.newRemoveAtriumFromAtriumErrorAdjuster()
+        val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
+        adjuster.adjust(throwable)
+        assert(throwable.cause!!.stackBacktrace)
+            .contains { contains("mocha") }
+            .containsNot.entry { contains("atrium-core-robstoll-lib-js") }
     }
 
     private fun <T : Any> assertNoOp(subject: T) = createAssert(
