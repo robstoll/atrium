@@ -10,7 +10,8 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
     getToThrowTriple(),
     getMessagePair(),
     Companion::messageWithContainsFun,
-    getMessageContainsPair()
+    getMessageContainsPair(),
+    "⚬ ", "» "
 ) {
 
     companion object {

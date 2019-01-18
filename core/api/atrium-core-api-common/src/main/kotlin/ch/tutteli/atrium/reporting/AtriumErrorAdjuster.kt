@@ -22,7 +22,7 @@ interface AtriumErrorAdjusterCommon {
      *
      * Usually the given [throwable] is an [AtriumError] but an arbitrary Throwable can be passed
      */
-    fun <T: Throwable> adjust(throwable: T)
+    fun adjust(throwable: Throwable)
 
     /**
      * Adjusts parts of the given [throwable] but not its stack trace.
@@ -30,5 +30,5 @@ interface AtriumErrorAdjusterCommon {
      * This method is intended for usages where the stack trace is modified by multiple [AtriumErrorAdjuster]s (part
      * of the platform specific [AtriumErrorAdjuster] interface).
      */
-    fun <T: Throwable> adjustOtherThanStacks(throwable: T)
+    fun adjustOtherThanStacks(throwable: Throwable)
 }

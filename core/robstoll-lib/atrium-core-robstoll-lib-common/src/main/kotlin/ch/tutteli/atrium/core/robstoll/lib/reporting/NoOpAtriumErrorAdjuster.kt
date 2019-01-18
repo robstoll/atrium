@@ -12,6 +12,6 @@ expect object NoOpAtriumErrorAdjuster : AtriumErrorAdjuster
  * actual type of [NoOpAtriumErrorAdjuster].
  */
 abstract class NoOpAtriumErrorAdjusterCommon : AtriumErrorAdjuster {
-    override fun <T : Throwable> adjustOtherThanStacks(throwable: T) {}
-    override fun <T : Throwable> adjust(throwable: T) {}
+    override fun adjustOtherThanStacks(throwable: Throwable) {}
+    override fun adjust(throwable: Throwable) {}
 }

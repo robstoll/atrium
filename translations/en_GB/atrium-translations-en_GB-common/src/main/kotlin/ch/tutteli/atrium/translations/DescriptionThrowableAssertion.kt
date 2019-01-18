@@ -9,7 +9,9 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 enum class DescriptionThrowableAssertion(override val value: String) : StringBasedTranslatable {
     IS_A("is a"),
     NO_EXCEPTION_OCCURRED("no exception occurred"),
+    OCCURRED_EXCEPTION_CAUSE("cause"),
     OCCURRED_EXCEPTION_PROPERTIES("Properties of the unexpected %s"),
     OCCURRED_EXCEPTION_MESSAGE("message"),
-    OCCURRED_EXCEPTION_STACKTRACE("stacktrace")
+    OCCURRED_EXCEPTION_STACKTRACE("stacktrace"),
+    OCCURRED_EXCEPTION_SUPPRESSED("suppressed"),
 }

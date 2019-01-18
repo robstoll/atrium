@@ -5,7 +5,7 @@ import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 
 abstract class FilterAtriumErrorAdjuster : AtriumErrorAdjuster {
 
-    final override fun <T: Throwable> adjust(throwable: T) {
+    final override fun adjust(throwable: Throwable) {
         val filteredStack = adjustStack(throwable.stackBacktrace.asSequence())
         val prefix = "    at "
         throwable.asDynamic().stack = filteredStack.joinToString("\n$prefix", prefix)
@@ -15,5 +15,5 @@ abstract class FilterAtriumErrorAdjuster : AtriumErrorAdjuster {
     /**
      * Does nothing (no adjustments) - override in subclass if you want a different behaviour.
      */
-    override fun <T: Throwable> adjustOtherThanStacks(throwable: T){}
+    override fun adjustOtherThanStacks(throwable: Throwable){}
 }
