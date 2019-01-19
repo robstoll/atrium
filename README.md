@@ -1,10 +1,10 @@
 [![Download](https://api.bintray.com/packages/robstoll/tutteli-jars/atrium/images/download.svg)](https://bintray.com/robstoll/tutteli-jars/atrium/_latestVersion)
 [![Slack](https://img.shields.io/badge/Slack-atrium@kotlinlang-blue.svg)](https://kotlinlang.slack.com/messages/C887ZKGCQ)
 [![EUPL](https://img.shields.io/badge/license-EUPL%201.2-brightgreen.svg)](https://joinup.ec.europa.eu/collection/eupl/eupl-text-11-12)
-[![Build Status](https://travis-ci.org/robstoll/atrium.svg?branch=master)](https://travis-ci.org/robstoll/atrium/branches)
-[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?branch=master)](https://codecov.io/github/robstoll/atrium?branch=master)
-[![security status](https://www.meterian.com/badge/gh/robstoll/atrium/security?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
-[![stability status](https://www.meterian.com/badge/gh/robstoll/atrium/stability?branch=master)](https://www.meterian.com/report/gh/robstoll/atrium?branch=master)
+[![Build Status](https://travis-ci.org/robstoll/atrium.svg?tag=v0.8.0-alpha)](https://travis-ci.org/robstoll/atrium/branches)
+[![Coverage](https://codecov.io/github/robstoll/atrium/coverage.svg?tag=v0.8.0-alpha)](https://codecov.io/github/robstoll/atrium?tag=v0.8.0-alpha)
+[![security status](https://www.meterian.com/badge/gh/robstoll/atrium/security?tag=v0.8.0-alpha)](https://www.meterian.com/report/gh/robstoll/atrium?tag=v0.8.0-alpha)
+[![stability status](https://www.meterian.com/badge/gh/robstoll/atrium/stability?tag=v0.8.0-alpha)](https://www.meterian.com/report/gh/robstoll/atrium?tag=v0.8.0-alpha)
 
 # Atrium
 Atrium is an open-source assertion library for Kotlin with a fluent API.
@@ -144,20 +144,20 @@ dependencies {
 
 *maven*:  
 Because maven is a bit more verbose than gradle, the example is not listed here but 
-a [settings.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/settings.xml) 
+a [settings.xml](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/misc/maven/settings.xml) 
 is provided to set up the repository as well as an 
-[example pom.xml](https://github.com/robstoll/atrium/tree/master/misc/maven/example-pom.xml)
+[example pom.xml](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/misc/maven/example-pom.xml)
 which includes the necessary dependencies.
 
 That is all, you are all set. The next section shows how to use Atrium.
 
 # Examples
 We are using the API provided by the bundle module 
-[atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_GB-robstoll/build.gradle)
+[atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-en_GB-robstoll/build.gradle)
 in the following examples. 
 It provides a pure fluent API.
 Have a look at 
-[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+[apis/differences.md](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/differences.md)
 to see how the infix API looks like, how they differ respectively.
 
 ## Your First Assertion
@@ -400,7 +400,7 @@ The error message shows also another nice feature of Atrium.
 It provides builders to create more sophisticated assertions.
 Using `contains("treboR", "llotS")` is actually a shortcut for calling a sophisticated assertion builder for `CharSequence`. 
 In this example it calls `contains.atLeast(1).values("treboR", "llotS")` which is reflected in the output. 
-Have a look at [API differences, CharSequence contains](https://github.com/robstoll/atrium/tree/master/apis/differences.md#charsequence-contains)
+Have a look at [API differences, CharSequence contains](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/differences.md#charsequence-contains)
 to see more options.
 
 :poop: &lt;- _this icon signifies a bug in Kotlin which you might encounter as well. We try to provide you workaround_
@@ -462,7 +462,7 @@ and on the other hand it turns the `subject` into the type which allows you to m
 Atrium provides the possibility to make arbitrary type transformations 
 as long as you can provide a checking function which can tell whether the transformation is safe or not 
 and a transformation function which performs the transformation as such.
-For an example, have a look at the [TypeTransformationAssertionCreatorSpec](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-robstoll-lib-jvm/src/test/kotlin/ch/tutteli/atrium/creating/any/typetransformation/creators/TypeTransformationAssertionCreatorSpec.kt).
+For an example, have a look at the [TypeTransformationAssertionCreatorSpec](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-robstoll-lib-jvm/src/test/kotlin/ch/tutteli/atrium/creating/any/typetransformation/creators/TypeTransformationAssertionCreatorSpec.kt).
 
 </details>
 
@@ -656,11 +656,11 @@ assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
 ## Further Examples
 
 Atrium supports further assertion builders (e.g, for `CharSequence`) as well as assertion functions which have not been shown in the examples.
-Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md) for a few more examples.
+Have a look at [apis/differences.md](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/differences.md) for a few more examples.
 This site contains also a list of all APIs with links to their assertion function catalogs.
 
 You can also have a look at the 
-[specifications](https://github.com/robstoll/atrium/tree/master/misc/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
+[specifications](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/misc/atrium-spec/src/main/kotlin/ch/tutteli/atrium/spec) 
 for more examples.
 
 # How is Atrium different from other Assertion Libraries
@@ -907,7 +907,7 @@ as well as to the `AssertionBuilder` which itself helps you with creating assert
 Do you want to write an own sophisticated assertion builder (or extend a current with more options) instead of an assertion function?
 Great, I do not provide hands on documentation yet (had only one question about it so far). 
 Therefore, please have a look at the implementation, for instance how the sophisticated assertion builders for `Iterable<T>` are defined:
-[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-api-jvm/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
+[ch.tutteli.atrium.creating.iterable.contains](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-api-jvm/src/main/kotlin/ch/tutteli/atrium/domain/creating/iterable/contains).
 Notice that the implementation supports [Internationalization](#internationalization-1).
 
 I am willing to provide more documentation if you need it (please open an issue). 
@@ -922,7 +922,7 @@ Atrium offers three assertion verbs out of the box: `assert`, `assertThat` and `
 
 But you can also define your own set of assertion verbs if they do not suite you or if you do not want that all of them are available in your classpath.
 In order to create an own assertion verb it is sufficient to:
- 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/master/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt)
+ 1. Copy the file content of [atriumVerbs.kt](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/misc/verbs-internal/atrium-verbs-internal-common/src/main/kotlin/ch/tutteli/atrium/verbs/internal/atriumVerbs.kt)
  2. Create your own atriumVerbs.kt and paste the previously copied content.
  3. Adjust package name and `import`s and rename `assert` and `expect` as desired (you can also leave it that way of course).
  4. Most probably you can remove `AssertionVerbFactory` at the bottom of the file
@@ -965,7 +965,7 @@ What are the drawbacks:
 
 The `ReporterBuilder` lets you choose among different options to configure the style of the reporting.
 For instance, in case you are not happy with the predefined bullet points, then you can change them via the `ReporterBuilder`.
-Have a look at [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/master/apis/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
+Have a look at [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt)
 where you can find an example.
 
 Or if you prefer multi-line reporting over single-line reporting,
@@ -1000,7 +1000,7 @@ Please let me know it by [writing a feature request](https://github.com/robstoll
 There are more options to choose from. 
 It does not matter if you use your [own assertion verb](#use-own-assertion-verbs) or a predefined one.
 You can provide your custom configured `Reporter` by providing a `ReporterFactory` (via [ServiceLoader](https://docs.oracle.com/javase/9/docs/api/java/util/ServiceLoader.html)-mechanism).
-An example is given in [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/master/apis/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
+An example is given in [atriumVerbs.kt of atrium-api-cc-de_CH](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/atrium-api-cc-de_CH-jvm/src/test/kotlin/ch/tutteli/atrium/atriumVerbs.kt).
 
 # Internationalization
 
@@ -1028,9 +1028,9 @@ enum class DescriptionIntAssertions(override val value: String) : StringBasedTra
 Typically you would put `DescriptionIntAssertions` into an own module (jar) 
 so that it could be replaced (with zero performance cost) by another language representation.
 For instance,
-[atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_GB-robstoll/build.gradle)
+[atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-en_GB-robstoll/build.gradle)
 uses `atrium-translations-en_GB` whereas 
-[atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
+[atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-de_CH-robstoll/build.gradle)
 uses `atrium-translations-de_CH`.  
 
 <details>
@@ -1140,12 +1140,12 @@ and it is your choice which implementation you want to use.
 Atrium provides three modules which bundle API, translation, domain and core as well as predefined assertion verbs,
 so that you just have to have a dependency on that one bundle (kind a bit like a BOM pom):
 
-- [atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-en_GB-robstoll/build.gradle)
-- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-de_CH-robstoll/build.gradle)
-- [atrium-cc-infix-en_GB-robstoll](https://github.com/robstoll/atrium/tree/master/bundles/atrium-cc-infix-en_GB-robstoll/build.gradle)
+- [atrium-cc-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-en_GB-robstoll/build.gradle)
+- [atrium-cc-de_CH-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-de_CH-robstoll/build.gradle)
+- [atrium-cc-infix-en_GB-robstoll](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/bundles/atrium-cc-infix-en_GB-robstoll/build.gradle)
 
 Have a look at 
-[apis/differences.md](https://github.com/robstoll/atrium/tree/master/apis/differences.md)
+[apis/differences.md](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/differences.md)
 for more information and to see how the API styles differ.
  
 
@@ -1160,13 +1160,13 @@ Therefore you want to turn the platform type into the nullable version.
 
 You need to use a cast to do this. But depending on your return type this might be cumbersome especially if you deal with generics. 
 Thus, Atrium provides the following functions to ease dealing with Java Code at least for some standard cases:
-- [`nullable`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L22)
+- [`nullable`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L22)
   turns a type into a nullable type.
-- [`nullableContainer`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L95)
+- [`nullableContainer`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L95)
   turns an `Iterable` into an iterable with nullable entry type, likewise it does the same for `Array`.
-- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L121)
+- [`nullableKeyMap`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L121)
   turns a `Map` into a map with a nullable key type.
-- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/master/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L134)
+- [`nullableValueMap`](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/domain/atrium-domain-builders-jvm/src/main/kotlin/ch/tutteli/atrium/domain/builders/utils/nullable.kt#L134)
   turns a `Map` into a map with a nullable value type.
  
  
@@ -1181,7 +1181,7 @@ You are more than welcome to contribute:
   if you would like to code (ping me on [Slack](https://kotlinlang.slack.com/messages/C887ZKGCQ) if there are not any).  
 
 Please have a look at 
-[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/master/.github/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/.github/CONTRIBUTING.md)
 for further suggestions and guidelines.
 
 # KDoc - Code Documentation

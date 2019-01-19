@@ -1,5 +1,5 @@
 buildscript {
-    rootProject.version = '0.8.0-SNAPSHOT'
+    rootProject.version = '0.8.0-alpha'
     rootProject.group = 'ch.tutteli.atrium'
 
     def translationProjects = subprojects.findAll { it.projectDir.path.contains("translations") }
@@ -20,7 +20,7 @@ buildscript {
         //gh-pages.gradle
         docProjects = subprojects.findAll { !it.name.contains("robstoll") && it.name != "${rootProject.name}-spec" }
         ghPages_version = rootProject.version
-        dokka_sourceMapping = 'tree/master'
+        dokka_sourceMapping = 'tree/v0.8.0-alpha'
         srcKotlin = 'src/main/kotlin'
         github_url = "https://github.com/robstoll/${rootProject.name}"
 
@@ -331,7 +331,7 @@ Release & deploy a commit
 4. deploy to bintray:
     a) Temporary work around till https://youtrack.jetbrains.com/issue/KT-29069 is fixed:
        export CI=true
-    b) gr clean publishBintray
+    b) gr clean publishToBintray
     c) Log in to bintray, check and publish new jars
 5. create release on github
     a) git tag vX.Y.Z
@@ -343,7 +343,7 @@ Prepare next dev cycle
 1. change rootProject.version in build.gradle to X.Y.Z-SNAPSHOT
 2. point to master
    a) search for `tag=vX.Y.Z` and replace it with `branch=master`
-   b) search for `tree/vX.Y.Z` and replace it with `tree/master`
+   b) search for `tree/vX.Y.Z` and replace it with `tree/v0.8.0-alpha`
    c) search for `X.Y.Z/doc` and replace with `latest#/doc`
 4. update README
    a) place the warning about taking a sneak peek back into README
