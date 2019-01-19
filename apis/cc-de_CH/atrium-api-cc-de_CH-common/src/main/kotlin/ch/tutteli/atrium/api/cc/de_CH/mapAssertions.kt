@@ -5,8 +5,6 @@ import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
-import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.kbox.glue
 
 /**
@@ -52,7 +50,7 @@ inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.enthaeltNullable(entry: 
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaelt(keyValue: KeyValue<K, V>, vararg otherKeyValues: KeyValue<K, V>)
-    = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValue glue otherKeyValues))
+    = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
@@ -69,7 +67,7 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.enthaelt(keyValue: KeyValue<K, V>, vara
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.enthaeltNullable(keyValue: KeyNullableValue<K, V>, vararg otherKeyValues: KeyNullableValue<K, V>)
-    = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValue glue otherKeyValues))
+    = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, (keyValue glue otherKeyValues).map { it.toPair() }))
 
 
 /**

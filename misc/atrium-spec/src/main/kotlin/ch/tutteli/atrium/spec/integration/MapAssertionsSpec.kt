@@ -2,8 +2,6 @@ package ch.tutteli.atrium.spec.integration
 
 import ch.tutteli.atrium.api.cc.en_GB.*
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
-import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.atrium.spec.AssertionVerbFactory
 import ch.tutteli.atrium.spec.describeFun
 import ch.tutteli.atrium.translations.*
@@ -17,8 +15,8 @@ abstract class MapAssertionsSpec(
     verbs: AssertionVerbFactory,
     containsPair: Pair<String, Assert<Map<String, Int>>.(Pair<String, Int>, Array<out Pair<String, Int>>) -> Assert<Map<String, Int>>>,
     containsNullablePair: Pair<String, Assert<Map<String?, Int?>>.(Pair<String?, Int?>, Array<out Pair<String?, Int?>>) -> Assert<Map<String?, Int?>>>,
-    containsKeyWithValueAssertionsPair: Pair<String, Assert<Map<String, Int>>.(KeyValue<String, Int>, Array<out KeyValue<String, Int>>) -> Assert<Map<String, Int>>>,
-    containsKeyWithNullableValueAssertionsPair: Pair<String, Assert<Map<String?, Int?>>.(KeyNullableValue<String?, Int>, Array<out KeyNullableValue<String?, Int>>) -> Assert<Map<String?, Int?>>>,
+    containsKeyWithValueAssertionsPair: Pair<String, Assert<Map<String, Int>>.(Pair<String, Assert<Int>.() -> Unit>, Array<out Pair<String, Assert<Int>.() -> Unit>>) -> Assert<Map<String, Int>>>,
+    containsKeyWithNullableValueAssertionsPair: Pair<String, Assert<Map<String?, Int?>>.(Pair<String?, (Assert<Int>.() -> Unit)?>, Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>) -> Assert<Map<String?, Int?>>>,
     containsKeyPair: Pair<String, Assert<Map<String, *>>.(String) -> Assert<Map<*, *>>>,
     containsNullableKeyPair: Pair<String, Assert<Map<String?, *>>.(String?) -> Assert<Map<String?, *>>>,
     containsNotKeyPair: Pair<String, Assert<Map<String, *>>.(String) -> Assert<Map<*, *>>>,
@@ -29,9 +27,15 @@ abstract class MapAssertionsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
+    fun keyValue(key: String, assertionCreator: Assert<Int>.() -> Unit): Pair<String, Assert<Int>.() -> Unit>
+        = key to assertionCreator
+
+    fun keyNullableValue(key: String?, assertionCreator: (Assert<Int>.() -> Unit)?): Pair<String?, (Assert<Int>.() -> Unit)?>
+        = key to assertionCreator
+
     include(object : SubjectLessAssertionSpec<Map<String, Int>>(describePrefix,
         containsPair.first to mapToCreateAssertion { containsPair.second(this, "key" to 1, arrayOf()) },
-        containsKeyWithValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithValueAssertionsPair.second(this, KeyValue("a") { toBe(1) }, arrayOf(KeyValue("a") { isLessOrEquals(2) })) },
+        containsKeyWithValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithValueAssertionsPair.second(this, keyValue("a") { toBe(1) }, arrayOf(keyValue("a") { isLessOrEquals(2) })) },
         containsKeyPair.first to mapToCreateAssertion{ containsKeyPair.second(this, "a") },
         containsNotKeyPair.first to mapToCreateAssertion{ containsKeyPair.second(this, "a") },
         hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 2) },
@@ -40,7 +44,7 @@ abstract class MapAssertionsSpec(
     ) {})
     include(object : SubjectLessAssertionSpec<Map<String?, Int?>>("$describePrefix[nullable Key] ",
         containsNullablePair.first to mapToCreateAssertion{ containsNullablePair.second(this, null to 1, arrayOf("a" to null)) },
-        containsKeyWithNullableValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithNullableValueAssertionsPair.second(this, KeyNullableValue(null) { toBe(1) }, arrayOf(KeyNullableValue("a", null))) },
+        containsKeyWithNullableValueAssertionsPair.first to mapToCreateAssertion { containsKeyWithNullableValueAssertionsPair.second(this, keyNullableValue(null) { toBe(1) }, arrayOf(keyNullableValue("a", null))) },
         containsNullableKeyPair.first to mapToCreateAssertion{ containsNullableKeyPair.second(this, null) },
         containsNotNullableKeyPair.first to mapToCreateAssertion{ containsNotNullableKeyPair.second(this, null) }
     ) {})
@@ -48,7 +52,7 @@ abstract class MapAssertionsSpec(
     include(object : CheckingAssertionSpec<Map<String, Int>>(verbs, describePrefix,
         checkingTriple(containsPair.first, { containsPair.second(this, "a" to 1, arrayOf("b" to 2)) }, mapOf("a" to 1, "b" to 2), mapOf("a" to 1, "b" to 3)),
         checkingTriple(containsKeyWithValueAssertionsPair.first,
-            { containsKeyWithValueAssertionsPair.second(this, KeyValue("a"){ isLessThan(2) }, arrayOf(KeyValue("b") { isGreaterOrEquals(2) })) },
+            { containsKeyWithValueAssertionsPair.second(this, keyValue("a"){ isLessThan(2) }, arrayOf(keyValue("b") { isGreaterOrEquals(2) })) },
             mapOf("a" to 1, "b" to 2), mapOf("a" to 2, "b" to 3)
         ),
         checkingTriple(containsKeyPair.first, {containsKeyPair.second(this, "a")}, mapOf("a" to 1), mapOf("b" to 1)),
@@ -63,7 +67,7 @@ abstract class MapAssertionsSpec(
             mapOf("a" to null, null to 1), mapOf("b" to 1, null to 1)
         ),
         checkingTriple(containsKeyWithNullableValueAssertionsPair.first,
-            { containsKeyWithNullableValueAssertionsPair.second(this, KeyNullableValue(null){ isLessThan(2) }, arrayOf(KeyNullableValue("a", null))) },
+            { containsKeyWithNullableValueAssertionsPair.second(this, keyNullableValue(null){ isLessThan(2) }, arrayOf(keyNullableValue("a", null))) },
             mapOf("a" to null, null to 1), mapOf("a" to null, "b" to 1, null to 3)
         ),
         checkingTriple(containsNullableKeyPair.first,
@@ -190,11 +194,11 @@ abstract class MapAssertionsSpec(
 
     describeFun(containsKeyWithValueAssertions) {
         context("map $map") {
-            listOf<Pair<String, List<KeyValue<String, Int>>>>(
-                "a{ toBe(1) }" to listOf(KeyValue("a") { toBe(1) } ),
-                "b{ toBe(2) }" to listOf(KeyValue("b") { toBe(2) } ),
-                "a{ toBe(1) }, b{ toBe(2) }" to listOf(KeyValue("a") { toBe(1) }, KeyValue("b"){ toBe(2) }) ,
-                "b{ toBe(2) }, a{ toBe(1) }" to listOf(KeyValue("b") { toBe(2) }, KeyValue("a"){ toBe(1) })
+            listOf<Pair<String, List<Pair<String, Assert<Int>.() -> Unit>>>>(
+                "a{ toBe(1) }" to listOf(keyValue("a") { toBe(1) } ),
+                "b{ toBe(2) }" to listOf(keyValue("b") { toBe(2) } ),
+                "a{ toBe(1) }, b{ toBe(2) }" to listOf(keyValue("a") { toBe(1) }, keyValue("b"){ toBe(2) }) ,
+                "b{ toBe(2) }, a{ toBe(1) }" to listOf(keyValue("b") { toBe(2) }, keyValue("a"){ toBe(1) })
             ).forEach { (description, keyValues) ->
                 test("$description does not throw") {
                     fluent.containsKeyWithValueAssertionsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
@@ -202,12 +206,12 @@ abstract class MapAssertionsSpec(
             }
 
             test("a{ isLessThan(2) } and a{ isGreaterThan(0) } does not throw (no unique match)") {
-                fluent.containsKeyWithValueAssertionsFun(KeyValue("a") { isLessThan(2) }, arrayOf(KeyValue("a"){ isGreaterThan(0) }))
+                fluent.containsKeyWithValueAssertionsFun(keyValue("a") { isLessThan(2) }, arrayOf(keyValue("a"){ isGreaterThan(0) }))
             }
 
             test("a{ isLessThan(3) }, b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                 expect {
-                    fluent.containsKeyWithValueAssertionsFun(KeyValue("a") { isLessThan(3) }, arrayOf(KeyValue("b"){ isLessThan(2) }, KeyValue("c") { isLessThan(1) }))
+                    fluent.containsKeyWithValueAssertionsFun(keyValue("a") { isLessThan(3) }, arrayOf(keyValue("b"){ isLessThan(2) }, keyValue("c") { isLessThan(1) }))
                 }.toThrow<AssertionError>{
                     message {
                         contains(
@@ -225,23 +229,23 @@ abstract class MapAssertionsSpec(
 
     describeFun(containsKeyWithNullableValueAssertions) {
         context("map $nullableMap") {
-            listOf<Pair<String, List<KeyNullableValue<String?, Int>>>>(
+            listOf<Pair<String, List<Pair<String?, (Assert<Int>.() -> Unit)?>>>>(
                 "(a, null)" to
-                    listOf(KeyNullableValue("a" , null)),
+                    listOf(keyNullableValue("a" , null)),
                 "a{ toBe(1) }" to
-                    listOf(KeyNullableValue(null){ toBe(1) }),
+                    listOf(keyNullableValue(null){ toBe(1) }),
                 "b{ toBe(2) }" to
-                    listOf(KeyNullableValue("b"){ toBe(2) }),
+                    listOf(keyNullableValue("b"){ toBe(2) }),
                 "(a, null), b{ toBe(2) }" to
-                    listOf(KeyNullableValue("a", null), KeyNullableValue("b"){ toBe(2) }),
+                    listOf(keyNullableValue("a", null), keyNullableValue("b"){ toBe(2) }),
                 "null{ toBe(1) }, b{ toBe(2) }" to
-                    listOf(KeyNullableValue(null){ toBe(1) }, KeyNullableValue("b"){ toBe(2)}),
+                    listOf(keyNullableValue(null){ toBe(1) }, keyNullableValue("b"){ toBe(2)}),
                 "null{ toBe(1) }, (a, null)" to
-                    listOf(KeyNullableValue(null){ toBe(1) }, KeyNullableValue("a", null)),
+                    listOf(keyNullableValue(null){ toBe(1) }, keyNullableValue("a", null)),
                 "null{ toBe(1) }, (a, null), b{ toBe(2) }" to
-                    listOf(KeyNullableValue(null ){ toBe(1) }, KeyNullableValue("a", null), KeyNullableValue("b") { toBe(2) }),
+                    listOf(keyNullableValue(null ){ toBe(1) }, keyNullableValue("a", null), keyNullableValue("b") { toBe(2) }),
                 "b{ toBe(2) }, null{ toBe(1) }, (a, null)" to
-                    listOf(KeyNullableValue("b"){ toBe(2) }, KeyNullableValue(null){ toBe(1)}, KeyNullableValue("a", null))
+                    listOf(keyNullableValue("b"){ toBe(2) }, keyNullableValue(null){ toBe(1)}, keyNullableValue("a", null))
             ).forEach { (description, keyValues) ->
                 test("$description does not throw") {
                     nullableFluent.containsKeyWithNullableValueAssertionsFun(keyValues.first(), keyValues.drop(1).toTypedArray())
@@ -250,17 +254,17 @@ abstract class MapAssertionsSpec(
 
             test("b{ isLessThan(3) } and b{ isGreaterThan(0) } does not throw (no unique match)") {
                 nullableFluent.containsKeyWithNullableValueAssertionsFun(
-                    KeyNullableValue("b") { isLessThan(3) },
-                    arrayOf(KeyNullableValue("b"){ isGreaterThan(0) })
+                    keyNullableValue("b") { isLessThan(3) },
+                    arrayOf(keyNullableValue("b"){ isGreaterThan(0) })
                 )
             }
 
             test("(a, null), b { isLessThan(2) }, c { isLessThan(1) }} throws AssertionError, reports b and c") {
                 expect {
                     nullableFluent.containsKeyWithNullableValueAssertionsFun(
-                        KeyNullableValue("a", null), arrayOf(
-                            KeyNullableValue("b"){ isLessThan(2) },
-                            KeyNullableValue("c") { isLessThan(1) }
+                        keyNullableValue("a", null), arrayOf(
+                            keyNullableValue("b"){ isLessThan(2) },
+                            keyNullableValue("c") { isLessThan(1) }
                         )
                     )
                 }.toThrow<AssertionError>{

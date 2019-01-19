@@ -2,8 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.api.cc.infix.en_GB.keywords.Empty
 import ch.tutteli.atrium.creating.Assert
-import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
-import ch.tutteli.atrium.domain.creating.map.KeyValue
+import ch.tutteli.atrium.domain.builders.utils.mapArguments
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import kotlin.reflect.KFunction2
 
@@ -41,20 +40,24 @@ class MapAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAssertionsSpec(
         }
 
         private val containsKeyWithValueAssertionsFun : KFunction2<Assert<Map<String, Int>>, KeyValue<String, Int>, Assert<Map<String, Int>>> = Assert<Map<String, Int>>::contains
-        private fun containsKeyWithValueAssertions(plant: Assert<Map<String, Int>>, keyValue: KeyValue<String, Int>, otherKeyValues: Array<out KeyValue<String, Int>>): Assert<Map<String, Int>> {
+        private fun containsKeyWithValueAssertions(plant: Assert<Map<String, Int>>, keyValue: Pair<String, Assert<Int>.() -> Unit>, otherKeyValues: Array<out Pair<String, Assert<Int>.() -> Unit>>) : Assert<Map<String, Int>> {
             return if (otherKeyValues.isEmpty()) {
-                plant contains keyValue
+                plant contains KeyValue(keyValue.first, keyValue.second)
             } else {
-                plant contains All(keyValue, *otherKeyValues)
+                mapArguments(keyValue, otherKeyValues).to { KeyValue(it.first, it.second) }.let{ (first, others) ->
+                    plant contains All(first, *others)
+                }
             }
         }
 
         private val containsKeyWithNullableValueAssertionsFun : KFunction2<Assert<Map<String?, Int?>>, KeyNullableValue<String, Int>, Assert<Map<String?, Int?>>> = Assert<Map<String?, Int?>>::containsNullable
-        private fun containsKeyWithNullableValueAssertions(plant: Assert<Map<String?, Int?>>, keyValue: KeyNullableValue<String?, Int>, otherKeyValues: Array<out KeyNullableValue<String?, Int>>): Assert<Map<String?, Int?>> {
+        private fun containsKeyWithNullableValueAssertions(plant: Assert<Map<String?, Int?>>, keyValue: Pair<String?, (Assert<Int>.() -> Unit)?>, otherKeyValues: Array<out Pair<String?, (Assert<Int>.() -> Unit)?>>): Assert<Map<String?, Int?>> {
             return if (otherKeyValues.isEmpty()) {
-                plant containsNullable keyValue
+                plant containsNullable KeyNullableValue(keyValue.first, keyValue.second)
             } else {
-                plant containsNullable All(keyValue, *otherKeyValues)
+                mapArguments(keyValue, otherKeyValues).to { KeyNullableValue(it.first, it.second) }.let{ (first, others) ->
+                    plant containsNullable All(first, *others)
+                }
             }
         }
 

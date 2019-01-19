@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.infix.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.utils.*
 import ch.tutteli.kbox.glue
 
@@ -22,6 +23,7 @@ interface VarArgHelper<out T> {
  * Parameter object to express `T, vararg T` in the infix-api.
  */
 class All<T>(override val expected: T, override vararg val otherExpected: T) : VarArgHelper<T>
+
 
 /**
  * Parameter object to express a [Group] with a single identification lambda.
@@ -50,6 +52,7 @@ class NullableEntry<in T : Any>(
 ) : GroupWithNullableEntries<(Assert<T>.() -> Unit)?> {
     override fun toList(): List<(Assert<T>.() -> Unit)?> = listOf(assertionCreator)
 }
+
 
 /**
  * Parameter object to express a [GroupWithoutNullableEntries] of identification lambdas.
@@ -92,6 +95,27 @@ class NullableEntries<in T : Any>(
 
     override fun toList() = super.toList()
 }
+
+
+/**
+ * Parameter object to express a key/value [Pair] whose value type is a lambda with an
+ * [Assert][AssertionPlant] receiver.
+ */
+data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreator: Assert<V>.() -> Unit) {
+    fun toPair(): Pair<K, Assert<V>.() -> Unit> = key to valueAssertionCreator
+    override fun toString(): String = "KeyValue(key=$key)"
+}
+
+/**
+ * Parameter object to express a key/value [Pair] whose value type is a nullable lambda with an
+ * [Assert][AssertionPlant] receiver, which means one can either pass a lambda or `null`.
+ */
+data class KeyNullableValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Assert<V>.() -> Unit)?) {
+    fun toPair(): Pair<K, (Assert<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
+    override fun toString(): String
+        = "KeyNullableValue(key=$key, value=${if (valueAssertionCreatorOrNull == null) "null" else "lambda"}"
+}
+
 
 /**
  * Parameter object to express `Group<T>, Group<T>, vararg Group<T>` in the infix-api.

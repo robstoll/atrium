@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.cc.en_GB
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.utils.GroupWithNullableEntries
 import ch.tutteli.atrium.domain.builders.utils.GroupWithoutNullableEntries
 import ch.tutteli.kbox.glue
@@ -33,6 +34,7 @@ class NullableEntry<in T : Any>(
 ) : GroupWithNullableEntries<(Assert<T>.() -> Unit)?> {
     override fun toList(): List<(Assert<T>.() -> Unit)?> = listOf(assertionCreator)
 }
+
 
 /**
  * Parameter object to express a [GroupWithoutNullableEntries] of identification lambdas.
@@ -66,6 +68,27 @@ class NullableEntries<in T : Any>(
     override fun toList(): List<(Assert<T>.() -> Unit)?> = assertionCreatorOrNull glue otherAssertionCreatorsOrNulls
 }
 
+
+/**
+ * Parameter object to express a key/value [Pair] whose value type is a lambda with an
+ * [Assert][AssertionPlant] receiver.
+ */
+data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreator: Assert<V>.() -> Unit) {
+    fun toPair(): Pair<K, Assert<V>.() -> Unit> = key to valueAssertionCreator
+    override fun toString(): String = "KeyValue(key=$key)"
+}
+
+/**
+ * Parameter object to express a key/value [Pair] whose value type is a nullable lambda with an
+ * [Assert][AssertionPlant] receiver, which means one can either pass a lambda or `null`.
+ */
+data class KeyNullableValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Assert<V>.() -> Unit)?) {
+    fun toPair(): Pair<K, (Assert<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
+    override fun toString(): String
+        = "KeyNullableValue(key=$key, value=${if (valueAssertionCreatorOrNull == null) "null" else "lambda"}"
+}
+
+
 /**
  * Represents a [GroupWithoutNullableEntries] with a single value.
  */
@@ -87,7 +110,6 @@ data class NullableValue<T : Any?>(val expected: T) : GroupWithNullableEntries<T
 class Values<T : Any>(private val expected: T, vararg val otherExpected: T) : GroupWithoutNullableEntries<T> {
     override fun toList() = listOf(expected, *otherExpected)
 }
-
 
 /**
  * Represents a [GroupWithNullableEntries] of multiple nullable values.

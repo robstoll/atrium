@@ -7,8 +7,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.builders.AssertImpl
-import ch.tutteli.atrium.domain.creating.map.KeyNullableValue
-import ch.tutteli.atrium.domain.creating.map.KeyValue
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
@@ -81,7 +79,7 @@ infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 infix fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValues: All<KeyValue<K, V>>)
-    = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValues.toList()))
+    = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValues.toList().map { it.toPair() }))
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
@@ -109,7 +107,7 @@ inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
 inline infix fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyValues: All<KeyNullableValue<K, V>>)
-    = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValues.toList()))
+    = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValues.toList().map { it.toPair() }))
 
 /**
  * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key].
