@@ -43,7 +43,7 @@ class FeatureAssertionsClassReferenceSpec : ch.tutteli.atrium.spec.integration.F
 
     companion object {
         val propertyImmediate: F = { property(TestData::description) contains "hello" }
-        val propertyLazy: F = { property(TestData::description) { this contains "hello" } }
+        val propertyLazy: F = { property(TestData::description) { o contains "hello" } }
         val return0ValueImmediate: F = { returnValueOf(TestData::return0) contains Values("hello") }
         val return1ValueImmediate: F = { returnValueOf(TestData::return1, "a") contains Values("hello") }
         val return2ValueImmediate: F = { returnValueOf(TestData::return2, "a", 1) contains Values("hello") }
@@ -51,12 +51,12 @@ class FeatureAssertionsClassReferenceSpec : ch.tutteli.atrium.spec.integration.F
         val return4ValueImmediate: F = { returnValueOf(TestData::return4, "a", 1, true, 1.2) contains Values("hello") }
         val return5ValueImmediate: F = { returnValueOf(TestData::return5, "a", 1, true, 1.2, 'b') contains Values("hello") }
         //TODO remove subAssert once https://youtrack.jetbrains.com/issue/KT-24230 is fixed
-        val return0ValueLazy: F = { returnValueOf(TestData::return0, subAssert { this contains Values("hello") }) }
-        val return1ValueLazy: F = { returnValueOf(TestData::return1, "a") { this contains Values("hello") } }
-        val return2ValueLazy: F = { returnValueOf(TestData::return2, "a", 1) { this contains Values("hello") } }
-        val return3ValueLazy: F = { returnValueOf(TestData::return3, "a", 1, true) { this contains Values("hello") } }
-        val return4ValueLazy: F = { returnValueOf(TestData::return4, "a", 1, true, 1.2) { this contains Values("hello") } }
-        val return5ValueLazy: F = { returnValueOf(TestData::return5, "a", 1, true, 1.2, 'b') { this contains Values("hello") } }
+        val return0ValueLazy: F = { returnValueOf(TestData::return0, subAssert { o contains Values("hello") }) }
+        val return1ValueLazy: F = { returnValueOf(TestData::return1, "a") { o contains Values("hello") } }
+        val return2ValueLazy: F = { returnValueOf(TestData::return2, "a", 1) { o contains Values("hello") } }
+        val return3ValueLazy: F = { returnValueOf(TestData::return3, "a", 1, true) { o contains Values("hello") } }
+        val return4ValueLazy: F = { returnValueOf(TestData::return4, "a", 1, true, 1.2) { o contains Values("hello") } }
+        val return5ValueLazy: F = { returnValueOf(TestData::return5, "a", 1, true, 1.2, 'b') { o contains Values("hello") } }
 
         val propertyNullableDoesNotHold: F = { property(TestData::nullableValue) toBe null }
         val return0ValueNullableDoesNotHold: F = { returnValueOf(TestData::returnNullable0) toBe null }

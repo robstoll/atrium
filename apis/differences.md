@@ -158,17 +158,17 @@ are applicable to all shown examples
 ```kotlin
 assert(x) contains 1.2
 assert(x) contains Values(1.2, 5.7) // or Objects as alternative
-assert(x) contains { this isLessThan 2 }
-assert(x) contains Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
+assert(x) contains { o isLessThan 2 }
+assert(x) contains Entries({ o isLessThan 2 }, { o isGreaterThan 5 })
 
 assert(x) to contain inAny order atLeast 1 butAtMost 2 value 3.2
 assert(x) to contain inAny order exactly 1 the Values("hello", "robert")
-assert(x) to contain inAny order atMost 2 entry { this isLessOrEquals 2 }
+assert(x) to contain inAny order atMost 2 entry { o isLessOrEquals 2 }
 assert(x) to contain inAny order notOrAtMost 2 the Entries({ notToBe(3) }, { isGreaterOrEquals(2) })
 assert(x) to contain inAny order but only value "hello")
 assert(x) to contain inAny order but only the Values(personA, personB)
-assert(x) to contain inAny order but only entry { this isLessThan 2 } 
-assert(x) to contain inAny order but only the Entries({ this toBe 3 }, { this isLessThan 2 })
+assert(x) to contain inAny order but only entry { o isLessThan 2 } 
+assert(x) to contain inAny order but only the Entries({ o toBe 3 }, { o isLessThan 2 })
 ```
 Notice that the final steps 
 `value`, `Values(...)`, `entry` and `Entries(...)` 
@@ -202,7 +202,7 @@ assert(listOf(null, 1)) contains NullableEntries(null,  { isLessThan(2) })
 assert(listOf(null, 1)) to contain inAny order atLeast 1 nullableValue null
 assert(listOf(null, 1)) to contain inAny order atLeast 1 the NullableValues(null, 1)
 assert(listOf(null, 1)) to contain inAny order atLeast 1 nullableEntry null
-assert(listOf(null, 1)) to contain inAny order atLeast 1 the NullableEntries(null, { this isLessThan 2 })
+assert(listOf(null, 1)) to contain inAny order atLeast 1 the NullableEntries(null, { o isLessThan 2 })
 //see above for more `inAny order` options
 ```
 
@@ -236,22 +236,22 @@ assert(x).contains.inOrder.only.grouped.within.inAnyOrder(
 ```kotlin
 assert(x) containsStrictly 1.2
 assert(x) containsStrictly Values(1.2, 5.7) // or Objects as alternative
-assert(x) containsStrictly { this isLessThan 2 }
-assert(x) containsStrictly Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
+assert(x) containsStrictly { o isLessThan 2 }
+assert(x) containsStrictly Entries({ o isLessThan 2 }, { o isGreaterThan 5 })
 
 assert(x) contains inGiven order and only value "hello"
 assert(x) contains inGiven order and only the Values("hello", "world")
-assert(x) contains inGiven order and only entry { this isLessThan 2 }
-assert(x) contains inGiven order and only the Entries({ this toBe 3 }, { this isLessThan 2 })
+assert(x) contains inGiven order and only entry { o isLessThan 2 }
+assert(x) contains inGiven order and only the Entries({ o toBe 3 }, { o isLessThan 2 })
 assert(x) contains inGiven order and only grouped entries within group inAny Order(
     Value(1), 
     Values(1, 2), 
     Values(3, 4)
 )
 assert(x) contains inGiven order and only grouped entries within group inAny Order(
-    Entry({ this toBe(1) }), 
-    Entries({ this isLessThan(2) },{ this isGreaterThan(2) }), 
-    Entries({ this toBe(3) }, { this toBe(4) })
+    Entry({ o toBe(1) }), 
+    Entries({ o isLessThan(2) },{ o isGreaterThan(2) }), 
+    Entries({ o toBe(3) }, { o toBe(4) })
 )
 ```
 
@@ -291,16 +291,16 @@ assert(listOf(null, 1)) containsStrictly NullableEntries(null,  { isLessThan(2) 
 assert(listOf(null, 1)) to contain inGiven order and only nullableValue null
 assert(listOf(null, 1)) to contain inGiven order and only the NullableValues(null, 1)
 assert(listOf(null, 1)) to contain inGiven order and only nullableEntry null
-assert(listOf(null, 1)) to contain inGiven order and only the NullableEntries(null, { this isLessThan 2 })
+assert(listOf(null, 1)) to contain inGiven order and only the NullableEntries(null, { o isLessThan 2 })
 assert(listOf(null, 1)) contains inGiven order and only grouped entries within group inAny Order(
     NullableValue(1), 
     NullableValues(1, 2), 
     NullableValues(3, 4)
 )
 assert(listOf(null, 1)) contains inGiven order and only grouped entries within group inAny Order(
-    NullableEntry({ this toBe(1) }), 
-    NullableEntries({ this isLessThan(2) },{ this isGreaterThan(2) }), 
-    NullableEntries({ this toBe(3) }, { this toBe(4) })
+    NullableEntry({ o toBe(1) }), 
+    NullableEntries({ o isLessThan(2) },{ o isGreaterThan(2) }), 
+    NullableEntries({ o toBe(3) }, { o toBe(4) })
 )
 //see above for more `inGiven order` options
 ```
@@ -321,8 +321,8 @@ assert(x).containsNot.entries({ isLessThan(2) }, { isGreaterThan 5 })
 assert(x) containsNot 1.2
 assert(x) containsNot Values(1.2, 5.7)
 
-assert(x) notTo contain entry { this isLessThan 2 }
-assert(x) notTo contain the Entries({ this isLessThan 2 }, { this isGreaterThan 5 })
+assert(x) notTo contain entry { o isLessThan 2 }
+assert(x) notTo contain the Entries({ o isLessThan 2 }, { o isGreaterThan 5 })
 ```
 
 ## Iterable contains not with nullable elements
@@ -340,7 +340,7 @@ assert(x).containsNot.nullableEntries(null, { isLessThan(2) })
 assert(x) notTo contain nullableValue null
 assert(x) notTo contain the NullableValues(null, 1)
 assert(x) notTo contain nullableEntry null
-assert(x) notTo contain the NullableEntries(null, { this isLessThan 2 })
+assert(x) notTo contain the NullableEntries(null, { o isLessThan 2 })
 ```
 
 # Iterable predicate-like assertions
@@ -356,9 +356,9 @@ assert(x).all { isNumericallyEqualTo(12.2) }
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(x) any { this startsWith "hello" }
-assert(x) none { this endsWith "." }
-assert(x) all { this isNumericallyEqualTo 12.2 }
+assert(x) any { o startsWith "hello" }
+assert(x) none { o endsWith "." }
+assert(x) all { o isNumericallyEqualTo 12.2 }
 ```
 
 # Iterable predicate-like assertions with nullable elements
@@ -375,8 +375,8 @@ assert(x).allNullables(null)
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(x) any NullableEntry { this startsWith "hello" }
-assert(x) none NullableEntry { this endsWith "." }
+assert(x) any NullableEntry { o startsWith "hello" }
+assert(x) none NullableEntry { o endsWith "." }
 assert(x) all NullableEntry(null)
 ```
 
@@ -389,8 +389,8 @@ assert(x).getNullable(0) { notToBeNullBut(1) }
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(x) get 0 assertIt { this isGreaterThan 1 }
-assert(x) getNullable 0 assertIt { this  notToBeNullBut 1 }
+assert(x) get 0 assertIt { o isGreaterThan 1 }
+assert(x) getNullable 0 assertIt { o  notToBeNullBut 1 }
 ```
 
 # Map get
@@ -402,6 +402,6 @@ assert(x).getExistingNullable("a") { notToBeNullBut(1) }
 
 *atrium-api-cc-infix-en_GB*
 ```kotlin
-assert(x) getExisting "a" assertIt { this isGreaterThan 1 }
-assert(x) getExistingNullable "a" assertIt { this  notToBeNullBut 1 }
+assert(x) getExisting "a" assertIt { o isGreaterThan 1 }
+assert(x) getExistingNullable "a" assertIt { o  notToBeNullBut 1 }
 ```
