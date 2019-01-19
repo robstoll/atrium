@@ -7,9 +7,9 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is (equal to) [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is (equal to) [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `assert(1).toBe(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -20,9 +20,9 @@ infix fun <T : Any> Assert<T>.toBe(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not (equal to) [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `assert(1).notToBe(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -33,9 +33,9 @@ infix fun <T : Any> Assert<T>.notToBe(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is the same instance as [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `assert(1).isSame(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -46,9 +46,9 @@ infix fun <T : Any> Assert<T>.isSame(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not the same instance as [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `assert(1).isNotSame(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -59,7 +59,7 @@ infix fun <T : Any> Assert<T>.isNotSame(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is `null`.
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is `null`.
  *
  * @param null Has to be `null`.
  *

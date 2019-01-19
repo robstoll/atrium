@@ -36,7 +36,7 @@ fun <T : BigDecimal> AssertionPlantNullable<T?>.notToBeNullBut(expected: T): Not
     "If you know it and want that `scale` is included in the comparison, then use `notToBeNullBut { isEqualIncludingScale(expected) }`.")
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is numerically equal to [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) == 0`)
@@ -54,7 +54,7 @@ fun <T : BigDecimal> Assert<T>.isNumericallyEqualTo(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isNumericallyEqualTo(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not numerically equal to [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not numerically equal to [expected].
  *
  * By numerically is meant that it will not compare [BigDecimal.scale] (or in other words,
  * it uses `compareTo(expected) != 0`)
@@ -73,7 +73,7 @@ fun <T : BigDecimal> Assert<T>.isNotNumericallyEqualTo(expected: T)
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is equal to [expected] including [BigDecimal.scale].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [isNumericallyEqualTo] which does not compare [BigDecimal.scale]
  * in contrast to this function.
@@ -88,7 +88,7 @@ fun <T : BigDecimal> Assert<T>.isEqualIncludingScale(expected: T)
     = addAssertion(AssertImpl.bigDecimal.isEqualIncludingScale(this, expected, this::isNumericallyEqualTo.name))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not equal to [expected] including [BigDecimal.scale].
  *
  * Most of the time you want to use [isNotNumericallyEqualTo] which does not compare [BigDecimal.scale]
  * in contrast to this function.

@@ -35,7 +35,7 @@ fun ThrowableThrown.Builder.notToThrow(){
 
 /**
  * Creates an [AssertionPlantNullable] for the [message][Throwable.message] of the plant's
- * [subject][AssertionPlant.subject] (which is a [Throwable]) and makes the assertion that message [notToBeNull]
+ * [subject][Assert.subject][AssertionPlant.subject] (which is a [Throwable]) and makes the assertion that message [notToBeNull]
  * and uses [assertionCreator] which might create further [Assertion]s which are lazily evaluated at the end.
  *
  * @return Notice, that this assertion function cannot provide a fluent API because it depends on whether the first

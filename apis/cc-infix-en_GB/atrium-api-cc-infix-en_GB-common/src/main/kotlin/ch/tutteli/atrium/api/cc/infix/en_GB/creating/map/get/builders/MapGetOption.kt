@@ -25,7 +25,7 @@ interface MapGetOption<K, V : Any, T : Map<K, V>> {
     val key: K
 
     /**
-     * Makes the assertion that [AssertionPlant.subject] contains the previously specified [key] and that the
+     * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the previously specified [key] and that the
      * corresponding value holds all assertions the given [assertionCreator] might create for it.
      *
      * @return This plant to support a fluent API.

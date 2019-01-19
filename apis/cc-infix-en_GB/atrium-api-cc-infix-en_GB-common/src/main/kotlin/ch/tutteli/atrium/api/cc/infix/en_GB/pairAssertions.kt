@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
- * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [first][Pair.first] so that further
+ * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] so that further
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -18,7 +18,7 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 val <K : Any> Assert<Pair<K, *>>.first get() : Assert<K> = property(Pair<K, *>::first)
 
 /**
- * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [first][Pair.first] (which could be `null`)
+ * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] (which could be `null`)
  * so that further fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -30,7 +30,7 @@ val <K> Assert<Pair<K, *>>.nullableFirst get() : AssertionPlantNullable<K> = pro
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject]'s property [first][Pair.first] holds all assertions the given
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -42,7 +42,7 @@ infix fun <K : Any, V> Assert<Pair<K, V>>.first(assertionCreator: Assert<K>.() -
     = addAssertion(AssertImpl.pair.first(this, assertionCreator))
 
 /**
- * Makes the assertion that [AssertionPlant.subject]'s property [first][Pair.first] (which could be `null`) holds
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [first][Pair.first] (which could be `null`) holds
  * all assertions the given [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -55,7 +55,7 @@ infix fun <K, V> Assert<Pair<K, V>>.nullableFirst(assertionCreator: AssertionPla
 
 
 /**
- * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [second][Pair.second] so that further
+ * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] so that further
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -66,7 +66,7 @@ infix fun <K, V> Assert<Pair<K, V>>.nullableFirst(assertionCreator: AssertionPla
 val <V : Any> Assert<Pair<*, V>>.second get() : Assert<V> = property(Pair<*, V>::second)
 
 /**
- * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [second][Pair.second]
+ * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second]
  * (which could be `null`) so that further fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -78,7 +78,7 @@ val <V> Assert<Pair<*, V>>.nullableSecond get() : AssertionPlantNullable<V> = pr
 
 
 /**
- * Makes the assertion that [AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -90,7 +90,7 @@ infix fun <K, V: Any> Assert<Pair<K, V>>.second(assertionCreator: Assert<V>.() -
     = addAssertion(AssertImpl.pair.second(this, assertionCreator))
 
 /**
- * Makes the assertion that [AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [second][Pair.second] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.

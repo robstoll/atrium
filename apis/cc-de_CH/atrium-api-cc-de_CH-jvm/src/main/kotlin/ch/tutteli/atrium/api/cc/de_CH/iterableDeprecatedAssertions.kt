@@ -23,7 +23,7 @@ fun  <E: Any?, T : Iterable<E>> Assert<T>.enthaelt(expected: E, vararg otherExpe
     = enthaeltNullableWerte(expected, *otherExpected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains an entry holding the assertions created by the
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains an entry holding the assertions created by the
  * [assertionCreator] or an entry which is `null` in case [assertionCreator] is `null`
  * as well -- likewise an entry (can be the same) is searched for each
  * of the [otherAssertionCreators].

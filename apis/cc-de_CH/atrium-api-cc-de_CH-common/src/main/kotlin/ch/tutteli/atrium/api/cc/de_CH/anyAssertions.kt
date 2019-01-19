@@ -12,9 +12,9 @@ import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is (equal to) [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is (equal to) [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).ist(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -24,9 +24,9 @@ fun <T : Any> Assert<T>.ist(expected: T)
     = addAssertion(AssertImpl.any.toBe(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not (equal to) [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not (equal to) [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).istNicht(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -36,9 +36,9 @@ fun <T : Any> Assert<T>.istNicht(expected: T)
     = addAssertion(AssertImpl.any.notToBe(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is the same instance as [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is the same instance as [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).istSelbeInstanzWie(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -48,9 +48,9 @@ fun <T : Any> Assert<T>.istSelbeInstanzWie(expected: T)
     = addAssertion(AssertImpl.any.isSame(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not the same instance as [expected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not the same instance as [expected].
  *
- * This method might enforce in the future, that [expected] has to be the same type as [AssertionPlant.subject].
+ * This method might enforce in the future, that [expected] has to be the same type as [Assert.subject][AssertionPlant.subject].
  * Currently the following is possible: `esGilt(1).istNichtSelbeInstanzWie(1.0)`
  *
  * @return This plant to support a fluent API.
@@ -60,7 +60,7 @@ fun <T : Any> Assert<T>.istNichtSelbeInstanzWie(expected: T)
     = addAssertion(AssertImpl.any.isNotSame(this, expected))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is `null`.
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is `null`.
  *
  * @param null has to be `null`.
  *

@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.AssertionPlantNullable
 import ch.tutteli.atrium.domain.builders.AssertImpl
 
 /**
- * Makes the assertion that the given [index] is within the bounds of [AssertionPlant.subject] and that
+ * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject] and that
  * the corresponding entry holds all assertions the given [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -19,7 +19,7 @@ fun <E: Any, T: List<E>> Assert<T>.get(index: Int, assertionCreator: Assert<E>.(
     = addAssertion(AssertImpl.list.get(this, index, assertionCreator))
 
 /**
- * Makes the assertion that the given [index] is within the bounds of [AssertionPlant.subject] and that
+ * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject] and that
  * the corresponding nullable entry holds all assertions the given [assertionCreator] might create for it.
  *
  * Notice, that the corresponding entry for the given [index] can be `null` as the [List] has a

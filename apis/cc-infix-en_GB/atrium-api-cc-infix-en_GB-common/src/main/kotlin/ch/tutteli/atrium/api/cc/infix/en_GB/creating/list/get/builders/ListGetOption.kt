@@ -24,7 +24,7 @@ interface ListGetOption<E : Any, T: List<E>> {
     val index: Int
 
     /**
-     * Makes the assertion that the given [index] is within the bounds of [AssertionPlant.subject] and that
+     * Makes the assertion that the given [index] is within the bounds of [Assert.subject][AssertionPlant.subject] and that
      * the corresponding entry holds all assertions the given [assertionCreator] might create for it.
      *
      * @return This plant to support a fluent API.

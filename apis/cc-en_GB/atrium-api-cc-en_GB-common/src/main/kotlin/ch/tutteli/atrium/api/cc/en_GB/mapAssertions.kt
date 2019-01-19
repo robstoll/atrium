@@ -10,7 +10,7 @@ import ch.tutteli.atrium.domain.creating.map.KeyValue
 import ch.tutteli.kbox.glue
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValuePair]'s [Pair.first]
  * with a corresponding value as defined by [keyValuePair]'s [Pair.second] -- optionally the same assertions
  * are created for the [otherPairs].
  *
@@ -25,7 +25,7 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValuePair: Pair<K, V>, vara
     = addAssertion(AssertImpl.map.contains(this, keyValuePair glue otherPairs))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyNullableValuePair]'s [Pair.first]
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyNullableValuePair]'s [Pair.first]
  * with a corresponding value as defined by [keyNullableValuePair]'s [Pair.second] -- optionally the same assertions
  * are created for the [otherEntries].
  *
@@ -40,7 +40,7 @@ inline fun <K, reified V: Any, T: Map<K, V?>> Assert<T>.containsNullable(keyNull
     = addAssertion(AssertImpl.map.containsNullable(this, V::class, keyNullableValuePair glue otherEntries))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyValue.key]
  * with a corresponding value which holds all assertions [keyValue]'s [KeyValue.valueAssertionCreator] might create.
  * -- optionally the same assertions are created for the [otherKeyValues].
  *
@@ -55,7 +55,7 @@ fun <K, V : Any, T: Map<K, V>> Assert<T>.contains(keyValue: KeyValue<K, V>, vara
     = addAssertion(AssertImpl.map.containsKeyWithValueAssertions(this, keyValue glue otherKeyValues))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains a key as defined by [keyValue]'s [KeyNullableValue.key]
  * with a corresponding value which either holds all assertions [keyValue]'s
  * [KeyNullableValue.valueAssertionCreatorOrNull] might create or needs to be `null` in case
  * [KeyNullableValue.valueAssertionCreatorOrNull] is defined as `null`
@@ -72,7 +72,7 @@ inline fun <K, reified V : Any, T: Map<K, V?>> Assert<T>.containsNullable(keyVal
     = addAssertion(AssertImpl.map.containsKeyWithNullableValueAssertions(this, V::class, keyValue glue otherKeyValues))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the given [key].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -81,7 +81,7 @@ fun <K> Assert<Map<K, *>>.containsKey(key: K)
     = addAssertion(AssertImpl.map.containsKey(this, key))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does not contain the given [key].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] does not contain the given [key].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -90,7 +90,7 @@ fun <K> Assert<Map<K, *>>.containsNotKey(key: K)
     = addAssertion(AssertImpl.map.containsNotKey(this, key))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding value
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key] and that the corresponding value
  * holds all assertions the given [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -102,7 +102,7 @@ fun <K, V: Any, T: Map<K, V>> Assert<T>.getExisting(key: K, assertionCreator: As
     = addAssertion(AssertImpl.map.getExisting(this, key, assertionCreator))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains the given [key] and that the corresponding nullable value
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains the given [key] and that the corresponding nullable value
  * holds all assertions the given [assertionCreator] might create for it.
  *
  * Notice, that the corresponding value of the given [key] can be `null` even if the key exists as the [Map] has a
@@ -117,7 +117,7 @@ fun <K, V: Any, T: Map<K, V?>> Assert<T>.getExistingNullable(key: K, assertionCr
     = addAssertion(AssertImpl.map.getExistingNullable(this, key, assertionCreator))
 
 /**
- * Makes the assertion that [AssertionPlant.subject]'s [Map.size] is [size].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s [Map.size] is [size].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -126,7 +126,7 @@ fun <T : Map<*, *>> Assert<T>.hasSize(size: Int)
     = addAssertion(AssertImpl.map.hasSize(this, size))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is an empty [Map].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is an empty [Map].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -135,7 +135,7 @@ fun <T : Map<*, *>> Assert<T>.isEmpty()
     = addAssertion(AssertImpl.map.isEmpty(this))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] is not an empty [Map].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is not an empty [Map].
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
@@ -145,7 +145,7 @@ fun <T : Map<*, *>> Assert<T>.isNotEmpty()
 
 
 /**
- * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [keys][Map.keys] so that further
+ * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [keys][Map.keys] so that further
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -156,7 +156,7 @@ fun <T : Map<*, *>> Assert<T>.isNotEmpty()
 val <K> Assert<Map<K, *>>.keys get() : Assert<Set<K>> = property(Map<K, *>::keys)
 
 /**
- * Makes the assertion that [AssertionPlant.subject]'s property [keys][Map.keys] holds all assertions the given
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [keys][Map.keys] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.
@@ -168,7 +168,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> U
     = addAssertion(AssertImpl.map.keys(this, assertionCreator))
 
 /**
- * Creates an [AssertionPlant] for the [AssertionPlant.subject]'s property [values][Map.values] so that further
+ * Creates an [AssertionPlant] for the [Assert.subject][AssertionPlant.subject]'s property [values][Map.values] so that further
  * fluent calls are assertions about it.
  *
  * Wrap it into Kotlin's [apply] if you want to make subsequent assertions on the current subject or use the overload
@@ -179,7 +179,7 @@ fun <K, V, T: Map<K, V>> Assert<T>.keys(assertionCreator: Assert<Set<K>>.() -> U
 val <V> Assert<Map<*, V>>.values get() : Assert<Collection<V>> = property(Map<*, V>::values)
 
 /**
- * Makes the assertion that [AssertionPlant.subject]'s property [values][Map.values] holds all assertions the given
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject]'s property [values][Map.values] holds all assertions the given
  * [assertionCreator] might create for it.
  *
  * @return This plant to support a fluent API.

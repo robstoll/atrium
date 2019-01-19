@@ -23,7 +23,7 @@ fun <T : CharSequence> getEnthaeltNicht(plant:  Assert<T>): DeprecatedNotChecker
     = DeprecatedNotCheckerBuilder(AssertImpl.charSequence.containsNotBuilder(plant))
 
 /**
- * Makes the assertion that [AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] contains [expected]'s [getDefault][Translatable.getDefault]
  * representation and the [getDefault][Translatable.getDefault] representations of the [otherExpected] (if given),
  * using a non disjoint search.
  *
@@ -51,7 +51,7 @@ fun <T : CharSequence> Assert<T>.enthaeltStandardUebersetzungVon(
 ) = enthaelt.zumindest(1).standardUebersetzungVon(expected, *otherExpected)
 
 /**
- * Makes the assertion that [AssertionPlant.subject] does  not contain [expected]'s
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] does  not contain [expected]'s
  * [getDefault][Translatable.getDefault] representation and neither one of the [otherExpected]'s
  * [getDefault][Translatable.getDefault] representation (if given).
  *
