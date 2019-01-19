@@ -5,7 +5,8 @@ about: Create a report to help us improve
 ---
 
 *Affected Version*:
-*Platform* (JVM or JS): 
+*API* (cc or cc-infix):
+*Platform* (JVM, JS, Android): 
 
 ## How to reproduce the problem  
 Consider the following code snippet
