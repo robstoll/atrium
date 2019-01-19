@@ -45,19 +45,19 @@ class FeatureAssertionsBoundedReferenceSpec : ch.tutteli.atrium.spec.integration
 
     companion object {
         val propertyImmediate: F = { property(subject::description) contains "hello" }
-        val propertyLazy: F = { property(subject::description) { this contains "hello" } }
+        val propertyLazy: F = { property(subject::description) { o contains "hello" } }
         val return0ValueImmediate: F = { returnValueOf(subject::return0) contains Values("hello") }
         val return1ValueImmediate: F = { returnValueOf(subject::return1, "a") contains Values("hello") }
         val return2ValueImmediate: F = { returnValueOf(subject::return2, "a", 1) contains Values("hello") }
         val return3ValueImmediate: F = { returnValueOf(subject::return3, "a", 1, true) contains Values("hello") }
         val return4ValueImmediate: F = { returnValueOf(subject::return4, "a", 1, true, 1.2) contains Values("hello") }
         val return5ValueImmediate: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') contains Values("hello") }
-        val return0ValueLazy: F = { returnValueOf(subject::return0) { this contains Values("hello") } }
-        val return1ValueLazy: F = { returnValueOf(subject::return1, "a") { this contains Values("hello") } }
-        val return2ValueLazy: F = { returnValueOf(subject::return2, "a", 1) { this contains Values("hello") } }
-        val return3ValueLazy: F = { returnValueOf(subject::return3, "a", 1, true) { this contains Values("hello") } }
-        val return4ValueLazy: F = { returnValueOf(subject::return4, "a", 1, true, 1.2) { this contains Values("hello") } }
-        val return5ValueLazy: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { this contains Values("hello") } }
+        val return0ValueLazy: F = { returnValueOf(subject::return0) { o contains Values("hello") } }
+        val return1ValueLazy: F = { returnValueOf(subject::return1, "a") { o contains Values("hello") } }
+        val return2ValueLazy: F = { returnValueOf(subject::return2, "a", 1) { o contains Values("hello") } }
+        val return3ValueLazy: F = { returnValueOf(subject::return3, "a", 1, true) { o contains Values("hello") } }
+        val return4ValueLazy: F = { returnValueOf(subject::return4, "a", 1, true, 1.2) { o contains Values("hello") } }
+        val return5ValueLazy: F = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { o contains Values("hello") } }
 
         val propertyNullableDoesNotHold: F = { property(subject::nullableValue) toBe null }
         val return0ValueNullableDoesNotHold: F = { returnValueOf(subject::returnNullable0) toBe null }

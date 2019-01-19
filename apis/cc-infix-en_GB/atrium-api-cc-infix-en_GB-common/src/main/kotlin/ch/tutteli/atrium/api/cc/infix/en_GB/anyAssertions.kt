@@ -91,3 +91,23 @@ infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER"
  */
 infix fun <T : Any> AssertionPlant<T>.and(assertionCreator: Assert<T>.() -> Unit)
     = addAssertionsCreatedBy(assertionCreator)
+
+/**
+ * Inline property referring actually to `this` and allows to write nicer sub-assertions.
+ *
+ * For instance, instead of:
+ * ```
+ * assert("hello world"){
+ *   this startsWith "hello"
+ *   this ends with "world"
+ * }
+ * ```
+ * You can write
+ * ```
+ * assert("hello world"){
+ *   o startsWith "hello"
+ *   o ends with "world"
+ * }
+ * ```
+ */
+inline val <T: Any> Assert<T>.o get() : Assert<T> = this

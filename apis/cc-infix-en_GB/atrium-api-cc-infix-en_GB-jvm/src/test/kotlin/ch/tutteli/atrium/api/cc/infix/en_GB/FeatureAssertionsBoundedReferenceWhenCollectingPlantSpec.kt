@@ -33,19 +33,19 @@ class FeatureAssertionsBoundedReferenceWhenCollectingPlantSpec : ch.tutteli.atri
 
     companion object {
         val propertyImmediate: CollectingAssertionPlant<TestData>.() -> Unit = { property(subject::description) contains "hello" }
-        val propertyLazy: CollectingAssertionPlant<TestData>.() -> Unit = { property(subject::description) { this contains "hello" } }
+        val propertyLazy: CollectingAssertionPlant<TestData>.() -> Unit = { property(subject::description) { o contains "hello" } }
         val return0ValueImmediate: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return0) contains Values("hello") }
         val return1ValueImmediate: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return1, "a") contains Values("hello") }
         val return2ValueImmediate: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return2, "a", 1) contains Values("hello") }
         val return3ValueImmediate: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return3, "a", 1, true) contains Values("hello") }
         val return4ValueImmediate: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return4, "a", 1, true, 1.2) contains Values("hello") }
         val return5ValueImmediate: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') contains Values("hello") }
-        val return0ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return0) { this contains Values("hello") } }
-        val return1ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return1, "a") { this contains Values("hello") } }
-        val return2ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return2, "a", 1) { this contains Values("hello") } }
-        val return3ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return3, "a", 1, true) { this contains Values("hello") } }
-        val return4ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return4, "a", 1, true, 1.2) { this contains Values("hello") } }
-        val return5ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { this contains Values("hello") } }
+        val return0ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return0) { o contains Values("hello") } }
+        val return1ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return1, "a") { o contains Values("hello") } }
+        val return2ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return2, "a", 1) { o contains Values("hello") } }
+        val return3ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return3, "a", 1, true) { o contains Values("hello") } }
+        val return4ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return4, "a", 1, true, 1.2) { o contains Values("hello") } }
+        val return5ValueLazy: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::return5, "a", 1, true, 1.2, 'b') { o contains Values("hello") } }
 
         val propertyNullableHolds: CollectingAssertionPlant<TestData>.() -> Unit = { property(subject::nullableValue) notToBeNull {} }
         val return0ValueNullableHolds: CollectingAssertionPlant<TestData>.() -> Unit = { returnValueOf(subject::returnNullable0) notToBeNull {} }

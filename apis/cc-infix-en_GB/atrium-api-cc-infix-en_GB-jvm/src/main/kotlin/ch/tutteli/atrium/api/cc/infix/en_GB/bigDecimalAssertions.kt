@@ -29,11 +29,11 @@ infix fun <T : BigDecimal> Assert<T>.notToBe(expected: T): Nothing
 @Deprecated("Use `notToBeNullBut { isNumericallyEqualTo ... }` if you expect that the following assertion holds:\n" +
     "`assert(BigDecimal(\"10\").toBe(BigDecimal(\"10.0\"))`\n" +
     "However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use `notToBeNullBut { isEqualIncludingScale ... }`.",
-    ReplaceWith("this notToBeNullBut { this isNumericallyEqualTo expected } or notToBeNullBut { this isEqualIncludingScale expected }"))
+    ReplaceWith("this notToBeNullBut { o isNumericallyEqualTo expected } or notToBeNullBut { o isEqualIncludingScale expected }"))
 @Suppress("UNUSED_PARAMETER", "unused")
 infix fun <T : BigDecimal> AssertionPlantNullable<T?>.notToBeNullBut(expected: T): Nothing
     = throw PleaseUseReplacementException("BigDecimal.equals() compares also BigDecimal.scale, which you might not be aware of.\n" +
-    "If you know it and want that `scale` is included in the comparison, then use `notToBeNullBut { this isEqualIncludingScale expected }`.")
+    "If you know it and want that `scale` is included in the comparison, then use `notToBeNullBut { o isEqualIncludingScale expected }`.")
 
 
 /**
