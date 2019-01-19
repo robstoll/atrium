@@ -7,6 +7,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAssertionsSpec(
     AssertionVerbFactory,
     getToThrowTriple(),
+    getNotThrownPair(),
     getMessagePair(),
     Companion::messageWithContainsFun,
     getMessageContainsPair(),
@@ -16,6 +17,9 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
     companion object {
 
         private fun getToThrowTriple() = Triple("wirft", Companion::toThrowImmediate, Companion::toThrowLazy)
+
+        private fun getNotThrownPair()
+            = ThrowableThrown.Builder::wirftNichts.name to ThrowableThrown.Builder::wirftNichts
 
         private fun toThrowImmediate(builder: ThrowableThrown.Builder) {
             @Suppress("DEPRECATION" /* TODO remove with 1.0.0 */)

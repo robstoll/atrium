@@ -1,18 +1,37 @@
 package ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators
 
-import ch.tutteli.atrium.core.coreFactory
 import ch.tutteli.atrium.core.newReportingPlantNullable
+import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.creating.ReportingAssertionPlantNullable
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.creators.DownCastAssertionCreator
 import ch.tutteli.atrium.domain.robstoll.lib.creating.any.typetransformation.failurehandlers.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.reporting.RawString
 import ch.tutteli.atrium.reporting.translating.Translatable
+import ch.tutteli.atrium.translations.DescriptionThrowableAssertion.*
 import kotlin.reflect.KClass
 
 class ThrowableThrownAssertionCreator<TExpected : Throwable>(
     private val absentThrowableMessageProvider: ThrowableThrown.AbsentThrowableMessageProvider
 ) : ThrowableThrown.Creator<TExpected> {
+
+    override fun executeActAssertNothingThrown(throwableThrownBuilder: ThrowableThrown.Builder){
+        val throwable: Throwable? = catchThrowableAndAdjust(throwableThrownBuilder)
+        val subjectPlant = createReportingPlantForThrowable(throwableThrownBuilder, throwable)
+        if(throwable == null){
+            subjectPlant.addAssertion(
+                AssertImpl.builder.createDescriptive(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2)) {true}
+            )
+        } else {
+            val explainingAssertion = AssertImpl.any.typeTransformation.failureHandlers.newExplanatoryWithHint<Any, TExpected>(
+                showHint = trueProvider,
+                failureHintFactory = { ThrowableThrownFailureHandler.propertiesOfException(throwable, maxStackTrace = 15) }
+            ).createFailingAssertion(IS_NOT_THROWN_1, RawString.create(IS_NOT_THROWN_2))
+            subjectPlant.addAssertion(explainingAssertion)
+        }
+    }
 
     override fun executeActAndCreateAssertion(
         throwableThrownBuilder: ThrowableThrown.Builder,
@@ -20,7 +39,7 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
         expectedType: KClass<TExpected>,
         assertionCreator: AssertionPlant<TExpected>.() -> Unit
     ) {
-        val throwable: Throwable? = catchThrowable(throwableThrownBuilder)
+        val throwable: Throwable? = catchThrowableAndAdjust(throwableThrownBuilder)
         val subjectPlant = createReportingPlantForThrowable(throwableThrownBuilder, throwable)
 
         val failureHandler = ThrowableThrownFailureHandler(throwable, expectedType)
@@ -28,19 +47,20 @@ class ThrowableThrownAssertionCreator<TExpected : Throwable>(
             .downCast(description, expectedType, subjectPlant, assertionCreator, failureHandler)
     }
 
-    private fun catchThrowable(throwableThrownBuilder: ThrowableThrown.Builder): Throwable? {
+    private fun catchThrowableAndAdjust(throwableThrownBuilder: ThrowableThrown.Builder): Throwable? {
         return try {
             throwableThrownBuilder.act()
             null
-        } catch (t: Throwable) {
-            t
+        } catch (throwable: Throwable) {
+            throwableThrownBuilder.reporter.atriumErrorAdjuster.adjust(throwable)
+            throwable
         }
     }
 
     private fun createReportingPlantForThrowable(
         throwableThrownBuilder: ThrowableThrown.Builder,
         throwable: Throwable?
-    ): ReportingAssertionPlantNullable<Throwable?> = coreFactory.newReportingPlantNullable(
+    ): ReportingAssertionPlantNullable<Throwable?> = AssertImpl.coreFactory.newReportingPlantNullable(
         throwableThrownBuilder.assertionVerb,
         { throwable },
         throwableThrownBuilder.reporter,

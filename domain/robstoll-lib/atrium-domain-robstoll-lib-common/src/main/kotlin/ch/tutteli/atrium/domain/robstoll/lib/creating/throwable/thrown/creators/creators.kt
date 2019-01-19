@@ -12,3 +12,8 @@ fun <TExpected : Throwable> _toBe(throwableThrownBuilder: ThrowableThrown.Builde
     ThrowableThrownAssertionCreator<TExpected>(provider)
         .executeActAndCreateAssertion(throwableThrownBuilder, IS_A, expectedType, assertionCreator)
 }
+
+fun _nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder){
+    val provider = _translatableBased(NO_EXCEPTION_OCCURRED)
+    ThrowableThrownAssertionCreator<Throwable>(provider).executeActAssertNothingThrown(throwableThrownBuilder)
+}

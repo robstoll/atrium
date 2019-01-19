@@ -36,12 +36,12 @@ internal enum class AssertionVerb(override val value: String) : StringBasedTrans
         // we specify the factory here because we only need to specify it once and
         // we do not want to specify it if it is not used. The verbs have to be loaded on their first usage
         // and thus this is a good place.
-        ReporterFactory.specifyFactoryIfNotYetSet("ascii")
+        ReporterFactory.specifyFactoryIfNotYetSet(AsciiBulletPointReporterFactory.ID)
     }
 }
 
 class AsciiBulletPointReporterFactory : ReporterFactory {
-    override val id = "ascii"
+    override val id = ID
 
     override fun create(): Reporter {
         return reporterBuilder
@@ -61,9 +61,12 @@ class AsciiBulletPointReporterFactory : ReporterFactory {
                 PrefixFailingSummaryAssertion::class to "(x) ",
                 WarningAssertionGroupType::class to "(!) "
             )
-            .withDefaultAtriumErrorAdjusters()
+            .withNoOpAtriumErrorAdjuster()
             .withOnlyFailureReporter()
             .build()
+    }
+    companion object {
+        const val ID = "ascii"
     }
 }
 

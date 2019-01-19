@@ -3,11 +3,13 @@ package ch.tutteli.atrium.api.cc.en_UK
 
 import ch.tutteli.atrium.verbs.internal.AssertionVerbFactory
 import ch.tutteli.atrium.creating.Assert
+import ch.tutteli.atrium.domain.builders.AssertImpl
 import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 
 class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAssertionsSpec(
     AssertionVerbFactory,
     getToThrowTriple(),
+    getNotThrownPair(),
     getMessagePair(),
     Companion::messageWithContainsFun,
     getMessageContainsPair(),
@@ -26,6 +28,12 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
         private fun toThrowLazy(builder: ThrowableThrown.Builder, assertionCreator: Assert<Throwable>.() -> Unit) {
             builder.toThrow<IllegalArgumentException>(assertionCreator)
         }
+
+        private fun getNotThrownPair()
+            = "does not exist in in this API, using AssertImpl.throwable.thrown.nothingThrown" to Companion::notToThrow
+
+        private fun notToThrow(builder: ThrowableThrown.Builder)
+            = AssertImpl.throwable.thrown.nothingThrown(builder)
 
         private fun getMessagePair() =
             Assert<Throwable>::message.name to Assert<Throwable>::message

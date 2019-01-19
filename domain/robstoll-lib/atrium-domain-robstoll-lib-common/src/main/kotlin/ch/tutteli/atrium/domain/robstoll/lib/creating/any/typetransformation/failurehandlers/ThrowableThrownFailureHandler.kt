@@ -83,9 +83,12 @@ class ThrowableThrownFailureHandler<out TExpected : Throwable>(
                 .take(maxStackTrace)
                 .map {
                     AssertImpl.builder.explanatory.withDescription(RawString.create(it)).build()
-                }.apply {
-                    if (stackTrace.size > maxStackTrace){
-                        plus(AssertImpl.builder.explanatory.withDescription(RawString.create("...")))
+                }
+                .let {
+                    if (stackTrace.size > maxStackTrace) {
+                        it.plus(AssertImpl.builder.explanatory.withDescription(RawString.create("...")).build())
+                    } else {
+                        it
                     }
                 }.toList()
 

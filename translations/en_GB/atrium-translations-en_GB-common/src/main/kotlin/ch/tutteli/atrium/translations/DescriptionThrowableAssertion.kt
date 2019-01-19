@@ -14,4 +14,6 @@ enum class DescriptionThrowableAssertion(override val value: String) : StringBas
     OCCURRED_EXCEPTION_MESSAGE("message"),
     OCCURRED_EXCEPTION_STACKTRACE("stacktrace"),
     OCCURRED_EXCEPTION_SUPPRESSED("suppressed"),
+    IS_NOT_THROWN_1("is"),
+    IS_NOT_THROWN_2("not thrown at all"),
 }

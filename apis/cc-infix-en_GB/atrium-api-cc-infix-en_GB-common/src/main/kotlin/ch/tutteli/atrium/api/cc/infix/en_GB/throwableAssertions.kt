@@ -22,6 +22,18 @@ inline infix fun <reified TExpected : Throwable> ThrowableThrown.Builder.toThrow
 }
 
 /**
+ * Makes the assertion that no [Throwable] is thrown at all.
+ *
+ * @return Notice, that this assertion function cannot provide a fluent API because we assume nothing happens,
+ *   so there is nothing we could make assertions on in addition.
+ *
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+fun ThrowableThrown.Builder.notToThrow(){
+    AssertImpl.throwable.thrown.nothingThrown(this)
+}
+
+/**
  * Creates an [AssertionPlantNullable] for the [message][Throwable.message] of the plant's
  * [subject][AssertionPlant.subject] (which is a [Throwable]) and makes the assertion that the message ought
  * [notToBeNull] and uses [assertionCreator] which might create further [Assertion]s which are lazily evaluated at the end.

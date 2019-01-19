@@ -7,6 +7,7 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAssertionsSpec(
     AssertionVerbFactory,
     getToThrowTriple(),
+    getNotThrownPair(),
     getMessagePair(),
     Companion::messageWithContainsFun,
     getMessageContainsPair(),
@@ -17,6 +18,9 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
 
         private fun getToThrowTriple(): Triple<String, ThrowableThrown.Builder.() -> Unit, ThrowableThrown.Builder.(assertionCreator: Assert<Throwable>.() -> Unit) -> Unit>
             = Triple("toThrow", Companion::toThrowImmediate, Companion::toThrowLazy)
+
+        private fun getNotThrownPair()
+             = ThrowableThrown.Builder::notToThrow.name to ThrowableThrown.Builder::notToThrow
 
         private fun toThrowImmediate(builder: ThrowableThrown.Builder) {
             builder.toThrow<IllegalArgumentException>{}
