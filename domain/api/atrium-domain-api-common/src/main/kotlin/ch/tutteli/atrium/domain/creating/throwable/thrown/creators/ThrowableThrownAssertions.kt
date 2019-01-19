@@ -24,4 +24,6 @@ interface ThrowableThrownAssertions {
         expectedType: KClass<TExpected>,
         assertionCreator: AssertionPlant<TExpected>.() -> Unit
     )
+
+    fun nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder)
 }

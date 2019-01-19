@@ -7,9 +7,11 @@ import ch.tutteli.atrium.domain.creating.throwable.thrown.ThrowableThrown
 class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAssertionsSpec(
     AssertionVerbFactory,
     getToThrowTriple(),
+    getNotThrownPair(),
     getMessagePair(),
     Companion::messageWithContainsFun,
-    getMessageContainsPair()
+    getMessageContainsPair(),
+    "⚬ ", "» "
 ) {
 
     companion object {
@@ -26,6 +28,12 @@ class ThrowableAssertionsSpec : ch.tutteli.atrium.spec.integration.ThrowableAsse
             //TODO change to infix as soon as https://youtrack.jetbrains.com/issue/KT-21593 is fixed
             builder.toThrow<IllegalArgumentException>(assertionCreator)
         }
+
+        private fun getNotThrownPair()
+            = ThrowableThrown.Builder::notToThrow.name to Companion::notToThrow
+
+        private fun notToThrow(builder: ThrowableThrown.Builder)
+            = builder.notToThrow()
 
         private fun getMessagePair()
             = Assert<Throwable>::message.name to Assert<Throwable>::message

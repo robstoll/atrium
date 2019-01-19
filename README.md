@@ -732,7 +732,11 @@ One last example. This time about making an assertion that a certain `Throwable`
 Atrium comes with a very useful hint, it shows the actual exception. For instance, for:
 ```kotlin
 assert {
-  throw IllegalArgumentException("no no no...")
+  try {
+      throw UnsupportedOperationException("not supported")
+  } catch(t: Throwable) {
+      throw IllegalArgumentException("no no no...", t)
+  }
 }.toThrow<IllegalStateException> { messageContains("no no no") }
 ```
 the error reporting look as follows:
@@ -740,15 +744,15 @@ the error reporting look as follows:
 expect the thrown exception: java.lang.IllegalArgumentException
 ◆ is a: IllegalStateException (java.lang.IllegalStateException)
   » Properties of the unexpected IllegalArgumentException
-    » message: "no no no..."        <854587510>
-    » stacktrace: ch.tutteli.atrium.ExampleSpec$1$1$1.invoke(ExampleSpec.kt:38)
-ch.tutteli.atrium.ExampleSpec$1$1$1.invoke(ExampleSpec.kt:21)
-ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownAssertionCreator.catchThrowable(ThrowableThrownAssertionCreator.kt:32)
-ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.ThrowableThrownAssertionCreator.executeActAndCreateAssertion(ThrowableThrownAssertionCreator.kt:22)
-ch.tutteli.atrium.domain.robstoll.lib.creating.throwable.thrown.creators.CreatorsKt._toBe(creators.kt:13)
-ch.tutteli.atrium.domain.robstoll.creating.throwable.thrown.creators.ThrowableThrownAssertionsImpl.toBe(ThrowableThrownAssertionsImpl.kt:19)
-ch.tutteli.atrium.ExampleSpec$1$1.invoke(ExampleSpec.kt:241)
-...
+    » message: "no no no..."        <834133664>
+    » stacktrace: 
+      ⚬ TestKt$main$1.invoke(test.kt:12)
+      ⚬ TestKt$main$1.invoke(test.kt)
+      ⚬ TestKt.main(test.kt:72)
+    » cause: java.lang.UnsupportedOperationException
+        » message: "not supported"        <985934102>
+        » stacktrace: 
+          ⚬ TestKt$main$1.invoke(test.kt:10)
 ```
 
 ### 3. Prevents you from Pitfalls

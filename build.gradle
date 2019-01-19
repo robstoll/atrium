@@ -256,6 +256,7 @@ createRegisterJsServicesTask('domain-robstoll-js', 'ch.tutteli.atrium.domain.rob
     it != 'ch.tutteli.atrium.domain.creating.BigDecimalAssertions'
 }
 createRegisterJsServicesTask('domain-builders-js', 'ch.tutteli.atrium.domain.builders') { true }
+createRegisterJsServicesTask('verbs-internal-js', 'ch.tutteli.atrium.verbs.internal') { true }
 
 def createJsTestTask(subprojectName){
     configure(prefixedProject(subprojectName)) {

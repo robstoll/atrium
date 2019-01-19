@@ -48,6 +48,17 @@ interface ThrowableThrown {
      * @param TExpected The type of the [Throwable] which is expected to be thrown.
      */
     interface Creator<TExpected : Throwable> {
+
+        /**
+         * Executes the [act][ThrowableThrown.Builder.act] lambda of the given [throwableThrownBuilder] and catches
+         * thrown [Throwable]s (if there are any) and correspondingly creates an assertion where it is expected that
+         * nothing is thrown..
+         *
+         * @param throwableThrownBuilder The [ThrowableThrown.Builder] containing inter alia the
+         *   [act][ThrowableThrown.Builder.act] lambda.
+         */
+        fun executeActAssertNothingThrown(throwableThrownBuilder: ThrowableThrown.Builder)
+
         /**
          * Executes the [act][ThrowableThrown.Builder.act] lambda of the given [throwableThrownBuilder], catches any
          * thrown [Throwable], creates based on it a corresponding [Assertion] representing the sophisticated

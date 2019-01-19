@@ -8,7 +8,7 @@ package ch.tutteli.atrium.reporting
 actual interface AtriumErrorAdjuster : AtriumErrorAdjusterCommon {
 
     /**
-     * Adjusts the [AtriumError.stackTrace] in some way or another.
+     * Adjusts the given [Throwable.stackTrace] in some way or another.
      *
      * @return The adjusted stack.
      */

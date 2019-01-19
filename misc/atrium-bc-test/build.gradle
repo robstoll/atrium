@@ -35,13 +35,13 @@ def bcTests = task("bcTests", group: 'Verification') {
     dependsOn build
 }
 
-def createBcTasksForApis(String version, String forgive, String... apis) {
+def createBcAndBbcTasksForApis(String version, String forgive, String... apis) {
 
     def bc_version = task("bc-$version", group: 'Verification')
     def bbc_version = task("bbc-$version", group: 'Verification')
 
     apis.each { apiName ->
-        createBcTasks(apiName, version, forgive)
+        createBcAndBbcTasks(apiName, version, forgive)
         bc_version.dependsOn "bc-${apiName}-$version"
         bbc_version.dependsOn "bbc-${apiName}-$version"
     }
@@ -87,7 +87,7 @@ File getSrcDirectory(String apiName, String version) {
     return file("${project.projectDir}/src/old/$version/atrium-api-$apiName")
 }
 
-def createBcTasks(String apiName, String version, String forgive) {
+def createBcAndBbcTasks(String apiName, String version, String forgive) {
     def nameUnderline = getNameUnderline(apiName, version)
     def name = "${apiName}-$version"
     def srcName = "src_$nameUnderline"
@@ -226,7 +226,7 @@ def createFixSrcTask(String apiName, String version, String file, Closure modify
     project."compileSrc_${nameUnderline070}Kotlin".dependsOn fixSrc
 }
 
-createBcTasksForApis('0.6.0',
+createBcAndBbcTasksForApis('0.6.0',
     'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|infix\\.en_UK)\\.(' +
         '(IterableContainsNotAssertionsSpec.*:(enthaeltNicht|containsNot|notTo contain) 4.0 throws AssertionError.*)|' +
         '(IterableContainsInAnyOrderNotOrAtMostObjectsAssertionsSpec.*:(' +
@@ -288,13 +288,15 @@ createBcTasksForApis('0.6.0',
         '(CollectionAssertionsSpec.*(hatDieGroesse|hasSize).*)|' +
         '(BigDecimalAssertionsSpec.*throws UnsupportedOperationException.*)|' +
         '(FloatingPointAssertionsSpec.*throws AssertionError.*)|' +
-        '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)' +
+        '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)|' +
+        '(ThrowableAssertionsSpec.*throws an AssertionError.*shows message and stacktrace.*)' +
     ')',
     'cc-de_CH', 'cc-en_UK', 'cc-infix-en_UK'
 )
-createBcTasksForApis('0.7.0',
+createBcAndBbcTasksForApis('0.7.0',
     'forgive=.*ch\\.tutteli\\.atrium\\.api\\.cc\\.(de_CH|en_UK|en_GB|(infix\\.(en_UK|en_GB)))\\.(' +
-        '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)' +
+        '(FloatingPointWithErrorToleranceAssertionsSpec.*throws AssertionError.*)|' +
+        '(ThrowableAssertionsSpec.*throws an AssertionError.*shows message and stacktrace.*)' +
     ')',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )

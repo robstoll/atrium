@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
  *
  * Its stack trace (`stackTrace` in JVM, `stack` in JS) might be filtered so that reporting does not include
  * all stack frames. This depends on the chosen [AtriumErrorAdjuster] - so theoretically more than the stack trace
- * could be adjusted.
+ * could be adjusted or nothing at all.
  *
  * To create such an error you need to use the [Companion.create] function.
  */
@@ -20,5 +20,6 @@ expect class AtriumError internal constructor(message: String) : AssertionError 
 
 internal fun createAtriumError(message: String, errorAdjuster: AtriumErrorAdjuster): AtriumError {
     val err = AtriumError(message)
-    return errorAdjuster.adjust(err)
+    errorAdjuster.adjust(err)
+    return err
 }

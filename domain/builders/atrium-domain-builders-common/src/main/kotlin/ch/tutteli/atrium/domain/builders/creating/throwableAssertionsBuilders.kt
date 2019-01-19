@@ -47,6 +47,9 @@ object ThrowableThrownAssertionsBuilder : ThrowableThrownAssertions {
         noinline assertionCreator: AssertionPlant<TExpected>.() -> Unit
     ) = throwableThrownAssertions.toBe(throwableThrownBuilder, expectedType, assertionCreator)
 
+    override inline fun nothingThrown(throwableThrownBuilder: ThrowableThrown.Builder)
+        = throwableThrownAssertions.nothingThrown(throwableThrownBuilder)
+
     /**
      * Returns [AbsentThrowableMessageProviderFactoryBuilder]
      * which inter alia delegates to the implementation of [AbsentThrowableMessageProviderFactory].
