@@ -66,6 +66,7 @@ is too similar, we will not list it here (ok, we did now but I guess you get the
 - [Iterable predicate-like assertions](#iterable-predicate-like-assertions)
 - [List get](#list-get)
 - [Map get](#map-get)
+- [Map contains](#map-contains)
 
 ## Empty CharSequence / Collection
 
@@ -105,7 +106,6 @@ assert(x).contains.atLeast(1).butAtMost(2).value("hello")
 assert(x).contains.exactly(1).values("hello", "robert")
 assert(x).contains.atMost(2).regex("h(e|a)llo")
 assert(x).contains.ignoringCase.notOrAtMost(1).regex("h(e|a)llo", "[Rr]obert")
-assert(x).containsNot.defaultTranslationOf(DescriptionBasic.IS_NOT)
 ```
 Notice that the final steps
 `value`, `values`, `regex` and `defaultTranslationsOf` 
@@ -121,7 +121,6 @@ assert(x) to contain atLeast 1 butAtMost 2 value "hello"
 assert(x) to contain exactly 1 the Values("hello", "robert")
 assert(x) to contain atMost 2 regex "h(e|a)llo"
 assert(x) to contain ignoring case notOrAtMost 1 the RegexPatterns("h(e|a)llo", "[Rr]obert")
-assert(x) notTo contain defaultTranslationOf DescriptionBasic.IS_NOT
 ```
 Notice that the final steps 
 `value`, `Values(...)`, `regex`, `RegexPatterns(..)`, `defaultTranslationsOf` and `DefaultTranslations(..)` 
@@ -404,4 +403,41 @@ assert(x).getExistingNullable("a") { notToBeNullBut(1) }
 ```kotlin
 assert(x) getExisting "a" assertIt { o isGreaterThan 1 }
 assert(x) getExistingNullable "a" assertIt { o  notToBeNullBut 1 }
+```
+
+# Map contains
+*atrium-api-cc-en_GB*
+```kotlin
+assert(x).contains("a" to 1)
+assert(x).contains("a" to 1, "b" to 2)
+assert(x).contains(KeyValue("a") { isGreaterThan(3).and.isLessThan(10) })
+assert(x).contains(KeyValue("a") { toBe(2) }, KeyValue("b") { isLessThan(3) })
+
+assert(x).containsNullable("a" to null)
+assert(x).containsNullable("a" to null, "b" to 2)
+assert(x).containsNullable(KeyNullableValue("a", null))
+assert(x).containsNullable(
+  KeyNullableValue("a", null) 
+  KeyNullableValue("b") { isLessThan(2) }
+)
+```
+
+*atrium-api-cc-infix-en_GB*
+```kotlin
+assert(x) contains ("a" to 1)
+assert(x) contains Pairs("a" to 1, "b" to 2)
+assert(x) contains KeyValue("a") { 
+  o isGreaterThan 3
+  o isLessThan 10 
+}
+assert(x) contains All(KeyValue("a") { o toBe 2 }, KeyValue("b") { o isLessThan 3 })
+
+assert(x) containsNullable ("a" to null)
+assert(x) containsNullable Pairs("a" to null, "b" to 2)
+assert(x) containsNullable KeyNullableValue("a", null)
+assert(x) containsNullable All(
+  KeyNullableValue("a", null), 
+  KeyNullableValue("b") { o isLessThan 2 }
+)
+
 ```
