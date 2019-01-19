@@ -230,3 +230,15 @@ infix fun <K, V, T: Map<K, V>> Assert<T>.values(assertionCreator: Assert<Collect
  */
 fun <K, V> Assert<Map<K, V>>.asEntries(): Assert<Set<Map.Entry<K, V>>>
     = AssertImpl.changeSubject(this) { subject.entries }
+
+/**
+ * Turns `Assert<Map<K, V>>` into `Assert<Set<Map.Entry<K, V>>>` and makes the assertion that the assertions the given
+ * [assertionCreator] might create hold.
+ *
+ * The transformation as such is not reflected in reporting.
+ * Use `property(subject::entries)` if you want to show the transformation in reporting.
+ *
+ * @return The newly created [AssertionPlant] for the transformed subject.
+ */
+infix fun <K, V> Assert<Map<K, V>>.asEntries(assertionCreator: Assert<Set<Map.Entry<K, V>>>.() -> Unit): Assert<Set<Map.Entry<K, V>>>
+    = asEntries().addAssertionsCreatedBy(assertionCreator)

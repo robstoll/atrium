@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 
 object MapAsEntriesAssertionsSpec : ch.tutteli.atrium.spec.integration.MapAsEntriesAssertionsSpec(
     AssertionVerbFactory,
-    Assert<Map<String, Int>>::asEntries.name,
+    "asEntries",
+    Assert<Map<String, Int>>::asEntries,
     Assert<Map<String, Int>>::asEntries
 )

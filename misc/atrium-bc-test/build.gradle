@@ -301,9 +301,16 @@ createBcAndBbcTasksForApis('0.7.0',
     'cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB'
 )
 
-createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
-    return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
+def apis = ['cc-de_CH', 'cc-en_GB', 'cc-infix-en_GB']
+apis.each {apiName ->
+    createFixSrcTask(apiName, '0.7.0', 'ArrayAsIterableAssertionsSpec.kt') { String content ->
+        return content.replaceAll(/Assert<Array<Int>>::asIterable.name/, '"asIterable"')
+    }
 }
 createFixSrcTask('cc-infix-en_GB', '0.7.0', 'BigDecimalAssertionsSpec.kt') { String content ->
     return content.replaceAll(/Assert<BigDecimal>::toBe.name/, '"toBe"').replaceAll(/Assert<BigDecimal>::notToBe.name/, '"notToBe"')
 }
+createFixSrcTask('cc-infix-en_GB', '0.7.0', 'CharSequenceAssertionsSpec.kt') { String content ->
+    return content.replaceAll(/"\$\{Assert<CharSequence>::notToBe.name}/, '"notToBe')
+}
+
