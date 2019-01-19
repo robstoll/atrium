@@ -153,6 +153,10 @@ configure(apiProjects) { apiProject ->
 def bundleSmokeTests = subprojects.findAll { it.name.endsWith('smoke-test') }
 configure(subprojects - bundleSmokeTests) { subproject ->
     apply plugin: 'ch.tutteli.publish'
+
+    tutteliPublish {
+        resetLicenses 'EUPL-1.2'
+    }
 }
 
 configure(jacocoMulti.jacocoProjects + getAndroidProjects()) {
