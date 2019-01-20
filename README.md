@@ -336,6 +336,31 @@ Notice `message` in the
 [assertion group block](#define-single-assertions-or-assertion-groups) 
 is a shortcut for `property(subject::message).notToBeNull { ... }`, which creates a property assertion (see next section) 
 about `Throwable::message`.  
+
+There is also the counterpart to `toThrow` named `noToThrow`:
+```kotlin
+assert {
+    //this block does something but eventually...
+    throw IllegalArgumentException("name is empty", RuntimeException("a cause"))
+}.notToThrow()
+
+    //  assert: java.lang.IllegalArgumentException
+    //  ◆ is: not thrown at all
+    //    » Properties of the unexpected IllegalArgumentException
+    //      » message: "name is empty"        <401424608>
+    //      » stacktrace: 
+    //        ⚬ TestKt$main$2.invoke(test.kt:23)
+    //        ⚬ TestKt$main$2.invoke(test.kt)
+    //        ⚬ TestKt.main(test.kt:24)
+    //      » cause: java.lang.RuntimeException
+    //          » message: "a cause"        <1348949648>
+    //          » stacktrace: 
+    //            ⚬ TestKt$main$2.invoke(test.kt:23)
+    //  	at TestKt.main(test.kt:24)
+```
+Notice that stacks are filtered so that you only see what is of interest. 
+Filtering can be configured via [`ReporterBuilder`](#reporterbuilder) by choosing an appropriate [AtriumErrorAdjuster](https://docs.atriumlib.org/latest#/doc/ch.tutteli.atrium.reporting/-atrium-error-adjuster/index.html). 
+Stack frames of Atrium and of test runners (Spek, Kotlintest and JUnit for JVM, mocha for JS) are excluded per default.
  
 ## Property Assertions
 ```kotlin
