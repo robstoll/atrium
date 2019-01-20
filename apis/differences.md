@@ -41,7 +41,7 @@ If you forget to do it, then the compiler will complain that you have the same e
 Atrium provides different APIs where the API differ in its style and the language in which it is written.
 This site focuses on the different styles of APIs and compares their en_GB versions. 
 We do not show every single difference but merely where the APIs differ in naming.
-For instance, the assertion function `AssertionPlant<Any>.toBe`:
+For instance, the assertion function `Assert<Any>.toBe`:
 
 *atrium-api-cc-en_GB*
 ```kotlin
@@ -108,7 +108,7 @@ assert(x).contains.atMost(2).regex("h(e|a)llo")
 assert(x).contains.ignoringCase.notOrAtMost(1).regex("h(e|a)llo", "[Rr]obert")
 ```
 Notice that the final steps
-`value`, `values`, `regex` and `defaultTranslationsOf` 
+`value`, `values` and `regex` 
 in the sophisticated assertion building process
 are applicable to all shown examples 
 (e.g. `exactly(1).values("hello", "robert")` could have been finished with `exactly(1).regex("h(e|a)llo")` as well).
@@ -123,7 +123,7 @@ assert(x) to contain atMost 2 regex "h(e|a)llo"
 assert(x) to contain ignoring case notOrAtMost 1 the RegexPatterns("h(e|a)llo", "[Rr]obert")
 ```
 Notice that the final steps 
-`value`, `Values(...)`, `regex`, `RegexPatterns(..)`, `defaultTranslationsOf` and `DefaultTranslations(..)` 
+`value`, `Values(...)`, `regex` and `RegexPatterns(..)` 
 in the sophisticated assertion building process
 are applicable to all shown examples 
 (e.g. `exactly(1).values("hello", "robert")` could have been finished with `exactly(1).regex("h(e|a)llo")` as well).
@@ -135,7 +135,7 @@ are applicable to all shown examples
 ```kotlin
 assert(x).contains(1.2)
 assert(x).contains(1.2, 5.7)
-assert(x).contains({ isLessThan(2) })
+assert(x).contains { isLessThan(2) }
 assert(x).contains({ isLessThan(2) }, { isGreaterThan 5 })
 
 assert(x).contains.inAnyOrder.atLeast(1).butAtMost(2).value(3.2)
@@ -389,7 +389,7 @@ assert(x).getNullable(0) { notToBeNullBut(1) }
 *atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) get 0 assertIt { o isGreaterThan 1 }
-assert(x) getNullable 0 assertIt { o  notToBeNullBut 1 }
+assert(x) getNullable 0 assertIt { o notToBeNullBut 1 }
 ```
 
 # Map get
@@ -402,7 +402,7 @@ assert(x).getExistingNullable("a") { notToBeNullBut(1) }
 *atrium-api-cc-infix-en_GB*
 ```kotlin
 assert(x) getExisting "a" assertIt { o isGreaterThan 1 }
-assert(x) getExistingNullable "a" assertIt { o  notToBeNullBut 1 }
+assert(x) getExistingNullable "a" assertIt { o notToBeNullBut 1 }
 ```
 
 # Map contains
