@@ -39,6 +39,7 @@ See [Examples](#examples) below to get a feel for how you could benefit from Atr
   - [Collection Assertions](#collection-assertions)
     - [Shortcut Functions](#shortcut-functions)
     - [Sophisticated Assertion Builders](#sophisticated-assertion-builders)
+  - [Map Assertions](#map-assertions)    
   - [Further Examples](#further-examples)  
 - [How is Atrium different from other Assertion Libraries](#how-is-atrium-different-from-other-assertion-libraries)
 - [Write own Assertion Functions](#write-own-assertion-functions)
@@ -283,6 +284,15 @@ for the subject as if it had a non-nullable type  (`String` in the above example
 
 There is a shortcut function `notToBeNullBut(x)` in case you have to deal a lot with nullable types.
 It is short for `notToBeNull { toBe(x) }`.
+
+Also, if you deal with a container type such as `Iterable`/`Collection`/`Map` and have a nullable entry type 
+(e.g. `Iterable<String?>`) then in most cases you find a function which has `Nullable` as suffix and allows to pass 
+`null`.
+For instance:
+```
+assert(listOf("a", null)).containsNullableValues("a", null)
+```
+
 You might want to have a look at the [Java Interoperability](#java-interoperability) section if you have to deal with nullable types due to Java code.
 
 </details>
@@ -682,6 +692,120 @@ assert(listOf(1, 2, null, 4)).contains.inOrder.only.nullableValues(1, null, 3, 4
     //   ✔ ▶ size: 4        (kotlin.Int <503938393>)
     //       ◾ to be: 4        (kotlin.Int <503938393>)
 ```
+
+## Map Assertions
+
+```kotlin
+assert(mapOf("a" to 1, "b" to 2)).contains("c" to 2, "a" to 1, "b" to 1)
+
+    // assert: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
+    // ◆ contains, in any order: 
+    //   ⚬ ▶ entry "c": ❗❗ key does not exist
+    //         » to be: 2        (kotlin.Int <970865974>)
+    //   ⚬ ▶ entry "b": 2        (kotlin.Int <970865974>)
+    //       ◾ to be: 1        (kotlin.Int <1827171553>)
+```
+ 
+Map assertions are kind of very similar to [Collection Assertions](#collection-assertions), also regarding reporting. 
+That is the reason why we are not going into too much detail here because we assume you are already familiar with it.
+
+Next to making assertions based on key value pairs one can also define sub assertions for the value of an entry with 
+the help of the parameter object `KeyValue`:
+```kotlin
+assert(mapOf("a" to 1, "b" to 2)).contains(
+    KeyValue("c") { toBe(2) },
+    KeyValue("a") { isGreaterThan(2) },
+    KeyValue("b") { isLessThan(2) }
+)   
+ 
+    // assert: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
+    // ◆ contains, in any order: 
+    //   ⚬ ▶ entry "c": ❗❗ key does not exist
+    //         » to be: 2        (kotlin.Int <970865974>)
+    //   ⚬ ▶ entry "a": 1        (kotlin.Int <1827171553>)
+    //       ◾ is greater than: 2        (kotlin.Int <970865974>)
+    //   ⚬ ▶ entry "b": 2        (kotlin.Int <970865974>)
+    //       ◾ is less than: 2        (kotlin.Int <970865974>)
+```
+
+In most cases, Atrium provides a separate function with `Nullable` as suffix 
+if the value type of the `Map` is nullable. For instance:
+```
+assert(mapOf("a" to null, null to null, "b" to 1)).containsNullable(
+    null to 1, "a" to 1, "b" to 1
+)
+
+    // assert: {a=null, null=null, b=1}        (java.util.LinkedHashMap <503938393>)
+    // ◆ contains, in any order: 
+    //   ⚬ ▶ entry null: null
+    //       ◾ is type or sub-type of: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
+    //         » to be: 1        (kotlin.Int <970865974>)
+    //   ⚬ ▶ entry "a": null
+    //       ◾ is type or sub-type of: Int (kotlin.Int) -- Class: Integer (java.lang.Integer)
+    //         » to be: 1        (kotlin.Int <970865974>)
+```
+
+In case you want to make an assertion only about the keys or values of the `Map` then you can use `keys` or `values`:
+```kotlin
+assert(mapOf("a" to 1, "b" to 2)) {
+    keys { all { startsWith("a") } }
+    values { none { isGreaterThan(1) } }
+}
+    // assert: {a=1, b=2}        (java.util.LinkedHashMap <1690101810>)
+    // ◆ ▶ keys: [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1502335674>)
+    //     ◾ all entries: 
+    //         » starts with: "a"        <1517640897>
+    //         ❗❗ following entries were mismatched: 
+    //            ⚬ index 1: "b"        <2061774051>
+    // ◆ ▶ values: [1, 2]        (java.util.LinkedHashMap.LinkedValues <240630125>)
+    //     ◾ does not contain: 
+    //       ⚬ an entry which: 
+    //           » is greater than: 1        (kotlin.Int <851912430>)
+    //         ✘ ▶ number of occurrences: 1
+    //             ◾ is: 0        (kotlin.Int <586358252>)
+    //         ✔ ▶ has at least one element: true
+    //             ◾ is: true
+``` 
+
+Last but not least, you can use the non-reporting `asEntries()` function which
+turns `Assert<Map<K, V>>` into an `Assert<Set<Map.Entry<K, V>>` and thus allows that you can use all the assertion 
+functions and sophisticated builders shown in [Collection Assertions](#collection-assertions).
+
+For instance, say you have a `LinkedHashMap` and want to be sure that the order is correct:
+```kotlin
+assert(linkedMapOf("a" to 1, "b" to 2)).asEntries().contains.inOrder.only.entries(
+    { isKeyValue("a", 1) },
+    {
+        key { startsWith("a") }
+        value { isGreaterThan(2) }
+    }
+)
+    // assert: {a=1, b=2}        (java.util.LinkedHashMap <503938393>)
+    // ◆ contains only, in order: 
+    //   ✔ ▶ entry 0: a=1        (java.util.LinkedHashMap.Entry <970865974>)
+    //       ◾ an entry which: 
+    //           » ▶ key: "a"        <1827171553>
+    //               ◾ to be: "a"        <1827171553>
+    //           » ▶ value: 1        (kotlin.Int <1424482154>)
+    //               ◾ to be: 1        (kotlin.Int <1424482154>)
+    //   ✘ ▶ entry 1: b=2        (java.util.LinkedHashMap.Entry <1072506992>)
+    //       ◾ an entry which: 
+    //           » ▶ key: "a"        <1827171553>
+    //               ◾ starts with: "a"        <1827171553>
+    //           » ▶ value: 1        (kotlin.Int <1424482154>)
+    //               ◾ is greater than: 2        (kotlin.Int <1997702454>)
+    //   ✔ ▶ size: 2        (kotlin.Int <1997702454>)
+    //       ◾ to be: 2        (kotlin.Int <1997702454>)
+```
+`isKeyValue` as well as `key {}` and `value {}` are assertion functions defined for `Map.Entry<K, V>`.
+
+
+Following a non-exhaustive list of further functions: `containsKey`/`containsNotKey`, `getExisting`, `isEmpty` ...  
+More examples are given at [apis/differences.md](https://github.com/robstoll/atrium/tree/v0.8.0-alpha/apis/differences.md)
+
+And in case you should miss an assertion function, then please [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature]).
+For instance, you might want to upvote [containsInAnyOrderOnly](https://github.com/robstoll/atrium/issues/68)
+in case you want this shortcut function as well.
 
 ## Further Examples
 
