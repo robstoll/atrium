@@ -1,8 +1,13 @@
 # Module atrium
 
 ## KDoc of Atrium
-Atrium is built up by different modules. The packages shown below contain classes etc. 
-of all modules excluding the one of _atrium-core-robstoll_ and _atrium-core-robstoll-lib_.
+Atrium is built up by different modules, each available for different platforms.
+
+The packages shown below contain classes etc. 
+of all modules excluding the one of 
+_atrium-core-robstoll_, _atrium-core-robstoll-lib_, _atrium-domain-robstoll_ and _atrium-domain-robstoll-lib_.
+
+The following names do not include the platform specific suffix which is `-common`, `-jvm`, `-js` or `-android`. 
 
 Bundle modules:
 - **atrium-cc-de&#95;CH-robstoll** defines to have a dependency on 
@@ -30,8 +35,8 @@ Domain modules:
   [CharSequenceAssertions](./ch.tutteli.atrium.domain.creating/-char-sequence-assertions/index.html)  
   which use the implementations of *atrium-domain-robstoll-lib*
 - **atrium-domain-robstoll-lib** [robstoll](https://github.com/robstoll)'s implementation of the domain of Atrium.
-- **atrium-domain-builders** contains the [ReporterBuilder](./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html),
-  provides extension functions for [AssertionBuilder](./ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html)
+- **atrium-domain-builders** contains [AssertImpl](./ch.tutteli.atrium.domain.builders/-assert-impl/index.html),
+  the [ReporterBuilder](./ch.tutteli.atrium.domain.builders.reporting/-reporter-builder/index.html)
   and last but not least provides base classes of sophisticated assertion builders for the API modules.
 
 Core modules:
@@ -54,7 +59,8 @@ Misc modules:
 - **atrium-verbs** contains out of the box assertion verbs 
 - **atrium-verbs-internal** contains the assertion verbs Atrium uses internally - use with care, no backward compatibility guarantees.
 
-Deprecated modules:
+Atrium has currently several modules to retain backward compatibility. 
+You should not rely on them on and move to the suggested predecessor:
 - **atrium-cc-en&#95;UK-robstoll** use `atrium-cc-en_GB-robstoll` instead. This bundle defines to have a dependency on   
   atrium-api-cc-en&#95;UK, atrium-translations-en&#95;UK, atrium-domain-robstoll, atrium-core-robstoll and some deprecated modules
 - **atrium-cc-infix-en&#95;UK-robstoll** use `atrium-cc-infix-en_GB-robstoll` instead. This bundle defines to have a dependency on  
@@ -68,9 +74,6 @@ Deprecated modules:
   It will be removed with 1.0.0. 
   Use the replacements suggested in the `@Deprecated` annotations.
 
-Atrium has currently several modules to retain backward compatibility. 
-You should not rely on them on and move to the suggested predecessor:
-- 
 
 # Package ch.tutteli.atrium
 Contains the deprecated [IAtriumFactory](./ch.tutteli.atrium/-i-atrium-factory/index.html).
@@ -140,6 +143,10 @@ Contains `@Deprecated` builders, use the builders from package `en_GB`, will all
 # Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.iterable.contains.builders
 Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `contains` 
 assertions for Iterable.
+# Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.list.get.builders
+Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `get` assertions for `List`.
+# Package ch.tutteli.atrium.api.cc.infix.en_GB.creating.map.get.builders
+Contains the builders - necessary to provide an extensible fluent API - which allow to create sophisticated `get` assertions for `Map`.
 
 # Package ch.tutteli.atrium.api.cc.infix.en_GB.keywords
 Contains pseudo keywords such as [order](./ch.tutteli.atrium.api.cc.infix.en_-g-b.keywords/order.html).
@@ -204,6 +211,14 @@ Everything involved in checking [Assertion](./ch.tutteli.atrium.assertions/-asse
 
 # Package ch.tutteli.atrium.core
 Contains the [CoreFactory](./ch.tutteli.atrium.core/-core-factory/index.html).
+
+# Package ch.tutteli.atrium.core.migration
+Contains helper functions which shall ease the migration to a newer version of Atrium. 
+For instance, it contains [toAtriumLocale](./ch.tutteli.atrium.core.migration/java.util.-locale/to-atrium-locale.html)
+to convert a Java `Locale` to an Atrium specific and platform independent representation of an `Locale`.
+
+# Package ch.tutteli.atrium.core.polyfills
+Contains polyfills for functionality which is missing on certain platforms so that they can be used in a common way.
 
 # Package ch.tutteli.atrium.creating
 Everything involved in creating [Assertion](./ch.tutteli.atrium.assertions/-assertion/index.html)s.
@@ -284,6 +299,13 @@ an implementation has to provide.
 # Package ch.tutteli.atrium.domain.creating.collectors
 Contains [AssertionCollector](./ch.tutteli.atrium.domain.creating.collectors/-assertion-collector/index.html). 
 
+# Package ch.tutteli.atrium.domain.creating.feature.extract
+Contains the contract for sophisticated feature extraction assertions
+-- [FeatureExtractor](./ch.tutteli.atrium.domain.creating.feature.extract/-feature-extractor/index.html)
+
+# Package ch.tutteli.atrium.domain.creating.feature.extract.creators
+Contains the [FeatureExtractorCreatorFactory](./ch.tutteli.atrium.domain.creating.feature.extract.creators/-feature-extractor-creator-factory/index.html)
+
 
 # Package ch.tutteli.atrium.domain.creating.iterable.contains
 Contains the contract for sophisticated Iterable `contains` assertions 
@@ -347,3 +369,7 @@ The `@Deprecated` version of the assertion verb `assertThat`; will be removed wi
 
 # Package ch.tutteli.atrium.verbs.expect
 The `@Deprecated` version of the assertion verb `expect`; will be removed with 1.0.0
+
+# Package ch.tutteli.atrium.verbs.internal
+Contains the assertion verbs Atrium uses internally. 
+Use with care, no backward compatibility guarantees and reporting might change.
