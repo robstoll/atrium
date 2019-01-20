@@ -97,6 +97,27 @@ inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(nullO
     if (nullOrExpected == null) toBe(null)
     else notToBeNullBut(nullOrExpected)
 }
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is either `null` if [assertionCreatorOrNull]
+ * is null or is not `null` and holds all assertions [assertionCreatorOrNull] might create.
+ *
+ * It is a shortcut for
+ * ```kotlin
+ * if(nullOrExpected == null)
+ *   o toBe null
+ * else
+ *   o notToBeNull assertionCreatorOrNull
+ * ```
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullElse(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
+    if(assertionCreatorOrNull == null) toBe(null)
+    else notToBeNull(assertionCreatorOrNull)
+}
+
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
  *

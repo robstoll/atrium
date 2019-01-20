@@ -69,20 +69,38 @@ fun <T: Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER") `null
 }
 
 /**
- * Makes the assertion that [Assert.subject][AssertionPlant.subject] is [nullOrExpected].
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is [expectedOrNull].
  *
  * It is a shortcut for
  * ```kotlin
  * if(nullOrExpected == null) toBe(null)
- * else notToBeNullBut(nullOrExpected)
+ * else notToBeNullBut(expectedOrNull)
  * ```
  *
  * @return This plant to support a fluent API.
  * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
  */
-inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(nullOrExpected: T?) {
-    if(nullOrExpected == null) toBe(null)
-    else notToBeNullBut(nullOrExpected)
+inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(expectedOrNull: T?) {
+    if(expectedOrNull == null) toBe(null)
+    else notToBeNullBut(expectedOrNull)
+}
+
+/**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is either `null` if [assertionCreatorOrNull]
+ * is null or is not `null` and holds all assertions [assertionCreatorOrNull] might create.
+ *
+ * It is a shortcut for
+ * ```kotlin
+ * if(nullOrExpected == null) toBe(null)
+ * else notToBeNull(assertionCreatorOrNull)
+ * ```
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullIfNullElse(noinline assertionCreatorOrNull: (Assert<T>.() -> Unit)?) {
+    if(assertionCreatorOrNull == null) toBe(null)
+    else notToBeNull(assertionCreatorOrNull)
 }
 
 /**
