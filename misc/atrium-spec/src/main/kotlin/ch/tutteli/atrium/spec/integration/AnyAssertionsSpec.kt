@@ -27,6 +27,7 @@ abstract class AnyAssertionsSpec(
     isSame: String,
     isNotSame: String,
     toBeNullPair: Pair<String, AssertionPlantNullable<Int?>.() -> Unit>,
+    toBeNullablePair: Pair<String, AssertionPlantNullable<Int?>.(Int?) -> Unit>,
     andPair: Pair<String, Assert<Int>.() -> Assert<Int>>,
     andLazyPair: Pair<String, Assert<Int>.(Assert<Int>.() -> Unit) -> Assert<Int>>,
     describePrefix: String = "[Atrium] "
@@ -59,6 +60,7 @@ abstract class AnyAssertionsSpec(
     val expect = verbs::checkException
     val assert: (Int) -> Assert<Int> = verbs::checkImmediately
     val (toBeNull, toBeNullFun) = toBeNullPair
+    val (toBeNullable, toBeNullableFun) = toBeNullablePair
     val (and, andProperty) = andPair
     val (andLazy, andLazyGroup) = andLazyPair
 
@@ -199,6 +201,44 @@ abstract class AnyAssertionsSpec(
                     it("contains the '${DescriptiveAssertion::representation.name}' of the assertion-message") {
                         expectFun.toThrow<AssertionError> { messageContains(RawString.NULL.string) }
                     }
+                }
+            }
+        }
+    }
+
+    describeFun(toBeNullable) {
+
+        context("subject is null") {
+            val subject: Int? = null
+            it("does not throw if null is passed") {
+                verbs.checkNullable(subject).toBeNullableFun(null)
+            }
+            it("throws an AssertionError if not null is passed") {
+                expect {
+                    verbs.checkNullable(subject).toBeNullableFun(1)
+                }.toThrow<AssertionError> {
+                    messageContains(": null", "${TO_BE.getDefault()}: 1")
+                }
+            }
+        }
+
+        context("subject is not null") {
+            val subject: Int? = 1
+            it("does not throw if expected is subject") {
+                verbs.checkNullable(subject).toBeNullable(subject)
+            }
+            it("throws an AssertionError if null is passed"){
+                expect{
+                    verbs.checkNullable(subject).toBeNullable(null)
+                }.toThrow<AssertionError> {
+                    messageContains(": 1", "${TO_BE.getDefault()}: null")
+                }
+            }
+            it("throws an AssertionError if expected does not equal subject"){
+                expect{
+                    verbs.checkNullable(subject).toBeNullable(2)
+                }.toThrow<AssertionError> {
+                    messageContains(": 1", "${TO_BE.getDefault()}: 2")
                 }
             }
         }

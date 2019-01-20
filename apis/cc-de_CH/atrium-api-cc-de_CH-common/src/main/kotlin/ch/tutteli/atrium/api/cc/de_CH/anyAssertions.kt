@@ -73,6 +73,23 @@ fun <T : Any?> AssertionPlantNullable<T>.ist(@Suppress("UNUSED_PARAMETER") `null
 }
 
 /**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is [nullOrExpected].
+ *
+ * It is a shortcut for
+ * ```kotlin
+ * if(nullOrExpected == null) ist(null)
+ * else istNichtNullAber(nullOrExpected)
+ * ```
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline fun <reified T : Any> AssertionPlantNullable<T?>.istNullable(nullOrExpected: T?) {
+    if(nullOrExpected == null) ist(null)
+    else istNichtNullAber(nullOrExpected)
+}
+
+/**
  * Can be used to separate assertions when using the fluent API.
  *
  * For instance `esGilt(1).istKleinerAls(2).und.istGroesserAls(0)` creates

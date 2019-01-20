@@ -80,6 +80,24 @@ infix fun <T : Any?> AssertionPlantNullable<T>.toBe(@Suppress("UNUSED_PARAMETER"
 }
 
 /**
+ * Makes the assertion that [Assert.subject][AssertionPlant.subject] is [nullOrExpected].
+ *
+ * It is a shortcut for
+ * ```kotlin
+ * if(nullOrExpected == null)
+ *   o toBe null
+ * else
+ *   o notToBeNullBut nullOrExpected
+ * ```
+ *
+ * @return This plant to support a fluent API.
+ * @throws AssertionError Might throw an [AssertionError] if the assertion made is not correct.
+ */
+inline infix fun <reified T : Any> AssertionPlantNullable<T?>.toBeNullable(nullOrExpected: T?) {
+    if (nullOrExpected == null) toBe(null)
+    else notToBeNullBut(nullOrExpected)
+}
+/**
  * Can be used to create a group of sub assertions when using the fluent API.
  *
  * For instance `assert(1).isLessThan(3).and { isEven(); isGreaterThan(1) }` creates
