@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.CollectionAssertions
 import ch.tutteli.atrium.domain.creating.collectionAssertions
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Assert
 
 /**
  * Delegates inter alia to the implementation of [CollectionAssertions].
@@ -21,4 +22,7 @@ object CollectionAssertionsBuilder : CollectionAssertions {
 
     override inline fun isNotEmpty(plant: AssertionPlant<Collection<*>>)
         = collectionAssertions.isNotEmpty(plant)
+
+    override inline fun size(plant: AssertionPlant<Collection<*>>, noinline assertionCreator: Assert<Int>.() -> Unit)
+        = collectionAssertions.size(plant, assertionCreator)
 }

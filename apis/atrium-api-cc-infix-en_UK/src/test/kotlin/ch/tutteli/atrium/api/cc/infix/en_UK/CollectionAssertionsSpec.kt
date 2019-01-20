@@ -6,18 +6,18 @@ import ch.tutteli.atrium.creating.Assert
 
 class CollectionAssertionsSpec : ch.tutteli.atrium.spec.integration.CollectionAssertionsSpec(
     AssertionVerbFactory,
-    Assert<List<Int>>::hasSize.name to Companion::hasSize,
-    "${Assert<List<Int>>::toBe.name} ${Empty::class.simpleName}" to Companion::isEmpty,
-    "${Assert<List<Int>>::notToBe.name} ${Empty::class.simpleName}" to Companion::isNotEmpty
+    Assert<Collection<Int>>::hasSize.name to Companion::hasSize,
+    "${Assert<Collection<Int>>::toBe.name} ${Empty::class.simpleName}" to Companion::isEmpty,
+    "${Assert<Collection<Int>>::notToBe.name} ${Empty::class.simpleName}" to Companion::isNotEmpty
 ) {
     companion object {
-        private fun hasSize(plant: Assert<List<Int>>, size: Int): Assert<List<Int>>
+        private fun hasSize(plant: Assert<Collection<Int>>, size: Int): Assert<Collection<Int>>
             = plant hasSize size
 
-        fun isEmpty(plant: Assert<List<Int>>)
+        fun isEmpty(plant: Assert<Collection<Int>>)
             = plant toBe Empty
 
-        fun isNotEmpty(plant: Assert<List<Int>>)
+        fun isNotEmpty(plant: Assert<Collection<Int>>)
             = plant notToBe Empty
     }
 }
