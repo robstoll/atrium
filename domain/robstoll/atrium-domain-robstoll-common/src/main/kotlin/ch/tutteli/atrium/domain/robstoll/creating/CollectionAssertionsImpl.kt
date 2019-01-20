@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.domain.robstoll.creating
 
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 import ch.tutteli.atrium.domain.creating.CollectionAssertions
 import ch.tutteli.atrium.domain.robstoll.lib.creating._hasSize
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isEmpty
 import ch.tutteli.atrium.domain.robstoll.lib.creating._isNotEmpty
+import ch.tutteli.atrium.domain.robstoll.lib.creating._size
 
 /**
  * Robstoll's implementation of [CollectionAssertions].
@@ -19,4 +21,7 @@ class CollectionAssertionsImpl : CollectionAssertions {
 
     override fun isNotEmpty(plant: AssertionPlant<Collection<*>>)
         = _isNotEmpty(plant)
+
+    override fun size(plant: AssertionPlant<Collection<*>>, assertionCreator: Assert<Int>.() -> Unit)
+        = _size(plant, assertionCreator)
 }

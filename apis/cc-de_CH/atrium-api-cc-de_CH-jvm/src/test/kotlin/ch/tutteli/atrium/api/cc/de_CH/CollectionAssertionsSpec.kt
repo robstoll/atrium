@@ -5,7 +5,7 @@ import ch.tutteli.atrium.creating.Assert
 
 object CollectionAssertionsSpec : ch.tutteli.atrium.spec.integration.CollectionAssertionsSpec(
     AssertionVerbFactory,
-    Assert<List<Int>>::hatDieGroesse.name to Assert<List<Int>>::hatDieGroesse,
-    Assert<List<Int>>::istLeer.name to Assert<List<Int>>::istLeer,
-    Assert<List<Int>>::istNichtLeer.name to Assert<List<Int>>::istNichtLeer
+    Assert<Collection<Int>>::hatDieGroesse.name to Assert<Collection<Int>>::hatDieGroesse,
+    Assert<Collection<Int>>::istLeer.name to Assert<Collection<Int>>::istLeer,
+    Assert<Collection<Int>>::istNichtLeer.name to Assert<Collection<Int>>::istNichtLeer
 )

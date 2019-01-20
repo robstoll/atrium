@@ -2,6 +2,7 @@ package ch.tutteli.atrium.domain.creating
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.loadSingleService
+import ch.tutteli.atrium.creating.Assert
 import ch.tutteli.atrium.creating.AssertionPlant
 
 /**
@@ -20,4 +21,5 @@ interface CollectionAssertions {
     fun hasSize(plant: AssertionPlant<Collection<*>>, size: Int): Assertion
     fun isEmpty(plant: AssertionPlant<Collection<*>>): Assertion
     fun isNotEmpty(plant: AssertionPlant<Collection<*>>): Assertion
+    fun size(plant: AssertionPlant<Collection<*>>, assertionCreator: Assert<Int>.() -> Unit): Assertion
 }

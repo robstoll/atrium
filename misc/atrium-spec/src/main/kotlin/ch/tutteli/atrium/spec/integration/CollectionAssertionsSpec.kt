@@ -16,22 +16,22 @@ import org.jetbrains.spek.api.include
 
 abstract class CollectionAssertionsSpec(
     verbs: AssertionVerbFactory,
-    hasSizePair: Pair<String, Assert<List<Int>>.(Int) -> Assert<List<Int>>>,
-    isEmptyPair: Pair<String, Assert<List<Int>>.() -> Assert<List<Int>>>,
-    isNotEmptyPair: Pair<String, Assert<List<Int>>.() -> Assert<List<Int>>>,
+    hasSizePair: Pair<String, Assert<Collection<Int>>.(Int) -> Assert<Collection<Int>>>,
+    isEmptyPair: Pair<String, Assert<Collection<Int>>.() -> Assert<Collection<Int>>>,
+    isNotEmptyPair: Pair<String, Assert<Collection<Int>>.() -> Assert<Collection<Int>>>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessAssertionSpec<List<Int>>(describePrefix,
+    include(object : SubjectLessAssertionSpec<Collection<Int>>(describePrefix,
         hasSizePair.first to mapToCreateAssertion { hasSizePair.second(this, 2) },
         isEmptyPair.first to mapToCreateAssertion { isEmptyPair.second(this) },
         isNotEmptyPair.first to mapToCreateAssertion { isNotEmptyPair.second(this) }
     ) {})
 
-    include(object : CheckingAssertionSpec<List<Int>>(verbs, describePrefix,
-        checkingTriple(hasSizePair.first, { hasSizePair.second(this, 1) }, listOf(1), listOf(1, 2)),
-        checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, listOf(), listOf(1, 2)),
-        checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, listOf(2), listOf())
+    include(object : CheckingAssertionSpec<Collection<Int>>(verbs, describePrefix,
+        checkingTriple(hasSizePair.first, { hasSizePair.second(this, 1) }, listOf(1) as Collection<Int>, listOf(1, 2)),
+        checkingTriple(isEmptyPair.first, { isEmptyPair.second(this) }, listOf<Int>() as Collection<Int>, listOf(1, 2)),
+        checkingTriple(isNotEmptyPair.first, { isNotEmptyPair.second(this) }, listOf(2) as Collection<Int>, listOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: SpecBody.() -> Unit)
