@@ -538,9 +538,20 @@ choice if you think in terms of asserting a predicate holds. These two are compl
 assert(listOf(1, 2, 3, 4)).any { isLessThan(0) }
 assert(listOf(1, 2, 3, 4)).none { isGreaterThan(2) }
 assert(listOf(1, 2, 3, 4)).all { isGreatherThan(2) }
-
 ```
 
+In case you deal with a nullable entry type (e.g. `List<String?>` where `String?` is the entry type) then you can 
+use `containsNullableValue`/`containsNullableValues` and `containsNullableEntry`/`containsNullableEntries` where you 
+can pass `null` in case you expect the entry to be null. Following an example:
+```kotlin
+assert(listOf("hello", "world")).containsNullableEntries(null, { startsWith("wo") })
+    // assert: [hello, world]        (java.util.Arrays.ArrayList <1072506992>)
+    // ◆ contains, in any order: 
+    //   ⚬ an entry which: 
+    //       » is: null
+    //     ⚬ ▶ number of occurrences: 0
+    //         ◾ is at least: 1
+```
 
 ### Sophisticated Assertion Builders
 
@@ -652,6 +663,25 @@ assert(listOf(1, 2, 2, 4)).contains.inAnyOrder.only.values(4, 3, 2, 2, 1)
     //       ◾ to be: 5
 ```     
 
+In case you deal with a nullable entry type (e.g. `List<Int?>` where `Int?` is the entry type) then you can 
+use `nullableValue`/`nullableValues` and `nullableEntry`/`nullableEntries` as terminal function.
+Following an example:
+```kotlin
+assert(listOf(1, 2, null, 4)).contains.inOrder.only.nullableValues(1, null, 3, 4)
+
+    // assert: [1, 2, null, 4]        (java.util.Arrays.ArrayList <858232531>)
+    // ◆ contains only, in order: 
+    //   ✔ ▶ entry 0: 1        (kotlin.Int <330128595>)
+    //       ◾ to be: 1        (kotlin.Int <330128595>)
+    //   ✘ ▶ entry 1: 2        (kotlin.Int <473153915>)
+    //       ◾ to be: null
+    //   ✘ ▶ entry 2: null
+    //       ◾ to be: 3        (kotlin.Int <1542520418>)
+    //   ✔ ▶ entry 3: 4        (kotlin.Int <503938393>)
+    //       ◾ to be: 4        (kotlin.Int <503938393>)
+    //   ✔ ▶ size: 4        (kotlin.Int <503938393>)
+    //       ◾ to be: 4        (kotlin.Int <503938393>)
+```
 
 ## Further Examples
 
