@@ -16,6 +16,7 @@ class AnyAssertionsSpec : ch.tutteli.atrium.spec.integration.AnyAssertionsSpec(
     Assert<Int>::istSelbeInstanzWie.name,
     Assert<Int>::istNichtSelbeInstanzWie.name,
     "${AssertionPlantNullable<Int?>::ist.name}(null)" to Companion::toBeNull,
+    AssertionPlantNullable<Int?>::istNullable.name to AssertionPlantNullable<Int?>::istNullable,
     getAndImmediatePair(),
     getAndLazyPair()
 ) {
